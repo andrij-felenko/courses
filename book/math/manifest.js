@@ -17,7 +17,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -47,7 +47,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -77,7 +77,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -107,7 +107,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -137,7 +137,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -167,7 +167,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -197,7 +197,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -227,7 +227,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -955,7 +955,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -975,7 +975,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -995,7 +995,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1020,7 +1020,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1050,7 +1050,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1070,7 +1070,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1090,7 +1090,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1110,7 +1110,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1130,7 +1130,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1150,7 +1150,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1230,7 +1230,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1260,7 +1260,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1290,7 +1290,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1320,7 +1320,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1351,7 +1351,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1382,7 +1382,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1412,7 +1412,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1442,7 +1442,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1473,7 +1473,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1503,7 +1503,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1860,7 +1860,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1890,7 +1890,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1920,7 +1920,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1950,7 +1950,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1980,7 +1980,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2010,7 +2010,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2040,7 +2040,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2070,7 +2070,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2104,7 +2104,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2134,7 +2134,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2164,7 +2164,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2224,7 +2224,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2254,7 +2254,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2314,7 +2314,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2506,7 +2506,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2645,7 +2645,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2675,7 +2675,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2715,7 +2715,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2886,7 +2886,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2917,7 +2917,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2948,7 +2948,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2979,7 +2979,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3010,7 +3010,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3040,7 +3040,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3071,7 +3071,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3102,7 +3102,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3133,7 +3133,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3164,7 +3164,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3195,7 +3195,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3226,7 +3226,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3257,7 +3257,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3288,7 +3288,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3319,7 +3319,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3350,7 +3350,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3381,7 +3381,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3412,7 +3412,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3443,7 +3443,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [],
           "comp": [],
@@ -3464,7 +3464,7 @@ window.__BOOKS__.push(
             "detailed"
           ],
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -6338,7 +6338,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {

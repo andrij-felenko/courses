@@ -75,7 +75,13 @@ let lines = ORIG.split(/\r?\n/);
 
 /* ── помічники по рядках ───────────────────────────────────────────────────── */
 const esc = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const findTopicLine = (slug) => lines.findIndex((l) => new RegExp(`\\{\\s*slug:\\s*"${esc(slug)}"[,\\s]`).test(l) && !/\bref:\s*"/.test(l));
+/* Маніфести існують у ДВОХ формах, і обидві мусять працювати — інакше дозволений редактор
+   не бачить половини книг, і статуси починають правити руками:
+     канонна (§2):  { slug: "foo", title: …, basic: { status: "empty" }, … }  — тема в одному рядку
+     JSON-стиль:    "slug": "foo",                                            — тема розгорнута */
+const findTopicLine = (slug) => lines.findIndex((l) =>
+  (new RegExp(`\\{\\s*slug:\\s*"${esc(slug)}"[,\\s]`).test(l) && !/\bref:\s*"/.test(l)) ||
+  new RegExp(`^\\s*"slug"\\s*:\\s*"${esc(slug)}"\\s*,?\\s*$`).test(l));
 /** Секція/модуль: рядок зі slug і `scope:` (це відрізняє секцію від теми), масив може відкриватися
     у цьому ж або в наступних рядках — повертаємо {open, key}. */
 function findSectionArray(sec) {
@@ -109,19 +115,48 @@ function arrayEndLine(openIdx, key) {
 const report = { status: 0, statusIf: 0, insert: 0, topic: 0, skipped: [], similar: [], errors: [] };
 
 /* ── операції ──────────────────────────────────────────────────────────────── */
+/* Статус у БАГАТОРЯДКОВОМУ (JSON-стиль) маніфесті: тема-обʼєкт розгорнута на кілька рядків,
+   тож однорядкова регулярка її не бачить. Шукаємо ключ версії нижче теми, а тоді найближчий
+   "status" усередині його обʼєкта. Межа пошуку — початок наступної теми. */
+function statusLineMulti(topicLine, ver) {
+  const verRe = new RegExp(`^\\s*"?${ver}"?\\s*:\\s*\\{`);
+  const nextTopic = new RegExp(`^\\s*"?slug"?\\s*:`);
+  for (let i = topicLine + 1; i < Math.min(topicLine + 60, lines.length); i++) {
+    if (nextTopic.test(lines[i])) break;                    // пішла наступна тема — версії не знайшли
+    if (!verRe.test(lines[i])) continue;
+    for (let j = i; j < Math.min(i + 6, lines.length); j++) {
+      const m = lines[j].match(/^(\s*"?status"?\s*:\s*")([a-z]+)(")/);
+      if (m) return { line: j, cur: m[2], re: /^(\s*"?status"?\s*:\s*")([a-z]+)(")/ };
+      if (/^\s*\}/.test(lines[j]) && j > i) break;
+    }
+  }
+  return null;
+}
+
 function opStatus(o, conditional) {
   const ver = o.ver === "basic" || o.ver === "detailed" ? o.ver : null;
   if (!ver) return report.errors.push(`status: дивний ver «${o.ver}» (${o.slug})`);
   const i = findTopicLine(o.slug);
   if (i < 0) return report.errors.push(`нема теми «${o.slug}»`);
-  const re = new RegExp(`(${ver}:\\s*\\{\\s*status:\\s*")([a-z]+)("\\s*\\})`);
-  const m = lines[i].match(re);
-  if (!m) return report.errors.push(`у теми «${o.slug}» нема поля ${ver}`);
-  const cur = m[2];
+
   const to = conditional ? o.to : o.status;
+  const re = new RegExp(`("?${ver}"?:\\s*\\{\\s*"?status"?:\\s*")([a-z]+)("\\s*\\})`);
+  const m = lines[i].match(re);
+
+  let cur, apply;
+  if (m) {                                                  // канонна форма — усе в одному рядку
+    cur = m[2];
+    apply = () => { lines[i] = lines[i].replace(re, `$1${to}$3`); };
+  } else {                                                  // JSON-стиль — тема розгорнута
+    const hit = statusLineMulti(i, ver);
+    if (!hit) return report.errors.push(`у теми «${o.slug}» нема поля ${ver}`);
+    cur = hit.cur;
+    apply = () => { lines[hit.line] = lines[hit.line].replace(hit.re, `$1${to}$3`); };
+  }
+
   if (conditional && cur !== o.from) { report.skipped.push(`${o.slug}.${ver}=${cur} (чекали ${o.from})`); return; }
   if (cur === to) { report.skipped.push(`${o.slug}.${ver} вже ${to}`); return; }
-  lines[i] = lines[i].replace(re, `$1${to}$3`);
+  apply();
   conditional ? report.statusIf++ : report.status++;
 }
 
@@ -160,7 +195,8 @@ function opInsert(o) {
 
 /** Усі слуги книги — щоб ловити СИНОНІМИ (§4: один термін на поняття). */
 function allSlugs() {
-  return lines.map((l) => (l.match(/\{\s*slug:\s*"([a-z0-9-]+)"/) || [])[1]).filter(Boolean);
+  return lines.map((l) => (l.match(/\{\s*slug:\s*"([a-z0-9-]+)"/)
+    || l.match(/^\s*"slug"\s*:\s*"([a-z0-9-]+)"/) || [])[1]).filter(Boolean);
 }
 /** Слуг «близький» до наявного, якщо один вкладений в інший АБО в них спільне РІДКІСНЕ слово.
     Рідкість важить: «pipeline» у книзі про GStreamer є всюди й нічого не каже, а «threads» у двох

@@ -17,7 +17,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -237,7 +237,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -646,7 +646,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -656,7 +656,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -688,7 +688,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -816,7 +816,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -844,7 +844,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -882,7 +882,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -917,7 +917,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1001,7 +1001,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1055,7 +1055,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1133,7 +1133,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1161,7 +1161,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1245,7 +1245,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1273,7 +1273,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -1301,7 +1301,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1603,7 +1603,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -1613,7 +1613,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -1623,7 +1623,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -1633,7 +1633,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -1643,35 +1643,35 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "sched-ext-ebpf-scheduler",
           "title": "Планувальник sched_ext: eBPF розширення для sched",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "futex2-waitv-syscall",
           "title": "Багатооб’єктна синхронізація futex2 (sys_futex_waitv)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "cgroup-v2-memory-peak-swap",
           "title": "Управління піками та пропускною здатністю у Cgroups v2 memory",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "sched-idle-and-sched-batch",
           "title": "Класи планирування SCHED_IDLE та SCHED_BATCH",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -1681,14 +1681,14 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "sched-energy-aware-eas",
           "title": "Енергоефективне планування Energy-Aware Scheduling (EAS) та Energy Model",
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "basic": {
             "status": "done"
@@ -1698,14 +1698,14 @@ window.__BOOKS__.push(
           "slug": "uclamp-utilization-clamping",
           "title": "Обмеження утилізації CPU: uclamp (sched_setattr uclamp_min/uclamp_max)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "sched-ext-custom-schedulers",
           "title": "Практична розробка BPF-планувальників у sched_ext (scx_rustland, scx_lavd)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -1722,7 +1722,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1778,7 +1778,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -1856,7 +1856,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -2002,7 +2002,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2030,7 +2030,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2058,7 +2058,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2086,7 +2086,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2142,7 +2142,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2232,7 +2232,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2554,7 +2554,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -2627,7 +2627,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2655,7 +2655,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -2795,7 +2795,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2851,7 +2851,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -2883,7 +2883,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -2989,7 +2989,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3017,7 +3017,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -3061,7 +3061,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3239,7 +3239,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3267,7 +3267,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -3669,7 +3669,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -3679,7 +3679,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -3689,7 +3689,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3717,7 +3717,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "hist": [
             {
@@ -3745,56 +3745,56 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "zfs-native-encryption",
           "title": "Вбудоване шифрування та дедуплікація в ZFS",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "erofs-read-only-filesystem",
           "title": "Стиснена файлова система EROFS для контейнерів та прошивок",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "statx-extended-stat-api",
           "title": "Розширений системний виклик statx та маски атрибутів",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "copy-file-range-syscall",
           "title": "Системний виклик copy_file_range(2) та server-side copy",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "pidfs-filesystem-architecture",
           "title": "Спеціалізована файлова система pidfs у сучасних ядрах",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "incfs-incremental-filesystem",
           "title": "Інкрементальна файлова система IncFS (Android Incremental Delivery)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "fanotify-fsnotify-permission-events",
           "title": "Розширений моніторинг файлів fanotify: перехоплення FAN_OPEN_PERM",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -3804,7 +3804,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -3821,7 +3821,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -3881,7 +3881,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "api": [
             {
@@ -4193,7 +4193,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -4203,21 +4203,21 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ublk-userspace-block-driver",
           "title": "Фреймворк ublk: блокові драйвери у просторі користувача",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "zoned-block-devices-zns",
           "title": "Зоновані блокові пристрої (ZBC/ZAC та zonefs)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -4231,42 +4231,42 @@ window.__BOOKS__.push(
           "slug": "dm-writecache-and-dm-cache",
           "title": "Кешування блокових пристроїв: dm-writecache та dm-cache",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "blk-iopoll-and-io-polling",
           "title": "Опитування блокових пристроїв: IO polling та blk-mq iopoll",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "nvme-target-kernel-subsystem",
           "title": "Підсистема NVMe Target (nvmet) у ядрі Linux",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "blk-mq-tag-sets-and-hardware-queues",
           "title": "Слоти команд у blk-mq: Tag Sets та Hardware Dispatch Queues",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "dma-buf-heaps-framework",
           "title": "Фреймворк dma-buf heaps: заміна ION для виділення неперервної памʼяті",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "io-uring-cmd-passthrough",
           "title": "Низькорівневий пасстру команд NVMe через IORING_OP_URING_CMD",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -4718,7 +4718,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5354,7 +5354,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5364,7 +5364,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5374,7 +5374,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5384,7 +5384,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5394,7 +5394,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5404,7 +5404,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5414,7 +5414,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5424,7 +5424,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5434,7 +5434,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5444,14 +5444,14 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ebpf-lsm-custom-policies",
           "title": "Програмовані політики безпеки BPF-LSM",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -5461,14 +5461,14 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ima-evm-integrity-architecture",
           "title": "Вимірювання цілісності системи: IMA та EVM",
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "basic": {
             "status": "done"
@@ -5478,56 +5478,56 @@ window.__BOOKS__.push(
           "slug": "tpm2-software-stack",
           "title": "Стек TPM 2.0 та апаратне зберігання ключів",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "sigstruct-and-sgx-enclaves",
           "title": "Апаратні енклави Intel SGX та сигнатури SIGSTRUCT",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "kernel-lockdown-integrity",
           "title": "Режим мажоритарного захисту ядра: Kernel Lockdown Mode",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "landlock-abi-v4-v5-features",
           "title": "Еволюція Landlock LSM: ABI v4/v5 (мережеві обмеження та ioctl)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "apparmor-stacking-and-profiles",
           "title": "Стек профілів AppArmor та інстанціація політик",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "tomoyo-linux-path-based-lsm",
           "title": "Політики безпеки TOMOYO Linux: LSM на основі шляхів",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "smack-simplified-mandatory-access",
           "title": "Спрощений мандатний контроль доступу SMACK (Simplified Mandatory Access Control)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "bpf-lsm-audit-and-override",
           "title": "Модифікація поведінки Security Modules через bpf_lsm (bpf_override_return)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -5544,7 +5544,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -6426,7 +6426,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "math": [
             {
@@ -7888,7 +7888,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7898,7 +7898,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7908,7 +7908,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7918,7 +7918,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7928,7 +7928,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7938,7 +7938,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7948,7 +7948,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7958,7 +7958,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -7968,42 +7968,42 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "vdpa-virtio-data-path-acceleration",
           "title": "Апаратне прискорення Virtio: vDPA та SmartNIC",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "nested-virtualization-kvm",
           "title": "Вкладена віртуалізація у KVM (Nested VT-x/AMD-V)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "confidential-computing-sev-tdx",
           "title": "Конфіденційні обчислення: AMD SEV-SNP та Intel TDX",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "cxl-compute-express-link",
           "title": "Шина CXL (Compute Express Link) та пулінг пам’яті",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "viommu-virtual-iommu",
           "title": "Віртуальний IOMMU (vIOMMU) для вкладеного прокидання",
           "detailed": {
-            "status": "done"
+            "status": "update"
           },
           "basic": {
             "status": "done"
@@ -8013,105 +8013,105 @@ window.__BOOKS__.push(
           "slug": "virtio-fs-and-virtio-gpu",
           "title": "Спеціалізовані пристрої Virtio: virtio-fs та virtio-gpu",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "nvme-zoned-namespaces-zns",
           "title": "Зонований простір імен NVMe (ZNS)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "i3c-bus-subsystem",
           "title": "Підсистема шини I3C (MIPI I3C)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "pci-peer-to-peer-p2pdma",
           "title": "Прямий доступ між пристроями PCIe (P2PDMA)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "drm-kms-display-pipeline",
           "title": "Прямий рендеринг ядра DRM/KMS: атомне перемикання режимів",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "spdm-device-attestation",
           "title": "Протокол атестації пристроїв SPDM на шинах PCIe",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "sound-open-firmware-sof",
           "title": "Аудіоплатформа Sound Open Firmware (SOF) та ALSA SoC",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "v4l2-media-controller-api",
           "title": "Відео-підсистема V4L2 та Media Controller API",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "input-evdev-subsystem",
           "title": "Підсистема введення evdev та події /dev/input/eventX",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "gpio-gpiod-descriptor-api",
           "title": "Сучасний двоврівневий API GPIO descriptors (gpiod)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "counter-subsystem-quadrature",
           "title": "Підсистема лічильників ядра Counter subsystem (Hardware Quadrature Encoders)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "iio-industrial-io-subsystem",
           "title": "Підсистема Industrial I/O (IIO) для аналогових сенсорів та ADC/DAC",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "wmi-windows-management-instrumentation",
           "title": "Інтерфейс WMI (ACPI-WMI) у драйверах Linux",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "hwrng-hardware-random-number-generator",
           "title": "Підсистема апаратних генераторів випадкових чисел (hwrng) та entropy pool",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "drm-accel-compute-subsystem",
           "title": "Підсистема прискорювачів DRM Accel (/dev/accel/accelX для NPU та AI-чіпів)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -8562,7 +8562,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8572,7 +8572,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8582,7 +8582,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8592,7 +8592,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8602,7 +8602,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8612,7 +8612,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8622,7 +8622,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8632,7 +8632,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -8649,7 +8649,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8659,7 +8659,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8669,7 +8669,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8679,7 +8679,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8689,7 +8689,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8699,7 +8699,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8709,7 +8709,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8719,7 +8719,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8729,7 +8729,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8739,7 +8739,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -8766,7 +8766,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8776,7 +8776,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8786,7 +8786,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8796,7 +8796,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8806,7 +8806,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8816,7 +8816,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8826,7 +8826,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8836,7 +8836,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8846,7 +8846,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8856,7 +8856,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8866,7 +8866,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8876,7 +8876,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8886,7 +8886,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8896,7 +8896,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8906,7 +8906,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8916,7 +8916,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8926,7 +8926,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8936,7 +8936,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8946,7 +8946,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8956,7 +8956,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -8966,98 +8966,98 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "xdp-sockets-af-xdp",
           "title": "Сокети високої швидкості AF_XDP (XSK)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "io-uring-net-passthrough",
           "title": "Мережевий ввід-вивід io_uring: SendZC та RecvZC",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "bpf-sockmap-and-sk-skb",
           "title": "Прискорення сокетів BPF: sockmap та sk_skb",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ethtool-netlink-interface",
           "title": "Сучасний інтерфейс налаштування мережі ethtool Netlink",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "packet-mmap-ring-buffers",
           "title": "Механізм PACKET_MMAP (TPACKET_V3 ring buffers)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "mptcp-path-managers",
           "title": "Менеджери шляхів у MPTCP (mptcpd та in-kernel path manager)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "netfilter-nftables-expression-engine",
           "title": "Рушій виразів nftables у ядрах Linux (nftables vs iptables)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "bpf-cgroup-skb-hooks",
           "title": "Хуки eBPF на рівні cgroup: BPF_CGROUP_INET_INGRESS/EGRESS",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "macsec-ieee-802-1ae",
           "title": "Захист канального рівня MACsec (IEEE 802.1AE) у ядрі",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "netfilter-conntrack-architecture",
           "title": "Підсистема відстеження зʼєднань Conntrack (nf_conntrack) та conntrack tables",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ethtool-rss-indirection-tables",
           "title": "Масштабування на боці прийому: RSS Indirection Tables та Flow Hashing",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "tls-ktls-kernel-offload",
           "title": "Ядерне прискорення TLS (kTLS / TLS_HW / TLS_SW)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "xdp-cpumap-and-devmap",
           "title": "Маршрутизація XDP: BPF_MAP_TYPE_CPUMAP та BPF_MAP_TYPE_DEVMAP",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -9074,7 +9074,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9084,7 +9084,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9094,7 +9094,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9104,7 +9104,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9114,7 +9114,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9124,7 +9124,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9134,7 +9134,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9144,7 +9144,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9154,7 +9154,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9164,7 +9164,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9174,7 +9174,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9184,7 +9184,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -9201,7 +9201,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9211,7 +9211,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9221,7 +9221,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9231,7 +9231,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9241,7 +9241,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9251,7 +9251,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9261,7 +9261,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9271,7 +9271,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9281,7 +9281,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9291,7 +9291,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9311,7 +9311,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9321,7 +9321,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9331,7 +9331,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9341,7 +9341,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9351,7 +9351,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9361,7 +9361,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9371,7 +9371,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9381,7 +9381,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9391,7 +9391,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9401,56 +9401,56 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "bpf-iterators-and-user-ringbuf",
           "title": "Ітератори BPF (bpf_iter) та User Ring Buffer",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "bpf-trampoline-and-fprobe",
           "title": "Сучасні оверхеди трасування: BPF Trampoline та fprobe",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ebpf-perf-event-array",
           "title": "Канали подій eBPF Perf Event Array",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "user-events-ftrace-subsystem",
           "title": "Користувацькі події у ftrace: User Events підсистема",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "ebpf-arena-shared-memory-region",
           "title": "Спільні регіони памʼяті BPF Arena (Linux 6.8+)",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "kernel-kunit-test-framework",
           "title": "Фреймворк тестування ядра KUnit та відлагоджувачі KASAN/KCSAN/KFENCE",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
           "slug": "bpf-ringbuf-vs-perfbuf",
           "title": "Порівняльний аналіз механізмів доставки подій BPF Ring Buffer vs Perf Event Array",
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
@@ -9467,7 +9467,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9477,7 +9477,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9487,7 +9487,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9497,7 +9497,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9507,7 +9507,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9517,7 +9517,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9527,7 +9527,7 @@ window.__BOOKS__.push(
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         },
         {
@@ -9537,7 +9537,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "update"
           }
         }
       ]
