@@ -20,7 +20,7 @@
     *   **Zoned Block Device (ZBD) backend:** Підтримка зонних пристроїв, таких як SMR диски або ZNS SSD.
     *   **Passthrough backend:** Дозволяє "прокидати" фізичний NVMe-контролер безпосередньо ініціатору, минаючи емуляцію команд (надає максимальну продуктивність).
 
-![Архітектура NVMe Target](nvmet-arch.svg)
+![Архітектура NVMe Target](/reference/unix-linux/io/nvme-target-kernel-subsystem/img/nvmet-arch.svg)
 
 ## 2. Підтримувані транспорти NVMe-oF
 

@@ -19,7 +19,7 @@
 
 Карти типу `BPF_MAP_TYPE_PERF_EVENT_ARRAY` використовують архітектуру *per-CPU* буферів. Це означає, що для кожного логічного процесора (CPU) в системі створюється окремий кільцевий буфер.
 
-![Архітектура Perf Event Array](perfbuf_arch.svg)
+![Архітектура Perf Event Array](/reference/unix-linux/observability/bpf-ringbuf-vs-perfbuf/img/perfbuf-arch.svg)
 *Рис. 1. Архітектура Perf Event Array: кожен CPU має свій ізольований буфер.*
 
 **Переваги per-CPU архітектури:**
@@ -35,7 +35,7 @@
 
 Карта `BPF_MAP_TYPE_RINGBUF` (доступна починаючи з ядра 5.8) вирішує вищезгадані проблеми, використовуючи єдиний, спільний (shared) кільцевий буфер для всіх CPU.
 
-![Архітектура BPF Ring Buffer](ringbuf_arch.svg)
+![Архітектура BPF Ring Buffer](/reference/unix-linux/observability/bpf-ringbuf-vs-perfbuf/img/ringbuf-arch.svg)
 *Рис. 2. Архітектура BPF Ring Buffer: єдиний буфер, спільний для всіх CPU.*
 
 **Як вирішується проблема конкуренції?**

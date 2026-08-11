@@ -1,7 +1,7 @@
 # Futex (Fast Userspace Mutex)
 
 <preknowlist>
-- [Концепції ядра Linux](book:kernel-and-userspace) — базовий устрій системних викликів та простору користувача.
+- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базовий устрій системних викликів та простору користувача.
 </preknowlist>
 
 

@@ -48,7 +48,7 @@ def draw():
     frags.append(text(425, 85, "/dev/input/mice", size=14, color="#555"))
     frags.append(text(650, 85, "/dev/input/jsX", size=14, color="#555"))
     
-    render("input-subsystem.svg", 800, 500, *frags)
+    render(os.path.join(IMG, 'input-subsystem.svg'), 800, 500, *frags)
 
 if __name__ == '__main__':
     draw()

@@ -14,7 +14,7 @@
 
 Ця стаття глибоко розглядає архітектуру gpiod, причини відмови від старого API, ядерні функції та прикладний рівень, а також демонструє приклади сучасного коду.
 
-![Архітектура gpiod](gpio_api.svg)
+![Архітектура gpiod](/reference/unix-linux/devices/gpio-gpiod-descriptor-api/img/gpio-api.svg)
 *Рис. 1. Перехід від застарілого SysFS API до сучасного дескрипторного API (gpiod).*
 
 ## 1. Смерть старого Integer API та SysFS

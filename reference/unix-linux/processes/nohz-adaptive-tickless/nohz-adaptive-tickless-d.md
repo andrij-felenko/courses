@@ -8,7 +8,7 @@
 
 У цій статті ми глибоко зануримося в еволюцію системного таймера в Linux, детально розберемо механізми роботи `CONFIG_NO_HZ_IDLE` та `CONFIG_NO_HZ_FULL`, а також розглянемо, як досягти ідеальної ізоляції процесорних ядер (CPU isolation) для задач, що вимагають нульової затримки.
 
-![Еволюція системного таймера](nohz-timeline.svg)
+![Еволюція системного таймера](/reference/unix-linux/processes/nohz-adaptive-tickless/img/nohz-timeline.svg)
 
 ---
 

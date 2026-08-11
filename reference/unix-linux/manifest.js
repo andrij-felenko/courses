@@ -1538,6 +1538,12 @@ window.__BOOKS__.push(
               "file": "api-isolation-knobs.md",
               "status": "done"
             }
+          ],
+          "proj": [
+            {
+              "file": "proj-cset-shield.md",
+              "status": "done"
+            }
           ]
         },
         {
@@ -1609,28 +1615,6 @@ window.__BOOKS__.push(
           "detailed": {
             "status": "done"
           }
-        },
-        {
-          "slug": "cpu-isolation-csets",
-          "title": "Ізоляція CPU для низьких затримок (isolcpus)",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "done"
-          },
-          "api": [
-            {
-              "file": "api-isolation-params.md",
-              "status": "done"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-cset-shield.md",
-              "status": "done"
-            }
-          ]
         },
         {
           "slug": "deadline-scheduler",

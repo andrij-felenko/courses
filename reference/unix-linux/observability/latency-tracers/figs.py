@@ -61,8 +61,8 @@ svg_timerlat = """<svg xmlns="http://www.w3.org/2000/svg" width="800" height="40
 """
 
 def main():
-    render("osnoise.svg", svg_osnoise)
-    render("timerlat.svg", svg_timerlat)
+    render(os.path.join(IMG, 'osnoise.svg'), svg_osnoise)
+    render(os.path.join(IMG, 'timerlat.svg'), svg_timerlat)
     print("SVGs generated successfully.")
 
 if __name__ == "__main__":

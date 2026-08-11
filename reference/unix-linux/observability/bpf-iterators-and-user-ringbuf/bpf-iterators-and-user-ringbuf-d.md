@@ -28,7 +28,7 @@ BPF Iterator (тип програми `BPF_PROG_TYPE_TRACING` з типом пр
 
 Головна ідея: замість того, щоб ядро форматувало всі дані і відправляло їх у userspace, BPF-програма виконується *в контексті ядра* для кожного елемента колекції. Ця програма може відфільтрувати непотрібні елементи, зібрати лише необхідну інформацію і відформатувати її (у текст або бінарний формат) за допомогою допоміжної функції `bpf_seq_printf()`. Результат цього форматування потім читається з userspace через спеціальний віртуальний файл у файловій системі `bpffs` (BPF File System, зазвичай змонтованій у `/sys/fs/bpf`).
 
-![Архітектура BPF Iterators](figs/bpf_iter_arch.svg)
+![Архітектура BPF Iterators](/reference/unix-linux/observability/bpf-iterators-and-user-ringbuf/img/bpf-iter-arch.svg)
 *Рис. М.Р.Т.1: Архітектура взаємодії BPF-ітераторів між userspace та ядром*
 
 ### Як це працює зсередини
@@ -141,7 +141,7 @@ PID: 2, Comm: kthreadd
 
 Це кардинально змінює правила гри для високопродуктивних мережевих додатків (XDP/TC) або систем моніторингу, яким потрібно динамічно і дуже швидко змінювати правила фільтрації або надсилати команди BPF-програмам.
 
-![User Ringbuf](figs/bpf_user_ringbuf.svg)
+![User Ringbuf](/reference/unix-linux/observability/bpf-iterators-and-user-ringbuf/img/bpf-user-ringbuf.svg)
 *Рис. М.Р.Т.2: Потокова передача даних від userspace до BPF без syscalls через User Ring Buffer*
 
 ### Архітектура та принципи роботи

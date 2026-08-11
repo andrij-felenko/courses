@@ -14,7 +14,7 @@ AF_XDP (Address Family XDP, іноді згадується як XSK) — це �
 
 AF_XDP кардинально відрізняється від традиційних `AF_INET` сокетів. Він оперує безпосередньо сирими кадрами Ethernet (raw frames) і вимагає ручного управління пам'яттю з боку користувацького додатку.
 
-![Архітектура AF_XDP](af_xdp_arch.svg)
+![Архітектура AF_XDP](/reference/unix-linux/networking/xdp-sockets-af-xdp/img/af-xdp-arch.svg)
 
 ### UMEM (User Memory)
 

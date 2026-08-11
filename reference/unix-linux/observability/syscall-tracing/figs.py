@@ -36,7 +36,7 @@ def draw_ptrace_flow():
     elements.append(svgkit.arrow(250, 250, 200, 250))
     elements.append(svgkit.text(225, 240, "SIGTRAP", size=12))
 
-    svgkit.render("ptrace-flow.svg", 600, 400, *elements)
+    svgkit.render(os.path.join(IMG, 'ptrace-flow.svg'), 600, 400, *elements)
 
 def draw_seccomp_notif():
     elements = []
@@ -65,7 +65,7 @@ def draw_seccomp_notif():
     elements.append(svgkit.arrow(375, 220, 400, 220))
     elements.append(svgkit.text(387, 210, "return", size=12))
 
-    svgkit.render("seccomp-notif.svg", 600, 400, *elements)
+    svgkit.render(os.path.join(IMG, 'seccomp-notif.svg'), 600, 400, *elements)
 
 def render():
     draw_ptrace_flow()

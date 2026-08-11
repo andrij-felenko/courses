@@ -145,7 +145,7 @@ tcp_rmem: maxlen = 12, sizeof(int) = 4 → 3 елементи
 | `ENOENT` | `read()`/`write()` | запис зняли з реєстрації, поки дескриптор був відкритий (модуль вивантажили) |
 | `EACCES` | `open()` | біти `mode` не дають потрібного доступу; спроба записати в каталог дерева; спроба виконати «файл» як програму |
 | `EPERM` | `read()`/`write()` | повторна перевірка прав у мить самої дії не пройшла — права встигли змінитися після відкриття |
-| `EPERM` | `write()`, `read()` | [програма eBPF](book:unix-linux/ebpf) на гачку `cgroup/sysctl` повернула `0` |
+| `EPERM` | `write()`, `read()` | [програма eBPF](book:unix-linux/ebpf-extended-berkeley-packet-filter) на гачку `cgroup/sysctl` повернула `0` |
 | `EINVAL` | `write()` | у тексті не знайшлося жодного значення, яке вдалося б розібрати |
 | `EINVAL` | `write()` | значення поза `[extra1, extra2]` у `proc_dointvec_minmax` або `proc_doulongvec_minmax` |
 | `EINVAL` | `write()` | від'ємне число в беззнаковому обробнику; `proc_dobool` з невідповідним `maxlen` |

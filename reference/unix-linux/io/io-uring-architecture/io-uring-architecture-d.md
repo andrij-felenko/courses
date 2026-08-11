@@ -1,9 +1,9 @@
 # Сучасний асинхронний ввід-вивід io_uring
 
 <preknowlist>
-- [Ядро й простір користувача](book:unix-linux/foundations/kernel-and-userspace) — перемикання контексту та системні виклики.
-- [Файлові дескриптори та VFS](book:unix-linux/io/vfs-architecture) — як ядро абстрагує ввід-вивід.
-- [Синхронний та асинхронний I/O](book:unix-linux/io/sync-vs-async) — обмеження epoll та POSIX AIO.
+- [Ядро й простір користувача](book:unix-linux/kernel-and-userspace) — перемикання контексту та системні виклики.
+- [Файлові дескриптори та VFS](book:unix-linux/vfs-layer) — як ядро абстрагує ввід-вивід.
+- [Синхронний та асинхронний I/O](book:unix-linux/readiness-vs-completion) — обмеження epoll та POSIX AIO.
 </preknowlist>
 
 Сучасні високопродуктивні додатки (бази даних, веб-сервери, системи кешування) стикаються з фундаментальним обмеженням: процесор набагато швидший за пристрої зберігання даних і мережу. Коли програма хоче прочитати файл або відправити мережевий пакет, вона змушена чекати. 
@@ -178,7 +178,7 @@ int main() {
 
 Нижче ми згенеруємо архітектурну схему взаємодії User Space та Kernel Space через кільцеві буфери SQ та CQ. Схема створюється скриптом `figs.py`, який формує SVG-зображення `io-uring-arch.svg`.
 
-![Архітектура io_uring](io-uring-arch.svg)
+![Архітектура io_uring](/reference/unix-linux/io/io-uring-architecture/img/io-uring-arch.svg)
 
 ## Висновок
 

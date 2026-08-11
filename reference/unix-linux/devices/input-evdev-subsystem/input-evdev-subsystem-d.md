@@ -16,7 +16,7 @@
 2. **Ядро підсистеми введення (Input Core)**
 3. **Обробники подій (Event Handlers)**
 
-![Архітектура Input Subsystem](input-subsystem.svg)
+![Архітектура Input Subsystem](/reference/unix-linux/devices/input-evdev-subsystem/img/input-subsystem.svg)
 *Рис. 1. Архітектура підсистеми введення Linux.*
 
 ### 1.1. Драйвери пристроїв (Device Drivers)

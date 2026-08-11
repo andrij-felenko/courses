@@ -1,9 +1,5 @@
 # Керовані каталоги служби: RuntimeDirectory, StateDirectory і хто їх прибирає
 
-<preknowlist>
-- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
-</preknowlist>
-
 <details><summary>Що треба знати перед читанням</summary>
 
 - Базове розуміння юнітів systemd (тип `Service`).

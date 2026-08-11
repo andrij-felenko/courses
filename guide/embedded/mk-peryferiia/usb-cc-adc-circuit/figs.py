@@ -340,7 +340,7 @@ def fig_thr_models():
     p.append(text(W / 2, H - 14,
                   "обидві моделі сходяться: круглі 0.41 / 0.92 / 1.68 В — не випадковість, а I·Rd",
                   size=11, color=MUTED, italic=True))
-    render(os.path.join(OUT, "thr_models.svg"), W, H, *p,
+    render(os.path.join(OUT, "thr-models.svg"), W, H, *p,
            title="Звідки беруться напруги на CC: дільник і струмове джерело")
 
 
@@ -398,7 +398,7 @@ def fig_thr_spread():
     p.append(text(W / 2, H - 14,
                   "допуск Rp/Rd/Vпідт розпливає кожен рівень у смугу; пороги сидять у зазорах між смугами",
                   size=11, color=MUTED, italic=True))
-    render(os.path.join(OUT, "thr_spread.svg"), W, H, *p,
+    render(os.path.join(OUT, "thr-spread.svg"), W, H, *p,
            title="Розкид рівнів і пороги в зазорах між смугами")
 
 
@@ -443,7 +443,7 @@ def fig_thr_scales():
     p.append(text(W / 2, H - 34,
                   "поки нерівність тримається — читання надійне; зламалась ланка — звідти й баг",
                   size=10, color=MUTED, italic=True))
-    render(os.path.join(OUT, "thr_scales.svg"), W, H, *p,
+    render(os.path.join(OUT, "thr-scales.svg"), W, H, *p,
            title="Чотири масштаби напруги біля порога CC")
 
 

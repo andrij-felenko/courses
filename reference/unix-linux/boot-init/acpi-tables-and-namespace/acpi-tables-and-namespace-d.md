@@ -25,7 +25,7 @@ ACPI надає абстрактний інтерфейс між операці�
 
 Під час завантаження ядра, однією з перших задач є знаходження та парсинг таблиць ACPI. Вони структуровані у вигляді ієрархії, де коренева таблиця містить вказівники на інші таблиці.
 
-![ACPI Tables Hierarchy](acpi_tables.svg)
+![ACPI Tables Hierarchy](/reference/unix-linux/boot-init/acpi-tables-and-namespace/img/acpi-tables.svg)
 *Рис. 1. Ієрархія таблиць ACPI*
 
 ### RSDP (Root System Description Pointer)
@@ -61,7 +61,7 @@ SSDT — це додаткові таблиці, які є продовженн�
 
 Коли ACPICA інтерпретатор у ядрі читає DSDT та SSDT таблиці, він не просто виконує код зверху вниз. Натомість він парсить AML-код для побудови ієрархічного дерева, яке називається ACPI Namespace.
 
-![ACPI Namespace](acpi_namespace.svg)
+![ACPI Namespace](/reference/unix-linux/boot-init/acpi-tables-and-namespace/img/acpi-namespace.svg)
 *Рис. 2. Фрагмент дерева простору імен ACPI*
 
 Простір імен ACPI нагадує файлову систему, де коренем є `\`. Вузлами в цьому дереві можуть бути пристрої (Devices), теплові зони (Thermal Zones), процесори (Processors), події (Events), змінні (Integers/Strings) та методи (Methods).

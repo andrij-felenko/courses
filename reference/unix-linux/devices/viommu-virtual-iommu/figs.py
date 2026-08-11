@@ -4,6 +4,10 @@ import os
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def generate():
     frags = []
     
@@ -36,7 +40,7 @@ def generate():
     frags.append(rect(470, 300, 260, 50, fill="#fff", stroke="#666", rx=3))
     frags.append(text(600, 330, "HPA (Хостова фізична адреса)", size=14, bold=True))
     
-    render("viommu-nested-translation.svg", 800, 450, *frags, title="Двостадійна трансляція DMA (Hardware Nested Translation)")
+    render(os.path.join(IMG, 'viommu-nested-translation.svg'), 800, 450, *frags, title="Двостадійна трансляція DMA (Hardware Nested Translation)")
 
 if __name__ == '__main__':
     generate()

@@ -92,7 +92,7 @@ int main(void) {
 16384 доторки → 16384 дрібні збої → рівно один збій на сторінку
 ```
 
-### Файл `/proc/<pid>/stat`c
+### Файл `/proc/<pid>/stat`
 
 Той самий лічильник, але про чужий процес. Файл — один рядок із пробілами; поля рахують з одиниці, і чотири з них наші:
 
@@ -228,7 +228,7 @@ $ perf record -e page-faults -c 1000 -g -- ./app   # вибірка кожен 1
 $ perf report --stdio
 ```
 
-Ще нижче лежать точки трасування ядра — на x86 це `exceptions:page_fault_user` і `exceptions:page_fault_kernel`. Вони дають адресу й код помилки кожного збою, і [ftrace та точки трасування](book:unix-linux/ftrace-tracepoints) вміють вішати на них фільтри. Найкоротший підрахунок «хто саме збоїть» — через [eBPF](book:unix-linux/ebpf):
+Ще нижче лежать точки трасування ядра — на x86 це `exceptions:page_fault_user` і `exceptions:page_fault_kernel`. Вони дають адресу й код помилки кожного збою, і [ftrace та точки трасування](book:unix-linux/ftrace-kernel-tracing) вміють вішати на них фільтри. Найкоротший підрахунок «хто саме збоїть» — через [eBPF](book:unix-linux/ebpf-extended-berkeley-packet-filter):
 
 ```sh
 $ bpftrace -e 'software:page-faults:1 { @[comm] = count(); }'

@@ -1,5 +1,5 @@
 <preknowlist>
-- [Атомарність та стани гонитви](book:programming/systems/atomicity-races) — концепція неподільних операцій.
+- [Атомарність та стани гонитви](book:programming/atomicity-races) — концепція неподільних операцій.
 </preknowlist>
 
 # Атомарні операції та бар'єри пам'яті

@@ -24,7 +24,7 @@
 
 Перші 64 байти утворюють стандартний заголовок пристрою (Header Type 0 для кінцевих пристроїв або Header Type 1 для мостів).
 
-![PCI Configuration Space](pci_config_space.svg)
+![PCI Configuration Space](/reference/unix-linux/devices/pcie-express-bus-subsystem/img/pci-config-space.svg)
 
 Основні поля стандартного заголовка:
 

@@ -117,7 +117,7 @@ def fig_cliff_vs_ramp():
                       pad=6, fill="#eaf7ef", stroke=FIELD, color="#1e7a44")
     frags.append(b)
 
-    render(os.path.join(IMG, 'cliff_vs_ramp.svg'), W, H, *frags)
+    render(os.path.join(IMG, 'cliff-vs-ramp.svg'), W, H, *frags)
 
 
 # ── Фігура 3: рішення деприкейшну — терези двох витрат ──────────────────────
@@ -202,7 +202,7 @@ def fig_term_timeline():
                       size=12.5, bold=True, pad=9, fill=BG, stroke=INK)
     frags.append(b)
 
-    render(os.path.join(IMG, 'term_timeline.svg'), W, H, *frags)
+    render(os.path.join(IMG, 'term-timeline.svg'), W, H, *frags)
 
 
 # ── Фігура 5 (вставка hist): зворотний відлік робить дату невблаганною ───────

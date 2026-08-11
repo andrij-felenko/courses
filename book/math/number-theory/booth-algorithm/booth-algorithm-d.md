@@ -1,6 +1,6 @@
 <preknowlist>
 - [Доповняльний код (Two's Complement)](/book/math/number-theory/twos-complement/twos-complement-d.md)
-- [Бітові зсуви та арифметичні операції](/book/math/number-theory/bitwise-operations/bitwise-operations-d.md)
+- [Бітові зсуви та арифметичні операції](book:math/binary-arithmetic)
 - [Основи двійкової арифметики (додавання та віднімання)](/book/math/number-theory/binary-arithmetic/binary-arithmetic-d.md)
 </preknowlist>
 

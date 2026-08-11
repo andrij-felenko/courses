@@ -4,6 +4,10 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts')))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def render_arch():
     out_dir = os.path.dirname(__file__)
     path = os.path.join(out_dir, "crypto-arch.svg")

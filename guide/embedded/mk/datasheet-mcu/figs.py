@@ -85,7 +85,7 @@ def fig_power_burst():
     f.append(text(W / 2, H - 10,
                   "Джерело беруть під ПІК (≥ 0.5 А), а конденсатор — щоб витримати сплеск; інакше brown-out і перезавантаження",
                   size=10.5, color=MUTED, italic=True))
-    render(os.path.join(IMG, "power_burst.svg"), W, H, *f)
+    render(os.path.join(IMG, "power-burst.svg"), W, H, *f)
 
 
 # ── 3. Той самий маршрут — тепер по підсистемах ─────────────────────────────
@@ -129,7 +129,7 @@ def fig_subsystem_route():
     f.append(text(W / 2, H - 8,
                   "Маршрут той самий; змінюється лише, який рядок критичний у кожному блоці",
                   size=10.5, color=MUTED, italic=True))
-    render(os.path.join(IMG, "subsystem_route.svg"), W, H, *f)
+    render(os.path.join(IMG, "subsystem-route.svg"), W, H, *f)
 
 
 # ── 4. Історія: як один аркуш розрісся в полицю (для hist-вставки) ───────────
@@ -180,7 +180,7 @@ def fig_doc_timeline():
     f.append(text(W / 2, H - 12,
                   "Кожен шар додала конкретна незручність; полиця не задум, а наросла історія",
                   size=10.5, color=MUTED, italic=True))
-    render(os.path.join(IMG, "doc_timeline.svg"), W, H, *f)
+    render(os.path.join(IMG, "doc-timeline.svg"), W, H, *f)
 
 
 if __name__ == "__main__":

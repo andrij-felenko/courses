@@ -237,7 +237,7 @@ def fig_zin_node():
                     "i = u·(1−A) / R\nZ = u / i = R / (1−A)\nкінці майже рівні → i крихітний\n→ опір здається величезним",
                     size=12, fill="#f0fbf4", stroke=FIELD))
 
-    render(os.path.join(IMG, 'zin_node.svg'), W, H, *f)
+    render(os.path.join(IMG, 'zin-node.svg'), W, H, *f)
 
 
 def fig_zin_freq():
@@ -288,7 +288,7 @@ def fig_zin_freq():
     # пояснення зон
     f.append(mtext((xL+xH)/2, yhi-26, ["тут бутстреп працює:", "обидва кінці їдуть разом"], size=11, color=FIELD))
 
-    render(os.path.join(IMG, 'zin_freq.svg'), W, H, *f)
+    render(os.path.join(IMG, 'zin-freq.svg'), W, H, *f)
 
 
 if __name__ == '__main__':
@@ -297,4 +297,4 @@ if __name__ == '__main__':
     fig_highside()
     fig_zin_node()
     fig_zin_freq()
-    print("ok: idea.svg, follower.svg, highside.svg, zin_node.svg, zin_freq.svg")
+    print("ok: idea.svg, follower.svg, highside.svg, zin-node.svg, zin-freq.svg")

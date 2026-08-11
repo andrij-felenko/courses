@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна читання: замок проти RCU</text>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що коштує ОДНЕ читання</text>
+<rect x="30.0" y="55.0" width="360.0" height="300.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Читач із замком</text>
+<rect x="43.0" y="105.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="85.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ядро 1</text>
+<line x1="85.0" y1="149.0" x2="85.0" y2="196.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="168.0" y="105.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ядро 2</text>
+<line x1="210.0" y1="149.0" x2="210.0" y2="196.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="293.0" y="105.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="335.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ядро 3</text>
+<line x1="335.0" y1="149.0" x2="335.0" y2="196.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="120.0" y="200.0" width="180.0" height="52.0" rx="6" fill="#27ae60" stroke="#2457d6" stroke-width="2.0"/>
+<text x="210.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">спільний лічильник</text>
+<text x="210.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок кеша</text>
+<text x="210.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">кожне читання ПИШЕ сюди</text>
+<text x="210.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">рядок переїжджає між ядрами</text>
+<text x="210.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ціна росте з числом ядер</text>
+<rect x="430.0" y="55.0" width="360.0" height="300.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="610.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Читач RCU</text>
+<rect x="443.0" y="105.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="485.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ядро 1</text>
+<rect x="443.0" y="168.0" width="84.0" height="34.0" rx="6" fill="#27ae60" stroke="#c0392b" stroke-width="1.5"/>
+<text x="485.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">свій лічильник</text>
+<rect x="568.0" y="105.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="610.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ядро 2</text>
+<rect x="568.0" y="168.0" width="84.0" height="34.0" rx="6" fill="#27ae60" stroke="#c0392b" stroke-width="1.5"/>
+<text x="610.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">свій лічильник</text>
+<rect x="693.0" y="105.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="735.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ядро 3</text>
+<rect x="693.0" y="168.0" width="84.0" height="34.0" rx="6" fill="#27ae60" stroke="#c0392b" stroke-width="1.5"/>
+<text x="735.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">свій лічильник</text>
+<text x="610.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">нічого спільного не пишеться</text>
+<text x="610.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">рядок кеша лишається на місці</text>
+<text x="610.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ціна читання НЕ залежить</text>
+<text x="610.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">від числа ядер</text>
+<text x="410.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Різниця не в швидкості коду, а в тому, чи торкається читач спільної памʼяті</text>
+</svg>

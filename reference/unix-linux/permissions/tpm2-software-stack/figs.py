@@ -50,4 +50,4 @@ def tpm_architecture():
     return "\n".join(out)
 
 if __name__ == "__main__":
-    render("tpm2_tss_architecture.svg", 600, 500, tpm_architecture())
+    render(os.path.join(IMG, 'tpm2-tss-architecture.svg'), 600, 500, tpm_architecture())

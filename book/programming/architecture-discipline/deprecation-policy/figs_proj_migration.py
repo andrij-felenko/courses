@@ -63,7 +63,7 @@ def fig_delegation_direction():
                       size=12, bold=True, pad=7, fill="#eaf7ef", stroke=FIELD, color="#1e7a44")
     frags.append(b)
 
-    render(os.path.join(IMG, 'delegation_direction.svg'), W, H, *frags)
+    render(os.path.join(IMG, 'delegation-direction.svg'), W, H, *frags)
 
 
 if __name__ == "__main__":

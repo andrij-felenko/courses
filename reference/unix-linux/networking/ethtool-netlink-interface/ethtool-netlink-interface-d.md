@@ -32,7 +32,7 @@
 
 Для подолання вищезазначених обмежень, починаючи з версії ядра Linux 5.6 (2020 рік), було інтегровано новий інтерфейс на базі **Generic Netlink**.
 
-![Архітектура ethtool: ioctl vs netlink](ethtool_arch.svg)
+![Архітектура ethtool: ioctl vs netlink](/reference/unix-linux/networking/ethtool-netlink-interface/img/ethtool-arch.svg)
 *Рис. 1. Еволюція API налаштування мережі: ioctl vs Netlink*
 
 Netlink — це сімейство сокетів (`AF_NETLINK`), розроблене спеціально для зв'язку між простором користувача і ядром. Він використовує парадигму повідомлень з гнучким форматуванням даних (TLV - Type-Length-Value), що дозволяє легко додавати нові поля без порушення зворотної сумісності. 

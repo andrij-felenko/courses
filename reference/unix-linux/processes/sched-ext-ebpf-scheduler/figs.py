@@ -48,7 +48,7 @@ def render():
     </defs>
 </svg>"""
     os.makedirs('figs', exist_ok=True)
-    with open('figs/sched_ext_arch.svg', 'w', encoding='utf-8') as f:
+    with open(os.path.join(IMG, 'sched-ext-arch.svg'), 'w', encoding='utf-8') as f:
         f.write(svg_content)
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@
 2. **Бібліотека `libpam.so` (PAM API/SPI Layer):** Проміжний шар, який приймає запити від програм, читає файли конфігурації (зазвичай у каталозі `/etc/pam.d/`) та завантажує відповідні модулі. Цей рівень реалізує функції, такі як `pam_authenticate()`.
 3. **Модулі (PAM Modules Layer):** Динамічні бібліотеки (зазвичай розміщені у `/lib/security/` або `/lib/x86_64-linux-gnu/security/`), які виконують фактичну роботу (наприклад, `pam_unix.so` для перевірки локальних паролів, `pam_ldap.so` для мережевої автентифікації).
 
-![PAM Architecture](pam_arch.svg)
+![PAM Architecture](/reference/unix-linux/permissions/pam-authentication-stack/img/pam-arch.svg)
 *Рис. 1. Архітектура PAM*
 
 ## 4 Фази (Management Groups) PAM

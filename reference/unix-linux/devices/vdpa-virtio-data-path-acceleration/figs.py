@@ -2,6 +2,10 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def render_diagram():
     frags = []
     
@@ -27,7 +31,7 @@ def render_diagram():
     frags.append(arrow(200, 220, 350, 410, color=LINE, sw=2))
     frags.append(arrow(600, 220, 450, 410, color=LINE, sw=2))
     
-    render("vdpa_architecture.svg", 800, 600, *frags, title="Апаратне прискорення Virtio: vDPA та SmartNIC")
+    render(os.path.join(IMG, 'vdpa-architecture.svg'), 800, 600, *frags, title="Апаратне прискорення Virtio: vDPA та SmartNIC")
 
 if __name__ == "__main__":
     render_diagram()

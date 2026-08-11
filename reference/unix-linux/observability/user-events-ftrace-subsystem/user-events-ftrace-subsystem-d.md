@@ -35,7 +35,7 @@
 
 Архітектурно User Events базується на взаємодії між користувацьким застосунком і ядром через віртуальну файлову систему tracefs, зазвичай змонтовану в `/sys/kernel/tracing/`.
 
-![User Events Architecture](./architecture.svg)
+![User Events Architecture](/reference/unix-linux/observability/user-events-ftrace-subsystem/img/architecture.svg)
 
 ### Головні компоненти
 

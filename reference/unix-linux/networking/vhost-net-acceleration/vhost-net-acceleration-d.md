@@ -44,7 +44,7 @@
 
 `vhost-net` — це модуль ядра Linux, який бере на себе роль `virtio` бекенда (Data Plane), тоді як QEMU продовжує виконувати роль менеджера пристроїв (Control Plane).
 
-![Архітектура vhost-net](vhost-net-arch.svg)
+![Архітектура vhost-net](/reference/unix-linux/networking/vhost-net-acceleration/img/vhost-net-arch.svg)
 
 ### Як працює vhost-net?
 Коли ви запускаєте віртуальну машину з увімкненим `vhost-net`, процес ініціалізації виглядає так:

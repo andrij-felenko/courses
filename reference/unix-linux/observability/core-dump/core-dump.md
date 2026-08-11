@@ -1,6 +1,6 @@
 <preknowlist>
-- [Процес: що це насправді](book:unix-linux/processes/process-model).
-- [Системні виклики та базова структура](book:unix-linux/foundations/kernel-and-userspace).
+- [Процес: що це насправді](book:unix-linux/process-model).
+- [Системні виклики та базова структура](book:unix-linux/kernel-and-userspace).
 </preknowlist>
 
 # Аварійний дамп (Core Dump)

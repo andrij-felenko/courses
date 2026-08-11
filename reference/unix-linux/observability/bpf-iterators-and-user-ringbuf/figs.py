@@ -32,7 +32,7 @@ def make_bpf_iter_arch():
     frags.append(arrow(450, 220, 225, 135, color="#fff"))
     
     os.makedirs("figs", exist_ok=True)
-    render("figs/bpf_iter_arch.svg", 800, 350, *frags)
+    render(os.path.join(IMG, 'bpf-iter-arch.svg'), 800, 350, *frags)
 
 def make_user_ringbuf():
     frags = []
@@ -65,7 +65,7 @@ def make_user_ringbuf():
     frags.append(arrow(480, 140, 550, 140, color="#fff"))
     
     os.makedirs("figs", exist_ok=True)
-    render("figs/bpf_user_ringbuf.svg", 800, 250, *frags)
+    render(os.path.join(IMG, 'bpf-user-ringbuf.svg'), 800, 250, *frags)
 
 if __name__ == "__main__":
     make_bpf_iter_arch()

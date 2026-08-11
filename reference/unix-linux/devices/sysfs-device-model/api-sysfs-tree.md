@@ -18,7 +18,7 @@
 | `power/` | сон машини **цілком**, а не окремого пристрою | `power/state`, `power/mem_sleep`, `power/wakeup_count` |
 | `hypervisor/` | є лише тоді, коли система працює під гіпервізором | `hypervisor/type` |
 
-Дві поправки, без яких мапа оманлива. По-перше, справжні каталоги лежать тільки в `devices/`; усе інше — символьні посилання на них, тому однакового вмісту можна дійти кількома шляхами. По-друге, `kernel/debug` і `kernel/tracing` — узагалі не sysfs, а [окремі псевдо-ФС](book:unix-linux/pseudo-filesystems) debugfs і tracefs (там живе [ftrace](book:unix-linux/ftrace-tracepoints)), просто змонтовані під `/sys` заради зручності; правило «одне значення на файл» на них не поширюється. Так само `firmware/efi/efivars` — окрема ФС efivarfs.
+Дві поправки, без яких мапа оманлива. По-перше, справжні каталоги лежать тільки в `devices/`; усе інше — символьні посилання на них, тому однакового вмісту можна дійти кількома шляхами. По-друге, `kernel/debug` і `kernel/tracing` — узагалі не sysfs, а [окремі псевдо-ФС](book:unix-linux/pseudo-filesystems) debugfs і tracefs (там живе [ftrace](book:unix-linux/ftrace-kernel-tracing)), просто змонтовані під `/sys` заради зручності; правило «одне значення на файл» на них не поширюється. Так само `firmware/efi/efivars` — окрема ФС efivarfs.
 
 ## Контракт атрибута
 

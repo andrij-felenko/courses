@@ -1,8 +1,8 @@
 <preknowlist>
-- [🔗 ZFC та теорія множин](book:math/logic-foundations/zfc-set-theory)
-- [🔗 Аксіома вибору](book:math/logic-foundations/axiom-of-choice)
-- [🔗 Гіпотеза континууму](book:math/logic-foundations/continuum-hypothesis)
-- [🔗 Ординали та кардинали](book:math/logic-foundations/cardinal-numbers)
+- [🔗 ZFC та теорія множин](book:math/zfc-set-theory)
+- [🔗 Аксіома вибору](book:math/axiom-of-choice)
+- [🔗 Гіпотеза континууму](book:math/continuum-hypothesis)
+- [🔗 Ординали та кардинали](book:math/cardinal-numbers)
 </preknowlist>
 
 Коли математики на початку XX століття повністю формалізували теорію множин у вигляді аксіом Цермело-Френкеля з аксіомою вибору (ZFC), два найважливіші питання залишалися нерозв'язаними: чи є істинною сама Аксіома вибору (AC) та чи виконується Гіпотеза континууму (CH)? Гіпотеза континууму, висунута ще Георгом Кантором, стверджує, що не існує множини, потужність якої більша за зліченну (потужність натуральних чисел), але менша за континуум (потужність дійсних чисел). 

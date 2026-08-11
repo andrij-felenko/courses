@@ -39,7 +39,7 @@ TPM може існувати в декількох формах:
 Це дозволяє багатьом процесам працювати з TPM одночасно і не турбуватися про брак пам'яті всередині самого чипа. **Сучасні рекомендації вимагають завжди використовувати `/dev/tpmrm0`** для роботи з TPM 2.0, залишаючи `/dev/tpm0` виключно для специфічних інструментів діагностики або оновлення прошивки самого TPM.
 
 Рис. TPM2 Software Stack Архітектура:
-![TPM2 Software Stack](tpm2_tss_architecture.svg)
+![TPM2 Software Stack](/reference/unix-linux/permissions/tpm2-software-stack/img/tpm2-tss-architecture.svg)
 
 ## 3. TPM2 Software Stack (TSS2)
 

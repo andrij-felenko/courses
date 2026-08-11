@@ -71,7 +71,7 @@ Split Virtqueue використовувався з найперших верс�
 
 Ці частини розташовуються у пам'яті послідовно (з урахуванням вимог до вирівнювання).
 
-![Virtqueue Split Architecture](virtqueue-split.svg)
+![Virtqueue Split Architecture](/reference/unix-linux/devices/virtio-pci-spec/img/virtqueue-split.svg)
 
 ### 5.1. Descriptor Table
 

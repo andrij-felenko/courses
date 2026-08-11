@@ -20,7 +20,7 @@
 
 Рис. 1.1 демонструє цю класичну проблему:
 
-![Класична модель обробки мережевих переривань](figs/single_queue_interrupt.svg)
+![Класична модель обробки мережевих переривань](/reference/unix-linux/networking/ethtool-rss-indirection-tables/img/single-queue-interrupt.svg)
 
 ## Архітектура Receive Side Scaling (RSS)
 
@@ -74,7 +74,7 @@ Toeplitz Hash має кілька важливих властивостей:
 
 Такий дворівневий підхід (Хеш -> RETA -> Rx Queue) замість простого модульного ділення (Хеш % Кількість_черг) дає величезну гнучкість.
 
-![Схема роботи RSS: Хешування та Indirection Table](figs/rss_architecture.svg)
+![Схема роботи RSS: Хешування та Indirection Table](/reference/unix-linux/networking/ethtool-rss-indirection-tables/img/rss-architecture.svg)
 
 ### Навіщо потрібна Indirection Table?
 

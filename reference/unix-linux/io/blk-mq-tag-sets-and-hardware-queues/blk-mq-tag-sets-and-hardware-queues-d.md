@@ -24,7 +24,7 @@
 
 blk-mq використовує дворівневу архітектуру для управління запитами. Вона складається з програмних черг (Software Queues) та апаратних черг (Hardware Queues).
 
-![Архітектура blk-mq](figs/blk_mq_arch.svg)
+![Архітектура blk-mq](/reference/unix-linux/io/blk-mq-tag-sets-and-hardware-queues/img/blk-mq-arch.svg)
 *Рис. 1. Дворівнева архітектура blk-mq: мапінг програмних черг на апаратні.*
 
 ### Програмні черги (Software Queues - ctx)

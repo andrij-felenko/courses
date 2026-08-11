@@ -19,7 +19,7 @@ KUnit базується на архітектурі, що дозволяє за
 - **Швидкість**: Швидкий запуск тестів через UML.
 - **Інтеграція**: Підтримка `kunit.py` для автоматизації.
 
-![Архітектура KUnit](kunit-architecture.svg)
+![Архітектура KUnit](/reference/unix-linux/observability/kernel-kunit-test-framework/img/kunit-architecture.svg)
 
 ## Відлагоджувачі пам'яті (Sanitizers)
 

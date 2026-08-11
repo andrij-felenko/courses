@@ -26,7 +26,7 @@ Kernel Lockdown Mode — це функція безпеки ядра Linux (пр
 
 Kernel Lockdown Mode підтримує два основні рівні захисту, які визначаються параметром ядра або налаштуваннями LSM: **Integrity** (Цілісність) та **Confidentiality** (Конфіденційність). Також існує стан **None** (Вимкнено), коли блокування не застосовується.
 
-![Режими Lockdown](lockdown_modes.svg)
+![Режими Lockdown](/reference/unix-linux/permissions/kernel-lockdown-integrity/img/lockdown-modes.svg)
 
 #### 2.1.1. Режим "None" (Вимкнено)
 У цьому режимі ядро функціонує за класичною моделлю Linux. Користувач `root` має повний доступ до всіх ресурсів системи, включаючи можливість прямої модифікації ядра. Ніякі обмеження Lockdown не застосовуються.

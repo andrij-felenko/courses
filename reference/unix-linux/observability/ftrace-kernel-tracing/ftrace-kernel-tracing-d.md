@@ -27,7 +27,7 @@
 3. **Нульовий оверхед (zero overhead):** Після завершення завантаження система працює з майже нульовими накладними витратами на ftrace, оскільки процесор просто ігнорує `NOP`-и.
 4. **Увімкнення трасування:** Коли користувач вмикає трасер, ядро динамічно патчить інструкції `NOP` назад на виклик функції-обробника ftrace (наприклад, `ftrace_caller`). Це робиться з використанням механізмів зупинки машини (`stop_machine`) або обробки винятків (`int3`), щоб уникнути стану гонитви (race conditions) на багатоядерних системах.
 
-![Механізм Dynamic Ftrace: Від компіляції до виконання](dynamic-ftrace.svg)
+![Механізм Dynamic Ftrace: Від компіляції до виконання](/reference/unix-linux/observability/ftrace-kernel-tracing/img/dynamic-ftrace.svg)
 
 ### 1.3 Плагін `function_graph`
 Тоді як стандартний плагін `function` перехоплює лише *вхід* у функцію, плагін **`function_graph`** йде далі: він перехоплює і вхід, і вихід з функції. Це дозволяє ядру побудувати повний граф викликів (call graph) та виміряти точний час виконання кожної функції.
@@ -55,7 +55,7 @@ Function Tracer працює на рівні викликів C-функцій, 
 ## 3. Інтерфейс `tracefs`
 Основним способом взаємодії з ftrace є файлова система `tracefs`. Зазвичай вона монтується у директорії `/sys/kernel/tracing` (в нових системах) або `/sys/kernel/debug/tracing`.
 
-![Інтерфейс tracefs (/sys/kernel/debug/tracing/)](tracefs.svg)
+![Інтерфейс tracefs (/sys/kernel/debug/tracing/)](/reference/unix-linux/observability/ftrace-kernel-tracing/img/tracefs.svg)
 
 Ця директорія містить велику кількість керуючих файлів:
 - **`available_tracers`**: Перелічує всі зібрані плагіни (наприклад, `function`, `function_graph`, `hwlat`, `nop`). `nop` — трасер за замовчуванням (нічого не робить).

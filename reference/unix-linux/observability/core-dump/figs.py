@@ -6,6 +6,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 
 try:
     from svgkit import *
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
 except ImportError:
     # Якщо svgkit недоступний, створимо заглушку для локального тестування
     class Node:

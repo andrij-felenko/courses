@@ -83,7 +83,7 @@ def fig_rolling_window():
     # Підсумкова формула
     parts.append(text(W / 2, box_y + 100, "H_new = ( (H_old − s[i] · Bᵏ⁻¹) · B + s[i+k] ) mod P", size=15, bold=True, color=INK))
 
-    path = os.path.join(IMG, 'rolling_window_concept.svg')
+    path = os.path.join(IMG, 'rolling-window-concept.svg')
     return render(path, W, H, "\n".join(parts))
 
 
@@ -117,7 +117,7 @@ def fig_rabin_karp():
         parts.append(text(430, ry + 26, comp_res, size=13, bold=True, anchor="start", color=color_theme))
         parts.append(text(580, ry + 26, action_txt, size=12.5, bold=True, anchor="start", color=color_theme))
 
-    path = os.path.join(IMG, 'rabin_karp_search.svg')
+    path = os.path.join(IMG, 'rabin-karp-search.svg')
     return render(path, W, H, "\n".join(parts))
 
 
@@ -178,7 +178,7 @@ def fig_rsync_cdc():
     parts.append(text(W - 40, fy4 + 22, "75% збігів!", size=13, bold=True, color=FIELD, anchor="end"))
     parts.append(text(W / 2, 375, "Межа блоку спрацьовує коли H(вікно) mod S == 0 (маркер вмісту)", size=12.5, color=MUTED, italic=True))
 
-    path = os.path.join(IMG, 'rsync_cdc_chunking.svg')
+    path = os.path.join(IMG, 'rsync-cdc-chunking.svg')
     return render(path, W, H, "\n".join(parts))
 
 

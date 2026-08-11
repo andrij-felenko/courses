@@ -47,7 +47,7 @@ struct MyStruct {
 Реальність: розмір становить 8 байт. Чому?
 Оскільки тип `int` має бути вирівняний по межі 4 байт, компілятор вставляє 3 байти відступу (padding) після поля `char a`.
 
-![Вирівнювання в структурі](struct-layout.svg)
+![Вирівнювання в структурі](/reference/unix-linux/linking/library-abi-compat/img/struct-layout.svg)
 
 ### 2.2. Що ламає C ABI?
 

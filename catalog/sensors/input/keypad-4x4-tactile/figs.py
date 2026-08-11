@@ -327,7 +327,7 @@ def fig_scan_bounce():
                       "і лише тоді зараховує один натиск — та сама пачка стає єдиною подією.",
                       size=10.5, fill=BG, stroke=INK)
     f.append(b)
-    render(os.path.join(IMG, "scan_bounce.svg"), W, H, *f)
+    render(os.path.join(IMG, "scan-bounce.svg"), W, H, *f)
 
 
 # ── P2. Розкладка (keymap): фізичний (row,col) → символ; переплутані піни зсувають букви ──

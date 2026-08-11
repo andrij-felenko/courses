@@ -57,7 +57,7 @@ def generate_expansion_flow():
 </svg>"""
     
     if hasattr(svgkit, 'render'):
-        svgkit.render('expansion_flow.svg', svg_content)
+        svgkit.render(os.path.join(IMG, 'expansion-flow.svg'), svg_content)
     else:
         with open('expansion_flow.svg', 'w', encoding='utf-8') as f:
             f.write(svg_content)

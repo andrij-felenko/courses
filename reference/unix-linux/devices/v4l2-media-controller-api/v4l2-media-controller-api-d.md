@@ -30,7 +30,7 @@ Media Controller створює окремий символьний пристр
 
 3. **Link (Зв'язок):** Це з'єднання між Source Pad однієї Entity та Sink Pad іншої Entity. Links визначають, як дані протікають через систему. Важливо, що зв'язки можуть бути динамічними. Користувацька програма може вмикати (enable) або вимикати (disable) зв'язки через виклики ioctl до `/dev/mediaX`, тим самим змінюючи маршрутизацію відеопотоку на льоту.
 
-![Граф Media Controller](mc-graph.svg)
+![Граф Media Controller](/reference/unix-linux/devices/v4l2-media-controller-api/img/mc-graph.svg)
 *Рис. 1. Приклад простого графа Media Controller, що показує шлях даних від сенсора через ISP до відеовузла.*
 
 Коли програма відкриває `/dev/media0`, вона спочатку викликає `MEDIA_IOC_DEVICE_INFO`, щоб дізнатися загальну інформацію про пристрій. Потім, використовуючи `MEDIA_IOC_ENUM_ENTITIES`, `MEDIA_IOC_ENUM_LINKS`, вона може обійти весь граф і побудувати його представлення у пам'яті. 

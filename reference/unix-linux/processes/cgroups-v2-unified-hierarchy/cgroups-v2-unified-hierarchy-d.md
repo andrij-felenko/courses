@@ -2,7 +2,7 @@
 
 <preknowlist>
 - [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та віртуальної файлової системи (VFS).
-- [Процеси та потоки](book:unix-linux/processes) — як ядро бачить задачі та планує їх виконання.
+- [Процеси та потоки](book:unix-linux/process-model) — як ядро бачить задачі та планує їх виконання.
 </preknowlist>
 
 Control Groups (cgroups) — це механізм ядра Linux для організації процесів в ієрархічні групи з метою обмеження, обліку та ізоляції використання ресурсів (процесорного часу, пам'яті, дискового вводу-виводу тощо). З появою Cgroups v2 (офіційно визнано стабільним у версії ядра 4.5), парадигма управління ресурсами в Linux зазнала кардинальних змін, перейшовши від моделі розрізнених ієрархій для кожного контролера до концепції **єдиної ієрархії (Unified Hierarchy)**.
@@ -20,7 +20,7 @@ Control Groups (cgroups) — це механізм ядра Linux для орг�
 
 Ці фундаментальні проблеми призвели до розробки Cgroups v2, керівним принципом якої стала простота і узгодженість.
 
-![Cgroups v1 vs v2](v1_vs_v2.svg)
+![Cgroups v1 vs v2](/reference/unix-linux/processes/cgroups-v2-unified-hierarchy/img/v1-vs-v2.svg)
 
 ## 2. Єдина ієрархія (Unified Hierarchy)
 
@@ -59,7 +59,7 @@ mount -t cgroup2 none /sys/fs/cgroup
 - Група може бути **листовим вузлом** (leaf node), де вона містить процеси, але не має дочірніх груп із активними контролерами.
 - Або група може бути **внутрішнім вузлом** (internal node), яка розподіляє ресурси між своїми дочірніми групами, але сама не містить жодних процесів.
 
-![No Internal Processes](no_internal_processes.svg)
+![No Internal Processes](/reference/unix-linux/processes/cgroups-v2-unified-hierarchy/img/no-internal-processes.svg)
 
 ### Чому це важливо?
 

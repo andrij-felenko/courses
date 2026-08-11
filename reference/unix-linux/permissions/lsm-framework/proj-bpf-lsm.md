@@ -35,7 +35,7 @@ noinline RET bpf_lsm_##NAME(__VA_ARGS__)	\
 
 ## Програма
 
-Мова тут одна — C: код компілюють у байт-код BPF і виконують усередині ядра. `vmlinux.h` дає типи ядра з BTF, решта — [eBPF](book:unix-linux/ebpf) як він є.
+Мова тут одна — C: код компілюють у байт-код BPF і виконують усередині ядра. `vmlinux.h` дає типи ядра з BTF, решта — [eBPF](book:unix-linux/ebpf-extended-berkeley-packet-filter) як він є.
 
 ```c
 /* deny-net.bpf.c */

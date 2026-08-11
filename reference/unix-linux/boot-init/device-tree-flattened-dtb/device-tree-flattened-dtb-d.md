@@ -10,7 +10,7 @@
 
 Device Tree — це структура даних, яка описує апаратні компоненти системи таким чином, щоб ядро операційної системи могло прочитати цей опис під час завантаження й автоматично налаштувати необхідні драйвери, без потреби перекомпіляції самого ядра для кожної нової плати. Це дозволило відокремити опис апаратури від коду ядра.
 
-![Device Tree Lifecycle](dt-lifecycle.svg)
+![Device Tree Lifecycle](/reference/unix-linux/boot-init/device-tree-flattened-dtb/img/dt-lifecycle.svg)
 
 ## 2. Device Tree Source (.dts) та інклюди (.dtsi)
 

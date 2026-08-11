@@ -1,8 +1,8 @@
 # Прості числа
 
 <preknowlist>
-- [Подільність та остачі](file:///book/math/number-theory/divisibility/divisibility-d.md)
-- [Основна теорема арифметики](file:///book/math/number-theory/fundamental-theorem/fundamental-theorem-d.md)
+- [Подільність та остачі](book:math/gcd-euclidean)
+- [Основна теорема арифметики](book:math/fundamental-theorem-arithmetic)
 </preknowlist>
 
 > 🔧 **Навіщо це.**

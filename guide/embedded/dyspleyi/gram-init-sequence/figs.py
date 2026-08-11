@@ -261,7 +261,7 @@ def fig_one_machine():
     f.append(text(W / 2, 344,
                   "нова панель = новий масив байтів, а не новий драйвер",
                   size=10.5, color=MUTED, italic=True))
-    render(os.path.join(IMG, "one_machine.svg"), W, H, *f)
+    render(os.path.join(IMG, "one-machine.svg"), W, H, *f)
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -356,7 +356,7 @@ def fig_delay_flag():
     f.append(text(W / 2, 410,
                   "інтерпретатор прокручує масив: лічильник каже, скільки байтів пропустити, біт 7 — чи чекати",
                   size=10, color=MUTED, italic=True))
-    render(os.path.join(IMG, "delay_flag.svg"), W, H, *f)
+    render(os.path.join(IMG, "delay-flag.svg"), W, H, *f)
 
 
 if __name__ == "__main__":

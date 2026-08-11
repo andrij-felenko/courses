@@ -43,7 +43,7 @@ def main():
     frags.append(line(120, 180, 280, 180, color="#7b1fa2", sw=2))
     frags.append(text(200, 175, "memory.peak", size=14, color="#7b1fa2"))
     
-    render("cgroup_memory_limits.svg", w, h, *frags, title="Cgroup v2 Memory Hierarchy")
+    render(os.path.join(IMG, 'cgroup-memory-limits.svg'), w, h, *frags, title="Cgroup v2 Memory Hierarchy")
     print("SVG generated successfully.")
 
 if __name__ == "__main__":

@@ -58,7 +58,7 @@ void update_counter(int *ptr) {
 4. **Реєстрація стану перегонів**: Знайшовши збіг, другий потік розуміє, що стався стан перегонів. KCSAN генерує звіт, що містить стек викликів обох потоків: того, який встановив watchpoint, і того, який його "спрацював" (hit).
 5. **Зняття Watchpoint-а та продовження**: Після закінчення затримки, перший потік знімає watchpoint і продовжує нормальне виконання.
 
-![Watchpoints Mechanism](kcsan-watchpoints.svg)
+![Watchpoints Mechanism](/reference/unix-linux/observability/kcsan-concurrency-sanitizer/img/kcsan-watchpoints.svg)
 *Рис. 1. Механізм watchpoint-ів KCSAN при взаємодії двох потоків.*
 
 ## Типи станів перегонів у KCSAN

@@ -1,9 +1,9 @@
 # Високорівневе трасування: SystemTap та bpftrace
 
 <preknowlist>
-- [Концепції ядра Linux](book:unix-linux/foundations/kernel-and-userspace) — базові поняття системних викликів та VFS.
-- [eBPF](book:unix-linux/observability/ebpf) — механізм віртуальної машини в ядрі.
-- [Kprobes та Tracepoints](book:unix-linux/observability/kprobes) — точки перехоплення.
+- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
+- [eBPF](book:unix-linux/ebpf-extended-berkeley-packet-filter) — механізм віртуальної машини в ядрі.
+- [Kprobes та Tracepoints](book:unix-linux/uprobes-and-kprobes) — точки перехоплення.
 </preknowlist>
 
 Трасування та спостережність (observability) у сучасних Linux-системах вимагають здатності заглянути всередину працюючої системи без зупинки програм, зміни їхнього коду чи перекомпіляції. У ядрі Linux для цього є потужні механізми (kprobes, tracepoints, uprobes), але пряме їх використання історично вимагало написання складних модулів ядра мовою C. 

@@ -169,7 +169,7 @@ cat /sys/kernel/tracing/trace_pipe
 #  <idle>-0  [002] d..1  914.403994: cpu_idle: state=4294967295 cpu_id=2
 ```
 
-Механіку самого трасування розбирає [ftrace і трасувальні точки ядра](book:unix-linux/ftrace-tracepoints).
+Механіку самого трасування розбирає [ftrace і трасувальні точки ядра](book:unix-linux/ftrace-kernel-tracing).
 
 `turbostat` показує **два різні набори колонок**, і плутати їх не можна:
 

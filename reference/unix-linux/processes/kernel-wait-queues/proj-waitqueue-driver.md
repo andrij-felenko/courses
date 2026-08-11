@@ -547,7 +547,7 @@ nonvoluntary_ctxt_switches:	3
 
 Тисяча добровільних перемикань у **одного** читача. Байтів було теж тисяча, а забрав цей читач приблизно шістнадцять із них — решту дев'ятсот вісімдесят чотири рази він прокинувся, побачив порожнє кільце й ліг назад. І так усі шістдесят чотири.
 
-Загальну картину дає [підсистема perf](book:unix-linux/perf-events), яка вміє рахувати [трасувальні точки планувальника](book:unix-linux/ftrace-tracepoints):
+Загальну картину дає [підсистема perf](book:unix-linux/perf-events), яка вміє рахувати [трасувальні точки планувальника](book:unix-linux/ftrace-kernel-tracing):
 
 ```console
 $ sudo perf stat -a -e sched:sched_wakeup,context-switches -- \

@@ -23,7 +23,7 @@ def main():
   <rect x="20" y="150" width="340" height="40" fill="#ffebcd" stroke="#000" />
   <text x="140" y="175" font-family="Arial" font-size="14">Hardware (CPU)</text>
 </svg>'''
-    render('cpufreq-and-cpuidle-architecture.svg', svg_content)
+    render(os.path.join(IMG, 'cpufreq-and-cpuidle-architecture.svg'), svg_content)
     print("SVG generated successfully.")
 
 if __name__ == '__main__':

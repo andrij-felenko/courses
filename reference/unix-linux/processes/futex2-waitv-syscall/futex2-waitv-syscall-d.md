@@ -16,7 +16,7 @@
 
 У цій статті ми детально розглянемо історію виникнення проблеми, архітектуру `futex_waitv(2)`, його використання мовою C, внутрішню реалізацію в ядрі Linux та вплив на продуктивність.
 
-![Емуляція WaitForMultipleObjects через sys_futex_waitv](futex2-waitv-syscall-d.svg)
+![Емуляція WaitForMultipleObjects через sys_futex_waitv](/reference/unix-linux/processes/futex2-waitv-syscall/img/futex2-waitv-syscall-d.svg)
 *Рис. 1. Принцип емуляції Windows-функції WaitForMultipleObjects() за допомогою нового системного виклику sys_futex_waitv() у середовищі Wine/Proton.*
 
 ---

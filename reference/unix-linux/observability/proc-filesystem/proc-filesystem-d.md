@@ -69,7 +69,7 @@ struct proc_dir_entry {
 
 Рис. 1 показує структуру файлової системи /proc, яку генерує `figs.py`.
 
-![Структура procfs](proc-structure.svg)
+![Структура procfs](/reference/unix-linux/observability/proc-filesystem/img/proc-structure.svg)
 
 Розглянемо найважливіші файли та каталоги, що знаходяться всередині `/proc/PID/`.
 

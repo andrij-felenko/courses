@@ -188,7 +188,7 @@ def fig_von_neumann():
                   "Наступник — «докинь себе». Границя — об'єднай усе нижче:  ω = 0 ∪ 1 ∪ 2 ∪ …",
                   size=13, bold=True, color=INK))
 
-    render(os.path.join(IMG, "von_neumann.svg"), W, H, *f)
+    render(os.path.join(IMG, "von-neumann.svg"), W, H, *f)
 
 
 # ── 4. Як народилося ω: похідні множини, що не кінчаються ─────────────────────
@@ -290,7 +290,7 @@ def fig_add_asym():
     box2, w2, h2 = textbox(918, yb, "= ω+1 > ω", size=16, bold=True, fill=GREENFILL, stroke=FIELD, color=FIELD, min_w=96)
     f.append(box2)
 
-    render(os.path.join(IMG, "add_asym.svg"), W, H, *f)
+    render(os.path.join(IMG, "add-asym.svg"), W, H, *f)
 
 
 # ── 6. Множення: 2·ω=ω vs ω·2=ω+ω (лексичний добуток) ─────────────────────────
@@ -341,7 +341,7 @@ def fig_mult_asym():
     b2, _, _ = textbox(913, yb, "= ω+ω > ω", size=15.5, bold=True, fill=GREENFILL, stroke=FIELD, color=FIELD, min_w=110)
     f.append(b2)
 
-    render(os.path.join(IMG, "mult_asym.svg"), W, H, *f)
+    render(os.path.join(IMG, "mult-asym.svg"), W, H, *f)
 
 
 # ── 7. Канторова нормальна форма й стеля ε₀ ───────────────────────────────────
@@ -382,7 +382,7 @@ def fig_cnf_tower():
     f.append(fitbox(cx - 150, 130, 300, 30,
                     "тут запис за основою ω кусає власний хвіст", size=11.5, fill=ROW, stroke=LINE, color=INK))
 
-    render(os.path.join(IMG, "cnf_tower.svg"), W, H, *f)
+    render(os.path.join(IMG, "cnf-tower.svg"), W, H, *f)
 
 
 # ── 8. Ядро доказу Ґудстейна: число вгору, ординал-тінь униз ──────────────────
@@ -433,7 +433,7 @@ def fig_goodstein_tracks():
                    ["Число вільне рости хоч до небес. Але тінь — ординал, а ординали не спадають вічно (повне впорядкування):",
                     "строго спадна низка ординалів завжди скінченна. Тож і кроків скінченно — послідовність мусить дійти 0."],
                    size=12.5, color=INK))
-    render(os.path.join(IMG, "goodstein_tracks.svg"), W, H, *f)
+    render(os.path.join(IMG, "goodstein-tracks.svg"), W, H, *f)
 
 
 # ── 9. Гра в Гідру: рубаєш голову — виростають копії, а тінь спадає ───────────

@@ -137,7 +137,7 @@ def fig_static_json():
     f.append(text(W / 2, H - 14,
                   "обличчя готове наперед; дані народжуються щоразу заново",
                   size=10.5, color=MUTED, italic=True))
-    render(os.path.join(IMG, "static_json.svg"), W, H, *f)
+    render(os.path.join(IMG, "static-json.svg"), W, H, *f)
 
 
 # ── 5. Межі: де веб-сервер на МК доречний, а де ні ────────────────────────────

@@ -4,6 +4,10 @@ import os
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def render_figs():
     frags = []
     
@@ -27,7 +31,7 @@ def render_figs():
     path_b += 'L 440 150 L 550 150" fill="none" stroke="%s" stroke-width="2"/>' % POS
     frags.append(path_b)
     
-    render("quadrature_signals.svg", 600, 200, *frags, title="Quadrature Encoder Signals")
+    render(os.path.join(IMG, 'quadrature-signals.svg'), 600, 200, *frags, title="Quadrature Encoder Signals")
 
 if __name__ == '__main__':
     render_figs()

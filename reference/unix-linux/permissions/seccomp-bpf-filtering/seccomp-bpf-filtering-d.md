@@ -1,7 +1,7 @@
 # Фільтрація системних викликів Seccomp-BPF
 
 <preknowlist>
-- [Концепції ядра Linux](book:unix-linux/processes/kernel-and-userspace) — базові поняття системних викликів та VFS.
+- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
 </preknowlist>
 
 ## 1. Вступ до Secure Computing Mode (seccomp)
@@ -12,7 +12,7 @@
 
 Завдяки seccomp-bpf розробники отримали можливість створювати детальні "білі" або "чорні" списки системних викликів, а також перевіряти конкретні значення аргументів викликів (тільки за значенням, але не переходити за вказівниками). Це стало наріжним каменем у розвитку контейнерних технологій, таких як Docker, Kubernetes, containerd, а також пісочниць у веб-браузерах (Chrome, Firefox).
 
-![Seccomp-BPF Архітектура](seccomp_arch.svg)
+![Seccomp-BPF Архітектура](/reference/unix-linux/permissions/seccomp-bpf-filtering/img/seccomp-arch.svg)
 
 ## 2. Режими роботи: SECCOMP_MODE_STRICT та SECCOMP_MODE_FILTER
 

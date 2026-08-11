@@ -108,4 +108,4 @@ WireGuard має вбудовані механізми захисту:
 
 WireGuard здійснив революцію у світі VPN. Завдяки концепції Cryptokey Routing, використанню Noise IK та ChaCha20-Poly1305, а також архітектурі stateless, яка працює виключно у просторі ядра без демонів, він пропонує безпрецедентний рівень швидкості, безпеки та простоти налаштування. Його мінімалістична база коду дозволяє здійснювати ретельний аудит, що гарантує високу надійність. Інтеграція WireGuard безпосередньо в ядро Linux є свідченням того, що продуманий дизайн може перевершити застарілі складні стандарти.
 
-![WireGuard Architecture](wireguard_arch.svg)
+![WireGuard Architecture](/reference/unix-linux/networking/wireguard-kernel-architecture/img/wireguard-arch.svg)

@@ -109,7 +109,7 @@ def fig_two_switches():
                          size=11, color=INK, fill=FILL, stroke=MUTED)
     f.append(box3)
 
-    render(os.path.join(IMG, 'merc_vs_ball.svg'), W, H, "".join(f))
+    render(os.path.join(IMG, 'merc-vs-ball.svg'), W, H, "".join(f))
 
 
 # ── 2. Часова смуга: від ртуті до заборони ───────────────────────────────────
@@ -149,10 +149,10 @@ def fig_timeline():
             f.append(line(x, axisY + 36, x, cyb - bh / 2, color=MUTED, sw=1, dash="3 3"))
         f.append(box)
 
-    render(os.path.join(IMG, 'merc_timeline.svg'), W, H, "".join(f))
+    render(os.path.join(IMG, 'merc-timeline.svg'), W, H, "".join(f))
 
 
 if __name__ == "__main__":
     fig_two_switches()
     fig_timeline()
-    print("OK: merc_vs_ball.svg, merc_timeline.svg")
+    print("OK: merc-vs-ball.svg, merc-timeline.svg")

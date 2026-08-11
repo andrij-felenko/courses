@@ -174,7 +174,7 @@ initcall ehci_hcd_init+0x0/0x9c returned 0 after 1836 usecs
 | `initcall_start` | `initcall_t func` | `func=%pS` |
 | `initcall_finish` | `initcall_t func, int ret` | `func=%pS ret=%d` |
 
-Живуть вони в `/sys/kernel/tracing/events/initcall/` і від `initcall_debug` не залежать: у збірці з увімкненими [точками трасування](book:unix-linux/ftrace-tracepoints) `do_trace_initcall_start` — це просто інша назва для `trace_initcall_start`. Параметр `initcall_debug` лише чіпляє до цих точок зворотні виклики, які друкують.
+Живуть вони в `/sys/kernel/tracing/events/initcall/` і від `initcall_debug` не залежать: у збірці з увімкненими [точками трасування](book:unix-linux/ftrace-kernel-tracing) `do_trace_initcall_start` — це просто інша назва для `trace_initcall_start`. Параметр `initcall_debug` лише чіпляє до цих точок зворотні виклики, які друкують.
 
 `initcall_level` спрацьовує один раз на початку кожного проходу, і рядків там рівно десять: `early`, вісім числових імен рівнів і `console`. Прохід консолей викликає свої записи прямо, а не через `do_one_initcall()`, — тому точки трасування він дає повністю, а чорний список на нього не діє взагалі.
 

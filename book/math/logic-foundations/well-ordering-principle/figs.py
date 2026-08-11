@@ -406,7 +406,7 @@ def fig_wf_cycle():
     f.append(text(490, 488, "множина без найменшого — порожня", size=13, color=INK, bold=True))
 
     f.extend([nb1, nb2, nb3])
-    render(os.path.join(IMG, "wf_cycle.svg"), W, H, *f)
+    render(os.path.join(IMG, "wf-cycle.svg"), W, H, *f)
 
 
 # ── 7. Найменший проти мінімального (для вставки math-well-founded) ───────────
@@ -453,7 +453,7 @@ def fig_wf_minimal():
     f.append(text(735, 432, "a і b незрівнянні → «найменшого» (нижчого за всіх) нема",
                   size=12, color=MUTED, italic=True))
 
-    render(os.path.join(IMG, "wf_minimal.svg"), W, H, *f)
+    render(os.path.join(IMG, "wf-minimal.svg"), W, H, *f)
 
 
 # ── 8. Ординали за межею ℕ і три випадки трансфінітної індукції (вставка) ─────
@@ -503,7 +503,7 @@ def fig_wf_ordinals():
                     "α — гранична\n\nпопередника нема → збери\nP(β) для ВСІХ β < α разом",
                     size=13, fill=GREENFILL, stroke=FIELD, color=INK))
 
-    render(os.path.join(IMG, "wf_ordinals.svg"), W, H, *f)
+    render(os.path.join(IMG, "wf-ordinals.svg"), W, H, *f)
 
 
 if __name__ == "__main__":

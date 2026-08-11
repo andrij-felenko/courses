@@ -35,7 +35,7 @@ def render():
     canvas.text(300, 180, "Access Request (rwx) ->", 14)
     canvas.text(300, 210, "<- Access Granted / Denied", 14)
 
-    canvas.render("smack-architecture.svg")
+    canvas.render(os.path.join(IMG, 'smack-architecture.svg'))
 
 if __name__ == "__main__":
     render()

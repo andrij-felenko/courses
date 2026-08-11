@@ -52,7 +52,7 @@ def draw_kprobes():
     frags.append(arrow(80, 165, 120, 165, color=NEG, sw=2))
     frags.append(text(100, 195, "повернення", size=12, color=NEG, anchor="start"))
     
-    render('kprobes-int3-insertion.svg', 750, 320, *frags, title="Архітектура Kprobes: вставка INT3 та OOL-буфер")
+    render(os.path.join(IMG, 'kprobes-int3-insertion.svg'), 750, 320, *frags, title="Архітектура Kprobes: вставка INT3 та OOL-буфер")
 
 if __name__ == '__main__':
     draw_kprobes()

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві ролі відповіді: статика й живі дані</text>
+<rect x="40.0" y="60.0" width="330.0" height="196.0" rx="10" fill="#fbfbfb" stroke="#27ae60" stroke-width="1.8"/>
+<text x="205.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">СТАТИКА — обличчя</text>
+<text x="56.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• HTML, CSS, картинки, скрипт</text>
+<text x="56.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• лежать готовими у файловій</text>
+<text x="56.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  системі (SPIFFS / LittleFS)</text>
+<text x="56.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• віддаються байт-у-байт як є</text>
+<text x="56.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• не змінюються від запиту</text>
+<rect x="410.0" y="60.0" width="330.0" height="196.0" rx="10" fill="#fbfbfb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="575.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ДАНІ — живий JSON</text>
+<text x="426.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• показання давачів, стани</text>
+<text x="426.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• збираються на льоту під</text>
+<text x="426.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  кожен запит до /state</text>
+<text x="426.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• щоразу свіже число</text>
+<text x="426.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• {&quot;temp&quot;:24.3,&quot;led&quot;:true}</text>
+<text x="380.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">обличчя готове наперед; дані народжуються щоразу заново</text>
+</svg>

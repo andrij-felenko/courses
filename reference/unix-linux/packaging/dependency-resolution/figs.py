@@ -4,6 +4,10 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts'))
 try:
     from svgkit import *
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
 except ImportError:
     # Basic fallback if svgkit is not found
     def rect(x, y, w, h, **kwargs): return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{kwargs.get("fill", "white")}" stroke="black" />'

@@ -94,7 +94,7 @@ def fig_io_delay():
     frags.append(fitbox(430, 70, 250, 44,
                         "set_output_delay — скільки часу\nПОТРІБНО приймачеві зовні",
                         size=12, fill="#e9f7ef", stroke=FIELD))
-    render(os.path.join(IMG, 'io_delay.svg'), W, H, *frags)
+    render(os.path.join(IMG, 'io-delay.svg'), W, H, *frags)
 
 
 def fig_exceptions():

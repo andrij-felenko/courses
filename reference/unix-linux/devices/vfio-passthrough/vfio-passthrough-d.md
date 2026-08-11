@@ -35,7 +35,7 @@ IOMMU розміщується між периферійною шиною (PCIe 
 *   **AMD-Vi** (раніше відомий як IOMMU)
 *   **ARM SMMU** (System MMU)
 
-![VFIO and IOMMU Architecture](vfio-architecture.svg)
+![VFIO and IOMMU Architecture](/reference/unix-linux/devices/vfio-passthrough/img/vfio-architecture.svg)
 *Рис. 1: Взаємодія VFIO та IOMMU в Linux.*
 
 IOMMU виконує дві критично важливі функції:

@@ -64,7 +64,7 @@ def generate():
     frags.append(line(95, 230, 95, 250, color=NEG, sw=2))
     frags.append(text(95, 220, "Last Tick", size=10, color=NEG))
     
-    render('nohz-timeline.svg', 800, 300, *frags)
+    render(os.path.join(IMG, 'nohz-timeline.svg'), 800, 300, *frags)
 
 if __name__ == '__main__':
     generate()

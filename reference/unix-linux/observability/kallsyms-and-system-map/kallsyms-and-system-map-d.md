@@ -8,7 +8,7 @@
 
 Цей розділ довідника детально розглядає архітектуру та використання `kallsyms`, статичний файл `System.map`, функцію програмного пошуку `kallsyms_lookup_name()`, а також форматування виводу за допомогою `printk` специфікаторів `%pS` та `%B`.
 
-![kallsyms_arch.svg](kallsyms_arch.svg)
+![kallsyms_arch.svg](/reference/unix-linux/observability/kallsyms-and-system-map/img/kallsyms-arch.svg)
 *Рис. 1. Загальний огляд взаємодії між vmlinux, System.map та /proc/kallsyms.*
 
 ---

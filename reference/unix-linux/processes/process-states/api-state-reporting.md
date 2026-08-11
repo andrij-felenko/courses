@@ -305,7 +305,85 @@ dmesg -T | tail -40             # читати результат
 
 Прочитати літеру стану й місце сну для **кожного** потоку процесу — саме те, чого не дає типовий вивід `ps`. Ключова деталь обох варіантів однакова: поле 3 шукають від останньої дужки, а не з початку рядка ([procfs](book:unix-linux/proc-filesystem) — файли, що читаються як звичайні, але породжуються ядром у момент читання, тому жодного кешування тут немає).
 
+:::tabs
+```c
+#define _GNU_SOURCE
+#include <dirent.h>
+#include <stdio.h>
+#include <string.h>
+
+/* Читає перший рядок файлу; повертає довжину або -1. */
+static int read_line(const char *path, char *buf, size_t cap)
+{
+    FILE *f = fopen(path, "re");
+    if (!f)
+        return -1;
+    size_t n = fread(buf, 1, cap - 1, f);
+    fclose(f);
+    buf[n] = '\0';
+    buf[strcspn(buf, "\n")] = '\0';
+    return (int)n;
+}
+
+int main(int argc, char **argv)
+{
+    if (argc != 2) {
+        fprintf(stderr, "вжиток: %s <pid>\n", argv[0]);
+        return 2;
+    }
+
+    char dir[64], path[160], buf[4096], wchan[128];
+    snprintf(dir, sizeof dir, "/proc/%s/task", argv[1]);
+
+    DIR *d = opendir(dir);
+    if (!d) {
+        perror(dir);
+        return 1;
+    }
+
+    for (struct dirent *e; (e = readdir(d)) != NULL; ) {
+        if (e->d_name[0] == '.')
+            continue;
+
+        snprintf(path, sizeof path, "%s/%s/stat", dir, e->d_name);
+        if (read_line(path, buf, sizeof buf) <= 0)
+            continue;                      /* потік вийшов, поки ми читали */
+
+        char *p = strrchr(buf, ')');       /* кінець поля 2 — ОСТАННЯ дужка */
+        if (!p || p[1] != ' ')
+            continue;
+        char state = p[2];                 /* поле 3 — рівно один байт */
+
+        snprintf(path, sizeof path, "%s/%s/wchan", dir, e->d_name);
+        if (read_line(path, wchan, sizeof wchan) <= 0)
+            strcpy(wchan, "0");            /* «0» = біжить або немає прав */
+
+        printf("%-7s %c  %s\n", e->d_name, state, wchan);
+    }
+
+    closedir(d);
+    return 0;
+}
 ```
+```python
+#!/usr/bin/env python3
+"""Літера стану й місце сну для кожного потоку процесу."""
+import pathlib
+import sys
+
+pid = sys.argv[1]
+
+for task in sorted(pathlib.Path(f"/proc/{pid}/task").iterdir(), key=lambda p: int(p.name)):
+    try:
+        stat = (task / "stat").read_text()
+        # поле 2 — ім'я в дужках, у ньому бувають пробіли й ')',
+        # тому відлік починаємо від ОСТАННЬОЇ дужки
+        state = stat[stat.rindex(")") + 2]
+        wchan = (task / "wchan").read_text().strip()   # «0» = біжить або немає прав
+    except (FileNotFoundError, ProcessLookupError, PermissionError):
+        continue                                        # потік уже вийшов
+    print(f"{task.name:<7} {state}  {wchan}")
 ```
+:::
 
 Обидва варіанти віддають **знімок**, а не вимір: між двома читаннями стан міняється тисячі разів, і побачити в `D` задачу, яка проводить там частку відсотка часу, — звичайна річ. Питання «скільки часу задача насправді простояла» цими файлами не закривається взагалі: на нього відповідають поле 42 `/proc/PID/stat`, облік затримок і лічильники тиску на ресурси — і кожен із них треба спершу ввімкнути.

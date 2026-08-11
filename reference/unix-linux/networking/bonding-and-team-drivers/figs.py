@@ -5,6 +5,10 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts')))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def make_bonding_arch():
     out = []
     
@@ -29,7 +33,7 @@ def make_bonding_arch():
     # Logical link
     out.append(textbox(350, 80, "Логічний канал\n(bond0 / team0)", 14, color="#c0392b", min_w=200, bold=True)[0])
     
-    render("bonding_arch.svg", 700, 300, *out, title="Архітектура агрегації каналів (Bonding / Team)")
+    render(os.path.join(IMG, 'bonding-arch.svg'), 700, 300, *out, title="Архітектура агрегації каналів (Bonding / Team)")
 
 if __name__ == "__main__":
     make_bonding_arch()

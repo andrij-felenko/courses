@@ -59,7 +59,7 @@ def draw_spdm_flow():
     d.arrow(440, y, 160, y)
     d.text(230, y-10, "CERTIFICATE")
     
-    d.render("spdm_flow.svg")
+    d.render(os.path.join(IMG, 'spdm-flow.svg'))
 
 def draw_ide():
     d = SVGKitMock(600, 300)
@@ -71,7 +71,7 @@ def draw_ide():
     d.rect(200, 110, 200, 60)
     d.text(230, 145, "Encrypted TLP (IDE)")
     
-    d.render("pcie_ide.svg")
+    d.render(os.path.join(IMG, 'pcie-ide.svg'))
 
 if __name__ == "__main__":
     draw_spdm_flow()

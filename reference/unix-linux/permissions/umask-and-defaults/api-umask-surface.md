@@ -99,7 +99,7 @@ POSIX вимагає форму `umask [-S] [маска]`; `-p` — розшир
 | `open` з [`O_TMPFILE`](book:unix-linux/o-tmpfile) | безіменний файл | `mode & ~umask` |
 | `mkdir`, `mkdirat` | каталог | `mode & ~umask & 0777` |
 | `mknod`, `mknodat` | вузол пристрою або FIFO | `mode & ~umask` |
-| `mkfifo`, `mkfifoat` | [іменований канал](book:unix-linux/pipes-and-fifo) | `mode & ~umask` |
+| `mkfifo`, `mkfifoat` | [іменований канал](book:unix-linux/pipe-and-fifo) | `mode & ~umask` |
 | `bind` для `AF_UNIX` з іменем у файловій системі | [вузол сокета](book:unix-linux/unix-domain-sockets) | усі права, крім знятих маскою |
 | `mq_open` з `O_CREAT` | [черга повідомлень](book:unix-linux/message-queues) | `mode & ~umask`; до Linux 2.6.14 маску тут **не застосовували** |
 | `sem_open` з `O_CREAT` | [іменований семафор](book:unix-linux/posix-semaphores) | `mode & ~umask` |

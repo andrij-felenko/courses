@@ -39,7 +39,7 @@ $ readelf -l /bin/ls | grep "Requesting program interpreter"
 
 Кожен з цих механізмів має своє призначення, переваги, недоліки та типові сценарії використання (use cases). Розглянемо їх детальніше.
 
-![Порядок пошуку бібліотек](search_order.svg)
+![Порядок пошуку бібліотек](/reference/unix-linux/linking/library-search-order/img/search-order.svg)
 
 ## 3. DT_RPATH: Старий, але потужний механізм
 

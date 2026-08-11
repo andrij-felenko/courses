@@ -34,7 +34,7 @@
 
 Замість того, щоб відкривати `/dev/ion` і вказувати складну маску для вибору типу памʼяті, програма простору користувача безпосередньо відкриває потрібний пристрій, наприклад `/dev/dma_heap/system`, і просить виділити буфер.
 
-![Архітектура dma-buf heaps](dma_buf_heaps_arch.svg)
+![Архітектура dma-buf heaps](/reference/unix-linux/io/dma-buf-heaps-framework/img/dma-buf-heaps-arch.svg)
 
 ### Ключові принципи dma-buf heaps
 

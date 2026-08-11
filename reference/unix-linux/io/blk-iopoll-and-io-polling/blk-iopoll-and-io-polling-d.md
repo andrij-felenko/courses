@@ -22,7 +22,7 @@
 3. Замість того, щоб заснути, потік виконання починає активно крутитися в циклі (spin loop), регулярно читаючи статус відповідної черги завершення — Completion Queue (CQ) у пам'яті.
 4. Як тільки пристрій записує запис про завершення (Completion Queue Entry, CQE) у CQ, процесор негайно бачить це і повертає результат застосунку.
 
-![fig-interrupt-vs-polling.svg](fig-interrupt-vs-polling.svg)
+![fig-interrupt-vs-polling.svg](/reference/unix-linux/io/blk-iopoll-and-io-polling/img/fig-interrupt-vs-polling.svg)
 
 ### Переваги IO Polling
 

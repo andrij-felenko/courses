@@ -42,7 +42,7 @@ def render_arch():
 
     frags.append(arrow(300, 340, 300, 370, color="#000"))
     
-    render("fig-i3c-linux-arch.svg", 600, 450, *frags)
+    render(os.path.join(IMG, 'fig-i3c-linux-arch.svg'), 600, 450, *frags)
 
 def render_daa():
     frags = []
@@ -80,7 +80,7 @@ def render_daa():
     frags.append(arrow(110, 250, 510, 250, color="#004085"))
     frags.append(text(150, 240, "Repeat ENTDAA cycle for remaining...", color="#004085", size=12))
 
-    render("fig-i3c-daa.svg", 700, 350, *frags)
+    render(os.path.join(IMG, 'fig-i3c-daa.svg'), 700, 350, *frags)
 
 if __name__ == "__main__":
     render_arch()

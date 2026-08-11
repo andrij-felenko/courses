@@ -239,7 +239,7 @@ def fig_edge_timing():
     p.append(text(360, base + 100, "T між сусідніми фронтами → миттєва швидкість = 60 / (N · T)",
                   size=12, color=INK))
 
-    render(os.path.join(IMG, 'edge_timing.svg'), W, H, *p)
+    render(os.path.join(IMG, 'edge-timing.svg'), W, H, *p)
 
 
 if __name__ == '__main__':
@@ -247,4 +247,4 @@ if __name__ == '__main__':
     fig_schematic()
     fig_wiring()
     fig_edge_timing()
-    print("OK: slot.svg, schematic.svg, wiring.svg, edge_timing.svg")
+    print("OK: slot.svg, schematic.svg, wiring.svg, edge-timing.svg")

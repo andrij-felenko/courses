@@ -27,7 +27,7 @@ def render():
     
     # Виклик svgkit.render (або нашої заглушки)
     try:
-        svgkit.render('exit_status_flow.svg', svg_content)
+        svgkit.render(os.path.join(IMG, 'exit-status-flow.svg'), svg_content)
     except Exception as e:
         with open('exit_status_flow.svg', 'w', encoding='utf-8') as f:
             f.write(svg_content)

@@ -71,4 +71,4 @@ Read of size 8 at addr ffff888100234000 by task my_process/1234
 ## Висновок
 KASAN є невід'ємною частиною сучасного циклу розробки ядра Linux (зокрема, використовується фазером syzkaller). Його ефективність у виявленні складних багів, таких як UAF, врятувала ядро від безлічі критичних вразливостей.
 
-![Shadow Memory Mapping](shadow-memory.svg)
+![Shadow Memory Mapping](/reference/unix-linux/observability/kasan-kernel-address-sanitizer/img/shadow-memory.svg)

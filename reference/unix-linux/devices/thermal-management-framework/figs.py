@@ -2,6 +2,10 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def make_thermal_arch():
     w, h = 800, 500
     frags = [
@@ -40,7 +44,7 @@ def make_thermal_arch():
         arrow(290, 320, 350, 255, sw=2),
         arrow(450, 255, 510, 320, sw=2)
     ]
-    render("thermal_arch.svg", w, h, *frags, title="Linux Thermal Framework Architecture")
+    render(os.path.join(IMG, 'thermal-arch.svg'), w, h, *frags, title="Linux Thermal Framework Architecture")
 
 if __name__ == '__main__':
     make_thermal_arch()

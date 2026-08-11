@@ -15,7 +15,7 @@
 - **L1 (Level 1)**: Гостьовий гіпервізор (Guest Hypervisor). Це віртуальна машина, що запущена поверх L0. Усередині L1 працює власне ядро з модулями KVM (або іншого гіпервізора). З точки зору L0, L1 є звичайною віртуальною машиною (гостем). З точки зору власних гостей (L2), L1 виступає в ролі повноцінного гіпервізора.
 - **L2 (Level 2)**: Вкладена віртуальна машина (Nested Guest). Це віртуальна машина, що запускається гіпервізором L1. L2 "вважає", що вона працює безпосередньо під управлінням L1, і не знає про існування L0.
 
-![Архітектура вкладеної віртуалізації](nested_arch.svg)
+![Архітектура вкладеної віртуалізації](/reference/unix-linux/devices/nested-virtualization-kvm/img/nested-arch.svg)
 
 ## Апаратні розширення: VT-x та AMD-V
 
@@ -40,7 +40,7 @@ VMCS (Virtual Machine Control Structure) — це структура даних 
 
 Щоб вирішити цю проблему, Intel запровадила технологію **VMCS Shadowing** (починаючи з процесорів Haswell).
 
-![VMCS Shadowing](vmcs_shadowing.svg)
+![VMCS Shadowing](/reference/unix-linux/devices/nested-virtualization-kvm/img/vmcs-shadowing.svg)
 
 VMCS Shadowing дозволяє L0 надати L1 структуру даних (Shadow VMCS), до якої L1 може звертатися напряму (за допомогою апаратно-прискорених `VMREAD`/`VMWRITE`), не викликаючи VM Exit у L0. 
 L0 синхронізує тіньовий VMCS12 зі справжнім VMCS02 лише тоді, коли це дійсно необхідно (наприклад, під час `VMLAUNCH`/`VMRESUME` з L1 до L2).
@@ -66,7 +66,7 @@ EPT (Intel) або NPT (AMD) — це механізми апаратної тр
 5. Для цього L0 симулює VM Exit від L2 до L1, підставляючи відповідні значення в поля VM Exit Reason і Qualification тіньового VMCS.
 6. L1 прокидається, обробляє порушення EPT12, оновлює свої таблиці, і викликає `VMRESUME`, щоб повернутися до L2. L0 перехоплює цей `VMRESUME`, синхронізує EPT02 на основі оновлених EPT12 і EPT01, і запускає L2.
 
-![Маршрутизація EPT Violations](ept_routing.svg)
+![Маршрутизація EPT Violations](/reference/unix-linux/devices/nested-virtualization-kvm/img/ept-routing.svg)
 
 ### vcpu_vmx_run та Вкладений Режим
 

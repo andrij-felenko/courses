@@ -5,6 +5,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def render_figs():
     # Architecture of perfbuf
     frags1 = []
@@ -19,7 +23,7 @@ def render_figs():
         frags1.append(rect(x + 10, 150, 60, 20, fill="#b8daff"))
         frags1.append(rect(x + 10, 180, 60, 20, fill="#b8daff"))
     
-    render("perfbuf_arch.svg", 600, 300, *frags1, title="Perf Event Array (per-CPU buffers)")
+    render(os.path.join(IMG, 'perfbuf-arch.svg'), 600, 300, *frags1, title="Perf Event Array (per-CPU buffers)")
 
     # Architecture of ringbuf
     frags2 = []
@@ -37,7 +41,7 @@ def render_figs():
         # Arrow pointing to the queue
         frags2.append(arrow(x + 30, 110, x + 30, 140, color="#333", sw=2))
         
-    render("ringbuf_arch.svg", 600, 300, *frags2, title="BPF Ring Buffer (Shared Global Buffer)")
+    render(os.path.join(IMG, 'ringbuf-arch.svg'), 600, 300, *frags2, title="BPF Ring Buffer (Shared Global Buffer)")
 
 if __name__ == "__main__":
     render_figs()

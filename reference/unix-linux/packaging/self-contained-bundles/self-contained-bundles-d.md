@@ -50,7 +50,7 @@
 
 ### 3.1 Архітектура AppImage
 
-![Архітектура AppImage](fig-appimage.svg)
+![Архітектура AppImage](/reference/unix-linux/packaging/self-contained-bundles/img/fig-appimage.svg)
 
 Файл з розширенням `.appimage` — це насправді самомонтувальний образ файлової системи.
 
@@ -87,7 +87,7 @@
 
 ### 4.1 Архітектура Flatpak
 
-![Архітектура Flatpak](fig-flatpak.svg)
+![Архітектура Flatpak](/reference/unix-linux/packaging/self-contained-bundles/img/fig-flatpak.svg)
 
 Технологічний стек Flatpak складніший, ніж у AppImage, і базується на кількох ключових технологіях:
 
@@ -125,7 +125,7 @@
 
 ### 5.1 Архітектура Snap
 
-![Архітектура Snap](fig-snap.svg)
+![Архітектура Snap](/reference/unix-linux/packaging/self-contained-bundles/img/fig-snap.svg)
 
 Пакунок Snap (`.snap` файл) є образом файлової системи SquashFS, який ніколи не розпаковується.
 

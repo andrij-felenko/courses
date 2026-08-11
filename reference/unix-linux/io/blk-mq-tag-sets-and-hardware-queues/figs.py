@@ -3,6 +3,10 @@ import os
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def blk_mq_arch():
     frags = []
     
@@ -54,7 +58,7 @@ def blk_mq_arch():
 def main():
     os.makedirs("figs", exist_ok=True)
     frags = blk_mq_arch()
-    render("figs/blk_mq_arch.svg", 800, 450, *frags, title="Архітектура blk-mq")
+    render(os.path.join(IMG, 'blk-mq-arch.svg'), 800, 450, *frags, title="Архітектура blk-mq")
 
 if __name__ == "__main__":
     main()

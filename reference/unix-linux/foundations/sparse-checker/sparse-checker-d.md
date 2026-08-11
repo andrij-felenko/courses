@@ -46,7 +46,8 @@
 
 Для I/O пам'яті використовуються функції сімейства `readb()`, `writel()`, `ioread32()` тощо. Вони гарантують правильний доступ до регістрів пристроїв, відключають кешування, якщо треба, і вставляють бар'єри пам'яті (memory barriers).
 
-**Небезпечний код (помилка Sparse):**
+:::tabs
+== Небезпечний код (помилка Sparse)
 ```c
 int read_sensor_data(void __iomem *hw_regs, void __user *user_buf) {
     // ПОМИЛКА: Пряме розіменування __iomem
@@ -59,8 +60,7 @@ int read_sensor_data(void __iomem *hw_regs, void __user *user_buf) {
     return 0;
 }
 ```
-
-**Безпечний код (Sparse задоволений):**
+== Безпечний код (Sparse задоволений)
 ```c
 int read_sensor_data(void __iomem *hw_regs, void __user *user_buf) {
     // БЕЗПЕЧНО: використання спеціальної функції доступу
@@ -73,6 +73,7 @@ int read_sensor_data(void __iomem *hw_regs, void __user *user_buf) {
     return 0;
 }
 ```
+:::
 
 ## Інші анотації Sparse
 

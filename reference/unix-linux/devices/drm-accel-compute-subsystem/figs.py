@@ -49,7 +49,7 @@ def make_fig():
     
     f.append(arrow(300, 280, 300, 330))
 
-    render("drm_accel_architecture.svg", 600, 400, *f, title="Архітектура підсистеми DRM Accel")
+    render(os.path.join(IMG, 'drm-accel-architecture.svg'), 600, 400, *f, title="Архітектура підсистеми DRM Accel")
 
 if __name__ == "__main__":
     make_fig()

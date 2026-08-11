@@ -4,6 +4,10 @@ import os
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def draw_arc_zil():
     frags = [
         # RAM
@@ -30,7 +34,7 @@ def draw_arc_zil():
         arrow(325, 200, 450, 175),
         arrow(325, 250, 450, 300)
     ]
-    render("arc-zil-arch.svg", 800, 500, *frags, title="Архітектура ZFS ARC, L2ARC та ZIL")
+    render(os.path.join(IMG, 'arc-zil-arch.svg'), 800, 500, *frags, title="Архітектура ZFS ARC, L2ARC та ZIL")
 
 def draw_merkle():
     frags = [
@@ -61,7 +65,7 @@ def draw_merkle():
         arrow(400, 200, 365, 240),
         arrow(400, 200, 465, 240)
     ]
-    render("merkle-tree.svg", 600, 400, *frags, title="ZFS Merkle Tree")
+    render(os.path.join(IMG, 'merkle-tree.svg'), 600, 400, *frags, title="ZFS Merkle Tree")
 
 if __name__ == "__main__":
     draw_arc_zil()

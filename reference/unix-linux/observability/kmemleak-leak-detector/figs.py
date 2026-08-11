@@ -4,6 +4,10 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "scripts")))
 try:
     from svgkit import *
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
 except ImportError:
     pass
 
@@ -22,7 +26,7 @@ def build_svgs():
     t1 = text(450, 300, "Втрачено вказівник з root", color=POS, size=12, bold=True)
     t2 = text(700, 330, "Втрачено вказівник з C", color=POS, size=12, bold=True)
 
-    render("kmemleak_scan.svg", 850, 400,
+    render(os.path.join(IMG, 'kmemleak-scan.svg'), 850, 400,
         b1, b2, b3, b4, b5, a1, a2, a3, t1, t2,
         title="Алгоритм Mark-and-Sweep у Kmemleak"
     )

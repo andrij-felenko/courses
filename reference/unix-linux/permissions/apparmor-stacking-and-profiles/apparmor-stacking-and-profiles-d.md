@@ -66,7 +66,7 @@ drwxr-xr-x 4 root root 0 Oct 25 10:15 lxd-db-server
 
 Ця багатошарова безпека (defense in depth) є ключовою для безпечного виконання невідомого або потенційно вразливого коду.
 
-![AppArmor Stacking Diagram](apparmor-stacking.svg)
+![AppArmor Stacking Diagram](/reference/unix-linux/permissions/apparmor-stacking-and-profiles/img/apparmor-stacking.svg)
 *Рис. 1. Ілюстрація стекування профілів та просторів імен в AppArmor. Процеси в контейнері обмежені як профілем контейнерного рушія на хості, так і власними профілями у вкладеному просторі імен.*
 
 ## 3. Інструменти та API: `aa-exec` та `change_profile`

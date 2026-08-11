@@ -59,7 +59,7 @@
 
 Реальна обробка переривання (зчитування даних, робота з драйвером) відбувається вже у контексті цього потоку ядра.
 
-![Threaded IRQs](fig_irq.svg)
+![Threaded IRQs](/reference/unix-linux/processes/preempt-rt-architecture/img/fig-irq.svg)
 
 *Рис. 1. Порівняння традиційної обробки переривань та Threaded IRQs у PREEMPT_RT.*
 
@@ -92,7 +92,7 @@
 
 Коли `Task H` намагається захопити `rt_mutex`, яким володіє `Task L`, ядро виявляє, що потік із вищим пріоритетом блокується потоком із нижчим. Ядро тимчасово "підіймає" (успадковує) пріоритет `Task L` до рівня пріоритету `Task H`.
 
-![Priority Inheritance](fig_pi.svg)
+![Priority Inheritance](/reference/unix-linux/processes/preempt-rt-architecture/img/fig-pi.svg)
 
 *Рис. 2. Механізм успадкування пріоритетів (Priority Inheritance).*
 

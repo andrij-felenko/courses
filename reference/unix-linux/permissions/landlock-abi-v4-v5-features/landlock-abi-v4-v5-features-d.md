@@ -220,6 +220,6 @@ int ioctl(int fd, unsigned long request, ...);
 ### Підсумок
 Landlock змінює правила гри. Він демократизує безпеку в Linux. З кожною новою версією ABI (v1-v3 для ФС, v4 для мережі, v5 для ioctl) площа атаки, яку можна відсікти, стає все більшою. Застосування Landlock стає "best practice" для розробки будь-яких сервісів або програм, що працюють із недовіреними даними.
 
-![Еволюція Landlock ABI](landlock_evolution.svg)
+![Еволюція Landlock ABI](/reference/unix-linux/permissions/landlock-abi-v4-v5-features/img/landlock-evolution.svg)
 
 Для тих, хто використовує Landlock, необхідно завжди перевіряти версію ABI і застосовувати всі доступні обмеження, щоб забезпечити максимальну безпеку на актуальних ядрах Linux.

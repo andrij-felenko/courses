@@ -291,7 +291,7 @@ def fig_scan_timing():
                        size=11, fill=FILL, stroke=INK)
     f.append(b3)
 
-    render(os.path.join(IMG, "scan_timing.svg"), W, H, *f)
+    render(os.path.join(IMG, "scan-timing.svg"), W, H, *f)
 
 
 if __name__ == "__main__":

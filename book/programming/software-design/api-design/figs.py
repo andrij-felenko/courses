@@ -66,7 +66,7 @@ def fig_one_way():
 
     p.append(text(W / 2, 320, "Тому «коли вагаєшся — не додавай»: невключене додаси потім, зайве вже не прибереш.",
                   size=12, color=INK, bold=True))
-    render(os.path.join(OUT, "one_way.svg"), W, H, *p)
+    render(os.path.join(OUT, "one-way.svg"), W, H, *p)
 
 
 # ── 3. Той самий шов на трьох масштабах — функція, модуль, сервіс ──
@@ -153,7 +153,7 @@ def fig_cost_lines():
 
     p.append(text(W / 2, 438, "Обидві дії стартують з однієї точки, та адитивна лишається на підлозі, а ламка тим вища, чим більше N.",
                   size=11.5, color=INK))
-    render(os.path.join(OUT, "cost_lines.svg"), W, H, *p)
+    render(os.path.join(OUT, "cost-lines.svg"), W, H, *p)
 
 
 # ── 5. Незворотність = чи N у твоєму контролі: двобічні двері vs однобічні ──

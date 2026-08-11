@@ -29,7 +29,7 @@ eBPF (Extended Berkeley Packet Filter) пропонує елегантне і н
 
 Для оптимізації цього процесу в ядрі Linux (починаючи з версії 4.14) було представлено нові механізми BPF, які дозволяють "коротке замикання" (short-circuiting) TCP/IP стеку.
 
-![Socket Redirection Architecture](./fig-sockmap-redir.svg)
+![Socket Redirection Architecture](/reference/unix-linux/networking/bpf-sockmap-and-sk-skb/img/fig-sockmap-redir.svg)
 *Рис. 1. Архітектура перенаправлення даних сокетів без копіювання за допомогою BPF SOCKMAP*
 
 ### 2.1 BPF_MAP_TYPE_SOCKMAP та BPF_MAP_TYPE_SOCKHASH

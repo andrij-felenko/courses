@@ -4,7 +4,7 @@
 - [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
 </preknowlist>
 
-![Порівняння архітектур](arch.svg)
+![Порівняння архітектур](/reference/unix-linux/packaging/containers-vs-packages/img/arch.svg)
 
 ## Еволюція розгортання програмного забезпечення
 

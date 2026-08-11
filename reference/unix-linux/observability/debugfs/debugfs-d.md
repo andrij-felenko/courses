@@ -20,7 +20,7 @@
 2. **Простота API.** Створення файлу в sysfs або procfs вимагає значних зусиль (особливо в sysfs, де потрібно правильно вбудувати об'єкт у kobject ієрархію). У debugfs виклик зводиться до одного-двох рядків C-коду.
 3. **Лише для root.** За замовчуванням доступ до `/sys/kernel/debug` має лише користувач `root`. Це гарантує, що небезпечна або надмірно деталізована інформація не потрапить до непривілейованих процесів.
 
-![Порівняння procfs, sysfs та debugfs](fig-debugfs-comparison.svg)
+![Порівняння procfs, sysfs та debugfs](/reference/unix-linux/observability/debugfs/img/fig-debugfs-comparison.svg)
 
 *Рис. 1. debugfs порівняно з procfs та sysfs.*
 

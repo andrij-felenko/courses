@@ -1,9 +1,9 @@
 # Тест Міллера-Рабіна
 
 <preknowlist>
-- [Мала теорема Ферма](book:math/number-theory/fermat-little-theorem) — основа ймовірнісних тестів простоти.
-- [Модулярна арифметика](book:math/number-theory/modular-arithmetic) — обчислення за модулем (mod n), остачі від ділення.
-- [Швидке піднесення до степеня](book:algorithms/math/modular-exponentiation) — як комп'ютер миттєво обчислює aᵈ mod n для величезних чисел.
+- [Мала теорема Ферма](book:math/fermat-little-theorem) — основа ймовірнісних тестів простоти.
+- [Модулярна арифметика](book:math/modular-arithmetic) — обчислення за модулем (mod n), остачі від ділення.
+- [Швидке піднесення до степеня](book:math/modular-exponentiation) — як комп'ютер миттєво обчислює aᵈ mod n для величезних чисел.
 </preknowlist>
 
 > 🔧 **Навіщо це.**

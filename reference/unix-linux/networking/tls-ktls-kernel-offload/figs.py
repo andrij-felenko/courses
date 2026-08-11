@@ -2,6 +2,10 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def render_fig_arch():
     w, h = 700, 450
     out = ""
@@ -29,7 +33,7 @@ def render_fig_arch():
     out += arrow(500, 160, 500, 200)
     out += arrow(500, 280, 500, 320)
     
-    render("fig_tls_arch.svg", w, h, out, title="Порівняння Userspace TLS та Kernel TLS")
+    render(os.path.join(IMG, 'fig-tls-arch.svg'), w, h, out, title="Порівняння Userspace TLS та Kernel TLS")
 
 def render_fig_hw():
     w, h = 600, 350
@@ -39,7 +43,7 @@ def render_fig_hw():
     out += textbox(300, 270, "SmartNIC\n(Апаратне шифрування Inline)", min_w=250, pad=10, fill="#fdecea", stroke="#c0392b")[0]
     out += arrow(300, 90, 300, 120)
     out += arrow(300, 190, 300, 220)
-    render("fig_tls_hw.svg", w, h, out, title="Апаратне прискорення TLS_HW")
+    render(os.path.join(IMG, 'fig-tls-hw.svg'), w, h, out, title="Апаратне прискорення TLS_HW")
 
 if __name__ == '__main__':
     render_fig_arch()

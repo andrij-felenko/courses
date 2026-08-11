@@ -12,7 +12,7 @@
 
 У цьому розділі ми детально розглянемо архітектуру драйверів Macvlan та Macvtap, їх режими роботи (Bridge, VEPA, Private, Passthrough), випадки використання, а також відмінності між ними та їхні переваги над традиційними мостовими з'єднаннями.
 
-![Традиційний Linux Bridge vs Macvlan](macvlan_vs_bridge.svg)
+![Традиційний Linux Bridge vs Macvlan](/reference/unix-linux/networking/macvlan-macvtap-drivers/img/macvlan-vs-bridge.svg)
 *Рис. 1. Порівняння традиційної мостової архітектури та архітектури Macvlan.*
 
 ---
@@ -41,7 +41,7 @@
 
 Гнучкість Macvlan зумовлена наявністю чотирьох різних режимів роботи. Кожен режим визначає, як віртуальні інтерфейси (endpoints), створені поверх одного батьківського інтерфейсу, взаємодіють між собою та із зовнішнім світом.
 
-![Режими Macvlan](macvlan_modes.svg)
+![Режими Macvlan](/reference/unix-linux/networking/macvlan-macvtap-drivers/img/macvlan-modes.svg)
 *Рис. 2. Режими роботи Macvlan: Bridge, VEPA, Private, Passthrough.*
 
 ### 1. Режим Bridge (macvlan mode bridge)
@@ -134,7 +134,7 @@ sudo ip netns exec netns1 ip route add default via 192.168.1.1
 
 Тут на допомогу приходить **Macvtap**.
 
-![Macvtap Архітектура](macvtap_arch.svg)
+![Macvtap Архітектура](/reference/unix-linux/networking/macvlan-macvtap-drivers/img/macvtap-arch.svg)
 *Рис. 3. Взаємодія Macvtap та QEMU/KVM через символьний пристрій.*
 
 ### Що таке Macvtap?

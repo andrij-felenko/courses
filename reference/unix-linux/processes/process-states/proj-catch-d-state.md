@@ -197,6 +197,7 @@ int main(void)
 
 Спостерігач робить дві речі: раз на 50 мілісекунд читає літеру стану й веде смугу — рядок, у якому один символ дорівнює одній вибірці. На зміну стану він друкує позначку з часом і `wchan`. Плюс одна активна дія: коли процес просидів у `T` довше двох секунд, спостерігач сам шле йому `SIGCONT` — інакше дослід зупиниться назавжди, бо `T` не минає сам.
 
+:::tabs
 ```sh
 #!/bin/sh
 # watch-state.sh <pid> [період_мс] — смуга станів одного процесу.
@@ -234,6 +235,68 @@ done
 
 printf '\nсмуга: %s\n' "$band"
 ```
+```python
+#!/usr/bin/env python3
+"""watch_state.py <pid> [період_мс] — смуга станів і час у кожному стані."""
+import os, signal, sys, time
+
+
+def state_of(pid):
+    with open(f"/proc/{pid}/stat", "rb") as f:
+        raw = f.read()
+    # ім'я програми — в дужках і може містити ')': ріжемо по ОСТАННІЙ
+    return raw[raw.rindex(b")") + 2:].split(b" ", 1)[0].decode()
+
+
+def wchan_of(pid):
+    try:
+        with open(f"/proc/{pid}/wchan") as f:
+            return f.read().strip() or "0"
+    except OSError:
+        return "0"
+
+
+def main():
+    pid = int(sys.argv[1])
+    nap = (float(sys.argv[2]) if len(sys.argv) > 2 else 50) / 1000
+    band, dwell = [], {}
+    prev = prev_t = None
+    cont_sent = False
+    t0 = time.monotonic()
+
+    while True:
+        try:
+            st = state_of(pid)
+        except (OSError, ValueError):
+            break
+        t = time.monotonic() - t0
+
+        if st != prev:
+            if prev is not None:
+                dwell[prev] = dwell.get(prev, 0.0) + (t - prev_t)
+            print(f"{t:7.3f}  {st}   wchan={wchan_of(pid)}")
+            prev, prev_t = st, t
+        band.append(st)
+
+        if st == "T" and not cont_sent and t - prev_t > 2.0:
+            os.kill(pid, signal.SIGCONT)
+            cont_sent = True
+            print(f"{t:7.3f}  →   надіслано SIGCONT")
+
+        time.sleep(nap)
+
+    total = time.monotonic() - t0
+    if prev is not None:
+        dwell[prev] = dwell.get(prev, 0.0) + (total - prev_t)
+
+    print("\nсмуга:", "".join(band))
+    for st, sec in sorted(dwell.items(), key=lambda kv: -kv[1]):
+        print(f"  {st}: {sec:6.2f} c   ({100 * sec / total:4.1f} %)")
+
+
+main()
+```
+:::
 
 Версія на оболонці не потребує нічого, крім `awk`, `date` і `sleep`, який розуміє дробові секунди (coreutils і busybox розуміють). Версія на Python витримує рівніший період і наприкінці підсумовує, скільки часу процес простояв у кожному стані, — саме те число, заради якого такі спостерігачі й пишуть.
 
@@ -330,7 +393,7 @@ rm -f "$IMG"
 
 ## Пастки
 
-**Опитуванням `/proc` короткі стани не ловляться.** Це не хиба спостерігача, а межа методу: епізод коротший за період вибірки видно лише випадково. Коли треба порахувати всі епізоди `D`, а не подивитися на них, потрібні трасувальні точки ядра: `sched_switch` спрацьовує на кожному знятті задачі з процесора й серед іншого друкує поле `prev_state` — ту саму літеру ([ftrace і трасувальні точки](book:unix-linux/ftrace-tracepoints)).
+**Опитуванням `/proc` короткі стани не ловляться.** Це не хиба спостерігача, а межа методу: епізод коротший за період вибірки видно лише випадково. Коли треба порахувати всі епізоди `D`, а не подивитися на них, потрібні трасувальні точки ядра: `sched_switch` спрацьовує на кожному знятті задачі з процесора й серед іншого друкує поле `prev_state` — ту саму літеру ([ftrace і трасувальні точки](book:unix-linux/ftrace-kernel-tracing)).
 
 ```sh
 cd /sys/kernel/tracing
@@ -338,7 +401,7 @@ echo 1 > events/sched/sched_switch/enable
 grep --line-buffered 'prev_state=D' trace_pipe
 ```
 
-Готовий інструмент для цього ж — `offcputime` з набору bcc: він збирає стеки ядра, у яких задача сходила з процесора, і вміє фільтрувати за станом (`--state 2` — це рівно `TASK_UNINTERRUPTIBLE`); працює він через [eBPF](book:unix-linux/ebpf).
+Готовий інструмент для цього ж — `offcputime` з набору bcc: він збирає стеки ядра, у яких задача сходила з процесора, і вміє фільтрувати за станом (`--state 2` — це рівно `TASK_UNINTERRUPTIBLE`); працює він через [eBPF](book:unix-linux/ebpf-extended-berkeley-packet-filter).
 
 **`ps` за замовчуванням зводить потоки в один рядок.** Стан лежить у задачі, а не в процесі, тож у багатопотокової програми станів стільки, скільки потоків ([потоки як задачі](book:unix-linux/threads-as-tasks)). Одного потоку, намертво застряглого в `D`, у звичайному `ps` не видно взагалі — процес показується як `S`. Дивитися треба `ps -L -p <pid>` або перелік у `/proc/<pid>/task/`.
 

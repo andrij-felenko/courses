@@ -21,7 +21,7 @@
 
 Сигнал утилізації вимірюється в діапазоні від 0 до 1024 (де 1024 відповідає 100% утилізації найпродуктивнішого ядра в системі).
 
-![uclamp concept](uclamp_concept.svg)
+![uclamp concept](/reference/unix-linux/processes/uclamp-utilization-clamping/img/uclamp-concept.svg)
 *Рис. 1. Концепція Utilization Clamping: обмеження сирого сигналу PELT за допомогою uclamp.min та uclamp.max.*
 
 ## Системний виклик `sched_setattr(2)`

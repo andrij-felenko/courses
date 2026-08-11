@@ -4,6 +4,10 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
 def draw_ackermann_tree():
     w, h = 800, 600
     
@@ -30,7 +34,7 @@ def draw_ackermann_tree():
     
     node(550, 300, "A(1,A(1,1))")
     
-    render("fig-ackermann-tree.svg", w, h, *frags, title="Розгортання функції Аккермана для A(2, 1)")
+    render(os.path.join(IMG, "fig-ackermann-tree.svg"), w, h, *frags, title="Розгортання функції Аккермана для A(2, 1)")
 
 if __name__ == "__main__":
     draw_ackermann_tree()

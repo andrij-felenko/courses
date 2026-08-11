@@ -25,7 +25,7 @@
 
 Механізм io_uring passthrough створений для того, щоб надати користувацькому простору (userspace) можливість спілкуватися з пристроєм "його рідною мовою", але використовуючи ефективність асинхронного кільця `io_uring`. 
 
-![io_uring passthrough](fig_uring_passthrough.svg)
+![io_uring passthrough](/reference/unix-linux/io/io-uring-cmd-passthrough/img/fig-uring-passthrough.svg)
 
 Для цього в io_uring з'явився новий опкод — `IORING_OP_URING_CMD`. Його головна відмінність від звичайних `IORING_OP_READ` чи `IORING_OP_WRITE` полягає в тому, що io_uring не намагається інтерпретувати суть запиту. Ядро просто бере корисне навантаження команди (payload) і передає його відповідному файловому дескриптору (в нашому випадку — символьному пристрою NVMe, наприклад `/dev/ng0n1`) через спеціальний callback `uring_cmd`.
 

@@ -180,7 +180,7 @@ def fig_shoot_through():
                   "у станах «0» і «1» один ключ завжди закритий — струм майже нуль; енергія йде лише під час перемикання",
                   size=11, color=MUTED))
 
-    render(os.path.join(OUT, "shoot_through.svg"), W, H, *e)
+    render(os.path.join(OUT, "shoot-through.svg"), W, H, *e)
 
 
 # ── 4. Точка перемикання V_M на осі входу для різних r ──────────────────────
@@ -244,7 +244,7 @@ def fig_vm_vs_r():
                   "V_M — зважене середнє двох порогових меж; вага √r монотонно рухає його між ними",
                   size=11, color=MUTED))
 
-    render(os.path.join(OUT, "vm_vs_r.svg"), W, H, *e)
+    render(os.path.join(OUT, "vm-vs-r.svg"), W, H, *e)
 
 
 if __name__ == "__main__":

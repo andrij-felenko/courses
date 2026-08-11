@@ -195,7 +195,7 @@ def fig_yolo_lineage():
     f.append(text(W / 2, H - 16,
                   "до 2020-го — один стовбур; далі назву ведуть різні руки → «YOLO» це РОДИНА, а не модель",
                   size=12, color=INK))
-    return render(os.path.join(IMG, "yolo_lineage.svg"), W, H, *f)
+    return render(os.path.join(IMG, "yolo-lineage.svg"), W, H, *f)
 
 
 if __name__ == "__main__":

@@ -1,9 +1,9 @@
 # eBPF у безпеці та трасуванні
 
 <preknowlist>
-- [Що таке eBPF (Extended Berkeley Packet Filter)](book:observability/ebpf-extended-berkeley-packet-filter)
-- [LSM (Linux Security Modules) фреймворк](book:permissions/lsm-framework)
-- [Процеси, credentials, UIDs](book:permissions/process-credentials-uids-gids)
+- [Що таке eBPF (Extended Berkeley Packet Filter)](book:unix-linux/ebpf-extended-berkeley-packet-filter)
+- [LSM (Linux Security Modules) фреймворк](book:unix-linux/lsm-framework)
+- [Процеси, credentials, UIDs](book:unix-linux/process-credentials-uids-gids)
 </preknowlist>
 
 Традиційні системи безпеки Linux, такі як SELinux чи AppArmor, покладаються на статичні правила. З розвитком хмарних середовищ та мікросервісів з'явилася потреба в динамічному, програмованому контролі доступу та моніторингу. **eBPF (Extended Berkeley Packet Filter)** дозволяє безпечно виконувати користувацький код всередині ядра Linux, не змінюючи його вихідний код і не завантажуючи модулі ядра (LKM).

@@ -69,7 +69,7 @@
 
 Для уніфікації роботи з різноманітними апаратними генераторами випадкових чисел, ядро Linux містить підсистему (фреймворк) **hwrng** (Hardware RNG). Її завдання — надати стандартизований інтерфейс для драйверів пристроїв і експортувати сирі випадкові дані до простору користувача та пулу ядра.
 
-![Архітектура HWRNG у Linux](hwrng_architecture.svg)
+![Архітектура HWRNG у Linux](/reference/unix-linux/devices/hwrng-hardware-random-number-generator/img/hwrng-architecture.svg)
 
 ### Фізичні принципи HWRNG
 

@@ -45,7 +45,7 @@ Network Block Device (**NBD**) став першим кроком до userspace
 
 Ця архітектура дозволяє розділити обов'язки: ядро приймає стандартні блокові запити від системи (наприклад, від файлової системи EXT4 або XFS) і передає їх у ublksrv для виконання.
 
-![ublk_arch](figures/ublk_arch.svg)
+![ublk_arch](/reference/unix-linux/io/ublk-userspace-block-driver/img/ublk-arch.svg)
 
 ### Модуль ядра: ublk_drv
 
@@ -107,7 +107,7 @@ ublk використовує два підходи до роботи з дан�
 1.  **Копіювання (Buffered)**: Це базовий режим, схожий на BUSE. Демон має заздалегідь виділені буфери. Коли ядро має передати дані демону (запис на диск), демон викликає команду `UBLK_U_IO_NEED_GET_DATA`, і ядро копіює дані з буферів `bio_vec` у буфер демона. Для читання демон повертає дані з COMMIT-командою, і ядро їх копіює.
 2.  **Zero-Copy (Bvec iteration / Memory Mapping)**: Це просунутий режим. ublk_drv дозволяє демону безпосередньо відображати I/O-буфери в його адресний простір.
 
-![zero_copy](figures/zero_copy.svg)
+![zero_copy](/reference/unix-linux/io/ublk-userspace-block-driver/img/zero-copy.svg)
 
 Для підтримки Zero-Copy, коли демон отримує подію через io_uring, він не просить ядро копіювати дані. Замість цього використовується інтеграція `io_uring` з механізмом `send_zc` (zero-copy send) або прямого доступу. Демон `ublksrv` створює буфери і реєструє їх через `io_uring` (реєстрація буферів - IORING_REGISTER_BUFFERS). `ublk_drv` може "позичати" ці буфери для виконання вводу-виводу. 
 

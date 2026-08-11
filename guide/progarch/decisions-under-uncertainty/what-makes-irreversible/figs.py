@@ -291,7 +291,7 @@ def fig_decay_steps():
     parts.append(text(190, 258, "двобічні — дешево", size=12, color="#15703b"))
     parts.append(text(690, 258, "однобічні — за сходинками", size=12, color=POS))
 
-    render(os.path.join(IMG, "decay_steps.svg"), W, H, *parts,
+    render(os.path.join(IMG, "decay-steps.svg"), W, H, *parts,
            title="Зворотність спадає не рівно, а сходинками")
 
 
@@ -397,7 +397,7 @@ def fig_key_overlap():
     parts.append(mtext(xs[4] + cw / 2, byk + 6, ["тут зникає", "старий ключ"],
                        size=11, color=POS, bold=True))
 
-    render(os.path.join(IMG, "key_overlap.svg"), W, H, *parts,
+    render(os.path.join(IMG, "key-overlap.svg"), W, H, *parts,
            title="Старий і новий ключ живуть поряд, поки новий не довів себе")
 
 
@@ -445,7 +445,7 @@ def fig_two_tier():
                       "Гарячий ключ міняють часто й дешево; корінь тримають офлайн саме щоб він завжди міг підписати порятунок.",
                       size=12, color=MUTED))
 
-    render(os.path.join(IMG, "two_tier.svg"), W, H, *parts,
+    render(os.path.join(IMG, "two-tier.svg"), W, H, *parts,
            title="Два яруси довіри: рідкісний корінь наглядає за частим операційним")
 
 
@@ -501,7 +501,7 @@ def fig_hyrum_saturation():
         parts.append(line(bx + 14, ry, bx + 42, ry, color=col, sw=3))
         parts.append(text(bx + 50, ry + 4, lab, size=11, color=INK, anchor="start"))
 
-    render(os.path.join(IMG, "hyrum_saturation.svg"), W, H, *parts,
+    render(os.path.join(IMG, "hyrum-saturation.svg"), W, H, *parts,
            title="Насичення: будь-яка помітна поведінка доростає до контракту")
 
 
@@ -560,7 +560,7 @@ def fig_hyrum_lambda():
                       size=12, color=INK, stroke=FIELD, fill="#eafaf0", pad=9)
     parts.append(b)
 
-    render(os.path.join(IMG, "hyrum_lambda.svg"), W, H, *parts,
+    render(os.path.join(IMG, "hyrum-lambda.svg"), W, H, *parts,
            title="Тиск контракту λ=Np і єдиний важіль проти нього — ентропія")
 
 

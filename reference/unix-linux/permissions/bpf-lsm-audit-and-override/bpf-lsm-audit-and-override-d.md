@@ -23,7 +23,7 @@ Linux Security Modules (LSM) традиційно використовували
 
 ## Архітектура BPF LSM
 
-![Архітектура BPF LSM](figs/bpf-lsm-arch.svg)
+![Архітектура BPF LSM](/reference/unix-linux/permissions/bpf-lsm-audit-and-override/img/bpf-lsm-arch.svg)
 
 Коли процес робить системний виклик, ядро спочатку виконує базові перевірки прав доступу (DAC — Discretionary Access Control). Якщо вони проходять успішно, ядро викликає хуки LSM. У системі з увімкненим BPF LSM, програми BPF можуть бути приєднані до цих хуків.
 

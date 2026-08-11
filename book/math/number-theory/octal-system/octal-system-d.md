@@ -1,5 +1,5 @@
 <preknowlist>
-- [Двійкова система](book:math/binary)
+- [Двійкова система](book:math/why-binary)
 - [Позиційні системи числення](book:math/positional-systems)
 </preknowlist>
 

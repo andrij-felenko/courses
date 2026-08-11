@@ -167,7 +167,7 @@ echo 0 > /sys/devices/system/cpu/cpu4/online
 cat /sys/devices/system/cpu/cpu4/hotplug/fail      # -1: спрацювало й скинулося
 ```
 
-Що саме виконувалося й з якими кодами повернення, видно через точки трасування `cpuhp` — `cpuhp_enter`, `cpuhp_exit`, `cpuhp_multi_enter` ([ftrace і точки трасування](book:unix-linux/ftrace-tracepoints) — вбудовані в ядро системи місця, у яких можна ввімкнути запис подій без перезбирання).
+Що саме виконувалося й з якими кодами повернення, видно через точки трасування `cpuhp` — `cpuhp_enter`, `cpuhp_exit`, `cpuhp_multi_enter` ([ftrace і точки трасування](book:unix-linux/ftrace-kernel-tracing) — вбудовані в ядро системи місця, у яких можна ввімкнути запис подій без перезбирання).
 
 ## Скільки ядер процесора: виклики простору користувача
 

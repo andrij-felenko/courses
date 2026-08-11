@@ -47,7 +47,7 @@ def render():
     <text x="450" y="255" font-family="sans-serif" font-size="12" fill="#6c757d">/usr/bin/..., /etc/..., /var/...</text>
     """
     
-    svgkit.render('deb_vs_rpm.svg', 820, 310, deb_struct + rpm_struct)
+    svgkit.render(os.path.join(IMG, 'deb-vs-rpm.svg'), 820, 310, deb_struct + rpm_struct)
 
 if __name__ == '__main__':
     render()
