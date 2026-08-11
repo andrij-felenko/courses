@@ -1,0 +1,66 @@
+import sys
+import os
+import math
+
+# Додаємо шлях до scripts для імпорту svgkit
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../scripts')))
+try:
+    import svgkit
+except ImportError:
+    # Fallback mock for svgkit if it doesn't exist
+    class _MockSvgKit:
+        class Figure:
+            def __init__(self, w, h): self.w, self.h, self.elements = w, h, []
+            def add(self, *args): pass
+            def save(self, *args): pass
+            def add_rect(self, *args, **kwargs): pass
+            def add_text(self, *args, **kwargs): pass
+            def add_line(self, *args, **kwargs): pass
+    svgkit = _MockSvgKit()
+
+def generate():
+    os.makedirs('img', exist_ok=True)
+    with open('img/fig-discrete-log.svg', 'w', encoding='utf-8') as f:
+        f.write('''<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text-title { font-family: sans-serif; font-size: 20px; font-weight: bold; fill: #333; }
+      .text-norm { font-family: sans-serif; font-size: 16px; fill: #333; }
+      .box { fill: #f8f9fa; stroke: #ced4da; stroke-width: 2; rx: 8; ry: 8; }
+      .box-blue { fill: #e7f5ff; stroke: #74c0fc; stroke-width: 2; rx: 8; ry: 8; }
+      .arrow { stroke: #adb5bd; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#adb5bd" />
+    </marker>
+  </defs>
+
+  <text x="400" y="30" class="text-title" text-anchor="middle">Одностороння функція дискретного логарифма</text>
+  
+  <!-- Easy direction -->
+  <rect x="150" y="80" width="120" height="60" class="box-blue" />
+  <text x="210" y="115" class="text-norm" text-anchor="middle">x (секрет)</text>
+  
+  <line x1="270" y1="110" x2="390" y2="110" class="arrow" />
+  <text x="330" y="100" class="text-norm" text-anchor="middle">Піднесення до степеня</text>
+  <text x="330" y="130" class="text-norm" text-anchor="middle" font-family="monospace">g^x mod p</text>
+  <text x="330" y="150" class="text-norm" text-anchor="middle" font-size="12" fill="#2b8a3e">(Легко: O(log x))</text>
+
+  <rect x="400" y="80" width="120" height="60" class="box" />
+  <text x="460" y="115" class="text-norm" text-anchor="middle">y (публічно)</text>
+
+  <!-- Hard direction -->
+  <path d="M 460 150 Q 330 250 210 150" fill="none" stroke="#fa5252" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5" />
+  <text x="330" y="220" class="text-norm" text-anchor="middle" fill="#fa5252">Дискретний логарифм</text>
+  <text x="330" y="240" class="text-norm" text-anchor="middle" font-family="monospace">x = log_g(y) mod p</text>
+  <text x="330" y="260" class="text-norm" text-anchor="middle" font-size="12" fill="#fa5252">(Складно: O(sqrt(p)))</text>
+
+  <!-- Baby-step Giant-step representation -->
+  <rect x="50" y="280" width="700" height="100" class="box" />
+  <text x="400" y="310" class="text-title" text-anchor="middle">Baby-step Giant-step (Алгоритм Шенкса)</text>
+  <text x="400" y="340" class="text-norm" text-anchor="middle">1. Baby steps: обчислити g^j для 0 &lt;= j &lt; m і зберегти в хеш-таблицю.</text>
+  <text x="400" y="365" class="text-norm" text-anchor="middle">2. Giant steps: обчислити y * (g^-m)^i і шукати збіг у таблиці.</text>
+</svg>''')
+
+if __name__ == '__main__':
+    generate()

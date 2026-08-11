@@ -167,8 +167,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lowenheim-skolem.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-skolem-paradox.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-model-evaluator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "intuitionistic-logic",
@@ -177,8 +197,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-brouwer-intuitionism.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-kripke-frames.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kripke-evaluator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "type-theory-lambda",
@@ -187,8 +227,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-church-stlc.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-curry-howard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-type-checker.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "boolean-algebra",
@@ -1170,8 +1230,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor-cohen.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cohen-forcing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-forcing-simulator.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "equivalence-relation",
@@ -1180,8 +1260,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-equivalence-concept.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quotient-sets.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-equivalence-partitioner.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "rice-theorem",
@@ -1190,22 +1290,245 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-henry-rice.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-rice-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rice-analyzer.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "ackermann-function",
           "title": "Функція Аккермана",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wilhelm-ackermann.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-hyperoperators.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ackermann-memoizer.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
-          "slug": "halting-problem",
-          "title": "halting problem",
+          "slug": "skolem-paradox",
+          "title": "Парадокс Сколема",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-skolem-1922.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-skolemization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-skolem-relativizer.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "kripke-semantics",
+          "title": "Семантика та фрейми Кріпке",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-saul-kripke.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-modal-correspondence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kripke-model-checker.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "curry-howard-isomorphism",
+          "title": "Ізоморфізм Каррі — Говарда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-curry-howard.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dependent-types.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-proof-assistant-mini.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
+        },
+        {
+          "slug": "cohen-forcing",
+          "title": "Метод форсингу Коена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-paul-cohen.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-generic-filters.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-forcing-conditions.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "quotient-sets",
+          "title": "Фактор-множини",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dedekind-quotient.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-canonical-projection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quotient-builder.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "hyperoperators",
+          "title": "Гіпероператори та тетрація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-goodstein-knuth.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-tetration-properties.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hyperoperator-evaluator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "primes",
+          "title": "primes",
           "status": "empty",
           "levels": [
             "detailed"
@@ -1215,8 +1538,8 @@ window.__BOOKS__.push(
           }
         },
         {
-          "slug": "naive-set-theory",
-          "title": "naive set theory",
+          "slug": "logarithm",
+          "title": "logarithm",
           "status": "empty",
           "levels": [
             "detailed"
@@ -1226,8 +1549,8 @@ window.__BOOKS__.push(
           }
         },
         {
-          "slug": "logic-foundations",
-          "title": "logic foundations",
+          "slug": "series",
+          "title": "series",
           "status": "empty",
           "levels": [
             "detailed"
@@ -1237,8 +1560,8 @@ window.__BOOKS__.push(
           }
         },
         {
-          "slug": "set-theory-basics",
-          "title": "set theory basics",
+          "slug": "number-theory",
+          "title": "number theory",
           "status": "empty",
           "levels": [
             "detailed"
@@ -1248,41 +1571,8 @@ window.__BOOKS__.push(
           }
         },
         {
-          "slug": "classical-logic-axioms",
-          "title": "classical logic axioms",
-          "status": "empty",
-          "levels": [
-            "detailed"
-          ],
-          "detailed": {
-            "status": "empty"
-          }
-        },
-        {
-          "slug": "turing-machine-model",
-          "title": "turing machine model",
-          "status": "empty",
-          "levels": [
-            "detailed"
-          ],
-          "detailed": {
-            "status": "empty"
-          }
-        },
-        {
-          "slug": "chomsky-grammar-hierarchy",
-          "title": "chomsky grammar hierarchy",
-          "status": "empty",
-          "levels": [
-            "detailed"
-          ],
-          "detailed": {
-            "status": "empty"
-          }
-        },
-        {
-          "slug": "functions-and-bijections",
-          "title": "functions and bijections",
+          "slug": "geometry",
+          "title": "geometry",
           "status": "empty",
           "levels": [
             "detailed"
@@ -1570,8 +1860,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bcd-computing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bcd-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bcd-adder.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "octal-system",
@@ -1580,8 +1890,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-octal-pdp.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-radix-conversion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chmod-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "ones-complement",
@@ -1590,8 +1920,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ones-complement-arch.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ones-complement-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-internet-checksum.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "sign-magnitude",
@@ -1600,8 +1950,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ibm-7090.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sign-magnitude-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-float-sign-bits.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "ternary-computing",
@@ -1610,8 +1980,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-setun-computer.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-radix-economy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-balanced-ternary-ALU.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "binary-arithmetic",
@@ -1620,18 +2010,58 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-binary-logic-gates.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-carry-lookahead.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binary-alu-simulator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "binary-fractions",
-          "title": "Двійкові дроби: representability",
+          "title": "Двійкові дроби та точність представлення",
           "basic": {
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-floating-point-crisis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-period-length.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fixed-point-class.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "signed-multiplication",
@@ -1640,8 +2070,32 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-andrew-booth.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-booth-reencoding.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-booth-multiplier-sim.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-booth-radix4-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "prime-numbers",
@@ -1650,8 +2104,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-eratosthenes-euclid.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-prime-distribution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-segmented-sieve.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "fundamental-theorem-arithmetic",
@@ -1660,8 +2134,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-disquisitiones.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-euclid-lemma.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prime-factorizer.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "lcm",
@@ -1670,8 +2164,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lcm-fractions.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-lcm-lattice.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lcm-calculator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "linear-diophantine",
@@ -1710,8 +2224,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-modulo-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ring-units.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modular-inverse.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "modular-exponentiation",
@@ -1720,8 +2254,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-diffie-hellman.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-square-and-multiply.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modexp-fast.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "fermat-little-theorem",
@@ -1757,11 +2311,31 @@ window.__BOOKS__.push(
           "slug": "multiplicative-order",
           "title": "Мультиплікативний порядок",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-totient.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-order-divisibility.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-order-calculator.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
         },
         {
           "slug": "carmichael-function",
@@ -1932,8 +2506,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hippasus-irrationality.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-continued-fractions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-continued-fraction-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "pythagorean-triples",
@@ -2048,21 +2642,61 @@ window.__BOOKS__.push(
           "slug": "primitive-roots",
           "title": "Первісні корені та циклічність групи лишків",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-primitive-root.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-discrete-log-hardness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-primitive-root-finder.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "frobenius-number",
           "title": "Число Фробеніуса (задача про монети)",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-frobenius-sylvester.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-sylvester-formula.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frobenius-solver.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "primitive-root",
@@ -2078,11 +2712,31 @@ window.__BOOKS__.push(
           "slug": "carmichael-numbers",
           "title": "Числа Кармайкла",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-carmichael-discovery.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-korselt-criterion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-rabin-test.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "lucas-numbers",
@@ -2223,6 +2877,615 @@ window.__BOOKS__.push(
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "radix-conversion",
+          "title": "Перетворення позиційних систем числення",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-radix-history.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-horner-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-universal-radix-converter.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "radix-economy",
+          "title": "Економічність основи системи числення",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shannon-radix.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-radix-optimum-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-radix-economy-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "carry-lookahead-adder",
+          "title": "Прискорені суматори з паралельним переносом",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-weinberger-smith.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-prefix-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cla-4bit-simulator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "binary-period-length",
+          "title": "Періодичність раціональних двійкових дробів",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-repeating-decimals.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ord-period-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-period-analyzer.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
+        },
+        {
+          "slug": "booth-algorithm",
+          "title": "Алгоритм та рекодування Бута",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-andrew-booth-arc.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-booth-algebraic-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-booth-radix4-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "prime-distribution",
+          "title": "Розподіл простих чисел та Дзета-функція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-riemann-1859.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-euler-product-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pi-x-estimator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "euclidean-lemma",
+          "title": "Лема Евкліда",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-euclid-book7.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-bezout-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-euclid-lemma-checker.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "divisor-lattice",
+          "title": "Решітка дільників",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hasse-lattice.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-boolean-sublattices.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hasse-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "multiplicative-group-zn",
+          "title": "Група оборотних елементів кільця лишків",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-gauss-groups.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-chinese-remainder-group.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-group-zn-analyzer.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "square-and-multiply",
+          "title": "Алгоритм швидкого піднесення до степеня (Square-and-Multiply)",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pingala-pow.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-side-channel-protection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-pow-mod.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "discrete-logarithm",
+          "title": "Дискретний логарифм та його складність",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-diffie-hellman-1976.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shanks-bsgs-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bsgs-solver.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
+        },
+        {
+          "slug": "sylvester-frobenius-formula",
+          "title": "Формула Сильвестра для числа Фробеніуса",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sylvester-1884.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-sylvester-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frobenius-grid-solver.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "korselt-criterion",
+          "title": "Критерій Корсельта для чисел Кармайкла",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-korselt-1899.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-korselt-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-korselt-checker.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "miller-rabin-test",
+          "title": "Тест простоти Міллера — Рабіна",
+          "status": "done",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-miller-rabin-1980.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-strong-pseudo-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-rabin-sim.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "api": []
+        },
+        {
+          "slug": "bezout-identity",
+          "title": "Тотожність Безу та розширений алгоритм Евкліда",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-etienne-bezout.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-extended-gcd-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ext-gcd-solver.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "euclid-euler-theorem",
+          "title": "Теорема Евкліда — Ейлера про досконалі числа",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-perfect-numbers.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-sigma-multiplicative-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-perfect-number-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "euler-product-formula",
+          "title": "Тотожність та добуток Ейлера для Дзета-функції",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-1737.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-analytic-continuation-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zeta-product-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "montgomery-ladder",
+          "title": "Сходи Монтгомері та алгоритми константного часу",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-peter-montgomery.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-ladder-invariant-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-montgomery-ladder-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "quadratic-reciprocity",
+          "title": "Закон квадратичної взаємності Ґаусса",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [],
+          "comp": [],
+          "math": [],
+          "proj": [
+            {
+              "file": "proj-legendre-jacobi-calculator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
+        },
+        {
+          "slug": "chord-method-triples",
+          "title": "Метод хорди для раціональних точок та Піфагорових трійок",
+          "status": "empty",
+          "levels": [
+            "detailed"
+          ],
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-diophantus-chord.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-rational-param-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pythagorean-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         }
       ]
     },
@@ -5067,6 +6330,36 @@ window.__BOOKS__.push(
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "perron-frobenius-theorem",
+          "title": "Теорема Перрона — Фробеніуса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-perron-frobenius.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-dominant-eigenvector-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pagerank-power-iteration.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         }
       ]
     },

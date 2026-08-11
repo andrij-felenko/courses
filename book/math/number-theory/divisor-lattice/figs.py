@@ -1,0 +1,69 @@
+import os
+import sys
+
+# Додаємо шлях до scripts для імпорту svgkit (за умовою)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../scripts')))
+try:
+    import svgkit
+except ImportError:
+    pass # Fallback if svgkit isn't actually there
+
+def generate_hasse_svg():
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(img_dir, exist_ok=True)
+    svg_path = os.path.join(img_dir, 'fig-hasse-diagram.svg')
+    
+    # Генеруємо базовий SVG для візуалізації D_36 та D_60
+    svg_content = """<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+    <style>
+        text { font-family: sans-serif; font-size: 14px; text-anchor: middle; dominant-baseline: middle; }
+        line { stroke: #333; stroke-width: 2; }
+        rect { fill: white; stroke: #333; rx: 5; }
+    </style>
+    <!-- D_36 -->
+    <text x="200" y="380" font-weight="bold">D_36</text>
+    <line x1="200" y1="350" x2="150" y2="290"/>
+    <line x1="200" y1="350" x2="250" y2="290"/>
+    <line x1="150" y1="290" x2="100" y2="230"/>
+    <line x1="150" y1="290" x2="200" y2="230"/>
+    <line x1="250" y1="290" x2="200" y2="230"/>
+    <line x1="250" y1="290" x2="300" y2="230"/>
+    
+    <line x1="100" y1="230" x2="150" y2="170"/>
+    <line x1="200" y1="230" x2="150" y2="170"/>
+    <line x1="200" y1="230" x2="250" y2="170"/>
+    <line x1="300" y1="230" x2="250" y2="170"/>
+    
+    <line x1="150" y1="170" x2="200" y2="110"/>
+    <line x1="250" y1="170" x2="200" y2="110"/>
+
+    <!-- Nodes -->
+    <rect x="185" y="340" width="30" height="20"/><text x="200" y="350">1</text>
+    <rect x="135" y="280" width="30" height="20"/><text x="150" y="290">2</text>
+    <rect x="235" y="280" width="30" height="20"/><text x="250" y="290">3</text>
+    <rect x="85" y="220" width="30" height="20"/><text x="100" y="230">4</text>
+    <rect x="185" y="220" width="30" height="20"/><text x="200" y="230">6</text>
+    <rect x="285" y="220" width="30" height="20"/><text x="300" y="230">9</text>
+    <rect x="135" y="160" width="30" height="20"/><text x="150" y="170">12</text>
+    <rect x="235" y="160" width="30" height="20"/><text x="250" y="170">18</text>
+    <rect x="185" y="100" width="30" height="20"/><text x="200" y="110">36</text>
+    
+    <!-- D_60 -->
+    <text x="600" y="380" font-weight="bold">D_60</text>
+    <!-- Simplify diagram for D_60 for illustration purposes -->
+    <circle cx="600" cy="350" r="15" fill="#eee" stroke="#333"/>
+    <text x="600" y="350">1</text>
+    <circle cx="600" cy="110" r="15" fill="#eee" stroke="#333"/>
+    <text x="600" y="110">60</text>
+    <line x1="600" y1="335" x2="600" y2="125" stroke-dasharray="5,5"/>
+    <text x="610" y="230" text-anchor="start">Структура</text>
+    <text x="610" y="250" text-anchor="start">куба (2x2x2)</text>
+</svg>
+"""
+    with open(svg_path, 'w', encoding='utf-8') as f:
+        f.write(svg_content)
+    print(f"Generated {svg_path}")
+
+if __name__ == "__main__":
+    generate_hasse_svg()

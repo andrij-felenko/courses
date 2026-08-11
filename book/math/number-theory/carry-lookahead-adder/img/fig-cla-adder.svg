@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Carry-Lookahead Adder (CLA) Logic</text>
+<text x="585.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">A0</text>
+<text x="615.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">B0</text>
+<rect x="570.0" y="120.0" width="60.0" height="40.0" rx="6" fill="#e0f7fa" stroke="#333333" stroke-width="1.5"/>
+<text x="600.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">PG0</text>
+<line x1="585.0" y1="105.0" x2="585.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="105.0" x2="615.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="435.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">A1</text>
+<text x="465.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">B1</text>
+<rect x="420.0" y="120.0" width="60.0" height="40.0" rx="6" fill="#e0f7fa" stroke="#333333" stroke-width="1.5"/>
+<text x="450.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">PG1</text>
+<line x1="435.0" y1="105.0" x2="435.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="465.0" y1="105.0" x2="465.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">A2</text>
+<text x="315.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">B2</text>
+<rect x="270.0" y="120.0" width="60.0" height="40.0" rx="6" fill="#e0f7fa" stroke="#333333" stroke-width="1.5"/>
+<text x="300.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">PG2</text>
+<line x1="285.0" y1="105.0" x2="285.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="105.0" x2="315.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="135.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">A3</text>
+<text x="165.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">B3</text>
+<rect x="120.0" y="120.0" width="60.0" height="40.0" rx="6" fill="#e0f7fa" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">PG3</text>
+<line x1="135.0" y1="105.0" x2="135.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="165.0" y1="105.0" x2="165.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="200.0" width="650.0" height="80.0" rx="6" fill="#ffe0b2" stroke="#333333" stroke-width="1.5"/>
+<text x="425.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Lookahead Carry Generator (LCG)</text>
+<line x1="585.0" y1="160.0" x2="585.0" y2="200.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">P0</text>
+<line x1="615.0" y1="160.0" x2="615.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">G0</text>
+<line x1="435.0" y1="160.0" x2="435.0" y2="200.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">P1</text>
+<line x1="465.0" y1="160.0" x2="465.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">G1</text>
+<line x1="285.0" y1="160.0" x2="285.0" y2="200.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">P2</text>
+<line x1="315.0" y1="160.0" x2="315.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="330.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">G2</text>
+<line x1="135.0" y1="160.0" x2="135.0" y2="200.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="120.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">P3</text>
+<line x1="165.0" y1="160.0" x2="165.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="180.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">G3</text>
+<line x1="790.0" y1="240.0" x2="750.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="810.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">C0</text>
+<rect x="570.0" y="350.0" width="60.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#333333" stroke-width="1.5"/>
+<text x="600.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Sum0</text>
+<line x1="615.0" y1="280.0" x2="615.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">C0</text>
+<line x1="585.0" y1="160.0" x2="585.0" y2="350.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="600.0" y1="390.0" x2="600.0" y2="440.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="600.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">S0</text>
+<rect x="420.0" y="350.0" width="60.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#333333" stroke-width="1.5"/>
+<text x="450.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Sum1</text>
+<line x1="465.0" y1="280.0" x2="465.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">C1</text>
+<line x1="435.0" y1="160.0" x2="435.0" y2="350.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="450.0" y1="390.0" x2="450.0" y2="440.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">S1</text>
+<rect x="270.0" y="350.0" width="60.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#333333" stroke-width="1.5"/>
+<text x="300.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Sum2</text>
+<line x1="315.0" y1="280.0" x2="315.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="330.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">C2</text>
+<line x1="285.0" y1="160.0" x2="285.0" y2="350.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="300.0" y1="390.0" x2="300.0" y2="440.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">S2</text>
+<rect x="120.0" y="350.0" width="60.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Sum3</text>
+<line x1="165.0" y1="280.0" x2="165.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="180.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">C3</text>
+<line x1="135.0" y1="160.0" x2="135.0" y2="350.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="150.0" y1="390.0" x2="150.0" y2="440.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="150.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">S3</text>
+<line x1="100.0" y1="240.0" x2="60.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">C4</text>
+</svg>

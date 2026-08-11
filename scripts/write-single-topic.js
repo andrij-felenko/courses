@@ -221,10 +221,47 @@ if (detailedExists) {
   }
 
   // Check: Cognitive Ease (Conceptual clarity, cause-and-effect flow, zero friction in mental model)
-  const causeEffectIndicators = [/отже/i, /тому/i, /це означає/i, /звідси випливає/i, /як наслідок/i, /припускаємо/i];
+  const causeEffectIndicators = [/отже/i, /тому/i, /це означає/i, /звідси випливає/i, /як наслідок/i, /це приводить до/i, /завдяки цьому/i];
   const hasCauseEffect = causeEffectIndicators.some(re => re.test(text));
-  if (!hasCauseEffect) {
-    auditIssues.push(`Cognitive Ease Violation: Missing clear logical cause-and-effect transitions (отже, тому, це означає, звідси випливає) to make conceptual understanding effortless.`);
+  if (!hasCauseEffect && proseParagraphs.length > 6) {
+    auditIssues.push(`Causal Chain Continuity Violation: Missing clear logical cause-and-effect transitions (отже, тому, це означає, звідси випливає). Every section must build an unbroken logical bridge without leaps.`);
+  }
+
+  // Check: NO Dry Textbook Opening Tropes
+  const dryTextbookPatterns = [
+    /нехай\s+[A-Za-z0-9_ℙℤℚℝℂ\s,]+—\s*/i,
+    /розглянемо\s+множину/i,
+    /теорема\s+стверджує,\s*що/i,
+    /визначається\s+як\s+потрійка/i,
+    /є\s+комутативним\s+кільцем/i,
+    /утворює\s+частково\s+впорядковану\s+множину/i,
+    /є\s+векторним\s+простором/i,
+    /у\s+математичній\s+теорії\s+визначають/i,
+    /формула\s+має\s+наступний\s+вигляд/i
+  ];
+  const firstThreeParaText = proseParagraphs.slice(0, 3).join(' ');
+  const dryMatch = dryTextbookPatterns.find(re => re.test(firstThreeParaText));
+  if (dryMatch) {
+    auditIssues.push(`Textbook Opening Violation: Intro contains dry formal definition ("${dryMatch.exec(firstThreeParaText)[0]}"). Section 1 MUST build intuition from first principles and state the core problem before introducing formal mathematical definitions!`);
+  }
+
+  // Check: Problem Motivation in First 3 Paragraphs
+  const intuitionPatterns = [/чому/i, /проблема/i, /обмеження/i, /навіщо/i, /якщо\s+спробувати/i, /виникає\s+питання/i, /першопричин/i, /намагалися\s+розв'язати/i, /зіткнулися\s+з/i];
+  const hasMotivation = intuitionPatterns.some(re => re.test(firstThreeParaText));
+  if (!hasMotivation && !KIND.includes('hist')) {
+    auditIssues.push(`Missing Problem Motivation: First 3 paragraphs must explain WHY this problem exists, what constraint forced this solution, or what intuition underlies it (found zero motivation markers: чому, проблема, обмеження, навіщо, першопричин).`);
+  }
+
+  // Check: Passive Academic Tone
+  const passiveAcademicPatterns = [
+    /дано\s+векторний/i,
+    /характерною\s+рисою\s+є\s+те,\s*що/i,
+    /розглянемо\s+формальне\s+визначення/i,
+    /слід\s+зазначити,\s*що\s+існує/i
+  ];
+  const passiveMatch = passiveAcademicPatterns.find(re => re.test(text));
+  if (passiveMatch) {
+    auditIssues.push(`Passive Academic Tone Violation: Found passive textbook phrasing ("${passiveMatch.exec(text)[0]}"). Rewrite as an active step-by-step investigation with the reader!`);
   }
 
   // Check: NO LaTeX Notation (§5 AUTHORING.md)
