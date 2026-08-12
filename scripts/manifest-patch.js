@@ -149,9 +149,30 @@ function opStatus(o, conditional) {
     apply = () => { lines[i] = lines[i].replace(re, `$1${to}$3`); };
   } else {                                                  // JSON-стиль — тема розгорнута
     const hit = statusLineMulti(i, ver);
-    if (!hit) return report.errors.push(`у теми «${o.slug}» нема поля ${ver}`);
-    cur = hit.cur;
-    apply = () => { lines[hit.line] = lines[hit.line].replace(hit.re, `$1${to}$3`); };
+    if (!hit) {
+      if (conditional) {
+        report.skipped.push(`${o.slug}.${ver} не існує (не ${o.from})`);
+        return;
+      }
+      const isSingleLine = /^\s*\{.*\}\s*,?\s*$/.test(lines[i]);
+      if (isSingleLine) {
+        apply = () => {
+          const close = lines[i].lastIndexOf("}");
+          const head = lines[i].slice(0, close).replace(/,\s*$/, "");
+          const tail = lines[i].slice(close);
+          lines[i] = `${head}, "${ver}": { "status": "${to}" } ${tail}`;
+        };
+      } else {
+        apply = () => {
+          const indent = indentOf(lines[i]) + "  ";
+          lines.splice(i + 2, 0, `${indent}"${ver}": {`, `${indent}  "status": "${to}"`, `${indent}},`);
+        };
+      }
+      cur = null;
+    } else {
+      cur = hit.cur;
+      apply = () => { lines[hit.line] = lines[hit.line].replace(hit.re, `$1${to}$3`); };
+    }
   }
 
   if (conditional && cur !== o.from) { report.skipped.push(`${o.slug}.${ver}=${cur} (чекали ${o.from})`); return; }
