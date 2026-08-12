@@ -1,0 +1,27 @@
+<svg width="820" height="360" viewBox="0 0 820 360" xmlns="http://www.w3.org/2000/svg">
+<rect width="820" height="360" fill="#ffffff"/>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура uclamp_buckets у черзі виконання (Runqueue rq)</text>
+<rect x="89.8" y="38.2" width="120.3" height="59.6" rx="6" fill="#eef2fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="57.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Task A</tspan><tspan x="150.0" dy="14.3">uclamp_min = 150</tspan><tspan x="150.0" dy="14.3">(Bucket 0)</tspan></text>
+<rect x="349.8" y="38.2" width="120.3" height="59.6" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="57.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Task B</tspan><tspan x="410.0" dy="14.3">uclamp_min = 550</tspan><tspan x="410.0" dy="14.3">(Bucket 2)</tspan></text>
+<rect x="609.8" y="38.2" width="120.3" height="59.6" rx="6" fill="#fff8e7" stroke="#f39c12" stroke-width="1.5"/><text x="670.0" y="57.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Task C</tspan><tspan x="670.0" dy="14.3">uclamp_min = 512</tspan><tspan x="670.0" dy="14.3">(Bucket 2)</tspan></text>
+<text x="410.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Масив бакетів черги: rq-&gt;uclamp[UCLAMP_MIN].bucket[5]</text>
+<line x1="150.0" y1="135.0" x2="125.0" y2="165.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="410.0" y1="135.0" x2="440.0" y2="165.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="670.0" y1="135.0" x2="460.0" y2="165.0" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
+<rect x="55.0" y="165.0" width="138.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="124.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bucket 0: [0..20%]</text>
+<text x="124.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">count = 1</text>
+<rect x="203.0" y="165.0" width="138.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="272.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bucket 1: [21..40%]</text>
+<text x="272.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">count = 0</text>
+<rect x="351.0" y="165.0" width="138.0" height="70.0" rx="6" fill="#e8f8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bucket 2: [41..60%]</text>
+<text x="420.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">count = 2</text>
+<rect x="499.0" y="165.0" width="138.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="568.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bucket 3: [61..80%]</text>
+<text x="568.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">count = 0</text>
+<rect x="647.0" y="165.0" width="138.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="716.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bucket 4: [81..100%]</text>
+<text x="716.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">count = 0</text>
+<rect x="72.6" y="266.2" width="674.7" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="286.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">O(1) Пошук максимуму: сканування від Bucket 4 до 0</tspan><tspan x="410.0" dy="15.6">Найвищий активний бакет = Bucket 2 → Effective rq uclamp_min = max(Task B, Task C) = 550</tspan></text>
+</svg>

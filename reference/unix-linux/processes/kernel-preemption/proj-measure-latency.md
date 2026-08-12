@@ -24,12 +24,20 @@ aₖ    перша інструкція нашого коду; читаємо г
 
 Тут ховається помилка, після якої вся решта роботи втрачає сенс, і робиться вона природним, майже неминучим рухом руки. Періодичну задачу хочеться написати так:
 
+:::tabs
 ```c
 for (;;) {
     do_work();
-    usleep(200);          /* поспати 200 мкс і знову */
+    usleep(200);          /* поспати 200 мкс і знову (відносний сон у C) */
 }
 ```
+```cpp
+for (;;) {
+    do_work();
+    std::this_thread::sleep_for(std::chrono::microseconds(200)); /* відносний сон у C++ */
+}
+```
+:::
 
 Сон тут **відносний**: «поспати від цієї миті стільки-то». А мить, від якої рахують, — це мить, коли попередній оберт закінчився, тобто вже після власної роботи й після власного запізнення. Отже, фактичний період дорівнює не `T`, а `T + робота + затримка`, і кожен оберт відсуває сітку далі.
 
@@ -69,6 +77,7 @@ for (;;) {
 
 **У циклі — нічого зайвого.** Жодного `printf`, жодного виділення пам'яті, жодного системного виклику, крім самого сну й читання годинника. Усе, що вимірювач хоче сказати, він каже після того, як вимір закінчено.
 
+:::tabs
 ```c
 /* latency.c — вимірювач затримки планування.
    збірка:  cc -O2 -Wall -pthread latency.c -o latency
@@ -222,6 +231,135 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+```cpp
+// latency.cpp — вимірювач затримки планування мовою C++
+// збірка:  g++ -O2 -Wall -pthread latency.cpp -o latency_cpp
+// запуск:  sudo ./latency_cpp [період_мкс] [секунд] [ядро]
+
+#include <cerrno>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <stdexcept>
+#include <string>
+#include <system_error>
+#include <vector>
+#include <pthread.h>
+#include <sched.h>
+#include <sys/mman.h>
+#include <time.h>
+#include <unistd.h>
+
+class ScopedMlockall {
+public:
+    ScopedMlockall() {
+        if (::mlockall(MCL_CURRENT | MCL_FUTURE) != 0) {
+            throw std::system_error(errno, std::generic_category(), "mlockall failed");
+        }
+    }
+};
+
+static void warm_stack() {
+    constexpr std::size_t warm_bytes = 256 * 1024;
+    std::vector<std::uint8_t> pad(warm_bytes, 0);
+    asm volatile("" :: "r"(pad.data()) : "memory");
+}
+
+int main(int argc, char **argv) {
+    long period_us = (argc > 1) ? std::stol(argv[1]) : 200;
+    long run_sec   = (argc > 2) ? std::stol(argv[2]) : 600;
+    int  cpu_id    = (argc > 3) ? std::stoi(argv[3]) : 3;
+
+    try {
+        ScopedMlockall memory_lock;
+
+        constexpr std::size_t buckets_count = 2000;
+        std::vector<unsigned long> hist(buckets_count, 0);
+        unsigned long over = 0;
+        unsigned long total = 0;
+        long worst = 0;
+
+        cpu_set_t set;
+        CPU_ZERO(&set);
+        CPU_SET(cpu_id, &set);
+
+        sched_param sp{ .sched_priority = 80 };
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_attr_setstacksize(&attr, 1024 * 1024);
+        pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+        pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
+        pthread_attr_setschedparam(&attr, &sp);
+        pthread_attr_setaffinity_np(&attr, sizeof(set), &set);
+
+        auto worker = [&]() {
+            warm_stack();
+
+            struct timespec next{}, now{};
+            clock_gettime(CLOCK_MONOTONIC, &next);
+            next.tv_nsec = 0;
+            next.tv_sec += 1;
+
+            const long period_ns = period_us * 1000L;
+            const long cycles = run_sec * (1'000'000'000L / period_ns);
+
+            for (long i = 0; i < cycles; ++i) {
+                next.tv_nsec += period_ns;
+                while (next.tv_nsec >= 1'000'000'000L) {
+                    next.tv_nsec -= 1'000'000'000L;
+                    next.tv_sec += 1;
+                }
+
+                while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next, nullptr) == EINTR) {}
+
+                clock_gettime(CLOCK_MONOTONIC, &now);
+
+                long late_us = ((now.tv_sec - next.tv_sec) * 1'000'000'000L + (now.tv_nsec - next.tv_nsec)) / 1000L;
+                if (late_us < 0) late_us = 0;
+                if (late_us > worst) worst = late_us;
+                if (static_cast<std::size_t>(late_us) < buckets_count) {
+                    hist[static_cast<std::size_t>(late_us)]++;
+                } else {
+                    over++;
+                }
+                total++;
+            }
+        };
+
+        pthread_t th;
+        if (pthread_create(&th, &attr, [](void *arg) -> void* {
+            (*static_cast<decltype(worker)*>(arg))();
+            return nullptr;
+        }, &worker) != 0) {
+            std::cerr << "pthread_create: немає прав на SCHED_FIFO?\n";
+            return 1;
+        }
+        pthread_join(th, nullptr);
+        pthread_attr_destroy(&attr);
+
+        unsigned long long acc = 0;
+        long p50 = -1, p999 = -1, p99999 = -1;
+        for (std::size_t i = 0; i < hist.size(); ++i) {
+            if (hist[i] == 0) continue;
+            acc += hist[i];
+            if (p50 < 0 && acc * 2 >= total) p50 = static_cast<long>(i);
+            if (p999 < 0 && acc * 1000 >= total * 999) p999 = static_cast<long>(i);
+            if (p99999 < 0 && acc * 100000 >= total * 99999) p99999 = static_cast<long>(i);
+            std::cout << i << " мкс: " << hist[i] << "\n";
+        }
+
+        std::cout << "\nобертів " << total << ", поза гістограмою " << over << "\n"
+                  << "медіана " << p50 << " мкс · 99.9% " << p999 << " мкс · 99.999% " << p99999
+                  << " мкс · максимум " << worst << " мкс\n";
+    } catch (const std::exception &e) {
+        std::cerr << "Помилка: " << e.what() << "\n";
+        return 1;
+    }
+    return 0;
+}
+```
+:::
 
 Одне зауваження про `SCHED_FIFO`, яке рятує від несподіванки. Ядро тримає запобіжник проти реальночасової задачі, що зациклилася: `kernel.sched_rt_runtime_us` (типово 950000 із періоду 1000000) обмежує весь реальночасовий клас 95 % кожної секунди на ядро процесора. Наш вимірювач у цей ліміт не впирається, бо спить 99 % часу. А от його переробка на активне чекання впреться — і затримка, яку ви побачите, буде вашою власною, накинутою запобіжником.
 
@@ -435,8 +573,9 @@ find / -xdev -type f -exec cat {} + > /dev/null 2>&1 & # файлова сист
 
 **Енергозбереження, яке ніхто не вимикав.** Процесор, що спав у глибокому стані, витрачає десятки мікросекунд на повернення, а піднятий із низької частоти виконує ваш код у кілька разів повільніше ([динамічне керування частотою й напругою](book:programming/dvfs)). Найпряміший важіль — інтерфейс якості обслуговування живлення: поки відкрито дескриптор `/dev/cpu_dma_latency` із записаним нулем, ядро не пускає процесори в глибокий сон.
 
+:::tabs
 ```c
-/* поки цей дескриптор відкритий, глибокі стани сну заборонені */
+/* поки цей дескриптор відкритий, глибокі стани сну заборонені (C) */
 int32_t target = 0;
 int pm = open("/dev/cpu_dma_latency", O_RDWR);
 
@@ -444,6 +583,33 @@ write(pm, &target, sizeof target);
 /* …увесь вимір… */
 close(pm);          /* закрили — обмеження зникло тієї ж миті */
 ```
+```cpp
+// RAII-обгортка для керування станами сну в C++
+class DmaLatencyGuard {
+    int fd_ = -1;
+public:
+    explicit DmaLatencyGuard(std::int32_t target_us = 0) {
+        fd_ = ::open("/dev/cpu_dma_latency", O_RDWR);
+        if (fd_ >= 0) {
+            ::write(fd_, &target_us, sizeof(target_us));
+        }
+    }
+    ~DmaLatencyGuard() {
+        if (fd_ >= 0) {
+            ::close(fd_);
+        }
+    }
+    DmaLatencyGuard(const DmaLatencyGuard&) = delete;
+    DmaLatencyGuard& operator=(const DmaLatencyGuard&) = delete;
+};
+
+// Використання:
+{
+    DmaLatencyGuard latency_guard(0); // заборона глибокого сну на час життя об'єкта
+    // …увесь вимір…
+} // об'єкт знищується, дескриптор автоматично закривається
+```
+:::
 
 Саме це робить `cyclictest`, і саме тому його числа бувають кращі за ваші на тій самій машині. Плюс `cpupower frequency-set -g performance`, а глянути на дійсний стан — `cpupower idle-info` і `turbostat`.
 

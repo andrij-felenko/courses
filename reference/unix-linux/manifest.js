@@ -14,10 +14,46 @@ window.__BOOKS__.push(
           "slug": "unix-philosophy",
           "title": "Філософія Unix: малі програми, що складаються",
           "basic": {
-            "status": "empty"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-filter-contract.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-pipeline-by-hand.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-filter-contract.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-pipeline-by-hand.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "hist": [
             {
@@ -234,10 +270,34 @@ window.__BOOKS__.push(
           "slug": "monolithic-with-modules",
           "title": "Монолітне ядро з модулями: вибір Linux",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "hist": [
+            {
+              "file": "hist-tanenbaum-torvalds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-hello-module.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tanenbaum-torvalds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-hello-module.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "hist": [
             {
@@ -643,20 +703,92 @@ window.__BOOKS__.push(
           "slug": "systemd-architecture-and-cgroups",
           "title": "Архітектура systemd та cgroups",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-dbus-systemd1.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-sysvinit-to-cgroup-single-writer.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-transient-unit-dbus.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-dbus-systemd1.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-sysvinit-to-cgroup-single-writer.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-transient-unit-dbus.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
           "slug": "seqlocks",
           "title": "Послідовні замки: як читати без блокування письменників",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-kernel-seqlocks.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-seqlocks.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-userspace-seqlock.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-kernel-seqlocks.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-seqlocks.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-userspace-seqlock.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
@@ -685,10 +817,46 @@ window.__BOOKS__.push(
           "slug": "pid-and-hierarchy",
           "title": "PID і дерево процесів",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-pid-interfaces.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-pid-and-init.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-pidfd-supervisor.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-pid-interfaces.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-pid-and-init.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-pidfd-supervisor.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "hist": [
             {
@@ -813,10 +981,46 @@ window.__BOOKS__.push(
           "slug": "process-states",
           "title": "Стани процесу і що означає стан D",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-state-reporting.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-killable-sleep.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-catch-d-state.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-state-reporting.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-killable-sleep.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-catch-d-state.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -841,10 +1045,46 @@ window.__BOOKS__.push(
           "slug": "ptrace-and-debugging",
           "title": "ptrace: повний контроль над чужим процесом",
           "basic": {
-            "status": "empty"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-ptrace-requests.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-ptrace-origins.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-mini-strace.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-ptrace-requests.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-ptrace-origins.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-mini-strace.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
@@ -879,10 +1119,58 @@ window.__BOOKS__.push(
           "slug": "priority-nice-realtime",
           "title": "Пріоритети, nice і реальночасові класи",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-sched-interfaces.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-nice-to-deadline.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-shares-and-bandwidth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-realtime-thread.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-sched-interfaces.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-nice-to-deadline.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-shares-and-bandwidth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-realtime-thread.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -914,10 +1202,46 @@ window.__BOOKS__.push(
           "title": "Потоки в Linux: задача як одиниця планування",
           "basic": {
             "file": "threads-as-tasks.md",
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-per-thread-scope.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-linuxthreads-to-nptl.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-thread-anatomy.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-per-thread-scope.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-linuxthreads-to-nptl.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-thread-anatomy.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -998,10 +1322,46 @@ window.__BOOKS__.push(
           "slug": "spawn-alternatives",
           "title": "vfork, posix_spawn і clone: чим ще народжують процес",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-clone-flags.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-posix-spawn.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-spawn-cost.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-clone-flags.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-posix-spawn.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-spawn-cost.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -1052,10 +1412,58 @@ window.__BOOKS__.push(
           "slug": "cpu-time-accounting",
           "title": "Облік процесорного часу: як ядро набирає user і sys",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-cputime-interfaces.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tick-accounting.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-sampling-error.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-utime-vs-runtime.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-cputime-interfaces.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tick-accounting.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-sampling-error.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-utime-vs-runtime.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -1130,10 +1538,46 @@ window.__BOOKS__.push(
           "slug": "kernel-preemption",
           "title": "Витісненість ядра: від PREEMPT_NONE до PREEMPT_RT",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-preempt-controls.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-preemptible-kernel.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-measure-latency.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-preempt-controls.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-preemptible-kernel.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-measure-latency.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -1158,10 +1602,46 @@ window.__BOOKS__.push(
           "slug": "kernel-threads",
           "title": "Потоки ядра: задачі без простору користувача",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-kthread-names.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-from-daemonize-to-kworkers.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-kthread-module.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-kthread-names.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-from-daemonize-to-kworkers.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-kthread-module.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -1242,10 +1722,46 @@ window.__BOOKS__.push(
           "slug": "atomic-ops",
           "title": "Атомарні операції",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-kernel-atomic-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-atomic-instructions.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lockfree-ringbuffer.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-kernel-atomic-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-atomic-instructions.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lockfree-ringbuffer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "hist": [
             {
@@ -1270,10 +1786,46 @@ window.__BOOKS__.push(
           "slug": "memory-barriers",
           "title": "Бар'єри пам'яті: впорядкування операцій",
           "basic": {
-            "status": "empty"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-kernel-memory-barriers.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-out-of-order-cpu.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lockfree-stack.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-kernel-memory-barriers.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-out-of-order-cpu.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lockfree-stack.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "hist": [
             {
@@ -1298,10 +1850,46 @@ window.__BOOKS__.push(
           "slug": "kernel-locking",
           "title": "Замки в ядрі й атомарний контекст: де спати не можна",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-locking-primitives.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-lock-scaling.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lockdep-lab.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-locking-primitives.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-lock-scaling.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lockdep-lab.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {
@@ -1600,20 +2188,92 @@ window.__BOOKS__.push(
           "slug": "nohz-adaptive-tickless",
           "title": "Адаптивне ядро без тиків (NO_HZ_FULL)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-nohz-sysfs.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tickless-kernel.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cpu-isolation.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-nohz-sysfs.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tickless-kernel.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cpu-isolation.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
           "slug": "preempt-rt-architecture",
           "title": "Real-Time Linux patchset (PREEMPT_RT)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-rt-scheduling.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-rt-patchset.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-latency-tester.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-rt-scheduling.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-rt-patchset.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-latency-tester.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
@@ -1623,72 +2283,327 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
           "slug": "high-resolution-timers",
           "title": "Таймери високої точності (hrtimers)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-hrtimer-kernel-surface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-hrtimers-genesis.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-highres-timerfd-benchmark.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-hrtimer-kernel-surface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-hrtimers-genesis.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-highres-timerfd-benchmark.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
           "slug": "cgroups-v2-unified-hierarchy",
           "title": "Cgroups v2: єдина ієрархія",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cgroup2-control-surface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-cgroups-v1-v2-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cgroupv2-manager.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-cgroup2-control-surface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-cgroups-v1-v2-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cgroupv2-manager.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
           "slug": "sched-ext-ebpf-scheduler",
           "title": "Планувальник sched_ext: eBPF розширення для sched",
+            "basic": {
+              "status": "done",
+          "api": [
+            {
+              "file": "api-sched-ext-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-sched-ext.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-scx-simple-fifo.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            },
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-sched-ext-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-sched-ext.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-scx-simple-fifo.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           }
         },
         {
           "slug": "futex2-waitv-syscall",
           "title": "Багатооб’єктна синхронізація futex2 (sys_futex_waitv)",
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-futex-waitv.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-esync-fsync-futex2.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-futex-waitv.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-esync-fsync-futex2.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           }
         },
         {
           "slug": "cgroup-v2-memory-peak-swap",
           "title": "Управління піками та пропускною здатністю у Cgroups v2 memory",
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-memory-control-surface.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cgroup-memory-monitor.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-memory-control-surface.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cgroup-memory-monitor.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           }
         },
         {
           "slug": "sched-idle-and-sched-batch",
           "title": "Класи планирування SCHED_IDLE та SCHED_BATCH",
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-sched-attr.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-sched-attr.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
           }
         },
         {
           "slug": "psi-pressure-stall-information",
           "title": "Підсистема оцінки голодування ресурсів PSI (Pressure Stall Info)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-proc-pressure-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-loadavg-to-psi.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-psi-daemon.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-proc-pressure-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-loadavg-to-psi.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-psi-daemon.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           }
         },
         {
           "slug": "sched-energy-aware-eas",
           "title": "Енергоефективне планування Energy-Aware Scheduling (EAS) та Energy Model",
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-energy-model-sysfs.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-eas-and-biglittle.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-eas-cost-calculation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-eas-trace-analyzer.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-energy-model-sysfs.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-eas-and-biglittle.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-eas-cost-calculation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-eas-trace-analyzer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "basic": {
             "status": "done"
@@ -1697,15 +2612,105 @@ window.__BOOKS__.push(
         {
           "slug": "uclamp-utilization-clamping",
           "title": "Обмеження утилізації CPU: uclamp (sched_setattr uclamp_min/uclamp_max)",
+            "basic": {
+              "status": "done",
+          "api": [
+            {
+              "file": "api-uclamp-kernel-structures.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-uclamp-and-pelt.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-uclamp-manager.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            },
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-uclamp-kernel-structures.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-uclamp-and-pelt.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-uclamp-manager.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           }
         },
         {
           "slug": "sched-ext-custom-schedulers",
           "title": "Практична розробка BPF-планувальників у sched_ext (scx_rustland, scx_lavd)",
+            "basic": {
+              "status": "done",
+          "api": [
+            {
+              "file": "api-scx-rust-framework.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-custom-schedulers.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-scx-lavd-deadline.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-scx-rustland-architecture.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            },
           "detailed": {
-            "status": "update"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-scx-rust-framework.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-custom-schedulers.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-scx-lavd-deadline.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-scx-rustland-architecture.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           }
         }
       ]
@@ -1719,10 +2724,46 @@ window.__BOOKS__.push(
           "slug": "virtual-address-space",
           "title": "Віртуальний адресний простір процесу",
           "basic": {
-            "status": "done"
+            "status": "done",
+          "api": [
+            {
+              "file": "api-maps-format.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-one-level-store.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-address-space-probe.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-maps-format.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-one-level-store.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-address-space-probe.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "update"
+            "status": "done"
           },
           "api": [
             {

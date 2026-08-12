@@ -36,6 +36,7 @@ pthread_attr_getstack дає  lo   = B + guard
 
 Мова тут не обирається: `pthread_getattr_np`, `gettid`, `arch_prctl` і `__thread` — це glibc і системні виклики Linux, отже C.
 
+:::tabs
 ```c
 /* thread-anatomy.c — що в потоку своє, а що спільне: числами.
    Збірка:  cc -std=c11 -O0 -g -Wall -pthread thread-anatomy.c -o thread-anatomy */
@@ -195,6 +196,161 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+/* thread-anatomy.cpp — що в потоку своє, а що спільне: числами (C++17).
+   Збірка:  g++ -std=c++17 -O0 -g -Wall -pthread thread-anatomy.cpp -o thread-anatomy */
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <atomic>
+#include <cerrno>
+#include <cstring>
+#include <csignal>
+#include <semaphore.h>
+#include <pthread.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+#ifdef __x86_64__
+#include <asm/prctl.h>
+#endif
+
+constexpr int NWORKERS = 3;
+
+static std::atomic<int>      group_counter{0};   /* спільна на всю групу задач */
+static thread_local int      own_counter{0};     /* своя в кожної задачі (TLS) */
+static thread_local pid_t    my_tid{0};
+
+static sem_t quit;
+static sem_t ready;
+static sem_t caught;
+static volatile sig_atomic_t caught_by;
+
+static pid_t tid()
+{
+    return static_cast<pid_t>(syscall(SYS_gettid));
+}
+
+static uintptr_t thread_pointer()
+{
+#if defined(__x86_64__)
+    uintptr_t tp = 0;
+    syscall(SYS_arch_prctl, ARCH_GET_FS, &tp);
+    return tp;
+#elif defined(__aarch64__)
+    uintptr_t tp;
+    __asm__ volatile("mrs %0, tpidr_el0" : "=r"(tp));
+    return tp;
+#else
+    return 0;
+#endif
+}
+
+static void on_usr1(int)
+{
+    caught_by = my_tid;
+    sem_post(&caught);
+}
+
+static void report()
+{
+    pthread_attr_t attr;
+    void *lo;
+    size_t size, guard;
+    char name[16];
+    int on_stack;
+
+    if (pthread_getattr_np(pthread_self(), &attr) != 0)
+        return;
+    pthread_attr_getstack(&attr, &lo, &size);
+    pthread_attr_getguardsize(&attr, &guard);
+    pthread_attr_destroy(&attr);
+    pthread_getname_np(pthread_self(), name, sizeof name);
+
+    std::cout << (name[0] ? name : "worker")
+              << " tid=" << my_tid << " getpid()=" << getpid() << '\n'
+              << "  стек  [" << lo << " .. " << static_cast<char *>(lo) + size << ") "
+              << (size / 1024) << " КіБ, вартовий " << guard << " Б\n"
+              << "  SP    " << &on_stack << " — на "
+              << (static_cast<char *>(lo) + size - reinterpret_cast<char *>(&on_stack))
+              << " Б нижче від верху ділянки\n"
+              << "  tp    0x" << std::hex << thread_pointer()
+              << "   pthread_self() 0x" << pthread_self() << std::dec << '\n'
+              << "  &own_counter " << &own_counter
+              << "   &errno " << &errno
+              << "   &group_counter " << &group_counter << "\n\n";
+}
+
+static void worker_func(int id)
+{
+    char name[16];
+    my_tid = tid();
+    own_counter = id;
+    group_counter.fetch_add(1, std::memory_order_relaxed);
+    snprintf(name, sizeof name, "worker-%d", own_counter);
+    pthread_setname_np(pthread_self(), name);
+
+    report();
+    sem_post(&ready);
+
+    while (sem_wait(&quit) == -1 && errno == EINTR)
+        ;
+}
+
+int main()
+{
+    std::vector<std::thread> workers;
+    struct sigaction sa{};
+    sigset_t usr1;
+
+    my_tid = tid();
+    own_counter = 100;
+    std::cout << std::unitbuf;
+
+    sem_init(&quit, 0, 0);
+    sem_init(&ready, 0, 0);
+    sem_init(&caught, 0, 0);
+
+    sa.sa_handler = on_usr1;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGUSR1, &sa, nullptr);
+
+    pthread_setname_np(pthread_self(), "leader");
+    report();
+
+    for (int i = 0; i < NWORKERS; i++)
+        workers.emplace_back(worker_func, i + 1);
+    for (int i = 0; i < NWORKERS; i++)
+        sem_wait(&ready);
+
+    sigemptyset(&usr1);
+    sigaddset(&usr1, SIGUSR1);
+    pthread_sigmask(SIG_BLOCK, &usr1, nullptr);
+
+    for (int i = 0; i < 2; i++) {
+        kill(getpid(), SIGUSR1);
+        sem_wait(&caught);
+        std::cout << "kill(pid, SIGUSR1)        -> спіймала задача " << caught_by << '\n';
+    }
+
+    pthread_kill(workers[NWORKERS - 1].native_handle(), SIGUSR1);
+    sem_wait(&caught);
+    std::cout << "pthread_kill(worker-" << NWORKERS
+              << ")     -> спіймала задача " << caught_by << "\n\n";
+
+    std::cout << "pid=" << getpid() << " — подивіться /proc/" << getpid() << "/task/ і натисніть Enter\n";
+    std::cin.get();
+
+    for (int i = 0; i < NWORKERS; i++)
+        sem_post(&quit);
+    for (auto &w : workers)
+        w.join();
+
+    std::cout << "group_counter=" << group_counter
+              << " (спільний), own_counter головної=" << own_counter << '\n';
+    return 0;
+}
+```
+:::
 
 Два рішення в цьому коді неочевидні й важливі.
 
@@ -327,7 +483,81 @@ pthread_kill(worker-3)    -> спіймала задача 1205
 
 Це поведінка сьогоднішнього ядра, а не обіцянка. Правило «спершу лідер, далі від попереднього обранця» — деталь реалізації, яка вже мінялася; програма, що на неї спирається, зламається тихо. Спостережуваний висновок протилежний: щоб керувати адресатом, треба не вгадувати вибір ядра, а прибрати вибір — заблокувати сигнал усюди, крім одного місця, як ми й зробили маскою в лідері.
 
-Третій рядок вибору не має взагалі: `pthread_kill` кладе сигнал у власну чергу названої задачі. Обробник при цьому виконався той самий — диспозиція одна на групу, — але надрукував інший номер, бо `my_tid` він прочитав із блоку локальних даних тієї задачі, у якій опинився.
+## Низькорівнева розкладка TLS у машинного коду x86-64
+
+На архітектурі x86-64 локальні змінні потоку (TLS) спираються на регістр сегмента `%fs`. Система Linux підтримує ABI **Variant II** для TLS.
+
+У цьому варіанті покажчик потоку (Thread Pointer, `tp`) вказує безпосередньо на структуру `struct pthread` (Control Block). Статичні локальні змінні `__thread` розміщуються **перед** цим покажчиком, тобто за від'ємними зсувами:
+
+```
+[ ... вільний стек ... ]
+[ __thread змінні (наприклад, own_counter на tp - 0x28) ]
+[ errno на tp - 0x40 ]
+[ struct pthread (TCB) ]  <--- %fs вказує сюди
+```
+
+Компілятор генерує інструкції доступу через сегментний префікс `%fs:`:
+- Для читання `own_counter`: `mov %fs:-0x28, %eax`
+- Для запису `errno`: `mov %edx, %fs:-0x40`
+
+Системний виклик `arch_prctl(ARCH_SET_FS, address)` встановлює базову адресу сегмента `%fs`. На сучасних процесорах (із підтримкою FSGSBASE) ядро може дозволити виконання інструкцій `rdfsbase` та `wrfsbase` у просторі користувача без системного виклику.
+
+## Трасування через gdb та strace
+
+Щоб побачити, як ядро та бібліотека створюють цю анатомію під час виконання, скористайтеся `strace`:
+
+```bash
+$ strace -f -e trace=clone3,clone,mmap,mprotect,arch_prctl ./thread-anatomy
+```
+
+У виводі ви побачите послідовність системних викликів:
+1. `mmap(NULL, 8392704, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0)` — виділення 8 МіБ + 4 КіБ для стека нового потоку.
+2. `mprotect(0x7f2c4b200000, 4096, PROT_NONE)` — створення сторінки-вартового на початку виділеної ділянки.
+3. `clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SETTLS, tls=0x7f2c4b9ff700, ...})` — створення нової задачі ядра з ініціалізацією сегмента `%fs` адресою блоку TCB.
+
+У `gdb` ви можете перевірити базову адресу `%fs` та розібрати інструкції доступу до TLS:
+
+```text
+(gdb) info registers fs_base
+fs_base        0x7f2c4b9ff700      139828334425856
+
+(gdb) disassemble worker
+Dump of assembler code for function worker:
+   ...
+   mov    %fs:0x28, %rax          # Перевірка санітарного вартого стека
+   mov    %fs:-0x28, %edx         # Читання own_counter від зсуву %fs
+   ...
+```
+
+## Аналіз фізичної пам'яті через smaps та очищення futex
+
+Якщо подивитися на відображення стека потоку в `/proc/1200/smaps`, видно різницю між зарезервованим віртуальним обсягом та реально спожитою фізичною пам'яттю (RSS):
+
+```bash
+$ grep -A 15 '^7f2c4b200000' /proc/1200/smaps
+7f2c4b200000-7f2c4ba00000 rw-p 00000000 00:00 0 
+Size:               8192 kB
+KernelPageSize:        4 kB
+MMUPageSize:           4 kB
+Rss:                   8 kB
+Pss:                   8 kB
+Shared_Clean:          0 kB
+Shared_Dirty:          0 kB
+Private_Clean:         0 kB
+Private_Dirty:         8 kB
+Anonymous:             8 kB
+AnonHugePages:         0 kB
+```
+
+Із 8192 КіБ зарезервованої віртуальної пам'яті фізично виділено лише 8 КіБ (`Rss`) — дві сторінки, яких торкнулася програма при старті потоку (одна під кадр функції `worker`, інша під блок TCB/TLS).
+
+На етапі завершення потоку системний виклик `exit()` використовує механізм `CLONE_CHILD_CLEARTID`. Ядро записує нуль за адресою `ctid` у пам'яті потоку та виконує оновлення futex:
+
+```text
+sys_futex(&ctid, FUTEX_WAKE, 1, NULL, NULL, 0);
+```
+
+Саме цей системний виклик усередині ядра будить потік, що заблокований у `pthread_join()`. Жодного опитування в циклі (polling) не відбувається: очікування є абсолютно безкоштовним для процесора.
 
 ## Ціна викликів і пастки
 

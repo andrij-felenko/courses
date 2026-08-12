@@ -203,6 +203,7 @@ size > того, що знає ядро     → хвіст мусить бути
 
 ## Мінімальний виклик, що працює і на старому ядрі
 
+:::tabs
 ```c
 /* spawn3.c — clone3 з відступом на clone, коли ядро надто старе.
  *   gcc -O2 -Wall -o spawn3 spawn3.c && ./spawn3
@@ -257,5 +258,114 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#include <errno.h>
+#include <linux/sched.h>
+#include <linux/types.h>
+#include <signal.h>
+#include <stdint.h>
+#include <sys/syscall.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <iostream>
+#include <system_error>
+
+class UniquePidFd {
+    int fd_{-1};
+public:
+    constexpr UniquePidFd() noexcept = default;
+    explicit UniquePidFd(int fd) noexcept : fd_(fd) {}
+    ~UniquePidFd() { reset(); }
+
+    UniquePidFd(const UniquePidFd&) = delete;
+    UniquePidFd& operator=(const UniquePidFd&) = delete;
+
+    UniquePidFd(UniquePidFd&& other) noexcept : fd_(other.release()) {}
+    UniquePidFd& operator=(UniquePidFd&& other) noexcept {
+        if (this != &other) reset(other.release());
+        return *this;
+    }
+
+    void reset(int new_fd = -1) noexcept {
+        if (fd_ >= 0) ::close(fd_);
+        fd_ = new_fd;
+    }
+    [[nodiscard]] int release() noexcept {
+        int old = fd_;
+        fd_ = -1;
+        return old;
+    }
+    [[nodiscard]] int get() const noexcept { return fd_; }
+    [[nodiscard]] int* ptr() noexcept { return &fd_; }
+};
+
+static long spawn_task(int *pidfd_out) {
+    struct clone_args args{};
+    args.flags = CLONE_PIDFD | CLONE_CLEAR_SIGHAND;
+    args.pidfd = static_cast<__u64>(reinterpret_cast<uintptr_t>(pidfd_out));
+    args.exit_signal = SIGCHLD;
+
+    long pid = ::syscall(SYS_clone3, &args, sizeof(args));
+    if (pid >= 0 || (errno != ENOSYS && errno != EINVAL && errno != E2BIG)) {
+        return pid;
+    }
+
+    return ::syscall(SYS_clone, static_cast<unsigned long>(CLONE_PIDFD | SIGCHLD),
+                     nullptr, pidfd_out, nullptr, 0UL);
+}
+
+int main() {
+    UniquePidFd pidfd;
+    long pid = spawn_task(pidfd.ptr());
+    if (pid < 0) {
+        std::cerr << "clone помилка: " << std::generic_category().message(errno) << '\n';
+        return 1;
+    }
+
+    if (pid == 0) {
+        ::execlp("id", "id", static_cast<char*>(nullptr));
+        ::_exit(127);
+    }
+
+    siginfo_t info{};
+    if (::waitid(P_PIDFD, static_cast<id_t>(pidfd.get()), &info, WEXITED) == 0) {
+        std::cout << "дитина " << info.si_pid << " вийшла з кодом " << info.si_status << '\n';
+    }
+    return 0;
+}
+```
+:::
 
 Дві деталі в цьому коді неочевидні. По-перше, стек не виділяється зовсім: `stack` лишається нулем, `CLONE_VM` не піднято — отже дитина продовжується на дублі стека батька, як після `fork`. По-друге, `CLONE_CLEAR_SIGHAND` тут навмисний: сам по собі він зайвий, бо `execlp` і так скине обробники, — але він існує лише в `clone3`, тому саме на ньому й видно, як має виглядати відступ на старий виклик. У бойовому коді умову відступу треба звужувати до тих прапорців, які ти справді просиш: `EINVAL` від `clone3` означає не тільки «ядро старе», а й «ти передав заборонене сполучення», і відступати на `clone` у другому випадку — значить сховати власну помилку.
+
+## Внутрішня анатомія ядра: як прапорці керують `task_struct`
+
+Кожен прапорець `clone` має пряме втілення в структурі описателя задачі `task_struct` всередині ядра Linux (`kernel/fork.c`). Під час виконання системного виклику функція `copy_process()` перевіряє бітову маску й ухвалює рішення щодо кожного вказівника на внутрішні ресурси:
+
+- `CLONE_VM`: якщо виставлено, `p->mm = current->mm`, і atomic-лічильник користувачів пам'яті `mm_users` збільшується. Якщо ні — кличеться `dup_mm()`, яка виділяє нову структуру `mm_struct` і дублює дерева сторінок (VMA).
+- `CLONE_FILES`: якщо виставлено, `p->files = current->files`, і лічильник посилань `count` збільшується. Якщо ні — кличеться `dup_fd()`, яка робить глибоку копію масиву файлових дескрипторів.
+- `CLONE_FS`: якщо виставлено, `p->fs = current->fs`, що робить спільними покажчики на кореневий каталог, робочий каталог і `umask`. Якщо ні — кличеться `copy_fs_struct()`.
+- `CLONE_SIGHAND`: якщо виставлено, `p->sighand = current->sighand`. Якщо ні — виділяється нова структура `sighand_struct` із копією обробників сигналів.
+- `CLONE_NEW*`: якщо виставлено хоча б один із просторів імен, кличеться `copy_namespaces()`, яка виділяє нову структуру `nsproxy` із новими екземплярами відповідних підсистем.
+
+Простежити ці переходи на живій системі можна через інструменти трасування (`perf trace -e syscalls:sys_enter_clone,syscalls:sys_enter_clone3`) або огляд `/proc/<pid>/status`, де поля `Threads`, `NStid`, `VmPTE` відображають остаточний стан розгалуженої задачі.
+
+### Відображення прапорців у /proc та системні виклики pidfd
+
+Після виконання `clone` або `clone3` стан створеної задачі простежується через псевдофайлову систему `/proc`:
+
+- `/proc/<pid>/status`:
+  - `Threads` — кількість задач у даній групі потоків (зростає при `CLONE_THREAD`).
+  - `NStid` — ієрархія ідентифікаторів задачі у всіх вкладених просторах номерів PID (заповнюється при `CLONE_NEWPID` та `set_tid`).
+  - `Seccomp` — режим фільтрації системних викликів (передається дитині, якщо не скинуто).
+- `/proc/<pid>/fd/` — показує відкриті дескриптори. Якщо піднято `CLONE_FILES`, масив inode у цій теці є спільним із батьківським процесом.
+
+Отриманий при прапорці `CLONE_PIDFD` дескриптор процесу відкриває доступ до трьох системних викликів для безпечного керування дитиною без гонитви номерів (PID race conditions):
+
+1. `pidfd_send_signal(int pidfd, int sig, siginfo_t *info, unsigned int flags)` — надсилає сигнал саме тій задачі, яка пов'язана з дескриптором, навіть якщо її оригінальний `pid_t` уже перевидано іншому процесу.
+2. `pidfd_open(pid_t pid, unsigned int flags)` — отримує `pidfd` для вже наявного процесу.
+3. `pidfd_getfd(int pidfd, int targetfd, unsigned int flags)` — дублює файловий дескриптор `targetfd` із цільового процесу у свій власний список. Операція вимагає привілеїв `PTRACE_MODE_ATTACH_REALCREDS` (перевірка прав на трасування цільового процесу).
+
+Виклик `pidfd_getfd` особливо цінний для середовищ виконання контейнерів та системних демонів (як-от systemd): він дозволяє витягти відкритий сокет або файл із дитини без співпраці з її боку й без небезпечних проміжків гонитви за нове ім'я. Завдяки цим викликам системне програмування в Linux позбулося давньої проблеми точок гонитви при роботі з короткими процесами.
+

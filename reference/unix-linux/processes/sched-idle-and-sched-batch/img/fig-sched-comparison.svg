@@ -1,48 +1,31 @@
-<svg width="800" height="300" xmlns="http://www.w3.org/2000/svg">
-<rect x="0" y="0" width="800" height="300" fill="#ffffff" stroke="none" />
-<text x="80" y="65" font-size="14" font-family="sans-serif" text-anchor="end" fill="#333333">SCHED_OTHER</text>
-<text x="80" y="165" font-size="14" font-family="sans-serif" text-anchor="end" fill="#333333">SCHED_BATCH</text>
-<text x="80" y="265" font-size="14" font-family="sans-serif" text-anchor="end" fill="#333333">SCHED_IDLE</text>
-<line x1="100" y1="80" x2="750" y2="80" stroke="#aaaaaa" stroke-width="2" />
-<line x1="100" y1="180" x2="750" y2="180" stroke="#aaaaaa" stroke-width="2" />
-<line x1="100" y1="280" x2="750" y2="280" stroke="#aaaaaa" stroke-width="2" />
-<rect x="100" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="125" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="150" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="175" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="200" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="225" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="250" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="275" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="300" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="325" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="350" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="375" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="400" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="425" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="450" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="475" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="500" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="525" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="550" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="575" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="600" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="625" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="650" y="50" width="20" height="30" fill="#4caf50" stroke="#388e3c" />
-<rect x="675" y="50" width="20" height="30" fill="#2196f3" stroke="#1976d2" />
-<rect x="100" y="150" width="70" height="30" fill="#ff9800" stroke="#f57c00" />
-<rect x="175" y="150" width="70" height="30" fill="#9c27b0" stroke="#7b1fa2" />
-<rect x="250" y="150" width="70" height="30" fill="#ff9800" stroke="#f57c00" />
-<rect x="325" y="150" width="70" height="30" fill="#9c27b0" stroke="#7b1fa2" />
-<rect x="400" y="150" width="70" height="30" fill="#ff9800" stroke="#f57c00" />
-<rect x="475" y="150" width="70" height="30" fill="#9c27b0" stroke="#7b1fa2" />
-<rect x="550" y="150" width="70" height="30" fill="#ff9800" stroke="#f57c00" />
-<rect x="625" y="150" width="70" height="30" fill="#9c27b0" stroke="#7b1fa2" />
-<rect x="100" y="250" width="250" height="30" fill="#e0e0e0" stroke="#bdbdbd" />
-<text x="225" y="270" font-size="12" font-family="sans-serif" text-anchor="middle" fill="#757575">CPU Busy (Other/Batch)</text>
-<rect x="350" y="250" width="150" height="30" fill="#00bcd4" stroke="#0097a7" />
-<text x="425" y="270" font-size="12" font-family="sans-serif" text-anchor="middle" fill="#ffffff">IDLE Task Runs</text>
-<rect x="500" y="250" width="100" height="30" fill="#e0e0e0" stroke="#bdbdbd" />
-<text x="550" y="270" font-size="12" font-family="sans-serif" text-anchor="middle" fill="#757575">CPU Busy</text>
-<rect x="600" y="250" width="150" height="30" fill="#00bcd4" stroke="#0097a7" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння поведінки класів планування CFS</text>
+<rect x="39.1" y="61.2" width="101.8" height="47.6" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/><text x="90.0" y="81.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">SCHED_OTHER</tspan><tspan x="90.0" dy="15.6">(nice=0)</tspan></text>
+<rect x="39.1" y="141.2" width="101.8" height="47.6" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/><text x="90.0" y="161.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">SCHED_BATCH</tspan><tspan x="90.0" dy="15.6">(nice=0)</tspan></text>
+<rect x="42.8" y="221.2" width="94.4" height="47.6" rx="6" fill="#eceff1" stroke="#455a64" stroke-width="1.5"/><text x="90.0" y="241.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">SCHED_IDLE</tspan><tspan x="90.0" dy="15.6">(weight=3)</tspan></text>
+<line x1="170.0" y1="85.0" x2="780.0" y2="85.0" stroke="#b0bec5" stroke-width="1.5"/>
+<line x1="770.0" y1="85.0" x2="785.0" y2="85.0" stroke="#78909c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="165.0" x2="780.0" y2="165.0" stroke="#b0bec5" stroke-width="1.5"/>
+<line x1="770.0" y1="165.0" x2="785.0" y2="165.0" stroke="#78909c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="245.0" x2="780.0" y2="245.0" stroke="#b0bec5" stroke-width="1.5"/>
+<line x1="770.0" y1="245.0" x2="785.0" y2="245.0" stroke="#78909c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="760.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Час (t)</text>
+<rect x="175.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/><text x="197.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="197.5" dy="0.0">A</tspan></text>
+<rect x="225.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/><text x="247.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="247.5" dy="0.0">B</tspan></text>
+<rect x="280.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/><text x="302.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="302.5" dy="0.0">A</tspan></text>
+<rect x="330.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/><text x="352.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="352.5" dy="0.0">B</tspan></text>
+<rect x="385.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/><text x="407.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="407.5" dy="0.0">A</tspan></text>
+<rect x="435.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/><text x="457.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="457.5" dy="0.0">B</tspan></text>
+<rect x="490.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/><text x="512.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="512.5" dy="0.0">A</tspan></text>
+<rect x="540.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/><text x="562.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="562.5" dy="0.0">B</tspan></text>
+<rect x="595.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/><text x="617.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="617.5" dy="0.0">A</tspan></text>
+<rect x="645.0" y="70.0" width="45.0" height="30.0" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/><text x="667.5" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="667.5" dy="0.0">B</tspan></text>
+<text x="600.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle" font-style="italic">Часті перемикання (низька затримка)</text>
+<rect x="175.0" y="150.0" width="240.0" height="30.0" rx="6" fill="#ffe0b2" stroke="#f57c00" stroke-width="1.5"/><text x="295.0" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="295.0" dy="0.0">Пакетна задача A (тривалий квант)</tspan></text>
+<rect x="425.0" y="150.0" width="240.0" height="30.0" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="545.0" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">Пакетна задача B (без витискання)</tspan></text>
+<text x="600.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ef6c00" text-anchor="middle" font-style="italic">Збереження кешу CPU (високий throughput)</text>
+<rect x="175.0" y="230.0" width="320.0" height="30.0" rx="6" fill="#cfd8dc" stroke="#90a4ae" stroke-width="1.5"/><text x="335.0" y="242.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="middle"><tspan x="335.0" dy="0.0">Процесор зайнятий (OTHER / BATCH)</tspan></text>
+<rect x="505.0" y="230.0" width="220.0" height="30.0" rx="6" fill="#b2ebf2" stroke="#00acc1" stroke-width="1.5"/><text x="615.0" y="241.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="615.0" dy="0.0">IDLE задача (фонові обчислення)</tspan></text>
+<text x="600.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#00838f" text-anchor="middle" font-style="italic">Виконання лише при простої CPU</text>
 </svg>

@@ -1,45 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
-    <defs>
-        <style>
-            .box { fill: #2c3e50; stroke: #34495e; stroke-width: 2; rx: 5; ry: 5; }
-            .txt { fill: #ecf0f1; font-family: sans-serif; font-size: 16px; text-anchor: middle; alignment-baseline: middle; }
-            .txt-title { fill: #333; font-family: sans-serif; font-size: 20px; font-weight: bold; text-anchor: middle; }
-            .line { stroke: #7f8c8d; stroke-width: 2; stroke-dasharray: 5,5; }
-            .arrow { stroke: #e74c3c; stroke-width: 3; marker-end: url(#arrowhead); }
-        </style>
-        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
-        </marker>
-    </defs>
-    
-    <text x="400" y="30" class="txt-title">Архітектура sched_ext</text>
-    
-    <!-- User Space -->
-    <rect x="50" y="60" width="700" height="120" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="10"/>
-    <text x="400" y="80" class="txt-title" font-size="14">User Space</text>
-    
-    <rect x="100" y="100" width="200" height="50" class="box" fill="#8e44ad" />
-    <text x="200" y="125" class="txt">scx_rustland (User Agent)</text>
-    
-    <rect x="500" y="100" width="200" height="50" class="box" fill="#8e44ad" />
-    <text x="600" y="125" class="txt">scx_lavd (User Agent)</text>
-    
-    <!-- Kernel Space -->
-    <rect x="50" y="210" width="700" height="160" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="10"/>
-    <text x="400" y="230" class="txt-title" font-size="14">Kernel Space (Linux)</text>
-    
-    <rect x="100" y="260" width="200" height="50" class="box" fill="#2980b9" />
-    <text x="200" y="285" class="txt">BPF Program (sched_ext)</text>
-    
-    <rect x="500" y="260" width="200" height="50" class="box" fill="#27ae60" />
-    <text x="600" y="285" class="txt">Core Scheduler (core.c)</text>
-    
-    <!-- Lines & Arrows -->
-    <line x1="200" y1="150" x2="200" y2="260" class="arrow" />
-    <text x="260" y="200" class="txt-title" font-size="12" fill="#e74c3c">BPF Maps / Ringbuf</text>
-    
-    <line x1="300" y1="285" x2="500" y2="285" class="arrow" />
-    <text x="400" y="275" class="txt-title" font-size="12" fill="#e74c3c">struct sched_ext_ops</text>
-    
-    <line x1="50" y1="195" x2="750" y2="195" class="line" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="920.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="500.0" y="47.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Гібридна та вбудована архітектура BPF-планувальників u sched_ext</tspan></text>
+<rect x="40.0" y="80.0" width="920.0" height="150.0" rx="8" fill="#fcfcfc" stroke="#bdc3c7" stroke-width="1.5"/><text x="500.0" y="159.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0"></tspan></text>
+<rect x="50.0" y="90.0" width="200.0" height="30.0" rx="6" fill="#eaeded" stroke="None" stroke-width="1.5"/><text x="150.0" y="108.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">User Space (Простір користувача)</tspan></text>
+<rect x="80.0" y="130.0" width="380.0" height="80.0" rx="6" fill="#f5eeef" stroke="#c0392b" stroke-width="1.5"/><text x="270.0" y="158.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">scx_rustland (Rust User Daemon)</tspan><tspan x="270.0" dy="15.6">• Алгоритми прийняття рішень (RB-tree, пріоритети)</tspan><tspan x="270.0" dy="15.6">• Безпечна обробка помилок (без kernel panic)</tspan></text>
+<rect x="540.0" y="130.0" width="380.0" height="80.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="730.0" y="158.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">scx_lavd (User Control &amp; Stats)</tspan><tspan x="730.0" dy="15.6">• Динамічне налаштування профілів (Gaming / Eco)</tspan><tspan x="730.0" dy="15.6">• Моніторинг затримок та топології CCX</tspan></text>
+<rect x="40.0" y="240.0" width="920.0" height="36.0" rx="6" fill="#fef9e7" stroke="#f1c40f" stroke-width="1.5"/><text x="500.0" y="262.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Інтерфейс ядра / BPF Maps / BPF Ring Buffer / struct_ops</tspan></text>
+<line x1="270.0" y1="210.0" x2="270.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="210.0" x2="730.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="276.0" x2="270.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="276.0" x2="730.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="300.0" width="920.0" height="270.0" rx="8" fill="#fcfcfc" stroke="#bdc3c7" stroke-width="1.5"/><text x="500.0" y="439.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0"></tspan></text>
+<rect x="50.0" y="310.0" width="200.0" height="30.0" rx="6" fill="#eaeded" stroke="None" stroke-width="1.5"/><text x="150.0" y="329.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Kernel Space (Ядро Linux)</tspan></text>
+<rect x="80.0" y="350.0" width="380.0" height="75.0" rx="6" fill="#fcf3cf" stroke="#f39c12" stroke-width="1.5"/><text x="270.0" y="376.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">BPF Program (scx_rustland.bpf.c)</tspan><tspan x="270.0" dy="15.6">• enqueue: перенаправляє події в RingBuf</tspan><tspan x="270.0" dy="15.6">• dispatch: вичитує рішення з BPF Map</tspan></text>
+<rect x="540.0" y="350.0" width="380.0" height="75.0" rx="6" fill="#d4efdf" stroke="#27ae60" stroke-width="1.5"/><text x="730.0" y="376.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">BPF Program (scx_lavd.bpf.c)</tspan><tspan x="730.0" dy="15.6">• 100% логіки планування в ядрі (vruntime + deadline)</tspan><tspan x="730.0" dy="15.6">• Прямий dispatch в NUMA/CCX DSQ</tspan></text>
+<rect x="80.0" y="445.0" width="840.0" height="55.0" rx="6" fill="#ebf5fb" stroke="#3498db" stroke-width="1.5"/><text x="500.0" y="460.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Core Scheduler (kernel/sched/core.c)</tspan><tspan x="500.0" dy="16.2">• Dispatch Queues (DSQ): Local DSQ (per-CPU), Global DSQ, Custom DSQs</tspan><tspan x="500.0" dy="16.2">• Перемикання контексту задач на виконуючих ядрах CPU</tspan></text>
+<rect x="80.0" y="515.0" width="840.0" height="40.0" rx="6" fill="#e5e7e9" stroke="#1a1a1a" stroke-width="1.5"/><text x="500.0" y="539.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Фізичні ядра CPU0 .. CPU N (E-cores / P-cores / AMD CCX)</tspan></text>
 </svg>

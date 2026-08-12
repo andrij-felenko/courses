@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм вибору ядра при пробудженні задачі (EAS Wake-Up Flow)</text>
+<rect x="50.0" y="60.0" width="200.0" height="50.0" rx="6" fill="#eef2f7" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="150.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пробудження задачі</text>
+<line x1="250.0" y1="85.0" x2="300.0" y2="85.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="60.0" width="200.0" height="50.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+<text x="400.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Система over-utilized?</text>
+<text x="400.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(util &gt; 80% capacity)</text>
+<line x1="400.0" y1="110.0" x2="400.0" y2="170.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="415.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="300.0" y="170.0" width="200.0" height="50.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="400.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Класичний CFS Path</text>
+<text x="400.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Балансування навантаження</text>
+<line x1="500.0" y1="85.0" x2="550.0" y2="85.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">НІ</text>
+<rect x="550.0" y="60.0" width="200.0" height="50.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">EAS Active Path</text>
+<text x="650.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">find_energy_efficient_cpu()</text>
+<line x1="650.0" y1="110.0" x2="650.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="530.0" y="170.0" width="240.0" height="60.0" rx="6" fill="#f4f6f7" stroke="#34495e" stroke-width="1.5"/>
+<text x="650.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення compute_energy()</text>
+<text x="650.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">E_candidate = ∑ Power(OPP) · Util</text>
+<line x1="650.0" y1="230.0" x2="650.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="530.0" y="280.0" width="240.0" height="60.0" rx="6" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="650.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Обчислення ΔE = E_with - E_without</text>
+<text x="650.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Вибір ядра з мінімальним ΔE</text>
+<line x1="530.0" y1="310.0" x2="300.0" y2="310.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="100.0" y="280.0" width="200.0" height="60.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="200.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Призначення задачі на ядро</text>
+<text x="200.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">enqueue_task_fair()</text>
+</svg>

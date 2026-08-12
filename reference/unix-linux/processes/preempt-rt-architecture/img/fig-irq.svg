@@ -1,21 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="800" height="400" fill="#f8f9fa"/>
-    <text x="400" y="50" font-family="sans-serif" font-size="24" text-anchor="middle" fill="#333">Standard Linux vs PREEMPT_RT Interrupt Handling</text>
-    <rect x="50" y="100" width="300" height="200" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-    <text x="200" y="130" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#495057">Standard (Mainline)</text>
-    <rect x="70" y="150" width="260" height="40" fill="#ff9999"/>
-    <text x="200" y="175" font-family="sans-serif" font-size="14" text-anchor="middle">Hard IRQ (Non-preemptible)</text>
-    <rect x="70" y="200" width="260" height="40" fill="#ffcc99"/>
-    <text x="200" y="225" font-family="sans-serif" font-size="14" text-anchor="middle">SoftIRQ (Tasklet/Bottom Half)</text>
-    <rect x="70" y="250" width="260" height="40" fill="#cce5ff"/>
-    <text x="200" y="275" font-family="sans-serif" font-size="14" text-anchor="middle">User Task</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <rect width="800" height="420" fill="#f8f9fa" rx="8"/>
+  <text x="400" y="40" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Обробка переривань: Ванільне ядро vs PREEMPT_RT</text>
 
-    <rect x="450" y="100" width="300" height="200" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-    <text x="600" y="130" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#495057">PREEMPT_RT</text>
-    <rect x="470" y="150" width="260" height="30" fill="#ff9999"/>
-    <text x="600" y="170" font-family="sans-serif" font-size="14" text-anchor="middle">Hard IRQ (Minimal setup)</text>
-    <rect x="470" y="190" width="260" height="50" fill="#99ccff"/>
-    <text x="600" y="220" font-family="sans-serif" font-size="14" text-anchor="middle">IRQ Thread (Preemptible)</text>
-    <rect x="470" y="250" width="260" height="40" fill="#cce5ff"/>
-    <text x="600" y="275" font-family="sans-serif" font-size="14" text-anchor="middle">User Task</text>
+  <!-- Panel 1: Standard Linux -->
+  <rect x="40" y="70" width="340" height="320" fill="#ffffff" stroke="#ced4da" stroke-width="1.5" rx="6"/>
+  <text x="210" y="100" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#495057">Стандартний Linux (Mainline)</text>
+  
+  <rect x="60" y="120" width="300" height="55" fill="#f8d7da" stroke="#f5c6cb" stroke-width="1.5" rx="4"/>
+  <text x="210" y="143" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#721c24">Hard IRQ (Апаратний контекст)</text>
+  <text x="210" y="162" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#721c24">Вимикає переривання/витіснення</text>
+
+  <rect x="60" y="195" width="300" height="55" fill="#fff3cd" stroke="#ffebaba" stroke-width="1.5" rx="4"/>
+  <text x="210" y="218" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#856404">SoftIRQ / Tasklet (Нижня половина)</text>
+  <text x="210" y="237" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#856404">Перешкоджає RT-завданням користувача</text>
+
+  <rect x="60" y="270" width="300" height="55" fill="#d1ecf1" stroke="#bee5eb" stroke-width="1.5" rx="4"/>
+  <text x="210" y="293" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0c5460">RT-завдання користувача (SCHED_FIFO)</text>
+  <text x="210" y="312" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0c5460">Змушене чекати завершення IRQ/SoftIRQ</text>
+
+  <!-- Panel 2: PREEMPT_RT -->
+  <rect x="420" y="70" width="340" height="320" fill="#ffffff" stroke="#ced4da" stroke-width="1.5" rx="6"/>
+  <text x="590" y="100" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#495057">Ядро з PREEMPT_RT</text>
+
+  <rect x="440" y="120" width="300" height="45" fill="#f8d7da" stroke="#f5c6cb" stroke-width="1.5" rx="4"/>
+  <text x="590" y="140" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#721c24">Micro-ISR (Лише ACK і розбудження)</text>
+  <text x="590" y="156" font-family="'Segoe UI', Arial, sans-serif" font-size="11" text-anchor="middle" fill="#721c24">Тривалість &lt; 1–2 мікросекунди</text>
+
+  <rect x="440" y="185" width="300" height="55" fill="#d4edda" stroke="#c3e6cb" stroke-width="1.5" rx="4"/>
+  <text x="590" y="208" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#155724">RT-завдання користувача (Пріоритет 80)</text>
+  <text x="590" y="227" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#155724">Витісняє потік переривань без затримок</text>
+
+  <rect x="440" y="260" width="300" height="55" fill="#cce5ff" stroke="#b8daff" stroke-width="1.5" rx="4"/>
+  <text x="590" y="283" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004085">Потік ядра irq/N-name (Пріоритет 50)</text>
+  <text x="590" y="302" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#004085">Повноцінний потік (витіснюваний, може спати)</text>
+
+  <path d="M 590 165 L 590 185" stroke="#28a745" stroke-width="2" marker-end="url(#arrow)"/>
 </svg>

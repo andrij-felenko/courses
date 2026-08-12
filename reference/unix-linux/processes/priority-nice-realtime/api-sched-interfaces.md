@@ -205,6 +205,7 @@ sched_period == 0  →  береться рівним sched_deadline
 
 Увійти в `SCHED_DEADLINE`, розрізнити всі три типові відмови й відпрацювати перший десяток періодів:
 
+:::tabs
 ```c
 #define _GNU_SOURCE
 #include <errno.h>
@@ -269,6 +270,66 @@ int main(void)
     return 0;
 }
 ```
+
+```cpp
+#define _GNU_SOURCE
+#include <chrono>
+#include <cstdint>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <sched.h>
+#include <sys/syscall.h>
+#include <thread>
+#include <unistd.h>
+
+#ifndef SCHED_DEADLINE
+#define SCHED_DEADLINE 6
+#endif
+#ifndef SCHED_FLAG_DL_OVERRUN
+#define SCHED_FLAG_DL_OVERRUN 0x04
+#endif
+
+struct sched_attr {
+    uint32_t size{}, sched_policy{};
+    uint64_t sched_flags{};
+    int32_t  sched_nice{};
+    uint32_t sched_priority{};
+    uint64_t sched_runtime{}, sched_deadline{}, sched_period{};
+};
+
+static void do_one_job() {
+    auto start = std::chrono::steady_clock::now();
+    while (std::chrono::steady_clock::now() - start < std::chrono::microseconds(800)) {}
+}
+
+int main() {
+    sched_attr a{};
+    a.size           = sizeof(a);
+    a.sched_policy   = SCHED_DEADLINE;
+    a.sched_flags    = SCHED_FLAG_DL_OVERRUN;
+    a.sched_runtime  = 1200 * 1000;
+    a.sched_deadline = 2500 * 1000;
+    a.sched_period   = 5000 * 1000;
+
+    if (syscall(SYS_sched_setattr, 0, &a, 0u) != 0) {
+        switch (errno) {
+        case EPERM:  std::cerr << "немає CAP_SYS_NICE або звужена маска ядер\n"; break;
+        case EBUSY:  std::cerr << "смуга вичерпана: сума часток не влазить\n";   break;
+        case EINVAL: std::cerr << "порушено runtime ≤ deadline ≤ period\n";      break;
+        default:     std::perror("sched_setattr");
+        }
+        return 1;
+    }
+
+    for (int i = 0; i < 10; ++i) {
+        do_one_job();
+        sched_yield();
+    }
+    return 0;
+}
+```
+:::
 
 Два місця тут неочевидні. `memset` не косметичний: ненульове сміття в полях, які ядро вважає зайвими, дає `E2BIG`, а в полях, які воно читає, — `EINVAL`. І `sched_yield()` у дедлайновому класі означає не «поступлюся рівним», а «свою роботу на цей період я закінчив» — задача засинає до початку наступного періоду, не витрачаючи решти бюджету. Ще одне: `SCHED_FLAG_DL_OVERRUN` шле `SIGXCPU`, типова дія якого — аварійне завершення з дампом, тож прапорець без обробника перетворює перевитрату на падіння.
 

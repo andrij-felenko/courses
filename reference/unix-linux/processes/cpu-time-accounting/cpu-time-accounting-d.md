@@ -149,6 +149,7 @@ utime' = 12.000 − 1.9636     = 10.0364 s
 
 `getrusage()`, `times()` і поля 14–15 у `/proc/<pid>/stat` віддають результат `cputime_adjust()` — точну суму з вибірковим поділом.
 
+:::tabs
 ```c
 #include <stdio.h>
 #include <time.h>
@@ -170,6 +171,30 @@ int main(void) {
     return 0;
 }
 ```
+```cpp
+#include <iostream>
+#include <iomanip>
+#include <time.h>
+#include <sys/resource.h>
+
+int main() {
+    timespec t{};
+    rusage r{};
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &t);   // точна сума
+    getrusage(RUSAGE_SELF, &r);                    // поділ на user/sys
+
+    double exact = t.tv_sec + t.tv_nsec / 1e9;
+    double user  = r.ru_utime.tv_sec + r.ru_utime.tv_usec / 1e6;
+    double sys   = r.ru_stime.tv_sec + r.ru_stime.tv_usec / 1e6;
+
+    std::cout << std::fixed << std::setprecision(6)
+              << "точно: " << exact << "   user+sys: " << (user + sys)
+              << "   (user " << user << ", sys " << sys << ")\n";
+    return 0;
+}
+```
+:::
 
 Два перші числа збігатимуться з точністю до того, що між викликами минув якийсь час; два останні — оцінки. Тому вимірювати оптимізацію алгоритму за `ru_utime` — це міряти рулеткою, у якої ціна поділки залежить від того, скільки системних викликів робить сусідній код. Правильна величина для такого — повний процесорний час потоку з `CLOCK_THREAD_CPUTIME_ID`.
 

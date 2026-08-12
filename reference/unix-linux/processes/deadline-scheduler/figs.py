@@ -1,48 +1,76 @@
 import os
+import sys
 
-def render():
-    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#000" />
-    </marker>
-  </defs>
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
 
-  <!-- Title -->
-  <text x="400" y="30" font-family="sans-serif" font-size="20" text-anchor="middle" font-weight="bold">Планування SCHED_DEADLINE (EDF + CBS)</text>
+def generate_sched_deadline():
+    path = os.path.join(os.path.dirname(__file__), 'img', 'sched-deadline.svg')
+    os.makedirs(os.path.dirname(path), exist_ok=True)
 
-  <!-- Timeline Axis -->
-  <line x1="50" y1="200" x2="750" y2="200" stroke="black" stroke-width="2" marker-end="url(#arrow)" />
-  <text x="760" y="205" font-family="sans-serif" font-size="16">Час (t)</text>
+    w, h = 840, 380
+    frags = []
 
-  <!-- Task 1 (Red) -->
-  <rect x="100" y="100" width="100" height="40" fill="#ff9999" stroke="#ff0000" stroke-width="2" />
-  <text x="150" y="125" font-family="sans-serif" font-size="14" text-anchor="middle">Task 1 (r_1)</text>
+    # Title
+    frags.append(text(w / 2, 28, "Поведінка SCHED_DEADLINE: Бюджет CBS та дедлайн EDF", size=16, bold=True))
 
-  <line x1="100" y1="90" x2="100" y2="210" stroke="#ff0000" stroke-width="1" stroke-dasharray="4" />
-  <text x="100" y="225" font-family="sans-serif" font-size="12" text-anchor="middle">t=0 (Arrival)</text>
+    # Time Axis
+    frags.append(line(50, 240, 780, 240, color=LINE, sw=2))
+    frags.append(arrow(760, 240, 780, 240, color=LINE, sw=2))
+    frags.append(text(770, 260, "Час (t)", size=13, color=MUTED, anchor="start"))
 
-  <line x1="300" y1="90" x2="300" y2="210" stroke="#ff0000" stroke-width="2" />
-  <text x="300" y="225" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#ff0000">D_1</text>
-  <text x="300" y="240" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#ff0000">(Deadline 1)</text>
+    # Period 1 markers
+    frags.append(line(60, 80, 60, 250, color=MUTED, sw=1, dash="4,4"))
+    frags.append(text(60, 270, "t = 0 (Прибуття)", size=12, anchor="middle"))
 
-  <!-- Task 2 (Blue) -->
-  <rect x="200" y="150" width="80" height="40" fill="#99ccff" stroke="#0000ff" stroke-width="2" />
-  <text x="240" y="175" font-family="sans-serif" font-size="14" text-anchor="middle">Task 2 (r_2)</text>
-  
-  <line x1="200" y1="140" x2="200" y2="210" stroke="#0000ff" stroke-width="1" stroke-dasharray="4" />
-  <text x="200" y="225" font-family="sans-serif" font-size="12" text-anchor="middle">Arrival 2</text>
+    # Execution block (Runtime Q = 10ms)
+    frags.append(fitbox(60, 120, 150, 40, "Виконання (Runtime Q)\n10 мс", size=12, fill="#eaf0fd", stroke=NEG, bold=True))
 
-  <line x1="450" y1="140" x2="450" y2="210" stroke="#0000ff" stroke-width="2" />
-  <text x="450" y="225" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#0000ff">D_2</text>
+    # Throttled block (from t=10 to t=30)
+    frags.append(fitbox(220, 120, 210, 40, "Дроселювання (Throttled)\nЧекає на поповнення", size=12, fill="#fdecea", stroke=POS))
 
-  <!-- CBS bandwidth replenished -->
-  <path d="M 100 300 Q 150 250 200 300" fill="none" stroke="#009900" stroke-width="2" stroke-dasharray="5"/>
-  <text x="150" y="320" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#009900">CBS Replenishment</text>
-</svg>
-"""
-    with open('sched-deadline.svg', 'w', encoding='utf-8') as f:
-        f.write(svg_content)
+    # Absolute deadline line
+    frags.append(line(440, 70, 440, 250, color=POS, sw=2))
+    frags.append(text(440, 60, "Абсолютний дедлайн (d₁ = 30 мс)", size=12, color=POS, bold=True, anchor="middle"))
+    frags.append(text(440, 270, "t = 30 мс (Кінець періоду P)", size=12, anchor="middle"))
+
+    # Replenishment at t=30
+    frags.append(line(440, 80, 440, 250, color=FIELD, sw=1.5, dash="2,2"))
+    frags.append(fitbox(450, 120, 150, 40, "Новий період (P₂)\nБюджет поповнено", size=12, fill="#e8f8f0", stroke=FIELD, bold=True))
+
+    # Legend / explanatory text box at bottom
+    frags.append(fitbox(60, 300, 720, 45, "CBS гарантує: Потік отримує максимум Q (10 мс) кожні P (30 мс). При вичерпанні Q потік дроселюється.\nEDF обирає для виконання потік із найближчим дедлайном d = r + D.", size=11, fill=FILL, stroke=MUTED))
+
+    render(path, w, h, *frags)
+
+def generate_dhall_effect():
+    path = os.path.join(os.path.dirname(__file__), 'img', 'dhall-effect.svg')
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    w, h = 880, 360
+    frags = []
+
+    frags.append(text(w / 2, 28, "Ефект Далла (Global EDF) проти Partitioned EDF", size=16, bold=True))
+
+    # Global EDF box boundary
+    frags.append(rect(20, 50, 390, 270, fill=BG, stroke=POS, sw=1.5))
+    frags.append(text(215, 75, "Global EDF (Міграція між ядрами)", size=14, color=POS, bold=True))
+    frags.append(textbox(215, 120, "Спільна черга (Root Domain)", size=12, fill="#fdecea", stroke=POS)[0])
+    frags.append(line(215, 140, 120, 180, color=POS, sw=1.5))
+    frags.append(line(215, 140, 310, 180, color=POS, sw=1.5))
+    frags.append(textbox(120, 200, "CPU 0\n(Короткі T₁)", size=12, fill=FILL)[0])
+    frags.append(textbox(310, 200, "CPU 1\n(Короткі T₂)", size=12, fill=FILL)[0])
+    frags.append(text(215, 275, "Довге завдання T₃ витісняється\nі пропускає дедлайн!", size=11, color=POS, bold=True))
+
+    # Partitioned EDF box boundary
+    frags.append(rect(430, 50, 430, 270, fill=BG, stroke=FIELD, sw=1.5))
+    frags.append(text(645, 75, "Partitioned EDF (Прив'язка cpuset)", size=14, color=FIELD, bold=True))
+    frags.append(textbox(530, 140, "Domain A\nCPU 0: Завдання T₁, T₂", size=11, fill="#e8f8f0", stroke=FIELD)[0])
+    frags.append(textbox(750, 140, "Domain B\nCPU 1: Завдання T₃ (Ізольоване)", size=11, fill="#e8f8f0", stroke=FIELD)[0])
+    frags.append(text(645, 275, "Ніяких витіснень з інших ядер:\n100% гарантія дедлайнів", size=11, color=FIELD, bold=True))
+
+    render(path, w, h, *frags)
 
 if __name__ == '__main__':
-    render()
+    generate_sched_deadline()
+    generate_dhall_effect()

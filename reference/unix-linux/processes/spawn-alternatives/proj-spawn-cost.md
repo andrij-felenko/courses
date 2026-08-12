@@ -62,6 +62,7 @@ cc -O2 -Wall -Wextra -o spawncost spawncost.c
 
 Один файл, ніяких прав, ніяких залежностей.
 
+:::tabs
 ```c
 /* spawncost.c — три способи народити процес на одних терезах. */
 #define _GNU_SOURCE
@@ -261,6 +262,174 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <spawn.h>
+#include <sys/mman.h>
+#include <sys/resource.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+#include <algorithm>
+#include <chrono>
+#include <cstring>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <string_view>
+#include <vector>
+
+extern char **environ;
+
+static char HELPER[] = "./noop";
+static char *ARGV[] = { HELPER, nullptr };
+
+static double ms_between(struct timespec a, struct timespec b) {
+    return static_cast<double>(b.tv_sec - a.tv_sec) * 1e3
+         + static_cast<double>(b.tv_nsec - a.tv_nsec) / 1e6;
+}
+
+static struct timespec now() {
+    struct timespec t{};
+    clock_gettime(CLOCK_MONOTONIC, &t);
+    return t;
+}
+
+static long field_kb(const char *path, const char *key) {
+    std::ifstream file(path);
+    if (!file.is_open()) return -1;
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line.rfind(key, 0) == 0) {
+            size_t pos = line.find_first_of("0123456789");
+            if (pos != std::string::npos) {
+                return std::stol(line.substr(pos));
+            }
+        }
+    }
+    return -1;
+}
+
+static void grow_parent(size_t bytes, bool huge) {
+    if (bytes == 0) return;
+    char *p = static_cast<char*>(mmap(nullptr, bytes, PROT_READ | PROT_WRITE,
+                                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
+    if (p == MAP_FAILED) {
+        std::perror("mmap");
+        std::exit(1);
+    }
+    madvise(p, bytes, huge ? MADV_HUGEPAGE : MADV_NOHUGEPAGE);
+
+    size_t page = static_cast<size_t>(sysconf(_SC_PAGESIZE));
+    for (size_t off = 0; off < bytes; off += page) {
+        p[off] = 1;
+    }
+}
+
+static pid_t spawn_fork() {
+    pid_t pid = ::fork();
+    if (pid < 0) { std::perror("fork"); std::exit(1); }
+    if (pid == 0) {
+        ::execv(HELPER, ARGV);
+        ::_exit(127);
+    }
+    return pid;
+}
+
+static pid_t spawn_vfork() {
+    static const char msg[] = "execv failed\n";
+    pid_t pid = ::vfork();
+    if (pid < 0) { std::perror("vfork"); std::exit(1); }
+    if (pid == 0) {
+        ::execv(HELPER, ARGV);
+        (void)!::write(STDERR_FILENO, msg, sizeof(msg) - 1);
+        ::_exit(127);
+    }
+    return pid;
+}
+
+static pid_t spawn_posix() {
+    pid_t pid = 0;
+    int rc = ::posix_spawn(&pid, HELPER, nullptr, nullptr, ARGV, environ);
+    if (rc != 0) {
+        std::cerr << "posix_spawn: " << std::strerror(rc) << '\n';
+        std::exit(1);
+    }
+    return pid;
+}
+
+static void reap(pid_t pid) {
+    int st = 0;
+    while (::waitpid(pid, &st, 0) < 0 && errno == EINTR) {}
+}
+
+template <typename Func>
+static void run(std::string_view name, Func spawn_fn, int iters, std::vector<double>& v) {
+    struct rusage r0{}, r1{};
+
+    reap(spawn_fn());
+
+    getrusage(RUSAGE_SELF, &r0);
+    struct timespec t0 = now();
+    for (int i = 0; i < iters; ++i) {
+        struct timespec c0 = now();
+        pid_t pid = spawn_fn();
+        struct timespec c1 = now();
+        v[i] = ms_between(c0, c1);
+        reap(pid);
+    }
+    struct timespec t1 = now();
+    getrusage(RUSAGE_SELF, &r1);
+
+    double whole = ms_between(t0, t1) / iters;
+    double sys = ((static_cast<double>(r1.ru_stime.tv_sec - r0.ru_stime.tv_sec) * 1e3)
+                + (static_cast<double>(r1.ru_stime.tv_usec - r0.ru_stime.tv_usec) / 1e3))
+               / iters;
+
+    std::sort(v.begin(), v.end());
+    std::cout << std::left << std::setw(12) << name << ' '
+              << std::right << std::setw(9) << std::fixed << std::setprecision(3) << v[iters / 2] << ' '
+              << std::setw(11) << sys << ' '
+              << std::setw(10) << whole << '\n';
+}
+
+int main(int argc, char **argv) {
+    size_t mib = (argc > 1) ? std::stoul(argv[1]) : 1024;
+    int iters = (argc > 2) ? std::stoi(argv[2]) : 200;
+    bool huge = (argc > 3 && std::string_view(argv[3]) == "--huge");
+
+    if (iters < 3) iters = 3;
+    grow_parent(mib << 20, huge);
+
+    std::cout << "батько: " << mib << " МіБ торкнутих · VmRSS "
+              << field_kb("/proc/self/status", "VmRSS:") << " КіБ · VmPTE "
+              << field_kb("/proc/self/status", "VmPTE:") << " КіБ · великі сторінки "
+              << field_kb("/proc/self/smaps_rollup", "AnonHugePages:") << " КіБ\n"
+              << "спосіб       у виклику  sys батька     усього\n";
+
+    std::vector<double> v(iters);
+    run("fork+exec",   spawn_fork,  iters, v);
+    run("vfork+exec",  spawn_vfork, iters, v);
+    run("posix_spawn", spawn_posix, iters, v);
+    return 0;
+}
+```
+:::
+
+## Підтвердження інструментами трасування ядра
+
+Аби остаточно переконатися, що затримка при `fork` спричинена саме дублюванням сторінок на рівні ядра, можна використати лічильники системних подій `perf stat` або трасування `ftrace`:
+
+```sh
+perf stat -e page-faults,minor-faults,major-faults,context-switches ./spawncost 4096 50
+```
+
+У результаті виводу видно, що для `fork+exec` кількість `minor-faults` і час у системних викликах зростають пропорційно до кількості виділених 4-кілобайтних сторінок, адже функція ядра `copy_page_range()` послідовно виділяє й заповнює записи PTE для кожної сторінки VMA. Натомість при виклику `vfork` і `posix_spawn` кількість системних сторінкових збоїв лишається мінімальною — ядро лише переставляє покажчики й не обходить дерев virtual memory area.
+
 
 Поле `VmPTE` — «Page table entries size», є в `/proc/<pid>/status` із ядра 2.6.10; окремий рядок `VmPMD` для другого рівня існував лише в ядрах 4.0–4.14, і його прибрали. Це і є ті самі байти, які `fork` мусить продублювати, — їх видно **до** виміру, тож передбачення можна перевірити ще до першого запуску. Що таке `VmRSS` і чому він не дорівнює спожитій пам'яті — у статті про [облік пам'яті процесу](book:unix-linux/memory-accounting); тут він потрібен лише як свідок того, що пам'ять справді торкнута.
 
@@ -333,3 +502,59 @@ posix_spawn      0.354       0.118      0.476
 Пів ядра, спалених на копіювання таблиць, які дитина викидає наступним рядком. Перехід на `posix_spawn` знімає цю статтю цілком — і саме тому його варто міряти на своєму батькові, а не вірити загальним словам.
 
 Зворотний бік теж видно з таблиці. На батькові в кілька мегабайтів усі три рядки практично збігаються, і переписувати робочий код заради них немає сенсу: там ціна запуску — це майже цілком запуск самої дитини, і жоден спосіб народження цього не змінить. Виграш живе рівно там, де великий батько зустрічається з частими запусками; поза цим перетином три способи відрізняються не швидкістю, а тим, що в них можна зробити між народженням і `exec`.
+
+## Вплив на TLB та кеші процесора
+
+Окрім прямого копіювання байтів у `copy_page_range()`, виклик `fork` створює невидиме навантаження на підсистему пам'яті процесора, яке не відображається у `RUSAGE_SELF`:
+
+1. **Очищення та промахи TLB (Translation Lookaside Buffer).** Оскільки всі сторінки батька маркуються прапорцем Read-Only для реалізації Copy-on-Write, ядро змушене виконати скидання або оновлення записів TLB (TLB shootdown / flush) для всіх ядер, що виконують даний адресний простір. Це викликає сплеск промахів при кожному наступному зверненні до пам'яті.
+2. **Вимивання L1/L2/L3 кешів.** Сканування мільйонів записів таблиць сторінок обсягом у десятки мегабайтів вимиває робочий набір даних застосунку з L1 та L2 кешів процесора. Після виклику `fork` потік батька витрачає додаткові мікросекунди на поновлення кешу.
+
+Перевірити це можна апаратними лічильниками процесора:
+
+```sh
+perf stat -e dTLB-load-misses,iTLB-load-misses,L1-dcache-load-misses ./spawncost 4096 50
+```
+
+Виміри показують, що при `posix_spawn` і `vfork` кількість промахів `dTLB-load-misses` лишається фоновою, тоді як при `fork` вона зростає на сотні тисяч подій. Це ще один аргумент на користь того, що закритий список дій у `posix_spawn` щадить не лише процесорний час ядра, а й стан системного кешу.
+
+## Налаштування середовища для точних вимірів
+
+Щоб усунути коливання результатів на багатоядерних і багатопроцесорних системах (NUMA), при створенні бенчмарка дотримуються трьох правил налаштування оточення:
+
+1. **Фіксація процесорного ядра (`taskset`).** Виконувати вимірювальну програму варто на одному виділеному ядрі, аби запобігти міграції потоку між ядрами під час створення дитини:
+   ```sh
+   taskset -c 2 ./spawncost 4096 200
+   ```
+2. **Режим максимальної продуктивності CPU (`cpufreq`).** Динамічна зміна частоти процесора (governor `powersave` чи `schedutil`) підлаштовує частоту під навантаження з запізненням у десятки мілісекунд. Переключення у режим `performance` усуває це викривлення:
+   ```sh
+   echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+   ```
+3. **Локалізація пам'яті на NUMA-вузлі (`numactl`).** На багатосокетних серверах виділення пам'яті на віддаленому вузлі додає затримки міжпроцесорної шини (UPI/Infinity Fabric). Фіксація пам'яті й процесора на одному вузлі гарантує відтворюваність:
+   ```sh
+   numactl --physcpubind=2 --membind=0 ./spawncost 4096 200
+   ```
+
+Ці кроки перетворюють бенчмарк на синтетичний лабораторний тест із чистим виділенням ціни копіювання таблиць сторінок.
+
+## Глибоке простеження через ftrace
+
+Для детального аналізу системних викликів безпосередньо у ядра можна увімкнути динамічне трасування через інтерфейс `tracefs` (або `debugfs`):
+
+```sh
+# Налаштування ftrace для відстеження системних сторінкових збоїв
+sudo sysctl kernel.ftrace_enabled=1
+echo 1 | sudo tee /sys/kernel/tracing/events/exceptions/page_fault_user/enable
+echo 1 | sudo tee /sys/kernel/tracing/events/syscalls/sys_enter_clone3/enable
+echo 1 | sudo tee /sys/kernel/tracing/events/syscalls/sys_exit_clone3/enable
+```
+
+Після виконання запуску у файлі `/sys/kernel/tracing/trace` з'являються події створення процесу й послідовність викликів `handle_mm_fault()`. Потоки трасування показують, що при `fork` час між `sys_enter_clone` та `sys_exit_clone` напряму корелює з кількістю генерованих збоїв `page_fault_user` під час дублювання VMA. Натомість при `posix_spawn` трасування `sys_enter_clone3` демонструє миттєве повернення ядра, оскільки обхід таблиць сторінок повністю відсутній.
+
+Таким чином, інструменти трасування підтверджують ключовий висновок: головне джерело накладних витрат класичного `fork` — це не створення описувача процесу `task_struct`, а лінійне сканування та копіювання записів таблиць сторінок віртуальної пам'яті. Перевірка через `/proc/self/status` та `/proc/self/smaps_rollup` надає точні дані про розмір PTE для будь-якої конфігурації. Використання `posix_spawn` або `vfork` у високонавантажених сервісах дозволяє повністю усунути цю проблему на системному рівні, забезпечуючи високу швидкість і стійкість запуску нових процесів під будь-яким навантаженням.
+
+
+
+
+
+

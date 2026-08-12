@@ -1,24 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="800" height="400" fill="#ffffff"/>
-    <text x="400" y="40" font-family="sans-serif" font-size="22" text-anchor="middle">Priority Inheritance in PREEMPT_RT</text>
-    <circle cx="150" cy="150" r="40" fill="#ff9999"/>
-    <text x="150" y="155" font-family="sans-serif" font-size="14" text-anchor="middle">Task H (Prio 90)</text>
-    
-    <circle cx="400" cy="150" r="40" fill="#ffcc99"/>
-    <text x="400" y="155" font-family="sans-serif" font-size="14" text-anchor="middle">Task M (Prio 50)</text>
-    
-    <circle cx="650" cy="150" r="40" fill="#99ccff"/>
-    <text x="650" y="155" font-family="sans-serif" font-size="14" text-anchor="middle">Task L (Prio 10)</text>
-    
-    <rect x="580" y="250" width="140" height="60" fill="#e2e3e5"/>
-    <text x="650" y="285" font-family="sans-serif" font-size="14" text-anchor="middle">rt_mutex (Locked by L)</text>
-    
-    <path d="M 190 150 L 350 150" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="270" y="140" font-family="sans-serif" font-size="12" text-anchor="middle">Blocks on H</text>
-    
-    <path d="M 650 190 L 650 250" stroke="black" stroke-width="2"/>
-    <path d="M 150 190 L 150 280 L 580 280" stroke="red" stroke-width="2" stroke-dasharray="5,5"/>
-    <text x="365" y="270" font-family="sans-serif" font-size="12" text-anchor="middle" fill="red">H requests mutex</text>
-    
-    <text x="650" y="340" font-family="sans-serif" font-size="16" text-anchor="middle" fill="blue">L temporarily inherits Prio 90</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="100%" height="100%">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#495057"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc3545"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="440" fill="#ffffff" rx="8"/>
+  <text x="400" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Механізм успадкування пріоритетів (Priority Inheritance)</text>
+
+  <!-- Tasks Nodes -->
+  <g transform="translate(80, 80)">
+    <rect x="0" y="0" width="180" height="70" fill="#f8d7da" stroke="#dc3545" stroke-width="2" rx="6"/>
+    <text x="90" y="30" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#721c24">Task H (Високий)</text>
+    <text x="90" y="52" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#721c24">SCHED_FIFO Prio 90</text>
+  </g>
+
+  <g transform="translate(310, 80)">
+    <rect x="0" y="0" width="180" height="70" fill="#fff3cd" stroke="#ffc107" stroke-width="2" rx="6"/>
+    <text x="90" y="30" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#856404">Task M (Середній)</text>
+    <text x="90" y="52" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#856404">SCHED_FIFO Prio 50</text>
+  </g>
+
+  <g transform="translate(540, 80)">
+    <rect x="0" y="0" width="180" height="70" fill="#d4edda" stroke="#28a745" stroke-width="2" rx="6"/>
+    <text x="90" y="30" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#155724">Task L (Низький)</text>
+    <text x="90" y="52" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#155724">Базовий Prio 10</text>
+  </g>
+
+  <!-- Lock Node -->
+  <g transform="translate(310, 240)">
+    <rect x="0" y="0" width="180" height="60" fill="#e2e3e5" stroke="#6c757d" stroke-width="2" rx="6"/>
+    <text x="90" y="28" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#383d41">rt_mutex</text>
+    <text x="90" y="46" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#383d41">Захоплений Task L</text>
+  </g>
+
+  <!-- Arrows and Relationships -->
+  <path d="M 170 150 L 170 270 L 310 270" fill="none" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-red)"/>
+  <text x="240" y="255" font-family="'Segoe UI', Arial, sans-serif" font-size="12" font-weight="bold" fill="#dc3545" text-anchor="middle">1. Чекає на лок</text>
+
+  <path d="M 630 150 L 630 270 L 490 270" fill="none" stroke="#28a745" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="560" y="255" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#155724" text-anchor="middle">Володіє локом</text>
+
+  <!-- Inheritance Banner -->
+  <rect x="180" y="340" width="440" height="70" fill="#cce5ff" stroke="#004085" stroke-width="1.5" rx="6"/>
+  <text x="400" y="368" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004085">2. Динамічне підняття пріоритету Task L до Prio 90</text>
+  <text x="400" y="390" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#004085">Task M не може витіснити Task L; Task L швидко виходить з секції</text>
 </svg>

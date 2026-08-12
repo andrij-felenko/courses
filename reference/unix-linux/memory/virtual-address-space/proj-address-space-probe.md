@@ -46,6 +46,7 @@ munmap 64 МіБ                        −64 МіБ      −16384 стор.
 
 Обидві допоміжні функції короткі, бо вся робота вже зроблена ядром — лишається прочитати.
 
+:::tabs
 ```c
 /* aspace.c — прогулянка власним адресним простором.
  * gcc -O2 -o aspace aspace.c        запуск: ./aspace
@@ -94,6 +95,59 @@ static void maps(const char *what, char *lo, char *hi)
     fclose(f);
 }
 ```
+```cpp
+/* aspace.cpp — прогулянка власним адресним простором (C++ версія).
+ * g++ -O2 -std=c++20 -o aspace aspace.cpp    запуск: ./aspace
+ */
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <setjmp.h>
+#include <signal.h>
+#include <sys/mman.h>
+#include <unistd.h>
+
+#include <cstdint>
+#include <cstdio>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <string_view>
+
+constexpr unsigned long MIB = 1024UL * 1024UL;
+static unsigned long PAGE = 4096;
+
+static void show(std::string_view what)
+{
+    unsigned long vsz = 0, rss = 0;
+    if (std::ifstream statm{"/proc/self/statm"}) {
+        statm >> vsz >> rss;
+    }
+    std::cout << "VSZ " << std::setw(8) << std::fixed << std::setprecision(1)
+              << (static_cast<double>(vsz) * PAGE / MIB) << " МіБ   RSS "
+              << std::setw(8) << std::setprecision(2)
+              << (static_cast<double>(rss) * PAGE / MIB) << " МіБ ("
+              << std::setw(6) << rss << " стор.)   " << what << '\n';
+}
+
+static void maps(std::string_view what, const char* lo, const char* hi)
+{
+    std::cout << "--- /proc/self/maps, " << what << '\n';
+    std::ifstream f{"/proc/self/maps"};
+    if (!f) return;
+    std::string line;
+    const auto lo_addr = reinterpret_cast<std::uintptr_t>(lo);
+    const auto hi_addr = reinterpret_cast<std::uintptr_t>(hi);
+    while (std::getline(f, line)) {
+        std::uintptr_t a = 0, b = 0;
+        if (std::sscanf(line.c_str(), "%lx-%lx", &a, &b) == 2 &&
+            a < hi_addr && b > lo_addr) {
+            std::cout << line << '\n';
+        }
+    }
+}
+```
+:::
 
 Одна дрібниця в `show` варта уваги, бо на ній ловляться: у `statm` сім чисел, і жодне з них не в байтах. Помножити на розмір сторінки треба обидва, і розмір сторінки треба брати в системи (`sysconf(_SC_PAGESIZE)`), а не вписувати 4096 — на aarch64 нерідко 16 КіБ, і вся арифметика поїде вп'ятеро.
 
@@ -107,6 +161,7 @@ static void maps(const char *what, char *lo, char *hi)
 
 І, нарешті, обробник не має права друкувати через `printf`. Причина не в примхливості стандарту, і про неї — нижче в пастках; тут досить наслідку: рядок доводиться складати вручну й віддавати одним `write`.
 
+:::tabs
 ```c
 static sigjmp_buf back;
 static volatile sig_atomic_t repair;   /* 1 — полагодити сторінку й повернутися */
@@ -146,11 +201,50 @@ static void probe(char *addr)
     }
 }
 ```
+```cpp
+static sigjmp_buf back;
+static volatile sig_atomic_t repair;   /* 1 — полагодити сторінку й повернутися */
+
+static void on_segv(int sig, siginfo_t *si, void *uc)
+{
+    (void) sig; (void) uc;
+
+    /* stdio тут заборонено — складаємо рядок самі й віддаємо одним write */
+    const char *tag = si->si_code == SEGV_ACCERR ? "  ACCERR @ 0x" :
+                      si->si_code == SEGV_MAPERR ? "  MAPERR @ 0x" :
+                                                   "  ?????? @ 0x";
+    char out[40];
+    int n = 0;
+    while (tag[n]) { out[n] = tag[n]; n++; }
+    auto a = reinterpret_cast<std::uintptr_t>(si->si_addr);
+    for (int sh = 44; sh >= 0; sh -= 4)          /* 12 шістнадцяткових цифр */
+        out[n++] = "0123456789abcdef"[(a >> sh) & 0xf];
+    out[n++] = '\n';
+    [[maybe_unused]] auto w = ::write(1, out, n);
+
+    if (repair) {
+        /* повернути права саме тій сторінці — і вийти з обробника звичайно */
+        ::mprotect(reinterpret_cast<void*>(a & ~(PAGE - 1)), PAGE, PROT_READ | PROT_WRITE);
+        return;
+    }
+    siglongjmp(back, 1);
+}
+
+static void probe(char *addr)
+{
+    if (sigsetjmp(back, 1) == 0) {          /* 1 — зберегти маску сигналів */
+        volatile char c = *addr;
+        std::cout << "  читання пройшло: " << static_cast<int>(c) << '\n';
+    }
+}
+```
+:::
 
 Гілка `repair` — не прикраса. Обробник, який **щось змінив** у відображенні, має повне право повернутися: команда виконається знову, але тепер уже успішно, і програма нічого не помітить. На цьому механізмі тримаються бар'єри запису в збирачах сміття, ліниве завантаження сторінок у віртуальних машинах і перевірка «до цієї сторінки ще ніхто не торкався». Різниця між нескінченним циклом і корисним прийомом — рівно в тому, чи змінив обробник причину збою.
 
 ## Сама прогулянка
 
+:::tabs
 ```c
 int main(void)
 {
@@ -212,6 +306,67 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+int main()
+{
+    PAGE = static_cast<unsigned long>(::sysconf(_SC_PAGESIZE));
+    const unsigned long LEN = 1024 * MIB;
+
+    struct sigaction sa{};
+    sa.sa_sigaction = on_segv;
+    sa.sa_flags = SA_SIGINFO;        /* хочемо siginfo_t, а не самий номер */
+    ::sigemptyset(&sa.sa_mask);
+    ::sigaction(SIGSEGV, &sa, nullptr);
+
+    show("старт");
+
+    auto* p = static_cast<char*>(::mmap(nullptr, LEN, PROT_READ | PROT_WRITE,
+                                        MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
+    if (p == MAP_FAILED) { std::perror("mmap"); return 1; }
+    show("mmap 1 ГіБ");
+
+    volatile unsigned long acc = 0;
+    for (unsigned long i = 0; i < 256 * MIB; i += PAGE) acc += p[i];
+    show("прочитано 65536 сторінок");
+
+    for (unsigned long i = 0; i < 256 * MIB; i += PAGE) p[i] = 0x5a;
+    show("записано в 65536 сторінок");
+
+    std::memset(p + 300 * MIB, 0x5a, 1000);          /* 1000 байтів ПОСПІЛЬ */
+    show("записано 1000 байтів поспіль");
+
+    char* hole = p + 64 * MIB;
+    maps("до mprotect", p, p + LEN);
+    ::mprotect(hole, 64 * MIB, PROT_NONE);
+    show("mprotect PROT_NONE на 64 МіБ");
+    maps("після mprotect", p, p + LEN);
+    probe(hole + 8);
+
+    ::madvise(p, 64 * MIB, MADV_DONTNEED);
+    show("madvise MADV_DONTNEED на 64 МіБ");
+    std::cout << "  p[0] = " << static_cast<int>(p[0]) << " (записували 0x5a)\n";
+    show("після читання з відданої частини");
+
+    ::munmap(hole, 64 * MIB);
+    show("munmap 64 МіБ");
+    maps("після munmap", p, p + LEN);
+    probe(hole + 8);                            /* та сама адреса — інша причина */
+
+    p[0] = 1;
+    p[900 * MIB] = 1;
+    show("торкнулися решти ділянки");
+
+    ::mprotect(p + 700 * MIB, PAGE, PROT_NONE);
+    repair = 1;
+    p[700 * MIB] = 7;               /* впаде, полагодиться й виконається знову */
+    std::cout << "  p[700 МіБ] = " << static_cast<int>(p[700 * MIB]) << '\n';
+
+    ::munmap(p, LEN);                 /* решта — одним махом, разом із дірою */
+    show("munmap решти");
+    return 0;
+}
+```
+:::
 
 Вивід з однієї конкретної машини (x86-64, сторінка 4 КіБ, типові налаштування дистрибутива):
 

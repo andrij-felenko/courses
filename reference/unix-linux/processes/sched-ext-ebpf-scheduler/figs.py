@@ -1,55 +1,152 @@
 import os
+import sys
 
-def render():
-    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
-    <rect width="600" height="400" fill="#f8f9fa"/>
-    <text x="300" y="30" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">sched_ext Architecture</text>
-    
-    <!-- User Space -->
-    <rect x="50" y="50" width="500" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-    <text x="300" y="80" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">User Space (Optional Daemon)</text>
-    <rect x="200" y="90" width="200" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
-    <text x="300" y="115" font-family="Arial" font-size="14" text-anchor="middle">scx_rustland / scx_lavd</text>
-    
-    <!-- Boundary -->
-    <line x1="50" y1="170" x2="550" y2="170" stroke="#000" stroke-dasharray="5,5" stroke-width="2"/>
-    <text x="500" y="165" font-family="Arial" font-size="12">System Call Interface</text>
+# Шлях до scripts/ у корені репо (4 рівні вгору)
+SCRIPTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
 
-    <!-- Kernel Space -->
-    <rect x="50" y="190" width="500" height="190" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
-    <text x="300" y="215" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">Kernel Space</text>
-    
-    <!-- BPF Program -->
-    <rect x="70" y="240" width="200" height="120" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
-    <text x="170" y="260" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">BPF Program</text>
-    <text x="170" y="280" font-family="Arial" font-size="12" text-anchor="middle">BPF_PROG_TYPE_STRUCT_OPS</text>
-    <text x="170" y="300" font-family="Arial" font-size="12" text-anchor="middle">ops.enqueue</text>
-    <text x="170" y="320" font-family="Arial" font-size="12" text-anchor="middle">ops.dispatch</text>
-    <text x="170" y="340" font-family="Arial" font-size="12" text-anchor="middle">ops.select_cpu</text>
-    
-    <!-- Core Scheduler -->
-    <rect x="330" y="240" width="200" height="120" fill="#ffecb3" stroke="#fbc02d" stroke-width="1"/>
-    <text x="430" y="260" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Core Scheduler</text>
-    <text x="430" y="290" font-family="Arial" font-size="12" text-anchor="middle">ext_sched_class</text>
-    <text x="430" y="310" font-family="Arial" font-size="12" text-anchor="middle">Global DSQ</text>
-    <text x="430" y="330" font-family="Arial" font-size="12" text-anchor="middle">Local DSQ</text>
+from svgkit import *
 
-    <!-- Arrows -->
-    <path d="M 270 290 L 320 290" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
-    <path d="M 320 310 L 270 310" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
-    
-    <path d="M 170 130 L 170 240" stroke="#1976d2" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
-    <text x="180" y="190" font-family="Arial" font-size="10" fill="#1976d2">BPF Maps</text>
+IMG_DIR = os.path.join(os.path.dirname(__file__), 'img')
 
-    <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#000"/>
-        </marker>
-    </defs>
-</svg>"""
-    os.makedirs('figs', exist_ok=True)
-    with open(os.path.join(IMG, 'sched-ext-arch.svg'), 'w', encoding='utf-8') as f:
-        f.write(svg_content)
+def generate_arch_svg():
+    width = 750
+    height = 450
+    
+    elements = []
+    # Background
+    elements.append(rect(0, 0, width, height, fill="#ffffff", stroke="none"))
+    
+    # Title
+    elements.append(text(width / 2, 30, "Архітектура планування sched_ext (eBPF struct_ops)", size=16, bold=True, color="#1a1a1a"))
+    
+    # User space container
+    elements.append(rect(30, 50, 690, 110, fill="#f4f6f8", stroke="#1976d2", sw=1.5, rx=6))
+    elements.append(text(120, 75, "User Space (Демон розкладу)", size=14, bold=True, color="#1976d2", anchor="start"))
+    
+    # User space daemon box
+    elements.append(rect(450, 70, 240, 70, fill="#e3f2fd", stroke="#1565c0", sw=1.5, rx=4))
+    elements.append(text(570, 95, "Демон (Rust / C++ / Go)", size=13, bold=True, color="#0d47a1"))
+    elements.append(text(570, 118, "scx_rustland / scx_lavd", size=11, color="#1565c0"))
+    
+    # User space description
+    elements.append(text(60, 100, "• Обчислення складних моделей розкладу", size=11, color="#333333", anchor="start"))
+    elements.append(text(60, 120, "• Отримання подій через BPF ringbuffer", size=11, color="#333333", anchor="start"))
+    
+    # Boundary line (System Call / BPF Interface)
+    elements.append(line(30, 180, 720, 180, color="#9e9e9e", sw=1.5, dash="6,4"))
+    elements.append(text(375, 175, "Межа ядра (Syscall / BPF Maps & Ringbuffer)", size=11, italic=True, color="#616161"))
+    
+    # Kernel space container
+    elements.append(rect(30, 200, 690, 220, fill="#f9fbe7", stroke="#388e3c", sw=1.5, rx=6))
+    elements.append(text(120, 225, "Kernel Space (ext_sched_class & BPF)", size=14, bold=True, color="#2e7d32", anchor="start"))
+    
+    # BPF struct_ops box
+    elements.append(rect(50, 245, 290, 155, fill="#e8f5e9", stroke="#2e7d32", sw=1.5, rx=4))
+    elements.append(text(195, 268, "BPF_PROG_TYPE_STRUCT_OPS", size=13, bold=True, color="#1b5e20"))
+    elements.append(text(195, 290, "struct sched_ext_ops", size=12, bold=True, color="#2e7d32"))
+    elements.append(text(70, 315, "• ops.select_cpu()  [вибір CPU]", size=11, color="#1b5e20", anchor="start"))
+    elements.append(text(70, 335, "• ops.enqueue()     [черга DSQ]", size=11, color="#1b5e20", anchor="start"))
+    elements.append(text(70, 355, "• ops.dispatch()    [видача task]", size=11, color="#1b5e20", anchor="start"))
+    elements.append(text(70, 375, "• ops.running() / ops.stopping()", size=11, color="#1b5e20", anchor="start"))
+    
+    # Core Scheduler Box
+    elements.append(rect(390, 245, 310, 155, fill="#fff8e1", stroke="#f57f17", sw=1.5, rx=4))
+    elements.append(text(545, 268, "Ядро планировщика Linux", size=13, bold=True, color="#e65100"))
+    elements.append(text(545, 290, "ext_sched_class (між RT і Fair)", size=12, color="#f57f17"))
+    elements.append(text(410, 318, "• Черги DSQ (Global / Local / Custom)", size=11, color="#424242", anchor="start"))
+    elements.append(text(410, 340, "• scx_watchdog (таймаут та захист)", size=11, color="#c62828", anchor="start"))
+    elements.append(text(410, 362, "• Fallback на EEVDF/CFS при помилці", size=11, color="#c62828", anchor="start"))
+    
+    # Connections / Arrows
+    # BPF <-> Core
+    elements.append(arrow(340, 310, 390, 310, color="#2e7d32", sw=1.5))
+    elements.append(arrow(390, 340, 340, 340, color="#e65100", sw=1.5))
+    
+    # User <-> Kernel BPF Maps
+    elements.append(arrow(570, 140, 570, 245, color="#1976d2", sw=1.5))
+    
+    render(os.path.join(IMG_DIR, 'sched-ext-arch.svg'), width, height, *elements)
+
+def generate_dsq_svg():
+    width = 750
+    height = 420
+    
+    elements = []
+    
+    # Title
+    elements.append(text(width / 2, 28, "Ієрархія черг диспетчеризації (DSQ — Dispatch Queue)", size=16, bold=True, color="#1a1a1a"))
+    
+    # Runnable Tasks Box
+    elements.append(rect(40, 60, 670, 65, fill="#e8eaf6", stroke="#3f51b5", sw=1.5, rx=4))
+    elements.append(text(60, 85, "Потоки (Tasks):", size=12, bold=True, color="#1a237e", anchor="start"))
+    
+    # Task items
+    elements.append(rect(170, 75, 90, 35, fill="#c5cae9", stroke="#303f9f", rx=3))
+    elements.append(text(215, 97, "Task A (RT/GUI)", size=10, bold=True, color="#1a237e"))
+    
+    elements.append(rect(280, 75, 90, 35, fill="#c5cae9", stroke="#303f9f", rx=3))
+    elements.append(text(325, 97, "Task B (Worker)", size=10, bold=True, color="#1a237e"))
+    
+    elements.append(rect(390, 75, 90, 35, fill="#c5cae9", stroke="#303f9f", rx=3))
+    elements.append(text(435, 97, "Task C (Batch)", size=10, bold=True, color="#1a237e"))
+    
+    elements.append(rect(500, 75, 180, 35, fill="#ffffff", stroke="#9e9e9e", rx=3))
+    elements.append(text(590, 97, "BPF ops.select_cpu / enqueue", size=10, italic=True, color="#616161"))
+    
+    # Arrow down to DSQs
+    elements.append(arrow(375, 125, 375, 160, color="#3f51b5", sw=2))
+    
+    # DSQ Container
+    elements.append(rect(40, 165, 670, 150, fill="#fafafa", stroke="#616161", sw=1.5, rx=4))
+    elements.append(text(60, 188, "Типи черг DSQ (Dispatch Queues):", size=12, bold=True, color="#212121", anchor="start"))
+    
+    # SCX_DSQ_GLOBAL
+    elements.append(rect(60, 205, 190, 95, fill="#ffe0b2", stroke="#f57c00", sw=1.5, rx=4))
+    elements.append(text(155, 228, "SCX_DSQ_GLOBAL", size=12, bold=True, color="#e65100"))
+    elements.append(text(155, 248, "Глобальна FIFO черга", size=10, color="#ef6c00"))
+    elements.append(text(155, 268, "для всіх вільних CPU", size=10, color="#ef6c00"))
+    elements.append(text(155, 288, "(Fallback за замовчуванням)", size=9, italic=True, color="#bf360c"))
+    
+    # Local Per-CPU DSQs
+    elements.append(rect(280, 205, 190, 95, fill="#e1f5fe", stroke="#0288d1", sw=1.5, rx=4))
+    elements.append(text(375, 228, "SCX_DSQ_LOCAL", size=12, bold=True, color="#01579b"))
+    elements.append(text(375, 248, "Локальні черги CPU", size=10, color="#0277bd"))
+    elements.append(text(375, 268, "SCX_DSQ_LOCAL_ON(cpu)", size=10, color="#0277bd"))
+    elements.append(text(375, 288, "Прив'язка до L1/L2 кешу", size=9, italic=True, color="#01579b"))
+    
+    # Custom BPF DSQs
+    elements.append(rect(500, 205, 190, 95, fill="#f3e5f5", stroke="#7b1fa2", sw=1.5, rx=4))
+    elements.append(text(595, 228, "Custom DSQ (ID: 1..N)", size=12, bold=True, color="#4a148c"))
+    elements.append(text(595, 248, "scx_bpf_create_dsq()", size=10, color="#6a1b9a"))
+    elements.append(text(595, 268, "Пріоритетні / FIFO / RB-Tree", size=10, color="#6a1b9a"))
+    elements.append(text(595, 288, "Спеціалізований QoS", size=9, italic=True, color="#4a148c"))
+    
+    # Arrows to CPUs
+    elements.append(arrow(155, 300, 155, 340, color="#f57c00", sw=1.5))
+    elements.append(arrow(375, 300, 375, 340, color="#0288d1", sw=1.5))
+    elements.append(arrow(595, 300, 595, 340, color="#7b1fa2", sw=1.5))
+    
+    # CPU Execution Units
+    elements.append(rect(40, 345, 670, 55, fill="#e8f5e9", stroke="#2e7d32", sw=1.5, rx=4))
+    elements.append(text(60, 378, "Процесори (CPUs):", size=12, bold=True, color="#1b5e20", anchor="start"))
+    
+    elements.append(rect(210, 355, 100, 35, fill="#c8e6c9", stroke="#2e7d32", rx=3))
+    elements.append(text(260, 377, "CPU 0 (Core 0)", size=10, bold=True, color="#1b5e20"))
+    
+    elements.append(rect(340, 355, 100, 35, fill="#c8e6c9", stroke="#2e7d32", rx=3))
+    elements.append(text(390, 377, "CPU 1 (Core 1)", size=10, bold=True, color="#1b5e20"))
+    
+    elements.append(rect(470, 355, 100, 35, fill="#c8e6c9", stroke="#2e7d32", rx=3))
+    elements.append(text(520, 377, "CPU N (Core N)", size=10, bold=True, color="#1b5e20"))
+    
+    render(os.path.join(IMG_DIR, 'sched-ext-dsq.svg'), width, height, *elements)
+
+def main():
+    generate_arch_svg()
+    generate_dsq_svg()
+    print("SVG diagrams generated successfully.")
 
 if __name__ == '__main__':
-    render()
+    main()

@@ -1,9 +1,10 @@
-# vfork, posix_spawn і clone: чим ще народжують процес
+Створення нового процесу у системі Unix традиційно покладалося на вікно між `fork` та `exec`. Проте на великих обсягах пам'яті та у багатопотоковому середовищі ця пара виявляється надто повільною й ризикованою через дублювання таблиць сторінок та загрозу блокувань м'ютексів, що спонукало еволюцію трьох основних альтернатив народження процесу: `vfork`, `posix_spawn` та `clone`.
+
+Пара `fork` + `exec` має унікальну властивість: найцінніше в ній відбувається не всередині самих викликів, а в проміжку між ними. `fork` створює дитину-копію, а `exec` викидає цей простір і ставить на його місце нову програму.
+
+Проте саме в цьому проміжку дитина є окремим повноправним процесом, який може налаштувати файлові дескриптори, маску сигналів та привілеї. Альтернативи дозволяють спростити або прискорити цей процес, уникнувши зайвого копіювання ресурсів.
 
 <preknowlist>
-- [Процес: що це насправді](book:unix-linux/process-model) — процес має власний адресний простір, таблицю дескрипторів, власника й контекст виконання.
-- [fork: розмноження процесу](book:unix-linux/fork-semantics) — новий процес народжується копією того, хто його попросив, і виклик повертається двічі: у батька номером дитини, у дитині нулем.
-- [exec: заміна образу](book:unix-linux/exec-semantics) — процес лишається той самий, а програма всередині нього заміняється на іншу.
 - [Копіювання при записі](book:unix-linux/copy-on-write) — ядро копіює не сторінки, а таблиці сторінок; справжня копія кадру з'являється лише при першому записі.
 - [Дескриптор файлу](book:unix-linux/file-descriptor) — мале ціле число, індекс у таблиці процесу; саме через нього налаштовують ввід-вивід майбутньої дитини.
 - [Системний виклик](book:unix-linux/syscall-mechanics) — як програма передає керування ядру й чим це відрізняється від звичайного виклику функції.
@@ -33,6 +34,8 @@
 Далі виникає питання, відповідь на яке й визначає весь характер `vfork`. Два процеси в одному адресному просторі — це вже не дві копії, а **два виконавці над одними даними**. І найгірше не спільна купа, а спільний **стек**: дитина продовжується з тієї самої точки, з тим самим значенням покажчика стека. Якби вона й батько бігли одночасно, вони клали б свої рамки викликів в ту саму пам'ять і затирали одне одного за мікросекунди.
 
 Тому ядро **спиняє батька** — від виклику `vfork` до миті, коли дитина зробить `exec` (і дістане нарешті власний простір) або `_exit`. Це не ввічливість і не оптимізація, а єдиний спосіб зробити спільний стек безпечним: у кожен момент по ньому ходить рівно один.
+
+У ядрі Linux цей механізм реалізовано через структуру завершення `struct completion vfork_done` всередині `task_struct`. Під час створення дитини через `copy_process()` виставляється прапорець `CLONE_VFORK`, і потік батька занурюється у сон через виклик `wait_for_completion(&vfork_done)`. Якщо подивитися у `/proc/<pid>/wchan` заснулого батька, там буде видно саме `wait_for_completion`. Пробудження відбувається у функції ядра `mm_release()`, яка викликається або при вигрузці старого адресного простору в `execve()`, або при остаточному завершенні задачі в `do_exit()`. Лише тоді батько повертається з системного виклику.
 
 ## Контракт, який майже неможливо виконати
 
@@ -74,6 +77,7 @@ POSIX зробив із цього очевидний висновок: у ре�
 
 Опис розпадається на дві частини. **Дії з файлами** — упорядкований список: відкрити файл на такому дескрипторі, закрити дескриптор, продублювати один в інший. Пізніше до нього додали зміну робочого каталогу (у glibc з версії 2.29, у стандарті — з редакції 2024 року) і закриття всіх дескрипторів від заданого номера вгору (розширення glibc 2.34, саме воно закрило давню прогалину для тих, хто хоче гарантовано не пустити в дитину зайвого). **Атрибути** — набір перемикачів: маска сигналів, скидання диспозицій до типових, група процесів, новий сеанс, скидання дієвих ідентифікаторів, політика й параметри планування.
 
+:::tabs
 ```c
 #include <spawn.h>
 #include <fcntl.h>
@@ -113,6 +117,102 @@ int main(void) {
     return 0;
 }
 ```
+```cpp
+#include <spawn.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <iostream>
+#include <system_error>
+#include <vector>
+
+extern char **environ;
+
+class PosixSpawnFileActions {
+    posix_spawn_file_actions_t actions_{};
+public:
+    PosixSpawnFileActions() {
+        if (int err = posix_spawn_file_actions_init(&actions_)) {
+            throw std::system_error(err, std::generic_category(), "init file actions");
+        }
+    }
+    ~PosixSpawnFileActions() noexcept {
+        posix_spawn_file_actions_destroy(&actions_);
+    }
+    PosixSpawnFileActions(const PosixSpawnFileActions&) = delete;
+    PosixSpawnFileActions& operator=(const PosixSpawnFileActions&) = delete;
+
+    void add_open(int fd, const char* path, int oflag, mode_t mode) {
+        if (int err = posix_spawn_file_actions_addopen(&actions_, fd, path, oflag, mode)) {
+            throw std::system_error(err, std::generic_category(), "addopen");
+        }
+    }
+    void add_dup2(int fd, int newfd) {
+        if (int err = posix_spawn_file_actions_adddup2(&actions_, fd, newfd)) {
+            throw std::system_error(err, std::generic_category(), "adddup2");
+        }
+    }
+    const posix_spawn_file_actions_t* get() const noexcept { return &actions_; }
+};
+
+class PosixSpawnAttr {
+    posix_spawnattr_t attr_{};
+public:
+    PosixSpawnAttr() {
+        if (int err = posix_spawnattr_init(&attr_)) {
+            throw std::system_error(err, std::generic_category(), "init attr");
+        }
+    }
+    ~PosixSpawnAttr() noexcept {
+        posix_spawnattr_destroy(&attr_);
+    }
+    PosixSpawnAttr(const PosixSpawnAttr&) = delete;
+    PosixSpawnAttr& operator=(const PosixSpawnAttr&) = delete;
+
+    void set_sigmask(const sigset_t& mask) {
+        if (int err = posix_spawnattr_setsigmask(&attr_, &mask)) {
+            throw std::system_error(err, std::generic_category(), "setsigmask");
+        }
+    }
+    void set_flags(short flags) {
+        if (int err = posix_spawnattr_setflags(&attr_, flags)) {
+            throw std::system_error(err, std::generic_category(), "setflags");
+        }
+    }
+    const posix_spawnattr_t* get() const noexcept { return &attr_; }
+};
+
+int main() {
+    try {
+        PosixSpawnFileActions actions;
+        actions.add_open(STDOUT_FILENO, "out.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        actions.add_dup2(STDOUT_FILENO, STDERR_FILENO);
+
+        PosixSpawnAttr attr;
+        sigset_t none;
+        sigemptyset(&none);
+        attr.set_sigmask(none);
+        attr.set_flags(POSIX_SPAWN_SETSIGMASK);
+
+        std::vector<const char*> argv = { "ls", "-l", nullptr };
+        pid_t pid = 0;
+        int rc = posix_spawnp(&pid, "ls", actions.get(), attr.get(),
+                               const_cast<char* const*>(argv.data()), environ);
+
+        if (rc != 0) {
+            throw std::system_error(rc, std::generic_category(), "posix_spawnp");
+        }
+
+        int status = 0;
+        ::waitpid(pid, &status, 0);
+    } catch (const std::exception& e) {
+        std::cerr << "запустити не вдалося: " << e.what() << '\n';
+        return 1;
+    }
+    return 0;
+}
+```
+:::
 
 Той самий результат, що й у пари `fork` + `dup2` + `exec`, але вікна тут немає: між викликом і стартом програми не виконується жодного рядка нашого коду. Повний перелік дій, атрибутів і кодів помилок, разом із тим, які з них у якій версії з'явилися, винесено окремо: [контракт posix_spawn](book:unix-linux/spawn-alternatives/api-posix-spawn.md).
 

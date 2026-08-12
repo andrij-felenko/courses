@@ -30,7 +30,7 @@ def fig_composition():
     f = []
     # ліва панель
     f.append(rect(30, 50, 440, 370, fill="#ffffff", stroke=MUTED, sw=1.2))
-    f.append(text(250, 82, "Монолiт на кожну задачу", size=15, bold=True))
+    f.append(text(250, 82, "Моноліт на кожну задачу", size=15, bold=True))
     for i, s in enumerate(["програма A → задача 1",
                            "програма B → задача 2",
                            "програма C → задача 3",
@@ -206,7 +206,7 @@ def fig_birth_timeline():
         f.append(text(cx, 78, s, size=15, bold=True, color=MUTED))
 
     row_y, row_h = [104, 250, 396], 130
-    for y, s in zip(row_y, ["IДЕЯ", "РЕАЛIЗАЦIЯ", "ФОРМУЛЮВАННЯ"]):
+    for y, s in zip(row_y, ["ІДЕЯ", "РЕАЛІЗАЦІЯ", "ФОРМУЛЮВАННЯ"]):
         f.append(fitbox(20, y, 150, row_h, s, size=15, bold=True,
                         fill="#eef1f5", stroke=MUTED))
 

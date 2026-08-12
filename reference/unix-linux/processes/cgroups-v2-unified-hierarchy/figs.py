@@ -72,19 +72,23 @@ def render():
     <circle cx="380" cy="220" r="10" fill="#ff9999" stroke="#333"/>
     <text x="400" y="225">PID 101</text>
     
-    <circle cx="280" cy="120" r="15" fill="#ff0000" stroke="#333"/>
-    <line x1="270" y1="110" x2="290" y2="130" stroke="#fff" stroke-width="3"/>
-    <line x1="290" y1="110" x2="270" y2="130" stroke="#fff" stroke-width="3"/>
-    <text x="310" y="125" fill="red" font-weight="bold">No PIDs here!</text>
+    <circle cx="370" cy="80" r="12" fill="#ff0000" stroke="#333"/>
+    <line x1="362" y1="72" x2="378" y2="88" stroke="#fff" stroke-width="3"/>
+    <line x1="378" y1="72" x2="362" y2="88" stroke="#fff" stroke-width="3"/>
+    <text x="390" y="85" fill="red" font-weight="bold">No PIDs here!</text>
 
     <text x="300" y="270" text-anchor="middle" font-size="14">A cgroup can either distribute controllers to its children</text>
     <text x="300" y="290" text-anchor="middle" font-size="14">OR contain processes, but never both simultaneously.</text>
 </svg>"""
 
-    with open(os.path.join(os.path.dirname(__file__), "v1_vs_v2.svg"), "w", encoding="utf-8") as f:
+    img_dir = os.path.join(os.path.dirname(__file__), "img")
+    os.makedirs(img_dir, exist_ok=True)
+
+    with open(os.path.join(img_dir, "v1-vs-v2.svg"), "w", encoding="utf-8") as f:
         f.write(v1_vs_v2_svg)
-    with open(os.path.join(os.path.dirname(__file__), "no_internal_processes.svg"), "w", encoding="utf-8") as f:
+    with open(os.path.join(img_dir, "no-internal-processes.svg"), "w", encoding="utf-8") as f:
         f.write(top_down_svg)
 
 if __name__ == '__main__':
     render()
+

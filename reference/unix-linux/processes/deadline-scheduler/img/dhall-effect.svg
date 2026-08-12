@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ефект Далла (Global EDF) проти Partitioned EDF</text>
+<rect x="20.0" y="50.0" width="390.0" height="270.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="215.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Global EDF (Міграція між ядрами)</text>
+<rect x="112.7" y="104.0" width="204.7" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="215.0" y="124.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">Спільна черга (Root Domain)</tspan></text>
+<line x1="215.0" y1="140.0" x2="120.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="215.0" y1="140.0" x2="310.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="69.0" y="176.2" width="102.1" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">CPU 0</tspan><tspan x="120.0" dy="15.6">(Короткі T₁)</tspan></text>
+<rect x="259.0" y="176.2" width="102.1" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="310.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">CPU 1</tspan><tspan x="310.0" dy="15.6">(Короткі T₂)</tspan></text>
+<text x="215.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Довге завдання T₃ витісняється
+і пропускає дедлайн!</text>
+<rect x="430.0" y="50.0" width="430.0" height="270.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Partitioned EDF (Прив'язка cpuset)</text>
+<rect x="451.0" y="117.3" width="157.9" height="45.3" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="530.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Domain A</tspan><tspan x="530.0" dy="14.3">CPU 0: Завдання T₁, T₂</tspan></text>
+<rect x="642.8" y="117.3" width="214.4" height="45.3" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="750.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">Domain B</tspan><tspan x="750.0" dy="14.3">CPU 1: Завдання T₃ (Ізольоване)</tspan></text>
+<text x="645.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ніяких витіснень з інших ядер:
+100% гарантія дедлайнів</text>
+</svg>

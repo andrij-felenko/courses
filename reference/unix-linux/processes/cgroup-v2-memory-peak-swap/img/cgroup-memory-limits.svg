@@ -1,18 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="690" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cgroup v2 Memory Hierarchy</text>
-<rect x="100.0" y="100.0" width="200.0" height="300.0" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2.0"/>
-<text x="200.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#0d47a1" text-anchor="middle" font-weight="700">Cgroup A</text>
-<line x1="90.0" y1="150.0" x2="310.0" y2="150.0" stroke="#d32f2f" stroke-width="2.0" stroke-dasharray="5,5"/>
-<text x="360.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d32f2f" text-anchor="middle">memory.max</text>
-<line x1="90.0" y1="200.0" x2="310.0" y2="200.0" stroke="#f57c00" stroke-width="2.0" stroke-dasharray="5,5"/>
-<text x="360.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#f57c00" text-anchor="middle">memory.high</text>
-<line x1="90.0" y1="300.0" x2="310.0" y2="300.0" stroke="#388e3c" stroke-width="2.0" stroke-dasharray="5,5"/>
-<text x="360.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#388e3c" text-anchor="middle">memory.low</text>
-<line x1="90.0" y1="350.0" x2="310.0" y2="350.0" stroke="#1976d2" stroke-width="2.0" stroke-dasharray="5,5"/>
-<text x="360.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1976d2" text-anchor="middle">memory.min</text>
-<rect x="120.0" y="250.0" width="160.0" height="150.0" rx="6" fill="#bbdefb" stroke="#333333" stroke-width="1.5"/>
-<text x="200.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Поточне</text>
-<line x1="120.0" y1="180.0" x2="280.0" y2="180.0" stroke="#7b1fa2" stroke-width="2.0"/>
-<text x="200.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7b1fa2" text-anchor="middle">memory.peak</text>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обмеження, гарантії та піки споживання пам'яті у Cgroups v2</text>
+<rect x="50.0" y="40.0" width="900.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="500.0" y="67.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Ієрархічна структура межових рівнів контролера пам'яті Cgroups v2</tspan></text>
+<rect x="120.0" y="110.0" width="420.0" height="490.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+<text x="330.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cgroup: /system.slice/db.service</text>
+<line x1="100.0" y1="180.0" x2="560.0" y2="180.0" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="6 4"/>
+<rect x="580.0" y="160.0" width="360.0" height="40.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/><text x="760.0" y="183.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">memory.max (Жорсткий ліміт) -&gt; OOM Killer якщо reclaim не звільнив RAM</tspan></text>
+<line x1="100.0" y1="260.0" x2="560.0" y2="260.0" stroke="#ea580c" stroke-width="2.0" stroke-dasharray="6 4"/>
+<rect x="580.0" y="240.0" width="360.0" height="40.0" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.4"/><text x="760.0" y="263.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">memory.high (М'яке гальмо) -&gt; Штрафний сон allocators &amp; посилений reclaim</tspan></text>
+<line x1="140.0" y1="215.0" x2="520.0" y2="215.0" stroke="#9333ea" stroke-width="2.0"/>
+<rect x="580.0" y="195.0" width="360.0" height="38.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.4"/><text x="760.0" y="217.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">memory.peak (Пікове споживання) -&gt; Історичний максимум memory.current</tspan></text>
+<rect x="160.0" y="310.0" width="340.0" height="270.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.6"/>
+<text x="330.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">memory.current (Поточна RAM)</text>
+<line x1="100.0" y1="440.0" x2="560.0" y2="440.0" stroke="#16a34a" stroke-width="2.0" stroke-dasharray="6 4"/>
+<rect x="580.0" y="420.0" width="360.0" height="40.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.4"/><text x="760.0" y="443.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">memory.low (М'яка гарантія) -&gt; Захист кешу від витіснення (best-effort)</tspan></text>
+<line x1="100.0" y1="520.0" x2="560.0" y2="520.0" stroke="#0284c7" stroke-width="2.2" stroke-dasharray="6 4"/>
+<rect x="580.0" y="500.0" width="360.0" height="40.0" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.4"/><text x="760.0" y="523.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">memory.min (Тверда гарантія) -&gt; Абсолютна недоторканність при reclaim</tspan></text>
+<rect x="160.0" y="110.0" width="340.0" height="60.0" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.4"/>
+<text x="330.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle">Простір підкачки Swap</text>
+<line x1="100.0" y1="110.0" x2="560.0" y2="110.0" stroke="#7e22ce" stroke-width="2.0" stroke-dasharray="4 4"/>
+<rect x="580.0" y="95.0" width="360.0" height="40.0" rx="6" fill="#faf5ff" stroke="#7e22ce" stroke-width="1.4"/><text x="760.0" y="118.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">memory.swap.max / high -&gt; Лімітування анонімних сторінок на диску</tspan></text>
 </svg>

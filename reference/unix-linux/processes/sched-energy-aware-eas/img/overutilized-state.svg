@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння режимів: Енергоефективне пакування vs Перевантаження</text>
+<rect x="30.0" y="60.0" width="350.0" height="290.0" rx="8" fill="#f4f9f4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="205.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Режим 1: Низьке навантаження (EAS Active)</text>
+<text x="205.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Сумарне util &lt; 80% capacity</text>
+<rect x="50.0" y="130.0" width="310.0" height="90.0" rx="6" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="205.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Кластер LITTLE (Задачі згруповано)</text>
+<rect x="65.0" y="165.0" width="60.0" height="40.0" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.0"/>
+<text x="95.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Task 1</text>
+<rect x="135.0" y="165.0" width="60.0" height="40.0" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.0"/>
+<text x="165.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Task 2</text>
+<rect x="205.0" y="165.0" width="60.0" height="40.0" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.0"/>
+<text x="235.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Task 3</text>
+<rect x="275.0" y="165.0" width="75.0" height="40.0" rx="6" fill="#abebc6" stroke="#27ae60" stroke-width="1.0"/>
+<text x="312.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Task 4</text>
+<rect x="50.0" y="240.0" width="310.0" height="85.0" rx="6" fill="#f5f5f5" stroke="#6b7280" stroke-width="1.5"/>
+<text x="205.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Кластер big — СПИТЬ (C-state / CPU Idle)</text>
+<text x="205.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0 мВт споживання струму</text>
+<rect x="420.0" y="60.0" width="350.0" height="290.0" rx="8" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="595.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Режим 2: Перевантаження (Over-Utilized)</text>
+<text x="595.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Будь-яке ядро util &gt; 80% capacity → EAS Bypass</text>
+<rect x="440.0" y="130.0" width="310.0" height="90.0" rx="6" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="595.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Кластер LITTLE (Максимальна частота)</text>
+<rect x="455.0" y="165.0" width="130.0" height="40.0" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.0"/>
+<text x="520.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Task 1 + Task 2</text>
+<rect x="600.0" y="165.0" width="135.0" height="40.0" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.0"/>
+<text x="667.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Task 3 (Full Util)</text>
+<rect x="440.0" y="240.0" width="310.0" height="85.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="595.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Кластер big — АКТИВОВАНО</text>
+<rect x="455.0" y="275.0" width="280.0" height="40.0" rx="6" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.0"/>
+<text x="595.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78281f" text-anchor="middle" font-weight="700">Heavy Task 4 (High Compute Power)</text>
+</svg>
