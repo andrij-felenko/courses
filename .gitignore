@@ -4,7 +4,6 @@ __pycache__/
 
 # Тимчасові файли операцій для scripts/manifest-patch.js (фаза «Маніфест» батчу)
 /scripts/_mfops-*.json
-/scripts/_finish/_mfops-*.json
 
 # Згенерований пошуковий індекс — будується в CI (.github/workflows/deploy.yml).
 # Локально: `node scripts/build-search-index.js`, щоб протестувати пошук.
@@ -18,6 +17,7 @@ AUTHORING.write.en.md
 scripts/_svgfix/
 scripts/__pycache__/
 
-# конвеєр Antigravity: робочий стан вироків і черги (переживає коло, але не потрібен у git)
-/scripts/_finish/_verdicts/
-/scripts/_finish/_ag-dupecheck-*.json
+# Робоча тека конвеєрів: списки батчів, черги нових тем, payload-и на доробку, вироки суддів,
+# разові скрипти під конкретний прогін. Усе це — стан ПРОЦЕСУ, а не вміст книг: переживає коло
+# на диску, але у версіонуванні не має сенсу (регенерується наступним батчем).
+/scripts/_finish/
