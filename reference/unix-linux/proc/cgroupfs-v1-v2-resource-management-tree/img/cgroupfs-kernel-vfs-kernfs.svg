@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-88.24 -10 1508.24 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-88.24" y="-10" width="1508.24" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1380.0" height="640.0" rx="8" fill="#f8f9fa" stroke="#b0bec5" stroke-width="1.5"/>
+<text x="60.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#37474f" text-anchor="middle" font-weight="700">Простір користувача (User Space)</text>
+<rect x="60.0" y="75.0" width="410.0" height="85.0" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2.0"/>
+<text x="265.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Системний виклик користувача</text>
+<text x="265.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#455a64" text-anchor="middle" font-style="italic">mkdir /sys/fs/cgroup/app | echo PID &gt; cgroup.procs</text>
+<line x1="30.0" y1="180.0" x2="1390.0" y2="180.0" stroke="#d32f2f" stroke-width="2.0" stroke-dasharray="6 4"/>
+<text x="60.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c62828" text-anchor="middle" font-weight="700">Простір ядра (Kernel Space)</text>
+<rect x="60.0" y="230.0" width="410.0" height="410.0" rx="6" fill="#eaf0fd" stroke="#1976d2" stroke-width="2.0"/>
+<text x="265.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0d47a1" text-anchor="middle" font-weight="700">Віртуальна ФС (VFS) &amp; kernfs</text>
+<rect x="80.0" y="295.0" width="370.0" height="70.0" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="265.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct file_system_type (cgroup2_fs_type)</text>
+<text x="265.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">mount -t cgroup2 none /sys/fs/cgroup</text>
+<rect x="80.0" y="385.0" width="370.0" height="70.0" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="265.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct kernfs_node</text>
+<text x="265.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">Абстракція індексно-ієрархічного дерева у RAM</text>
+<rect x="80.0" y="475.0" width="370.0" height="140.0" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="265.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Операндні мости cgroupfs</text>
+<text x="265.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">cgroup_mkdir() -&gt; cgroup_create()</text>
+<text x="265.0" y="565.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">cgroup_procs_write() -&gt; cgroup_attach_task()</text>
+<text x="265.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">kernfs_notify() -&gt; epoll(cgroup.events)</text>
+<rect x="510.0" y="230.0" width="430.0" height="410.0" rx="6" fill="#fff6e5" stroke="#f57c00" stroke-width="2.0"/>
+<text x="725.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#e65100" text-anchor="middle" font-weight="700">Ядро: Структури процесів та груп</text>
+<rect x="530.0" y="295.0" width="390.0" height="80.0" rx="4" fill="#ffffff" stroke="#f57c00" stroke-width="1.5"/>
+<text x="725.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct task_struct (PID 4012)</text>
+<text x="725.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d32f2f" text-anchor="middle" font-weight="700">struct css_set *cgroups;  &lt;-- Покажчик на CSS-сет</text>
+<line x1="725.0" y1="375.0" x2="725.0" y2="405.0" stroke="#f57c00" stroke-width="2.0"/>
+<rect x="530.0" y="405.0" width="390.0" height="95.0" rx="4" fill="#ffffff" stroke="#f57c00" stroke-width="1.5"/>
+<text x="725.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct css_set (Cgroup Subsystem State Set)</text>
+<text x="725.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#388e3c" text-anchor="middle" font-weight="700">refcount = 4 (Дедуплікований об'єкт)</text>
+<text x="725.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">struct cgroup_subsys_state *subsys[CGROUP_SUBSYS_COUNT]</text>
+<line x1="725.0" y1="500.0" x2="725.0" y2="525.0" stroke="#f57c00" stroke-width="2.0"/>
+<rect x="530.0" y="525.0" width="390.0" height="95.0" rx="4" fill="#ffffff" stroke="#f57c00" stroke-width="1.5"/>
+<text x="725.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct cgroup (Об'єкт вузла в ядрі)</text>
+<text x="725.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">self (cgroup_subsys_state), subtree_control, nr_descendants</text>
+<text x="725.0" y="600.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">flags (CGROUP_FILE_PINNED, etc.)</text>
+<rect x="970.0" y="230.0" width="410.0" height="410.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="2.0"/>
+<text x="1175.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1b5e20" text-anchor="middle" font-weight="700">Підсистеми контролерів ресурсів</text>
+<rect x="990.0" y="295.0" width="370.0" height="95.0" rx="4" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
+<text x="1175.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="middle" font-weight="700">cpu_cgrp_subsys (CPU Controller)</text>
+<text x="1175.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">struct task_group (CFS bandwith quota/period)</text>
+<text x="1175.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#777777" text-anchor="middle">tg-&gt;shares, tg-&gt;cfs_bandwidth</text>
+<rect x="990.0" y="405.0" width="370.0" height="95.0" rx="4" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
+<text x="1175.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="middle" font-weight="700">mem_cgrp_subsys (Memory Controller)</text>
+<text x="1175.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">struct mem_cgroup (high, max, low, min)</text>
+<text x="1175.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#777777" text-anchor="middle">page_counter (memory &amp; swap accounting)</text>
+<rect x="990.0" y="515.0" width="370.0" height="105.0" rx="4" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
+<text x="1175.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="middle" font-weight="700">io_cgrp_subsys (Block I/O Controller)</text>
+<text x="1175.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">struct io_cq / blkcg (Writeback tracking)</text>
+<text x="1175.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#777777" text-anchor="middle">bfq / throtl (rbps, wbps, iops limits)</text>
+</svg>

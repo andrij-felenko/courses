@@ -75,6 +75,7 @@
 
 ### Розкладка події й обхід буфера
 
+:::tabs
 ```c
 struct inotify_event {
     __s32  wd;      /* номер стеження; -1 для IN_Q_OVERFLOW */
@@ -84,6 +85,16 @@ struct inotify_event {
     char   name[];  /* є лише коли len > 0 */
 };
 ```
+```cpp
+struct inotify_event {
+    std::int32_t  wd;      // номер стеження; -1 для IN_Q_OVERFLOW
+    std::uint32_t mask;    // біти події
+    std::uint32_t cookie;  // ненульове тільки в парі MOVED_FROM/MOVED_TO
+    std::uint32_t len;     // довжина поля name разом із доповненням нулями
+    char          name[];  // є лише коли len > 0
+};
+```
+:::
 
 Записи лежать у буфері впритул, без вирівнювання між ними, і мають різну довжину. Крок до наступного — **завжди** `sizeof(struct inotify_event) + len`, і саме `len`, а не `strlen(name)`: ядро доповнює ім'я нулями до кратності, тож рядок усередині коротший за поле. Коли подія про сам об'єкт стеження (`IN_DELETE_SELF`, `IN_MOVE_SELF`, `IN_IGNORED`), імені немає й `len` дорівнює нулю — звертатися до `name` тоді не можна.
 
@@ -111,11 +122,20 @@ struct inotify_event {
 
 Обгортки glibc з'явилися у версії 2.13; саме розширення ввійшло в ядро 2.6.36 і стало доступним у 2.6.37. Потрібен параметр збірки ядра `CONFIG_FANOTIFY`, а для подій-дозволів — ще й `CONFIG_FANOTIFY_ACCESS_PERMISSIONS`.
 
+:::tabs
 ```c
 int fanotify_init(unsigned int flags, unsigned int event_f_flags);
 int fanotify_mark(int fanotify_fd, unsigned int flags,
                   uint64_t mask, int dirfd, const char *path);
 ```
+```cpp
+extern "C" {
+int fanotify_init(unsigned int flags, unsigned int event_f_flags);
+int fanotify_mark(int fanotify_fd, unsigned int flags,
+                  std::uint64_t mask, int dirfd, const char *path);
+}
+```
+:::
 
 Пара `(dirfd, path)` у `fanotify_mark()` — [звичайна для родини `*at`](book:unix-linux/at-family-syscalls): відносний шлях відлічується від каталогу `dirfd`, `AT_FDCWD` означає поточний каталог, абсолютний шлях робить `dirfd` неістотним. Якщо `path` — `NULL`, позначається сам об'єкт, на який відкрито `dirfd`.
 
@@ -223,6 +243,7 @@ int fanotify_mark(int fanotify_fd, unsigned int flags,
 
 ### Розкладка події
 
+:::tabs
 ```c
 struct fanotify_event_metadata {
     __u32          event_len;     /* повна довжина запису разом із додатками */
@@ -234,6 +255,18 @@ struct fanotify_event_metadata {
     __s32          pid;           /* PID або TID — залежно від FAN_REPORT_TID */
 };
 ```
+```cpp
+struct fanotify_event_metadata {
+    std::uint32_t  event_len;     // повна довжина запису разом із додатками
+    std::uint8_t   vers;          // версія розкладки; має бути FANOTIFY_METADATA_VERSION
+    std::uint8_t   reserved;
+    std::uint16_t  metadata_len;  // довжина цієї фіксованої частини
+    std::uint64_t  mask;          // біти події
+    std::int32_t   fd;            // відкритий дескриптор або FAN_NOFD (-1)
+    std::int32_t   pid;           // PID або TID — залежно від FAN_REPORT_TID
+};
+```
+:::
 
 Полів довжини два, і плутати їх не можна. `metadata_len` — де закінчується фіксована частина; `event_len` — де починається наступна подія. Між ними лежать записи змінної довжини, кожен зі своїм заголовком:
 
@@ -244,6 +277,7 @@ struct fanotify_event_metadata {
                           └ hdr.len ┘└ hdr.len ┘
 ```
 
+:::tabs
 ```c
 struct fanotify_event_info_header {
     __u8   info_type;   /* FAN_EVENT_INFO_TYPE_* */
@@ -268,6 +302,31 @@ struct fanotify_event_info_error {    /* ERROR */
     __u32 error_count;
 };
 ```
+```cpp
+struct fanotify_event_info_header {
+    std::uint8_t   info_type;   // FAN_EVENT_INFO_TYPE_*
+    std::uint8_t   pad;
+    std::uint16_t  len;         // довжина цього запису разом із заголовком
+};
+
+struct fanotify_event_info_fid {      // FID, DFID, DFID_NAME
+    struct fanotify_event_info_header hdr;
+    __kernel_fsid_t fsid;
+    unsigned char handle[];           // struct file_handle, за ним — ім'я для DFID_NAME
+};
+
+struct fanotify_event_info_pidfd {    // PIDFD
+    struct fanotify_event_info_header hdr;
+    std::int32_t pidfd;
+};
+
+struct fanotify_event_info_error {    // ERROR
+    struct fanotify_event_info_header hdr;
+    std::int32_t error;
+    std::uint32_t error_count;
+};
+```
+:::
 
 | `info_type` | значення | що несе |
 |---|---|---|
@@ -285,6 +344,7 @@ struct fanotify_event_info_error {    /* ERROR */
 
 Обхід буфера роблять трьома макросами із заголовка: `FAN_EVENT_OK(meta, len)` перевіряє, чи лишилося на цілий запис, `FAN_EVENT_NEXT(meta, len)` зсуває на `event_len` і зменшує залишок, `FAN_EVENT_METADATA_LEN` дає розмір фіксованої частини.
 
+:::tabs
 ```c
 #define _GNU_SOURCE
 #include <sys/fanotify.h>
@@ -298,7 +358,7 @@ int main(void) {
 
     if (fanotify_mark(fd, FAN_MARK_ADD | FAN_MARK_FILESYSTEM,
                       FAN_CREATE | FAN_DELETE | FAN_MOVED_TO | FAN_ONDIR,
-                      AT_FDCWD, "/srv") < 0) { perror("fanotify_mark"); return 1; }
+                      AT_FDCWD, "/srv") < 0) { perror("fanotify_mark"); close(fd); return 1; }
 
     char buf[8192];
     for (;;) {
@@ -306,14 +366,47 @@ int main(void) {
         if (n <= 0) break;
         struct fanotify_event_metadata *m = (struct fanotify_event_metadata *) buf;
         for (; FAN_EVENT_OK(m, n); m = FAN_EVENT_NEXT(m, n)) {
-            if (m->vers != FANOTIFY_METADATA_VERSION) return 2;  /* чужа розкладка */
+            if (m->vers != FANOTIFY_METADATA_VERSION) { close(fd); return 2; }
             printf("mask=%llx pid=%d\n", (unsigned long long) m->mask, m->pid);
-            /* записи info лежать від (char *)m + m->metadata_len до (char *)m + m->event_len */
         }
     }
+    close(fd);
     return 0;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#include <sys/fanotify.h>
+#include <fcntl.h>      // AT_FDCWD
+#include <unistd.h>
+#include <iostream>
+#include <vector>
+#include <cstddef>
+
+int main() {
+    int fd = fanotify_init(FAN_CLASS_NOTIF | FAN_REPORT_DFID_NAME | FAN_CLOEXEC, 0);
+    if (fd < 0) { std::perror("fanotify_init"); return 1; }
+
+    if (fanotify_mark(fd, FAN_MARK_ADD | FAN_MARK_FILESYSTEM,
+                      FAN_CREATE | FAN_DELETE | FAN_MOVED_TO | FAN_ONDIR,
+                      AT_FDCWD, "/srv") < 0) { std::perror("fanotify_mark"); close(fd); return 1; }
+
+    alignas(struct fanotify_event_metadata) char buf[8192];
+    for (;;) {
+        ssize_t n = read(fd, buf, sizeof(buf));
+        if (n <= 0) break;
+        auto *m = reinterpret_cast<struct fanotify_event_metadata *>(buf);
+        for (; FAN_EVENT_OK(m, n); m = FAN_EVENT_NEXT(m, n)) {
+            if (m->vers != FANOTIFY_METADATA_VERSION) { close(fd); return 2; }
+            std::cout << "mask=" << std::hex << m->mask << std::dec
+                      << " pid=" << m->pid << "\n";
+        }
+    }
+    close(fd);
+    return 0;
+}
+```
+:::
 
 Перевірка `vers` у цьому прикладі не формальність, а частина контракту: розкладка події версійована, і читач, побудований під іншу версію, зобов'язаний зупинитися, а не тлумачити байти навмання. І ще одне, чого немає в структурі: у класі `FAN_CLASS_NOTIF` кожна подія з дескриптором — це відкритий файл у вашій таблиці. Не закрили — за кілька хвилин упрешся в `EMFILE`, і виглядатиме це як несправність зовсім в іншому місці програми.
 
@@ -321,12 +414,20 @@ int main(void) {
 
 Поки підписник не відповів, процес-актор спить усередині системного виклику. Відповідь — запис структури у той самий дескриптор групи:
 
+:::tabs
 ```c
 struct fanotify_response {
     __s32 fd;        /* той самий fd, що прийшов у події */
     __u32 response;  /* вердикт */
 };
 ```
+```cpp
+struct fanotify_response {
+    std::int32_t  fd;        // той самий fd, що прийшов у події
+    std::uint32_t response;  // вердикт
+};
+```
+:::
 
 | вердикт | значення | ядро | дія |
 |---|---|---|---|

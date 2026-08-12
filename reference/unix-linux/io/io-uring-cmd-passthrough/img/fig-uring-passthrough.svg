@@ -1,31 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-    </marker>
-  </defs>
-  <rect x="50" y="50" width="700" height="80" rx="5" fill="#f0f0f0" stroke="#333" stroke-width="2"/>
-  <text x="400" y="70" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Простір користувача (Userspace)</text>
-  <rect x="100" y="85" width="200" height="30" rx="3" fill="#fff" stroke="#333" stroke-width="2"/>
-  <text x="200" y="105" font-family="sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#333">io_uring SQE (URING_CMD)</text>
-  <rect x="50" y="150" width="700" height="220" rx="5" fill="#e6f7ff" stroke="#333" stroke-width="2"/>
-  <text x="400" y="170" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Простір ядра (Kernel space)</text>
-  <rect x="100" y="190" width="200" height="50" rx="3" fill="#b3e0ff" stroke="#005c99" stroke-width="2"/>
-  <text x="200" y="220" font-family="sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#333">io_uring core</text>
-  <rect x="350" y="190" width="150" height="50" rx="3" fill="#ffd6cc" stroke="#cc3300" stroke-width="2" stroke-dasharray="4"/>
-  <text x="425" y="220" font-family="sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#333">VFS / blk-mq</text>
-  <rect x="100" y="280" width="600" height="70" rx="3" fill="#b3ffb3" stroke="#009900" stroke-width="2"/>
-  <text x="400" y="305" font-family="sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#333">NVMe Character Device Driver (/dev/ng0n1)</text>
-  <text x="400" y="330" font-family="monospace" font-size="12" font-weight="normal" text-anchor="middle" fill="#333">nvme_uring_cmd() / uring_cmd_comp()</text>
-  <rect x="50" y="390" width="700" height="80" rx="5" fill="#ffe6e6" stroke="#333" stroke-width="2"/>
-  <text x="400" y="410" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Апаратне забезпечення (Hardware)</text>
-  <rect x="300" y="425" width="200" height="30" rx="3" fill="#fff" stroke="#333" stroke-width="2"/>
-  <text x="400" y="445" font-family="sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#333">NVMe Controller</text>
-  <path d="M 200 115 L 200 180" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M 200 240 L 200 270" stroke="#005c99" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M 200 215 C 275 215, 325 215, 340 215" stroke="#cc3300" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4"/>
-  <text x="275" y="210" font-family="sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#cc3300">Bypass</text>
-  <path d="M 400 350 L 400 380" stroke="#009900" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M 500 425 L 500 355" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4"/>
-  <text x="510" y="390" font-family="sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#333">Interrupt / CQE</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="430.0" height="40.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="44.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="235.0" dy="0.0">Класичний стек (blk-mq / VFS)</tspan></text>
+<rect x="490.0" y="20.0" width="430.0" height="40.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="44.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="705.0" dy="0.0">io_uring Passthrough (IORING_OP_URING_CMD)</tspan></text>
+<rect x="40.0" y="80.0" width="390.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Програма Userspace: pread() / read()</tspan></text>
+<rect x="40.0" y="150.0" width="390.0" height="44.0" rx="6" fill="#f0f4f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="176.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">VFS &amp; Файлова система (ext4 / xfs)</tspan></text>
+<rect x="40.0" y="220.0" width="390.0" height="44.0" rx="6" fill="#f0f4f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="246.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Блоковий шар (blk-mq &amp; struct bio)</tspan></text>
+<rect x="40.0" y="290.0" width="390.0" height="44.0" rx="6" fill="#f0f4f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="316.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Драйвер блочного пристрою /dev/nvme0n1</tspan></text>
+<rect x="40.0" y="360.0" width="390.0" height="44.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="386.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Апаратна черга NVMe SQ (PCIe DMA)</tspan></text>
+<rect x="40.0" y="430.0" width="390.0" height="44.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="455.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Накладні витрати: аллокація bio/request, lock, IRQ</tspan></text>
+<line x1="235.0" y1="124.0" x2="235.0" y2="148.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="194.0" x2="235.0" y2="218.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="264.0" x2="235.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="334.0" x2="235.0" y2="358.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="404.0" x2="235.0" y2="428.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="510.0" y="80.0" width="390.0" height="44.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Userspace: SQE (IORING_OP_URING_CMD)</tspan></text>
+<rect x="510.0" y="150.0" width="390.0" height="44.0" rx="6" fill="#fff3cd" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="176.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="705.0" dy="0.0">Обхід VFS &amp; blk-mq (Bypass)</tspan></text>
+<rect x="510.0" y="220.0" width="390.0" height="44.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="246.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Символьний пристрій /dev/ng0n1 (uring_cmd)</tspan></text>
+<rect x="510.0" y="290.0" width="390.0" height="44.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="316.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">nvme_uring_cmd() → Напряму в hardware SQ</tspan></text>
+<rect x="510.0" y="360.0" width="390.0" height="44.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="386.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">NVMe контролер + IOPOLL / CQE ring</tspan></text>
+<rect x="510.0" y="430.0" width="390.0" height="44.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="455.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Переваги: Zero-copy, zero-alloc, прямі vendor NVMe cmd</tspan></text>
+<line x1="705.0" y1="124.0" x2="705.0" y2="148.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="194.0" x2="705.0" y2="218.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="264.0" x2="705.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="334.0" x2="705.0" y2="358.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="404.0" x2="705.0" y2="428.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

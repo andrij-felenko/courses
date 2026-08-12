@@ -1,17 +1,18 @@
-# ⚙️ Робочий прибирач сегментів на C
+# ⚙️ Робочий прибирач сегментів на C та C++
 
-Формула вартості прибирання каже, що вся ціна лог-структурованого тому сидить в одній величині — у заповненості тих сегментів, які прибирач вибрав собі в жертви. Але формула мовчить про головне: якої заповненості жертв досягне конкретна політика вибору на конкретному навантаженні. Це не виводиться на папері — це міряється. Нижче — імітований том із прибирачем, що вміщується в трохи більш ніж двісті рядків C і друкує потрібні числа для двох політик і п'яти рівнів заповненості тому.
+Формула вартості прибирання каже, що вся ціна лог-структурованого тому сидить в одній величині — у заповненості тих сегментів, які прибирач вибрав собі в жертви. Але формула мовчить про головне: якої заповненості жертв досягне конкретна політика вибору на конкретному навантаженні. Це не виводиться на папері — це міряється. Нижче — імітований том із прибирачем, що вміщується у двісті рядків C та C++ і друкує потрібні числа для двох політик і п'яти рівнів заповненості тому.
 
 ## Що саме імітуємо
 
-Том — масив сегментів однакового розміру. Сегмент — масив слотів під блоки плюс **підсумковий блок**: для кожного слота записано, чий це блок, тобто номер файлу й зсув усередині файлу. Мапа блоків файлу — масив адрес: для кожного зсуву сказано, де зараз лежить актуальна версія цього блока. Дописувач кладе блок у поточну голову лога й повертає адресу, куди поклав.
+Том — масив сегментів одинакового розміру. Сегмент — масив слотів під блоки плюс **підсумковий блок**: для кожного слота записано, чий це блок, тобто номер файлу й зсув усередині файлу. Мапа блоків файлу — масив адрес: для кожного зсуву сказано, де зараз лежить актуальна версія цього блока. Дописувач кладе блок у поточну голову лога й повертає адресу, куди поклав.
 
 Одне спрощення варто назвати вголос, бо воно єдине. У справжній системі шлях від номера файлу до адреси блока має три ланки: мапа inode дає адресу inode, inode дає карту блоків, карта дає адресу. Тут мапа inode й самі inode злиті в один двовимірний масив у пам'яті, бо в імітації метадані нікуди не мандрують і їхнього перезапису ми не рахуємо. Це занижує посилення запису на кілька відсотків — і не змінює нічого в тому, заради чого програма пишеться: перевірка живості робить ту саму операцію («візьми номер і зсув, спитай у карти адресу, порівняй»), а політики вибору жертви бачать рівно ті самі сегменти.
 
 Лічильник живих блоків у сегменті — це кеш, а не істина. Істина лежить у підсумковому блоці разом із даними й переживає збій; лічильник (у справжніх системах — таблиця стану сегментів) просто позбавляє прибирача потреби перераховувати сегмент, щоб оцінити його. Тому лічильник вільно зменшується при перезаписі, а підсумковий блок ніколи не змінюється після запису.
 
+:::tabs
 ```c
-/* cleaner.c — імітований лог-структурований том і його прибирач.
+/* cleaner.c — імітований лог-структурований том і його прибирач на C.
  * Збірка: cc -O2 -o cleaner cleaner.c
  */
 #include <stdio.h>
@@ -53,6 +54,63 @@ static long long user_writes, clean_writes, clean_reads, victims, stalls;
 static double    u_sum;
 ```
 
+```cpp
+// cleaner.cpp — імітований лог-структурований том на C++20.
+// Збірка: g++ -std=c++20 -O2 -o cleaner cleaner.cpp
+#include <iostream>
+#include <vector>
+#include <array>
+#include <cstdint>
+#include <iomanip>
+#include <algorithm>
+
+constexpr std::size_t SEG_BLOCKS  = 64;   // слотів у сегменті
+constexpr std::size_t NSEGS       = 512;  // сегментів на томі
+constexpr std::size_t FILE_BLOCKS = 64;   // блоків у файлі
+constexpr std::int64_t WARMUP     = 100000L;
+constexpr std::size_t MEASURE    = 200000L;
+
+constexpr std::int32_t LOW_FREE   = 8;    // поріг увімкнення прибирача
+constexpr std::int32_t RESERVE    = 4;    // резерв лише для прибирача
+
+enum class Policy { Greedy, CostBenefit };
+
+struct SummaryEntry {
+    std::int32_t ino{-1};
+    std::int32_t off{-1};
+};
+
+struct Segment {
+    std::array<SummaryEntry, SEG_BLOCKS> sum{};
+    std::int32_t written{0};
+    std::int32_t live{0};
+    std::uint64_t sealed{0};
+    bool is_free{true};
+};
+
+struct LogVolumeState {
+    std::array<Segment, NSEGS> seg{};
+    std::vector<std::array<std::int32_t, FILE_BLOCKS>> inode{};
+    std::int32_t nfiles{0};
+    std::int32_t nhot{0};
+    std::int32_t free_segs{static_cast<std::int32_t>(NSEGS)};
+    std::array<std::int32_t, 2> head{-1, -1};
+    std::uint64_t now_{0};
+    Policy policy{Policy::Greedy};
+    bool sep_head{true};
+
+    std::int64_t user_writes{0};
+    std::int64_t clean_writes{0};
+    std::int64_t clean_reads{0};
+    std::int64_t victims{0};
+    std::int64_t stalls{0};
+    double u_sum{0.0};
+};
+
+static LogVolumeState state;
+```
+:::
+
 ## Дописувач у голову
 
 Дописувач — найпростіша частина, і саме в ній ховаються два рішення, які потім вирішать долю вимірювання.
@@ -61,6 +119,7 @@ static double    u_sum;
 
 Друге: **резерв**. Сегменти, яких лишилося менше за `RESERVE`, програмі не віддаються ні за яких умов — вони тільки для прибирача. Це той самий запас, що його реальні системи тримають під назвою [надлишкова місткість](book:algorithms/over-provisioning): частина носія, яку ніколи не віддають під дані, щоб збирачеві сміття завжди було куди покласти те, що він урятував.
 
+:::tabs
 ```c
 static int32_t alloc_segment(int cleaner)
 {
@@ -106,12 +165,60 @@ static int file_write(int32_t ino, int32_t off)
 }
 ```
 
+```cpp
+static std::int32_t alloc_segment(bool is_cleaner) {
+    if (!is_cleaner && state.free_segs <= RESERVE) return -1;
+    for (std::size_t s = 0; s < NSEGS; ++s) {
+        if (!state.seg[s].is_free) continue;
+        state.seg[s].is_free = false;
+        state.seg[s].written = 0;
+        state.seg[s].live    = 0;
+        for (auto& entry : state.seg[s].sum) entry.ino = -1;
+        state.free_segs--;
+        return static_cast<std::int32_t>(s);
+    }
+    return -1;
+}
+
+static std::int32_t log_append(std::int32_t ino, std::int32_t off, bool is_cleaner) {
+    std::size_t h_idx = is_cleaner ? 1 : 0;
+    std::int32_t s = state.head[h_idx];
+    if (s < 0 || state.seg[s].written == static_cast<std::int32_t>(SEG_BLOCKS)) {
+        s = alloc_segment(is_cleaner);
+        if (s < 0) return -1;
+        state.head[h_idx] = s;
+    }
+    std::int32_t slot = state.seg[s].written++;
+    state.seg[s].sum[slot] = SummaryEntry{ino, off};
+    state.seg[s].live++;
+    state.seg[s].sealed = ++state.now_;
+    return s * static_cast<std::int32_t>(SEG_BLOCKS) + slot;
+}
+
+static bool file_write(std::int32_t ino, std::int32_t off) {
+    std::int32_t old_addr = state.inode[ino][off];
+    std::int32_t new_addr = log_append(ino, off, false);
+    if (new_addr < 0) {
+        state.stalls++;
+        return false;
+    }
+    state.inode[ino][off] = new_addr;
+    if (old_addr >= 0) {
+        state.seg[old_addr / SEG_BLOCKS].live--;
+    }
+    state.user_writes++;
+    return true;
+}
+```
+:::
+
 Адреса блока тут — просто `сегмент · SEG_BLOCKS + слот`, тож із адреси однаково легко дістати і сегмент, і зсув у ньому. Поле `sealed` запам'ятовує «час» останнього запису в сегмент, а роль часу тут грає лічильник записаних блоків. Це й буде вік сегмента для другої політики.
 
 ## Живий чи мертвий
 
 Тепер шість найважливіших рядків усієї програми. Бітової карти зайнятості в лозі немає й бути не може — її довелося б переписувати на місці. Замість неї працює зовсім інше правило: **блок живий рівно тоді, коли хтось згори на нього посилається**.
 
+:::tabs
 ```c
 static int block_is_live(int32_t s, int32_t slot)
 {
@@ -120,6 +227,16 @@ static int block_is_live(int32_t s, int32_t slot)
     return inode[ino][seg[s].sum[slot].off] == s * SEG_BLOCKS + slot;
 }
 ```
+
+```cpp
+static bool block_is_live(std::int32_t s, std::int32_t slot) {
+    std::int32_t ino = state.seg[s].sum[slot].ino;
+    if (ino < 0) return false;
+    std::int32_t current_addr = state.inode[ino][state.seg[s].sum[slot].off];
+    return current_addr == (s * static_cast<std::int32_t>(SEG_BLOCKS) + slot);
+}
+```
+:::
 
 Підсумковий блок каже, чий це блок; карта блоків того файлу каже, де зараз лежить актуальна версія; якщо вона лежить не тут — ми дивимося на перекриту стару копію. Ніякого окремого обліку, ніяких лічильників посилань, нічого, що треба тримати узгодженим із даними: відповідь щоразу обчислюється наново з двох структур, кожна з яких потрібна й без прибирача.
 
@@ -131,6 +248,7 @@ static int block_is_live(int32_t s, int32_t slot)
 
 Вибір жертви — єдине місце, де політики різняться. Жадібна бере найпорожніший сегмент. Політика вигоди на одиницю витрат зважує ту саму порожнечу на вік: сегмент, у який давно не писали, устоявся, і звільнене в ньому місце протримається довше, тож те саме прибирання окупиться краще.
 
+:::tabs
 ```c
 static int32_t pick_victim(void)
 {
@@ -185,12 +303,71 @@ static void ensure_free(void)
 }
 ```
 
+```cpp
+static std::int32_t pick_victim() {
+    std::int32_t best_seg = -1;
+    double best_score = -1.0;
+    for (std::size_t s = 0; s < NSEGS; ++s) {
+        if (state.seg[s].is_free) continue;
+        if (static_cast<std::int32_t>(s) == state.head[0] ||
+            static_cast<std::int32_t>(s) == state.head[1]) continue;
+        if (state.seg[s].written == 0) continue;
+
+        double u = static_cast<double>(state.seg[s].live) / static_cast<double>(SEG_BLOCKS);
+        double score = 0.0;
+        if (state.policy == Policy::Greedy) {
+            score = 1.0 - u;
+        } else {
+            double age = static_cast<double>(state.now_ - state.seg[s].sealed);
+            score = (1.0 - u) * age / (1.0 + u);
+        }
+        if (score > best_score) {
+            best_score = score;
+            best_seg = static_cast<std::int32_t>(s);
+        }
+    }
+    return best_seg;
+}
+
+static bool clean_one() {
+    std::int32_t v = pick_victim();
+    if (v < 0) return false;
+
+    state.u_sum += static_cast<double>(state.seg[v].live) / static_cast<double>(SEG_BLOCKS);
+    state.victims++;
+    state.clean_reads += state.seg[v].written;
+
+    for (std::int32_t slot = 0; slot < state.seg[v].written; ++slot) {
+        if (!block_is_live(v, slot)) continue;
+        std::int32_t ino = state.seg[v].sum[slot].ino;
+        std::int32_t off = state.seg[v].sum[slot].off;
+        std::int32_t na  = log_append(ino, off, state.sep_head);
+        if (na < 0) return false;
+        state.inode[ino][off] = na;
+        state.clean_writes++;
+    }
+    state.seg[v].is_free = true;
+    state.seg[v].live    = 0;
+    state.seg[v].written = 0;
+    state.free_segs++;
+    return true;
+}
+
+static void ensure_free() {
+    while (state.free_segs < LOW_FREE) {
+        if (!clean_one()) break;
+    }
+}
+```
+:::
+
 Зверніть увагу на порядок у циклі: спершу перевірка живості, потім запис копії, і **аж потім** оновлення карти. Переставити останні два кроки не можна — карта мусить показувати на нову копію лише після того, як копія існує. І сегмент-жертва оголошується вільним не на початку, а в кінці: поки прибирач із нього читає, `alloc_segment` не має права видати цей самий сегмент під запис.
 
-## Навантаження
+## Навантаження та запуск
 
 Прибирача не можна оцінити на рівномірному навантаженні: там усі сегменти старіють однаково, і всі політики вироджуються в одну. Сенс з'являється там, де дані діляться на гарячі й холодні. Тут десята частина файлів отримує дев'ять записів із десяти — та сама форма «гаряче й холодне», на якій прибирачів перевіряють від часів першої лог-структурованої системи.
 
+:::tabs
 ```c
 static uint32_t rng;
 static uint32_t rnd(void)                     /* xorshift32, щоб прогін   */
@@ -271,6 +448,98 @@ int main(void)
 }
 ```
 
+```cpp
+static std::uint32_t rng_state = 2463534242u;
+static std::uint32_t rnd() {
+    std::uint32_t x = rng_state;
+    x ^= x << 13; x ^= x >> 17; x ^= x << 5;
+    return rng_state = x;
+}
+
+static void step() {
+    ensure_free();
+    std::int32_t ino = 0;
+    if (rnd() % 100 < 90) {
+        ino = static_cast<std::int32_t>(rnd() % static_cast<std::uint32_t>(state.nhot));
+    } else {
+        ino = state.nhot + static_cast<std::int32_t>(rnd() % static_cast<std::uint32_t>(state.nfiles - state.nhot));
+    }
+    std::int32_t off = static_cast<std::int32_t>(rnd() % FILE_BLOCKS);
+    file_write(ino, off);
+}
+
+static void run_simulation(Policy pol, bool sep, double rho) {
+    state.policy = pol;
+    state.sep_head = sep;
+    state.nfiles = static_cast<std::int32_t>(rho * NSEGS);
+    state.nhot = std::max(1, state.nfiles / 10);
+    state.free_segs = static_cast<std::int32_t>(NSEGS);
+    state.head = {-1, -1};
+    state.now_ = 0;
+    rng_state = 2463534242u;
+
+    for (auto& s : state.seg) {
+        s.is_free = true;
+        s.written = 0;
+        s.live = 0;
+        s.sealed = 0;
+    }
+    state.inode.assign(state.nfiles, std::array<std::int32_t, FILE_BLOCKS>{});
+    for (auto& fn : state.inode) fn.fill(-1);
+
+    for (std::size_t off = 0; off < FILE_BLOCKS; ++off) {
+        for (std::int32_t ino = 0; ino < state.nfiles; ++ino) {
+            ensure_free();
+            file_write(ino, static_cast<std::int32_t>(off));
+        }
+    }
+
+    for (std::int64_t k = 0; k < WARMUP; ++k) step();
+
+    state.user_writes = state.clean_writes = state.clean_reads = 0;
+    state.victims = state.stalls = 0;
+    state.u_sum = 0.0;
+
+    for (std::size_t k = 0; k < MEASURE; ++k) step();
+}
+
+int main() {
+    constexpr double rhos[] = { 0.50, 0.70, 0.80, 0.90, 0.95 };
+    struct Variant { Policy pol; bool sep; const char* name; };
+    constexpr Variant vars[] = {
+        { Policy::Greedy,      true,  "greedy" },
+        { Policy::CostBenefit, true,  "cost-benefit" },
+        { Policy::CostBenefit, false, "cost-ben 1head" }
+    };
+
+    std::cout << "  rho  policy           u_vict  WA_write  WA_total  2/(1-u)  stall\n";
+    for (double rho : rhos) {
+        for (const auto& v : vars) {
+            run_simulation(v.pol, v.sep, rho);
+            if (state.user_writes == 0) {
+                std::cout << " " << std::fixed << std::setprecision(2) << rho 
+                          << "  " << std::left << std::setw(15) << v.name 
+                          << "   том став: прибирачеві нема куди писати\n";
+                continue;
+            }
+            double ub = state.victims ? state.u_sum / static_cast<double>(state.victims) : 0.0;
+            double wa_w = static_cast<double>(state.user_writes + state.clean_writes) / static_cast<double>(state.user_writes);
+            double wa_t = static_cast<double>(state.user_writes + state.clean_writes + state.clean_reads) / static_cast<double>(state.user_writes);
+            
+            std::cout << " " << std::fixed << std::setprecision(2) << rho 
+                      << "  " << std::left << std::setw(15) << v.name 
+                      << "  " << std::setw(6) << std::setprecision(3) << ub 
+                      << "  " << std::setw(8) << std::setprecision(2) << wa_w 
+                      << "  " << std::setw(8) << std::setprecision(2) << wa_t 
+                      << "  " << std::setw(7) << std::setprecision(2) << (2.0 / (1.0 - ub)) 
+                      << "  " << std::setw(5) << state.stalls << '\n';
+        }
+    }
+    return 0;
+}
+```
+:::
+
 Заповнення навмисно йде по зсувах, а не по файлах: якби файли створювалися один за одним, кожен ліг би точно у свій сегмент, гаряче й холодне відразу опинилися б розділені, і прибирач дістав би ідеальну розкладку задарма. Реальний том так не виглядає — файли ростуть упереміш, і розділяти гаряче з холодним доводиться саме прибирачеві. Розігрів потрібен із тієї самої причини: перші тисячі перезаписів іще живуть на початковій розкладці, і рахувати їх — означало б міряти не сталий режим, а перехідний.
 
 ## Що воно друкує
@@ -296,7 +565,7 @@ int main(void)
 
 `u_vict` — середня заповненість вибраних жертв; `WA_write` — у скільки разів більше блоків насправді записано, ніж просила програма (це і є [посилення запису](book:algorithms/write-amplification) — відношення роботи носія до роботи, яку йому замовили); `WA_total` рахує ще й прочитане при прибиранні.
 
-Перше, що впадає в око: **останні два стовпчики збігаються до сотих у кожному рядку**, хоч рахувалися незалежно — один із лічильників записів і читань, другий за формулою від виміряної заповненості жертв. Це не збіг і не підганяння, а тотожність, яку легко довести:
+Перше, що впадає в око: **останні два стовпчики збігаються до сотих у кожному рядку**, хоч рахувалися незалежно — один із лічильників записів і читань, удруге за формулою від виміряної заповненості жертв. Це не збіг і не підганяння, а тотожність, яку легко довести:
 
 ```
 на один прибраний сегмент із заповненістю u:
@@ -330,6 +599,7 @@ int main(void)
 
 **Живість треба перевіряти в останню мить.** У наведеному коді прибирач працює сам, тому перевірка й копіювання неподільні. У справжній системі програма пише паралельно, і між «блок живий» та «копія записана» той блок може вмерти. Якщо після цього наосліп записати в карту адресу своєї копії, ви затрете посилання на **новішу** версію — тиха втрата даних, найгірший вид помилки в цьому коді. Правильний порядок — друга перевірка перед оновленням карти:
 
+:::tabs
 ```c
 if (inode[ino][off] != addr) continue;   /* мертвий — навіть не читаємо */
 na = log_append(ino, off, 1);
@@ -339,6 +609,17 @@ if (inode[ino][off] != addr) {           /* поки писали — перез
 }
 inode[ino][off] = na;
 ```
+
+```cpp
+if (state.inode[ino][off] != addr) continue;
+std::int32_t na = log_append(ino, off, true);
+if (state.inode[ino][off] != addr) {
+    state.seg[na / SEG_BLOCKS].live--;
+    continue;
+}
+state.inode[ino][off] = na;
+```
+:::
 
 Порівняння й запис у карту мусять бути неподільні щодо записів програми — під тим самим замком, під яким виконується `file_write`. Копію, що народилася мертвою, викидати не треба: вона просто лежить у новому сегменті як мертвий блок, і наступне прибирання її прибере.
 

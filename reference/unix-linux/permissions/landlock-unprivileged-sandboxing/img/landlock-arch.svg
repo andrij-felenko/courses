@@ -1,33 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="100%" height="100%" fill="#f8f9fa"/>
-    <text x="400" y="50" font-family="Arial" font-size="24" text-anchor="middle" fill="#333">Архітектура Landlock LSM</text>
-    
-    <g transform="translate(100, 100)">
-        <rect x="0" y="0" width="200" height="100" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-        <text x="100" y="45" font-family="Arial" font-size="16" text-anchor="middle" fill="#0d47a1">Process (Thread)</text>
-        <text x="100" y="75" font-family="Arial" font-size="14" text-anchor="middle" fill="#0d47a1">prctl(NO_NEW_PRIVS)</text>
-    </g>
-
-    <g transform="translate(450, 100)">
-        <rect x="0" y="0" width="250" height="200" rx="10" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
-        <text x="125" y="30" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#1b5e20">Landlock Ruleset</text>
-        
-        <rect x="25" y="50" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-        <text x="125" y="75" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /usr (R_OK, X_OK)</text>
-        
-        <rect x="25" y="100" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-        <text x="125" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /etc (R_OK)</text>
-        
-        <rect x="25" y="150" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-        <text x="125" y="175" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /home/user (RW)</text>
-    </g>
-
-    <path d="M 300 150 L 440 150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="370" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">landlock_restrict_self()</text>
-
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="#666" />
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загальна архітектура застосування Landlock LSM</text>
+<rect x="20.0" y="20.0" width="960.0" height="440.0" rx="8" fill="#fafafa" stroke="#e0e0e0" stroke-width="1.5"/>
+<rect x="40.0" y="60.0" width="420.0" height="380.0" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="250.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Користувацький простір (Userspace)</text>
+<rect x="80.0" y="118.9" width="340.0" height="52.2" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="250.0" y="140.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Процес додатка</tspan><tspan x="250.0" dy="18.2">(Unprivileged Process)</tspan></text>
+<rect x="70.0" y="201.6" width="360.0" height="66.8" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="222.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">1. prctl(PR_SET_NO_NEW_PRIVS, 1)</tspan><tspan x="250.0" dy="16.9">2. landlock_create_ruleset()</tspan><tspan x="250.0" dy="16.9">3. landlock_add_rule(parent_fd, ...)</tspan></text>
+<rect x="70.0" y="323.5" width="360.0" height="33.0" rx="6" fill="#eefbe7" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="344.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">4. landlock_restrict_self(ruleset_fd)</tspan></text>
+<line x1="250.0" y1="175.0" x2="250.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="280.0" x2="250.0" y2="305.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="60.0" width="460.0" height="380.0" rx="6" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="730.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро Linux (Kernel / LSM)</text>
+<rect x="540.0" y="130.1" width="380.0" height="49.9" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="730.0" y="151.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">current-&gt;cred-&gt;security</tspan><tspan x="730.0" dy="16.9">(Landlock Domain / Stacked Layers)</tspan></text>
+<rect x="540.0" y="225.1" width="380.0" height="49.9" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="730.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">LSM Hooks (security_file_open)</tspan><tspan x="730.0" dy="16.9">Перевірка доступів до inode / dentry</tspan></text>
+<rect x="545.0" y="341.2" width="170.0" height="47.6" rx="6" fill="#eefbe7" stroke="#27ae60" stroke-width="1.5"/><text x="630.0" y="361.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Дозволений шлях</tspan><tspan x="630.0" dy="15.6">(R_OK / X_OK)</tspan></text>
+<rect x="727.7" y="341.2" width="204.7" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="830.0" y="361.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Заборонений шлях</tspan><tspan x="830.0" dy="15.6">-EACCES (Permission denied)</tspan></text>
+<line x1="430.0" y1="340.0" x2="520.0" y2="160.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="485.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">замикання</text>
+<line x1="730.0" y1="195.0" x2="730.0" y2="215.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="290.0" x2="640.0" y2="335.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="290.0" x2="820.0" y2="335.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

@@ -37,6 +37,8 @@ struct proc_ops {
 
 ## Модуль
 
+Для демонстрації роботи ітератора `seq_file` реалізуємо модуль `heartbeat.c`, який створює псевдо-файл у `/proc` і формує його вміст на льоту під час кожного читання:
+
 ```c
 /* heartbeat.c — файл у /proc, вміст якого народжується під час читання */
 #include <linux/atomic.h>
@@ -135,6 +137,8 @@ shows       2
 
 ### Розмір нуль — бо його справді ніхто не знає
 
+Щоб переконатися у відсутності фіксованого розміру для псевдо-файлу у `/proc`, перевіримо метадані та вичитаємо вміст за допомогою команд `stat` і `wc`:
+
 ```sh
 $ stat -c '%s' /proc/heartbeat
 0
@@ -152,6 +156,7 @@ $ wc -c < /proc/heartbeat
 
 Щоб це побачити, треба розсунути `open` і `read` у часі — `cat` робить їх упритул. Ось невелика програма, яка тримає **один** дескриптор і читає з нього двічі:
 
+:::tabs
 ```c
 /* reader.c — коли саме ядро складає текст? */
 #include <fcntl.h>
@@ -176,6 +181,42 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+// reader.cpp — той самий приклад з ідіоматичним RAII у C++
+#include <fcntl.h>
+#include <unistd.h>
+#include <iostream>
+#include <string_view>
+
+class UniqueFd {
+    int fd_ = -1;
+public:
+    explicit UniqueFd(const char* path, int flags) : fd_(::open(path, flags)) {}
+    ~UniqueFd() { if (fd_ >= 0) ::close(fd_); }
+    int get() const { return fd_; }
+    explicit operator bool() const { return fd_ >= 0; }
+};
+
+static void dump(std::string_view tag, int fd) {
+    char buf[8192];
+    ::lseek(fd, 0, SEEK_SET);                  // почати вміст спочатку
+    ssize_t n = ::read(fd, buf, sizeof(buf));
+    if (n > 0) {
+        std::cout << "--- " << tag << " ---\n";
+        std::cout.write(buf, static_cast<std::streamsize>(n));
+    }
+}
+
+int main() {
+    UniqueFd fd("/proc/heartbeat", O_RDONLY);
+    if (!fd) return 1;
+    dump("одразу після open", fd.get());
+    ::sleep(3);
+    dump("через три секунди, той самий дескриптор", fd.get());
+    return 0;
+}
+```
+:::
 
 ```
 --- одразу після open ---

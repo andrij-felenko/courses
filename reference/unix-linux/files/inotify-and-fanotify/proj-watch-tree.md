@@ -80,6 +80,7 @@ READY <n>           — обхід закінчено, далі самі под�
 
 **Каркас, маска подій і вузол карти.**
 
+:::tabs
 ```c
 #define _GNU_SOURCE
 #include <sys/inotify.h>
@@ -138,9 +139,57 @@ static char *xstrdup(const char *s)
     return p;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#include <sys/inotify.h>
+#include <sys/epoll.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <unistd.h>
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <memory>
+#include <chrono>
+#include <cstdint>
+#include <cstring>
+
+constexpr size_t NBUCKET = (1u << 16);
+constexpr int MAXDEPTH = 256;
+constexpr int MOVE_SLOTS = 64;
+constexpr int TODO_MAX = 4096;
+constexpr int MOVE_TIMEOUT_MS = 200;
+
+static const std::uint32_t WATCH_MASK =
+      IN_CREATE | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO | IN_CLOSE_WRITE
+    | IN_DELETE_SELF | IN_MOVE_SELF
+    | IN_ONLYDIR | IN_DONT_FOLLOW | IN_EXCL_UNLINK;
+
+struct Node {
+    int wd{-1};
+    int parent{-1};
+    std::string name;
+    Node* child{nullptr};
+    Node* sib{nullptr};
+};
+
+struct Context {
+    int ifd{-1};
+    int ep{-1};
+    std::string root;
+    std::vector<char> buf;
+    bool rebuild{false};
+};
+```
+:::
 
 **Карта `wd` → вузол і побудова шляху.** Хешування — множення на просте число з подальшим узяттям старших бітів: молодші біти `wd` майже послідовні, і брати їх напряму означало б заселяти кошики підряд.
 
+:::tabs
 ```c
 static struct node *tab[NBUCKET];
 static size_t nwatch;
@@ -235,9 +284,76 @@ static void emit(const char *what, int dir_wd, const char *name)
            (len && path[len - 1] == '/') ? "" : "/", name);
 }
 ```
+```cpp
+static std::unordered_map<int, std::unique_ptr<Node>> node_map;
+static size_t nwatch = 0;
+
+static Node* map_get(int wd) {
+    auto it = node_map.find(wd);
+    return (it != node_map.end()) ? it->second.get() : nullptr;
+}
+
+static Node* map_add(int wd, int parent, const std::string& name) {
+    auto n = std::make_unique<Node>();
+    n->wd = wd;
+    n->parent = parent;
+    n->name = name;
+
+    Node* raw = n.get();
+    node_map[wd] = std::move(n);
+
+    Node* p = map_get(parent);
+    raw->sib = p ? p->child : nullptr;
+    if (p) p->child = raw;
+
+    nwatch++;
+    return raw;
+}
+
+static void unlink_sib(Node* n) {
+    Node* p = map_get(n->parent);
+    if (!p) return;
+    for (Node** pp = &p->child; *pp; pp = &(*pp)->sib) {
+        if (*pp == n) { *pp = n->sib; return; }
+    }
+}
+
+static Node* child_of(int parent_wd, const std::string& name) {
+    Node* p = map_get(parent_wd);
+    if (!p) return nullptr;
+    for (Node* n = p->child; n; n = n->sib) {
+        if (n->name == name) return n;
+    }
+    return nullptr;
+}
+
+static std::string path_of(int wd) {
+    std::vector<std::string> parts;
+    for (int cur = wd; cur >= 0; ) {
+        Node* n = map_get(cur);
+        if (!n || parts.size() == MAXDEPTH) return "";
+        parts.push_back(n->name);
+        cur = n->parent;
+    }
+    std::string out;
+    for (auto it = parts.rbegin(); it != parts.rend(); ++it) {
+        if (!out.empty() && out.back() != '/') out += '/';
+        out += *it;
+    }
+    return out;
+}
+
+static void emit(const char* what, int dir_wd, const std::string& name) {
+    std::string p = path_of(dir_wd);
+    if (p.empty()) return;
+    std::cout << what << " " << p << (p.back() == '/' ? "" : "/") << name << "\n";
+}
+```
+:::
 
 **Обхід.** Стеження — першою дією, читання вмісту — другою; звіт про кожен знайдений запис іде маркером `=`, бо це стан, а не подія.
 
+:::tabs
 ```c
 static void die_enospc(const struct ctx *c);
 
@@ -286,9 +402,57 @@ static void scan(struct ctx *c, size_t len, int parent, const char *base)
     closedir(d);
 }
 ```
+```cpp
+static void die_enospc(const Context& c);
+
+static void scan(Context& c, size_t len, int parent, const std::string& base) {
+    int wd = inotify_add_watch(c.ifd, c.buf.data(), WATCH_MASK);
+    if (wd < 0) {
+        if (errno == ENOSPC) die_enospc(c);
+        if (errno != ENOENT && errno != EACCES && errno != ENOTDIR)
+            std::cerr << "watchtree: " << c.buf.data() << ": " << std::strerror(errno) << "\n";
+        return;
+    }
+    if (map_get(wd)) return;
+    map_add(wd, parent, base);
+
+    DIR* d = opendir(c.buf.data());
+    if (!d) {
+        if (errno != ENOENT && errno != EACCES)
+            std::cerr << "watchtree: " << c.buf.data() << ": " << std::strerror(errno) << "\n";
+        return;
+    }
+    for (struct dirent* e; (e = readdir(d)) != nullptr; ) {
+        if (e->d_name[0] == '.' && (e->d_name[1] == '\0' ||
+            (e->d_name[1] == '.' && e->d_name[2] == '\0')))
+            continue;
+
+        bool isdir = false;
+        if (e->d_type == DT_DIR)          isdir = true;
+        else if (e->d_type != DT_UNKNOWN) isdir = false;
+        else {
+            struct stat st;
+            isdir = fstatat(dirfd(d), e->d_name, &st, AT_SYMLINK_NOFOLLOW) == 0 && S_ISDIR(st.st_mode);
+        }
+
+        std::cout << "= " << c.buf.data() << "/" << e->d_name << "\n";
+        if (!isdir) continue;
+
+        size_t nl = std::strlen(e->d_name);
+        if (len + 1 + nl >= PATH_MAX) continue;
+        c.buf[len] = '/';
+        std::memcpy(c.buf.data() + len + 1, e->d_name, nl + 1);
+        scan(c, len + 1 + nl, wd, e->d_name);
+        c.buf[len] = '\0';
+    }
+    closedir(d);
+}
+```
+:::
 
 **Знімання гілки й забування.** Різниця між двома операціями принципова: коли ядро само зняло стеження (`IN_IGNORED`), кликати `inotify_rm_watch()` уже нема на що, а коли гілку винесли за межі дерева — стеження живі й ядро їх не зніме, поки ми не попросимо.
 
+:::tabs
 ```c
 static void free_node(struct node *n)
 {
@@ -323,9 +487,47 @@ static void unwatch_subtree(struct ctx *c, struct node *n)
     unwatch_rec(c, n);
 }
 ```
+```cpp
+static void free_node(Node* n) {
+    if (!n) return;
+    int wd = n->wd;
+    unlink_sib(n);
+    node_map.erase(wd);
+    nwatch--;
+}
+
+static void forget_rec(Node* n) {
+    if (!n) return;
+    for (Node *ch = n->child, *next; ch; ch = next) {
+        next = ch->sib;
+        forget_rec(ch);
+    }
+    free_node(n);
+}
+
+static void forget(Node* n) {
+    forget_rec(n);
+}
+
+static void unwatch_rec(Context& c, Node* n) {
+    if (!n) return;
+    for (Node *ch = n->child, *next; ch; ch = next) {
+        next = ch->sib;
+        unwatch_rec(c, ch);
+    }
+    inotify_rm_watch(c.ifd, n->wd);
+    free_node(n);
+}
+
+static void unwatch_subtree(Context& c, Node* n) {
+    unwatch_rec(c, n);
+}
+```
+:::
 
 **Відкладені обходи.** Нові стеження ставлять **тільки** після того, як черга спорожніла. Причина вузька, але справжня: `inotify_rm_watch()` одразу звільняє номер, а породжений ним `IN_IGNORED` ще лежить у черзі — постав нове стеження просто зараз, і воно може отримати той самий `wd`, після чого чужий `IN_IGNORED` знищить свіжий запис. Дренаж черги до кінця прибирає цю гонитву цілком.
 
+:::tabs
 ```c
 struct todo { int parent; char name[NAME_MAX + 1]; };
 static struct todo todo[TODO_MAX];
@@ -353,9 +555,36 @@ static void run_todo(struct ctx *c)
     ntodo = 0;
 }
 ```
+```cpp
+struct Todo {
+    int parent;
+    std::string name;
+};
+static std::vector<Todo> todo_queue;
+
+static void defer_scan(Context& c, int parent, const std::string& name) {
+    if (todo_queue.size() >= TODO_MAX) { c.rebuild = true; return; }
+    todo_queue.push_back({parent, name});
+}
+
+static void run_todo(Context& c) {
+    auto items = std::move(todo_queue);
+    todo_queue.clear();
+    for (const auto& item : items) {
+        std::string p = path_of(item.parent);
+        if (p.empty()) continue;
+        size_t len = p.size();
+        if (len + 1 + item.name.size() >= PATH_MAX) continue;
+        std::snprintf(c.buf.data(), PATH_MAX, "%s/%s", p.c_str(), item.name.c_str());
+        scan(c, len + 1 + item.name.size(), item.parent, item.name);
+    }
+}
+```
+:::
 
 **Половинки переїзду.**
 
+:::tabs
 ```c
 struct pending {
     int used;
@@ -448,9 +677,88 @@ static int next_timeout(void)
     return best < 0 ? -1 : (int) best;
 }
 ```
+```cpp
+struct PendingMove {
+    bool used{false};
+    uint32_t cookie{0};
+    int from_parent{-1};
+    int moved_wd{-1};
+    std::string name;
+    std::chrono::steady_clock::time_point deadline;
+};
+static std::vector<PendingMove> moves(MOVE_SLOTS);
+
+static void move_out(Context& c, Node* dir, const std::string& name, bool isdir, uint32_t cookie) {
+    Node* sub = isdir ? child_of(dir->wd, name) : nullptr;
+    for (auto& m : moves) {
+        if (m.used) continue;
+        m.used = true;
+        m.cookie = cookie;
+        m.from_parent = dir->wd;
+        m.moved_wd = sub ? sub->wd : -1;
+        m.name = name;
+        m.deadline = std::chrono::steady_clock::now() + std::chrono::milliseconds(MOVE_TIMEOUT_MS);
+        return;
+    }
+    c.rebuild = true;
+}
+
+static void reparent(Node* n, int new_parent, const std::string& new_name) {
+    unlink_sib(n);
+    n->name = new_name;
+    n->parent = new_parent;
+    Node* p = map_get(new_parent);
+    n->sib = p ? p->child : nullptr;
+    if (p) p->child = n;
+}
+
+static void move_in(Context& c, Node* dir, const std::string& name, bool isdir, uint32_t cookie) {
+    for (auto& m : moves) {
+        if (!m.used || m.cookie != cookie) continue;
+
+        std::string from = path_of(m.from_parent);
+        std::string to = path_of(dir->wd);
+        if (!from.empty() && !to.empty())
+            std::cout << "> " << from << "/" << m.name << " " << to << "/" << name << "\n";
+
+        Node* sub = map_get(m.moved_wd);
+        if (sub)        reparent(sub, dir->wd, name);
+        else if (isdir) defer_scan(c, dir->wd, name);
+        m.used = false;
+        return;
+    }
+    emit("+", dir->wd, name);
+    if (isdir) defer_scan(c, dir->wd, name);
+}
+
+static void expire_moves(Context& c) {
+    auto now = std::chrono::steady_clock::now();
+    for (auto& m : moves) {
+        if (!m.used || m.deadline > now) continue;
+        emit("-", m.from_parent, m.name);
+        Node* sub = map_get(m.moved_wd);
+        if (sub) unwatch_subtree(c, sub);
+        m.used = false;
+    }
+}
+
+static int next_timeout() {
+    auto now = std::chrono::steady_clock::now();
+    int best = -1;
+    for (const auto& m : moves) {
+        if (!m.used) continue;
+        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(m.deadline - now).count();
+        if (ms < 0) ms = 0;
+        if (best < 0 || ms < best) best = static_cast<int>(ms);
+    }
+    return best;
+}
+```
+:::
 
 **Розбір подій і дренаж черги.**
 
+:::tabs
 ```c
 static void on_event(struct ctx *c, const struct inotify_event *e)
 {
@@ -498,9 +806,54 @@ static void drain(struct ctx *c)
     }
 }
 ```
+```cpp
+static void on_event(Context& c, const struct inotify_event* e) {
+    if (e->mask & IN_Q_OVERFLOW) { c.rebuild = true; return; }
+
+    Node* n = map_get(e->wd);
+    if (!n) return;
+
+    if (e->mask & IN_IGNORED)    { forget(n); return; }
+    if (e->mask & IN_MOVE_SELF)  { if (n->parent < 0) c.rebuild = true; return; }
+    if (e->mask & IN_DELETE_SELF) return;
+
+    if (!e->len) return;
+    bool isdir = (e->mask & IN_ISDIR) != 0;
+
+    if (e->mask & IN_MOVED_FROM)  { move_out(c, n, e->name, isdir, e->cookie); return; }
+    if (e->mask & IN_MOVED_TO)    { move_in (c, n, e->name, isdir, e->cookie); return; }
+    if (e->mask & IN_CREATE) {
+        emit("+", n->wd, e->name);
+        if (isdir) defer_scan(c, n->wd, e->name);
+        return;
+    }
+    if (e->mask & IN_DELETE)      { emit("-", n->wd, e->name); return; }
+    if (e->mask & IN_CLOSE_WRITE) { emit("w", n->wd, e->name); return; }
+}
+
+static void drain(Context& c) {
+    alignas(struct inotify_event) static char buf[64 * 1024];
+    for (;;) {
+        ssize_t n = read(c.ifd, buf, sizeof(buf));
+        if (n < 0) {
+            if (errno == EINTR)  continue;
+            if (errno == EAGAIN) return;
+            std::perror("read");
+            std::exit(1);
+        }
+        for (char* p = buf; p < buf + n; ) {
+            auto* e = reinterpret_cast<const struct inotify_event*>(p);
+            p += sizeof(*e) + e->len;
+            on_event(c, e);
+        }
+    }
+}
+```
+:::
 
 **Старт групи, перебудова й головний цикл.**
 
+:::tabs
 ```c
 static long read_long(const char *path)
 {
@@ -589,6 +942,81 @@ int main(int argc, char **argv)
     }
 }
 ```
+```cpp
+#include <fstream>
+
+static long read_long(const std::string& path) {
+    long v = -1;
+    std::ifstream f(path);
+    if (f >> v) return v;
+    return -1;
+}
+
+static void die_enospc(const Context& c) {
+    long lim = read_long("/proc/sys/fs/inotify/max_user_watches");
+    std::cerr << "watchtree: вичерпано ліміт стежень inotify — покриття було б неповним.\n"
+              << "  поставлено:          " << nwatch << " стежень\n"
+              << "  межа на користувача: " << lim << "\n"
+              << "  дерево:              " << c.root << "\n";
+    std::exit(1);
+}
+
+static void start_group(Context& c) {
+    if (c.ifd >= 0) {
+        close(c.ifd);
+        node_map.clear();
+        moves.assign(MOVE_SLOTS, PendingMove{});
+        nwatch = 0;
+        todo_queue.clear();
+    }
+    c.ifd = inotify_init1(IN_NONBLOCK | IN_CLOEXEC);
+    if (c.ifd < 0) { std::perror("inotify_init1"); std::exit(1); }
+
+    struct epoll_event ev{.events = EPOLLIN, .data = {.fd = c.ifd}};
+    if (epoll_ctl(c.ep, EPOLL_CTL_ADD, c.ifd, &ev) < 0) { std::perror("epoll_ctl"); std::exit(1); }
+
+    c.rebuild = false;
+    std::cout << "RESYNC\n";
+    std::snprintf(c.buf.data(), PATH_MAX, "%s", c.root.c_str());
+    scan(c, c.root.size(), -1, c.root);
+    std::cout << "READY " << nwatch << "\n" << std::flush;
+}
+
+int main(int argc, char** argv) {
+    if (argc != 2) { std::cerr << "вжиток: watchtree <каталог>\n"; return 2; }
+
+    char root[PATH_MAX];
+    if (!realpath(argv[1], root)) { std::perror(argv[1]); return 1; }
+
+    Context c;
+    c.root = root;
+    c.buf.resize(PATH_MAX);
+    c.ep = epoll_create1(EPOLL_CLOEXEC);
+    if (c.ep < 0) { std::perror("epoll_create1"); return 1; }
+
+    start_group(c);
+
+    for (;;) {
+        struct epoll_event ev[8];
+        int nfd = epoll_wait(c.ep, ev, 8, next_timeout());
+        if (nfd < 0) {
+            if (errno == EINTR) continue;
+            std::perror("epoll_wait");
+            return 1;
+        }
+        for (int i = 0; i < nfd; i++) {
+            if (ev[i].data.fd == c.ifd) drain(c);
+        }
+
+        run_todo(c);
+        expire_moves(c);
+        std::cout << std::flush;
+
+        if (c.rebuild) start_group(c);
+    }
+}
+```
+:::
 
 ## Переповнення: єдина правильна реакція — забути все
 

@@ -1,29 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="460" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура blk-mq</text>
-<rect x="50.0" y="50.0" width="700.0" height="350.0" rx="10" fill="#f8f9fa" stroke="#ccc" stroke-width="1.5"/>
-<text x="400.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">User Space</text>
-<rect x="100.0" y="100.0" width="150.0" height="50.0" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
-<text x="175.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Process 1 (CPU 0)</text>
-<rect x="325.0" y="100.0" width="150.0" height="50.0" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
-<text x="400.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Process 2 (CPU 1)</text>
-<rect x="550.0" y="100.0" width="150.0" height="50.0" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
-<text x="625.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Process N (CPU N)</text>
-<line x1="175.0" y1="150.0" x2="175.0" y2="200.0" stroke="#666" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="400.0" y1="150.0" x2="400.0" y2="200.0" stroke="#666" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="625.0" y1="150.0" x2="625.0" y2="200.0" stroke="#666" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="100.0" y="200.0" width="150.0" height="50.0" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
-<text x="175.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Software Queue (ctx)</text>
-<rect x="325.0" y="200.0" width="150.0" height="50.0" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
-<text x="400.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Software Queue (ctx)</text>
-<rect x="550.0" y="200.0" width="150.0" height="50.0" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
-<text x="625.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Software Queue (ctx)</text>
-<line x1="175.0" y1="250.0" x2="287.5" y2="300.0" stroke="#666" stroke-width="1.5" stroke-dasharray="5,5"/>
-<line x1="400.0" y1="250.0" x2="287.5" y2="300.0" stroke="#666" stroke-width="1.5" stroke-dasharray="5,5"/>
-<line x1="625.0" y1="250.0" x2="625.0" y2="300.0" stroke="#666" stroke-width="1.5" stroke-dasharray="5,5"/>
-<rect x="200.0" y="300.0" width="175.0" height="50.0" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
-<text x="287.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Hardware Queue (hctx)</text>
-<rect x="525.0" y="300.0" width="175.0" height="50.0" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
-<text x="612.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Hardware Queue (hctx)</text>
-<text x="400.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Hardware Dispatch (NVMe/SCSI)</text>
+<rect x="10.0" y="10.0" width="780.0" height="430.0" rx="8" fill="#fafafa" stroke="#d0d0d0" stroke-width="1.5"/>
+<rect x="151.9" y="12.0" width="496.2" height="36.0" rx="6" fill="#ffffff" stroke="#d0d0d0" stroke-width="1.5"/><text x="400.0" y="42.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Дворівнева архітектура черг blk-mq (ctx -&gt; hctx)</tspan></text>
+<rect x="30.0" y="60.0" width="740.0" height="130.0" rx="6" fill="#f0f7ff" stroke="#a3c2ec" stroke-width="1.5"/>
+<text x="50.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Програмні черги per-CPU (blk_mq_ctx)</text>
+<rect x="68.7" y="107.3" width="82.7" height="45.3" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="110.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">CPU 0</tspan><tspan x="110.0" dy="14.3">blk_mq_ctx</tspan></text>
+<rect x="238.7" y="107.3" width="82.7" height="45.3" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="280.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">CPU 1</tspan><tspan x="280.0" dy="14.3">blk_mq_ctx</tspan></text>
+<rect x="478.6" y="107.3" width="82.7" height="45.3" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="520.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">CPU 2</tspan><tspan x="520.0" dy="14.3">blk_mq_ctx</tspan></text>
+<rect x="648.6" y="107.3" width="82.7" height="45.3" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="690.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">CPU 3</tspan><tspan x="690.0" dy="14.3">blk_mq_ctx</tspan></text>
+<text x="400.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#475569" text-anchor="middle" font-weight="700">Мапінг через blk_mq_queue_map (N:1 або 1:1)</text>
+<line x1="110.0" y1="160.0" x2="170.0" y2="240.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="160.0" x2="230.0" y2="240.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="160.0" x2="570.0" y2="240.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="160.0" x2="630.0" y2="240.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="240.0" width="740.0" height="120.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="50.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Апаратні диспетчерські черги (blk_mq_hw_ctx)</text>
+<rect x="105.4" y="287.4" width="189.3" height="45.3" rx="4" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/><text x="200.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">hctx 0 (Hardware Queue 0)</tspan><tspan x="200.0" dy="14.3">[Dispatch List / Scheduler]</tspan></text>
+<rect x="505.4" y="287.4" width="189.3" height="45.3" rx="4" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/><text x="600.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">hctx 1 (Hardware Queue 1)</tspan><tspan x="600.0" dy="14.3">[Dispatch List / Scheduler]</tspan></text>
+<line x1="200.0" y1="345.0" x2="200.0" y2="375.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="345.0" x2="600.0" y2="375.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="375.0" width="740.0" height="50.0" rx="6" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+<text x="400.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичний накопичувач (NVMe Submission Queues / PCIe Ring)</text>
 </svg>

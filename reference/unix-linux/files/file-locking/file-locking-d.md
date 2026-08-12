@@ -54,12 +54,24 @@ Unix утілив обидва останні варіанти — у різні
 
 Найпростіший із трьох з'явився в 4.2BSD (1983) і має рівно три дії:
 
+:::tabs
 ```c
 flock(fd, LOCK_SH);              /* спільний: читачів багато */
 flock(fd, LOCK_EX);              /* виключний: письменник один */
 flock(fd, LOCK_UN);              /* зняти */
 flock(fd, LOCK_EX | LOCK_NB);    /* не чекати: EWOULDBLOCK, якщо зайнято */
 ```
+```cpp
+#include <sys/file.h>
+#include <system_error>
+
+void apply_flock(int fd, int op) {
+    if (flock(fd, op) != 0) {
+        throw std::system_error(errno, std::generic_category(), "flock call failed");
+    }
+}
+```
+:::
 
 Діапазонів тут немає — замикається файл цілком. Спільний замок сумісний з іншими спільними й несумісний із виключним; виключний несумісний ні з чим ([багато читачів, один письменник](book:programming/readers-writer-lock)). Без `LOCK_NB` виклик чекає, доки звільниться, і його може перервати сигнал ([EINTR і перезапуск](book:unix-linux/eintr-and-restart)).
 
@@ -77,6 +89,7 @@ flock(fd, LOCK_EX | LOCK_NB);    /* не чекати: EWOULDBLOCK, якщо з�
 
 Гілка System V відповіла на це замками на **діапазон байтів**; звідти схему й узяв POSIX, і сьогодні вона стандартна. Заявка описується структурою:
 
+:::tabs
 ```c
 struct flock fl = {
     .l_type   = F_WRLCK,   /* F_RDLCK, F_WRLCK або F_UNLCK */
@@ -88,6 +101,21 @@ fcntl(fd, F_SETLK, &fl);   /* не вийшло — EAGAIN, не чекаємо 
 fcntl(fd, F_SETLKW, &fl);  /* чекаємо, доки звільниться */
 fcntl(fd, F_GETLK, &fl);   /* розвідка: хто заважає */
 ```
+```cpp
+#include <fcntl.h>
+#include <system_error>
+
+struct flock fl{};
+fl.l_type   = F_WRLCK;   // F_RDLCK, F_WRLCK або F_UNLCK
+fl.l_whence = SEEK_SET;  // від чого відлічувати l_start
+fl.l_start  = 0;
+fl.l_len    = 0;         // 0 — до кінця файлу
+
+if (fcntl(fd, F_SETLKW, &fl) == -1) {
+    throw std::system_error(errno, std::generic_category(), "fcntl F_SETLKW failed");
+}
+```
+:::
 
 `l_len = 0` означає «від `l_start` і далі без межі» — саме так беруть замок на весь файл, і саме тому замок автоматично покриває байти, дописані після його взяття. Від'ємне `l_len` (діапазон, що йде назад від `l_start`) Linux приймає з версій 2.4.21 і 2.5.49.
 
@@ -123,6 +151,7 @@ fcntl(fd, F_GETLK, &fl);   /* розвідка: хто заважає */
 
 Інтерфейс той самий, змінюються лише команди:
 
+:::tabs
 ```c
 struct flock fl = {
     .l_type   = F_WRLCK,
@@ -133,6 +162,23 @@ struct flock fl = {
 };
 fcntl(fd, F_OFD_SETLK, &fl);
 ```
+```cpp
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <system_error>
+
+struct flock fl{};
+fl.l_type   = F_WRLCK;
+fl.l_whence = SEEK_SET;
+fl.l_start  = 0;
+fl.l_len    = 0;
+fl.l_pid    = 0;          // обов'язково 0 для OFD-замків
+
+if (fcntl(fd, F_OFD_SETLK, &fl) == -1) {
+    throw std::system_error(errno, std::generic_category(), "fcntl F_OFD_SETLK failed");
+}
+```
+:::
 
 Поле `l_pid` тут мусить бути нулем — саме за ним ядро відрізняє заявку на OFD-замок; у відповіді на `F_OFD_GETLK` конфліктний OFD-замок позначається `l_pid = -1`, бо процеса-власника в нього немає. На glibc для цих констант потрібен `_GNU_SOURCE`.
 

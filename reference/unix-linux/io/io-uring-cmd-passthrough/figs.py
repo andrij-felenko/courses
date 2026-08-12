@@ -1,66 +1,56 @@
-def render():
-    elements = []
-    def add_rect(x, y, w, h, rx, fill, stroke, dash=""):
-        dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
-        elements.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" fill="{fill}" stroke="{stroke}" stroke-width="2"{dash_attr}/>')
-    def add_text(txt, x, y, size, weight="normal", anchor="middle", fill="#333", mono=False):
-        font = "monospace" if mono else "sans-serif"
-        elements.append(f'<text x="{x}" y="{y}" font-family="{font}" font-size="{size}" font-weight="{weight}" text-anchor="{anchor}" fill="{fill}">{txt}</text>')
-    def add_path(d, stroke, dash=""):
-        dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
-        elements.append(f'<path d="{d}" stroke="{stroke}" stroke-width="2" fill="none" marker-end="url(#arrow)"{dash_attr}/>')
-    
-    # User space
-    add_rect(50, 50, 700, 80, 5, "#f0f0f0", "#333")
-    add_text("Простір користувача (Userspace)", 400, 70, 16, "bold")
-    add_rect(100, 85, 200, 30, 3, "#fff", "#333")
-    add_text("io_uring SQE (URING_CMD)", 200, 105, 12)
-    
-    # Kernel space
-    add_rect(50, 150, 700, 220, 5, "#e6f7ff", "#333")
-    add_text("Простір ядра (Kernel space)", 400, 170, 16, "bold")
-    
-    # io_uring core
-    add_rect(100, 190, 200, 50, 3, "#b3e0ff", "#005c99")
-    add_text("io_uring core", 200, 220, 14)
-    
-    # VFS / Block layer bypass
-    add_rect(350, 190, 150, 50, 3, "#ffd6cc", "#cc3300", "4")
-    add_text("VFS / blk-mq", 425, 220, 14)
-    
-    # NVMe char device driver
-    add_rect(100, 280, 600, 70, 3, "#b3ffb3", "#009900")
-    add_text("NVMe Character Device Driver (/dev/ng0n1)", 400, 305, 14)
-    add_text("nvme_uring_cmd() / uring_cmd_comp()", 400, 330, 12, mono=True)
-    
-    # Hardware
-    add_rect(50, 390, 700, 80, 5, "#ffe6e6", "#333")
-    add_text("Апаратне забезпечення (Hardware)", 400, 410, 16, "bold")
-    add_rect(300, 425, 200, 30, 3, "#fff", "#333")
-    add_text("NVMe Controller", 400, 445, 14)
-    
-    # Arrows
-    add_path("M 200 115 L 200 180", "#333")
-    add_path("M 200 240 L 200 270", "#005c99")
-    add_path("M 200 215 C 275 215, 325 215, 340 215", "#cc3300", "4")
-    add_text("Bypass", 275, 210, 12, fill="#cc3300")
-    add_path("M 400 350 L 400 380", "#009900")
-    add_path("M 500 425 L 500 355", "#333", "4")
-    add_text("Interrupt / CQE", 510, 390, 12)
-    
-    marker = """<defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-    </marker>
-  </defs>"""
-    
-    svg_body = "\n  ".join(elements)
-    
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
-  {marker}
-  {svg_body}
-</svg>'''
+# -*- coding: utf-8 -*-
+"""Фігури до теми «Низькорівневий пасстру команд NVMe через IORING_OP_URING_CMD»."""
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
+
+def fig_uring_passthrough():
+    """Порівняння традиційного стеку blk-mq та прямого passthrough через IORING_OP_URING_CMD."""
+    W, H = 940, 520
+    g = []
+
+    # Заголовок та шари
+    g.append(fitbox(20, 20, 430, 40, "Класичний стек (blk-mq / VFS)", size=14, bold=True, fill="#fdecea"))
+    g.append(fitbox(490, 20, 430, 40, "io_uring Passthrough (IORING_OP_URING_CMD)", size=14, bold=True, fill="#eaf7ee"))
+
+    # Спрощена ліва колонка (класичний стек)
+    g.append(fitbox(40, 80, 390, 44, "Програма Userspace: pread() / read()", size=12))
+    g.append(fitbox(40, 150, 390, 44, "VFS & Файлова система (ext4 / xfs)", size=12, fill="#f0f4f8"))
+    g.append(fitbox(40, 220, 390, 44, "Блоковий шар (blk-mq & struct bio)", size=12, fill="#f0f4f8"))
+    g.append(fitbox(40, 290, 390, 44, "Драйвер блочного пристрою /dev/nvme0n1", size=12, fill="#f0f4f8"))
+    g.append(fitbox(40, 360, 390, 44, "Апаратна черга NVMe SQ (PCIe DMA)", size=12, fill="#eef2f7"))
+    g.append(fitbox(40, 430, 390, 44, "Накладні витрати: аллокація bio/request, lock, IRQ", size=11, fill="#fdecea"))
+
+    # Стрілки лівої колонки
+    g.append(arrow(235, 124, 235, 148))
+    g.append(arrow(235, 194, 235, 218))
+    g.append(arrow(235, 264, 235, 288))
+    g.append(arrow(235, 334, 235, 358))
+    g.append(arrow(235, 404, 235, 428))
+
+    # Права колонка (io_uring passthrough)
+    g.append(fitbox(510, 80, 390, 44, "Userspace: SQE (IORING_OP_URING_CMD)", size=12, fill="#eaf7ee"))
+    g.append(fitbox(510, 150, 390, 44, "Обхід VFS & blk-mq (Bypass)", size=12, bold=True, fill="#fff3cd"))
+    g.append(fitbox(510, 220, 390, 44, "Символьний пристрій /dev/ng0n1 (uring_cmd)", size=12, fill="#eaf7ee"))
+    g.append(fitbox(510, 290, 390, 44, "nvme_uring_cmd() → Напряму в hardware SQ", size=12, fill="#eaf7ee"))
+    g.append(fitbox(510, 360, 390, 44, "NVMe контролер + IOPOLL / CQE ring", size=12, fill="#eaf7ee"))
+    g.append(fitbox(510, 430, 390, 44, "Переваги: Zero-copy, zero-alloc, прямі vendor NVMe cmd", size=11, fill="#eaf7ee"))
+
+    # Стрілки правої колонки
+    g.append(arrow(705, 124, 705, 148))
+    g.append(arrow(705, 194, 705, 218))
+    g.append(arrow(705, 264, 705, 288))
+    g.append(arrow(705, 334, 705, 358))
+    g.append(arrow(705, 404, 705, 428))
+
+    render(os.path.join(IMG, 'fig-uring-passthrough.svg'), W, H, *g)
+
 
 if __name__ == '__main__':
-    with open('fig_uring_passthrough.svg', 'w', encoding='utf-8') as f:
-        f.write(render())
+    fig_uring_passthrough()
+    print("ok")

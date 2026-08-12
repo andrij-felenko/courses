@@ -1,19 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#000" /></marker></defs>
-<rect x="50" y="50" width="700" height="300" fill="#f0f8ff" stroke="#4682b4" rx="10" />
-<text x="60" y="70" font-family="sans-serif" font-size="16" text-anchor="start" fill="#4682b4">Kernel Space (Key Retention Service)</text>
-<rect x="100" y="100" width="180" height="200" fill="#e6e6fa" stroke="#9370db" rx="0" />
-<text x="190" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Session Keyring</text>
-<rect x="120" y="150" width="140" height="40" fill="#ffffff" stroke="#000" rx="0" />
-<text x="190" y="175" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Key: 'user:mykey'</text>
-<rect x="120" y="200" width="140" height="40" fill="#ffffff" stroke="#000" rx="0" />
-<text x="190" y="225" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Key: 'logon:ext4'</text>
-<rect x="350" y="150" width="150" height="100" fill="#ffe4e1" stroke="#cd5c5c" rx="0" />
-<text x="425" y="180" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">TPM Module</text>
-<text x="425" y="210" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">(Hardware)</text>
-<rect x="550" y="100" width="150" height="80" fill="#f5f5dc" stroke="#bdb76b" rx="0" />
-<text x="625" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">User Space</text>
-<text x="625" y="155" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Process (keyctl)</text>
-<line x1="550" y1="140" x2="280" y2="140" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
-<text x="415" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Syscalls: request_key()</text>
-<line x1="260" y1="220" x2="350" y2="220" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
-<text x="305" y="210" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Trusted</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми ключів ядра (Kernel Key Retention Service)</text>
+<rect x="30.0" y="55.0" width="980.0" height="110.0" rx="8" fill="#fdfbf7" stroke="#d97706" stroke-width="1.5"/>
+<text x="50.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="start" font-weight="700">ПРОСТІР КОРИСТУВАЧА (USER SPACE)</text>
+<rect x="70.0" y="90.0" width="180.0" height="49.9" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/><text x="160.0" y="111.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Процес користувача</tspan><tspan x="160.0" dy="16.9">(keyctl / app)</tspan></text>
+<rect x="370.0" y="90.0" width="300.0" height="49.9" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="520.0" y="111.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Системні виклики</tspan><tspan x="520.0" dy="16.9">add_key() / request_key() / keyctl()</tspan></text>
+<rect x="763.7" y="90.0" width="212.7" height="49.9" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/><text x="870.0" y="111.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Демон підкачки</tspan><tspan x="870.0" dy="16.9">/sbin/request-key (upcall)</tspan></text>
+<line x1="250.0" y1="115.0" x2="370.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="670.0" y1="115.0" x2="775.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="150.0" x2="520.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="195.0" width="980.0" height="255.0" rx="8" fill="#f0f7ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="50.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="start" font-weight="700">ПРОСТІР ЯДРА (KERNEL SPACE)</text>
+<rect x="50.0" y="235.0" width="270.0" height="195.0" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="185.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контекст процесів (struct cred)</text>
+<rect x="75.0" y="264.5" width="220.0" height="31.0" rx="6" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="283.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">Thread Keyring (@t)</tspan></text>
+<rect x="75.0" y="304.5" width="220.0" height="31.0" rx="6" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="323.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">Process Keyring (@p)</tspan></text>
+<rect x="75.0" y="344.5" width="220.0" height="31.0" rx="6" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="363.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">Session Keyring (@s)</tspan></text>
+<rect x="75.0" y="384.5" width="220.0" height="31.0" rx="6" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="403.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">User Keyring (@u)</tspan></text>
+<rect x="345.0" y="235.0" width="340.0" height="195.0" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="515.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пошук та перевірка привілеїв</text>
+<rect x="360.0" y="267.4" width="310.0" height="45.3" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/><text x="515.0" y="286.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="515.0" dy="0.0">Маска прав: key_perm_t</tspan><tspan x="515.0" dy="14.3">Possessor (0x3f) | User | Group | Other</tspan></text>
+<rect x="360.0" y="317.4" width="310.0" height="45.3" rx="6" fill="#fcf5ff" stroke="#a855f7" stroke-width="1.5"/><text x="515.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="515.0" dy="0.0">Контролер безпеки LSM</tspan><tspan x="515.0" dy="14.3">security_key_permission()</tspan></text>
+<rect x="360.0" y="372.4" width="310.0" height="45.3" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/><text x="515.0" y="391.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="515.0" dy="0.0">Асоціативний масив ключів (assoc_array)</tspan><tspan x="515.0" dy="14.3">Пошук ключів за типом і описом</tspan></text>
+<rect x="710.0" y="235.0" width="285.0" height="195.0" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="852.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Типи ключів (struct key_type)</text>
+<rect x="727.0" y="269.5" width="250.0" height="31.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="852.0" y="288.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="852.0" dy="0.0">user / logon (секрети в пам'яті)</tspan></text>
+<rect x="727.0" y="304.5" width="250.0" height="31.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="852.0" y="323.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="852.0" dy="0.0">trusted / encrypted (TPM / AES)</tspan></text>
+<rect x="727.0" y="339.5" width="250.0" height="31.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="852.0" y="358.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="852.0" dy="0.0">big_key (tmpfs + шифрування)</tspan></text>
+<rect x="727.0" y="379.5" width="250.0" height="31.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="852.0" y="398.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="852.0" dy="0.0">asymmetric (X.509 / RSA / ECDSA)</tspan></text>
+<line x1="320.0" y1="320.0" x2="345.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="320.0" x2="710.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="450.0" x2="520.0" y2="475.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="475.0" width="980.0" height="90.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="50.0" y="493.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="start" font-weight="700">СПОЖИВАЧІ ТА АПАРАТНІ МОДУЛІ БЕЗПЕКИ</text>
+<rect x="65.0" y="507.4" width="170.0" height="45.3" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="526.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Шифрування диска</tspan><tspan x="150.0" dy="14.3">dm-crypt / fscrypt</tspan></text>
+<rect x="280.0" y="507.4" width="200.0" height="45.3" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="526.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Мережева автентифікація</tspan><tspan x="380.0" dy="14.3">NFSv4 / Kerberos / AFS</tspan></text>
+<rect x="520.0" y="507.4" width="200.0" height="45.3" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="526.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Підписи та цілісність</tspan><tspan x="620.0" dy="14.3">IMA/EVM / Module Signing</tspan></text>
+<rect x="775.0" y="507.4" width="190.0" height="45.3" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="870.0" y="526.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Апаратний корінь</tspan><tspan x="870.0" dy="14.3">TPM / TrustZone</tspan></text>
+</svg>

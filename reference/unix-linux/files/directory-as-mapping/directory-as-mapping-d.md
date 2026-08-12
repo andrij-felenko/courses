@@ -97,6 +97,7 @@ cat: /etc: Is a directory
 
 Ось як це виглядає в роботі. Програма створює файл, одразу прибирає його ім'я й далі користується дескриптором:
 
+:::tabs
 ```c
 #include <fcntl.h>
 #include <stdio.h>
@@ -123,6 +124,45 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+#include <fcntl.h>
+#include <unistd.h>
+#include <array>
+#include <cstdio>
+#include <iostream>
+#include <string_view>
+
+int main()
+{
+    int fd = open("/tmp/scratch", O_RDWR | O_CREAT | O_EXCL, 0600);
+    if (fd < 0) {
+        std::perror("open");
+        return 1;
+    }
+
+    /* Імені більше немає: у /tmp його не побачить ніхто, зокрема й ми самі. */
+    if (unlink("/tmp/scratch") < 0) {
+        std::perror("unlink");
+        close(fd);
+        return 1;
+    }
+
+    constexpr std::string_view msg = "дані живуть, доки живе дескриптор\n";
+    write(fd, msg.data(), msg.size());
+
+    std::array<char, 64> buf{};
+    lseek(fd, 0, SEEK_SET);
+    ssize_t n = read(fd, buf.data(), buf.size() - 1);
+    if (n > 0) {
+        std::cout << "прочитано " << n << " байтів: "
+                  << std::string_view(buf.data(), static_cast<size_t>(n));
+    }
+
+    close(fd);   /* аж тепер блоки звільняються */
+    return 0;
+}
+```
+:::
 
 Це не хитрість, а стандартний спосіб зробити тимчасовий файл, який гарантовано зникне: навіть якщо процес уб'ють сигналом, ядро закриє його дескриптори, лічильники впадуть до нуля, і місце повернеться. Файлу, якого немає в жодному каталозі, ніхто не може ані прочитати, ані підмінити.
 
@@ -231,6 +271,7 @@ drwxr-xr-x 4 ana ana 4096 Aug  1 11:02 проєкт
 
 Один крок у цьому рецепті пропускають найчастіше. `fsync()` на файлі проштовхує на носій його дані — але не обіцяє, що на носій потрапив **запис у каталозі**, який робить файл видимим під потрібним іменем. Для цього потрібен окремий `fsync()` на дескрипторі самого каталогу; так прямо й сказано в описі виклику. Без нього після раптового вимкнення можна отримати файл із цілим вмістом, якого не видно за жодним іменем. Порядок, отже, такий:
 
+:::tabs
 ```c
 int fd = open(tmp, O_WRONLY | O_CREAT | O_EXCL, 0644);
 write(fd, data, len);
@@ -243,6 +284,19 @@ int dir = open(dirname_of_target, O_RDONLY | O_DIRECTORY);
 fsync(dir);             /* сам запис у каталозі — на носії */
 close(dir);
 ```
+```cpp
+int fd = open(tmp, O_WRONLY | O_CREAT | O_EXCL, 0644);
+write(fd, data, len);
+fsync(fd);              /* дані нової версії — на носії */
+close(fd);
+
+std::filesystem::rename(tmp, target);    /* заміна: неподільна для читачів */
+
+int dir = open(dirname_of_target, O_RDONLY | O_DIRECTORY);
+fsync(dir);             /* сам запис у каталозі — на носії */
+close(dir);
+```
+:::
 
 Тонкощі того, коли запис справді досягає носія і що при цьому робить кеш сторінок, — предмет [окремої теми](book:unix-linux/page-cache-durability); сам прийом як загальний принцип надійного оновлення описано в темі [атомарної заміни файлу](book:programming/atomic-file-replace).
 

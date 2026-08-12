@@ -35,7 +35,9 @@
 
 Буфер має незвичну для новачка будову: тридцятидвобайтовий заголовок, а одразу за ним — масив записів.
 
+:::tabs
 ```c
+/* Цитата з <linux/fiemap.h> */
 struct fiemap {
     __u64 fm_start;             /* з якого зсуву питаємо        — вхід  */
     __u64 fm_length;            /* яку довжину хочемо покрити   — вхід  */
@@ -46,6 +48,19 @@ struct fiemap {
     struct fiemap_extent fm_extents[];
 };
 ```
+```cpp
+// Вигляд структури <linux/fiemap.h> у C++
+struct fiemap {
+    uint64_t fm_start;          // з якого зсуву питаємо        — вхід
+    uint64_t fm_length;         // яку довжину хочемо покрити   — вхід
+    uint32_t fm_flags;          // FIEMAP_FLAG_*            — вхід/вихід
+    uint32_t fm_mapped_extents; // скільки записів заповнено    — вихід
+    uint32_t fm_extent_count;   // скільки слотів ми дали       — вхід
+    uint32_t fm_reserved;
+    fiemap_extent fm_extents[]; // гибкий масив екстентів
+};
+```
+:::
 
 Ключова пара — `fm_extent_count` і `fm_mapped_extents`. Перше каже ядру, скільки в нас місця; друге ядро повертає нам, скільки з того місця воно зайняло. Заголовок і масив мусять лежати в пам'яті поспіль, тож виділяються одним `malloc` на `sizeof(struct fiemap) + N · sizeof(struct fiemap_extent)`. Один запис — 56 байтів, з яких змістовні три: логічний зсув у файлі, фізичний зсув на носії й довжина; решта — прапорці й місце про запас.
 
@@ -91,6 +106,7 @@ cc -Wall -Wextra -O2 -o fmap fmap.c
 
 Почнімо з розбору прапорців — маленької, але потрібної частини, бо без неї цифри в стовпчику брешуть.
 
+:::tabs
 ```c
 /* fmap.c — карта файлу на екстенти через FIEMAP. */
 #define _FILE_OFFSET_BITS 64
@@ -138,9 +154,66 @@ static void flags_str(uint32_t f, char *out, size_t n)
     }
 }
 ```
+```cpp
+// fmap.cpp — карта файлу на екстенти через FIEMAP (C++20).
+#define _FILE_OFFSET_BITS 64
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <string_view>
+#include <array>
+#include <memory>
+#include <cstdint>
+#include <cinttypes>
+#include <cstring>
+#include <cerrno>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <linux/fiemap.h>
+#include <linux/fs.h>
+
+constexpr size_t SLOTS = 512;
+
+struct FlagInfo {
+    uint32_t bit;
+    std::string_view name;
+};
+
+constexpr std::array FLAGNAME{
+    FlagInfo{ FIEMAP_EXTENT_LAST,           "last"        },
+    FlagInfo{ FIEMAP_EXTENT_UNKNOWN,        "unknown"     },
+    FlagInfo{ FIEMAP_EXTENT_DELALLOC,       "delalloc"    },
+    FlagInfo{ FIEMAP_EXTENT_ENCODED,        "encoded"     },
+    FlagInfo{ FIEMAP_EXTENT_DATA_ENCRYPTED, "encrypted"   },
+    FlagInfo{ FIEMAP_EXTENT_NOT_ALIGNED,    "not_aligned" },
+    FlagInfo{ FIEMAP_EXTENT_DATA_INLINE,    "inline"      },
+    FlagInfo{ FIEMAP_EXTENT_DATA_TAIL,      "tail"        },
+    FlagInfo{ FIEMAP_EXTENT_UNWRITTEN,      "unwritten"   },
+    FlagInfo{ FIEMAP_EXTENT_MERGED,         "merged"      },
+    FlagInfo{ FIEMAP_EXTENT_SHARED,         "shared"      },
+};
+
+static std::string flags_str(uint32_t f)
+{
+    std::string out;
+    for (const auto &item : FLAGNAME) {
+        if (!(f & item.bit))
+            continue;
+        if (!out.empty())
+            out += ',';
+        out += item.name;
+    }
+    return out;
+}
+```
+:::
 
 Далі — накопичувач. Він тримає підсумки й пам'ять про попередній екстент, бо всі цікаві висновки народжуються саме з пари сусідів.
 
+:::tabs
 ```c
 struct walk {
     uint64_t n;                 /* екстентів у карті                     */
@@ -200,9 +273,66 @@ static void take(struct walk *w, const struct fiemap_extent *e, int verbose, uin
     w->have_prev = 1;
 }
 ```
+```cpp
+struct Walk {
+    uint64_t n{0};                 // екстентів у карті
+    uint64_t mapped{0};            // сума fe_length
+    uint64_t longest{0};
+    uint64_t holes{0}, hole_bytes{0};
+    uint64_t unwritten{0}, delalloc{0}, shared{0}, encoded{0};
+    uint64_t pairs{0}, glued{0};   // сусідніх пар / з них — упритул
+
+    uint64_t seen_end{0};          // найбільший побачений логічний кінець
+    bool have_prev{false};
+    fiemap_extent prev{};
+
+    void take(const fiemap_extent &e, bool verbose, uint64_t idx) {
+        if (e.fe_logical + e.fe_length <= seen_end)
+            return;                               // цей запис ми вже бачили
+
+        if (e.fe_logical > seen_end) {            // між даними — діра
+            holes++;
+            hole_bytes += e.fe_logical - seen_end;
+        }
+
+        n++;
+        mapped += e.fe_length;
+        if (e.fe_length > longest)
+            longest = e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_UNWRITTEN) unwritten += e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_DELALLOC)  delalloc  += e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_SHARED)    shared    += e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_ENCODED)   encoded   += e.fe_length;
+
+        constexpr uint32_t VAGUE = FIEMAP_EXTENT_UNKNOWN | FIEMAP_EXTENT_DELALLOC |
+                                   FIEMAP_EXTENT_NOT_ALIGNED | FIEMAP_EXTENT_ENCODED;
+
+        if (have_prev && !((prev.fe_flags | e.fe_flags) & VAGUE)) {
+            pairs++;
+            if (prev.fe_physical + prev.fe_length == e.fe_physical &&
+                prev.fe_logical  + prev.fe_length == e.fe_logical)
+                glued++;                          // сусіди стик у стик
+        }
+
+        if (verbose) {
+            std::string fs = flags_str(e.fe_flags);
+            printf("%8" PRIu64 " %14" PRIu64 " %12" PRIu64 " %16" PRIu64 "  %s\n",
+                   idx, static_cast<uint64_t>(e.fe_logical),
+                   static_cast<uint64_t>(e.fe_length),
+                   static_cast<uint64_t>(e.fe_physical), fs.c_str());
+        }
+
+        seen_end = e.fe_logical + e.fe_length;
+        prev = e;
+        have_prev = true;
+    }
+};
+```
+:::
 
 Тепер сам цикл. Він короткий рівно тому, що правило руху сформульоване заздалегідь.
 
+:::tabs
 ```c
 static int map_file(const char *path, unsigned req_flags, int verbose)
 {
@@ -288,9 +418,113 @@ static int map_file(const char *path, unsigned req_flags, int verbose)
     return rc;
 }
 ```
+```cpp
+class UniqueFd {
+    int fd_{-1};
+public:
+    explicit UniqueFd(int fd = -1) : fd_(fd) {}
+    ~UniqueFd() { if (fd_ >= 0) ::close(fd_); }
+    UniqueFd(const UniqueFd &) = delete;
+    UniqueFd &operator=(const UniqueFd &) = delete;
+    UniqueFd(UniqueFd &&o) noexcept : fd_(o.fd_) { o.fd_ = -1; }
+    UniqueFd &operator=(UniqueFd &&o) noexcept {
+        if (this != &o) {
+            if (fd_ >= 0) ::close(fd_);
+            fd_ = o.fd_; o.fd_ = -1;
+        }
+        return *this;
+    }
+    [[nodiscard]] int get() const { return fd_; }
+    [[nodiscard]] bool valid() const { return fd_ >= 0; }
+};
+
+static int map_file(const char *path, unsigned req_flags, bool verbose)
+{
+    UniqueFd fd{::open(path, O_RDONLY)};
+    if (!fd.valid()) { std::perror(path); return -1; }
+
+    struct stat st;
+    if (::fstat(fd.get(), &st) < 0) { std::perror("fstat"); return -1; }
+
+    size_t buf_size = sizeof(fiemap) + SLOTS * sizeof(fiemap_extent);
+    std::vector<uint8_t> buffer(buf_size, 0);
+    auto *fm = reinterpret_cast<fiemap*>(buffer.data());
+
+    Walk w;
+    uint64_t want = 0, idx = 0;
+    bool last = false;
+    int rc = 0;
+
+    if (verbose)
+        std::cout << "       №     зсув у файлі      довжина    зсув на носії  прапорці\n";
+
+    while (!last) {
+        std::memset(buffer.data(), 0, buf_size);
+        fm->fm_start        = want;
+        fm->fm_length       = FIEMAP_MAX_OFFSET - want;
+        fm->fm_flags        = want ? (req_flags & ~FIEMAP_FLAG_SYNC) : req_flags;
+        fm->fm_extent_count = SLOTS;
+
+        if (::ioctl(fd.get(), FS_IOC_FIEMAP, fm) < 0) {
+            if (errno == EBADR)
+                std::cerr << path << ": ФС не розуміє прапорці 0x" << std::hex << fm->fm_flags << std::dec << "\n";
+            else if (errno == EOPNOTSUPP)
+                std::cerr << path << ": ця файлова система не віддає карту\n";
+            else
+                std::cerr << path << ": FIEMAP: " << std::strerror(errno) << "\n";
+            rc = -1;
+            break;
+        }
+        if (fm->fm_mapped_extents == 0)
+            break;                                // даних далі немає
+
+        for (unsigned i = 0; i < fm->fm_mapped_extents; i++) {
+            const auto &e = fm->fm_extents[i];
+            w.take(e, verbose, ++idx);
+            if (e.fe_flags & FIEMAP_EXTENT_LAST)
+                last = true;
+        }
+
+        if (w.seen_end <= want)                   // карта не рухається
+            break;
+        want = w.seen_end;
+    }
+
+    if (rc == 0 && w.seen_end < static_cast<uint64_t>(st.st_size)) {
+        w.holes++;                                // хвостова діра
+        w.hole_bytes += static_cast<uint64_t>(st.st_size) - w.seen_end;
+    }
+
+    if (rc == 0) {
+        std::cout << path << "\n";
+        printf("  розмір               %" PRIu64 " Б\n", static_cast<uint64_t>(st.st_size));
+        printf("  віддано блоків       %" PRIu64 " Б\n", static_cast<uint64_t>(st.st_blocks) * 512);
+        printf("  екстентів            %" PRIu64 "\n", w.n);
+        if (w.n) {
+            printf("  відображено          %" PRIu64 " Б\n", w.mapped);
+            printf("  середня довжина      %.0f Б\n", static_cast<double>(w.mapped) / static_cast<double>(w.n));
+            printf("  найдовший            %" PRIu64 " Б\n", w.longest);
+        }
+        if (w.pairs)
+            printf("  частка суцільності   %.3f (%" PRIu64 " з %" PRIu64
+                   " сусідніх пар упритул)\n",
+                   static_cast<double>(w.glued) / static_cast<double>(w.pairs), w.glued, w.pairs);
+        if (w.holes)     printf("  дірок                %" PRIu64 " на %" PRIu64 " Б\n",
+                                w.holes, w.hole_bytes);
+        if (w.unwritten) printf("  недоторканих         %" PRIu64 " Б (unwritten)\n", w.unwritten);
+        if (w.delalloc)  printf("  ще не розподілено    %" PRIu64 " Б (delalloc)\n", w.delalloc);
+        if (w.shared)    printf("  спільних із кимось   %" PRIu64 " Б (shared)\n", w.shared);
+        if (w.encoded)   printf("  закодованих          %" PRIu64 " Б (encoded)\n", w.encoded);
+    }
+
+    return rc;
+}
+```
+:::
 
 Дешевий режим «лише порахувати» — той самий виклик із порожнім масивом. Тут добре видно, що заголовок самодостатній: ядро копіює назад тільки його.
 
+:::tabs
 ```c
 static long long count_extents(int fd, unsigned req_flags)
 {
@@ -340,6 +574,60 @@ int main(int argc, char **argv)
     return bad ? 1 : 0;
 }
 ```
+```cpp
+static long long count_extents(int fd, unsigned req_flags)
+{
+    fiemap fm{};
+    fm.fm_start        = 0;
+    fm.fm_length       = FIEMAP_MAX_OFFSET;
+    fm.fm_flags        = req_flags;
+    fm.fm_extent_count = 0;                       // масиву немає — тільки лічи
+    if (::ioctl(fd, FS_IOC_FIEMAP, &fm) < 0)
+        return -1;
+    return static_cast<long long>(fm.fm_mapped_extents);
+}
+
+int main(int argc, char **argv)
+{
+    unsigned req_flags = 0;
+    bool verbose = false, count_only = false;
+    int opt = 0, bad = 0;
+
+    while ((opt = ::getopt(argc, argv, "svc")) != -1) {
+        switch (opt) {
+        case 's': req_flags |= FIEMAP_FLAG_SYNC; break;
+        case 'v': verbose = true; break;
+        case 'c': count_only = true; break;
+        default:
+            std::cerr << "вжиток: " << argv[0] << " [-s] [-v] [-c] файл...\n";
+            return 2;
+        }
+    }
+    if (optind == argc) {
+        std::cerr << "вжиток: " << argv[0] << " [-s] [-v] [-c] файл...\n";
+        return 2;
+    }
+
+    for (int i = optind; i < argc; i++) {
+        if (!count_only) {
+            if (map_file(argv[i], req_flags, verbose) < 0)
+                bad = 1;
+            continue;
+        }
+        UniqueFd fd{::open(argv[i], O_RDONLY)};
+        if (!fd.valid()) { std::perror(argv[i]); bad = 1; continue; }
+        long long n = count_extents(fd.get(), req_flags);
+        if (n < 0) {
+            std::cerr << argv[i] << ": FIEMAP: " << std::strerror(errno) << "\n";
+            bad = 1;
+        } else {
+            std::cout << argv[i] << ": " << n << " екстентів\n";
+        }
+    }
+    return bad ? 1 : 0;
+}
+```
+:::
 
 Стеля на `fm_extent_count` теж є — `UINT_MAX / sizeof(struct fiemap_extent)`, тобто близько 76 мільйонів, — але впиратися в неї не варто: буфер на 512 слотів займає 28 КіБ і чудово переживає файл будь-якого розміру, просто зробивши більше обертів циклу.
 

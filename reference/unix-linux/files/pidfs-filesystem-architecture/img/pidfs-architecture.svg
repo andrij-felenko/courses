@@ -1,22 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="450" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="50.0" y="80.0" width="300.0" height="80.0" rx="6" fill="#ffcccc" stroke="#cc0000" stroke-width="2.0"/>
-<text x="200.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">Процес A</text>
-<text x="200.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#cc0000" text-anchor="middle">kill(PID 1234)</text>
-<line x1="200.0" y1="160.0" x2="200.0" y2="240.0" stroke="#000" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="200.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555" text-anchor="middle">PID 1234 перепризначено</text>
-<rect x="50.0" y="240.0" width="300.0" height="80.0" rx="6" fill="#e6f2ff" stroke="#0066cc" stroke-width="2.0"/>
-<text x="200.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">Новий Процес C (PID 1234)</text>
-<text x="200.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#cc0000" text-anchor="middle">Отримує помилковий сигнал!</text>
-<rect x="450.0" y="80.0" width="300.0" height="80.0" rx="6" fill="#ccffcc" stroke="#009900" stroke-width="2.0"/>
-<text x="600.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">Процес A</text>
-<text x="600.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#009900" text-anchor="middle">pidfd_send_signal(fd)</text>
-<line x1="600.0" y1="160.0" x2="600.0" y2="240.0" stroke="#000" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="600.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555" text-anchor="middle">Процес B завершено</text>
-<rect x="450.0" y="240.0" width="300.0" height="80.0" rx="6" fill="#f2f2f2" stroke="#999999" stroke-width="2.0"/>
-<text x="600.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#666" text-anchor="middle">Мертвий об'єкт struct pid</text>
-<text x="600.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#009900" text-anchor="middle">ESRCH (помилка, безпечно)</text>
-<line x1="400.0" y1="20.0" x2="400.0" y2="380.0" stroke="#ccc" stroke-width="2.0" stroke-dasharray="4,4"/>
-<text x="200.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проблема PID Recycling</text>
-<text x="600.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рішення з pidfd / pidfs</text>
+<rect x="40.0" y="25.0" width="430.0" height="44.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="255.0" y="52.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">Небезпека: гонка чисельного PID</tspan></text>
+<rect x="530.0" y="25.0" width="430.0" height="44.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="745.0" y="52.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Безпека: дескриптор процесу у pidfs</tspan></text>
+<line x1="500.0" y1="20.0" x2="500.0" y2="390.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,6"/>
+<rect x="60.0" y="90.0" width="390.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="255.0" y="115.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Процес A відкриває /proc/1234</tspan><tspan x="255.0" dy="16.9">або планує kill(1234, SIGTERM)</tspan></text>
+<line x1="255.0" y1="150.0" x2="255.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="185.0" width="390.0" height="54.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="255.0" y="207.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Гонка TOCTOU: процес 1234 помирає,</tspan><tspan x="255.0" dy="16.9">а ядро виділяє PID 1234 процесу B</tspan></text>
+<line x1="255.0" y1="239.0" x2="255.0" y2="274.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="274.0" width="390.0" height="64.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="255.0" y="301.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">kill(1234) нищить невинний процес B!</tspan><tspan x="255.0" dy="18.2">Синхронізація відсутня</tspan></text>
+<rect x="550.0" y="90.0" width="390.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="745.0" y="115.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">Процес A отримує pidfd</tspan><tspan x="745.0" dy="16.9">(pidfd_open або clone3)</tspan></text>
+<line x1="745.0" y1="150.0" x2="745.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="550.0" y="185.0" width="390.0" height="54.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="745.0" y="207.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">pidfd вказує на inode у pidfs</tspan><tspan x="745.0" dy="16.9">з унікальним 64-бітним stx_ino</tspan></text>
+<line x1="745.0" y1="239.0" x2="745.0" y2="274.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="550.0" y="274.0" width="390.0" height="64.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="745.0" y="301.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Смерть процесу не переносить inode:</tspan><tspan x="745.0" dy="16.9">ioctl віддає ESRCH, а stx_ino не змінюється</tspan></text>
+<text x="500.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-style="italic">pidfs гарантує незмінність посилання на struct pid на весь час життя inode</text>
 </svg>

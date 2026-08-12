@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 730" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="730" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек зберігання та глибина скидання кешу для fsync, fdatasync і sync_file_range</text>
+<text x="600.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек зберігання Linux та межі гарантій fsync, fdatasync і sync_file_range</text>
+<rect x="250.0" y="90.0" width="680.0" height="54.0" rx="6" fill="#fbfcff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="590.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять процесу (App RAM)</text>
+<text x="590.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">буфери прикладної програми</text>
+<rect x="250.0" y="170.0" width="680.0" height="54.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="590.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сторінковий кеш ядра (Page Cache)</text>
+<text x="590.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">брудні сторінки RAM, кеш файлової системи</text>
+<rect x="250.0" y="250.0" width="680.0" height="54.0" rx="6" fill="#fdf3e7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="590.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метадані та журнал файлової системи</text>
+<text x="590.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">inode table, journal / intent log (ext4/xfs)</text>
+<rect x="250.0" y="330.0" width="680.0" height="54.0" rx="6" fill="#f1f2f4" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="590.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга блокового рівня (Block Layer / bio)</text>
+<text x="590.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">I/O scheduler, request queue</text>
+<rect x="250.0" y="410.0" width="680.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="590.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Волатильний кеш накопичувача (Drive DRAM)</text>
+<text x="590.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DRAM-буфер контролера SSD / HDD</text>
+<rect x="250.0" y="490.0" width="680.0" height="54.0" rx="6" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="590.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Енергонезалежна пам'ять (Flash / Platter)</text>
+<text x="590.0" y="533.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">NAND flash, магнітні пластини (durable state)</text>
+<line x1="220.0" y1="117.0" x2="220.0" y2="357.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="220.0" y1="350.0" x2="220.0" y2="357.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="15.0" y="210.0" width="195.0" height="80.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="112.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="112.5" dy="0.0">sync_file_range</tspan><tspan x="112.5" dy="13.0">ініціює виштовхування,</tspan><tspan x="112.5" dy="13.0">АЛЕ НЕ шле FLUSH на диск!</tspan><tspan x="112.5" dy="13.0">не захищає при збої</tspan></text>
+<line x1="960.0" y1="117.0" x2="960.0" y2="517.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="960.0" y1="510.0" x2="960.0" y2="517.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="980.0" y="220.0" width="205.0" height="80.0" rx="6" fill="#eafaf0" stroke="#c0392b" stroke-width="1.5"/><text x="1082.5" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="1082.5" dy="0.0">fdatasync</tspan><tspan x="1082.5" dy="13.0">виштовхує сторінки даних,</tspan><tspan x="1082.5" dy="13.0">лише необхідні метадані (i_size)</tspan><tspan x="1082.5" dy="13.0">+ шле REQ_PREFLUSH/FLUSH</tspan></text>
+<line x1="1170.0" y1="117.0" x2="1170.0" y2="517.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="1170.0" y1="510.0" x2="1170.0" y2="517.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="250.0" y="570.0" width="680.0" height="100.0" rx="6" fill="#fbfcff" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="603.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Ключова відмінність:</tspan><tspan x="590.0" dy="13.7">• sync_file_range зупиняється на блоковому шарі (не гарантує збереження у Flash/Platter при знеструмленні).</tspan><tspan x="590.0" dy="13.7">• fdatasync та fsync примусово видають команди FLUSH / FUA накопичувачу, очищаючи Drive DRAM.</tspan><tspan x="590.0" dy="13.7">• fsync додатково скидає неістотні метадані (st_mtime/st_ctime) та робить транзакцію в журналі ФС.</tspan></text>
+</svg>

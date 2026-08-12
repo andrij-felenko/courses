@@ -56,6 +56,7 @@ cc -Wall -Wextra -O2 -o inodesum inodesum.c
 
 Почнімо з каркаса, дрібних помічників і структур. Дві речі тут варті погляду: обгортки з повтором на `EINTR` і буфер шляху, який росте, а не обрізає імена.
 
+:::tabs
 ```c
 /* inodesum.c — облік місця в дереві за тотожністю inode.
  *
@@ -163,9 +164,44 @@ static int cmp_name(const void *a, const void *b)
     return strcmp(*(char *const *)a, *(char *const *)b);
 }
 ```
+```cpp
+// У C++ ручне керування пам'яттю для шляхів та списків імен замінюють стандартом C++17/20
+#include <iostream>
+#include <vector>
+#include <string>
+#include <string_view>
+#include <algorithm>
+#include <unordered_map>
+#include <memory>
+#include <system_error>
+#include <dirent.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+constexpr uintmax_t BLOCK_UNIT = 512;
+constexpr size_t SPARSE_TOP = 5;
+
+inline int fstatat_retry(int dfd, const char *name, struct stat *st, int flags) {
+    int r;
+    do { r = ::fstatat(dfd, name, st, flags); } while (r != 0 && errno == EINTR);
+    return r;
+}
+
+inline int openat_retry(int dfd, const char *name, int flags) {
+    int fd;
+    do { fd = ::openat(dfd, name, flags); } while (fd < 0 && errno == EINTR);
+    return fd;
+}
+
+// Замість ручних struct pathbuf та struct namelist у C++ використовують std::string та std::vector<std::string>:
+// Додавання елементів до шляху стає розширенням рядка std::string, а список імен у каталозі сортується через std::sort.
+```
+:::
 
 Далі — таблиця тотожності. Ключ складений із двох чисел, і обидва погано перемішані самі по собі: номери inode в одному каталозі часто йдуть майже підряд, а `st_dev` у типовому дереві взагалі одне-два значення. Узяти залишок від такого ключа — це покласти всі файли каталогу в сусідні комірки й перетворити лінійне пробування на лінійний пошук. Тому ключ спершу проганяємо крізь відомий 64-бітний перемішувач із MurmurHash3 (`h ^= h >> 33; h *= …` тричі): він саме для того й зроблений, щоб підняти ентропію слабко перемішаного значення.
 
+:::tabs
 ```c
 /* ── таблиця тотожності (dev, ino) ───────────────────────────────────── */
 
@@ -257,9 +293,60 @@ static int table_first_time(struct table *t, const struct stat *st, const char *
     return 1;
 }
 ```
+```cpp
+// У C++ замість відкритої адресації та ручного виділення пам'яті використовують std::unordered_map:
+struct dev_ino_pair {
+    dev_t dev;
+    ino_t ino;
+    bool operator==(const dev_ino_pair& o) const noexcept {
+        return dev == o.dev && ino == o.ino;
+    }
+};
+
+struct dev_ino_hash {
+    std::size_t operator()(const dev_ino_pair& p) const noexcept {
+        auto mix = [](uint64_t h) {
+            h ^= h >> 33;
+            h *= UINT64_C(0xff51afd7ed558ccd);
+            h ^= h >> 33;
+            h *= UINT64_C(0xc4ceb9fe1a85ec53);
+            h ^= h >> 33;
+            return h;
+        };
+        return mix(static_cast<uint64_t>(p.ino) ^ mix(static_cast<uint64_t>(p.dev)));
+    }
+};
+
+struct node_info {
+    uintmax_t nlink{0};
+    uintmax_t seen{0};
+    uintmax_t size{0};
+    uintmax_t real{0};
+    std::string first_path;
+};
+
+using identity_table = std::unordered_map<dev_ino_pair, node_info, dev_ino_hash>;
+
+bool table_first_time(identity_table& table, const struct stat& st, const std::string& path) {
+    dev_ino_pair key{st.st_dev, st.st_ino};
+    auto [it, inserted] = table.try_emplace(key, node_info{
+        static_cast<uintmax_t>(st.st_nlink), 1,
+        static_cast<uintmax_t>(st.st_size),
+        static_cast<uintmax_t>(st.st_blocks) * BLOCK_UNIT,
+        path
+    });
+    if (!inserted) {
+        it->second.seen++;
+        return false;
+    }
+    return true;
+}
+```
+:::
 
 Тепер облік одного об'єкта — місце, де сходиться вся ідея. Зверніть увагу, що каталог і файл із єдиним іменем ідуть повз таблицю, а `shared_bytes` збирає саме те, що додав би наївний облік: це не «зекономлене місце», а «уникнутий обман».
 
+:::tabs
 ```c
 /* ── контекст обходу ─────────────────────────────────────────────────── */
 
@@ -338,9 +425,59 @@ static void account(struct ctx *c, const struct stat *st, const char *path)
     }
 }
 ```
+```cpp
+// У C++ структури описуються з ініціалізаторами за замовчуванням, а помилки — через std::system_category:
+struct sparse_hit {
+    std::string path;
+    uintmax_t gap{0}, size{0}, real{0};
+};
+
+struct context {
+    identity_table seen;
+    bool one_fs{false};
+    dev_t root_dev{0};
+
+    uintmax_t dirs{0}, files{0}, symlinks{0}, others{0};
+    uintmax_t real_bytes{0}, apparent_bytes{0}, shared_bytes{0};
+    uintmax_t errors{0}, vanished{0}, crossings{0}, sparse_count{0};
+
+    std::vector<sparse_hit> sparse;
+};
+
+void warn_at(context& c, const std::string& path, std::string_view what) {
+    c.errors++;
+    std::cerr << "inodesum: " << path << ": " << what << ": "
+              << std::system_category().message(errno) << "\n";
+}
+
+void account(context& c, const struct stat& st, const std::string& path) {
+    uintmax_t real = static_cast<uintmax_t>(st.st_blocks) * BLOCK_UNIT;
+    uintmax_t size = static_cast<uintmax_t>(st.st_size);
+
+    if (S_ISDIR(st.st_mode)) {
+        c.dirs++;
+        c.real_bytes += real;
+        c.apparent_bytes += size;
+        return;
+    }
+
+    if      (S_ISREG(st.st_mode)) c.files++;
+    else if (S_ISLNK(st.st_mode)) c.symlinks++;
+    else                          c.others++;
+
+    if (st.st_nlink <= 1 || table_first_time(c.seen, st, path)) {
+        c.real_bytes += real;
+        c.apparent_bytes += size;
+    } else {
+        c.shared_bytes += real;
+    }
+}
+```
+:::
 
 І сам обхід. Три оборонні деталі тут не прикраса: знімок імен, `AT_SYMLINK_NOFOLLOW` у `fstatat` і перевірка тотожності після `openat`.
 
+:::tabs
 ```c
 static void walk(int dfd, struct pathbuf *p, struct ctx *c)
 {
@@ -433,9 +570,90 @@ static void walk(int dfd, struct pathbuf *p, struct ctx *c)
     closedir(d);                        /* закриває й сам дескриптор */
 }
 ```
+```cpp
+// У C++ обхід реалізують із використанням RAII для DIR* та std::vector<std::string>:
+struct unique_dir {
+    DIR* d{nullptr};
+    explicit unique_dir(DIR* dir) : d(dir) {}
+    ~unique_dir() { if (d) ::closedir(d); }
+    unique_dir(const unique_dir&) = delete;
+    unique_dir& operator=(const unique_dir&) = delete;
+    DIR* get() const { return d; }
+    explicit operator bool() const { return d != nullptr; }
+};
+
+void walk(int dfd, std::string& path, context& c) {
+    unique_dir dir{::fdopendir(dfd)};
+    if (!dir) {
+        warn_at(c, path, "fdopendir");
+        ::close(dfd);
+        return;
+    }
+
+    std::vector<std::string> names;
+    for (;;) {
+        errno = 0;
+        struct dirent *e = ::readdir(dir.get());
+        if (!e) {
+            if (errno != 0) warn_at(c, path, "readdir");
+            break;
+        }
+        if (e->d_name[0] == '.' && (e->d_name[1] == '\0' || 
+            (e->d_name[1] == '.' && e->d_name[2] == '\0')))
+            continue;
+        names.emplace_back(e->d_name);
+    }
+
+    std::sort(names.begin(), names.end());
+    int fd = ::dirfd(dir.get());
+
+    for (size_t i = 0; i < names.size(); ++i) {
+        if (i > 0 && names[i] == names[i - 1]) continue;
+
+        const auto& name = names[i];
+        size_t saved_len = path.length();
+        if (!path.empty() && path.back() != '/') path += '/';
+        path += name;
+
+        struct stat st{};
+        if (fstatat_retry(fd, name.c_str(), &st, AT_SYMLINK_NOFOLLOW) != 0) {
+            if (errno == ENOENT) c.vanished++;
+            else warn_at(c, path, "fstatat");
+            path.resize(saved_len);
+            continue;
+        }
+
+        account(c, st, path);
+
+        if (S_ISDIR(st.st_mode)) {
+            if (c.one_fs && st.st_dev != c.root_dev) {
+                c.crossings++;
+                path.resize(saved_len);
+                continue;
+            }
+
+            int sub = openat_retry(fd, name.c_str(), O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+            if (sub < 0) { warn_at(c, path, "openat"); path.resize(saved_len); continue; }
+
+            struct stat sst{};
+            if (::fstat(sub, &sst) != 0 || sst.st_dev != st.st_dev || sst.st_ino != st.st_ino) {
+                warn_at(c, path, "підмінено між stat і open");
+                ::close(sub);
+                path.resize(saved_len);
+                continue;
+            }
+
+            walk(sub, path, c);
+        }
+        path.resize(saved_len);
+    }
+}
+```
+:::
 
 Лишився звіт і точка входу. Таблиця тут працює вдруге — уже не як фільтр, а як джерело даних про групи посилань.
 
+:::tabs
 ```c
 /* ── звіт ────────────────────────────────────────────────────────────── */
 
@@ -555,6 +773,73 @@ int main(int argc, char **argv)
     return c.errors > 0 ? 1 : 0;
 }
 ```
+```cpp
+// У C++ вивід форматують через std::cout та std::string, а пам'ять контейнерів звільняється автоматично:
+std::string human(uintmax_t bytes)
+{
+    static const char *unit[] = { "Б", "КіБ", "МіБ", "ГіБ", "ТіБ", "ПіБ" };
+    double v = static_cast<double>(bytes);
+    size_t u = 0;
+    while (v >= 1024.0 && u + 1 < sizeof(unit) / sizeof(*unit)) { v /= 1024.0; u++; }
+    char buf[64];
+    if (u == 0) std::snprintf(buf, sizeof(buf), "%ju Б", bytes);
+    else        std::snprintf(buf, sizeof(buf), "%.1f %s", v, unit[u]);
+    return buf;
+}
+
+void report(const context& c)
+{
+    size_t ng = 0;
+    for (const auto& [key, info] : c.seen)
+        if (info.seen > 1) ng++;
+
+    std::cout << "\n──── підсумок ────\n";
+    std::cout << "каталогів               : " << c.dirs << "\n";
+    std::cout << "звичайних файлів        : " << c.files << "\n";
+    std::cout << "символьних посилань     : " << c.symlinks << "\n";
+    std::cout << "інших об'єктів          : " << c.others << "\n";
+    std::cout << "реальний обсяг          : " << human(c.real_bytes) << "   (Σ st_blocks·512, кожен inode раз)\n";
+    std::cout << "номінальний обсяг       : " << human(c.apparent_bytes) << "   (Σ st_size)\n";
+    std::cout << "подвійного обліку уникнуто: " << human(c.shared_bytes) << " у " << ng << " групах посилань\n";
+    if (c.crossings) std::cout << "меж монтування пропущено: " << c.crossings << "\n";
+    if (c.vanished)  std::cout << "зникло під час обходу   : " << c.vanished << "\n";
+    if (c.errors)    std::cout << "!! помилок              : " << c.errors << " — підсумок НЕПОВНИЙ\n";
+}
+
+int main(int argc, char **argv)
+{
+    context c;
+    int argi = 1;
+    if (argi < argc && std::string_view(argv[argi]) == "-x") { c.one_fs = true; argi++; }
+    if (argi >= argc) {
+        std::cerr << "вжиток: inodesum [-x] шлях...\n";
+        return 2;
+    }
+
+    std::string path;
+    for (; argi < argc; argi++) {
+        path = argv[argi];
+
+        struct stat st{};
+        if (fstatat_retry(AT_FDCWD, path.c_str(), &st, AT_SYMLINK_NOFOLLOW) != 0) {
+            warn_at(c, path, "fstatat");
+            continue;
+        }
+        c.root_dev = st.st_dev;
+        account(c, st, path);
+
+        if (S_ISDIR(st.st_mode)) {
+            int fd = openat_retry(AT_FDCWD, path.c_str(), O_RDONLY | O_DIRECTORY | O_CLOEXEC);
+            if (fd < 0) { warn_at(c, path, "openat"); continue; }
+            walk(fd, path, c);
+        }
+    }
+
+    report(c);
+    return c.errors > 0 ? 1 : 0;
+}
+```
+:::
 
 ## Що воно друкує
 

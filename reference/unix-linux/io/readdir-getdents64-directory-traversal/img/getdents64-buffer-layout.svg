@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура пакетованого буфера linux_dirent64 у getdents64()</text>
+<rect x="10.0" y="10.0" width="1120.0" height="540.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="570.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура пакетованого буфера linux_dirent64 у getdents64()</text>
+<text x="60.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">Неперервний буфер пам'яті (char buf[32768]), повернутий getdents64()</text>
+<rect x="50.0" y="120.0" width="980.0" height="110.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="70.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Запис 1: d_name = &quot;.&quot; (d_reclen = 24 байти)</text>
+<rect x="70.0" y="160.0" width="140.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="140.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_ino (8B)</text>
+<text x="140.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">inode = 140291</text>
+<rect x="220.0" y="160.0" width="140.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="290.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_off (8B)</text>
+<text x="290.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">cookie = 104</text>
+<rect x="370.0" y="160.0" width="110.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="425.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_reclen (2B)</text>
+<text x="425.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">24</text>
+<rect x="490.0" y="160.0" width="110.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="545.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_type (1B)</text>
+<text x="545.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DT_DIR (4)</text>
+<rect x="610.0" y="160.0" width="110.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="665.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_name[]</text>
+<text x="665.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">&quot;.\0&quot;</text>
+<rect x="730.0" y="160.0" width="120.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="790.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">вирівнювання</text>
+<text x="790.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3B pad</text>
+<line x1="540.0" y1="230.0" x2="540.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700"><tspan x="670.0" dy="0.0">ptr = (void*)ptr + d_reclen</tspan></text>
+<rect x="50.0" y="270.0" width="980.0" height="110.0" rx="6" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="70.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Запис 2: d_name = &quot;access.log&quot; (d_reclen = 32 байти)</text>
+<rect x="70.0" y="310.0" width="140.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="140.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_ino (8B)</text>
+<text x="140.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">inode = 991823</text>
+<rect x="220.0" y="310.0" width="140.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="290.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_off (8B)</text>
+<text x="290.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">cookie = 320</text>
+<rect x="370.0" y="310.0" width="110.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="425.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_reclen (2B)</text>
+<text x="425.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">32</text>
+<rect x="490.0" y="310.0" width="110.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="545.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_type (1B)</text>
+<text x="545.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DT_REG (8)</text>
+<rect x="610.0" y="310.0" width="150.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="685.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_name[]</text>
+<text x="685.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">&quot;access.log\0&quot;</text>
+<rect x="770.0" y="310.0" width="120.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="830.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">вирівнювання</text>
+<text x="830.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2B pad</text>
+<rect x="50.0" y="410.0" width="980.0" height="70.0" rx="6" fill="#f1f2f4" stroke="#333333" stroke-width="1.0"/>
+<text x="570.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">... наступні записи linux_dirent64 до кінця повернутого блоку (nbytes) ...</text>
+</svg>

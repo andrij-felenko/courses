@@ -1,38 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-  <defs>
-    <style>
-      .rect { fill: #2c3e50; stroke: #ecf0f1; stroke-width: 2; rx: 8; ry: 8; }
-      .rect-enc { fill: #c0392b; stroke: #ecf0f1; stroke-width: 2; rx: 8; ry: 8; }
-      .text { fill: #ecf0f1; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
-      .text-sub { fill: #bdc3c7; font-family: 'Inter', sans-serif; font-size: 11px; text-anchor: middle; }
-      .line { stroke: #7f8c8d; stroke-width: 2; fill: none; }
-      .label { fill: #7f8c8d; font-family: 'Inter', sans-serif; font-size: 12px; }
-    </style>
-  </defs>
-
-  <!-- Nodes -->
-  <rect class="rect" x="300" y="30" width="200" height="50"/>
-  <text class="text" x="400" y="55">pool (unencrypted)</text>
-
-  <rect class="rect-enc" x="150" y="130" width="200" height="60"/>
-  <text class="text" x="250" y="155">pool/data</text>
-  <text class="text-sub" x="250" y="175">Encryption Root (Key A)</text>
-
-  <rect class="rect-enc" x="50" y="250" width="180" height="60"/>
-  <text class="text" x="140" y="275">pool/data/home</text>
-  <text class="text-sub" x="140" y="295">Inherits Key A</text>
-
-  <rect class="rect-enc" x="270" y="250" width="180" height="60"/>
-  <text class="text" x="360" y="275">pool/data/secret</text>
-  <text class="text-sub" x="360" y="295">Encryption Root (Key B)</text>
-
-  <rect class="rect" x="450" y="130" width="200" height="50"/>
-  <text class="text" x="550" y="160">pool/public (unencrypted)</text>
-
-  <!-- Edges -->
-  <path class="line" d="M 400 80 L 250 130"/>
-  <path class="line" d="M 400 80 L 550 130"/>
-  <path class="line" d="M 250 190 L 140 250"/>
-  <path class="line" d="M 250 190 L 360 250"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія коренів шифрування та успадкування ключів у ZFS</text>
+<rect x="265.1" y="50.0" width="269.9" height="49.9" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/><text x="400.0" y="71.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">pool (корінь пулу, unencrypted)</tspan><tspan x="400.0" dy="16.9">Без власних ключів</tspan></text>
+<rect x="115.8" y="148.4" width="228.3" height="63.2" rx="6" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5"/><text x="230.0" y="168.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#900c3f" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">pool/data (Encryption Root)</tspan><tspan x="230.0" dy="15.6">Майстер-ключ A (AES-256-GCM)</tspan><tspan x="230.0" dy="15.6">Ключ завантажено в пам'ять</tspan></text>
+<rect x="447.1" y="156.2" width="245.7" height="47.6" rx="6" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.5"/><text x="570.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle"><tspan x="570.0" dy="0.0">pool/public (unencrypted)</tspan><tspan x="570.0" dy="15.6">Успадковує відсутність шифрування</tspan></text>
+<rect x="41.6" y="265.2" width="176.8" height="59.6" rx="6" fill="#fef2f2" stroke="#e74c3c" stroke-width="1.5"/><text x="130.0" y="284.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle"><tspan x="130.0" dy="0.0">pool/data/home</tspan><tspan x="130.0" dy="14.3">Успадковує Майстер-ключ A</tspan><tspan x="130.0" dy="14.3">(спільне криптодерево)</tspan></text>
+<rect x="234.1" y="265.2" width="251.9" height="59.6" rx="6" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="284.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#900c3f" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">pool/data/secret (Encryption Root)</tspan><tspan x="360.0" dy="14.3">Окремий Майстер-ключ B</tspan><tspan x="360.0" dy="14.3">(новий корінь шифрування)</tspan></text>
+<line x1="330.0" y1="98.0" x2="260.0" y2="142.0" stroke="#475569" stroke-width="1.5"/>
+<line x1="470.0" y1="98.0" x2="540.0" y2="142.0" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="180.0" y1="218.0" x2="140.0" y2="258.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="280.0" y1="218.0" x2="330.0" y2="258.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
 </svg>

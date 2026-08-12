@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="760.0" height="100.0" rx="8" fill="#f8f9fa" stroke="#ced4da" stroke-width="1.5"/>
+<text x="35.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#495057" text-anchor="start" font-weight="700">Простір користувача (Userspace)</text>
+<rect x="460.0" y="40.0" width="290.0" height="65.0" rx="6" fill="#e8f4f8" stroke="#2b6cb0" stroke-width="1.5"/>
+<text x="605.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a365d" text-anchor="middle" font-weight="700">Аналітичний демон аудиту</text>
+<text x="605.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b6cb0" text-anchor="middle">epoll_wait() → ring_buffer__poll()</text>
+<rect x="140.0" y="140.0" width="520.0" height="70.0" rx="6" fill="#e6fffa" stroke="#319795" stroke-width="1.5"/>
+<text x="400.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#234e52" text-anchor="middle" font-weight="700">Спільна пам'ять: BPF Ring Buffer (mmap)</text>
+<text x="400.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c7a7b" text-anchor="middle">bpf_ringbuf_reserve() → bpf_ringbuf_submit()</text>
+<rect x="20.0" y="230.0" width="760.0" height="150.0" rx="8" fill="#fff5f5" stroke="#feb2b2" stroke-width="1.5"/>
+<text x="35.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9b2c2c" text-anchor="start" font-weight="700">Ядро Linux (Kernel Space)</text>
+<rect x="40.0" y="275.0" width="210.0" height="85.0" rx="6" fill="#ffffff" stroke="#e53e3e" stroke-width="1.5"/>
+<text x="145.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9b2c2c" text-anchor="middle" font-weight="700">Джерела подій безпеки</text>
+<text x="145.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#742a2a" text-anchor="middle">kprobes / tracepoints / fentry</text>
+<text x="145.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">sys_enter_execve, commit_creds</text>
+<rect x="300.0" y="275.0" width="220.0" height="85.0" rx="6" fill="#ffffff" stroke="#dd6b20" stroke-width="1.5"/>
+<text x="410.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9c4221" text-anchor="middle" font-weight="700">BPF Program (JIT)</text>
+<text x="410.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b341e" text-anchor="middle">Збір контексту (PID, UID, comm)</text>
+<text x="410.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bpf_probe_read_user_str()</text>
+<rect x="560.0" y="275.0" width="200.0" height="85.0" rx="6" fill="#ffffff" stroke="#3182ce" stroke-width="1.5"/>
+<text x="660.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b6cb0" text-anchor="middle" font-weight="700">Подія ядра / Syscall</text>
+<text x="660.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c5282" text-anchor="middle">Виконання процесу /</text>
+<text x="660.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c5282" text-anchor="middle">Зміна привілеїв</text>
+<line x1="560.0" y1="317.0" x2="520.0" y2="317.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="317.0" x2="300.0" y2="317.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="275.0" x2="410.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="140.0" x2="605.0" y2="105.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -6,14 +6,24 @@
 
 ## Створення об'єкта: два входи
 
+:::tabs
 ```c
 #include <sys/syscall.h>
 #include <linux/userfaultfd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 
-int uffd = syscall(SYS_userfaultfd, int flags);   /* обгортки в glibc немає */
+int uffd = syscall(SYS_userfaultfd, flags);   /* обгортки в glibc немає */
 ```
+```cpp
+#include <sys/syscall.h>
+#include <linux/userfaultfd.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+
+int uffd = ::syscall(SYS_userfaultfd, flags);  // обгортки в glibc немає
+```
+:::
 
 | прапорець | з ядра | що робить |
 |---|---|---|
@@ -31,6 +41,7 @@ int uffd = syscall(SYS_userfaultfd, int flags);   /* обгортки в glibc �
 
 Другий вхід, доданий у 6.1, — [файл пристрою](book:unix-linux/device-file-model):
 
+:::tabs
 ```c
 int dev = open("/dev/userfaultfd", O_RDWR | O_CLOEXEC);
 int uffd = ioctl(dev, USERFAULTFD_IOC_NEW, (unsigned long)O_CLOEXEC);
@@ -39,6 +50,15 @@ close(dev);            /* пристрій більше не потрібен: �
 /* у заголовку:  USERFAULTFD_IOC     0xAA
                  USERFAULTFD_IOC_NEW _IO(USERFAULTFD_IOC, 0x00)  */
 ```
+```cpp
+int dev = ::open("/dev/userfaultfd", O_RDWR | O_CLOEXEC);
+int uffd = ::ioctl(dev, USERFAULTFD_IOC_NEW, static_cast<unsigned long>(O_CLOEXEC));
+::close(dev);          // пристрій більше не потрібен: об'єкт уже свій
+
+// у заголовку:  USERFAULTFD_IOC     0xAA
+//               USERFAULTFD_IOC_NEW _IO(USERFAULTFD_IOC, 0x00)
+```
+:::
 
 Аргумент `USERFAULTFD_IOC_NEW` — той самий набір прапорців, що й у системного виклику. Різниця не в тому, що виходить, а в тому, **хто має право його дістати**: дозвіл на цей шлях роздають звичайними правами на файл (власник, група, режим), і `/proc/sys/vm/unprivileged_userfaultfd` на нього не поширюється взагалі. Хто зумів відкрити пристрій, дістає повноцінний об'єкт разом із перехопленням збоїв ядра; хто не зумів — не дістає нічого. Це той самий вибір, що й у решті системи: замість глобального вимикача — ім'я, власник і режим.
 
@@ -48,6 +68,7 @@ close(dev);            /* пристрій більше не потрібен: �
 
 Свіжий об'єкт не приймає нічого, крім однієї команди. Доти, доки версію не узгоджено, будь-який інший `ioctl` і навіть `read` дають `EINVAL`.
 
+:::tabs
 ```c
 struct uffdio_api {
     __u64 api;        /* вхід:  має бути UFFD_API == 0xAA          */
@@ -55,11 +76,20 @@ struct uffdio_api {
     __u64 ioctls;     /* вихід: загальні операції об'єкта          */
 };
 ```
+```cpp
+struct uffdio_api {
+    __u64 api;        // вхід:  має бути UFFD_API == 0xAA
+    __u64 features;   // вхід:  що просимо; вихід: що вміє ядро
+    __u64 ioctls;     // вихід: загальні операції об'єкта
+};
+```
+:::
 
 Поле `features` працює несиметрично, і саме тут ламаються перші спроби. На вході це **прохання ввімкнути**, на виході — **повний перелік усього, що ядро підтримує**, незалежно від того, скільки ви попросили. Тобто одним вдалим викликом ви і вмикаєте потрібне, і дізнаєтеся всю правду про можливості ядра. Але якщо попросити хоч один невідомий біт, виклик дає `EINVAL` і **обнуляє всю структуру** — з невдалої спроби не видно нічого.
 
 Звідси єдиний надійний спосіб розвідки, прямо благословенний документацією: двічі викликати `UFFDIO_API`, першого разу з `features = 0`. Такий порожній виклик нічого не вмикає, тому другий виклик — уже з обраною підмножиною — дозволено.
 
+:::tabs
 ```c
 struct uffdio_api api = { .api = UFFD_API, .features = 0 };
 if (ioctl(uffd, UFFDIO_API, &api) == -1) return -1;   /* api.features ← усе, що вміє ядро */
@@ -69,6 +99,16 @@ __u64 want = UFFD_FEATURE_EVENT_FORK | UFFD_FEATURE_EVENT_REMAP |
 struct uffdio_api api2 = { .api = UFFD_API, .features = api.features & want };
 if (ioctl(uffd, UFFDIO_API, &api2) == -1) return -1;  /* вмикаємо лише наявне */
 ```
+```cpp
+::uffdio_api api{.api = UFFD_API, .features = 0};
+if (::ioctl(uffd, UFFDIO_API, &api) == -1) return -1;  // api.features ← усе, що вміє ядро
+
+__u64 want = UFFD_FEATURE_EVENT_FORK | UFFD_FEATURE_EVENT_REMAP |
+             UFFD_FEATURE_EVENT_REMOVE | UFFD_FEATURE_EVENT_UNMAP;
+::uffdio_api api2{.api = UFFD_API, .features = api.features & want};
+if (::ioctl(uffd, UFFDIO_API, &api2) == -1) return -1; // вмикаємо лише наявне
+```
+:::
 
 Повний перелік можливостей із їхніми бітами. Версію ядра вказано там, де вона задокументована:
 
@@ -106,6 +146,7 @@ if (ioctl(uffd, UFFDIO_API, &api2) == -1) return -1;  /* вмикаємо лиш
 
 ## Реєстрація діапазону
 
+:::tabs
 ```c
 struct uffdio_range {
     __u64 start;      /* кратна розміру сторінки */
@@ -122,6 +163,23 @@ struct uffdio_register {
 #define UFFDIO_REGISTER_MODE_WP       (1<<1)
 #define UFFDIO_REGISTER_MODE_MINOR    (1<<2)
 ```
+```cpp
+struct uffdio_range {
+    __u64 start;      // кратна розміру сторінки
+    __u64 len;        // кратна розміру сторінки, не нуль
+};
+
+struct uffdio_register {
+    struct uffdio_range range;
+    __u64 mode;       // вхід:  MISSING | WP | MINOR
+    __u64 ioctls;     // вихід: які операції дозволено саме цьому діапазону
+};
+
+#define UFFDIO_REGISTER_MODE_MISSING  (1<<0)
+#define UFFDIO_REGISTER_MODE_WP       (1<<1)
+#define UFFDIO_REGISTER_MODE_MINOR    (1<<2)
+```
+:::
 
 Режими можна поєднувати в одному виклику — `MISSING | WP` над анонімною ділянкою є звичайною справою: спершу сторінку приносять, потім стежать за записами в неї. Порожній `mode` — помилка.
 
@@ -158,10 +216,16 @@ _UFFDIO_ZEROPAGE   0x04      _UFFDIO_API           0x3F
 
 Зняття реєстрації бере саму `struct uffdio_range` без обгортки:
 
+:::tabs
 ```c
 struct uffdio_range r = { .start = base, .len = length };
 ioctl(uffd, UFFDIO_UNREGISTER, &r);
 ```
+```cpp
+::uffdio_range r{.start = base, .len = length};
+::ioctl(uffd, UFFDIO_UNREGISTER, &r);
+```
+:::
 
 Знімати можна частину зареєстрованого — межі мусять бути кратні сторінці. Усі, хто чекав у знятому діапазоні, прокидаються, і їхні інструкції йдуть уже звичайним шляхом ядра.
 
@@ -177,6 +241,7 @@ ioctl(uffd, UFFDIO_UNREGISTER, &r);
 | `UFFDIO_MOVE` (6.8) | `MISSING` | `uffdio_move` | переносить уже наявні сторінки за нову адресу, не копіюючи їх |
 | `UFFDIO_WAKE` | — | `uffdio_range` | будить тих, кого лишили спати прапорцем `DONTWAKE` |
 
+:::tabs
 ```c
 struct uffdio_copy {
     __u64 dst;        /* адреса в зареєстрованому діапазоні, кратна сторінці */
@@ -216,6 +281,46 @@ struct uffdio_move {
     __s64 move;       /* вихід: скільки байтів перенесено, або −errno         */
 };
 ```
+```cpp
+struct uffdio_copy {
+    __u64 dst;        // адреса в зареєстрованому діапазоні, кратна сторінці
+    __u64 src;        // буфер наглядача — обов'язково ПОЗА діапазоном
+    __u64 len;
+    __u64 mode;       // UFFDIO_COPY_MODE_DONTWAKE (1<<0) | _MODE_WP (1<<1)
+    __s64 copy;       // вихід: скільки байтів лягло, або −errno
+};
+
+struct uffdio_zeropage {
+    struct uffdio_range range;
+    __u64 mode;       // UFFDIO_ZEROPAGE_MODE_DONTWAKE (1<<0)
+    __s64 zeropage;   // вихід: скільки байтів, або −errno
+};
+
+struct uffdio_continue {
+    struct uffdio_range range;
+    __u64 mode;       // _MODE_DONTWAKE (1<<0) | _MODE_WP (1<<1)
+    __s64 mapped;     // вихід: скільки байтів відображено, або −errno
+};
+
+struct uffdio_writeprotect {
+    struct uffdio_range range;
+    __u64 mode;       // _MODE_WP (1<<0) — поставити; без нього — зняти
+                      // _MODE_DONTWAKE (1<<1)
+};
+
+struct uffdio_poison {
+    struct uffdio_range range;
+    __u64 mode;       // _MODE_DONTWAKE (1<<0)
+    __s64 updated;    // вихід: скільки байтів отруєно, або −errno
+};
+
+struct uffdio_move {
+    __u64 dst, src, len;
+    __u64 mode;       // _MODE_DONTWAKE (1<<0) | _MODE_ALLOW_SRC_HOLES (1<<1)
+    __s64 move;       // вихід: скільки байтів перенесено, або −errno
+};
+```
+:::
 
 Три речі варто прочитати з цих структур уважно.
 
@@ -227,6 +332,7 @@ struct uffdio_move {
 
 Останнє поле кожної структури — вихідне, і воно **не дублює повернене значення `ioctl`**. Ядро кладе туди або кількість байтів, які справді лягли, або **від'ємне значення `errno`**. Різниця жива: `UFFDIO_COPY` на десять сторінок може встигнути покласти три й спинитися, і тоді `ioctl` поверне −1 з `errno = EAGAIN`, а `copy` міститиме `3 · 4096`. Продовжувати треба саме звідти:
 
+:::tabs
 ```c
 struct uffdio_copy c = { .dst = page, .src = (unsigned long)buf,
                          .len = nbytes, .mode = 0 };
@@ -237,6 +343,17 @@ while (ioctl(uffd, UFFDIO_COPY, &c) == -1) {
     c.len -= c.copy;
 }
 ```
+```cpp
+::uffdio_copy c{.dst = page, .src = reinterpret_cast<std::uintptr_t>(buf),
+                .len = nbytes, .mode = 0};
+while (::ioctl(uffd, UFFDIO_COPY, &c) == -1) {
+    if (errno != EAGAIN || c.copy <= 0) return -1;   // справжня невдача
+    c.dst += c.copy;                                  // часткове копіювання:
+    c.src += c.copy;                                  // зсуваємось і повторюємо
+    c.len -= c.copy;
+}
+```
+:::
 
 Найтвердіше правило всієї операції `COPY` не видно з підпису: **`src` мусить лежати поза зареєстрованим діапазоном**. Інакше ядро, читаючи буфер наглядача, спіткнеться об незаповнену сторінку, покладе опис цього збою в ту саму чергу, яку читає наглядач, і вкладе його спати — розбудити себе тепер може лише він сам.
 
@@ -258,6 +375,7 @@ while (ioctl(uffd, UFFDIO_COPY, &c) == -1) {
 
 ## Повідомлення: struct uffd_msg
 
+:::tabs
 ```c
 struct uffd_msg {
     __u8  event;
@@ -273,6 +391,22 @@ struct uffd_msg {
     } arg;
 } __packed;
 ```
+```cpp
+struct uffd_msg {
+    __u8  event;
+    __u8  reserved1;
+    __u16 reserved2;
+    __u32 reserved3;
+    union {
+        struct { __u64 flags; __u64 address;
+                 union { __u32 ptid; } feat; } pagefault;
+        struct { __u32 ufd; }                  fork;
+        struct { __u64 from, to, len; }        remap;
+        struct { __u64 start, end; }           remove;
+    } arg;
+} __packed;
+```
+:::
 
 ![Побайтова розкладка повідомлення: спільний восьмибайтовий заголовок і об'єднання на 24 байти, яке читають по-різному залежно від поля event](/reference/unix-linux/memory/userfaultfd/img/uffd-msg-layout.svg)
 
@@ -296,6 +430,7 @@ struct uffd_msg {
 
 Ці три біти й вирішують, якою операцією збій закривати, тому розбір повідомлення починають саме з них, а не з адреси:
 
+:::tabs
 ```c
 struct uffd_msg m;
 ssize_t n = read(uffd, &m, sizeof m);   /* після poll(POLLIN) на uffd */
@@ -309,6 +444,20 @@ if (m.event == UFFD_EVENT_PAGEFAULT) {
         fill_missing(m.arg.pagefault.address);             /* UFFDIO_COPY         */
 }
 ```
+```cpp
+::uffd_msg m{};
+ssize_t n = ::read(uffd, &m, sizeof(m));  // після poll(POLLIN) на uffd
+
+if (m.event == UFFD_EVENT_PAGEFAULT) {
+    if (m.arg.pagefault.flags & UFFD_PAGEFAULT_FLAG_WP)
+        clear_write_protect(m.arg.pagefault.address);      // UFFDIO_WRITEPROTECT
+    else if (m.arg.pagefault.flags & UFFD_PAGEFAULT_FLAG_MINOR)
+        map_existing(m.arg.pagefault.address);             // UFFDIO_CONTINUE
+    else
+        fill_missing(m.arg.pagefault.address);             // UFFDIO_COPY
+}
+```
+:::
 
 Про `read` треба знати три речі. Буфер, менший за `sizeof(struct uffd_msg)`, дає `EINVAL` — прочитати «заголовок, а потім решту» не можна, повідомлення віддають лише цілим. Більший буфер вигідний: ядро віддасть **цілу кількість повідомлень** за один виклик, і на щільному потоці збоїв це помітно дешевше, ніж системний виклик на кожен. А на дескрипторі з `O_NONBLOCK` порожня черга дає `EAGAIN` — тобто нормальна форма петлі наглядача це [`poll` чи `epoll`](book:unix-linux/select-poll-epoll) на `uffd` разом із рештою джерел подій, а потім читання доти, доки не прийде `EAGAIN`.
 
@@ -318,6 +467,7 @@ if (m.event == UFFD_EVENT_PAGEFAULT) {
 
 ## Найкоротша працездатна послідовність
 
+:::tabs
 ```c
 int uffd = syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK);
 
@@ -348,5 +498,36 @@ struct uffdio_copy c = { .dst = page, .src = (unsigned long)buf,
                          .len = pagesize, .mode = 0 };
 ioctl(uffd, UFFDIO_COPY, &c);
 ```
+```cpp
+int uffd = ::syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK);
+
+::uffdio_api api{.api = UFFD_API, .features = 0};
+::ioctl(uffd, UFFDIO_API, &api);
+
+void* area = ::mmap(nullptr, len, PROT_READ | PROT_WRITE,
+                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+::uffdio_register reg{
+    .range = {.start = reinterpret_cast<std::uintptr_t>(area), .len = len},
+    .mode  = UFFDIO_REGISTER_MODE_MISSING,
+};
+::ioctl(uffd, UFFDIO_REGISTER, &reg);
+// перевірити: reg.ioctls & ((__u64)1 << _UFFDIO_COPY)
+
+// у потоці-наглядачі:
+::pollfd pf{.fd = uffd, .events = POLLIN};
+::poll(&pf, 1, -1);
+
+::uffd_msg m{};
+::read(uffd, &m, sizeof(m));
+
+auto page = m.arg.pagefault.address & ~(pagesize - 1);
+fetch(page, buf);                                  // буфер ПОЗА area
+
+::uffdio_copy c{.dst = page, .src = reinterpret_cast<std::uintptr_t>(buf),
+                .len = pagesize, .mode = 0};
+::ioctl(uffd, UFFDIO_COPY, &c);
+```
+:::
 
 Цих дванадцяти рядків досить, щоб механізм ожив, — але їх замало, щоб він пережив завершення програми, `fork` обслуговуваного процесу чи смерть самого наглядача. Повна програма з цими випадками розібрана окремо: [ділянка, яку заповнює сама програма](book:unix-linux/userfaultfd/proj-uffd-lazy-region.md).

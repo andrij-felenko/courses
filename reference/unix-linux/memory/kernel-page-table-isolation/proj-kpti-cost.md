@@ -73,6 +73,7 @@ pti
 
 **Частина перша — лінійка та калібрування.**
 
+:::tabs
 ```c
 /* bordercost.c — ціна перетину межі ядра на цій машині.
  *
@@ -140,9 +141,70 @@ static double tsc_hz(void)
     return (double)(c1 - c0) * 1e9 / ns;
 }
 ```
+```cpp
+// bordercost.cpp — ціна перетину межі ядра на цій машині (C++20).
+//
+//   g++ -O2 -Wall -Wextra -std=c++20 -o bordercost bordercost.cpp
+//   taskset -c 3 ./bordercost 3
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include <cstdint>
+#include <cstring>
+#include <cerrno>
+#include <ctime>
+#include <unistd.h>
+#include <sched.h>
+#include <sys/mman.h>
+#include <sys/syscall.h>
+#include <x86intrin.h>
+
+constexpr std::size_t PAGE = 4096;
+constexpr int STEPS = 64;
+constexpr std::size_t MAX_KIB = 262144;
+
+static inline uint64_t tsc_open()
+{
+    _mm_lfence();
+    uint64_t t = __rdtsc();
+    _mm_lfence();
+    return t;
+}
+
+static inline uint64_t tsc_close()
+{
+    unsigned aux;
+    uint64_t t = __rdtscp(&aux);
+    _mm_lfence();
+    return t;
+}
+
+static double tsc_hz()
+{
+    struct timespec a{}, b{}, nap{ 0, 200 * 1000 * 1000 };
+    clock_gettime(CLOCK_MONOTONIC, &a);
+    uint64_t c0 = tsc_open();
+    while (nanosleep(&nap, &nap) == -1 && errno == EINTR)
+        ;
+    uint64_t c1 = tsc_close();
+    clock_gettime(CLOCK_MONOTONIC, &b);
+
+    double ns = static_cast<double>(b.tv_sec - a.tv_sec) * 1e9
+              + static_cast<double>(b.tv_nsec - a.tv_nsec);
+    return static_cast<double>(c1 - c0) * 1e9 / ns;
+}
+```
+:::
 
 **Частина друга — проби, ланцюг і міряльне вікно.**
 
+:::tabs
 ```c
 static volatile uint64_t sink;      /* запис у volatile викинути не можна */
 
@@ -254,9 +316,97 @@ static double cost(void (*fn)(void), size_t iters, uint8_t *buf,
     return ((double)best - (double)base) / (double)iters;
 }
 ```
+```cpp
+static volatile uint64_t sink;
+
+static void probe_idle() { }
+
+static void probe_getppid()
+{
+    sink += static_cast<uint64_t>(syscall(SYS_getppid));
+}
+
+static void probe_vdso()
+{
+    struct timespec ts{};
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    sink += static_cast<uint64_t>(ts.tv_nsec);
+}
+
+static void probe_crossing()
+{
+    struct timespec ts{};
+    syscall(SYS_clock_gettime, CLOCK_MONOTONIC, &ts);
+    sink += static_cast<uint64_t>(ts.tv_nsec);
+}
+
+static uint32_t xs32(uint32_t& s)
+{
+    uint32_t x = s;
+    x ^= x << 13; x ^= x >> 17; x ^= x << 5;
+    return s = x;
+}
+
+/* Використовуємо std::vector для автоматичного керування пам'яттю
+   та std::iota для заповнення початкової послідовності. */
+static void chain(uint8_t* buf, std::size_t pages)
+{
+    if (!pages) return;
+    std::vector<uint32_t> perm(pages);
+    std::iota(perm.begin(), perm.end(), 0u);
+
+    uint32_t seed = 0x9e3779b9u;
+    for (std::size_t i = pages - 1; i > 0; --i) {
+        std::size_t j = xs32(seed) % (i + 1);
+        std::swap(perm[i], perm[j]);
+    }
+    for (std::size_t i = 0; i < pages; ++i) {
+        uint32_t here = perm[i] * PAGE;
+        uint32_t next = perm[(i + 1) % pages] * PAGE;
+        std::memcpy(buf + here, &next, sizeof(next));
+    }
+}
+
+static uint64_t window(void (*fn)(), std::size_t iters, uint8_t* buf, std::size_t pages)
+{
+    uint32_t off = 0;
+    __asm__ __volatile__("" : "+r"(fn));
+
+    uint64_t t0 = tsc_open();
+    for (std::size_t i = 0; i < iters; ++i) {
+        if (pages) {
+            for (int s = 0; s < STEPS; ++s)
+                std::memcpy(&off, buf + off, sizeof(off));
+            sink += off;
+        }
+        fn();
+    }
+    uint64_t t1 = tsc_close();
+    return t1 - t0;
+}
+
+static double cost(void (*fn)(), std::size_t iters, uint8_t* buf,
+                    std::size_t pages, int reps)
+{
+    uint64_t best = UINT64_MAX, base = UINT64_MAX;
+
+    window(fn, iters, buf, pages);
+    window(probe_idle, iters, buf, pages);
+
+    for (int r = 0; r < reps; ++r) {
+        uint64_t a = window(fn, iters, buf, pages);
+        uint64_t b = window(probe_idle, iters, buf, pages);
+        if (a < best) best = a;
+        if (b < base) base = b;
+    }
+    return static_cast<double>(best - base) / static_cast<double>(iters);
+}
+```
+:::
 
 **Частина третя — шапка режиму й розгортка.**
 
+:::tabs
 ```c
 /* Стовпчиків не вирівнюємо: printf рахує в %-24s байти, а не літери,
    тож на кириличному написі поле «поїде». Двокрапка чесніша за таблицю. */
@@ -358,6 +508,100 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+```cpp
+/* Використовуємо std::ifstream замість FILE*, std::string_view
+   для пошуку прапорців у /proc/cpuinfo та RAII для очищення ресурсів. */
+static void show_file(const std::string& path, const std::string& label)
+{
+    std::ifstream f(path);
+    if (!f.is_open()) {
+        std::cout << "  " << label << ": файлу немає\n";
+        return;
+    }
+    std::string line;
+    if (std::getline(f, line)) {
+        std::cout << "  " << label << ": " << line << "\n";
+    }
+}
+
+static bool has_flag(std::string_view flag)
+{
+    std::ifstream f("/proc/cpuinfo");
+    if (!f.is_open()) return false;
+    std::string line;
+    std::string needle = " ";
+    needle += flag;
+    needle += " ";
+    while (std::getline(f, line)) {
+        if (line.rfind("flags", 0) != 0) continue;
+        line += " ";
+        return line.find(needle) != std::string::npos;
+    }
+    return false;
+}
+
+int main(int argc, char** argv)
+{
+    static constexpr std::array<unsigned, 8> KIB = { 0, 64, 256, 1024, 4096, 16384, 65536, 262144 };
+    struct Probe {
+        std::string_view name;
+        void (*fn)();
+    };
+    static const std::array<Probe, 3> PROBES = {{
+        { "clock_gettime через vDSO", probe_vdso     },
+        { "clock_gettime крізь межу", probe_crossing },
+        { "getppid",                  probe_getppid  },
+    }};
+
+    std::size_t bytes = static_cast<std::size_t>(MAX_KIB) * 1024;
+    int cpu = (argc > 1) ? std::atoi(argv[1]) : 0;
+    bool thp = (argc > 2 && std::string_view(argv[2]) == "--thp");
+
+    cpu_set_t set;
+    CPU_ZERO(&set);
+    CPU_SET(cpu, &set);
+    if (sched_setaffinity(0, sizeof(set), &set) != 0) {
+        std::perror("sched_setaffinity");
+        return 1;
+    }
+
+    auto* buf = static_cast<uint8_t*>(mmap(nullptr, bytes, PROT_READ | PROT_WRITE,
+                                            MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
+    if (buf == MAP_FAILED) { std::perror("mmap"); return 1; }
+
+    madvise(buf, bytes, thp ? MADV_HUGEPAGE : MADV_NOHUGEPAGE);
+    std::memset(buf, 0, bytes);
+
+    double hz = tsc_hz();
+
+    std::cout << "режим вимірювання\n";
+    std::cout << "  ядро процесора: " << cpu << ", частота TSC: " << static_cast<long>(hz / 1e6) << " МГц\n";
+    show_file("/sys/devices/system/cpu/vulnerabilities/meltdown", "meltdown");
+    std::cout << "  прапорці: pti=" << has_flag("pti")
+              << " pcid=" << has_flag("pcid")
+              << " invpcid=" << has_flag("invpcid")
+              << " constant_tsc=" << has_flag("constant_tsc") << "\n";
+    std::cout << "  великі сторінки: " << (thp ? "MADV_HUGEPAGE" : "MADV_NOHUGEPAGE") << "\n";
+
+    std::cout << "\nбез робочої множини (тактів / нс на виклик)\n";
+    for (const auto& probe : PROBES) {
+        double t = cost(probe.fn, 200000, buf, 0, 5);
+        std::cout << "  " << probe.name << ": " << t << " / " << (t * 1e9 / hz) << "\n";
+    }
+
+    std::cout << "\ngetppid під тиском на TLB (тактів / нс на виклик)\n";
+    for (unsigned kib : KIB) {
+        std::size_t pages = static_cast<std::size_t>(kib) * 1024 / PAGE;
+        if (pages) chain(buf, pages);
+        double t = cost(probe_getppid, 20000, buf, pages, 3);
+        std::cout << "  " << kib << " КіБ: " << t << " / " << (t * 1e9 / hz) << "\n";
+    }
+
+    munmap(buf, bytes);
+    return 0;
+}
+```
+:::
 
 ## Як запускати, щоб числа щось означали
 

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1340 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1340" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні водяних знаків у зоні пам'яті Linux</text>
+<text x="60.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Рівні водяних знаків (watermarks) у зоні пам'яті Linux</text>
+<rect x="180.0" y="100.0" width="200.0" height="480.0" rx="8" fill="none" stroke="#333333" stroke-width="2.0"/>
+<rect x="184.0" y="104.0" width="192.0" height="116.0" rx="4" fill="#eafaf0" stroke="none" stroke-width="1.5"/>
+<text x="280.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Нормальний стан
+(вільної пам'яті достатньо)</text>
+<rect x="184.0" y="224.0" width="192.0" height="116.0" rx="0" fill="#eaf0fd" stroke="none" stroke-width="1.5"/>
+<text x="280.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Зона роботи kswapd
+(фонове витіснення)</text>
+<rect x="184.0" y="344.0" width="192.0" height="116.0" rx="0" fill="#f4f6f8" stroke="none" stroke-width="1.5"/>
+<text x="280.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Зона тиску пам'яті
+(kswapd працює агресивно)</text>
+<rect x="184.0" y="464.0" width="192.0" height="112.0" rx="4" fill="#fdecea" stroke="none" stroke-width="1.5"/>
+<text x="280.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Аварійний резерв
+(лише GFP_ATOMIC)</text>
+<line x1="140.0" y1="224.0" x2="440.0" y2="224.0" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6 3"/>
+<rect x="530.0" y="224.0" width="160.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="610.0" y="250.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">WMARK_HIGH</tspan></text>
+<line x1="140.0" y1="344.0" x2="440.0" y2="344.0" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6 3"/>
+<rect x="530.0" y="344.0" width="160.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="610.0" y="370.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">WMARK_LOW</tspan></text>
+<line x1="140.0" y1="464.0" x2="440.0" y2="464.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3"/>
+<rect x="530.0" y="464.0" width="160.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="610.0" y="490.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">WMARK_MIN</tspan></text>
+<rect x="900.0" y="224.0" width="420.0" height="68.0" rx="6" fill="#fbfcff" stroke="#27ae60" stroke-width="1.4"/><text x="1110.0" y="254.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">kswapd засинає при досягненні WMARK_HIGH</tspan><tspan x="1110.0" dy="15.6">(цільовий рівень вільної пам'яті)</tspan></text>
+<rect x="900.0" y="344.0" width="420.0" height="68.0" rx="6" fill="#fbfcff" stroke="#2457d6" stroke-width="1.4"/><text x="1110.0" y="374.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">kswapd прокидається при падінні нижче WMARK_LOW</tspan><tspan x="1110.0" dy="15.6">(асинхронний старт фонового витіснення)</tspan></text>
+<rect x="900.0" y="464.0" width="420.0" height="68.0" rx="6" fill="#fbfcff" stroke="#c0392b" stroke-width="1.4"/><text x="1110.0" y="494.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">Падіння нижче WMARK_MIN вмикає Direct Reclaim</tspan><tspan x="1110.0" dy="15.6">(процеси занурюються у синхронне витіснення)</tspan></text>
+<line x1="615.0" y1="224.0" x2="685.0" y2="224.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="344.0" x2="685.0" y2="344.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="464.0" x2="685.0" y2="464.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="60.0" y="600.0" width="1080.0" height="75.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="80.0" y="625.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Тимчасовий зсув (Watermark Boost):</text>
+<text x="80.0" y="652.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">При невдалій фрагментації для високих порядків ядро тимчасово піднімає пороги WMARK_LOW та WMARK_HIGH, змушуючи kswapd працювати агресивніше.</text>
+</svg>

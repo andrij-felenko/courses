@@ -1,25 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-19.6 -10 839.6 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-19.6" y="-10" width="839.6" height="430" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="50.0" y="50.0" width="700.0" height="100.0" rx="6" fill="#f0f0f0" stroke="#333" stroke-width="2.0"/>
-<text x="120.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">User Space</text>
-<rect x="100.0" y="90.0" width="150.0" height="40.0" rx="6" fill="#d9edf7" stroke="#31708f" stroke-width="1.5"/>
-<text x="175.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">LVM (lvm2)</text>
-<rect x="300.0" y="90.0" width="150.0" height="40.0" rx="6" fill="#d9edf7" stroke="#31708f" stroke-width="1.5"/>
-<text x="375.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">cryptsetup</text>
-<rect x="500.0" y="90.0" width="150.0" height="40.0" rx="6" fill="#d9edf7" stroke="#31708f" stroke-width="1.5"/>
-<text x="575.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">dmsetup</text>
-<rect x="300.0" y="180.0" width="200.0" height="40.0" rx="6" fill="#fcf8e3" stroke="#8a6d3b" stroke-width="1.5"/>
-<text x="400.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">/dev/mapper/control (ioctl)</text>
-<rect x="50.0" y="250.0" width="700.0" height="120.0" rx="6" fill="#dff0d8" stroke="#3c763d" stroke-width="2.0"/>
-<text x="145.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Space (dm-mod)</text>
-<rect x="100.0" y="300.0" width="150.0" height="40.0" rx="6" fill="#c4e3f3" stroke="#31708f" stroke-width="1.5"/>
-<text x="175.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Target: linear</text>
-<rect x="300.0" y="300.0" width="150.0" height="40.0" rx="6" fill="#c4e3f3" stroke="#31708f" stroke-width="1.5"/>
-<text x="375.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Target: crypt</text>
-<rect x="500.0" y="300.0" width="150.0" height="40.0" rx="6" fill="#c4e3f3" stroke="#31708f" stroke-width="1.5"/>
-<text x="575.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Target: snapshot</text>
-<line x1="175.0" y1="130.0" x2="380.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="375.0" y1="130.0" x2="400.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="575.0" y1="130.0" x2="420.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="400.0" y1="220.0" x2="400.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="20.0" width="760.0" height="110.0" rx="8" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.5"/>
+<text x="120.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#495057" text-anchor="middle" font-weight="700">Простір користувача (User Space)</text>
+<rect x="50.0" y="65.0" width="160.0" height="48.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/><text x="130.0" y="85.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">LVM2 (lvm)</tspan><tspan x="130.0" dy="16.9">PV / VG / LV</tspan></text>
+<rect x="230.0" y="65.0" width="170.0" height="48.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/><text x="315.0" y="85.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">cryptsetup</tspan><tspan x="315.0" dy="16.9">Управління LUKS</tspan></text>
+<rect x="420.0" y="65.0" width="150.0" height="48.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/><text x="495.0" y="85.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="495.0" dy="0.0">dmsetup</tspan><tspan x="495.0" dy="16.9">Пряме керування</tspan></text>
+<rect x="590.0" y="65.0" width="180.0" height="48.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/><text x="680.0" y="85.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Системний утиліт</tspan><tspan x="680.0" dy="16.9">mount / fsck</tspan></text>
+<rect x="280.0" y="160.0" width="260.0" height="44.0" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/><text x="410.0" y="178.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">/dev/mapper/control</tspan><tspan x="410.0" dy="16.9">(ioctl виклики)</tspan></text>
+<rect x="30.0" y="230.0" width="760.0" height="160.0" rx="8" fill="#f1f3f5" stroke="#495057" stroke-width="1.5"/>
+<text x="140.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#212529" text-anchor="middle" font-weight="700">Ядро Linux: Device Mapper (dm-mod)</text>
+<rect x="50.0" y="275.0" width="160.0" height="50.0" rx="6" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="1.5"/><text x="130.0" y="296.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Target: linear</tspan><tspan x="130.0" dy="16.9">Склеювання блоків</tspan></text>
+<rect x="230.0" y="275.0" width="170.0" height="50.0" rx="6" fill="#ffe3e3" stroke="#e03131" stroke-width="1.5"/><text x="315.0" y="296.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">Target: crypt</tspan><tspan x="315.0" dy="16.9">AES-XTS шифрування</tspan></text>
+<rect x="420.0" y="275.0" width="160.0" height="50.0" rx="6" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="1.5"/><text x="500.0" y="296.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Target: snapshot</tspan><tspan x="500.0" dy="16.9">Copy-on-Write</tspan></text>
+<rect x="600.0" y="275.0" width="170.0" height="50.0" rx="6" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="1.5"/><text x="685.0" y="296.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Target: striped</tspan><tspan x="685.0" dy="16.9">RAID0 смугування</tspan></text>
+<rect x="210.0" y="340.0" width="400.0" height="36.0" rx="6" fill="#eebefa" stroke="#9c36b5" stroke-width="1.5"/><text x="410.0" y="362.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Віртуальні пристрої (/dev/mapper/* або /dev/dm-N)</tspan></text>
+<line x1="130.0" y1="113.0" x2="350.0" y2="160.0" stroke="#1c7ed6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="113.0" x2="390.0" y2="160.0" stroke="#1c7ed6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="495.0" y1="113.0" x2="430.0" y2="160.0" stroke="#1c7ed6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="204.0" x2="410.0" y2="230.0" stroke="#f59f00" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Zone Append паралелізм</text>
+<rect x="20.0" y="20.0" width="760.0" height="380.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="400.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння запису WRITE (із блокуванням) та Zone Append (паралельно)</text>
+<rect x="40.0" y="75.0" width="345.0" height="305.0" rx="6" fill="#fcfcfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="212.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Класичний WRITE (потрібна серіалізація)</text>
+<rect x="70.0" y="120.0" width="120.0" height="40.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="130.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Thread A (LBA=100)</text>
+<rect x="235.0" y="120.0" width="120.0" height="40.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="295.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Thread B (LBA=100?)</text>
+<rect x="120.0" y="180.0" width="185.0" height="45.0" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="212.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Хостове блокування зони</text>
+<text x="212.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Zone Mutex Wait)</text>
+<line x1="130.0" y1="160.0" x2="180.0" y2="180.0" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="160.0" x2="245.0" y2="180.0" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="212.0" y1="225.0" x2="212.0" y2="250.0" stroke="#333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="90.0" y="250.0" width="245.0" height="55.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="212.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовна відправка WRITE</text>
+<text x="212.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1. Write(LBA=100) -&gt; wait -&gt; 2. Write(LBA=104)</text>
+<text x="212.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-style="italic">Низький паралелізм, затримки очікування блокування</text>
+<rect x="415.0" y="75.0" width="345.0" height="305.0" rx="6" fill="#fcfcfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="587.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">ZNS Zone Append (апаратна черга)</text>
+<rect x="445.0" y="120.0" width="120.0" height="40.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="505.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Thread A (Zone 10)</text>
+<rect x="610.0" y="120.0" width="120.0" height="40.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="670.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Thread B (Zone 10)</text>
+<line x1="505.0" y1="160.0" x2="545.0" y2="195.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="670.0" y1="160.0" x2="630.0" y2="195.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="195.0" width="255.0" height="60.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="587.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">NVMe Controller HW Serializer</text>
+<text x="587.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Контролер пристрою сам призначає LBA!</text>
+<line x1="587.0" y1="255.0" x2="587.0" y2="280.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="280.0" width="255.0" height="45.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+<text x="587.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Completion Queue: повертає LBA A та LBA B</text>
+<text x="587.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">без жодних хостових mutex/locks</text>
+<text x="587.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-style="italic">Максимальна пропускна здатність та паралелізм</text>
+</svg>

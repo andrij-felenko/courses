@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
-    <rect x="50" y="50" width="700" height="300" fill="#f8f9fa" stroke="#343a40" stroke-width="2" rx="10"/>
-    <text x="400" y="90" font-family="sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#343a40">Seccomp-BPF Архітектура</text>
-    
-    <rect x="100" y="150" width="200" height="120" fill="#cce5ff" stroke="#004085" stroke-width="2" rx="5"/>
-    <text x="200" y="210" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#004085">User Space</text>
-    <text x="200" y="235" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#004085">(System Call)</text>
-    
-    <path d="M 300 210 L 480 210" stroke="#343a40" stroke-width="4" marker-end="url(#arrow)"/>
-    <text x="390" y="200" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#343a40">seccomp_data</text>
-    
-    <rect x="500" y="130" width="200" height="160" fill="#d4edda" stroke="#155724" stroke-width="2" rx="5"/>
-    <text x="600" y="170" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#155724">Kernel Space</text>
-    <text x="600" y="200" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#155724">cBPF Filter</text>
-    <rect x="520" y="220" width="160" height="40" fill="#f8d7da" stroke="#721c24" stroke-width="1" rx="3"/>
-    <text x="600" y="245" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#721c24">ALLOW / KILL / ERRNO</text>
-    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+    <rect x="10" y="10" width="780" height="380" fill="#f9fafb" stroke="#d1d5db" stroke-width="1" rx="8"/>
+    <text x="400" y="38" font-family="sans-serif" font-size="17" text-anchor="middle" font-weight="bold" fill="#111827">Архітектура та потік виконання Seccomp-BPF у ядрі Linux</text>
+    <rect x="30" y="65" width="230" height="290" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" rx="6"/>
+    <text x="145" y="92" font-family="sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#1e40af">Простір користувача</text>
+    <text x="145" y="112" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">(User Space)</text>
+    <rect x="45" y="135" width="200" height="50" fill="#ffffff" stroke="#93c5fd" stroke-width="1" rx="4"/>
+    <text x="145" y="157" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1e3a8a">Додаток / Контейнер</text>
+    <text x="145" y="173" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4b5563">glibc wrapper / syscall()</text>
+    <rect x="45" y="210" width="200" height="60" fill="#ffffff" stroke="#93c5fd" stroke-width="1" rx="4"/>
+    <text x="145" y="232" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1e3a8a">Інструкція syscall</text>
+    <text x="145" y="252" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6b7280">RAX=nr, RDI..R8=args</text>
+    <path d="M 260 240 L 315 240" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="287" y="230" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#1d4ed8" font-weight="bold">Syscall Trap</text>
+    <rect x="320" y="65" width="450" height="290" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" rx="6"/>
+    <text x="545" y="92" font-family="sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#15803d">Простір ядра Linux (Kernel Space)</text>
+    <rect x="340" y="115" width="190" height="45" fill="#ffffff" stroke="#86efac" stroke-width="1" rx="4"/>
+    <text x="435" y="135" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#166534">do_syscall_64()</text>
+    <text x="435" y="150" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4b5563">Формування seccomp_data</text>
+    <path d="M 435 160 L 435 190" stroke="#15803d" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <rect x="340" y="190" width="190" height="75" fill="#dcfce7" stroke="#16a34a" stroke-width="2" rx="4"/>
+    <text x="435" y="212" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#14532d">cBPF / JIT Evaluator</text>
+    <text x="435" y="230" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#15803d">Перевірка arch &amp; nr</text>
+    <text x="435" y="248" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#15803d">Аналіз args[6] (values)</text>
+    <path d="M 530 227 L 575 227" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="552" y="217" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#16a34a" font-weight="bold">Return</text>
+    <rect x="580" y="115" width="175" height="225" fill="#ffffff" stroke="#bbf7d0" stroke-width="1" rx="4"/>
+    <text x="667" y="137" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#166534">Дія (Return Code)</text>
+    <rect x="592" y="152" width="150" height="30" fill="#d1fae5" stroke="#10b981" stroke-width="1" rx="3"/>
+    <text x="667" y="171" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#065f46">SECCOMP_RET_ALLOW</text>
+    <rect x="592" y="188" width="150" height="30" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" rx="3"/>
+    <text x="667" y="207" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#92400e">SECCOMP_RET_ERRNO</text>
+    <rect x="592" y="224" width="150" height="30" fill="#e0e7ff" stroke="#6366f1" stroke-width="1" rx="3"/>
+    <text x="667" y="243" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#3730a3">SECCOMP_RET_USER_NOTIF</text>
+    <rect x="592" y="260" width="150" height="30" fill="#fee2e2" stroke="#ef4444" stroke-width="1" rx="3"/>
+    <text x="667" y="279" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#991b1b">SECCOMP_RET_KILL_PROCESS</text>
+    <text x="667" y="320" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6b7280">Системний виклик або вбито</text>
     <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="#343a40" />
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#1d4ed8" />
+        </marker>
+        <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#16a34a" />
         </marker>
     </defs>
 </svg>

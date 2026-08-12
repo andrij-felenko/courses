@@ -1,52 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
-    <!-- Тло -->
-    <rect width="800" height="500" fill="#f8f9fa"/>
-    
-    <!-- Ядро -->
-    <rect x="50" y="250" width="700" height="200" rx="10" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-    <text x="400" y="280" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#495057">Kernel Space (VFS &amp; fanotify)</text>
-
-    <!-- Користувацький простір -->
-    <rect x="50" y="50" width="700" height="150" rx="10" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-    <text x="400" y="80" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#495057">User Space</text>
-
-    <!-- Процес-клієнт -->
-    <rect x="100" y="100" width="180" height="70" rx="5" fill="#cce5ff" stroke="#b8daff" stroke-width="2"/>
-    <text x="190" y="140" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#004085">User Process</text>
-    
-    <!-- Антивірусний Демон -->
-    <rect x="520" y="100" width="180" height="70" rx="5" fill="#d4edda" stroke="#c3e6cb" stroke-width="2"/>
-    <text x="610" y="140" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#155724">AV Daemon</text>
-
-    <!-- Системний виклик -->
-    <path d="M 190 170 L 190 320" fill="none" stroke="#0056b3" stroke-width="3" marker-end="url(#arrow-blue)"/>
-    <text x="200" y="230" font-family="sans-serif" font-size="14" fill="#0056b3">1. open("/etc/shadow")</text>
-
-    <!-- Перехоплення -->
-    <rect x="140" y="320" width="520" height="100" rx="5" fill="#fff3cd" stroke="#ffeeba" stroke-width="2"/>
-    <text x="400" y="350" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#856404">fanotify subsystem (hooked)</text>
-
-    <!-- Подія до демона -->
-    <path d="M 560 320 L 560 170" fill="none" stroke="#d39e00" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-yellow)"/>
-    <text x="570" y="240" font-family="sans-serif" font-size="14" fill="#856404">2. FAN_OPEN_PERM event</text>
-
-    <!-- Відповідь від демона -->
-    <path d="M 660 170 L 660 320" fill="none" stroke="#28a745" stroke-width="3" marker-end="url(#arrow-green)"/>
-    <text x="670" y="240" font-family="sans-serif" font-size="14" fill="#155724">3. FAN_ALLOW / FAN_DENY</text>
-
-    <!-- Повернення результату -->
-    <path d="M 140 370 L 80 370 L 80 135 L 100 135" fill="none" stroke="#0056b3" stroke-width="3" marker-end="url(#arrow-blue)"/>
-    <text x="90" y="250" font-family="sans-serif" font-size="14" fill="#0056b3" transform="rotate(-90 90 250)">4. return fd or -EPERM</text>
-
-    <defs>
-        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0056b3"/>
-        </marker>
-        <marker id="arrow-yellow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#d39e00"/>
-        </marker>
-        <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#28a745"/>
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+<rect width="800" height="480" fill="#ffffff"/>
+<rect x="20.0" y="15.0" width="760.0" height="175.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="400.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">User Space (Користувацький простір)</text>
+<rect x="20.0" y="205.0" width="760.0" height="260.0" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="400.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Kernel Space (Ядро Linux &amp; VFS)</text>
+<rect x="40.0" y="60.0" width="180.0" height="70.0" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/><text x="130.0" y="91.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Прикладний процес</tspan><tspan x="130.0" dy="16.9">open('/data/file.exe')</tspan></text>
+<rect x="580.0" y="60.0" width="190.0" height="70.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="675.0" y="82.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">Демон безпеки</tspan><tspan x="675.0" dy="16.9">(Security Daemon / AV)</tspan><tspan x="675.0" dy="16.9">читає / відповідає</tspan></text>
+<rect x="40.0" y="260.0" width="180.0" height="80.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="130.0" y="287.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">VFS sys_open()</tspan><tspan x="130.0" dy="16.9">do_dentry_open()</tspan><tspan x="130.0" dy="16.9">Перехоплення fsnotify</tspan></text>
+<rect x="290.0" y="260.0" width="220.0" height="80.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="400.0" y="287.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Підсистема fanotify</tspan><tspan x="400.0" dy="16.9">Черга подій &amp; wait_event</tspan><tspan x="400.0" dy="16.9">Блокування виклику</tspan></text>
+<rect x="580.0" y="260.0" width="190.0" height="80.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="675.0" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">fanotify fd</tspan><tspan x="675.0" dy="15.6">read(event) / write(resp)</tspan><tspan x="675.0" dy="15.6">FAN_ALLOW / FAN_DENY</tspan></text>
+<line x1="75.0" y1="130.0" x2="75.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<text x="80.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">1. sys_open</text>
+<line x1="220.0" y1="280.0" x2="290.0" y2="280.0" stroke="#0284c7" stroke-width="2.0"/>
+<text x="255.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle">2. fsnotify</text>
+<line x1="510.0" y1="280.0" x2="580.0" y2="280.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="545.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle">3. Event</text>
+<line x1="610.0" y1="260.0" x2="610.0" y2="130.0" stroke="#16a34a" stroke-width="2.0"/>
+<text x="605.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="end" font-weight="700">4. read()</text>
+<line x1="740.0" y1="130.0" x2="740.0" y2="260.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="745.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">5. write()</text>
+<line x1="290.0" y1="320.0" x2="220.0" y2="320.0" stroke="#333333" stroke-width="2.0"/>
+<text x="255.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle">6. Wakeup</text>
+<line x1="185.0" y1="260.0" x2="185.0" y2="130.0" stroke="#333333" stroke-width="2.0"/>
+<text x="180.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end" font-weight="700">7. return</text>
 </svg>

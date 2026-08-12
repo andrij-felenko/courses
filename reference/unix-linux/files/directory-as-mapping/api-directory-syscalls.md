@@ -250,6 +250,7 @@ int fstatat(int dirfd, const char *pathname, struct stat *statbuf, int flags);
 
 Найкоротша повна програма, яка бере записи з ядра без бібліотечної обгортки: відкриває каталог, читає буфер за буфером і ступає по ланцюгу через `d_reclen`.
 
+:::tabs
 ```c
 #define _GNU_SOURCE
 #include <dirent.h>
@@ -283,6 +284,51 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#include <dirent.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#include <array>
+#include <cstdio>
+
+int main(int argc, char **argv)
+{
+    const char *path = (argc > 1) ? argv[1] : ".";
+
+    int fd = open(path, O_RDONLY | O_DIRECTORY);
+    if (fd < 0) {
+        std::perror("open");
+        return 1;
+    }
+
+    alignas(8) std::array<char, 64 * 1024> buf{};
+
+    for (;;) {
+        ssize_t n = getdents64(fd, buf.data(), buf.size());
+        if (n < 0) {
+            std::perror("getdents64");
+            close(fd);
+            return 1;
+        }
+        if (n == 0) break;
+
+        for (ssize_t off = 0; off < n;) {
+            auto *e = reinterpret_cast<struct dirent64 *>(buf.data() + off);
+            std::printf("%-10llu тип %-3u %s\n",
+                        static_cast<unsigned long long>(e->d_ino),
+                        static_cast<unsigned>(e->d_type),
+                        e->d_name);
+            off += e->d_reclen;
+        }
+    }
+
+    close(fd);
+    return 0;
+}
+```
+:::
 
 Збірка й запуск:
 
@@ -300,6 +346,7 @@ $ ./lsdir /etc | head -3
 
 Ту саму роботу через бібліотеку роблять на п'ять рядків коротше, ціною втрати контролю над розміром буфера:
 
+:::tabs
 ```c
 #include <dirent.h>
 #include <errno.h>
@@ -322,3 +369,27 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+#include <dirent.h>
+#include <cerrno>
+#include <cstdio>
+#include <iostream>
+
+int main()
+{
+    DIR *d = opendir(".");
+    if (!d) { std::perror("opendir"); return 1; }
+
+    for (;;) {
+        errno = 0;                       /* інакше кінець не відрізнити від збою */
+        struct dirent *e = readdir(d);
+        if (!e) break;
+        std::cout << e->d_name << "\n";
+    }
+    if (errno != 0) std::perror("readdir");
+
+    closedir(d);
+    return 0;
+}
+```
+:::

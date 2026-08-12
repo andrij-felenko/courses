@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <rect width="800" height="600" fill="#f8f9fa"/>
+    <rect x="50" y="50" width="700" height="200" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+    <text x="400" y="80" text-anchor="middle" font-size="20" font-weight="bold" fill="#0d47a1">Userspace</text>
+    
+    <rect x="300" y="100" width="200" height="100" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+    <text x="400" y="155" text-anchor="middle" font-size="18" fill="#0d47a1">ublksrv (Target Daemon)</text>
+
+    <rect x="50" y="300" width="700" height="250" fill="#e8f5e9" stroke="#43a047" stroke-width="2"/>
+    <text x="400" y="330" text-anchor="middle" font-size="20" font-weight="bold" fill="#1b5e20">Kernel Space</text>
+
+    <rect x="150" y="380" width="200" height="120" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="250" y="445" text-anchor="middle" font-size="18" fill="#1b5e20">Block Layer</text>
+
+    <rect x="450" y="380" width="200" height="120" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="550" y="445" text-anchor="middle" font-size="18" fill="#1b5e20">ublk_drv</text>
+
+    <!-- Communication arrows -->
+    <path d="M 400 200 L 400 250 L 550 250 L 550 380" fill="none" stroke="#d84315" stroke-width="4" stroke-dasharray="8,8" marker-end="url(#arrow)"/>
+    <text x="560" y="270" font-size="14" fill="#d84315">io_uring (SQ/CQ + cmd passthrough)</text>
+    
+    <!-- Definitions for markers -->
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#d84315" />
+        </marker>
+    </defs>
+</svg>

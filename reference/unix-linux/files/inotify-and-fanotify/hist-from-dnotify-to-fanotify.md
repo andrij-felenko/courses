@@ -6,12 +6,20 @@ Linux тричі за двадцять років переписував від�
 
 Перший механізм написав австралійський розробник ядра **Стівен Ротвелл (Stephen Rothwell)** — шапка файлу `fs/notify/dnotify/dnotify.c` донині несе рядок `Copyright (C) 2000,2001,2002 Stephen Rothwell`, а сторінка `fcntl(2)` датує появу операції `F_NOTIFY` серією ядер **2.4** (перше ядро 2.4.0 вийшло 4 січня 2001 року). Інтерфейс був мінімальний: відкриваєш каталог, кажеш ядру, які зміни тебе цікавлять, — і чекаєш сигналу.
 
+:::tabs
 ```c
 /* dnotify, ядро 2.4 */
 int fd = open("/var/spool/print", O_RDONLY);
 fcntl(fd, F_SETSIG, SIGRTMIN);                       /* без цього — SIGIO */
 fcntl(fd, F_NOTIFY, DN_CREATE | DN_DELETE | DN_MULTISHOT);
 ```
+```cpp
+// dnotify, ядро 2.4
+int fd = open("/var/spool/print", O_RDONLY);
+fcntl(fd, F_SETSIG, SIGRTMIN);                       // без цього — SIGIO
+fcntl(fd, F_NOTIFY, DN_CREATE | DN_DELETE | DN_MULTISHOT);
+```
+:::
 
 Три властивості цього коду й стали трьома хибами, які довелося лікувати наступним двадцятиліттям.
 
@@ -29,6 +37,7 @@ fcntl(fd, F_NOTIFY, DN_CREATE | DN_DELETE | DN_MULTISHOT);
 
 Кожне рішення inotify — це знята хиба dnotify.
 
+:::tabs
 ```c
 /* inotify, ядро 2.6.13 і новіші */
 int fd = inotify_init1(IN_NONBLOCK);                 /* один дескриптор — на все */
@@ -36,6 +45,14 @@ int wd = inotify_add_watch(fd, "/var/spool/print",
                            IN_CREATE | IN_MOVED_FROM | IN_MOVED_TO);
 /* далі fd живе в epoll разом з рештою подій програми */
 ```
+```cpp
+// inotify, ядро 2.6.13 і новіші
+int fd = inotify_init1(IN_NONBLOCK);                 // один дескриптор — на все
+int wd = inotify_add_watch(fd, "/var/spool/print",
+                           IN_CREATE | IN_MOVED_FROM | IN_MOVED_TO);
+// далі fd живе в epoll разом з рештою подій програми
+```
+:::
 
 **Один дескриптор — черга подій, а не сигнал.** Дескриптор inotify читається звичайним `read()` і чекається звичайним `epoll`, тобто новина про файл стає такою самою подією, як байт із сокета. Тисяча каталогів — це тисяча дескрипторів стеження (`wd`), але вони не є файловими дескрипторами: ліміт відкритих файлів не витрачається, і відмонтування більше не блокується.
 

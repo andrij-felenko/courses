@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатошарова архітектура обходу каталогів у Linux</text>
+<rect x="10.0" y="10.0" width="1120.0" height="620.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="570.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатошарова архітектура обходу каталогів у Linux</text>
+<rect x="40.0" y="85.0" width="1060.0" height="130.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">Простір користувача (User Space)</text>
+<rect x="123.4" y="133.1" width="193.3" height="53.9" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="220.0" y="156.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Додаток</tspan><tspan x="220.0" dy="16.9">readdir() / opendir()</tspan></text>
+<line x1="340.0" y1="160.0" x2="430.0" y2="160.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="479.2" y="124.6" width="241.6" height="70.8" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="600.0" y="147.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">C-бібліотека (glibc / musl)</tspan><tspan x="600.0" dy="16.9">Буфер DIR* (32 KB)</tspan><tspan x="600.0" dy="16.9">Зсув у буфері ptr</tspan></text>
+<rect x="40.0" y="245.0" width="1060.0" height="50.0" rx="6" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="570.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Системний виклик: sys_getdents64(fd, dirp, count)</text>
+<line x1="600.0" y1="215.0" x2="600.0" y2="245.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="295.0" x2="600.0" y2="325.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="325.0" width="1060.0" height="175.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="60.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">Простір ядра (Kernel VFS &amp; Filesystem)</text>
+<rect x="159.3" y="389.6" width="201.3" height="70.8" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="260.0" y="412.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">VFS: ksys_getdents64()</tspan><tspan x="260.0" dy="16.9">iterate_shared()</tspan><tspan x="260.0" dy="16.9">struct dir_context</tspan></text>
+<line x1="410.0" y1="425.0" x2="490.0" y2="425.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="512.9" y="389.6" width="314.2" height="70.8" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="670.0" y="412.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">Файлова система (ext4 / XFS / btrfs)</tspan><tspan x="670.0" dy="16.9">Обхід HTree / B+tree / dentry</tspan><tspan x="670.0" dy="16.9">Заповнення filldir64()</tspan></text>
+<rect x="40.0" y="530.0" width="1060.0" height="75.0" rx="8" fill="#f1f2f4" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Блочний пристрій / Дисковий накопичувач (NVMe / SSD / HDD)</text>
+<rect x="578.6" y="558.0" width="282.8" height="28.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="720.0" y="576.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Дискові блоки каталогів / Індекси HTree</tspan></text>
+<line x1="670.0" y1="500.0" x2="670.0" y2="530.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

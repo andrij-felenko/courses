@@ -93,7 +93,10 @@ if (fresh.length) {
 /* ── 4. маніфест ───────────────────────────────────────────────────────────── */
 const OPS = path.join("scripts", "_finish", `_mfops-ag-${BOOK}.json`);
 fs.mkdirSync(path.dirname(OPS), { recursive: true });
-fs.writeFileSync(OPS, JSON.stringify(ops, null, 2), "utf8");
+const topicOps = ops.filter((o) => o.op === "topic");
+const otherOps = ops.filter((o) => o.op !== "topic");
+const sortedOps = [...topicOps, ...otherOps];
+fs.writeFileSync(OPS, JSON.stringify(sortedOps, null, 2), "utf8");
 console.log(`\n=== manifest-patch (${APPLY ? "ЗАПИС" : "DRY — нічого не пишемо"}) ===`);
 let code = 0, out = "";
 try { out = execSync(`node scripts/manifest-patch.js "${MF}" --ops "${OPS}"${APPLY ? "" : " --dry"}`, { maxBuffer: 32 * 1024 * 1024, timeout: 600000, killSignal: "SIGKILL" }).toString(); }

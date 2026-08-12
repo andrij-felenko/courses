@@ -73,6 +73,7 @@ struct file_clone_range {
 
 ### Мінімальний виклик
 
+:::tabs
 ```c
 #include <sys/ioctl.h>
 #include <linux/fs.h>
@@ -88,6 +89,26 @@ int try_clone(int dest_fd, int src_fd)
     return -1;
 }
 ```
+```cpp
+#include <sys/ioctl.h>
+#include <linux/fs.h>
+#include <cerrno>
+#include <system_error>
+
+// Повертає true, якщо блоки поділено; false — якщо ФС не підтримує reflink.
+// При справжній помилці кидає std::system_error.
+bool try_clone(int dest_fd, int src_fd)
+{
+    if (::ioctl(dest_fd, FICLONE, src_fd) == 0) {
+        return true;
+    }
+    if (errno == EOPNOTSUPP || errno == EINVAL || errno == EXDEV) {
+        return false;
+    }
+    throw std::system_error(errno, std::generic_category(), "FICLONE ioctl failed");
+}
+```
+:::
 
 Три помилки в другій умові — не перестрахування. Яку саме з них поверне ядро, коли файлова система не вміє поділу, залежить від того, на якій перевірці все спинилося, і ця межа між версіями зсувалася. Переносний код мусить приймати всі три як одну відповідь «тут не вийде».
 
@@ -185,6 +206,7 @@ sizeof(struct file_dedupe_range_info) = 8 + 8 + 8 + 4 + 4 = 32 Б
 
 ### Мінімальний виклик
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdlib.h>
@@ -223,6 +245,49 @@ int dedupe_range(int src_fd, uint64_t off, uint64_t len,
     return same;
 }
 ```
+```cpp
+#include <cstdint>
+#include <vector>
+#include <cstddef>
+#include <sys/ioctl.h>
+#include <linux/fs.h>
+#include <system_error>
+
+// Зливає один діапазон джерела з декількома призначеннями.
+// Повертає кількість призначень, де байти дійсно збіглися й були злиті.
+int dedupe_range(int src_fd, std::uint64_t off, std::uint64_t len,
+                 const std::vector<int>& dst_fds,
+                 const std::vector<std::uint64_t>& dst_offs)
+{
+    const std::size_t n = dst_fds.size();
+    const std::size_t sz = sizeof(file_dedupe_range)
+                         + n * sizeof(file_dedupe_range_info);
+
+    std::vector<std::byte> buf(sz, std::byte{0});
+    auto* arg = reinterpret_cast<file_dedupe_range*>(buf.data());
+
+    arg->src_offset = off;
+    arg->src_length = len;
+    arg->dest_count = static_cast<std::uint16_t>(n);
+    for (std::size_t i = 0; i < n; ++i) {
+        arg->info[i].dest_fd = dst_fds[i];
+        arg->info[i].dest_offset = dst_offs[i];
+    }
+
+    if (::ioctl(src_fd, FIDEDUPERANGE, arg) != 0) {
+        throw std::system_error(errno, std::generic_category(), "FIDEDUPERANGE ioctl failed");
+    }
+
+    int same = 0;
+    for (std::size_t i = 0; i < n; ++i) {
+        if (arg->info[i].status == FILE_DEDUPE_RANGE_SAME && arg->info[i].bytes_deduped > 0) {
+            ++same;
+        }
+    }
+    return same;
+}
+```
+:::
 
 ---
 
@@ -253,6 +318,7 @@ ssize_t copy_file_range(int fd_in, off_t *off_in,
 
 **Повернене число — це не «зробив чи ні».** Виклик повертає кількість скопійованих байтів, і вона законно буває меншою за замовлену: ядро вільне спинитися на межі екстента, на межі того, що вміє файлова система, на межі внутрішнього буфера. Нуль означає, що джерело скінчилося. Тому єдина правильна форма вживання — цикл:
 
+:::tabs
 ```c
 #define _GNU_SOURCE
 #define _FILE_OFFSET_BITS 64
@@ -278,6 +344,34 @@ int copy_all(int fd_in, int fd_out, off_t len)
     return 0;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#define _FILE_OFFSET_BITS 64
+#include <unistd.h>
+#include <cerrno>
+#include <cstddef>
+#include <system_error>
+
+// Копіює len байтів від початку fd_in у початок fd_out за допомогою copy_file_range.
+void copy_all(int fd_in, int fd_out, off_t len)
+{
+    off_t in_off = 0, out_off = 0;
+
+    while (len > 0) {
+        ssize_t n = ::copy_file_range(fd_in, &in_off, fd_out, &out_off,
+                                       static_cast<std::size_t>(len), 0);
+        if (n < 0) {
+            if (errno == EINTR) continue;
+            throw std::system_error(errno, std::generic_category(), "copy_file_range failed");
+        }
+        if (n == 0) {
+            throw std::system_error(EIO, std::generic_category(), "unexpected EOF during copy_file_range");
+        }
+        len -= n;
+    }
+}
+```
+:::
 
 Дві обмовки про те, чого виклик **не** обіцяє. Він не обіцяє поділу блоків: поділ — лише найдешевший із варіантів, які ядро перебирає, а не частина контракту. І він не обіцяє зберегти [діри розрідженого файлу](book:unix-linux/sparse-files): порожнечу дозволено розкрити в справжні нулі, витративши місце там, де його витрачено не було. Кому потрібна саме карта дір, той обходить файл через `SEEK_DATA`/`SEEK_HOLE` і копіює шматками.
 

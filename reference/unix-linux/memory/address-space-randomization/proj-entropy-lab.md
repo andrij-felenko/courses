@@ -26,6 +26,7 @@
 
 ## Зонд: шість чисел за один запуск
 
+:::tabs
 ```c
 /* probe.c — друкує один рядок орієнтирів адресного простору цього процесу.
  *
@@ -83,6 +84,61 @@ int main(int argc, char **argv)
 	return 0;
 }
 ```
+```cpp
+/* probe.cpp — друкує один рядок орієнтирів адресного простору цього процесу.
+ *
+ *   g++ -O2 -Wall -Wextra -fPIE -pie -o probe probe.cpp -ldl
+ */
+#include <iostream>
+#include <iomanip>
+#include <string_view>
+#include <cstdint>
+#include <dlfcn.h>
+#include <link.h>
+#include <sys/auxv.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+
+int main(int argc, char **argv)
+{
+	// Межу купи знімаємо ПЕРШОЮ дією.
+	const auto brk0 = static_cast<std::uintptr_t>(syscall(SYS_brk, 0));
+
+	volatile char anchor = 0;
+	const auto stack = reinterpret_cast<std::uintptr_t>(&anchor);
+
+	const auto entry = getauxval(AT_ENTRY);
+	const auto vdso  = getauxval(AT_SYSINFO_EHDR);
+	const auto ldso  = getauxval(AT_BASE);
+
+	std::uintptr_t sym = 0, base = 0;
+	std::string_view path = "?";
+	void *h = dlopen("libc.so.6", RTLD_LAZY | RTLD_NOLOAD);
+	if (h != nullptr) {
+		link_map *lm = nullptr;
+		sym = reinterpret_cast<std::uintptr_t>(dlsym(h, "printf"));
+		if (dlinfo(h, RTLD_DI_LINKMAP, &lm) == 0 && lm != nullptr) {
+			base = static_cast<std::uintptr_t>(lm->l_addr);
+			if (lm->l_name != nullptr && lm->l_name[0] != '\0') {
+				path = lm->l_name;
+			}
+		}
+	}
+
+	if (argc > 1 && std::string_view(argv[1]) == "-v") {
+		std::cerr << "відображений файл: " << path << "\nзсув printf у ньому: 0x"
+		          << std::hex << (sym - base) << std::dec << '\n';
+	}
+
+	std::cout << std::hex
+	          << "libc=0x" << base << " libcsym=0x" << sym
+	          << " entry=0x" << entry << " stack=0x" << stack
+	          << " brk=0x" << brk0 << " vdso=0x" << vdso
+	          << " ldso=0x" << ldso << std::dec << '\n';
+	return 0;
+}
+```
+:::
 
 Кожен рядок тут відповідає на своє «чому саме так».
 
@@ -96,9 +152,14 @@ int main(int argc, char **argv)
 
 Найкоротший спосіб дістати «адресу функції з бібліотеки» виглядає так:
 
+:::tabs
 ```c
 unsigned long libc = (unsigned long) &printf;   /* так робити не можна */
 ```
+```cpp
+auto libc = reinterpret_cast<std::uintptr_t>(&printf); /* так робити не можна */
+```
+:::
 
 Він працює приблизно на половині збірок і мовчки бреше на другій. Причина — у вимозі, щоб адреса функції була одна на всю програму: покажчики на `printf`, узяті в різних об'єктних файлах, мусять виявитися рівними при порівнянні. Цю єдину адресу називають **канонічною**, і хтось мусить її призначити. Коли виконуваний файл зібрано з `-no-pie`, взяття адреси стає константою часу лінкування, і компонувальник призначає її найпростішим способом: заводить у самому виконуваному файлі перехідник і оголошує адресою `printf` саме його ([PLT і GOT](book:unix-linux/plt-and-got)). Число, що потрапить у вашу змінну, лежить не в бібліотеці, а у вашому ж бінарнику.
 
@@ -167,6 +228,7 @@ H(pᵢ) = −pᵢ·log₂ pᵢ − (1 − pᵢ)·log₂(1 − pᵢ)
 
 Обидві оцінки — стелі. Значить, правильне поводження з ними одне: **брати менше з двох і пам'ятати, що це стеля, а не істина**. А розбіжність між ними — не шум, а показання приладу: вона каже, де між розрядами є зв'язок.
 
+:::tabs
 ```c
 /* bits.c — читає зі stdin рядки «ім'я=0xадреса …» і оцінює, скільки
  * двійкових розрядів насправді рухається в кожного орієнтира.
@@ -312,6 +374,134 @@ int main(void)
 	return 0;
 }
 ```
+```cpp
+/* bits.cpp — читає зі stdin рядки «ім'я=0xадреса …» і оцінює, скільки
+ * двійкових розрядів насправді рухається в кожного орієнтира.
+ *
+ *   g++ -O2 -Wall -Wextra -o bits bits.cpp
+ *   ./bits < plain.txt
+ */
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include <numeric>
+#include <cmath>
+#include <iomanip>
+
+static unsigned long long gcd(unsigned long long a, unsigned long long b)
+{
+	while (b != 0) {
+		unsigned long long t = a % b;
+		a = b;
+		b = t;
+	}
+	return a;
+}
+
+int main()
+{
+	std::vector<std::string> names;
+	std::unordered_map<std::string, std::size_t> name_to_idx;
+	std::vector<std::vector<unsigned long long>> vals;
+
+	std::string line;
+	int nrow = 0;
+	constexpr int MAXROW = 50000;
+
+	while (nrow < MAXROW && std::getline(std::cin, line)) {
+		if (line.empty()) continue;
+		std::istringstream iss(line);
+		std::string token;
+		bool got = false;
+		while (iss >> token) {
+			auto eq = token.find('=');
+			if (eq != std::string::npos && eq > 0 && eq + 1 < token.size()) {
+				std::string key = token.substr(0, eq);
+				std::string hex_str = token.substr(eq + 1);
+				try {
+					unsigned long long v = std::stoull(hex_str, nullptr, 16);
+					if (name_to_idx.find(key) == name_to_idx.end()) {
+						name_to_idx[key] = names.size();
+						names.push_back(key);
+						vals.emplace_back();
+					}
+					std::size_t idx = name_to_idx[key];
+					if (vals[idx].size() == static_cast<std::size_t>(nrow)) {
+						vals[idx].push_back(v);
+					} else {
+						vals[idx].resize(nrow + 1);
+						vals[idx][nrow] = v;
+					}
+					got = true;
+				} catch (...) {}
+			}
+		}
+		if (got) nrow++;
+	}
+
+	if (nrow < 2) {
+		std::cerr << "потрібно щонайменше два прогони\n";
+		return 1;
+	}
+
+	std::cout << "прогонів: " << nrow << "\n";
+	std::cout << "стовпчики: орієнтир · різних значень · крок · рухомих розрядів ·"
+	          << " маска рухомих · ΣH(p) · оцінка за розмахом\n\n";
+
+	for (std::size_t c = 0; c < names.size(); ++c) {
+		const auto &v = vals[c];
+		if (v.size() < static_cast<std::size_t>(nrow)) continue;
+		unsigned long long lo = v[0], hi = v[0], step = 0, mask = 0;
+		long ones[64] = { 0 };
+
+		for (int r = 0; r < nrow; ++r) {
+			if (v[r] < lo) lo = v[r];
+			if (v[r] > hi) hi = v[r];
+			for (int b = 0; b < 64; ++b) {
+				if ((v[r] >> b) & 1ULL) ones[b]++;
+			}
+		}
+		for (int r = 0; r < nrow; ++r) {
+			step = gcd(step, v[r] - lo);
+		}
+
+		auto tmp = v;
+		std::sort(tmp.begin(), tmp.end());
+		int distinct = static_cast<int>(std::distance(tmp.begin(), std::unique(tmp.begin(), tmp.end())));
+
+		double hsum = 0.0;
+		int moving = 0;
+		for (int b = 0; b < 64; ++b) {
+			if (ones[b] == 0 || ones[b] == nrow) continue;
+			moving++;
+			mask |= 1ULL << b;
+			double p = static_cast<double>(ones[b]) / nrow;
+			hsum += -(p * std::log2(p) + (1.0 - p) * std::log2(1.0 - p));
+		}
+
+		double span = 0.0;
+		if (step != 0) {
+			double slots = static_cast<double>((hi - lo) / step) + 1.0;
+			slots *= static_cast<double>(nrow + 1) / static_cast<double>(nrow - 1);
+			span = std::log2(slots);
+		}
+
+		std::cout << std::left << std::setw(9) << names[c] << std::right
+		          << std::setw(8) << distinct
+		          << std::setw(7) << step
+		          << std::setw(7) << moving
+		          << " 0x" << std::setfill('0') << std::setw(16) << std::hex << mask << std::dec << std::setfill(' ')
+		          << std::fixed << std::setprecision(1)
+		          << std::setw(10) << hsum
+		          << std::setw(10) << span << '\n';
+	}
+	return 0;
+}
+```
+:::
 
 Формат вводу навмисно самоописовий — `ім'я=значення`. Зонд може додати сьомий орієнтир, лічильник підхопить його без жодної правки, і те саме працює для похідних величин, якщо ви колись схочете згодувати йому чужий лог.
 
@@ -445,6 +635,7 @@ for f in plain off va1; do printf '\n== %s\n' "$f"; ./bits < "$f.txt"; done
 
 Останній дослід — на десять рядків і одну думку.
 
+:::tabs
 ```c
 /* twins.c — на чому ядро тягне жереб: на fork чи на execve?
  *   cc -O2 -Wall -Wextra -fPIE -pie -o twins twins.c
@@ -485,6 +676,49 @@ int main(int argc, char **argv)
 	return 0;
 }
 ```
+```cpp
+/* twins.cpp — на чому ядро тягне жереб: на fork чи на execve?
+ *   g++ -O2 -Wall -Wextra -fPIE -pie -o twins twins.cpp
+ */
+#include <iostream>
+#include <iomanip>
+#include <string_view>
+#include <cstdint>
+#include <sys/auxv.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+static void say(std::string_view who)
+{
+	volatile char anchor = 0;
+	std::cout << std::left << std::setw(12) << who << std::right << std::hex
+	          << " entry=0x" << getauxval(AT_ENTRY)
+	          << "  stack=0x" << reinterpret_cast<std::uintptr_t>(&anchor)
+	          << "  vdso=0x" << getauxval(AT_SYSINFO_EHDR)
+	          << std::dec << std::endl;
+}
+
+int main(int argc, char **argv)
+{
+	if (argc > 1 && std::string_view(argv[1]) == "exec") {
+		say("після exec");
+		return 0;
+	}
+
+	say("батько");
+
+	pid_t pid = fork();
+	if (pid == 0) {
+		say("дитина fork");
+		execl("/proc/self/exe", argv[0], "exec", static_cast<char *>(nullptr));
+		perror("execl");
+		_exit(127);
+	}
+	wait(nullptr);
+	return 0;
+}
+```
+:::
 
 Перші два рядки виводу збігаються до останньої цифри, третій відрізняється в усіх трьох числах. [`fork`](book:unix-linux/fork-semantics) карти пам'яті не будує — він її копіює, разом з усіма адресами, бо інакше дитина не змогла б продовжити виконання з тієї самої точки. Карту будує [`execve`](book:unix-linux/exec-semantics), і жереб тягнеться саме там.
 

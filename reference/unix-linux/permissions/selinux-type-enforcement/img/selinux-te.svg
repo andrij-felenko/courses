@@ -1,33 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
-    <rect width="800" height="400" fill="#f8f9fa"/>
-    <text x="400" y="30" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle">SELinux Type Enforcement (TE)</text>
-    
-    <!-- Subject (Process) -->
-    <rect x="50" y="100" width="200" height="100" rx="10" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-    <text x="150" y="140" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">Process (Subject)</text>
-    <text x="150" y="170" font-family="Arial" font-size="14" fill="#495057" text-anchor="middle">Domain: httpd_t</text>
-    
-    <!-- Object (File) -->
-    <rect x="550" y="100" width="200" height="100" rx="10" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-    <text x="650" y="140" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">File (Object)</text>
-    <text x="650" y="170" font-family="Arial" font-size="14" fill="#495057" text-anchor="middle">Type: httpd_sys_content_t</text>
-    
-    <!-- Kernel / Policy Server -->
-    <rect x="300" y="250" width="200" height="100" rx="10" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
-    <text x="400" y="285" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">SELinux Policy</text>
-    <text x="400" y="315" font-family="Courier New" font-size="12" fill="#155724" text-anchor="middle">allow httpd_t httpd_sys_content_t</text>
-    <text x="400" y="335" font-family="Courier New" font-size="12" fill="#155724" text-anchor="middle">: file { read getattr };</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <style>
+    .bg { fill: #fcfcfd; }
+    .box-subject { fill: #eef2ff; stroke: #6366f1; stroke-width: 2; rx: 8px; }
+    .box-object { fill: #f0fdf4; stroke: #22c55e; stroke-width: 2; rx: 8px; }
+    .box-policy { fill: #fff7ed; stroke: #f97316; stroke-width: 2; rx: 8px; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: bold; fill: #0f172a; }
+    .heading { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: bold; fill: #1e293b; }
+    .subtext { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #475569; }
+    .code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 12px; fill: #9a3412; }
+    .label-blue { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; fill: #4338ca; }
+    .label-orange { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; fill: #c2410c; }
+    .label-green { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; fill: #15803d; }
+    .arrow { fill: none; stroke-width: 2.5; marker-end: url(#arrowhead); }
+    .arrow-blue { stroke: #6366f1; }
+    .arrow-orange { stroke: #f97316; stroke-dasharray: 6,4; }
+    .arrow-green { stroke: #22c55e; }
+  </style>
 
-    <!-- Arrows -->
-    <path d="M 250 150 L 530 150" fill="none" stroke="#007bff" stroke-width="3" marker-end="url(#arrow)"/>
-    <text x="400" y="140" font-family="Arial" font-size="14" font-weight="bold" fill="#007bff" text-anchor="middle">Access Request (read)</text>
-    
-    <path d="M 400 160 L 400 240" fill="none" stroke="#28a745" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
-    <text x="470" y="200" font-family="Arial" font-size="14" font-style="italic" fill="#28a745" text-anchor="middle">Policy Check</text>
-    
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
-        </marker>
-    </defs>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect width="800" height="420" class="bg"/>
+
+  <text x="400" y="32" class="title" text-anchor="middle">Модель SELinux Type Enforcement (TE)</text>
+
+  <!-- Subject Box -->
+  <rect x="40" y="70" width="220" height="120" class="box-subject"/>
+  <text x="150" y="98" class="heading" text-anchor="middle">Суб'єкт (Процес)</text>
+  <text x="150" y="125" class="subtext" text-anchor="middle">PID: 1420 (httpd)</text>
+  <text x="150" y="148" class="label-blue" text-anchor="middle">Домен: httpd_t</text>
+  <text x="150" y="170" class="subtext" text-anchor="middle">Контекст: system_u:...:s0</text>
+
+  <!-- Object Box -->
+  <rect x="540" y="70" width="220" height="120" class="box-object"/>
+  <text x="650" y="98" class="heading" text-anchor="middle">Об'єкт (Файл)</text>
+  <text x="650" y="125" class="subtext" text-anchor="middle">Шлях: /var/www/index.html</text>
+  <text x="650" y="148" class="label-green" text-anchor="middle">Тип: httpd_sys_content_t</text>
+  <text x="650" y="170" class="subtext" text-anchor="middle">Клас: file</text>
+
+  <!-- Access Request Arrow -->
+  <path d="M 260 130 L 530 130" class="arrow arrow-blue"/>
+  <text x="400" y="118" class="label-blue" text-anchor="middle">Виклик VFS open() [read, getattr]</text>
+
+  <!-- Policy Engine Box -->
+  <rect x="230" y="250" width="340" height="130" class="box-policy"/>
+  <text x="400" y="278" class="heading" text-anchor="middle">Політика безпеки (TE Rule Base)</text>
+  <text x="400" y="305" class="code" text-anchor="middle">allow httpd_t httpd_sys_content_t : file</text>
+  <text x="400" y="325" class="code" text-anchor="middle">{ read getattr ioctl lock };</text>
+  <text x="400" y="358" class="label-orange" text-anchor="middle">Рішення: Дозволити доступ (EACCES = 0)</text>
+
+  <!-- Policy Check Lines -->
+  <path d="M 150 190 L 150 315 L 220 315" class="arrow arrow-orange"/>
+  <path d="M 650 190 L 650 315 L 580 315" class="arrow arrow-orange"/>
+
 </svg>

@@ -1,47 +1,66 @@
-import sys
-import os
+# -*- coding: utf-8 -*-
+"""Фігура до теми «Landlock LSM: безпривілейоване обмеження файлового доступу»."""
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
 
-# Додаємо шлях до scripts/ для імпорту svgkit, якщо він там є
-# Оскільки ми не знаємо точного розташування svgkit.py, можемо зробити просту заглушку для генерації SVG
-# або використати базовий запис у файл.
+OUT = os.path.join(os.path.dirname(__file__), 'img')
+if not os.path.isdir(OUT):
+    os.makedirs(OUT)
 
-def render():
-    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="100%" height="100%" fill="#f8f9fa"/>
-    <text x="400" y="50" font-family="Arial" font-size="24" text-anchor="middle" fill="#333">Архітектура Landlock LSM</text>
-    
-    <g transform="translate(100, 100)">
-        <rect x="0" y="0" width="200" height="100" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-        <text x="100" y="45" font-family="Arial" font-size="16" text-anchor="middle" fill="#0d47a1">Process (Thread)</text>
-        <text x="100" y="75" font-family="Arial" font-size="14" text-anchor="middle" fill="#0d47a1">prctl(NO_NEW_PRIVS)</text>
-    </g>
+def fig_landlock_arch():
+    W, H = 1000, 480
+    f = []
 
-    <g transform="translate(450, 100)">
-        <rect x="0" y="0" width="250" height="200" rx="10" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
-        <text x="125" y="30" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#1b5e20">Landlock Ruleset</text>
-        
-        <rect x="25" y="50" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-        <text x="125" y="75" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /usr (R_OK, X_OK)</text>
-        
-        <rect x="25" y="100" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-        <text x="125" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /etc (R_OK)</text>
-        
-        <rect x="25" y="150" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-        <text x="125" y="175" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /home/user (RW)</text>
-    </g>
+    # Фонова область
+    f.append(rect(20, 20, 960, 440, fill="#fafafa", stroke="#e0e0e0", rx=8))
 
-    <path d="M 300 150 L 440 150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="370" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">landlock_restrict_self()</text>
+    # Зона Користувацького простору (Userspace)
+    f.append(rect(40, 60, 420, 380, fill="#f0f7ff", stroke=NEG, sw=1.5, rx=6))
+    f.append(text(250, 90, "Користувацький простір (Userspace)", size=16, color=NEG, bold=True))
 
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="#666" />
-        </marker>
-    </defs>
-</svg>
-"""
-    with open("landlock_arch.svg", "w", encoding="utf-8") as f:
-        f.write(svg_content)
+    # Блок процесу
+    b1, _, _ = textbox(250, 145, "Процес додатка\n(Unprivileged Process)", size=14, fill="#ffffff", stroke=NEG, min_w=340)
+    f.append(b1)
+
+    # Кроки налаштування
+    b2, _, _ = textbox(250, 235, "1. prctl(PR_SET_NO_NEW_PRIVS, 1)\n2. landlock_create_ruleset()\n3. landlock_add_rule(parent_fd, ...)", size=13, fill="#ffffff", stroke=LINE, min_w=360)
+    f.append(b2)
+
+    b3, _, _ = textbox(250, 340, "4. landlock_restrict_self(ruleset_fd)", size=13, fill="#eefbe7", stroke=FIELD, bold=True, min_w=360)
+    f.append(b3)
+
+    f.append(arrow(250, 175, 250, 195, color=LINE))
+    f.append(arrow(250, 280, 250, 305, color=FIELD))
+
+    # Зона Ядра (Kernel Space)
+    f.append(rect(500, 60, 460, 380, fill="#fdf7f7", stroke=POS, sw=1.5, rx=6))
+    f.append(text(730, 90, "Ядро Linux (Kernel / LSM)", size=16, color=POS, bold=True))
+
+    # Кредити процесу та шари Landlock
+    b4, _, _ = textbox(730, 155, "current->cred->security\n(Landlock Domain / Stacked Layers)", size=13, fill="#ffffff", stroke=POS, min_w=380)
+    f.append(b4)
+
+    # LSM VFS Hooks
+    b5, _, _ = textbox(730, 250, "LSM Hooks (security_file_open)\nПеревірка доступів до inode / dentry", size=13, fill="#ffffff", stroke=LINE, min_w=380)
+    f.append(b5)
+
+    # Результати доступу
+    b6, _, _ = textbox(630, 365, "Дозволений шлях\n(R_OK / X_OK)", size=12, fill="#eefbe7", stroke=FIELD, min_w=170)
+    f.append(b6)
+
+    b7, _, _ = textbox(830, 365, "Заборонений шлях\n-EACCES (Permission denied)", size=12, fill="#fdecea", stroke=POS, min_w=190)
+    f.append(b7)
+
+    # Зв'язки між процесом, ядром та LSM
+    f.append(arrow(430, 340, 520, 160, color=FIELD, sw=2))
+    f.append(text(485, 230, "замикання", size=12, color=FIELD, bold=True))
+
+    f.append(arrow(730, 195, 730, 215, color=LINE))
+    f.append(arrow(680, 290, 640, 335, color=FIELD))
+    f.append(arrow(780, 290, 820, 335, color=POS))
+
+    render(os.path.join(OUT, 'landlock-arch.svg'), W, H, *f, title="Загальна архітектура застосування Landlock LSM")
 
 if __name__ == "__main__":
-    render()
+    fig_landlock_arch()

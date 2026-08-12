@@ -1,111 +1,70 @@
 import os
-import textwrap
+import sys
 
-def render():
-    out_dir = os.path.dirname(os.path.abspath(__file__))
+# Add scripts directory to path (4 levels up from topic dir)
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
+
+def render_all():
+    topic_dir = os.path.dirname(os.path.abspath(__file__))
+    out_dir = os.path.join(topic_dir, "img")
+    os.makedirs(out_dir, exist_ok=True)
     
     # 1. ZFS Encryption Tree SVG
-    enc_svg = textwrap.dedent("""\
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-      <defs>
-        <style>
-          .rect { fill: #2c3e50; stroke: #ecf0f1; stroke-width: 2; rx: 8; ry: 8; }
-          .rect-enc { fill: #c0392b; stroke: #ecf0f1; stroke-width: 2; rx: 8; ry: 8; }
-          .text { fill: #ecf0f1; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
-          .text-sub { fill: #bdc3c7; font-family: 'Inter', sans-serif; font-size: 11px; text-anchor: middle; }
-          .line { stroke: #7f8c8d; stroke-width: 2; fill: none; }
-          .label { fill: #7f8c8d; font-family: 'Inter', sans-serif; font-size: 12px; }
-        </style>
-      </defs>
-      
-      <!-- Nodes -->
-      <rect class="rect" x="300" y="30" width="200" height="50"/>
-      <text class="text" x="400" y="55">pool (unencrypted)</text>
-      
-      <rect class="rect-enc" x="150" y="130" width="200" height="60"/>
-      <text class="text" x="250" y="155">pool/data</text>
-      <text class="text-sub" x="250" y="175">Encryption Root (Key A)</text>
-      
-      <rect class="rect-enc" x="50" y="250" width="180" height="60"/>
-      <text class="text" x="140" y="275">pool/data/home</text>
-      <text class="text-sub" x="140" y="295">Inherits Key A</text>
-      
-      <rect class="rect-enc" x="270" y="250" width="180" height="60"/>
-      <text class="text" x="360" y="275">pool/data/secret</text>
-      <text class="text-sub" x="360" y="295">Encryption Root (Key B)</text>
-      
-      <rect class="rect" x="450" y="130" width="200" height="50"/>
-      <text class="text" x="550" y="160">pool/public (unencrypted)</text>
-      
-      <!-- Edges -->
-      <path class="line" d="M 400 80 L 250 130"/>
-      <path class="line" d="M 400 80 L 550 130"/>
-      <path class="line" d="M 250 190 L 140 250"/>
-      <path class="line" d="M 250 190 L 360 250"/>
-      
-    </svg>
-    """)
+    frags1 = []
+    frags1.append(text(400, 25, "Ієрархія коренів шифрування та успадкування ключів у ZFS", size=15, bold=True, color="#1a1a1a"))
+    
+    t1, w1, h1 = textbox(400, 75, "pool (корінь пулу, unencrypted)\nБез власних ключів", size=13, fill="#e2e8f0", stroke="#475569", bold=True)
+    frags1.append(t1)
+    
+    t2, w2, h2 = textbox(230, 180, "pool/data (Encryption Root)\nМайстер-ключ A (AES-256-GCM)\nКлюч завантажено в пам'ять", size=12, fill="#fde8e8", stroke="#c0392b", color="#900c3f", bold=True)
+    frags1.append(t2)
+    
+    t3, w3, h3 = textbox(570, 180, "pool/public (unencrypted)\nУспадковує відсутність шифрування", size=12, fill="#f4f6f8", stroke="#7f8c8d", color="#2c3e50")
+    frags1.append(t3)
+    
+    t4, w4, h4 = textbox(130, 295, "pool/data/home\nУспадковує Майстер-ключ A\n(спільне криптодерево)", size=11, fill="#fef2f2", stroke="#e74c3c", color="#991b1b")
+    frags1.append(t4)
+    
+    t5, w5, h5 = textbox(360, 295, "pool/data/secret (Encryption Root)\nОкремий Майстер-ключ B\n(новий корінь шифрування)", size=11, fill="#fde8e8", stroke="#c0392b", color="#900c3f", bold=True)
+    frags1.append(t5)
+    
+    frags1.append(line(330, 98, 260, 142, color="#475569", sw=1.5))
+    frags1.append(line(470, 98, 540, 142, color="#7f8c8d", sw=1.5, dash="3,3"))
+    
+    frags1.append(line(180, 218, 140, 258, color="#c0392b", sw=1.5))
+    frags1.append(line(280, 218, 330, 258, color="#c0392b", sw=1.5, dash="3,3"))
+    
+    render(os.path.join(out_dir, "zfs-encryption-tree.svg"), 800, 360, *frags1)
     
     # 2. DDT Structure SVG
-    ddt_svg = textwrap.dedent("""\
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
-      <defs>
-        <style>
-          .bg { fill: #1e1e1e; }
-          .box { fill: #2980b9; stroke: #fff; stroke-width: 1.5; rx: 5; }
-          .box-ddt { fill: #8e44ad; stroke: #fff; stroke-width: 1.5; rx: 5; }
-          .box-disk { fill: #27ae60; stroke: #fff; stroke-width: 1.5; rx: 5; }
-          .txt { fill: #fff; font-family: monospace; font-size: 13px; text-anchor: middle; }
-          .txt-small { fill: #ddd; font-family: monospace; font-size: 10px; text-anchor: middle; }
-          .line { stroke: #fff; stroke-width: 2; marker-end: url(#arrow); }
-          .line-dashed { stroke: #95a5a6; stroke-width: 1.5; stroke-dasharray: 5,5; marker-end: url(#arrow); }
-        </style>
-        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#fff" />
-        </marker>
-      </defs>
-      
-      <rect class="bg" width="800" height="450"/>
-      
-      <!-- ARC / RAM -->
-      <rect fill="none" stroke="#f39c12" stroke-dasharray="8,4" x="50" y="20" width="700" height="150" rx="10"/>
-      <text fill="#f39c12" font-family="sans-serif" font-size="16" x="65" y="45">RAM (ARC)</text>
-      
-      <rect class="box-ddt" x="300" y="60" width="200" height="90"/>
-      <text class="txt" x="400" y="80">Deduplication Table (DDT)</text>
-      <text class="txt-small" x="400" y="100">Checksum (SHA256) | RefCount | DVA</text>
-      <text class="txt-small" x="400" y="120">0xABCD...1234 : Ref=2 -> DVA1</text>
-      <text class="txt-small" x="400" y="135">0x99FF...0011 : Ref=1 -> DVA2</text>
-      
-      <!-- Storage / Disk -->
-      <rect fill="none" stroke="#27ae60" stroke-dasharray="8,4" x="50" y="220" width="700" height="200" rx="10"/>
-      <text fill="#27ae60" font-family="sans-serif" font-size="16" x="65" y="245">Physical Storage (Zpool)</text>
-      
-      <rect class="box" x="100" y="280" width="120" height="50"/>
-      <text class="txt" x="160" y="305">File A (Block 1)</text>
-      <text class="txt-small" x="160" y="320">Refers to 0xABCD...</text>
-      
-      <rect class="box" x="580" y="280" width="120" height="50"/>
-      <text class="txt" x="640" y="305">File B (Block 3)</text>
-      <text class="txt-small" x="640" y="320">Refers to 0xABCD...</text>
-      
-      <rect class="box-disk" x="340" y="350" width="120" height="50"/>
-      <text class="txt" x="400" y="375">Data Block on Disk</text>
-      <text class="txt-small" x="400" y="390">DVA1</text>
-      
-      <!-- Arrows -->
-      <path class="line-dashed" d="M 160 280 L 350 150"/>
-      <path class="line-dashed" d="M 640 280 L 450 150"/>
-      <path class="line" d="M 400 150 L 400 350"/>
-      
-    </svg>
-    """)
+    frags2 = []
+    frags2.append(text(400, 25, "Структура таблиці дедуплікації (DDT) та адресація у ZFS", size=15, bold=True, color="#1a1a1a"))
     
-    with open(os.path.join(out_dir, "zfs_encryption_tree.svg"), "w", encoding="utf-8") as f:
-        f.write(enc_svg)
-        
-    with open(os.path.join(out_dir, "zfs_ddt_structure.svg"), "w", encoding="utf-8") as f:
-        f.write(ddt_svg)
+    frags2.append(rect(30, 45, 740, 180, fill="#f8fafc", stroke="#3b82f6", sw=1.5, rx=8))
+    frags2.append(text(50, 60, "Оперативна пам'ять (RAM / ARC)", size=12, bold=True, color="#1d4ed8", anchor="start"))
+    
+    ddt_str = "Deduplication Table (DDT in ARC)\nХеш блоку (SHA256/SHA512/SKEIN)  |  RefCount  |  DVA (Physical Address)\n0x8F3A...E910 (256 bit)                 |     Count=2    |  DVA: pool/dev0:offset 0x4000\n0x11B2...90AC (256 bit)                 |     Count=1    |  DVA: pool/dev0:offset 0x8000"
+    t_ddt, _, _ = textbox(400, 138, ddt_str, size=11, fill="#f3e8ff", stroke="#7e22ce", color="#581c87")
+    frags2.append(t_ddt)
+    
+    frags2.append(rect(30, 240, 740, 160, fill="#f0fdf4", stroke="#16a34a", sw=1.5, rx=8))
+    frags2.append(text(50, 254, "Дискове сховище (Zpool Storage)", size=12, bold=True, color="#15803d", anchor="start"))
+    
+    t_fa, _, _ = textbox(150, 315, "Файл A (Block Pointer 1)\nВказує на 0x8F3A...", size=11, fill="#e0f2fe", stroke="#0284c7", color="#0369a1")
+    frags2.append(t_fa)
+    
+    t_fb, _, _ = textbox(650, 315, "Файл B (Block Pointer 3)\nВказує на 0x8F3A...", size=11, fill="#e0f2fe", stroke="#0284c7", color="#0369a1")
+    frags2.append(t_fb)
+    
+    t_dva, _, _ = textbox(400, 365, "Фізичний блок на диску (DVA1)\nЗбережений єдиний примірник даних", size=11, fill="#dcfce7", stroke="#16a34a", color="#14532d", bold=True)
+    frags2.append(t_dva)
+    
+    frags2.append(line(150, 290, 270, 192, color="#0284c7", sw=1.5, dash="4,4"))
+    frags2.append(line(650, 290, 530, 192, color="#0284c7", sw=1.5, dash="4,4"))
+    frags2.append(arrow(400, 192, 400, 342, color="#7e22ce", sw=2))
+    
+    render(os.path.join(out_dir, "zfs-ddt-structure.svg"), 800, 420, *frags2)
 
 if __name__ == "__main__":
-    render()
+    render_all()

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1410 730" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1410" height="730" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="30.0" width="1340.0" height="660.0" rx="8" fill="#fafafa" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="700.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a237e" text-anchor="middle" font-weight="700">Життєвий цикл eBPF-об'єкта та лічильник refcnt при пінінгу у bpffs</text>
+<rect x="60.0" y="100.0" width="380.0" height="250.0" rx="6" fill="#eaf0fd" stroke="#1976d2" stroke-width="2.0"/>
+<text x="250.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0d47a1" text-anchor="middle" font-weight="700">Етап 1: Створення об'єкта</text>
+<text x="250.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Процес 1 викликає bpf(BPF_MAP_CREATE)</text>
+<rect x="80.0" y="185.0" width="340.0" height="75.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/>
+<text x="250.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Heap: struct bpf_map</text>
+<text x="250.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">refcnt = 1 (1 FD у Процесу 1)</text>
+<text x="250.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Об'єкт доступний лише Процесу 1</text>
+<rect x="510.0" y="100.0" width="380.0" height="250.0" rx="6" fill="#fff6e5" stroke="#f57c00" stroke-width="2.0"/>
+<text x="700.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#e65100" text-anchor="middle" font-weight="700">Етап 2: BPF_OBJ_PIN у bpffs</text>
+<text x="700.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">bpf(BPF_OBJ_PIN, '/sys/fs/bpf/map')</text>
+<rect x="530.0" y="185.0" width="340.0" height="75.0" rx="4" fill="#ffffff" stroke="#ffcc80" stroke-width="1.5"/>
+<text x="700.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">VFS: struct inode у bpffs</text>
+<text x="700.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e65100" text-anchor="middle" font-weight="700">refcnt = 2 (1 FD + 1 VFS inode)</text>
+<text x="700.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Створено віртуальний файл у VFS</text>
+<rect x="960.0" y="100.0" width="380.0" height="250.0" rx="6" fill="#eaf6ef" stroke="#388e3c" stroke-width="2.0"/>
+<text x="1150.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1b5e20" text-anchor="middle" font-weight="700">Етап 3: Вихід Процесу 1</text>
+<text x="1150.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Процес 1 завершується (exit/close)</text>
+<rect x="980.0" y="185.0" width="340.0" height="75.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="1150.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">FD закрити. VFS inode живе!</text>
+<text x="1150.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">refcnt = 1 (0 FD + 1 VFS inode)</text>
+<text x="1150.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Об'єкт зберігається в пам'яті ядра</text>
+<line x1="440.0" y1="225.0" x2="510.0" y2="225.0" stroke="#1976d2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="890.0" y1="225.0" x2="960.0" y2="225.0" stroke="#f57c00" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="400.0" width="580.0" height="250.0" rx="6" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2.0"/>
+<text x="350.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#4a148c" text-anchor="middle" font-weight="700">Етап 4: BPF_OBJ_GET Процесом 2</text>
+<text x="350.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Процес 2 отримує FD за шляхом '/sys/fs/bpf/map'</text>
+<rect x="80.0" y="485.0" width="540.0" height="75.0" rx="4" fill="#ffffff" stroke="#ce93d8" stroke-width="1.5"/>
+<text x="350.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро відкриває VFS інод і створює новий FD</text>
+<text x="350.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e24aa" text-anchor="middle" font-weight="700">refcnt = 2 (1 FD Процесу 2 + 1 VFS inode)</text>
+<text x="350.0" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Спільний доступ до стану мапи відновлено</text>
+<rect x="760.0" y="400.0" width="580.0" height="250.0" rx="6" fill="#fdecea" stroke="#d32f2f" stroke-width="2.0"/>
+<text x="1050.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b71c1c" text-anchor="middle" font-weight="700">Етап 5: Видалення файлу та RCU-очищення</text>
+<text x="1050.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Виконується unlink('/sys/fs/bpf/map') та close(FD)</text>
+<rect x="780.0" y="485.0" width="540.0" height="75.0" rx="4" fill="#ffffff" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="1050.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">inode видалено z VFS, всі FD закриті</text>
+<text x="1050.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c62828" text-anchor="middle" font-weight="700">refcnt = 0 -&gt; bpf_map_free_deferred() (RCU)</text>
+<text x="1050.0" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Пам'ять ядра остаточно звільняється</text>
+<line x1="640.0" y1="525.0" x2="760.0" y2="525.0" stroke="#8e24aa" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

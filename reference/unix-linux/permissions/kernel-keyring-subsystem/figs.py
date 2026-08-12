@@ -1,67 +1,88 @@
-import sys
-import os
+# -*- coding: utf-8 -*-
+"""Фігури до теми «Підсистема ключів ядра (Kernel Keyring)»."""
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
 
-# Додаємо шлях до scripts для імпорту svgkit (спрощено для локальної роботи)
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
+OUT = os.path.join(os.path.dirname(__file__), 'img')
+if not os.path.isdir(OUT):
+    os.makedirs(OUT)
 
-class SvgBuilder:
-    def __init__(self, w, h):
-        self.w = w
-        self.h = h
-        self.elements = []
-    
-    def rect(self, x, y, w, h, fill="#ffffff", stroke="#000000", rx=0):
-        self.elements.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" stroke="{stroke}" rx="{rx}" />')
-        
-    def text(self, x, y, text, font_size=14, anchor="start", fill="#000"):
-        self.elements.append(f'<text x="{x}" y="{y}" font-family="sans-serif" font-size="{font_size}" text-anchor="{anchor}" fill="{fill}">{text}</text>')
-        
-    def line(self, x1, y1, x2, y2, stroke="#000000", marker_end=False):
-        marker = ' marker-end="url(#arrow)"' if marker_end else ''
-        self.elements.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{stroke}" stroke-width="2"{marker} />')
-        
-    def build(self):
-        defs = '<defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#000" /></marker></defs>'
-        content = "\n".join(self.elements)
-        return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}">{defs}\n{content}</svg>'
 
-def render():
-    svg = SvgBuilder(800, 400)
-    
-    # Kernel Space
-    svg.rect(50, 50, 700, 300, fill="#f0f8ff", stroke="#4682b4", rx=10)
-    svg.text(60, 70, "Kernel Space (Key Retention Service)", font_size=16, fill="#4682b4")
-    
-    # Keyrings
-    svg.rect(100, 100, 180, 200, fill="#e6e6fa", stroke="#9370db")
-    svg.text(190, 130, "Session Keyring", anchor="middle")
-    
-    svg.rect(120, 150, 140, 40, fill="#ffffff", stroke="#000")
-    svg.text(190, 175, "Key: 'user:mykey'", anchor="middle")
-    
-    svg.rect(120, 200, 140, 40, fill="#ffffff", stroke="#000")
-    svg.text(190, 225, "Key: 'logon:ext4'", anchor="middle")
-    
-    # TPM
-    svg.rect(350, 150, 150, 100, fill="#ffe4e1", stroke="#cd5c5c")
-    svg.text(425, 180, "TPM Module", anchor="middle")
-    svg.text(425, 210, "(Hardware)", anchor="middle")
-    
-    # User Space
-    svg.rect(550, 100, 150, 80, fill="#f5f5dc", stroke="#bdb76b")
-    svg.text(625, 130, "User Space", anchor="middle")
-    svg.text(625, 155, "Process (keyctl)", anchor="middle")
-    
-    # Arrows
-    svg.line(550, 140, 280, 140, marker_end=True)
-    svg.text(415, 130, "Syscalls: request_key()", anchor="middle")
-    
-    svg.line(260, 220, 350, 220, marker_end=True)
-    svg.text(305, 210, "Trusted", anchor="middle")
-    
-    out_dir = os.path.dirname(__file__)
-    with open(os.path.join(out_dir, "kernel-keyring.svg"), "w") as f:
-        f.write(svg.build())
+def fig_kernel_keyring_arch():
+    """Архітектура підсистеми ключів ядра Linux: простори, структури, LSM та споживачі."""
+    W, H = 1040, 580
+    f = [text(520, 28, "Архітектура підсистеми ключів ядра (Kernel Key Retention Service)", size=16, bold=True)]
+
+    # 1. User Space Block (Верхній блок)
+    f.append(rect(30, 55, 980, 110, fill="#fdfbf7", stroke="#d97706", sw=1.5, rx=8))
+    f.append(text(50, 75, "ПРОСТІР КОРИСТУВАЧА (USER SPACE)", size=12, color="#b45309", bold=True, anchor="start"))
+
+    b1, _, _ = textbox(160, 115, "Процес користувача\n(keyctl / app)", size=13, fill="#fff", min_w=180)
+    f.append(b1)
+
+    b2, _, _ = textbox(520, 115, "Системні виклики\nadd_key() / request_key() / keyctl()", size=13, fill="#fef3c7", stroke="#d97706", min_w=300)
+    f.append(b2)
+
+    b3, _, _ = textbox(870, 115, "Демон підкачки\n/sbin/request-key (upcall)", size=13, fill="#fff", min_w=190)
+    f.append(b3)
+
+    f.append(arrow(250, 115, 370, 115))
+    f.append(arrow(670, 115, 775, 115))
+
+    # Вертикальні стрілки викликів системного інтерфейсу
+    f.append(arrow(520, 150, 520, 195))
+
+    # 2. Kernel Space Block (Центральний великий блок)
+    f.append(rect(30, 195, 980, 255, fill="#f0f7ff", stroke="#2563eb", sw=1.5, rx=8))
+    f.append(text(50, 215, "ПРОСТІР ЯДРА (KERNEL SPACE)", size=12, color="#1d4ed8", bold=True, anchor="start"))
+
+    # Спрощена ієрархія кілець
+    f.append(rect(50, 235, 270, 195, fill="#fff", stroke="#93c5fd", sw=1))
+    f.append(text(185, 253, "Контекст процесів (struct cred)", size=12, bold=True))
+    b_t, _, _ = textbox(185, 280, "Thread Keyring (@t)", size=11, fill="#eff6ff", min_w=220)
+    b_p, _, _ = textbox(185, 320, "Process Keyring (@p)", size=11, fill="#eff6ff", min_w=220)
+    b_s, _, _ = textbox(185, 360, "Session Keyring (@s)", size=11, fill="#eff6ff", min_w=220)
+    b_u, _, _ = textbox(185, 400, "User Keyring (@u)", size=11, fill="#eff6ff", min_w=220)
+    f.extend([b_t, b_p, b_s, b_u])
+
+    # Дерево пошуку та LSM
+    f.append(rect(345, 235, 340, 195, fill="#fff", stroke="#93c5fd", sw=1))
+    f.append(text(515, 253, "Пошук та перевірка привілеїв", size=12, bold=True))
+
+    b_perm, _, _ = textbox(515, 290, "Маска прав: key_perm_t\nPossessor (0x3f) | User | Group | Other", size=11, fill="#fef2f2", stroke="#ef4444", min_w=310)
+    b_lsm, _, _ = textbox(515, 340, "Контролер безпеки LSM\nsecurity_key_permission()", size=11, fill="#fcf5ff", stroke="#a855f7", min_w=310)
+    b_tree, _, _ = textbox(515, 395, "Асоціативний масив ключів (assoc_array)\nПошук ключів за типом і описом", size=11, fill="#f0fdf4", stroke="#22c55e", min_w=310)
+    f.extend([b_perm, b_lsm, b_tree])
+
+    # Типи ключів
+    f.append(rect(710, 235, 285, 195, fill="#fff", stroke="#93c5fd", sw=1))
+    f.append(text(852, 253, "Типи ключів (struct key_type)", size=12, bold=True))
+    b_k1, _, _ = textbox(852, 285, "user / logon (секрети в пам'яті)", size=11, fill="#f8fafc", min_w=250)
+    b_k2, _, _ = textbox(852, 320, "trusted / encrypted (TPM / AES)", size=11, fill="#f8fafc", min_w=250)
+    b_k3, _, _ = textbox(852, 355, "big_key (tmpfs + шифрування)", size=11, fill="#f8fafc", min_w=250)
+    b_k4, _, _ = textbox(852, 395, "asymmetric (X.509 / RSA / ECDSA)", size=11, fill="#f8fafc", min_w=250)
+    f.extend([b_k1, b_k2, b_k3, b_k4])
+
+    # Зв'язки між блоками ядра
+    f.append(arrow(320, 320, 345, 320))
+    f.append(arrow(685, 320, 710, 320))
+
+    # Стрілка вниз до споживачів
+    f.append(arrow(520, 450, 520, 475))
+
+    # 3. Hardware & Consumers Block (Нижній блок)
+    f.append(rect(30, 475, 980, 90, fill="#f0fdf4", stroke="#16a34a", sw=1.5, rx=8))
+    f.append(text(50, 493, "СПОЖИВАЧІ ТА АПАРАТНІ МОДУЛІ БЕЗПЕКИ", size=12, color="#15803d", bold=True, anchor="start"))
+
+    b_c1, _, _ = textbox(150, 530, "Шифрування диска\ndm-crypt / fscrypt", size=11, fill="#fff", min_w=170)
+    b_c2, _, _ = textbox(380, 530, "Мережева автентифікація\nNFSv4 / Kerberos / AFS", size=11, fill="#fff", min_w=200)
+    b_c3, _, _ = textbox(620, 530, "Підписи та цілісність\nIMA/EVM / Module Signing", size=11, fill="#fff", min_w=200)
+    b_c4, _, _ = textbox(870, 530, "Апаратний корінь\nTPM / TrustZone", size=11, fill="#fef2f2", stroke="#dc2626", min_w=190)
+    f.extend([b_c1, b_c2, b_c3, b_c4])
+
+    render(os.path.join(OUT, 'kernel-keyring.svg'), W, H, *f)
+
 
 if __name__ == "__main__":
-    render()
+    fig_kernel_keyring_arch()

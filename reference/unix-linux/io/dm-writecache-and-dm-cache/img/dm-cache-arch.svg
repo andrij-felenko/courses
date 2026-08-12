@@ -1,17 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
-    <rect x="100" y="300" width="400" height="50" fill="#e0e0e0" stroke="#333" />
-    <text x="300" y="330" font-size="16" text-anchor="middle">Повільний пристрій (Origin HDD)</text>
-    
-    <rect x="200" y="150" width="200" height="50" fill="#ffcc80" stroke="#333" />
-    <text x="300" y="180" font-size="14" text-anchor="middle">Швидкий пристрій (Cache SSD)</text>
-    
-    <rect x="420" y="150" width="100" height="50" fill="#80cbc4" stroke="#333" />
-    <text x="470" y="180" font-size="14" text-anchor="middle">Метадані</text>
-    
-    <rect x="150" y="50" width="300" height="50" fill="#90caf9" stroke="#333" />
-    <text x="300" y="80" font-size="16" text-anchor="middle">dm-cache target (Device Mapper)</text>
-    
-    <line x1="300" y1="100" x2="300" y2="150" stroke="#333" stroke-width="2" />
-    <line x1="300" y1="200" x2="300" y2="300" stroke="#333" stroke-width="2" />
-    <line x1="470" y1="100" x2="470" y2="150" stroke="#333" stroke-width="2" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1110 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1110" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компоненти та структура dm-cache</text>
+<text x="550.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура трикомпонентного блокового кешу dm-cache</text>
+<rect x="300.0" y="75.0" width="500.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="550.0" y="99.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Віртуальний пристрій /dev/mapper/cached-vol</tspan><tspan x="550.0" dy="16.9">(VFS / Файлова система / БД)</tspan></text>
+<line x1="550.0" y1="131.0" x2="550.0" y2="175.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="150.0" y="180.0" width="800.0" height="160.0" rx="8" fill="#fbfcff" stroke="#333333" stroke-width="1.8"/>
+<text x="550.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Драйвер dm-cache (Device Mapper Target)</text>
+<rect x="180.0" y="230.0" width="340.0" height="90.0" rx="6" fill="#fdf3e7" stroke="#e67e22" stroke-width="1.5"/><text x="350.0" y="264.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Політика SMQ (Stochastic Multiqueue)</tspan><tspan x="350.0" dy="15.0">• Облік популярності чанків (promotions)</tspan><tspan x="350.0" dy="15.0">• Витіснення найменш вживаних (demotions)</tspan></text>
+<rect x="580.0" y="230.0" width="340.0" height="90.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="750.0" y="264.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">Диспетчер вводу-виводу</tspan><tspan x="750.0" dy="15.0">• Перенаправлення читань/записів</tspan><tspan x="750.0" dy="15.0">• Відстеження брудних блоків (dirty ratio)</tspan></text>
+<line x1="300.0" y1="340.0" x2="250.0" y2="420.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="420.0" width="360.0" height="120.0" rx="6" fill="#f1f2f4" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="453.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Оригінальний пристрій (Origin)</tspan><tspan x="250.0" dy="15.6">/dev/sdb (HDD / RAID)</tspan><tspan x="250.0" dy="15.6">• Велика ємність (терабайти)</tspan><tspan x="250.0" dy="15.6">• Повільний довільний доступ</tspan></text>
+<line x1="550.0" y1="340.0" x2="550.0" y2="420.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="370.0" y="420.0" width="360.0" height="120.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="550.0" y="453.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Пристрій даних кешу (Cache Data)</tspan><tspan x="550.0" dy="15.6">/dev/nvme0n1p2 (NVMe / SSD)</tspan><tspan x="550.0" dy="15.6">• Гарячі чанки (32 КіБ .. 1 ГіБ)</tspan><tspan x="550.0" dy="15.6">• Висока швидкість IOPS</tspan></text>
+<line x1="800.0" y1="340.0" x2="850.0" y2="420.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="670.0" y="420.0" width="360.0" height="120.0" rx="6" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.5"/><text x="850.0" y="460.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Пристрій метаданих (Metadata)</tspan><tspan x="850.0" dy="15.6">/dev/nvme0n1p1 (SSD / PMEM)</tspan><tspan x="850.0" dy="15.6">• Карта відповідності чанків</tspan><tspan x="850.0" dy="15.6">• Транзакційний суперблок</tspan></text>
+<line x1="370.0" y1="480.0" x2="430.0" y2="480.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="400.0" dy="0.0">фоновий flush брудних блоків</tspan></text>
 </svg>

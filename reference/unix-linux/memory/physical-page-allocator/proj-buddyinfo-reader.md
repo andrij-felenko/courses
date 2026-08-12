@@ -51,6 +51,7 @@ avail(k)    = 2 · avail(k+1) + nr_free[k]
 
 Файл читаємо одним `read()` у великий буфер. Причина не в швидкості. `/proc/buddyinfo` не існує на диску — його текст ядро складає в мить читання, обходячи зони ([як `/proc` віддає стан ядра текстом](book:unix-linux/proc-filesystem)). Один рядок ядро друкує, тримаючи `spin_lock_irqsave(&zone->lock)`, тож усередині рядка числа узгоджені між собою. А от між рядками замок відпускають — і чим меншими порціями ви тягнете файл, тим більше різних митей у ньому змішано. Великий буфер зводить це до мінімуму.
 
+:::tabs
 ```c
 /* budinfo.c — форма вільної пам'яті: зони, найбільший блок, avail(k).
    Збірка: cc -O2 -std=gnu11 -o budinfo budinfo.c
@@ -96,6 +97,36 @@ static ssize_t slurp(const char *path, char *buf, size_t cap)
     return n;
 }
 ```
+```cpp
+// budinfo.cpp — форма вільної пам'яті: зони, найбільший блок, avail(k).
+// Збірка: c++ -O2 -std=c++20 -o budinfo budinfo.cpp
+// Запуск: ./budinfo [--zone НАЗВА] [--need БАЙТІВ] [--hidden]
+#include <charconv>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <unistd.h>
+
+struct ZoneRow {
+    int node{};
+    std::string name;
+    int norders{};
+    std::vector<unsigned long> nr_free;
+    std::vector<unsigned long> avail;
+    unsigned long free_pages{};
+    int top{-1};
+};
+
+static std::string slurp(const std::string &path)
+{
+    std::ifstream f(path, std::ios::binary);
+    if (!f) return {};
+    return std::string((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
+}
+```
+:::
 
 Розбір одного рядка. Він працює з рядком, уже відрізаним по `'\n'`, — інакше `strtoul` радо перескочив би через перенос і затягнув числа наступної зони.
 
@@ -226,6 +257,7 @@ static void analyze(ZoneRow &r)
 
 Ще два помічники: людські одиниці й вилов посторінкових запасів, до яких ще повернемося.
 
+:::tabs
 ```c
 static void human(unsigned long bytes, char *out, size_t cap)
 {
@@ -237,7 +269,7 @@ static void human(unsigned long bytes, char *out, size_t cap)
 }
 
 /* Скільки кадрів лежить у посторінкових запасах ядер цієї зони: у /proc/zoneinfo
-   це рядки «count:» усередині блоку «pagesets». У buddyinfo їх нема — і в
+   це рядки «count:» усередині блоку «pagesets». У buddyinfo their нема — і в
    MemFree теж нема, бо кадр, виданий у запас процесора, уже знято з обліку. */
 static unsigned long pcp_hidden(const char *zi, int node, const char *zone)
 {
@@ -257,9 +289,44 @@ static unsigned long pcp_hidden(const char *zi, int node, const char *zone)
     return sum;
 }
 ```
+```cpp
+static std::string human(unsigned long bytes)
+{
+    static const char *u[] = { "Б", "КіБ", "МіБ", "ГіБ", "ТіБ" };
+    int i = 0;
+    double v = static_cast<double>(bytes);
+    while (v >= 1024.0 && i < 4) { v /= 1024.0; i++; }
+    char buf[64];
+    snprintf(buf, sizeof buf, "%.1f %s", v, u[i]);
+    return std::string(buf);
+}
+
+static unsigned long pcp_hidden(std::string_view zi, int node, std::string_view zone)
+{
+    char hdr[64];
+    snprintf(hdr, sizeof hdr, "Node %d, zone %8s", node, std::string(zone).c_str());
+    auto pos = zi.find(hdr);
+    if (pos == std::string_view::npos) return 0;
+    auto stop = zi.find("\nNode ", pos + 1);
+    auto q = zi.find("\n  pagesets", pos);
+    if (q == std::string_view::npos || (stop != std::string_view::npos && q > stop)) return 0;
+
+    unsigned long sum = 0;
+    while ((q = zi.find("count:", q + 1)) != std::string_view::npos) {
+        if (stop != std::string_view::npos && q > stop) break;
+        unsigned long val = 0;
+        auto sub = zi.substr(q + 6);
+        std::from_chars(sub.data(), sub.data() + sub.size(), val);
+        sum += val;
+    }
+    return sum;
+}
+```
+:::
 
 Обв'язка: прочитати, розібрати, порахувати, надрукувати.
 
+:::tabs
 ```c
 int main(int argc, char **argv)
 {
@@ -343,6 +410,91 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+```cpp
+int main(int argc, char **argv)
+{
+    long pgsz = sysconf(_SC_PAGESIZE);
+    unsigned long need = 0;
+    std::string only;
+    bool want_hidden = false;
+
+    for (int i = 1; i < argc; i++) {
+        std::string_view arg(argv[i]);
+        if (arg == "--need" && i + 1 < argc)
+            need = std::stoul(argv[++i]);
+        else if (arg == "--zone" && i + 1 < argc)
+            only = argv[++i];
+        else if (arg == "--hidden")
+            want_hidden = true;
+        else { std::cerr << "не знаю опції " << arg << "\n"; return 2; }
+    }
+
+    std::string buf = slurp("/proc/buddyinfo");
+    if (buf.empty()) { std::perror("buddyinfo"); return 1; }
+    std::string zi = want_hidden ? slurp("/proc/zoneinfo") : "";
+
+    std::vector<ZoneRow> rows;
+    std::string_view sv(buf);
+    while (!sv.empty()) {
+        auto pos = sv.find('\n');
+        std::string_view line = (pos == std::string_view::npos) ? sv : sv.substr(0, pos);
+        sv = (pos == std::string_view::npos) ? std::string_view{} : sv.substr(pos + 1);
+
+        ZoneRow r;
+        if (parse_row(line, r)) {
+            analyze(r);
+            rows.push_back(std::move(r));
+        }
+    }
+    if (rows.empty()) { std::cerr << "жодного рядка не розібрано\n"; return 1; }
+
+    int wanted = -1;
+    if (need) {
+        wanted = 0;
+        while (static_cast<unsigned long>(pgsz) << wanted < need && wanted < static_cast<int>(rows[0].nr_free.size()) - 1)
+            wanted++;
+    }
+
+    std::string h1 = human(static_cast<unsigned long>(pgsz));
+    std::string h2 = human(static_cast<unsigned long>(pgsz) << (rows[0].nr_free.size() - 1));
+    std::cout << "кадр " << h1 << ", порядків " << rows[0].nr_free.size()
+              << " → MAX_PAGE_ORDER = " << (rows[0].nr_free.size() - 1)
+              << ", найбільший блок " << h2 << "\n\n";
+
+    for (const auto &r : rows) {
+        if (!only.empty() && only != r.name) continue;
+        std::cout << "Node " << r.node << ", zone " << r.name
+                  << "  вільно " << (r.free_pages * static_cast<double>(pgsz) / 1048576.0) << " МіБ";
+        if (r.top >= 0) {
+            std::cout << "   найбільший блок: порядок " << r.top << " = " << human(static_cast<unsigned long>(pgsz) << r.top) << "\n";
+        } else {
+            std::cout << "   вільних блоків немає зовсім\n";
+        }
+
+        if (want_hidden) {
+            unsigned long hid = pcp_hidden(zi, r.node, r.name);
+            std::cout << "    у запасах ядер, поза цим рядком: " << hid << " кадрів (" << human(hid * static_cast<unsigned long>(pgsz)) << ")\n";
+        }
+
+        if (need) {
+            std::cout << "    під " << human(need) << " треба порядок " << wanted
+                      << " → таких блоків ще дістану: " << (wanted < static_cast<int>(r.avail.size()) ? r.avail[wanted] : 0) << "\n";
+            continue;
+        }
+
+        if (only.empty()) continue;
+        std::cout << "    порядок     кадрів     у списку   ще дістану   розмір\n";
+        for (std::size_t k = 0; k < r.nr_free.size(); k++) {
+            std::cout << "    " << k << " " << (1UL << k) << " " << r.nr_free[k]
+                      << " " << r.avail[k] << "   " << human(static_cast<unsigned long>(pgsz) << k) << "\n";
+        }
+        std::cout << "\n";
+    }
+    return 0;
+}
+```
+:::
+```
 
 ## Що видно на живій машині
 
@@ -416,6 +568,7 @@ Node 0, zone Normal    вільно     674.1 МіБ   найбільший бл
 
 ## Зонд
 
+:::tabs
 ```c
 /* thpprobe.c — скільки блоків порядку 9 система дасть НАСПРАВДІ.
    Збірка: cc -O2 -std=gnu11 -o thpprobe thpprobe.c
@@ -498,9 +651,70 @@ static int cmp_d(const void *a, const void *b)
     return (x > y) - (x < y);
 }
 ```
+```cpp
+// thpprobe.cpp — скільки блоків порядку 9 система дасть НАСПРАВДІ.
+// Збірка: c++ -O2 -std=c++20 -o thpprobe thpprobe.cpp
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <unistd.h>
+#include <sys/mman.h>
+
+#ifndef MADV_COLLAPSE
+#define MADV_COLLAPSE 25
+#endif
+
+static long sysfs_num(const std::string &path)
+{
+    std::ifstream f(path);
+    if (!f) return -1;
+    long v = -1;
+    f >> v;
+    return f ? v : -1;
+}
+
+static long vmstat(std::string_view key)
+{
+    std::ifstream f("/proc/vmstat");
+    if (!f) return -1;
+    std::string line;
+    while (std::getline(f, line)) {
+        if (line.starts_with(key) && line.size() > key.size() && line[key.size()] == ' ') {
+            return std::stol(line.substr(key.size() + 1));
+        }
+    }
+    return -1;
+}
+
+static long anon_thp_kb()
+{
+    std::ifstream f("/proc/self/smaps_rollup");
+    if (!f) return -1;
+    std::string line;
+    while (std::getline(f, line)) {
+        if (line.starts_with("AnonHugePages:")) {
+            return std::stol(line.substr(14));
+        }
+    }
+    return -1;
+}
+
+static double now_us()
+{
+    auto now = std::chrono::steady_clock::now();
+    return std::chrono::duration<double, std::micro>(now.time_since_epoch()).count();
+}
+```
+:::
 
 Серце зонда. Ділянку беремо з запасом і вирівнюємо руками — покладатися на те, що ядро саме віддасть вирівняну адресу, не варто: воно так робить лише коли великі сторінки ввімкнені, а нам потрібен той самий дослід і з вимкненими.
 
+:::tabs
 ```c
 int main(int argc, char **argv)
 {
@@ -586,6 +800,85 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+```cpp
+int main(int argc, char **argv)
+{
+    long pg = sysconf(_SC_PAGESIZE);
+    long hp = sysfs_num("/sys/kernel/mm/transparent_hugepage/hpage_pmd_size");
+    if (hp <= 0) {
+        std::cerr << "прозорих великих сторінок у цьому ядрі немає\n";
+        return 1;
+    }
+    size_t hpsz = static_cast<size_t>(hp);
+    int pmd_order = 0;
+    for (size_t s = static_cast<size_t>(pg); s < hpsz; s <<= 1) pmd_order++;
+
+    size_t count = 128;
+    bool collapse = false;
+    for (int i = 1; i < argc; i++) {
+        std::string_view arg(argv[i]);
+        if (arg == "--count" && i + 1 < argc) count = std::stoul(argv[++i]);
+        else if (arg == "--collapse") collapse = true;
+        else { std::cerr << "не знаю опції " << arg << "\n"; return 2; }
+    }
+
+    size_t total = count * hpsz;
+    std::cout << "велика сторінка " << hpsz << " Б = порядок " << pmd_order
+              << "; прошу " << count << " штук (" << (total / 1048576.0) << " МіБ)\n";
+
+    void *raw = mmap(NULL, total + hpsz, PROT_READ | PROT_WRITE,
+                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (raw == MAP_FAILED) { std::perror("mmap"); return 1; }
+    auto *base = reinterpret_cast<volatile unsigned char *>(
+        (reinterpret_cast<uintptr_t>(raw) + hpsz - 1) & ~(uintptr_t)(hpsz - 1));
+
+    long a0 = vmstat("thp_fault_alloc"), f0 = vmstat("thp_fault_fallback");
+    long s0 = vmstat("compact_stall"),   c0 = vmstat("compact_success");
+    long thp0 = anon_thp_kb();
+
+    std::vector<double> us(count);
+    size_t ok = 0, enomem = 0, other = 0;
+
+    if (collapse) {
+        for (size_t i = 0; i < count; i++)
+            for (size_t off = 0; off < hpsz; off += static_cast<size_t>(pg))
+                base[i * hpsz + off] = 0xA5;
+        for (size_t i = 0; i < count; i++) {
+            double t = now_us();
+            int rc = madvise(const_cast<void *>(static_cast<volatile void *>(base + i * hpsz)), hpsz, MADV_COLLAPSE);
+            us[i] = now_us() - t;
+            if (rc == 0) ok++;
+            else if (errno == ENOMEM) enomem++;
+            else other++;
+        }
+    } else {
+        madvise(const_cast<void *>(static_cast<volatile void *>(base)), total, MADV_HUGEPAGE);
+        for (size_t i = 0; i < count; i++) {
+            double t = now_us();
+            base[i * hpsz] = 0xA5;
+            us[i] = now_us() - t;
+        }
+        long got = anon_thp_kb() - (thp0 > 0 ? thp0 : 0);
+        ok = got > 0 ? static_cast<size_t>(got) / (hpsz / 1024) : 0;
+        if (ok > count) ok = count;
+        enomem = count - ok;
+    }
+
+    std::sort(us.begin(), us.end());
+    std::cout << "дано великих сторінок: " << ok << " з " << count
+              << "   (відмов: " << enomem << ", інших помилок: " << other << ")\n";
+    std::cout << "затримка на шматок, мкс: медіана " << us[count / 2]
+              << ", 90% " << us[count * 9 / 10] << ", найгірша " << us[count - 1] << "\n";
+    std::cout << "приріст: thp_fault_alloc " << (vmstat("thp_fault_alloc") - a0)
+              << ", thp_fault_fallback " << (vmstat("thp_fault_fallback") - f0)
+              << ", compact_stall " << (vmstat("compact_stall") - s0)
+              << ", compact_success " << (vmstat("compact_success") - c0) << "\n";
+
+    munmap(raw, total + hpsz);
+    return 0;
+}
+```
+:::
 
 Ключове тут — не сам дотик, а те, що навколо нього. Затримка на шматок розділяє світ надвоє: узяти готовий блок зі списку — це одиниці мікросекунд, а ущільнити зону задля нього — сотні мікросекунд або мілісекунди. Приріст `compact_stall` каже, скільки разів наш власний потік пішов ущільнювати замість того, щоб отримати пам'ять.
 

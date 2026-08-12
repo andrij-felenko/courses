@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" width="820" height="460">
+  <style>
+    .bg { fill: #f8fafc; }
+    .box-hook { fill: #f1f5f9; stroke: #64748b; stroke-width: 2; rx: 6px; }
+    .box-avc { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; rx: 6px; }
+    .box-secserver { fill: #fef3c7; stroke: #d97706; stroke-width: 2; rx: 6px; }
+    .box-audit { fill: #fef2f2; stroke: #ef4444; stroke-width: 2; rx: 6px; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: bold; fill: #0f172a; }
+    .heading { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; fill: #1e293b; }
+    .subtext { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #475569; }
+    .code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 11px; fill: #7c2d12; }
+    .label-fast { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; fill: #15803d; }
+    .label-slow { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; fill: #b45309; }
+    .label-deny { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; fill: #dc2626; }
+    .arrow { fill: none; stroke-width: 2; marker-end: url(#arrowhead2); }
+    .arrow-green { stroke: #16a34a; }
+    .arrow-amber { stroke: #d97706; }
+    .arrow-red { stroke: #dc2626; stroke-dasharray: 4,4; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect width="820" height="460" class="bg"/>
+
+  <text x="410" y="32" class="title" text-anchor="middle">Шлях виконання avc_has_perm() та кешування AVC</text>
+
+  <!-- Step 1: LSM Hook -->
+  <rect x="30" y="70" width="210" height="110" class="box-hook"/>
+  <text x="135" y="98" class="heading" text-anchor="middle">1. LSM Hook у ядрі</text>
+  <text x="135" y="122" class="code" text-anchor="middle">selinux_file_open()</text>
+  <text x="135" y="145" class="subtext" text-anchor="middle">Отримання SID суб'єкта</text>
+  <text x="135" y="165" class="subtext" text-anchor="middle">та SID об'єкта</text>
+
+  <!-- Step 2: AVC Cache Lookup -->
+  <rect x="300" y="70" width="220" height="140" class="box-avc"/>
+  <text x="410" y="98" class="heading" text-anchor="middle">2. Access Vector Cache</text>
+  <text x="410" y="122" class="code" text-anchor="middle">avc_has_perm(ssid, tsid...)</text>
+  <text x="410" y="148" class="subtext" text-anchor="middle">Хеш-пошук запису AVC</text>
+  <text x="410" y="170" class="label-fast" text-anchor="middle">Cache Hit (&gt; 99% викликів)</text>
+  <text x="410" y="190" class="subtext" text-anchor="middle">Швидка бітова маска</text>
+
+  <!-- Hook to AVC Arrow -->
+  <path d="M 240 125 L 290 125" class="arrow"/>
+
+  <!-- Fast Path Return Arrow -->
+  <path d="M 410 210 L 410 400 L 135 400 L 135 190" class="arrow arrow-green"/>
+  <text x="270" y="420" class="label-fast" text-anchor="middle">Повернення результату доступу (0 або -EACCES)</text>
+
+  <!-- Step 3: Security Server (Cache Miss) -->
+  <rect x="570" y="70" width="220" height="140" class="box-secserver"/>
+  <text x="680" y="98" class="heading" text-anchor="middle">3. Security Server</text>
+  <text x="680" y="122" class="code" text-anchor="middle">security_compute_av()</text>
+  <text x="680" y="148" class="subtext" text-anchor="middle">Повільний обчислювач</text>
+  <text x="680" y="170" class="label-slow" text-anchor="middle">Cache Miss</text>
+  <text x="680" y="190" class="subtext" text-anchor="middle">Обчислення вектора &amp; запис у AVC</text>
+
+  <!-- AVC to Security Server Arrow -->
+  <path d="M 520 125 L 560 125" class="arrow arrow-amber"/>
+
+  <!-- Security Server back to AVC Arrow -->
+  <path d="M 570 160 L 530 160" class="arrow arrow-amber"/>
+
+  <!-- Step 4: Audit Logging -->
+  <rect x="420" y="270" width="370" height="110" class="box-audit"/>
+  <text x="605" y="298" class="heading" text-anchor="middle">4. Логування аудит-подій (AVC Denial)</text>
+  <text x="605" y="322" class="code" text-anchor="middle">type=AVC msg=audit(...): avc: denied</text>
+  <text x="605" y="344" class="subtext" text-anchor="middle">Запис у /var/log/audit/audit.log</text>
+  <text x="605" y="364" class="label-deny" text-anchor="middle">якщо двійковий біт не дозволений або donutaudit = 0</text>
+
+  <!-- AVC/SecServer to Audit Arrow -->
+  <path d="M 470 210 L 470 260" class="arrow arrow-red"/>
+
+</svg>

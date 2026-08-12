@@ -1,127 +1,116 @@
 # Landlock LSM: безпривілейоване обмеження файлового доступу
 
 <preknowlist>
-- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
+- [Модель привілеїв POSIX та capabilities](book:unix-linux/capabilities) — розподіл привілеїв у Linux, успадкування прав та прапорець `PR_SET_NO_NEW_PRIVS`.
+- [Фільтрація системних викликів Seccomp](book:unix-linux/seccomp-filtering) — обмеження системних викликів із користувацького простору та його межі щодо шляхів VFS.
+- [Фреймворк Linux Security Modules](book:unix-linux/lsm-framework) — архітектура хуків LSM та контроль доступу в ядрі Linux.
 </preknowlist>
 
-У сучасних операційних системах сімейства Linux забезпечення безпеки та ізоляції процесів є одним із найважливіших завдань. Традиційні механізми контролю доступу (DAC — Discretionary Access Control), такі як права доступу до файлів (rwx) і списки контролю доступу (ACL), забезпечують базовий рівень захисту. Однак вони часто виявляються недостатніми для складних сценаріїв, де необхідно обмежити права програми, навіть якщо вона запущена від імені користувача з широкими повноваженнями. Для вирішення цих завдань були розроблені механізми Mandatory Access Control (MAC), реалізовані у вигляді модулів Linux Security Modules (LSM), таких як SELinux, AppArmor або Smack. Проте ці модулі традиційно вимагають прав суперкористувача (root) для налаштування та застосування правил, що унеможливлює створення "пісочниць" (sandboxes) звичайними користувачами.
+Обробка недовірених даних у користувацькому просторі — таких як декодування мережевих пакетів, парсинг документів чи рендеринг веб-сторінок — несе постійний ризик виявлення вразливостей переповнення буфера чи довільного виконання коду. У класичній моделі прав Linux процес успадковує повні привілеї користувача, який його запустив. Якщо процес фонової обробки зображень від імені звичайного користувача піддається зламу, зловмисник отримує direct-доступ до файлів `~/.ssh/id_rsa`, `~/.gnupg` чи баз даних браузера. Традиційні механізми мандатного контролю доступу (SELinux, AppArmor) вимагають прав суперкористувача (root) для написання та завантаження політик безпеки, що унеможливлює створення самостійних пісочниць (self-sandboxing) у самому коді прикладних програм. Системний модуль Landlock розв'язує цю проблему, надаючи будь-якому безпривілейованому процесу можливість самостійно обмежувати власні права доступу до файлової системи та мережі на рівні ядра.
 
-З випуском ядра Linux 5.13 ситуація змінилася завдяки появі нового механізму — **Landlock**. Landlock — це Linux Security Module, який дозволяє будь-якому процесу (навіть без привілеїв root) безпечно обмежувати власні права доступу до файлової системи (а починаючи з новіших версій ядра — і до мережі). У цій статті ми детально розглянемо архітектуру Landlock, його API (функції `landlock_create_ruleset()`, `landlock_add_rule()`, `landlock_restrict_self()`), важливість прапорця `NO_NEW_PRIVS` та практичні аспекти використання цього механізму для створення безпривілейованих пісочниць.
+## 1. Механізми ізоляції та виклик безпривілейованого контролю
 
-## 1. Концепція та еволюція ізоляції в Linux
+Еволюція безпеки в Linux тривалий час спиралася на розмежування прав за ідентифікаторами користувачів та груп. Однак зростання складності прикладного програмного забезпечення виявило фундаментальні межі класичних підходів.
 
-Перш ніж заглибитися в деталі Landlock, важливо зрозуміти еволюцію механізмів ізоляції в Linux та проблеми, які Landlock покликаний вирішити.
+### 1.1. Межі DAC та недостатність Seccomp для VFS
 
-### 1.1. Проблема традиційних механізмів (DAC і MAC)
+Традиційна модель вибіркового контролю доступу (DAC — Discretionary Access Control) оперує триплетами бітів прав (`rwx`) для власника, групи та інших користувачів, а також розширеними списками ACL. З точки зору ядра, будь-який процес, створений користувачем `alice`, володіє однаковим рівнем довіри. Переглядач PDF-файлів, текстовий редактор або фоновий демон звукового сервера мають тотожні права на читання та зміну будь-якого об'єкта в домашньому каталозі. Компрометація одного з компонентів через вразливість у сторонній бібліотеці призводить до компрометації всіх персональних даних користувача.
 
-У моделі DAC права доступу визначаються власником об'єкта (файлу, каталогу). Якщо користувач "alice" запускає програму (наприклад, веб-браузер або редактор документів), цей процес успадковує всі права користувача "alice". Якщо програма виявляється скомпрометованою (наприклад, через вразливість переповнення буфера), зловмисник отримує доступ до всіх файлів користувача "alice": ssh-ключів, особистих документів, паролів тощо.
+Мандатні механізми (MAC — Mandatory Access Control), такі як SELinux або AppArmor, дозволяють призначати профілі безпеки конкретним бінарним файлам. Вони ефективні для системних сервісів, але не вирішують проблему прикладного ПЗ з кількох причин:
+1. Адміністрування політик вимагає привілеїв root та завантаження глобальних конфігурацій у систему.
+2. Програми не можуть динамічно зменшувати свої привілеї залежно від контексту (наприклад, після завершення ініціалізації або перед відкриттям файлу від невідомого відправника).
 
-Механізми MAC (SELinux, AppArmor) дозволяють системному адміністратору визначити жорсткі політики для кожної програми, незалежно від того, який користувач її запускає. Однак:
-1. **Складність:** Написання профілів SELinux або AppArmor є складним завданням.
-2. **Привілеї:** Лише адміністратор (root) може завантажувати ці політики. Звичайна програма не може сказати системі: "Я збираюся обробляти недовірені дані, будь ласка, заборони мені доступ до будь-чого, крім цієї конкретної теки".
+Розроблений для фільтрації системних викликів механізм `seccomp-bpf` забезпечує перехоплення сисколів на основі аналізу їхніх номерів та числових аргументів у структурі `struct seccomp_data`. Проте `seccomp` не спроможний контролювати файловий доступ за шляхами. Системний виклик `openat(AT_FDCWD, "/home/alice/.ssh/id_rsa", O_RDONLY)` передає вказівник на рядок у користувацькій пам'яті. BPF-програма всередині `seccomp` не має права розіменовувати вказівники через загрози гонитви типів TOCTOU (Time-of-Check to Time-of-Use): поки ядро перевіряє рядок, інший паралельний потік процесу може змінити його вміст у пам'яті. Крім того, рядкові шляхи не враховують символічні посилання, жорсткі посилання, відносні шляхи (`../`) та простіри імен монтування (mount namespaces).
 
-### 1.2. Seccomp-bpf: Фільтрація системних викликів
+### 1.2. Концепція Unprivileged Self-Sandboxing
 
-Технологія `seccomp-bpf` дозволяє процесу обмежувати системні виклики, які він може виконувати. Це потужний інструмент для зменшення поверхні атаки, і він широко використовується в контейнерах (Docker, Podman) та браузерах (Chrome, Firefox). Однак `seccomp` фільтрує лише самі системні виклики та їхні аргументи (числові значення або вказівники).
+Ізоляція на основі просторів імен (User Namespaces, Mount Namespaces) та `chroot` вимагає складного конструювання віртуального файлового дерева. Для цього потрібно монтувати `/proc`, `/dev`, копіювати динамічні бібліотеки та налаштовувати UID-мапінг. Це прийнятно для контейнерів (Docker, Podman), але занадто громіздко для окремого процесу-робітника у складі браузера чи поштового клієнта.
 
-`seccomp` не може ефективно фільтрувати шляхи до файлів. Наприклад, виклик `openat(AT_FDCWD, "/etc/passwd", O_RDONLY)` передає вказівник на рядок `"/etc/passwd"`. BPF-програма в `seccomp` не може розіменувати цей вказівник і перевірити рядок, що робить фільтрацію доступу до файлової системи за допомогою `seccomp` вкрай складною та ненадійною (схильною до атак типу TOCTOU — Time-of-Check to Time-of-Use).
+Landlock реалізує концепцію безпривілейованого самообмеження (Unprivileged Self-Sandboxing). Замість зовнішнього опису політики адміністратором, програма самостійно конструює набір правил безпеки у своєму коді, після чого звертається до ядра з проханням застосувати ці обмеження до себе та своїх майбутніх нащадків. Оскільки ядро Linux виконує перевірку правил безпосередньо в хуках LSM на рівні структури віртуальної файлової системи (VFS), Landlock повністю усуває загрози TOCTOU та маніпуляції рядковими шляхами.
 
-### 1.3. namespaces і chroot
+## 2. Архітектура Landlock у ядрі Linux
 
-`chroot` та `mount namespaces` дозволяють змінити корінь файлової системи для процесу. Це основа контейнеризації. Однак створення нового mount namespace зазвичай вимагає наявності привілеїв `CAP_SYS_ADMIN` (часто вирішується через user namespaces, але це також має свої складності та ризики для безпеки). Крім того, налаштування ізольованого середовища вимагає значних зусиль: монтування `/proc`, `/dev`, копіювання необхідних бібліотек тощо.
+Внутрішня організація Landlock спирається на інфраструктуру Linux Security Modules (LSM), інтегруючись у точки перехоплення операцій з об'єктами VFS та сокетами.
 
-### 1.4. Рішення: Landlock
+### 2.1. Ієрархія доменів та шарів правил
 
-Landlock пропонує елегантне вирішення цих проблем. Він дозволяє будь-якому процесу визначити набір правил (ruleset), які описують, до яких частин файлової системи він може мати доступ і з якими правами, а потім застосувати цей набір правил до себе та всіх своїх майбутніх нащадків.
+Коли процес створює та застосовує набір правил Landlock, ядро формує внутрішній об'єкт — домен (domain), який представляється структурою `struct landlock_ruleset`. Цей домен прив'язується до структури привілеїв поточного процесу (`current->cred->security`).
 
-Основні переваги Landlock:
-- **Безпривілейованість:** Не вимагає прав root або спеціальних capabilities.
-- **Гнучкість:** Дозволяє вказувати точні права доступу для конкретних ієрархій файлів (каталогів) або окремих файлів.
-- **Спадковість:** Обмеження автоматично успадковуються всіма дочірніми процесами (через `fork` або `clone`) і зберігаються навіть після виклику `execve`. Процес не може зняти обмеження Landlock після їх застосування.
-- **Інтеграція з VFS:** Працює на рівні віртуальної файлової системи (VFS), що захищає від обходу через жорсткі посилання або перейменування.
+Landlock підтримує пошарове накладання обмежень. Якщо процес спочатку застосовує один ruleset, а пізніше — інший, ядро не замінює старі правила, а додає новий шар (layer) до існуючого домену.
 
-## 2. Архітектура та принципи роботи Landlock
+```
+Шар 1 (Layer 1): Дозволено читання в /usr та /etc
+Шар 2 (Layer 2): Дозволено читання та запис лише в /tmp/session_123
+-------------------------------------------------------------------
+Результат (Intersection): Доступ надається ЛИШЕ якщо він дозволений 
+                           ОДНОЧАСНО у Шар 1 ТА у Шар 2.
+```
 
-Робота з Landlock будується навколо концепції "набору правил" (ruleset). Процес створює набір правил, додає до нього правила (rules), а потім застосовує набір правил до себе.
+Операція перетину (intersection) гарантує монотонність зменшення привілеїв. Жоден наступний виклик не може скасувати обмеження, накладені попередніми шарами, або додати нові дозволи поза межами вже існуючих.
 
-### 2.1. Етапи налаштування Landlock
+### 2.2. Внутрішні структури ядра: landlock_ruleset, landlock_hierarchy та landlock_object
 
-Процес створення пісочниці складається з наступних кроків:
+Усередині ядра Landlock оперує кількома ключовими структурами даних, які забезпечують високу швидкість перевірки прав:
 
-1. **Створення набору правил (`landlock_create_ruleset`):** Процес запитує у ядра створення нового, порожнього набору правил і вказує, які дії він хоче контролювати (наприклад, читання файлів, запис, створення каталогів). Ядро повертає файловий дескриптор, що представляє цей набір правил.
-2. **Додавання правил (`landlock_add_rule`):** Процес використовує отриманий файловий дескриптор для додавання конкретних правил до набору. Наприклад: "Дозволити лише читання в каталозі `/usr`", "Дозволити читання і запис у каталозі `/tmp/myapp`".
-3. **Застосування NO_NEW_PRIVS:** Процес зобов'язаний встановити прапорець `PR_SET_NO_NEW_PRIVS` за допомогою системного виклику `prctl`. Це критична вимога безпеки.
-4. **Застосування набору правил (`landlock_restrict_self`):** Процес просить ядро застосувати зібраний набір правил до себе. Після цього виклику обмеження набувають чинності безповоротно. Файловий дескриптор набору правил можна закрити.
+1. `struct landlock_ruleset`: Головний контейнер політики, що містить червоно-чорне дерево (`rb_node`) для швидкого пошуку об'єктів та маску контрольованих операцій `handled_access_fs`.
+2. `struct landlock_hierarchy`: Описує дерево успадкування доменів. Кожен новий шар посилається на батьківський `hierarchy`, що дозволяє відстежувати глибину стекінгу та перевіряти зв'язок між процесами.
+3. `struct landlock_object`: Представляє об'єкт файлової системи (inode). Він містить слабке посилання (underlying reference) на `struct inode` та список правил, пов'язаних із цим inode у різних шарах.
 
-### 2.2. Ієрархія правил
+![Загальна архітектура застосування Landlock LSM](/reference/unix-linux/permissions/landlock-unprivileged-sandboxing/img/landlock-arch.svg)
+*Рис. 1. Загальна архітектура застосування Landlock LSM.*
 
-Landlock підтримує концепцію вкладеності. Процес може застосувати кілька наборів правил послідовно. Кожен новий набір правил накладається поверх попередніх, створюючи перетин (перетин) дозволів. Це означає, що наступний набір правил може лише *звужувати* права доступу, але ніколи не може їх *розширювати*.
+### 2.3. Послідовність перевірки VFS-хуків у ядрі
 
-![Архітектура Landlock LSM](/reference/unix-linux/permissions/landlock-unprivileged-sandboxing/img/landlock-arch.svg)
-*Рис. 1. Загальна архітектура застосування Landlock.*
+Розглянемо виклик `openat(AT_FDCWD, "/var/log/syslog", O_RDONLY)` під контролем Landlock:
+1. Процес звертається до сисколу `openat()`. Системний обробник VFS `do_filp_open()` виконує резолюцію шляху через `path_lookupat()`.
+2. Після успішного знаходження елемента VFS `struct path` ядро викликає LSM-хук `security_file_open(file)`.
+3. Модуль Landlock перехоплює виклик у функції `landlock_file_open()`. Вона дістає активний домен із `current_cred()->security`.
+4. Якщо домен порожній (Landlock не активовано), перевірка миттєво завершується успіхом.
+5. Якщо домен містить активні шари, Landlock бере `path->dentry` цільового файлу і починає ітеративний підйом вгору до кореня `/`. На кожному кроці перевіряється, чи прив'язаний `landlock_object` до даного `inode`, і чи містить шар маску дозволу `LANDLOCK_ACCESS_FS_READ_FILE`.
+6. Якщо підйом досягає кореня і хоча б один шар не видав дозволу, `landlock_file_open()` повертає `-EACCES`. VFS відхиляє відкриття файлу без виконання подальших системних дій.
 
-## 3. API Landlock
+## 3. Системний інтерфейс API Landlock
 
-Landlock вводить три нові системні виклики:
+Взаємодія з Landlock з користувацького простору здійснюється через три системні виклики: `landlock_create_ruleset()`, `landlock_add_rule()` та `landlock_restrict_self()`.
 
-### 3.1. `landlock_create_ruleset()`
+### 3.1. Створення набору правил через `landlock_create_ruleset()`
+
+Першим кроком є визначення спектра операцій, які будуть контролюватися пісочницею. Для цього заповнюється структура `struct landlock_ruleset_attr` та викликається системний виклик створення:
 
 ```c
 int landlock_create_ruleset(const struct landlock_ruleset_attr *attr,
                             size_t size, uint32_t flags);
 ```
 
-Цей системний виклик створює новий набір правил.
+Аргумент `handled_access_fs` містить бітову маску дій з файловою системою, які підпадають під облік. Усі дії, вказані в цій масці, за замовчуванням переводяться в режим заборони (deny-by-default). Дії, які не були включені до `handled_access_fs`, залишаються поза контролем Landlock (для них діють лише стандартні перевірки DAC та інших LSM).
 
-- `attr`: Вказівник на структуру `landlock_ruleset_attr`, яка визначає, які дії будуть оброблятися цим набором правил (handled accesses).
-- `size`: Розмір структури `attr` (для зворотної сумісності в майбутньому).
-- `flags`: Прапорці (наразі має бути 0).
+Основними бітовими прапорцями контролю файлової системи є:
+- `LANDLOCK_ACCESS_FS_EXECUTE`: Виконання бінарних файлів.
+- `LANDLOCK_ACCESS_FS_WRITE_FILE`: Запис даних у файли.
+- `LANDLOCK_ACCESS_FS_READ_FILE`: Читання вмісту файлів.
+- `LANDLOCK_ACCESS_FS_READ_DIR`: Листинг та читання вмісту каталогів.
+- `LANDLOCK_ACCESS_FS_REMOVE_DIR`: Видалення порожніх каталогів.
+- `LANDLOCK_ACCESS_FS_REMOVE_FILE`: Видалення файлів.
+- `LANDLOCK_ACCESS_FS_MAKE_CHAR`: Створення символьних спеціальних пристроїв.
+- `LANDLOCK_ACCESS_FS_MAKE_DIR`: Створення нових каталогів.
+- `LANDLOCK_ACCESS_FS_MAKE_REG`: Створення звичайних файлів.
+- `LANDLOCK_ACCESS_FS_MAKE_SOCK`: Створення сокетів домену UNIX.
+- `LANDLOCK_ACCESS_FS_MAKE_FIFO`: Створення іменованих каналів (FIFO).
+- `LANDLOCK_ACCESS_FS_MAKE_BLOCK`: Створення блокових пристроїв.
+- `LANDLOCK_ACCESS_FS_MAKE_SYM`: Створення символічних посилань.
 
-Структура `landlock_ruleset_attr` виглядає так:
+У разі успішного виклику ядро повертає новий анонімний файловий дескриптор, який представляє створений набір правил.
 
-```c
-struct landlock_ruleset_attr {
-    __u64 handled_access_fs;
-    __u64 handled_access_net; /* Додано у пізніших версіях */
-};
-```
+### 3.2. Додавання дозволів через `landlock_add_rule()`
 
-Поле `handled_access_fs` є бітовою маскою, яка вказує, які дії з файловою системою підлягають обмеженню. Якщо дія вказана тут, вона заборонена за замовчуванням (deny-by-default), якщо тільки вона не дозволена явним правилом пізніше. Дії, які не вказані тут, Landlock не контролюватиме (дозволяючи їх з точки зору Landlock, хоча звичайні DAC/MAC все ще діють).
-
-Доступні прапорці (із `<linux/landlock.h>`):
-- `LANDLOCK_ACCESS_FS_EXECUTE`: Виконання файлу.
-- `LANDLOCK_ACCESS_FS_WRITE_FILE`: Запис у файл.
-- `LANDLOCK_ACCESS_FS_READ_FILE`: Читання з файлу.
-- `LANDLOCK_ACCESS_FS_READ_DIR`: Читання вмісту каталогу.
-- `LANDLOCK_ACCESS_FS_REMOVE_DIR`: Видалення каталогу.
-- `LANDLOCK_ACCESS_FS_REMOVE_FILE`: Видалення файлу.
-- `LANDLOCK_ACCESS_FS_MAKE_CHAR`: Створення символьного пристрою.
-- `LANDLOCK_ACCESS_FS_MAKE_DIR`: Створення каталогу.
-- `LANDLOCK_ACCESS_FS_MAKE_REG`: Створення звичайного файлу.
-- `LANDLOCK_ACCESS_FS_MAKE_SOCK`: Створення UNIX-сокету.
-- `LANDLOCK_ACCESS_FS_MAKE_FIFO`: Створення FIFO (іменованого каналу).
-- `LANDLOCK_ACCESS_FS_MAKE_BLOCK`: Створення блокового пристрою.
-- `LANDLOCK_ACCESS_FS_MAKE_SYM`: Створення символічного посилання.
-- `LANDLOCK_ACCESS_FS_REFER`: (Починаючи з ABI v2) Переміщення файлів (rename, link) між каталогами.
-- `LANDLOCK_ACCESS_FS_TRUNCATE`: (Починаючи з ABI v3) Зміна розміру файлу (truncate).
-
-Виклик повертає файловий дескриптор, який використовується в наступних викликах.
-
-### 3.2. `landlock_add_rule()`
+Формування дозволених шляхів здійснюється шляхом додавання конкретних правил до створеного `ruleset_fd`:
 
 ```c
 int landlock_add_rule(int ruleset_fd, enum landlock_rule_type rule_type,
                       const void *rule_attr, uint32_t flags);
 ```
 
-Цей виклик додає нове правило до набору правил, ідентифікованого `ruleset_fd`.
-
-- `ruleset_fd`: Файловий дескриптор, отриманий від `landlock_create_ruleset()`.
-- `rule_type`: Тип правила. Для файлової системи використовується `LANDLOCK_RULE_PATH_BENEATH`.
-- `rule_attr`: Вказівник на структуру, що описує правило. Для `LANDLOCK_RULE_PATH_BENEATH` це структура `landlock_path_beneath_attr`.
-- `flags`: Прапорці (наразі має бути 0).
-
-Структура `landlock_path_beneath_attr`:
+Для файлової системи параметр `rule_type` має значення `LANDLOCK_RULE_PATH_BENEATH`, а `rule_attr` вказує на структуру `struct landlock_path_beneath_attr`:
 
 ```c
 struct landlock_path_beneath_attr {
@@ -130,65 +119,126 @@ struct landlock_path_beneath_attr {
 };
 ```
 
-- `allowed_access`: Бітова маска дій (з тих, що були вказані в `handled_access_fs` при створенні набору), які дозволяються цим правилом.
-- `parent_fd`: Файловий дескриптор відкритого каталогу або файлу (зазвичай відкривається з прапорцем `O_PATH` або `O_RDONLY`). Це корінь ієрархії, для якої застосовується дозвіл. Дозвіл застосовується до самого об'єкта та всіх його нащадків (рекурсивно).
+Поле `parent_fd` є файловим дескриптором каталогу або файлу, відкритого за допомогою `open()` з прапорцем `O_PATH` або `O_RDONLY`. Прапорець `O_PATH` є оптимальним, оскільки він відкриває дескриптор без виконання фактичного читання чи запису об'єкта. Поле `allowed_access` задає підмножину дозволених дій із тих, які були раніше зареєстровані в `handled_access_fs`. Правило діє рекурсивно на сам об'єкт та всі його дочірні елементи.
 
-### 3.3. Важливість `NO_NEW_PRIVS`
+### 3.3. Обов'язкова установка `PR_SET_NO_NEW_PRIVS`
 
-Перш ніж застосувати набір правил, процес зобов'язаний виконати:
+Перед активацією набору правил процес зобов'язаний встановити прапорець `NO_NEW_PRIVS` через системний виклик `prctl`.
 
+:::tabs
 ```c
-prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
+/* Установити NO_NEW_PRIVS у C */
+if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
+    perror("prctl(PR_SET_NO_NEW_PRIVS)");
+    return -1;
+}
 ```
+```cpp
+// Установити NO_NEW_PRIVS у C++
+if (::prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
+    throw std::system_error(errno, std::generic_category(), 
+                           "Помилка prctl(PR_SET_NO_NEW_PRIVS)");
+}
+```
+:::
 
-Цей крок є фундаментальним для безпеки. Прапорець `NO_NEW_PRIVS` гарантує, що процес (і всі його нащадки) більше ніколи не зможе отримати нові привілеї під час виклику `execve`. Це означає, що механізми set-user-ID (SUID), set-group-ID (SGID) та file capabilities на виконуваних файлах будуть ігноруватися ядром.
+Установки `NO_NEW_PRIVS` є суворим критерієм безпеки для будь-яких безпривілейованих операцій з обмеження прав. Без цього прапорця процес міг би створити пісочницю з модифікованим середовищем виконання або підміненими файлами, після чого виконати бінарний файл із встановленим SUID-бітом (наприклад, `/usr/bin/sudo` чи `/usr/bin/passwd`). Оскільки SUID-програми виконуються з правами власникових UID (root), компрометація їхнього середовища з боку обмеженого користувача дозволила б здійснити локальне підвищення привілеїв. 
 
-**Чому це необхідно для Landlock?**
+Прапорець `NO_NEW_PRIVS` гарантує, що під час виконання `execve` біти SUID/SGID та файлові capabilities будуть ігноруватися ядром. Це унеможливлює здобуття нових привілеїв потоком чи його нащадками.
 
-Уявіть, що користувач "alice" створює пісочницю, в якій заборонено читати її домашній каталог `/home/alice`, але дозволено виконувати програми. Вона запускає в цій пісочниці підозрілий скрипт.
-Якби `NO_NEW_PRIVS` не вимагався, цей скрипт міг би виконати програму, яка має SUID-біт root (наприклад, `/usr/bin/sudo` або `/usr/bin/passwd`). Оскільки `sudo` працює від імені root, вона могла б потенційно обійти обмеження (або виконати дії, які порушують ізоляцію).
-Що ще гірше, уявімо, що є SUID-бінарник "alice", який завжди читає якийсь конфіг із фіксованого шляху. Пісочниця могла б дозволити запуск цього бінарника, але підмінити конфіг (через дозволені в пісочниці шляхи) або змусити SUID-програму працювати у ворожому середовищі, що може призвести до експлуатації SUID-програми та підняття привілеїв.
+### 3.4. Активація ізоляції через `landlock_restrict_self()`
 
-Вимагаючи `NO_NEW_PRIVS`, ядро гарантує, що безпривілейований користувач не зможе створити пісочницю, яка б маніпулювала привілейованими процесами. `NO_NEW_PRIVS` забезпечує, що привілеї процесу можуть лише монотонно зменшуватися.
-
-### 3.4. `landlock_restrict_self()`
+Завершальним етапом є застосування правил до поточного потоку виконання через системний виклик:
 
 ```c
 int landlock_restrict_self(int ruleset_fd, uint32_t flags);
 ```
 
-Цей виклик застосовує налаштований набір правил до поточного потоку виконання (і всіх його майбутніх нащадків).
+Після успішного повернення з цього виклику обмеження Landlock стають активними. Процес може закрити файловий дескриптор `ruleset_fd` за допомогою `close()`, оскільки ядро вже скопіювало та прив'язало структуру правил до кредитів процесу. Усі наступні системні виклики поточного процесу та всіх дочірніх процесів, створених через `fork()` або `clone()`, підлягатимуть суворому контролю.
 
-- `ruleset_fd`: Файловий дескриптор набору правил.
-- `flags`: Прапорці (наразі має бути 0).
+## 4. Еволюція ABI та версіонування можливостей
 
-Після успішного виконання цієї функції обмеження набувають чинності. Процес може закрити `ruleset_fd` (через `close()`), обмеження все одно залишаться активними.
+Розвиток Landlock відбувається шляхом поетапного розширення набору контрольованих операцій. Щоб зберегти зворотну сумісність між програмами та різними версіями ядра Linux, використовується версіонування ABI (Application Binary Interface).
 
-## 4. Версіювання ABI Landlock
+### 4.1. Динамічне визначення версії ABI
 
-Ядро Linux постійно розвивається, і Landlock також отримує нові можливості. Для забезпечення зворотної сумісності Landlock використовує поняття версії ABI (Application Binary Interface).
+Програма запитує у ядра максимальну версію ABI, яку воно підтримує, передавши прапорець `LANDLOCK_CREATE_RULESET_VERSION`.
 
-Щоб дізнатися підтримувану версію ABI в ядрі, програма викликає `landlock_create_ruleset()` з `attr = NULL` та прапорцем `LANDLOCK_CREATE_RULESET_VERSION` (його значення `1U << 0`):
-
+:::tabs
 ```c
-int abi = landlock_create_ruleset(NULL, 0, LANDLOCK_CREATE_RULESET_VERSION);
-if (abi < 0) {
-    perror("Landlock не підтримується");
+/* Отримання версії ABI Landlock у C */
+int abi_version = landlock_create_ruleset(NULL, 0, LANDLOCK_CREATE_RULESET_VERSION);
+if (abi_version < 0) {
+    perror("Landlock не підтримується ядром");
 }
 ```
+```cpp
+// Отримання версії ABI Landlock у C++
+int abi_version = landlock_create_ruleset(nullptr, 0, LANDLOCK_CREATE_RULESET_VERSION);
+if (abi_version < 0) {
+    throw std::system_error(errno, std::generic_category(), 
+                           "Landlock не підтримується ядром");
+}
+```
+:::
 
-Поточні версії ABI та їхні можливості:
-- **ABI 1 (Linux 5.13):** Базовий контроль доступу до файлової системи (читання, запис, виконання, створення файлів/каталогів).
-- **ABI 2 (Linux 5.19):** Додано прапорець `LANDLOCK_ACCESS_FS_REFER`. Це дозволяє контролювати операції `rename` і `link`, які переміщують файли між різними каталогами.
-- **ABI 3 (Linux 6.2):** Додано прапорець `LANDLOCK_ACCESS_FS_TRUNCATE`. Раніше зміна розміру відкритого файлу через `ftruncate()` або `truncate()` не контролювалася явно.
-- **ABI 4 (Linux 6.7):** Початкова підтримка контролю мережі (TCP bind та connect).
+Якщо повернуте значення від'ємне (наприклад, `-ENOSYS`), це свідчить про те, що поточне ядро не має підтримки Landlock або модуль вимкнений у конфігурації завантаження ядра (`lsm=landlock`).
 
-Правильно написана програма повинна перевіряти версію ABI ядра і маскувати `handled_access_fs`, щоб використовувати лише ті прапорці, які ядро розуміє. Якщо передати прапорець (наприклад, `LANDLOCK_ACCESS_FS_TRUNCATE`) ядру з ABI 1, `landlock_create_ruleset()` поверне помилку `EINVAL`.
+Коректна програма повинна маскувати біти `handled_access_fs`, залишаючи лише ті прапорці, які підтримуються поточним ABI ядра. Якщо передати ядру невизначений прапорець, виклик `landlock_create_ruleset()` завершиться з помилкою `EINVAL`.
 
-## 5. Практичний приклад: створення простої пісочниці
+### 4.2. Хронологія версій ABI Landlock
 
-Розглянемо приклад на C, який реалізує програму-обгортку. Ця програма дозволяє виконання команди (переданої як аргументи), але обмежує її доступ до файлової системи лише читанням з `/usr`, `/etc` та `/bin`.
+Хронологічний розвиток можливостей Landlock охоплює такі ключові етапи:
 
+- **ABI 1 (Linux 5.13):** Початковий реліз. Включає базовий контроль доступу до файлової системи (13 прапорців дій: читання, запис, виконання, створення та видалення каталогів чи спеціальних файлів).
+- **ABI 2 (Linux 5.19):** Додано прапорець `LANDLOCK_ACCESS_FS_REFER`. Він забезпечує контроль операцій `rename()` та `link()`. Переміщення файлів або створення жорстких посилань між різними каталогами тепер вимагає наявності дозволу `REFER` для обох каталогів (джерела та призначення).
+- **ABI 3 (Linux 6.2):** Додано прапорець `LANDLOCK_ACCESS_FS_TRUNCATE`. Забезпечує контроль зміни розміру файлів через системні виклики `truncate()`, `ftruncate()` та `open()` із прапорцем `O_TRUNC`.
+- **ABI 4 (Linux 6.7):** Початок розширення підсистеми на мережевий стек. Введено маску `handled_access_net` та прапорці `LANDLOCK_ACCESS_NET_BIND_TCP` і `LANDLOCK_ACCESS_NET_CONNECT_TCP` для обмеження зв'язування та встановлення TCP-з'єднань за номерами портів.
+- **ABI 5 (Linux 6.10):** Додано прапорець `LANDLOCK_ACCESS_FS_IOCTL_DEV` для контролю доступу до керування спеціальними пристроями через виклики `ioctl()`.
+- **ABI 6 (Linux 6.12+):** Запроваджено додаткові прапорці контролю над розширеними атрибутами (xattr) та статусом точок монтування.
+
+### 4.3. Мережевий контроль в ABI 4+
+
+Починаючи з ABI 4, Landlock виходить за межі VFS і дозволяє контролювати мережеву активність процесів без прав root. Для створення мережевого набору правил заповнюється поле `handled_access_net`:
+
+:::tabs
+```c
+/* Конфігурація мережевого ruleset у C */
+struct landlock_ruleset_attr net_attr = {
+    .handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP |
+                          LANDLOCK_ACCESS_NET_CONNECT_TCP,
+};
+int net_ruleset = landlock_create_ruleset(&net_attr, sizeof(net_attr), 0);
+
+struct landlock_net_port_attr port_attr = {
+    .allowed_access = LANDLOCK_ACCESS_NET_CONNECT_TCP,
+    .port = 443, /* Дозволити вихідні з'єднання лише на HTTPS */
+};
+landlock_add_rule(net_ruleset, LANDLOCK_RULE_NET_PORT, &port_attr, 0);
+```
+```cpp
+// Конфігурація мережевого ruleset у C++
+landlock_ruleset_attr net_attr{};
+net_attr.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP |
+                              LANDLOCK_ACCESS_NET_CONNECT_TCP;
+
+UniqueFd net_ruleset(landlock_create_ruleset(&net_attr, sizeof(net_attr), 0));
+
+landlock_net_port_attr port_attr{};
+port_attr.allowed_access = LANDLOCK_ACCESS_NET_CONNECT_TCP;
+port_attr.port = 443; // Дозволити вихідні з'єднання лише на HTTPS
+
+landlock_add_rule(net_ruleset.get(), LANDLOCK_RULE_NET_PORT, &port_attr, 0);
+```
+:::
+
+Мережевий контроль блокує виклики `bind()` та `connect()` для сокетів сімейства `AF_INET` та `AF_INET6`, якщо відповідні порти не вказані у списках дозволів `LANDLOCK_RULE_NET_PORT`.
+
+## 5. Практичний приклад: створення ізольованої пісочниці
+
+Розглянемо практичну реалізацію утиліти-обгортки (sandbox runner), яка запускає довільну команду в ізольованому середовищі. Наша мета — дозволити програмі виконання файлів із каталогів `/usr`, `/bin`, `/lib`, `/lib64`, читання конфігурацій з `/etc`, але повністю заблокувати доступ до будь-яких інших частин файлової системи (включаючи `/home` та `/tmp`).
+
+:::tabs
 ```c
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -200,7 +250,6 @@ if (abi < 0) {
 #include <sys/syscall.h>
 #include <linux/landlock.h>
 
-/* Обгортки для системних викликів, якщо libc ще не має заголовків для них */
 #ifndef landlock_create_ruleset
 static inline int landlock_create_ruleset(const struct landlock_ruleset_attr *attr,
                                           size_t size, uint32_t flags) {
@@ -218,21 +267,38 @@ static inline int landlock_restrict_self(int ruleset_fd, uint32_t flags) {
 }
 #endif
 
+/* Допоміжна функція для додавання дозволу на шлях */
+static int add_path_rule(int ruleset_fd, const char *path, __u64 access_mask) {
+    int fd = open(path, O_PATH | O_CLOEXEC);
+    if (fd < 0) {
+        /* Якщо каталог відсутній у системі, ігноруємо його */
+        return 0;
+    }
+
+    struct landlock_path_beneath_attr path_attr = {
+        .allowed_access = access_mask,
+        .parent_fd = fd,
+    };
+
+    int res = landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0);
+    close(fd);
+    return res;
+}
+
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        fprintf(stderr, "Usage: %s <cmd> [args...]\n", argv[0]);
+        fprintf(stderr, "Використання: %s <команда> [аргументи...]\n", argv[0]);
         return 1;
     }
 
-    // 1. Отримуємо версію ABI
+    /* 1. Перевірка версії ABI */
     int abi = landlock_create_ruleset(NULL, 0, LANDLOCK_CREATE_RULESET_VERSION);
-    if (abi < 0) {
-        perror("Landlock is not supported by the kernel");
+    if (abi < 1) {
+        perror("Landlock не підтримується ядром");
         return 1;
     }
 
-    // Встановлюємо маску для дій, які ми хочемо контролювати
-    // (ABI 1: базові операції з файлами та каталогами)
+    /* Маска дій для ABI 1 */
     __u64 handled_fs = LANDLOCK_ACCESS_FS_EXECUTE |
                        LANDLOCK_ACCESS_FS_WRITE_FILE |
                        LANDLOCK_ACCESS_FS_READ_FILE |
@@ -247,161 +313,324 @@ int main(int argc, char *argv[]) {
                        LANDLOCK_ACCESS_FS_MAKE_BLOCK |
                        LANDLOCK_ACCESS_FS_MAKE_SYM;
 
+    /* Враховуємо прапорці ABI 2 та 3, якщо ядро їх підтримує */
+    if (abi >= 2) {
+        handled_fs |= LANDLOCK_ACCESS_FS_REFER;
+    }
+    if (abi >= 3) {
+        handled_fs |= LANDLOCK_ACCESS_FS_TRUNCATE;
+    }
+
     struct landlock_ruleset_attr ruleset_attr = {
         .handled_access_fs = handled_fs,
     };
 
-    // 2. Створюємо набір правил
+    /* 2. Створення набору правил */
     int ruleset_fd = landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
     if (ruleset_fd < 0) {
-        perror("landlock_create_ruleset");
+        perror("Помилка landlock_create_ruleset");
         return 1;
     }
 
-    // 3. Додаємо правила
-    // Дозволяємо читання та виконання в /usr
-    int fd_usr = open("/usr", O_PATH | O_CLOEXEC);
-    if (fd_usr >= 0) {
-        struct landlock_path_beneath_attr path_attr = {
-            .allowed_access = LANDLOCK_ACCESS_FS_READ_FILE | 
-                              LANDLOCK_ACCESS_FS_READ_DIR | 
-                              LANDLOCK_ACCESS_FS_EXECUTE,
-            .parent_fd = fd_usr,
-        };
-        landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0);
-        close(fd_usr);
-    }
+    __u64 read_exec = LANDLOCK_ACCESS_FS_READ_FILE | 
+                      LANDLOCK_ACCESS_FS_READ_DIR | 
+                      LANDLOCK_ACCESS_FS_EXECUTE;
 
-    // Дозволяємо читання та виконання в /bin
-    int fd_bin = open("/bin", O_PATH | O_CLOEXEC);
-    if (fd_bin >= 0) {
-        struct landlock_path_beneath_attr path_attr = {
-            .allowed_access = LANDLOCK_ACCESS_FS_READ_FILE | 
-                              LANDLOCK_ACCESS_FS_READ_DIR | 
-                              LANDLOCK_ACCESS_FS_EXECUTE,
-            .parent_fd = fd_bin,
-        };
-        landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0);
-        close(fd_bin);
-    }
+    __u64 read_only = LANDLOCK_ACCESS_FS_READ_FILE | 
+                      LANDLOCK_ACCESS_FS_READ_DIR;
 
-    // Дозволяємо читання в /etc (але не виконання)
-    int fd_etc = open("/etc", O_PATH | O_CLOEXEC);
-    if (fd_etc >= 0) {
-        struct landlock_path_beneath_attr path_attr = {
-            .allowed_access = LANDLOCK_ACCESS_FS_READ_FILE | 
-                              LANDLOCK_ACCESS_FS_READ_DIR,
-            .parent_fd = fd_etc,
-        };
-        landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0);
-        close(fd_etc);
-    }
+    /* 3. Додаємо дозволені шляхи */
+    add_path_rule(ruleset_fd, "/usr", read_exec);
+    add_path_rule(ruleset_fd, "/bin", read_exec);
+    add_path_rule(ruleset_fd, "/lib", read_exec);
+    add_path_rule(ruleset_fd, "/lib64", read_exec);
+    add_path_rule(ruleset_fd, "/etc", read_only);
 
-    // Дозволяємо доступ до динамічного лінкера (зазвичай потрібно для виконання програм)
-    int fd_lib = open("/lib", O_PATH | O_CLOEXEC);
-    if (fd_lib >= 0) {
-        struct landlock_path_beneath_attr path_attr = {
-            .allowed_access = LANDLOCK_ACCESS_FS_READ_FILE | 
-                              LANDLOCK_ACCESS_FS_READ_DIR |
-                              LANDLOCK_ACCESS_FS_EXECUTE,
-            .parent_fd = fd_lib,
-        };
-        landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0);
-        close(fd_lib);
-    }
-    
-    int fd_lib64 = open("/lib64", O_PATH | O_CLOEXEC);
-    if (fd_lib64 >= 0) {
-        struct landlock_path_beneath_attr path_attr = {
-            .allowed_access = LANDLOCK_ACCESS_FS_READ_FILE | 
-                              LANDLOCK_ACCESS_FS_READ_DIR |
-                              LANDLOCK_ACCESS_FS_EXECUTE,
-            .parent_fd = fd_lib64,
-        };
-        landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0);
-        close(fd_lib64);
-    }
-
-    // 4. Встановлюємо NO_NEW_PRIVS (ОБОВ'ЯЗКОВО!)
+    /* 4. Встановлюємо PR_SET_NO_NEW_PRIVS */
     if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
-        perror("prctl(PR_SET_NO_NEW_PRIVS)");
+        perror("Помилка prctl(PR_SET_NO_NEW_PRIVS)");
         close(ruleset_fd);
         return 1;
     }
 
-    // 5. Застосовуємо набір правил до себе
+    /* 5. Застосовуємо правила */
     if (landlock_restrict_self(ruleset_fd, 0)) {
-        perror("landlock_restrict_self");
+        perror("Помилка landlock_restrict_self");
         close(ruleset_fd);
         return 1;
     }
 
-    // Файловий дескриптор набору більше не потрібен
     close(ruleset_fd);
 
-    // 6. Виконуємо вказану команду (вона успадкує обмеження Landlock)
+    /* 6. Запуск цільової програми */
     execvp(argv[1], &argv[1]);
-    
-    // Якщо execvp повернула керування, сталася помилка
-    perror("execvp");
+    perror("Помилка execvp");
     return 1;
 }
 ```
+```cpp
+#include <iostream>
+#include <vector>
+#include <string_view>
+#include <filesystem>
+#include <system_error>
+#include <utility>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/prctl.h>
+#include <sys/syscall.h>
+#include <linux/landlock.h>
 
-Якщо скомпілювати цей код (`gcc landlock_sandbox.c -o landlock_sandbox`) і запустити через нього командну оболонку:
+#ifndef landlock_create_ruleset
+static inline int landlock_create_ruleset(const struct landlock_ruleset_attr *attr,
+                                          size_t size, uint32_t flags) {
+    return static_cast<int>(syscall(SYS_landlock_create_ruleset, attr, size, flags));
+}
 
-```bash
-$ ./landlock_sandbox /bin/bash
+static inline int landlock_add_rule(int ruleset_fd,
+                                    enum landlock_rule_type rule_type,
+                                    const void *rule_attr, uint32_t flags) {
+    return static_cast<int>(syscall(SYS_landlock_add_rule, ruleset_fd, rule_type, rule_attr, flags));
+}
+
+static inline int landlock_restrict_self(int ruleset_fd, uint32_t flags) {
+    return static_cast<int>(syscall(SYS_landlock_restrict_self, ruleset_fd, flags));
+}
+#endif
+
+/* RAII-обгортка для безпечного управління файловими дескрипторами */
+class UniqueFd {
+    int fd_{-1};
+public:
+    explicit UniqueFd(int fd = -1) noexcept : fd_(fd) {}
+    ~UniqueFd() { reset(); }
+
+    UniqueFd(const UniqueFd&) = delete;
+    UniqueFd& operator=(const UniqueFd&) = delete;
+
+    UniqueFd(UniqueFd&& other) noexcept : fd_(std::exchange(other.fd_, -1)) {}
+    UniqueFd& operator=(UniqueFd&& other) noexcept {
+        if (this != &other) {
+            reset();
+            fd_ = std::exchange(other.fd_, -1);
+        }
+        return *this;
+    }
+
+    [[nodiscard]] int get() const noexcept { return fd_; }
+    [[nodiscard]] bool valid() const noexcept { return fd_ >= 0; }
+
+    void reset(int new_fd = -1) noexcept {
+        if (fd_ >= 0) {
+            ::close(fd_);
+        }
+        fd_ = new_fd;
+    }
+};
+
+struct PathPermission {
+    std::filesystem::path path;
+    uint64_t access_mask;
+};
+
+class LandlockSandbox {
+    UniqueFd ruleset_fd_;
+    uint32_t abi_version_{0};
+
+public:
+    LandlockSandbox() {
+        int abi = landlock_create_ruleset(nullptr, 0, LANDLOCK_CREATE_RULESET_VERSION);
+        if (abi < 1) {
+            throw std::system_error(errno, std::generic_category(), "Landlock не підтримується ядром");
+        }
+        abi_version_ = static_cast<uint32_t>(abi);
+
+        uint64_t handled_fs = LANDLOCK_ACCESS_FS_EXECUTE |
+                             LANDLOCK_ACCESS_FS_WRITE_FILE |
+                             LANDLOCK_ACCESS_FS_READ_FILE |
+                             LANDLOCK_ACCESS_FS_READ_DIR |
+                             LANDLOCK_ACCESS_FS_REMOVE_DIR |
+                             LANDLOCK_ACCESS_FS_REMOVE_FILE |
+                             LANDLOCK_ACCESS_FS_MAKE_CHAR |
+                             LANDLOCK_ACCESS_FS_MAKE_DIR |
+                             LANDLOCK_ACCESS_FS_MAKE_REG |
+                             LANDLOCK_ACCESS_FS_MAKE_SOCK |
+                             LANDLOCK_ACCESS_FS_MAKE_FIFO |
+                             LANDLOCK_ACCESS_FS_MAKE_BLOCK |
+                             LANDLOCK_ACCESS_FS_MAKE_SYM;
+
+        if (abi_version_ >= 2) {
+            handled_fs |= LANDLOCK_ACCESS_FS_REFER;
+        }
+        if (abi_version_ >= 3) {
+            handled_fs |= LANDLOCK_ACCESS_FS_TRUNCATE;
+        }
+
+        landlock_ruleset_attr attr{};
+        attr.handled_access_fs = handled_fs;
+
+        int fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
+        if (fd < 0) {
+            throw std::system_error(errno, std::generic_category(), "Помилка landlock_create_ruleset");
+        }
+        ruleset_fd_.reset(fd);
+    }
+
+    void allow_path(const std::filesystem::path& p, uint64_t access_mask) {
+        UniqueFd path_fd(::open(p.c_str(), O_PATH | O_CLOEXEC));
+        if (!path_fd.valid()) {
+            return; /* Пропускаємо відсутні шляхи */
+        }
+
+        landlock_path_beneath_attr path_attr{};
+        path_attr.allowed_access = access_mask;
+        path_attr.parent_fd = path_fd.get();
+
+        if (landlock_add_rule(ruleset_fd_.get(), LANDLOCK_RULE_PATH_BENEATH, &path_attr, 0) < 0) {
+            throw std::system_error(errno, std::generic_category(), "Помилка landlock_add_rule для " + p.string());
+        }
+    }
+
+    void apply() {
+        if (::prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
+            throw std::system_error(errno, std::generic_category(), "Помилка prctl(PR_SET_NO_NEW_PRIVS)");
+        }
+
+        if (landlock_restrict_self(ruleset_fd_.get(), 0) < 0) {
+            throw std::system_error(errno, std::generic_category(), "Помилка landlock_restrict_self");
+        }
+
+        ruleset_fd_.reset(); /* Закриваємо дескриптор після успішного накладання */
+    }
+};
+
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cerr << "Використання: " << argv[0] << " <команда> [аргументи...]\n";
+        return 1;
+    }
+
+    try {
+        LandlockSandbox sandbox;
+
+        constexpr uint64_t read_exec = LANDLOCK_ACCESS_FS_READ_FILE | 
+                                       LANDLOCK_ACCESS_FS_READ_DIR | 
+                                       LANDLOCK_ACCESS_FS_EXECUTE;
+
+        constexpr uint64_t read_only = LANDLOCK_ACCESS_FS_READ_FILE | 
+                                       LANDLOCK_ACCESS_FS_READ_DIR;
+
+        std::vector<PathPermission> permissions = {
+            {"/usr", read_exec},
+            {"/bin", read_exec},
+            {"/lib", read_exec},
+            {"/lib64", read_exec},
+            {"/etc", read_only}
+        };
+
+        for (const auto& perm : permissions) {
+            sandbox.allow_path(perm.path, perm.access_mask);
+        }
+
+        sandbox.apply();
+
+        ::execvp(argv[1], &argv[1]);
+        throw std::system_error(errno, std::generic_category(), "Помилка execvp");
+
+    } catch (const std::exception& ex) {
+        std::cerr << "Критична помилка пісочниці: " << ex.what() << '\n';
+        return 1;
+    }
+}
 ```
+:::
 
-Тепер, перебуваючи всередині `bash` під контролем Landlock, ви побачите, що ваші права суттєво обмежені:
+Тестування скомпільованого бінарника показує ефективність ізоляції:
 
 ```bash
-$ ls /usr
-bin  games  include  lib  local  sbin  share  src
-$ cat /etc/passwd
-root:x:0:0:root:/root:/bin/bash
-...
-$ ls /home
+$ ./landlock_runner /bin/bash
+bash-5.2$ ls /usr
+bin  lib  lib64  local  share
+bash-5.2$ cat /etc/hostname
+workstation
+bash-5.2$ ls /home
 ls: cannot open directory '/home': Permission denied
-$ touch /tmp/testfile
-touch: cannot touch '/tmp/testfile': Permission denied
+bash-5.2$ touch /tmp/test.txt
+touch: cannot touch '/tmp/test.txt': Permission denied
 ```
 
-Навіть якщо ви запустили цю пісочницю від свого власного імені, ви не можете читати власні файли в `/home`, оскільки ви не додали відповідне правило в Landlock, а базові операції (такі як читання, запис, створення) були включені до `handled_access_fs`, що зробило їх забороненими за замовчуванням.
+Спроба доступу до неперелічених каталогів миттєво блокується ядром, повертаючи помилку `Permission denied`.
 
-## 6. Особливості та підводні камені
+## 6. Крайові випадки, пастки безпеки та продуктивність
 
-### 6.1. O_PATH та дескриптори каталогів
+Практична інтеграція Landlock вимагає врахування особливостей VFS та взаємодії з іншими системними механізмами.
 
-У функції `landlock_add_rule()` для вказівки об'єкта використовується файловий дескриптор (`parent_fd`), а не рядковий шлях. Це принципове рішення в дизайні Landlock. Використання файлових дескрипторів вирішує проблему станів гонитви (race conditions), таких як TOCTOU (Time-of-Check to Time-of-Use). 
+### 6.1. Паттерн Open-Then-Sandbox та робота з дескрипторами
 
-Коли програма викликає `open("/usr", O_PATH)`, ядро знаходить відповідний inode в структурі віртуальної файлової системи і створює дескриптор. Коли цей дескриптор передається в `landlock_add_rule()`, правило прив'язується саме до цього inode. Якщо зловмисник (або інший процес) перейменує каталог `/usr` на `/usr_old` і створить новий `/usr`, правило Landlock все одно буде діяти для вмісту старого `/usr_old`, оскільки воно прив'язане до об'єкта, а не до рядка імені.
+Виклик `landlock_restrict_self()` змінює перевірку привілеїв лише для **нових** операцій відкриття файлів та каталогів. Файлові дескриптори, які були відкриті до виклику `landlock_restrict_self()`, зберігають свої початкові права на читання та запис.
 
-### 6.2. Вплив на вже відкриті файли
+Це дозволяє використовувати архітектурний паттерн «open-then-sandbox»:
+1. Процес відкриває лог-файли, файли конфігурації чи створює сокети під час ініціалізації.
+2. Процес конструює суворий набір правил Landlock без надання прав на зміну конфігурацій чи читання системних каталогів.
+3. Процес викликає `landlock_restrict_self()`.
 
-Важливий аспект Landlock: виклик `landlock_restrict_self()` впливає лише на **нові** спроби відкриття файлів або доступу до них після виклику.
-Файлові дескриптори, які були відкриті **до** виклику `landlock_restrict_self()`, залишаються дійсними і зберігають свої права (читання/запис), навіть якщо нові правила Landlock заборонили б доступ до відповідних файлів.
-Це дозволяє реалізувати патерн "відкрий і заблокуй": процес відкриває потрібні йому файли, а потім повністю закриває доступ до решти файлової системи за допомогою Landlock.
+Після цього процес продовжує використовувати вже відкриті дескриптори для запису логів чи взаємодії з мережею, але втрачає можливість відкрити будь-який інший файл у файловій системі.
 
-### 6.3. Монтування та межі файлових систем
+### 6.2. Жорсткі посилання та операції Rename (Прапорець REFER)
 
-Правило `LANDLOCK_RULE_PATH_BENEATH` діє на ієрархію каталогів *незалежно* від точок монтування. Якщо ви дозволили читання для `/mnt/data`, а згодом туди була змонтована нова файлова система, процес з Landlock матиме доступ до файлів у цій новій змонтованій системі, якщо шлях доступу починається з `/mnt/data`. Це робить Landlock передбачуваним з точки зору простору імен, який бачить процес.
+В ABI v1 відсутність спеціального контролю за переміщенням файлів створювала потенційний вектор обходу обмежень. Наприклад, якщо процес мав право запису у каталог `/tmp/app`, але не мав прав на видалення файлів у `/var/log`, він міг перемістити файл за допомогою `rename()` з `/var/log` у `/tmp/app` і тим самим обійти обмеження.
 
-## 7. Порівняння з іншими механізмами
+Починаючи з ABI v2, прапорець `LANDLOCK_ACCESS_FS_REFER` вимагає явного дозволу на переліковування та зміну баз каталогів для файлів. Для виконання `rename()` або `link()` процес повинен мати право `REFER` як для вихідного каталогу, так і для каталогу призначення.
 
-| Характеристика | Landlock | Seccomp-bpf | AppArmor / SELinux | chroot / mount ns |
+### 6.3. Передача файлових дескрипторів через UNIX-сокети
+
+Якщо процес у пісочниці отримує відкритий файловий дескриптор від іншого, неізольованого процесу через механізм IPC `SCM_RIGHTS` (UNIX domain socket), Landlock не блокує використання цього дескриптора. Перевірка Landlock відбувається під час виконання системних викликів відкриття (`openat`), а не під час використання вже отриманих дескрипторів через `read()`, `write()` чи `ioctl()`.
+
+Це дозволяє будувати мультипроцесні архітектури (на зразок Chrome або Firefox), де привілейований процес-брокер відкриває необхідні ресурси та передає їх дескриптори ізольованим процесам-рендерерам.
+
+### 6.4. Діагностика та трасування помилок доступу
+
+Діагностика збоїв доступу у програмах, захищених Landlock, вимагає аналізу кодів помилок системних викликів та перевірки статусів процесу. Основні інструменти відлагодження:
+
+- **Інспекція status:** Перевірка значення `NoNewPrivs` у `/proc/<pid>/status` дозволяє переконатися, що процес знаходиться в режимі обмеження привілеїв:
+  ```bash
+  grep NoNewPrivs /proc/self/status
+  NoNewPrivs: 1
+  ```
+- **Трасування через strace:** Утиліта `strace` дозволяє відстежити системні виклики Landlock та моменти відмови у доступі (`-EACCES`):
+  ```bash
+  strace -e trace=landlock_create_ruleset,landlock_add_rule,landlock_restrict_self ./landlock_runner /bin/ls /home
+  ```
+
+### 6.5. Продуктивність та обчислювальні накладні витрати
+
+Оскільки перевірка правил Landlock здійснюється під час кожного виклику відкриття файлу чи каталогу, ядро мусить перевіряти відповідність масок доступу для кожного активного шару. 
+
+Обчислювальна складність перевірки в ядрі описується співвідношенням:
+
+```
+T = O(L · D)
+```
+
+де `L` — кількість накладених шарів Landlock (кількість викликів `landlock_restrict_self()`), а `D` — глибина ієрархії каталогів від цільового файлу до кореня файлової системи.
+
+Для більшості програм із 1–3 шарами Landlock накладні витрати (overhead) становлять менше 1% від часу виконання виклику `openat()`. Однак створення сотень вкладених шарів у довгоживучих процесах може призвести до помітного зниження швидкодії VFS-операцій.
+
+## 7. Порівняльний аналіз із суміжними механізмами
+
+Для вибору оптимального інструменту ізоляції доцільно порівняти Landlock з іншими технологіями безпеки Linux:
+
+| Характеристика | Landlock LSM | Seccomp-BPF | AppArmor / SELinux | Unprivileged User Namespaces |
 |---|---|---|---|---|
-| **Мета** | Обмеження доступу до об'єктів (FS, Net) | Фільтрація системних викликів | Загальносистемна політика MAC | Ізоляція простору імен |
-| **Рівень привілеїв** | Звичайний користувач (Unprivileged) | Звичайний користувач (Unprivileged) | Адміністратор (root) | Зазвичай вимагає `CAP_SYS_ADMIN` |
-| **Гранулярність FS** | Шляхи (ієрархії каталогів) | Відсутня (лише номери FD) | Шляхи, контексти | Точки монтування, chroot-корінь |
-| **Наслідування** | Нащадки не можуть зняти обмеження | Нащадки не можуть зняти обмеження | Глобальна або per-process | Наслідується |
-| **Складність API** | Помірна | Висока (BPF-програми) | Написання політик у файлах | Висока (налаштування середовища) |
+| **Об'єкт контролю** | Шляхи VFS та TCP-порти | Номери системних викликів | Системні ресурси за профілем | Простіри імен UID/GID та Mount |
+| **Необхідні привілеї** | Безпривілейований (Unprivileged) | Безпривілейований (Unprivileged) | Користувач root (`CAP_MAC_ADMIN`) | Потрібен `unprivileged_userns_clone` |
+| **Гранулярність VFS** | Ієрархічна (Path Beneath) | Відсутня (лише чисельні FD) | Повний контроль за шляхами/контекстами | На рівні змонтованих файлових систем |
+| **Механізм налаштування** | Динамічний API в коді додатка | BPF-інструкції в коді додатка | Статичні текстові файли конфігурації | Системні виклики `unshare`/`clone` |
+| **Успадкування** | Автоматичне монотонне звуження | Автоматичне монотонне звуження | Визначене в профілі (`change_profile`) | Наслідується в межах простору імен |
+| **Захист від TOCTOU** | Повний (робота з inodes) | Відсутній для рядків у пам'яті | Повний (інтеграція з LSM) | Повний (на рівні мапінгу VFS) |
 
-Часто найкращим підходом є використання кількох механізмів разом. Наприклад, контейнер може використовувати mount namespaces та AppArmor/SELinux для ізоляції на рівні системи, тоді як окрема прикладна програма всередині контейнера може додатково застосувати `seccomp` для блокування небезпечних сисколів та `Landlock` для жорсткого обмеження доступу до файлів (наприклад, дозволивши доступ лише до конкретної теки з даними, які обробляє цей конкретний робітничий потік).
+Найбільш ефективною практикою для розробки високонадійного ПЗ є комбінування Landlock та Seccomp-BPF. Seccomp відсікає невикористовувані системні виклики (наприклад, `kexec_load`, `reboot`, `ptrace`), а Landlock обмежує файлову систему та мережу для тих системних викликів, які були дозволені Seccomp.
 
 ## Висновок
 
-Landlock LSM є потужним інструментом для розробників, які прагнуть застосувати принцип найменших привілеїв (Principle of Least Privilege) у своїх застосунках. Завдяки можливості безпривілейованого використання (разом з `NO_NEW_PRIVS`), він демократизує створення безпечних "пісочниць". Тепер будь-яка прикладна програма (браузер, програвач медіа, сервер баз даних, конвертер документів) може самостійно обмежити свої права, мінімізуючи шкоду у випадку виявлення вразливостей в її коді.
-
-Постійний розвиток Landlock у нових версіях ядра (таких як додавання контролю мережі) робить його все більш універсальним механізмом для створення сучасних, безпечних додатків у середовищі Linux.
+Landlock LSM дає розробникам прикладного програмного забезпечення можливість реалізовувати принцип найменших привілеїв (Principle of Least Privilege) безпосередньо у коді додатків. Виключення потреби у правах суперкористувача та сумісність із прапорцем `PR_SET_NO_NEW_PRIVS` роблять Landlock доступним та безпечним інструментом для захисту користувацьких даних у сучасних дистрибутивах Linux.

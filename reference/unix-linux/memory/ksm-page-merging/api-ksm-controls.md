@@ -26,6 +26,8 @@
 
 Окремо варто затямити асиметрію `run`. Одиниця вмикає повільний приплив: економія накопичуватиметься десятками хвилин. Двійка — миттєвий і повний відкат: усі злиті сторінки розводять назад, і кожній потрібен свій кадр **зараз**. Якщо машину доведено до краю саме завдяки злиттю, запис двійки — це найшвидший спосіб дістати нестачу пам'яті на рівному місці.
 
+Періодичне прибирання ланцюжків двійників через `stable_node_chains_prune_millisecs` є зворотним боком обмеження `max_page_sharing`. Коли процес завершує роботу або викликом `madvise` розколює злиту сторінку, відповідний `rmap_item` видаляється, але сам вузол стабільного дерева може залишатися в ланцюжку. Таймер прибирання фоново проходить ланцюжки двійників, вичищає з них порожні кадри та об'єднує короткі залишки, щоб запобігти витоку службових структур при тривалій роботі системи.
+
 ## Порадник: коли `pages_to_scan` підбирає ядро
 
 Пара «скільки сторінок / скільки спати» задає **сталу** швидкість, а кількість кандидатів стала не буває: на старті програм її багато, потім вона осідає. З ядра 6.8 є порадник, який крутить `pages_to_scan` сам, під задану ціль за часом і стелю за процесором.
@@ -180,8 +182,9 @@ awk '/^[0-9a-f]+-[0-9a-f]+ /{hdr=$0; ksm=0}
 
 ## Мінімальний робочий виклик
 
-Код домену тут один — це системні виклики, тож C без варіантів.
+Приклад підключення ділянки та процесу показано двома мовами — C та ідіоматичним C++ з RAII-обгорткою пам'яті.
 
+:::tabs
 ```c
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -217,6 +220,64 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+#define _GNU_SOURCE
+#include <iostream>
+#include <cstring>
+#include <memory>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/prctl.h>
+
+#ifndef PR_SET_MEMORY_MERGE
+#define PR_SET_MEMORY_MERGE 67
+#define PR_GET_MEMORY_MERGE 68
+#endif
+
+class MmapRegion {
+    void *addr_{MAP_FAILED};
+    size_t len_{0};
+public:
+    explicit MmapRegion(size_t len) : len_(len) {
+        addr_ = mmap(nullptr, len_, PROT_READ | PROT_WRITE,
+                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    }
+    ~MmapRegion() {
+        if (addr_ != MAP_FAILED) munmap(addr_, len_);
+    }
+    MmapRegion(const MmapRegion&) = delete;
+    MmapRegion& operator=(const MmapRegion&) = delete;
+
+    void* get() const { return addr_; }
+    size_t size() const { return len_; }
+    bool valid() const { return addr_ != MAP_FAILED; }
+};
+
+int main() {
+    constexpr size_t len = 64u << 20;   // 64 МіБ
+    MmapRegion region(len);
+    if (!region.valid()) {
+        std::perror("mmap");
+        return 1;
+    }
+
+    std::memset(region.get(), 0xA5, region.size());
+
+    if (madvise(region.get(), region.size(), MADV_MERGEABLE) != 0) {
+        std::perror("madvise");
+        return 1;
+    }
+
+    if (prctl(PR_SET_MEMORY_MERGE, 1, 0, 0, 0) != 0) {
+        std::perror("prctl");
+    }
+
+    std::cout << "pid=" << getpid() << " addr=" << region.get() << std::endl;
+    pause();
+    return 0;
+}
+```
+:::
 
 Далі з другого термінала — увімкнути демон і подивитися, чи щось із цього вийшло:
 
@@ -233,4 +294,4 @@ cat /proc/$PID/ksm_stat
 grep -A24 "^$(printf %x $ADDR)" /proc/$PID/smaps | grep -E '^(KSM|VmFlags):'
 ```
 
-Судити про результат раніше, ніж `full_scans` збільшиться хоча б на одиницю, немає сенсу: до першого повного проходу лічильники показують не стан пам'яті, а те, докуди демон устиг дійти.
+Судити про результат раніше, ніж `full_scans` збільшиться хоча б на одиницю, немає сенсу: до першого повного проходу лічильники показують не стан пам'яті, а те, докуди демон устиг дійти. Утиліти автоматизації та моніторингу зазвичай відстежують динаміку `pages_sharing` разом із CPU-навантаженням потоку `ksmd`, щоб оцінювати доцільність підтримання дедуплікації на конфігурації системи.

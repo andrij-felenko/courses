@@ -2,82 +2,63 @@ import sys
 import os
 
 # Append the scripts directory to sys.path to import svgkit
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
 
-try:
-    import svgkit
-except ImportError:
-    # Minimal fallback if svgkit is not found
-    class svgkit:
-        @staticmethod
-        def render(filename, width, height, content):
-            with open(filename, 'w') as f:
-                f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n')
-                f.write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">\n')
-                f.write(content)
-                f.write('</svg>\n')
+import svgkit
 
 def main():
-    content = """
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L9,3 z" fill="#333" />
-        </marker>
-    </defs>
-    
-    <!-- Traditional read/write -->
-    <g transform="translate(50, 50)">
-        <text x="150" y="-20" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Традиційне копіювання (read / write)</text>
-        
-        <rect x="0" y="0" width="100" height="60" rx="5" fill="#e0f7fa" stroke="#006064" stroke-width="2"/>
-        <text x="50" y="35" font-family="sans-serif" font-size="14" text-anchor="middle">Файл (Джерело)</text>
-        
-        <rect x="200" y="0" width="100" height="60" rx="5" fill="#f3e5f5" stroke="#4a148c" stroke-width="2"/>
-        <text x="250" y="35" font-family="sans-serif" font-size="14" text-anchor="middle">User Space</text>
-        
-        <rect x="0" y="120" width="100" height="60" rx="5" fill="#e0f7fa" stroke="#006064" stroke-width="2"/>
-        <text x="50" y="155" font-family="sans-serif" font-size="14" text-anchor="middle">Файл (Ціль)</text>
-        
-        <!-- Arrows -->
-        <path d="M 100,30 C 150,30 150,30 190,30" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-        <text x="150" y="25" font-family="monospace" font-size="12" text-anchor="middle">read()</text>
-        
-        <path d="M 250,60 C 250,90 100,150 100,150" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-        <text x="180" y="110" font-family="monospace" font-size="12" text-anchor="middle">write()</text>
-    </g>
+    topic_dir = os.path.dirname(os.path.abspath(__file__))
+    img_dir = os.path.join(topic_dir, "img")
+    os.makedirs(img_dir, exist_ok=True)
+    svg_path = os.path.join(img_dir, "copy-file-range-arch.svg")
 
-    <!-- copy_file_range -->
-    <g transform="translate(450, 50)">
-        <text x="150" y="-20" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">copy_file_range (In-kernel / Offload)</text>
-        
-        <rect x="0" y="0" width="100" height="60" rx="5" fill="#e0f7fa" stroke="#006064" stroke-width="2"/>
-        <text x="50" y="35" font-family="sans-serif" font-size="14" text-anchor="middle">Файл (Джерело)</text>
-        
-        <rect x="200" y="60" width="100" height="60" rx="5" fill="#e8f5e9" stroke="#1b5e20" stroke-width="2"/>
-        <text x="250" y="95" font-family="sans-serif" font-size="14" text-anchor="middle">Kernel VFS / FS</text>
-        
-        <rect x="0" y="120" width="100" height="60" rx="5" fill="#e0f7fa" stroke="#006064" stroke-width="2"/>
-        <text x="50" y="155" font-family="sans-serif" font-size="14" text-anchor="middle">Файл (Ціль)</text>
-        
-        <!-- Arrows -->
-        <path d="M 100,30 C 150,30 200,60 200,70" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-        <path d="M 200,110 C 150,150 100,150 100,150" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-        
-        <path d="M 50,60 C 50,90 50,120 50,120" fill="none" stroke="#e53935" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
-        <text x="120" y="95" font-family="monospace" font-size="12" fill="#e53935" text-anchor="middle">Server-Side Copy / Reflink</text>
-    </g>
-    """
-    
-    filepath = os.path.join(os.path.dirname(__file__), "architecture.svg")
-    try:
-        svgkit.render(filepath, 800, 250, content)
-    except Exception as e:
-        # Fallback to local render
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n')
-            f.write(f'<svg xmlns="http://www.w3.org/2000/svg" width="800" height="250">\n')
-            f.write(content)
-            f.write('</svg>\n')
+    w, h = 820, 380
+
+    # Title
+    t1 = svgkit.text(410, 30, "Порівняння копіювання файлів у Linux", size=18, bold=True)
+
+    # Column 1: Traditional Read / Write
+    col1_title = svgkit.text(205, 65, "Традиційний шлях: read() / write()", size=15, color=svgkit.POS, bold=True)
+    b1_src, _, _ = svgkit.textbox(205, 115, "Вихідний файл\n(NVMe / Storage)", size=13, pad=12, fill="#eef2f7", stroke="#4a5568")
+    b1_u, _, _   = svgkit.textbox(205, 195, "User Space Buffer\n(Перемикання контексту & RAM)", size=13, pad=12, fill="#fff5f5", stroke=svgkit.POS)
+    b1_dst, _, _ = svgkit.textbox(205, 280, "Цільовий файл\n(NVMe / Storage)", size=13, pad=12, fill="#eef2f7", stroke="#4a5568")
+
+    a1_in  = svgkit.arrow(205, 140, 205, 170, color=svgkit.POS, sw=2)
+    lbl1_in = svgkit.text(250, 160, "1. read() sys_call", size=11, color=svgkit.POS, anchor="start")
+    a1_out = svgkit.arrow(205, 222, 205, 253, color=svgkit.POS, sw=2)
+    lbl1_out = svgkit.text(250, 242, "2. write() sys_call", size=11, color=svgkit.POS, anchor="start")
+
+    # Divider line
+    div = svgkit.line(410, 55, 410, 340, color="#cbd5e1", sw=1.5, dash="4,4")
+
+    # Column 2: In-Kernel / Offload copy_file_range
+    col2_title = svgkit.text(615, 65, "Zero-Copy: copy_file_range()", size=15, color=svgkit.FIELD, bold=True)
+    b2_src, _, _ = svgkit.textbox(615, 115, "Вихідний файл\n(fd_in)", size=13, pad=12, fill="#eef2f7", stroke="#4a5568")
+    b2_vfs, _, _ = svgkit.textbox(615, 195, "VFS / Kernel Layer\n(CoW Reflink / Server-Side Copy)", size=13, pad=12, fill="#e6f4ea", stroke=svgkit.FIELD)
+    b2_dst, _, _ = svgkit.textbox(615, 280, "Цільовий файл\n(fd_out)", size=13, pad=12, fill="#eef2f7", stroke="#4a5568")
+
+    a2_vfs1 = svgkit.arrow(615, 140, 615, 170, color=svgkit.FIELD, sw=2)
+    lbl2_in = svgkit.text(655, 160, "Offload / CoW", size=11, color=svgkit.FIELD, anchor="start")
+    a2_vfs2 = svgkit.arrow(615, 222, 615, 253, color=svgkit.FIELD, sw=2)
+    lbl2_out = svgkit.text(655, 242, "O(1) Metadata update", size=11, color=svgkit.FIELD, anchor="start")
+
+    # Direct fast arrow (bypassing user space completely)
+    a2_direct = svgkit.arrow(530, 125, 530, 270, color=svgkit.FIELD, sw=2.5)
+    lbl2_fast = svgkit.text(440, 195, "Пряма передача\nбез User Space", size=11, color=svgkit.FIELD, anchor="middle", bold=True)
+
+    # Footnote note
+    note = svgkit.text(410, 355, "copy_file_range виконує копіювання в ядрі або делегує його апаратному сховищу (NFS SSC / CoW)", size=12, color=svgkit.MUTED, italic=True)
+
+    frags = [
+        t1,
+        col1_title, b1_src, b1_u, b1_dst, a1_in, lbl1_in, a1_out, lbl1_out,
+        div,
+        col2_title, b2_src, b2_vfs, b2_dst, a2_vfs1, lbl2_in, a2_vfs2, lbl2_out, a2_direct, lbl2_fast,
+        note
+    ]
+
+    svgkit.render(svg_path, w, h, *frags)
+    print(f"Generated SVG: {svg_path}")
 
 if __name__ == "__main__":
     main()

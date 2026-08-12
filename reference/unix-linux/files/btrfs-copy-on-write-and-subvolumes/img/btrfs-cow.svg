@@ -1,14 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="310" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="320" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="50.0" y="50.0" width="150.0" height="50.0" rx="5" fill="#e2f0cb" stroke="#000" stroke-width="1.5"/>
-<text x="125.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Original Block A</text>
-<rect x="50.0" y="150.0" width="150.0" height="50.0" rx="5" fill="#e2f0cb" stroke="#000" stroke-width="1.5"/>
-<text x="125.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Original Block B</text>
-<rect x="350.0" y="150.0" width="150.0" height="50.0" rx="5" fill="#ffb7b2" stroke="#000" stroke-width="1.5"/>
-<text x="425.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Modified Block B'</text>
-<text x="125.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Old Snapshot</text>
-<text x="425.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Current State</text>
-<line x1="200.0" y1="75.0" x2="425.0" y2="75.0" stroke="#333" stroke-width="2.0"/>
-<line x1="200.0" y1="175.0" x2="275.0" y2="175.0" stroke="#333" stroke-width="2.0"/>
-<text x="250.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Copy-on-Write</text>
+<text x="200.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Стан до модифікації (Gen 40)</text>
+<text x="650.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Стан після модифікації (Gen 41)</text>
+<rect x="131.9" y="56.2" width="136.3" height="47.6" rx="6" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1.5"/><text x="200.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Old Root (Gen 40)</tspan><tspan x="200.0" dy="15.6">bytenr: 0x1000</tspan></text>
+<rect x="581.9" y="56.2" width="136.3" height="47.6" rx="6" fill="#f8cecc" stroke="#b85450" stroke-width="1.5"/><text x="650.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">New Root (Gen 41)</tspan><tspan x="650.0" dy="15.6">bytenr: 0x5000</tspan></text>
+<rect x="138.7" y="146.2" width="122.6" height="47.6" rx="6" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1.5"/><text x="200.0" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Node A (Gen 40)</tspan><tspan x="200.0" dy="15.6">bytenr: 0x2000</tspan></text>
+<rect x="585.3" y="146.2" width="129.4" height="47.6" rx="6" fill="#f8cecc" stroke="#b85450" stroke-width="1.5"/><text x="650.0" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Node A' (Gen 41)</tspan><tspan x="650.0" dy="15.6">bytenr: 0x6000</tspan></text>
+<rect x="329.5" y="236.2" width="191.0" height="47.6" rx="6" fill="#d5e8d4" stroke="#82b366" stroke-width="1.5"/><text x="425.0" y="256.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">Shared Leaf L1 (Gen 38)</tspan><tspan x="425.0" dy="15.6">bytenr: 0x3000 (Спільний)</tspan></text>
+<rect x="61.3" y="236.2" width="177.3" height="47.6" rx="6" fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5"/><text x="150.0" y="256.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Leaf L2 (Gen 40)</tspan><tspan x="150.0" dy="15.6">bytenr: 0x4000 (Старий)</tspan></text>
+<rect x="601.1" y="236.2" width="197.8" height="47.6" rx="6" fill="#ffe6cc" stroke="#d79b00" stroke-width="1.5"/><text x="700.0" y="256.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">Leaf L2' (Gen 41)</tspan><tspan x="700.0" dy="15.6">bytenr: 0x7000 (Новий CoW)</tspan></text>
+<line x1="200.0" y1="100.0" x2="200.0" y2="150.0" stroke="#6c8ebf" stroke-width="1.8"/>
+<line x1="170.0" y1="190.0" x2="150.0" y2="240.0" stroke="#6c8ebf" stroke-width="1.8"/>
+<line x1="230.0" y1="190.0" x2="370.0" y2="240.0" stroke="#6c8ebf" stroke-width="1.8"/>
+<line x1="650.0" y1="100.0" x2="650.0" y2="150.0" stroke="#b85450" stroke-width="1.8"/>
+<line x1="620.0" y1="190.0" x2="480.0" y2="240.0" stroke="#82b366" stroke-width="1.8"/>
+<line x1="680.0" y1="190.0" x2="700.0" y2="240.0" stroke="#b85450" stroke-width="1.8"/>
 </svg>

@@ -1,34 +1,57 @@
 import sys
 import os
 
-# Додаємо шлях до scripts/ для імпорту svgkit
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../scripts")))
 import svgkit
 
 def render_figs():
-    svg_path = os.path.join(os.path.dirname(__file__), "fig-interrupt-vs-polling.svg")
+    img_dir = os.path.join(os.path.dirname(__file__), "img")
+    os.makedirs(img_dir, exist_ok=True)
+    svg_path = os.path.join(img_dir, "fig-interrupt-vs-polling.svg")
     
     frags = []
+    # Title
+    frags.append(svgkit.text(400, 30, "Порівняння обробки I/O: Переривання проти IO Polling", size=15, bold=True))
     
-    # Схема Interrupts
-    frags.append(svgkit.rect(50, 50, 300, 300, fill="#f0f0f0", stroke="#333"))
-    frags.append(svgkit.text(200, 80, "Interrupt-driven IO", size=16, bold=True))
-    frags.append(svgkit.text(200, 130, "1. Submit IO request"))
-    frags.append(svgkit.text(200, 170, "2. CPU context switch / sleep"))
-    frags.append(svgkit.text(200, 210, "3. Device raises IRQ", color="red"))
-    frags.append(svgkit.text(200, 250, "4. IRQ handler wakes CPU"))
-    frags.append(svgkit.text(200, 290, "5. Complete IO"))
+    # Column 1: Interrupt-driven
+    frags.append(svgkit.rect(30, 50, 350, 350, fill="#fdfcfb", stroke="#d9d9d9", rx=8))
+    frags.append(svgkit.text(205, 75, "Апаратні переривання (IRQ-driven)", size=13, color=svgkit.POS, bold=True))
     
-    # Схема Polling
-    frags.append(svgkit.rect(450, 50, 300, 300, fill="#e0f0ff", stroke="#333"))
-    frags.append(svgkit.text(600, 80, "Polling-driven IO", size=16, bold=True))
-    frags.append(svgkit.text(600, 130, "1. Submit IO request"))
-    frags.append(svgkit.text(600, 170, "2. CPU spins (polls CQ)", color="blue"))
-    frags.append(svgkit.text(600, 210, "3. Device writes to CQ"))
-    frags.append(svgkit.text(600, 250, "4. CPU detects completion"))
-    frags.append(svgkit.text(600, 290, "5. Complete IO"))
+    steps_irq = [
+        "1. Застосунок робить I/O системний виклик",
+        "2. Ядро додає команду в SQ і подзвонить у Doorbell",
+        "3. Потік засинає (TASK_UNINTERRUPTIBLE)",
+        "4. Контекст перемикається на інший процес",
+        "5. Пристрій завершує I/O і шле MSI-X IRQ",
+        "6. CPU обробляє ISR / SoftIRQ та пробуджує потік",
+        "7. Контекст перемикається назад (затримка 2-5 мкс)"
+    ]
+    y_pos = 110
+    for step in steps_irq:
+        tb, w, h = svgkit.textbox(205, y_pos, step, size=11, pad=6, fill="#f4f6f8", stroke="#cccccc", min_w=320)
+        frags.append(tb)
+        y_pos += 40
+
+    # Column 2: Polling-driven
+    frags.append(svgkit.rect(420, 50, 350, 350, fill="#f6f9fc", stroke="#d9d9d9", rx=8))
+    frags.append(svgkit.text(595, 75, "Активне опитування (IO Polling)", size=13, color=svgkit.NEG, bold=True))
     
-    svgkit.render(svg_path, 800, 400, *frags, title="Interrupts vs Polling")
+    steps_poll = [
+        "1. Застосунок подає запит (RWF_HIPRI / IOPOLL)",
+        "2. Ядро додає команду у Poll-чергу (без IRQ)",
+        "3. Потік НЕ засинає і не робить context switch",
+        "4. CPU активно перевіряє (spins) NVMe CQ у пам'яті",
+        "5. Пристрій записує completion у CQ (без IRQ)",
+        "6. CPU миттєво виявляє запис у пам'яті",
+        "7. Виконання повертається в користувацький код"
+    ]
+    y_pos = 110
+    for step in steps_poll:
+        tb, w, h = svgkit.textbox(595, y_pos, step, size=11, pad=6, fill="#e8f0fe", stroke="#aecbfa", min_w=320)
+        frags.append(tb)
+        y_pos += 40
+
+    svgkit.render(svg_path, 800, 420, *frags, title="Interrupts vs Polling")
 
 if __name__ == "__main__":
     render_figs()

@@ -85,12 +85,15 @@ const findTopicLine = (slug) => lines.findIndex((l) =>
 /** Секція/модуль: рядок зі slug і `scope:` (це відрізняє секцію від теми), масив може відкриватися
     у цьому ж або в наступних рядках — повертаємо {open, key}. */
 function findSectionArray(sec) {
-  const si = lines.findIndex((l) => new RegExp(`\\{\\s*(?:n:\\s*\\d+,\\s*)?slug:\\s*"${esc(sec)}"`).test(l) && /\bscope:/.test(l));
+  let si = lines.findIndex((l) => new RegExp(`\\{\\s*(?:n:\\s*\\d+,\\s*)?slug:\\s*"${esc(sec)}"`).test(l) && /\bscope:/.test(l));
+  if (si < 0) {
+    si = lines.findIndex((l) => new RegExp(`^\\s*"?slug"?\\s*:\\s*"${esc(sec)}"`).test(l));
+  }
   if (si < 0) return null;
-  for (let i = si; i < Math.min(si + 4, lines.length); i++) {
-    const key = /\btopics:\s*\[/.test(lines[i]) ? "topics"
-      : /\bsteps:\s*\[/.test(lines[i]) ? "steps"
-      : /\bchapters:\s*\[/.test(lines[i]) ? "chapters" : null;
+  for (let i = si; i < Math.min(si + 6, lines.length); i++) {
+    const key = /\b"?topics"?\s*:\s*\[/.test(lines[i]) ? "topics"
+      : /\b"?steps"?\s*:\s*\[/.test(lines[i]) ? "steps"
+      : /\b"?chapters"?\s*:\s*\[/.test(lines[i]) ? "chapters" : null;
     if (key) return { open: i, key, head: si };
   }
   return null;
@@ -100,11 +103,12 @@ const indentOf = (l) => (l.match(/^\s*/) || [""])[0];
 /** Кінець масиву, відкритого в рядку `open` (рахуємо дужки [ ] від місця відкриття). */
 function arrayEndLine(openIdx, key) {
   const openLine = lines[openIdx];
-  const at = openLine.indexOf(`${key}: [`);
-  if (at < 0) return -1;
+  const match = openLine.match(new RegExp(`"?${key}"?:\\s*\\[`));
+  if (!match) return -1;
+  const at = match.index;
   let depth = 0;
   for (let i = openIdx; i < lines.length; i++) {
-    const from = i === openIdx ? at + key.length + 2 : 0;
+    const from = i === openIdx ? at + match[0].length : 0;
     const s = lines[i].slice(from);
     for (const ch of s) { if (ch === "[") depth++; else if (ch === "]") { depth--; if (depth < 0) return i; } }
     if (depth === 0 && i > openIdx) return i;

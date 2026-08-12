@@ -6,6 +6,7 @@
 
 ## Наївна версія
 
+:::tabs
 ```c
 /* НАЇВНО — так робити не варто. */
 static unsigned long long du_naive(const char *dir)
@@ -35,6 +36,25 @@ static unsigned long long du_naive(const char *dir)
     return total;
 }
 ```
+```cpp
+/* НАЇВНО — так робити не варто. */
+static unsigned long long du_naive(const std::filesystem::path &dir)
+{
+    unsigned long long total = 0;
+    std::error_code ec;
+    for (const auto &entry : std::filesystem::directory_iterator(dir, ec)) {
+        struct stat st;
+        if (stat(entry.path().c_str(), &st) == 0) {
+            total += static_cast<unsigned long long>(st.st_blocks) * 512;
+            if (S_ISDIR(st.st_mode)) {
+                total += du_naive(entry.path());
+            }
+        }
+    }
+    return total;
+}
+```
+:::
 
 Логіка бездоганна, і на вашому робочому каталозі вона дасть правильну цифру. Хиби починаються там, де від логіки переходимо до того, що насправді робить кожен рядок.
 
@@ -116,6 +136,7 @@ $ ln -s .. dump/up
 
 Спершу — допоміжна множина. Файл із кількома іменами трапиться нам стільки разів, скільки його імен у дереві, а порахувати його треба один раз; ознакою файлу служить пара «номер пристрою + номер inode». Тримаємо їх у [хеш-множині](book:algorithms/hash-table) з відкритою адресацією:
 
+:::tabs
 ```c
 /* Пари (пристрій, inode) вже врахованих файлів. Порожня комірка — обидва нулі:
    inode з номером 0 не існує в жодній файловій системі. */
@@ -163,11 +184,7 @@ static int seen_grow(struct seen *s)
     *s = t;
     return 0;
 }
-```
 
-Тепер сам обхід. Функція приймає **власність** на дескриптор каталогу: закрити його — її обов'язок на будь-якому шляху виходу.
-
-```c
 struct ctx {
     struct seen seen;
     dev_t root_dev;               /* межа: за точку монтування не виходимо */
@@ -245,11 +262,7 @@ static void walk(struct ctx *c, int dfd, const char *label, int depth)
 
     closedir(dp);                            /* закриває d */
 }
-```
 
-І запуск:
-
-```c
 int main(int argc, char **argv)
 {
     const char *root = (argc > 1) ? argv[1] : ".";
@@ -290,6 +303,134 @@ int main(int argc, char **argv)
     return c.errors ? 2 : 0;
 }
 ```
+```cpp
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <sys/resource.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include <cstring>
+#include <iostream>
+#include <set>
+#include <string_view>
+#include <utility>
+
+struct Context {
+    std::set<std::pair<dev_t, ino_t>> seen;
+    dev_t root_dev{0};
+    int max_depth{256};
+    unsigned long long bytes{0};
+    unsigned long long errors{0};
+};
+
+static void walk(Context &c, int dfd, std::string_view label, int depth)
+{
+    DIR *dp = fdopendir(dfd);
+    if (!dp) {
+        std::cerr << "fdopendir " << label << ": " << std::strerror(errno) << "\n";
+        close(dfd);
+        c.errors++;
+        return;
+    }
+    int d = dirfd(dp);
+
+    struct dirent *e;
+    while (errno = 0, (e = readdir(dp)) != nullptr) {
+        std::string_view name(e->d_name);
+        if (name == "." || name == "..") {
+            continue;
+        }
+
+        struct stat st;
+        if (fstatat(d, name.data(), &st, AT_SYMLINK_NOFOLLOW) < 0) {
+            std::cerr << "stat " << label << "/" << name << ": " << std::strerror(errno) << "\n";
+            c.errors++;
+            continue;
+        }
+
+        if (!S_ISDIR(st.st_mode) && st.st_nlink > 1) {
+            auto [iter, inserted] = c.seen.insert({st.st_dev, st.st_ino});
+            if (!inserted) {
+                continue; // вже бачили цей файл
+            }
+        }
+
+        c.bytes += static_cast<unsigned long long>(st.st_blocks) * 512;
+
+        if (!S_ISDIR(st.st_mode) || st.st_dev != c.root_dev) {
+            continue;
+        }
+        if (depth + 1 >= c.max_depth) {
+            std::cerr << "надто глибоко: " << label << "/" << name << "\n";
+            c.errors++;
+            continue;
+        }
+
+        int sub = openat(d, name.data(), O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+        if (sub < 0) {
+            std::cerr << "openat " << label << "/" << name << ": " << std::strerror(errno) << "\n";
+            c.errors++;
+            continue;
+        }
+        walk(c, sub, name, depth + 1);
+    }
+
+    if (errno != 0) {
+        std::cerr << "readdir " << label << ": " << std::strerror(errno) << "\n";
+        c.errors++;
+    }
+
+    closedir(dp);
+}
+
+int main(int argc, char **argv)
+{
+    const char *root = (argc > 1) ? argv[1] : ".";
+
+    struct rlimit rl;
+    int max_depth = 256;
+    if (getrlimit(RLIMIT_NOFILE, &rl) == 0 && rl.rlim_cur != RLIM_INFINITY) {
+        int half = static_cast<int>(rl.rlim_cur / 2);
+        if (half < max_depth) {
+            max_depth = half;
+        }
+    }
+    if (max_depth < 8) {
+        std::cerr << "замало дескрипторів для обходу\n";
+        return 1;
+    }
+
+    int rfd = open(root, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
+    if (rfd < 0) {
+        std::perror(root);
+        return 1;
+    }
+
+    struct stat st;
+    if (fstat(rfd, &st) < 0) {
+        std::perror("fstat");
+        close(rfd);
+        return 1;
+    }
+
+    Context c;
+    c.root_dev = st.st_dev;
+    c.max_depth = max_depth;
+    c.bytes = static_cast<unsigned long long>(st.st_blocks) * 512;
+
+    walk(c, rfd, root, 0);
+
+    std::cout << c.bytes << " байтів (" << (c.bytes / 1024) << " КіБ)\n";
+    if (c.errors) {
+        std::cerr << "пропущено через помилки: " << c.errors << "\n";
+    }
+    return c.errors ? 2 : 0;
+}
+```
+:::
 
 Перед заголовками — `#define _GNU_SOURCE`; самі заголовки: `<dirent.h>`, `<errno.h>`, `<fcntl.h>`, `<limits.h>`, `<stdint.h>`, `<stdio.h>`, `<stdlib.h>`, `<string.h>`, `<sys/resource.h>`, `<sys/stat.h>`, `<unistd.h>`. Складається як `cc -O2 -Wall -o du du.c`.
 
@@ -338,6 +479,7 @@ fstatat                        :  N  разів
 
 Писати це щоразу руками не обов'язково: у бібліотеці є `nftw()`.
 
+:::tabs
 ```c
 static unsigned long long total;
 
@@ -353,6 +495,19 @@ static int visit(const char *path, const struct stat *st, int type, struct FTW *
 /* 64 — скільки каталогів дозволено тримати відкритими водночас */
 nftw(root, visit, 64, FTW_PHYS | FTW_MOUNT);
 ```
+```cpp
+static unsigned long long total = 0;
+std::error_code ec;
+
+for (const auto &entry : std::filesystem::recursive_directory_iterator(
+         root, std::filesystem::directory_options::skip_permission_denied, ec)) {
+    struct stat st;
+    if (stat(entry.path().c_str(), &st) == 0) {
+        total += static_cast<unsigned long long>(st.st_blocks) * 512;
+    }
+}
+```
+:::
 
 `FTW_PHYS` означає «не йти за символьними посиланнями» — у manpage прямо сказано, що саме цього ви й хочете; `FTW_MOUNT` тримає обхід у межах однієї файлової системи; третій аргумент обмежує кількість одночасно відкритих каталогів, і при перевищенні глибини обхід починає закривати й перевідкривати їх, тобто сповільнюється. Для разового скрипта чи власного каталогу цього досить.
 

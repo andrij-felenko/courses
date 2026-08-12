@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+<rect width="800" height="420" fill="#ffffff"/>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія класів дозволів: HSM підведення та Перевірка безпеки</text>
+<rect x="30.0" y="80.0" width="180.0" height="80.0" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/><text x="120.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">1. Операція VFS</tspan><tspan x="120.0" dy="14.3">open('/mnt/hsm/doc.pdf')</tspan><tspan x="120.0" dy="14.3">Запит до файлу</tspan></text>
+<rect x="270.0" y="80.0" width="220.0" height="80.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="380.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">2. PRE_CONTENT</tspan><tspan x="380.0" dy="16.9">HSM / Cloud Hydration</tspan><tspan x="380.0" dy="16.9">Завантаження на диск</tspan></text>
+<rect x="550.0" y="80.0" width="220.0" height="80.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="660.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">3. CONTENT</tspan><tspan x="660.0" dy="16.9">Security / AV Inspection</tspan><tspan x="660.0" dy="16.9">Сканування вмісту</tspan></text>
+<rect x="270.0" y="280.0" width="220.0" height="80.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="380.0" y="307.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">4. Доступ надано</tspan><tspan x="380.0" dy="16.9">Процес читає вміст</tspan><tspan x="380.0" dy="16.9">Повернення fd</tspan></text>
+<rect x="550.0" y="280.0" width="220.0" height="80.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="660.0" y="307.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">Заблоковано (DENY)</tspan><tspan x="660.0" dy="16.9">Повернення -EPERM</tspan><tspan x="660.0" dy="16.9">Операція скасована</tspan></text>
+<line x1="210.0" y1="120.0" x2="270.0" y2="120.0" stroke="#333333" stroke-width="2.0"/>
+<text x="240.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle">fsnotify</text>
+<line x1="490.0" y1="120.0" x2="550.0" y2="120.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="520.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle">ALLOW</text>
+<line x1="380.0" y1="160.0" x2="380.0" y2="280.0" stroke="#16a34a" stroke-width="2.0"/>
+<text x="390.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="start" font-weight="700">FAN_ALLOW</text>
+<line x1="660.0" y1="160.0" x2="660.0" y2="280.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="670.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">FAN_DENY</text>
+</svg>

@@ -1,22 +1,29 @@
-<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="white"/>
-  <rect x="50" y="50" width="200" height="300" fill="#f0f0f0" stroke="black"/>
-  <text x="150" y="70" text-anchor="middle" font-weight="bold" font-family="sans-serif">User Space</text>
-  <rect x="350" y="50" width="200" height="300" fill="#e0e0f0" stroke="black"/>
-  <text x="450" y="70" text-anchor="middle" font-weight="bold" font-family="sans-serif">Kernel Space</text>
-  
-  <rect x="100" y="100" width="100" height="50" fill="#c0ffc0" stroke="black"/>
-  <text x="150" y="130" text-anchor="middle" font-family="sans-serif">Application</text>
-  
-  <ellipse cx="300" cy="160" rx="40" ry="25" fill="#ffffc0" stroke="black"/>
-  <text x="300" y="165" text-anchor="middle" font-size="14" font-family="sans-serif">SQ Ring</text>
-  
-  <ellipse cx="300" cy="280" rx="40" ry="25" fill="#ffc0c0" stroke="black"/>
-  <text x="300" y="285" text-anchor="middle" font-size="14" font-family="sans-serif">CQ Ring</text>
-
-  <rect x="400" y="135" width="100" height="50" fill="#c0c0ff" stroke="black"/>
-  <text x="450" y="165" text-anchor="middle" font-family="sans-serif">SQPOLL</text>
-  
-  <path d="M 150 150 L 150 280 L 260 280" stroke="black" stroke-width="2" fill="none"/>
-  <path d="M 260 160 L 150 160 L 150 150" stroke="black" stroke-width="2" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура io_uring: Спільна пам'ять та асинхронні черги</text>
+<rect x="20.0" y="50.0" width="240.0" height="370.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="140.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">User Space</text>
+<rect x="33.3" y="125.0" width="213.4" height="49.9" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/><text x="140.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Додаток користувача</tspan><tspan x="140.0" dy="16.9">(liburing / Application)</tspan></text>
+<rect x="77.3" y="278.2" width="125.4" height="43.6" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/><text x="140.0" y="296.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Обробники подій</tspan><tspan x="140.0" dy="15.6">(Event Handlers)</tspan></text>
+<rect x="280.0" y="50.0" width="320.0" height="370.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="440.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Спільна пам'ять (mmap)</text>
+<rect x="300.0" y="95.0" width="280.0" height="140.0" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="440.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0369a1" text-anchor="middle" font-weight="700">Submission Queue (SQ)</text>
+<text x="440.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">[ SQE 0 ]  [ SQE 1 ]  [ SQE 2 ]</text>
+<text x="440.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-style="italic">Tail (User Write) → Head (Kernel Read)</text>
+<text x="440.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Запити I/O: op, fd, addr, len, user_data (64 B)</text>
+<rect x="300.0" y="255.0" width="280.0" height="140.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="440.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">Completion Queue (CQ)</text>
+<text x="440.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">[ CQE 0 ]  [ CQE 1 ]  [ CQE 2 ]</text>
+<text x="440.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-style="italic">Head (User Read) ← Tail (Kernel Write)</text>
+<text x="440.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Результати: user_data, res, flags (16 B)</text>
+<rect x="620.0" y="50.0" width="260.0" height="370.0" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="750.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">Kernel Space</text>
+<rect x="693.6" y="108.2" width="112.7" height="43.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="750.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">SQPOLL Thread</tspan><tspan x="750.0" dy="15.6">(io_uring-sq)</tspan></text>
+<rect x="678.8" y="208.2" width="142.5" height="43.6" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="750.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">Пул потоків io-wq</tspan><tspan x="750.0" dy="15.6">(Async Offload)</tspan></text>
+<rect x="645.3" y="308.2" width="209.4" height="43.6" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.5"/><text x="750.0" y="326.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">VFS / Block Layer / Driver</tspan><tspan x="750.0" dy="15.6">(NVMe / SSD / Sockets)</tspan></text>
+<line x1="220.0" y1="145.0" x2="295.0" y2="145.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="320.0" x2="220.0" y2="320.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="585.0" y1="145.0" x2="680.0" y2="130.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="330.0" x2="585.0" y2="330.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

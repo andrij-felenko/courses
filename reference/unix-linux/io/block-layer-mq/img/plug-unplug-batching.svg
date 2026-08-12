@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм накопичення й пакетної відправки (Plugging / Unplugging)</text>
+<rect x="20.0" y="50.0" width="230.0" height="300.0" rx="8" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1.5"/>
+<text x="135.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Створення Plug</text>
+<text x="135.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">blk_start_plug(&amp;plug)</text>
+<rect x="35.0" y="115.0" width="200.0" height="160.0" rx="6" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1.5"/>
+<text x="135.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a237e" text-anchor="middle" font-weight="700">Стек struct blk_plug</text>
+<rect x="45.0" y="148.0" width="180.0" height="28.0" rx="6" fill="#ffffff" stroke="#7986cb" stroke-width="1.5"/>
+<text x="135.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Request 1 (Sector 0..7)</text>
+<rect x="45.0" y="182.0" width="180.0" height="28.0" rx="6" fill="#ffffff" stroke="#7986cb" stroke-width="1.5"/>
+<text x="135.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Request 2 (Sector 8..23)</text>
+<rect x="45.0" y="216.0" width="180.0" height="28.0" rx="6" fill="#ffffff" stroke="#7986cb" stroke-width="1.5"/>
+<text x="135.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Request 3 (Sector 24..31)</text>
+<text x="135.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Злиття локально (No locks)</text>
+<line x1="250.0" y1="200.0" x2="285.0" y2="200.0" stroke="#1a237e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="285.0" y="50.0" width="230.0" height="300.0" rx="8" fill="#fff8e1" stroke="#ffe082" stroke-width="1.5"/>
+<text x="400.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Виштовхування Unplug</text>
+<text x="400.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">blk_finish_plug(&amp;plug)</text>
+<rect x="300.0" y="125.0" width="200.0" height="140.0" rx="6" fill="#ffffff" stroke="#ffb300" stroke-width="1.5"/>
+<text x="400.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#f57f17" text-anchor="middle" font-weight="700">Пакетна передача</text>
+<text x="400.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Всі 3 запити передаються</text>
+<text x="400.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">одним викликом</text>
+<text x="400.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Захист від spinlock storm</text>
+<line x1="515.0" y1="200.0" x2="550.0" y2="200.0" stroke="#f57f17" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="550.0" y="50.0" width="230.0" height="300.0" rx="8" fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="665.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. blk-mq Queues</text>
+<text x="665.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Software Queue per-CPU</text>
+<rect x="565.0" y="125.0" width="200.0" height="140.0" rx="6" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
+<text x="665.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">blk_mq_ctx (CPU 0)</text>
+<text x="665.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вставка в планирувальник</text>
+<text x="665.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">або пряма відправка v hctx</text>
+<text x="665.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Швидкий flush батчу</text>
+</svg>

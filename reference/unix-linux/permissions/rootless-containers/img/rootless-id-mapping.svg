@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 420" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .box-host { fill: #f1f5f9; stroke: #64748b; stroke-width: 2; rx: 8px; }
+      .box-ns { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+      .box-helper { fill: #fef3c7; stroke: #d97706; stroke-width: 2; rx: 6px; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: bold; fill: #0f172a; }
+      .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: bold; fill: #334155; }
+      .text-main { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #1e293b; }
+      .text-sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #475569; font-style: italic; }
+      .text-code { font-family: monospace; font-size: 12px; fill: #0f172a; font-weight: bold; }
+      .arrow { stroke: #2563eb; stroke-width: 2; marker-end: url(#arrowhead); fill: none; }
+      .arrow-orange { stroke: #d97706; stroke-width: 2; stroke-dasharray: 4 4; marker-end: url(#arrowhead-orange); fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb" />
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#d97706" />
+    </marker>
+  </defs>
+
+  <rect width="850" height="420" class="bg" />
+
+  <!-- Host Namespace Box -->
+  <rect x="30" y="40" width="370" height="340" class="box-host" />
+  <text x="215" y="70" class="subtitle" text-anchor="middle">Хостовий User Namespace (init_user_ns)</text>
+
+  <rect x="50" y="95" width="330" height="70" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" rx="4" />
+  <text x="65" y="120" class="text-main">Непривілейований користувач: <tspan class="text-code">alice</tspan></text>
+  <text x="65" y="145" class="text-main">Хостовий UID: <tspan class="text-code">1000</tspan></text>
+
+  <rect x="50" y="185" width="330" height="85" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" rx="4" />
+  <text x="65" y="208" class="text-main">Делегований пул у <tspan class="text-code">/etc/subuid</tspan>:</text>
+  <text x="65" y="230" class="text-code">alice:100000:65536</text>
+  <text x="65" y="252" class="text-sub">(UIDs 100000..165535 виділено alice)</text>
+
+  <rect x="50" y="290" width="330" height="70" class="box-helper" />
+  <text x="215" y="315" class="subtitle" text-anchor="middle">Setuid Helper: newuidmap</text>
+  <text x="215" y="340" class="text-sub" text-anchor="middle">Записує в /proc/[pid]/uid_map від імені root</text>
+
+  <!-- Container Namespace Box -->
+  <rect x="450" y="40" width="370" height="340" class="box-ns" />
+  <text x="635" y="70" class="subtitle" text-anchor="middle">Контейнерний User Namespace</text>
+
+  <rect x="470" y="95" width="330" height="70" fill="#ffffff" stroke="#93c5fd" stroke-width="1" rx="4" />
+  <text x="485" y="120" class="text-main">Внутрішній Root: <tspan class="text-code">root (UID 0)</tspan></text>
+  <text x="485" y="145" class="text-main">Повні привілеї всередині контейнера</text>
+
+  <rect x="470" y="185" width="330" height="175" fill="#ffffff" stroke="#93c5fd" stroke-width="1" rx="4" />
+  <text x="485" y="210" class="text-main">Таблиця відображення (<tspan class="text-code">uid_map</tspan>):</text>
+  <text x="485" y="240" class="text-code">0      1000       1</text>
+  <text x="485" y="260" class="text-sub">→ UID 0 (root) ↔ UID 1000 (alice)</text>
+  <text x="485" y="295" class="text-code">1      100000     65536</text>
+  <text x="485" y="315" class="text-sub">→ UID 1..65536 ↔ UID 100000..165535</text>
+
+  <!-- Mapping Arrows -->
+  <path d="M 380 130 L 470 130" class="arrow" />
+  <path d="M 380 230 L 470 290" class="arrow" />
+  <path d="M 215 290 L 215 270" class="arrow-orange" />
+</svg>

@@ -35,6 +35,7 @@
 
 Далі — один файл `mountprobe.c`, поданий частинами в тому порядку, у якому вони в ньому стоять. Збирається без жодних залежностей.
 
+:::tabs
 ```c
 /* mountprobe.c — вимірює справжній контракт конкретного монтування.
  *   cc -O2 -Wall -Wextra -o mountprobe mountprobe.c
@@ -92,9 +93,58 @@ static const char *secs(double v)      /* -1 означає «не дочека�
     return b;
 }
 ```
+```cpp
+// mountprobe.cpp — вимірює справжній контракт конкретного монтування (C++20/C++23)
+#include <chrono>
+#include <filesystem>
+#include <format>
+#include <iostream>
+#include <memory>
+#include <span>
+#include <string>
+#include <string_view>
+#include <thread>
+#include <vector>
+
+#include <dirent.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <sys/file.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+namespace fs = std::filesystem;
+
+static int ctl = -1;
+static fs::path share_dir;
+
+static double mono() {
+    auto now = std::chrono::steady_clock::now();
+    auto duration = now.time_since_epoch();
+    return std::chrono::duration<double>(duration).count();
+}
+
+static void nap_ms(long ms) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+static fs::path at(std::string_view name) {
+    return share_dir / name;
+}
+
+static std::string secs(double v) {
+    if (v < 0) return "  > 180";
+    return std::format("{:7.2f}", v);
+}
+```
+:::
 
 Керувальний канал — рядки, розділені переводом. Читання по одному байту виглядає марнотратним, але тут воно не коштує нічого (десятки повідомлень за весь прогін), зате знімає цілий клас помилок: жоден буфер не переживає межу між повідомленнями, тож відповідь на попередню команду ніяк не може потрапити в наступну.
 
+:::tabs
 ```c
 static int send_line(const char *s)
 {
@@ -172,9 +222,75 @@ static int tcp_connect(const char *host, const char *port)
     return s;
 }
 ```
+```cpp
+static int send_line(std::string_view s) {
+    std::string buf(s);
+    buf.push_back('\n');
+    size_t off = 0;
+    while (off < buf.size()) {
+        ssize_t n = ::write(ctl, buf.data() + off, buf.size() - off);
+        if (n < 0) { if (errno == EINTR) continue; return -1; }
+        off += static_cast<size_t>(n);
+    }
+    return 0;
+}
+
+static int recv_line(std::string& out) {
+    out.clear();
+    for (;;) {
+        char c;
+        ssize_t n = ::read(ctl, &c, 1);
+        if (n < 0) { if (errno == EINTR) continue; return -1; }
+        if (n == 0) return -1;
+        if (c == '\n') return 0;
+        out.push_back(c);
+    }
+}
+
+static int tcp_accept(std::string_view port) {
+    struct addrinfo hints{}, *res = nullptr;
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;
+    if (::getaddrinfo(nullptr, port.data(), &hints, &res) != 0) return -1;
+
+    int srv = ::socket(res->ai_family, res->ai_socktype, 0);
+    int cli = -1, on = 1;
+    if (srv >= 0) {
+        ::setsockopt(srv, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+        if (::bind(srv, res->ai_addr, res->ai_addrlen) == 0 && ::listen(srv, 1) == 0)
+            cli = ::accept(srv, nullptr, nullptr);
+        ::close(srv);
+    }
+    ::freeaddrinfo(res);
+    if (cli >= 0) ::setsockopt(cli, IPPROTO_TCP, TCP_NODELAY, &on, sizeof(on));
+    return cli;
+}
+
+static int tcp_connect(std::string_view host, std::string_view port) {
+    struct addrinfo hints{}, *res = nullptr;
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    if (::getaddrinfo(host.data(), port.data(), &hints, &res) != 0) return -1;
+
+    int s = -1, on = 1;
+    for (auto ai = res; ai; ai = ai->ai_next) {
+        s = ::socket(ai->ai_family, ai->ai_socktype, 0);
+        if (s < 0) continue;
+        if (::connect(s, ai->ai_addr, ai->ai_addrlen) == 0) break;
+        ::close(s);
+        s = -1;
+    }
+    ::freeaddrinfo(res);
+    if (s >= 0) ::setsockopt(s, IPPROTO_TCP, TCP_NODELAY, &on, sizeof(on));
+    return s;
+}
+```
+:::
 
 Далі — сторона письменника. Її словник навмисно складається з примітивів, а не з дослідів: `OPEN`, `WRITE`, `FSYNC`, `PREAD`, `CLOSE`, замки, `UNLINK`, підрахунок імен за префіксом. Дескриптори живуть у чотирьох комірках, щоб читач міг тримати відкритими кілька файлів одночасно. Відповідь — завжди `OK <число>` або `ERR <errno>`; єдиний виняток описаний у шостій пробі.
 
+:::tabs
 ```c
 #define SLOTS 4
 static int slot[SLOTS];
@@ -285,9 +401,106 @@ static void serve(void)
     }
 }
 ```
+```cpp
+constexpr size_t SLOTS = 4;
+static std::array<int, SLOTS> slot = {-1, -1, -1, -1};
+
+static void ok(long v) { send_line(std::format("OK {}", v)); }
+static void err() { send_line(std::format("ERR {}", errno)); }
+static int sl(long i) { return (i >= 0 && static_cast<size_t>(i) < SLOTS) ? slot[i] : -1; }
+
+static int mode_flags(std::string_view m) {
+    if (m == "r")  return O_RDONLY;
+    if (m == "rw") return O_RDWR   | O_CREAT;
+    if (m == "w")  return O_WRONLY | O_CREAT | O_TRUNC;
+    if (m == "wx") return O_WRONLY | O_CREAT | O_EXCL;
+    return -1;
+}
+
+static long count_prefix(const fs::path& dir, std::string_view prefix) {
+    long k = 0;
+    std::error_code ec;
+    for (const auto& entry : fs::directory_iterator(dir, ec)) {
+        if (entry.path().filename().string().starts_with(prefix))
+            k++;
+    }
+    return ec ? -1 : k;
+}
+
+static void race(std::string_view prefix, int rounds, std::string& bits) {
+    bits.clear();
+    for (int i = 0; i < rounds; ++i) {
+        auto name = at(std::format("{}-{}", prefix, i));
+        int fd = ::open(name.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
+        if (fd >= 0) { bits.push_back('1'); ::close(fd); }
+        else { bits.push_back('0'); }
+    }
+}
+
+static void serve() {
+    std::string cmd;
+    slot.fill(-1);
+
+    while (recv_line(cmd) == 0) {
+        long i = 0, n = 0, off = 0;
+        char a_buf[64] = {}, b_buf[512] = {};
+
+        if (::sscanf(cmd.c_str(), "OPEN %ld %63s %511s", &i, a_buf, b_buf) == 3 && i >= 0 && static_cast<size_t>(i) < SLOTS) {
+            int fl = mode_flags(a_buf);
+            slot[i] = (fl < 0) ? -1 : ::open(at(b_buf).c_str(), fl, 0644);
+            if (slot[i] < 0) err(); else ok(0);
+        }
+        else if (::sscanf(cmd.c_str(), "WRITE %ld %ld", &i, &n) == 2) {
+            std::vector<char> buf(static_cast<size_t>(n), 'x');
+            ssize_t w = ::write(sl(i), buf.data(), buf.size());
+            if (w != static_cast<ssize_t>(n)) err(); else ok(n);
+        }
+        else if (::sscanf(cmd.c_str(), "FSYNC %ld", &i) == 1) {
+            if (::fsync(sl(i)) < 0) err(); else ok(0);
+        }
+        else if (::sscanf(cmd.c_str(), "PREAD %ld %ld %ld", &i, &off, &n) == 3) {
+            std::vector<char> buf(4096);
+            if (n > static_cast<long>(buf.size())) n = static_cast<long>(buf.size());
+            ssize_t r = ::pread(sl(i), buf.data(), static_cast<size_t>(n), static_cast<off_t>(off));
+            if (r < 0) err(); else ok(r);
+        }
+        else if (::sscanf(cmd.c_str(), "CLOSE %ld", &i) == 1) {
+            int rc = ::close(sl(i));
+            if (i >= 0 && static_cast<size_t>(i) < SLOTS) slot[i] = -1;
+            if (rc < 0) err(); else ok(0);
+        }
+        else if (::sscanf(cmd.c_str(), "FLOCK %ld", &i) == 1) {
+            if (::flock(sl(i), LOCK_EX | LOCK_NB) < 0) err(); else ok(0);
+        }
+        else if (::sscanf(cmd.c_str(), "FCNTL %ld", &i) == 1) {
+            struct flock fl{};
+            fl.l_type = F_WRLCK;
+            fl.l_whence = SEEK_SET;
+            if (::fcntl(sl(i), F_SETLK, &fl) < 0) err(); else ok(0);
+        }
+        else if (::sscanf(cmd.c_str(), "UNLINK %511s", b_buf) == 1) {
+            std::error_code ec;
+            fs::remove(at(b_buf), ec);
+            if (ec) err(); else ok(0);
+        }
+        else if (::sscanf(cmd.c_str(), "COUNT %511s", b_buf) == 1) {
+            ok(count_prefix(share_dir, b_buf));
+        }
+        else if (::sscanf(cmd.c_str(), "RACE %511s %ld", b_buf, &n) == 2) {
+            std::string bits;
+            race(b_buf, static_cast<int>(n), bits);
+            send_line(bits);
+        }
+        else if (cmd == "BYE") return;
+        else send_line("ERR 22");
+    }
+}
+```
+:::
 
 На боці читача цій руці відповідає одна функція. Домовленість про знак робить код дослідів однорядковим: невід'ємне значення — те, що повернув виклик на іншій машині; від'ємне — мінус `errno`.
 
+:::tabs
 ```c
 static long rpc(const char *fmt, ...)
 {
@@ -310,6 +523,26 @@ static long rpc(const char *fmt, ...)
     exit(2);
 }
 ```
+```cpp
+static long rpc(std::string_view req) {
+    if (send_line(req) < 0) {
+        std::cerr << "керувальний канал обірвався\n";
+        std::exit(2);
+    }
+    std::string resp;
+    if (recv_line(resp) < 0) {
+        std::cerr << "помилка читання відповіді\n";
+        std::exit(2);
+    }
+    long v = 0;
+    int e = 0;
+    if (::sscanf(resp.c_str(), "OK %ld", &v) == 1) return v;
+    if (::sscanf(resp.c_str(), "ERR %d", &e) == 1) return -static_cast<long>(e);
+    std::cerr << "незрозуміла відповідь: " << resp << "\n";
+    std::exit(2);
+}
+```
+:::
 
 ## Проба 1: за скільки видно чужий файл
 
@@ -317,6 +550,7 @@ static long rpc(const char *fmt, ...)
 
 Опитуються два різні шляхи, бо вони спираються на різні кеші. `stat()` по повному імені перевіряє той самий негативний запис; `readdir()` віддає вміст каталогу, який клієнт тримає окремо ([каталог як таблиця імен](book:unix-linux/directory-as-mapping)). Числа збігаються не завжди, і розбіжність між ними сама по собі багато каже про клієнта.
 
+:::tabs
 ```c
 static double dir_ttl = -1;        /* результат цієї проби знадобиться далі */
 
@@ -365,6 +599,45 @@ static void probe_visibility(void)
     rpc("UNLINK %s", name);
 }
 ```
+```cpp
+static double dir_ttl = -1;
+
+static bool in_listing(const fs::path& dir, std::string_view name) {
+    std::error_code ec;
+    for (const auto& entry : fs::directory_iterator(dir, ec)) {
+        if (entry.path().filename() == name) return true;
+    }
+    return false;
+}
+
+static void probe_visibility() {
+    std::string name = std::format("vis-{}", ::getpid());
+    auto path = at(name);
+
+    std::error_code ec;
+    if (fs::exists(path, ec)) { std::cout << "1. ім'я вже зайняте\n"; return; }
+    in_listing(share_dir, name);
+
+    if (rpc(std::format("OPEN 0 wx {}", name)) < 0) { std::cout << "1. створити не вдалося\n"; return; }
+    rpc("WRITE 0 64");
+    rpc("FSYNC 0");
+    rpc("CLOSE 0");
+
+    double t0 = mono(), ts = -1, td = -1;
+    while (mono() - t0 < 180.0 && (ts < 0 || td < 0)) {
+        if (ts < 0 && fs::exists(path, ec)) ts = mono() - t0;
+        if (td < 0 && in_listing(share_dir, name)) td = mono() - t0;
+        nap_ms(50);
+    }
+
+    std::cout << std::format("1a. stat() бачить новий файл через   {} с\n", secs(ts));
+    std::cout << std::format("1b. readdir() бачить його через      {} с\n", secs(td));
+
+    dir_ttl = std::max(ts, td);
+    rpc(std::format("UNLINK {}", name));
+}
+```
+:::
 
 ## Проба 2: чи видно дописане у відкритий файл
 
@@ -372,6 +645,7 @@ static void probe_visibility(void)
 
 Розмір і дані живуть у різних кешах, тому й міряються окремо. `fstat()` віддає атрибути, які клієнт закешував при відкритті; `pread()` за старим кінцем файлу натрапляє або на нову сторінку, або на порожнечу. Третя доріжка — перевідкриття файлу в кожному колі; якщо контракт CTO працює, вона мусить дати майже нуль, і саме розрив між нею та двома першими показує, скільки коштує тримати файл відкритим.
 
+:::tabs
 ```c
 static void probe_open_file(void)
 {
@@ -421,6 +695,53 @@ static void probe_open_file(void)
     rpc("UNLINK %s", name);
 }
 ```
+```cpp
+static void probe_open_file() {
+    std::string name = std::format("app-{}", ::getpid());
+    auto path = at(name);
+
+    rpc(std::format("UNLINK {}", name));
+    if (rpc(std::format("OPEN 0 w {}", name)) < 0) { std::cout << "2. створити не вдалося\n"; return; }
+    rpc("WRITE 0 4096");
+    rpc("FSYNC 0");
+
+    int fd = ::open(path.c_str(), O_RDONLY);
+    if (fd < 0) { std::perror("2. open"); return; }
+    
+    struct stat st{};
+    if (::fstat(fd, &st) < 0) { ::close(fd); return; }
+    off_t base = st.st_size;
+
+    rpc("WRITE 0 4096");
+    rpc("FSYNC 0");
+    double t0 = mono(), tsize = -1, tdata = -1, treopen = -1;
+
+    while (mono() - t0 < 180.0 && (tsize < 0 || tdata < 0 || treopen < 0)) {
+        char c;
+        if (tsize < 0 && ::fstat(fd, &st) == 0 && st.st_size > base)
+            tsize = mono() - t0;
+        if (tdata < 0 && ::pread(fd, &c, 1, base) == 1)
+            tdata = mono() - t0;
+        if (treopen < 0) {
+            int g = ::open(path.c_str(), O_RDONLY);
+            if (g >= 0) {
+                if (::pread(g, &c, 1, base) == 1) treopen = mono() - t0;
+                ::close(g);
+            }
+        }
+        nap_ms(50);
+    }
+
+    std::cout << std::format("2a. новий розмір видно через         {} с\n", secs(tsize));
+    std::cout << std::format("2b. дописані байти читаються через   {} с\n", secs(tdata));
+    std::cout << std::format("2c. те саме з перевідкриттям файлу:  {} с\n", secs(treopen));
+
+    ::close(fd);
+    rpc("CLOSE 0");
+    rpc(std::format("UNLINK {}", name));
+}
+```
+:::
 
 ## Проба 3: куди насправді йдуть байти
 
@@ -430,6 +751,7 @@ static void probe_open_file(void)
 
 Окремо варто дивитися на останній рядок — сукупний темп. Якщо він вищий за фізичну стелю шляху (гігабітний канал — це близько 118 МіБ/с, і жоден трюк його не перевищить), то підтвердження приходять швидше, ніж байти встигають бути записаними. Найчастіша причина — опція `async` в експорті на сервері: за нею сервер відповідає на запит, ще не закріпивши зміни на носії. Довідка `exports(5)` називає це прямим порушенням протоколу NFS і попереджає, що аварійне перезавантаження сервера такі дані втратить або зіпсує. Ваш `fsync()` при цьому чесно повертає нуль — просто за цим нулем немає нічого ([що саме означає довговічність запису](book:unix-linux/page-cache-durability)). Сама проба цього не доводить, а лише дає підставу піти на сервер і подивитися `exportfs -v`.
 
+:::tabs
 ```c
 static void probe_write_path(void)
 {
@@ -470,6 +792,42 @@ static void probe_write_path(void)
     unlink(path);
 }
 ```
+```cpp
+static void probe_write_path() {
+    constexpr size_t CHUNKS = 64;
+    constexpr size_t CHUNK = 1u << 20; // 1 МіБ
+    std::string name = std::format("flush-{}", ::getpid());
+    auto path = at(name);
+
+    std::vector<char> buf(CHUNK, 'z');
+    int fd = ::open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd < 0) { std::perror("3. open"); return; }
+
+    double t0 = mono();
+    int rc = 0;
+    for (size_t i = 0; i < CHUNKS; ++i) {
+        if (::write(fd, buf.data(), CHUNK) != static_cast<ssize_t>(CHUNK)) { rc = -1; break; }
+    }
+    double t_write = mono() - t0;
+
+    t0 = mono();
+    if (::fsync(fd) < 0) rc = -1;
+    double t_fsync = mono() - t0;
+
+    t0 = mono();
+    if (::close(fd) < 0) rc = -1;
+    double t_close = mono() - t0;
+
+    std::cout << std::format("3.  {} МіБ:  write() {:.2f} с   fsync() {:.2f} с   close() {:.2f} с{}\n",
+                CHUNKS, t_write, t_fsync, t_close, rc < 0 ? "   ← ПОМИЛКА" : "");
+    std::cout << std::format("    сукупний темп ≈ {:.0f} МіБ/с\n",
+                CHUNKS / (t_write + t_fsync + t_close + 1e-9));
+
+    std::error_code ec;
+    fs::remove(path, ec);
+}
+```
+:::
 
 Побачити помилку від `close()` на власні очі проба сама не може — для цього потрібна відмова, якої на справному стенді немає. Влаштовується вона за півхвилини вручну: запустити проби, а між `write()` і `close()` розірвати шлях до сервера (`iptables -A OUTPUT -p tcp --dport 2049 -j DROP` на м'якому монтуванні). Прогалину в чужому коді шукають тим самим прийомом, тільки навпаки: якщо програма викликає `close()` без перевірки результату, вона на цьому стенді тихо втратить дані й нічого нікому не скаже.
 
@@ -479,6 +837,7 @@ static void probe_write_path(void)
 
 Перший і третій досліди перевіряють базове: чи взагалі замки долають межу машини. Порожня відповідь тут — не рідкість: `cifs` із опцією `nobrl` замки на сервер просто не надсилає, а NFS без запущеної служби блокування мовчки поводиться так само (загальна модель — [рекомендаційні замки](book:unix-linux/file-locking)).
 
+:::tabs
 ```c
 static void probe_locks(void)
 {
@@ -530,6 +889,52 @@ static void probe_locks(void)
     rpc("UNLINK %s", name);
 }
 ```
+```cpp
+static void probe_locks() {
+    std::string name = std::format("lock-{}", ::getpid());
+    auto path = at(name);
+
+    if (rpc(std::format("OPEN 0 rw {}", name)) < 0) { std::cout << "4. створити не вдалося\n"; return; }
+    if (rpc("FLOCK 0") < 0) { std::cout << "4. чужий flock не взявся\n"; return; }
+
+    int fd = ::open(path.c_str(), O_RDWR);
+    if (fd < 0) { std::perror("4. open"); return; }
+
+    int rc = ::flock(fd, LOCK_EX | LOCK_NB);
+    std::cout << "4a. flock проти чужого flock: "
+              << (rc == 0 ? "НЕ виключає — замок не долає межі машини"
+                          : "виключає, як і має бути") << "\n";
+    if (rc == 0) ::flock(fd, LOCK_UN);
+
+    struct flock fl{};
+    fl.l_type = F_WRLCK;
+    fl.l_whence = SEEK_SET;
+    rc = ::fcntl(fd, F_SETLK, &fl);
+    std::cout << "4b. fcntl проти чужого flock: "
+              << (rc == 0 ? "не виключає — як локально"
+                          : "ВИКЛЮЧАЄ — flock зведено до POSIX-замка на весь файл") << "\n";
+    if (rc == 0) { fl.l_type = F_UNLCK; ::fcntl(fd, F_SETLK, &fl); }
+
+    rpc("CLOSE 0");
+    if (rpc(std::format("OPEN 0 rw {}", name)) >= 0) {
+        if (rpc("FCNTL 0") < 0) std::cout << "4c. чужий fcntl-замок не взявся взагалі\n";
+        else {
+            fl.l_type = F_WRLCK;
+            fl.l_whence = SEEK_SET;
+            rc = ::fcntl(fd, F_SETLK, &fl);
+            std::cout << "4c. fcntl проти чужого fcntl: "
+                      << (rc == 0 ? "НЕ виключає — замки лишилися локальними"
+                                  : "виключає, як і має бути") << "\n";
+            if (rc == 0) { fl.l_type = F_UNLCK; ::fcntl(fd, F_SETLK, &fl); }
+        }
+        rpc("CLOSE 0");
+    }
+
+    ::close(fd);
+    rpc(std::format("UNLINK {}", name));
+}
+```
+:::
 
 ## Проба 5: що лишається від видаленого відкритого файлу
 
@@ -539,6 +944,7 @@ static void probe_locks(void)
 
 Потім та сама машина і тримає файл, і знімає ім'я. Ось тут клієнт NFS вмикає підміну: замість видалення перейменовує файл на `.nfs…` і прибирає його по-справжньому при останньому закритті. Ці рештки видно обом сторонам, і проба питає про них двічі — у письменника й у себе. Своя відповідь чекає на кеш каталогу, тривалість якого вже виміряно першою пробою: рідкісний випадок, коли результат одного досліду прямо витрачається в наступному.
 
+:::tabs
 ```c
 static void probe_open_unlink(void)
 {
@@ -578,6 +984,39 @@ static void probe_open_unlink(void)
            count_prefix(share, ".nfs"));
 }
 ```
+```cpp
+static void probe_open_unlink() {
+    std::string aname = std::format("del-a-{}", ::getpid());
+    std::string bname = std::format("del-b-{}", ::getpid());
+    auto apath = at(aname);
+
+    if (rpc(std::format("OPEN 0 rw {}", aname)) < 0) { std::cout << "5. створити не вдалося\n"; return; }
+    rpc("WRITE 0 4096");
+    rpc("FSYNC 0");
+    std::error_code ec;
+    fs::remove(apath, ec);
+
+    long n = rpc("PREAD 0 0 16");
+    std::cout << "5a. чужий дескриптор після нашого unlink: "
+              << (n >= 0       ? "читається далі — сервер утримав відкритий файл" :
+                  n == -ESTALE ? "ESTALE — об'єкт зник просто під дескриптором"
+                               : "інша помилка читання") << "\n";
+    rpc("CLOSE 0");
+
+    if (rpc(std::format("OPEN 1 rw {}", bname)) < 0) return;
+    rpc("WRITE 1 4096");
+    rpc(std::format("UNLINK {}", bname));
+    std::cout << "5b. з боку письменника імен «.nfs» у каталозі: " << rpc("COUNT .nfs") << "\n";
+
+    if (dir_ttl > 0) nap_ms(static_cast<long>(dir_ttl * 1000) + 1000);
+    std::cout << "    з нашого боку:                          " << count_prefix(share_dir, ".nfs") << "\n";
+
+    rpc("CLOSE 1");
+    if (dir_ttl > 0) nap_ms(static_cast<long>(dir_ttl * 1000) + 1000);
+    std::cout << "5c. після close() письменника лишилося:     " << count_prefix(share_dir, ".nfs") << "\n";
+}
+```
+:::
 
 ## Проба 6: чи атомарне створення з O_EXCL
 
@@ -585,6 +1024,7 @@ static void probe_open_unlink(void)
 
 Подвійна перемога — той самий номер кола, який обидві сторони записали собі, — означає, що виключне створення на цьому монтуванні не атомарне між машинами. Розподіл перемог теж варто читати: приблизно рівний рахунок свідчить, що забіги справді перетнулися в часі, а рахунок «400 : 0» — що одна сторона встигла раніше й змагання не було, тож проба нічого не перевірила.
 
+:::tabs
 ```c
 static void probe_excl_race(void)
 {
@@ -661,6 +1101,73 @@ int main(int argc, char **argv)
     return 1;
 }
 ```
+```cpp
+static void probe_excl_race() {
+    constexpr int ROUNDS = 400;
+    std::string prefix = std::format("race-{}", ::getpid());
+    std::string req = std::format("RACE {} {}", prefix, ROUNDS);
+    if (send_line(req) < 0) return;
+
+    std::string mine;
+    mine.reserve(ROUNDS);
+    for (int i = 0; i < ROUNDS; ++i) {
+        auto name = at(std::format("{}-{}", prefix, i));
+        int fd = ::open(name.c_str(), O_WRONLY | O_CREAT | O_EXCL, 0644);
+        if (fd >= 0) { mine.push_back('1'); ::close(fd); }
+        else { mine.push_back('0'); }
+    }
+
+    std::string theirs;
+    if (recv_line(theirs) < 0) return;
+    if (theirs.size() != ROUNDS) { std::cout << "6. мапа не тієї довжини\n"; return; }
+
+    int mine_won = 0, their_won = 0, both = 0, none = 0;
+    for (int i = 0; i < ROUNDS; ++i) {
+        bool m = (mine[i] == '1'), t = (theirs[i] == '1');
+        mine_won += m;
+        their_won += t;
+        both += (m && t);
+        none += (!m && !t);
+    }
+
+    std::cout << std::format("6.  O_EXCL, {} кіл: наших {}, чужих {}, ПОДВІЙНИХ {}, нічиїх {}\n",
+                ROUNDS, mine_won, their_won, both, none);
+    if (both) std::cout << "    подвійна перемога = створення НЕ атомарне між машинами\n";
+    if (mine_won == 0 || their_won == 0) std::cout << "    забіги не перетнулися в часі — проба нічого не перевірила\n";
+
+    std::error_code ec;
+    for (int i = 0; i < ROUNDS; ++i) {
+        fs::remove(at(std::format("{}-{}", prefix, i)), ec);
+    }
+}
+
+int main(int argc, char **argv) {
+    if (argc == 4 && std::string_view(argv[1]) == "writer") {
+        share_dir = argv[2];
+        ctl = tcp_accept(argv[3]);
+        if (ctl < 0) { std::perror("accept"); return 1; }
+        serve();
+        return 0;
+    }
+    if (argc == 5 && std::string_view(argv[1]) == "reader") {
+        share_dir = argv[2];
+        ctl = tcp_connect(argv[3], argv[4]);
+        if (ctl < 0) { std::perror("connect"); return 1; }
+        probe_visibility();
+        probe_open_file();
+        probe_write_path();
+        probe_locks();
+        probe_open_unlink();
+        probe_excl_race();
+        send_line("BYE");
+        return 0;
+    }
+    std::cerr << std::format("вжиток:\n  {} writer <спільний-каталог> <порт>\n  {} reader <спільний-каталог> <хост-письменника> <порт>\n",
+                argv[0], argv[0]);
+    return 1;
+}
+```
+:::
 
 Типовий вивід на NFSv3 у локальній мережі виглядає приблизно так — і кожен рядок тут вартий свого числа:
 

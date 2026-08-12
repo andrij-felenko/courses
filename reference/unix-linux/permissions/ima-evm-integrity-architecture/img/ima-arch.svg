@@ -1,17 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="420" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="440" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="0.0" y="0.0" width="800.0" height="400.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
-<rect x="50.0" y="100.0" width="700.0" height="250.0" rx="5" fill="#f4f6f8" stroke="#333" stroke-width="1.5"/>
-<text x="400.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Space (VFS &amp; Security Hooks)</text>
-<rect x="100.0" y="150.0" width="200.0" height="60.0" rx="5" fill="#fff" stroke="#333" stroke-width="1.5"/>
-<text x="200.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">VFS (Virtual File System)</text>
-<rect x="350.0" y="150.0" width="150.0" height="60.0" rx="5" fill="#fff" stroke="#2457d6" stroke-width="2.0"/>
-<text x="425.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">IMA</text>
-<rect x="550.0" y="150.0" width="150.0" height="60.0" rx="5" fill="#fff" stroke="#2457d6" stroke-width="2.0"/>
-<text x="625.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">EVM</text>
-<rect x="350.0" y="260.0" width="350.0" height="60.0" rx="5" fill="#fff" stroke="#c0392b" stroke-width="2.0"/>
-<text x="525.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">TPM (Hardware Root of Trust)</text>
-<line x1="300.0" y1="180.0" x2="350.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="425.0" y1="210.0" x2="425.0" y2="260.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="500.0" y1="180.0" x2="550.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="0.0" y="0.0" width="800.0" height="420.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="20.0" y="20.0" width="760.0" height="60.0" rx="6" fill="#f8f9fa" stroke="#ced4da" stroke-width="1.5"/>
+<text x="400.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">User Space (Ппростір користувача)</text>
+<text x="400.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#495057" text-anchor="middle">Процеси (execve / open), udev, evmctl, keyctl</text>
+<rect x="20.0" y="95.0" width="760.0" height="215.0" rx="6" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1.5"/>
+<text x="400.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Space (Ядро Linux &amp; VFS)</text>
+<rect x="40.0" y="135.0" width="140.0" height="60.0" rx="5" fill="#ffffff" stroke="#495057" stroke-width="1.5"/>
+<text x="110.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">VFS Hooks</text>
+<text x="110.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6c757d" text-anchor="middle">sys_execve / open</text>
+<rect x="210.0" y="135.0" width="120.0" height="60.0" rx="5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="270.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1864ab" text-anchor="middle" font-weight="700">LSM Framework</text>
+<text x="270.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1c7ed6" text-anchor="middle">SELinux / AppArmor</text>
+<rect x="350.0" y="135.0" width="190.0" height="160.0" rx="5" fill="#e6fcf5" stroke="#0ca678" stroke-width="2.0"/>
+<text x="445.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#099268" text-anchor="middle" font-weight="700">IMA Subsystem</text>
+<rect x="365.0" y="170.0" width="160.0" height="32.0" rx="3" fill="#ffffff" stroke="#20c997" stroke-width="1.5"/>
+<text x="445.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Measurement (PCR 10)</text>
+<rect x="365.0" y="210.0" width="160.0" height="32.0" rx="3" fill="#ffffff" stroke="#20c997" stroke-width="1.5"/>
+<text x="445.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Appraisal (security.ima)</text>
+<rect x="365.0" y="250.0" width="160.0" height="32.0" rx="3" fill="#ffffff" stroke="#20c997" stroke-width="1.5"/>
+<text x="445.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Audit (audit.log)</text>
+<rect x="560.0" y="135.0" width="200.0" height="160.0" rx="5" fill="#fff9db" stroke="#f59f00" stroke-width="2.0"/>
+<text x="660.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d9480f" text-anchor="middle" font-weight="700">EVM Subsystem</text>
+<text x="660.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захист xattrs:</text>
+<text x="660.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">security.ima, selinux,</text>
+<text x="660.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">capability, SMACK64</text>
+<text x="660.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">+ i_ino, i_generation,</text>
+<text x="660.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">i_uid, i_gid, i_mode</text>
+<text x="660.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e65c00" text-anchor="middle" font-weight="700">HMAC / Digital Sig</text>
+<rect x="20.0" y="320.0" width="760.0" height="80.0" rx="6" fill="#f8f0fc" stroke="#ae3ec9" stroke-width="1.5"/>
+<rect x="40.0" y="335.0" width="340.0" height="50.0" rx="5" fill="#ffffff" stroke="#ae3ec9" stroke-width="2.0"/>
+<text x="210.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#862e9c" text-anchor="middle" font-weight="700">TPM 2.0 (Hardware Root of Trust)</text>
+<text x="210.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="middle">PCR 10 (IMA) + Sealed Storage Key (EVM HMAC)</text>
+<rect x="410.0" y="335.0" width="350.0" height="50.0" rx="5" fill="#ffffff" stroke="#7048e8" stroke-width="2.0"/>
+<text x="585.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#5f3dc4" text-anchor="middle" font-weight="700">Kernel Keyrings (.ima / .evm)</text>
+<text x="585.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="middle">X.509 Сертифікати / Публічні ключі RSA/ECDSA</text>
+<line x1="180.0" y1="165.0" x2="210.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="330.0" y1="165.0" x2="350.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="540.0" y1="190.0" x2="560.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="445.0" y1="295.0" x2="210.0" y2="335.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="295.0" x2="585.0" y2="335.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

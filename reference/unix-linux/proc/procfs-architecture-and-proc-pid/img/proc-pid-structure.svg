@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1390 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1390" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="1320.0" height="570.0" rx="8" fill="#fafafa" stroke="#cfd8dc" stroke-width="1.5"/>
+<rect x="540.0" y="60.0" width="300.0" height="65.0" rx="6" fill="#1a237e" stroke="#0d47a1" stroke-width="2.0"/>
+<text x="690.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="700">/proc/[pid] (напр. /proc/1234/)</text>
+<rect x="60.0" y="170.0" width="380.0" height="410.0" rx="6" fill="#eaf0fd" stroke="#1e88e5" stroke-width="1.5"/>
+<text x="250.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0d47a1" text-anchor="middle" font-weight="700">Метадані та стан процесу</text>
+<rect x="80.0" y="230.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">cmdline</text>
+<text x="410.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Аргументи виклику (\x00-separated)</text>
+<rect x="80.0" y="278.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">environ</text>
+<text x="410.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Змінні оточення (\x00-separated)</text>
+<rect x="80.0" y="326.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">status</text>
+<text x="410.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Людиночитаний стан (UID, RSS, Threads)</text>
+<rect x="80.0" y="374.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">stat</text>
+<text x="410.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Машинні лічильники та кванти CPU</text>
+<rect x="80.0" y="422.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">statm</text>
+<text x="410.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Розмір пам’яті у сторінках (pages)</text>
+<rect x="80.0" y="470.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">cgroup</text>
+<text x="410.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Приналежність до контрольних груп</text>
+<rect x="80.0" y="518.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="95.0" y="543.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1565c0" text-anchor="start" font-weight="700">oom_score</text>
+<text x="410.0" y="543.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Оцінка OOM-killer для ліквідації</text>
+<rect x="500.0" y="170.0" width="380.0" height="410.0" rx="6" fill="#fff6e5" stroke="#fb8c00" stroke-width="1.5"/>
+<text x="690.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#e65100" text-anchor="middle" font-weight="700">Віртуальна пам’ять та ресурси</text>
+<rect x="520.0" y="230.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">maps</text>
+<text x="850.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Карта областей VMA (адреси, права)</text>
+<rect x="520.0" y="278.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">smaps</text>
+<text x="850.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Детальні метрики пам'яті (PSS, RSS, Swap)</text>
+<rect x="520.0" y="326.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">mem</text>
+<text x="850.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Прямий доступ до VMA (для відлагоджувача)</text>
+<rect x="520.0" y="374.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">fd/</text>
+<text x="850.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Каталог файлових дескрипторів (symlinks)</text>
+<rect x="520.0" y="422.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">fdinfo/</text>
+<text x="850.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Детальні позиції та прапори для fd</text>
+<rect x="520.0" y="470.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">limits</text>
+<text x="850.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Обмеження ресурсів процесу (rlimit)</text>
+<rect x="520.0" y="518.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.0"/>
+<text x="535.0" y="543.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="start" font-weight="700">io</text>
+<text x="850.0" y="543.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Статистика дискового вводу/виводу</text>
+<rect x="940.0" y="170.0" width="380.0" height="410.0" rx="6" fill="#eaf6ef" stroke="#43a047" stroke-width="1.5"/>
+<text x="1130.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1b5e20" text-anchor="middle" font-weight="700">Символічні посилання та потоки</text>
+<rect x="960.0" y="230.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">cwd -&gt;</text>
+<text x="1290.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Поточний робочий каталог (magic link)</text>
+<rect x="960.0" y="278.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">exe -&gt;</text>
+<text x="1290.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Шлях до виконуваності бінарника</text>
+<rect x="960.0" y="326.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">root -&gt;</text>
+<text x="1290.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Кореневий каталог процесу (chroot)</text>
+<rect x="960.0" y="374.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">task/</text>
+<text x="1290.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Підкаталоги потоків [tid] (POSIX threads)</text>
+<rect x="960.0" y="422.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">ns/</text>
+<text x="1290.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Простори імен Linux (net, pid, mnt...)</text>
+<rect x="960.0" y="470.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">net/</text>
+<text x="1290.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Мережевий стек у даному netns</text>
+<rect x="960.0" y="518.0" width="340.0" height="42.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="975.0" y="543.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="start" font-weight="700">mounts</text>
+<text x="1290.0" y="543.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="end">Точки монтування даного mntns</text>
+<line x1="600.0" y1="125.0" x2="250.0" y2="162.0" stroke="#0d47a1" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="125.0" x2="690.0" y2="162.0" stroke="#e65100" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="125.0" x2="1130.0" y2="162.0" stroke="#1b5e20" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

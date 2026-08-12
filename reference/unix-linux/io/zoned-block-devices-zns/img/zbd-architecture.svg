@@ -1,23 +1,33 @@
-<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="#ffffff" />
-  <rect x="50" y="50" width="500" height="300" fill="#f0f0f0" stroke="#000000" stroke-width="2"/>
-  <text x="300" y="80" font-family="Arial" font-size="20" text-anchor="middle">Zoned Block Device (ZBD) Architecture</text>
-  
-  <rect x="80" y="100" width="120" height="200" fill="#cce5ff" stroke="#004c99" stroke-width="2"/>
-  <text x="140" y="130" font-family="Arial" font-size="14" text-anchor="middle">Conventional</text>
-  <text x="140" y="150" font-family="Arial" font-size="14" text-anchor="middle">Zone</text>
-  <text x="140" y="200" font-family="Arial" font-size="12" text-anchor="middle">Random Writes</text>
-  
-  <rect x="240" y="100" width="120" height="200" fill="#ffcccc" stroke="#990000" stroke-width="2"/>
-  <text x="300" y="130" font-family="Arial" font-size="14" text-anchor="middle">Sequential</text>
-  <text x="300" y="150" font-family="Arial" font-size="14" text-anchor="middle">Zone (SMR)</text>
-  <text x="300" y="200" font-family="Arial" font-size="12" text-anchor="middle">Sequential</text>
-  <text x="300" y="220" font-family="Arial" font-size="12" text-anchor="middle">Writes Only</text>
-  <line x1="260" y1="260" x2="340" y2="260" stroke="#000000" stroke-width="2" marker-end="url(#arrow)"/>
-
-  <rect x="400" y="100" width="120" height="200" fill="#ccffcc" stroke="#006600" stroke-width="2"/>
-  <text x="460" y="130" font-family="Arial" font-size="14" text-anchor="middle">ZNS</text>
-  <text x="460" y="150" font-family="Arial" font-size="14" text-anchor="middle">Zone (NVMe)</text>
-  <text x="460" y="200" font-family="Arial" font-size="12" text-anchor="middle">Sequential</text>
-  <text x="460" y="220" font-family="Arial" font-size="12" text-anchor="middle">Writes Only</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура ZBD</text>
+<rect x="20.0" y="20.0" width="760.0" height="360.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="400.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адресний простір логічних блоків (LBA) зонованого накопичувача</text>
+<rect x="40.0" y="80.0" width="210.0" height="240.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="145.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Conventional Zone</text>
+<text x="145.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">(Звичайна зона)</text>
+<rect x="60.0" y="160.0" width="170.0" height="70.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.0"/>
+<text x="145.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Випадковий запис</text>
+<text x="145.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Random I/O)</text>
+<text x="145.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запис у будь-який LBA</text>
+<text x="145.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">без обмежень WP</text>
+<rect x="270.0" y="80.0" width="490.0" height="240.0" rx="6" fill="#fff8e7" stroke="#d97706" stroke-width="1.5"/>
+<text x="515.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Sequential Write Required Zone (SWR / ZNS)</text>
+<text x="515.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">(Зона послідовного запису)</text>
+<rect x="290.0" y="160.0" width="160.0" height="70.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="370.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">Записані дані</text>
+<text x="370.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">LBA 0 ... WP-1</text>
+<rect x="450.0" y="160.0" width="170.0" height="70.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="535.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">Вільне місце</text>
+<text x="535.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">WP ... Capacity-1</text>
+<rect x="620.0" y="160.0" width="120.0" height="70.0" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="680.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4b5563" text-anchor="middle">Невикористано</text>
+<text x="680.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Діра флешу</text>
+<line x1="450.0" y1="145.0" x2="450.0" y2="245.0" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="377.0" y="263.0" width="145.9" height="24.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Write Pointer (WP)</tspan></text>
+<line x1="620.0" y1="150.0" x2="620.0" y2="240.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="620.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Zone Capacity</text>
+<line x1="740.0" y1="150.0" x2="740.0" y2="240.0" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="740.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="middle" font-weight="700">Zone Size</text>
+<text x="400.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Послідовний запис суворо на межі WP; після досягнення Zone Capacity зона стає Full.</text>
 </svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 385" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="385" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a252f" text-anchor="middle" font-weight="700">Шестирівневий Стек Архітектури ZFS (від диска до POSIX)</text>
+<rect x="60.0" y="55.0" width="780.0" height="42.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.8"/>
+<text x="80.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="start" font-weight="700">ZPL / ZVOL (ZFS POSIX Layer / Volume)</text>
+<text x="370.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Представлення системних файлів (POSIX: files, dirs) або блокових томів (/dev/zvol)</text>
+<line x1="450.0" y1="97.0" x2="450.0" y2="107.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="60.0" y="107.0" width="780.0" height="42.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.8"/>
+<text x="80.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="start" font-weight="700">DSL (Dataset and Snapshot Layer)</text>
+<text x="370.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Управління ієрархією датасетів, знімками, клонами та відстеженням простору</text>
+<line x1="450.0" y1="149.0" x2="450.0" y2="159.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="60.0" y="159.0" width="780.0" height="42.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="80.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="start" font-weight="700">ZAP (ZFS Attribute Processor)</text>
+<text x="370.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Хеш-індексований словник для атрибутів датасетів та вмісту каталогів (Micro/Fat-ZAP)</text>
+<line x1="450.0" y1="201.0" x2="450.0" y2="211.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="60.0" y="211.0" width="780.0" height="42.0" rx="6" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.8"/>
+<text x="80.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3730a3" text-anchor="start" font-weight="700">DMU (Data Management Unit)</text>
+<text x="370.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Об'єктний шар: dnodes, транзакційні групи (TXG), CoW-семантика та атомарні зміни</text>
+<line x1="450.0" y1="253.0" x2="450.0" y2="263.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="60.0" y="263.0" width="780.0" height="42.0" rx="6" fill="#fae8ff" stroke="#c026d3" stroke-width="1.8"/>
+<text x="80.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#86198f" text-anchor="start" font-weight="700">SPA (Storage Pool Allocator)</text>
+<text x="370.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Виділення простору в пулі, Metaslabs, балансування stripe та вказівники блоків (blkptr_t)</text>
+<line x1="450.0" y1="305.0" x2="450.0" y2="315.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="60.0" y="315.0" width="780.0" height="42.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.8"/>
+<text x="80.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="start" font-weight="700">VDEV (Virtual Device Layer)</text>
+<text x="370.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Абстракція фізичного заліза: диски, дзеркала, RAIDZ1/2/3, SLOG, L2ARC, Special VDEV</text>
+</svg>

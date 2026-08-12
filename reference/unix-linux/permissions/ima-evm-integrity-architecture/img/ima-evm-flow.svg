@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="800.0" height="300.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр перевірки цілісності при відкритті файлу VFS</text>
+<rect x="30.0" y="60.0" width="120.0" height="70.0" rx="5" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="90.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. VFS Open</text>
+<text x="90.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">sys_open / execve</text>
+<rect x="180.0" y="60.0" width="140.0" height="70.0" rx="5" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/>
+<text x="250.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. EVM Verify</text>
+<text x="250.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">evm_verifyxattr()</text>
+<text x="250.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9480f" text-anchor="middle">Перевірка security.evm</text>
+<rect x="350.0" y="60.0" width="140.0" height="70.0" rx="5" fill="#e6fcf5" stroke="#0ca678" stroke-width="1.5"/>
+<text x="420.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. IMA Appraisal</text>
+<text x="420.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ima_appraise()</text>
+<text x="420.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#099268" text-anchor="middle">Хеш вмісту vs security.ima</text>
+<rect x="520.0" y="60.0" width="130.0" height="70.0" rx="5" fill="#f3d9fa" stroke="#ae3ec9" stroke-width="1.5"/>
+<text x="585.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. IMA Measure</text>
+<text x="585.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">TPM PCR 10 Extend</text>
+<text x="585.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#862e9c" text-anchor="middle">+ ascii_measurements</text>
+<rect x="680.0" y="60.0" width="90.0" height="70.0" rx="5" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="1.5"/>
+<text x="725.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b8a3e" text-anchor="middle" font-weight="700">5. Доступ</text>
+<text x="725.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дозволено</text>
+<line x1="150.0" y1="95.0" x2="180.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="95.0" x2="350.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="95.0" x2="520.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="95.0" x2="680.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="180.0" y="180.0" width="470.0" height="70.0" rx="5" fill="#ffe3e3" stroke="#e03131" stroke-width="1.5"/>
+<text x="415.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c92a2a" text-anchor="middle" font-weight="700">Помилка цілісності (Невідповідність HMAC / підпису / хешу)</text>
+<text x="415.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a51d24" text-anchor="middle">Блокування виклику: повернення -EACCES / -EPERM + Запис в audit.log</text>
+<line x1="250.0" y1="130.0" x2="250.0" y2="180.0" stroke="#e03131" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="130.0" x2="420.0" y2="180.0" stroke="#e03131" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

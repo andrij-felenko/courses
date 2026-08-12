@@ -41,8 +41,8 @@ r.out.split(/\r?\n/).forEach((line) => {
   if (!needle.some((n) => line.includes(n))) return;
   const seg = (line.match(/(?:book|guide):([^\s—]+)/) || [])[1];
   const targetSlug = seg ? seg.split("/")[1] : null;
-  if (targetSlug && queued.includes(targetSlug)) {
-    console.log(`  · лінк на «${targetSlug}» — тема вже в черзі нових, буде зареєстрована наприкінці батчу`);
+  if (targetSlug && (queued.includes(targetSlug) || targetSlug === T.slug)) {
+    console.log(`  · лінк на «${targetSlug}» — тема вже в черзі нових або є поточною, буде зареєстрована наприкінці батчу`);
     return;
   }
   bad.push(`битий лінк: ${line.trim().slice(0, 140)}`);
