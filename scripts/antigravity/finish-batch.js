@@ -49,7 +49,7 @@ if (!dirs.length) { console.error(`порожній список батчу: ${B
 /* ── 1. гейт ───────────────────────────────────────────────────────────────── */
 console.log(`\n=== ГЕЙТ: ${dirs.length} тем батчу ${KIND}/${BOOK} ===`);
 let gateCode = 0, gateOut = "";
-try { gateOut = execSync(`node scripts/checks/gate.js --topics ${dirs.map((d) => `"${d}"`).join(" ")} --quiet`, { maxBuffer: 64 * 1024 * 1024 }).toString(); }
+try { gateOut = execSync(`node scripts/checks/gate.js --topics ${dirs.map((d) => `"${d}"`).join(" ")} --quiet --cache`, { maxBuffer: 64 * 1024 * 1024, timeout: 3600000, killSignal: "SIGKILL" }).toString(); }
 catch (e) { gateCode = e.status || 1; gateOut = ((e.stdout || "") + (e.stderr || "")).toString(); }
 console.log(gateOut.split(/\r?\n/).filter((l) => /готово|у роботі|ЗАСТІЙ|готових тем/.test(l)).join("\n"));
 if (gateCode !== 0) {
@@ -96,7 +96,7 @@ fs.mkdirSync(path.dirname(OPS), { recursive: true });
 fs.writeFileSync(OPS, JSON.stringify(ops, null, 2), "utf8");
 console.log(`\n=== manifest-patch (${APPLY ? "ЗАПИС" : "DRY — нічого не пишемо"}) ===`);
 let code = 0, out = "";
-try { out = execSync(`node scripts/manifest-patch.js "${MF}" --ops "${OPS}"${APPLY ? "" : " --dry"}`, { maxBuffer: 32 * 1024 * 1024 }).toString(); }
+try { out = execSync(`node scripts/manifest-patch.js "${MF}" --ops "${OPS}"${APPLY ? "" : " --dry"}`, { maxBuffer: 32 * 1024 * 1024, timeout: 600000, killSignal: "SIGKILL" }).toString(); }
 catch (e) { code = e.status || 1; out = ((e.stdout || "") + (e.stderr || "")).toString(); }
 console.log(out.trimEnd());
 if (code) { console.error(`\n✖ manifest-patch повернув ${code} — маніфест не змінено`); process.exit(code); }

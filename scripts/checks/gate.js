@@ -6,6 +6,7 @@
      node scripts/checks/gate.js <тека теми> [--quiet]
      node scripts/checks/gate.js --batch scripts/_finish/_batch-<книга>.json
      node scripts/checks/gate.js --topics <тека> <тека> …
+     …  [--cache]   пропускати теми, що не змінилися з минулого зеленого прогону
 
    Коди виходу:
      0 — ГОТОВО: усі 17 перевірок дали 0. Тільки в цьому стані тему можна
@@ -19,6 +20,20 @@
    ЧОМУ ЦЕ СКІНЧЕННО. Кожне коло або міняє текст теми, або додає вирок — і те,
    й те міняє підпис кола. Однаковий підпис двічі поспіль означає, що коло
    нічого не зробило: далі крутити немає сенсу, це вже не робота, а зациклення.
+
+   КОЛО ДОПИСУЄТЬСЯ, ЛИШЕ КОЛИ ПІДПИС ЗМІНИВСЯ. Інакше лічильник кіл рахував би
+   не роботу, а запуски: `finish-batch` ганяє гейт по всьому батчу, і кожна його
+   ходка додавала +1 колу КОЖНІЙ темі. Так тема доїжджала до стелі у 12 кіл,
+   жодного разу не бувши виправленою. Застій це не ламає: однаковий підпис і далі
+   означає застій, просто більше не роздуває лічильник.
+
+   --cache — ЧОМУ ЦЕ БЕЗПЕЧНО. Чотирнадцять перевірок читають ЛИШЕ теку теми й
+   вироки по ній. Не змінився вміст теки і не додалося вироків — їхній результат
+   змінитися не може, бо входи ті самі, а скрипти детерміновані. Тому при збігу
+   ключа (вміст теки + кількість вироків) вони пропускаються, а три перевірки, що
+   залежать від стану ПОЗА текою (03 — цілі картинок, 05 — цілі лінків і маніфести,
+   16 — маніфест теми й черга нових тем), ганяються ЗАВЖДИ. У кеш лягає лише
+   ЗЕЛЕНИЙ результат: тема, яка не пройшла, кешу не отримує ніколи.
    ========================================================================== */
 "use strict";
 const fs = require("fs");
@@ -29,8 +44,11 @@ const L = require("./_lib.js");
 
 const argv = process.argv.slice(2);
 const QUIET = argv.includes("--quiet");
+const CACHE = argv.includes("--cache");
 const here = __dirname;
 const CHECKS = fs.readdirSync(here).filter((f) => /^\d\d-.*\.js$/.test(f)).sort();
+/* залежать від стану ПОЗА текою теми — кешу не підлягають ніколи */
+const ALWAYS = new Set(["03-figures.js", "05-links.js", "16-promises.js"]);
 
 function topics() {
   const bi = argv.indexOf("--batch");
@@ -69,11 +87,25 @@ function contentHash(dir) {
 
 function runCheck(file, dir) {
   try {
-    const out = execSync(`node "${path.join(here, file)}" "${dir}"`, { maxBuffer: 32 * 1024 * 1024 }).toString();
+    const out = execSync(`node "${path.join(here, file)}" "${dir}"`, { maxBuffer: 32 * 1024 * 1024, timeout: 300000, killSignal: "SIGKILL" }).toString();
     return { code: 0, out };
   } catch (e) {
     return { code: e.status || 1, out: ((e.stdout || "") + (e.stderr || "")).toString() };
   }
+}
+
+/* ── кеш зеленої теми ──────────────────────────────────────────────────────── */
+function vdirOf(dir) { return path.join(L.ROOT, "scripts", "_finish", "_verdicts", L.topicKey(dir)); }
+function verdictCount(vdir) {
+  let n = 0;
+  if (fs.existsSync(vdir)) for (const f of fs.readdirSync(vdir)) if (/^\d\d\.json$/.test(f)) n += Object.keys(JSON.parse(fs.readFileSync(path.join(vdir, f), "utf8"))).length;
+  return n;
+}
+const cacheFile = (vdir) => path.join(vdir, "_gate-cache.json");
+function loadCache(vdir) { try { return JSON.parse(fs.readFileSync(cacheFile(vdir), "utf8")); } catch { return null; } }
+function saveCache(vdir, key) {
+  fs.mkdirSync(vdir, { recursive: true });
+  fs.writeFileSync(cacheFile(vdir), JSON.stringify({ key, ready: true }, null, 2), "utf8");
 }
 
 const MARK = { 0: "✓ ПРОЙДЕНО", 1: "✖ ДЕФЕКТИ", 2: "◆ ПОТРІБЕН ВИРОК", 3: "! УЖИТОК" };
@@ -83,7 +115,15 @@ const summary = [];
 for (const dir of DIRS) {
   if (!fs.existsSync(dir)) { console.error(`нема теки: ${dir}`); process.exit(L.USAGE); }
   console.log(`\n════════ ${dir} ════════`);
-  const res = CHECKS.map((f) => ({ f, ...runCheck(f, dir) }));
+
+  const vdir = vdirOf(dir);
+  const vcount = verdictCount(vdir);
+  const ch = contentHash(dir);
+  const ckey = ch + "|v" + vcount;
+  const cached = CACHE && (loadCache(vdir) || {}).key === ckey;
+
+  const res = (cached ? CHECKS.filter((f) => ALWAYS.has(f)) : CHECKS).map((f) => ({ f, ...runCheck(f, dir) }));
+  if (cached) console.log(`  ⏭ кеш: ні теку, ні вироки не чіпали з минулого зеленого прогону — ${CHECKS.length - ALWAYS.size} перевірок пропущено, ${ALWAYS.size} прогнано`);
 
   res.forEach((r) => {
     const tail = r.out.split(/\r?\n/).filter((l) => l.trim()).slice(-1)[0] || "";
@@ -97,19 +137,21 @@ for (const dir of DIRS) {
   const judge = res.filter((r) => r.code === 2);
   const ready = !defects.length && !judge.length;
 
-  /* підпис кола: вміст теми + коди перевірок + кількість вироків */
-  const vdir = path.join(L.ROOT, "scripts", "_finish", "_verdicts", L.topicKey(dir));
-  let vcount = 0;
-  if (fs.existsSync(vdir)) for (const f of fs.readdirSync(vdir)) if (/^\d\d\.json$/.test(f)) vcount += Object.keys(JSON.parse(fs.readFileSync(path.join(vdir, f), "utf8"))).length;
-  const sig = contentHash(dir) + "|" + res.map((r) => r.code).join("") + "|v" + vcount;
+  /* підпис кола: вміст теми + коди ВСІХ перевірок + кількість вироків.
+     Пропущені кешем зараховуємо нулями — вони й були нулями, інакше кешу не було б. */
+  const codeOf = (f) => { const r = res.find((x) => x.f === f); return r ? r.code : 0; };
+  const sig = ch + "|" + CHECKS.map(codeOf).join("") + "|v" + vcount;
 
   const roundsFile = path.join(vdir, "_rounds.json");
   let rounds = [];
   try { rounds = JSON.parse(fs.readFileSync(roundsFile, "utf8")); } catch { }
   const stalled = !ready && rounds.length && rounds[rounds.length - 1] === sig;
-  rounds.push(sig);
-  fs.mkdirSync(vdir, { recursive: true });
-  fs.writeFileSync(roundsFile, JSON.stringify(rounds.slice(-20), null, 2), "utf8");
+  if (rounds[rounds.length - 1] !== sig) {          // коло — це ЗМІНА, а не запуск
+    rounds.push(sig);
+    fs.mkdirSync(vdir, { recursive: true });
+    fs.writeFileSync(roundsFile, JSON.stringify(rounds.slice(-20), null, 2), "utf8");
+  }
+  if (ready && !cached) saveCache(vdir, ckey);
 
   console.log(`\n  коло ${rounds.length} · дефектів ${defects.length} · чекають вироку ${judge.length}` + (ready ? "  →  ГОТОВО" : ""));
   if (stalled) {
