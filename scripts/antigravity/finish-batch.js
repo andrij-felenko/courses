@@ -46,6 +46,26 @@ try {
 } catch (e) { console.error(`не прочитати список батчу ${BATCH}: ${e.message}`); process.exit(3); }
 if (!dirs.length) { console.error(`порожній список батчу: ${BATCH}`); process.exit(3); }
 
+/* ── замок: другий finish-batch паралельно не запускаємо ─────────────────────
+   Кожен прогін — сотні запусків node. Два одночасно не подвоюють швидкість, а
+   ділять машину (заміряно: п'ять паралельних прогонів → тема замість ~30 с іде 55).
+   Замок спільний із gate.js; дитині кажемо, що він уже наш, щоб вона не впиралась. */
+const LOCK = path.join("scripts", "_finish", "_gate.lock");
+const alive = (pid) => { try { process.kill(pid, 0); return true; } catch { return false; } };
+try {
+  const j = JSON.parse(fs.readFileSync(LOCK, "utf8"));
+  if (alive(j.pid) && Date.now() - j.at < 3 * 3600e3) {
+    console.error(`
+✖ прогін по батчу вже йде: pid ${j.pid}, тем ${j.topics}, стартував ${new Date(j.at).toLocaleTimeString()}`);
+    console.error(`  Дочекайся його або зніми той процес — паралельно буде тільки повільніше.`);
+    process.exit(1);
+  }
+} catch { }
+fs.mkdirSync(path.dirname(LOCK), { recursive: true });
+fs.writeFileSync(LOCK, JSON.stringify({ pid: process.pid, at: Date.now(), topics: dirs.length }), "utf8");
+process.on("exit", () => { try { const j = JSON.parse(fs.readFileSync(LOCK, "utf8")); if (j.pid === process.pid) fs.unlinkSync(LOCK); } catch { } });
+process.env.GATE_LOCK_INHERITED = "1";
+
 /* ── 1. гейт ───────────────────────────────────────────────────────────────── */
 console.log(`\n=== ГЕЙТ: ${dirs.length} тем батчу ${KIND}/${BOOK} ===`);
 let gateCode = 0, gateOut = "";

@@ -6,7 +6,8 @@
      node scripts/checks/gate.js <тека теми> [--quiet]
      node scripts/checks/gate.js --batch scripts/_finish/_batch-<книга>.json
      node scripts/checks/gate.js --topics <тека> <тека> …
-     …  [--cache]   пропускати теми, що не змінилися з минулого зеленого прогону
+     …  [--cache]    пропускати теми, що не змінилися з минулого зеленого прогону
+     …  [--status]   лише сказати, хто зелений, за журналом — НЕ запускаючи перевірок
 
    Коди виходу:
      0 — ГОТОВО: усі 17 перевірок дали 0. Тільки в цьому стані тему можна
@@ -45,6 +46,7 @@ const L = require("./_lib.js");
 const argv = process.argv.slice(2);
 const QUIET = argv.includes("--quiet");
 const CACHE = argv.includes("--cache");
+const STATUS = argv.includes("--status");   // лише читання журналу, нічого не запускаємо
 /* Стеля кіл. Кожне коло — це новий спавн суддів і ремонтника, тобто повна фіксована ціна
    ще раз. Дві теми з трьох закриваються за одне-два кола; тема, якій треба більше, майже
    завжди чекає рішення людини, а не ще одного заходу тих самих агентів. Тому за замовчуванням
@@ -75,6 +77,52 @@ if (!DIRS.length) {
   console.error("Ужиток: node scripts/checks/gate.js <тека теми> | --batch <файл.json> | --topics <тека>…");
   process.exit(L.USAGE);
 }
+
+/* ── замок на прогін по батчу ────────────────────────────────────────────────
+   Повний прогін — це 17 перевірок × кількість тем, тобто сотні запусків node.
+   Два таких одночасно не подвоюють швидкість, а ділять машину: заміряно на
+   живому прогоні — п'ять паралельних прогонів, і одна тема замість ~30 секунд
+   іде 55. Тому другий прогін не стартує, а каже, хто вже працює.               */
+const LOCK = path.join(L.ROOT, "scripts", "_finish", "_gate.lock");
+function alive(pid) { try { process.kill(pid, 0); return true; } catch { return false; } }
+function takeLock() {
+  try {
+    const j = JSON.parse(fs.readFileSync(LOCK, "utf8"));
+    if (alive(j.pid) && Date.now() - j.at < 3 * 3600e3) {
+      console.error(`\n✖ прогін по батчу вже йде: pid ${j.pid}, тем ${j.topics}, стартував ${new Date(j.at).toLocaleTimeString()}`);
+      console.error(`  Другий паралельно не пришвидшить — вони поділять машину. Дочекайся або зніми той процес.`);
+      console.error(`  Якщо той процес мертвий: видали ${path.relative(L.ROOT, LOCK)}`);
+      process.exit(1);
+    }
+  } catch { }
+  fs.mkdirSync(path.dirname(LOCK), { recursive: true });
+  fs.writeFileSync(LOCK, JSON.stringify({ pid: process.pid, at: Date.now(), topics: DIRS.length }), "utf8");
+  const drop = () => { try { const j = JSON.parse(fs.readFileSync(LOCK, "utf8")); if (j.pid === process.pid) fs.unlinkSync(LOCK); } catch { } };
+  process.on("exit", drop);
+  process.on("SIGINT", () => { drop(); process.exit(130); });
+}
+
+/* ── --status: хто готовий, без жодного запуску ─────────────────────────────
+   Питання «які теми вже зелені» відповідається з журналу вироків: там лежать
+   підпис останнього кола й кеш зеленого прогону. Ганяти заради цього 17 перевірок
+   на тему — це та сама тиснява, тільки написана циклом.                        */
+if (STATUS) {
+  let ready = 0;
+  for (const dir of DIRS) {
+    const vdir = path.join(L.ROOT, "scripts", "_finish", "_verdicts", L.topicKey(dir));
+    let rounds = [], cache = null;
+    try { rounds = JSON.parse(fs.readFileSync(path.join(vdir, "_rounds.json"), "utf8")); } catch { }
+    try { cache = JSON.parse(fs.readFileSync(path.join(vdir, "_gate-cache.json"), "utf8")); } catch { }
+    const last = rounds[rounds.length - 1] || "";
+    const codes = (last.split("|")[1] || "");
+    const green = /^0*$/.test(codes) && codes.length > 0;
+    if (green) ready++;
+    console.log(`  ${green ? "✓ зелена " : cache ? "· кеш є  " : "· у роботі"}  кіл ${String(rounds.length).padStart(2)}  ${codes ? "коди " + codes : "журналу нема"}   ${dir}`);
+  }
+  console.log(`\nзелених за журналом: ${ready} із ${DIRS.length}   (це ЧИТАННЯ журналу, перевірки не запускались)`);
+  process.exit(ready === DIRS.length ? 0 : 1);
+}
+if (DIRS.length > 1 && !process.env.GATE_LOCK_INHERITED) takeLock();
 
 function contentHash(dir) {
   const h = crypto.createHash("sha1");
