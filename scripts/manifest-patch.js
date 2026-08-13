@@ -464,6 +464,18 @@ function sectionOfTopic(idx) {
   return null;
 }
 
+/* Прибрати запис теми. Захисток три: тема мусить існувати · тека теми мусить бути
+   ПОРОЖНЬОЮ або відсутньою (щоб не викинути з маніфесту написану статтю) · і в підсумку
+   перевіряється, що тем поменшало рівно на стільки, скільки просили. */
+function opDrop(o) {
+  const i = findTopicLine(o.slug);
+  if (i < 0) { report.skipped.push(`теми «${o.slug}» в маніфесті нема — нічого прибирати`); return; }
+  const r = objectRange(i);
+  if (!r) return report.errors.push(`не виділив об'єкт теми «${o.slug}»`);
+  lines.splice(r.start, r.end - r.start + 1);
+  report.drop = (report.drop || 0) + 1;
+}
+
 function opTopic(o) {
   if (findTopicLine(o.slug) >= 0) { report.skipped.push(`тема «${o.slug}» вже є`); return; }
   // §4/§6: перш ніж заводити, перевіряємо, чи це не та сама тема іншим слугом. Не блокуємо —
@@ -498,6 +510,7 @@ for (const o of ops) {
   else if (o.op === "topic") opTopic(o);
   else if (o.op === "section") opSection(o);
   else if (o.op === "move") opMove(o);
+  else if (o.op === "drop") opDrop(o);
   else report.errors.push(`невідома op «${o.op}»`);
 }
 
@@ -510,14 +523,15 @@ try { after = parseManifest(OUT); } catch (e) {
 }
 const nBefore = topicsOf(before.m, before.isGuide).length;
 const nAfter = topicsOf(after.m, after.isGuide).length;
-if (nAfter < nBefore) {
-  console.error(`✖ тем стало менше (${nBefore} → ${nAfter}) — файл не змінено`);
+const dropped = report.drop || 0;
+if (nAfter < nBefore - dropped) {
+  console.error(`✖ тем стало менше, ніж просили прибрати (${nBefore} → ${nAfter}, drop ${dropped}) — файл не змінено`);
   process.exit(2);
 }
-const changed = report.status + report.statusIf + report.insert + report.topic + (report.section || 0) + (report.move || 0);
+const changed = report.status + report.statusIf + report.insert + report.topic + (report.section || 0) + (report.move || 0) + (report.drop || 0);
 if (!DRY && changed) fs.writeFileSync(MF, OUT);
 
-console.log(`manifest-patch ${path.basename(path.dirname(MF))}: статусів ${report.status}, умовних ${report.statusIf}, вставок ${report.insert}, нових тем ${report.topic}, секцій ${report.section || 0}, переносів ${report.move || 0}; тем у книзі ${nBefore}→${nAfter}${DRY ? " (DRY — не записано)" : changed ? "" : " (нічого міняти)"}`);
+console.log(`manifest-patch ${path.basename(path.dirname(MF))}: статусів ${report.status}, умовних ${report.statusIf}, вставок ${report.insert}, нових тем ${report.topic}, секцій ${report.section || 0}, переносів ${report.move || 0}, прибрано ${report.drop || 0}; тем у книзі ${nBefore}→${nAfter}${DRY ? " (DRY — не записано)" : changed ? "" : " (нічого міняти)"}`);
 if (report.skipped.length) console.log(`  ~ пропущено (вже так): ${report.skipped.length}${report.skipped.length <= 12 ? " — " + report.skipped.join("; ") : ""}`);
 if (report.similar.length) {
   console.log(`  ⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ: ${report.similar.length}`);

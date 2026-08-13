@@ -9,6 +9,7 @@ window.__BOOKS__ = [
         "title": "Віртуалізація й контейнери",
         "scope": "KVM, namespaces, cgroups як основа ізоляції",
         "topics": [
+          { slug: "kvm-and-qemu-architecture", title: "Архітектура KVM і QEMU: як ядро віддає процесор гостю", basic: { status: "empty" }, detailed: { status: "update" } },
         ]
       },
       {
@@ -9121,16 +9122,6 @@ window.__BOOKS__ = [
                   "status": "done"
                 }
               ]
-            }
-          },
-          {
-            "slug": "kvm-architecture",
-            "title": "Апаратно-асистентна віртуалізація ядра (KVM)",
-            "basic": {
-              "status": "empty"
-            },
-            "detailed": {
-              "status": "done"
             }
           },
           {
