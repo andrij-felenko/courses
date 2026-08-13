@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle" font-weight="700">Сузір'я сигналів (4-QAM): вплив вирівнювання Zero-Forcing та MMSE</text>
+<rect x="15.0" y="45.0" width="220.0" height="250.0" rx="6" fill="#fafafa" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="125.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">1. Передане сузір'я</text>
+<line x1="25.0" y1="170.0" x2="225.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="125.0" y1="75.0" x2="125.0" y2="265.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="218.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">I</text>
+<text x="132.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Q</text>
+<circle cx="75.0" cy="120.0" r="6.0" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+<circle cx="175.0" cy="120.0" r="6.0" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+<circle cx="75.0" cy="220.0" r="6.0" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+<circle cx="175.0" cy="220.0" r="6.0" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="125.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Ідеально чіткі точки</text>
+<rect x="260.0" y="45.0" width="220.0" height="250.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="370.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">2. Вихід Zero-Forcing</text>
+<line x1="270.0" y1="170.0" x2="470.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="370.0" y1="75.0" x2="370.0" y2="265.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="463.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">I</text>
+<text x="377.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Q</text>
+<circle cx="320.0" cy="120.0" r="3.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+<circle cx="318.0" cy="117.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="318.4" cy="129.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="318.2" cy="99.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="324.7" cy="116.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="317.0" cy="121.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="323.3" cy="136.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="329.2" cy="121.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="309.7" cy="105.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="323.4" cy="138.4" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="320.6" cy="118.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="327.4" cy="99.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="315.6" cy="126.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="332.2" cy="116.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="325.3" cy="123.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="331.0" cy="104.4" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="328.0" cy="98.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="283.3" cy="111.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="307.2" cy="132.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="420.0" cy="120.0" r="3.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+<circle cx="429.3" cy="102.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="431.9" cy="106.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="418.8" cy="115.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="421.6" cy="131.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="428.9" cy="124.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="429.1" cy="126.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="411.2" cy="110.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="413.4" cy="127.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="416.5" cy="152.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="408.5" cy="104.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="430.8" cy="139.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="427.1" cy="131.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="440.0" cy="118.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="400.1" cy="112.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="433.3" cy="99.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="420.5" cy="123.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="415.6" cy="130.1" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="428.1" cy="152.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="320.0" cy="220.0" r="3.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+<circle cx="328.7" cy="211.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="312.1" cy="208.4" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="333.3" cy="212.1" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="319.0" cy="230.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="309.9" cy="215.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="294.2" cy="204.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="312.1" cy="225.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="336.7" cy="219.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="323.7" cy="222.4" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="335.2" cy="232.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="323.8" cy="205.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="332.6" cy="225.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="337.2" cy="219.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="347.3" cy="215.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="342.3" cy="221.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="312.8" cy="204.2" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="317.9" cy="239.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="331.4" cy="229.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="420.0" cy="220.0" r="3.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+<circle cx="386.7" cy="230.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="427.8" cy="212.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="411.2" cy="220.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="444.1" cy="205.2" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="414.0" cy="239.1" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="413.8" cy="214.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="421.4" cy="202.6" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="423.1" cy="203.1" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="432.4" cy="220.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="452.0" cy="223.9" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="439.1" cy="201.8" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="418.3" cy="224.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="444.4" cy="196.5" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="433.9" cy="228.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="441.5" cy="230.0" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="420.7" cy="212.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="402.5" cy="222.7" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<circle cx="417.3" cy="248.3" r="2.0" fill="#ef4444" stroke="none" stroke-width="1.5"/>
+<rect x="282.4" y="272.5" width="175.3" height="15.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/><text x="370.0" y="283.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Центри незсунуті, але шум роздуто</tspan></text>
+<rect x="505.0" y="45.0" width="220.0" height="250.0" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+<text x="615.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">3. Вихід MMSE</text>
+<line x1="515.0" y1="170.0" x2="715.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="615.0" y1="75.0" x2="615.0" y2="265.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="708.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">I</text>
+<text x="622.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Q</text>
+<circle cx="572.5" cy="127.5" r="3.0" fill="#059669" stroke="none" stroke-width="1.5"/>
+<circle cx="571.6" cy="126.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="571.8" cy="131.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="571.7" cy="118.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="574.5" cy="125.9" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="571.2" cy="128.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="573.9" cy="134.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="576.4" cy="128.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="568.1" cy="121.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="574.0" cy="135.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="572.7" cy="126.9" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="575.7" cy="118.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="570.6" cy="130.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="577.7" cy="126.1" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="574.8" cy="129.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="577.2" cy="120.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="575.9" cy="118.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="556.8" cy="123.9" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="567.0" cy="132.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="657.5" cy="127.5" r="3.0" fill="#059669" stroke="none" stroke-width="1.5"/>
+<circle cx="661.5" cy="120.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="662.6" cy="121.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="657.0" cy="125.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="658.2" cy="132.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="661.3" cy="129.6" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="661.4" cy="130.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="653.7" cy="123.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="654.7" cy="130.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="656.0" cy="141.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="652.6" cy="120.9" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="662.1" cy="136.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="660.5" cy="132.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="666.1" cy="126.9" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="649.0" cy="124.3" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="663.2" cy="118.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="657.7" cy="129.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="655.6" cy="131.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="661.0" cy="141.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="572.5" cy="212.5" r="3.0" fill="#059669" stroke="none" stroke-width="1.5"/>
+<circle cx="576.2" cy="208.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="569.1" cy="207.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="578.2" cy="209.1" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="572.1" cy="217.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="568.2" cy="210.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="561.5" cy="206.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="569.1" cy="215.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="579.7" cy="212.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="574.1" cy="213.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="579.0" cy="217.9" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="574.1" cy="206.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="577.9" cy="214.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="579.9" cy="212.3" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="584.2" cy="210.3" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="582.1" cy="213.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="569.4" cy="205.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="571.6" cy="221.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="577.4" cy="216.6" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="657.5" cy="212.5" r="3.0" fill="#059669" stroke="none" stroke-width="1.5"/>
+<circle cx="643.2" cy="216.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="660.8" cy="209.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="653.7" cy="212.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="667.8" cy="206.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="654.9" cy="220.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="654.8" cy="210.3" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="658.1" cy="205.1" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="658.8" cy="205.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="662.8" cy="212.5" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="671.2" cy="214.2" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="665.7" cy="204.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="656.8" cy="214.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="668.0" cy="202.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="663.4" cy="216.0" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="666.7" cy="216.8" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="657.8" cy="209.4" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="650.0" cy="213.7" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<circle cx="656.3" cy="224.6" r="2.0" fill="#10b981" stroke="none" stroke-width="1.5"/>
+<rect x="512.0" y="272.5" width="206.1" height="15.0" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="1.5"/><text x="615.0" y="283.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="615.0" dy="0.0">Компактна хмара, легке стиснення (зсув)</tspan></text>
+</svg>

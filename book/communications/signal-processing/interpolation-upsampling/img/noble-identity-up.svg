@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="310" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шляхетна тотожність інтерполяції: перенесення фільтра до вставлення нулів</text>
+<text x="64.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">x[n]</text>
+<text x="64.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">fs</text>
+<line x1="102.0" y1="96.0" x2="150.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="152.0" y="71.0" width="66.0" height="50.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/><text x="185.0" y="101.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">↑L</tspan></text>
+<line x1="220.0" y1="96.0" x2="266.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="268.0" y="69.0" width="156.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="346.0" y="92.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="346.0" dy="0.0">H(z^L)</tspan><tspan x="346.0" dy="15.6">фільтр на L·fs</tspan></text>
+<line x1="426.0" y1="96.0" x2="472.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="478.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">y[m]</text>
+<text x="566.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-style="italic">≈ K·L·fs множень/с</text>
+<text x="400.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="30" fill="#1a1a1a" text-anchor="middle" font-weight="700">≡</text>
+<text x="64.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">x[n]</text>
+<text x="64.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">fs</text>
+<line x1="102.0" y1="214.0" x2="150.0" y2="214.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="152.0" y="187.0" width="156.0" height="54.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="230.0" y="210.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">H(z)</tspan><tspan x="230.0" dy="15.6">фільтр на fs</tspan></text>
+<line x1="310.0" y1="214.0" x2="356.0" y2="214.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="358.0" y="189.0" width="66.0" height="50.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/><text x="391.0" y="219.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle"><tspan x="391.0" dy="0.0">↑L</tspan></text>
+<line x1="426.0" y1="214.0" x2="472.0" y2="214.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="478.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">y[m]</text>
+<text x="566.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-style="italic">≈ K·fs множень/с</text>
+<text x="400.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">обчислення фільтра до розширення зменшує кількість множень у L разів</text>
+</svg>

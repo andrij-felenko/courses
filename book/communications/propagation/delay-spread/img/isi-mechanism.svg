@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 808.2 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="808.2" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часовий розкид і виникнення міжсимвольної інтерференції (ISI)</text>
+<text x="50.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">А. Повільна швидкість передачі (T_s &gt;&gt; τ_max): Немає ISI</text>
+<rect x="60.0" y="90.0" width="150.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="135.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Символ 1 (T_s)</text>
+<path d="M 210,150 L 210,100 Q 250,140 290,150 Z" fill="#fef5e7" stroke="#d35400" stroke-width="1.5" opacity="0.80" stroke-dasharray="3 2"/>
+<text x="250.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">луна (τ_max)</text>
+<rect x="310.0" y="90.0" width="150.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="385.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Символ 2 (T_s)</text>
+<text x="500.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Луна від Символу 1 згасає
+ДО початку Символу 2</text>
+<line x1="50.0" y1="185.0" x2="710.0" y2="185.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="50.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Б. Висока швидкість передачі (T_s &lt; τ_max): Сильна ISI</text>
+<rect x="60.0" y="280.0" width="75.0" height="60.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="97.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Симв 1</text>
+<path d="M 135,340 L 135,290 C 175,300 235,315 315,340 Z" fill="#fdebd0" stroke="#d35400" stroke-width="1.5" opacity="0.80"/>
+<rect x="145.0" y="280.0" width="75.0" height="60.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Симв 2</text>
+<rect x="230.0" y="280.0" width="75.0" height="60.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="267.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Симв 3</text>
+<text x="340.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Запізніла луна τ_max &gt; T_s
+Зона ISI: хвіст Символу 1
+спотворює Символ 2 і Символ 3!</text>
+</svg>

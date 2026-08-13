@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зони випромінювання антени та межа застосовності рівняння Фріїса</text>
+<rect x="30.0" y="80.0" width="20.0" height="140.0" rx="3" fill="#d9d9d9" stroke="#595959" stroke-width="1.5"/>
+<line x1="40.0" y1="50.0" x2="40.0" y2="80.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="40.0" y1="220.0" x2="40.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="40.0" y1="65.0" x2="40.0" y2="50.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+<line x1="40.0" y1="235.0" x2="40.0" y2="250.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апертура D</text>
+<line x1="50.0" y1="150.0" x2="760.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="740.0" y1="150.0" x2="760.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="745.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">d</text>
+<line x1="200.0" y1="70.0" x2="200.0" y2="230.0" stroke="#cc0000" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="440.0" y1="70.0" x2="440.0" y2="230.0" stroke="#008000" stroke-width="2.0" stroke-dasharray="5 5"/>
+<rect x="55.0" y="75.0" width="140.0" height="65.0" rx="6" fill="#ffe6e6" stroke="none" stroke-width="1.5"/>
+<text x="127.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#990000" text-anchor="middle" font-weight="700">Реактивна ближня</text>
+<text x="127.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">d &lt; 0.62·√(D³/λ)</text>
+<rect x="205.0" y="75.0" width="230.0" height="65.0" rx="6" fill="#fff7e6" stroke="none" stroke-width="1.5"/>
+<text x="320.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b37700" text-anchor="middle" font-weight="700">Радіаційна Френеля</text>
+<text x="320.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0.62·√(D³/λ) ≤ d &lt; 2·D²/λ</text>
+<rect x="445.0" y="75.0" width="290.0" height="65.0" rx="6" fill="#e6ffe6" stroke="none" stroke-width="1.5"/>
+<text x="587.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#006600" text-anchor="middle" font-weight="700">Дальня зона Фраунгофера</text>
+<text x="587.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#008000" text-anchor="middle" font-weight="700">d ≥ 2·D² / λ</text>
+<text x="440.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#008000" text-anchor="middle" font-weight="700">d_far = 2·D² / λ</text>
+<rect x="100.0" y="260.0" width="600.0" height="48.0" rx="6" fill="#f9f9f9" stroke="#cccccc" stroke-width="1.5"/><text x="400.0" y="280.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Рівняння Фріїса ДІЙСНЕ ТІЛЬКИ у дальній зоні (d ≥ d_far)!</tspan><tspan x="400.0" dy="15.6">У ближній зоні хвильовий фронт викривлений, і формула дає помилкові результати.</tspan></text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія передачі електромагнітної хвилі за Рівнянням Фріїса</text>
+<rect x="40.0" y="100.0" width="110.0" height="80.0" rx="6" fill="#e6f2ff" stroke="#0066cc" stroke-width="1.8"/>
+<text x="95.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0066cc" text-anchor="middle" font-weight="700">Передавач</text>
+<text x="95.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Pₜ (Вт)</text>
+<path d="M 150,140 L 190,110 L 190,170 Z" fill="#d9e6f2" stroke="#004080" stroke-width="1.5"/>
+<text x="170.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Tx антена</text>
+<text x="170.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Підсилення Gₜ</text>
+<line x1="190.0" y1="140.0" x2="610.0" y2="80.0" stroke="#b3cde0" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="190.0" y1="140.0" x2="610.0" y2="200.0" stroke="#b3cde0" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M 400,105 A 220,220 0 0 1 400,175" fill="none" stroke="#3385ff" stroke-width="2"/>
+<path d="M 580,85 A 400,400 0 0 1 580,195" fill="none" stroke="#0052cc" stroke-width="2.2"/>
+<rect x="395.0" y="52.0" width="230.0" height="40.0" rx="4" fill="#f0f7ff" stroke="#b3cde0" stroke-width="1.5"/><text x="510.0" y="75.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Густина потужності: S = (Pₜ · Gₜ) / (4 · π · d²)</tspan></text>
+<line x1="190.0" y1="230.0" x2="610.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="210.0" y1="230.0" x2="190.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="230.0" x2="610.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відстань d (м)</text>
+<path d="M 610,110 L 610,170 L 650,140 Z" fill="#d9e6f2" stroke="#004080" stroke-width="1.5"/>
+<text x="630.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Rx антена</text>
+<text x="630.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Підсилення Gᵣ</text>
+<rect x="650.0" y="100.0" width="110.0" height="80.0" rx="6" fill="#e6ffe6" stroke="#009933" stroke-width="1.8"/>
+<text x="705.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#009933" text-anchor="middle" font-weight="700">Приймач</text>
+<text x="705.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Pᵣ = S · Aₑ</text>
+<rect x="160.0" y="265.0" width="480.0" height="44.0" rx="6" fill="#f0f5fa" stroke="#99c2ff" stroke-width="1.5"/><text x="400.0" y="291.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#004080" text-anchor="middle"><tspan x="400.0" dy="0.0">Рівняння Фріїса:  Pᵣ = Pₜ · Gₜ · Gᵣ · ( λ / (4·π·d) )²</tspan></text>
+</svg>

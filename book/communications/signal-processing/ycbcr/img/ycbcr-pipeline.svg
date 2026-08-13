@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цифровий конвеєр обробки та квантування сигналу YCbCr</text>
+<rect x="20.0" y="75.0" width="130.0" height="110.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.8"/>
+<text x="85.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сенсор / RGB</text>
+<line x1="30.0" y1="109.0" x2="140.0" y2="109.0" stroke="#ef4444" stroke-width="1.0"/>
+<text x="85.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="85.0" dy="0.0">R, G, B</tspan><tspan x="85.0" dy="13.0">(Лінійний світловий</tspan><tspan x="85.0" dy="13.0">потік)</tspan></text>
+<line x1="152.0" y1="130.0" x2="172.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="174.0" y="75.0" width="130.0" height="110.0" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.8"/>
+<text x="239.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гама-корекція</text>
+<line x1="184.0" y1="109.0" x2="294.0" y2="109.0" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="239.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="239.0" dy="0.0">R', G', B'</tspan><tspan x="239.0" dy="13.0">(Нелінійне RGB)</tspan></text>
+<line x1="306.0" y1="130.0" x2="326.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="328.0" y="75.0" width="130.0" height="110.0" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="1.8"/>
+<text x="393.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця YCbCr</text>
+<line x1="338.0" y1="109.0" x2="448.0" y2="109.0" stroke="#10b981" stroke-width="1.0"/>
+<text x="393.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="393.0" dy="0.0">Y', Cb, Cr</tspan><tspan x="393.0" dy="13.0">(BT.601 / BT.709</tspan><tspan x="393.0" dy="13.0">BT.2020)</tspan></text>
+<line x1="460.0" y1="130.0" x2="480.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="482.0" y="75.0" width="130.0" height="110.0" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.8"/>
+<text x="547.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Квантування</text>
+<line x1="492.0" y1="109.0" x2="602.0" y2="109.0" stroke="#6366f1" stroke-width="1.0"/>
+<text x="547.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="547.0" dy="0.0">Full (0-255) / </tspan><tspan x="547.0" dy="13.0">Limited (16-235)</tspan><tspan x="547.0" dy="13.0">8/10/12-біт</tspan></text>
+<line x1="614.0" y1="130.0" x2="634.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="636.0" y="75.0" width="130.0" height="110.0" rx="6" fill="#f3e8ff" stroke="#a855f7" stroke-width="1.8"/>
+<text x="701.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер пам'яті</text>
+<line x1="646.0" y1="109.0" x2="756.0" y2="109.0" stroke="#a855f7" stroke-width="1.0"/>
+<text x="701.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="701.0" dy="0.0">I420 / NV12 /</tspan><tspan x="701.0" dy="13.0">YUYV</tspan><tspan x="701.0" dy="13.0">(Chroma Subsampling)</tspan></text>
+<rect x="20.0" y="202.0" width="740.0" height="42.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="390.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізована обробка: відокремлена яскравість стискається без втрати чіткості деталей</text>
+</svg>
