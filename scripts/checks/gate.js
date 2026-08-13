@@ -45,6 +45,11 @@ const L = require("./_lib.js");
 const argv = process.argv.slice(2);
 const QUIET = argv.includes("--quiet");
 const CACHE = argv.includes("--cache");
+/* Стеля кіл. Кожне коло — це новий спавн суддів і ремонтника, тобто повна фіксована ціна
+   ще раз. Дві теми з трьох закриваються за одне-два кола; тема, якій треба більше, майже
+   завжди чекає рішення людини, а не ще одного заходу тих самих агентів. Тому за замовчуванням
+   стеля 2, а не 12: дешевше показати людині, ніж крутити коло вчетверте. */
+const MAX_ROUNDS = Number(process.env.CHECKS_MAX_ROUNDS || 2);
 const here = __dirname;
 const CHECKS = fs.readdirSync(here).filter((f) => /^\d\d-.*\.js$/.test(f)).sort();
 /* залежать від стану ПОЗА текою теми — кешу не підлягають ніколи */
@@ -145,7 +150,12 @@ for (const dir of DIRS) {
   const roundsFile = path.join(vdir, "_rounds.json");
   let rounds = [];
   try { rounds = JSON.parse(fs.readFileSync(roundsFile, "utf8")); } catch { }
-  const stalled = !ready && rounds.length && rounds[rounds.length - 1] === sig;
+  /* Рахуємо кола ЦЬОГО тексту, а не всі за життя теми: правка міняє contentHash, отже
+     після кожного ремонту лічильник починається спочатку. Два кола на НЕЗМІННОМУ тексті
+     означають, що судді відпрацювали, а зрушення нема — далі рішення людини. */
+  const roundsNow = rounds.filter((x) => x.startsWith(ch + "|")).length;
+  const overRounds = !ready && roundsNow >= MAX_ROUNDS;
+  const stalled = !ready && (overRounds || (rounds.length && rounds[rounds.length - 1] === sig));
   if (rounds[rounds.length - 1] !== sig) {          // коло — це ЗМІНА, а не запуск
     rounds.push(sig);
     fs.mkdirSync(vdir, { recursive: true });
@@ -153,10 +163,10 @@ for (const dir of DIRS) {
   }
   if (ready && !cached) saveCache(vdir, ckey);
 
-  console.log(`\n  коло ${rounds.length} · дефектів ${defects.length} · чекають вироку ${judge.length}` + (ready ? "  →  ГОТОВО" : ""));
+  console.log(`\n  коло ${rounds.length} (на цьому тексті ${roundsNow}/${MAX_ROUNDS}) · дефектів ${defects.length} · чекають вироку ${judge.length}` + (ready ? "  →  ГОТОВО" : ""));
   if (stalled) {
     anyStall = true;
-    console.log(`  ⚠ ЗАСТІЙ: підпис кола не змінився з минулого разу — ні текст, ні вироки не зрушили.`);
+    console.log(`  ⚠ СТОП: ${overRounds ? `кіл на незмінному тексті ${roundsNow} при стелі ${MAX_ROUNDS} — далі рішення людини` : "підпис кола не змінився: ні текст, ні вироки не зрушили"}`);
     console.log(`    Не запускай те саме знову: розберись, чому агент нічого не змінив, або познач тему на розсуд людини.`);
   }
   if (!ready) {
