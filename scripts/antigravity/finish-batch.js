@@ -62,12 +62,45 @@ console.log(`✓ усі ${dirs.length} тем пройшли всі 17 пере�
 /* ── 2. операції з диску ───────────────────────────────────────────────────── */
 const ops = [];
 const seen = [];
+const mismatched = [];
+const sb = {};
+new Function("window", fs.readFileSync(MF, "utf8"))(sb);
+const isGuide = Array.isArray(sb.__GUIDES__) && sb.__GUIDES__.length;
+const m = (isGuide ? sb.__GUIDES__ : sb.__BOOKS__ || [])[0];
+/* Слуг → секція, у якій тема ВЖЕ записана в маніфесті. Саме звідси беремо секцію для
+   операцій: тека на диску може з нею розходитись (тему написали не в ту теку, або секцію
+   в маніфесті перейменували), і тоді manifest-patch шукав би тему не там, де вона є.
+   Раніше тут стояла ручна табличка підміни на одну книгу — вона лікувала симптом одного
+   батчу й мовчки ламалася на будь-якому іншому розходженні. */
+const sectionBySlug = new Map();
+(m.sections || []).forEach((s) => (s.topics || []).forEach((t) => sectionBySlug.set(t.slug, s.slug)));
+const existingSlugs = new Set(sectionBySlug.keys());
+/* Для НОВОЇ теми секції в маніфесті ще нема — тоді (і лише тоді) беремо назву теки. */
+const sectionOf = (slug, dirSection) => sectionBySlug.get(slug) || dirSection;
+
 for (const dir of dirs) {
   const slug = path.basename(dir);
-  const section = path.basename(path.dirname(dir));
+  const dirSection = path.basename(path.dirname(dir));
+  const section = sectionOf(slug, dirSection);
+  if (existingSlugs.has(slug) && section !== dirSection) {
+    mismatched.push(`${slug}: тека ${dirSection} ≠ маніфест ${section}`);
+  }
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
   const hasD = files.includes(`${slug}-d.md`);
   const hasB = files.includes(`${slug}.md`);
+
+  if (!existingSlugs.has(slug)) {
+    let title = slug;
+    const mainFile = hasD ? `${slug}-d.md` : (hasB ? `${slug}.md` : null);
+    if (mainFile && fs.existsSync(path.join(dir, mainFile))) {
+      const content = fs.readFileSync(path.join(dir, mainFile), "utf8");
+      const match = content.match(/^#\s+(.+)$/m);
+      if (match) title = match[1].trim();
+    }
+    ops.push({ op: "topic", section, slug, title, basic: hasB ? "done" : "empty", detailed: hasD ? "done" : "pending" });
+    existingSlugs.add(slug);
+  }
+
   if (hasD) ops.push({ op: "status", slug, ver: "detailed", status: "done" });
   if (hasB) ops.push({ op: "status", slug, ver: "basic", status: "done" });
   else ops.push({ op: "status-if", slug, ver: "basic", from: "pending", to: "empty" });
@@ -83,6 +116,11 @@ try { queue = JSON.parse(fs.readFileSync(QFILE, "utf8")); } catch { }
 const fresh = queue.filter((t) => !t.applied);
 fresh.forEach((t) => ops.push({ op: "topic", section: t.section, slug: t.slug, title: t.title, basic: "empty", detailed: "pending" }));
 
+if (mismatched.length) {
+  console.log(`\n⚠ ТЕКА ≠ СЕКЦІЯ МАНІФЕСТУ (${mismatched.length}) — статуси підуть у секцію з маніфесту,`);
+  console.log(`  але розкладку варто полагодити: або git mv теки, або перенести тему в маніфесті.`);
+  mismatched.forEach((x) => console.log(`     • ${x}`));
+}
 console.log(`\n=== ЩО ЗАПИСУЄМО ===`);
 seen.forEach((s) => console.log("  " + s));
 if (fresh.length) {
