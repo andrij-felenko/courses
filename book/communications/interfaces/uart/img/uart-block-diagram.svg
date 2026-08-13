@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структурна схема апаратного периферійного модуля UART</text>
+<rect x="20.0" y="50.0" width="780.0" height="410.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="35.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#475569" text-anchor="start" font-weight="700">Периферійний модуль UART (IP Core)</text>
+<rect x="50.0" y="95.0" width="210.0" height="85.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="155.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700">Генератор Baud Rate</text>
+<text x="155.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0c4a6e" text-anchor="middle">Дільник prescaler / fractional</text>
+<text x="155.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0c4a6e" text-anchor="middle">Передискретизація 16× / 8×</text>
+<line x1="260.0" y1="137.0" x2="310.0" y2="137.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="310.0" y="95.0" width="230.0" height="85.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="425.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Регістри CR1 / CR2 / SR</text>
+<text x="425.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Прапорці: TXE, RXNE, TC</text>
+<text x="425.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">Помилки: OE, FE, PE, BI</text>
+<rect x="580.0" y="95.0" width="190.0" height="85.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="675.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Логіка IRQ / DMA</text>
+<text x="675.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle">Запити до шини системного</text>
+<text x="675.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle">процесора / дма</text>
+<line x1="50.0" y1="205.0" x2="770.0" y2="205.0" stroke="#475569" stroke-width="3.0" stroke-dasharray="6,3"/>
+<text x="410.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Внутрішня системна шина даними / адресою MCU (APB / AHB)</text>
+<rect x="50.0" y="250.0" width="340.0" height="90.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="220.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Канал передавача (TX)</text>
+<rect x="70.0" y="288.0" width="130.0" height="40.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="135.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">TX FIFO (Буфер)</text>
+<line x1="200.0" y1="308.0" x2="230.0" y2="308.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="230.0" y="288.0" width="140.0" height="40.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="300.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">Зсувний регістр TSR</text>
+<rect x="50.0" y="360.0" width="340.0" height="90.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="220.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">Канал приймача (RX)</text>
+<rect x="70.0" y="398.0" width="140.0" height="40.0" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/>
+<text x="140.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">Зсувний регістр RSR</text>
+<line x1="210.0" y1="418.0" x2="240.0" y2="418.0" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="240.0" y="398.0" width="130.0" height="40.0" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/>
+<text x="305.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">RX FIFO (Буфер)</text>
+<rect x="430.0" y="250.0" width="340.0" height="200.0" rx="6" fill="#fae8ff" stroke="#c026d3" stroke-width="1.5"/>
+<text x="600.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#86198f" text-anchor="middle" font-weight="700">Блок керування потоком (Flow Control)</text>
+<rect x="460.0" y="300.0" width="130.0" height="50.0" rx="4" fill="#ffffff" stroke="#c026d3" stroke-width="1.2"/>
+<text x="525.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#701a75" text-anchor="middle" font-weight="700">Логіка RTS</text>
+<text x="525.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#701a75" text-anchor="middle">(Запит відправки)</text>
+<rect x="615.0" y="300.0" width="130.0" height="50.0" rx="4" fill="#ffffff" stroke="#c026d3" stroke-width="1.2"/>
+<text x="680.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#701a75" text-anchor="middle" font-weight="700">Логіка CTS</text>
+<text x="680.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#701a75" text-anchor="middle">(Готовність партнера)</text>
+<line x1="370.0" y1="308.0" x2="790.0" y2="308.0" stroke="#15803d" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="785.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="end" font-weight="700">TX Pin</text>
+<line x1="790.0" y1="418.0" x2="70.0" y2="418.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="785.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="end" font-weight="700">RX Pin</text>
+<line x1="525.0" y1="350.0" x2="790.0" y2="350.0" stroke="#c026d3" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="785.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#86198f" text-anchor="end" font-weight="700">RTS Pin</text>
+<line x1="790.0" y1="380.0" x2="680.0" y2="380.0" stroke="#c026d3" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="785.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#86198f" text-anchor="end" font-weight="700">CTS Pin</text>
+</svg>

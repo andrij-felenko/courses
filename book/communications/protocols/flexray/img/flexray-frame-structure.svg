@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12.6 -10 865.2 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-12.6" y="-10" width="865.2" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія кадру FlexRay: Заголовок, Дані та Трейлер</text>
+<rect x="40.0" y="55.0" width="280.0" height="215.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="180.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Заголовок Кадру (Header)</text>
+<text x="180.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">5 байтів = 40 бітів</text>
+<text x="50.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Reserved bit (1b):</text>
+<text x="215.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Зарезервовано (0)</text>
+<text x="50.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Payload Preamble (1b):</text>
+<text x="215.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Наявність індикатора</text>
+<text x="50.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Null Frame Ind. (1b):</text>
+<text x="215.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">1 = Норм, 0 = Порожній</text>
+<text x="50.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Sync Frame Ind. (1b):</text>
+<text x="215.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">1 = Вузол синхронізації</text>
+<text x="50.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Startup Frame Ind. (1b):</text>
+<text x="215.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">1 = Холодний старт</text>
+<text x="50.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Frame ID (11b):</text>
+<text x="215.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Номер слота (1..2047)</text>
+<text x="50.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Payload Length (12b):</text>
+<text x="215.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Довжина в 16-біт словах</text>
+<text x="50.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Header CRC (11b):</text>
+<text x="215.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">CRC заголовка (0x385)</text>
+<text x="50.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">• Cycle Count (6b):</text>
+<text x="215.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Номер циклу (0..63)</text>
+<rect x="330.0" y="55.0" width="290.0" height="215.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="475.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Корисне Навантаження (Payload)</text>
+<text x="475.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">від 0 до 254 байтів (до 127 слів)</text>
+<rect x="345.0" y="105.0" width="260.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="475.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Слово 0 (16 біт) ... Слово N (16 біт)</text>
+<text x="475.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сигнали датчиків та команд керування</text>
+<rect x="345.0" y="170.0" width="260.0" height="75.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="475.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Опціональний вектор керування</text>
+<text x="475.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Network Management Vector (у статичному)</text>
+<text x="475.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або Message ID (у динамічному)</text>
+<rect x="630.0" y="55.0" width="170.0" height="215.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="715.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Трейлер (Trailer)</text>
+<text x="715.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3 байти = 24 біти</text>
+<rect x="642.0" y="120.0" width="146.0" height="85.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="715.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Frame CRC</text>
+<text x="715.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">24-бітний контрольний</text>
+<text x="715.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">код кадру (0x5B2EC7)</text>
+<rect x="-2.6" y="314.5" width="845.2" height="31.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="420.0" y="333.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Загальна довжина кадру: 5 байтів заголовка + N байтів даних + 3 байти CRC. Усі значення передаються у форматі Big-Endian.</tspan></text>
+</svg>

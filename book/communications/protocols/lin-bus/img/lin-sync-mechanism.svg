@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -10 840 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-20" y="-10" width="840" height="310" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм автосинхронізації за Sync-байтом 0x55 (UART Baud Rate Adjust)</text>
+<line x1="40.0" y1="90.0" x2="780.0" y2="90.0" stroke="#d0d0d0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="30.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">High (1)</text>
+<line x1="40.0" y1="170.0" x2="780.0" y2="170.0" stroke="#d0d0d0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="30.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Low (0)</text>
+<path d="M 60.000000 90.000000 L 60.000000 170.000000 L 124.000000 170.000000 L 124.000000 90.000000 L 188.000000 90.000000 L 188.000000 170.000000 L 252.000000 170.000000 L 252.000000 90.000000 L 316.000000 90.000000 L 316.000000 170.000000 L 380.000000 170.000000 L 380.000000 90.000000 L 444.000000 90.000000 L 444.000000 170.000000 L 508.000000 170.000000 L 508.000000 90.000000 L 572.000000 90.000000 L 572.000000 170.000000 L 636.000000 170.000000 L 636.000000 90.000000 L 700.000000 90.000000" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<text x="92.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Start</text>
+<text x="156.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D0</text>
+<text x="220.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D1</text>
+<text x="284.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D2</text>
+<text x="348.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D3</text>
+<text x="412.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D4</text>
+<text x="476.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D5</text>
+<text x="540.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D6</text>
+<text x="604.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D7</text>
+<text x="668.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Stop</text>
+<line x1="60.0" y1="175.0" x2="60.0" y2="230.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="572.0" y1="175.0" x2="572.0" y2="230.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="60.0" y1="215.0" x2="572.0" y2="215.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="572.0" y1="215.0" x2="60.0" y2="215.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="316.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Виміряний інтервал = 8 × T_bit (5 спадних фронтів)</text>
+<rect x="150.0" y="235.0" width="520.0" height="45.0" rx="6" fill="#fff8e7" stroke="#d97706" stroke-width="1.2"/>
+<text x="410.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">T_bit = (Час між 1-м та 5-м спадним фронтом) / 8</text>
+<text x="410.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Slave підганяє дільник частоти таймера RC-генератора під виміряне значення T_bit</text>
+</svg>

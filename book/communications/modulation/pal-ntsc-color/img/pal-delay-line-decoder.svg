@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структурна схема декодера PAL з 1H ультразвуковою лінією затримки 64 мкс</text>
+<rect x="40.0" y="180.0" width="110.0" height="50.0" rx="4" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.8"/>
+<text x="95.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід Chroma C(t)</text>
+<text x="95.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зі смугового фільтра</text>
+<line x1="150.0" y1="205.0" x2="190.0" y2="205.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="190.0" cy="205.0" r="4.0" fill="#1a1a1a" stroke="none" stroke-width="1.5"/>
+<line x1="190.0" y1="205.0" x2="190.0" y2="140.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="190.0" y1="140.0" x2="230.0" y2="140.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="230.0" y="115.0" width="140.0" height="50.0" rx="4" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.8"/>
+<text x="300.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінія затримки 1H</text>
+<text x="300.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e65100" text-anchor="middle">64.0 мкс (ультразвук)</text>
+<line x1="190.0" y1="205.0" x2="190.0" y2="270.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="190.0" y1="270.0" x2="370.0" y2="270.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="280.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прямий сигнал C_N(t)</text>
+<line x1="370.0" y1="140.0" x2="370.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="370.0" y1="140.0" x2="370.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="300.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Затриманий сигнал C_{N-1}(t)</text>
+<circle cx="430.0" cy="150.0" r="22.0" fill="#e8f5e9" stroke="#c0392b" stroke-width="2.0"/>
+<text x="430.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<line x1="370.0" y1="140.0" x2="408.0" y2="140.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="190.0" y1="270.0" x2="430.0" y2="270.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="430.0" y1="270.0" x2="430.0" y2="172.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="430.0" cy="270.0" r="22.0" fill="#ffebee" stroke="#2457d6" stroke-width="2.0"/>
+<text x="430.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<line x1="370.0" y1="230.0" x2="430.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="430.0" y1="230.0" x2="430.0" y2="248.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="452.0" y1="150.0" x2="500.0" y2="150.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="476.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2U sin(ωt)</text>
+<line x1="452.0" y1="270.0" x2="500.0" y2="270.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="476.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2V cos(ωt)</text>
+<rect x="500.0" y="125.0" width="130.0" height="50.0" rx="4" fill="#f3e5f5" stroke="#ab47bc" stroke-width="1.8"/>
+<text x="565.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Демодулятор U</text>
+<text x="565.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7b1fa2" text-anchor="middle">× sin(ω_sc t)</text>
+<rect x="500.0" y="245.0" width="130.0" height="50.0" rx="4" fill="#f3e5f5" stroke="#ab47bc" stroke-width="1.8"/>
+<text x="565.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Демодулятор V</text>
+<text x="565.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7b1fa2" text-anchor="middle">× ±cos(ω_sc t) [PAL switch]</text>
+<rect x="500.0" y="330.0" width="130.0" height="45.0" rx="4" fill="#eceff1" stroke="#607d8b" stroke-width="1.5"/>
+<text x="565.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ФАПЧ / Кварц 4.43 МГц</text>
+<text x="565.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Детектор спалаху PAL</text>
+<line x1="565.0" y1="330.0" x2="565.0" y2="295.0" stroke="#607d8b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="565.0" y1="245.0" x2="565.0" y2="175.0" stroke="#607d8b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="630.0" y1="150.0" x2="700.0" y2="150.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="700.0" cy="150.0" r="4.0" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="710.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">U (B - Y)</text>
+<line x1="630.0" y1="270.0" x2="700.0" y2="270.0" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="700.0" cy="270.0" r="4.0" fill="#2457d6" stroke="none" stroke-width="1.5"/>
+<text x="710.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">V (R - Y)</text>
+<rect x="700.0" y="185.0" width="100.0" height="50.0" rx="4" fill="#e0f7fa" stroke="#00acc1" stroke-width="1.8"/>
+<text x="750.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця RGB</text>
+<text x="750.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Y, U, V → R,G,B</text>
+<line x1="735.0" y1="150.0" x2="750.0" y2="150.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="750.0" y1="150.0" x2="750.0" y2="185.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="735.0" y1="270.0" x2="750.0" y2="270.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="750.0" y1="270.0" x2="750.0" y2="235.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="420.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Додавання двох сусідніх рядків взаємно знищує дзеркальну компоненту V і виділяє 2U. Віднімання виділяє 2V.</text>
+</svg>

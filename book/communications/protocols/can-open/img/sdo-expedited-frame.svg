@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 431.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="431.5" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр SDO Expedited (8 байтів payload): Запит / Відповідь до Словника Об'єктів</text>
+<rect x="50.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#fdecea" stroke="#2457d6" stroke-width="1.6"/>
+<text x="90.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Байт 0</text>
+<text x="90.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Команда SDO
+(CCS/SCS, e, s, n)</text>
+<rect x="135.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.6"/>
+<text x="175.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Байт 1</text>
+<text x="175.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Індекс LSB
+(0x00..0xFF)</text>
+<rect x="220.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.6"/>
+<text x="260.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Байт 2</text>
+<text x="260.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Індекс MSB
+(0x10..0x9F)</text>
+<rect x="305.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#eef6ef" stroke="#c0392b" stroke-width="1.6"/>
+<text x="345.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Байт 3</text>
+<text x="345.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Субіндекс
+(0x00..0xFF)</text>
+<rect x="390.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#fafbfc" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="430.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 4</text>
+<text x="430.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дані / Abort
+Байт 0 (LSB)</text>
+<rect x="475.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#fafbfc" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="515.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 5</text>
+<text x="508.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дані / Abort
+Байт 1</text>
+<rect x="560.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#fafbfc" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="600.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 6</text>
+<text x="600.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дані / Abort
+Байт 2</text>
+<rect x="645.0" y="60.0" width="81.0" height="65.0" rx="6" fill="#fafbfc" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="685.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 7</text>
+<text x="685.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дані / Abort
+Байт 3 (MSB)</text>
+<g>
+<rect x="50.0" y="160.0" width="680.0" height="160.0" rx="8" fill="#fdfbf7" stroke="#d6dde6" stroke-width="1.2"/>
+</g>
+<text x="390.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дешифрація бітів командного байта (Байт 0)</text>
+<text x="70.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">біти 7..5 (CCS/SCS)</text>
+<text x="250.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Специфікатор команди: 001b=Write, 010b=Read Resp, 000b=Write Resp, 100b=Read Req, 1000b=Abort</text>
+<text x="70.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">біти 3..2 (n)</text>
+<text x="250.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Кількість ВПОРОЖНІЛИХ байтів даних у корисній навантаженості (4 - count)</text>
+<text x="70.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">біт 1 (e)</text>
+<text x="250.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Expedited flag: 1 = прискорений переказ (дані ≤4B прямо в байтах 4..7); 0 = сегментований</text>
+<text x="70.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">біт 0 (s)</text>
+<text x="250.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Size indicator: 1 = розмір даних вказано у прапорці n</text>
+<rect x="119.8" y="380.5" width="540.4" height="31.0" rx="6" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.5"/><text x="390.0" y="399.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Expedited SDO передає значення до 32 бітів за ОДИН кадр запиту і одне підтвердження</tspan></text>
+</svg>

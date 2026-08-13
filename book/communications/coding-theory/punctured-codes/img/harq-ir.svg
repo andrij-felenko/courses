@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол IR-HARQ (Incremental Redundancy HARQ)</text>
+<text x="410.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Адаптивне досилання виколотих бітів парності при помилках приймача</text>
+<text x="180.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Передавач (Tx)</text>
+<text x="640.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приймач (Rx)</text>
+<line x1="180.0" y1="105.0" x2="180.0" y2="370.0" stroke="#cccccc" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="640.0" y1="105.0" x2="640.0" y2="370.0" stroke="#cccccc" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="170.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">1. Спроба (R = 3/4)</text>
+<line x1="180.0" y1="145.0" x2="630.0" y2="145.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Блок з виколюванням P₁ (4 біти з 6)</text>
+<text x="655.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Декодування R=3/4</text>
+<text x="655.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">CRC: Помилка ✗</text>
+<line x1="630.0" y1="200.0" x2="190.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сигнал NACK (потрібна надлишковість)</text>
+<text x="170.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">2. Досилання ΔP</text>
+<line x1="180.0" y1="265.0" x2="630.0" y2="265.0" stroke="#e08a1e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a8620a" text-anchor="middle" font-weight="700">Досилання раніше виколотих бітів ΔP (2 біти)</text>
+<text x="655.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Об'єднання вибірок</text>
+<text x="655.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Декодування R=1/2</text>
+<text x="655.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">CRC: Успіх ✓</text>
+<line x1="630.0" y1="330.0" x2="190.0" y2="330.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Сигнал ACK (підтвердження)</text>
+<text x="410.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Приймач зберігає м'які вибірки LLR від 1-ї спроби та об'єднує їх з досланими бітами</text>
+</svg>

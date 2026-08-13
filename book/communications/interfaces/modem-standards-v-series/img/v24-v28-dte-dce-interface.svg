@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" width="100%" height="100%">
+  <style>
+        .bg { fill: #f8fafc; }
+        .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #475569; text-anchor: middle; }
+        .box-dte { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; rx: 8px; }
+        .box-dce { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8px; }
+        .box-title { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .sig-line { stroke: #475569; stroke-width: 1.8; fill: none; }
+        .sig-arrow { fill: #475569; }
+        .sig-label { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: bold; fill: #1e293b; }
+        .sig-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 10px; fill: #64748b; }
+        .voltage-card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 6px; }
+        .v-title { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .v-mark { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: bold; fill: #dc2626; text-anchor: middle; }
+        .v-space { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: bold; fill: #16a34a; text-anchor: middle; }
+    </style>
+  <rect width="100%" height="100%" class="bg" />
+  <g transform="translate(0,0)">
+    <text x="490" y="28" class="title">Функціональні кола V.24 та електричні рівні V.28 стику DTE–DCE</text>
+    <text x="490" y="48" class="subtitle">Зв'язок кінцевого термінала (DTE) та модема (DCE)</text>
+    <rect x="40" y="70" width="230" height="320" class="box-dte" />
+    <text x="155" y="98" class="box-title" text="DTE (Комп'ютер / ПК)" />
+    <rect x="710" y="70" width="230" height="320" class="box-dce" />
+    <text x="825" y="98" class="box-title" text="DCE (Модем)" />
+    <rect x="330" y="315" width="320" height="75" class="voltage-card" />
+    <text x="490" y="333" class="v-title" text="Електричні рівні V.28 (RS-232)" />
+    <text x="490" y="352" class="v-mark" text="Mark (1 / OFF): -3 В ... -15 В (Пасивний стан)" />
+    <text x="490" y="371" class="v-space" text="Space (0 / ON): +3 В ... +15 В (Активний стан)" />
+    <line x1="270" y1="125" x2="710" y2="125" class="sig-line" />
+    <polygon points="710,125 700,121 700,129" class="sig-arrow" />
+    <text x="490" y="122" class="sig-label" text-anchor="middle" text="Коло 103 (TXD)" />
+    <text x="490" y="135" class="sig-desc" text-anchor="middle" text="Передача даних" />
+    <line x1="270" y1="150" x2="710" y2="150" class="sig-line" />
+    <polygon points="270,150 280,146 280,154" class="sig-arrow" />
+    <text x="490" y="147" class="sig-label" text-anchor="middle" text="Коло 104 (RXD)" />
+    <text x="490" y="160" class="sig-desc" text-anchor="middle" text="Прийом даних" />
+    <line x1="270" y1="175" x2="710" y2="175" class="sig-line" />
+    <polygon points="710,175 700,171 700,179" class="sig-arrow" />
+    <text x="490" y="172" class="sig-label" text-anchor="middle" text="Коло 105 (RTS)" />
+    <text x="490" y="185" class="sig-desc" text-anchor="middle" text="Запит відправки" />
+    <line x1="270" y1="200" x2="710" y2="200" class="sig-line" />
+    <polygon points="270,200 280,196 280,204" class="sig-arrow" />
+    <text x="490" y="197" class="sig-label" text-anchor="middle" text="Коло 106 (CTS)" />
+    <text x="490" y="210" class="sig-desc" text-anchor="middle" text="Готовність до прийому" />
+    <line x1="270" y1="225" x2="710" y2="225" class="sig-line" />
+    <polygon points="270,225 280,221 280,229" class="sig-arrow" />
+    <text x="490" y="222" class="sig-label" text-anchor="middle" text="Коло 107 (DSR)" />
+    <text x="490" y="235" class="sig-desc" text-anchor="middle" text="Модем готовий" />
+    <line x1="270" y1="250" x2="710" y2="250" class="sig-line" />
+    <polygon points="710,250 700,246 700,254" class="sig-arrow" />
+    <text x="490" y="247" class="sig-label" text-anchor="middle" text="Коло 108/2 (DTR)" />
+    <text x="490" y="260" class="sig-desc" text-anchor="middle" text="Термінал готовий" />
+    <line x1="270" y1="275" x2="710" y2="275" class="sig-line" />
+    <polygon points="270,275 280,271 280,279" class="sig-arrow" />
+    <text x="490" y="272" class="sig-label" text-anchor="middle" text="Коло 109 (DCD)" />
+    <text x="490" y="285" class="sig-desc" text-anchor="middle" text="Детектор несучої" />
+  </g>
+</svg>

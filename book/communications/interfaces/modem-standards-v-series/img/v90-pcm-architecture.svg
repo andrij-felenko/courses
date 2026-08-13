@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 420" width="100%" height="100%">
+  <style>
+        .bg { fill: #f8fafc; }
+        .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .box-client { fill: #fff7ed; stroke: #f97316; stroke-width: 2; rx: 8px; }
+        .box-co { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8px; }
+        .box-isp { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        .sub-box { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 4px; }
+        .box-title { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .label { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #334155; text-anchor: middle; }
+        .label-bold { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .arrow-dn { stroke: #0284c7; stroke-width: 2.5; fill: none; }
+        .arrow-up { stroke: #d97706; stroke-width: 2.5; stroke-dasharray: 5,4; fill: none; }
+        .arrow-head-dn { fill: #0284c7; }
+        .arrow-head-up { fill: #d97706; }
+        .noise-badge { fill: #fee2e2; stroke: #ef4444; stroke-width: 1.5; rx: 4px; }
+        .noise-text { font-family: system-ui, -apple-system, sans-serif; font-size: 10px; font-weight: bold; fill: #991b1b; text-anchor: middle; }
+    </style>
+  <rect width="100%" height="100%" class="bg" />
+  <g transform="translate(0,0)">
+    <text x="510" y="30" class="title">Архітектура V.90 PCM: обхід шуму АЦП у напрямку Downstream</text>
+    <rect x="40" y="70" width="230" height="310" class="box-client" />
+    <text x="155" y="95" class="box-title">Клієнтський модем</text>
+    <text x="155" y="114" class="label">(Аналогова абонентська лінія)</text>
+    <rect x="60" y="130" width="190" height="70" class="sub-box" />
+    <text x="155" y="154" class="label-bold" text="Приймач V.90 ІКМ" />
+    <text x="155" y="178" class="label" text="Декодування рівнів U/A-law" />
+    <rect x="60" y="270" width="190" height="70" class="sub-box" />
+    <text x="155" y="294" class="label-bold" text="Передавач V.34/V.92" />
+    <text x="155" y="318" class="label" text="QAM / Upstream ІКМ" />
+    <text x="350" y="85" class="label-bold" text="Аналогова пара ТПЗК" />
+    <rect x="430" y="70" width="210" height="310" class="box-co" />
+    <text x="535" y="95" class="box-title">АТС (Телефонна станція)</text>
+    <text x="535" y="114" class="label">Кодек G.711 / Гібрид</text>
+    <rect x="450" y="130" width="170" height="70" class="sub-box" />
+    <text x="535" y="154" class="label-bold" text="ЦАП (DAC) G.711" />
+    <text x="535" y="178" class="label" text="8000 відліків/с (без АЦП)" />
+    <rect x="450" y="270" width="170" height="70" class="sub-box" />
+    <text x="535" y="294" class="label-bold" text="АЦП (ADC) G.711" />
+    <text x="535" y="318" class="label" text="Шум квантування (~38 dB)" />
+    <rect x="300" y="330" width="110" height="25" class="noise-badge" />
+    <text x="355" y="346" class="noise-text" text="Межа 33.6 кбіт/с" />
+    <rect x="740" y="70" width="230" height="310" class="box-isp" />
+    <text x="855" y="95" class="box-title">Сервер ISP (Провайдер)</text>
+    <text x="855" y="114" class="label">Цифровий поток E1 / T1</text>
+    <rect x="760" y="130" width="190" height="70" class="sub-box" />
+    <text x="855" y="154" class="label-bold" text="Пряме надсилання ІКМ" />
+    <text x="855" y="178" class="label" text="Точні 8-бітні відліки" />
+    <rect x="760" y="270" width="190" height="70" class="sub-box" />
+    <text x="855" y="294" class="label-bold" text="Цифровий приймач" />
+    <text x="855" y="318" class="label" text="Обробка потоку E1/T1" />
+    <line x1="740" y1="215" x2="640" y2="215" class="arrow-dn" />
+    <polygon points="640,215 650,210 650,220" class="arrow-head-dn" />
+    <line x1="430" y1="215" x2="270" y2="215" class="arrow-dn" />
+    <polygon points="270,215 280,210 280,220" class="arrow-head-dn" />
+    <text x="350" y="205" class="label-bold" style="fill:#0284c7;" text="Downstream: 56 кбіт/с (PCM)" />
+    <line x1="270" y1="245" x2="430" y2="245" class="arrow-up" />
+    <polygon points="430,245 420,240 420,250" class="arrow-head-up" />
+    <line x1="640" y1="245" x2="740" y2="245" class="arrow-up" />
+    <polygon points="740,245 730,240 730,250" class="arrow-head-up" />
+    <text x="350" y="258" class="label-bold" style="fill:#d97706;" text="Upstream: 33.6k (V.34) / 48k (V.92)" />
+  </g>
+</svg>

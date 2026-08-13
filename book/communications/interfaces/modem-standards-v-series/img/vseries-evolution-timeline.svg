@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 440" width="100%" height="100%">
+  <style>
+        .bg { fill: #f8fafc; }
+        .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #475569; text-anchor: middle; }
+        .axis-line { stroke: #94a3b8; stroke-width: 3; stroke-linecap: round; }
+        .arrow { fill: #94a3b8; }
+        .card-bg { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 6px; }
+        .card-bg-highlight { fill: #f0f9ff; stroke: #0284c7; stroke-width: 2; rx: 6px; }
+        .std-name { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: bold; fill: #0369a1; text-anchor: middle; }
+        .std-speed { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+        .std-detail { font-family: system-ui, -apple-system, sans-serif; font-size: 10px; fill: #475569; text-anchor: middle; }
+        .node-dot { fill: #0284c7; stroke: #ffffff; stroke-width: 2; }
+        .connector { stroke: #0284c7; stroke-width: 1.5; stroke-dasharray: 3,3; }
+        .year-label { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; fill: #334155; text-anchor: middle; }
+    </style>
+  <rect width="100%" height="100%" class="bg" />
+  <g transform="translate(0,0)">
+    <text x="510" y="30" class="title">Еволюція швидкості та модуляції рекомендацій ITU-T серії V</text>
+    <text x="510" y="50" class="subtitle">Від аналогової ФЧМ (300 біт/с) до ІКМ на межі каналу (56 кбіт/с)</text>
+    <line x1="50" y1="220" x2="960" y2="220" class="axis-line" />
+    <polygon points="960,214 975,220 960,226" class="arrow" />
+    <line x1="90" y1="212" x2="90" y2="170" class="connector" />
+    <circle cx="90" cy="220" r="6" class="node-dot" />
+    <rect x="35" y="82" width="110" height="88" class="card-bg" />
+    <text x="90" y="242" class="year-label">1964</text>
+    <text x="90" y="106" class="std-name">V.21</text>
+    <text x="90" y="128" class="std-speed">300 біт/с</text>
+    <text x="90" y="146" class="std-detail">ФЧМ (FSK)</text>
+    <line x1="220" y1="228" x2="220" y2="274" class="connector" />
+    <circle cx="220" cy="220" r="6" class="node-dot" />
+    <rect x="165" y="274" width="110" height="88" class="card-bg" />
+    <text x="220" y="208" class="year-label">1980</text>
+    <text x="220" y="298" class="std-name">V.22</text>
+    <text x="220" y="320" class="std-speed">1.2 кбіт/с</text>
+    <text x="220" y="338" class="std-detail">ДФЧМ (DPSK)</text>
+    <line x1="350" y1="212" x2="350" y2="170" class="connector" />
+    <circle cx="350" cy="220" r="6" class="node-dot" />
+    <rect x="295" y="82" width="110" height="88" class="card-bg" />
+    <text x="350" y="242" class="year-label">1984</text>
+    <text x="350" y="106" class="std-name">V.22bis</text>
+    <text x="350" y="128" class="std-speed">2.4 кбіт/с</text>
+    <text x="350" y="146" class="std-detail">16-QAM</text>
+    <line x1="480" y1="228" x2="480" y2="274" class="connector" />
+    <circle cx="480" cy="220" r="6" class="node-dot" />
+    <rect x="425" y="274" width="110" height="88" class="card-bg" />
+    <text x="480" y="208" class="year-label">1989</text>
+    <text x="480" y="298" class="std-name">V.32</text>
+    <text x="480" y="320" class="std-speed">9.6 кбіт/с</text>
+    <text x="480" y="338" class="std-detail">32-TCM, Ехо</text>
+    <line x1="610" y1="212" x2="610" y2="170" class="connector" />
+    <circle cx="610" cy="220" r="6" class="node-dot" />
+    <rect x="555" y="82" width="110" height="88" class="card-bg" />
+    <text x="610" y="242" class="year-label">1991</text>
+    <text x="610" y="106" class="std-name">V.32bis</text>
+    <text x="610" y="128" class="std-speed">14.4 кбіт/с</text>
+    <text x="610" y="146" class="std-detail">128-TCM</text>
+    <line x1="740" y1="228" x2="740" y2="274" class="connector" />
+    <circle cx="740" cy="220" r="6" class="node-dot" />
+    <rect x="685" y="274" width="110" height="88" class="card-bg" />
+    <text x="740" y="208" class="year-label">1994</text>
+    <text x="740" y="298" class="std-name">V.34</text>
+    <text x="740" y="320" class="std-speed">33.6 кбіт/с</text>
+    <text x="740" y="338" class="std-detail">TCM, Probe</text>
+    <line x1="880" y1="212" x2="880" y2="170" class="connector" />
+    <circle cx="880" cy="220" r="6" class="node-dot" />
+    <rect x="825" y="82" width="110" height="88" class="card-bg-highlight" />
+    <text x="880" y="242" class="year-label">1998</text>
+    <text x="880" y="106" class="std-name">V.90 / V.92</text>
+    <text x="880" y="128" class="std-speed">56 кбіт/с</text>
+    <text x="880" y="146" class="std-detail">ІКМ (PCM)</text>
+  </g>
+</svg>

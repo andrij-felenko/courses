@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="100%" height="100%">
+  <style>
+    .bg { fill: #fcfcfc; }
+    .box-bg { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; rx: 6px; }
+    .title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+    .node-title { font-family: system-ui, sans-serif; font-size: 12px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; text-anchor: middle; }
+    .wire-a { stroke: #2563eb; stroke-width: 2.5; fill: none; }
+    .wire-b { stroke: #dc2626; stroke-width: 2.5; fill: none; }
+    .resistor { fill: #fef08a; stroke: #ca8a04; stroke-width: 1.5; rx: 3px; }
+    .res-text { font-family: system-ui, sans-serif; font-size: 11px; font-weight: bold; fill: #854d0e; text-anchor: middle; }
+    .vcc-gnd { font-family: system-ui, sans-serif; font-size: 11px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+  </style>
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="480" y="28" class="title">Схема захисного зсуву (Fail-Safe Biasing) та термінування RS-485</text>
+
+  <!-- VCC Top -->
+  <line x1="250" y1="42" x2="250" y2="55" stroke="#1e293b" stroke-width="2"/>
+  <text x="250" y="38" class="vcc-gnd">VCC (+5V / +3.3V)</text>
+  <rect x="200" y="60" width="100" height="32" class="resistor"/>
+  <text x="250" y="80" class="res-text">R_pull-up</text>
+  <line x1="250" y1="95" x2="250" y2="130" stroke="#2563eb" stroke-width="2"/>
+
+  <!-- Line A -->
+  <line x1="60" y1="130" x2="640" y2="130" class="wire-a"/>
+  <text x="130" y="98" class="label" style="fill:#2563eb; font-weight:bold;">Лінія A (Non-Inverting)</text>
+
+  <!-- Line B -->
+  <line x1="60" y1="240" x2="640" y2="240" class="wire-b"/>
+  <text x="130" y="268" class="label" style="fill:#dc2626; font-weight:bold;">Лінія B (Inverting)</text>
+
+  <!-- Termination Resistor -->
+  <line x1="470" y1="130" x2="470" y2="165" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="420" y="170" width="100" height="32" class="resistor" style="fill:#fca5a5; stroke:#b91c1c;"/>
+  <text x="470" y="190" class="res-text" style="fill:#7f1d1d;">R_T 120 Ω</text>
+  <line x1="470" y1="205" x2="470" y2="240" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- GND Bottom -->
+  <line x1="250" y1="240" x2="250" y2="270" stroke="#dc2626" stroke-width="2"/>
+  <rect x="200" y="275" width="100" height="32" class="resistor"/>
+  <text x="250" y="295" class="res-text">R_pull-dn</text>
+  <line x1="250" y1="310" x2="250" y2="330" stroke="#1e293b" stroke-width="2"/>
+  <!-- GND Symbol -->
+  <line x1="230" y1="330" x2="270" y2="330" stroke="#1e293b" stroke-width="2"/>
+  <line x1="238" y1="336" x2="262" y2="336" stroke="#1e293b" stroke-width="2"/>
+  <line x1="245" y1="342" x2="255" y2="342" stroke="#1e293b" stroke-width="2"/>
+  <text x="250" y="360" class="vcc-gnd">GND</text>
+
+  <!-- Receiver Comparator Box -->
+  <rect x="640" y="110" width="260" height="150" class="box-bg"/>
+  <text x="770" y="135" class="node-title">Приймач RS-485</text>
+
+  <!-- Comparator Triangle inside box -->
+  <polygon points="680,150 680,210 740,180" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <text x="688" y="167" class="label" style="font-size:13px; font-weight:bold;">+</text>
+  <text x="688" y="202" class="label" style="font-size:13px; font-weight:bold;">−</text>
+  <line x1="640" y1="130" x2="660" y2="130" stroke="#2563eb" stroke-width="2"/>
+  <line x1="660" y1="130" x2="660" y2="165" stroke="#2563eb" stroke-width="1.5"/>
+  <line x1="660" y1="165" x2="680" y2="165" stroke="#2563eb" stroke-width="1.5"/>
+
+  <line x1="640" y1="240" x2="660" y2="240" stroke="#dc2626" stroke-width="2"/>
+  <line x1="660" y1="240" x2="660" y2="195" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="660" y1="195" x2="680" y2="195" stroke="#dc2626" stroke-width="1.5"/>
+
+  <line x1="740" y1="180" x2="800" y2="180" stroke="#1e293b" stroke-width="2"/>
+  <text x="840" y="184" class="label" style="font-weight:bold;">RO (RxD)</text>
+  <text x="770" y="238" class="label" style="fill:#059669; font-size:11px; font-weight:bold;">V_AB &gt; +200 мВ → «1»</text>
+</svg>

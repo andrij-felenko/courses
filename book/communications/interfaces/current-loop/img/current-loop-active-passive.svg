@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 420" width="100%" height="100%">
+  <style>
+    .bg { fill: #fcfcfc; }
+    .box-bg { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; rx: 6px; }
+    .box-active { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1.5; rx: 6px; }
+    .box-passive { fill: #f0fdf4; stroke: #22c55e; stroke-width: 1.5; rx: 6px; }
+    .title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+    .node-title { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; text-anchor: middle; }
+    .wire-pos { stroke: #dc2626; stroke-width: 2.5; fill: none; }
+    .wire-neg { stroke: #2563eb; stroke-width: 2.5; fill: none; }
+    .comp-box { fill: #fef08a; stroke: none; rx: 3px; }
+    .comp-text { font-family: system-ui, sans-serif; font-size: 11px; font-weight: bold; fill: #854d0e; text-anchor: middle; }
+    .opto-box { fill: #fed7aa; stroke: none; rx: 4px; }
+    .opto-text { font-family: system-ui, sans-serif; font-size: 11px; font-weight: bold; fill: #9a3412; text-anchor: middle; }
+  </style>
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="700" y="28" class="title">Топологія цифрової струмової петлі 20 мА: Активний та Пасивний вузли</text>
+
+  <!-- Active Transmitter Node -->
+  <rect x="40" y="55" width="400" height="310" class="box-active"/>
+  <text x="240" y="80" class="node-title" style="fill:#1d4ed8;">Активний передавач (Active TX)</text>
+  <text x="240" y="100" class="label">Джерело живлення VCC та генератор струму</text>
+
+  <!-- Power Source inside Active Node -->
+  <line x1="60" y1="140" x2="130" y2="140" stroke="#dc2626" stroke-width="2"/>
+  <text x="95" y="122" class="label" style="font-weight:bold; fill:#dc2626;">+24 В (VCC)</text>
+  
+  <!-- Current Source Box -->
+  <rect x="130" y="115" width="180" height="50" class="comp-box"/>
+  <text x="220" y="144" class="comp-text">Джерело 20 мА</text>
+
+  <!-- Switch Transistor inside Active Node -->
+  <rect x="110" y="180" width="220" height="80" class="box-bg"/>
+  <text x="220" y="210" class="node-title" style="font-size:11px;">Ключ TX (NPN)</text>
+  <text x="220" y="232" class="label" style="font-size:10px;">UART TX (Mark/Space)</text>
+
+  <line x1="310" y1="140" x2="340" y2="140" stroke="#dc2626" stroke-width="2"/>
+  <line x1="340" y1="140" x2="340" y2="180" stroke="#dc2626" stroke-width="2"/>
+  <line x1="340" y1="260" x2="340" y2="300" stroke="#dc2626" stroke-width="2"/>
+  <line x1="340" y1="300" x2="440" y2="300" class="wire-pos"/>
+
+  <!-- Output terminals Active -->
+  <circle cx="440" cy="140" r="4" fill="#dc2626"/>
+  <text x="415" y="122" class="label" style="font-weight:bold; fill:#dc2626;">+LOOP</text>
+
+  <circle cx="440" cy="300" r="4" fill="#2563eb"/>
+  <text x="415" y="328" class="label" style="font-weight:bold; fill:#2563eb;">-LOOP</text>
+  <line x1="310" y1="140" x2="440" y2="140" class="wire-pos"/>
+
+  <!-- Long Cable -->
+  <line x1="440" y1="140" x2="920" y2="140" class="wire-pos"/>
+  <line x1="440" y1="300" x2="920" y2="300" class="wire-neg"/>
+
+  <text x="680" y="118" class="label" style="fill:#dc2626; font-weight:bold;">Кабель: струм I = 20 мА (Mark) або 0 мА (Space)</text>
+  <text x="680" y="328" class="label" style="fill:#2563eb; font-weight:bold;">Зворотна жила струмової петлі (замкнений контур)</text>
+
+  <!-- Passive Receiver Node -->
+  <rect x="920" y="55" width="440" height="310" class="box-passive"/>
+  <text x="1140" y="80" class="node-title" style="fill:#15803d;">Пасивний приймач (Passive RX)</text>
+  <text x="1140" y="100" class="label">Без власного живлення (опторозв'язка)</text>
+
+  <!-- Optocoupler inside Passive Node -->
+  <rect x="960" y="170" width="340" height="100" class="opto-box"/>
+  <text x="1130" y="205" class="opto-text">Оптопара (6N137 / PC817)</text>
+  <text x="1130" y="232" class="label" style="fill:#7c2d12;">Світлодіод увімкнено в петлю</text>
+
+  <!-- Input terminals Passive -->
+  <circle cx="920" cy="140" r="4" fill="#dc2626"/>
+  <circle cx="920" cy="300" r="4" fill="#2563eb"/>
+
+  <line x1="920" y1="140" x2="990" y2="140" class="wire-pos"/>
+  <line x1="990" y1="140" x2="990" y2="170" class="wire-pos"/>
+
+  <!-- Protection Diode & LED in Optocoupler -->
+  <line x1="990" y1="270" x2="990" y2="300" class="wire-neg"/>
+  <line x1="990" y1="300" x2="920" y2="300" class="wire-neg"/>
+
+  <!-- Local Isolated Output -->
+  <line x1="1300" y1="220" x2="1330" y2="220" stroke="#1e293b" stroke-width="2"/>
+  <text x="1315" y="245" class="label" style="font-weight:bold;">UART RX</text>
+
+  <!-- Ground Potential difference notice (text without rect border) -->
+  <text x="680" y="205" class="label" style="font-weight:bold; fill:#c2410c;">Різниця потенціалів земель ΔV_GND</text>
+  <text x="680" y="225" class="label" style="font-size:10px;">Оптопара повністю ізолює GND1 від GND2</text>
+  <text x="680" y="243" class="label" style="font-size:10px;">Гальванічна міцність: 2500…5000 В</text>
+</svg>

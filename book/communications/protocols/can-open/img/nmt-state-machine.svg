@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 443.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="443.5" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат NMT: стани вузла та дозволені канали зв'язку</text>
+<rect x="35.0" y="115.0" width="190.0" height="90.0" rx="10" fill="#fdecea" stroke="#2457d6" stroke-width="1.8"/>
+<text x="130.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Initialisation</text>
+<text x="130.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Завантаження / Скидання)</text>
+<text x="50.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• NMT Boot-up (0x700+ID)</text>
+<text x="50.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PDO/SDO вимкнено</text>
+<rect x="305.0" y="55.0" width="190.0" height="90.0" rx="10" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.8"/>
+<text x="400.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Pre-Operational</text>
+<text x="400.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Конфігурація)</text>
+<text x="320.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• SDO працює (параметри)</text>
+<text x="320.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• NMT / Heartbeat активні</text>
+<text x="320.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PDO ВИМКНЕНО</text>
+<rect x="575.0" y="115.0" width="190.0" height="90.0" rx="10" fill="#eef6ef" stroke="#c0392b" stroke-width="1.8"/>
+<text x="670.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Operational</text>
+<text x="670.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Робочий режим)</text>
+<text x="590.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• УСІ канали активні</text>
+<text x="590.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PDO дані реального часу</text>
+<text x="590.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• SDO / NMT / Heartbeat</text>
+<rect x="305.0" y="245.0" width="190.0" height="90.0" rx="10" fill="#f2f4f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="400.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Stopped</text>
+<text x="400.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Зупинено (Безпека))</text>
+<text x="320.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Тільки NMT та Heartbeat</text>
+<text x="320.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• SDO / PDO ВИМКНЕНО</text>
+<line x1="225.0" y1="140.0" x2="305.0" y2="120.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="250.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">авто-перехід</text>
+<line x1="495.0" y1="115.0" x2="575.0" y2="140.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="535.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Start (0x01)</text>
+<line x1="575.0" y1="175.0" x2="495.0" y2="135.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Pre-Op (0x80)</text>
+<line x1="600.0" y1="205.0" x2="495.0" y2="275.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="570.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Stop (0x02)</text>
+<line x1="400.0" y1="145.0" x2="400.0" y2="245.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="410.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Stop (0x02)</text>
+<line x1="320.0" y1="270.0" x2="320.0" y2="145.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="310.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end">Pre-Op (0x80)</text>
+<line x1="400.0" y1="335.0" x2="150.0" y2="205.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="240.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Reset Node (0x81/0x82)</text>
+<rect x="85.3" y="392.5" width="609.4" height="31.0" rx="6" fill="#fbeee6" stroke="#c0392b" stroke-width="1.5"/><text x="390.0" y="411.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Вузол стартує у Pre-Operational для конфігурації SDO і переходить у Operational для обміну PDO</tspan></text>
+</svg>

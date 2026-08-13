@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометричний механізм скасування фазової помилки Δφ у лінії затримки PAL</text>
+<line x1="190.0" y1="250.0" x2="450.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="230.0" y1="290.0" x2="230.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="460.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">+U</text>
+<text x="226.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">+V</text>
+<line x1="230.0" y1="250.0" x2="298.0" y2="165.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<circle cx="298.0" cy="165.0" r="4.0" fill="#6b7280" stroke="none" stroke-width="1.5"/>
+<text x="315.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ідеальний вектор C_0 (θ)</text>
+<line x1="230.0" y1="250.0" x2="264.8" y2="146.9" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="264.8" cy="146.9" r="5.0" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="272.8" y="138.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">C_N (зсув +Δφ)</text>
+<line x1="230.0" y1="250.0" x2="323.0" y2="193.4" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="323.0" cy="193.4" r="5.0" fill="#2457d6" stroke="none" stroke-width="1.5"/>
+<text x="331.0" y="205.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">C_{N+1}' (зсув -Δφ)</text>
+<line x1="264.8" y1="146.9" x2="357.8" y2="90.3" stroke="#9e9e9e" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="323.0" y1="193.4" x2="357.8" y2="90.3" stroke="#9e9e9e" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="230.0" y1="250.0" x2="293.9" y2="170.1" stroke="#2e7d32" stroke-width="3.0"/>
+<circle cx="293.9" cy="170.1" r="6.0" fill="#2e7d32" stroke="none" stroke-width="1.5"/>
+<text x="305.9" y="174.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2e7d32" text-anchor="start" font-weight="700">C_avg = C_0 · cos(Δφ)</text>
+<rect x="530.0" y="80.0" width="265.0" height="300.0" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
+<text x="545.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Результат компенсації:</text>
+<text x="545.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Напрямок фази (Hue):</text>
+<text x="560.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2e7d32" text-anchor="start" font-weight="700">θ_avg = θ (абсолютно точний!)</text>
+<text x="560.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Зсув тону відсутній.</text>
+<text x="545.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Амплітуда (Saturation):</text>
+<text x="560.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">A_avg = A_0 · cos(Δφ)</text>
+<text x="560.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">При Δφ = 10°: cos(10°) = 0.985</text>
+<text x="560.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Втрата насиченості всього 1.5%</text>
+<text x="545.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Порівняння з NTSC:</text>
+<text x="560.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">NTSC: Δφ = 10° зміщує колір шкіри</text>
+<text x="560.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">з рожевого на зеленуватий.</text>
+<text x="560.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="start">PAL: Δφ перетворюється на</text>
+<text x="560.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="start">непомітне зниження яскравості.</text>
+<text x="410.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Фазове відхилення Δφ розкладається на дві симетричні компоненти. Бічна помилка скасовується повністю.</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-110.4 -10 870.4 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-110.4" y="-10" width="870.4" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="720.0" height="230.0" rx="4" fill="#fafafa" stroke="#d0d0d0" stroke-width="1.2"/>
+<text x="40.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура часового слота стрибка (T_hop)</text>
+<rect x="60.0" y="65.0" width="110.0" height="65.0" rx="2" fill="#fff3cd" stroke="#b08900" stroke-width="1.5"/>
+<text x="115.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b08900" text-anchor="middle" font-weight="700">PLL Lock</text>
+<text x="115.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">T_lock (~100 µs)</text>
+<rect x="170.0" y="65.0" width="400.0" height="65.0" rx="2" fill="#d4edda" stroke="#c0392b" stroke-width="1.5"/>
+<text x="370.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Dwell Time (Передача даних / Преамбула / CRC)</text>
+<text x="370.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">T_dwell (Основна робоча фаза кадру)</text>
+<rect x="570.0" y="65.0" width="130.0" height="65.0" rx="2" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
+<text x="635.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#004085" text-anchor="middle" font-weight="700">Guard Interval</text>
+<text x="635.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">T_guard (Буфер дрейфу)</text>
+<line x1="60.0" y1="150.0" x2="700.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="380.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загальний період стрибка T_hop = T_lock + T_dwell + T_guard</text>
+<text x="635.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#004085" text-anchor="middle">поглинає ±Δt дрейфу</text>
+<text x="70.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стабілізація ФАПЧ -&gt; Модуляція символів -&gt; Захисний часовий інтервал</text>
+</svg>

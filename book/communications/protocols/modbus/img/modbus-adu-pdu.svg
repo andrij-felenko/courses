@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура PDU і транспортування в кадрах ADU (RTU vs TCP)</text>
+<text x="50.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">PDU</text>
+<rect x="140.0" y="45.0" width="200.0" height="50.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="240.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Function Code (1 B)</text>
+<rect x="345.0" y="45.0" width="320.0" height="50.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="505.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Data (0..252 Bytes)</text>
+<line x1="140.0" y1="101.0" x2="665.0" y2="101.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="50.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">RTU ADU</text>
+<rect x="140.0" y="130.0" width="100.0" height="50.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="190.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Slave Addr</text>
+<rect x="245.0" y="130.0" width="420.0" height="50.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="455.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">PDU (Function Code + Data)</text>
+<rect x="670.0" y="130.0" width="110.0" height="50.0" rx="5" fill="#fff3cd" stroke="#856404" stroke-width="1.8"/>
+<text x="725.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#856404" text-anchor="middle" font-weight="700">CRC-16 (2 B)</text>
+<text x="50.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">TCP ADU</text>
+<rect x="140.0" y="210.0" width="230.0" height="50.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="255.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MBAP Header (7 B)</text>
+<text x="255.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">[TxID:2, ProtoID:2, Len:2, UnitID:1]</text>
+<rect x="375.0" y="210.0" width="405.0" height="50.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="577.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">PDU (Function Code + Data)</text>
+<rect x="35.0" y="319.2" width="750.0" height="31.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="410.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">PDU — єдине для всіх транспортів. ADU додає адресу/CRC у RTU або MBAP-заголовок у TCP.</tspan></text>
+</svg>

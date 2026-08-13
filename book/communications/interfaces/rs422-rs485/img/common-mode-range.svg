@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="100%" height="100%">
+  <style>
+    .bg { fill: #fcfcfc; }
+    .title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+    .box-bg { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1.5; rx: 6px; }
+    .label-hdr { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; text-anchor: middle; }
+    .axis { stroke: #64748b; stroke-width: 1.5; }
+    .range-rs422 { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; rx: 4px; }
+    .range-rs485 { fill: #dcfce7; stroke: #16a34a; stroke-width: 2; rx: 4px; }
+    .val-text { font-family: system-ui, sans-serif; font-size: 12px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+  </style>
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="480" y="28" class="title">Діапазон синфазної напруги (Common-Mode Voltage V_cm) та зсув земель</text>
+
+  <!-- Diagram Left: RS-422 Voltage Range -->
+  <rect x="50" y="55" width="400" height="290" class="box-bg"/>
+  <text x="250" y="80" class="label-hdr">RS-422: Синфазне вікно</text>
+
+  <!-- Voltage Axis -->
+  <line x1="120" y1="100" x2="120" y2="310" class="axis"/>
+  <!-- RS-422 range: -7V to +7V -->
+  <rect x="150" y="130" width="270" height="140" class="range-rs422"/>
+  <text x="285" y="155" class="val-text" style="fill:#1d4ed8;">+7 В</text>
+  <text x="285" y="190" class="label" style="font-weight:bold;">Допустиме V_cm</text>
+  <text x="285" y="210" class="label">(відносно GND приймача)</text>
+  <text x="285" y="250" class="val-text" style="fill:#1d4ed8;">−7 В</text>
+
+  <!-- Axis ticks -->
+  <text x="95" y="134" class="label">+7В</text>
+  <line x1="115" y1="130" x2="125" y2="130" stroke="#64748b" stroke-width="1.5"/>
+  <text x="98" y="204" class="label">0В</text>
+  <line x1="115" y1="200" x2="125" y2="200" stroke="#64748b" stroke-width="1.5"/>
+  <text x="95" y="274" class="label">−7В</text>
+  <line x1="115" y1="270" x2="125" y2="270" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Diagram Right: RS-485 Voltage Range -->
+  <rect x="510" y="55" width="400" height="290" class="box-bg"/>
+  <text x="710" y="80" class="label-hdr">RS-485: Синфазне вікно</text>
+
+  <!-- Voltage Axis -->
+  <line x1="580" y1="100" x2="580" y2="310" class="axis"/>
+  <!-- RS-485 range: -7V to +12V -->
+  <rect x="610" y="110" width="270" height="180" class="range-rs485"/>
+  <text x="745" y="135" class="val-text" style="fill:#15803d;">+12 В</text>
+  <text x="745" y="180" class="label" style="font-weight:bold;">Розширене V_cm</text>
+  <text x="745" y="200" class="label">(витримує великий зсув ΔV_GND)</text>
+  <text x="745" y="275" class="val-text" style="fill:#15803d;">−7 В</text>
+
+  <!-- Axis ticks -->
+  <text x="550" y="114" class="label">+12В</text>
+  <line x1="575" y1="110" x2="585" y2="110" stroke="#64748b" stroke-width="1.5"/>
+  <text x="558" y="204" class="label">0В</text>
+  <line x1="575" y1="200" x2="585" y2="200" stroke="#64748b" stroke-width="1.5"/>
+  <text x="555" y="294" class="label">−7В</text>
+  <line x1="575" y1="290" x2="585" y2="290" stroke="#64748b" stroke-width="1.5"/>
+</svg>

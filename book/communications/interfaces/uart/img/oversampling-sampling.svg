@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип передискретизації 16× та мажоритарного фільтрування RX</text>
+<text x="40.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="start" font-weight="700">Вхідний сигнал RX:</text>
+<path d="M 40 90 L 160 90 L 160 150 L 680 150 L 680 90 L 760 90" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<text x="420.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">Інтервал старт-біта T_bit (16 тактів f_oversample)</text>
+<line x1="160.0" y1="162.0" x2="680.0" y2="162.0" stroke="#1d4ed8" stroke-width="1.2"/>
+<line x1="160.0" y1="60.0" x2="160.0" y2="290.0" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="160.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Спад 1→0 (Запуск відліку)</text>
+<line x1="176.2" y1="195.0" x2="176.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="169.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">0</text>
+<line x1="208.8" y1="195.0" x2="208.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="201.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">1</text>
+<line x1="241.2" y1="195.0" x2="241.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="234.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">2</text>
+<line x1="273.8" y1="195.0" x2="273.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="266.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">3</text>
+<line x1="306.2" y1="195.0" x2="306.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="299.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">4</text>
+<line x1="338.8" y1="195.0" x2="338.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="331.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">5</text>
+<line x1="371.2" y1="195.0" x2="371.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="364.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">6</text>
+<line x1="403.8" y1="195.0" x2="403.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="396.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">7</text>
+<circle cx="403.8" cy="150.0" r="4.5" fill="#16a34a" stroke="#15803d" stroke-width="1.5"/>
+<line x1="403.8" y1="220.0" x2="403.8" y2="238.0" stroke="#16a34a" stroke-width="1.5"/>
+<line x1="436.2" y1="195.0" x2="436.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="429.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">8</text>
+<circle cx="436.2" cy="150.0" r="4.5" fill="#16a34a" stroke="#15803d" stroke-width="1.5"/>
+<line x1="436.2" y1="220.0" x2="436.2" y2="238.0" stroke="#16a34a" stroke-width="1.5"/>
+<line x1="468.8" y1="195.0" x2="468.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="461.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">9</text>
+<circle cx="468.8" cy="150.0" r="4.5" fill="#16a34a" stroke="#15803d" stroke-width="1.5"/>
+<line x1="468.8" y1="220.0" x2="468.8" y2="238.0" stroke="#16a34a" stroke-width="1.5"/>
+<line x1="501.2" y1="195.0" x2="501.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="494.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">10</text>
+<line x1="533.8" y1="195.0" x2="533.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="526.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">11</text>
+<line x1="566.2" y1="195.0" x2="566.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="559.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">12</text>
+<line x1="598.8" y1="195.0" x2="598.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="591.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">13</text>
+<line x1="631.2" y1="195.0" x2="631.2" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="624.2" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">14</text>
+<line x1="663.8" y1="195.0" x2="663.8" y2="235.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="656.8" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">15</text>
+<rect x="382.5" y="240.0" width="107.5" height="45.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="436.2" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Мажоритарна вибірка</text>
+<text x="436.2" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle">Відліки #7, #8, #9 (2 з 3)</text>
+<rect x="40.0" y="305.0" width="720.0" height="55.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="55.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">1. Спадаючий фронт (1→0) на RX скидає лічильник 16× передискретизації.</text>
+<text x="55.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">2. Відліки беруться в середині біта (такти 7, 8, 9). За більшістю значений відсіюється шум.</text>
+</svg>

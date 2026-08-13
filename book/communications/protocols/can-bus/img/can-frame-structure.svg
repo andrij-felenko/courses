@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 865 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="865" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="340.0" rx="8" fill="#fdfdfd" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="410.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура кадру даних CAN 2.0A (стандартний 11-біт ID)</text>
+<rect x="40.0" y="65.0" width="40.0" height="60.0" rx="3" fill="#e3f2fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="60.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SOF</text>
+<text x="60.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="80.0" y="65.0" width="150.0" height="60.0" rx="3" fill="#fff3e0" stroke="#e65100" stroke-width="1.2"/>
+<text x="155.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">ID (Ідентифікатор)</text>
+<text x="155.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11 біт</text>
+<rect x="230.0" y="65.0" width="42.0" height="60.0" rx="3" fill="#ffe0b2" stroke="#e65100" stroke-width="1.2"/>
+<text x="251.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">RTR</text>
+<text x="251.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="272.0" y="65.0" width="42.0" height="60.0" rx="3" fill="#f1f8e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="293.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">IDE</text>
+<text x="293.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="314.0" y="65.0" width="38.0" height="60.0" rx="3" fill="#f1f8e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="333.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">r0</text>
+<text x="333.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="352.0" y="65.0" width="55.0" height="60.0" rx="3" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="379.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">DLC</text>
+<text x="379.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4 біти</text>
+<rect x="407.0" y="65.0" width="210.0" height="60.0" rx="3" fill="#e8eaf6" stroke="#283593" stroke-width="1.2"/>
+<text x="512.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#283593" text-anchor="middle" font-weight="700">Поле даних (Data Field)</text>
+<text x="512.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0 .. 8 байтів (0 .. 64 біти)</text>
+<rect x="617.0" y="65.0" width="75.0" height="60.0" rx="3" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="1.2"/>
+<text x="654.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle" font-weight="700">CRC</text>
+<text x="654.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">15 біт</text>
+<rect x="692.0" y="65.0" width="28.0" height="60.0" rx="3" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="1.2"/>
+<text x="706.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle" font-weight="700">Del</text>
+<text x="706.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1b</text>
+<rect x="720.0" y="65.0" width="45.0" height="60.0" rx="3" fill="#e0f2f1" stroke="#00695c" stroke-width="1.2"/>
+<text x="742.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#00695c" text-anchor="middle" font-weight="700">ACK</text>
+<text x="742.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="765.0" y="65.0" width="28.0" height="60.0" rx="3" fill="#e0f2f1" stroke="#00695c" stroke-width="1.2"/>
+<text x="779.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#00695c" text-anchor="middle" font-weight="700">Del</text>
+<text x="779.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1b</text>
+<rect x="793.0" y="65.0" width="52.0" height="60.0" rx="3" fill="#eceff1" stroke="#6b7280" stroke-width="1.2"/>
+<text x="819.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">EOF</text>
+<text x="819.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7 бітів</text>
+<line x1="80.0" y1="131.0" x2="272.0" y2="131.0" stroke="#e65100" stroke-width="1.5"/>
+<text x="176.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">Арбітражне поле</text>
+<line x1="274.0" y1="131.0" x2="407.0" y2="131.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="340.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Поле керування</text>
+<line x1="618.0" y1="131.0" x2="721.0" y2="131.0" stroke="#6a1b9a" stroke-width="1.5"/>
+<text x="670.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle" font-weight="700">Перевірка CRC</text>
+<line x1="40.0" y1="185.0" x2="780.0" y2="185.0" stroke="#e0e0e0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="410.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розширений кадр CAN 2.0B (29-біт ID): розбиття арбітражного поля</text>
+<rect x="50.0" y="230.0" width="130.0" height="55.0" rx="3" fill="#fff3e0" stroke="#e65100" stroke-width="1.2"/>
+<text x="115.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">Base ID</text>
+<text x="115.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11 біт</text>
+<rect x="180.0" y="230.0" width="50.0" height="55.0" rx="3" fill="#ffe0b2" stroke="#e65100" stroke-width="1.2"/>
+<text x="205.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">SRR</text>
+<text x="205.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт (1)</text>
+<rect x="230.0" y="230.0" width="50.0" height="55.0" rx="3" fill="#f1f8e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="255.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">IDE</text>
+<text x="255.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт (1)</text>
+<rect x="280.0" y="230.0" width="170.0" height="55.0" rx="3" fill="#ffe0b2" stroke="#e65100" stroke-width="1.2"/>
+<text x="365.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">ID Extension</text>
+<text x="365.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">18 бітів</text>
+<rect x="450.0" y="230.0" width="50.0" height="55.0" rx="3" fill="#ffe0b2" stroke="#e65100" stroke-width="1.2"/>
+<text x="475.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle" font-weight="700">RTR</text>
+<text x="475.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="500.0" y="230.0" width="120.0" height="55.0" rx="3" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">r1 / r0 / DLC</text>
+<text x="560.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">6 бітів</text>
+<rect x="620.0" y="230.0" width="150.0" height="55.0" rx="3" fill="#f5f5f5" stroke="#6b7280" stroke-width="1.2"/>
+<text x="695.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Дані, CRC, ACK, EOF...</text>
+<text x="695.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">без змін</text>
+<text x="410.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Сумарний ідентифікатор 2.0B = [Base ID 11b] + [ID Extension 18b] = 29 бітів</text>
+</svg>
