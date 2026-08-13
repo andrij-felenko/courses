@@ -56,25 +56,45 @@ if (has("clear")) {
   process.exit(0);
 }
 
-const n = Number(flag("item"));
-const status = flag("status");
-const proof = flag("proof");
-const it = items.find((e) => e.n === n);
-if (!it) { console.error(`нема пункту ${n} (є 1..${items.length})`); process.exit(L.USAGE); }
-if (status !== "ok" && status !== "defect") { console.error("--status має бути ok або defect"); process.exit(L.USAGE); }
+/* ── кілька вироків за ОДИН виклик ──────────────────────────────────────────
+   Судді кладуть по 10–20 вироків на тему, і кожен окремий запуск — це окремий
+   виклик інструмента з окремою відповіддю. Тепер приймаємо серію трійок:
+     --item 1 --status ok --proof "…"  --item 2 --status defect --proof "…"
+   Порядок прапорців зберігається, групи ріжемо по кожному --item. Один --item
+   працює так само, як працював, — старі промпти нічого не помічають.          */
+const groups = [];
+for (let i = 0; i < argv.length; i++) {
+  if (argv[i] !== "--item") continue;
+  const g = { n: Number(argv[i + 1]) };
+  for (let j = i + 2; j < argv.length && argv[j] !== "--item"; j++) {
+    if (argv[j] === "--status") g.status = argv[j + 1];
+    if (argv[j] === "--proof") g.proof = argv[j + 1];
+  }
+  groups.push(g);
+}
+if (!groups.length) { console.error("треба --item <N> --status ok|defect --proof \"<доказ>\""); process.exit(L.USAGE); }
 
 /* гейт доказу — механічний, щоб «перевірено» не проходило */
 const EMPTY = /^(перевірено|усе гаразд|все гаразд|ок|ok|добре|виглядає правильно|100%.*|perfect.*|чисто)\.?$/i;
-if (!proof || proof.trim().length < 25 || EMPTY.test(proof.trim())) {
-  console.error("ВИРОК ВІДКИНУТО: --proof має бути конкретним доказом (від 25 символів).");
-  console.error("Доказ — це цитата з номером рядка, перерахунок, джерело з тим, що в ньому сказано,");
+const bad = [];
+for (const g of groups) {
+  const it = items.find((e) => e.n === g.n);
+  if (!it) bad.push(`пункт ${g.n}: такого немає (є 1..${items.length})`);
+  else if (g.status !== "ok" && g.status !== "defect") bad.push(`пункт ${g.n}: --status має бути ok або defect`);
+  else if (!g.proof || g.proof.trim().length < 25 || EMPTY.test(g.proof.trim())) bad.push(`пункт ${g.n}: доказ порожній або надто короткий`);
+  else g.it = it;
+}
+if (bad.length) {
+  console.error("ВИРОК ВІДКИНУТО (жоден не записано, щоб серія не лягла наполовину):");
+  bad.forEach((b) => console.error("  • " + b));
+  console.error("Доказ — цитата з номером рядка, перерахунок, джерело з тим, що в ньому сказано,");
   console.error("або дослівний рядок виводу команди. Заява без доказу вироком не є.");
   process.exit(L.USAGE);
 }
 
-V[it.key] = { status, proof: proof.trim(), file: it.file, item: it.text.slice(0, 300), at: new Date().toISOString() };
+const at = new Date().toISOString();
+for (const g of groups) V[g.it.key] = { status: g.status, proof: g.proof.trim(), file: g.it.file, item: g.it.text.slice(0, 300), at };
 L.saveVerdicts(DIR, CHECK, V);
-console.log(`вирок записано: перевірка ${CHECK}, пункт ${n} → ${status}`);
-console.log(`доказ: ${proof.trim().slice(0, 200)}`);
+console.log(`вироків записано: ${groups.length} (перевірка ${CHECK}) — ${groups.map((g) => g.n + "→" + g.status).join(", ")}`);
 const left = items.filter((e) => !V[e.key]).length;
 console.log(left ? `лишилось без вироку: ${left}` : `усі пункти мають вирок — прожени перевірку знову`);

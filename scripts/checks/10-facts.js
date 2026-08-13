@@ -44,6 +44,7 @@ function proseOnly(text) {
 }
 
 const items = [];
+const histDated = [];
 T.files.forEach((f) => {
   proseOnly(f.text).split(/(?<=[.!?])\s+/).forEach((sent) => {
     const s = sent.trim().replace(/\s+/g, " ");
@@ -55,10 +56,31 @@ T.files.forEach((f) => {
     if (dated && (claim || person)) why = "дата + " + (person ? "ім'я" : "твердження про пріоритет");
     else if (f.kind === "hist" && dated) why = "датоване твердження в історичній вставці";
     else if (f.kind === "api" && VERSION.test(s)) why = "твердження «з якої версії»";
+    const histOnlyDated = why === "датоване твердження в історичній вставці";
     if (!why) return;
+    /* Датовані речення історичної вставки не стають пунктами по одному: та сама дата
+       в оповіді згадується по кілька разів, і суддя щоразу ходив у веб по те саме. */
+    if (histOnlyDated) { histDated.push({ file: f.file, year: (s.match(YEAR) || [""])[0], s }); return; }
     items.push({ file: f.file, kind: f.kind, text: `[${why}] ${s.slice(0, 240)}` });
   });
 });
+
+/* Одна дата — один пункт на файл: у тексті пункту лишаються всі її згадки, тож
+   суддя бачить контекст цілком, але вебпошук робить один раз, а не по разу на речення. */
+const byYear = new Map();
+for (const h of histDated) {
+  const k = h.file + "|" + h.year;
+  if (!byYear.has(k)) byYear.set(k, []);
+  byYear.get(k).push(h.s);
+}
+for (const [k, arr] of byYear) {
+  const [file, year] = k.split("|");
+  items.push({
+    file, kind: "hist",
+    text: `[рік ${year} в історичній вставці, згадок ${arr.length}] `
+      + arr.slice(0, 3).map((x) => x.slice(0, 170)).join("  ||  ").slice(0, 460),
+  });
+}
 
 if (!items.length) L.pass("датованих тверджень і заяв про пріоритет не знайдено");
 

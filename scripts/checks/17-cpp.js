@@ -50,6 +50,7 @@ for (const f of T.files) {
   let k;
   while ((k = rb.exec(src))) pos.push({ lang: k[1].trim().split(/\s+/)[0], body: k[2], at: k.index, n: pos.length + 1 });
 
+  const unpaired = [];
   for (const b of pos) {
     if (isCpp(b.lang) && C_MARKS.test(b.body) && !CPP_MARKS.test(b.body)) {
       items.push(`${f.file} блок #${b.n}: вкладку підписано «${b.lang}», але всередині C `
@@ -61,7 +62,16 @@ for (const f of T.files) {
     const twin = pos.find((o) => o !== b && isCpp(o.lang) && inSameTabs(b.at, o.at));
     if (twin) { paired++; continue; }
     const head = b.body.split("\n").filter((x) => x.trim()).slice(0, 3).join(" ").slice(0, 110);
-    items.push(`${f.file} блок #${b.n}: C без пари C++ → ${head}`);
+    unpaired.push({ n: b.n, head });
+  }
+  /* ОДИН пункт на файл, а не на блок. Вирок теж один на файл: винятки §5 —
+     простір ядра · приклад про сам C як мову · чужий заголовок як цитата — це властивість
+     ФАЙЛУ, а не окремого блоку. Стаття про ядро з 33 C-блоками давала 33 однакові пункти
+     й 33 однакові вироки «простір ядра»: це не перевірка, це переписування того самого. */
+  if (unpaired.length) {
+    items.push(`${f.file}: C-блоків без пари C++ — ${unpaired.length} (#${unpaired.map((u) => u.n).join(', #')}). `
+      + `Вирок один на файл: або весь файл підпадає під виняток §5, або кожен блок дістає ідіоматичну пару. `
+      + `Перші: ${unpaired.slice(0, 3).map((u) => u.head).join('  ||  ').slice(0, 380)}`);
   }
 }
 

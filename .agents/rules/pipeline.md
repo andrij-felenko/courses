@@ -77,6 +77,7 @@ node scripts/checks/gate.js "<тека>"                        # стан те�
 node scripts/checks/gate.js --topics "<тека>" "<тека>"       # по кількох темах
 node scripts/checks/NN-*.js "<тека>"                        # одна перевірка
 node scripts/checks/verdict.js NN "<тека>" --item <N> --status ok|defect --proof "<доказ>"
+node scripts/checks/verdict.js NN "<тека>" --item 1 --status ok --proof "…" --item 2 --status defect --proof "…"   # СЕРІЯ за один виклик
 node scripts/checks/verdict.js NN "<тека>" --list            # пункти й наявні вироки
 node scripts/antigravity/newtopic.js --book … --kind … --section … --slug … --title … --why …
 node scripts/antigravity/finish-batch.js --book … --kind … [--apply]
