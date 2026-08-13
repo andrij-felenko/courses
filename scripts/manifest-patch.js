@@ -370,6 +370,100 @@ function foreignSlugs() {
   return FOREIGN;
 }
 
+/** Кома перед вставкою: попередній елемент масиву міг бути останнім і йти без коми,
+    а після вставки він стає середнім. Без цього маніфест перестає парситись. */
+function commaBefore(idx) {
+  for (let i = idx - 1; i >= 0; i--) {
+    const t = lines[i].trim();
+    if (!t) continue;
+    if (/[[,]$/.test(t)) return;
+    lines[i] = lines[i].replace(/s*$/, ",");
+    return;
+  }
+}
+
+/** Межі об'єкта теми, усередині якого стоїть рядок idx (одно- і багаторядкова форми). */
+function objectRange(idx) {
+  if (/\{[\s\S]*\}/.test(lines[idx])) return { start: idx, end: idx };
+  let start = idx;
+  while (start >= 0 && !lines[start].includes("{")) start--;
+  if (start < 0) return null;
+  let depth = 0, seen = false;
+  for (let i = start; i < lines.length; i++) {
+    for (const ch of lines[i]) { if (ch === "{") { depth++; seen = true; } else if (ch === "}") depth--; }
+    if (seen && depth === 0) return { start, end: i };
+  }
+  return null;
+}
+
+/* Створити секцію. Потрібна, коли теми давно лежать у теці, якої в маніфесті нема:
+   без цієї операції opTopic лише лається «створи секцію вручну», а руками — не можна. */
+function opSection(o) {
+  if (findSectionArray(o.slug)) { report.skipped.push(`секція «${o.slug}» уже є`); return; }
+  const si = lines.findIndex((l) => /"?sections"?\s*:\s*\[/.test(l));
+  if (si < 0) return report.errors.push("не знайшов масив sections");
+  const end = arrayEndLine(si, "sections");
+  if (end < 0) return report.errors.push("не знайшов кінець масиву sections");
+  const sample = lines.slice(si + 1, end).find((l) => l.trim() === "{");
+  const ind = sample ? indentOf(sample) : indentOf(lines[si]) + "  ";
+  const q = lines[si].includes('"sections"') ? '"' : "";
+  const title = String(o.title || o.slug).replace(/"/g, '\\"');
+  const scope = String(o.scope || "").replace(/"/g, '\\"');
+  commaBefore(end);
+  lines.splice(end, 0,
+    `${ind}{`,
+    `${ind}  ${q}slug${q}: "${o.slug}",`,
+    `${ind}  ${q}title${q}: "${title}",`,
+    `${ind}  ${q}scope${q}: "${scope}",`,
+    `${ind}  ${q}topics${q}: [`,
+    `${ind}  ]`,
+    `${ind}},`);
+  report.section = (report.section || 0) + 1;
+}
+
+/* Перенести тему в іншу секцію РАЗОМ з усім її вмістом (статуси версій, масиви вставок).
+   Вирізаємо рядки об'єкта як є й вставляємо в кінець масиву цільової секції — так нічого
+   не губиться й не переформатовується. Не вийшло — кладемо назад і кажемо про це. */
+function opMove(o) {
+  const i = findTopicLine(o.slug);
+  if (i < 0) return report.errors.push(`нема теми «${o.slug}» для переносу`);
+  const cur = sectionOfTopic(i);
+  if (cur === o.to) { report.skipped.push(`«${o.slug}» уже в секції «${o.to}»`); return; }
+  const r = objectRange(i);
+  if (!r) return report.errors.push(`не виділив об'єкт теми «${o.slug}»`);
+  const block = lines.slice(r.start, r.end + 1);
+  lines.splice(r.start, block.length);
+
+  const sa = findSectionArray(o.to);
+  if (!sa) { lines.splice(r.start, 0, ...block); return report.errors.push(`нема секції «${o.to}» — «${o.slug}» не рушено`); }
+  const end = arrayEndLine(sa.open, sa.key);
+  if (end < 0) { lines.splice(r.start, 0, ...block); return report.errors.push(`не знайшов кінець «${o.to}» — «${o.slug}» не рушено`); }
+
+  const sample = lines.slice(sa.open + 1, end).find((l) => l.trim() === "{" || /^\s*\{\s*slug:/.test(l));
+  const dst = sample ? indentOf(sample) : indentOf(lines[sa.open]) + "  ";
+  const src = indentOf(block[0]);
+  const delta = dst.length - src.length;
+  const shift = (l) => delta === 0 ? l : delta > 0 ? " ".repeat(delta) + l : l.slice(Math.min(-delta, indentOf(l).length));
+  const out = block.map(shift);
+  if (!/,\s*$/.test(out[out.length - 1])) out[out.length - 1] += ",";
+  commaBefore(end);
+  lines.splice(end, 0, ...out);
+  report.move = (report.move || 0) + 1;
+}
+
+/** Слуг секції, у якій стоїть рядок теми idx (шукаємо найближчий slug вище за scope/topics). */
+function sectionOfTopic(idx) {
+  for (let i = idx - 1; i >= 0; i--) {
+    if (/"?topics"?\s*:\s*\[/.test(lines[i])) {
+      for (let j = i; j >= Math.max(0, i - 6); j--) {
+        const m = lines[j].match(/"?slug"?\s*:\s*"([^"]+)"/);
+        if (m) return m[1];
+      }
+    }
+  }
+  return null;
+}
+
 function opTopic(o) {
   if (findTopicLine(o.slug) >= 0) { report.skipped.push(`тема «${o.slug}» вже є`); return; }
   // §4/§6: перш ніж заводити, перевіряємо, чи це не та сама тема іншим слугом. Не блокуємо —
@@ -391,6 +485,7 @@ function opTopic(o) {
   const sample = lines.slice(si + 1, end).find((l) => /\{\s*slug:\s*"/.test(l));
   const ind = sample ? indentOf(sample) : indentOf(lines[si]) + "  ";
   const title = String(o.title || o.slug).replace(/"/g, '\\"');
+  commaBefore(end);
   lines.splice(end, 0, `${ind}{ slug: "${o.slug}", title: "${title}", basic: { status: "${basic}" }, detailed: { status: "${detailed}" } },`);
   report.topic++;
 }
@@ -401,6 +496,8 @@ for (const o of ops) {
   else if (o.op === "status-if") opStatus(o, true);
   else if (o.op === "insert") opInsert(o);
   else if (o.op === "topic") opTopic(o);
+  else if (o.op === "section") opSection(o);
+  else if (o.op === "move") opMove(o);
   else report.errors.push(`невідома op «${o.op}»`);
 }
 
@@ -417,10 +514,10 @@ if (nAfter < nBefore) {
   console.error(`✖ тем стало менше (${nBefore} → ${nAfter}) — файл не змінено`);
   process.exit(2);
 }
-const changed = report.status + report.statusIf + report.insert + report.topic;
+const changed = report.status + report.statusIf + report.insert + report.topic + (report.section || 0) + (report.move || 0);
 if (!DRY && changed) fs.writeFileSync(MF, OUT);
 
-console.log(`manifest-patch ${path.basename(path.dirname(MF))}: статусів ${report.status}, умовних ${report.statusIf}, вставок ${report.insert}, нових тем ${report.topic}; тем у книзі ${nBefore}→${nAfter}${DRY ? " (DRY — не записано)" : changed ? "" : " (нічого міняти)"}`);
+console.log(`manifest-patch ${path.basename(path.dirname(MF))}: статусів ${report.status}, умовних ${report.statusIf}, вставок ${report.insert}, нових тем ${report.topic}, секцій ${report.section || 0}, переносів ${report.move || 0}; тем у книзі ${nBefore}→${nAfter}${DRY ? " (DRY — не записано)" : changed ? "" : " (нічого міняти)"}`);
 if (report.skipped.length) console.log(`  ~ пропущено (вже так): ${report.skipped.length}${report.skipped.length <= 12 ? " — " + report.skipped.join("; ") : ""}`);
 if (report.similar.length) {
   console.log(`  ⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ: ${report.similar.length}`);

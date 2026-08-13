@@ -5,6 +5,84 @@ window.__BOOKS__ = [
     "title": "Unix і Linux",
     "sections": [
       {
+        "slug": "virtualization-and-containers",
+        "title": "Віртуалізація й контейнери",
+        "scope": "KVM, namespaces, cgroups як основа ізоляції",
+        "topics": [
+        ]
+      },
+      {
+        "slug": "storage",
+        "title": "Сховище",
+        "scope": "блокові пристрої, розділи, RAID, файлові системи на диску",
+        "topics": [
+        ]
+      },
+      {
+        "slug": "proc",
+        "title": "Псевдофайлові системи",
+        "scope": "procfs, sysfs, debugfs та інші вікна ядра у простір користувача",
+        "topics": [
+          { slug: "tmpfs-shmem-ram-filesystem", title: "Тимчасова ВФС tmpfs та підсистема shmem: дисковий кеш у RAM", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-tmpfs-mount-and-shmem-sysctl.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-tmpfs.md", status: "done" }] , "proj": [{ file: "proj-posix-shm-and-memfd.md", status: "done" }] },
+          { slug: "sysfs-kobject-sysfs-dirent", title: "Файлова система sysfs, kobject та sysfs_dirent", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysfs-kobject.md", status: "done" }] , "hist": [{ file: "hist-sysfs-birth.md", status: "done" }] , "proj": [{ file: "proj-kobject-custom.md", status: "done" }] },
+          { slug: "sysctl-kernel-tuning-interface", title: "Інтерфейс тюнінгу ядра sysctl та /proc/sys", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysctl-handlers.md", status: "done" }] , "hist": [{ file: "hist-sysctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-sysctl-tool.md", status: "done" }] },
+          {
+            "slug": "psi-pressure-stall-information",
+            "title": "Підсистема оцінки голодування ресурсів PSI (Pressure Stall Info)",
+            "basic": {
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-proc-pressure-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-loadavg-to-psi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-psi-daemon.md",
+                "status": "done",
+            "api": [
+              {
+                "file": "api-proc-pressure-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-loadavg-to-psi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-psi-daemon.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
+            },
+            "detailed": {
+              "status": "done"
+            }
+          },
+          { slug: "procfs-architecture-and-proc-pid", title: "Архітектура procfs та структура /proc/[pid]", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-proc-pid-nodes.md", status: "done" }] , "hist": [{ file: "hist-procfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-procfs-pid-inspector.md", status: "done" }] },
+          { slug: "kernfs-vfs-abstraction-layer", title: "Шар абстракції kernfs та його роль у розвантаженні VFS", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernfs-ops.md", status: "done" }] , "hist": [{ file: "hist-kernfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernfs-custom-fs.md", status: "done" }] },
+          { slug: "hugetlbfs-and-transparent-hugepages", title: "Файлова система hugetlbfs та прозорі великі сторінки THP", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-hugetlb-thp-sysfs.md", status: "done" }] , "hist": [{ file: "hist-hugepages-evolution.md", status: "done" }] , "proj": [{ file: "proj-hugepages-allocator.md", status: "done" }] },
+          { slug: "devtmpfs-kernel-device-node-management", title: "Автоматичне монтування вузлів пристроїв у devtmpfs", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-devtmpfs-kernel-surface.md", status: "done" }] , "hist": [{ file: "hist-dev-nodes-evolution.md", status: "done" }] , "proj": [{ file: "proj-devtmpfs-node-inspector.md", status: "done" }] },
+          { slug: "debugfs-tracefs-kernel-debugging-interfaces", title: "Налагодові ВФС: debugfs та tracefs", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-debugfs-tracefs-control.md", status: "done" }] , "hist": [{ file: "hist-debugfs-tracefs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernel-debugfs-module.md", status: "done" }] },
+          { slug: "configfs-user-space-kernel-object-creation", title: "Файлова система configfs: створення ядерних об'єктів із юзерспейсу", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-configfs-structures.md", status: "done" }] , "hist": [{ file: "hist-configfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-configfs-kernel-module.md", status: "done" }] },
+          { slug: "cgroupfs-v1-v2-resource-management-tree", title: "cgroupfs v1 та v2: ієрархічне дерево керування ресурсами", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cgroupv2-control-files.md", status: "done" }] , "hist": [{ file: "hist-cgroups-evolution.md", status: "done" }] , "proj": [{ file: "proj-cgroupv2-manager.md", status: "done" }] },
+          { slug: "bpffs-bpf-filesystem-and-map-pinning", title: "Файлова система bpffs та пінінг об'єктів BPF (maps, programs)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-bpffs-syscall-and-ops.md", status: "done" }] , "hist": [{ file: "hist-bpffs-evolution.md", status: "done" }] , "proj": [{ file: "proj-pinned-map-sharing.md", status: "done" }] },
+        ]
+      },
+      {
         "slug": "foundations",
         "title": "Ідея та родовід",
         "scope": "Звідки Unix узявся, які рішення в ньому засадничі й що з них випливає для всього іншого.",
@@ -638,6 +716,11 @@ window.__BOOKS__ = [
         "title": "Процес",
         "scope": "Процес як головна одиниця системи: як народжується, як планується, як ізолюється.",
         "topics": [
+          { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "done" }, detailed: { status: "pending" } },
+          { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "atomics-and-memory-barriers", title: "Атомарні операції та бар'єри пам'яті в Linux", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "systemd-architecture-and-cgroups",
             "title": "Архітектура systemd та cgroups",
@@ -1724,52 +1807,6 @@ window.__BOOKS__ = [
             }
           },
           {
-            "slug": "psi-pressure-stall-information",
-            "title": "Підсистема оцінки голодування ресурсів PSI (Pressure Stall Info)",
-            "basic": {
-              "status": "empty",
-            "api": [
-              {
-                "file": "api-proc-pressure-interface.md",
-                "status": "done",
-            "hist": [
-              {
-                "file": "hist-loadavg-to-psi.md",
-                "status": "done",
-            "proj": [
-              {
-                "file": "proj-psi-daemon.md",
-                "status": "done",
-            "api": [
-              {
-                "file": "api-proc-pressure-interface.md",
-                "status": "done",
-            "hist": [
-              {
-                "file": "hist-loadavg-to-psi.md",
-                "status": "done",
-            "proj": [
-              {
-                "file": "proj-psi-daemon.md",
-                "status": "done"
-              }
-            ],
-              }
-            ],
-              }
-            ],
-              }
-            ],
-              }
-            ],
-              }
-            ],
-            },
-            "detailed": {
-              "status": "done"
-            }
-          },
-          {
             "slug": "sched-energy-aware-eas",
             "title": "Енергоефективне планування Energy-Aware Scheduling (EAS) та Energy Model",
             "detailed": {
@@ -2719,6 +2756,8 @@ window.__BOOKS__ = [
         "title": "Файли й файлові системи",
         "scope": "Що таке файл у Unix, як імена відв'язані від вмісту й на чому тримається узгодженість.",
         "topics": [
+          { slug: "file-descriptors-and-open-file-table", title: "file-descriptors-and-open-file-table", basic: { status: "empty" }, detailed: { status: "done" } },
+          { slug: "extended-attributes-xattr", title: "extended-attributes-xattr", basic: { status: "empty" }, detailed: { status: "done" } },
           {
             "slug": "file-descriptor",
             "title": "Файловий дескриптор",
@@ -5221,6 +5260,7 @@ window.__BOOKS__ = [
         "title": "Сигнали й взаємодія процесів",
         "scope": "Асинхронні сповіщення та способи, якими процеси домовляються між собою.",
         "topics": [
+          { slug: "signal-architecture-and-delivery", title: "Архітектура та доставка сигналів", basic: { status: "empty" }, detailed: { status: "done" } },
           {
             "slug": "signal-model",
             "title": "Сигнал: асинхронне сповіщення",
@@ -5628,6 +5668,8 @@ window.__BOOKS__ = [
         "title": "Права й ідентичність",
         "scope": "Хто такий процес з погляду системи і як вирішується, що йому дозволено.",
         "topics": [
+          { slug: "seccomp-syscall-filtering", title: "Գ�������� ��������� ������� (seccomp)", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "uid-gid-model",
             "title": "Користувачі, групи й ідентичність процесу",
@@ -6746,6 +6788,7 @@ window.__BOOKS__ = [
         "title": "Пристрої та ядро",
         "scope": "Як залізо стає файлом і як ядро керує тим, що під'єднали.",
         "topics": [
+          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "done" }, detailed: { status: "pending" } },
           {
             "slug": "procfs-process-reflection",
             "title": "Відображення процесів у procfs",
@@ -9958,6 +10001,8 @@ window.__BOOKS__ = [
         "title": "Мережа в ядрі",
         "scope": "Як Linux бачить мережу зсередини: від інтерфейсу до маршруту й фільтра.",
         "topics": [
+          { slug: "network-stack-architecture", title: "Мережевий стек ядра Linux: архітектура та шлях пакета", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "netfilter-and-iptables-nftables", title: "Netfilter, iptables та nftables", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "network-stack",
             "title": "Мережевий стек у ядрі",
@@ -10403,17 +10448,9 @@ window.__BOOKS__ = [
         "title": "Побачити, що відбувається",
         "scope": "Механізми, якими система показує себе зсередини — і що з них можна дізнатися.",
         "topics": [
-          { slug: "devtmpfs-kernel-device-node-management", title: "Автоматичне монтування вузлів пристроїв у devtmpfs", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-devtmpfs-kernel-surface.md", status: "done" }] , "hist": [{ file: "hist-dev-nodes-evolution.md", status: "done" }] , "proj": [{ file: "proj-devtmpfs-node-inspector.md", status: "done" }] },
-          { slug: "tmpfs-shmem-ram-filesystem", title: "Тимчасова ВФС tmpfs та підсистема shmem: дисковий кеш у RAM", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-tmpfs-mount-and-shmem-sysctl.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-tmpfs.md", status: "done" }] , "proj": [{ file: "proj-posix-shm-and-memfd.md", status: "done" }] },
-          { slug: "hugetlbfs-and-transparent-hugepages", title: "Файлова система hugetlbfs та прозорі великі сторінки THP", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-hugetlb-thp-sysfs.md", status: "done" }] , "hist": [{ file: "hist-hugepages-evolution.md", status: "done" }] , "proj": [{ file: "proj-hugepages-allocator.md", status: "done" }] },
-          { slug: "cgroupfs-v1-v2-resource-management-tree", title: "cgroupfs v1 та v2: ієрархічне дерево керування ресурсами", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cgroupv2-control-files.md", status: "done" }] , "hist": [{ file: "hist-cgroups-evolution.md", status: "done" }] , "proj": [{ file: "proj-cgroupv2-manager.md", status: "done" }] },
-          { slug: "configfs-user-space-kernel-object-creation", title: "Файлова система configfs: створення ядерних об'єктів із юзерспейсу", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-configfs-structures.md", status: "done" }] , "hist": [{ file: "hist-configfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-configfs-kernel-module.md", status: "done" }] },
-          { slug: "kernfs-vfs-abstraction-layer", title: "Шар абстракції kernfs та його роль у розвантаженні VFS", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernfs-ops.md", status: "done" }] , "hist": [{ file: "hist-kernfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernfs-custom-fs.md", status: "done" }] },
-          { slug: "bpffs-bpf-filesystem-and-map-pinning", title: "Файлова система bpffs та пінінг об'єктів BPF (maps, programs)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-bpffs-syscall-and-ops.md", status: "done" }] , "hist": [{ file: "hist-bpffs-evolution.md", status: "done" }] , "proj": [{ file: "proj-pinned-map-sharing.md", status: "done" }] },
-          { slug: "sysfs-kobject-sysfs-dirent", title: "Файлова система sysfs, kobject та sysfs_dirent", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysfs-kobject.md", status: "done" }] , "hist": [{ file: "hist-sysfs-birth.md", status: "done" }] , "proj": [{ file: "proj-kobject-custom.md", status: "done" }] },
-          { slug: "sysctl-kernel-tuning-interface", title: "Інтерфейс тюнінгу ядра sysctl та /proc/sys", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysctl-handlers.md", status: "done" }] , "hist": [{ file: "hist-sysctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-sysctl-tool.md", status: "done" }] },
-          { slug: "debugfs-tracefs-kernel-debugging-interfaces", title: "Налагодові ВФС: debugfs та tracefs", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-debugfs-tracefs-control.md", status: "done" }] , "hist": [{ file: "hist-debugfs-tracefs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernel-debugfs-module.md", status: "done" }] },
-          { slug: "procfs-architecture-and-proc-pid", title: "Архітектура procfs та структура /proc/[pid]", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-proc-pid-nodes.md", status: "done" }] , "hist": [{ file: "hist-procfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-procfs-pid-inspector.md", status: "done" }] },
+          { slug: "systemtap-scripting", title: "Інструментарій SystemTap", basic: { status: "empty" }, detailed: { status: "done" } },
+          { slug: "bpftrace-dynamic-tracing", title: "Високорівневе трасування через bpftrace", basic: { status: "empty" }, detailed: { status: "done" } },
+          { slug: "audit-framework", title: "Підсистема аудиту ядра: правила, події й auditd", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "proc-filesystem",
             "title": "/proc: процеси як файли",

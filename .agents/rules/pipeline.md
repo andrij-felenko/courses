@@ -81,6 +81,7 @@ node scripts/checks/verdict.js NN "<тека>" --item 1 --status ok --proof "…
 node scripts/checks/verdict.js NN "<тека>" --list            # пункти й наявні вироки
 node scripts/antigravity/newtopic.js --book … --kind … --section … --slug … --title … --why …
 node scripts/antigravity/finish-batch.js --book … --kind … [--apply]
+node scripts/audit-layout.js                                   # диск ↔ маніфест: розлади розкладки
 ```
 
 Команди запускаються з кореня репо, але шлях теки приймається і відносний, і абсолютний.
@@ -165,6 +166,7 @@ node scripts/antigravity/finish-batch.js --book … --kind … [--apply]
 ## Батч і маніфест
 
 ```
+перед:  node scripts/audit-layout.js <вид>/<книга> — тека ≠ секція ламає запис маніфесту
 старт:  список тем батчу → scripts/_finish/_batch-<книга>.json
 письмо: теми йдуть своїми циклами, ≤4 одночасно
 нове:   помітив залежну тему → newtopic.js (У ЧЕРГУ, не в роботу й не в маніфест)

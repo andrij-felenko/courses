@@ -210,6 +210,7 @@
       ] },
     { slug: "digital", title: "Цифрова", scope: "Логічні схеми на дискретних рівнях і станах разом із цифровим обробленням сигналів — перетворенням дискретизованих сигналів алгоритмами.",
       topics: [
+        { slug: "push-pull-output", title: "Push-pull вихід", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "mpu-cortex-m", title: "Блок захисту пам'яті (MPU) в Cortex-M", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-memory-protection.md", status: "done" }], proj: [{ file: "proj-rtos-task-isolation.md", status: "done" }] },
         { slug: "demultiplexer", title: "Демультиплексор", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-demux-write-strobe.md", status: "done" }] },
         { slug: "dsp-processor", title: "Цифровий сигнальний процесор (DSP)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-single-chip-dsp.md", status: "done" }] },
@@ -256,7 +257,6 @@
         { slug: "memory-controller", title: "Контролер пам'яті", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "sd-card", title: "SD-картка", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-sd-card-wars.md", status: "done" }] },
         { slug: "emmc-ssd", title: "eMMC і SSD", basic: { status: "done" }, detailed: { status: "done" }, proj: [{ file: "proj-toy-ftl.md", status: "done" }] },
-        { slug: "push-pull-output", title: "Push-pull вихід", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "open-drain", title: "Open-drain", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "logic-thresholds", title: "Логічні пороги", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "floating-pullups", title: "Підтяжки", basic: { status: "empty" }, detailed: { status: "done" }, math: [{ file: "math-pullup-value.md", status: "done" }] },
@@ -1009,6 +1009,7 @@
       ] },
     { slug: "pcb", title: "Плати", scope: "Конструювання й технологія друкованих плат і з'єднань разом з електромагнітною сумісністю — керуванням завадами, наведеннями й випромінюванням.",
       topics: [
+        { slug: "thermal-resistance", title: "thermal-resistance", basic: { status: "done" }, detailed: { status: "pending" } },
         { slug: "shielded-cable", title: "Екранований кабель", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "ferrite-clamp", title: "Феритова клема", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "ground-loops", title: "Земляні петлі", basic: { status: "empty" }, detailed: { status: "done" }, comp: [{ file: "comp-star-ground.md", status: "done" }] },
