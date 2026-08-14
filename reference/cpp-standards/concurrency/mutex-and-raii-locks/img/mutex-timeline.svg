@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 518" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="518" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія розвитку засобів взаємного виключення в стандартах C++</text>
+<line x1="230.0" y1="70.0" x2="230.0" y2="458.0" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="270.0" y="73.0" width="720.0" height="53.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="96.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Відсутність стандартних ниток і м'ютексів у мові.</tspan><tspan x="630.0" dy="16.9">Використання платформозалежних POSIX Threads (pthread_mutex_t) або Win32 API.</tspan></text>
+<circle cx="230.0" cy="100.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="205.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">C++98 / C++03</text>
+<rect x="270.0" y="155.1" width="720.0" height="53.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="178.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Перший стандарт багатонитвовості: std::mutex, std::recursive_mutex, std::timed_mutex.</tspan><tspan x="630.0" dy="16.9">Впровадження RAII-замків std::lock_guard та std::unique_lock, а також std::lock().</tspan></text>
+<circle cx="230.0" cy="182.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="205.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">C++11</text>
+<rect x="270.0" y="245.5" width="720.0" height="37.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="268.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Додано std::shared_timed_mutex та std::shared_lock для Read-Write замків.</tspan></text>
+<circle cx="230.0" cy="264.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="205.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">C++14</text>
+<rect x="270.0" y="327.5" width="720.0" height="37.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="630.0" y="350.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Універсальний std::scoped_lock (із підтримкою CTAD) та легший std::shared_mutex.</tspan></text>
+<circle cx="230.0" cy="346.0" r="7.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+<text x="205.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">C++17</text>
+<rect x="270.0" y="409.5" width="720.0" height="37.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="432.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Семафори (std::counting_semaphore), бар'єри (std::barrier) та std::jthread із RAII.</tspan></text>
+<circle cx="230.0" cy="428.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="205.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">C++20</text>
+<text x="520.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Еволюція C++ прямує від сирих системних викликів до безпечних RAII-обгорток із гарантією на рівні типів</text>
+</svg>

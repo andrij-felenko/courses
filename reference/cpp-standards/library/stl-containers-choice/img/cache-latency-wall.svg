@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому неперервність у пам'яті компенсує неоптимальну теоретичну складність O(N)</text>
+<rect x="40.0" y="40.0" width="430.0" height="380.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="255.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Неперервний масив (std::vector)</text>
+<rect x="70.0" y="110.0" width="370.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="255.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">CPU L1 Cache Line (64 байти)</text>
+<text x="255.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Завантажує 8-16 елементів за один такт!</text>
+<line x1="255.0" y1="170.0" x2="255.0" y2="220.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="220.0" width="370.0" height="70.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="255.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Hardware Prefetcher</text>
+<text x="255.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Передбачає послідовний доступ і префетчить наступну лінію</text>
+<rect x="70.0" y="320.0" width="370.0" height="60.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="255.0" y="346.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">Затримка доступу: ~1-4 такти CPU</tspan><tspan x="255.0" dy="15.6">Пропускна здатність: ~100+ ГБ/с</tspan></text>
+<rect x="530.0" y="40.0" width="430.0" height="380.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="745.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вузловий список (std::list / std::map)</text>
+<rect x="560.0" y="110.0" width="370.0" height="60.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="745.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Pointer Chasing (Стрибок за адресою)</text>
+<text x="745.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Адреса наступного вузла невідома до прочитання поточного!</text>
+<line x1="745.0" y1="170.0" x2="745.0" y2="220.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="220.0" width="370.0" height="70.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="745.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">L3 / Main RAM Miss</text>
+<text x="745.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кожен вузол лежить у випадковому місці купи (промах кешу)</text>
+<rect x="560.0" y="320.0" width="370.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="745.0" y="346.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Затримка доступу: ~150-300 тактів CPU!</tspan><tspan x="745.0" dy="15.6">Конвеєр процесора простоює (Stall)</tspan></text>
+</svg>

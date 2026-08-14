@@ -948,60 +948,162 @@ window.__BOOKS__.push(
           "slug": "type-traits",
           "title": "Риси типів (type traits)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-type-traits-ref.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-type-traits-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-trait-impl.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "crtp",
           "title": "CRTP: статичний поліморфізм",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-crtp-patterns.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-crtp-origin.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-crtp-mixin.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "instantiation-cost",
           "title": "Ціна інстанціювання: час компіляції й розмір бінарника",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-compiler-diagnostics.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-template-bloat.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-instantiation-profiling.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "expression-templates",
           "title": "Шаблони виразів: коли вираз стає деревом типів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-expression-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-expression-templates.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-expression-vector.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "two-phase-name-lookup",
           "title": "Двофазний пошук імен у шаблонах",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-two-phase-rules.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-two-phase-lookup.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lookup-diagnostics.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "customization-points",
           "title": "Точки налаштування й об'єкти-CPO",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cpo-implementations.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-customization-evolution.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -1015,180 +1117,510 @@ window.__BOOKS__.push(
           "slug": "stl-containers-choice",
           "title": "Контейнери STL: вибір під задачу і ціна операцій",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-invalidation-rules.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-stl-design.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-container-benchmarks.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "iterators-model",
           "title": "Ітератори: категорії й модель обходу",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-iterator-traits.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-iterator-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-range-iterator.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "stl-algorithms",
           "title": "Алгоритми STL замість ручних циклів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-algorithms-toolbox.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-stl-birth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-iterator-algo.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "string-and-string-view",
           "title": "string і string_view: володіти чи дивитися",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-string-view-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-string-view.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-parser.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "span-contiguous",
           "title": "span: невласницький вид на суцільні дані",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-span-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-span-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-zero-copy-buffer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "optional",
           "title": "optional: значення, якого може не бути",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-optional-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-optional-origin.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-optional-pipeline.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "variant-and-visit",
           "title": "variant і visit: одне з кількох",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-variant-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-variant-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-ast-visitor.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "expected-error-handling",
           "title": "expected: помилка як значення",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-expected-monadic-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-error-handling-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-expected-pipeline.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "std-function-type-erasure",
           "title": "std::function і стирання типу: ціна колбека",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-std-function-toolbox.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-type-erasure-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-type-erasure.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "chrono",
           "title": "chrono: годинники, точки часу й тривалості",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-chrono-type-system.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-chrono-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-high-res-timer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "std-filesystem",
           "title": "filesystem: шляхи й дії з файлами переносно",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-path-and-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-boost-filesystem.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-file-analyzer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "ranges-pipelines",
           "title": "Ranges: конвеєри перетворень і ліниві види",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-range-adaptors.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-ranges-birth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-range-adaptor.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "format-and-print",
           "title": "format і print: типобезпечне форматування",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-format-specifiers.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-format-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-formatter.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "std-random",
           "title": "random: рушії, розподіли й відтворюваність",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-random-toolbox.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-pcg-mersenne.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-distributions.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-random-benchmarks.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "std-exception-hierarchy",
           "title": "Ієрархія std::exception і власні типи винятків",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-exception-classes.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-exception-hierarchy.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-exception-tree.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "tuple-and-pair",
           "title": "tuple і pair: кортеж значень різних типів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-tuple-and-pair.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tuple-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-tuple-utilities.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "std-generator",
           "title": "std::generator: лінива послідовність на корутині",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-generator-ref.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-coroutines-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lazy-pipeline.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "iterator-invalidation",
           "title": "Інвалідація ітераторів: коли посилання на елемент стає недійсним",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-invalidation-matrix.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-iterator-invalidation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-invalidation-detector.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -1202,60 +1634,168 @@ window.__BOOKS__.push(
           "slug": "std-thread-jthread",
           "title": "thread і jthread: запуск, приєднання, скасування",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-thread-jthread.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-thread-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-jthread-pipeline.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "mutex-and-raii-locks",
           "title": "М'ютекс і RAII-замки: lock_guard, unique_lock, scoped_lock",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-locks-reference.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-mutex-origins.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bank-transfer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "condition-variable",
           "title": "Умовна змінна: чекати подію, а не крутитися",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cv-reference.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-cv-origin.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bounded-queue.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "shared-mutex",
           "title": "shared_mutex: багато читачів, один письменник",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-shared-mutex.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-shared-mutex.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-shared-cache.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "future-promise",
           "title": "future й promise: результат з іншого потоку",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-future-promise.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-future-promise.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-custom-future.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "async-and-packaged-task",
           "title": "async і packaged_task: запуск із результатом",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-async-packaged-task.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-async-task-evolution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-task-executor.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {

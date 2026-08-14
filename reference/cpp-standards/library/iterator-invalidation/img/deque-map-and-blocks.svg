@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура std::deque: розрив між стійкістю покажчиків та інвалідацією ітератора</text>
+<text x="460.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура std::deque: розрив між Map-ітераторами та сторінками даних</text>
+<text x="180.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Центральний вектор Map (покажчики на блоки)</text>
+<rect x="60.0" y="100.0" width="65.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="92.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Block 0</text>
+<rect x="130.0" y="100.0" width="65.0" height="40.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/>
+<text x="162.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Block 1</text>
+<rect x="200.0" y="100.0" width="65.0" height="40.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/>
+<text x="232.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Block 2</text>
+<rect x="270.0" y="100.0" width="65.0" height="40.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/>
+<text x="302.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Block 3</text>
+<rect x="340.0" y="100.0" width="65.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="372.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Block 4</text>
+<text x="650.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Незалежні сторінки даних у RAM (фіксований розмір)</text>
+<rect x="520.0" y="110.0" width="340.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="580.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Block 1 Data</text>
+<rect x="660.0" y="122.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 0</text>
+<rect x="725.0" y="122.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="755.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 1</text>
+<rect x="790.0" y="122.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="820.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 2</text>
+<rect x="520.0" y="190.0" width="340.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="580.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Block 2 Data</text>
+<rect x="660.0" y="202.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 3</text>
+<rect x="725.0" y="202.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="755.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 4</text>
+<rect x="790.0" y="202.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="820.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 5</text>
+<rect x="520.0" y="270.0" width="340.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="580.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Block 3 Data</text>
+<rect x="660.0" y="282.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 6</text>
+<rect x="725.0" y="282.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="755.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 7</text>
+<rect x="790.0" y="282.0" width="60.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="820.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">val 8</text>
+<line x1="162.0" y1="140.0" x2="520.0" y2="140.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="232.0" y1="140.0" x2="520.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="302.0" y1="140.0" x2="520.0" y2="300.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="166.7" y="344.4" width="586.6" height="41.3" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="460.0" y="361.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Вставка спереду/ззаду перевиділяє Map → ітератори deque (покажчики у Map) ІНВАЛІДУЮТЬСЯ,</tspan><tspan x="460.0" dy="14.3">проте сторінки даних не рухаються → покажчики T* та посилання T&amp; залишаються 100% ДІЙСНИМИ!</tspan></text>
+</svg>

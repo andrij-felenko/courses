@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="800" height="380">
+<rect width="800" height="380" fill="#ffffff"/>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Композиція обгорток std::ranges::transform_view&lt;filter_view&lt;V, Pred&gt;, Func&gt;</text>
+<rect x="30.0" y="50.0" width="740.0" height="300.0" rx="10" fill="#ebf5fb" stroke="#2980b9" stroke-width="2.0"/>
+<text x="50.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1b4f72" text-anchor="start" font-weight="700">transform_view (Зовнішній вигляд)</text>
+<rect x="70.0" y="127.3" width="140.0" height="45.3" rx="6" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/><text x="140.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">func_: Func</tspan><tspan x="140.0" dy="14.3">(Предикат/Функція)</tspan></text>
+<rect x="240.0" y="90.0" width="510.0" height="240.0" rx="8" fill="#e8f8f5" stroke="#16a085" stroke-width="1.8"/>
+<text x="260.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0e6251" text-anchor="start" font-weight="700">base_: filter_view (Внутрішній вигляд)</text>
+<rect x="290.0" y="137.3" width="140.0" height="45.3" rx="6" fill="#ffffff" stroke="#16a085" stroke-width="1.5"/><text x="360.0" y="156.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">pred_: Predicate</tspan><tspan x="360.0" dy="14.3">(Фільтр умова)</tspan></text>
+<rect x="275.0" y="207.3" width="170.0" height="45.3" rx="6" fill="#f9e79f" stroke="#d4ac0d" stroke-width="1.5"/><text x="360.0" y="226.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">cached_begin_: cache</tspan><tspan x="360.0" dy="14.3">(Кеш першого елемента)</tspan></text>
+<rect x="570.0" y="135.0" width="160.0" height="175.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">base_: V</text>
+<text x="650.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(vector / span)</text>
+<line x1="590.0" y1="210.0" x2="710.0" y2="210.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="650.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle">begin() / end()</text>
+<text x="650.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Базовий ітератор</text>
+<text x="140.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">При виклику begin():</text>
+<text x="140.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b4f72" text-anchor="middle">Створюється transform_iterator</text>
+<text x="140.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b4f72" text-anchor="middle">що обгортає filter_iterator</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння розміру стану та локальності кешу std::mt19937 та PCG32</text>
+<text x="460.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння архітектури стану: std::mt19937 vs PCG32</text>
+<rect x="40.0" y="55.0" width="410.0" height="270.0" rx="8" fill="#fffbf5" stroke="#e67e22" stroke-width="1.5"/>
+<text x="245.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d35400" text-anchor="middle" font-weight="700">std::mt19937 (Mersenne Twister)</text>
+<rect x="70.0" y="100.0" width="350.0" height="75.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.0"/>
+<text x="245.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">State Array: uint32_t state[624]</text>
+<text x="245.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Розмір стану в пам'яті: 2496 байтів (2.5 КБ)</text>
+<text x="245.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Період: 2¹⁹⁹³⁷ - 1 (~4.3 × 10⁶⁰⁰¹)</text>
+<text x="245.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">❌ Не вміщається у CPU регістрах (Cache Eviction)</tspan><tspan x="245.0" dy="16.2">❌ Великий перелік операцій Bitwise Matrix Transition</tspan><tspan x="245.0" dy="16.2">❌ Може відновлювати стан після 624 виходів (Linear)</tspan><tspan x="245.0" dy="16.2">✔ Величезний період для обчислювальної физики</tspan></text>
+<rect x="470.0" y="55.0" width="410.0" height="270.0" rx="8" fill="#f4faf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="675.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">PCG32 (Permuted Congruential Generator)</text>
+<rect x="500.0" y="100.0" width="350.0" height="75.0" rx="6" fill="#e8f8ed" stroke="#27ae60" stroke-width="1.0"/>
+<text x="675.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">State: uint64_t state + uint64_t inc</text>
+<text x="675.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Розмір стану в пам'яті: 16 байтів (вміщається у регістр)</text>
+<text x="675.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Період: 2⁶⁴ (~1.8 × 10¹⁹)</text>
+<text x="675.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">✔ Відмінна просторова та часова локальність у кеші L1</tspan><tspan x="675.0" dy="16.2">✔ Висока криптоподібна статистична якість (SmallCrush)</tspan><tspan x="675.0" dy="16.2">✔ Підтримує Multiple Streams (потоки через inc)</tspan><tspan x="675.0" dy="16.2">✔ Значно швидший на сучасних 64-бітних CPU</tspan></text>
+<text x="460.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">MT19937 розроблено у 1997 році для RAM; PCG враховує архітектуру L1-кешу та CPU регістрів</text>
+</svg>

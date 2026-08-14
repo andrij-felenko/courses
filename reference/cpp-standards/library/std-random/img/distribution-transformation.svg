@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема математичної трансформації бітового потоку в Гаусів розподіл</text>
+<text x="460.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Математична трансформація ентропії: від бітів до Gaussian Normal</text>
+<rect x="77.0" y="76.6" width="146.0" height="66.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="97.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">1. URBG (Engine)</tspan><tspan x="150.0" dy="16.9">32-бітний integer</tspan><tspan x="150.0" dy="16.9">0x8F3A10C9...</tspan></text>
+<line x1="240.0" y1="110.0" x2="310.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="275.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Нормалізація</text>
+<rect x="334.4" y="76.6" width="131.1" height="66.8" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="97.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">2. Uniform Real</tspan><tspan x="400.0" dy="16.9">u ~ U[0, 1)</tspan><tspan x="400.0" dy="16.9">0.5592810...</tspan></text>
+<line x1="490.0" y1="110.0" x2="560.0" y2="110.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Box-Muller / Ziggurat</text>
+<rect x="640.0" y="76.6" width="220.1" height="66.8" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="750.0" y="97.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">3. Normal Distribution</tspan><tspan x="750.0" dy="16.9">x ~ N(μ, σ²)</tspan><tspan x="750.0" dy="16.9">Гаусова дзвіноподібна крива</tspan></text>
+<rect x="150.0" y="180.0" width="620.0" height="140.0" rx="6" fill="#fafafa" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Щільність ймовірності f(x) = (1 / √(2πσ²)) exp(-(x-μ)² / 2σ²)</text>
+<path d="M 200 300 L 280 295 L 350 280 L 410 240 L 460 220 L 510 240 L 570 280 L 640 295 L 720 300" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="200.0" y1="300.0" x2="720.0" y2="300.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="460.0" y1="220.0" x2="460.0" y2="300.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="460.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">μ (середнє)</text>
+<text x="350.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">-1σ</text>
+<text x="570.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">+1σ</text>
+<text x="460.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Генератор надає базові випадкові біти, а розподіл застосовує нелінійне математичне перетворення</text>
+</svg>

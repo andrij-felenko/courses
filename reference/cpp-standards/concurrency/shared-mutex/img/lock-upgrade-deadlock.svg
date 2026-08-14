@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="120.0" y="30.0" width="180.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="210.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Потік A (Reader 1)</tspan></text>
+<rect x="500.0" y="30.0" width="180.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="590.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Потік B (Reader 2)</tspan></text>
+<line x1="210.0" y1="75.0" x2="210.0" y2="330.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="590.0" y1="75.0" x2="590.0" y2="330.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="195.0" y="95.0" width="30.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="210.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. lock_shared() — УСПІХ</text>
+<rect x="575.0" y="135.0" width="30.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="590.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. lock_shared() — УСПІХ</text>
+<rect x="195.0" y="185.0" width="30.0" height="120.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="210.0" y1="195.0" x2="575.0" y2="195.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="390.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Спроба lock(): чекає завершення Потоку B</text>
+<rect x="575.0" y="225.0" width="30.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="590.0" y1="235.0" x2="225.0" y2="235.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="390.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Спроба lock(): чекає завершення Потоку A</text>
+<rect x="280.0" y="280.0" width="240.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="400.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">ГЛУХИЙ КУТ (DEADLOCK)!</tspan><tspan x="400.0" dy="13.0">Обидва потоки чекають один одного</tspan></text>
+</svg>

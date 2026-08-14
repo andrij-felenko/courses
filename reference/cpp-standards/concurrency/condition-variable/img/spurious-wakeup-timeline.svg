@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія фіктивного пробудження</text>
+<text x="420.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0b0c0c" text-anchor="middle" font-weight="700">Чому перевірка предиката в циклі while є обов'язковою</text>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1d70b8" text-anchor="middle" font-weight="700">Потік A (Wait)</text>
+<line x1="210.0" y1="90.0" x2="780.0" y2="90.0" stroke="#1d70b8" stroke-width="2.0"/>
+<text x="120.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d4351c" text-anchor="middle" font-weight="700">Потік B (Spurious)</text>
+<line x1="210.0" y1="210.0" x2="780.0" y2="210.0" stroke="#d4351c" stroke-width="2.0"/>
+<rect x="235.0" y="66.2" width="90.0" height="47.6" rx="6" fill="#f3f2f1" stroke="#505a5f" stroke-width="1.5"/><text x="280.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">wait()</tspan><tspan x="280.0" dy="15.6">сон</tspan></text>
+<rect x="391.9" y="186.2" width="136.3" height="47.6" rx="6" fill="#fdf0ed" stroke="#d4351c" stroke-width="1.5"/><text x="460.0" y="213.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Сигнал ОС / EINTR</tspan><tspan x="460.0" dy="15.6">без notify</tspan></text>
+<rect x="480.0" y="66.2" width="120.0" height="47.6" rx="6" fill="#fdf0ed" stroke="#d4351c" stroke-width="1.5"/><text x="540.0" y="93.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Пробудження!</tspan><tspan x="540.0" dy="15.6">pred == false</tspan></text>
+<rect x="645.0" y="66.2" width="110.0" height="47.6" rx="6" fill="#eaf7ee" stroke="#28a745" stroke-width="1.5"/><text x="700.0" y="93.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">Знову в сон</tspan><tspan x="700.0" dy="15.6">якщо while</tspan></text>
+<line x1="460.0" y1="185.0" x2="520.0" y2="115.0" stroke="#d4351c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="90.0" x2="645.0" y2="90.0" stroke="#28a745" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Потік може прокинутися від переривання ОС або хаш-колізії futex без виклику notify()</text>
+</svg>
