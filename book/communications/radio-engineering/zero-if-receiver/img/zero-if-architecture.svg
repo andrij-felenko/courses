@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 794.76 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="794.76" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура приймача прямого перетворення (Zero-IF)</text>
+<line x1="40.0" y1="200.0" x2="70.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<polygon points="40,200 30,170 50,170" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="40.0" y1="170.0" x2="40.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="40.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Antenna</text>
+<rect x="37.7" y="164.0" width="64.6" height="32.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="70.0" y="184.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="70.0" dy="0.0">RF BPF</tspan></text>
+<line x1="130.0" y1="200.0" x2="160.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<polygon points="160,175 160,225 210,200" fill="#f3e8fb" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="175.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">LNA</text>
+<line x1="210.0" y1="200.0" x2="250.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="250" cy="200" r="4" fill="#1a1a1a"/>
+<line x1="250.0" y1="200.0" x2="250.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="250.0" y1="200.0" x2="250.0" y2="290.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="250.0" y1="110.0" x2="290.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="250.0" y1="290.0" x2="290.0" y2="290.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="310" cy="110" r="20" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="296.0" y1="96.0" x2="324.0" y2="124.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="296.0" y1="124.0" x2="324.0" y2="96.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="310.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Mixer I</text>
+<circle cx="310" cy="290" r="20" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="296.0" y1="276.0" x2="324.0" y2="304.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="296.0" y1="304.0" x2="324.0" y2="276.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="310.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Mixer Q</text>
+<rect x="232.5" y="167.3" width="95.0" height="45.3" rx="6" fill="#eefaf1" stroke="#333333" stroke-width="1.5"/><text x="280.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">Synthesizer</tspan><tspan x="280.0" dy="14.3">f_LO = f_RF</tspan></text>
+<line x1="370.0" y1="200.0" x2="400.0" y2="200.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="362.7" y="162.3" width="74.6" height="45.3" rx="6" fill="#eefaf1" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="181.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Phase</tspan><tspan x="400.0" dy="14.3">0° / 90°</tspan></text>
+<line x1="430.0" y1="175.0" x2="430.0" y2="140.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="430.0" y1="140.0" x2="310.0" y2="140.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="310.0" y1="140.0" x2="310.0" y2="130.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="370.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">cos(ω_LO t)</text>
+<line x1="430.0" y1="225.0" x2="430.0" y2="260.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="430.0" y1="260.0" x2="310.0" y2="260.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="310.0" y1="260.0" x2="310.0" y2="270.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="370.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">−sin(ω_LO t)</text>
+<line x1="330.0" y1="110.0" x2="370.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="325.9" y="79.5" width="88.2" height="31.0" rx="6" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="98.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">LPF &amp; DCOC</tspan></text>
+<line x1="445.0" y1="110.0" x2="475.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="447.9" y="79.5" width="54.1" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="475.0" y="98.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="475.0" dy="0.0">PGA I</tspan></text>
+<line x1="525.0" y1="110.0" x2="555.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="528.0" y="79.5" width="54.1" height="31.0" rx="6" fill="#fdf2f2" stroke="#333333" stroke-width="1.5"/><text x="555.0" y="98.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">ADC I</tspan></text>
+<line x1="605.0" y1="110.0" x2="650.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="628.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">I[n]</text>
+<line x1="330.0" y1="290.0" x2="370.0" y2="290.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="325.9" y="259.5" width="88.2" height="31.0" rx="6" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">LPF &amp; DCOC</tspan></text>
+<line x1="445.0" y1="290.0" x2="475.0" y2="290.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="447.9" y="259.5" width="54.1" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="475.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="475.0" dy="0.0">PGA Q</tspan></text>
+<line x1="525.0" y1="290.0" x2="555.0" y2="290.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="528.0" y="259.5" width="54.1" height="31.0" rx="6" fill="#fdf2f2" stroke="#333333" stroke-width="1.5"/><text x="555.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">ADC Q</tspan></text>
+<line x1="605.0" y1="290.0" x2="650.0" y2="290.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="628.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Q[n]</text>
+<rect x="650.0" y="80.0" width="95.0" height="240.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="697.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="697.0" dy="0.0">Digital Signal Processor</tspan><tspan x="697.0" dy="15.6">(DSP / Baseband IQ)</tspan></text>
+</svg>

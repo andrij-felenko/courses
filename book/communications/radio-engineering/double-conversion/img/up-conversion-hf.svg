@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 260" width="740" height="260">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0.0" y="0.0" width="740.0" height="260.0" rx="0" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+  <line x1="40.0" y1="170.0" x2="700.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+  <line x1="700.0" y1="170.0" x2="720.0" y2="170.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="725.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">f (МГц)</text>
+  <rect x="60.0" y="125.0" width="150.0" height="45.0" rx="4" fill="#e8daef" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="135.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Вхідний КВ діапазон
+(0.1 ... 30 МГц)</text>
+  <text x="135.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle">Антена (RF)</text>
+  <line x1="210.0" y1="105.0" x2="210.0" y2="170.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="210.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зріз ФНЧ (30 МГц)</text>
+  <line x1="450.0" y1="170.0" x2="450.0" y2="90.0" stroke="#c0392b" stroke-width="3.0"/>
+  <rect x="435.0" y="75.0" width="30.0" height="95.0" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="450.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">f_IF1 = 70.455 МГц</text>
+  <text x="450.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Перша ПЧ (Руфінг)</text>
+  <rect x="465.0" y="120.0" width="130.0" height="50.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Діапазон LO1
+70.55 ... 100.45 МГц</text>
+  <rect x="610.0" y="135.0" width="75.0" height="35.0" rx="4" fill="#eaeded" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="647.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Дзеркальні
+141...170 МГц</text>
+  <text x="647.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">f_img1 (Вище 140 МГц)</text>
+  <text x="370.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура Up-Conversion: ПЧ1 (70.45 МГц) вища за найвищу вхідну частоту (30 МГц)</text>
+</svg>

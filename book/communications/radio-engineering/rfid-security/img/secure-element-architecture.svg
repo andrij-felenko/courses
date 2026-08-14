@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура Secure Element</text>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура апаратного криптомодуля (Secure Element / SAM)</text>
+<rect x="50.0" y="55.0" width="700.0" height="220.0" rx="10" fill="#fdfefe" stroke="#8e44ad" stroke-width="2.5"/>
+<text x="400.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">Апаратно захищений кристали (Secure Element Chip)</text>
+<rect x="80.0" y="110.0" width="180.0" height="80.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="170.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Криптоакселератор</text>
+<text x="170.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">AES-128/256, ECC, RSA</text>
+<text x="170.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Захист від DPA / SPA</text>
+<rect x="290.0" y="110.0" width="180.0" height="80.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратний TRNG</text>
+<text x="380.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Аналоговий генератор</text>
+<text x="380.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">фізичного шуму</text>
+<rect x="500.0" y="110.0" width="220.0" height="80.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="610.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">Захищена Flash/EEPROM</text>
+<text x="610.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Шифрована шина даних</text>
+<text x="610.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle">Зберігання Master Keys</text>
+<rect x="80.0" y="205.0" width="640.0" height="50.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="400.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Система активного антизламу (Active Tamper Mesh / Sensors)</text>
+<text x="400.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Детектори напруги, температури, лазерного опромінення та сітка мікропроводів над кристалом</text>
+<line x1="400.0" y1="275.0" x2="400.0" y2="310.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="400.0" y1="275.0" x2="400.0" y2="310.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зовнішня шина: ISO/IEC 7816 / Single Wire Protocol (SWP) / I2C</text>
+</svg>

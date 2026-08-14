@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трипортова модель змішувача: сигнали, втрати та витоки між портами</text>
+<rect x="290.0" y="95.0" width="160.0" height="110.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+<circle cx="370.0" cy="140.0" r="24.0" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="370.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">×</text>
+<text x="370.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЗМІШУВАЧ</text>
+<line x1="100.0" y1="140.0" x2="290.0" y2="140.0" stroke="#8e44ad" stroke-width="2.2"/>
+<line x1="275.0" y1="140.0" x2="290.0" y2="140.0" stroke="#8e44ad" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="45.0" y="80.2" width="150.0" height="59.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Порт RF (ВЧ вхід)</tspan><tspan x="120.0" dy="14.3">Частота: f_RF</tspan><tspan x="120.0" dy="14.3">Потужність: P_RF</tspan></text>
+<line x1="370.0" y1="280.0" x2="370.0" y2="205.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="370.0" y1="220.0" x2="370.0" y2="205.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="250.0" y="282.4" width="240.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="301.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Порт LO (Гетеродин)</tspan><tspan x="370.0" dy="14.3">Частота: f_LO | Потужність: P_LO</tspan></text>
+<line x1="450.0" y1="140.0" x2="640.0" y2="140.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="625.0" y1="140.0" x2="640.0" y2="140.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="511.1" y="80.2" width="217.8" height="59.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Порт IF (ПЧ вихід)</tspan><tspan x="620.0" dy="14.3">Частота: f_IF = |f_RF ± f_LO|</tspan><tspan x="620.0" dy="14.3">Потужність: P_IF</tspan></text>
+<path d="M 350.0 180.0 Q 300.0 180.0 300.0 155.0" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<text x="265.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Витік LO→RF</text>
+<path d="M 390.0 180.0 Q 440.0 180.0 440.0 155.0" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<text x="475.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Витік LO→IF</text>
+<rect x="140.0" y="11.8" width="460.0" height="46.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="370.0" y="31.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Коефіцієнт перетворення: G_c = P_IF / P_RF (дБ)</tspan><tspan x="370.0" dy="15.0">Пасивні: втрати (-6...-9 дБ)  |  Активні: підсилення (+5...+15 дБ)</tspan></text>
+</svg>

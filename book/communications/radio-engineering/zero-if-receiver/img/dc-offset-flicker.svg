@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектральні вади Zero-IF: постійна складова та 1/f шум</text>
+<line x1="80.0" y1="250.0" x2="660.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="638.0" y1="250.0" x2="660.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="670.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-style="italic">f</text>
+<line x1="370.0" y1="50.0" x2="370.0" y2="270.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="370.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 Hz (DC / f_LO)</text>
+<polygon points="230.0,250.0 370.0,140.0 510.0,250.0" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="450.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Корисний Baseband
+сигнал</text>
+<path d="M 130.0,235.0 Q 340.0,225.0 366.0,80.0" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<path d="M 374.0,80.0 Q 400.0,225.0 610.0,235.0" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<text x="230.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">Флікер-шум 1/f
+(транзистори)</text>
+<line x1="370.0" y1="250.0" x2="370.0" y2="55.0" stroke="#27ae60" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="382.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Паразитний пік DC
+(LO self-mixing)</text>
+<rect x="355.0" y="135.0" width="30.0" height="115.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="370.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зріз AC / DCOC</text>
+</svg>

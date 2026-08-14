@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма Distance Bounding</text>
+<text x="420.0" y="20.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма протоколу обмеження відстані (Distance Bounding)</text>
+<text x="85.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Зчитувач (Verifier)</text>
+<line x1="160.0" y1="110.0" x2="790.0" y2="110.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="770.0" y1="110.0" x2="790.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="85.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Тег (Prover)</text>
+<line x1="160.0" y1="200.0" x2="790.0" y2="200.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="770.0" y1="200.0" x2="790.0" y2="200.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="175.0" y="48.0" width="170.0" height="185.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="260.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Фаза 1: Узгодження</text>
+<line x1="190.0" y1="120.0" x2="320.0" y2="190.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="260.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запит (N_V, Crypto)</text>
+<rect x="365.0" y="48.0" width="275.0" height="185.0" rx="4" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="502.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 2: Бітові раунди (k раундів)</text>
+<circle cx="395.0" cy="110.0" r="4.0" fill="#27ae60" stroke="none" stroke-width="1.5"/>
+<circle cx="450.0" cy="200.0" r="4.0" fill="#8e44ad" stroke="none" stroke-width="1.5"/>
+<line x1="395.0" y1="110.0" x2="450.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="397.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">c_i (1 біт)</text>
+<circle cx="475.0" cy="200.0" r="4.0" fill="#8e44ad" stroke="none" stroke-width="1.5"/>
+<circle cx="530.0" cy="110.0" r="4.0" fill="#27ae60" stroke="none" stroke-width="1.5"/>
+<line x1="475.0" y1="200.0" x2="530.0" y2="110.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="510.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">r_i (1 біт)</text>
+<line x1="395.0" y1="92.0" x2="395.0" y2="105.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="530.0" y1="92.0" x2="530.0" y2="105.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="395.0" y1="96.0" x2="530.0" y2="96.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="410.0" y1="96.0" x2="395.0" y2="96.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="515.0" y1="96.0" x2="530.0" y2="96.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="462.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t_RTT ≤ t_max</text>
+<rect x="660.0" y="48.0" width="115.0" height="185.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="717.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Фаза 3: HMAC</text>
+<text x="717.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle">Перевірка підпису</text>
+<rect x="105.9" y="269.4" width="628.2" height="45.3" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="420.0" y="288.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Поріг часу прольоту: t_max = 2 · d_max / c. Для відстані d = 1 м: t_RTT ≈ 6.67 нс.</tspan><tspan x="420.0" dy="14.3">При ретрансляції через Wi-Fi/5G затримка Δt &gt; 10–50 мс, що в 100 000 разів перевищує поріг t_max!</tspan></text>
+</svg>

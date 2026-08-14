@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бітова структура заголовка та бінарне компонування запису NDEF</text>
+<rect x="30.0" y="40.0" width="660.0" height="110.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="45.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Байт заголовка NDEF Record (Record Header Byte)</text>
+<rect x="45.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="82.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MB</text>
+<text x="82.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Message Begin</text>
+<rect x="123.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="160.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ME</text>
+<text x="160.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Message End</text>
+<rect x="201.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="238.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CF</text>
+<text x="238.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Chunk Flag</text>
+<rect x="279.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="316.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SR</text>
+<text x="316.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Short Record</text>
+<rect x="357.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="394.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IL</text>
+<text x="394.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ID Length</text>
+<rect x="435.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#dbeafe" stroke="#27ae60" stroke-width="1.0"/>
+<text x="472.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TNF2</text>
+<text x="472.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Type Name</text>
+<rect x="513.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#dbeafe" stroke="#27ae60" stroke-width="1.0"/>
+<text x="550.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TNF1</text>
+<text x="550.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Format (3b)</text>
+<rect x="591.0" y="72.0" width="74.0" height="32.0" rx="3" fill="#dbeafe" stroke="#27ae60" stroke-width="1.0"/>
+<text x="628.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TNF0</text>
+<rect x="30.0" y="180.0" width="660.0" height="160.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="45.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Послідовність полів NDEF Запису (NDEF Record Layout)</text>
+<rect x="45.0" y="215.0" width="75.0" height="85.0" rx="4" fill="#dbeafe" stroke="#27ae60" stroke-width="1.5"/>
+<text x="82.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Header</text>
+<line x1="51.0" y1="245.0" x2="114.0" y2="245.0" stroke="#27ae60" stroke-width="0.8"/>
+<rect x="49.0" y="250.0" width="67.0" height="45.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="82.5" y="269.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="82.5" dy="0.0">1 байт</tspan><tspan x="82.5" dy="11.7">MB..TNF</tspan></text>
+<rect x="130.0" y="215.0" width="85.0" height="85.0" rx="4" fill="#fef3c7" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="172.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Type Len</text>
+<line x1="136.0" y1="245.0" x2="209.0" y2="245.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="134.0" y="250.0" width="77.0" height="45.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="172.5" y="269.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="172.5" dy="0.0">1 байт</tspan><tspan x="172.5" dy="11.7">uint8_t</tspan></text>
+<rect x="225.0" y="215.0" width="140.0" height="85.0" rx="4" fill="#fee2e2" stroke="#2457d6" stroke-width="1.5"/>
+<text x="295.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Payload Len</text>
+<line x1="231.0" y1="245.0" x2="359.0" y2="245.0" stroke="#2457d6" stroke-width="0.8"/>
+<rect x="229.0" y="250.0" width="132.0" height="45.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="295.0" y="269.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="295.0" dy="0.0">1 або 4 байти</tspan><tspan x="295.0" dy="11.7">(SR=1:1B, SR=0:4B)</tspan></text>
+<rect x="375.0" y="215.0" width="90.0" height="85.0" rx="4" fill="#f3e8ff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="420.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ID Len</text>
+<line x1="381.0" y1="245.0" x2="459.0" y2="245.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="379.0" y="250.0" width="82.0" height="45.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="420.0" y="269.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">0 або 1B</tspan><tspan x="420.0" dy="11.7">(якщо IL=1)</tspan></text>
+<rect x="475.0" y="215.0" width="95.0" height="85.0" rx="4" fill="#ecfdf5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="522.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Record Type</text>
+<line x1="481.0" y1="245.0" x2="564.0" y2="245.0" stroke="#c0392b" stroke-width="0.8"/>
+<rect x="479.0" y="250.0" width="87.0" height="45.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="522.5" y="269.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="522.5" dy="0.0">N байт</tspan><tspan x="522.5" dy="11.7">('U', 'T')</tspan></text>
+<rect x="580.0" y="215.0" width="105.0" height="85.0" rx="4" fill="#eff6ff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="632.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Payload</text>
+<line x1="586.0" y1="245.0" x2="679.0" y2="245.0" stroke="#27ae60" stroke-width="0.8"/>
+<rect x="584.0" y="250.0" width="97.0" height="45.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="632.5" y="269.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="632.5" dy="0.0">M байт</tspan><tspan x="632.5" dy="11.7">Дані</tspan></text>
+</svg>

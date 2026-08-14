@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нелінійність змішувача: точка компресії P1dB та перехоплення IP3</text>
+<line x1="90.0" y1="290.0" x2="650.0" y2="290.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="632.0" y1="290.0" x2="650.0" y2="290.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідна потужність P_in (дБм)</text>
+<line x1="90.0" y1="290.0" x2="90.0" y2="60.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="90.0" y1="78.0" x2="90.0" y2="60.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P_out (дБм)</text>
+<line x1="110.0" y1="260.0" x2="380.0" y2="115.0" stroke="#8e44ad" stroke-width="2.2"/>
+<path d="M 380 115 Q 430 90 500 85" fill="none" stroke="#8e44ad" stroke-width="2.2"/>
+<line x1="380.0" y1="115.0" x2="520.0" y2="40.0" stroke="#8e44ad" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="240.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Основна складова (Slope 1:1)</text>
+<line x1="250.0" y1="270.0" x2="430.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="430.0" y1="120.0" x2="520.0" y2="40.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="350.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Продукти IMD3 (Slope 3:1)</text>
+<circle cx="520.0" cy="40.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="520.0" y1="40.0" x2="520.0" y2="290.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="520.0" y1="286.0" x2="520.0" y2="294.0" stroke="#6b7280" stroke-width="1.2"/><text x="520.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">IIP3</text>
+<text x="525.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Точка перехоплення IP3</text>
+<circle cx="440.0" cy="93.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="440.0" y1="93.0" x2="440.0" y2="290.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="286.0" x2="440.0" y2="294.0" stroke="#6b7280" stroke-width="1.2"/><text x="440.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">P_1dB</text>
+<text x="435.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">Компресія 1 дБ</text>
+<line x1="90.0" y1="260.0" x2="600.0" y2="260.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="105.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Рівень шумів (Noise Floor N_0)</text>
+<rect x="140.0" y="40.0" width="210.0" height="45.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="245.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SFDR = ⅔ (IIP3 − N_0)</text>
+<text x="245.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вільний від інтермодуляції діапазон</text>
+</svg>
