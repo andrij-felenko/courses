@@ -1,18 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-  <rect x="50" y="50" width="700" height="300" fill="#f0f0f0" stroke="#333" rx="10"/>
-  <text x="60" y="75" font-size="16" font-weight="bold" font-family="sans-serif">Host OS (AppArmor Default Namespace)</text>
-  
-  <rect x="80" y="100" width="640" height="230" fill="#e0eaf5" stroke="#4a86e8" rx="8"/>
-  <text x="90" y="125" font-size="14" font-family="sans-serif">Container Engine Profile (docker-default)</text>
-  
-  <rect x="110" y="150" width="580" height="160" fill="#d9ead3" stroke="#6aa84f" rx="6"/>
-  <text x="120" y="175" font-size="14" font-family="sans-serif">Container AppArmor Namespace (lxd-container-1)</text>
-  
-  <rect x="140" y="200" width="240" height="90" fill="#fff2cc" stroke="#f1c232" rx="4"/>
-  <text x="150" y="225" font-size="12" font-family="sans-serif">Profile A (nginx)</text>
-  <text x="150" y="255" font-size="10" fill="#555" font-family="monospace">Stacked: lxd-container-1//nginx</text>
-  
-  <rect x="410" y="200" width="240" height="90" fill="#f4cccc" stroke="#e06666" rx="4"/>
-  <text x="420" y="225" font-size="12" font-family="sans-serif">Profile B (db)</text>
-  <text x="420" y="255" font-size="10" fill="#555" font-family="monospace">Stacked: lxd-container-1//db</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg-main { fill: #f8f9fa; stroke: #cbd5e1; stroke-width: 2; rx: 12; }
+      .bg-host { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; rx: 10; }
+      .bg-ns { fill: #f0fdf4; stroke: #22c55e; stroke-width: 2; rx: 8; }
+      .bg-profile { fill: #fffbeb; stroke: #f59e0b; stroke-width: 1.5; rx: 6; }
+      .bg-stack { fill: #fef2f2; stroke: #ef4444; stroke-width: 2; rx: 6; }
+      .title-main { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #0f172a; }
+      .title-sub { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: 600; fill: #1e3a8a; }
+      .title-ns { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #14532d; }
+      .txt-body { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #334155; }
+      .txt-code { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11px; fill: #b91c1c; font-weight: 600; }
+    </style>
+  </defs>
+  <g transform="translate(0, 0)">
+    <!-- Root Host OS -->
+    <rect x="20" y="20" width="860" height="410" class="bg-main" />
+    <text x="40" y="48" class="title-main">Хостове середовище Linux (AppArmor Root Namespace: default)</text>
+
+    <!-- Host Container Engine Profile -->
+    <rect x="40" y="70" width="820" height="340" class="bg-host" />
+    <text x="60" y="96" class="title-sub">Профіль контейнерного рушія хоста: docker-default / lxc-container-default</text>
+    <text x="60" y="118" class="txt-body">Обмежує небезпечні файлові системи (/proc, /sys), моунти та capability системних викликів</text>
+
+    <!-- Nested AppArmor Namespace -->
+    <rect x="60" y="135" width="780" height="255" class="bg-ns" />
+    <text x="80" y="160" class="title-ns">Вкладений простір імен AppArmor: :container-ns-1://</text>
+    <text x="80" y="180" class="txt-body">Повна ізоляція внутрішніх профілів контейнера від глобального простору хоста</text>
+
+    <!-- Profile A inside NS -->
+    <rect x="80" y="198" width="360" height="175" class="bg-profile" />
+    <text x="95" y="222" class="title-sub">Внутрішній профіль: usr.sbin.nginx</text>
+    <text x="95" y="246" class="txt-body">Дозволяє лише /etc/nginx, /var/log/nginx</text>
+    <text x="95" y="268" class="txt-body">Забороняє виконання файлів у /tmp</text>
+    
+    <!-- Stack A result -->
+    <rect x="95" y="290" width="330" height="68" class="bg-stack" />
+    <text x="105" y="314" class="txt-body">Підсумкова активна мітка ядра:</text>
+    <text x="105" y="340" class="txt-code">docker-default //&amp; :container-ns-1://usr.sbin.nginx</text>
+
+    <!-- Profile B inside NS -->
+    <rect x="460" y="198" width="360" height="175" class="bg-profile" />
+    <text x="475" y="222" class="title-sub">Внутрішній профіль: usr.sbin.mysqld</text>
+    <text x="475" y="246" class="txt-body">Дозволяє лише /var/lib/mysql, /etc/mysql</text>
+    <text x="475" y="268" class="txt-body">Забороняє мережевий доступ поза портом 3306</text>
+
+    <!-- Stack B result -->
+    <rect x="475" y="290" width="330" height="68" class="bg-stack" />
+    <text x="485" y="314" class="txt-body">Підсумкова активна мітка ядра:</text>
+    <text x="485" y="340" class="txt-code">docker-default //&amp; :container-ns-1://usr.sbin.mysqld</text>
+  </g>
 </svg>

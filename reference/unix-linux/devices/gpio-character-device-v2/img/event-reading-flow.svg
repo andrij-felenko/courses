@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1270 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1270" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="220.0" height="440.0" rx="8" fill="#fff6e5" stroke="#d35400" stroke-width="2.0"/>
+<text x="65.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#d35400" text-anchor="start" font-weight="700">Апаратний вивід</text>
+<rect x="61.3" y="118.4" width="177.3" height="63.2" rx="6" fill="#ffffff" stroke="#2c3e50" stroke-width="1.5"/><text x="150.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Зміна сигналу</tspan><tspan x="150.0" dy="15.6">на фізичному піні</tspan><tspan x="150.0" dy="15.6">(Rising / Falling edge)</tspan></text>
+<line x1="260.0" y1="150.0" x2="340.0" y2="150.0" stroke="#2c3e50" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="40.0" width="250.0" height="440.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="360.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="start" font-weight="700">Обробник IRQ ядра</text>
+<rect x="359.2" y="118.4" width="211.5" height="63.2" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="465.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="465.0" dy="0.0">Отримання переривання</tspan><tspan x="465.0" dy="15.6">Фіксація мітки часу</tspan><tspan x="465.0" dy="15.6">(Monotonic / Realtime / HTE)</tspan></text>
+<rect x="366.1" y="286.2" width="197.8" height="47.6" rx="6" fill="#ffffff" stroke="#2c3e50" stroke-width="1.5"/><text x="465.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="465.0" dy="0.0">Інкремент лічильників:</tspan><tspan x="465.0" dy="15.6">global seqno та line_seqno</tspan></text>
+<line x1="465.0" y1="210.0" x2="465.0" y2="260.0" stroke="#2c3e50" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="310.0" x2="670.0" y2="310.0" stroke="#2c3e50" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="670.0" y="40.0" width="250.0" height="440.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="690.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="start" font-weight="700">Кільцевий буфер gpiolib</text>
+<rect x="689.2" y="278.4" width="211.5" height="63.2" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="795.0" y="298.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="795.0" dy="0.0">Запис у event_buffer</tspan><tspan x="795.0" dy="15.6">struct gpio_v2_line_event</tspan><tspan x="795.0" dy="15.6">Сигнал epoll / poll pollwait</tspan></text>
+<line x1="920.0" y1="310.0" x2="1000.0" y2="310.0" stroke="#2980b9" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1000.0" y="40.0" width="220.0" height="440.0" rx="8" fill="#eaf0fd" stroke="#2980b9" stroke-width="2.0"/>
+<text x="1020.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2980b9" text-anchor="start" font-weight="700">Userspace app</text>
+<rect x="1014.5" y="278.4" width="191.0" height="63.2" rx="6" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/><text x="1110.0" y="298.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">read(linefd, &amp;event, ...)</tspan><tspan x="1110.0" dy="15.6">Аналіз timestamp_ns,</tspan><tspan x="1110.0" dy="15.6">id, line_seqno</tspan></text>
+</svg>

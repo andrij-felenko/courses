@@ -9,7 +9,7 @@ window.__BOOKS__ = [
         "title": "Віртуалізація й контейнери",
         "scope": "KVM, namespaces, cgroups як основа ізоляції",
         "topics": [
-          { slug: "kvm-and-qemu-architecture", title: "Архітектура KVM і QEMU: як ядро віддає процесор гостю", basic: { status: "empty" }, detailed: { status: "update" } },
+          { slug: "kvm-and-qemu-architecture", title: "Архітектура KVM і QEMU: як ядро віддає процесор гостю", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kvm-ioctl.md", status: "done" }] , "hist": [{ file: "hist-kvm-creation.md", status: "done" }] , "proj": [{ file: "proj-kvm-mini-hypervisor.md", status: "done" }] },
         ]
       },
       {
@@ -719,7 +719,7 @@ window.__BOOKS__ = [
         "topics": [
           { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "done" }, detailed: { status: "done" } },
           { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "done" }, detailed: { status: "done" } },
-          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "done" }, detailed: { status: "pending" } },
+          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "done" }, detailed: { status: "done" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
           { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "done" }, detailed: { status: "done" } },
           { slug: "atomics-and-memory-barriers", title: "Атомарні операції та бар'єри пам'яті в Linux", basic: { status: "done" }, detailed: { status: "done" } },
           {
@@ -6744,42 +6744,162 @@ window.__BOOKS__ = [
             "slug": "kernel-lockdown-integrity",
             "title": "Режим мажоритарного захисту ядра: Kernel Lockdown Mode",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-lockdown-reasons.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-lockdown-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-check-lockdown.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "landlock-abi-v4-v5-features",
             "title": "Еволюція Landlock LSM: ABI v4/v5 (мережеві обмеження та ioctl)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-landlock-v4-v5-structs.md",
+                "status": "done",
+            "comp": [
+              {
+                "file": "comp-landlock-vs-seccomp-apparmor.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-landlock-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-landlock-network-ioctl-sandbox.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "apparmor-stacking-and-profiles",
             "title": "Стек профілів AppArmor та інстанціація політик",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-apparmor-stacking-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-apparmor-stacking-evolution.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-stacking-intersection.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-apparmor-policy-instantiation.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "tomoyo-linux-path-based-lsm",
             "title": "Політики безпеки TOMOYO Linux: LSM на основі шляхів",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-tomoyo-policy-syntax.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tomoyo-pathname-mac.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-tomoyo-policy-editor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "smack-simplified-mandatory-access",
             "title": "Спрощений мандатний контроль доступу SMACK (Simplified Mandatory Access Control)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-smackfs-and-xattr.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-smack-creation.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-smack-policy-loader.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "bpf-lsm-audit-and-override",
             "title": "Модифікація поведінки Security Modules через bpf_lsm (bpf_override_return)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-bpf-lsm-helpers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-bpf-lsm-override.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-bpf-lsm-override.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           }
         ]
@@ -6789,15 +6909,43 @@ window.__BOOKS__ = [
         "title": "Пристрої та ядро",
         "scope": "Як залізо стає файлом і як ядро керує тим, що під'єднали.",
         "topics": [
-          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "done" }, detailed: { status: "pending" } },
+          { slug: "nvme-over-fabrics-nvme-of", title: "Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-nvmeof-pdu-structures.md", status: "done" }] , "hist": [{ file: "hist-iscsi-to-nvmeof.md", status: "done" }] , "math": [{ file: "math-nvmeof-latency-throughput.md", status: "done" }] , "proj": [{ file: "proj-nvmeof-c-cpp-client.md", status: "done" }] },
+          { slug: "gpio-descriptor-based-gpiod-api", title: "Ядерний дескрипторний API gpiod (gpiod_get, gpiod_set_value)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernel-gpiod-functions.md", status: "done" }] , "hist": [{ file: "hist-legacy-gpio-to-gpiod.md", status: "done" }] , "proj": [{ file: "proj-kernel-gpio-driver.md", status: "done" }] },
+          { slug: "devicetree-overlays-and-dtbo", title: "devicetree-overlays-and-dtbo", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-dtbo-kernel-interfaces.md", status: "done" }] , "hist": [{ file: "hist-dtbo-evolution.md", status: "done" }] , "proj": [{ file: "proj-dtbo-configfs-loader.md", status: "done" }] },
+          { slug: "usb-type-c-connector-class-framework", title: "Фреймворк коннекторів USB Type-C та Power Delivery", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-typec-kernel-sysfs.md", status: "done" }] , "comp": [{ file: "comp-tcpm-tcpci-ucsi.md", status: "done" }] , "hist": [{ file: "hist-typec-pd-evolution.md", status: "done" }] , "proj": [{ file: "proj-typec-role-switcher.md", status: "done" }] },
+          { slug: "input-event-codes-and-evdev", title: "Підсистема введення та події evdev (/dev/input/eventN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-evdev-ioctl.md", status: "done" }] , "hist": [{ file: "hist-linux-input-subsystem.md", status: "done" }] , "math": [{ file: "math-evdev-abs-scaling.md", status: "done" }] , "proj": [{ file: "proj-evdev-event-loop.md", status: "done" }] },
+          { slug: "gpio-character-device-v2", title: "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v2-structures-and-ioctls.md", status: "done" }] , "hist": [{ file: "hist-abi-v1-vs-v2.md", status: "done" }] , "proj": [{ file: "proj-v2-raw-ioctl-and-libgpiod.md", status: "done" }] },
+          { slug: "power-management-qos-framework", title: "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-pm-qos-kernel.md", status: "done" }] , "hist": [{ file: "hist-pm-qos-evolution.md", status: "done" }] , "proj": [{ file: "proj-pm-qos-benchmark.md", status: "done" }] },
+          { slug: "v4l2-media-subsystem", title: "Підсистема відео та медіа-пристроїв (V4L2, Media Controller)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v4l2-mc-core.md", status: "done" }] , "hist": [{ file: "hist-v4l1-to-media-controller.md", status: "done" }] , "math": [{ file: "math-media-pipeline-bandwidth.md", status: "done" }] , "proj": [{ file: "proj-v4l2-capture.md", status: "done" }] },
+          { slug: "virtio-mem-and-virtio-pmem", title: "Динамічне додавання пам'яті: virtio-mem та virtio-pmem", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-virtio-mem-spec.md", status: "done" }] , "comp": [{ file: "comp-virtio-mem-vs-acpi-dimm.md", status: "done" }] , "hist": [{ file: "hist-virtio-mem-genesis.md", status: "done" }] , "proj": [{ file: "proj-virtio-mem-driver.md", status: "done" }] },
+          { slug: "watchdog-timer-subsystem", title: "Підсистема та драйвери таймерів Watchdog (/dev/watchdog)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-watchdog-ioctl-abi.md", status: "done" }] , "comp": [{ file: "comp-hardware-watchdog-architecture.md", status: "done" }] , "hist": [{ file: "hist-watchdog-evolution.md", status: "done" }] , "math": [{ file: "math-watchdog-timeout-window.md", status: "done" }] , "proj": [{ file: "proj-watchdog-daemon.md", status: "done" }] },
+          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "done" }, detailed: { status: "done" } , "api": [{ file: "api-cdev-bdev-interfaces.md", status: "done" }] , "hist": [{ file: "hist-raw-devices-and-devfs.md", status: "done" }] , "proj": [{ file: "proj-cdev-bdev-userspace.md", status: "done" }] },
           {
             "slug": "procfs-process-reflection",
             "title": "Відображення процесів у procfs",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-procfs-process-layout.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-procfs-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-procfs-inspector.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
@@ -7676,10 +7824,28 @@ window.__BOOKS__ = [
             "slug": "io-schedulers",
             "title": "Планувальники блокового введення-виведення: none, mq-deadline, BFQ і Kyber",
             "basic": {
-              "status": "done"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-scheduler-tunables.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-fair-queueing.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-measure-schedulers.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update",
+              "status": "done",
               "api": [
                 {
                   "file": "api-scheduler-tunables.md",
@@ -9128,40 +9294,124 @@ window.__BOOKS__ = [
             "slug": "vfio-passthrough",
             "title": "Парапрохідність пристроїв та IOMMU-групи (VFIO)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-vfio-ioctl.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kvm-assign-to-vfio.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-userspace-pci-driver.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "sr-iov-virtual-functions",
             "title": "Апаратне розділення пристроїв (SR-IOV)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-sriov-pci-cap.md",
+                "status": "done",
+            "comp": [
+              {
+                "file": "comp-eswitch-architecture.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-sriov-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-sriov-manager.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "virtio-pci-spec",
             "title": "Специфікація Virtio: virtqueues та vring",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-virtio-pci-caps.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-virtio-oasis-standard.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-vring-indexing.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-vring-user-driver.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "xen-dom0-domu",
             "title": "Гіпервізор Xen: Dom0, DomU та grant tables",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-xenstore-gnttab.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-xen-paravirtualization.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-grant-table-io.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
@@ -9188,58 +9438,208 @@ window.__BOOKS__ = [
             "slug": "usb-core-subsystem",
             "title": "Ядро підсистеми USB",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-usb-core-functions.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-usb-core-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-urb-async-engine.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "cpufreq-and-cpuidle",
             "title": "Управління частотою та станами CPU (cpufreq, cpuidle)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-cpufreq-cpuidle-sysfs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-dvfs-and-acpi-origin.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-dvfs-power-and-residency.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-cpufreq-governor-and-qos.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "thermal-management-framework",
             "title": "Термальний фреймворк ядра",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-sysfs-and-netlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-thermal-evolution.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-power-allocator-pid.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-thermal-monitor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "vdpa-virtio-data-path-acceleration",
             "title": "Апаратне прискорення Virtio: vDPA та SmartNIC",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-vdpa-kernel-ops.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-vdpa-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-vdpa-ioctl-query.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "nested-virtualization-kvm",
             "title": "Вкладена віртуалізація у KVM (Nested VT-x/AMD-V)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-kvm-nested-sysfs-and-msr.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-shadow-vmcs-and-nested-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kvm-nested-control-and-ioctl.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "confidential-computing-sev-tdx",
             "title": "Конфіденційні обчислення: AMD SEV-SNP та Intel TDX",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-guest-attestation.md",
+                "status": "done",
+            "comp": [
+              {
+                "file": "comp-memory-encryption-engines.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-confidential-computing.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-guest-report-fetch.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "cxl-compute-express-link",
             "title": "Шина CXL (Compute Express Link) та пулінг пам’яті",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-sysfs-cxl.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-cxl-origin.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-cxl-interleave-mapping.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-cxl-numa-alloc.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
@@ -9270,35 +9670,149 @@ window.__BOOKS__ = [
             "slug": "i3c-bus-subsystem",
             "title": "Підсистема шини I3C (MIPI I3C)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-i3c-subsystem.md",
+                "status": "done",
+            "comp": [
+              {
+                "file": "comp-i3c-master-controller.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-mipi-i3c.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-i3c-arbitration.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-i3c-driver.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "pci-peer-to-peer-p2pdma",
             "title": "Прямий доступ між пристроями PCIe (P2PDMA)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-p2pdma-kernel.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-p2p-dma-evolution.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-p2p-throughput-latency.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-p2pdma-driver.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "drm-kms-display-pipeline",
             "title": "Прямий рендеринг ядра DRM/KMS: атомне перемикання режимів",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-drm-kms-properties.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-x11-to-atomic-kms.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-display-bandwidth-calc.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-atomic-kms-flip.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "spdm-device-attestation",
             "title": "Протокол атестації пристроїв SPDM на шинах PCIe",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-spdm-kernel-sysfs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-spdm-genesis.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-spdm-attestation-verifier.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "sound-open-firmware-sof",
             "title": "Аудіоплатформа Sound Open Firmware (SOF) та ALSA SoC",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-ipc.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-sof.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-pcm-stream.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
@@ -9364,6 +9878,17 @@ window.__BOOKS__ = [
         "title": "Завантаження й служби",
         "scope": "Шлях від увімкнення живлення до працюючої системи та як тримають служби.",
         "topics": [
+          { slug: "tmpfiles-d-runtime-volatile-files", title: "Управління тимчасовими файлами: сервіс systemd-tmpfiles та tmpfiles.d", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-tmpfiles-spec.md", status: "done" }] , "hist": [{ file: "hist-volatile-storage-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-tmpfiles-service.md", status: "done" }] },
+          { slug: "systemd-sysusers-and-sysctl-d", title: "Декларативне налаштування системи: systemd-sysusers та systemd-sysctl", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysusers-and-sysctl-formats.md", status: "done" }] , "comp": [{ file: "comp-dot-d-hierarchy-precedence.md", status: "done" }] , "hist": [{ file: "hist-declarative-sysconfig-evolution.md", status: "done" }] , "proj": [{ file: "proj-declarative-provisioning-engine.md", status: "done" }] },
+          { slug: "systemd-nspawn-lightweight-containers", title: "Контейнеризація у systemd: інструмент systemd-nspawn", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-nspawn-cli-and-nspawn-file.md", status: "done" }] , "hist": [{ file: "hist-chroot-to-nspawn.md", status: "done" }] , "proj": [{ file: "proj-nspawn-custom-container.md", status: "done" }] },
+          { slug: "systemd-generator-architecture", title: "Генератори systemd (/lib/systemd/system-generators/)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-generator-interface.md", status: "done" }] , "hist": [{ file: "hist-generators-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-generator.md", status: "done" }] },
+          { slug: "systemd-target-units-and-boot-targets", title: "Цільові юніти (target) та ізоляція рівнів виконання systemd", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-target-unit-spec.md", status: "done" }] , "hist": [{ file: "hist-runlevels-to-targets.md", status: "done" }] , "proj": [{ file: "proj-custom-target-and-isolation.md", status: "done" }] },
+          { slug: "systemd-boot-and-systemd-stub-uki", title: "Завантажувачі UEFI: systemd-boot та Unified Kernel Images (UKI)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-uki-sections.md", status: "done" }] , "hist": [{ file: "hist-uki-evolution.md", status: "done" }] , "proj": [{ file: "proj-build-uki.md", status: "done" }] },
+          { slug: "journald-logging-subsystem-and-journalctl", title: "Логування у systemd: підсистема journald та інструмент journalctl", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sd-journal.md", status: "done" }] , "hist": [{ file: "hist-syslog-to-journald.md", status: "done" }] , "math": [{ file: "math-journal-fss-sealing.md", status: "done" }] , "proj": [{ file: "proj-journalctl-emulator.md", status: "done" }] },
+          { slug: "dracut-and-mkinitcpio-toolchains", title: "Генератори initramfs: dracut, mkinitcpio та initramfs-tools", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-toolchain-hook-interfaces.md", status: "done" }] , "hist": [{ file: "hist-initramfs-generators-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-dracut-module.md", status: "done" }] },
+          { slug: "systemd-systemctl-and-unit-files", title: "Системний менеджер systemd: unit-файли та systemctl", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-systemctl-dbus.md", status: "done" }] , "hist": [{ file: "hist-systemctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-dbus-unit-control.md", status: "done" }] },
+          { slug: "initramfs-and-initrd-architecture", title: "Архітектура initramfs та cpio: розгортання раннього простору користувача", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cpio-header-spec.md", status: "done" }] , "comp": [{ file: "comp-initrd-initramfs-memory.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-rootfs.md", status: "done" }] , "proj": [{ file: "proj-cpio-unpack-engine.md", status: "done" }] },
+          { slug: "kernel-boot-process-from-reset-vector-to-start-kernel", title: "Завантаження ядра: від вектора скидання процесора до start_kernel", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-boot-params-header.md", status: "done" }] , "hist": [{ file: "hist-real-mode-legacy-boot.md", status: "done" }] , "math": [{ file: "math-early-paging-layout.md", status: "done" }] , "proj": [{ file: "proj-parse-vmlinuz-header.md", status: "done" }] },
           {
             "slug": "boot-chain",
             "title": "Ланцюг завантаження: від прошивки до init",

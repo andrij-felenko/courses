@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес обробки sysusers.d та оновлення бази користувачів</text>
+<text x="600.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етапи виконання systemd-sysusers під час раннього завантаження</text>
+<rect x="40.0" y="75.0" width="250.0" height="360.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="165.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 · Зчитування .d</text>
+<rect x="55.0" y="140.0" width="220.0" height="260.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/><text x="165.0" y="247.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Сканування каталогів</tspan><tspan x="165.0" dy="18.2">/etc/sysusers.d</tspan><tspan x="165.0" dy="18.2">/run/sysusers.d</tspan><tspan x="165.0" dy="18.2">/usr/lib/sysusers.d</tspan></text>
+<rect x="330.0" y="75.0" width="250.0" height="360.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="455.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">2 · Блокування БД</text>
+<rect x="345.0" y="140.0" width="220.0" height="260.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="455.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="455.0" dy="0.0">Виклик lckpwdf()</tspan><tspan x="455.0" dy="18.2">Створення locks</tspan><tspan x="455.0" dy="18.2">/etc/.pwd.lock</tspan></text>
+<rect x="620.0" y="75.0" width="250.0" height="360.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="745.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">3 · Виділення UID/GID</text>
+<rect x="635.0" y="140.0" width="220.0" height="260.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="745.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">Перевірка існуючих</tspan><tspan x="745.0" dy="18.2">UID у /etc/passwd</tspan><tspan x="745.0" dy="18.2">Вибір вільних з діапазону</tspan></text>
+<rect x="910.0" y="75.0" width="250.0" height="360.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="1035.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">4 · Запис у /etc</text>
+<rect x="925.0" y="140.0" width="220.0" height="260.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="1035.0" y="247.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1035.0" dy="0.0">Атомарний запис:</tspan><tspan x="1035.0" dy="18.2">/etc/passwd</tspan><tspan x="1035.0" dy="18.2">/etc/group</tspan><tspan x="1035.0" dy="18.2">/etc/shadow</tspan></text>
+<line x1="290.0" y1="255.0" x2="330.0" y2="255.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="255.0" x2="620.0" y2="255.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="870.0" y1="255.0" x2="910.0" y2="255.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="600.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Гарантує наявність системних облікових записів до запуску основних служб</text>
+</svg>

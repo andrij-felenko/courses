@@ -1,23 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="460" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 710 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="710" height="450" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="200.0" y="150.0" width="200.0" height="80.0" rx="10" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="300.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#004085" text-anchor="middle" font-weight="700">I3C Core</text>
-<text x="300.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#004085" text-anchor="middle">(i3c-core.c)</text>
-<rect x="200.0" y="280.0" width="200.0" height="60.0" rx="10" fill="#d4edda" stroke="#155724" stroke-width="1.5"/>
-<text x="300.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#155724" text-anchor="middle" font-weight="700">I3C Master Controller Driver</text>
-<rect x="50.0" y="50.0" width="150.0" height="60.0" rx="10" fill="#fff3cd" stroke="#856404" stroke-width="1.5"/>
-<text x="125.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#856404" text-anchor="middle" font-weight="700">I3C Device Driver</text>
-<rect x="400.0" y="50.0" width="150.0" height="60.0" rx="10" fill="#fff3cd" stroke="#856404" stroke-width="1.5"/>
-<text x="475.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#856404" text-anchor="middle" font-weight="700">I2C Device Driver</text>
-<text x="475.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#856404" text-anchor="middle">(via i2c_adapter)</text>
-<rect x="400.0" y="150.0" width="150.0" height="80.0" rx="10" fill="#e2e3e5" stroke="#383d41" stroke-width="1.5"/>
-<text x="475.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#383d41" text-anchor="middle" font-weight="700">I2C Subsystem</text>
-<line x1="125.0" y1="110.0" x2="250.0" y2="150.0" stroke="#000" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="475.0" y1="110.0" x2="475.0" y2="150.0" stroke="#000" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="400.0" y1="190.0" x2="400.0" y2="190.0" stroke="#000" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="300.0" y1="230.0" x2="300.0" y2="280.0" stroke="#000" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="400.0" y1="200.0" x2="350.0" y2="280.0" stroke="#000" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="100.0" y="370.0" width="400.0" height="30.0" rx="6" fill="#6c757d" stroke="#343a40" stroke-width="1.5"/>
-<text x="300.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="700">I3C Hardware Bus (SCL / SDA)</text>
-<line x1="300.0" y1="340.0" x2="300.0" y2="370.0" stroke="#000" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="10.0" y="10.0" width="680.0" height="420.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="30.0" y="30.0" width="640.0" height="50.0" rx="6" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="350.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#3730a3" text-anchor="middle" font-weight="700">Простір користувача (Userspace)</text>
+<text x="350.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4338ca" text-anchor="middle">/sys/bus/i3c/devices  |  cdev /dev/i3c-*  |  i2c-dev</text>
+<rect x="30.0" y="95.0" width="290.0" height="70.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="175.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">I3C Device Drivers</text>
+<text x="175.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">i3c_driver (сенсори, PMIC)</text>
+<rect x="380.0" y="95.0" width="290.0" height="70.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="525.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">Legacy I2C Device Drivers</text>
+<text x="525.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">i2c_driver (через i2c_adapter)</text>
+<rect x="30.0" y="180.0" width="640.0" height="75.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="350.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" font-weight="700">Ядро підсистеми I3C (i3c-core.c)</text>
+<text x="350.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle">Управління шиною, DAA, CCC команди, IBI переривання, Hot-Join</text>
+<text x="350.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-style="italic">Адаптер сумісності I2C (struct i2c_adapter)</text>
+<rect x="30.0" y="270.0" width="640.0" height="60.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="350.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">Драйвер I3C майстер-контролера (i3c_master_controller)</text>
+<text x="350.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle">dw-i3c-master, cdns-i3c-master, mipi-i3c-hci</text>
+<rect x="30.0" y="345.0" width="640.0" height="70.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+<text x="350.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="700">Апаратні пристрої та шина (I3C Bus PHY)</text>
+<text x="350.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="middle">Двопровідна лінія SDA / SCL  |  I3C Target (SDR/HDR)  |  I2C Target (Legacy)</text>
+<line x1="350.0" y1="80.0" x2="350.0" y2="95.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="165.0" x2="175.0" y2="180.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="525.0" y1="165.0" x2="525.0" y2="180.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="255.0" x2="350.0" y2="270.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="330.0" x2="350.0" y2="345.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

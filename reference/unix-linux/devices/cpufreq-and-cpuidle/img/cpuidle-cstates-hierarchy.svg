@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 875.25 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="875.25" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія станів простою CPU (C-states та PC-states)</text>
+<rect x="30.0" y="70.0" width="155.0" height="40.0" rx="6" fill="#e67e22" stroke="#e67e22" stroke-width="1.5"/>
+<text x="107.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">C0 Active</text>
+<rect x="30.0" y="118.0" width="155.0" height="230.0" rx="6" fill="#fbeee6" stroke="#e67e22" stroke-width="1.5"/>
+<text x="107.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Виконання інструкцій</text>
+<text x="107.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">P-стани (DVFS)</text>
+<text x="107.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">100% споживання</text>
+<rect x="40.0" y="310.0" width="135.0" height="26.0" rx="13" fill="#ffffff" stroke="#e67e22" stroke-width="1.5"/>
+<text x="107.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">Затримка: 0 мкс</text>
+<rect x="197.0" y="70.0" width="155.0" height="40.0" rx="6" fill="#f1c40f" stroke="#f1c40f" stroke-width="1.5"/>
+<text x="274.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">C1 / C1E Halt</text>
+<rect x="197.0" y="118.0" width="155.0" height="230.0" rx="6" fill="#fef9e7" stroke="#f1c40f" stroke-width="1.5"/>
+<text x="274.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Інструкція HLT / WFI</text>
+<text x="274.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Зупинка конвеєра</text>
+<text x="274.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Кеші когерентні</text>
+<rect x="207.0" y="310.0" width="135.0" height="26.0" rx="13" fill="#ffffff" stroke="#f1c40f" stroke-width="1.5"/>
+<text x="274.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#f1c40f" text-anchor="middle" font-weight="700">Затримка: 1-2 мкс</text>
+<rect x="364.0" y="70.0" width="155.0" height="40.0" rx="6" fill="#2ecc71" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="441.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">C3 Sleep</text>
+<rect x="364.0" y="118.0" width="155.0" height="230.0" rx="6" fill="#eafaf1" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="441.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Зупинка такту ядра</text>
+<text x="441.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Вимкнено L1/L2 snoop</text>
+<text x="441.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Збереження контексту</text>
+<rect x="374.0" y="310.0" width="135.0" height="26.0" rx="13" fill="#ffffff" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="441.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2ecc71" text-anchor="middle" font-weight="700">Затримка: 20-50 мкс</text>
+<rect x="531.0" y="70.0" width="155.0" height="40.0" rx="6" fill="#3498db" stroke="#3498db" stroke-width="1.5"/>
+<text x="608.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">C6 Deep Sleep</text>
+<rect x="531.0" y="118.0" width="155.0" height="230.0" rx="6" fill="#ebf5fb" stroke="#3498db" stroke-width="1.5"/>
+<text x="608.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Power Gating (0 В)</text>
+<text x="608.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Контекст у SRAM</text>
+<text x="608.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Вимкнено живлення</text>
+<rect x="541.0" y="310.0" width="135.0" height="26.0" rx="13" fill="#ffffff" stroke="#3498db" stroke-width="1.5"/>
+<text x="608.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3498db" text-anchor="middle" font-weight="700">Затримка: 100-200 мкс</text>
+<rect x="698.0" y="70.0" width="155.0" height="40.0" rx="6" fill="#9b59b6" stroke="#9b59b6" stroke-width="1.5"/>
+<text x="775.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">PC-states</text>
+<rect x="698.0" y="118.0" width="155.0" height="230.0" rx="6" fill="#f4ecf7" stroke="#9b59b6" stroke-width="1.5"/>
+<text x="775.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Вимкнено Uncore / L3</text>
+<text x="775.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Модуль пам'яті в Self-Refresh</text>
+<text x="775.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle">Мінімальне споживання</text>
+<rect x="708.0" y="310.0" width="135.0" height="26.0" rx="13" fill="#ffffff" stroke="#9b59b6" stroke-width="1.5"/>
+<text x="775.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9b59b6" text-anchor="middle" font-weight="700">Затримка: &gt; 500 мкс</text>
+<rect x="30.0" y="360.0" width="803.0" height="50.0" rx="6" fill="#f8f9f9" stroke="#bdc3c7" stroke-width="1.5"/>
+<line x1="50.0" y1="385.0" x2="410.0" y2="385.0" stroke="#e67e22" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="230.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">Енергозбереження зростає →</text>
+<line x1="810.0" y1="385.0" x2="450.0" y2="385.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="630.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">← Затримка пробудження зростає</text>
+</svg>

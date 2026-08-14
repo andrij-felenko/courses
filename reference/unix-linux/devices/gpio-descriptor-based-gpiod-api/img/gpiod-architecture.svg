@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 960 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="960" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="240.0" height="260.0" rx="8" fill="#f8f9fa" stroke="#495057" stroke-width="2.0"/>
+<text x="150.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#212529" text-anchor="middle" font-weight="700">Device Tree (.dts)</text>
+<rect x="42.8" y="114.2" width="214.4" height="121.6" rx="6" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.5"/><text x="150.0" y="132.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">sensor_node {</tspan><tspan x="150.0" dy="15.6">  compatible = &quot;acme,sensor&quot;;</tspan><tspan x="150.0" dy="15.6">  reset-gpios = &lt;&amp;gpio1 10</tspan><tspan x="150.0" dy="15.6">    GPIO_ACTIVE_LOW&gt;;</tspan><tspan x="150.0" dy="15.6">  irq-gpios = &lt;&amp;gpio1 11</tspan><tspan x="150.0" dy="15.6">    GPIO_ACTIVE_HIGH&gt;;</tspan><tspan x="150.0" dy="15.6">};</tspan></text>
+<line x1="275.0" y1="170.0" x2="335.0" y2="170.0" stroke="#343a40" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="305.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#495057" text-anchor="middle" font-weight="700">Lookup</text>
+<rect x="340.0" y="40.0" width="260.0" height="260.0" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.0"/>
+<text x="470.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1b5e20" text-anchor="middle" font-weight="700">gpiolib (Kernel Subsystem)</text>
+<rect x="355.0" y="95.0" width="230.0" height="50.0" rx="6" fill="#ffffff" stroke="#81c784" stroke-width="1.5"/>
+<text x="470.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">struct gpio_chip</text>
+<text x="470.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">Base HW driver (SoC / I2C)</text>
+<rect x="355.0" y="160.0" width="230.0" height="125.0" rx="6" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
+<text x="470.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1b5e20" text-anchor="middle" font-weight="700">struct gpio_desc</text>
+<text x="365.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#212529" text-anchor="start"><tspan x="365.0" dy="0.0">• Chip pointer: &amp;gpio_chip</tspan><tspan x="365.0" dy="14.3">• Hw pin index: 10</tspan><tspan x="365.0" dy="14.3">• Flags: GPIOD_ACTIVE_LOW</tspan><tspan x="365.0" dy="14.3">• Label: &quot;reset&quot;</tspan><tspan x="365.0" dy="14.3">• Active consumer: &amp;dev</tspan></text>
+<line x1="605.0" y1="170.0" x2="665.0" y2="170.0" stroke="#343a40" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="635.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#495057" text-anchor="middle" font-weight="700">Handle</text>
+<rect x="670.0" y="40.0" width="250.0" height="260.0" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.0"/>
+<text x="795.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0d47a1" text-anchor="middle" font-weight="700">Peripheral Driver</text>
+<rect x="698.1" y="129.8" width="193.8" height="90.4" rx="6" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/><text x="795.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="795.0" dy="0.0">devm_gpiod_get(dev,</tspan><tspan x="795.0" dy="15.6">  &quot;reset&quot;, GPIOD_OUT_LOW);</tspan><tspan x="795.0" dy="15.6"></tspan><tspan x="795.0" dy="15.6">// Logical active=1</tspan><tspan x="795.0" dy="15.6">gpiod_set_value(desc, 1);</tspan></text>
+</svg>

@@ -1,33 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="100%" height="100%" fill="#f8f9fa"/>
-    <text x="400" y="50" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Linux Kernel Lockdown Modes</text>
-    
-    <!-- None Mode -->
-    <rect x="50" y="100" width="200" height="250" fill="#e9ecef" rx="10"/>
-    <text x="150" y="130" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">None</text>
-    <text x="150" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">Без обмежень</text>
-    <circle cx="150" cy="220" r="40" fill="#28a745" opacity="0.8"/>
-    <text x="150" y="225" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Root == Kernel</text>
-    <text x="150" y="320" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Дозволено модифікацію</text>
-    
-    <!-- Integrity Mode -->
-    <rect x="300" y="100" width="200" height="250" fill="#e9ecef" rx="10"/>
-    <text x="400" y="130" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Integrity</text>
-    <text x="400" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">Захист цілісності</text>
-    <circle cx="400" cy="220" r="40" fill="#ffc107" opacity="0.8"/>
-    <text x="400" y="225" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Read-Only</text>
-    <text x="400" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Заборонено: /dev/mem</text>
-    <text x="400" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">kexec, bpf (частково)</text>
-    <text x="400" y="330" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">модифікація ядра</text>
-    
-    <!-- Confidentiality Mode -->
-    <rect x="550" y="100" width="200" height="250" fill="#e9ecef" rx="10"/>
-    <text x="650" y="130" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Confidentiality</text>
-    <text x="650" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">Захист конфіденційності</text>
-    <circle cx="650" cy="220" r="40" fill="#dc3545" opacity="0.8"/>
-    <text x="650" y="225" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">No Access</text>
-    <text x="650" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Усі обмеження Integrity</text>
-    <text x="650" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">+ kprobes, /proc/kcore</text>
-    <text x="650" y="330" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">читання пам'яті ядра</text>
-    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три рівні захисту Kernel Lockdown Mode та напрямок одностороннього переходу</text>
+<rect x="40.0" y="90.0" width="300.0" height="330.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/><text x="190.0" y="191.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Режим None (Вимкнено)</tspan><tspan x="190.0" dy="16.9"></tspan><tspan x="190.0" dy="16.9">• Повний доступ UID 0 до ядра</tspan><tspan x="190.0" dy="16.9">• Запис/читання через /dev/mem</tspan><tspan x="190.0" dy="16.9">• Завантаження будь-яких модулів</tspan><tspan x="190.0" dy="16.9">• Вільне використання kprobes/eBPF</tspan><tspan x="190.0" dy="16.9">• Прямий доступ до портів I/O</tspan><tspan x="190.0" dy="16.9"></tspan><tspan x="190.0" dy="16.9">Ризик: руткіт у просторі ядра</tspan></text>
+<rect x="370.0" y="90.0" width="300.0" height="330.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="520.0" y="191.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Режим Integrity (Цілісність)</tspan><tspan x="520.0" dy="16.9"></tspan><tspan x="520.0" dy="16.9">• Заборона запису в пам'ять ядра</tspan><tspan x="520.0" dy="16.9">• Блокування /dev/mem та /dev/kmem (W)</tspan><tspan x="520.0" dy="16.9">• Вимога підпису для модулів і kexec</tspan><tspan x="520.0" dy="16.9">• Обмеження MSR та модифікації ACPI</tspan><tspan x="520.0" dy="16.9">• Заборона iopl() та ioperm()</tspan><tspan x="520.0" dy="16.9"></tspan><tspan x="520.0" dy="16.9">Мета: збереження коду ядра</tspan></text>
+<rect x="700.0" y="90.0" width="300.0" height="330.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="850.0" y="196.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Режим Confidentiality (Конфіденційність)</tspan><tspan x="850.0" dy="15.6"></tspan><tspan x="850.0" dy="15.6">• Усі обмеження режиму Integrity</tspan><tspan x="850.0" dy="15.6">• Заборона читання пам'яті ядра</tspan><tspan x="850.0" dy="15.6">• Блокування /proc/kcore та /dev/mem (R)</tspan><tspan x="850.0" dy="15.6">• Блокування kprobes та ftrace</tspan><tspan x="850.0" dy="15.6">• Обмеження eBPF на читання секретів</tspan><tspan x="850.0" dy="15.6"></tspan><tspan x="850.0" dy="15.6">Мета: захист секретів ядра</tspan></text>
+<line x1="345.0" y1="255.0" x2="365.0" y2="255.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="675.0" y1="255.0" x2="695.0" y2="255.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="161.7" y="435.1" width="716.5" height="49.9" rx="6" fill="#f7f9fc" stroke="#333333" stroke-width="1.5"/><text x="520.0" y="456.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Односторонній динамічний перехід: рівень блокування у /sys/kernel/security/lockdown</tspan><tspan x="520.0" dy="16.9">можна лише підвищувати (None → Integrity → Confidentiality); зниження вимагає перезавантаження</tspan></text>
 </svg>

@@ -1,32 +1,33 @@
-<svg width="600" height="450" xmlns="http://www.w3.org/2000/svg">
-  <rect x="100" y="50" width="120" height="40" fill="#f0f0f0" stroke="#333" stroke-width="2" />
-  <text x="125" y="75" font-family="sans-serif" font-size="14" fill="#333">Host (Kernel)</text>
-  <rect x="380" y="50" width="120" height="40" fill="#f0f0f0" stroke="#333" stroke-width="2" />
-  <text x="400" y="75" font-family="sans-serif" font-size="14" fill="#333">PCIe Device</text>
-  <line x1="160" y1="90" x2="160" y2="420" stroke="#333" stroke-width="2" stroke-dasharray="5,5" />
-  <line x1="440" y1="90" x2="440" y2="420" stroke="#333" stroke-width="2" stroke-dasharray="5,5" />
-  <line x1="160" y1="130" x2="440" y2="130" stroke="#333" stroke-width="2" />
-  <polygon points="440,130 430,125 430,135" fill="#333" />
-  <text x="240" y="120" font-family="sans-serif" font-size="14" fill="#333">GET_VERSION</text>
-  <line x1="440" y1="170" x2="160" y2="170" stroke="#333" stroke-width="2" />
-  <polygon points="160,170 150,165 150,175" fill="#333" />
-  <text x="250" y="160" font-family="sans-serif" font-size="14" fill="#333">VERSION</text>
-  <line x1="160" y1="220" x2="440" y2="220" stroke="#333" stroke-width="2" />
-  <polygon points="440,220 430,215 430,225" fill="#333" />
-  <text x="230" y="210" font-family="sans-serif" font-size="14" fill="#333">GET_CAPABILITIES</text>
-  <line x1="440" y1="260" x2="160" y2="260" stroke="#333" stroke-width="2" />
-  <polygon points="160,260 150,255 150,265" fill="#333" />
-  <text x="240" y="250" font-family="sans-serif" font-size="14" fill="#333">CAPABILITIES</text>
-  <line x1="160" y1="310" x2="440" y2="310" stroke="#333" stroke-width="2" />
-  <polygon points="440,310 430,305 430,315" fill="#333" />
-  <text x="240" y="300" font-family="sans-serif" font-size="14" fill="#333">GET_DIGESTS</text>
-  <line x1="440" y1="350" x2="160" y2="350" stroke="#333" stroke-width="2" />
-  <polygon points="160,350 150,345 150,355" fill="#333" />
-  <text x="250" y="340" font-family="sans-serif" font-size="14" fill="#333">DIGESTS</text>
-  <line x1="160" y1="400" x2="440" y2="400" stroke="#333" stroke-width="2" />
-  <polygon points="440,400 430,395 430,405" fill="#333" />
-  <text x="220" y="390" font-family="sans-serif" font-size="14" fill="#333">GET_CERTIFICATE</text>
-  <line x1="440" y1="440" x2="160" y2="440" stroke="#333" stroke-width="2" />
-  <polygon points="160,440 150,435 150,445" fill="#333" />
-  <text x="230" y="430" font-family="sans-serif" font-size="14" fill="#333">CERTIFICATE</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="60.0" y="40.0" width="240.0" height="45.0" rx="6" fill="#e8f4fc" stroke="#2980b9" stroke-width="2.0"/>
+<text x="180.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1c5980" text-anchor="middle" font-weight="700">Host / Kernel (Requestor)</text>
+<rect x="420.0" y="40.0" width="240.0" height="45.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="2.0"/>
+<text x="540.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7f8c8d" text-anchor="middle" font-weight="700">PCIe Device (Responder)</text>
+<line x1="180.0" y1="85.0" x2="180.0" y2="470.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="540.0" y1="85.0" x2="540.0" y2="470.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="40.0" y="105.0" width="640.0" height="70.0" rx="4" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="360.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">1. Discovery &amp; Negotiation</text>
+<line x1="180.0" y1="145.0" x2="540.0" y2="145.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">GET_VERSION / GET_CAPABILITIES / NEGOTIATE_ALGORITHMS</text>
+<line x1="540.0" y1="165.0" x2="180.0" y2="165.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">VERSION / CAPABILITIES / ALGORITHMS</text>
+<rect x="40.0" y="195.0" width="640.0" height="70.0" rx="4" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="360.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">2. Identity &amp; Certificate Chain</text>
+<line x1="180.0" y1="235.0" x2="540.0" y2="235.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">GET_DIGESTS / GET_CERTIFICATE (Slot 0..7)</text>
+<line x1="540.0" y1="255.0" x2="180.0" y2="255.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">DIGESTS / CERTIFICATE (Device Root of Trust Chain)</text>
+<rect x="40.0" y="285.0" width="640.0" height="70.0" rx="4" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="360.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">3. Challenge &amp; Measurement Attestation</text>
+<line x1="180.0" y1="325.0" x2="540.0" y2="325.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">CHALLENGE (Nonce) / GET_MEASUREMENTS (Slot 1..N)</text>
+<line x1="540.0" y1="345.0" x2="180.0" y2="345.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">CHALLENGE_AUTH / MEASUREMENTS (Signed Hash Block)</text>
+<rect x="40.0" y="375.0" width="640.0" height="70.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="360.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">4. Session Establishment &amp; IDE Key Exchange</text>
+<line x1="180.0" y1="415.0" x2="540.0" y2="415.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">KEY_EXCHANGE (Diffie-Hellman / Ephemeral Key)</text>
+<line x1="540.0" y1="435.0" x2="180.0" y2="435.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">KEY_EXCHANGE_RSP / FINISH (Shared Keys Established)</text>
 </svg>

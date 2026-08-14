@@ -1,39 +1,125 @@
-def render():
-    return """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="100%" height="100%" fill="#ffffff" />
-    <!-- CPU and RAM -->
-    <rect x="300" y="20" width="200" height="80" rx="10" fill="#e0e0e0" stroke="#333" stroke-width="2" />
-    <text x="400" y="55" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">CPU &amp; Root Complex</text>
-    
-    <rect x="550" y="30" width="120" height="60" rx="5" fill="#cce5ff" stroke="#333" stroke-width="2" />
-    <text x="610" y="65" font-family="Arial" font-size="16" text-anchor="middle">System RAM</text>
-    <line x1="500" y1="60" x2="550" y2="60" stroke="#333" stroke-width="3" />
-    
-    <!-- PCIe Switch -->
-    <rect x="330" y="150" width="140" height="60" rx="10" fill="#ffe5cc" stroke="#333" stroke-width="2" />
-    <text x="400" y="185" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">PCIe Switch</text>
-    <line x1="400" y1="100" x2="400" y2="150" stroke="#333" stroke-width="4" />
-    
-    <!-- GPU -->
-    <rect x="150" y="250" width="140" height="80" rx="10" fill="#d5f5e3" stroke="#333" stroke-width="2" />
-    <text x="220" y="285" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">GPU</text>
-    <text x="220" y="310" font-family="Arial" font-size="14" text-anchor="middle">VRAM</text>
-    
-    <!-- NVMe SSD -->
-    <rect x="510" y="250" width="140" height="80" rx="10" fill="#fcf3cf" stroke="#333" stroke-width="2" />
-    <text x="580" y="285" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">NVMe SSD</text>
-    <text x="580" y="310" font-family="Arial" font-size="14" text-anchor="middle">CMB</text>
-    
-    <!-- PCIe Links -->
-    <line x1="350" y1="210" x2="220" y2="250" stroke="#333" stroke-width="4" />
-    <line x1="450" y1="210" x2="580" y2="250" stroke="#333" stroke-width="4" />
-    
-    <!-- P2PDMA Path -->
-    <path d="M 230 240 Q 400 170 570 240" fill="none" stroke="#e74c3c" stroke-width="4" stroke-dasharray="10,10" />
-    <polygon points="560,230 575,243 555,248" fill="#e74c3c" />
-    <text x="400" y="220" font-family="Arial" font-size="14" text-anchor="middle" fill="#e74c3c" font-weight="bold">P2PDMA (TLP Routing)</text>
-</svg>"""
+# -*- coding: utf-8 -*-
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
 
-if __name__ == "__main__":
-    with open("p2pdma-arch.svg", "w") as f:
-        f.write(render())
+HERE = os.path.dirname(__file__)
+IMG = os.path.join(HERE, 'img')
+os.makedirs(IMG, exist_ok=True)
+
+BLUE = "#eaf0fd"
+GREEN = "#eaf6ef"
+WARM = "#fff6e5"
+RED = "#fdecea"
+GREY = "#eceff1"
+BG = "#ffffff"
+
+
+# ── 1. Порівняння шляхів: Host Bounce vs PCIe P2P ────────────────────────────
+def fig_p2p_routing_paths():
+    W, H = 1260, 780
+    p = []
+
+    # Розділова лінія між двома візуальними варіантами
+    p.append(line(W / 2, 70, W / 2, H - 40, color=MUTED, sw=1.2, dash="6 6"))
+
+    # ── Ліворуч: Традиційний шлях через системну RAM (Bounce Buffer)
+    lx = 315
+    p.append(text(lx, 75, "Традиційний шлях через RAM хоста", size=16, bold=True))
+
+    f_ram, w_ram, h_ram = textbox(lx, 160, ["Системна RAM (DDR5)", "Подвійне навантаження шини пам'яті", "Засмічення L3-кешу CPU"], size=13, pad=14, fill=RED, stroke=POS, sw=1.8)
+    p.append(f_ram)
+
+    f_rc1, w_rc1, h_rc1 = textbox(lx, 310, ["Root Complex (CPU)", "Контролер пам'яті"], size=13, pad=14, fill=GREY, stroke=LINE)
+    p.append(f_rc1)
+
+    f_sw1, w_sw1, h_sw1 = textbox(lx, 470, ["PCIe Switch"], size=14, pad=14, fill=BLUE, stroke=LINE)
+    p.append(f_sw1)
+
+    f_devA1, w_a1, h_a1 = textbox(lx - 160, 640, ["Ініціатор (NVMe SSD)", "Крок 1: запис у RAM"], size=12, pad=12, fill=WARM, stroke=LINE)
+    f_devB1, w_b1, h_b1 = textbox(lx + 160, 640, ["Ціль (GPU VRAM)", "Крок 2: читання з RAM"], size=12, pad=12, fill=GREEN, stroke=LINE)
+    p.append(f_devA1)
+    p.append(f_devB1)
+
+    # Стрілки ліворуч (Подвійний транзит)
+    p.append(arrow(lx - 160, 640 - h_a1 / 2 - 4, lx - 40, 470 + h_sw1 / 2 + 4, color=POS, sw=2))
+    p.append(arrow(lx - 40, 470 - h_sw1 / 2 - 4, lx - 40, 310 + h_rc1 / 2 + 4, color=POS, sw=2))
+    p.append(arrow(lx - 40, 310 - h_rc1 / 2 - 4, lx - 40, 160 + h_ram / 2 + 4, color=POS, sw=2))
+
+    p.append(arrow(lx + 40, 160 + h_ram / 2 + 4, lx + 40, 310 - h_rc1 / 2 - 4, color=POS, sw=2))
+    p.append(arrow(lx + 40, 310 + h_rc1 / 2 + 4, lx + 40, 470 - h_sw1 / 2 - 4, color=POS, sw=2))
+    p.append(arrow(lx + 40, 470 + h_sw1 / 2 + 4, lx + 160, 640 - h_b1 / 2 - 4, color=POS, sw=2))
+
+    p.append(text(lx, 740, "Затримка: 3–8 мкс · 2× Смуга RAM", size=13, color=POS, bold=True))
+
+    # ── Праворуч: Прямий доступ P2PDMA через PCIe Switch
+    rx = 945
+    p.append(text(rx, 75, "Прямий доступ PCIe P2PDMA", size=16, bold=True))
+
+    f_ram2, w_ram2, h_ram2 = textbox(rx, 160, ["Системна RAM (не задіяна)", "Смуга пам'яті вільна для CPU"], size=13, pad=14, fill=GREEN, stroke=FIELD)
+    p.append(f_ram2)
+
+    f_rc2, w_rc2, h_rc2 = textbox(rx, 310, ["Root Complex (CPU)", "ACS перевірка (якщо потрібна)"], size=13, pad=14, fill=GREY, stroke=LINE)
+    p.append(f_rc2)
+
+    f_sw2, w_sw2, h_sw2 = textbox(rx, 470, ["PCIe Switch (P2P Routing)", "Локальне перенаправлення TLP"], size=14, pad=14, fill=BLUE, stroke=LINE, sw=2)
+    p.append(f_sw2)
+
+    f_devA2, w_a2, h_a2 = textbox(rx - 160, 640, ["Ініціатор (NVMe SSD)", "Прямий TLP MemWrite"], size=12, pad=12, fill=WARM, stroke=LINE)
+    f_devB2, w_b2, h_b2 = textbox(rx + 160, 640, ["Ціль (GPU / CMB)", "BAR буфер призначення"], size=12, pad=12, fill=GREEN, stroke=LINE)
+    p.append(f_devA2)
+    p.append(f_devB2)
+
+    # Стрілка прямого перенаправлення в комутаторі
+    p.append(arrow(rx - 160, 640 - h_a2 / 2 - 4, rx - 60, 470 + h_sw2 / 2 + 4, color=FIELD, sw=2.5))
+    p.append(arrow(rx - 60, 470 + h_sw2 / 2 + 4, rx + 160, 640 - h_b2 / 2 - 4, color=FIELD, sw=2.5))
+
+    p.append(text(rx, 740, "Затримка: 150–300 нс · 0% Навантаження RAM", size=13, color=FIELD, bold=True))
+
+    render(os.path.join(IMG, 'p2p-routing-paths.svg'), W, H, *p,
+           title="Маршрутизація TLP: системна пам'ять проти PCIe P2PDMA")
+
+
+# ── 2. Шар підсистеми pci-p2pdma в ядрі Linux ──────────────────────────────
+def fig_p2pdma_subsystem_layers():
+    W, H = 1200, 750
+    p = []
+
+    # Верхній рівень: Простір користувача / Застосунок
+    f_app, w_app, h_app = textbox(600, 90, ["Простір користувача: io_uring / Direct I/O / GPUDirect Storage", "Вказівник на буфер у /dev/p2pmemX або апаратно виділений CMB"], size=13, pad=14, fill=BLUE, stroke=LINE)
+    p.append(f_app)
+
+    # Драйвери блоків / мережі
+    f_drv, w_drv, h_drv = textbox(600, 230, ["Драйвер пристрою (NVMe / SmartNIC / GPU Driver)", "Подання `struct scatterlist` до `pci_p2pdma_map_sg()`"], size=13, pad=14, fill=WARM, stroke=LINE)
+    p.append(f_drv)
+    p.append(arrow(600, 90 + h_app / 2 + 4, 600, 230 - h_drv / 2 - 4))
+
+    # Ядро Linux: MM та pci-p2pdma
+    f_mm, w_mm, h_mm = textbox(340, 400, ["Менеджер пам'яті ядра (MM)", "`ZONE_DEVICE` (MEMORY_DEVICE_PCI_P2PDMA)", "Структури `struct page` для MMIO"], size=13, pad=14, fill=GREEN, stroke=LINE)
+    f_p2p, w_p2p, h_p2p = textbox(860, 400, ["Підсистема `pci-p2pdma`", "Обчислення відстані `pci_p2pdma_distance_many()`", "Перевірка ACS та перетворення DMA-адрес"], size=13, pad=14, fill=GREEN, stroke=LINE)
+    p.append(f_mm)
+    p.append(f_p2p)
+
+    p.append(arrow(600, 230 + h_drv / 2 + 4, 340, 400 - h_mm / 2 - 4))
+    p.append(arrow(600, 230 + h_drv / 2 + 4, 860, 400 - h_p2p / 2 - 4))
+
+    # Апаратний рівень
+    f_bar_prov, w_bp, h_bp = textbox(340, 590, ["Провайдер пам'яті (PCIe BAR)", "NVMe CMB / PMR / GPU VRAM", "Фізичний регіон MMIO"], size=13, pad=14, fill=GREY, stroke=LINE)
+    f_dma_client, w_dc, h_dc = textbox(860, 590, ["Ініціатор DMA (Client Endpoint)", "Комутатор PCIe & IOMMU", "Пряме зчитування/запис TLP"], size=13, pad=14, fill=GREY, stroke=LINE)
+    p.append(f_bar_prov)
+    p.append(f_dma_client)
+
+    p.append(arrow(340, 400 + h_mm / 2 + 4, 340, 590 - h_bp / 2 - 4))
+    p.append(arrow(860, 400 + h_p2p / 2 + 4, 860, 590 - h_dc / 2 - 4))
+
+    # Зв'язок між апаратними пристроями на нижньому рівні
+    p.append(arrow(340 + w_bp / 2 + 6, 590, 860 - w_dc / 2 - 6, 590, color=FIELD, sw=2.2))
+
+    render(os.path.join(IMG, 'p2pdma-subsystem-layers.svg'), W, H, *p,
+           title="Структура підсистеми pci-p2pdma та взаємодія шарів ядра Linux")
+
+
+if __name__ == '__main__':
+    fig_p2p_routing_paths()
+    fig_p2pdma_subsystem_layers()
+    print("ok")

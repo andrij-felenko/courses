@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 385" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="385" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="150.0" y="28.0" width="600.0" height="34.0" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/><text x="450.0" y="49.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Driver Call: gpiod_set_value(desc, 1)  [Logical State: ACTIVE / 1]</tspan></text>
+<line x1="350.0" y1="75.0" x2="230.0" y2="125.0" stroke="#1565c0" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="270.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1565c0" text-anchor="middle" font-weight="700">ACTIVE_HIGH Flag</text>
+<line x1="550.0" y1="75.0" x2="670.0" y2="125.0" stroke="#c62828" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="630.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c62828" text-anchor="middle" font-weight="700">ACTIVE_LOW Flag</text>
+<rect x="50.0" y="130.0" width="360.0" height="180.0" rx="8" fill="#f1f8e9" stroke="#33691e" stroke-width="2.0"/>
+<text x="230.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#33691e" text-anchor="middle" font-weight="700">Standard (ACTIVE_HIGH)</text>
+<text x="230.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">Physical Line Level = HIGH (3.3V)</text>
+<line x1="80.0" y1="240.0" x2="180.0" y2="240.0" stroke="#2e7d32" stroke-width="3.0"/>
+<line x1="180.0" y1="240.0" x2="180.0" y2="210.0" stroke="#2e7d32" stroke-width="3.0"/>
+<line x1="180.0" y1="210.0" x2="380.0" y2="210.0" stroke="#2e7d32" stroke-width="3.0"/>
+<text x="130.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#666666" text-anchor="middle">0V (LOW)</text>
+<text x="280.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle" font-weight="700">3.3V (HIGH)</text>
+<rect x="490.0" y="130.0" width="360.0" height="180.0" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2.0"/>
+<text x="670.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c62828" text-anchor="middle" font-weight="700">Inverted (ACTIVE_LOW)</text>
+<text x="670.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c62828" text-anchor="middle" font-weight="700">Physical Line Level = LOW (0V)</text>
+<line x1="520.0" y1="210.0" x2="620.0" y2="210.0" stroke="#c62828" stroke-width="3.0"/>
+<line x1="620.0" y1="210.0" x2="620.0" y2="240.0" stroke="#c62828" stroke-width="3.0"/>
+<line x1="620.0" y1="240.0" x2="820.0" y2="240.0" stroke="#c62828" stroke-width="3.0"/>
+<text x="570.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#666666" text-anchor="middle">3.3V (HIGH)</text>
+<text x="720.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c62828" text-anchor="middle" font-weight="700">0V (LOW)</text>
+<rect x="118.5" y="324.0" width="663.0" height="32.0" rx="6" fill="#fff8e1" stroke="#ffa000" stroke-width="1.5"/><text x="450.0" y="344.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">gpiod_set_raw_value(desc, 1) bypasses ACTIVE_LOW flag and forces physical HIGH (3.3V) directly</tspan></text>
+</svg>

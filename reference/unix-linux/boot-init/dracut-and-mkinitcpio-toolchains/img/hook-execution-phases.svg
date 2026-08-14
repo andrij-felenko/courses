@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="375.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фази виконання хуків та служб у ранньому просторі користувача</text>
+<rect x="40.0" y="45.0" width="110.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="95.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро / cpio</text>
+<text x="95.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Розпакування</text>
+<line x1="150.0" y1="66.0" x2="180.0" y2="66.0" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="180.0" y="45.0" width="110.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="235.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ранній init</text>
+<text x="235.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Параметри cmdline</text>
+<line x1="290.0" y1="66.0" x2="320.0" y2="66.0" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="320.0" y="45.0" width="110.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="375.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Події / udev</text>
+<text x="375.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Виявлення заліза</text>
+<line x1="430.0" y1="66.0" x2="460.0" y2="66.0" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="45.0" width="110.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="515.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сховища</text>
+<text x="515.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">LUKS / LVM / RAID</text>
+<line x1="570.0" y1="66.0" x2="600.0" y2="66.0" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="600.0" y="45.0" width="110.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="655.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перехід</text>
+<text x="655.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">switch_root</text>
+<rect x="20.0" y="110.0" width="710.0" height="55.0" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="45.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="start" font-weight="700">dracut</text>
+<text x="45.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#3b82f6" text-anchor="start">(systemd)</text>
+<rect x="170.0" y="120.0" width="120.0" height="35.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="230.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">dracut-cmdline</text>
+<rect x="310.0" y="120.0" width="130.0" height="35.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="375.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">dracut-initqueue</text>
+<rect x="450.0" y="120.0" width="130.0" height="35.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="515.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">dracut-mount</text>
+<rect x="595.0" y="120.0" width="120.0" height="35.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="655.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">dracut-pre-pivot</text>
+<rect x="20.0" y="175.0" width="710.0" height="55.0" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+<text x="45.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#065f46" text-anchor="start" font-weight="700">mkinitcpio</text>
+<text x="45.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#10b981" text-anchor="start">(hooks)</text>
+<rect x="170.0" y="185.0" width="120.0" height="35.0" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+<text x="230.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">run_earlyhook</text>
+<rect x="310.0" y="185.0" width="130.0" height="35.0" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+<text x="375.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">run_hook (udev)</text>
+<rect x="450.0" y="185.0" width="130.0" height="35.0" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+<text x="515.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">run_latehook (encrypt)</text>
+<rect x="595.0" y="185.0" width="120.0" height="35.0" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+<text x="655.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">run_cleanuphook</text>
+<rect x="20.0" y="240.0" width="710.0" height="55.0" rx="4" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+<text x="45.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="start" font-weight="700">initramfs-tools</text>
+<text x="45.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#f59e0b" text-anchor="start">(scripts)</text>
+<rect x="170.0" y="250.0" width="120.0" height="35.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="230.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">scripts/init-top</text>
+<rect x="310.0" y="250.0" width="130.0" height="35.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="375.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">scripts/local-top</text>
+<rect x="450.0" y="250.0" width="130.0" height="35.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="515.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">scripts/local-premount</text>
+<rect x="595.0" y="250.0" width="120.0" height="35.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="655.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">scripts/init-bottom</text>
+</svg>

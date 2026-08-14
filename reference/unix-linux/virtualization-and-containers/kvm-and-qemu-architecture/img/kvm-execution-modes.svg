@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="50.0" width="730.0" height="110.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="35.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">User Space (QEMU Process / Ring 3)</text>
+<rect x="15.0" y="175.0" width="730.0" height="110.0" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="35.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">Kernel Space (Host Linux / KVM Driver / VMX Root / Ring 0)</text>
+<rect x="15.0" y="300.0" width="730.0" height="105.0" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="35.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Guest Mode (VMX Non-Root Operation / Guest OS)</text>
+<rect x="117.5" y="85.0" width="165.1" height="49.9" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.5"/><text x="200.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">QEMU vCPU Thread</tspan><tspan x="200.0" dy="16.9">User Mode (Ring 3)</tspan></text>
+<rect x="105.4" y="210.1" width="189.3" height="49.9" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1.5"/><text x="200.0" y="231.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">KVM Driver (/dev/kvm)</tspan><tspan x="200.0" dy="16.9">Kernel Mode (Ring 0)</tspan></text>
+<rect x="105.4" y="330.1" width="189.3" height="49.9" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/><text x="200.0" y="351.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">Guest Kernel (Ring 0)</tspan><tspan x="200.0" dy="16.9">Guest User (Ring 3)</tspan></text>
+<rect x="461.1" y="195.6" width="197.8" height="78.8" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="560.0" y="215.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle"><tspan x="560.0" dy="0.0">VMCS / VMCB Data Structure</tspan><tspan x="560.0" dy="15.6">• Guest State Area</tspan><tspan x="560.0" dy="15.6">• Host State Area</tspan><tspan x="560.0" dy="15.6">• Exit &amp; Entry Controls</tspan></text>
+<line x1="180.0" y1="135.0" x2="180.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="125.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ioctl(KVM_RUN)</text>
+<line x1="220.0" y1="205.0" x2="220.0" y2="135.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="275.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Return (KVM_EXIT)</text>
+<line x1="180.0" y1="260.0" x2="180.0" y2="330.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="120.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VMLAUNCH / VMRESUME</text>
+<line x1="220.0" y1="330.0" x2="220.0" y2="260.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="265.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">VMEXIT (Hardware Trap)</text>
+<line x1="310.0" y1="235.0" x2="435.0" y2="235.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="372.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">VMREAD / VMWRITE</text>
+</svg>

@@ -10,7 +10,7 @@ IMG = os.path.join(HERE, 'img')
 os.makedirs(IMG, exist_ok=True)
 
 def draw_landlock_evolution():
-    out = "landlock_evolution.svg"
+    out = os.path.join(IMG, "landlock-evolution.svg")
     frags = []
     
     # Time axis

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія виклику switch_root: передача управління PID 1</text>
+<rect x="40.0" y="80.0" width="270.0" height="380.0" rx="8" fill="#fff6e5" stroke="#c0392b" stroke-width="1.4"/>
+<text x="175.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 1: Очищення</text>
+<line x1="55.0" y1="135.0" x2="295.0" y2="135.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="55.0" y="150.0" width="240.0" height="290.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/><text x="175.0" y="274.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">1. Рекурсивне видалення</tspan><tspan x="175.0" dy="11.7">усіх файлів у rootfs</tspan><tspan x="175.0" dy="11.7">(unlink / rmdir).</tspan><tspan x="175.0" dy="11.7"></tspan><tspan x="175.0" dy="11.7">Звільнення всієї пам'яті RAM, зайнятої у initramfs.</tspan></text>
+<line x1="313.0" y1="270.0" x2="332.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="335.0" y="80.0" width="270.0" height="380.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="470.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 2: Перенесення</text>
+<line x1="350.0" y1="135.0" x2="590.0" y2="135.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="350.0" y="150.0" width="240.0" height="290.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/><text x="470.0" y="274.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">2. Перенесення точок монтування:</tspan><tspan x="470.0" dy="11.7">mount(&quot;/sysroot&quot;, &quot;/&quot;,</tspan><tspan x="470.0" dy="11.7">      NULL, MS_MOVE, NULL)</tspan><tspan x="470.0" dy="11.7"></tspan><tspan x="470.0" dy="11.7">Монтування справжнього кореня поверх rootfs.</tspan></text>
+<line x1="608.0" y1="270.0" x2="627.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="630.0" y="80.0" width="270.0" height="380.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="765.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 3: Фіксація</text>
+<line x1="645.0" y1="135.0" x2="885.0" y2="135.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="645.0" y="150.0" width="240.0" height="290.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/><text x="765.0" y="274.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="765.0" dy="0.0">3. Зміна кореневої теки:</tspan><tspan x="765.0" dy="11.7">chroot(&quot;.&quot;)</tspan><tspan x="765.0" dy="11.7">chdir(&quot;/&quot;)</tspan><tspan x="765.0" dy="11.7"></tspan><tspan x="765.0" dy="11.7">Процес переходить у новий корінь на диску.</tspan></text>
+<line x1="903.0" y1="270.0" x2="922.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="925.0" y="80.0" width="270.0" height="380.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="1060.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 4: Заміна PID 1</text>
+<line x1="940.0" y1="135.0" x2="1180.0" y2="135.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="940.0" y="150.0" width="240.0" height="290.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/><text x="1060.0" y="274.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="1060.0" dy="0.0">4. Перенаправлення stdio</tspan><tspan x="1060.0" dy="11.7">на /dev/console.</tspan><tspan x="1060.0" dy="11.7">execve(&quot;/sbin/init&quot;, ...)</tspan><tspan x="1060.0" dy="11.7"></tspan><tspan x="1060.0" dy="11.7">Підміна образу PID 1 на справжній systemd.</tspan></text>
+<text x="620.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Номер процесу PID 1 НЕ змінюється протягом усіх 4 етапів</text>
+</svg>
