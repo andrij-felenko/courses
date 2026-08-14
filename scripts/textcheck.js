@@ -202,17 +202,22 @@ function buildFreqMap(dir) {
 }
 
 const FREQ = (() => {
-  const sig = corpusSignature(CORPUS);
+  /* Вік, а не підпис. Під час батчу корпус міняється щохвилини, і перевірка підпису
+     означала б перебудову на КОЖЕН виклик — саме те, від чого кеш і рятує. Стелю віку
+     можна зсунути змінною середовища; 0 — примусова перебудова. */
+  const TTL = Number(process.env.TEXTCHECK_FREQ_TTL_MIN ?? 360) * 60000;
   try {
-    const c = JSON.parse(fs.readFileSync(FREQ_CACHE, "utf8"));
-    if (c.sig === sig) return new Map(Object.entries(c.freq));
+    const st = fs.statSync(FREQ_CACHE);
+    if (TTL > 0 && Date.now() - st.mtimeMs < TTL) {
+      return new Map(Object.entries(JSON.parse(fs.readFileSync(FREQ_CACHE, "utf8")).freq));
+    }
   } catch (e) { /* немає кешу або він побитий — будуємо */ }
   const m = buildFreqMap(CORPUS);
   const keep = {};
   for (const [w, n] of m) if (n >= 3) keep[w] = n;
   try {
     fs.mkdirSync(path.dirname(FREQ_CACHE), { recursive: true });
-    fs.writeFileSync(FREQ_CACHE, JSON.stringify({ sig, freq: keep }), "utf8");
+    fs.writeFileSync(FREQ_CACHE, JSON.stringify({ built: Date.now(), sig: corpusSignature(CORPUS), freq: keep }), "utf8");
   } catch (e) { /* кеш не записався — не біда, просто буде повільніше */ }
   return m;
 })();
