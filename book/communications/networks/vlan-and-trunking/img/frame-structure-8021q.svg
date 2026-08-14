@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура заголовка IEEE 802.1Q у кадрі Ethernet II</text>
+<text x="45.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Звичайний кадр Ethernet II:</text>
+<rect x="45.0" y="75.0" width="80.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="85.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Dst MAC
+(6B)</text>
+<rect x="125.0" y="75.0" width="80.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="165.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Src MAC
+(6B)</text>
+<rect x="205.0" y="75.0" width="100.0" height="36.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="255.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">EtherType
+(2B)</text>
+<rect x="305.0" y="75.0" width="340.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="475.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Payload (Корисні дані: 46 - 1500 байт)</text>
+<rect x="645.0" y="75.0" width="80.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="685.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FCS / CRC
+(4B)</text>
+<text x="765.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">1518 B max</text>
+<text x="45.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Маркований кадр 802.1Q (IEEE 802.3ac):</text>
+<rect x="45.0" y="160.0" width="80.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="85.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Dst MAC
+(6B)</text>
+<rect x="125.0" y="160.0" width="80.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="165.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Src MAC
+(6B)</text>
+<rect x="205.0" y="160.0" width="140.0" height="36.0" rx="6" fill="#fff9e6" stroke="#d97706" stroke-width="2.0"/>
+<text x="275.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">802.1Q Tag (4 Bytes)</text>
+<rect x="345.0" y="160.0" width="90.0" height="36.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="390.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">EtherType
+(2B)</text>
+<rect x="435.0" y="160.0" width="210.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="540.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Payload (46 - 1500 B)</text>
+<rect x="645.0" y="160.0" width="80.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="685.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FCS / CRC
+(4B)</text>
+<text x="765.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1522 B max</text>
+<line x1="205.0" y1="196.0" x2="120.0" y2="250.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="345.0" y1="196.0" x2="700.0" y2="250.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+<rect x="120.0" y="250.0" width="580.0" height="130.0" rx="6" fill="#fffdfa" stroke="#d97706" stroke-width="1.5"/>
+<text x="410.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Детальна структура 4-байтового тегу 802.1Q:</text>
+<rect x="140.0" y="290.0" width="170.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="225.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">TPID (16 біт)</text>
+<text x="225.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x8100 (ідентифікатор тегу)</text>
+<rect x="320.0" y="290.0" width="90.0" height="50.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="365.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">PCP (3b)</text>
+<text x="365.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пріоритет (0-7)</text>
+<rect x="420.0" y="290.0" width="70.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="455.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">DEI (1b)</text>
+<text x="455.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Drop Elig.</text>
+<rect x="500.0" y="290.0" width="180.0" height="50.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="590.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">VID (12 біт)</text>
+<text x="590.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">VLAN ID (0 - 4095)</text>
+<text x="410.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Вставка 802.1Q розширює максимальний розмір кадру Ethernet з 1518 до 1522 байтів.</text>
+</svg>

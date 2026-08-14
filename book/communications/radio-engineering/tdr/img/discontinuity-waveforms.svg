@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 460" width="840" height="460">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-pos" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-neg" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0.0" y="0.0" width="840.0" height="460.0" rx="0" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+  <text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Характерні рефлектограми TDR для різних неоднорідностей</text>
+  <rect x="30.0" y="50.0" width="230.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+  <text x="145.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обрив (Open): Z_L = ∞</text>
+  <text x="145.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Γ = +1 (напруга подвоюється)</text>
+  <line x1="60.0" y1="195.0" x2="240.0" y2="195.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <line x1="60.0" y1="195.0" x2="60.0" y2="105.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <text x="245.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="52.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V</text>
+  <line x1="60.0" y1="160.0" x2="235.0" y2="160.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3,3"/>
+  <text x="45.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_inc</text>
+  <polyline points="60.0,160.0 90.0,160.0 95.0,140.0 130.0,140.0 135.0,120.0 210.0,120.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="30.0" y="250.0" width="230.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+  <text x="145.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коротке замикання (Short): Z_L = 0</text>
+  <text x="145.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Γ = -1 (напруга падає до 0)</text>
+  <line x1="60.0" y1="395.0" x2="240.0" y2="395.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <line x1="60.0" y1="395.0" x2="60.0" y2="305.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <text x="245.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="52.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V</text>
+  <line x1="60.0" y1="360.0" x2="235.0" y2="360.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3,3"/>
+  <text x="45.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_inc</text>
+  <polyline points="60.0,360.0 90.0,360.0 95.0,340.0 130.0,340.0 135.0,360.0 210.0,360.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="310.0" y="50.0" width="230.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+  <text x="425.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Більший опір: Z_L &gt; Z_0</text>
+  <text x="425.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 &lt; Γ &lt; 1 (позитивний стрибок)</text>
+  <line x1="340.0" y1="195.0" x2="520.0" y2="195.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <line x1="340.0" y1="195.0" x2="340.0" y2="105.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <text x="525.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="332.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V</text>
+  <line x1="340.0" y1="160.0" x2="515.0" y2="160.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3,3"/>
+  <text x="325.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_inc</text>
+  <polyline points="340.0,160.0 370.0,160.0 375.0,140.0 410.0,140.0 415.0,130.0 490.0,130.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="310.0" y="250.0" width="230.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+  <text x="425.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Менший опір: Z_L &lt; Z_0</text>
+  <text x="425.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">-1 &lt; Γ &lt; 0 (негативний стрибок)</text>
+  <line x1="340.0" y1="395.0" x2="520.0" y2="395.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <line x1="340.0" y1="395.0" x2="340.0" y2="305.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <text x="525.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="332.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V</text>
+  <line x1="340.0" y1="360.0" x2="515.0" y2="360.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3,3"/>
+  <text x="325.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_inc</text>
+  <polyline points="340.0,360.0 370.0,360.0 375.0,340.0 410.0,340.0 415.0,350.0 490.0,350.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="590.0" y="50.0" width="230.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+  <text x="705.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовна індуктивність L</text>
+  <text x="705.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сплеск та експоненціальний спад</text>
+  <line x1="620.0" y1="195.0" x2="800.0" y2="195.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <line x1="620.0" y1="195.0" x2="620.0" y2="105.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <text x="805.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="612.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V</text>
+  <line x1="620.0" y1="160.0" x2="795.0" y2="160.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3,3"/>
+  <text x="605.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_inc</text>
+  <polyline points="620.0,160.0 650.0,160.0 655.0,140.0 690.0,140.0 692.0,120.0 697.0,130.0 710.0,138.0 770.0,140.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="590.0" y="250.0" width="230.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+  <text x="705.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паралельна ємність C</text>
+  <text x="705.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Провал та експоненціальне відновлення</text>
+  <line x1="620.0" y1="395.0" x2="800.0" y2="395.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <line x1="620.0" y1="395.0" x2="620.0" y2="305.0" stroke="#6b7280" stroke-width="1.0" marker-end="url(#arrow)"/>
+  <text x="805.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="612.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V</text>
+  <line x1="620.0" y1="360.0" x2="795.0" y2="360.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3,3"/>
+  <text x="605.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_inc</text>
+  <polyline points="620.0,360.0 650.0,360.0 655.0,340.0 690.0,340.0 692.0,360.0 697.0,350.0 710.0,342.0 770.0,340.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+</svg>

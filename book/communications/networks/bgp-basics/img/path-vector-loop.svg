@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вектор шляху (Path Vector) та виявлення петель в AS-PATH</text>
+<rect x="50.0" y="90.0" width="150.0" height="70.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="125.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">AS 65001</text>
+<text x="125.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Префікс: 1.1.1.0/24</text>
+<rect x="310.0" y="90.0" width="160.0" height="70.0" rx="8" fill="#fff7e6" stroke="#6b7280" stroke-width="1.6"/>
+<text x="390.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">AS 65002</text>
+<text x="390.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Додає себе в AS-PATH</text>
+<rect x="570.0" y="90.0" width="160.0" height="70.0" rx="8" fill="#fff7e6" stroke="#6b7280" stroke-width="1.6"/>
+<text x="650.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">AS 65003</text>
+<text x="650.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Додає себе в AS-PATH</text>
+<line x1="200.0" y1="125.0" x2="310.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="255.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">AS-PATH: [65001]</text>
+<line x1="470.0" y1="125.0" x2="570.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">AS-PATH: [65002, 65001]</text>
+<line x1="650.0" y1="160.0" x2="650.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,5"/>
+<line x1="650.0" y1="240.0" x2="125.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,5"/>
+<line x1="125.0" y1="240.0" x2="125.0" y2="160.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="205.0" width="380.0" height="32.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.2"/><text x="390.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="390.0" dy="0.0">Спроба повернути оголошення джерелу:</tspan><tspan x="390.0" dy="13.0">AS-PATH: [65003, 65002, 65001]</tspan></text>
+<rect x="60.0" y="275.0" width="660.0" height="75.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.6"/><text x="390.0" y="309.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Перевірка в AS 65001: свій номер (65001) МІСТИТЬСЯ в отриманому AS-PATH!</tspan><tspan x="390.0" dy="14.3">→ Маршрут ВІДКИДАЄТЬСЯ (Loop Prevention). Без повної карти інтернету петля убита миттєво.</tspan></text>
+</svg>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 330" width="780" height="330">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-pos" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-neg" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0.0" y="0.0" width="780.0" height="330.0" rx="0" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+  <text x="390.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив тривалості фронту перепаду (t_r) на просторову роздільну здатність</text>
+  <rect x="30.0" y="50.0" width="340.0" height="250.0" rx="8" fill="#fff8f8" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="200.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Повільний фронт імпульсу (t_r = 1 нс)</text>
+  <text x="200.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Роздільна здатність Δx_min ≈ 10 см</text>
+  <line x1="60.0" y1="240.0" x2="335.0" y2="240.0" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="335.0" y1="240.0" x2="345.0" y2="240.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="60.0" y1="240.0" x2="60.0" y2="115.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <text x="355.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t</text>
+  <polyline points="60,200 120,200 150,215 180,215 210,170 320,170" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="60.0" y="253.5" width="280.0" height="43.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="200.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Дві неоднорідності ЗЛИЛИСЯ у широкий провал</tspan><tspan x="200.0" dy="13.0">Неможливо розрізнити деталі плати</tspan></text>
+  <rect x="410.0" y="50.0" width="340.0" height="250.0" rx="8" fill="#f2fdf5" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="580.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Пікосекундний фронт (t_r = 20 пс)</text>
+  <text x="580.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Роздільна здатність Δx_min ≈ 2 мм</text>
+  <line x1="440.0" y1="240.0" x2="715.0" y2="240.0" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="715.0" y1="240.0" x2="725.0" y2="240.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="440.0" y1="240.0" x2="440.0" y2="115.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <text x="735.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t</text>
+  <polyline points="440,200 490,200 500,225 515,225 525,200 550,200 560,230 575,230 585,170 700,170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="440.0" y="253.5" width="280.0" height="43.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="580.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">ЧІТКО РОЗРІЗНЕНІ два піки: контакт ВЧ-роз'єму</tspan><tspan x="580.0" dy="13.0">та перехідний отвір (Via) на платі</tspan></text>
+</svg>

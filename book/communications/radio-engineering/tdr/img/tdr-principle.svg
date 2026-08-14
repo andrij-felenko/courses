@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" width="820" height="360">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-pos" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-neg" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0.0" y="0.0" width="820.0" height="360.0" rx="0" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+  <rect x="20.0" y="20.0" width="240.0" height="320.0" rx="8" fill="#f0f4f8" stroke="#333333" stroke-width="1.5"/>
+  <text x="140.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часовий рефлектометр (TDR)</text>
+  <rect x="37.7" y="63.4" width="204.7" height="63.2" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="140.0" y="83.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Генератор надшвидкого</tspan><tspan x="140.0" dy="15.6">перепаду напруги (Step Gen)</tspan><tspan x="140.0" dy="15.6">t_r &lt; 30 пс</tspan></text>
+  <rect x="40.0" y="161.2" width="200.0" height="47.6" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Швидкісний самплер /</tspan><tspan x="140.0" dy="15.6">Осцилограф (Sampler)</tspan></text>
+  <rect x="40.0" y="251.2" width="200.0" height="47.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="140.0" y="271.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Трійник / Мостовий</tspan><tspan x="140.0" dy="15.6">детектувальний вузол</tspan></text>
+  <line x1="140.0" y1="125.0" x2="140.0" y2="155.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+  <line x1="140.0" y1="215.0" x2="140.0" y2="245.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+  <line x1="240.0" y1="275.0" x2="310.0" y2="275.0" stroke="#1a1a1a" stroke-width="3.0"/>
+  <text x="275.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Z₀ = 50 Ом</text>
+  <rect x="310.0" y="240.0" width="470.0" height="70.0" rx="6" fill="#eef6fc" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="545.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Досліджувана лінія передачі (довжина L, ε_r)</text>
+  <line x1="330.0" y1="280.0" x2="490.0" y2="280.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="410.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Падаючий перепад V_inc</text>
+  <line x1="670.0" y1="298.0" x2="510.0" y2="298.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="590.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Відбитий сигнал V_refl</text>
+  <line x1="680.0" y1="240.0" x2="680.0" y2="310.0" stroke="#c0392b" stroke-width="3.0" stroke-dasharray="4,4"/>
+  <rect x="582.2" y="165.2" width="195.6" height="59.6" rx="6" fill="#fff0f0" stroke="#c0392b" stroke-width="1.5"/><text x="680.0" y="184.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Неоднорідність імпедансу Z_L</tspan><tspan x="680.0" dy="14.3">(дефект, роз'єм, обрив, КЗ)</tspan><tspan x="680.0" dy="14.3">у точці x = v·Δt / 2</tspan></text>
+  <line x1="680.0" y1="215.0" x2="680.0" y2="235.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="310.0" y="20.0" width="470.0" height="150.0" rx="6" fill="#1e2530" stroke="#333333" stroke-width="1.5"/>
+  <text x="545.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Рефлектограма на екрані осцилографа: V(t)</text>
+  <line x1="340.0" y1="140.0" x2="760.0" y2="140.0" stroke="#8a99ad" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="765.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a99ad" text-anchor="middle">t</text>
+  <line x1="340.0" y1="140.0" x2="340.0" y2="45.0" stroke="#8a99ad" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="332.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a99ad" text-anchor="middle">V</text>
+  <polyline points="340,120 370,120 380,80 540,80 550,50 740,50" fill="none" stroke="#00ffcc" stroke-width="2.5"/>
+  <line x1="375.0" y1="140.0" x2="375.0" y2="75.0" stroke="#ffcc00" stroke-width="1.0" stroke-dasharray="2,2"/>
+  <text x="375.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffcc00" text-anchor="middle">t=0</text>
+  <line x1="545.0" y1="140.0" x2="545.0" y2="55.0" stroke="#ffcc00" stroke-width="1.0" stroke-dasharray="2,2"/>
+  <text x="545.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffcc00" text-anchor="middle">t = Δt</text>
+  <line x1="375.0" y1="132.0" x2="545.0" y2="132.0" stroke="#ffcc00" stroke-width="1.0"/>
+  <text x="460.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffcc00" text-anchor="middle">Затримка Δt</text>
+</svg>

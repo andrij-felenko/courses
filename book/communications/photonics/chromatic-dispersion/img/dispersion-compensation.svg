@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схеми компенсації хроматичної дисперсії у оптичних лініях</text>
+<rect x="20.0" y="50.0" width="780.0" height="130.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="400.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пасивна оптична компенсація волокном DCF (Dispersion Compensating Fiber)</text>
+<rect x="40.0" y="95.0" width="90.0" height="60.0" rx="6" fill="#ebf8ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="85.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Передавач
+Tx</text>
+<line x1="130.0" y1="125.0" x2="175.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="175.0" y="95.0" width="200.0" height="60.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="275.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Магістраль G.652 (SMF)</text>
+<text x="275.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">L = 80 км, D = +17 пс/(нм·км)</text>
+<line x1="375.0" y1="125.0" x2="420.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="420.0" y="95.0" width="210.0" height="60.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="525.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Модуль компенсації DCF</text>
+<text x="525.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">L_dcf = 13.6 км, D = -100 пс/(нм·км)</text>
+<line x1="630.0" y1="125.0" x2="675.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="675.0" y="95.0" width="100.0" height="60.0" rx="6" fill="#ebf8ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="725.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Приймач
+Rx</text>
+<rect x="20.0" y="200.0" width="780.0" height="130.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="400.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Сучасна цифрова компенсація у DSP (Когерентні системи 100G+)</text>
+<rect x="40.0" y="245.0" width="90.0" height="60.0" rx="6" fill="#ebf8ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="85.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Передавач
+Tx 100G+</text>
+<line x1="130.0" y1="275.0" x2="210.0" y2="275.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="210.0" y="245.0" width="240.0" height="60.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="330.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Магістральне волокно G.652</text>
+<text x="330.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий прогін &gt; 1000 км без DCF!</text>
+<line x1="450.0" y1="275.0" x2="520.0" y2="275.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="520.0" y="245.0" width="255.0" height="60.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="647.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Когерентний Rx + DSP</text>
+<text x="647.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Цифровий FIR-фільтр інвертує D</text>
+</svg>
