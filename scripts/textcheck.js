@@ -155,19 +155,67 @@ const CORPUS = (() => {                       // корінь репо — та�
   }
   return path.resolve(ROOT);
 })();
-const FREQ = new Map();
-(function buildFreq(dir) {
-  let ents; try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) { return; }
-  for (const e of ents) {
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) { if (!SKIP_DIR.test(e.name)) buildFreq(p); continue; }
-    if (!e.name.endsWith(".md")) continue;
-    const s = mask(fs.readFileSync(p, "utf8"));
-    for (const w of s.match(/[а-яіїєґА-ЯІЇЄҐ'’]{4,}/g) || []) {
-      const k = w.toLowerCase(); FREQ.set(k, (FREQ.get(k) || 0) + 1);
+/* ── частотний словник корпусу: будуємо РАЗ, далі беремо з кешу ────────────────
+   Словник потрібен лише для пошуку описок: рідкісне слово проти «надійного».
+   Раніше він будувався на кожному запуску — обхід усього корпусу (8686 файлів,
+   227 МБ) коштував ~8 секунд чистого CPU. Перевірка 02 кличе textcheck пʼять разів,
+   отже одна тема коштувала ~1 ГБ читання і ~40 секунд ядра; кілька агентів
+   паралельно — і машина стоїть, нічого не виробляючи.
+
+   Кеш дійсний, доки збігається підпис корпусу: кількість .md, сумарний розмір і
+   найсвіжіший mtime. Будь-яка написана, дописана чи прибрана стаття підпис міняє,
+   і словник перебудовується сам. У кеш кладемо лише слова, що трапились ТРИ рази
+   й більше: усе, чого там немає, і так рідкісне (RARE_MAX = 2), тож семантика
+   лишається та сама, а файл виходить у рази менший.                              */
+const FREQ_CACHE = path.join(CORPUS, "scripts", "_finish", "_freq-cache.json");
+
+function corpusSignature(dir) {
+  let n = 0, bytes = 0, newest = 0;
+  (function walkSig(d) {
+    let ents; try { ents = fs.readdirSync(d, { withFileTypes: true }); } catch (e) { return; }
+    for (const e of ents) {
+      const q = path.join(d, e.name);
+      if (e.isDirectory()) { if (!SKIP_DIR.test(e.name)) walkSig(q); continue; }
+      if (!e.name.endsWith(".md")) continue;
+      let st; try { st = fs.statSync(q); } catch (e) { continue; }
+      n++; bytes += st.size; if (st.mtimeMs > newest) newest = st.mtimeMs;
     }
-  }
-})(CORPUS);
+  })(dir);
+  return n + ":" + bytes + ":" + Math.round(newest);
+}
+
+function buildFreqMap(dir) {
+  const m = new Map();
+  (function walkFreq(d) {
+    let ents; try { ents = fs.readdirSync(d, { withFileTypes: true }); } catch (e) { return; }
+    for (const e of ents) {
+      const q = path.join(d, e.name);
+      if (e.isDirectory()) { if (!SKIP_DIR.test(e.name)) walkFreq(q); continue; }
+      if (!e.name.endsWith(".md")) continue;
+      const txt = mask(fs.readFileSync(q, "utf8"));
+      for (const w of txt.match(/[а-яіїєґА-ЯІЇЄҐ'’]{4,}/g) || []) {
+        const k = w.toLowerCase(); m.set(k, (m.get(k) || 0) + 1);
+      }
+    }
+  })(dir);
+  return m;
+}
+
+const FREQ = (() => {
+  const sig = corpusSignature(CORPUS);
+  try {
+    const c = JSON.parse(fs.readFileSync(FREQ_CACHE, "utf8"));
+    if (c.sig === sig) return new Map(Object.entries(c.freq));
+  } catch (e) { /* немає кешу або він побитий — будуємо */ }
+  const m = buildFreqMap(CORPUS);
+  const keep = {};
+  for (const [w, n] of m) if (n >= 3) keep[w] = n;
+  try {
+    fs.mkdirSync(path.dirname(FREQ_CACHE), { recursive: true });
+    fs.writeFileSync(FREQ_CACHE, JSON.stringify({ sig, freq: keep }), "utf8");
+  } catch (e) { /* кеш не записався — не біда, просто буде повільніше */ }
+  return m;
+})();
 const VOCAB = [...FREQ.entries()].filter(([, n]) => n >= 8).map(([w]) => w);   // «надійні» слова
 const RARE_MAX = 2;        // трапилось стільки разів або менше — кандидат в описки
 function editDist(a, b, cap) {
