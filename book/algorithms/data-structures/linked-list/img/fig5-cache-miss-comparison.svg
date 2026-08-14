@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аналіз локальності даних: Послідовна кеш-лінія проти покажчикової гонитви</text>
+<rect x="20.0" y="50.0" width="900.0" height="195.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="470.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Послідовний масив: 1 Cache Miss завантажує цілу кеш-лінію (64 байти)</text>
+<rect x="60.0" y="110.0" width="820.0" height="60.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="470.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">L1 Cache Line (64 Bytes)</text>
+<rect x="75.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="120.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[0]</text>
+<rect x="175.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="220.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[1]</text>
+<rect x="275.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="320.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[2]</text>
+<rect x="375.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="420.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[3]</text>
+<rect x="475.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[4]</text>
+<rect x="575.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="620.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[5]</text>
+<rect x="675.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="720.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[6]</text>
+<rect x="775.0" y="135.0" width="90.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="820.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[7]</text>
+<rect x="60.0" y="185.0" width="820.0" height="45.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="211.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Результат: Перший доступ A[0] викликає промах (Cache Miss ~50 нс). Наступні 7 елементів A[1..7] вже в L1-кеші! Hit Rate = 87.5%</tspan></text>
+<rect x="20.0" y="260.0" width="900.0" height="220.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="470.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Зв'язаний список: Кожен вузол у випадковій адресі RAM (Pointer Chasing)</text>
+<rect x="60.0" y="320.0" width="220.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="170.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">RAM 0x1000</text>
+<text x="170.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[Вузол A | next=0x8040]</text>
+<text x="170.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Miss #1 (50 нс)</text>
+<rect x="360.0" y="320.0" width="220.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="470.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">RAM 0x8040</text>
+<text x="470.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[Вузол B | next=0x3010]</text>
+<text x="470.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Miss #2 (50 нс)</text>
+<rect x="660.0" y="320.0" width="220.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="770.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">RAM 0x3010</text>
+<text x="770.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[Вузол C | next=NULL]</text>
+<text x="770.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Miss #3 (50 нс)</text>
+<line x1="280.0" y1="357.5" x2="360.0" y2="357.5" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="357.5" x2="660.0" y2="357.5" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="410.0" width="820.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="470.0" dy="0.0">Результат: CPU вимушений чекати (Stall) при кожному переході по next. 100% Cache Misses для кожного вузла!</tspan><tspan x="470.0" dy="15.0">Затримка обходу N вузлів у N разів більша за масив.</tspan></text>
+</svg>

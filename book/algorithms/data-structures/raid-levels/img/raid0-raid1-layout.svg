@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="400.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура дискових масивів RAID 0 (Чередування) та RAID 1 (Дзеркалювання)</text>
+<rect x="30.0" y="60.0" width="375.0" height="335.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="217.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e40af" text-anchor="middle" font-weight="700">RAID 0 (Data Striping)</text>
+<text x="217.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Максимальна швидкість, 0% резервування</text>
+<rect x="50.0" y="135.0" width="75.0" height="200.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="87.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Диск 0</text>
+<line x1="50.0" y1="170.0" x2="125.0" y2="170.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="55.0" y="180.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="87.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A1</text>
+<rect x="55.0" y="216.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="87.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A5</text>
+<rect x="55.0" y="252.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="87.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A9</text>
+<rect x="55.0" y="288.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="87.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A13</text>
+<rect x="135.0" y="135.0" width="75.0" height="200.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="172.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Диск 1</text>
+<line x1="135.0" y1="170.0" x2="210.0" y2="170.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="140.0" y="180.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="172.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A2</text>
+<rect x="140.0" y="216.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="172.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A6</text>
+<rect x="140.0" y="252.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="172.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A10</text>
+<rect x="140.0" y="288.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="172.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A14</text>
+<rect x="220.0" y="135.0" width="75.0" height="200.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="257.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Диск 2</text>
+<line x1="220.0" y1="170.0" x2="295.0" y2="170.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="225.0" y="180.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="257.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A3</text>
+<rect x="225.0" y="216.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="257.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A7</text>
+<rect x="225.0" y="252.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="257.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A11</text>
+<rect x="225.0" y="288.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="257.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A15</text>
+<rect x="305.0" y="135.0" width="75.0" height="200.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="342.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Диск 3</text>
+<line x1="305.0" y1="170.0" x2="380.0" y2="170.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="310.0" y="180.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="342.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A4</text>
+<rect x="310.0" y="216.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="342.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A8</text>
+<rect x="310.0" y="252.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="342.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A12</text>
+<rect x="310.0" y="288.0" width="65.0" height="30.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="342.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок A16</text>
+<text x="217.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Ємність: N * C  |  Відмова при поломці 1 диска</text>
+<rect x="435.0" y="60.0" width="375.0" height="335.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="622.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#15803d" text-anchor="middle" font-weight="700">RAID 1 (Disk Mirroring)</text>
+<text x="622.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">100% дублювання даних, відмовостійкість</text>
+<rect x="465.0" y="135.0" width="125.0" height="200.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="527.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Диск 0 (Main)</text>
+<line x1="465.0" y1="170.0" x2="590.0" y2="170.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="473.0" y="180.0" width="109.0" height="30.0" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.0"/>
+<text x="527.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Блок A1</text>
+<rect x="473.0" y="216.0" width="109.0" height="30.0" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.0"/>
+<text x="527.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Блок A2</text>
+<rect x="473.0" y="252.0" width="109.0" height="30.0" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.0"/>
+<text x="527.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Блок A3</text>
+<rect x="473.0" y="288.0" width="109.0" height="30.0" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.0"/>
+<text x="527.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Блок A4</text>
+<rect x="625.0" y="135.0" width="125.0" height="200.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="687.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Диск 1 (Mirror)</text>
+<line x1="625.0" y1="170.0" x2="750.0" y2="170.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="633.0" y="180.0" width="109.0" height="30.0" rx="3" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="687.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#713f12" text-anchor="middle" font-weight="700">Блок A1</text>
+<rect x="633.0" y="216.0" width="109.0" height="30.0" rx="3" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="687.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#713f12" text-anchor="middle" font-weight="700">Блок A2</text>
+<rect x="633.0" y="252.0" width="109.0" height="30.0" rx="3" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="687.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#713f12" text-anchor="middle" font-weight="700">Блок A3</text>
+<rect x="633.0" y="288.0" width="109.0" height="30.0" rx="3" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="687.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#713f12" text-anchor="middle" font-weight="700">Блок A4</text>
+<line x1="598.0" y1="190.0" x2="620.0" y2="190.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="226.0" x2="598.0" y2="226.0" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="622.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Ємність: C  |  Витримує відмову N-1 дисків у парі</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="420.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="425.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура вузла у центрованому інтервальному дереві Едельсбруннера</text>
+<rect x="220.0" y="70.0" width="410.0" height="140.0" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="2.0"/>
+<text x="425.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0369a1" text-anchor="middle" font-weight="700">Вузол з медіаною x_mid</text>
+<line x1="425.0" y1="110.0" x2="425.0" y2="200.0" stroke="#e11d48" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="425.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e11d48" text-anchor="middle" font-weight="700">x_mid</text>
+<rect x="235.0" y="115.0" width="170.0" height="70.0" rx="4" fill="#ffffff" stroke="#38bdf8" stroke-width="1.0"/>
+<text x="320.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Список A_L</text>
+<text x="320.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Інтервали, що перетинають x_mid</text>
+<text x="320.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">сорт. за low (зростання)</text>
+<rect x="445.0" y="115.0" width="170.0" height="70.0" rx="4" fill="#ffffff" stroke="#38bdf8" stroke-width="1.0"/>
+<text x="530.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Список A_R</text>
+<text x="530.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Інтервали, що перетинають x_mid</text>
+<text x="530.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">сорт. за high (спадання)</text>
+<line x1="310.0" y1="210.0" x2="220.0" y2="280.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="540.0" y1="210.0" x2="630.0" y2="280.0" stroke="#64748b" stroke-width="2.0"/>
+<rect x="90.0" y="280.0" width="260.0" height="100.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="220.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ліве піддерево (Left Subtree)</text>
+<text x="220.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Містить лише ті інтервали,</text>
+<text x="220.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">які строго ЛІВОРУЧ від x_mid (high &lt; x_mid)</text>
+<rect x="500.0" y="280.0" width="260.0" height="100.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="630.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Праве піддерево (Right Subtree)</text>
+<text x="630.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Містить лише ті інтервали,</text>
+<text x="630.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">які строго ПРАВОРУЧ від x_mid (low &gt; x_mid)</text>
+<rect x="25.0" y="385.0" width="790.0" height="30.0" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="425.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">Забезпечує гарантований O(k + log n) пошук усіх k перетинів у станійних / напівдинамічних задачах.</text>
+</svg>

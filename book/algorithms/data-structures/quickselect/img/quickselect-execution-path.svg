@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння дерева Quicksort та зрізаного шляху Quickselect</text>
+<text x="210.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Quicksort: обхід двох гілок O(n log n)</text>
+<rect x="140.0" y="55.0" width="140.0" height="26.0" rx="4" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="210.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[ n елементів ]</text>
+<line x1="185.0" y1="81.0" x2="145.0" y2="110.0" stroke="#2980b9" stroke-width="1.5"/>
+<line x1="235.0" y1="81.0" x2="275.0" y2="110.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="100.0" y="110.0" width="90.0" height="24.0" rx="4" fill="#eef2f7" stroke="#2980b9" stroke-width="1.2"/>
+<text x="145.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n / 2</text>
+<rect x="230.0" y="110.0" width="90.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="275.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n / 2</text>
+<line x1="125.0" y1="134.0" x2="100.0" y2="165.0" stroke="#2980b9" stroke-width="1.2"/>
+<line x1="165.0" y1="134.0" x2="180.0" y2="165.0" stroke="#2980b9" stroke-width="1.2"/>
+<line x1="255.0" y1="134.0" x2="240.0" y2="165.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="295.0" y1="134.0" x2="320.0" y2="165.0" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="80.0" y="165.0" width="42.0" height="22.0" rx="3" fill="#eef2f7" stroke="#2980b9" stroke-width="1.0"/>
+<text x="101.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<rect x="160.0" y="165.0" width="42.0" height="22.0" rx="3" fill="#eef2f7" stroke="#2980b9" stroke-width="1.0"/>
+<text x="181.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<rect x="220.0" y="165.0" width="42.0" height="22.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="241.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<rect x="300.0" y="165.0" width="42.0" height="22.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="321.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<text x="210.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повне дерево: кожна підзадача обробляється</text>
+<line x1="410.0" y1="30.0" x2="410.0" y2="270.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="610.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e824c" text-anchor="middle" font-weight="700">Quickselect: вибір лише однієї гілки O(n)</text>
+<rect x="540.0" y="55.0" width="140.0" height="26.0" rx="4" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="610.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[ n елементів ]</text>
+<line x1="585.0" y1="81.0" x2="545.0" y2="110.0" stroke="#2980b9" stroke-width="2.0"/>
+<line x1="635.0" y1="81.0" x2="675.0" y2="110.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<rect x="500.0" y="110.0" width="90.0" height="24.0" rx="4" fill="#eef2f7" stroke="#2980b9" stroke-width="1.5"/>
+<text x="545.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">n / 2 (обрано)</text>
+<rect x="630.0" y="110.0" width="90.0" height="24.0" rx="4" fill="#f2f4f4" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="675.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">n / 2 (відкинуто)</text>
+<line x1="525.0" y1="134.0" x2="500.0" y2="165.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="565.0" y1="134.0" x2="580.0" y2="165.0" stroke="#1e824c" stroke-width="2.0"/>
+<rect x="480.0" y="165.0" width="42.0" height="22.0" rx="3" fill="#f2f4f4" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="501.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">відкид</text>
+<rect x="560.0" y="165.0" width="64.0" height="24.0" rx="4" fill="#e6f7ee" stroke="#1e824c" stroke-width="1.8"/>
+<text x="592.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e824c" text-anchor="middle" font-weight="700">k-й елемент</text>
+<text x="610.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">Однобічна рекурсія: n + n/2 + n/4 + ... = 2n</text>
+</svg>

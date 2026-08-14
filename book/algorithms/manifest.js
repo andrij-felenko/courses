@@ -10,6 +10,13 @@ window.__BOOKS__.push(
       "title": "Складність",
       "scope": "Теорія обчислюваності та складності: межі обчислюваного, класи задач, нижні оцінки.",
       "topics": [
+        { slug: "horn-sat", title: "Задовільненість хорнівських диз'юнктів (Horn-SAT)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "ladner-theorem", title: "Теорема Леднера", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "parity-p", title: "Клас ⊕P (Parity-P)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "p-poly", title: "Клас P/poly: схема складності", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "pspace", title: "Клас PSPACE: поліноміальна пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cook-levin-theorem", title: "Теорема Кука — Левіна: фундаментальний камінь NP-повноти", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-cook-levin.md", status: "done" }] , "math": [{ file: "math-cook-levin-tableau.md", status: "done" }] , "proj": [{ file: "proj-sat-verifier.md", status: "done" }] },
+        { slug: "p-vs-np", title: "P проти NP: Головна загадка обчислюваності", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-p-vs-np.md", status: "done" }] , "math": [{ file: "math-proof-barriers.md", status: "done" }] , "proj": [{ file: "proj-sat-solver.md", status: "done" }] },
         {
           "slug": "state-minimization",
           "title": "Мінімізація скінченного автомата",
@@ -286,20 +293,92 @@ window.__BOOKS__.push(
           "slug": "polynomial-hierarchy",
           "title": "Поліноміальна ієрархія (PH)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-polynomial-hierarchy.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-ph-collapse.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-qsat-solver.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-polynomial-hierarchy.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-ph-collapse.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-qsat-solver.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "pp-probabilistic-polynomial",
           "title": "Клас PP: ймовірнісний поліноміальний час",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-gill-toda.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-pp-properties.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-majsat-solver.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-gill-toda.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-pp-properties.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-majsat-solver.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -579,6 +658,24 @@ window.__BOOKS__.push(
       "title": "Структури",
       "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком.",
       "topics": [
+        { slug: "harmonic-numbers", title: "Гармонічні числа", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "catalan-numbers", title: "Числа Каталана", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "segment-tree", title: "Відрізкове дерево (Segment Tree)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cosine-distance", title: "Косинусна відстань", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "jaccard-index", title: "Індекс Жаккара", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "k-nearest-neighbors", title: "Пошук найближчих сусідів (k-NN)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "timsort", title: "Timsort", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "insertion-sort", title: "Сортування вставками (Insertion Sort)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "bubble-sort", title: "Сортування бульбашкою (Bubble Sort)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "splay-tree", title: "Splay-дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "treap", title: "Декартове дерево (Treap)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "2-3-4-tree", title: "2-3-4 дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "percolation-theory", title: "Теорія перколації", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "hoshen-kopelman", title: "Алгоритм Гошена–Копельмана", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "ribbon-filter", title: "Стрічковий фільтр (Ribbon Filter)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "counting-bloom-filter", title: "Підрахунковий фільтр Блума (Counting Bloom Filter)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cuckoo-filter", title: "Фільтр Кукушки (Cuckoo Filter)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "shunting-yard", title: "Сортувальна станція Дейкстри", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "bit-flips",
           "title": "Перевернуті біти",
@@ -987,10 +1084,58 @@ window.__BOOKS__.push(
           "slug": "over-provisioning",
           "title": "Over-provisioning",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-capacity-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-over-provisioning.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-amortized-growth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-over-provisioning.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-capacity-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-over-provisioning.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-amortized-growth.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-over-provisioning.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1025,20 +1170,104 @@ window.__BOOKS__.push(
           "slug": "write-amplification",
           "title": "Write Amplification Factor",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-waf-metrics.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-waf-origins.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-waf-bounds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-waf-simulator.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-waf-metrics.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-waf-origins.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-waf-bounds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-waf-simulator.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "flash-garbage-collection",
           "title": "Garbage collection у Flash-сховищах",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-gc-trim.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-gc-algorithms.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-gc-simulator.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-gc-trim.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-gc-algorithms.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-gc-simulator.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1129,30 +1358,174 @@ window.__BOOKS__.push(
           "slug": "merkle-tree",
           "title": "Дерево Меркла",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-merkle-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-merkle.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-merkle-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-merkle-tree.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-merkle-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-merkle.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-merkle-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-merkle-tree.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "bloom-filter",
           "title": "Фільтр Блума",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-bloom-filter.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-bloom-filter.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-false-positive.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bloom-filter.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-bloom-filter.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-bloom-filter.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-false-positive.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bloom-filter.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "b-tree",
           "title": "B-дерево",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-b-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-b-tree.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-b-tree-bounds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-b-tree.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-b-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-b-tree.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-b-tree-bounds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-b-tree.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1243,20 +1616,104 @@ window.__BOOKS__.push(
           "slug": "union-find",
           "title": "Система неперетинних множин (union-find)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-dsu.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-disjoint-sets.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-ackermann-analysis.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-dsu-impl.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-dsu.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-disjoint-sets.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-ackermann-analysis.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-dsu-impl.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "binary-tree",
           "title": "Двійкове дерево",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-binary-tree.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-binary-tree.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-binary-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-binary-tree.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-binary-tree.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-binary-tree.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1357,80 +1814,452 @@ window.__BOOKS__.push(
           "slug": "array",
           "title": "Масив",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-array-vector.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-array.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-array-addressing.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-array-operations.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-array-vector.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-array.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-array-addressing.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-array-operations.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "linked-list",
           "title": "Зв'язаний список",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-linked-list.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-linked-list.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-pointer-chasing.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-doubly-linked-list.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-linked-list.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-linked-list.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-pointer-chasing.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-doubly-linked-list.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "tree-rotation",
           "title": "Обертання дерева",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-tree-rotation.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tree-rotation.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-rotation-invariants.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-tree-rotation.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-tree-rotation.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tree-rotation.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-rotation-invariants.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-tree-rotation.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "avl-tree",
           "title": "AVL-дерево",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-avl.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-height-bound.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-avl-tree.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-interface.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-avl.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-height-bound.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-avl-tree.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "red-black-tree",
           "title": "Червоно-чорне дерево",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-rbt.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-rbt.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-rb-bounds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-rbt-impl.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-rbt.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-rbt.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-rb-bounds.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-rbt-impl.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "quicksort",
           "title": "Швидке сортування (quicksort)",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-quicksort.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-quicksort.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-quicksort.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-quicksort.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-quicksort.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-quicksort.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "selection-sort",
           "title": "Сортування вибором (selection sort)",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-selection-sort.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-selection-sort.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-selection-sort.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-selection-sort.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-selection-sort.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-selection-sort.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-selection-sort.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-selection-sort.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "binomial-heap",
           "title": "Біноміальна купа",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-binomial-heap.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-binomial-heap.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-binomial-tree.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-binomial-heap.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-binomial-heap.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-binomial-heap.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-binomial-tree.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-binomial-heap.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1465,70 +2294,382 @@ window.__BOOKS__.push(
           "slug": "z-order-curve",
           "title": "Крива Мортона (Z-порядок): просторова близькість у лінійному ключі",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-z-order.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-morton.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-morton.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-z-order.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-z-order.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-morton.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-morton.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-z-order.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "hash-array-mapped-trie",
           "title": "Геш-дерево з бітовими мапами (HAMT)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-hamt.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-hamt-popcount.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-hamt.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-hamt.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-hamt-popcount.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-hamt.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "timer-wheel",
           "title": "Колесо таймерів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-timer-wheel.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-timer-wheel.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-timer-wheel.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-timer-wheel.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-timer-wheel.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-timer-wheel.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-timer-wheel.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-timer-wheel.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "non-cryptographic-hash",
           "title": "Некриптографічні хеш-функції: FNV, Murmur, xxHash",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-hash-bench.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-hash-functions.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-avalanche-distribution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-fast-hash.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-hash-bench.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-hash-functions.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-avalanche-distribution.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-fast-hash.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "sorting-stability",
           "title": "Стійкість сортування",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-sorting-stability.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-stability-proofs.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-stable-sorting.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-sorting-stability.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-stability-proofs.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-stable-sorting.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "interval-tree",
           "title": "Дерево інтервалів: які відрізки накривають задану точку",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-interval-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-interval-tree.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-interval-correctness.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-interval-tree.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-interval-tree.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-interval-tree.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-interval-correctness.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-interval-tree.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "raid-levels",
           "title": "RAID: смуги, дзеркала й парність",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-linux-md.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-raid-history.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-parity-gf28.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-raid-simulator.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-linux-md.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-raid-history.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-parity-gf28.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-raid-simulator.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1563,20 +2704,104 @@ window.__BOOKS__.push(
           "slug": "quickselect",
           "title": "Швидкий вибір: k-й за порядком за лінійний час",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-quickselect.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-quickselect.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-quickselect.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-quickselect.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-quickselect.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-quickselect.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "locality-sensitive-hashing",
           "title": "Локально чутливе хешування (LSH): близькі точки в один кошик",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-lsh.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-lsh.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-lsh-family.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lsh-index.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-lsh.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-lsh.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-lsh-family.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-lsh-index.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -1586,24 +2811,118 @@ window.__BOOKS__.push(
       "title": "Графові",
       "scope": "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       "topics": [
+        { slug: "dominator-tree", title: "Дерево домінування (Dominator Tree)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "single-static-assignment", title: "Форма єдиного статичного присвоєння (SSA)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "control-flow-graph", title: "Граф потоку керування (CFG)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "maximum-flow", title: "Задача про максимальний потік", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "edmonds-blossom-algorithm", title: "Алгоритм Едмондса (Blossom Algorithm)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "floyd-warshall", title: "Алгоритм Флойда–Уоршелла", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "graph-dfs-bfs", title: "Обходи графів DFS та BFS", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "graph-representations", title: "Способи представлення графів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "graph-representation", title: "Представлення графів: матриця та списки суміжності", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "kruskal-algorithm", title: "Алгоритм Краскала", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "routing-algorithms",
           "title": "Алгоритми маршрутизації",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-routing-protocols.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-dv-convergence.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-distance-vector.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-routing-protocols.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-dv-convergence.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-distance-vector.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "congestion-control",
           "title": "Управління перевантаженням мережі",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-traffic-shaper.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-congestion-control.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-maxmin.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-backpressure-routing.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-traffic-shaper.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-congestion-control.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-maxmin.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-backpressure-routing.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1626,80 +2945,404 @@ window.__BOOKS__.push(
           "slug": "topological-sort",
           "title": "Топологічне сортування",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-topological-sort.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-topological-sort.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "strongly-connected-components",
           "title": "Сильно зв'язні компоненти",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-scc.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-strongly-connected-components.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-scc-condensation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-tarjan-scc.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-scc.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-strongly-connected-components.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-scc-condensation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-tarjan-scc.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "register-allocation",
           "title": "Розподіл регістрів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-register-allocation.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-register-allocation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-register-allocation.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-register-allocation.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-register-allocation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-register-allocation.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "bellman-ford",
           "title": "Алгоритм Беллмана–Форда",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-bellman-ford.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-bellman-ford.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bellman-ford.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-bellman-ford.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-bellman-ford.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bellman-ford.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "bipartite-matching",
           "title": "Двочасткові графи й досконале паросполучення",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-bipartite-matching.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-bipartite-matching.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-könig-hall.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-kuhn-matching.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-bipartite-matching.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-bipartite-matching.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-könig-hall.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-kuhn-matching.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "breadth-first-search",
           "title": "Пошук у ширину (BFS)",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-bfs-traversal.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-breadth-first-search.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-bfs-correctness.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bfs-applications.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-bfs-traversal.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-breadth-first-search.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-bfs-correctness.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-bfs-applications.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "depth-first-search",
           "title": "Пошук у глибину (DFS)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-dfs.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-dfs.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-dfs.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-dfs.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-dfs.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-dfs.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-dfs.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-dfs.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "transitive-closure",
           "title": "Транзитивне замикання графа",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-reachability.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-warshall.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-boolean-algebra.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-transitive-closure.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-reachability.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-warshall.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-boolean-algebra.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-transitive-closure.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -1713,10 +3356,34 @@ window.__BOOKS__.push(
           "slug": "regex-engine",
           "title": "Рушій регулярних виразів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-regex-engine.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-regex-engine.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-regex-engine.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-regex-engine.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {

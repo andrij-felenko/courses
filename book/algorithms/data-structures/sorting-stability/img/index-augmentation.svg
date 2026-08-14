@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Декорування ключів початковим індексом (Key Augmentation)</text>
+<text x="410.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Перетворення ключа K на паралельний кортеж (K, index) робить будь-яке сортування стійким</text>
+<rect x="60.0" y="85.0" width="320.0" height="220.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оригінальні елементи з однаковим K</text>
+<rect x="90.0" y="135.0" width="260.0" height="45.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Елемент A: Key = 42 (Index 0)</text>
+<rect x="90.0" y="195.0" width="260.0" height="45.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Елемент B: Key = 42 (Index 1)</text>
+<text x="220.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Порівняння 42 == 42 викликає
+невизначеність у нестійкім сортуванні</text>
+<line x1="390.0" y1="195.0" x2="460.0" y2="195.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="425.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Декорування</text>
+<rect x="470.0" y="85.0" width="300.0" height="220.0" rx="8" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="620.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Розширені ключі (Ключ, Індекс)</text>
+<rect x="490.0" y="135.0" width="260.0" height="45.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="505.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Tuple A: (42, 0)</text>
+<rect x="490.0" y="195.0" width="260.0" height="45.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="505.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Tuple B: (42, 1)</text>
+<text x="620.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оскільки (42, 0) &lt; (42, 1),
+порядок суворо детермінований!</text>
+</svg>

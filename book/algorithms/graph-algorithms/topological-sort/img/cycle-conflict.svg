@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="142.0" y1="80.0" x2="258.0" y2="80.0" stroke="#dc2626" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="267.1" y1="97.8" x2="212.9" y2="172.2" stroke="#dc2626" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="187.1" y1="172.2" x2="132.9" y2="97.8" stroke="#dc2626" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="222.0" y1="190.0" x2="378.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="120.0" cy="80.0" r="22.0" fill="#fee2e2" stroke="#dc2626" stroke-width="2.0"/><text x="120.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="280.0" cy="80.0" r="22.0" fill="#fee2e2" stroke="#dc2626" stroke-width="2.0"/><text x="280.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="200.0" cy="190.0" r="22.0" fill="#fee2e2" stroke="#dc2626" stroke-width="2.0"/><text x="200.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="400.0" cy="190.0" r="22.0" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="400.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">D</text>
+<rect x="441.7" y="70.2" width="256.6" height="129.6" rx="6" fill="#fff5f5" stroke="#dc2626" stroke-width="1.5"/><text x="570.0" y="92.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Залежність: A → B → C → A</tspan><tspan x="570.0" dy="15.6"></tspan><tspan x="570.0" dy="15.6">Вимога порядку:</tspan><tspan x="570.0" dy="15.6">pos(A) &lt; pos(B) &lt; pos(C) &lt; pos(A)</tspan><tspan x="570.0" dy="15.6"></tspan><tspan x="570.0" dy="15.6">Суперечність: pos(A) &lt; pos(A) !</tspan><tspan x="570.0" dy="15.6">Жоден лінійний порядок неможливий.</tspan></text>
+<text x="200.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="700">Орієнтований цикл (Cyclic Dependency)</text>
+</svg>

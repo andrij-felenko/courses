@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 842.34 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="842.34" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="500.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відновлення інваріантів після вставки нової червоної вершини N</text>
+<rect x="25.0" y="60.0" width="770.0" height="130.0" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="40.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Випадок 1: Дядько U червоний (Red Uncle) → Перефарбування (Recoloring)</text>
+<text x="120.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">До балансування:</text>
+<line x1="120.0" y1="120.0" x2="90.0" y2="145.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="120.0" y1="120.0" x2="150.0" y2="145.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="90.0" y1="145.0" x2="70.0" y2="170.0" stroke="#dc2626" stroke-width="2.0"/>
+<circle cx="120.0" cy="120.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="120.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">G</text>
+<circle cx="90.0" cy="145.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="90.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">P</text>
+<circle cx="150.0" cy="145.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="150.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">U</text>
+<circle cx="70.0" cy="170.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="70.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">N</text>
+<line x1="200.0" y1="140.0" x2="270.0" y2="140.0" stroke="#2563eb" stroke-width="2.0"/>
+<polygon points="270.0,140.0 260.0,135.0 260.0,145.0" fill="#2563eb" stroke="#2563eb" stroke-width="1.0"/>
+<text x="235.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Recolor</text>
+<text x="350.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Після перефарбування:</text>
+<line x1="350.0" y1="120.0" x2="320.0" y2="145.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="350.0" y1="120.0" x2="380.0" y2="145.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="320.0" y1="145.0" x2="300.0" y2="170.0" stroke="#dc2626" stroke-width="2.0"/>
+<circle cx="350.0" cy="120.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="350.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">G</text>
+<circle cx="320.0" cy="145.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="320.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">P</text>
+<circle cx="380.0" cy="145.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="380.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">U</text>
+<circle cx="300.0" cy="170.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="300.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">N</text>
+<text x="450.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">P та U стають чорними, G стає червоним.</text>
+<text x="450.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start">Конфлікт переноситься на рівень G (перевірка вище).</text>
+<rect x="25.0" y="205.0" width="770.0" height="140.0" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="40.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Випадок 2: Дядько U чорний, N — внутрішній племінник (Zig-Zag) → Поворот навколо P</text>
+<text x="120.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">До повороту P:</text>
+<line x1="120.0" y1="265.0" x2="90.0" y2="290.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="120.0" y1="265.0" x2="150.0" y2="290.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="90.0" y1="290.0" x2="110.0" y2="320.0" stroke="#dc2626" stroke-width="2.0"/>
+<circle cx="120.0" cy="265.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="120.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">G</text>
+<circle cx="90.0" cy="290.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="90.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">P</text>
+<circle cx="150.0" cy="290.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="150.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">U</text>
+<circle cx="110.0" cy="320.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="110.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">N</text>
+<line x1="200.0" y1="290.0" x2="270.0" y2="290.0" stroke="#2563eb" stroke-width="2.0"/>
+<polygon points="270.0,290.0 260.0,285.0 260.0,295.0" fill="#2563eb" stroke="#2563eb" stroke-width="1.0"/>
+<text x="235.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Left-Rotate(P)</text>
+<text x="350.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Зведення до Випадку 3 (Line):</text>
+<line x1="350.0" y1="265.0" x2="330.0" y2="290.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="350.0" y1="265.0" x2="380.0" y2="290.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="330.0" y1="290.0" x2="310.0" y2="320.0" stroke="#dc2626" stroke-width="2.0"/>
+<circle cx="350.0" cy="265.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="350.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">G</text>
+<circle cx="330.0" cy="290.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="330.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">N</text>
+<circle cx="380.0" cy="290.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="380.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">U</text>
+<circle cx="310.0" cy="320.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="310.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">P</text>
+<text x="460.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">Поворот змінює ролі P та N.</text>
+<text x="460.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start">Тепер N і P утворюють пряму лінію (Case 3).</text>
+<rect x="25.0" y="360.0" width="770.0" height="140.0" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="40.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Випадок 3: Дядько U чорний, N — зовнішній племінник (Line) → Поворот G + Перефарбування</text>
+<text x="120.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">До повороту G:</text>
+<line x1="120.0" y1="420.0" x2="90.0" y2="445.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="120.0" y1="420.0" x2="150.0" y2="445.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="90.0" y1="445.0" x2="70.0" y2="475.0" stroke="#dc2626" stroke-width="2.0"/>
+<circle cx="120.0" cy="420.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="120.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">G</text>
+<circle cx="90.0" cy="445.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="90.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">P</text>
+<circle cx="150.0" cy="445.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="150.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">U</text>
+<circle cx="70.0" cy="475.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="70.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">N</text>
+<line x1="200.0" y1="445.0" x2="270.0" y2="445.0" stroke="#059669" stroke-width="2.0"/>
+<polygon points="270.0,445.0 260.0,440.0 260.0,450.0" fill="#059669" stroke="#059669" stroke-width="1.0"/>
+<text x="235.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">Right-Rotate(G)</text>
+<text x="235.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">+ Recolor</text>
+<text x="350.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Фінальний збалансований стан:</text>
+<line x1="350.0" y1="420.0" x2="320.0" y2="445.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="350.0" y1="420.0" x2="380.0" y2="445.0" stroke="#dc2626" stroke-width="2.0"/>
+<circle cx="350.0" cy="420.0" r="14.0" fill="#1e293b" stroke="#0f172a" stroke-width="2.0"/>
+<text x="350.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">P</text>
+<circle cx="320.0" cy="445.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="320.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">N</text>
+<circle cx="380.0" cy="445.0" r="14.0" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="380.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">G</text>
+<text x="460.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">P стає чорним коренем піддерева,</text>
+<text x="460.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="start" font-weight="700">G та N — його червоними дітьми. Дерево повністю збалансоване!</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фонове проти екстреного GC</text>
+<rect x="60.0" y="60.0" width="780.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="134.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0"></tspan></text>
+<text x="450.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пул вільних блоків (Free Block Pool)</text>
+<line x1="200.0" y1="110.0" x2="200.0" y2="185.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="200.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">N_crit (Критичний)</text>
+<line x1="480.0" y1="110.0" x2="480.0" y2="185.0" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="480.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">N_low (Нижній)</text>
+<line x1="720.0" y1="110.0" x2="720.0" y2="185.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="720.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">N_high (Верхній)</text>
+<rect x="80.0" y="120.0" width="110.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="135.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Екстрений GC
+(Foreground)</text>
+<rect x="210.0" y="120.0" width="260.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="340.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Адаптивне дротування
+(Throttling)</text>
+<rect x="490.0" y="120.0" width="220.0" height="55.0" rx="6" fill="#e8f5ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="600.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фоновий GC
+(Background)</text>
+<rect x="730.0" y="120.0" width="100.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="780.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Спокій
+(Idle)</text>
+<rect x="60.0" y="230.0" width="780.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="334.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0"></tspan></text>
+<text x="450.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив на затримку запису хоста (Latency)</text>
+<line x1="100.0" y1="400.0" x2="800.0" y2="400.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="100.0" y1="280.0" x2="100.0" y2="400.0" stroke="#333333" stroke-width="1.5"/>
+<text x="75.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Затримка</text>
+<text x="780.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час / Потік записів</text>
+<line x1="100.0" y1="390.0" x2="250.0" y2="390.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="250.0" y1="390.0" x2="450.0" y2="385.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="450.0" y1="385.0" x2="480.0" y2="370.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="480.0" y1="370.0" x2="520.0" y2="310.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="520.0" y1="310.0" x2="550.0" y2="290.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="550.0" y1="290.0" x2="600.0" y2="295.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="600.0" y1="295.0" x2="650.0" y2="385.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="650.0" y1="385.0" x2="800.0" y2="390.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="570.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сплеск затримки (Tail Latency Spike: 50 ms)</text>
+<text x="220.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Нормальна затримка: 200 us</text>
+</svg>

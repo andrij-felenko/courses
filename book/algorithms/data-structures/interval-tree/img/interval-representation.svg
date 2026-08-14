@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="460.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="425.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Представлення 1D-інтервалів у доповненому бінарному дереві пошуку</text>
+<rect x="25.0" y="50.0" width="790.0" height="165.0" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="425.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Множина 1D-інтервалів на числовій прямій</text>
+<line x1="50.0" y1="190.0" x2="790.0" y2="190.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="70.0" y1="185.0" x2="70.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="70.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="155.0" y1="185.0" x2="155.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="155.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5</text>
+<line x1="240.0" y1="185.0" x2="240.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="240.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">10</text>
+<line x1="325.0" y1="185.0" x2="325.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="325.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">15</text>
+<line x1="410.0" y1="185.0" x2="410.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="410.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">20</text>
+<line x1="495.0" y1="185.0" x2="495.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="495.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">25</text>
+<line x1="580.0" y1="185.0" x2="580.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="580.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">30</text>
+<line x1="665.0" y1="185.0" x2="665.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="665.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">35</text>
+<line x1="750.0" y1="185.0" x2="750.0" y2="195.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="750.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">40</text>
+<line x1="325.0" y1="85.0" x2="410.0" y2="85.0" stroke="#3b82f6" stroke-width="4.0"/>
+<circle cx="325.0" cy="85.0" r="4.0" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="410.0" cy="85.0" r="4.0" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="367.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle" font-weight="700">[15, 20]</text>
+<line x1="240.0" y1="105.0" x2="580.0" y2="105.0" stroke="#8b5cf6" stroke-width="4.0"/>
+<circle cx="240.0" cy="105.0" r="4.0" fill="#8b5cf6" stroke="#8b5cf6" stroke-width="1.5"/>
+<circle cx="580.0" cy="105.0" r="4.0" fill="#8b5cf6" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="410.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8b5cf6" text-anchor="middle" font-weight="700">[10, 30]</text>
+<line x1="359.0" y1="125.0" x2="393.0" y2="125.0" stroke="#ec4899" stroke-width="4.0"/>
+<circle cx="359.0" cy="125.0" r="4.0" fill="#ec4899" stroke="#ec4899" stroke-width="1.5"/>
+<circle cx="393.0" cy="125.0" r="4.0" fill="#ec4899" stroke="#ec4899" stroke-width="1.5"/>
+<text x="376.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ec4899" text-anchor="middle" font-weight="700">[17, 19]</text>
+<line x1="155.0" y1="145.0" x2="410.0" y2="145.0" stroke="#10b981" stroke-width="4.0"/>
+<circle cx="155.0" cy="145.0" r="4.0" fill="#10b981" stroke="#10b981" stroke-width="1.5"/>
+<circle cx="410.0" cy="145.0" r="4.0" fill="#10b981" stroke="#10b981" stroke-width="1.5"/>
+<text x="282.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#10b981" text-anchor="middle" font-weight="700">[5, 20]</text>
+<line x1="274.0" y1="165.0" x2="325.0" y2="165.0" stroke="#f59e0b" stroke-width="4.0"/>
+<circle cx="274.0" cy="165.0" r="4.0" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="325.0" cy="165.0" r="4.0" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="299.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#f59e0b" text-anchor="middle" font-weight="700">[12, 15]</text>
+<line x1="580.0" y1="145.0" x2="750.0" y2="145.0" stroke="#06b6d4" stroke-width="4.0"/>
+<circle cx="580.0" cy="145.0" r="4.0" fill="#06b6d4" stroke="#06b6d4" stroke-width="1.5"/>
+<circle cx="750.0" cy="145.0" r="4.0" fill="#06b6d4" stroke="#06b6d4" stroke-width="1.5"/>
+<text x="665.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#06b6d4" text-anchor="middle" font-weight="700">[30, 40]</text>
+<line x1="425.0" y1="255.0" x2="250.0" y2="335.0" stroke="#94a3b8" stroke-width="2.0"/>
+<line x1="425.0" y1="255.0" x2="600.0" y2="335.0" stroke="#94a3b8" stroke-width="2.0"/>
+<line x1="250.0" y1="335.0" x2="150.0" y2="420.0" stroke="#94a3b8" stroke-width="2.0"/>
+<line x1="250.0" y1="335.0" x2="350.0" y2="420.0" stroke="#94a3b8" stroke-width="2.0"/>
+<line x1="600.0" y1="335.0" x2="510.0" y2="420.0" stroke="#94a3b8" stroke-width="2.0"/>
+<rect x="355.0" y="231.0" width="140.0" height="48.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="425.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[15, 20]</text>
+<text x="425.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 40</text>
+<rect x="180.0" y="311.0" width="140.0" height="48.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="250.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[10, 30]</text>
+<text x="250.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 30</text>
+<rect x="530.0" y="311.0" width="140.0" height="48.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="600.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[30, 40]</text>
+<text x="600.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 40</text>
+<rect x="80.0" y="396.0" width="140.0" height="48.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="150.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[5, 20]</text>
+<text x="150.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 20</text>
+<rect x="280.0" y="396.0" width="140.0" height="48.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="350.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[12, 15]</text>
+<text x="350.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 15</text>
+<rect x="440.0" y="396.0" width="140.0" height="48.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="510.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[17, 19]</text>
+<text x="510.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 19</text>
+</svg>

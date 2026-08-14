@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 940 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="940" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="920.0" height="350.0" rx="6" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="460.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр виконання пошуку за LSH-індексом</text>
+<rect x="20.0" y="65.0" width="125.0" height="95.0" rx="6" fill="#edf2f7" stroke="#333333" stroke-width="1.5"/>
+<text x="82.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Запит q</text>
+<line x1="30.0" y1="101.0" x2="135.0" y2="101.0" stroke="#333333" stroke-width="0.8"/>
+<text x="82.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вектор запиту</text>
+<text x="82.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">q ∈ Rᵈ</text>
+<line x1="145.0" y1="112.5" x2="170.0" y2="112.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="170.0" y="65.0" width="125.0" height="95.0" rx="6" fill="#e1f5fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="232.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. Хешування</text>
+<line x1="180.0" y1="101.0" x2="285.0" y2="101.0" stroke="#2457d6" stroke-width="0.8"/>
+<text x="232.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обчислення L</text>
+<text x="232.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">бакетових хешів</text>
+<line x1="295.0" y1="112.5" x2="320.0" y2="112.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="320.0" y="65.0" width="125.0" height="95.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="382.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Пошук</text>
+<line x1="330.0" y1="101.0" x2="435.0" y2="101.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="382.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вибірка з L</text>
+<text x="382.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">хеш-таблиць</text>
+<line x1="445.0" y1="112.5" x2="470.0" y2="112.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="470.0" y="65.0" width="125.0" height="95.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="532.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Кандидати</text>
+<line x1="480.0" y1="101.0" x2="585.0" y2="101.0" stroke="#c0392b" stroke-width="0.8"/>
+<text x="532.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Об'єднання ID</text>
+<text x="532.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(Union without Dup)</text>
+<line x1="595.0" y1="112.5" x2="620.0" y2="112.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="620.0" y="65.0" width="125.0" height="95.0" rx="6" fill="#fefcbf" stroke="#333333" stroke-width="1.5"/>
+<text x="682.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Переперевірка</text>
+<line x1="630.0" y1="101.0" x2="735.0" y2="101.0" stroke="#333333" stroke-width="0.8"/>
+<text x="682.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Точний розрахунок</text>
+<text x="682.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">відстані d(q, x)</text>
+<line x1="745.0" y1="112.5" x2="770.0" y2="112.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="770.0" y="65.0" width="125.0" height="95.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="832.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6. Результат</text>
+<line x1="780.0" y1="101.0" x2="885.0" y2="101.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="832.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Top-K найближчих</text>
+<text x="832.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">сусідів</text>
+<rect x="20.0" y="185.0" width="880.0" height="125.0" rx="6" fill="#fafafa" stroke="#d0d0d0" stroke-width="1.0"/>
+<text x="40.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Деталізація конвеєра:</text>
+<text x="40.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Етап 1-3 (O(L) операцій): LSH швидким відбором звужує пошуковий простір з N мільйонів записів до C (декількох десятків) кандидатів.</text>
+<text x="40.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Етап 4 (Об'єднання): Кандидатом стає будь-який вектор, що потрапив у той самий бакет хоч в одній із L хеш-таблиць.</text>
+<text x="40.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Етап 5-6 (Точний перерахунок): Точна відстань d(q, x) обчислюється ЛИШЕ для відібраних C кандидатів, скасовуючи лінійне сканування всієї бази.</text>
+<text x="460.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">LSH працює як ймовірнісний фільтр: 99.9% бази відсікається за O(L), а важкі векторні обчислення робляться лише для кандидатів.</text>
+</svg>

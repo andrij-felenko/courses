@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево рекурсії Quicksort</text>
+<text x="200.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ідеальний випадок: збалансований поділ</text>
+<text x="200.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Глибина = log₂ n, Час = O(n log n)</text>
+<rect x="150.0" y="85.0" width="100.0" height="26.0" rx="4" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="200.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[ n елементів ]</text>
+<line x1="180.0" y1="111.0" x2="140.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="220.0" y1="111.0" x2="260.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="95.0" y="140.0" width="90.0" height="24.0" rx="4" fill="#eef2f7" stroke="#2980b9" stroke-width="1.2"/>
+<text x="140.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n/2</text>
+<rect x="215.0" y="140.0" width="90.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="260.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n/2</text>
+<line x1="120.0" y1="164.0" x2="75.0" y2="190.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="160.0" y1="164.0" x2="170.0" y2="190.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="240.0" y1="164.0" x2="230.0" y2="190.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="280.0" y1="164.0" x2="325.0" y2="190.0" stroke="#333333" stroke-width="1.2"/>
+<rect x="55.0" y="190.0" width="40.0" height="22.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="75.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<rect x="150.0" y="190.0" width="40.0" height="22.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="170.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<rect x="210.0" y="190.0" width="40.0" height="22.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="230.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<rect x="305.0" y="190.0" width="40.0" height="22.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="325.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n/4</text>
+<text x="200.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle">⋮</text>
+<text x="200.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Опорний елемент щоразу ділить масив навпіл</text>
+<line x1="420.0" y1="45.0" x2="420.0" y2="300.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="640.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Найгірший випадок: несбалансований поділ</text>
+<text x="640.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Глибина = n, Час = O(n²)</text>
+<rect x="590.0" y="85.0" width="100.0" height="26.0" rx="4" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="640.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[ n елементів ]</text>
+<line x1="650.0" y1="111.0" x2="685.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="620.0" y1="111.0" x2="590.0" y2="140.0" stroke="#333333" stroke-width="1.2"/>
+<text x="575.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="640.0" y="140.0" width="90.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="685.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n − 1</text>
+<line x1="695.0" y1="164.0" x2="725.0" y2="190.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="680.0" y="190.0" width="90.0" height="22.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="725.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n − 2</text>
+<line x1="725.0" y1="212.0" x2="745.0" y2="235.0" stroke="#333333" stroke-width="1.5"/>
+<text x="745.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle">⋮</text>
+<text x="640.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Поганий pivot (найменший або найбільший)</text>
+</svg>

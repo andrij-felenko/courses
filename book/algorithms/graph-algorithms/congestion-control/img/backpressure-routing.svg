@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маршрутизація зворотного тиску (Backpressure Routing)</text>
+<line x1="200.0" y1="200.0" x2="560.0" y2="200.0" stroke="#6b7280" stroke-width="3.0" stroke-dasharray="6 4"/>
+<text x="380.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ребро (u, v) з ємністю C = 10</text>
+<circle cx="200.0" cy="200.0" r="65.0" fill="#eff6ff" stroke="#2457d6" stroke-width="2.5"/>
+<text x="200.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол u</text>
+<rect x="131.3" y="186.3" width="137.4" height="37.3" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="201.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Черга A: Q_u[A] = 18</tspan><tspan x="200.0" dy="14.3">Черга B: Q_u[B] = 5</tspan></text>
+<circle cx="560.0" cy="200.0" r="65.0" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.5"/>
+<text x="560.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол v</text>
+<rect x="491.3" y="186.3" width="137.4" height="37.3" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="201.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Черга A: Q_v[A] = 6</tspan><tspan x="560.0" dy="14.3">Черга B: Q_v[B] = 10</tspan></text>
+<line x1="270.0" y1="185.0" x2="490.0" y2="185.0" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="270.5" y="234.9" width="218.9" height="80.2" rx="6" fill="#fff7ee" stroke="#c0392b" stroke-width="1.5"/><text x="380.0" y="250.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Різниця тиску черг:</tspan><tspan x="380.0" dy="14.3">ΔQ(A) = 18 - 6 = +12 (Перемагає!)</tspan><tspan x="380.0" dy="14.3">ΔQ(B) = 5 - 10 = -5</tspan><tspan x="380.0" dy="14.3"></tspan><tspan x="380.0" dy="14.3">Пересилаємо товар A з u до v</tspan></text>
+</svg>

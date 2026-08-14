@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема двостороннього сортування вибором</text>
+<text x="360.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двосторонній прохід: одночасне знаходження MIN та MAX</text>
+<rect x="130.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#e6f7ee" stroke="#333333" stroke-width="1.5"/><text x="156.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">14</text>
+<rect x="182.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="208.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">88</text>
+<rect x="234.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">23</text>
+<rect x="286.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#fbf4e6" stroke="#333333" stroke-width="1.5"/><text x="312.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<rect x="338.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="364.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">67</text>
+<rect x="390.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="416.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">42</text>
+<rect x="442.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="468.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">91</text>
+<rect x="494.0" y="90.0" width="52.0" height="42.0" rx="4" fill="#e6f7ee" stroke="#333333" stroke-width="1.5"/><text x="520.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">31</text>
+<line x1="208.0" y1="60.0" x2="208.0" y2="85.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="208.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">left (idx 1)</text>
+<line x1="468.0" y1="60.0" x2="468.0" y2="85.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="468.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">right (idx 6)</text>
+<line x1="312.0" y1="162.0" x2="312.0" y2="137.0" stroke="#1e824c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="312.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e824c" text-anchor="middle" font-weight="700">Знайдено MIN=5 (idx 3)</text>
+<line x1="468.0" y1="162.0" x2="468.0" y2="137.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="468.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Знайдено MAX=91 (idx 6)</text>
+<text x="360.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">MIN (5) ⇄ A[left], MAX (91) ⇄ A[right]  →  Межі зсуваються (left++, right--)</text>
+</svg>

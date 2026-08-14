@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="440.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="425.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покрокова трасування пошуку перетину для Q = [21, 23]</text>
+<rect x="25.0" y="50.0" width="790.0" height="50.0" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="425.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#854d0e" text-anchor="middle" font-weight="700">Запит Q = [21, 23] | q_low = 21, q_high = 23</text>
+<line x1="425.0" y1="140.0" x2="250.0" y2="240.0" stroke="#2563eb" stroke-width="3.5"/>
+<line x1="425.0" y1="140.0" x2="600.0" y2="240.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="250.0" y1="240.0" x2="150.0" y2="340.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="250.0" y1="240.0" x2="350.0" y2="340.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="600.0" y1="240.0" x2="510.0" y2="340.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="355.0" y="116.0" width="140.0" height="48.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.0"/>
+<text x="425.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[15, 20]</text>
+<text x="425.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 40</text>
+<rect x="520.0" y="120.0" width="270.0" height="42.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="655.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">Крок 1: [15,20] не перетинає [21,23]</text>
+<text x="655.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">left.max (30) ≥ q_low (21) → ЛІВОРУЧ</text>
+<line x1="515.0" y1="140.0" x2="500.0" y2="140.0" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="180.0" y="216.0" width="140.0" height="48.0" rx="6" fill="#bbf7d0" stroke="#16a34a" stroke-width="2.0"/>
+<text x="250.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[10, 30]</text>
+<text x="250.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 30</text>
+<rect x="25.0" y="220.0" width="145.0" height="48.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="97.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Крок 2: [10, 30]</text>
+<text x="97.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">ПЕРЕТИН ЗНАЙДЕНО!</text>
+<line x1="172.0" y1="240.0" x2="175.0" y2="240.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="216.0" width="140.0" height="48.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="600.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[30, 40]</text>
+<text x="600.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 40</text>
+<rect x="80.0" y="316.0" width="140.0" height="48.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="150.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[5, 20]</text>
+<text x="150.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 20</text>
+<rect x="280.0" y="316.0" width="140.0" height="48.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="350.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[12, 15]</text>
+<text x="350.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 15</text>
+<rect x="440.0" y="316.0" width="140.0" height="48.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="510.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">[17, 19]</text>
+<text x="510.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">max = 19</text>
+<rect x="25.0" y="395.0" width="790.0" height="35.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="425.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Теорема гарантує: якщо left.max ≥ q_low, перетинаючий інтервал ОБОВ'ЯЗКОВО існує в лівому піддереві.</text>
+</svg>

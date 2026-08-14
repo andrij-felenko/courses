@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Затоплення LSA та локальне обчислення дерева найкоротших шляхів</text>
+<text x="210.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Затоплення LSA (Link-State)</text>
+<rect x="30.0" y="55.0" width="360.0" height="340.0" rx="8" fill="#f4f6f7" stroke="#d5dbdb" stroke-width="1.5"/>
+<circle cx="210.0" cy="160.0" r="22.0" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="210.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<line x1="193.7" y1="174.8" x2="116.3" y2="245.2" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="210.0" y1="182.0" x2="210.0" y2="288.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="226.3" y1="174.8" x2="303.7" y2="245.2" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="100.0" cy="260.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="100.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="210.0" cy="310.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="210.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="320.0" cy="260.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="320.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">D</text>
+<circle cx="210.0" cy="160.0" r="42.0" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="210.0" cy="160.0" r="65.0" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+<text x="210.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">LSA від A розсилається всім</text>
+<text x="570.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Локальний граф і Дейкстра</text>
+<rect x="410.0" y="55.0" width="320.0" height="340.0" rx="8" fill="#ebf5fb" stroke="#a9cce3" stroke-width="1.5"/>
+<rect x="425.0" y="110.0" width="290.0" height="230.0" rx="6" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/><text x="570.0" y="184.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Кожен роутер збирає LSA від УСІХ вузлів</tspan><tspan x="570.0" dy="15.0">і будує ідентичну картографію G=(V,E).</tspan><tspan x="570.0" dy="15.0"></tspan><tspan x="570.0" dy="15.0">Після цього роутер A запускає</tspan><tspan x="570.0" dy="15.0">алгоритм Дейкстри локально,</tspan><tspan x="570.0" dy="15.0">обчислюючи дерево найкоротших</tspan><tspan x="570.0" dy="15.0">шляхів від себе до всіх вершин.</tspan></text>
+</svg>

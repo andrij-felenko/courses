@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікація алгоритмів сортування за стійкістю</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Основний критерій: чи міняються місцями елементи через великі відстані</text>
+<rect x="50.0" y="75.0" width="350.0" height="330.0" rx="8" fill="#f4faf7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="225.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Стійкі алгоритми (Stable)</text>
+<line x1="70.0" y1="115.0" x2="380.0" y2="115.0" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="65.0" y="135.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="78.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Сортування злиттям (Merge Sort)</text>
+<text x="78.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">left[i] &lt;= right[j] віддає перевагу лівому</text>
+<rect x="65.0" y="200.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="78.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Сортування вставками (Insertion)</text>
+<text x="78.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">зсув зупиняється на першому рівному</text>
+<rect x="65.0" y="265.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="78.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Сортування бульбашкою (Bubble)</text>
+<text x="78.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">обмін лише при строгому a[j] &gt; a[j+1]</text>
+<rect x="65.0" y="330.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="78.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Порозрядне / Рахунком (Radix/Counting)</text>
+<text x="78.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">запис у кошики в порядку вихідного скану</text>
+<rect x="440.0" y="75.0" width="350.0" height="330.0" rx="8" fill="#fdf5f4" stroke="#c0392b" stroke-width="1.5"/>
+<text x="615.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Нестійкі алгоритми (Unstable)</text>
+<line x1="460.0" y1="115.0" x2="770.0" y2="115.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="455.0" y="135.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="468.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Швидке сортування (Quicksort)</text>
+<text x="468.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">перестрибування опорного елемента (pivot)</text>
+<rect x="455.0" y="200.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="468.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Сортування купою (Heapsort)</text>
+<text x="468.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">просіювання в дереві та обмін із кінцем</text>
+<rect x="455.0" y="265.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="468.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Сортування вибором (Selection Sort)</text>
+<text x="468.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">обмін мінімуму з a[i] через проміжні елементи</text>
+<rect x="455.0" y="330.0" width="320.0" height="52.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="468.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">• Сортування Шелла (Shellsort)</text>
+<text x="468.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">сорт зсувами з кроком h &gt; 1 через великі відстані</text>
+</svg>
