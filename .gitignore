@@ -56,3 +56,12 @@ audit_report.json
 /test_*.txt
 /*.log
 /scripts/*_out.txt
+
+# У корені репо фігур не буває — кожна лежить у <тека теми>/img/.
+# Файл тут означає, що figs.py запустили не з тієї теки (див. правило /img/ вище).
+/*.svg
+/temp_*
+# разові скрипти агентів у scripts/ (справжні інструменти мають осмислені імена)
+/scripts/temp_*.js
+/scripts/check_verdicts.js
+/scripts/fix_all_verdicts.js

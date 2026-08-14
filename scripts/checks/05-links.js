@@ -40,7 +40,7 @@ r.out.split(/\r?\n/).forEach((line) => {
   if (!inBroken || !line.trim()) return;
   if (!needle.some((n) => line.includes(n))) return;
   const seg = (line.match(/(?:book|guide):([^\s—]+)/) || [])[1];
-  const targetSlug = seg ? seg.split("/")[1] : null;
+  const targetSlug = seg ? seg.split("/").pop() : null;
   if (targetSlug && (queued.includes(targetSlug) || targetSlug === T.slug)) {
     console.log(`  · лінк на «${targetSlug}» — тема вже в черзі нових або є поточною, буде зареєстрована наприкінці батчу`);
     return;
