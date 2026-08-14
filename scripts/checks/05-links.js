@@ -40,9 +40,11 @@ r.out.split(/\r?\n/).forEach((line) => {
   if (!inBroken || !line.trim()) return;
   if (!needle.some((n) => line.includes(n))) return;
   const seg = (line.match(/(?:book|guide):([^\s—]+)/) || [])[1];
-  const targetSlug = seg ? seg.split("/").pop() : null;
-  if (targetSlug && (queued.includes(targetSlug) || targetSlug === T.slug)) {
-    console.log(`  · лінк на «${targetSlug}» — тема вже в черзі нових або є поточною, буде зареєстрована наприкінці батчу`);
+  const rawTarget = seg ? seg.split("/").pop() : null;
+  const targetSlug = rawTarget ? rawTarget.replace(/\.md$/, "") : null;
+  const isLocalFile = rawTarget && T.files.some((f) => path.basename(f.file) === rawTarget || path.basename(f.file, ".md") === targetSlug);
+  if (targetSlug && (queued.includes(targetSlug) || targetSlug === T.slug || isLocalFile)) {
+    console.log(`  · лінк на «${targetSlug}» — тема/вставка є поточною, в черзі або у теці теми`);
     return;
   }
   bad.push(`битий лінк: ${line.trim().slice(0, 140)}`);
