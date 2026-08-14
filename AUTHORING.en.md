@@ -200,6 +200,15 @@ Manifest (§2): each version has its own `status` — `basic:{status}`, `detaile
 8. **Sentential clarity.** One thought — one sentence; don't nest subordinate clauses inside one another. Name the term **AFTER** the mechanism, not before (first show WHAT happens, then name it in one word). Symmetric things — with **parallel construction** (so the mirroring is visible).
    → *Test:* a sentence you must reread to untangle its clauses — break into steps, one vector per sentence.
 
+9. **Mathematics takes more work than anything else.** Programming rests on logic the reader already carries: it is boolean, step by step, assembled from nodes you can see and run. A mathematical text has no such support — every symbol has to be **held in mind together with all the others**, and that is exactly why a mathematical topic falls into the worst pit: formally correct, and nothing understood. Write it **slower, longer and with more links** than you think necessary.
+   - **Every symbol is named in words at its first appearance.** Not "let ε > 0", but "take any error, however small; call it ε". A reader who has lost what ε is stops reading and starts guessing.
+   - **A derivation goes line by line, and every step carries a note** saying why it is allowed. A skipped step in prose is a hole; a skipped step in a derivation is a break.
+   - **Why first, then how.** What breaks without this formula, which problem it closes, where the need came from — and only then the formula itself, as a **conclusion**, not as a heading.
+   - **A numeric example is a check, not decoration.** At least one worked case with concrete numbers, carried to an answer: it shows the reader understood the mechanism rather than memorised the notation.
+   - **Geometry or a picture where they are honest.** If there is something to see in the subject, show it; but an image that itself has to be imagined first costs more here than anywhere else (§4 item 3).
+   - The volume of a mathematical topic is **naturally larger** than others on the same subject. This is not padding: these are the links without which the reader falls through. That is also why a `math-` insert is needed more often than it seems — and whatever does not fit the article's thread goes exactly there (§3).
+   → *Test:* give the article to someone who does not know the subject and ask them to **retell the derivation in their own words** without looking. They cannot — links are missing, not words.
+
 **Smoothness (right away, not as a separate pass).**
 - The transition between thoughts — **natural and logical**, and **not through empty connective sentences just for show** (they tear the simplicity of perception and annoy).
 - The through-line: **why → intuition → details → example**.
