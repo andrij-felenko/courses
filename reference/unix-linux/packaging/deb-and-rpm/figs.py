@@ -3,15 +3,9 @@ import sys
 
 # Додаємо шлях до scripts/ для імпорту svgkit, якщо потрібно
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../scripts')))
-try:
-    import svgkit
-except ImportError:
-    # Заглушка, якщо svgkit недоступний
-    class svgkit:
-        @staticmethod
-        def render(filename, width, height, content):
-            with open(filename, 'w', encoding='utf-8') as f:
-                f.write(f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">\n{content}\n</svg>')
+import svgkit   # заглушки тут немає навмисно: зламаний імпорт має падати ГОЛОСНО,
+                # інакше фігури тихо перестають з'являтися, а прогін виглядає успішним
+
 
 def render():
     deb_struct = """

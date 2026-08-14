@@ -3,22 +3,9 @@ import sys
 
 # Додаємо scripts/ до шляху пошуку для імпорту svgkit (якщо він є, але ми зробимо standalone render)
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../scripts'))
-try:
-    import svgkit
-except ImportError:
-    # Якщо svgkit недоступний, створимо просту заглушку для генерації
-    class svgkit:
-        @staticmethod
-        def draw_rect(dwg, x, y, width, height, fill="white", stroke="black"):
-            dwg.write(f'<rect x="{x}" y="{y}" width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" />\n')
-        
-        @staticmethod
-        def draw_text(dwg, x, y, text, font_size=12, text_anchor="start"):
-            dwg.write(f'<text x="{x}" y="{y}" font-family="sans-serif" font-size="{font_size}" text-anchor="{text_anchor}">{text}</text>\n')
+import svgkit   # заглушки тут немає навмисно: зламаний імпорт має падати ГОЛОСНО,
+                # інакше фігури тихо перестають з'являтися, а прогін виглядає успішним
 
-        @staticmethod
-        def draw_line(dwg, x1, y1, x2, y2, stroke="black", stroke_width=1):
-            dwg.write(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{stroke}" stroke-width="{stroke_width}" />\n')
 
 def render():
     filepath = os.path.join(os.path.dirname(__file__), "proc-structure.svg")

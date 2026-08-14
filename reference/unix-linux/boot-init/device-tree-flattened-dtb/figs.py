@@ -1,31 +1,9 @@
 import sys
 import os
 
-try:
-    import svgkit
-except ImportError:
-    class svgkit:
-        class Drawing:
-            def __init__(self, w, h):
-                self.w, self.h = w, h
-                self.el = []
-            def add(self, e):
-                self.el.append(e)
-            def save(self, f):
-                with open(f, 'w') as fh:
-                    fh.write(f'<svg width="{self.w}" height="{self.h}" xmlns="http://www.w3.org/2000/svg">')
-                    for e in self.el:
-                        fh.write(e)
-                    fh.write('</svg>')
-        @staticmethod
-        def rect(x, y, w, h, fill="white", stroke="black", rx=0):
-            return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" fill="{fill}" stroke="{stroke}"/>'
-        @staticmethod
-        def text(x, y, t, size=14, anchor="start", fill="black", weight="normal"):
-            return f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" text-anchor="{anchor}" fill="{fill}">{t}</text>'
-        @staticmethod
-        def line(x1, y1, x2, y2, stroke="black", width=2):
-            return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{stroke}" stroke-width="{width}"/>'
+import svgkit   # заглушки тут немає навмисно: зламаний імпорт має падати ГОЛОСНО,
+                # інакше фігури тихо перестають з'являтися, а прогін виглядає успішним
+
 
 def render():
     out_dir = os.path.dirname(os.path.abspath(__file__))

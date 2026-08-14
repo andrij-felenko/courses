@@ -4,57 +4,9 @@ import os
 # Додамо шлях до scripts/ для імпорту svgkit, якщо він існує
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts'))
 
-try:
-    import svgkit
-except ImportError:
-    # Якщо svgkit немає, напишемо заглушку для генерації простого SVG, 
-    # щоб задовольнити вимоги завдання.
-    class svgkit:
-        class Drawing:
-            def __init__(self, size, viewBox=None):
-                self.size = size
-                self.viewBox = viewBox
-                self.elements = []
-            
-            def add(self, element):
-                self.elements.append(element)
-                
-            def save(self, filename):
-                with open(filename, 'w', encoding='utf-8') as f:
-                    f.write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{self.size[0]}" height="{self.size[1]}" viewBox="{self.viewBox or f"0 0 {self.size[0]} {self.size[1]}"}">\n')
-                    for el in self.elements:
-                        f.write(el + '\n')
-                    f.write('</svg>\n')
+import svgkit   # заглушки тут немає навмисно: зламаний імпорт має падати ГОЛОСНО,
+                # інакше фігури тихо перестають з'являтися, а прогін виглядає успішним
 
-        class Rect:
-            def __init__(self, insert, size, **kwargs):
-                self.insert = insert
-                self.size = size
-                self.kwargs = kwargs
-                
-            def __str__(self):
-                attrs = " ".join([f'{k.replace("_", "-")}="{v}"' for k, v in self.kwargs.items()])
-                return f'<rect x="{self.insert[0]}" y="{self.insert[1]}" width="{self.size[0]}" height="{self.size[1]}" {attrs} />'
-                
-        class Text:
-            def __init__(self, text, insert, **kwargs):
-                self.text = text
-                self.insert = insert
-                self.kwargs = kwargs
-                
-            def __str__(self):
-                attrs = " ".join([f'{k.replace("_", "-")}="{v}"' for k, v in self.kwargs.items()])
-                return f'<text x="{self.insert[0]}" y="{self.insert[1]}" {attrs}>{self.text}</text>'
-
-        class Line:
-            def __init__(self, start, end, **kwargs):
-                self.start = start
-                self.end = end
-                self.kwargs = kwargs
-                
-            def __str__(self):
-                attrs = " ".join([f'{k.replace("_", "-")}="{v}"' for k, v in self.kwargs.items()])
-                return f'<line x1="{self.start[0]}" y1="{self.start[1]}" x2="{self.end[0]}" y2="{self.end[1]}" {attrs} />'
 
 def render():
     d = svgkit.Drawing(size=(800, 400), viewBox="0 0 800 400")
