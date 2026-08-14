@@ -1,10 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-    <rect width="800" height="600" fill="#f0f0f0"/>
-    <text x="400" y="300" font-family="sans-serif" font-size="24" text-anchor="middle">Virtio-FS Architecture</text>
-    <rect x="100" y="100" width="250" height="400" fill="#cce5ff" stroke="#004085"/>
-    <text x="225" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Guest OS</text>
-    <rect x="450" y="100" width="250" height="400" fill="#d4edda" stroke="#155724"/>
-    <text x="575" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Host OS</text>
-    <path d="M 350 300 L 450 300" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="400" y="290" font-family="sans-serif" font-size="14" text-anchor="middle">DAX / Virtqueue</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="50.0" width="340.0" height="490.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="210.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гостьова ОС (Guest VM)</text>
+<rect x="620.0" y="50.0" width="340.0" height="490.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="790.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хостова система (Host)</text>
+<rect x="127.3" y="109.0" width="165.4" height="61.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Гостьовий процес</tspan><tspan x="210.0" dy="16.9">(open, read, mmap)</tspan></text>
+<rect x="86.6" y="229.0" width="246.9" height="61.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="256.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Ядро гостя: VFS &amp; virtiofs.ko</tspan><tspan x="210.0" dy="16.9">(Формування FUSE-запитів)</tspan></text>
+<line x1="210.0" y1="180.0" x2="210.0" y2="220.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="64.3" y="409.1" width="291.3" height="61.9" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="436.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Віртуальна пам'ять ВМ</tspan><tspan x="210.0" dy="16.9">(Shared Memory Region / DAX Window)</tspan></text>
+<rect x="410.0" y="235.0" width="180.0" height="50.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Virtqueue (FUSE Req/Resp)</text>
+<line x1="320.0" y1="260.0" x2="405.0" y2="260.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="595.0" y1="260.0" x2="645.0" y2="260.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="655.4" y="229.0" width="269.1" height="61.9" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="256.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Демон virtiofsd (Host Userspace)</tspan><tspan x="790.0" dy="16.9">(vhost-user / openat, readat)</tspan></text>
+<rect x="692.5" y="409.1" width="195.0" height="61.9" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="436.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Сторінковий кеш хоста</tspan><tspan x="790.0" dy="16.9">(Host Page Cache &amp; FS)</tspan></text>
+<line x1="790.0" y1="310.0" x2="790.0" y2="390.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="325.0" y1="440.0" x2="675.0" y2="440.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,5"/>
+<text x="500.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий mmap (Zero-copy DAX)</text>
 </svg>

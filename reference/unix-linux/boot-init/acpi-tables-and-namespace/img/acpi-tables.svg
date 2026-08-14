@@ -1,22 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="410" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 690 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="690" height="430" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="300.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ACPI Tables Hierarchy</text>
-<rect x="200.0" y="20.0" width="200.0" height="50.0" rx="5" fill="#ddeeff" stroke="#336699" stroke-width="1.5"/>
-<text x="300.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">RSDP</text>
-<text x="300.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(Root System Description Pointer)</text>
-<line x1="300.0" y1="70.0" x2="300.0" y2="100.0" stroke="#336699" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="200.0" y="100.0" width="200.0" height="50.0" rx="5" fill="#ddeeff" stroke="#336699" stroke-width="1.5"/>
-<text x="300.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">RSDT / XSDT</text>
-<line x1="200.0" y1="150.0" x2="100.0" y2="200.0" stroke="#336699" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="300.0" y1="150.0" x2="300.0" y2="200.0" stroke="#336699" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="400.0" y1="150.0" x2="500.0" y2="200.0" stroke="#336699" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="50.0" y="200.0" width="100.0" height="50.0" rx="5" fill="#eeffdd" stroke="#339933" stroke-width="1.5"/>
-<text x="100.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">FADT</text>
-<rect x="250.0" y="200.0" width="100.0" height="50.0" rx="5" fill="#eeffdd" stroke="#339933" stroke-width="1.5"/>
-<text x="300.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">SSDTs</text>
-<rect x="450.0" y="200.0" width="100.0" height="50.0" rx="5" fill="#eeffdd" stroke="#339933" stroke-width="1.5"/>
-<text x="500.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">MADT</text>
-<line x1="100.0" y1="250.0" x2="100.0" y2="300.0" stroke="#336699" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="50.0" y="300.0" width="100.0" height="50.0" rx="5" fill="#ffeecc" stroke="#cc6600" stroke-width="1.5"/>
-<text x="100.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">DSDT</text>
+<text x="340.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія статичних та динамічних таблиць ACPI</text>
+<rect x="240.0" y="50.0" width="220.0" height="50.0" rx="6" fill="#e8f4fc" stroke="#2457d6" stroke-width="1.5"/><text x="350.0" y="72.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">RSDP</tspan><tspan x="350.0" dy="11.7">(Root System Description Pointer)</tspan></text>
+<line x1="350.0" y1="100.0" x2="350.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="240.0" y="130.0" width="220.0" height="50.0" rx="6" fill="#e8f4fc" stroke="#2457d6" stroke-width="1.5"/><text x="350.0" y="152.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">RSDT / XSDT</tspan><tspan x="350.0" dy="11.7">(Root / Extended Description Table)</tspan></text>
+<line x1="270.0" y1="180.0" x2="110.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="180.0" x2="260.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="180.0" x2="420.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="180.0" x2="580.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="230.0" width="140.0" height="50.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="110.0" y="251.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">FADT</tspan><tspan x="110.0" dy="14.3">(Fixed ACPI Desc)</tspan></text>
+<rect x="195.0" y="230.0" width="130.0" height="50.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/><text x="260.0" y="251.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">SSDTs</tspan><tspan x="260.0" dy="15.6">(Secondary SDT)</tspan></text>
+<rect x="350.0" y="230.0" width="140.0" height="50.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">MADT</tspan><tspan x="420.0" dy="13.0">(Multiple APIC Desc)</tspan></text>
+<rect x="515.0" y="230.0" width="130.0" height="50.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="580.0" y="251.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">MCFG</tspan><tspan x="580.0" dy="15.6">(PCIe MMCONFIG)</tspan></text>
+<line x1="90.0" y1="280.0" x2="90.0" y2="330.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="130.0" y1="280.0" x2="220.0" y2="330.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="20.0" y="330.0" width="140.0" height="50.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/><text x="90.0" y="351.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">DSDT</tspan><tspan x="90.0" dy="15.6">(AML Bytecode)</tspan></text>
+<rect x="180.0" y="330.0" width="130.0" height="50.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="245.0" y="352.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">FACS</tspan><tspan x="245.0" dy="11.7">(Firmware ACPI Ctrl)</tspan></text>
 </svg>

@@ -1,28 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-    <rect x="50" y="20" width="700" height="260" fill="#fcfcfc" stroke="#333" rx="10" />
-    <text x="400" y="50" text-anchor="middle" font-size="22" font-family="sans-serif" font-weight="bold">Процес оновлення UEFI Capsule</text>
-    
-    <rect x="100" y="100" width="160" height="80" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="5" />
-    <text x="180" y="135" text-anchor="middle" font-size="16" font-family="sans-serif">LVFS / fwupd</text>
-    <text x="180" y="155" text-anchor="middle" font-size="12" font-family="sans-serif">Завантаження .cab</text>
-    
-    <path d="M 260 140 L 330 140" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-    
-    <rect x="340" y="100" width="160" height="80" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="5" />
-    <text x="420" y="135" text-anchor="middle" font-size="16" font-family="sans-serif">Linux Kernel</text>
-    <text x="420" y="155" text-anchor="middle" font-size="12" font-family="sans-serif">efi_capsule_loader</text>
-    
-    <path d="M 500 140 L 570 140" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-
-    <rect x="580" y="100" width="160" height="80" fill="#fff3e0" stroke="#e65100" stroke-width="2" rx="5" />
-    <text x="660" y="135" text-anchor="middle" font-size="16" font-family="sans-serif">UEFI Firmware</text>
-    <text x="660" y="155" text-anchor="middle" font-size="12" font-family="sans-serif">UpdateCapsule()</text>
-    
-    <text x="420" y="210" text-anchor="middle" font-size="14" font-family="sans-serif" font-style="italic">Ребут системи для застосування (ESRT)</text>
-    
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,10 L10,5 z" fill="#333" />
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="1000.0" height="480.0" rx="6" fill="#ffffff" stroke="#cccccc" stroke-width="1.5"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях оновлення прошивки: від LVFS до прошивання SPI Flash</text>
+<rect x="30.0" y="60.0" width="290.0" height="380.0" rx="8" fill="#eaf0fd" stroke="#1565c0" stroke-width="1.5"/>
+<text x="175.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1565c0" text-anchor="middle" font-weight="700">Простір користувача (Userspace)</text>
+<rect x="76.1" y="115.0" width="197.8" height="49.9" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/><text x="175.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">LVFS (fwupd.org)</tspan><tspan x="175.0" dy="16.9">Сервер метаданих та .cab</tspan></text>
+<line x1="175.0" y1="175.0" x2="175.0" y2="210.0" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="79.8" y="220.1" width="190.4" height="49.9" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/><text x="175.0" y="241.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">fwupd.service + plugins</tspan><tspan x="175.0" dy="16.9">(uefi_capsule, nvme)</tspan></text>
+<line x1="175.0" y1="280.0" x2="175.0" y2="315.0" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="90.9" y="325.1" width="168.2" height="49.9" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/><text x="175.0" y="346.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">fwupdmgr CLI / D-Bus</tspan><tspan x="175.0" dy="16.9">Інтерфейс управління</tspan></text>
+<line x1="320.0" y1="245.0" x2="370.0" y2="245.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="345.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">/dev/efi_capsule_loader</text>
+<rect x="370.0" y="60.0" width="260.0" height="380.0" rx="8" fill="#fff6e5" stroke="#e65100" stroke-width="1.5"/>
+<text x="500.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#e65100" text-anchor="middle" font-weight="700">Ядро Linux (Kernel)</text>
+<rect x="412.2" y="125.0" width="175.6" height="49.9" rx="5" fill="#ffffff" stroke="#e65100" stroke-width="1.5"/><text x="500.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">drivers/firmware/efi/</tspan><tspan x="500.0" dy="16.9">capsule-loader.c</tspan></text>
+<line x1="500.0" y1="185.0" x2="500.0" y2="220.0" stroke="#e65100" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="404.8" y="230.1" width="190.4" height="49.9" rx="5" fill="#ffffff" stroke="#e65100" stroke-width="1.5"/><text x="500.0" y="251.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Побудова Scatter-Gather</tspan><tspan x="500.0" dy="16.9">списків сторінок RAM</tspan></text>
+<line x1="500.0" y1="290.0" x2="500.0" y2="325.0" stroke="#e65100" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="408.5" y="335.1" width="183.0" height="49.9" rx="5" fill="#ffffff" stroke="#e65100" stroke-width="1.5"/><text x="500.0" y="356.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Виклик UpdateCapsule()</tspan><tspan x="500.0" dy="16.9">+ прапор OsIndications</tspan></text>
+<line x1="630.0" y1="360.0" x2="680.0" y2="360.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="655.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Warm Reset</text>
+<rect x="680.0" y="60.0" width="290.0" height="380.0" rx="8" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="825.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2e7d32" text-anchor="middle" font-weight="700">UEFI Firmware &amp; Обладнання</text>
+<rect x="715.0" y="115.0" width="220.1" height="49.9" rx="5" fill="#ffffff" stroke="#2e7d32" stroke-width="1.5"/><text x="825.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">PEI / DXE фази завантаження</tspan><tspan x="825.0" dy="16.9">Виявлення капсули в RAM</tspan></text>
+<line x1="825.0" y1="175.0" x2="825.0" y2="210.0" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="722.4" y="220.1" width="205.2" height="49.9" rx="5" fill="#ffffff" stroke="#2e7d32" stroke-width="1.5"/><text x="825.0" y="241.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Автентифікація підпису</tspan><tspan x="825.0" dy="16.9">Перевірка ключа виробника</tspan></text>
+<line x1="825.0" y1="280.0" x2="825.0" y2="315.0" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="729.8" y="325.1" width="190.4" height="49.9" rx="5" fill="#ffffff" stroke="#2e7d32" stroke-width="1.5"/><text x="825.0" y="346.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Прошивання SPI Flash</tspan><tspan x="825.0" dy="16.9">Оновлення запису в ESRT</tspan></text>
 </svg>

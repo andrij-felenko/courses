@@ -9421,17 +9421,35 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "pcie-express-bus-subsystem",
             "title": "Підсистема PCI Express",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-pci-kernel-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-pci-to-pcie.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-pcie-sysfs-explorer.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
@@ -9646,7 +9664,13 @@ window.__BOOKS__ = [
             "slug": "viommu-virtual-iommu",
             "title": "Віртуальний IOMMU (vIOMMU) для вкладеного прокидання",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "proj": [
+              {
+                "file": "proj-nested-iommufd-bind.md",
+                "status": "done"
+              }
+            ],
             },
             "basic": {
               "status": "done"
@@ -9656,14 +9680,44 @@ window.__BOOKS__ = [
             "slug": "virtio-fs-and-virtio-gpu",
             "title": "Спеціалізовані пристрої Virtio: virtio-fs та virtio-gpu",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-virtio-gpu-protocol.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-virtio-gpu-cmd.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "nvme-zoned-namespaces-zns",
             "title": "Зонований простір імен NVMe (ZNS)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-zns-ioctl-and-sysfs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-zns-from-smr-to-nvme.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-zns-append-io-uring.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
@@ -9819,56 +9873,176 @@ window.__BOOKS__ = [
             "slug": "v4l2-media-controller-api",
             "title": "Відео-підсистема V4L2 та Media Controller API",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-v4l2-media-ioctls.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-v4l2-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-v4l2-zero-copy-pipeline.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "input-evdev-subsystem",
             "title": "Підсистема введення evdev та події /dev/input/eventX",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-evdev-ioctls.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-input-subsystem-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-uinput-keyboard-mapper.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "gpio-gpiod-descriptor-api",
             "title": "Сучасний двоврівневий API GPIO descriptors (gpiod)",
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "counter-subsystem-quadrature",
             "title": "Підсистема лічильників ядра Counter subsystem (Hardware Quadrature Encoders)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-counter-kernel-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-counter-subsystem-birth.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-counter-event-reader.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "iio-industrial-io-subsystem",
             "title": "Підсистема Industrial I/O (IIO) для аналогових сенсорів та ADC/DAC",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-iio-sysfs-abi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-iio-user-reader.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "wmi-windows-management-instrumentation",
             "title": "Інтерфейс WMI (ACPI-WMI) у драйверах Linux",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-wmi-kernel-surface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-wmi-to-acpi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-wmi-driver-skeleton.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "hwrng-hardware-random-number-generator",
             "title": "Підсистема апаратних генераторів випадкових чисел (hwrng) та entropy pool",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-hwrng-framework.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-blocking-random.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-entropy-feeder.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "drm-accel-compute-subsystem",
             "title": "Підсистема прискорювачів DRM Accel (/dev/accel/accelX для NPU та AI-чіпів)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-accel-uapi-sysfs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-habana-to-drm-accel.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-accel-submission.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           }
         ]
@@ -10327,10 +10501,28 @@ window.__BOOKS__ = [
             "slug": "kexec-and-kdump",
             "title": "kexec: завантаження нового ядра без прошивки, і kdump",
             "basic": {
-              "status": "empty"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-kexec-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kexec-origin.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kexec-reboot.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
@@ -10340,57 +10532,135 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "measured-boot-pcr",
             "title": "Виміряне завантаження: регістри PCR і журнал подій",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-pcr-registry.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tpm-evolution.md",
+                "status": "done",
+            "math": [
+              {
+                "file": "math-pcr-extend.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-tpm2-eventlog-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "service-notify-protocol",
             "title": "Протокол сповіщення менеджера: NOTIFY_SOCKET, READY=1 і Type=notify",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-notify-protocol.md",
+                "status": "done"
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "sysusers-declarative-accounts",
             "title": "systemd-sysusers: облікові записи, описані декларативно",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-sysusers-format.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-declarative-users.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-sysusers-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "init-sections",
             "title": "Секції ініціалізації: код і дані, які ядро викидає після завантаження",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-init-macros.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-custom-init-section.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "acpi-tables-and-namespace",
             "title": "ACPI: таблиці прошивки й простір імен, з якого ядро дізнається про залізо",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-acpi-table-structures.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-apm-to-acpi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-aml-parser-and-override.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {

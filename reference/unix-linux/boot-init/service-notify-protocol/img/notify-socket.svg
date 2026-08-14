@@ -1,30 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
-    <rect width="800" height="500" fill="#fcfcfc"/>
-    <text x="400" y="40" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Архітектура протоколу sd_notify (NOTIFY_SOCKET)</text>
-    
-    <rect x="50" y="100" width="250" height="300" rx="10" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
-    <text x="175" y="130" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">systemd (PID 1)</text>
-    <rect x="80" y="160" width="190" height="40" rx="5" fill="#bbdefb"/>
-    <text x="175" y="185" font-family="sans-serif" font-size="14" text-anchor="middle">AF_UNIX Datagram Socket</text>
-    
-    <rect x="500" y="100" width="250" height="300" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="2"/>
-    <text x="625" y="130" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Служба (Type=notify)</text>
-    
-    <line x1="500" y1="200" x2="290" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="395" y="190" font-family="sans-serif" font-size="14" text-anchor="middle">READY=1</text>
-    
-    <line x1="500" y1="250" x2="290" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="395" y="240" font-family="sans-serif" font-size="14" text-anchor="middle">STATUS=Processing requests...</text>
-    
-    <line x1="500" y1="300" x2="290" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="395" y="290" font-family="sans-serif" font-size="14" text-anchor="middle">WATCHDOG=1</text>
-
-    <line x1="500" y1="350" x2="290" y2="350" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="395" y="340" font-family="sans-serif" font-size="14" text-anchor="middle">RELOADING=1</text>
-
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="#333" />
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол NOTIFY_SOCKET: передача стану та автентифікація в systemd</text>
+<rect x="40.0" y="65.0" width="430.0" height="450.0" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="255.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">systemd (PID 1 / системний менеджер)</text>
+<rect x="60.0" y="115.0" width="390.0" height="65.0" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.5"/><text x="255.0" y="143.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">UNIX Datagram Socket</tspan><tspan x="255.0" dy="16.9">/run/systemd/notify (або @abstract)</tspan></text>
+<rect x="60.0" y="195.0" width="390.0" height="95.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/><text x="255.0" y="223.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Перевірка відправника (Kernel ucred):</tspan><tspan x="255.0" dy="15.6">1. getsockopt(SO_PEERCRED) -&gt; PID 4120</tspan><tspan x="255.0" dy="15.6">2. Читання /proc/4120/cgroup</tspan><tspan x="255.0" dy="15.6">3. Перевірка політики NotifyAccess=main</tspan></text>
+<rect x="60.0" y="305.0" width="390.0" height="90.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="255.0" y="330.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Автомат станів юніта:</tspan><tspan x="255.0" dy="15.6">activating -&gt; active (при READY=1)</tspan><tspan x="255.0" dy="15.6">Оновлення Status Text (при STATUS=...)</tspan><tspan x="255.0" dy="15.6">Скидання Watchdog Timer (при WATCHDOG=1)</tspan></text>
+<rect x="60.0" y="410.0" width="390.0" height="85.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.5"/><text x="255.0" y="448.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Розблокування залежностей:</tspan><tspan x="255.0" dy="15.6">Запуск служб, що чекають на After=myservice.service</tspan></text>
+<rect x="570.0" y="65.0" width="430.0" height="450.0" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="785.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Служба користувача (PID 4120)</text>
+<rect x="590.0" y="115.0" width="390.0" height="65.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/><text x="785.0" y="135.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">Змінні оточення при старті:</tspan><tspan x="785.0" dy="16.9">NOTIFY_SOCKET=/run/systemd/notify</tspan><tspan x="785.0" dy="16.9">WATCHDOG_USEC=30000000</tspan></text>
+<rect x="590.0" y="195.0" width="390.0" height="95.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.5"/><text x="785.0" y="221.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">Етап ініціалізації:</tspan><tspan x="785.0" dy="16.9">- Завантаження конфігурації</tspan><tspan x="785.0" dy="16.9">- Відкриття сокетів/БД</tspan><tspan x="785.0" dy="16.9">- Підготовка ресурсів</tspan></text>
+<rect x="590.0" y="305.0" width="390.0" height="90.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="785.0" y="338.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">Головний цикл подій (Main Event Loop):</tspan><tspan x="785.0" dy="15.6">Регулярна обробка запитів</tspan><tspan x="785.0" dy="15.6">+ Таймер періодичного надсилання WATCHDOG=1</tspan></text>
+<rect x="590.0" y="410.0" width="390.0" height="85.0" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.5"/><text x="785.0" y="441.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">Надсилання FD / перезавантаження:</tspan><tspan x="785.0" dy="15.6">FDSTORE=1 + SCM_RIGHTS при оновленні</tspan><tspan x="785.0" dy="15.6">RELOADING=1 при SIGHUP</tspan></text>
+<line x1="570.0" y1="240.0" x2="470.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">READY=1
+STATUS=Ready</text>
+<line x1="570.0" y1="350.0" x2="470.0" y2="350.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">WATCHDOG=1 (кожні N/2 сек)</text>
 </svg>

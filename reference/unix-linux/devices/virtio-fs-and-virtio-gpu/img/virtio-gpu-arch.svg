@@ -1,10 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-    <rect width="800" height="600" fill="#f0f0f0"/>
-    <text x="400" y="300" font-family="sans-serif" font-size="24" text-anchor="middle">Virtio-GPU Architecture</text>
-    <rect x="100" y="100" width="250" height="400" fill="#fff3cd" stroke="#856404"/>
-    <text x="225" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Guest (Mesa/VirGL)</text>
-    <rect x="450" y="100" width="250" height="400" fill="#f8d7da" stroke="#721c24"/>
-    <text x="575" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Host (virglrenderer)</text>
-    <path d="M 350 300 L 450 300" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="400" y="290" font-family="sans-serif" font-size="14" text-anchor="middle">Virtqueue (Commands)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="50.0" width="340.0" height="510.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="210.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гостьова ОС (Guest VM)</text>
+<rect x="620.0" y="50.0" width="340.0" height="510.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="790.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хостова система (Host)</text>
+<rect x="131.0" y="109.0" width="158.0" height="61.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Графічний додаток</tspan><tspan x="210.0" dy="16.9">(OpenGL / Vulkan)</tspan></text>
+<rect x="90.3" y="209.0" width="239.5" height="61.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="236.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Mesa (virgl / vulkan-virtio)</tspan><tspan x="210.0" dy="16.9">Серіалізація в TGSI/Venus</tspan></text>
+<line x1="210.0" y1="180.0" x2="210.0" y2="205.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="79.1" y="309.1" width="261.7" height="61.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="336.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Ядро гостя: virtio_gpu.ko</tspan><tspan x="210.0" dy="16.9">(Управління Virtqueue controlq)</tspan></text>
+<line x1="210.0" y1="275.0" x2="210.0" y2="305.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="410.0" y="315.0" width="180.0" height="50.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Virtqueue (Command Stream)</text>
+<line x1="320.0" y1="340.0" x2="405.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="595.0" y1="340.0" x2="645.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="655.4" y="309.1" width="269.1" height="61.9" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="336.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">virglrenderer / QEMU</tspan><tspan x="790.0" dy="16.9">Трансляція в OpenGL/Vulkan хоста</tspan></text>
+<rect x="651.7" y="129.0" width="276.5" height="61.9" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="156.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Драйвер GPU хоста</tspan><tspan x="790.0" dy="16.9">&amp; Фізичний GPU (NVIDIA/AMD/Intel)</tspan></text>
+<line x1="790.0" y1="290.0" x2="790.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="659.1" y="459.1" width="261.7" height="61.9" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="486.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Композитор хоста (Wayland/X11)</tspan><tspan x="790.0" dy="16.9">(Zero-copy вивід через dma-buf)</tspan></text>
+<line x1="790.0" y1="390.0" x2="790.0" y2="440.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

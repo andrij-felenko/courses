@@ -30,7 +30,7 @@ def main():
     frags.append(text(350, 150, "free_initmem()", size=14, italic=True, color=NEG, bold=True))
     frags.append(text(350, 240, "Звільнення після boot", size=12, color=MUTED))
     
-    out_path = os.path.join(os.path.dirname(__file__), "init-sections.svg")
+    out_path = os.path.join(IMG, "init-sections.svg")
     render(out_path, w, h, *frags, title="Звільнення пам'яті секцій ініціалізації (__init)")
 
 if __name__ == '__main__':

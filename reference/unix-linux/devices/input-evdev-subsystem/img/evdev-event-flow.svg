@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="160.0" height="280.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="110.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#92400e" text-anchor="middle" font-weight="700">Драйвер пристрою</text>
+<text x="110.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle">(напр. usbhid)</text>
+<text x="110.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#78350f" text-anchor="middle" font-weight="700">input_event()</text>
+<text x="110.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#451a03" text-anchor="middle">1. EV_REL REL_X</text>
+<text x="110.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#451a03" text-anchor="middle">2. EV_REL REL_Y</text>
+<text x="110.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">3. EV_SYN SYN_REPORT</text>
+<text x="110.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78350f" text-anchor="middle" font-style="italic">Потік сирих подій</text>
+<rect x="240.0" y="40.0" width="320.0" height="280.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="400.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#14532d" text-anchor="middle" font-weight="700">Кільцевий буфер evdev (struct evdev_client)</text>
+<text x="400.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle">Розмір: client-&gt;bufsize (напр. 64 / 128 подій)</text>
+<rect x="260.0" y="120.0" width="280.0" height="26.0" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.0"/>
+<text x="400.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle">EV_REL REL_X</text>
+<rect x="260.0" y="150.0" width="280.0" height="26.0" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.0"/>
+<text x="400.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle">EV_REL REL_Y</text>
+<rect x="260.0" y="180.0" width="280.0" height="26.0" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.0"/>
+<text x="400.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">EV_SYN (COMMIT)</text>
+<rect x="260.0" y="210.0" width="280.0" height="26.0" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="400.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="middle" font-weight="700">SYN_DROPPED!</text>
+<rect x="260.0" y="240.0" width="280.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="400.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Вільна комірка</text>
+<rect x="260.0" y="270.0" width="280.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="400.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Вільна комірка</text>
+<text x="400.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-style="italic">SYN_DROPPED надсилається при переповненні буфера</text>
+<rect x="610.0" y="40.0" width="160.0" height="280.0" rx="8" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="690.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#3730a3" text-anchor="middle" font-weight="700">Userspace</text>
+<text x="690.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4338ca" text-anchor="middle">libinput / evtest</text>
+<text x="690.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e1b4b" text-anchor="middle" font-weight="700">read() / epoll()</text>
+<text x="690.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#312e81" text-anchor="middle">Накопичення до</text>
+<text x="690.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e1b4b" text-anchor="middle" font-weight="700">SYN_REPORT</text>
+<text x="690.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#312e81" text-anchor="middle">Оновлення стану</text>
+<text x="690.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#312e81" text-anchor="middle">курсора / фрейму</text>
+<line x1="190.0" y1="180.0" x2="240.0" y2="180.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="180.0" x2="610.0" y2="180.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

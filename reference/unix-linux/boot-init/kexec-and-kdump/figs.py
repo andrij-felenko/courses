@@ -1,64 +1,99 @@
-import os
 import sys
+import os
 
-# Додаємо шлях до scripts/
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../scripts')))
+# Додаємо шлях до scripts/ у корені репо (4 рівні вгору)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts')))
 
-try:
-    from svgkit import *
-except ImportError:
-    # Заглушка, якщо svgkit не знайдено, але треба згенерувати SVG
-    class Element:
-        def __init__(self, tag, **kwargs):
-            self.tag = tag
-            self.kwargs = kwargs
-            self.children = []
-        def add(self, child):
-            self.children.append(child)
-        def to_svg(self):
-            attrs = " ".join(f'{k.replace("_", "-")}="{v}"' for k, v in self.kwargs.items())
-            inner = "".join(c.to_svg() if hasattr(c, 'to_svg') else str(c) for c in self.children)
-            return f"<{self.tag} {attrs}>{inner}</{self.tag}>"
-    class Drawing(Element):
-        def __init__(self, width, height, bg="white"):
-            super().__init__("svg", xmlns="http://www.w3.org/2000/svg", viewBox=f"0 0 {width} {height}", width=width, height=height)
-            self.add(Element("rect", x=0, y=0, width=width, height=height, fill=bg))
-    def Rect(**kwargs): return Element("rect", **kwargs)
-    def Text(text, **kwargs):
-        el = Element("text", **kwargs)
-        el.children.append(text)
-        return el
-    def Arrow(**kwargs):
-        # simple line as arrow
-        return Element("line", **kwargs)
+from svgkit import render, fitbox, textbox, line, arrow, text, rect, POS, NEG, FIELD, INK, MUTED, LINE, FILL, BG
 
-def render():
-    doc = Drawing(width=800, height=300, bg="#ffffff")
-    
-    # Primary Kernel
-    doc.add(Rect(x=50, y=50, width=250, height=200, fill="#f0f0f0", stroke="#333333", rx="5", ry="5"))
-    doc.add(Text("Первинне ядро (Primary Kernel)", x=175, y=80, text_anchor="middle", font_family="sans-serif", font_weight="bold", fill="#333333"))
-    doc.add(Rect(x=70, y=100, width=210, height=130, fill="#ffffff", stroke="#999999"))
-    doc.add(Text("Пам'ять (RAM)", x=175, y=120, text_anchor="middle", font_family="sans-serif", fill="#666666"))
-    doc.add(Rect(x=90, y=140, width=170, height=70, fill="#e6f7ff", stroke="#1890ff"))
-    doc.add(Text("Зарезервовано", x=175, y=165, text_anchor="middle", font_family="sans-serif", fill="#0050b3", font_size="14"))
-    doc.add(Text("crashkernel=...", x=175, y=190, text_anchor="middle", font_family="monospace", fill="#0050b3", font_size="12"))
+def make_arch_fig(img_dir):
+    w, h = 840, 420
+    frags = []
 
-    # Crash Kernel
-    doc.add(Rect(x=450, y=130, width=250, height=120, fill="#fff0f6", stroke="#eb2f96", rx="5", ry="5"))
-    doc.add(Text("Crash Kernel (kdump)", x=575, y=160, text_anchor="middle", font_family="sans-serif", font_weight="bold", fill="#a8071a"))
-    doc.add(Text("Працює в зарезервованій", x=575, y=190, text_anchor="middle", font_family="sans-serif", fill="#a8071a", font_size="14"))
-    doc.add(Text("області пам'яті", x=575, y=210, text_anchor="middle", font_family="sans-serif", fill="#a8071a", font_size="14"))
-    
-    # Transition
-    doc.add(Arrow(x1=300, y1=150, x2=450, y2=150, stroke="#ff4d4f", stroke_width="3", marker_end="url(#arrow)"))
-    doc.add(Text("Kernel Panic!", x=375, y=140, text_anchor="middle", font_family="sans-serif", font_weight="bold", fill="#ff4d4f"))
-    doc.add(Text("kexec transition", x=375, y=170, text_anchor="middle", font_family="sans-serif", fill="#ff4d4f", font_size="12"))
-    
-    return [("kexec-kdump-arch", doc)]
+    # Title / Headers
+    frags.append(text(w / 2, 30, "Розподіл оперативної пам'яті (RAM) та потік kexec/kdump", size=18, bold=True, color=INK))
+
+    # Main Memory Container
+    frags.append(rect(40, 60, 760, 210, fill="#f8fafc", stroke=LINE, sw=2, rx=8))
+    frags.append(text(450, 85, "Фізична оперативна пам'ять (System RAM)", size=15, bold=True, color=INK))
+
+    # Primary Kernel Memory Block
+    frags.append(rect(60, 105, 460, 145, fill="#eef2ff", stroke="#4f46e5", sw=2, rx=6))
+    frags.append(text(290, 130, "Основне ядро (Primary Kernel)", size=14, bold=True, color="#3730a3"))
+    frags.append(fitbox(80, 145, 200, 40, "Код ядра, SLAB, Page Cache\n(Працююча система)", size=12, fill="#ffffff", stroke="#818cf8"))
+    frags.append(fitbox(300, 145, 200, 40, "Пам'ять процесів (Userspace)\nі структури VFS", size=12, fill="#ffffff", stroke="#818cf8"))
+    frags.append(fitbox(80, 195, 420, 40, "Дані для аварійного аналізу (PT_LOAD сторінки в /proc/vmcore)", size=12, fill="#e0e7ff", stroke="#6366f1", color="#312e81"))
+
+    # Reserved Crashkernel Block
+    frags.append(rect(540, 105, 240, 145, fill="#fef2f2", stroke=POS, sw=2, rx=6))
+    frags.append(text(660, 130, "crashkernel=512M", size=14, bold=True, color=POS))
+    frags.append(fitbox(555, 145, 210, 40, "Ізольоване аварійне ядро\n(Crash Kernel в RAM)", size=12, fill="#ffffff", stroke="#fca5a5", color="#991b1b"))
+    frags.append(fitbox(555, 195, 210, 40, "Спеціальний initramfs\n(kdump-tools / makedumpfile)", size=12, fill="#ffffff", stroke="#fca5a5", color="#991b1b"))
+
+    # Triggers and Flow Arrows
+    # 1. Normal kexec flow
+    frags.append(arrow(180, 270, 180, 315, color=NEG, sw=2))
+    frags.append(textbox(180, 345, "Стандартний kexec:\nsys_kexec_load() → Purgatory\nЗаміна первинного ядра новим", size=12, fill="#eff6ff", stroke=NEG, color="#1e40af")[0])
+
+    # 2. Kernel Panic -> kdump flow
+    frags.append(arrow(660, 270, 660, 315, color=POS, sw=2))
+    frags.append(textbox(660, 345, "Kernel Panic → crash_kexec():\nСтрибок у зарезервовану RAM\nбез скидання апаратури", size=12, fill="#fff1f2", stroke=POS, color="#991b1b")[0])
+
+    # 3. Read vmcore arrow
+    frags.append(line(540, 215, 510, 215, color=FIELD, sw=2, dash="4,4"))
+    frags.append(arrow(510, 215, 538, 215, color=FIELD, sw=2))
+    frags.append(text(525, 205, "Мапування /proc/vmcore", size=11, bold=True, color=FIELD, anchor="middle"))
+
+    out_path = os.path.join(img_dir, "kexec-kdump-arch.svg")
+    render(out_path, w, h, *frags)
+    print(f"Generated: {out_path}")
+
+def make_timeline_fig(img_dir):
+    w, h = 820, 360
+    frags = []
+
+    frags.append(text(w / 2, 28, "Етапи виконання kexec та фази аварійного переходу kdump", size=18, bold=True, color=INK))
+
+    # Steps in horizontal chain
+    steps = [
+        ("1. Підготовка", "Утиліта kexec готує\nсегменти ядра та initramfs;\nвиклики kexec_file_load()"),
+        ("2. Сигнал паніки", "Kernel Panic / SysRq 'c';\nвикликається panic()\nта crash_kexec()"),
+        ("3. Зупинка CPU", "NMI-переривання зупиняють\nінші CPU; збереження\nрегістрів у crash_notes"),
+        ("4. Purgatory Stub", "Код релокації перевіряє\nSHA256 хеші сегментів;\nвимкнення VMX/IOMMU"),
+        ("5. Запуск Crash Kernel", "Стрибок на startup_64;\nboot з elfcorehdr=;\nмонтування /proc/vmcore")
+    ]
+
+    box_w = 140
+    gap = 20
+    start_x = 35
+
+    for i, (title, desc) in enumerate(steps):
+        x = start_x + i * (box_w + gap)
+        y = 70
+        color = NEG if i == 0 else (POS if i in (1, 2) else FIELD)
+        bg = "#eff6ff" if i == 0 else ("#fff1f2" if i in (1, 2) else "#f0fdf4")
+        stroke = NEG if i == 0 else (POS if i in (1, 2) else FIELD)
+
+        frags.append(rect(x, y, box_w, 220, fill=bg, stroke=stroke, sw=2, rx=6))
+        frags.append(text(x + box_w / 2, y + 25, title, size=12, bold=True, color=color))
+        frags.append(fitbox(x + 8, y + 45, box_w - 16, 160, desc, size=11, fill="#ffffff", stroke=stroke))
+
+        if i < len(steps) - 1:
+            arrow_x1 = x + box_w
+            arrow_x2 = arrow_x1 + gap
+            frags.append(arrow(arrow_x1, y + 110, arrow_x2, y + 110, color=LINE, sw=2))
+
+    # Bottom summary box
+    frags.append(fitbox(start_x, 305, w - 2 * start_x, 35,
+                        "Загальний час переходу від фатального збою до збереження дампу в /proc/vmcore становить 1-3 секунди",
+                        size=12, fill="#f4f6f8", stroke=MUTED, color=INK, bold=True))
+
+    out_path = os.path.join(img_dir, "kexec-transition-timeline.svg")
+    render(out_path, w, h, *frags)
+    print(f"Generated: {out_path}")
 
 if __name__ == "__main__":
-    import os
-    for name, doc in render():
-        with open(os.path.join(os.path.dirname(__file__), f"{name}.svg"), "w", encoding="utf-8") as f:
-            f.write(doc.to_svg())
+    img_dir = os.path.join(os.path.dirname(__file__), "img")
+    os.makedirs(img_dir, exist_ok=True)
+    make_arch_fig(img_dir)
+    make_timeline_fig(img_dir)
