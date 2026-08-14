@@ -1,23 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
-  <rect width="100%" height="100%" fill="#ffffff"/>
-  <text x="400" y="40" font-size="24" text-anchor="middle" fill="#333">timerlat: Вимірювання затримки таймера</text>
-  
-  <!-- Осі -->
-  <line x1="100" y1="300" x2="700" y2="300" stroke="#000" stroke-width="2"/>
-  <line x1="100" y1="300" x2="100" y2="100" stroke="#000" stroke-width="2"/>
-  
-  <text x="400" y="340" font-size="16" text-anchor="middle" fill="#000">Час (мкс)</text>
-  
-  <!-- Цільовий час -->
-  <line x1="300" y1="300" x2="300" y2="150" stroke="#f44336" stroke-width="2" stroke-dasharray="5,5"/>
-  <text x="300" y="140" font-size="14" fill="#d32f2f" text-anchor="middle">Очікуваний час</text>
-  
-  <!-- Фактичний час -->
-  <line x1="500" y1="300" x2="500" y2="180" stroke="#4caf50" stroke-width="2"/>
-  <text x="500" y="170" font-size="14" fill="#388e3c" text-anchor="middle">Фактичний виклик</text>
-  
-  <!-- Затримка -->
-  <line x1="300" y1="250" x2="500" y2="250" stroke="#2196f3" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="400" y="240" font-size="14" fill="#1976d2" text-anchor="middle">Затримка (Latency)</text>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 450" width="840" height="450">
+<rect width="840" height="450" fill="#ffffff"/>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Складові затримки періодичного таймера у timerlat</text>
+<line x1="180.0" y1="120.0" x2="180.0" y2="350.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="380.0" y1="120.0" x2="380.0" y2="350.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="660.0" y1="120.0" x2="660.0" y2="350.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<rect x="110.4" y="60.2" width="139.1" height="59.6" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="79.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">T_target</tspan><tspan x="180.0" dy="14.3">Очікуваний час</tspan><tspan x="180.0" dy="14.3">спрацювання hrtimer</tspan></text>
+<rect x="318.9" y="60.2" width="122.3" height="59.6" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="380.0" y="79.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">T_irq</tspan><tspan x="380.0" dy="14.3">Вхід в обробник</tspan><tspan x="380.0" dy="14.3">апаратного IRQ</tspan></text>
+<rect x="595.4" y="60.2" width="129.1" height="59.6" rx="6" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/><text x="660.0" y="79.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">T_thread</tspan><tspan x="660.0" dy="14.3">Старт виконання</tspan><tspan x="660.0" dy="14.3">RT-потоку на CPU</tspan></text>
+<line x1="180.0" y1="190.0" x2="205.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="355.0" y1="190.0" x2="380.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="181.3" y="167.3" width="197.3" height="45.3" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/><text x="280.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">IRQ Latency</tspan><tspan x="280.0" dy="14.3">(Заборона IRQ / NMI / SMI)</tspan></text>
+<line x1="380.0" y1="260.0" x2="430.0" y2="260.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="610.0" y1="260.0" x2="660.0" y2="260.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="390.6" y="237.3" width="258.7" height="45.3" rx="6" fill="#d6eaf8" stroke="#2457d6" stroke-width="1.5"/><text x="520.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Thread Latency</tspan><tspan x="520.0" dy="14.3">(Планувальник / Конкуренція за CPU)</tspan></text>
+<line x1="180.0" y1="370.0" x2="270.0" y2="370.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="570.0" y1="370.0" x2="660.0" y2="370.0" stroke="#27ae60" stroke-width="2.5"/>
+<rect x="246.3" y="354.0" width="347.4" height="32.0" rx="6" fill="#d4efdf" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="374.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Total Latency = IRQ Latency + Thread Latency</tspan></text>
 </svg>

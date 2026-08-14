@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="425.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм статичної інструментації USDT у користувацькому коді</text>
+<rect x="30.0" y="60.0" width="240.0" height="370.0" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+<text x="150.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0d47a1" text-anchor="middle" font-weight="700">ELF виконуваний файл</text>
+<rect x="50.0" y="110.0" width="200.0" height="135.0" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="150.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0d47a1" text-anchor="middle" font-weight="700">Секція .text (Інструкції)</text>
+<text x="150.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Код програми...</text>
+<rect x="65.0" y="185.0" width="170.0" height="45.0" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/>
+<text x="150.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#f57f17" text-anchor="middle" font-weight="700">NOP3 (0x90 0x90 0x90)</text>
+<rect x="50.0" y="265.0" width="200.0" height="145.0" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="150.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0d47a1" text-anchor="middle" font-weight="700">Секція .note.stapsdt</text>
+<text x="150.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Provider: my_app</text>
+<text x="150.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Probe Name: request_start</text>
+<text x="150.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Arg Location: -8(%rbp)</text>
+<rect x="305.0" y="60.0" width="240.0" height="370.0" rx="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+<text x="425.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e65100" text-anchor="middle" font-weight="700">Активація проби</text>
+<rect x="325.0" y="110.0" width="200.0" height="135.0" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="1.5"/>
+<text x="425.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e65100" text-anchor="middle" font-weight="700">Приєднання Трасувальника</text>
+<text x="425.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Зчитування .note.stapsdt</text>
+<text x="425.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Пошук віртуальної адреси</text>
+<rect x="325.0" y="265.0" width="200.0" height="145.0" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="1.5"/>
+<text x="425.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e65100" text-anchor="middle" font-weight="700">Патчинг пам'яті (Patching)</text>
+<rect x="340.0" y="315.0" width="170.0" height="45.0" rx="4" fill="#ffcdd2" stroke="#e53935" stroke-width="1.5"/>
+<text x="425.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c62828" text-anchor="middle" font-weight="700">Заміна NOP3 на INT 3</text>
+<text x="425.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">або BPF Trampoline hook</text>
+<rect x="580.0" y="60.0" width="240.0" height="370.0" rx="8" fill="#f1f8e9" stroke="#558b2f" stroke-width="1.5"/>
+<text x="700.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#33691e" text-anchor="middle" font-weight="700">Обробка в ядрі</text>
+<rect x="600.0" y="110.0" width="200.0" height="135.0" rx="6" fill="#ffffff" stroke="#558b2f" stroke-width="1.5"/>
+<text x="700.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#33691e" text-anchor="middle" font-weight="700">Перехоплення Trap (INT 3)</text>
+<text x="700.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Збереження контексту ЦПУ</text>
+<text x="700.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Зчитування аргументів</text>
+<rect x="600.0" y="265.0" width="200.0" height="145.0" rx="6" fill="#ffffff" stroke="#558b2f" stroke-width="1.5"/>
+<text x="700.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#33691e" text-anchor="middle" font-weight="700">Виконання Дій (Action)</text>
+<text x="700.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Запис у BPF Map</text>
+<text x="700.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Агрегація гістограми</text>
+<text x="700.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Повернення керування (IRET)</text>
+<line x1="250.0" y1="177.0" x2="325.0" y2="177.0" stroke="#ff8f00" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="337.0" x2="325.0" y2="337.0" stroke="#ff8f00" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="525.0" y1="337.0" x2="600.0" y2="177.0" stroke="#558b2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

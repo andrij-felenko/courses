@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" width="860" height="500">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="#333333" />
+</marker>
+</defs>
+<rect x="0.0" y="0.0" width="860.0" height="500.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="430.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок і пріоритет пошуку спільних бібліотек (.so)</text>
+<rect x="50.0" y="55.0" width="760.0" height="49.9" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="430.0" y="76.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">1. DT_RPATH (якщо відсутній DT_RUNPATH)</tspan><tspan x="430.0" dy="16.9">Зашитий у бінарник шлях. Найвищий пріоритет (застарілий).</tspan></text>
+<line x1="430.0" y1="115.0" x2="430.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="140.1" width="760.0" height="49.9" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="430.0" y="161.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">2. Змінна середовища LD_LIBRARY_PATH</tspan><tspan x="430.0" dy="16.9">Шляхи через двокрапку. Ігнорується у SUID/SGID програмах для безпеки.</tspan></text>
+<line x1="430.0" y1="200.0" x2="430.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="225.1" width="760.0" height="49.9" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/><text x="430.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">3. DT_RUNPATH</tspan><tspan x="430.0" dy="16.9">Зашитий у бінарник шлях. Перекривається змінною LD_LIBRARY_PATH.</tspan></text>
+<line x1="430.0" y1="285.0" x2="430.0" y2="310.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="310.1" width="760.0" height="49.9" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/><text x="430.0" y="331.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">4. Системний кеш /etc/ld.so.cache</tspan><tspan x="430.0" dy="16.9">Бінарний індекс усіх бібліотек у системі, згенерований ldconfig.</tspan></text>
+<line x1="430.0" y1="370.0" x2="430.0" y2="395.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="395.1" width="760.0" height="49.9" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="430.0" y="416.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">5. Стандартні системні каталоги</tspan><tspan x="430.0" dy="16.9">/lib64, /usr/lib64 (або /lib, /usr/lib відповідно до архітектури).</tspan></text>
+</svg>

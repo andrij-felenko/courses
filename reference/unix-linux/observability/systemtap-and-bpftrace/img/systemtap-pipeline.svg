@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="425.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пайплайн компіляції та виконання SystemTap (Pass 1 - Pass 5)</text>
+<rect x="30.0" y="70.0" width="140.0" height="100.0" rx="6" fill="#ffffff" stroke="#0288d1" stroke-width="1.5"/>
+<rect x="30.0" y="70.0" width="140.0" height="28.0" rx="6" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+<text x="100.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#01579b" text-anchor="middle" font-weight="700">Pass 1: Parse</text>
+<text x="100.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Аналіз .stp скрипта</text>
+<text x="100.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Розгортання tapsets</text>
+<rect x="190.0" y="70.0" width="140.0" height="100.0" rx="6" fill="#ffffff" stroke="#0288d1" stroke-width="1.5"/>
+<rect x="190.0" y="70.0" width="140.0" height="28.0" rx="6" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+<text x="260.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#01579b" text-anchor="middle" font-weight="700">Pass 2: Elaborate</text>
+<text x="260.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">DWARF &amp; vmlinux</text>
+<text x="260.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Розв'язання типів</text>
+<rect x="350.0" y="70.0" width="140.0" height="100.0" rx="6" fill="#ffffff" stroke="#0288d1" stroke-width="1.5"/>
+<rect x="350.0" y="70.0" width="140.0" height="28.0" rx="6" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+<text x="420.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#01579b" text-anchor="middle" font-weight="700">Pass 3: Translate</text>
+<text x="420.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Генерація C-коду</text>
+<text x="420.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Runtime перевірки</text>
+<rect x="510.0" y="70.0" width="140.0" height="100.0" rx="6" fill="#ffffff" stroke="#0288d1" stroke-width="1.5"/>
+<rect x="510.0" y="70.0" width="140.0" height="28.0" rx="6" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+<text x="580.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#01579b" text-anchor="middle" font-weight="700">Pass 4: Compile</text>
+<text x="580.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">kbuild компіляція</text>
+<text x="580.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Створення .ko</text>
+<rect x="670.0" y="70.0" width="140.0" height="100.0" rx="6" fill="#ffffff" stroke="#0288d1" stroke-width="1.5"/>
+<rect x="670.0" y="70.0" width="140.0" height="28.0" rx="6" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+<text x="740.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#01579b" text-anchor="middle" font-weight="700">Pass 5: Execute</text>
+<text x="740.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">staprun завантаження</text>
+<text x="740.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Режим збору даних</text>
+<line x1="170.0" y1="120.0" x2="190.0" y2="120.0" stroke="#0288d1" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="330.0" y1="120.0" x2="350.0" y2="120.0" stroke="#0288d1" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="120.0" x2="510.0" y2="120.0" stroke="#0288d1" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="120.0" x2="670.0" y2="120.0" stroke="#0288d1" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="210.0" width="380.0" height="210.0" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="45.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#4a148c" text-anchor="start" font-weight="700">Простір користувача (User Space)</text>
+<rect x="50.0" y="255.0" width="160.0" height="65.0" rx="4" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="130.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4a148c" text-anchor="middle" font-weight="700">CLI: stap / staprun</text>
+<text x="130.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4a148c" text-anchor="middle">Керування сесією</text>
+<rect x="230.0" y="255.0" width="160.0" height="65.0" rx="4" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="310.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4a148c" text-anchor="middle" font-weight="700">stapio process</text>
+<text x="310.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4a148c" text-anchor="middle">Збір логів та вивід</text>
+<rect x="50.0" y="340.0" width="340.0" height="60.0" rx="4" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="220.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4a148c" text-anchor="middle">Tapsets Library (/usr/share/systemtap/tapset)</text>
+<rect x="440.0" y="210.0" width="380.0" height="210.0" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+<text x="455.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b71c1c" text-anchor="start" font-weight="700">Простір ядра (Kernel Space / Ring 0)</text>
+<rect x="460.0" y="255.0" width="160.0" height="65.0" rx="4" fill="#ffffff" stroke="#c62828" stroke-width="1.5"/>
+<text x="540.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle" font-weight="700">Generated .ko Module</text>
+<text x="540.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">Kprobes / Tracepoints</text>
+<rect x="640.0" y="255.0" width="160.0" height="65.0" rx="4" fill="#ffffff" stroke="#c62828" stroke-width="1.5"/>
+<text x="720.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle" font-weight="700">RelayFS / DebugFS</text>
+<text x="720.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">Буфери обміну даних</text>
+<rect x="460.0" y="340.0" width="340.0" height="60.0" rx="4" fill="#ffffff" stroke="#c62828" stroke-width="1.5"/>
+<text x="630.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">Safety Checks (Safety Limits &amp; Guru Mode)</text>
+<line x1="390.0" y1="287.0" x2="460.0" y2="287.0" stroke="#0288d1" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

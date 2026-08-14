@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="930.0" height="450.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура шаруватої файлової системи OverlayFS у контейнері</text>
+<rect x="50.0" y="75.0" width="860.0" height="75.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="480.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">Віртуальне об'єднане дерево (merged)</text>
+<text x="480.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Єдина файлова система, яку бачить процес усередині Mount Namespace (/app, /etc, /lib)</text>
+<line x1="260.0" y1="180.0" x2="260.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="180.0" x2="700.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="185.0" width="410.0" height="110.0" rx="8" fill="#fff6e5" stroke="#b45309" stroke-width="1.5"/>
+<text x="255.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b45309" text-anchor="middle" font-weight="700">Шар запису (upperdir - Read/Write)</text>
+<text x="255.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Нові файли, зміни конфігів, тимчасові логи</text>
+<text x="255.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Механізм Copy-on-Write (CoW) при модифікації</text>
+<rect x="500.0" y="185.0" width="410.0" height="245.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="705.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Базові шари образу (lowerdir - Read-Only)</text>
+<line x1="515.0" y1="225.0" x2="895.0" y2="225.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="520.0" y="238.0" width="370.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="705.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шар 3: Застосунок (Python / Node.js / Go code)</text>
+<text x="705.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SHA-256 layer digest (tarball)</text>
+<rect x="520.0" y="298.0" width="370.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="705.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шар 2: Залежності та динамічні бібліотеки (OpenSSL, CPython)</text>
+<text x="705.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SHA-256 layer digest (tarball)</text>
+<rect x="520.0" y="358.0" width="370.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="705.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шар 1: Базовий дистрибутив (Debian / Alpine rootfs)</text>
+<text x="705.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SHA-256 layer digest (tarball)</text>
+<rect x="50.0" y="310.0" width="410.0" height="120.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="255.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Службовий каталог (workdir)</text>
+<text x="255.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішній каталог ядра для атомарної підготовки CoW</text>
+<text x="255.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Використовується драйвером VFS при створенні whiteout-файлів</text>
+</svg>

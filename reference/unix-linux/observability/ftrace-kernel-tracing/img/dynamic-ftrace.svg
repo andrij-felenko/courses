@@ -1,19 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="310" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="280" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="300.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм Dynamic Ftrace: Від компіляції до виконання</text>
-<rect x="50.0" y="70.0" width="150.0" height="60.0" rx="6" fill="#e8f4f8" stroke="#2b7b98" stroke-width="1.5"/>
-<text x="125.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Компіляція (-pg)</text>
-<text x="125.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">call __fentry__</text>
-<rect x="225.0" y="70.0" width="150.0" height="60.0" rx="6" fill="#f9f2e7" stroke="#d98c21" stroke-width="1.5"/>
-<text x="300.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Завантаження ОС</text>
-<text x="300.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Патчинг в NOP</text>
-<rect x="130.0" y="200.0" width="150.0" height="60.0" rx="6" fill="#eef7e9" stroke="#4b9932" stroke-width="1.5"/>
-<text x="205.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Трасування ВИМКНЕНО</text>
-<text x="205.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Виконується NOP</text>
-<rect x="320.0" y="200.0" width="150.0" height="60.0" rx="6" fill="#fceaea" stroke="#c9302c" stroke-width="1.5"/>
-<text x="395.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Трасування УВІМКНЕНО</text>
-<text x="395.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">call ftrace_caller</text>
-<line x1="200.0" y1="100.0" x2="225.0" y2="100.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="300.0" y1="130.0" x2="205.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="300.0" y1="130.0" x2="395.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм Dynamic Ftrace: етапи патчингу машинного коду</text>
+<rect x="40.0" y="60.0" width="160.0" height="90.0" rx="6" fill="#e8f4f8" stroke="#2b7b98" stroke-width="1.5"/><text x="120.0" y="85.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">1. Компіляція</tspan><tspan x="120.0" dy="15.6">-mfentry</tspan><tspan x="120.0" dy="15.6">Запис у __mcount_loc</tspan><tspan x="120.0" dy="15.6">call __fentry__</tspan></text>
+<rect x="240.0" y="60.0" width="160.0" height="90.0" rx="6" fill="#f9f2e7" stroke="#d98c21" stroke-width="1.5"/><text x="320.0" y="85.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">2. Раннє завантаження</tspan><tspan x="320.0" dy="15.6">ftrace_init()</tspan><tspan x="320.0" dy="15.6">Заміна CALL -&gt; NOP</tspan><tspan x="320.0" dy="15.6">(5-байтовий NOP)</tspan></text>
+<rect x="440.0" y="60.0" width="160.0" height="90.0" rx="6" fill="#eef7e9" stroke="#4b9932" stroke-width="1.5"/><text x="520.0" y="84.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">3. Пасивний стан</tspan><tspan x="520.0" dy="16.9">Трасування ВИМКНЕНО</tspan><tspan x="520.0" dy="16.9">Виконується NOP</tspan><tspan x="520.0" dy="16.9">(0% оверхеду)</tspan></text>
+<rect x="640.0" y="60.0" width="160.0" height="90.0" rx="6" fill="#fceaea" stroke="#c9302c" stroke-width="1.5"/><text x="720.0" y="82.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">4. Активація</tspan><tspan x="720.0" dy="18.2">text_poke_bp()</tspan><tspan x="720.0" dy="18.2">Заміна NOP -&gt; CALL</tspan><tspan x="720.0" dy="18.2">call ftrace_caller</tspan></text>
+<line x1="200.0" y1="105.0" x2="240.0" y2="105.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="105.0" x2="440.0" y2="105.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="105.0" x2="640.0" y2="105.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="180.0" width="360.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#888888" stroke-width="1.5"/><text x="220.0" y="206.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Захист від викривлення продуктивності:</tspan><tspan x="220.0" dy="14.3">Усі точки трасування NOP-нуті до запиту користувача</tspan></text>
+<rect x="440.0" y="180.0" width="360.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#888888" stroke-width="1.5"/><text x="620.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Атомарний патчинг коду:</tspan><tspan x="620.0" dy="13.0">Використання int3 breakpoint для запобігання race condition</tspan></text>
 </svg>

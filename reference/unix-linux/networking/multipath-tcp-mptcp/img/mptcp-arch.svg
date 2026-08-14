@@ -1,5 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="410" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="10.0" y="10.0" width="580.0" height="380.0" rx="6" fill="#f0f0f0" stroke="#ccc" stroke-width="1.5"/>
-<text x="300.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Multipath TCP Architecture</text>
+<rect x="10.0" y="10.0" width="780.0" height="480.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="400.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1f2328" text-anchor="middle" font-weight="700">Архітектура MPTCP та розмежування просторів послідовностей</text>
+<rect x="188.5" y="55.0" width="423.0" height="49.9" rx="6" fill="#eef6ff" stroke="#0969da" stroke-width="1.5"/><text x="400.0" y="76.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Прикладний додаток (Browser / Client / Server)</tspan><tspan x="400.0" dy="16.9">сокет: socket(AF_INET, SOCK_STREAM, IPPROTO_MPTCP)</tspan></text>
+<line x1="400.0" y1="108.0" x2="400.0" y2="138.0" stroke="#0969da" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="140.0" width="720.0" height="150.0" rx="6" fill="#f6f8fa" stroke="#6e7781" stroke-width="1.5"/>
+<text x="400.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">Шар мета-сокета MPTCP (struct mptcp_sock)</text>
+<text x="400.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#57606a" text-anchor="middle">Глобальний простір послідовностей: 64-бітний DSN (Data Sequence Number)</text>
+<rect x="60.0" y="200.0" width="310.0" height="70.0" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/><text x="215.0" y="223.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">Планувальник пакетів (Scheduler)</tspan><tspan x="215.0" dy="15.6">- minRTT (за замовчуванням)</tspan><tspan x="215.0" dy="15.6">- round-robin / redundant</tspan></text>
+<rect x="430.0" y="200.0" width="310.0" height="70.0" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/><text x="585.0" y="223.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">Менеджер шляхів (Path Manager)</tspan><tspan x="585.0" dy="15.6">- in-kernel PM / userspace PM</tspan><tspan x="585.0" dy="15.6">- сигналізація ADD_ADDR / MP_JOIN</tspan></text>
+<line x1="215.0" y1="290.0" x2="215.0" y2="328.0" stroke="#1f2328" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="585.0" y1="290.0" x2="585.0" y2="328.0" stroke="#1f2328" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="330.0" width="350.0" height="95.0" rx="6" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="215.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a7f37" text-anchor="middle" font-weight="700">Підпотік 1: struct tcp_sock</text>
+<text x="215.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a7f37" text-anchor="middle">Локальний SSN (32-біт Sequence Number)</text>
+<text x="215.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f2328" text-anchor="middle">Інтерфейс: eth0 (192.168.1.50:42100)</text>
+<rect x="410.0" y="330.0" width="350.0" height="95.0" rx="6" fill="#fff8c5" stroke="#9a6700" stroke-width="1.5"/>
+<text x="585.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9a6700" text-anchor="middle" font-weight="700">Підпотік 2: struct tcp_sock</text>
+<text x="585.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a6700" text-anchor="middle">Локальний SSN (32-біт Sequence Number)</text>
+<text x="585.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f2328" text-anchor="middle">Інтерфейс: wlan0 (10.0.2.15:42100)</text>
+<line x1="215.0" y1="425.0" x2="215.0" y2="458.0" stroke="#1a7f37" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="585.0" y1="425.0" x2="585.0" y2="458.0" stroke="#9a6700" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="215.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a7f37" text-anchor="middle" font-weight="700">Канал Ethernet (WAN 1)</text>
+<text x="585.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a6700" text-anchor="middle" font-weight="700">Бездротовий канал Wi-Fi / LTE (WAN 2)</text>
 </svg>

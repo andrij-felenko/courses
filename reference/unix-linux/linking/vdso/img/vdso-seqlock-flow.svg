@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="850" height="500">
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    
+    <!-- Title -->
+    <text x="425" y="35" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1e293b" text-anchor="middle">Алгоритм Seqlock читання часу у vDSO</text>
+    
+    <!-- Step 1: Read seq1 -->
+    <rect x="275" y="65" width="300" height="50" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" rx="6"/>
+    <text x="425" y="95" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">1. Читання seq1 з vvar.seq</text>
+    
+    <!-- Step 2: Check sequence odd/even -->
+    <polygon points="425,140 565,185 425,230 285,185" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="425" y="180" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#92400e" text-anchor="middle">seq1 непарне?</text>
+    <text x="425" y="198" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">(Ядро саме зараз пише?)</text>
+    
+    <!-- Loop if odd -->
+    <path d="M 565 185 L 630 185 L 630 90 L 580 90" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-amber)"/>
+    <text x="670" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#d97706">Так (Spin)</text>
+    
+    <!-- Step 3: Read hardware TSC & calculate time -->
+    <rect x="275" y="260" width="300" height="60" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+    <text x="425" y="285" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0369a1" text-anchor="middle">2. Читання rdtsc() та значень vvar</text>
+    <text x="425" y="307" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#075985" text-anchor="middle">Обчислення: base_time + (cycles * mult &gt;&gt; shift)</text>
+    
+    <path d="M 425 230 L 425 260" fill="none" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <text x="435" y="248" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0284c7">Ні</text>
+    
+    <!-- Step 4: Read seq2 & compare -->
+    <rect x="275" y="350" width="300" height="50" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" rx="6"/>
+    <text x="425" y="380" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">3. Читання seq2 з vvar.seq</text>
+    
+    <path d="M 425 320 L 425 350" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow-dark)"/>
+    
+    <!-- Step 5: Check seq1 == seq2 -->
+    <polygon points="425,420 545,455 425,490 305,455" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="425" y="452" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#15803d" text-anchor="middle">seq1 == seq2?</text>
+    <text x="425" y="468" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle">(Дані консистентні?)</text>
+    
+    <path d="M 425 400 L 425 420" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+    
+    <!-- Loop if seq1 != seq2 -->
+    <path d="M 305 455 L 170 455 L 170 90 L 270 90" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)"/>
+    <text x="130" y="275" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#dc2626">Ні (Повтор)</text>
+    
+    <!-- Success Output -->
+    <path d="M 545 455 L 680 455" fill="none" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+    <text x="610" y="445" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#15803d">Так</text>
+    
+    <rect x="685" y="430" width="140" height="50" fill="#15803d" rx="6"/>
+    <text x="755" y="460" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Повернути час</text>
+
+    <!-- Markers -->
+    <defs>
+        <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706"/>
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0284c7"/>
+        </marker>
+        <marker id="arrow-dark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+        </marker>
+    </defs>
+</svg>

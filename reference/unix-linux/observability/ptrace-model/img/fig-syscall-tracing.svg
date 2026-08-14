@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перехоплення системних викликів у strace (Double Trap)</text>
+<rect x="64.9" y="33.0" width="150.2" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="140.0" y="54.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Tracee (Процес)</tspan></text>
+<rect x="356.6" y="33.0" width="106.8" height="34.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.5"/><text x="410.0" y="54.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Ядро Linux</tspan></text>
+<rect x="604.9" y="33.0" width="150.2" height="34.0" rx="6" fill="#e8f4f8" stroke="#1b6ec2" stroke-width="1.5"/><text x="680.0" y="54.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Tracer (strace)</tspan></text>
+<line x1="140.0" y1="75.0" x2="140.0" y2="320.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="410.0" y1="75.0" x2="410.0" y2="320.0" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="680.0" y1="75.0" x2="680.0" y2="320.0" stroke="#1b6ec2" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="140.0" y1="100.0" x2="410.0" y2="100.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. syscall write()</text>
+<line x1="410.0" y1="130.0" x2="680.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Syscall-enter-stop (SIGTRAP)</text>
+<line x1="680.0" y1="170.0" x2="410.0" y2="170.0" stroke="#1b6ec2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b6ec2" text-anchor="middle" font-weight="700">3. PEEKREGS + PTRACE_SYSCALL</text>
+<line x1="410.0" y1="170.0" x2="410.0" y2="210.0" stroke="#e67e22" stroke-width="3.0"/>
+<text x="420.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="start">Виконання write()</text>
+<line x1="410.0" y1="230.0" x2="680.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Syscall-exit-stop (SIGTRAP)</text>
+<line x1="680.0" y1="270.0" x2="410.0" y2="270.0" stroke="#1b6ec2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b6ec2" text-anchor="middle" font-weight="700">5. Read RAX + PTRACE_SYSCALL</text>
+<line x1="410.0" y1="300.0" x2="140.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6. Повернення в юзерспейс</text>
+<rect x="157.2" y="334.0" width="505.6" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="354.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Сумарні накладні витрати: 4 перемикання контексту на 1 системний виклик</tspan></text>
+</svg>

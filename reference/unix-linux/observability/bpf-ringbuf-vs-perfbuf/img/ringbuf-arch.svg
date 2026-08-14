@@ -1,19 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="310" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="480" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="300.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">BPF Ring Buffer (Shared Global Buffer)</text>
-<rect x="50.0" y="50.0" width="500.0" height="200.0" rx="6" fill="#f0f0f0" stroke="#333" stroke-width="1.5"/>
-<rect x="100.0" y="140.0" width="400.0" height="80.0" rx="6" fill="#d4edda" stroke="#155724" stroke-width="1.5"/>
-<text x="300.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">Shared Event Queue</text>
-<rect x="120.0" y="70.0" width="60.0" height="40.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="150.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CPU 0</text>
-<line x1="150.0" y1="110.0" x2="150.0" y2="140.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
-<rect x="210.0" y="70.0" width="60.0" height="40.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="240.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CPU 1</text>
-<line x1="240.0" y1="110.0" x2="240.0" y2="140.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
-<rect x="300.0" y="70.0" width="60.0" height="40.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="330.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CPU 2</text>
-<line x1="330.0" y1="110.0" x2="330.0" y2="140.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
-<rect x="390.0" y="70.0" width="60.0" height="40.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="420.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CPU 3</text>
-<line x1="420.0" y1="110.0" x2="420.0" y2="140.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">BPF Ring Buffer Architecture</text>
+<rect x="77.4" y="7.0" width="625.1" height="36.0" rx="6" fill="#eef2f7" stroke="#2c3e50" stroke-width="1.5"/><text x="390.0" y="42.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">BPF Ring Buffer: Єдиний розділювальний буфер з Zero-Copy mmap</tspan></text>
+<rect x="45.0" y="60.0" width="130.0" height="40.0" rx="5" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+<text x="110.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">CPU 0 Probe</text>
+<line x1="110.0" y1="100.0" x2="300.0" y2="140.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="60.0" width="130.0" height="40.0" rx="5" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+<text x="295.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">CPU 1 Probe</text>
+<line x1="295.0" y1="100.0" x2="360.0" y2="140.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="415.0" y="60.0" width="130.0" height="40.0" rx="5" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+<text x="480.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">CPU 2 Probe</text>
+<line x1="480.0" y1="100.0" x2="420.0" y2="140.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="600.0" y="60.0" width="130.0" height="40.0" rx="5" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+<text x="665.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">CPU 3 Probe</text>
+<line x1="665.0" y1="100.0" x2="480.0" y2="140.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="145.0" width="680.0" height="115.0" rx="8" fill="#eaafaf10" stroke="#27ae60" stroke-width="2.0"/>
+<text x="390.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e8449" text-anchor="middle" font-weight="700">Глобальний безблокувальний кільцевий буфер (Shared Ring Buffer)</text>
+<rect x="75.0" y="185.0" width="122.0" height="45.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="136.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">E1 (t=100ms)</text>
+<text x="136.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPU 0</text>
+<rect x="207.0" y="185.0" width="122.0" height="45.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="268.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">E2 (t=102ms)</text>
+<text x="268.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPU 1</text>
+<rect x="339.0" y="185.0" width="122.0" height="45.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="400.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">E3 (t=105ms)</text>
+<text x="400.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPU 0</text>
+<rect x="471.0" y="185.0" width="122.0" height="45.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="532.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">E4 (t=110ms)</text>
+<text x="532.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPU 2</text>
+<rect x="603.0" y="185.0" width="122.0" height="45.0" rx="4" fill="#e8f8f5" stroke="#f39c12" stroke-width="1.5"/>
+<text x="664.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">E5 (t=115ms)</text>
+<text x="664.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Reserve...</text>
+<rect x="50.0" y="275.0" width="680.0" height="80.0" rx="6" fill="#fcf3cf" stroke="#f39c12" stroke-width="1.5"/>
+<text x="390.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">Структура віртуальної пам'яті (Double mmap Mapping)</text>
+<rect x="65.0" y="308.0" width="120.0" height="35.0" rx="3" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="125.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">Header Page</tspan><tspan x="125.0" dy="13.0">(prod/cons pos)</tspan></text>
+<rect x="195.0" y="308.0" width="240.0" height="35.0" rx="3" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/>
+<text x="315.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#145a32" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">Data Pages (Основний буфер N сторінок)</tspan></text>
+<rect x="445.0" y="308.0" width="270.0" height="35.0" rx="3" fill="#d4efdf" stroke="#27ae60" stroke-width="1.0"/>
+<text x="580.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">Data Pages Mirror (Повторне mmap відображення)</tspan></text>
+<line x1="390.0" y1="355.0" x2="390.0" y2="385.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="390.0" width="680.0" height="65.0" rx="8" fill="#e8f8f5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="390.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#145a32" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">User-Space Consumer (ring_buffer__poll / zero-copy reserve-submit)</tspan></text>
+<text x="390.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#196f3d" text-anchor="middle" font-weight="700">Переваги: Повний хронологічний порядок (Total Order) + Економія пам'яті до 90%</text>
 </svg>

@@ -1,47 +1,59 @@
-<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
-<rect x="10" y="10" width="780" height="380" fill="#f8f9fa" stroke="#dee2e6"/>
-<rect x="30" y="160" width="120" height="60" fill="#d1e7dd" stroke="#0f5132" rx="5"/>
-<text x="90" y="185" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold">Incoming Packet</text>
-<text x="90" y="205" text-anchor="middle" font-family="sans-serif" font-size="12">4-Tuple (IPs, Ports)</text>
-<rect x="200" y="140" width="140" height="100" fill="#cfe2ff" stroke="#084298" rx="5"/>
-<text x="270" y="170" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold">Toeplitz Hash</text>
-<text x="270" y="195" text-anchor="middle" font-family="sans-serif" font-size="12">+ Secret Key</text>
-<text x="270" y="225" text-anchor="middle" font-family="sans-serif" font-size="12">Result: 32-bit Hash</text>
-<line x1="150" y1="190" x2="200" y2="190" stroke="#000" stroke-width="2" marker-end="url(#arrowBlack)"/>
-<rect x="400" y="80" width="140" height="220" fill="#fff3cd" stroke="#664d03" rx="5"/>
-<text x="470" y="105" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold">RETA</text>
-<text x="470" y="125" text-anchor="middle" font-family="sans-serif" font-size="12">(128 entries)</text>
-<rect x="420" y="140" width="100" height="20" fill="#fff" stroke="#000"/>
-<text x="440" y="154" font-family="monospace" font-size="12">0  ->  Q0</text>
-<rect x="420" y="160" width="100" height="20" fill="#fff" stroke="#000"/>
-<text x="440" y="174" font-family="monospace" font-size="12">1  ->  Q1</text>
-<rect x="420" y="180" width="100" height="20" fill="#fff" stroke="#000"/>
-<text x="440" y="194" font-family="monospace" font-size="12">2  ->  Q2</text>
-<text x="470" y="215" text-anchor="middle" font-family="sans-serif" font-size="14">...</text>
-<rect x="420" y="230" width="100" height="20" fill="#fff" stroke="#000"/>
-<text x="440" y="244" font-family="monospace" font-size="12">127 -> Q3</text>
-<line x1="340" y1="190" x2="400" y2="190" stroke="#000" stroke-width="2" marker-end="url(#arrowBlack)"/>
-<text x="370" y="180" text-anchor="middle" font-family="sans-serif" font-size="12">LSB 7 bits</text>
-<text x="370" y="205" text-anchor="middle" font-family="sans-serif" font-size="12">Index</text>
-<rect x="600" y="60" width="80" height="40" fill="#e2e3e5" stroke="#41464b"/>
-<text x="640" y="85" text-anchor="middle" font-family="sans-serif" font-size="12">Rx Q0</text>
-<rect x="690" y="60" width="80" height="40" fill="#ffddcc" stroke="#663300"/>
-<text x="730" y="85" text-anchor="middle" font-family="sans-serif" font-size="12">Core 0</text>
-<rect x="600" y="130" width="80" height="40" fill="#e2e3e5" stroke="#41464b"/>
-<text x="640" y="155" text-anchor="middle" font-family="sans-serif" font-size="12">Rx Q1</text>
-<rect x="690" y="130" width="80" height="40" fill="#ffddcc" stroke="#663300"/>
-<text x="730" y="155" text-anchor="middle" font-family="sans-serif" font-size="12">Core 1</text>
-<rect x="600" y="200" width="80" height="40" fill="#e2e3e5" stroke="#41464b"/>
-<text x="640" y="225" text-anchor="middle" font-family="sans-serif" font-size="12">Rx Q2</text>
-<rect x="690" y="200" width="80" height="40" fill="#ffddcc" stroke="#663300"/>
-<text x="730" y="225" text-anchor="middle" font-family="sans-serif" font-size="12">Core 2</text>
-<rect x="600" y="270" width="80" height="40" fill="#e2e3e5" stroke="#41464b"/>
-<text x="640" y="295" text-anchor="middle" font-family="sans-serif" font-size="12">Rx Q3</text>
-<rect x="690" y="270" width="80" height="40" fill="#ffddcc" stroke="#663300"/>
-<text x="730" y="295" text-anchor="middle" font-family="sans-serif" font-size="12">Core 3</text>
-<line x1="520" y1="150" x2="600" y2="80" stroke="#000" stroke-width="1" stroke-dasharray="4" marker-end="url(#arrowBlack)"/>
-<line x1="520" y1="170" x2="600" y2="150" stroke="#000" stroke-width="1" stroke-dasharray="4" marker-end="url(#arrowBlack)"/>
-<line x1="520" y1="190" x2="600" y2="220" stroke="#000" stroke-width="1" stroke-dasharray="4" marker-end="url(#arrowBlack)"/>
-<line x1="520" y1="240" x2="600" y2="290" stroke="#000" stroke-width="1" stroke-dasharray="4" marker-end="url(#arrowBlack)"/>
-<defs><marker id="arrowBlack" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#000" /></marker></defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="165.0" width="110.0" height="85.0" rx="6" fill="#e0e7ff" stroke="#3730a3" stroke-width="1.5"/>
+<text x="70.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#3730a3" text-anchor="middle" font-weight="700">Вхідний пакет</text>
+<text x="70.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">4-Tuple:</text>
+<text x="70.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">IPs, Ports, Proto</text>
+<line x1="125.0" y1="207.0" x2="160.0" y2="207.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="160.0" y="150.0" width="155.0" height="115.0" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2.0"/>
+<text x="237.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">Toeplitz Hash Engine</text>
+<text x="237.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle">Ключ RSS (40B)</text>
+<line x1="175.0" y1="205.0" x2="300.0" y2="205.0" stroke="#86efac" stroke-width="1.0"/>
+<text x="237.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">32-бітний хеш</text>
+<text x="237.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0x8F4A2C1B</text>
+<line x1="315.0" y1="207.0" x2="365.0" y2="207.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">7 біт (LSB)</text>
+<rect x="365.0" y="80.0" width="165.0" height="280.0" rx="8" fill="#fef9c3" stroke="#a16207" stroke-width="2.0"/>
+<text x="447.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#a16207" text-anchor="middle" font-weight="700">Таблиця RETA</text>
+<text x="447.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-style="italic">(128 комірок)</text>
+<rect x="380.0" y="142.0" width="135.0" height="32.0" rx="4" fill="#dbeafe" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="405.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="465.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">Rx Queue 0</text>
+<rect x="380.0" y="182.0" width="135.0" height="32.0" rx="4" fill="#fce7f3" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="405.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="465.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9d174d" text-anchor="middle" font-weight="700">Rx Queue 1</text>
+<rect x="380.0" y="222.0" width="135.0" height="32.0" rx="4" fill="#fef3c7" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="405.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="465.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Rx Queue 2</text>
+<rect x="380.0" y="262.0" width="135.0" height="32.0" rx="4" fill="#f3f4f6" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="405.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">...</text>
+<text x="465.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">...</text>
+<rect x="380.0" y="302.0" width="135.0" height="32.0" rx="4" fill="#e0e7ff" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="405.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">127</text>
+<text x="465.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3730a3" text-anchor="middle" font-weight="700">Rx Queue 3</text>
+<line x1="515.0" y1="238.0" x2="595.0" y2="238.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="595.0" y="50.0" width="105.0" height="55.0" rx="6" fill="#dbeafe" stroke="#1e40af" stroke-width="1.5"/>
+<text x="647.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Rx Queue 0</text>
+<text x="647.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">MSI-X 48</text>
+<line x1="700.0" y1="77.0" x2="740.0" y2="77.0" stroke="#1e40af" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="55.0" width="95.0" height="45.0" rx="6" fill="#f8fafc" stroke="#1e40af" stroke-width="2.0"/>
+<text x="787.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Core 0</text>
+<rect x="595.0" y="140.0" width="105.0" height="55.0" rx="6" fill="#fce7f3" stroke="#9d174d" stroke-width="1.5"/>
+<text x="647.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9d174d" text-anchor="middle" font-weight="700">Rx Queue 1</text>
+<text x="647.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">MSI-X 49</text>
+<line x1="700.0" y1="167.0" x2="740.0" y2="167.0" stroke="#9d174d" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="145.0" width="95.0" height="45.0" rx="6" fill="#f8fafc" stroke="#9d174d" stroke-width="2.0"/>
+<text x="787.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Core 1</text>
+<rect x="595.0" y="230.0" width="105.0" height="55.0" rx="6" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/>
+<text x="647.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Rx Queue 2</text>
+<text x="647.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">MSI-X 50</text>
+<line x1="700.0" y1="257.0" x2="740.0" y2="257.0" stroke="#92400e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="235.0" width="95.0" height="45.0" rx="6" fill="#f8fafc" stroke="#92400e" stroke-width="2.0"/>
+<text x="787.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Core 2</text>
+<rect x="595.0" y="320.0" width="105.0" height="55.0" rx="6" fill="#e0e7ff" stroke="#3730a3" stroke-width="1.5"/>
+<text x="647.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3730a3" text-anchor="middle" font-weight="700">Rx Queue 3</text>
+<text x="647.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">MSI-X 51</text>
+<line x1="700.0" y1="347.0" x2="740.0" y2="347.0" stroke="#3730a3" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="325.0" width="95.0" height="45.0" rx="6" fill="#f8fafc" stroke="#3730a3" stroke-width="2.0"/>
+<text x="787.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Core 3</text>
 </svg>

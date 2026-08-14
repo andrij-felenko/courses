@@ -1,26 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="760" height="330" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="760" height="320" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="375.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура Kprobes: вставка INT3 та OOL-буфер</text>
-<rect x="100.0" y="50.0" width="250.0" height="220.0" rx="6" fill="#f9f9f9" stroke="#333333" stroke-width="1.5"/>
-<text x="225.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять ядра (Kernel Memory)</text>
-<rect x="120.0" y="70.0" width="210.0" height="30.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
-<text x="225.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Інструкція 1</text>
-<rect x="120.0" y="110.0" width="210.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
-<text x="225.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">INT3 (0xCC) - kprobe</text>
-<rect x="120.0" y="150.0" width="210.0" height="30.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
-<text x="225.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Інструкція 3</text>
-<rect x="120.0" y="200.0" width="210.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
-<text x="225.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">OOL Буфер (Out-of-line)</text>
-<text x="225.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">[Копія оригінальної Інструкції 2]</text>
-<rect x="450.0" y="70.0" width="250.0" height="160.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
-<text x="575.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">kprobe_handler()</text>
-<rect x="473.2" y="115.7" width="203.5" height="88.6" rx="6" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/><text x="575.0" y="137.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">1. Виклик pre_handler</tspan><tspan x="575.0" dy="18.2">2. Налаштування EIP/RIP</tspan><tspan x="575.0" dy="18.2">   на OOL Буфер</tspan><tspan x="575.0" dy="18.2">3. Single-step</tspan></text>
-<line x1="330.0" y1="125.0" x2="450.0" y2="125.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="390.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Exception #BP</text>
-<line x1="575.0" y1="230.0" x2="330.0" y2="225.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="450.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">single-step (виконання)</text>
-<line x1="120.0" y1="225.0" x2="80.0" y2="225.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
-<line x1="80.0" y1="225.0" x2="80.0" y2="165.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
-<line x1="80.0" y1="165.0" x2="120.0" y2="165.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="100.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">повернення</text>
+<rect x="40.0" y="40.0" width="310.0" height="240.0" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="195.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять ядра (Kernel Code &amp; OOL Buffer)</text>
+<rect x="65.0" y="60.0" width="260.0" height="32.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="195.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">mov %rdi, %rax  (Інструкція 1)</text>
+<rect x="65.0" y="98.0" width="260.0" height="32.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="195.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">INT3 (0xCC) [замість push %rbp]</text>
+<rect x="65.0" y="136.0" width="260.0" height="32.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="195.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">sub $0x20, %rsp (Інструкція 3)</text>
+<rect x="65.0" y="195.0" width="260.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="195.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">OOL Буфер (Out-Of-Line Exec)</text>
+<text x="195.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">push %rbp (Оригінальна інструкція 2)</text>
+<text x="195.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[наступна: jmp назад у оригінал]</text>
+<rect x="420.0" y="40.0" width="300.0" height="240.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="570.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">kprobe_handler() (Ring 0)</text>
+<rect x="424.3" y="120.7" width="291.3" height="88.6" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/><text x="570.0" y="142.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">1. Виклик pre_handler(regs)</tspan><tspan x="570.0" dy="18.2">2. Зчитування регістрів (RDI, RSI)</tspan><tspan x="570.0" dy="18.2">3. Коригування RIP на OOL Буфер</tspan><tspan x="570.0" dy="18.2">4. Single-step виконання</tspan></text>
+<line x1="325.0" y1="114.0" x2="415.0" y2="114.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="370.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">#BP Trap</text>
+<line x1="415.0" y1="227.0" x2="330.0" y2="227.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="372.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">Set RIP</text>
+<line x1="65.0" y1="227.0" x2="25.0" y2="227.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="25.0" y1="227.0" x2="25.0" y2="152.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="25.0" y1="152.0" x2="60.0" y2="152.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="38.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">Jump RIP+1</text>
 </svg>

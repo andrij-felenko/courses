@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-22 -10 836 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-22" y="-10" width="836" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="30.0" width="335.0" height="280.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="197.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0284c7" text-anchor="middle" font-weight="700">TUN (Layer 3 — Мережевий)</text>
+<text x="197.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Оперує IP-пакетами</text>
+<rect x="50.0" y="120.0" width="295.0" height="45.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="197.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок IP (v4/v6)
+[Src IP | Dst IP | Proto]</text>
+<rect x="50.0" y="175.0" width="295.0" height="55.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="197.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Корисне навантаження (Payload)
+TCP / UDP / ICMP даних</text>
+<text x="197.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Без Ethernet заголовка
+• Не має MAC-адреси
+• Не підтримує L2 ARP/Broadcast</text>
+<rect x="395.0" y="30.0" width="335.0" height="280.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="562.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#16a34a" text-anchor="middle" font-weight="700">TAP (Layer 2 — Канальний)</text>
+<text x="562.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Оперує Ethernet-кадрами</text>
+<rect x="415.0" y="110.0" width="295.0" height="40.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="562.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок Ethernet
+[Dst MAC | Src MAC | EtherType]</text>
+<rect x="415.0" y="155.0" width="295.0" height="40.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="562.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок IP (v4/v6) або ARP</text>
+<rect x="415.0" y="200.0" width="295.0" height="45.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="562.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Payload (TCP / UDP / L2-дані)</text>
+<text x="562.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Повноцінний кадр Ethernet
+• Має власну MAC-адресу
+• Підтримує Bridge / ARP / Broadcast</text>
+</svg>

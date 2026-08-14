@@ -8,46 +8,50 @@ from svgkit import render, textbox, rect, text, line, arrow, INK, LINE, FILL, BG
 def render_soname_symlinks():
     frags = []
     
-    # Files boxes
-    frags.append(textbox(200, 100, "libfoo.so", size=16, pad=15, fill="#e8f4f8")[0])
-    frags.append(textbox(200, 200, "libfoo.so.1", size=16, pad=15, fill="#e8f4f8")[0])
-    frags.append(textbox(200, 300, "libfoo.so.1.2.3", size=16, pad=15, fill="#d4edda", bold=True)[0])
+    # Files boxes (left column)
+    frags.append(textbox(180, 70, "libfoo.so\n(Linker Name)", size=14, pad=12, fill="#e8f4f8")[0])
+    frags.append(textbox(180, 190, "libfoo.so.1\n(SONAME)", size=14, pad=12, fill="#e8f4f8")[0])
+    frags.append(textbox(180, 310, "libfoo.so.1.2.3\n(Real File)", size=14, pad=12, fill="#d4edda", bold=True)[0])
     
-    # Arrows
-    frags.append(arrow(200, 125, 200, 175, color=LINE, sw=2))
-    frags.append(arrow(200, 225, 200, 275, color=LINE, sw=2))
+    # Arrows down
+    frags.append(arrow(180, 115, 180, 160, color=LINE, sw=2))
+    frags.append(arrow(180, 235, 180, 280, color=LINE, sw=2))
     
-    # Labels
-    frags.append(textbox(400, 100, "Linker name (для gcc / ld)", size=14, pad=10)[0])
-    frags.append(textbox(400, 200, "SONAME (для ld.so)", size=14, pad=10)[0])
-    frags.append(textbox(400, 300, "Real name (Сам бінарний файл)", size=14, pad=10)[0])
+    # Explanatory blocks (right column)
+    frags.append(textbox(480, 70, "Використовується gcc -lfoo під час компіляції", size=13, pad=10, fill="#f8f9fa")[0])
+    frags.append(textbox(480, 190, "Вписується в DT_NEEDED і шукається ld.so під час запуску", size=13, pad=10, fill="#f8f9fa")[0])
+    frags.append(textbox(480, 310, "Реальний бінарний файл з машинним кодом бібліотеки", size=13, pad=10, fill="#f8f9fa")[0])
     
     # Connect labels to boxes
-    frags.append(line(270, 100, 300, 100, dash="5,5"))
-    frags.append(line(280, 200, 300, 200, dash="5,5"))
-    frags.append(line(290, 300, 300, 300, dash="5,5"))
+    frags.append(line(290, 70, 330, 70, dash="4,4", color="#6c757d"))
+    frags.append(line(290, 190, 310, 190, dash="4,4", color="#6c757d"))
+    frags.append(line(290, 310, 310, 310, dash="4,4", color="#6c757d"))
 
-    render(os.path.join(os.path.dirname(__file__), "soname_symlinks.svg"), 600, 400, *frags, title="Символічні посилання")
+    out_dir = os.path.join(os.path.dirname(__file__), "img")
+    os.makedirs(out_dir, exist_ok=True)
+    render(os.path.join(out_dir, "soname-symlinks.svg"), 720, 390, *frags, title="Ієрархія символічних посилань SONAME")
 
 def render_symbol_versioning():
     frags = []
     
-    # Client App
-    frags.append(textbox(200, 150, "App (Compiled against v1.0)\nCalls do_work()", size=14, pad=15, fill="#fff3cd")[0])
-    frags.append(textbox(200, 300, "App (Compiled against v2.0)\nCalls do_work()", size=14, pad=15, fill="#fff3cd")[0])
+    # Client Apps (left)
+    frags.append(textbox(180, 100, "Додаток A (legacy)\nВимога: do_work@LIBFOO_1.0", size=13, pad=12, fill="#fff3cd")[0])
+    frags.append(textbox(180, 270, "Додаток B (сучасний)\nВимога: do_work@@LIBFOO_2.0", size=13, pad=12, fill="#d1ecf1")[0])
     
-    # Library
-    frags.append(rect(450, 80, 250, 300, fill="#f8f9fa", rx=10))
-    frags.append(text(575, 110, "libfoo.so.1", size=16, bold=True))
+    # Library Box (right)
+    frags.append(rect(430, 50, 260, 310, fill="#fafafa", rx=8, stroke="#cccccc"))
+    frags.append(text(560, 75, "libfoo.so.1 (.text)", size=15, bold=True))
     
-    frags.append(textbox(575, 160, "do_work@LIBFOO_1.0\n(старий ABI)", size=14, pad=10, fill="#e2e3e5")[0])
-    frags.append(textbox(575, 290, "do_work@@LIBFOO_2.0\n(новий ABI, default)", size=14, pad=10, fill="#d4edda")[0])
+    frags.append(textbox(560, 130, "do_work_v1()\n[do_work@LIBFOO_1.0]\nСтара сигнатура (int)", size=12, pad=10, fill="#e2e3e5")[0])
+    frags.append(textbox(560, 260, "do_work_v2()\n[do_work@@LIBFOO_2.0]\nНова сигнатура (const char*)", size=12, pad=10, fill="#d4edda", bold=True)[0])
     
-    # Arrows
-    frags.append(arrow(320, 150, 470, 160, color="#17a2b8", sw=2))
-    frags.append(arrow(320, 300, 460, 290, color="#28a745", sw=2))
+    # Routing Arrows
+    frags.append(arrow(310, 100, 440, 130, color="#d9534f", sw=2))
+    frags.append(arrow(310, 270, 440, 260, color="#28a745", sw=2))
 
-    render(os.path.join(os.path.dirname(__file__), "symbol_versioning.svg"), 750, 450, *frags, title="Резолвінг версіонованих символів")
+    out_dir = os.path.join(os.path.dirname(__file__), "img")
+    os.makedirs(out_dir, exist_ok=True)
+    render(os.path.join(out_dir, "symbol-versioning.svg"), 740, 400, *frags, title="Резолвінг версіонованих символів у ld.so")
 
 def main():
     render_soname_symlinks()

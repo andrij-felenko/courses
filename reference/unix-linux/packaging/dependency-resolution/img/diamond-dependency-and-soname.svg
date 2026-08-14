@@ -1,0 +1,76 @@
+<svg viewBox="0 0 840 420" xmlns="http://www.w3.org/2000/svg">
+    <rect width="840" height="420" fill="#f8f9fa" rx="10" stroke="#dee2e6" stroke-width="2"/>
+    <text x="420" y="32" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#212529">Діамантова залежність та її розв'язання через soname</text>
+
+    <!-- LEFT PANEL: Diamond Conflict -->
+    <g transform="translate(20, 50)">
+        <rect width="380" height="350" fill="#ffffff" stroke="#dc3545" stroke-width="1.5" rx="8"/>
+        <text x="190" y="28" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#dc3545">Конфлікт: Єдине ім'я пакунка (libfoo)</text>
+        
+        <!-- App -->
+        <rect x="130" y="45" width="120" height="45" fill="#0d6efd" rx="5"/>
+        <text x="190" y="72" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">App</text>
+
+        <!-- LibA and LibB -->
+        <rect x="35" y="130" width="120" height="45" fill="#6c757d" rx="5"/>
+        <text x="95" y="157" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">LibA (req v1.0)</text>
+
+        <rect x="225" y="130" width="120" height="45" fill="#6c757d" rx="5"/>
+        <text x="285" y="157" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">LibB (req v2.0)</text>
+
+        <!-- Shared Lib Target Conflict -->
+        <rect x="110" y="235" width="160" height="60" fill="#f8d7da" stroke="#f5c2c7" stroke-width="2" rx="5"/>
+        <text x="190" y="258" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#842029">libfoo (файл libfoo.so)</text>
+        <text x="190" y="278" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#842029">Неможливо поставити v1 й v2 разом!</text>
+
+        <!-- Arrows Left -->
+        <path d="M 160 90 L 115 125" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#arrow-dia)"/>
+        <path d="M 220 90 L 265 125" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#arrow-dia)"/>
+        <path d="M 115 175 L 160 228" fill="none" stroke="#dc3545" stroke-width="1.5" marker-end="url(#arrow-red-dia)"/>
+        <path d="M 265 175 L 220 228" fill="none" stroke="#dc3545" stroke-width="1.5" marker-end="url(#arrow-red-dia)"/>
+    </g>
+
+    <!-- RIGHT PANEL: Resolution via soname -->
+    <g transform="translate(440, 50)">
+        <rect width="380" height="350" fill="#ffffff" stroke="#198754" stroke-width="1.5" rx="8"/>
+        <text x="190" y="28" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#198754">Розв'язок: Розділення за soname</text>
+        
+        <!-- App -->
+        <rect x="130" y="45" width="120" height="45" fill="#0d6efd" rx="5"/>
+        <text x="190" y="72" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">App</text>
+
+        <!-- LibA and LibB -->
+        <rect x="35" y="130" width="120" height="45" fill="#6c757d" rx="5"/>
+        <text x="95" y="157" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">LibA</text>
+
+        <rect x="225" y="130" width="120" height="45" fill="#6c757d" rx="5"/>
+        <text x="285" y="157" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">LibB</text>
+
+        <!-- Co-existing packages -->
+        <rect x="25" y="235" width="140" height="60" fill="#d1e7dd" stroke="#badbcc" stroke-width="1.5" rx="5"/>
+        <text x="95" y="258" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f5132">libfoo1</text>
+        <text x="95" y="278" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#146c43">/usr/lib/libfoo.so.1</text>
+
+        <rect x="215" y="235" width="140" height="60" fill="#d1e7dd" stroke="#badbcc" stroke-width="1.5" rx="5"/>
+        <text x="285" y="258" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f5132">libfoo2</text>
+        <text x="285" y="278" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#146c43">/usr/lib/libfoo.so.2</text>
+
+        <!-- Arrows Right -->
+        <path d="M 160 90 L 115 125" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#arrow-dia)"/>
+        <path d="M 220 90 L 265 125" fill="none" stroke="#495057" stroke-width="1.5" marker-end="url(#arrow-dia)"/>
+        <path d="M 95 175 L 95 228" fill="none" stroke="#198754" stroke-width="1.5" marker-end="url(#arrow-green-dia)"/>
+        <path d="M 285 175 L 285 228" fill="none" stroke="#198754" stroke-width="1.5" marker-end="url(#arrow-green-dia)"/>
+    </g>
+
+    <defs>
+        <marker id="arrow-dia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#495057"/>
+        </marker>
+        <marker id="arrow-red-dia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc3545"/>
+        </marker>
+        <marker id="arrow-green-dia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#198754"/>
+        </marker>
+    </defs>
+</svg>

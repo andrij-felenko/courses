@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 420" width="850" height="420">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+<polygon points="0 0, 10 3.5, 0 7" fill="#333333" />
+</marker>
+<marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+<polygon points="0 0, 10 3.5, 0 7" fill="#c0392b" />
+</marker>
+<marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+<polygon points="0 0, 10 3.5, 0 7" fill="#2457d6" />
+</marker>
+</defs>
+<rect x="0.0" y="0.0" width="850.0" height="420.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="425.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність викликів Netlink при обробці події ADD_ADDR</text>
+<rect x="37.3" y="38.2" width="125.4" height="43.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="100.0" y="56.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">Віддалений вузол</tspan><tspan x="100.0" dy="15.6">(Peer)</tspan></text>
+<rect x="303.6" y="38.2" width="112.7" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="360.0" y="56.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Ядро Linux</tspan><tspan x="360.0" dy="15.6">(MPTCP Stack)</tspan></text>
+<rect x="552.5" y="38.2" width="135.0" height="43.6" rx="6" fill="#fcf8f2" stroke="#d97706" stroke-width="1.5"/><text x="620.0" y="56.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Демон mptcpd</tspan><tspan x="620.0" dy="15.6">(Netlink Socket)</tspan></text>
+<rect x="714.1" y="38.2" width="111.8" height="43.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="770.0" y="56.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Плагін mptcpd</tspan><tspan x="770.0" dy="15.6">(Policy Logic)</tspan></text>
+<line x1="100.0" y1="90.0" x2="100.0" y2="390.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="360.0" y1="90.0" x2="360.0" y2="390.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="90.0" x2="620.0" y2="390.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="770.0" y1="90.0" x2="770.0" y2="390.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="100.0" y1="125.0" x2="360.0" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="230.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCP Packet з опцією ADD_ADDR</text>
+<line x1="360.0" y1="175.0" x2="620.0" y2="175.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="490.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Generic Netlink: MPTCP_EVENT_ANNOUNCED</text>
+<line x1="620.0" y1="225.0" x2="770.0" y2="225.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="695.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">new_address()</text>
+<line x1="770.0" y1="275.0" x2="620.0" y2="275.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="695.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">add_subflow()</text>
+<line x1="620.0" y1="325.0" x2="360.0" y2="325.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="490.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Netlink CMD: MPTCP_PM_CMD_SUBFLOW_CREATE</text>
+<line x1="360.0" y1="370.0" x2="100.0" y2="370.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="230.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCP SYN з опцією MP_JOIN (новий підпотік)</text>
+</svg>

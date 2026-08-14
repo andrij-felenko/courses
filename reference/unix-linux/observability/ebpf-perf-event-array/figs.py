@@ -18,7 +18,7 @@ def render():
 
     <!-- Kernel Space -->
     <rect x="50" y="200" width="700" height="180" class="kernel" rx="10" />
-    <text x="60" y="225" class="title">Kernel Space (eBPF Programs)</text>
+    <text x="60" y="225" class="title">Kernel Space</text>
 
     <!-- CPU Cores -->
     <rect x="100" y="250" width="150" height="100" class="buffer" rx="5" />
@@ -64,7 +64,9 @@ def render():
     <path d="M 625 150 L 550 85" class="arrow" />
 </svg>
 """
-    with open("perf_event_array.svg", "w", encoding="utf-8") as f:
+    img_dir = os.path.join(os.path.dirname(__file__), "img")
+    os.makedirs(img_dir, exist_ok=True)
+    with open(os.path.join(img_dir, "perf-event-array.svg"), "w", encoding="utf-8") as f:
         f.write(svg_content)
 
 if __name__ == "__main__":

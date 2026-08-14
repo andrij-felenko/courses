@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="100%" height="100%">
+  <style>
+    .bg { fill: #ffffff; }
+    .box-phy { fill: #e9ecef; stroke: #495057; stroke-width: 2; rx: 8px; }
+    .box-lro { fill: #ffe3e3; stroke: #e03131; stroke-width: 2; rx: 8px; }
+    .box-gro { fill: #e7f5ff; stroke: #1971c2; stroke-width: 2; rx: 8px; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: bold; fill: #212529; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #495057; }
+    .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #212529; }
+    .text-sm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #495057; }
+    .text-bold { font-weight: bold; }
+    .arrow { stroke: #343a40; stroke-width: 2; marker-end: url(#arrowhead); }
+    .packet-small { fill: #fff3bf; stroke: #f59f00; stroke-width: 1.5; rx: 3px; }
+    .packet-merged { fill: #d0ebff; stroke: #1971c2; stroke-width: 1.5; rx: 4px; }
+    .packet-broken { fill: #ffc9c9; stroke: #e03131; stroke-width: 1.5; rx: 4px; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#343a40" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" class="title">Прийом пакетів (RX): Апаратний LRO проти Програмного GRO у NAPI</text>
+
+  <!-- Physical Packets Incoming -->
+  <rect x="30" y="60" width="180" height="330" class="box-phy" />
+  <text x="120" y="85" text-anchor="middle" class="title">Фізичний потік (RX)</text>
+  <text x="120" y="103" text-anchor="middle" class="subtitle">Потік MTU-кадрів (1500B)</text>
+
+  <g transform="translate(50, 120)">
+    <rect x="0" y="0" width="140" height="35" class="packet-small" />
+    <text x="70" y="22" text-anchor="middle" class="text-sm">Packet #1 (Seq 1..1460)</text>
+    <rect x="0" y="45" width="140" height="35" class="packet-small" />
+    <text x="70" y="67" text-anchor="middle" class="text-sm">Packet #2 (Seq 1461..2920)</text>
+    <rect x="0" y="90" width="140" height="35" class="packet-small" />
+    <text x="70" y="112" text-anchor="middle" class="text-sm">Packet #3 (Seq 2921..4380)</text>
+    <rect x="0" y="135" width="140" height="35" class="packet-small" />
+    <text x="70" y="157" text-anchor="middle" class="text-sm">Packet #4 (Seq 4381..5840)</text>
+  </g>
+
+  <text x="120" y="325" text-anchor="middle" class="text-sm">Тисячі переривань/сек</text>
+  <text x="120" y="345" text-anchor="middle" class="text-sm">Високе навантаження CPU без GRO/LRO</text>
+
+  <!-- LRO Architecture (Top Right) -->
+  <rect x="250" y="60" width="620" height="155" class="box-lro" />
+  <text x="560" y="85" text-anchor="middle" class="title" fill="#c92a2a">Апаратний LRO (Large Receive Offload) - Руйнівний для Forwarding</text>
+  
+  <rect x="270" y="100" width="260" height="95" fill="#fff" stroke="#e03131" rx="4" />
+  <text x="400" y="120" text-anchor="middle" class="text text-bold">Агрегація на контролері NIC</text>
+  <text x="400" y="138" text-anchor="middle" class="text-sm">• Об'єднує TCP дані у 64 KB</text>
+  <text x="400" y="154" text-anchor="middle" class="text-sm">• ВТРАЧАЄ точні IP TTL, TOS, ECN</text>
+  <text x="400" y="170" text-anchor="middle" class="text-sm">• ВТРАЧАЄ варіанти TCP заголовків (Timestamps)</text>
+  <text x="400" y="186" text-anchor="middle" class="text-sm text-bold" fill="#e03131">НЕБЕЗПЕЧНО ДЛЯ ROUTING / BRIDGING!</text>
+
+  <rect x="560" y="105" width="290" height="85" class="packet-broken" />
+  <text x="705" y="130" text-anchor="middle" class="text text-bold" fill="#c92a2a">Злитий LRO-пакет</text>
+  <text x="705" y="150" text-anchor="middle" class="text-sm">Заголовки переписані апаратурою</text>
+  <text x="705" y="170" text-anchor="middle" class="text-sm">Повторне розбиття при маршрутизації зіпсоване</text>
+
+  <!-- GRO Architecture (Bottom Right) -->
+  <rect x="250" y="235" width="620" height="155" class="box-gro" />
+  <text x="560" y="260" text-anchor="middle" class="title" fill="#1864ab">Програмний GRO (Generic Receive Offload) у NAPI - Безпечний і Універсальний</text>
+
+  <rect x="270" y="275" width="260" height="95" fill="#fff" stroke="#1971c2" rx="4" />
+  <text x="400" y="295" text-anchor="middle" class="text text-bold">NAPI Polling Loop (napi_gro_receive)</text>
+  <text x="400" y="313" text-anchor="middle" class="text-sm">• Строга перевірка інваріантів IP/TCP</text>
+  <text x="400" y="329" text-anchor="middle" class="text-sm">• Зберігає опції, ECN та точні TTL</text>
+  <text x="400" y="345" text-anchor="middle" class="text-sm">• Формує skb з skb_shared_info (frag_list)</text>
+  <text x="400" y="361" text-anchor="middle" class="text-sm text-bold" fill="#2b8a3e">ПОВНІСТЮ БЕЗПЕЧНО ДЛЯ ROUTER / BRIDGE</text>
+
+  <rect x="560" y="280" width="290" height="85" class="packet-merged" />
+  <text x="705" y="305" text-anchor="middle" class="text text-bold" fill="#1864ab">Структурований GRO Супер-пакет</text>
+  <text x="705" y="325" text-anchor="middle" class="text-sm">Всі оригінальні метадані збережені</text>
+  <text x="705" y="345" text-anchor="middle" class="text-sm">Легко розділяється назад при forwarding (GSO)</text>
+
+  <!-- Arrows from PHY -->
+  <path d="M 210 140 L 250 140" class="arrow" />
+  <path d="M 210 310 L 250 310" class="arrow" />
+
+</svg>

@@ -1,25 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="800" height="400" fill="#ffffff"/>
-    <rect x="100" y="100" width="200" height="150" rx="10" fill="#cce5ff" stroke="#004085" stroke-width="2"/>
-    <text x="200" y="140" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#004085">Tracer</text>
-    <text x="200" y="170" font-family="monospace" font-size="14" text-anchor="middle" fill="#004085">(gdb, strace)</text>
-    
-    <rect x="500" y="100" width="200" height="150" rx="10" fill="#d4edda" stroke="#155724" stroke-width="2"/>
-    <text x="600" y="140" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#155724">Tracee</text>
-    <text x="600" y="170" font-family="monospace" font-size="14" text-anchor="middle" fill="#155724">(Target Process)</text>
-    
-    <path d="M 300 150 L 490 150" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="400" y="140" font-family="monospace" font-size="14" text-anchor="middle">ptrace(request, ...)</text>
-    
-    <path d="M 500 200 L 310 200" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-red)"/>
-    <text x="400" y="225" font-family="monospace" font-size="14" text-anchor="middle" fill="#dc3545">SIGTRAP (waitpid)</text>
-    
-    <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
-        </marker>
-        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc3545"/>
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура ptrace: Tracer, Ядро та Tracee</text>
+<rect x="40.0" y="70.0" width="210.0" height="230.0" rx="6" fill="#e8f4f8" stroke="#1b6ec2" stroke-width="1.5"/><text x="145.0" y="150.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">Tracer (Трасувальник)</tspan><tspan x="145.0" dy="15.6">[gdb / strace / ltrace]</tspan><tspan x="145.0" dy="15.6"></tspan><tspan x="145.0" dy="15.6">• Цикл waitpid()</tspan><tspan x="145.0" dy="15.6">• Читання/запис регістрів</tspan><tspan x="145.0" dy="15.6">• Модифікація пам'яті</tspan></text>
+<rect x="295.0" y="70.0" width="210.0" height="230.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.5"/><text x="400.0" y="142.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Ядро Linux (Kernel)</tspan><tspan x="400.0" dy="15.6">[ptrace subsystem]</tspan><tspan x="400.0" dy="15.6"></tspan><tspan x="400.0" dy="15.6">• task_struct (PT_PTRACED)</tspan><tspan x="400.0" dy="15.6">• Сигнальна черга</tspan><tspan x="400.0" dy="15.6">• syscall entry/exit trap</tspan><tspan x="400.0" dy="15.6">• seccomp filter</tspan></text>
+<rect x="550.0" y="70.0" width="210.0" height="230.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="655.0" y="138.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">Tracee (Трасований)</tspan><tspan x="655.0" dy="16.9">[Цільовий процес]</tspan><tspan x="655.0" dy="16.9"></tspan><tspan x="655.0" dy="16.9">• Виконання коду</tspan><tspan x="655.0" dy="16.9">• Зупинка в SIGTRAP</tspan><tspan x="655.0" dy="16.9">• Очікування команд</tspan><tspan x="655.0" dy="16.9">• Інструкція INT 3</tspan></text>
+<line x1="250.0" y1="110.0" x2="295.0" y2="110.0" stroke="#1b6ec2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="272.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b6ec2" text-anchor="middle" font-weight="700">ptrace(req)</text>
+<line x1="295.0" y1="170.0" x2="250.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="272.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">SIGTRAP</text>
+<line x1="505.0" y1="110.0" x2="550.0" y2="110.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="527.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">Freeze / Resume</text>
+<line x1="550.0" y1="170.0" x2="505.0" y2="170.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="527.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Trap / Exec</text>
+<rect x="106.1" y="314.0" width="587.7" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="400.0" y="334.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Взаємодія Tracer та Tracee відбувається виключно через ядро з зупинкою процесу-цілі</tspan></text>
 </svg>

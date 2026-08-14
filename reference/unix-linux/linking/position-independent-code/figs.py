@@ -1,80 +1,142 @@
-import os
+# -*- coding: utf-8 -*-
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import *
 
-def render_got_plt():
-    svg = '''<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
-    <rect width="100%" height="100%" fill="#f8f9fa"/>
-    <g transform="translate(50, 50)">
-        <rect x="0" y="0" width="200" height="300" fill="#e9ecef" stroke="#ced4da" stroke-width="2" rx="5"/>
-        <text x="100" y="30" text-anchor="middle" font-weight="bold">Код (Text Segment)</text>
-        
-        <rect x="20" y="80" width="160" height="40" fill="#fff" stroke="#adb5bd" rx="3"/>
-        <text x="100" y="105" text-anchor="middle" font-size="14">call printf@PLT</text>
-        
-        <rect x="20" y="200" width="160" height="80" fill="#e3f2fd" stroke="#90caf9" rx="3"/>
-        <text x="100" y="225" text-anchor="middle" font-weight="bold">PLT</text>
-        <text x="100" y="245" text-anchor="middle" font-size="12">jmp *printf@GOT</text>
-    </g>
+OUT = os.path.join(os.path.dirname(__file__), "img")
+os.makedirs(OUT, exist_ok=True)
 
-    <g transform="translate(350, 50)">
-        <rect x="0" y="0" width="150" height="300" fill="#e9ecef" stroke="#ced4da" stroke-width="2" rx="5"/>
-        <text x="75" y="30" text-anchor="middle" font-weight="bold">Дані (Data Seg)</text>
-        
-        <rect x="20" y="200" width="110" height="80" fill="#fce4ec" stroke="#f48fb1" rx="3"/>
-        <text x="75" y="225" text-anchor="middle" font-weight="bold">GOT</text>
-        <text x="75" y="245" text-anchor="middle" font-size="12">printf: &lt;addr&gt;</text>
-    </g>
+def fig_rip_relative_addressing():
+    W, H = 840, 360
+    p = []
 
-    <g transform="translate(600, 50)">
-        <rect x="0" y="0" width="150" height="300" fill="#e9ecef" stroke="#ced4da" stroke-width="2" rx="5"/>
-        <text x="75" y="30" text-anchor="middle" font-weight="bold">libc.so</text>
-        
-        <rect x="20" y="100" width="110" height="40" fill="#e8f5e9" stroke="#81c784" rx="3"/>
-        <text x="75" y="125" text-anchor="middle" font-size="14">printf()</text>
-    </g>
+    # Тло
+    p.append(rect(0, 0, W, H, fill="#f8fafc", stroke="none"))
 
-    <!-- Arrows -->
-    <path d="M 150 170 L 150 200" stroke="#495057" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-    <path d="M 230 280 L 370 280" stroke="#495057" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-    <path d="M 460 250 L 620 150" stroke="#495057" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+    # Сегмент коду (Left)
+    p.append(rect(40, 50, 340, 260, fill="#f1f5f9", stroke="#cbd5e1", sw=1.5, rx=8))
+    p.append(text(210, 80, "Сегмент коду (.text) [Read-Only]", size=14, color=INK, bold=True))
 
-    <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#495057"/>
-        </marker>
-    </defs>
-</svg>'''
-    with open("got_plt.svg", "w", encoding="utf-8") as f:
-        f.write(svg)
+    # Інструкція в коді
+    b1 = fitbox(60, 130, 300, 45, "mov rax, QWORD PTR [rip + 0x2008]", size=12, fill="#ffffff", stroke="#94a3b8", sw=1.2, color="#0f172a", bold=True)
+    p.append(b1)
 
-def render_aslr():
-    svg = '''<svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
-    <rect width="100%" height="100%" fill="#ffffff"/>
+    p.append(text(210, 205, "Поточний RIP = 0x7fff00001000", size=12, color=MUTED))
+    p.append(text(210, 230, "Зміщення = +0x2008 (константа збірки)", size=12, color=POS, bold=True))
+    p.append(text(210, 275, "Адреса цілі = 0x7fff00003008", size=12.5, color=POS, bold=True))
+
+    # Сегмент даних (Right)
+    p.append(rect(460, 50, 340, 260, fill="#f1f5f9", stroke="#cbd5e1", sw=1.5, rx=8))
+    p.append(text(630, 80, "Сегмент даних (.got / .data) [Read-Write]", size=14, color=INK, bold=True))
+
+    # Слот в GOT / Змінна
+    b2 = fitbox(480, 150, 300, 60, "Слот GOT / Глобальна змінна\nАдреса: 0x7fff00003008", size=12, fill="#e0f2fe", stroke="#0284c7", sw=1.5, color="#0369a1", bold=True)
+    p.append(b2)
+
+    p.append(text(630, 250, "Значення: Покажчик на дані в libc.so", size=12, color=INK))
+
+    # Стрілка з відносним зсувом
+    p.append(arrow(360, 152, 480, 180, color=POS, sw=2))
+
+    render(os.path.join(OUT, "rip-relative-addressing.svg"), W, H, *p)
+
+def fig_got_plt_flow():
+    W, H = 880, 420
+    p = []
+
+    p.append(rect(0, 0, W, H, fill="#ffffff", stroke="none"))
+    p.append(text(W / 2, 22, "Покроковий потік розв'язання символів через GOT і PLT", size=15, bold=True))
+
+    # Панель 1: Основний код
+    p.append(rect(30, 40, 230, 340, fill="#f8fafc", stroke="#e2e8f0", sw=1.5, rx=8))
+    p.append(text(145, 70, "Виконуваний код", size=13.5, color=INK, bold=True))
     
-    <!-- Without PIE/ASLR -->
-    <text x="200" y="40" text-anchor="middle" font-size="16" font-weight="bold">Без PIE (Фіксована адреса)</text>
-    <rect x="50" y="60" width="300" height="40" fill="#ffcdd2" stroke="#ef5350" rx="3"/>
-    <text x="200" y="85" text-anchor="middle">Executable (завжди 0x400000)</text>
+    b_call = fitbox(45, 110, 200, 40, "call printf@PLT", size=12, fill="#eff6ff", stroke="#3b82f6", sw=1.3, color="#1d4ed8", bold=True)
+    p.append(b_call)
+    p.append(text(145, 180, "Прямий відносний виклик\nлокальної секції .plt", size=11.5, color=MUTED))
+
+    # Панель 2: PLT Стуб
+    p.append(rect(290, 40, 280, 340, fill="#f8fafc", stroke="#e2e8f0", sw=1.5, rx=8))
+    p.append(text(430, 70, "Секція .plt (PLT Stub)", size=13.5, color=INK, bold=True))
+
+    b_plt1 = fitbox(305, 105, 250, 36, "jmp QWORD PTR [rip + GOT_offset]", size=11, fill="#fef3c7", stroke="#f59e0b", sw=1.3, color="#b45309", bold=True)
+    p.append(b_plt1)
     
-    <rect x="50" y="110" width="300" height="40" fill="#c8e6c9" stroke="#66bb6a" rx="3"/>
-    <text x="200" y="135" text-anchor="middle">libc.so (рандомізовано)</text>
+    p.append(text(430, 160, "Перший виклик:", size=11.5, color=POS, bold=True))
+    b_plt2 = fitbox(305, 180, 250, 34, "push relocation_index", size=11, fill="#fff", stroke="#cbd5e1", color=INK)
+    p.append(b_plt2)
 
-    <!-- With PIE/ASLR -->
-    <text x="600" y="40" text-anchor="middle" font-size="16" font-weight="bold">З PIE (Повна ASLR)</text>
-    <rect x="450" y="160" width="300" height="40" fill="#bbdefb" stroke="#42a5f5" rx="3"/>
-    <text x="600" y="185" text-anchor="middle">Executable (рандомізовано)</text>
-    
-    <rect x="450" y="80" width="300" height="40" fill="#c8e6c9" stroke="#66bb6a" rx="3"/>
-    <text x="600" y="105" text-anchor="middle">libc.so (рандомізовано)</text>
+    b_plt3 = fitbox(305, 225, 250, 34, "jmp PLT0 -> Dynamic Resolver", size=11, fill="#fef2f2", stroke="#ef4444", color="#b91c1c", bold=True)
+    p.append(b_plt3)
 
-</svg>'''
-    with open("aslr_pie.svg", "w", encoding="utf-8") as f:
-        f.write(svg)
+    p.append(text(430, 290, "Після резолву:\nJMP одразу переходить у libc!", size=11.5, color=POS, bold=True))
 
-def render():
-    render_got_plt()
-    render_aslr()
+    # Панель 3: GOT Таблиця та Libc
+    p.append(rect(600, 40, 250, 340, fill="#f8fafc", stroke="#e2e8f0", sw=1.5, rx=8))
+    p.append(text(725, 70, "GOT та Цільовий код", size=13.5, color=INK, bold=True))
+
+    b_got = fitbox(615, 110, 220, 50, "GOT Entry (printf)\nСпочатку: вказує на push в PLT\nДалі: адреса реального printf", size=10.5, fill="#e0e7ff", stroke="#6366f1", sw=1.3, color="#4338ca", bold=True)
+    p.append(b_got)
+
+    b_libc = fitbox(615, 230, 220, 70, "libc.so (.text)\nАдреса: 0x7ffff7a80120\nРеальне виконання printf()", size=11, fill="#dcfce7", stroke="#22c55e", sw=1.3, color="#15803d", bold=True)
+    p.append(b_libc)
+
+    # Стрілки
+    p.append(arrow(245, 130, 305, 123, color="#3b82f6", sw=1.8))
+    p.append(arrow(555, 123, 615, 135, color="#f59e0b", sw=1.8))
+    p.append(arrow(725, 160, 725, 230, color="#22c55e", sw=1.8))
+
+    render(os.path.join(OUT, "got-plt-flow.svg"), W, H, *p)
+
+def fig_aslr_pie_layout():
+    W, H = 840, 440
+    p = []
+
+    p.append(rect(0, 0, W, H, fill="#f8fafc", stroke="none"))
+    p.append(text(W / 2, 22, "Структура адресного простору процесу: Non-PIE проти PIE", size=15, bold=True))
+
+    # Панель 1: Без PIE
+    p.append(rect(40, 50, 360, 350, fill="#ffffff", stroke="#cbd5e1", sw=1.5, rx=8))
+    p.append(text(220, 80, "Виконуваний файл БЕЗ PIE", size=14, color=POS, bold=True))
+    p.append(text(220, 105, "Фіксоване розміщення в пам'яті", size=12, color=MUTED))
+
+    # Секції без PIE
+    b_nopie_code = fitbox(60, 130, 320, 45, "Код програми (.text)\nАдреса ФІКСОВАНА: 0x00400000", size=11.5, fill="#fde8e8", stroke="#f87171", sw=1.2, color="#991b1b", bold=True)
+    p.append(b_nopie_code)
+
+    b_nopie_data = fitbox(60, 185, 320, 45, "Глобальні дані (.data / .bss)\nАдреса ФІКСОВАНА: 0x00601000", size=11.5, fill="#fde8e8", stroke="#f87171", sw=1.2, color="#991b1b", bold=True)
+    p.append(b_nopie_data)
+
+    b_nopie_lib = fitbox(60, 255, 320, 45, "Спільні бібліотеки (libc.so)\nРандомізовано через ASLR", size=11.5, fill="#dcfce7", stroke="#4ade80", sw=1.2, color="#166534")
+    p.append(b_nopie_lib)
+
+    b_nopie_stack = fitbox(60, 310, 320, 45, "Стек і Купа (Stack / Heap)\nРандомізовано через ASLR", size=11.5, fill="#dcfce7", stroke="#4ade80", sw=1.2, color="#166534")
+    p.append(b_nopie_stack)
+
+    # Панель 2: З PIE
+    p.append(rect(440, 50, 360, 350, fill="#ffffff", stroke="#cbd5e1", sw=1.5, rx=8))
+    p.append(text(620, 80, "Позиційно-незалежний бінарник (PIE)", size=14, color="#0284c7", bold=True))
+    p.append(text(620, 105, "Повна рандомізація адресного простору", size=12, color=MUTED))
+
+    # Секції з PIE
+    b_pie_code = fitbox(460, 130, 320, 45, "Код програми (.text)\nВИПАДКОВА адреса: 0x55a4b18f0000", size=11.5, fill="#e0f2fe", stroke="#38bdf8", sw=1.2, color="#075985", bold=True)
+    p.append(b_pie_code)
+
+    b_pie_data = fitbox(460, 185, 320, 45, "Глобальні дані (.data / .got)\nВИПАДКОВА адреса: 0x55a4b18f3000", size=11.5, fill="#e0f2fe", stroke="#38bdf8", sw=1.2, color="#075985", bold=True)
+    p.append(b_pie_data)
+
+    b_pie_lib = fitbox(460, 255, 320, 45, "Спільні бібліотеки (libc.so)\nВИПАДКОВА адреса: 0x7f3a90100000", size=11.5, fill="#dcfce7", stroke="#4ade80", sw=1.2, color="#166534")
+    p.append(b_pie_lib)
+
+    b_pie_stack = fitbox(460, 310, 320, 45, "Стек і Купа (Stack / Heap)\nВИПАДКОВА адреса: 0x7ffc88210000", size=11.5, fill="#dcfce7", stroke="#4ade80", sw=1.2, color="#166534")
+    p.append(b_pie_stack)
+
+    render(os.path.join(OUT, "aslr-pie-layout.svg"), W, H, *p)
+
+def main():
+    fig_rip_relative_addressing()
+    fig_got_plt_flow()
+    fig_aslr_pie_layout()
 
 if __name__ == "__main__":
-    # Move to the script's directory before generating files
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    render()
+    main()

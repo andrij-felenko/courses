@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="450.0" rx="8" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.5"/>
+<rect x="30.0" y="40.0" width="375.0" height="410.0" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="217.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класичний Virtio-net (QEMU Userspace)</text>
+<rect x="45.0" y="85.0" width="345.0" height="80.0" rx="4" fill="#e6f0fa" stroke="#0969da" stroke-width="1.0"/>
+<text x="217.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0969da" text-anchor="middle" font-weight="700">Guest Kernel (virtio-net driver)</text>
+<text x="217.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1. Write kick → MMIO register</text>
+<text x="217.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">vring_avail update in GPA</text>
+<line x1="45.0" y1="175.0" x2="390.0" y2="175.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="217.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">★ VM EXIT (Guest → Host KVM)</text>
+<rect x="45.0" y="198.0" width="345.0" height="75.0" rx="4" fill="#fff8c5" stroke="#bf8700" stroke-width="1.0"/>
+<text x="217.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#bf8700" text-anchor="middle" font-weight="700">Host KVM (kernel-space)</text>
+<text x="217.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2. Eventfd signal to QEMU thread</text>
+<line x1="45.0" y1="280.0" x2="390.0" y2="280.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="217.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">★ Context Switch (Kernel → QEMU User)</text>
+<rect x="45.0" y="303.0" width="345.0" height="70.0" rx="4" fill="#ffebe9" stroke="#cf222e" stroke-width="1.0"/>
+<text x="217.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#cf222e" text-anchor="middle" font-weight="700">QEMU Process (user-space)</text>
+<text x="217.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3. Process vring &amp; call write() to TAP</text>
+<line x1="45.0" y1="380.0" x2="390.0" y2="380.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="217.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">★ Syscall write() (User → Kernel)</text>
+<rect x="45.0" y="403.0" width="345.0" height="35.0" rx="4" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.0"/>
+<text x="217.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a7f37" text-anchor="middle" font-weight="700">Host Netdev / TAP Interface</text>
+<rect x="435.0" y="40.0" width="375.0" height="410.0" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="622.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прискорений vhost-net (In-Kernel)</text>
+<rect x="450.0" y="85.0" width="345.0" height="80.0" rx="4" fill="#e6f0fa" stroke="#0969da" stroke-width="1.0"/>
+<text x="622.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0969da" text-anchor="middle" font-weight="700">Guest Kernel (virtio-net driver)</text>
+<text x="622.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1. Write kick → MMIO register</text>
+<text x="622.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">vring_avail update in GPA</text>
+<line x1="450.0" y1="175.0" x2="795.0" y2="175.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="622.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">★ Fast VM Exit → KVM ioeventfd</text>
+<rect x="450.0" y="203.0" width="345.0" height="185.0" rx="4" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="622.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a7f37" text-anchor="middle" font-weight="700">Host Kernel-Space (vhost-net)</text>
+<text x="622.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2. vhost-$PID kernel thread wakes up</text>
+<text x="622.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3. Direct GPA → HVA translation of vring</text>
+<text x="622.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">4. Directly injects sk_buff into TAP driver</text>
+<text x="622.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">5. irqfd triggers MSI-X interrupt to Guest</text>
+<rect x="470.0" y="345.0" width="305.0" height="33.0" rx="3" fill="#ffffff" stroke="#1a7f37" stroke-width="1.0"/>
+<text x="622.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a7f37" text-anchor="middle" font-weight="700">Прямий bypass QEMU: 0 перемикань у user-space!</text>
+<rect x="450.0" y="403.0" width="345.0" height="35.0" rx="4" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.0"/>
+<text x="622.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a7f37" text-anchor="middle" font-weight="700">Host Netdev / TAP Interface</text>
+</svg>

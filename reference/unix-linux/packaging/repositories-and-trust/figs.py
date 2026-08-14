@@ -2,64 +2,84 @@ import sys
 import os
 
 # Імпортуємо svgkit з директорії scripts у корені репозиторію
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../scripts')))
-try:
-    import svgkit
-except ImportError:
-    print("Не знайдено svgkit у scripts/")
-    sys.exit(1)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../scripts')))
+from svgkit import *
 
-def render():
-    svgkit.init(800, 450)
+def generate_trust_chain():
+    # Забезпечуємо наявність директорії img
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(img_dir, exist_ok=True)
     
-    # Заголовок
-    svgkit.text(400, 30, "Ланцюжок довіри репозиторіїв (APT)", font_size=24, anchor="middle", font_weight="bold", fill="#333")
+    frags = []
+    
+    # 1. Мейнтейнер (Джерело підпису)
+    b1, w1, h1 = textbox(160, 140, "Розробник / Signing Server\n• Закритий ключ GPG (Private Key)\n• Створення Release/InRelease\n• Обчислення SHA-256 індексів", size=13, fill="#fef3c7", stroke="#d97706", sw=1.5, min_w=240)
+    frags.append(b1)
+    
+    # 2. Дзеркало репозиторію (Публічний сервер)
+    b2, w2, h2 = textbox(480, 140, "Публічне дзеркало (HTTP/HTTPS)\n• InRelease (метадані + підпис)\n• Packages.xz (каталог пакунків)\n• app_1.2_amd64.deb (бінарники)", size=13, fill="#e0f2fe", stroke="#0284c7", sw=1.5, min_w=240)
+    frags.append(b2)
+    
+    # 3. Локальний клієнт (Система користувача)
+    b3, w3, h3 = textbox(800, 140, "Локальна система (APT / DNF)\n• /etc/apt/keyrings/docker.gpg\n• Вказівка [signed-by=...]\n• Перевірка підпису та хешів", size=13, fill="#dcfce7", stroke="#16a34a", sw=1.5, min_w=240)
+    frags.append(b3)
+    
+    # Стрілки передачі даних
+    frags.append(arrow(285, 140, 355, 140, color="#d97706", sw=2))
+    frags.append(text(320, 125, "Публікація", size=11, color="#b45f06", bold=True))
+    
+    frags.append(arrow(605, 140, 675, 140, color="#0284c7", sw=2))
+    frags.append(text(640, 125, "apt update", size=11, color="#0284c7", bold=True))
+    
+    # Блок захисту та перевірки цілісності
+    b4, w4, h4 = textbox(480, 270, "Захист від атак (Man-in-the-Middle & Downgrade)\n• Valid-Until: захист від застарілих індексів\n• SHA-256: захист від підміни пакунка на дзеркалі\n• GPG підпис: гарантія авторства мейнтейнера", size=12, fill="#f3f4f6", stroke="#4b5563", sw=1.5, min_w=380)
+    frags.append(b4)
+    
+    frags.append(line(480, 205, 480, 225, color="#6b7280", sw=1.5, dash="4,4"))
+    
+    output_path = os.path.join(img_dir, "fig-trust-chain.svg")
+    render(output_path, 960, 340, *frags, title="Криптографічний ланцюжок довіри в екосистемі репозиторіїв")
 
-    # Мейнтейнер (Джерело)
-    svgkit.rect(50, 100, 200, 100, rx=10, fill="#f9cb9c", stroke="#b45f06", stroke_width=2)
-    svgkit.text(150, 130, "Мейнтейнер", font_size=16, anchor="middle", font_weight="bold", fill="#000")
-    svgkit.text(150, 160, "Закритий ключ GPG", font_size=14, anchor="middle", fill="#000")
-    svgkit.text(150, 180, "(Підписує Release)", font_size=12, anchor="middle", fill="#555")
-
-    # Сервер репозиторію
-    svgkit.rect(300, 100, 200, 120, rx=10, fill="#cfe2f3", stroke="#0b5394", stroke_width=2)
-    svgkit.text(400, 130, "Дзеркало Репозиторію", font_size=16, anchor="middle", font_weight="bold", fill="#000")
-    svgkit.text(400, 155, "Release (хеші)", font_size=14, anchor="middle", fill="#000")
-    svgkit.text(400, 175, "Release.gpg (підпис)", font_size=14, anchor="middle", fill="#000")
-    svgkit.text(400, 195, "Packages.gz", font_size=14, anchor="middle", fill="#000")
+def generate_verification_flow():
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(img_dir, exist_ok=True)
     
-    # Клієнтська система
-    svgkit.rect(550, 100, 200, 120, rx=10, fill="#d9ead3", stroke="#38761d", stroke_width=2)
-    svgkit.text(650, 130, "Система Користувача", font_size=16, anchor="middle", font_weight="bold", fill="#000")
-    svgkit.text(650, 155, "/etc/apt/keyrings/", font_size=14, anchor="middle", fill="#000")
-    svgkit.text(650, 175, "Відкритий ключ GPG", font_size=14, anchor="middle", fill="#000")
-    svgkit.text(650, 195, "APT / dpkg", font_size=14, anchor="middle", fill="#000")
-
-    # Стрілки
-    svgkit.arrow(250, 150, 300, 150, color="#b45f06", width=3)
-    svgkit.text(275, 140, "Публікація", font_size=12, anchor="middle", fill="#b45f06")
+    frags = []
     
-    svgkit.arrow(500, 150, 550, 150, color="#0b5394", width=3)
-    svgkit.text(525, 140, "apt update", font_size=12, anchor="middle", fill="#0b5394")
+    # Кроки верифікації
+    b1, w1, h1 = textbox(150, 100, "1. Завантаження InRelease\nОтримання індексу з підписом", size=12, fill="#f3f4f6", stroke="#4b5563", min_w=200)
+    frags.append(b1)
     
-    # Процес перевірки на клієнті
-    svgkit.rect(550, 260, 200, 130, rx=8, fill="#eeeeee", stroke="#666666", stroke_width=1, stroke_dasharray="5,5")
-    svgkit.text(650, 280, "Процес перевірки", font_size=14, anchor="middle", font_weight="bold", fill="#333")
-    svgkit.text(650, 310, "1. GPG підпис OK?", font_size=12, anchor="middle", fill="#000")
-    svgkit.text(650, 335, "2. Хеш Release == Packages?", font_size=12, anchor="middle", fill="#000")
-    svgkit.text(650, 360, "3. Хеш Packages == .deb?", font_size=12, anchor="middle", fill="#000")
+    b2, w2, h2 = textbox(410, 100, "2. Перевірка GPG-підпису\nЗвірка з [signed-by=...]", size=12, fill="#fef3c7", stroke="#d97706", min_w=200)
+    frags.append(b2)
     
-    # Стрілка вниз на клієнті
-    svgkit.arrow(650, 220, 650, 260, color="#38761d", width=2)
+    b3, w3, h3 = textbox(670, 100, "3. Звірка хешу Packages.xz\nВитяг SHA-256 з InRelease", size=12, fill="#e0f2fe", stroke="#0284c7", min_w=200)
+    frags.append(b3)
     
-    # Додаткові позначки безпеки
-    svgkit.rect(320, 260, 160, 50, rx=5, fill="#fff2cc", stroke="#d9a5b3", stroke_width=1)
-    svgkit.text(400, 275, "Valid-Until (дата)", font_size=12, anchor="middle", fill="#990000")
-    svgkit.text(400, 295, "Запобігає Replay-атакам", font_size=10, anchor="middle", fill="#990000")
+    b4, w4, h4 = textbox(150, 220, "4. Завантаження .deb / .rpm\nОтримання архіву програми", size=12, fill="#f3f4f6", stroke="#4b5563", min_w=200)
+    frags.append(b4)
     
-    svgkit.arrow(400, 220, 400, 260, color="#990000", width=1, stroke_dasharray="3,3")
-
-    svgkit.save("trust_chain.svg")
+    b5, w5, h5 = textbox(410, 220, "5. Перевірка SHA-256 пакунка\nЗвірка з Packages.xz", size=12, fill="#e0f2fe", stroke="#0284c7", min_w=200)
+    frags.append(b5)
+    
+    b6, w6, h6 = textbox(670, 220, "6. Передача у dpkg / rpm\nВстановлення у систему", size=12, fill="#dcfce7", stroke="#16a34a", min_w=200)
+    frags.append(b6)
+    
+    # Стрілки потоку
+    frags.append(arrow(255, 100, 305, 100, color="#4b5563", sw=1.5))
+    frags.append(arrow(515, 100, 565, 100, color="#d97706", sw=1.5))
+    
+    # Перехід від 3 до 4
+    frags.append(line(670, 135, 670, 160, color="#0284c7", sw=1.5))
+    frags.append(line(670, 160, 150, 160, color="#0284c7", sw=1.5))
+    frags.append(arrow(150, 160, 150, 185, color="#0284c7", sw=1.5))
+    
+    frags.append(arrow(255, 220, 305, 220, color="#4b5563", sw=1.5))
+    frags.append(arrow(515, 220, 565, 220, color="#0284c7", sw=1.5))
+    
+    output_path = os.path.join(img_dir, "fig-repo-verification-flow.svg")
+    render(output_path, 820, 300, *frags, title="Послідовність криптографічних перевірок під час оновлення та встановлення")
 
 if __name__ == "__main__":
-    render()
+    generate_trust_chain()
+    generate_verification_flow()

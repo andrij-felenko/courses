@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл двофазного завершення SendZC</text>
+<line x1="160.0" y1="80.0" x2="160.0" y2="330.0" stroke="#1976d2" stroke-width="2.0"/>
+<text x="160.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1976d2" text-anchor="middle" font-weight="700">Застосунок (Userspace)</text>
+<line x1="400.0" y1="80.0" x2="400.0" y2="330.0" stroke="#f57c00" stroke-width="2.0"/>
+<text x="400.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#f57c00" text-anchor="middle" font-weight="700">Підсистема io_uring</text>
+<line x1="640.0" y1="80.0" x2="640.0" y2="330.0" stroke="#388e3c" stroke-width="2.0"/>
+<text x="640.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#388e3c" text-anchor="middle" font-weight="700">Драйвер &amp; NIC DMA</text>
+<line x1="160.0" y1="110.0" x2="400.0" y2="110.0" stroke="#1976d2" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SQE: IORING_OP_SEND_ZC</text>
+<line x1="400.0" y1="135.0" x2="640.0" y2="135.0" stroke="#f57c00" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">skb -&gt; NIC TX Ring</text>
+<line x1="400.0" y1="175.0" x2="160.0" y2="175.0" stroke="#f57c00" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c62828" text-anchor="middle" font-weight="700">1st CQE: bytes sent (IORING_CQE_F_MORE)</text>
+<rect x="10.0" y="195.0" width="140.0" height="42.0" rx="6" fill="#fffde7" stroke="#fbc02d" stroke-width="1.5"/><text x="80.0" y="213.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="80.0" dy="0.0">Буфер ЗАБЛОКОВАНО!</tspan><tspan x="80.0" dy="11.7">Не перезаписувати</tspan></text>
+<line x1="640.0" y1="255.0" x2="400.0" y2="255.0" stroke="#388e3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">TX IRQ: Packet Sent / ACKed</text>
+<line x1="400.0" y1="295.0" x2="160.0" y2="295.0" stroke="#2e7d32" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle" font-weight="700">2nd CQE: Notification (IORING_CQE_F_NOTIF)</text>
+<rect x="10.0" y="305.0" width="140.0" height="42.0" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/><text x="80.0" y="323.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="80.0" dy="0.0">Буфер ЗВІЛЬНЕНО</tspan><tspan x="80.0" dy="11.7">можна перевикористати</tspan></text>
+</svg>

@@ -1,10 +1,33 @@
-<svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
-    <rect width="600" height="300" fill="#ffffff" />
-    <text x="300" y="30" font-family="sans-serif" font-size="20" text-anchor="middle">PSI (Pressure Stall Information)</text>
-    
-    <rect x="100" y="80" width="400" height="60" fill="#fff0b3" stroke="#000" />
-    <text x="300" y="115" font-family="sans-serif" font-size="16" text-anchor="middle">SOME: Принаймні один процес чекає на ресурс</text>
-    
-    <rect x="100" y="160" width="400" height="60" fill="#ff9999" stroke="#000" />
-    <text x="300" y="195" font-family="sans-serif" font-size="16" text-anchor="middle">FULL: Усі процеси чекають (повний простій)</text>
+<svg width="860" height="440" viewBox="0 0 860 440" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.0" y="0.0" width="860.0" height="440.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a202c" text-anchor="middle" font-weight="700">Різниця між станами голодування PSI: SOME проти FULL</text>
+<rect x="30.0" y="65.0" width="800.0" height="150.0" rx="6" fill="#f9fbe7" stroke="#afb42b" stroke-width="1.5"/>
+<text x="430.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#827717" text-anchor="middle" font-weight="700">PSI SOME (Частковий тиск): Принаймні один потік заблоковано на ресурсі</text>
+<text x="100.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Потік A:</text>
+<rect x="160.0" y="110.0" width="630.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="475.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle">Виконується на CPU</text>
+<text x="100.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Потік B:</text>
+<rect x="160.0" y="155.0" width="250.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="285.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle">CPU</text>
+<rect x="410.0" y="155.0" width="230.0" height="25.0" rx="6" fill="#fdecea" stroke="#c62828" stroke-width="1.5"/>
+<text x="525.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle">Заблоковано на I/O (Stall)</text>
+<rect x="640.0" y="155.0" width="150.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="715.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle">CPU</text>
+<rect x="410.0" y="105.0" width="230.0" height="80.0" rx="6" fill="none" stroke="#d81b60" stroke-width="2.0"/>
+<text x="525.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d81b60" text-anchor="middle" font-style="italic">Інтервал SOME: CPU працює (Потік A), але Потік B чекає I/O</text>
+<rect x="30.0" y="240.0" width="800.0" height="170.0" rx="6" fill="#fbe9e7" stroke="#d84315" stroke-width="1.5"/>
+<text x="430.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#bf360c" text-anchor="middle" font-weight="700">PSI FULL (Повний тиск): УСІ активні потоки заблоковано (CPU повністю простоює)</text>
+<text x="100.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Потік A:</text>
+<rect x="160.0" y="285.0" width="220.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="270.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle">CPU</text>
+<rect x="380.0" y="285.0" width="280.0" height="25.0" rx="6" fill="#fdecea" stroke="#c62828" stroke-width="1.5"/>
+<text x="520.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle">Заблоковано на I/O / RAM (Stall)</text>
+<rect x="660.0" y="285.0" width="130.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="100.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Потік B:</text>
+<rect x="160.0" y="330.0" width="220.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<rect x="380.0" y="330.0" width="280.0" height="25.0" rx="6" fill="#fdecea" stroke="#c62828" stroke-width="1.5"/>
+<text x="520.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle">Заблоковано на I/O / RAM (Stall)</text>
+<rect x="660.0" y="330.0" width="130.0" height="25.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="1.5"/>
+<rect x="380.0" y="280.0" width="280.0" height="80.0" rx="6" fill="none" stroke="#b71c1c" stroke-width="2.5"/>
+<text x="520.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle" font-weight="700">Інтервал FULL: Жоден потік не виконується, CPU втрачає 100% потужності</text>
 </svg>

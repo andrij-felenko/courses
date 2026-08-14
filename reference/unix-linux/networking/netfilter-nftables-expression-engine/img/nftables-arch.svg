@@ -1,60 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
-    <defs>
-        <style>
-            .title { font-family: sans-serif; font-size: 20px; font-weight: bold; fill: #333; }
-            .label { font-family: sans-serif; font-size: 14px; fill: #333; }
-            .mono { font-family: monospace; font-size: 13px; fill: #d63384; }
-            .box { fill: #f8f9fa; stroke: #6c757d; stroke-width: 2; rx: 8; }
-            .box-kernel { fill: #e9ecef; stroke: #495057; stroke-width: 2; rx: 8; }
-            .box-highlight { fill: #d1e7dd; stroke: #0f5132; stroke-width: 2; rx: 8; }
-            .line { stroke: #adb5bd; stroke-width: 3; fill: none; marker-end: url(#arrow); }
-            .dashed-line { stroke: #adb5bd; stroke-width: 2; stroke-dasharray: 5,5; fill: none; }
-        </style>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#adb5bd" />
-        </marker>
-    </defs>
-
-    <!-- Backgrounds -->
-    <rect x="50" y="50" width="300" height="350" class="box" />
-    <text x="200" y="80" text-anchor="middle" class="title">Простір Користувача</text>
-    <text x="200" y="100" text-anchor="middle" class="label">(Userspace)</text>
-    
-    <rect x="450" y="50" width="300" height="350" class="box-kernel" />
-    <text x="600" y="80" text-anchor="middle" class="title">Ядро Linux</text>
-    <text x="600" y="100" text-anchor="middle" class="label">(Kernel Space)</text>
-
-    <!-- Userspace Components -->
-    <rect x="100" y="130" width="200" height="50" class="box" />
-    <text x="200" y="160" text-anchor="middle" class="label">Утиліта `nft`</text>
-
-    <rect x="100" y="210" width="200" height="50" class="box" />
-    <text x="200" y="240" text-anchor="middle" class="label">Бібліотека `libnftnl`</text>
-    <text x="200" y="275" text-anchor="middle" class="mono">Трансляція правил в байт-код</text>
-
-    <!-- Communication -->
-    <path d="M 300 235 L 450 235" class="line" />
-    <text x="375" y="225" text-anchor="middle" class="label">Netlink API</text>
-    <text x="375" y="250" text-anchor="middle" class="mono">(Байт-код)</text>
-    
-    <!-- Kernel Components -->
-    <rect x="500" y="130" width="200" height="70" class="box-highlight" />
-    <text x="600" y="155" text-anchor="middle" class="label">Віртуальна машина</text>
-    <text x="600" y="175" text-anchor="middle" class="label">nftables</text>
-    <text x="600" y="192" text-anchor="middle" class="mono">(nft_do_chain)</text>
-
-    <rect x="500" y="230" width="200" height="50" class="box" />
-    <text x="600" y="260" text-anchor="middle" class="label">Структури Даних</text>
-    <text x="600" y="275" text-anchor="middle" class="mono">(Sets, Maps)</text>
-
-    <rect x="500" y="310" width="200" height="50" class="box" />
-    <text x="600" y="340" text-anchor="middle" class="label">Netfilter Hooks</text>
-
-    <!-- Flow lines in kernel -->
-    <path d="M 600 310 L 600 200" class="line" />
-    <text x="610" y="295" class="label">Мережевий пакет</text>
-
-    <path d="M 600 230 L 600 200" class="line" />
-    
-    <path d="M 200 180 L 200 210" class="line" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 840 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="840" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="310.0" height="440.0" rx="10" fill="#f8fafd" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="175.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Простір користувача</text>
+<text x="175.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">(Userspace)</text>
+<rect x="340.0" y="210.0" width="140.0" height="40.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="410.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Netlink (nfnetlink)</text>
+<rect x="490.0" y="20.0" width="320.0" height="440.0" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="650.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">Ядро Linux</text>
+<text x="650.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">(Kernel Space)</text>
+<rect x="95.2" y="93.2" width="159.6" height="43.6" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/><text x="175.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Утиліта nft</tspan><tspan x="175.0" dy="15.6">(CLI &amp; парсер правил)</tspan></text>
+<rect x="91.8" y="208.2" width="166.5" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="175.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Бібліотека libnftnl</tspan><tspan x="175.0" dy="15.6">(Компіляція байт-коду)</tspan></text>
+<line x1="175.0" y1="145.0" x2="175.0" y2="198.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="260.0" y1="230.0" x2="335.0" y2="230.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="230.0" x2="540.0" y2="230.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="553.1" y="93.2" width="193.8" height="43.6" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="650.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Віртуальна машина nftables</tspan><tspan x="650.0" dy="15.6">(Цикл nft_do_chain)</tspan></text>
+<rect x="546.2" y="208.2" width="207.5" height="43.6" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/><text x="650.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Регістри та Вирази</tspan><tspan x="650.0" dy="15.6">(struct nft_regs &amp; nft_expr)</tspan></text>
+<rect x="570.2" y="313.2" width="159.6" height="43.6" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="650.0" y="331.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Набори та Карти O(1)</tspan><tspan x="650.0" dy="15.6">(rhashtable / rbtree)</tspan></text>
+<rect x="507.2" y="399.4" width="285.6" height="41.3" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/><text x="650.0" y="416.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Хуки Netfilter (PRE_ROUTING / LOCAL_IN ...)</tspan><tspan x="650.0" dy="14.3">sk_buff пакет</tspan></text>
+<line x1="650.0" y1="395.0" x2="650.0" y2="365.0" stroke="#9333ea" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="305.0" x2="650.0" y2="260.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="200.0" x2="650.0" y2="145.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
 </svg>

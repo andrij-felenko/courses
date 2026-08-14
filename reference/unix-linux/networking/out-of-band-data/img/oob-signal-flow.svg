@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="480" viewBox="0 0 940 480">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-sender { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        .box-kernel { fill: #fef2f2; stroke: #dc2626; stroke-width: 2; rx: 8px; }
+        .box-recv { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8px; }
+        .title-box { font-family: monospace; font-size: 15px; font-weight: bold; }
+        .text-main { font-family: monospace; font-size: 13px; fill: #1e293b; }
+        .text-bold { font-family: monospace; font-size: 13px; font-weight: bold; fill: #0f172a; }
+        .text-urg { font-family: monospace; font-size: 13px; font-weight: bold; fill: #991b1b; }
+        .arrow-red { stroke: #dc2626; stroke-width: 2; fill: none; marker-end: url(#arr-red); }
+        .arrow-blue { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arr-blue); }
+        .arrow-green { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#arr-green); }
+    </style>
+    <defs>
+        <marker id="arr-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626" />
+        </marker>
+        <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+        </marker>
+        <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a" />
+        </marker>
+    </defs>
+
+    <!-- Canvas background -->
+    <rect width="940" height="480" class="bg" />
+
+    <!-- Column 1: Process Sender -->
+    <rect x="30" y="40" width="250" height="400" class="box-sender" />
+    <text x="155" y="70" class="title-box" fill="#1d4ed8" text-anchor="middle">Процес-відправник</text>
+    <text x="50" y="110" class="text-bold">1. Підготовка даних</text>
+    <text x="50" y="135" class="text-main">Звичайний потік даних</text>
+    <text x="50" y="180" class="text-bold">2. Виклик send():</text>
+    <text x="50" y="205" class="text-urg">send(fd, "!", 1,</text>
+    <text x="90" y="225" class="text-urg">MSG_OOB);</text>
+    <text x="50" y="270" class="text-main">Байт '!' позначається</text>
+    <text x="50" y="290" class="text-main">як терміновий (OOB)</text>
+
+    <!-- Column 2: Kernel TCP Stack -->
+    <rect x="340" y="40" width="260" height="400" class="box-kernel" />
+    <text x="470" y="70" class="title-box" fill="#b91c1c" text-anchor="middle">Стек TCP ядра Linux</text>
+    <text x="360" y="110" class="text-bold">Формування TCP-пакета:</text>
+    <text x="360" y="135" class="text-urg">URG=1, Urgent Pointer=N</text>
+    <text x="360" y="180" class="text-bold">Отримання пакета:</text>
+    <text x="360" y="205" class="text-main">skb-&gt;urgent_pointer</text>
+    <text x="360" y="225" class="text-main">Оновлення tp-&gt;urg_data</text>
+    <text x="360" y="270" class="text-bold">Генерація подій:</text>
+    <text x="360" y="295" class="text-urg">1. Сигнал SIGURG</text>
+    <text x="360" y="320" class="text-urg">2. Прапорець POLLPRI</text>
+    <text x="360" y="345" class="text-urg">3. select exceptfds</text>
+
+    <!-- Column 3: Process Receiver -->
+    <rect x="660" y="40" width="250" height="400" class="box-recv" />
+    <text x="785" y="70" class="title-box" fill="#15803d" text-anchor="middle">Процес-приймач</text>
+    <text x="680" y="110" class="text-bold">Реєстрація власника:</text>
+    <text x="680" y="135" class="text-main">fcntl(fd, F_SETOWN, pid)</text>
+    <text x="680" y="175" class="text-bold">Реакція на SIGURG:</text>
+    <text x="680" y="200" class="text-main">Переривання циклу</text>
+    <text x="680" y="240" class="text-bold">Читання OOB байта:</text>
+    <text x="680" y="265" class="text-urg">recv(fd, &amp;c, 1, MSG_OOB)</text>
+    <text x="680" y="290" class="text-main">або через SO_OOBINLINE</text>
+    <text x="680" y="330" class="text-bold">Перевірка маркера:</text>
+    <text x="680" y="355" class="text-main">ioctl(fd, SIOCATMARK)</text>
+
+    <!-- Connectors -->
+    <!-- Sender -> Kernel -->
+    <path d="M 280 210 H 340" class="arrow-blue" />
+    
+    <!-- Kernel -> Receiver SIGURG -->
+    <path d="M 600 295 H 660" class="arrow-red" />
+    
+    <!-- Receiver read -> Kernel -->
+    <path d="M 660 265 H 600" class="arrow-green" />
+</svg>

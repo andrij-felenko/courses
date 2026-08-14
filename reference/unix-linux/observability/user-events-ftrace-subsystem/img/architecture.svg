@@ -1,37 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <rect width="800" height="400" fill="#1e1e1e" />
-    <text x="400" y="50" fill="#fff" font-family="sans-serif" font-size="24" text-anchor="middle">User Events Architecture</text>
-    
-    <!-- Userspace -->
-    <rect x="50" y="100" width="300" height="200" fill="#2d2d2d" stroke="#007acc" stroke-width="2"/>
-    <text x="200" y="130" fill="#007acc" font-family="sans-serif" font-size="20" text-anchor="middle">Userspace</text>
-    
-    <rect x="80" y="150" width="240" height="50" fill="#3c3c3c" rx="5"/>
-    <text x="200" y="180" fill="#fff" font-family="sans-serif" font-size="16" text-anchor="middle">Application</text>
-    
-    <rect x="80" y="220" width="240" height="50" fill="#3c3c3c" rx="5"/>
-    <text x="200" y="250" fill="#fff" font-family="sans-serif" font-size="16" text-anchor="middle">libtracefs / libtraceevent</text>
-    
-    <!-- Kernel -->
-    <rect x="450" y="100" width="300" height="200" fill="#2d2d2d" stroke="#4caf50" stroke-width="2"/>
-    <text x="600" y="130" fill="#4caf50" font-family="sans-serif" font-size="20" text-anchor="middle">Kernel (Linux 5.18+)</text>
-    
-    <rect x="480" y="150" width="240" height="50" fill="#3c3c3c" rx="5"/>
-    <text x="600" y="180" fill="#fff" font-family="sans-serif" font-size="16" text-anchor="middle">user_events_data (mmap/write)</text>
-    
-    <rect x="480" y="220" width="110" height="50" fill="#3c3c3c" rx="5"/>
-    <text x="535" y="250" fill="#fff" font-family="sans-serif" font-size="16" text-anchor="middle">ftrace</text>
-    
-    <rect x="610" y="220" width="110" height="50" fill="#3c3c3c" rx="5"/>
-    <text x="665" y="250" fill="#fff" font-family="sans-serif" font-size="16" text-anchor="middle">eBPF / perf</text>
-    
-    <!-- Arrows -->
-    <path d="M 350 175 L 440 175" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
-    <path d="M 350 245 L 440 245" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
-    
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="#fff" />
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми User Events у Linux</text>
+<rect x="30.0" y="60.0" width="360.0" height="390.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="210.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Простір користувача (Userspace)</text>
+<rect x="430.0" y="60.0" width="360.0" height="390.0" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="610.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#14532d" text-anchor="middle" font-weight="700">Ядро Linux (Kernel space)</text>
+<rect x="60.0" y="110.0" width="300.0" height="70.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="210.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0369a1" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Прикладний застосунок</tspan><tspan x="210.0" dy="16.9">(C / C++ / Rust / Go)</tspan></text>
+<rect x="60.0" y="210.0" width="300.0" height="80.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="210.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle"><tspan x="210.0" dy="0.0">Zero-Overhead Перевірка (mmap)</tspan><tspan x="210.0" dy="15.6">1. Читання байта статусу з RAM</tspan><tspan x="210.0" dy="15.6">2. Якщо 0 -&gt; пропуск виклику</tspan></text>
+<rect x="60.0" y="320.0" width="300.0" height="110.0" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/>
+<text x="210.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3730a3" text-anchor="middle"><tspan x="210.0" dy="0.0">Формування та відправка події</tspan><tspan x="210.0" dy="15.6">• ioctl(DIAG_IOCSREG) - реєстрація</tspan><tspan x="210.0" dy="15.6">• writev(fd, iov) - бистрий payload</tspan></text>
+<rect x="460.0" y="110.0" width="300.0" height="70.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="610.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Інтерфейс tracefs / VFS</tspan><tspan x="610.0" dy="16.9">/sys/kernel/tracing/user_events_data</tspan></text>
+<rect x="460.0" y="210.0" width="300.0" height="70.0" rx="6" fill="#fae8ff" stroke="#c026d3" stroke-width="1.5"/>
+<text x="610.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#86198f" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Підсистема tracepoint ядра</tspan><tspan x="610.0" dy="16.9">events/user_events/&lt;event_name&gt;</tspan></text>
+<rect x="460.0" y="310.0" width="90.0" height="110.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="505.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="middle" font-weight="700"><tspan x="505.0" dy="0.0">ftrace</tspan><tspan x="505.0" dy="15.6">ring</tspan><tspan x="505.0" dy="15.6">buffer</tspan></text>
+<rect x="565.0" y="310.0" width="90.0" height="110.0" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+<text x="610.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a3412" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">perf</tspan><tspan x="610.0" dy="15.6">events</tspan><tspan x="610.0" dy="15.6">system</tspan></text>
+<rect x="670.0" y="310.0" width="90.0" height="110.0" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="715.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="middle" font-weight="700"><tspan x="715.0" dy="0.0">eBPF</tspan><tspan x="715.0" dy="15.6">probes</tspan><tspan x="715.0" dy="15.6">(tp)</tspan></text>
+<line x1="210.0" y1="180.0" x2="210.0" y2="210.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="290.0" x2="210.0" y2="320.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="375.0" x2="460.0" y2="145.0" stroke="#4f46e5" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="145.0" x2="360.0" y2="250.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="180.0" x2="610.0" y2="210.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="280.0" x2="505.0" y2="310.0" stroke="#c026d3" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="280.0" x2="610.0" y2="310.0" stroke="#c026d3" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="280.0" x2="715.0" y2="310.0" stroke="#c026d3" stroke-width="1.5" marker-end="url(#arrow)"/>
 </svg>

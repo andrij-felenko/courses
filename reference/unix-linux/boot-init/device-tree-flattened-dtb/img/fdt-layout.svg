@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура бінарного Flattened Device Tree Blob (.dtb)</text>
+<rect x="20.0" y="50.0" width="780.0" height="280.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<rect x="40.0" y="80.0" width="160.0" height="220.0" rx="6" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="120.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#3730a3" text-anchor="middle" font-weight="700">fdt_header</text>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e1b4b" text-anchor="middle" font-weight="700">magic: 0xd00dfeed</text>
+<text x="120.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle">totalsize</text>
+<text x="120.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle">off_dt_struct</text>
+<text x="120.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle">off_dt_strings</text>
+<text x="120.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle">off_mem_rsvmap</text>
+<text x="120.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle">version &amp; boot_cpuid</text>
+<rect x="220.0" y="80.0" width="150.0" height="220.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="295.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">Memory Reserve</text>
+<text x="295.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle" font-weight="700">struct fdt_reserve_entry</text>
+<text x="295.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="middle">address (64-bit)</text>
+<text x="295.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="middle">size (64-bit)</text>
+<text x="295.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-style="italic">Terminator (0, 0)</text>
+<rect x="390.0" y="80.0" width="210.0" height="220.0" rx="6" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+<text x="495.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#166534" text-anchor="middle" font-weight="700">Structure Block</text>
+<text x="495.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle">FDT_BEGIN_NODE (0x0001)</text>
+<text x="495.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle">  node_name + padding</text>
+<text x="495.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">FDT_PROP (0x0003)</text>
+<text x="495.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle">  len, nameoff, data...</text>
+<text x="495.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle">FDT_END_NODE (0x0002)</text>
+<text x="495.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">FDT_END (0x0009)</text>
+<rect x="620.0" y="80.0" width="160.0" height="220.0" rx="6" fill="#fae8ff" stroke="#a21caf" stroke-width="1.5"/>
+<text x="700.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#86198f" text-anchor="middle" font-weight="700">Strings Block</text>
+<text x="700.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#701a75" text-anchor="middle">&quot;compatible\0&quot;</text>
+<text x="700.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#701a75" text-anchor="middle">&quot;reg\0&quot;</text>
+<text x="700.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#701a75" text-anchor="middle">&quot;interrupts\0&quot;</text>
+<text x="700.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#701a75" text-anchor="middle">&quot;status\0&quot;</text>
+<text x="700.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#86198f" text-anchor="middle" font-style="italic">Нуль-терміновані</text>
+<line x1="580.0" y1="210.0" x2="630.0" y2="170.0" stroke="#a21caf" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="600.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a21caf" text-anchor="middle" font-weight="700">nameoff</text>
+</svg>

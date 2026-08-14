@@ -9,8 +9,8 @@
 
 <div class="preknowlist">
 
-- **book:reference/unix-linux/processes/process-model**: Модель процесів, контекст процесу, стани процесів.
-- **book:reference/unix-linux/signals-ipc/signal-model**: Базова модель сигналів та їх призначення.
+- [Модель процесів](book:unix-linux/process-model) — контекст процесу, стани процесів.
+- [Базова модель сигналів](book:unix-linux/signal-model) — базова модель сигналів та їх призначення.
 
 </div>
 

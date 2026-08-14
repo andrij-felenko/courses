@@ -1,3 +1,5 @@
+# Proj Opp Dt Example
+
 ```devicetree
 cpus {
     cpu@0 {

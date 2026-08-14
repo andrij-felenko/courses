@@ -1,29 +1,19 @@
-<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
-<defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="black" />
-        </marker>
-    </defs>
-<rect x="0" y="0" width="800" height="500" fill="#f9f9f9" stroke="#e0e0e0" rx="0"/>
-<text x="400" y="40" font-size="24" fill="black" text-anchor="middle" font-weight="bold">REPL Цикл Оболонки (Read-Eval-Print Loop)</text>
-<rect x="0" y="110" width="200" height="80" fill="#e8f4f8" stroke="#666" rx="10"/>
-<text x="100" y="145" font-size="18" fill="black" text-anchor="middle" font-weight="bold">READ</text>
-<text x="100" y="170" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Читання рядка з stdin</text>
-<rect x="300" y="110" width="200" height="80" fill="#fcf4e3" stroke="#666" rx="10"/>
-<text x="400" y="145" font-size="18" fill="black" text-anchor="middle" font-weight="bold">EVAL (Parse & Expand)</text>
-<text x="400" y="170" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Лексика, Парсинг, AST, Globbing</text>
-<rect x="600" y="110" width="200" height="80" fill="#fdece8" stroke="#666" rx="10"/>
-<text x="700" y="145" font-size="18" fill="black" text-anchor="middle" font-weight="bold">EXECUTE</text>
-<text x="700" y="170" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">fork(), exec(), wait()</text>
-<rect x="600" y="310" width="200" height="80" fill="#eef8eb" stroke="#666" rx="10"/>
-<text x="700" y="345" font-size="18" fill="black" text-anchor="middle" font-weight="bold">PRINT</text>
-<text x="700" y="370" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Вивід stdout/stderr</text>
-<rect x="0" y="310" width="200" height="80" fill="#f4ecf8" stroke="#666" rx="10"/>
-<text x="100" y="345" font-size="18" fill="black" text-anchor="middle" font-weight="bold">LOOP</text>
-<text x="100" y="370" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Повернення до запрошення</text>
-<line x1="200" y1="150" x2="300" y2="150" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="500" y1="150" x2="600" y2="150" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="700" y1="190" x2="700" y2="310" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="600" y1="350" x2="200" y2="350" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="100" y1="310" x2="100" y2="190" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 878.5 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="878.5" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="425.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл REPL та етапи обробки команди в оболонці</text>
+<rect x="10.0" y="10.0" width="830.0" height="340.0" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="29.5" y="84.6" width="161.0" height="70.8" rx="6" fill="#eef6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="110.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">1. Read</tspan><tspan x="110.0" dy="16.9">Введення рядка</tspan><tspan x="110.0" dy="16.9">Readline / prompt</tspan></text>
+<rect x="203.5" y="84.6" width="153.0" height="70.8" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/><text x="280.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">2. Parse</tspan><tspan x="280.0" dy="16.9">Лексер та парсер</tspan><tspan x="280.0" dy="16.9">Побудова AST</tspan></text>
+<rect x="373.5" y="84.6" width="153.0" height="70.8" rx="6" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/><text x="450.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">3. Expand</tspan><tspan x="450.0" dy="16.9">7 фаз розширення</tspan><tspan x="450.0" dy="16.9">$, glob, quotes</tspan></text>
+<rect x="519.3" y="84.6" width="201.3" height="70.8" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/><text x="620.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">4. Orchestrate</tspan><tspan x="620.0" dy="16.9">fork(), pipe(), dup2()</tspan><tspan x="620.0" dy="16.9">Перенаправлення</tspan></text>
+<rect x="681.4" y="84.6" width="177.1" height="70.8" rx="6" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/><text x="770.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">5. Exec &amp; Wait</tspan><tspan x="770.0" dy="16.9">execve(), waitpid()</tspan><tspan x="770.0" dy="16.9">Код виходу $?</tspan></text>
+<line x1="190.5" y1="120.0" x2="203.5" y2="120.0" stroke="#3b82f6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="356.5" y1="120.0" x2="373.5" y2="120.0" stroke="#22c55e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="526.5" y1="120.0" x2="519.3" y2="120.0" stroke="#eab308" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="720.7" y1="120.0" x2="681.4" y2="120.0" stroke="#a855f7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="155.4" x2="770.0" y2="280.0" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="770.0" y1="280.0" x2="110.0" y2="280.0" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="110.0" y1="280.0" x2="110.0" y2="155.4" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="260.0" width="200.0" height="36.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#475569" text-anchor="middle" font-weight="700">Повернення у REPL (Prompt)</text>
 </svg>

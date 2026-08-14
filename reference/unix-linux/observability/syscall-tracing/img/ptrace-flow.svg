@@ -1,20 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="410" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 670 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="670" height="400" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="50.0" y="50.0" width="150.0" height="300.0" rx="10" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
-<text x="125.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Tracer</text>
-<rect x="400.0" y="50.0" width="150.0" height="300.0" rx="10" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
-<text x="475.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Tracee</text>
-<rect x="250.0" y="100.0" width="100.0" height="200.0" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
-<text x="300.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">Kernel</tspan><tspan x="300.0" dy="18.2">(syscall)</tspan></text>
-<line x1="475.0" y1="100.0" x2="350.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="400.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">sys_enter</text>
-<line x1="250.0" y1="150.0" x2="200.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="225.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">SIGTRAP</text>
-<line x1="200.0" y1="200.0" x2="250.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="225.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">PTRACE_SYSCALL</text>
-<line x1="300.0" y1="200.0" x2="300.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="350.0" y1="250.0" x2="475.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="400.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">sys_exit</text>
-<line x1="250.0" y1="250.0" x2="200.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="225.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">SIGTRAP</text>
+<rect x="30.0" y="40.0" width="160.0" height="320.0" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.0"/>
+<text x="110.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0d47a1" text-anchor="middle" font-weight="700">Трасувальник (Tracer)</text>
+<text x="110.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1565c0" text-anchor="middle">strace / gdb</text>
+<rect x="45.0" y="140.0" width="130.0" height="40.0" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="110.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">waitpid() чекає</text>
+<rect x="45.0" y="260.0" width="130.0" height="50.0" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+<text x="110.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">PTRACE_PEEKDATA</tspan><tspan x="110.0" dy="13.0">PTRACE_SYSCALL</tspan></text>
+<rect x="230.0" y="40.0" width="200.0" height="320.0" rx="8" fill="#fff3e0" stroke="#e65100" stroke-width="2.0"/>
+<text x="330.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#bf360c" text-anchor="middle" font-weight="700">Ядро Linux</text>
+<text x="330.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e65100" text-anchor="middle">do_syscall_64()</text>
+<rect x="245.0" y="130.0" width="170.0" height="50.0" rx="5" fill="#ffe0b2" stroke="#e65100" stroke-width="1.5"/>
+<text x="330.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Точка sys_enter</tspan><tspan x="330.0" dy="13.0">_TIF_SYSCALL_TRACE</tspan></text>
+<rect x="245.0" y="210.0" width="170.0" height="40.0" rx="5" fill="#ffe0b2" stroke="#e65100" stroke-width="1.5"/>
+<text x="330.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Виконання виклику</text>
+<rect x="245.0" y="280.0" width="170.0" height="50.0" rx="5" fill="#ffe0b2" stroke="#e65100" stroke-width="1.5"/>
+<text x="330.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Точка sys_exit</tspan><tspan x="330.0" dy="13.0">Перевірка коду повернення</tspan></text>
+<rect x="470.0" y="40.0" width="160.0" height="320.0" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="550.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#4a148c" text-anchor="middle" font-weight="700">Трасований (Tracee)</text>
+<text x="550.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b1fa2" text-anchor="middle">Робочий процес</text>
+<rect x="485.0" y="135.0" width="130.0" height="40.0" rx="5" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="550.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">syscall (write)</text>
+<rect x="485.0" y="285.0" width="130.0" height="40.0" rx="5" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="550.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Повернення в Ring 3</text>
+<line x1="485.0" y1="155.0" x2="415.0" y2="155.0" stroke="#7b1fa2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="245.0" y1="155.0" x2="175.0" y2="155.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="210.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d32f2f" text-anchor="middle">SIGTRAP (enter)</text>
+<line x1="175.0" y1="285.0" x2="245.0" y2="285.0" stroke="#1565c0" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="210.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">PTRACE_SYSCALL</text>
+<line x1="245.0" y1="305.0" x2="175.0" y2="305.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="210.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d32f2f" text-anchor="middle">SIGTRAP (exit)</text>
+<line x1="415.0" y1="305.0" x2="485.0" y2="305.0" stroke="#388e3c" stroke-width="2.0" marker-end="url(#arrow)"/>
 </svg>

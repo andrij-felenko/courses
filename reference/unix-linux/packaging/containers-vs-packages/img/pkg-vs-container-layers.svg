@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="970.0" height="490.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура розгортання: Системний пакунок проти OCI-контейнера</text>
+<rect x="35.0" y="70.0" width="445.0" height="415.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="257.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Системні пакунки (.deb / .rpm)</text>
+<line x1="50.0" y1="112.0" x2="465.0" y2="112.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="55.0" y="130.0" width="190.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="150.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Застосунок А</text>
+<text x="150.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">/usr/bin/app-a</text>
+<rect x="270.0" y="130.0" width="190.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="365.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Застосунок Б</text>
+<text x="365.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">/usr/bin/app-b</text>
+<rect x="55.0" y="205.0" width="405.0" height="60.0" rx="6" fill="#fff6e5" stroke="#b45309" stroke-width="1.5"/>
+<text x="257.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Спільне середовище бібліотек (/usr/lib)</text>
+<text x="257.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">glibc.so.6, libssl.so.3, libcrypto.so (Спільний Page Cache)</text>
+<rect x="55.0" y="285.0" width="405.0" height="60.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="257.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Спільне дерево FHS (/etc, /var, /usr)</text>
+<text x="257.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Єдине глобальне середовище та конфігурації</text>
+<rect x="55.0" y="365.0" width="405.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="257.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Хостове ядро Linux (Single Kernel)</text>
+<text x="257.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Системні виклики (VFS, POSIX, Memory Management)</text>
+<text x="257.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Неізольований простір імен хоста</text>
+<rect x="520.0" y="70.0" width="445.0" height="415.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="742.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">OCI Контейнери (Docker / Podman)</text>
+<line x1="535.0" y1="112.0" x2="950.0" y2="112.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="535.0" y="130.0" width="200.0" height="135.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="635.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Контейнер 1</text>
+<rect x="545.0" y="165.0" width="180.0" height="30.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="635.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосунок А</text>
+<rect x="545.0" y="200.0" width="180.0" height="55.0" rx="4" fill="#fff6e5" stroke="#b45309" stroke-width="1.0"/>
+<text x="635.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Власний rootfs (v1.1)</text>
+<text x="635.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">glibc 2.31 + libssl 1.1</text>
+<rect x="750.0" y="130.0" width="200.0" height="135.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="850.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Контейнер 2</text>
+<rect x="760.0" y="165.0" width="180.0" height="30.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="850.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосунок Б</text>
+<rect x="760.0" y="200.0" width="180.0" height="55.0" rx="4" fill="#fff6e5" stroke="#b45309" stroke-width="1.0"/>
+<text x="850.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Власний rootfs (v2.0)</text>
+<text x="850.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">glibc 2.35 + libssl 3.0</text>
+<rect x="535.0" y="285.0" width="415.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="742.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Шар ізоляції ядра (Namespaces &amp; cgroups v2)</text>
+<text x="742.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">mnt, pid, net, ipc, uts, user + OverlayFS</text>
+<rect x="535.0" y="365.0" width="415.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="742.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Хостове ядро Linux (Single Kernel)</text>
+<text x="742.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Системні виклики (VFS, POSIX, Memory Management)</text>
+<text x="742.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Пряме виконання процесів без гіпервізора</text>
+</svg>

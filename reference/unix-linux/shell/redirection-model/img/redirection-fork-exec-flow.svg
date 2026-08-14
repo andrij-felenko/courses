@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 900 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="900" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність системних викликів при виконанні перенаправлення</text>
+<rect x="0.0" y="0.0" width="880.0" height="440.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="440.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр системних викликів під час перенаправлення оболонкою</text>
+<rect x="30.0" y="65.0" width="190.0" height="320.0" rx="8" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="125.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. fork()</text>
+<text x="125.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Оболонка створює новий процес.</text>
+<text x="125.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дочірній процес успадковує</text>
+<text x="125.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">таблицю дескрипторів 0, 1, 2.</text>
+<rect x="45.0" y="205.0" width="160.0" height="160.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="125.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Стан дескрипторів:</text>
+<text x="125.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0: tty</text>
+<text x="125.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1: tty</text>
+<text x="125.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2: tty</text>
+<line x1="223.0" y1="225.0" x2="237.0" y2="225.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="65.0" width="190.0" height="320.0" rx="8" fill="#fef3c7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="335.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. open(&quot;out.txt&quot;)</text>
+<text x="335.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Відкриття цільового файлу.</text>
+<text x="335.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ОС повертає найменший</text>
+<text x="335.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">вільний дескриптор (FD 3).</text>
+<rect x="255.0" y="205.0" width="160.0" height="160.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="335.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Стан дескрипторів:</text>
+<text x="335.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0: tty</text>
+<text x="335.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1: tty</text>
+<text x="335.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2: tty</text>
+<text x="335.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3: out.txt</text>
+<line x1="433.0" y1="225.0" x2="447.0" y2="225.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="450.0" y="65.0" width="190.0" height="320.0" rx="8" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="545.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. dup2(3, 1)</text>
+<text x="545.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Перенаправлення stdout.</text>
+<text x="545.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дескриптор 1 перевизначається</text>
+<text x="545.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">на об'єкт файлу FD 3.</text>
+<rect x="465.0" y="205.0" width="160.0" height="160.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="545.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Стан дескрипторів:</text>
+<text x="545.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0: tty</text>
+<text x="545.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1: out.txt</text>
+<text x="545.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2: tty</text>
+<text x="545.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">3: out.txt</text>
+<line x1="643.0" y1="225.0" x2="657.0" y2="225.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="660.0" y="65.0" width="190.0" height="320.0" rx="8" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="755.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. close(3) + execve()</text>
+<text x="755.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Закриття зайвого FD 3.</text>
+<text x="755.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Заміна образу процесу.</text>
+<text x="755.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Програма пише у FD 1.</text>
+<rect x="675.0" y="205.0" width="160.0" height="160.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="755.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Стан дескрипторів:</text>
+<text x="755.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0: tty</text>
+<text x="755.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1: out.txt</text>
+<text x="755.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2: tty</text>
+</svg>

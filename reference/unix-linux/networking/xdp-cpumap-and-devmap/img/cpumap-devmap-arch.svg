@@ -1,0 +1,64 @@
+<svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="450" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#0f172a">Загальна архітектура XDP Redirect: CPUMAP та DEVMAP</text>
+  <rect x="30" y="70" width="160" height="350" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+  <text x="110" y="95" font-size="15" font-weight="bold" text-anchor="middle" fill="#1e293b">Вхідний вузол (RX)</text>
+  <rect x="45" y="115" width="130" height="50" rx="6" fill="#e2e8f0" stroke="#475569"/>
+  <text x="110" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">RX Ring (NIC)</text>
+  <text x="110" y="155" font-size="11" text-anchor="middle" fill="#475569">DMA кадр / Page</text>
+  <rect x="45" y="185" width="130" height="70" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="110" y="210" font-size="13" font-weight="bold" text-anchor="middle" fill="#991b1b">XDP Програма</text>
+  <text x="110" y="230" font-size="11" text-anchor="middle" fill="#7f1d1d">bpf_redirect_map()</text>
+  <text x="110" y="245" font-size="10" text-anchor="middle" fill="#991b1b">XDP_REDIRECT</text>
+  <rect x="45" y="275" width="130" height="60" rx="6" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="110" y="300" font-size="12" font-weight="bold" text-anchor="middle" fill="#334155">xdp_do_redirect()</text>
+  <text x="110" y="318" font-size="11" text-anchor="middle" fill="#64748b">per-CPU scratchpad</text>
+  <polygon points="250,215 280,185 310,215 280,245" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="280" y="219" font-size="11" font-weight="bold" text-anchor="middle" fill="#92400e">Тип карти</text>
+  <rect x="360" y="70" width="510" height="170" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="615" y="95" font-size="15" font-weight="bold" text-anchor="middle" fill="#1e40af">BPF_MAP_TYPE_CPUMAP (Розпаралелювання обробки)</text>
+  <rect x="380" y="115" width="140" height="100" rx="6" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="450" y="140" font-size="13" font-weight="bold" text-anchor="middle" fill="#1e40af">lockless ptr_ring</text>
+  <text x="450" y="160" font-size="11" text-anchor="middle" fill="#1e3a8a">Черга на цільовий CPU</text>
+  <text x="450" y="180" font-size="10" text-anchor="middle" fill="#2563eb">xdp_frame (без skb)</text>
+  <rect x="545" y="115" width="140" height="100" rx="6" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="615" y="140" font-size="13" font-weight="bold" text-anchor="middle" fill="#1e40af">Target CPU kthread</text>
+  <text x="615" y="160" font-size="11" text-anchor="middle" fill="#1e3a8a">xdp_cpu_kthread</text>
+  <text x="615" y="180" font-size="10" text-anchor="middle" fill="#2563eb">napi_alloc_skb()</text>
+  <rect x="710" y="115" width="145" height="100" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="782" y="140" font-size="13" font-weight="bold" text-anchor="middle" fill="#14532d">Стек TCP/IP</text>
+  <text x="782" y="160" font-size="11" text-anchor="middle" fill="#166534">netif_receive_skb()</text>
+  <text x="782" y="180" font-size="10" text-anchor="middle" fill="#15803d">Сокети / Маршрут</text>
+  <rect x="360" y="255" width="510" height="165" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="615" y="280" font-size="15" font-weight="bold" text-anchor="middle" fill="#15803d">BPF_MAP_TYPE_DEVMAP (Пряма переадресація кадру)</text>
+  <rect x="380" y="300" width="140" height="100" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="450" y="325" font-size="13" font-weight="bold" text-anchor="middle" fill="#14532d">Bulk Queue</text>
+  <text x="450" y="345" font-size="11" text-anchor="middle" fill="#166534">xdp_bulk_queue</text>
+  <text x="450" y="365" font-size="10" text-anchor="middle" fill="#15803d">Пакетне групування</text>
+  <rect x="545" y="300" width="140" height="100" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="615" y="325" font-size="13" font-weight="bold" text-anchor="middle" fill="#14532d">Egress Driver</text>
+  <text x="615" y="345" font-size="11" text-anchor="middle" fill="#166534">ndo_xdp_xmit()</text>
+  <text x="615" y="365" font-size="10" text-anchor="middle" fill="#15803d">Пряма передача</text>
+  <rect x="710" y="300" width="145" height="100" rx="6" fill="#f1f5f9" stroke="#475569"/>
+  <text x="782" y="325" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">TX Ring (NIC)</text>
+  <text x="782" y="345" font-size="11" text-anchor="middle" fill="#475569">Вихідний порт</text>
+  <text x="782" y="365" font-size="10" text-anchor="middle" fill="#334155">Wire Speed</text>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+  <line x1="175" y1="215" x2="250" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 280 185 L 280 155 L 380 155" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="520" y1="155" x2="545" y2="155" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="685" y1="155" x2="710" y2="155" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 280 245 L 280 350 L 380 350" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="520" y1="350" x2="545" y2="350" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="685" y1="350" x2="710" y2="350" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

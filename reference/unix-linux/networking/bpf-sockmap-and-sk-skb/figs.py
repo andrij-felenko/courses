@@ -1,91 +1,61 @@
 import sys
 import os
-import math
 
-# We add the common scripts directory to the python path to import svgkit
-script_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(script_dir, "../../../../scripts")))
+# Додаємо шлях до scripts/ у корені репозиторію
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "scripts"))
+from svgkit import *
 
-try:
-    import svgkit
-except ImportError:
-    # If svgkit isn't available, we create a very simple mockup SVG writer to not fail
-    class _MockSvg:
-        def __init__(self, w, h):
-            self.w = w
-            self.h = h
-            self.elements = []
-            
-        def add(self, el):
-            self.elements.append(el)
-            
-        def save(self, p):
-            with open(p, "w", encoding="utf-8") as f:
-                f.write(f'<svg width="{self.w}" height="{self.h}" xmlns="http://www.w3.org/2000/svg">\n')
-                f.write("</svg>")
-                
-    svgkit = type('svgkit', (), {'Drawing': _MockSvg})
+def generate_figures():
+    img_dir = os.path.join(os.path.dirname(__file__), "img")
+    if not os.path.exists(img_dir):
+        os.makedirs(img_dir)
 
-def generate_svg():
-    try:
-        doc = svgkit.Drawing(800, 500)
-        
-        # We need a proper representation since we don't have the actual svgkit class methods
-        # let's just write raw XML if svgkit fails or is a mock, but assuming svgkit has a specific API
-        pass
-    except Exception:
-        pass
-        
-    # Standard XML creation as a fallback and to ensure SVG is definitely generated properly.
-    svg_content = """<?xml version="1.0" encoding="UTF-8"?>
-<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d32f2f"/>
-    </marker>
-  </defs>
-  <!-- Background -->
-  <rect x="10" y="10" width="780" height="480" rx="10" fill="#f9f9f9" stroke="#ccc"/>
-  
-  <text x="400" y="50" font-size="24" text-anchor="middle" font-weight="bold" font-family="sans-serif">Socket Redirection with BPF SOCKMAP</text>
-  
-  <!-- Process A -->
-  <rect x="50" y="100" width="200" height="150" rx="5" fill="#e1f5fe" stroke="#0288d1"/>
-  <text x="150" y="130" text-anchor="middle" font-size="16" font-family="sans-serif">Process A (Proxy)</text>
-  <rect x="70" y="160" width="160" height="40" rx="3" fill="#fff" stroke="#aaa"/>
-  <text x="150" y="185" text-anchor="middle" font-family="sans-serif">Socket 1 (FD: 5)</text>
-  
-  <!-- Process B -->
-  <rect x="550" y="100" width="200" height="150" rx="5" fill="#e1f5fe" stroke="#0288d1"/>
-  <text x="650" y="130" text-anchor="middle" font-size="16" font-family="sans-serif">Process B (Backend)</text>
-  <rect x="570" y="160" width="160" height="40" rx="3" fill="#fff" stroke="#aaa"/>
-  <text x="650" y="185" text-anchor="middle" font-family="sans-serif">Socket 2 (FD: 8)</text>
-  
-  <!-- Kernel Space -->
-  <rect x="50" y="300" width="700" height="160" rx="5" fill="#e8f5e9" stroke="#388e3c"/>
-  <text x="150" y="330" text-anchor="middle" font-weight="bold" font-family="sans-serif">Kernel TCP/IP Stack</text>
-  
-  <!-- SOCKMAP -->
-  <rect x="300" y="320" width="200" height="120" rx="5" fill="#fff3e0" stroke="#f57c00"/>
-  <text x="400" y="345" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif">BPF_MAP_TYPE_SOCKMAP</text>
-  <text x="400" y="375" text-anchor="middle" font-size="12" font-family="sans-serif">Key 0: Socket 1</text>
-  <text x="400" y="395" text-anchor="middle" font-size="12" font-family="sans-serif">Key 1: Socket 2</text>
-  
-  <!-- Connections -->
-  <line x1="150" y1="200" x2="150" y2="350" stroke="#666" stroke-width="2" stroke-dasharray="4,4"/>
-  <line x1="650" y1="200" x2="650" y2="350" stroke="#666" stroke-width="2" stroke-dasharray="4,4"/>
-  
-  <!-- Redirection arrow -->
-  <path d="M 150 350 C 150 430, 300 400, 390 400 C 480 400, 650 430, 650 350" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
-  
-  <text x="400" y="440" text-anchor="middle" font-size="14" font-weight="bold" fill="#d32f2f" font-family="sans-serif">Zero-Copy BPF Redirection</text>
-  
-</svg>
-"""
-    with open(os.path.join(script_dir, "fig-sockmap-redir.svg"), "w", encoding="utf-8") as f:
-        f.write(svg_content)
-    
-    print("Generated fig-sockmap-redir.svg successfully.")
+    # 1. Архітектура прискорення сокетів BPF (SOCKMAP Redirection)
+    w, h = 800, 480
+    frags = []
+
+    # Тло та блоки простору
+    frags.append(rect(20, 50, 760, 160, fill="#f8fafc", stroke="#cbd5e1", rx=8))
+    frags.append(mtext(40, 75, ["User-Space (Простір користувача)"], size=13, color=MUTED, bold=True, anchor="start"))
+
+    frags.append(rect(20, 230, 760, 220, fill="#f1f5f9", stroke="#94a3b8", rx=8))
+    frags.append(mtext(40, 255, ["Kernel-Space (Ядро Linux)"], size=13, color=MUTED, bold=True, anchor="start"))
+
+    # Процес A (Proxy / Service A)
+    b_a, _, _ = textbox(160, 130, "Process A (Envoy Proxy)\nFD: 5 (Socket 1)", size=13, pad=12, fill="#e0f2fe", stroke="#0288d1")
+    frags.append(b_a)
+
+    # Процес B (Backend Service)
+    b_b, _, _ = textbox(640, 130, "Process B (Backend)\nFD: 8 (Socket 2)", size=13, pad=12, fill="#e0f2fe", stroke="#0288d1")
+    frags.append(b_b)
+
+    # Структури ядра сокетів
+    b_sk1, _, _ = textbox(160, 300, "struct sock (Sock 1)\ntcp_bpf_sendmsg()", size=12, pad=10, fill="#ffffff", stroke="#0288d1")
+    frags.append(b_sk1)
+
+    b_sk2, _, _ = textbox(640, 300, "struct sock (Sock 2)\nsk_receive_queue", size=12, pad=10, fill="#ffffff", stroke="#0288d1")
+    frags.append(b_sk2)
+
+    # Стандартний стек (показаний пунктиром знизу)
+    frags.append(rect(280, 380, 240, 50, fill="#fee2e2", stroke="#ef4444", rx=6))
+    frags.append(mtext(400, 410, ["Традиційний TCP/IP Стек", "(IP, routing, loopback, TCP ACK)"], size=11, color="#b91c1c", anchor="middle"))
+
+    # BPF SOCKMAP та програма verdict
+    b_map, _, _ = textbox(400, 300, "BPF_MAP_TYPE_SOCKMAP\n[0]: Sock 1 -> [1]: Sock 2\nSK_SKB / SK_MSG Verdict Program", size=12, pad=10, fill="#fef3c7", stroke="#d97706", bold=True)
+    frags.append(b_map)
+
+    # Лінії зв'язку між User-Space та Kernel
+    frags.append(arrow(160, 165, 160, 270, color="#0288d1", sw=1.5))
+    frags.append(arrow(640, 270, 640, 165, color="#0288d1", sw=1.5))
+
+    # Шлях байпасу BPF (Червона стрілка прямого перенаправлення без копіювання)
+    frags.append(arrow(235, 300, 310, 300, color="#d97706", sw=2))
+    frags.append(arrow(490, 300, 565, 300, color="#27ae60", sw=2.5))
+    frags.append(mtext(400, 260, ["bpf_sk_redirect_map() / Zero-Copy Bypass"], size=12, color="#27ae60", bold=True))
+
+    out_path = os.path.join(img_dir, "fig-sockmap-redir.svg")
+    render(out_path, w, h, *frags, title="Прискорення сокетів за допомогою BPF SOCKMAP та sk_skb")
+    print(f"Generated: {out_path}")
 
 if __name__ == "__main__":
-    generate_svg()
+    generate_figures()

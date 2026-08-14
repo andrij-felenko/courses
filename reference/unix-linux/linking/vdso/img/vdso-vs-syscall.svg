@@ -1,32 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
-    <rect width="100%" height="100%" fill="#fafafa"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 440" width="850" height="440">
+    <rect width="100%" height="100%" fill="#ffffff"/>
     
-    <!-- User Space -->
-    <rect x="50" y="50" width="300" height="300" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="10"/>
-    <text x="200" y="80" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0d47a1" text-anchor="middle">User Space</text>
+    <!-- Title -->
+    <text x="425" y="35" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1e293b" text-anchor="middle">Порівняння виконання системного виклику та vDSO</text>
     
-    <!-- Kernel Space -->
-    <rect x="450" y="50" width="300" height="300" fill="#fff3e0" stroke="#e65100" stroke-width="2" rx="10"/>
-    <text x="600" y="80" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e65100" text-anchor="middle">Kernel Space</text>
+    <!-- User Space Box -->
+    <rect x="40" y="60" width="350" height="340" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="12"/>
+    <text x="215" y="88" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#0369a1" text-anchor="middle">User Space (Ring 3)</text>
     
-    <!-- Syscall path -->
-    <path d="M 200 120 C 350 120, 450 200, 600 200" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-red)"/>
-    <text x="400" y="140" font-family="Arial" font-size="14" fill="#d32f2f" text-anchor="middle">Standard Syscall (Context Switch)</text>
+    <!-- Kernel Space Box -->
+    <rect x="460" y="60" width="350" height="340" fill="#fff7ed" stroke="#ea580c" stroke-width="2" rx="12"/>
+    <text x="635" y="88" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#c2410c" text-anchor="middle">Kernel Space (Ring 0)</text>
     
-    <!-- vDSO path -->
-    <rect x="100" y="220" width="200" height="100" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="5"/>
-    <text x="200" y="250" font-family="Arial" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">vDSO mapped library</text>
-    <text x="200" y="275" font-family="Arial" font-size="14" fill="#1b5e20" text-anchor="middle">gettimeofday()</text>
+    <!-- App Code Node -->
+    <rect x="70" y="105" width="290" height="45" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+    <text x="215" y="133" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">Застосунок: clock_gettime()</text>
     
-    <path d="M 200 160 L 200 220" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrow-green)"/>
-    <text x="140" y="190" font-family="Arial" font-size="14" fill="#2e7d32">Fast call</text>
+    <!-- vDSO Box Node -->
+    <rect x="70" y="275" width="290" height="100" fill="#dcfce7" stroke="#16a34a" stroke-width="2" rx="8"/>
+    <text x="215" y="305" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle">Сторінки vDSO / vvar</text>
+    <text x="215" y="330" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle">Код читає час через seqlock + rdtsc</text>
+    <text x="215" y="353" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#15803d" text-anchor="middle">Без перемикання контексту (~10-15 ns)</text>
     
+    <!-- Kernel Syscall Handler Node -->
+    <rect x="490" y="175" width="290" height="105" fill="#ffffff" stroke="#ea580c" stroke-width="1.5" rx="6"/>
+    <text x="635" y="205" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#9a3412" text-anchor="middle">Ядро: do_sys_clock_gettime</text>
+    <text x="635" y="233" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#c2410c" text-anchor="middle">Збереження pt_regs, KPTI, MSR</text>
+    <text x="635" y="255" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#9a3412" text-anchor="middle">Перемикання контексту (~150-300 ns)</text>
+    
+    <!-- Traditional Syscall Path (Red) -->
+    <path d="M 215 150 L 215 200 L 490 200" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-red)"/>
+    <text x="425" y="188" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">syscall</text>
+    
+    <!-- Return from Kernel Syscall -->
+    <path d="M 490 245 L 380 245 L 380 130 L 360 130" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)"/>
+    
+    <!-- vDSO Direct Path (Green) -->
+    <path d="M 190 150 L 190 275" fill="none" stroke="#16a34a" stroke-width="3" marker-end="url(#arrow-green)"/>
+    <text x="130" y="215" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#15803d">vDSO виклик</text>
+    
+    <!-- vDSO Return -->
+    <path d="M 240 275 L 240 150" fill="none" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+    <text x="300" y="215" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#166534">Повернення</text>
+    
+    <!-- Markers -->
     <defs>
-        <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#d32f2f"/>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
         </marker>
-        <marker id="arrow-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e7d32"/>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
         </marker>
     </defs>
 </svg>

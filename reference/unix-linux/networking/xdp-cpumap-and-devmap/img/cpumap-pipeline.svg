@@ -1,0 +1,43 @@
+<svg viewBox="0 0 850 360" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="425" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#0f172a">Паралелізація обробки пакетів через BPF_MAP_TYPE_CPUMAP</text>
+  <rect x="30" y="70" width="220" height="250" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="140" y="95" font-size="14" font-weight="bold" text-anchor="middle" fill="#1e40af">RX CPU (Первинне ядро)</text>
+  <rect x="45" y="115" width="190" height="40" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="140" y="140" font-size="12" text-anchor="middle" fill="#1e3a8a">Обробка NAPI / IRQ</text>
+  <rect x="45" y="170" width="190" height="45" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="140" y="190" font-size="12" font-weight="bold" text-anchor="middle" fill="#1e40af">XDP Program</text>
+  <text x="140" y="206" font-size="10" text-anchor="middle" fill="#1e3a8a">bpf_redirect_map(cpu_map, N)</text>
+  <rect x="45" y="230" width="190" height="70" rx="4" fill="#bfdbfe" stroke="#1d4ed8"/>
+  <text x="140" y="252" font-size="12" font-weight="bold" text-anchor="middle" fill="#1e40af">xdp_do_flush()</text>
+  <text x="140" y="270" font-size="11" text-anchor="middle" fill="#1e3a8a">Запис у ptr_ring без skb</text>
+  <text x="140" y="286" font-size="10" fill="#1d4ed8" text-anchor="middle">IPI / Wakeup trigger</text>
+  <rect x="290" y="130" width="230" height="130" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="405" y="155" font-size="14" font-weight="bold" text-anchor="middle" fill="#92400e">Кільцевий буфер ptr_ring</text>
+  <rect x="305" y="175" width="200" height="35" rx="4" fill="#fde68a" stroke="#b45309"/>
+  <text x="405" y="197" font-size="12" font-family="monospace" text-anchor="middle" fill="#78350f">[xdp_frame*] [xdp_frame*] ...</text>
+  <text x="405" y="232" font-size="11" text-anchor="middle" fill="#92400e">Конфігурований qsize (напр. 2048)</text>
+  <text x="405" y="247" font-size="10" text-anchor="middle" fill="#b45309">Lockless Producer/Consumer</text>
+  <rect x="560" y="70" width="260" height="250" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="690" y="95" font-size="14" font-weight="bold" text-anchor="middle" fill="#15803d">Target CPU N (Цільове ядро)</text>
+  <rect x="575" y="115" width="230" height="50" rx="4" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="690" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#14532d">kthread: xdp_cpu_kthread</text>
+  <text x="690" y="154" font-size="11" text-anchor="middle" fill="#166534">Вичитка пакетів із ptr_ring</text>
+  <rect x="575" y="178" width="230" height="50" rx="4" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="690" y="200" font-size="12" font-weight="bold" text-anchor="middle" fill="#14532d">napi_alloc_skb() / SKB Alloc</text>
+  <text x="690" y="217" font-size="11" text-anchor="middle" fill="#166534">Паралельна аллокація SKB</text>
+  <rect x="575" y="240" width="230" height="65" rx="4" fill="#bbf7d0" stroke="#15803d"/>
+  <text x="690" y="263" font-size="12" font-weight="bold" text-anchor="middle" fill="#14532d">netif_receive_skb_core()</text>
+  <text x="690" y="280" font-size="11" text-anchor="middle" fill="#166534">Передача у стек TCP/IP / Netfilter</text>
+  <text x="690" y="296" font-size="10" text-anchor="middle" fill="#15803d">Локальний кеш L1/L2 цільового ядра</text>
+  <defs>
+    <marker id="arr-b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+  <line x1="235" y1="195" x2="290" y2="195" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-b)"/>
+  <line x1="520" y1="195" x2="560" y2="195" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-g)"/>
+</svg>

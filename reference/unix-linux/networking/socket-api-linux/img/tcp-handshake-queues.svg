@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність системних викликів та двочергова модель TCP</text>
+<text x="120.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Клієнт (connect)</text>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Сервер у ядрі (SYN Backlog &amp; Accept Queue)</text>
+<text x="860.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Процес сервера</text>
+<line x1="120.0" y1="60.0" x2="120.0" y2="450.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="440.0" y1="60.0" x2="440.0" y2="450.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="860.0" y1="60.0" x2="860.0" y2="450.0" stroke="#64748b" stroke-width="2.0"/>
+<rect x="770.0" y="70.0" width="180.0" height="44.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="95.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">listen(listen_fd, backlog)</tspan><tspan x="860.0" dy="14.3">(стан: TCP_LISTEN)</tspan></text>
+<rect x="340.0" y="120.0" width="200.0" height="100.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="440.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">SYN Backlog</text>
+<text x="440.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">request_sock (SYN_RECV)</text>
+<text x="440.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle">ліміт: tcp_max_syn_backlog</text>
+<rect x="340.0" y="260.0" width="200.0" height="110.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="440.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="middle" font-weight="700">Accept Queue</text>
+<text x="440.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle">struct tcp_sock (ESTABLISHED)</text>
+<text x="440.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">ліміт: min(backlog, somaxconn)</text>
+<rect x="20.0" y="110.0" width="180.0" height="40.0" rx="6" fill="#dbeafe" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">connect(cli_fd, addr)</tspan><tspan x="110.0" dy="14.3">(стан: SYN_SENT)</tspan></text>
+<line x1="120.0" y1="140.0" x2="340.0" y2="160.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="227.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">1. SYN (ISN_c)</text>
+<line x1="340.0" y1="180.0" x2="120.0" y2="210.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="220.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">2. SYN-ACK (ISN_s, ACK_c)</text>
+<rect x="20.0" y="220.0" width="180.0" height="36.0" rx="6" fill="#bbf7d0" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="241.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">connect() повертає 0</tspan><tspan x="110.0" dy="14.3">(стан: ESTABLISHED)</tspan></text>
+<line x1="120.0" y1="240.0" x2="340.0" y2="270.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="227.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">3. ACK (ACK_s)</text>
+<line x1="440.0" y1="220.0" x2="440.0" y2="260.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle">просування</text>
+<rect x="770.0" y="340.0" width="180.0" height="48.0" rx="6" fill="#fed7aa" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="360.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">accept(listen_fd, ...)</tspan><tspan x="860.0" dy="14.3">блокується, якщо порожньо</tspan></text>
+<line x1="540.0" y1="350.0" x2="770.0" y2="350.0" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="655.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c2410c" text-anchor="middle" font-weight="700">витягування з'єднання</text>
+<rect x="770.0" y="405.0" width="180.0" height="44.0" rx="6" fill="#bbf7d0" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="423.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">повертає новий conn_fd</tspan><tspan x="860.0" dy="14.3">(слухаючий FD вільний)</tspan></text>
+<rect x="40.0" y="470.0" width="900.0" height="40.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="490.0" y="494.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">accept() НЕ бере участі у 3-Way Handshake — ядро виконує його повністю асинхронно у фоні</tspan></text>
+</svg>

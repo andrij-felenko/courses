@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="430.0" rx="8" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.5"/>
+<rect x="30.0" y="40.0" width="780.0" height="70.0" rx="6" fill="#e6f0fa" stroke="#0969da" stroke-width="1.5"/>
+<text x="420.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0969da" text-anchor="middle" font-weight="700">Трансляція адресації в vhost_memory (GPA → HVA)</text>
+<text x="420.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Guest Physical Address (GPA) + Memory Region Offset = Host Virtual Address (HVA)</text>
+<rect x="30.0" y="130.0" width="250.0" height="300.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30.0" y="130.0" width="250.0" height="40.0" rx="6" fill="#ddf4ff" stroke="#54aef0" stroke-width="1.5"/>
+<text x="155.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0969da" text-anchor="middle" font-weight="700">1. Descriptor Table (vring_desc)</text>
+<rect x="40.0" y="185.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="155.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Desc [0]: addr=0x1000, len=1514, flags=NEXT, next=1</text>
+<rect x="40.0" y="233.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="155.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Desc [1]: addr=0x2000, len=64,   flags=WRITE, next=0</text>
+<rect x="40.0" y="281.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="155.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Desc [2]: addr=0x3500, len=1024, flags=0,     next=0</text>
+<rect x="40.0" y="329.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="155.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Desc [3]: addr=0x4000, len=512,  flags=NEXT, next=4</text>
+<rect x="40.0" y="377.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="155.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">...</text>
+<rect x="295.0" y="130.0" width="250.0" height="300.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="295.0" y="130.0" width="250.0" height="40.0" rx="6" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="420.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#bf8700" text-anchor="middle" font-weight="700">2. Available Ring (vring_avail)</text>
+<rect x="305.0" y="185.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="420.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">flags: 0x0 (Interrupts Enabled)</text>
+<rect x="305.0" y="233.0" width="230.0" height="40.0" rx="4" fill="#fff8c5" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="420.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">idx: 14 (Гість додав 14 буферів)</text>
+<rect x="305.0" y="281.0" width="230.0" height="40.0" rx="4" fill="#fff8c5" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="420.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">ring[0] = Head Desc #0</text>
+<rect x="305.0" y="329.0" width="230.0" height="40.0" rx="4" fill="#fff8c5" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="420.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">ring[1] = Head Desc #3</text>
+<rect x="305.0" y="377.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="420.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ring[2..N] = Pending Descriptors</text>
+<rect x="560.0" y="130.0" width="250.0" height="300.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="560.0" y="130.0" width="250.0" height="40.0" rx="6" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="685.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a7f37" text-anchor="middle" font-weight="700">3. Used Ring (vring_used)</text>
+<rect x="570.0" y="185.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="685.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">flags: 0x0 (No Notification)</text>
+<rect x="570.0" y="233.0" width="230.0" height="40.0" rx="4" fill="#dafbe1" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="685.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">idx: 12 (vhost обробив 12 буферів)</text>
+<rect x="570.0" y="281.0" width="230.0" height="40.0" rx="4" fill="#dafbe1" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="685.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">used_elem[0]: id=0, len=1514</text>
+<rect x="570.0" y="329.0" width="230.0" height="40.0" rx="4" fill="#dafbe1" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="685.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">used_elem[1]: id=1, len=64</text>
+<rect x="570.0" y="377.0" width="230.0" height="40.0" rx="4" fill="#f6f8fa" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="685.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">used_elem[2..N] = Completed</text>
+</svg>

@@ -1,7 +1,7 @@
 # 📋 Повний довідник формату та синтаксису sysusers.d
 
 <preknowlist>
-- [sysusers-declarative-accounts-d.md](book:unix-linux/sysusers-declarative-accounts/sysusers-declarative-accounts-d.md) — детальна стаття про декларативне управління обліковими записами
+- [sysusers-declarative-accounts-d.md](book:unix-linux/sysusers-declarative-accounts-d.md) — детальна стаття про декларативне управління обліковими записами
 - [hist-declarative-users.md](book:unix-linux/sysusers-declarative-accounts/hist-declarative-users.md) — історія еволюції управління системними акаунтами в UNIX
 </preknowlist>
 

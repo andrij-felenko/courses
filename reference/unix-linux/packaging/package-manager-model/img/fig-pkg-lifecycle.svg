@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1020.0" height="400.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="530.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів та життєвий цикл транзакції пакунка</text>
+<rect x="60.0" y="180.0" width="190.0" height="90.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="155.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700">Not-Installed</text>
+<text x="155.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Пакунок відсутній в системі</text>
+<rect x="310.0" y="180.0" width="190.0" height="90.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="405.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Unpacked</text>
+<text x="405.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Файли розпаковано на диск</text>
+<rect x="560.0" y="180.0" width="190.0" height="90.0" rx="8" fill="#fff6e5" stroke="#b45309" stroke-width="1.8"/>
+<text x="655.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b45309" text-anchor="middle" font-weight="700">Half-Configured</text>
+<text x="655.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Виконується postinst/postun</text>
+<rect x="810.0" y="180.0" width="190.0" height="90.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="905.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Installed</text>
+<text x="905.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Пакунок повністю активний</text>
+<line x1="250.0" y1="210.0" x2="310.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. preinst</text>
+<text x="280.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Розпакування</text>
+<line x1="500.0" y1="210.0" x2="560.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="530.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. postinst</text>
+<text x="530.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Конфігурація</text>
+<line x1="750.0" y1="210.0" x2="810.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="780.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Успіх</text>
+<text x="780.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Triggers ok</text>
+<path d="M 905 270 C 905 370, 155 370, 155 270" fill="none" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="530.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Видалення: prerm → видалення файлів → postrm (Purge)</text>
+<line x1="655.0" y1="270.0" x2="155.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="405.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">Помилка скрипту → Rollback до Not-Installed / Half-Installed</text>
+</svg>

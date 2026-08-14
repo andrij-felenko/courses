@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="850" height="480">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+<text x="425.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура ELF Core-файлу (ET_CORE Layout)</text>
+<rect x="40.0" y="60.0" width="770.0" height="390.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2.0"/>
+<rect x="48.4" y="80.2" width="163.2" height="59.6" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/><text x="130.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">ELF Header</tspan><tspan x="130.0" dy="14.3">e_type = ET_CORE</tspan><tspan x="130.0" dy="14.3">e_machine = EM_X86_64</tspan></text>
+<rect x="298.4" y="80.2" width="163.2" height="59.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="380.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Program Headers Table</tspan><tspan x="380.0" dy="14.3">1x PT_NOTE segment</tspan><tspan x="380.0" dy="14.3">Nx PT_LOAD segments</tspan></text>
+<rect x="60.0" y="180.0" width="340.0" height="240.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="230.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Сегмент PT_NOTE (Метадані процесів)</text>
+<rect x="103.2" y="223.5" width="253.7" height="43.0" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="230.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">NT_PRSTATUS: registers (RIP, RSP, RAX...)</tspan><tspan x="230.0" dy="13.0">siginfo, PID, pr_cursig</tspan></text>
+<rect x="114.6" y="290.0" width="230.9" height="30.0" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="230.0" y="308.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">NT_PRPSINFO: comm name, args, UID/GID</tspan></text>
+<rect x="111.7" y="340.0" width="236.6" height="30.0" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="230.0" y="358.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">NT_SIGINFO: si_signo, si_code, si_addr</tspan></text>
+<rect x="117.4" y="385.0" width="225.2" height="30.0" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="230.0" y="403.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">NT_FILE: mapped files &amp; mmap offsets</tspan></text>
+<rect x="440.0" y="180.0" width="340.0" height="240.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">Сегменти PT_LOAD (Зліпки пам'яті VMA)</text>
+<rect x="486.0" y="228.5" width="248.0" height="43.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">PT_LOAD #1: Стек потоку 1 (Thread Stack)</tspan><tspan x="610.0" dy="13.0">[RSP-offset ... RSP-base]</tspan></text>
+<rect x="488.9" y="288.5" width="242.3" height="43.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">PT_LOAD #2: Купа процесу (Heap Segment)</tspan><tspan x="610.0" dy="13.0">анонімні модифіковані сторінки</tspan></text>
+<rect x="483.1" y="348.5" width="253.7" height="43.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">PT_LOAD #3: Глобальні дані (.data / .bss)</tspan><tspan x="610.0" dy="13.0">анонімні приватні мапінги</tspan></text>
+<line x1="200.0" y1="110.0" x2="290.0" y2="110.0" stroke="#4f46e5" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="140.0" x2="230.0" y2="180.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="140.0" x2="610.0" y2="180.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

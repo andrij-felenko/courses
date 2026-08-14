@@ -1,9 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-        <rect width="100%" height="100%" fill="#f8f9fa"/>
-        <text x="400" y="50" font-family="sans-serif" font-size="24" text-anchor="middle" font-weight="bold">Архітектура AppImage</text>
-        <rect x="250" y="100" width="300" height="200" fill="#e9ecef" stroke="#ced4da" stroke-width="2"/>
-        <rect x="300" y="130" width="200" height="60" fill="#4dabf7" stroke="#228be6" stroke-width="2" rx="5"/>
-        <text x="400" y="165" font-family="sans-serif" font-size="18" fill="#fff" text-anchor="middle">AppRun (ELF wrapper)</text>
-        <rect x="300" y="210" width="200" height="60" fill="#51cf66" stroke="#40c057" stroke-width="2" rx="5"/>
-        <text x="400" y="245" font-family="sans-serif" font-size="18" fill="#fff" text-anchor="middle">SquashFS (Payload)</text>
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура AppImage: ELF-лаунчер та змонтована SquashFS</text>
+<text x="240.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура файлу .AppImage</text>
+<rect x="60.0" y="100.0" width="360.0" height="420.0" rx="8" fill="#eceff1" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="80.0" y="120.0" width="320.0" height="100.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="240.0" y="157.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">1. ELF Header + AppRun</tspan><tspan x="240.0" dy="16.9">Бінарний лаунчер (executable)</tspan><tspan x="240.0" dy="16.9">зміщення: 0 байт</tspan></text>
+<rect x="80.0" y="240.0" width="320.0" height="260.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="240.0" y="340.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">2. Стиснений образ SquashFS</tspan><tspan x="240.0" dy="16.9">• Власні бінарні файли (/usr/bin)</tspan><tspan x="240.0" dy="16.9">• Залежні бібліотеки (.so)</tspan><tspan x="240.0" dy="16.9">• Таблиці іконок та .desktop</tspan><tspan x="240.0" dy="16.9">• Допоміжні ресурси та конфіги</tspan></text>
+<line x1="430.0" y1="280.0" x2="480.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="455.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">запуск</text>
+<text x="850.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес виконання та FUSE-монтування</text>
+<rect x="500.0" y="110.0" width="680.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="840.0" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">Крок 1: Запуск ./application.AppImage</tspan><tspan x="840.0" dy="16.9">Ядро запускає бінарну частину ELF (AppRun)</tspan></text>
+<line x1="840.0" y1="180.0" x2="840.0" y2="205.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="205.0" width="680.0" height="90.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="840.0" y="237.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">Крок 2: Монтування SquashFS через FUSE / squashfuse</tspan><tspan x="840.0" dy="16.9">Створюється тимчасова тека /tmp/.mount_AppXYZXXXXXX</tspan><tspan x="840.0" dy="16.9">Вміст образу стає доступним у файловій системі</tspan></text>
+<line x1="840.0" y1="295.0" x2="840.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="320.0" width="680.0" height="80.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="840.0" y="347.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">Крок 3: Налаштування середовища оточення</tspan><tspan x="840.0" dy="16.9">LD_LIBRARY_PATH=/tmp/.mount_AppXYZ/usr/lib</tspan><tspan x="840.0" dy="16.9">PATH=/tmp/.mount_AppXYZ/usr/bin:$PATH</tspan></text>
+<line x1="840.0" y1="400.0" x2="840.0" y2="425.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="425.0" width="680.0" height="85.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="840.0" y="455.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="840.0" dy="0.0">Крок 4: Виклик execv() цільового бінарника</tspan><tspan x="840.0" dy="16.9">Програма працює у звичайному просторі користувача.</tspan><tspan x="840.0" dy="16.9">При виході FUSE-точка демонтується і тека видаляється</tspan></text>
+</svg>

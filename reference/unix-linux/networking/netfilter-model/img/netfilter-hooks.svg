@@ -1,45 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
-    <rect x="50" y="50" width="700" height="300" fill="#f0f0f0" stroke="#333" />
-    <!-- Network in -->
-    <path d="M 0 150 L 100 150" stroke="black" stroke-width="4" marker-end="url(#arrow)"/>
-    <text x="10" y="140">Network</text>
-    
-    <!-- PREROUTING -->
-    <rect x="100" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
-    <text x="110" y="155">PREROUTING</text>
-    
-    <!-- Routing decision -->
-    <polygon points="280,125 340,150 280,175 220,150" fill="#add8e6" stroke="#333" />
-    <text x="240" y="155">Routing</text>
-    <path d="M 220 150 L 250 150" stroke="black" stroke-width="2"/>
-    
-    <!-- INPUT -->
-    <rect x="280" y="50" width="120" height="50" fill="#ffcccb" stroke="#333" />
-    <text x="315" y="80">INPUT</text>
-    <path d="M 280 140 L 280 100" stroke="black" stroke-width="2"/>
-    
-    <!-- FORWARD -->
-    <rect x="360" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
-    <text x="385" y="155">FORWARD</text>
-    <path d="M 340 150 L 360 150" stroke="black" stroke-width="2"/>
-    
-    <!-- Local Process -->
-    <rect x="450" y="30" width="150" height="60" fill="#e0f7fa" stroke="#333" />
-    <text x="470" y="65">Local Process</text>
-    <path d="M 400 75 L 450 75" stroke="black" stroke-width="2"/>
-    
-    <!-- OUTPUT -->
-    <rect x="450" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
-    <text x="475" y="155">OUTPUT</text>
-    <path d="M 525 90 L 525 125" stroke="black" stroke-width="2"/>
-    
-    <!-- POSTROUTING -->
-    <rect x="600" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
-    <text x="610" y="155">POSTROUTING</text>
-    <path d="M 570 150 L 600 150" stroke="black" stroke-width="2"/>
-    <path d="M 480 150 L 520 150" stroke="black" stroke-width="2" stroke-dasharray="4"/>
-    
-    <!-- Network out -->
-    <path d="M 720 150 L 800 150" stroke="black" stroke-width="4"/>
-    <text x="730" y="140">Network</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1170 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1170" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях пакета крізь 5 хуків Netfilter, маршрутизацію та таблиці</text>
+<rect x="31.5" y="176.2" width="87.0" height="47.6" rx="6" fill="#e8f4f8" stroke="#2980b9" stroke-width="1.5"/><text x="75.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="75.0" dy="0.0">Мережа</tspan><tspan x="75.0" dy="15.6">(Ingress)</tspan></text>
+<rect x="123.8" y="177.3" width="272.3" height="45.3" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="260.0" y="196.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">1. PREROUTING</tspan><tspan x="260.0" dy="14.3">raw → conntrack → mangle → nat (DNAT)</tspan></text>
+<line x1="135.0" y1="200.0" x2="155.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="392.5" y="178.5" width="175.0" height="43.0" rx="6" fill="#f39c12" stroke="#d35400" stroke-width="1.5"/><text x="480.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Рішення про маршрутизацію</tspan><tspan x="480.0" dy="13.0">(Локальний / Транзит?)</tspan></text>
+<line x1="365.0" y1="200.0" x2="385.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="360.9" y="57.3" width="238.2" height="45.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">2. INPUT</tspan><tspan x="480.0" dy="14.3">mangle → filter → security → nat</tspan></text>
+<line x1="480.0" y1="155.0" x2="480.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="694.5" y="57.3" width="211.0" height="45.3" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/><text x="800.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Сокет / Локальний процес</tspan><tspan x="800.0" dy="14.3">(Прийом / Генерація пакетів)</tspan></text>
+<line x1="585.0" y1="80.0" x2="680.0" y2="80.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="701.3" y="177.3" width="197.3" height="45.3" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/><text x="800.0" y="196.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">3. FORWARD</tspan><tspan x="800.0" dy="14.3">mangle → filter → security</tspan></text>
+<line x1="575.0" y1="200.0" x2="700.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="299.5" y="317.4" width="361.0" height="45.3" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">4. OUTPUT</tspan><tspan x="480.0" dy="14.3">raw → conntrack → mangle → nat → filter → security</tspan></text>
+<line x1="800.0" y1="125.0" x2="640.0" y2="125.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="640.0" y1="125.0" x2="640.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="640.0" y1="340.0" x2="625.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="373.9" y="428.5" width="212.2" height="43.0" rx="6" fill="#eaafc8" stroke="#8e44ad" stroke-width="1.5"/><text x="480.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Перевірка маршруту</tspan><tspan x="480.0" dy="13.0">(після можливого DNAT в OUTPUT)</tspan></text>
+<line x1="480.0" y1="375.0" x2="480.0" y2="420.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="901.3" y="267.4" width="197.3" height="45.3" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="1000.0" y="286.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">5. POSTROUTING</tspan><tspan x="1000.0" dy="14.3">mangle → nat (SNAT / MASQ)</tspan></text>
+<line x1="900.0" y1="200.0" x2="1000.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="450.0" x2="1000.0" y2="330.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="960.2" y="426.2" width="79.5" height="47.6" rx="6" fill="#e8f4f8" stroke="#2980b9" stroke-width="1.5"/><text x="1000.0" y="446.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">Мережа</tspan><tspan x="1000.0" dy="15.6">(Egress)</tspan></text>
+<line x1="1000.0" y1="330.0" x2="1000.0" y2="415.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

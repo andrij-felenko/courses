@@ -1,83 +1,218 @@
 import os
+import sys
 
-def render():
-    svg_content = """<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="white"/>
-    <text x="400" y="40" font-family="Arial" font-size="22" text-anchor="middle" font-weight="bold">eXpress Data Path (XDP) Architecture</text>
-    
-    <!-- NIC / Hardware -->
-    <rect x="50" y="80" width="150" height="250" fill="#f0f0f0" stroke="black" stroke-width="2"/>
-    <text x="125" y="110" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">NIC Hardware</text>
-    <rect x="75" y="130" width="100" height="40" fill="#d0e0ff" stroke="black"/>
-    <text x="125" y="155" font-family="Arial" font-size="14" text-anchor="middle">RX Ring (DMA)</text>
-    
-    <!-- XDP Hook -->
-    <rect x="250" y="130" width="160" height="150" fill="#ffd0d0" stroke="black" stroke-width="2" rx="10"/>
-    <text x="330" y="160" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">eBPF / XDP Hook</text>
-    <text x="330" y="190" font-family="monospace" font-size="14" text-anchor="middle">XDP_DROP</text>
-    <text x="330" y="210" font-family="monospace" font-size="14" text-anchor="middle">XDP_TX</text>
-    <text x="330" y="230" font-family="monospace" font-size="14" text-anchor="middle">XDP_PASS</text>
-    <text x="330" y="250" font-family="monospace" font-size="14" text-anchor="middle">XDP_REDIRECT</text>
-    
-    <!-- Kernel Stack -->
-    <rect x="480" y="80" width="130" height="250" fill="#e0ffe0" stroke="black" stroke-width="2"/>
-    <text x="545" y="110" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Linux Kernel</text>
-    <rect x="495" y="130" width="100" height="40" fill="#c0ffc0" stroke="black"/>
-    <text x="545" y="155" font-family="monospace" font-size="14" text-anchor="middle">sk_buff alloc</text>
-    <rect x="495" y="180" width="100" height="40" fill="#c0ffc0" stroke="black"/>
-    <text x="545" y="205" font-family="Arial" font-size="14" text-anchor="middle">Netfilter</text>
-    <rect x="495" y="230" width="100" height="40" fill="#c0ffc0" stroke="black"/>
-    <text x="545" y="255" font-family="Arial" font-size="14" text-anchor="middle">TCP/IP Stack</text>
-    
-    <!-- User Space AF_XDP -->
-    <rect x="650" y="200" width="130" height="130" fill="#ffffe0" stroke="black" stroke-width="2" stroke-dasharray="5,5"/>
-    <text x="715" y="230" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">User Space</text>
-    <rect x="665" y="250" width="100" height="40" fill="#ffffc0" stroke="black"/>
-    <text x="715" y="275" font-family="Arial" font-size="14" text-anchor="middle">AF_XDP (XSK)</text>
-    
-    <!-- Arrows -->
-    <!-- NIC to XDP -->
-    <path d="M 200 150 L 240 150" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-    
-    <!-- XDP_PASS to Kernel -->
-    <path d="M 410 150 L 470 150" stroke="green" stroke-width="3" marker-end="url(#arrow-green)"/>
-    <text x="440" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="green">PASS</text>
+def create_svg_architecture():
+    # viewBox: 800 x 520
+    # Clean layout with no overlapping lines and text
+    svg = '''<svg viewBox="0 0 800 520" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: bold; fill: #1e293b; }
+    .box-title { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: bold; fill: #0f172a; }
+    .label { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #334155; }
+    .code { font-family: ui-monospace, monospace; font-size: 12px; font-weight: bold; }
+    .badge { font-family: ui-monospace, monospace; font-size: 11px; fill: #ffffff; font-weight: bold; }
+    .arrow-text { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: bold; }
+  </style>
 
+  <!-- Background -->
+  <rect width="800" height="520" fill="#f8fafc" rx="8" />
+
+  <!-- Main Title -->
+  <text x="400" y="32" class="title" text-anchor="middle">Архітектура eXpress Data Path (XDP) у ядрі Linux</text>
+
+  <!-- Hardware Layer (NIC) -->
+  <g transform="translate(40, 70)">
+    <rect width="180" height="400" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2" rx="6" />
+    <text x="90" y="30" class="box-title" text-anchor="middle">Мережева карта (NIC)</text>
+    
+    <!-- Packet Stream -->
+    <rect x="25" y="60" width="130" height="36" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5" rx="4" />
+    <text x="90" y="83" class="label" text-anchor="middle">Кабель / Фізичний 🖧</text>
+
+    <!-- RX Ring -->
+    <rect x="25" y="140" width="130" height="70" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="4" />
+    <text x="90" y="165" class="box-title" fill="#1e40af" text-anchor="middle">RX Ring Buffer</text>
+    <text x="90" y="190" class="label" fill="#1e40af" text-anchor="middle">DMA сторінки пам'яті</text>
+
+    <!-- TX Ring -->
+    <rect x="25" y="280" width="130" height="70" fill="#ffedd5" stroke="#f97316" stroke-width="2" rx="4" />
+    <text x="90" y="305" class="box-title" fill="#9a3412" text-anchor="middle">TX Ring Buffer</text>
+    <text x="90" y="330" class="label" fill="#9a3412" text-anchor="middle">Передача у кабель</text>
+
+    <!-- Internal NIC arrow -->
+    <path d="M 90 96 L 90 132" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-gray)" />
+  </g>
+
+  <!-- Driver / XDP Layer -->
+  <g transform="translate(270, 70)">
+    <rect width="240" height="400" fill="#f0fdf4" stroke="#4ade80" stroke-width="2" rx="6" />
+    <text x="120" y="30" class="box-title" text-anchor="middle" fill="#166534">Драйвер NIC (Context NAPI)</text>
+
+    <!-- Native XDP Hook Box -->
+    <rect x="20" y="60" width="200" height="310" fill="#dcfce7" stroke="#16a34a" stroke-width="2" rx="6" />
+    <text x="120" y="88" class="box-title" text-anchor="middle" fill="#14532d">eBPF XDP Hook</text>
+    <text x="120" y="110" class="label" text-anchor="middle" fill="#15803d">(до алокації sk_buff)</text>
+
+    <!-- Actions -->
     <!-- XDP_DROP -->
-    <path d="M 330 280 L 330 320" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"/>
-    <text x="330" y="340" font-family="Arial" font-size="14" text-anchor="middle" fill="red">Drop Packet</text>
+    <rect x="35" y="135" width="170" height="38" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5" rx="4" />
+    <text x="120" y="159" class="code" fill="#991b1b" text-anchor="middle">XDP_DROP (Drop)</text>
 
-    <!-- XDP_TX (Back to NIC) -->
-    <path d="M 250 210 L 210 210" stroke="blue" stroke-width="3" marker-end="url(#arrow-blue)"/>
-    <text x="210" y="205" font-family="Arial" font-size="12" text-anchor="end" fill="blue">TX (Bounce)</text>
+    <!-- XDP_TX -->
+    <rect x="35" y="190" width="170" height="38" fill="#ffedd5" stroke="#f97316" stroke-width="1.5" rx="4" />
+    <text x="120" y="214" class="code" fill="#9a3412" text-anchor="middle">XDP_TX (Bounce)</text>
 
-    <!-- XDP_REDIRECT to User space -->
-    <path d="M 410 250 Q 520 270 640 270" stroke="purple" stroke-width="3" fill="none" marker-end="url(#arrow-purple)"/>
-    <text x="440" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="purple">REDIRECT</text>
-    
-    <!-- Arrow Definitions -->
-    <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="black" />
-        </marker>
-        <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="green" />
-        </marker>
-        <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="red" />
-        </marker>
-        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="blue" />
-        </marker>
-        <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,6 L9,3 z" fill="purple" />
-        </marker>
-    </defs>
-</svg>
-"""
-    with open('xdp-express-data-path-d.svg', 'w', encoding='utf-8') as f:
-        f.write(svg_content)
-    print("Generated SVG: xdp-express-data-path-d.svg")
+    <!-- XDP_REDIRECT -->
+    <rect x="35" y="245" width="170" height="38" fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" rx="4" />
+    <text x="120" y="269" class="code" fill="#6b21a8" text-anchor="middle">XDP_REDIRECT</text>
+
+    <!-- XDP_PASS -->
+    <rect x="35" y="300" width="170" height="50" fill="#dcfce7" stroke="#22c55e" stroke-width="2" rx="4" />
+    <text x="120" y="322" class="code" fill="#166534" text-anchor="middle">XDP_PASS</text>
+    <text x="120" y="340" class="label" fill="#15803d" text-anchor="middle">napi_build_skb()</text>
+  </g>
+
+  <!-- Upper Layers: Kernel & User Space -->
+  <!-- Linux Network Stack -->
+  <g transform="translate(560, 70)">
+    <rect width="200" height="200" fill="#f8fafc" stroke="#64748b" stroke-width="2" rx="6" />
+    <text x="100" y="30" class="box-title" text-anchor="middle">Класичний стек Linux</text>
+
+    <rect x="20" y="55" width="160" height="34" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" rx="4" />
+    <text x="100" y="77" class="label" text-anchor="middle">sk_buff allocation</text>
+
+    <rect x="20" y="100" width="160" height="34" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" rx="4" />
+    <text x="100" y="122" class="label" text-anchor="middle">Netfilter / Routing</text>
+
+    <rect x="20" y="145" width="160" height="40" fill="#cbd5e1" stroke="#64748b" stroke-width="1" rx="4" />
+    <text x="100" y="170" class="box-title" text-anchor="middle">Сокет додатку</text>
+  </g>
+
+  <!-- User Space AF_XDP -->
+  <g transform="translate(560, 290)">
+    <rect width="200" height="180" fill="#fef08a" stroke="#eab308" stroke-width="2" rx="6" />
+    <text x="100" y="30" class="box-title" fill="#713f12" text-anchor="middle">User Space (AF_XDP)</text>
+
+    <rect x="20" y="50" width="160" height="40" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5" rx="4" />
+    <text x="100" y="75" class="code" fill="#854d0e" text-anchor="middle">UMEM Ring Buffers</text>
+
+    <rect x="20" y="105" width="160" height="55" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4" />
+    <text x="100" y="128" class="box-title" fill="#78350f" text-anchor="middle">AF_XDP Socket</text>
+    <text x="100" y="148" class="label" fill="#78350f" text-anchor="middle">(Zero-Copy Bypass)</text>
+  </g>
+
+  <!-- Connections / Routing Lines -->
+  <!-- 1. NIC RX to XDP Hook -->
+  <path d="M 220 205 L 290 205" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrow-blue)" />
+
+  <!-- 2. XDP_TX back to NIC TX -->
+  <path d="M 305 228 C 240 240, 240 300, 195 305" stroke="#f97316" stroke-width="2.5" fill="none" marker-end="url(#arrow-orange)" />
+
+  <!-- 3. XDP_PASS to Kernel Stack -->
+  <path d="M 490 395 C 530 395, 540 145, 575 145" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#arrow-green)" />
+
+  <!-- 4. XDP_REDIRECT to AF_XDP -->
+  <path d="M 490 330 C 530 330, 530 370, 575 370" stroke="#a855f7" stroke-width="3" fill="none" marker-end="url(#arrow-purple)" />
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#22c55e" />
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#f97316" />
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#a855f7" />
+    </marker>
+  </defs>
+</svg>'''
+    return svg
+
+def create_svg_memory_layout():
+    # viewBox: 800 x 300
+    svg = '''<svg viewBox="0 0 800 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; }
+    .box-title { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: bold; fill: #1e293b; }
+    .label { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #475569; }
+    .ptr-label { font-family: ui-monospace, monospace; font-size: 12px; font-weight: bold; fill: #2563eb; }
+    .code { font-family: ui-monospace, monospace; font-size: 11px; fill: #0f172a; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="300" fill="#f8fafc" rx="8" />
+
+  <!-- Main Title -->
+  <text x="400" y="30" class="title" text-anchor="middle">Розміщення сторінки DMA пам'яті та структури xdp_buff</text>
+
+  <!-- DMA Page Container -->
+  <rect x="50" y="100" width="700" height="90" fill="#ffffff" stroke="#64748b" stroke-width="2" rx="4" />
+
+  <!-- Headroom -->
+  <rect x="50" y="100" width="140" height="90" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="4,4" />
+  <text x="120" y="145" class="box-title" text-anchor="middle">Headroom</text>
+  <text x="120" y="165" class="label" text-anchor="middle">(зазвичай 256B)</text>
+
+  <!-- Meta Area -->
+  <rect x="190" y="100" width="80" height="90" fill="#fef08a" stroke="#ca8a04" />
+  <text x="230" y="145" class="box-title" fill="#713f12" text-anchor="middle">Metadata</text>
+  <text x="230" y="165" class="label" fill="#713f12" text-anchor="middle">data_meta</text>
+
+  <!-- Packet Data Area -->
+  <rect x="270" y="100" width="330" height="90" fill="#dcfce7" stroke="#16a34a" stroke-width="2" />
+  <text x="435" y="145" class="box-title" fill="#14532d" text-anchor="middle">Сирий мережевий пакет (Packet Frame)</text>
+  <text x="435" y="165" class="label" fill="#15803d" text-anchor="middle">Ethernet | IP | TCP/UDP | Payload</text>
+
+  <!-- Tailroom -->
+  <rect x="600" y="100" width="150" height="90" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="4,4" />
+  <text x="675" y="145" class="box-title" text-anchor="middle">Tailroom / Shared</text>
+  <text x="675" y="165" class="label" text-anchor="middle">(xdp_shared_info)</text>
+
+  <!-- Pointer Markers ABOVE -->
+  <!-- data_hard_start -->
+  <line x1="50" y1="65" x2="50" y2="100" stroke="#64748b" stroke-width="2" />
+  <text x="50" y="55" class="ptr-label" text-anchor="start">data_hard_start</text>
+
+  <!-- data_meta -->
+  <line x1="190" y1="65" x2="190" y2="100" stroke="#eab308" stroke-width="2" />
+  <text x="190" y="55" class="ptr-label" fill="#a16207" text-anchor="middle">data_meta</text>
+
+  <!-- data -->
+  <line x1="270" y1="65" x2="270" y2="100" stroke="#16a34a" stroke-width="2.5" />
+  <text x="270" y="55" class="ptr-label" fill="#15803d" text-anchor="middle">ctx-&gt;data</text>
+
+  <!-- data_end -->
+  <line x1="600" y1="65" x2="600" y2="100" stroke="#ef4444" stroke-width="2.5" />
+  <text x="600" y="55" class="ptr-label" fill="#b91c1c" text-anchor="middle">ctx-&gt;data_end</text>
+
+  <!-- Bounds Check Annotations BELOW -->
+  <g transform="translate(50, 220)">
+    <path d="M 220 0 L 220 20 L 550 20 L 550 0" stroke="#16a34a" stroke-width="1.5" fill="none" />
+    <text x="385" y="40" class="code" text-anchor="middle">Bounds check requirement: (data + offset) &lt;= data_end</text>
+  </g>
+</svg>'''
+    return svg
+
+def main():
+    target_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(target_dir, exist_ok=True)
+
+    arch_path = os.path.join(target_dir, 'xdp-architecture.svg')
+    with open(arch_path, 'w', encoding='utf-8') as f:
+        f.write(create_svg_architecture())
+    print(f"Generated: {arch_path}")
+
+    mem_path = os.path.join(target_dir, 'xdp-memory-layout.svg')
+    with open(mem_path, 'w', encoding='utf-8') as f:
+        f.write(create_svg_memory_layout())
+    print(f"Generated: {mem_path}")
 
 if __name__ == '__main__':
-    render()
+    main()

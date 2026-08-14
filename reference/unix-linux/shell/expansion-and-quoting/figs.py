@@ -1,66 +1,67 @@
-import sys
 import os
+import sys
 
-# Додаємо шлях до scripts/ для імпорту svgkit
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts'))
+# Add scripts/ to sys.path (4 levels up from topic folder)
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
+from svgkit import render as svg_render, rect, text, mtext, line, arrow, FILL, INK, LINE, MUTED, POS, NEG, FIELD
 
-try:
-    import svgkit
-except ImportError:
-    # Заглушка, якщо скрипт запускається поза контекстом репозиторію
-    class SVGKitStub:
-        def __init__(self):
-            pass
-        def render(self, filename, content):
-            with open(filename, 'w', encoding='utf-8') as f:
-                f.write(content)
-    svgkit = SVGKitStub()
-
-def generate_expansion_flow():
-    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <style>
-        .box { fill: #f0f0f0; stroke: #333; stroke-width: 2px; }
-        .text { font-family: sans-serif; font-size: 14px; text-anchor: middle; fill: #333; }
-        .arrow { stroke: #333; stroke-width: 2px; marker-end: url(#arrowhead); }
-    </style>
-    <defs>
-        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
-        </marker>
-    </defs>
+def render_expansion_flow(img_dir):
+    w, h = 760, 560
+    frags = []
     
-    <!-- Input -->
-    <text x="100" y="50" class="text" font-weight="bold">Введений текст</text>
+    frags.append(text(w / 2, 25, "Послідовність етапів розгортання рядка в командній оболонці", size=15, bold=True))
     
-    <!-- Steps -->
-    <rect x="50" y="80" width="100" height="40" class="box" />
-    <text x="100" y="105" class="text">Brace Exp</text>
-    <line x1="100" y1="120" x2="100" y2="150" class="arrow" />
+    # Input box
+    frags.append(rect(180, 50, 400, 45, fill="#fef3c7", stroke="#d97706", sw=1.5))
+    frags.append(text(380, 68, "Сирий текстовий рядок від користувача", size=12, color="#92400e", bold=True))
+    frags.append(text(380, 85, 'echo ~user/${VAR:-dir}/$(date +%Y)/*.txt', size=11, color="#78350f"))
     
-    <rect x="50" y="150" width="100" height="40" class="box" />
-    <text x="100" y="175" class="text">Tilde Exp</text>
-    <line x1="100" y1="190" x2="100" y2="220" class="arrow" />
+    frags.append(arrow(380, 95, 380, 115, color=MUTED, sw=2))
     
-    <rect x="50" y="220" width="100" height="40" class="box" />
-    <text x="100" y="245" class="text">Param/Cmd Exp</text>
-    <line x1="100" y1="260" x2="100" y2="290" class="arrow" />
+    # Step 1: Brace Expansion
+    frags.append(rect(130, 115, 500, 50, fill="#e0f2fe", stroke="#0284c7", sw=1.5))
+    frags.append(text(380, 134, "1. Brace Expansion (Фігурні дужки)", size=12, color="#075985", bold=True))
+    frags.append(text(380, 153, "Розгортання списків {a,b} та діапазонів {1..5} (Bash/Zsh розширення до POSIX)", size=10, color="#0c4a6e"))
     
-    <rect x="50" y="290" width="100" height="40" class="box" />
-    <text x="100" y="315" class="text">Word Splitting</text>
-    <line x1="150" y1="310" x2="180" y2="310" class="arrow" />
+    frags.append(arrow(380, 165, 380, 185, color=MUTED, sw=2))
     
-    <rect x="180" y="290" width="100" height="40" class="box" />
-    <text x="230" y="315" class="text">Globbing</text>
+    # Step 2: Tilde Expansion
+    frags.append(rect(130, 185, 500, 50, fill="#e0f2fe", stroke="#0284c7", sw=1.5))
+    frags.append(text(380, 204, "2. Tilde Expansion (Тильда)", size=12, color="#075985", bold=True))
+    frags.append(text(380, 223, "~ розгортається у $HOME (/home/user), ~+ у $PWD, ~- у $OLDPWD", size=10, color="#0c4a6e"))
     
-    <line x1="280" y1="310" x2="310" y2="310" class="arrow" />
-    <text x="360" y="315" class="text" font-weight="bold">Виконання команди</text>
-</svg>"""
+    frags.append(arrow(380, 235, 380, 255, color=MUTED, sw=2))
     
-    if hasattr(svgkit, 'render'):
-        svgkit.render(os.path.join(IMG, 'expansion-flow.svg'), svg_content)
-    else:
-        with open('expansion_flow.svg', 'w', encoding='utf-8') as f:
-            f.write(svg_content)
+    # Step 3: Parameter, Cmd & Arithmetic
+    frags.append(rect(130, 255, 500, 55, fill="#dcfce7", stroke="#16a34a", sw=1.5))
+    frags.append(text(380, 274, "3. Parameter, Command & Arithmetic Expansion", size=12, color="#166534", bold=True))
+    frags.append(text(380, 293, "Підстановка $VAR, $(cmd), $((expr)) зліва направо в один прохід", size=10, color="#14532d"))
+    
+    frags.append(arrow(380, 310, 380, 330, color=MUTED, sw=2))
+    
+    # Step 4: Word Splitting
+    frags.append(rect(130, 330, 500, 55, fill="#f3e8ff", stroke="#9333ea", sw=1.5))
+    frags.append(text(380, 349, "4. Word Splitting (Поділ на слова)", size=12, color="#6b21a8", bold=True))
+    frags.append(text(380, 368, "Розбиття незахищених подвійними лапками підстановок за роздільниками IFS", size=10, color="#581c87"))
+    
+    frags.append(arrow(380, 385, 380, 405, color=MUTED, sw=2))
+    
+    # Step 5: Filename Expansion
+    frags.append(rect(130, 405, 500, 50, fill="#ffe4e6", stroke="#e11d48", sw=1.5))
+    frags.append(text(380, 424, "5. Filename Expansion / Globbing", size=12, color="#9f1239", bold=True))
+    frags.append(text(380, 443, "Заміна масок *, ?, [...] на список реальних імен файлів з VFS", size=10, color="#881337"))
+    
+    frags.append(arrow(380, 455, 380, 475, color=MUTED, sw=2))
+    
+    # Step 6: Quote Removal & Output
+    frags.append(rect(130, 475, 500, 50, fill="#f3f4f6", stroke="#4b5563", sw=1.5))
+    frags.append(text(380, 494, "6. Quote Removal (Видалення лапок) ──► Сформований argv[]", size=12, color="#1f2937", bold=True))
+    frags.append(text(380, 513, "Видалення не закерованих ', \", \\ та виклики execve(path, argv, envp)", size=10, color="#374151"))
+    
+    os.makedirs(img_dir, exist_ok=True)
+    path = os.path.join(img_dir, "expansion-flow.svg")
+    svg_render(path, w, h, *frags)
 
 if __name__ == '__main__':
-    generate_expansion_flow()
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    render_expansion_flow(img_dir)

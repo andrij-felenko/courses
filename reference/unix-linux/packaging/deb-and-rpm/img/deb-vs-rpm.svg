@@ -1,33 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="320" fill="#ffffff"/>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-
-    <rect x="10" y="10" width="380" height="280" fill="#f8f9fa" stroke="#6c757d" stroke-width="2" rx="5"/>
-    <text x="20" y="40" font-family="sans-serif" font-size="20" font-weight="bold" fill="#343a40">.deb Package (ar archive)</text>
+<svg viewBox="0 0 840 380" xmlns="http://www.w3.org/2000/svg">
+    <rect width="840" height="380" fill="#f8f9fa" rx="10" stroke="#dee2e6" stroke-width="2"/>
+    <text x="420" y="35" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#212529">Анатомія бінарних пакунків: .deb та .rpm</text>
     
-    <rect x="30" y="60" width="340" height="50" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-    <text x="40" y="90" font-family="sans-serif" font-size="16" fill="#495057">debian-binary (version info)</text>
+    <!-- DEB Block -->
+    <g transform="translate(20, 55)">
+        <rect width="385" height="300" fill="#ffffff" stroke="#0d6efd" stroke-width="2" rx="8"/>
+        <rect width="385" height="40" fill="#0d6efd" rx="8"/>
+        <rect y="20" width="385" height="20" fill="#0d6efd"/>
+        <text x="192" y="26" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">DEB Container (ar archive)</text>
+        
+        <!-- debian-binary -->
+        <rect x="15" y="55" width="355" height="50" fill="#e7f1ff" stroke="#9ec5fe" stroke-width="1.5" rx="5"/>
+        <text x="30" y="77" font-family="sans-serif" font-size="14" font-weight="bold" fill="#084298">debian-binary</text>
+        <text x="30" y="94" font-family="sans-serif" font-size="12" fill="#495057">Текстовий файл версії формату ("2.0
+")</text>
+        
+        <!-- control.tar.* -->
+        <rect x="15" y="118" width="355" height="80" fill="#e7f1ff" stroke="#9ec5fe" stroke-width="1.5" rx="5"/>
+        <text x="30" y="140" font-family="sans-serif" font-size="14" font-weight="bold" fill="#084298">control.tar.xz / .gz</text>
+        <text x="30" y="159" font-family="sans-serif" font-size="12" fill="#212529">Метадані та скрипти: control, md5sums,</text>
+        <text x="30" y="176" font-family="sans-serif" font-size="12" fill="#212529">preinst, postinst, prerm, postrm, triggers</text>
+        
+        <!-- data.tar.* -->
+        <rect x="15" y="211" width="355" height="75" fill="#e7f1ff" stroke="#9ec5fe" stroke-width="1.5" rx="5"/>
+        <text x="30" y="233" font-family="sans-serif" font-size="14" font-weight="bold" fill="#084298">data.tar.xz / .zst</text>
+        <text x="30" y="252" font-family="sans-serif" font-size="12" fill="#212529">Файлове навантаження системи (/usr, /etc...)</text>
+        <text x="30" y="269" font-family="sans-serif" font-size="12" fill="#495057">Дерево каталогів для розпакування у /</text>
+    </g>
     
-    <rect x="30" y="130" width="340" height="60" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-    <text x="40" y="155" font-family="sans-serif" font-size="16" fill="#495057">control.tar.xz (metadata, scripts)</text>
-    <text x="40" y="175" font-family="sans-serif" font-size="12" fill="#6c757d">control, preinst, postinst, prerm, postrm</text>
-    
-    <rect x="30" y="210" width="340" height="60" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-    <text x="40" y="235" font-family="sans-serif" font-size="16" fill="#495057">data.tar.xz (payload files)</text>
-    <text x="40" y="255" font-family="sans-serif" font-size="12" fill="#6c757d">/usr/bin/..., /etc/..., /var/...</text>
-    
-    <rect x="420" y="10" width="380" height="280" fill="#f8f9fa" stroke="#6c757d" stroke-width="2" rx="5"/>
-    <text x="430" y="40" font-family="sans-serif" font-size="20" font-weight="bold" fill="#343a40">.rpm Package</text>
-    
-    <rect x="440" y="60" width="340" height="40" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-    <text x="450" y="85" font-family="sans-serif" font-size="16" fill="#495057">RPM Lead &amp; Signature</text>
-    
-    <rect x="440" y="110" width="340" height="60" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-    <text x="450" y="135" font-family="sans-serif" font-size="16" fill="#495057">Header</text>
-    <text x="450" y="155" font-family="sans-serif" font-size="12" fill="#6c757d">Metadata (Name, Version, Requires...)</text>
-    
-    <rect x="440" y="180" width="340" height="90" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-    <text x="450" y="210" font-family="sans-serif" font-size="16" fill="#495057">Payload (cpio archive)</text>
-    <text x="450" y="235" font-family="sans-serif" font-size="12" fill="#6c757d">Compressed files (xz/zstd)</text>
-    <text x="450" y="255" font-family="sans-serif" font-size="12" fill="#6c757d">/usr/bin/..., /etc/..., /var/...</text>
-    
+    <!-- RPM Block -->
+    <g transform="translate(435, 55)">
+        <rect width="385" height="300" fill="#ffffff" stroke="#dc3545" stroke-width="2" rx="8"/>
+        <rect width="385" height="40" fill="#dc3545" rx="8"/>
+        <rect y="20" width="385" height="20" fill="#dc3545"/>
+        <text x="192" y="26" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">RPM Structure (Binary Container)</text>
+        
+        <!-- RPM Lead & Signature -->
+        <rect x="15" y="55" width="355" height="50" fill="#f8d7da" stroke="#f5c2c7" stroke-width="1.5" rx="5"/>
+        <text x="30" y="77" font-family="sans-serif" font-size="14" font-weight="bold" fill="#842029">Lead (96B) &amp; Signature</text>
+        <text x="30" y="94" font-family="sans-serif" font-size="12" fill="#495057">Magic `ed ab ee db`, PGPSIG, SHA256 хеші</text>
+        
+        <!-- Header -->
+        <rect x="15" y="118" width="355" height="80" fill="#f8d7da" stroke="#f5c2c7" stroke-width="1.5" rx="5"/>
+        <text x="30" y="140" font-family="sans-serif" font-size="14" font-weight="bold" fill="#842029">Header (Tag-based Metadata)</text>
+        <text x="30" y="159" font-family="sans-serif" font-size="12" fill="#212529">Теги (Name, Version, Requires, %pre/%post),</text>
+        <text x="30" y="176" font-family="sans-serif" font-size="12" fill="#212529">індекси файлів, власників та режимів доступу</text>
+        
+        <!-- Payload -->
+        <rect x="15" y="211" width="355" height="75" fill="#f8d7da" stroke="#f5c2c7" stroke-width="1.5" rx="5"/>
+        <text x="30" y="233" font-family="sans-serif" font-size="14" font-weight="bold" fill="#842029">Payload (cpio archive)</text>
+        <text x="30" y="252" font-family="sans-serif" font-size="12" fill="#212529">Стиснений cpio (gz, xz, zstd)</text>
+        <text x="30" y="269" font-family="sans-serif" font-size="12" fill="#495057">Бінарний потік файлових об'єктів</text>
+    </g>
 </svg>

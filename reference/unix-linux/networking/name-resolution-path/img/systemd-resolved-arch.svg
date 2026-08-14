@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-outer { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 10px; }
+        .box-in { fill: #ffffff; stroke: #22c55e; stroke-width: 1.5; rx: 6px; }
+        .box-client { fill: #fefce8; stroke: #ca8a04; stroke-width: 2; rx: 8px; }
+        .box-net { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        
+        .title-daemon { font-family: monospace; font-size: 16px; font-weight: bold; fill: #15803d; }
+        .title-client { font-family: monospace; font-size: 15px; font-weight: bold; fill: #854d0e; }
+        .title-net { font-family: monospace; font-size: 15px; font-weight: bold; fill: #1e40af; }
+        
+        .text-bold { font-family: monospace; font-size: 13px; font-weight: bold; fill: #0f172a; }
+        .text-sub { font-family: monospace; font-size: 12px; fill: #334155; }
+        
+        .arrow { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#arrow-green-head); }
+        .arrow-blue { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrow-blue-head); }
+    </style>
+
+    <defs>
+        <marker id="arrow-green-head" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+        </marker>
+        <marker id="arrow-blue-head" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+    </defs>
+
+    <rect width="960" height="520" class="bg"/>
+
+    <!-- Clients Left -->
+    <rect x="25" y="40" width="220" height="440" class="box-client"/>
+    <text x="40" y="70" class="title-client">Клієнти систем</text>
+    
+    <rect x="40" y="100" width="190" height="90" class="box-in"/>
+    <text x="50" y="125" class="text-bold">NSS-додатки</text>
+    <text x="50" y="150" class="text-sub">libnss_resolve.so</text>
+    <text x="50" y="172" class="text-sub">D-Bus / Varlink IPC</text>
+
+    <rect x="40" y="220" width="190" height="90" class="box-in"/>
+    <text x="50" y="245" class="text-bold">Традиційні C-lib</text>
+    <text x="50" y="270" class="text-sub">/etc/resolv.conf</text>
+    <text x="50" y="292" class="text-sub">-> 127.0.0.53:53</text>
+
+    <rect x="40" y="340" width="190" height="110" class="box-in"/>
+    <text x="50" y="365" class="text-bold">CLI інструменти</text>
+    <text x="50" y="390" class="text-sub">resolvectl query</text>
+    <text x="50" y="415" class="text-sub">resolvectl status</text>
+
+    <!-- Arrow Clients -> Daemon -->
+    <path d="M 245 265 H 285" class="arrow"/>
+
+    <!-- systemd-resolved central daemon -->
+    <rect x="290" y="40" width="380" height="440" class="box-outer"/>
+    <text x="310" y="70" class="title-daemon">systemd-resolved.service</text>
+
+    <!-- Component 1: Entry Points -->
+    <rect x="310" y="95" width="340" height="75" class="box-in"/>
+    <text x="325" y="120" class="text-bold">Вхідні інтерфейси</text>
+    <text x="325" y="145" class="text-sub">127.0.0.53:53 (Stub) | D-Bus / Varlink IPC</text>
+
+    <!-- Component 2: Logic & Routing -->
+    <rect x="310" y="190" width="340" height="140" class="box-in"/>
+    <text x="325" y="215" class="text-bold">Ядро маршрутизації та кешування</text>
+    <text x="325" y="240" class="text-sub">• TTL-базований DNS-кеш</text>
+    <text x="325" y="265" class="text-sub">• Split-DNS (маршрутизація доменів)</text>
+    <text x="325" y="290" class="text-sub">• DNSSEC валідатор трасту</text>
+    <text x="325" y="315" class="text-sub">• Синхронізація з NetworkManager/networkd</text>
+
+    <!-- Component 3: Egress Protocols -->
+    <rect x="310" y="350" width="340" height="110" class="box-in"/>
+    <text x="325" y="375" class="text-bold">Протокольні модулі виходу</text>
+    <text x="325" y="400" class="text-sub">• DNS / DNS-over-TLS (DoT)</text>
+    <text x="325" y="425" class="text-sub">• mDNS (.local) &amp; LLMNR</text>
+
+    <!-- Arrow Daemon -> Network -->
+    <path d="M 670 265 H 710" class="arrow-blue"/>
+
+    <!-- Network / Upstream Right -->
+    <rect x="715" y="40" width="220" height="440" class="box-net"/>
+    <text x="730" y="70" class="title-net">Зовнішня мережа</text>
+
+    <rect x="730" y="100" width="190" height="90" class="box-in"/>
+    <text x="740" y="125" class="text-bold">Upstream DNS</text>
+    <text x="740" y="150" class="text-sub">1.1.1.1 / 8.8.8.8</text>
+    <text x="740" y="172" class="text-sub">Порт 53 (UDP/TCP)</text>
+
+    <rect x="730" y="220" width="190" height="90" class="box-in"/>
+    <text x="740" y="245" class="text-bold">DoT Сервери</text>
+    <text x="740" y="270" class="text-sub">TLS encrypted</text>
+    <text x="740" y="292" class="text-sub">Порт 853 (TCP)</text>
+
+    <rect x="730" y="340" width="190" height="110" class="box-in"/>
+    <text x="740" y="365" class="text-bold">Локальні вузли</text>
+    <text x="740" y="390" class="text-sub">Multicast DNS (5353)</text>
+    <text x="740" y="415" class="text-sub">LLMNR (5355)</text>
+
+</svg>

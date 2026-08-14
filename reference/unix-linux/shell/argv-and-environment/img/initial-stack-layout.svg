@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 690 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="690" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Макет верхівки стека при вході в _start (x86_64 ABI)</text>
+<line x1="50.0" y1="50.0" x2="50.0" y2="480.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="50.0" y1="480.0" x2="50.0" y2="45.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="35.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Високі адреси</text>
+<text x="35.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Низькі адреси</text>
+<rect x="120.0" y="50.0" width="500.0" height="90.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="370.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">Інформаційний блок (Information Block)</text>
+<text x="370.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="middle"><tspan x="370.0" dy="0.0">Символьні рядки: &quot;PATH=/usr/bin\0&quot;, &quot;USER=alex\0&quot;, &quot;/bin/ls\0&quot;, &quot;-l\0&quot;, &quot;/tmp\0&quot;</tspan><tspan x="370.0" dy="14.3">Апаратна платформа, 16 випадкових байтів для canary, вирівнювання (16 байт)</tspan></text>
+<rect x="120.0" y="150.0" width="500.0" height="90.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="370.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#075985" text-anchor="middle" font-weight="700">Допоміжний вектор (Auxiliary Vector — auxv)</text>
+<text x="370.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0c4a6e" text-anchor="middle"><tspan x="370.0" dy="0.0">Пари Elf64_auxv_t { a_type, a_val/a_ptr }</tspan><tspan x="370.0" dy="14.3">AT_PHDR, AT_ENTRY, AT_PAGESZ, AT_RANDOM, AT_SECURE ... завершується AT_NULL (0)</tspan></text>
+<rect x="120.0" y="250.0" width="500.0" height="75.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="370.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Масив покажчиків середовища (envp[])</text>
+<text x="370.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle"><tspan x="370.0" dy="0.0">char *envp[0] ──► &quot;PATH=...&quot;,  char *envp[1] ──► &quot;USER=...&quot;</tspan><tspan x="370.0" dy="14.3">Завершується покажчиком NULL (0x0)</tspan></text>
+<rect x="120.0" y="335.0" width="500.0" height="75.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="370.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b21a8" text-anchor="middle" font-weight="700">Масив покажчиків аргументів (argv[])</text>
+<text x="370.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#581c87" text-anchor="middle"><tspan x="370.0" dy="0.0">char *argv[0] ──► &quot;ls&quot;,  char *argv[1] ──► &quot;-l&quot;,  char *argv[2] ──► &quot;/tmp&quot;</tspan><tspan x="370.0" dy="14.3">Завершується покажчиком NULL (0x0)</tspan></text>
+<rect x="120.0" y="420.0" width="500.0" height="45.0" rx="6" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5"/>
+<text x="370.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9f1239" text-anchor="middle" font-weight="700">Кількість аргументів argc (uint64_t = 3)</text>
+<line x1="50.0" y1="442.0" x2="110.0" y2="442.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="110.0" y1="442.0" x2="118.0" y2="442.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="80.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">%rsp</text>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 460" width="850" height="460">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+<text x="425.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм Карантину KASAN для виявлення Use-After-Free</text>
+<rect x="38.2" y="80.2" width="183.7" height="59.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="130.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">1. kmalloc(size)</tspan><tspan x="130.0" dy="14.3">Виділення об'єкта в SLUB</tspan><tspan x="130.0" dy="14.3">Shadow = 0x00 (Valid)</tspan></text>
+<rect x="302.5" y="80.2" width="245.1" height="59.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="425.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="425.0" dy="0.0">2. kfree(ptr)</tspan><tspan x="425.0" dy="14.3">KASAN поміщає об'єкт у Quarantine</tspan><tspan x="425.0" dy="14.3">Shadow = 0xFC (KASAN_SLAB_FREE)</tspan></text>
+<rect x="624.8" y="80.2" width="190.5" height="59.6" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="720.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">3. Звернення за ptr</tspan><tspan x="720.0" dy="14.3">Інструкція читання/запису</tspan><tspan x="720.0" dy="14.3">перевіряє Shadow Memory</tspan></text>
+<line x1="210.0" y1="110.0" x2="310.0" y2="110.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="540.0" y1="110.0" x2="610.0" y2="110.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="190.0" width="770.0" height="130.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="60.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Черга Карантину (Quarantine Queue FIFO)</text>
+<rect x="100.0" y="235.0" width="130.0" height="60.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="165.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єкт A (0xFC)</text>
+<text x="165.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повернуто в SLUB пізніше</text>
+<rect x="260.0" y="235.0" width="130.0" height="60.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="325.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єкт B (0xFC)</text>
+<text x="325.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повернуто в SLUB пізніше</text>
+<rect x="420.0" y="235.0" width="130.0" height="60.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="485.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єкт C (0xFC)</text>
+<text x="485.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повернуто в SLUB пізніше</text>
+<rect x="580.0" y="235.0" width="130.0" height="60.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="645.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єкт D (0xFC)</text>
+<text x="645.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повернуто в SLUB пізніше</text>
+<rect x="142.2" y="372.4" width="565.6" height="45.3" rx="6" fill="#f0fdf4" stroke="#c0392b" stroke-width="1.5"/><text x="425.0" y="391.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="425.0" dy="0.0">Результат: KASAN негайно фіксує читання 0xFC та генерує KASAN Bug Report у dmesg</tspan><tspan x="425.0" dy="14.3">із повним стеком викликів виділення (alloc) та звільнення (free)</tspan></text>
+<line x1="720.0" y1="140.0" x2="425.0" y2="360.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

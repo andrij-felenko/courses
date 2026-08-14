@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="960.0" height="440.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура архіву пакунка (.deb / .rpm)</text>
+<rect x="40.0" y="80.0" width="290.0" height="360.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="185.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Метадані (Control / Spec)</text>
+<line x1="55.0" y1="125.0" x2="315.0" y2="125.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="60.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• Name, Version, Architecture</text>
+<text x="60.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• Maintainer &amp; License</text>
+<text x="60.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• Depends, Recommends, Suggests</text>
+<text x="60.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• Conflicts, Breaks, Replaces</text>
+<text x="60.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• Virtual Provides (e.g. mta)</text>
+<text x="60.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• SHA-256 Digest &amp; GPG Sign</text>
+<rect x="355.0" y="80.0" width="290.0" height="360.0" rx="8" fill="#fff6e5" stroke="#d97706" stroke-width="1.5"/>
+<text x="500.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#b45309" text-anchor="middle" font-weight="700">Керуючі скрипти (Hooks)</text>
+<line x1="370.0" y1="125.0" x2="630.0" y2="125.0" stroke="#d97706" stroke-width="1.0"/>
+<rect x="370.0" y="145.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="380.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">preinst / %pre</text>
+<text x="380.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">підготовка середовища, зупинка демона</text>
+<rect x="370.0" y="201.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="380.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">postinst / %post</text>
+<text x="380.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">налаштування,ldconfig, запуск служб</text>
+<rect x="370.0" y="257.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="380.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">prerm / %preun</text>
+<text x="380.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">зупинка служб перед видаленням</text>
+<rect x="370.0" y="313.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="380.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">postrm / %postun</text>
+<text x="380.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">очищення кешу, видалення користувачів</text>
+<rect x="370.0" y="369.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="380.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">triggers</text>
+<text x="380.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">відкладений виклик обробників</text>
+<rect x="670.0" y="80.0" width="290.0" height="360.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="815.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">Корисне навантаження (Payload)</text>
+<line x1="685.0" y1="125.0" x2="945.0" y2="125.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="685.0" y="145.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">/usr/bin/binary</text>
+<text x="695.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Виконувані файли програми</text>
+<rect x="685.0" y="201.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">/usr/lib/libfoo.so</text>
+<text x="695.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Динамічні бібліотеки</text>
+<rect x="685.0" y="257.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">/etc/app/config.conf</text>
+<text x="695.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Конфігураційні файли</text>
+<rect x="685.0" y="313.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">/usr/share/man/</text>
+<text x="695.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Документація та мануали</text>
+<rect x="685.0" y="369.0" width="260.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">/lib/systemd/system/</text>
+<text x="695.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Юніти системних служб</text>
+</svg>

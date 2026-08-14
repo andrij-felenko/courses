@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-ns { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        .box-kernel { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8px; }
+        .box-step { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 6px; }
+        .title-step { font-family: monospace; font-size: 13px; font-weight: bold; fill: #0f172a; }
+        .title-sec { font-family: monospace; font-size: 15px; font-weight: bold; fill: #1e40af; }
+        .text-field { font-family: monospace; font-size: 12px; fill: #334155; }
+        .arrow-flow { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+        .arrow-irq { stroke: #dc2626; stroke-width: 2; stroke-dasharray: 4,4; fill: none; marker-end: url(#arrowhead-red); }
+    </style>
+
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+        <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+        </marker>
+    </defs>
+
+    <rect width="960" height="520" class="bg"/>
+
+    <!-- Section 1: Sending Namespace -->
+    <rect x="30" y="30" width="270" height="460" class="box-ns"/>
+    <text x="165" y="60" class="title-sec" text-anchor="middle">Namespace "red" (Tx)</text>
+
+    <rect x="50" y="90" width="230" height="75" class="box-step"/>
+    <text x="65" y="115" class="title-step">1. Socket sendmsg()</text>
+    <text x="65" y="135" class="text-field">Process creates sk_buff</text>
+    <text x="65" y="150" class="text-field">skb->dev = veth-red</text>
+
+    <rect x="50" y="210" width="230" height="85" class="box-step"/>
+    <text x="65" y="235" class="title-step">2. dev_queue_xmit()</text>
+    <text x="65" y="255" class="text-field">Passes skb to qdisc</text>
+    <text x="65" y="275" class="text-field">veth_xmit() invoked</text>
+
+    <rect x="50" y="345" width="230" height="120" class="box-step"/>
+    <text x="65" y="370" class="title-step">3. Peer Transfer</text>
+    <text x="65" y="390" class="text-field">veth_xmit() swaps dev:</text>
+    <text x="65" y="410" class="text-field">skb->dev = veth-peer</text>
+    <text x="65" y="430" class="text-field">skb_scrub_packet()</text>
+    <text x="65" y="450" class="text-field">Resets netns context</text>
+
+    <path d="M 165 165 V 210" class="arrow-flow"/>
+    <path d="M 165 295 V 345" class="arrow-flow"/>
+
+    <!-- Section 2: Kernel SoftIRQ & Inter-Namespace Cross -->
+    <rect x="345" y="30" width="270" height="460" class="box-kernel"/>
+    <text x="480" y="60" class="title-sec" text-anchor="middle" fill="#166534">Kernel SoftIRQ Bridge</text>
+
+    <rect x="365" y="140" width="230" height="90" class="box-step"/>
+    <text x="380" y="165" class="title-step">4. netif_rx() / napi</text>
+    <text x="380" y="185" class="text-field">Enqueues skb to CPU</text>
+    <text x="380" y="205" class="text-field">input_pkt_queue</text>
+
+    <rect x="365" y="280" width="230" height="100" class="box-step"/>
+    <text x="380" y="305" class="title-step">5. NET_RX_SOFTIRQ</text>
+    <text x="380" y="325" class="text-field">Softirq daemon triggers</text>
+    <text x="380" y="345" class="text-field">netif_receive_skb()</text>
+    <text x="380" y="365" class="text-field">Crosses netns boundary</text>
+
+    <path d="M 280 405 H 345 V 185 H 365" class="arrow-flow"/>
+    <path d="M 480 230 V 280" class="arrow-flow"/>
+
+    <!-- Section 3: Receiving Namespace / Host -->
+    <rect x="660" y="30" width="270" height="460" class="box-ns"/>
+    <text x="795" y="60" class="title-sec" text-anchor="middle">Root / Target Netns (Rx)</text>
+
+    <rect x="680" y="140" width="230" height="90" class="box-step"/>
+    <text x="695" y="165" class="title-step">6. L2/L3 Processing</text>
+    <text x="695" y="185" class="text-field">Bridge br0 or ip_rcv()</text>
+    <text x="695" y="205" class="text-field">FIB route lookup</text>
+
+    <rect x="680" y="280" width="230" height="90" class="box-step"/>
+    <text x="695" y="305" class="title-step">7. Netfilter Hooks</text>
+    <text x="695" y="325" class="text-field">PREROUTING / FORWARD</text>
+    <text x="695" y="345" class="text-field">NAT Masquerade check</text>
+
+    <rect x="680" y="410" width="230" height="65" class="box-step"/>
+    <text x="695" y="435" class="title-step">8. Socket Delivery</text>
+    <text x="695" y="455" class="text-field">skb_queue_tail() -> app</text>
+
+    <path d="M 595 330 H 680 V 230" class="arrow-flow"/>
+    <path d="M 795 230 V 280" class="arrow-flow"/>
+    <path d="M 795 370 V 410" class="arrow-flow"/>
+</svg>

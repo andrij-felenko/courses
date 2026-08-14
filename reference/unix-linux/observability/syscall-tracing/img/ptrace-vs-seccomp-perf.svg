@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 670 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="670" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="180.0" height="280.0" rx="8" fill="#fff8e1" stroke="#ffa000" stroke-width="2.0"/>
+<text x="120.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#ff8f00" text-anchor="middle" font-weight="700">ptrace</text>
+<text x="120.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">4 switches / syscall</text>
+<text x="120.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d84315" text-anchor="middle">Високі накладні витрати</text>
+<rect x="45.0" y="140.0" width="150.0" height="40.0" rx="4" fill="#ffe0b2" stroke="#ff8f00" stroke-width="1.5"/>
+<text x="120.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">sys_enter: 2 switches</text>
+<rect x="45.0" y="190.0" width="150.0" height="40.0" rx="4" fill="#ffe0b2" stroke="#ff8f00" stroke-width="1.5"/>
+<text x="120.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Контекстний зупин</text>
+<rect x="45.0" y="240.0" width="150.0" height="40.0" rx="4" fill="#ffcc80" stroke="#ff8f00" stroke-width="1.5"/>
+<text x="120.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">sys_exit: 2 switches</text>
+<rect x="240.0" y="40.0" width="180.0" height="280.0" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="2.0"/>
+<text x="330.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2e7d32" text-anchor="middle" font-weight="700">seccomp notif</text>
+<text x="330.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Селективне трасування</text>
+<text x="330.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">BPF-фільтрація в ядрі</text>
+<rect x="255.0" y="140.0" width="150.0" height="40.0" rx="4" fill="#c8e6c9" stroke="#43a047" stroke-width="1.5"/>
+<text x="330.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дозволені: 0 overhead</text>
+<rect x="255.0" y="190.0" width="150.0" height="90.0" rx="4" fill="#a5d6a7" stroke="#43a047" stroke-width="1.5"/>
+<text x="330.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Перехоплені:</tspan><tspan x="330.0" dy="11.7">Асинхронний fd</tspan><tspan x="330.0" dy="11.7">Захист від TOCTOU</tspan><tspan x="330.0" dy="11.7">через pidfd</tspan></text>
+<rect x="450.0" y="40.0" width="180.0" height="280.0" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="2.0"/>
+<text x="540.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#00695c" text-anchor="middle" font-weight="700">eBPF tracepoints</text>
+<text x="540.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Пасивне спостереження</text>
+<text x="540.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Без зупинки процесів</text>
+<rect x="465.0" y="140.0" width="150.0" height="40.0" rx="4" fill="#b2dfdb" stroke="#00897b" stroke-width="1.5"/>
+<text x="540.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">raw_syscalls/sys_enter</text>
+<rect x="465.0" y="190.0" width="150.0" height="90.0" rx="4" fill="#80cbc4" stroke="#00897b" stroke-width="1.5"/>
+<text x="540.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Виконання в ядрі</tspan><tspan x="540.0" dy="11.7">Запис у Ring Buffer</tspan><tspan x="540.0" dy="11.7">0 switches</tspan></text>
+</svg>

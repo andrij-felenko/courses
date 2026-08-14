@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів з'єднань у підсистемі nf_conntrack</text>
+<text x="60.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Пакет з мережі</text>
+<line x1="110.0" y1="140.0" x2="150.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="169.8" y="108.2" width="160.4" height="63.6" rx="6" fill="#e8f8f5" stroke="#1abc9c" stroke-width="1.5"/><text x="250.0" y="129.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">NEW</tspan><tspan x="250.0" dy="14.3">Перший бачений пакет</tspan><tspan x="250.0" dy="14.3">Запис у ct_hash</tspan></text>
+<rect x="465.9" y="108.2" width="208.1" height="63.6" rx="6" fill="#ebf5fb" stroke="#3498db" stroke-width="1.5"/><text x="570.0" y="129.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">ESTABLISHED</tspan><tspan x="570.0" dy="14.3">Зворотна відповідь отримана</tspan><tspan x="570.0" dy="14.3">(Inverted Tuple)</tspan></text>
+<line x1="340.0" y1="140.0" x2="465.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Зворотний пакет</text>
+<rect x="686.4" y="258.2" width="167.2" height="63.6" rx="6" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.5"/><text x="770.0" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">UNTRACKED</tspan><tspan x="770.0" dy="14.3">Правило NOTRACK у raw</tspan><tspan x="770.0" dy="14.3">Обхід conntrack</tspan></text>
+<line x1="60.0" y1="160.0" x2="60.0" y2="390.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="60.0" y1="390.0" x2="770.0" y2="390.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="770.0" y1="390.0" x2="770.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Правило NOTRACK у таблиці raw</text>
+<rect x="479.6" y="258.2" width="180.9" height="63.6" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/><text x="570.0" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">RELATED</tspan><tspan x="570.0" dy="14.3">Асоційоване з'єднання</tspan><tspan x="570.0" dy="14.3">(ICMP Error / FTP Data)</tspan></text>
+<line x1="570.0" y1="200.0" x2="570.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="128.9" y="258.2" width="242.2" height="63.6" rx="6" fill="#fdedec" stroke="#e74c3c" stroke-width="1.5"/><text x="250.0" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">INVALID</tspan><tspan x="250.0" dy="14.3">Хибні прапорці TCP / поза вікном</tspan><tspan x="250.0" dy="14.3">DROP правила</tspan></text>
+<line x1="250.0" y1="200.0" x2="250.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

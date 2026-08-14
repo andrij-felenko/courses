@@ -1,25 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="310" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="450" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="300.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Perf Event Array (per-CPU buffers)</text>
-<rect x="50.0" y="50.0" width="500.0" height="200.0" rx="6" fill="#f0f0f0" stroke="#333" stroke-width="1.5"/>
-<rect x="80.0" y="80.0" width="80.0" height="150.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="120.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">CPU 0</text>
-<rect x="90.0" y="120.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="90.0" y="150.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="90.0" y="180.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="190.0" y="80.0" width="80.0" height="150.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="230.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">CPU 1</text>
-<rect x="200.0" y="120.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="200.0" y="150.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="200.0" y="180.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="300.0" y="80.0" width="80.0" height="150.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="340.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">CPU 2</text>
-<rect x="310.0" y="120.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="310.0" y="150.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="310.0" y="180.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="410.0" y="80.0" width="80.0" height="150.0" rx="6" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
-<text x="450.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">CPU 3</text>
-<rect x="420.0" y="120.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="420.0" y="150.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
-<rect x="420.0" y="180.0" width="60.0" height="20.0" rx="6" fill="#b8daff" stroke="#333333" stroke-width="1.5"/>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Perf Event Array Architecture</text>
+<rect x="132.0" y="7.0" width="516.0" height="36.0" rx="6" fill="#eef2f7" stroke="#2c3e50" stroke-width="1.5"/><text x="390.0" y="42.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Perf Event Array: Розділені per-CPU буфери пам'яті</tspan></text>
+<rect x="30.0" y="60.0" width="150.0" height="45.0" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="2.0"/>
+<text x="105.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">CPU 0 (95% load)</tspan></text>
+<line x1="105.0" y1="105.0" x2="105.0" y2="135.0" stroke="#e74c3c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="25.0" y="140.0" width="160.0" height="130.0" rx="6" fill="#ffffff" stroke="#34495e" stroke-width="1.5"/>
+<text x="105.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">Буфер CPU 0</tspan></text>
+<rect x="35.0" y="175.0" width="140.0" height="18.0" rx="3" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+<text x="105.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Подія 1 (BUSY)</text>
+<rect x="35.0" y="197.0" width="140.0" height="18.0" rx="3" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+<text x="105.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Подія 2 (BUSY)</text>
+<rect x="35.0" y="219.0" width="140.0" height="18.0" rx="3" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+<text x="105.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Подія 3 (BUSY)</text>
+<text x="105.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">DROP ПОДІЙ!</text>
+<rect x="30.0" y="280.0" width="150.0" height="24.0" rx="4" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="105.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переповнено! Drop</text>
+<line x1="105.0" y1="304.0" x2="105.0" y2="345.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="220.0" y="60.0" width="150.0" height="45.0" rx="6" fill="#ebf5fb" stroke="#3498db" stroke-width="2.0"/>
+<text x="295.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="295.0" dy="0.0">CPU 1 (40% load)</tspan></text>
+<line x1="295.0" y1="105.0" x2="295.0" y2="135.0" stroke="#3498db" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="215.0" y="140.0" width="160.0" height="130.0" rx="6" fill="#ffffff" stroke="#34495e" stroke-width="1.5"/>
+<text x="295.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700"><tspan x="295.0" dy="0.0">Буфер CPU 1</tspan></text>
+<rect x="225.0" y="175.0" width="140.0" height="18.0" rx="3" fill="#3498db" stroke="#2980b9" stroke-width="1.5"/>
+<text x="295.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">Подія A (t=102ms)</text>
+<rect x="225.0" y="199.0" width="140.0" height="18.0" rx="3" fill="#3498db" stroke="#2980b9" stroke-width="1.5"/>
+<text x="295.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">Подія B (t=115ms)</text>
+<text x="295.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вільна пам'ять 60%</text>
+<rect x="220.0" y="280.0" width="150.0" height="24.0" rx="4" fill="#ebf5fb" stroke="#3498db" stroke-width="1.5"/>
+<text x="295.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нормальний потік</text>
+<line x1="295.0" y1="304.0" x2="295.0" y2="345.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="410.0" y="60.0" width="150.0" height="45.0" rx="6" fill="#e8f8f5" stroke="#2ecc71" stroke-width="2.0"/>
+<text x="485.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="485.0" dy="0.0">CPU 2 (10% load)</tspan></text>
+<line x1="485.0" y1="105.0" x2="485.0" y2="135.0" stroke="#2ecc71" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="405.0" y="140.0" width="160.0" height="130.0" rx="6" fill="#ffffff" stroke="#34495e" stroke-width="1.5"/>
+<text x="485.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700"><tspan x="485.0" dy="0.0">Буфер CPU 2</tspan></text>
+<text x="485.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Порожній буфер</text>
+<text x="485.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пам'ять зарезервована</text>
+<rect x="410.0" y="280.0" width="150.0" height="24.0" rx="4" fill="#e8f8f5" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="485.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мало подій</text>
+<line x1="485.0" y1="304.0" x2="485.0" y2="345.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="600.0" y="60.0" width="150.0" height="45.0" rx="6" fill="#f2f4f4" stroke="#95a5a6" stroke-width="2.0"/>
+<text x="675.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="675.0" dy="0.0">CPU 3 (1% load)</tspan></text>
+<line x1="675.0" y1="105.0" x2="675.0" y2="135.0" stroke="#95a5a6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="595.0" y="140.0" width="160.0" height="130.0" rx="6" fill="#ffffff" stroke="#34495e" stroke-width="1.5"/>
+<text x="675.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700"><tspan x="675.0" dy="0.0">Буфер CPU 3</tspan></text>
+<text x="675.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Порожній буфер</text>
+<text x="675.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пам'ять зарезервована</text>
+<rect x="600.0" y="280.0" width="150.0" height="24.0" rx="4" fill="#f2f4f4" stroke="#95a5a6" stroke-width="1.5"/>
+<text x="675.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Простій: марнотратство</text>
+<line x1="675.0" y1="304.0" x2="675.0" y2="345.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="25.0" y="350.0" width="730.0" height="70.0" rx="8" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="390.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">User-Space Reader (epoll_wait по N файлових дескрипторах)</tspan></text>
+<text x="390.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="390.0" dy="0.0">Недолік: Події зчитуються почергово з CPU-буферів. Необхідне сортування в User Space для хронології!</tspan></text>
 </svg>

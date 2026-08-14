@@ -1,21 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
-        <rect width="600" height="400" fill="#f0f0f0"/>
-        <text x="300" y="50" font-size="20" text-anchor="middle" font-family="monospace">ELF File Structure</text>
-        <rect x="50" y="80" width="200" height="40" fill="#add8e6" stroke="#000"/>
-        <text x="150" y="105" text-anchor="middle" font-family="monospace">ELF Header</text>
-        
-        <rect x="50" y="120" width="200" height="60" fill="#90ee90" stroke="#000"/>
-        <text x="150" y="155" text-anchor="middle" font-family="monospace">Program Header Table</text>
-        
-        <rect x="50" y="180" width="200" height="100" fill="#ffcccb" stroke="#000"/>
-        <text x="150" y="235" text-anchor="middle" font-family="monospace">Sections (.text, .data)</text>
-        
-        <rect x="50" y="280" width="200" height="60" fill="#ffff99" stroke="#000"/>
-        <text x="150" y="315" text-anchor="middle" font-family="monospace">Section Header Table</text>
-        
-        <text x="400" y="155" font-family="monospace" text-anchor="middle">Execution View</text>
-        <path d="M 260 150 L 320 150" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
-        
-        <text x="400" y="315" font-family="monospace" text-anchor="middle">Linking View</text>
-        <path d="M 260 310 L 320 310" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520" width="820" height="520">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/>
+  </marker>
+</defs>
+<rect width="820" height="520" fill="#ffffff"/>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двоїста структура ELF-файлу: компонувальник vs завантажувач ядра</text>
+<rect x="40.0" y="50.0" width="290.0" height="440.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="185.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Компонування (Linker View)</text>
+<text x="185.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Файл на диску (Секції)</text>
+<rect x="55.0" y="110.0" width="260.0" height="32.0" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.0"/>
+<text x="185.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ELF Header (Заголовок)</text>
+<rect x="55.0" y="147.0" width="260.0" height="32.0" rx="6" fill="#fed7aa" stroke="#f97316" stroke-width="1.0"/>
+<text x="185.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c2410c" text-anchor="middle" font-weight="700">Program Header Table (PHT)</text>
+<rect x="55.0" y="184.0" width="260.0" height="34.0" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="185.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle">.text (Машинний код, AX)</text>
+<rect x="55.0" y="223.0" width="260.0" height="34.0" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.0"/>
+<text x="185.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4338ca" text-anchor="middle">.rodata (Константи, рядки, A)</text>
+<rect x="55.0" y="262.0" width="260.0" height="34.0" rx="6" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="185.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle">.data (Ініціалізовані змінні, WA)</text>
+<rect x="55.0" y="301.0" width="260.0" height="34.0" rx="6" fill="#fef9c3" stroke="#eab308" stroke-width="1.0"/>
+<text x="185.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a16207" text-anchor="middle">.bss (Нульові змінні, NOBITS)</text>
+<rect x="55.0" y="340.0" width="260.0" height="32.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="185.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#475569" text-anchor="middle">.symtab / .strtab (Символи)</text>
+<rect x="55.0" y="377.0" width="260.0" height="32.0" rx="6" fill="#cbd5e1" stroke="#475569" stroke-width="1.0"/>
+<text x="185.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Section Header Table (SHT)</text>
+<rect x="470.0" y="50.0" width="310.0" height="440.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="625.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Виконання у пам'яті (Loader View)</text>
+<text x="625.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Віртуальний адресний простір (mmap)</text>
+<rect x="485.0" y="115.0" width="280.0" height="40.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="625.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">PT_INTERP / PT_PHDR</text>
+<text x="625.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">Інтерпретатор ld-linux.so</text>
+<rect x="485.0" y="165.0" width="280.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="625.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">PT_LOAD #1 (Код та читання)</text>
+<text x="625.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">Права: R-E (PROT_READ | PROT_EXEC)</text>
+<rect x="500.0" y="218.0" width="250.0" height="45.0" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="625.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle">Опкод коду (.text) + Таблиці (.rodata)</text>
+<rect x="485.0" y="285.0" width="280.0" height="125.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="625.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">PT_LOAD #2 (Дані та стан)</text>
+<text x="625.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle">Права: RW- (PROT_READ | PROT_WRITE)</text>
+<rect x="500.0" y="338.0" width="250.0" height="60.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="625.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle">Файлові дані (.data)</text>
+<text x="625.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">+ Алокація нулів у RAM (.bss)</text>
+<line x1="315.0" y1="163.0" x2="485.0" y2="135.0" stroke="#f97316" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="201.0" x2="485.0" y2="210.0" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="240.0" x2="485.0" y2="230.0" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="279.0" x2="485.0" y2="345.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="318.0" x2="485.0" y2="375.0" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

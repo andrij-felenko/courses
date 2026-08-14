@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="490.0" rx="8" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.5"/>
+<rect x="30.0" y="40.0" width="780.0" height="100.0" rx="6" fill="#ddf4ff" stroke="#54aef0" stroke-width="1.5"/>
+<text x="420.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0969da" text-anchor="middle" font-weight="700">Гостьова система (Guest Virtual Machine)</text>
+<rect x="50.0" y="75.0" width="340.0" height="50.0" rx="4" fill="#ffffff" stroke="#54aef0" stroke-width="1.5"/>
+<text x="220.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">virtio-net Driver (Guest Kernel)</text>
+<text x="220.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">kick (MMIO) / MSI-X Interrupt Handler</text>
+<rect x="430.0" y="75.0" width="360.0" height="50.0" rx="4" fill="#ffffff" stroke="#54aef0" stroke-width="1.5"/>
+<text x="610.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Shared Guest RAM (GPA)</text>
+<text x="610.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">vring: Descriptor Table | Avail Ring | Used Ring</text>
+<rect x="30.0" y="160.0" width="360.0" height="180.0" rx="6" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="210.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#bf8700" text-anchor="middle" font-weight="700">Control Plane (QEMU Userspace)</text>
+<rect x="50.0" y="195.0" width="320.0" height="40.0" rx="4" fill="#ffffff" stroke="#bf8700" stroke-width="1.5"/>
+<text x="210.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">QEMU Process (virtio-net device model)</text>
+<rect x="50.0" y="245.0" width="320.0" height="80.0" rx="4" fill="#fff3c4" stroke="#9a6700" stroke-width="1.5"/>
+<text x="210.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a6700" text-anchor="middle" font-weight="700">Ініціалізація через /dev/vhost-net (ioctl):</text>
+<text x="210.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• VHOST_SET_OWNER / VHOST_SET_MEM_TABLE</text>
+<text x="210.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• VHOST_SET_VRING_ADDR / KICK / CALL</text>
+<text x="210.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• VHOST_NET_SET_BACKEND (bind TAP fd)</text>
+<rect x="410.0" y="160.0" width="400.0" height="330.0" rx="6" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="610.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a7f37" text-anchor="middle" font-weight="700">Data Plane (Host Kernel vhost-net)</text>
+<rect x="430.0" y="195.0" width="360.0" height="75.0" rx="4" fill="#ffffff" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="610.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a7f37" text-anchor="middle" font-weight="700">Потік ядра vhost-$PID (vhost_net_worker)</text>
+<text x="610.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Очікує ioeventfd → читає vring з GPA → формує sk_buff</text>
+<text x="610.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Викликає irqfd після обробки пакету</text>
+<rect x="430.0" y="280.0" width="170.0" height="60.0" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="515.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">KVM ioeventfd</text>
+<text x="515.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Guest MMIO → Kernel</text>
+<rect x="620.0" y="280.0" width="170.0" height="60.0" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="705.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">KVM irqfd</text>
+<text x="705.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Kernel → Guest MSI-X</text>
+<rect x="430.0" y="350.0" width="360.0" height="60.0" rx="4" fill="#e6f0fa" stroke="#0969da" stroke-width="1.5"/>
+<text x="610.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0969da" text-anchor="middle" font-weight="700">Драйвер TAP / macvtap (/dev/net/tun)</text>
+<text x="610.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">tun_sendmsg() / tun_recvmsg() → zero-copy skb</text>
+<rect x="430.0" y="420.0" width="360.0" height="50.0" rx="4" fill="#24292f" stroke="#1f2328" stroke-width="1.5"/>
+<text x="610.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Фізичний мережевий адаптер (Physical NIC)</text>
+<text x="610.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d0d7de" text-anchor="middle">Hardware DMA direct to/from Guest RAM</text>
+<line x1="210.0" y1="335.0" x2="210.0" y2="410.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="410.0" x2="410.0" y2="410.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="310.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Setup control only</text>
+<line x1="220.0" y1="125.0" x2="515.0" y2="280.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="280.0" x2="610.0" y2="125.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

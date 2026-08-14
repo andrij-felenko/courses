@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 1 L 10 5 L 0 9 z" fill="#333333" />
+</marker>
+</defs>
+<rect x="0.0" y="0.0" width="900.0" height="560.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл запуску та роботи динамічного завантажувача (rtld)</text>
+<rect x="30.0" y="60.0" width="840.0" height="90.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="50.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">ЯДРО LINUX (Kernel Space)</text>
+<rect x="35.7" y="93.2" width="248.6" height="43.6" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/><text x="160.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">1. execve()</tspan><tspan x="160.0" dy="15.6">Перевірка ELF, заголовка PT_INTERP</tspan></text>
+<line x1="260.0" y1="115.0" x2="300.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="319.4" y="93.2" width="221.2" height="43.6" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/><text x="430.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">2. mmap() сегментів PT_LOAD</tspan><tspan x="430.0" dy="15.6">Відображення ELF і ld-linux.so</tspan></text>
+<line x1="560.0" y1="115.0" x2="600.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="609.4" y="93.2" width="221.2" height="43.6" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/><text x="720.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">3. Формування AUXV</tspan><tspan x="720.0" dy="15.6">Передача керування _rtld_start</tspan></text>
+<line x1="720.0" y1="150.0" x2="720.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="185.0" width="840.0" height="260.0" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="50.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="start" font-weight="700">ПРОСТІР КОРИСТУВАЧА: ld-linux.so (rtld)</text>
+<rect x="619.7" y="218.2" width="200.7" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="720.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">4. Bootstrap (_dl_start)</tspan><tspan x="720.0" dy="15.6">Саморелокація rtld без libc</tspan></text>
+<line x1="620.0" y1="240.0" x2="580.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="349.7" y="218.2" width="200.7" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="450.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">5. Парсинг AUXV та .dynamic</tspan><tspan x="450.0" dy="15.6">Збирання списку DT_NEEDED</tspan></text>
+<line x1="320.0" y1="240.0" x2="280.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="46.0" y="218.2" width="228.0" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="160.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">6. Пошук та mmap() бібліотек</tspan><tspan x="160.0" dy="15.6">rpath → LD_LIBRARY_PATH → cache</tspan></text>
+<line x1="160.0" y1="275.0" x2="160.0" y2="310.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="49.4" y="323.2" width="221.2" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="160.0" y="341.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">7. Релокації та Символи</tspan><tspan x="160.0" dy="15.6">Load-time (.got) &amp; Lazy (.plt)</tspan></text>
+<line x1="260.0" y1="345.0" x2="300.0" y2="345.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="342.8" y="323.2" width="214.4" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="450.0" y="341.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">8. Конструктори (.init_array)</tspan><tspan x="450.0" dy="15.6">Виконання ініціалізаторів .so</tspan></text>
+<line x1="600.0" y1="345.0" x2="640.0" y2="345.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="639.9" y="323.2" width="180.2" height="43.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="730.0" y="341.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">9. Реєстрація r_debug</tspan><tspan x="730.0" dy="15.6">Сповіщення налагоджувача</tspan></text>
+<line x1="730.0" y1="380.0" x2="730.0" y2="470.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="460.0" width="840.0" height="80.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="50.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="start" font-weight="700">ПРОСТІР КОРИСТУВАЧА: ОСНОВНА ПРОГРАМА</text>
+<rect x="635.1" y="485.2" width="189.8" height="39.6" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="730.0" y="501.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">10. Точка входу _start</tspan><tspan x="730.0" dy="15.6">Перехід з регістра e_entry</tspan></text>
+<line x1="640.0" y1="505.0" x2="590.0" y2="505.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="344.8" y="485.2" width="210.4" height="39.6" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="450.0" y="501.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">11. __libc_start_main</tspan><tspan x="450.0" dy="15.6">Ініціалізація C runtime &amp; env</tspan></text>
+<line x1="310.0" y1="505.0" x2="260.0" y2="505.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="61.7" y="485.2" width="196.7" height="39.6" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="160.0" y="501.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">12. Виклик main(argc, argv)</tspan><tspan x="160.0" dy="15.6">Виконання коду програми</tspan></text>
+</svg>

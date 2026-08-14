@@ -10667,10 +10667,28 @@ window.__BOOKS__ = [
             "slug": "device-tree-flattened-dtb",
             "title": "Дерево пристроїв (Device Tree, DTB)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-fdt-binary-layout-and-kernel-of-api.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-arm-churn-to-device-tree.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-fdt-userspace-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           }
         ]
@@ -10684,100 +10702,268 @@ window.__BOOKS__ = [
             "slug": "shell-role",
             "title": "Оболонка: що вона робить насправді",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-posix-shell-grammar.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-unix-shell-decoupling.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-mini-shell.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "argv-and-environment",
             "title": "argv, оточення й що успадковує дитина",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-exec-and-environment.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-environment-variables.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-proc-context-inspector.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "standard-streams",
             "title": "Три потоки: stdin, stdout, stderr",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-standard-descriptors.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-unix-streams-and-pipes.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-mini-shell-redirection.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "redirection-model",
             "title": "Перенаправлення як робота з дескрипторами",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-redirection-syscalls.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-io-redirection.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-shell-redirection.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "pipeline-composition",
             "title": "Конвеєр: композиція процесів",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-pipe-syscalls.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-mcilroy-pipe.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-shell-pipeline.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "exit-status",
             "title": "Код виходу як інтерфейс програми",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-posix-sysexits.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-exit-status-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-pipeline-exit-inspector.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "expansion-and-quoting",
             "title": "Розкриття й лапки: коли текст стає аргументами",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-wordexp-and-glob.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-glob-and-quoting.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "job-control",
             "title": "Керування завданнями: PGID, управляючий термінал, SIGTSTP і сигнальні групи",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-job-control-syscalls.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-job-control-shell.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "session-environment",
             "title": "Оточення сеансу: profile, rc і пошук у PATH",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-path-lookup-and-exec.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-profile-and-rc-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-path-resolver.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "locale-and-collation",
             "title": "Локаль: як мова змінює поведінку програм",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-locale-libc.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-locale-standards.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-collation-bench.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           }
         ]
@@ -10803,301 +10989,910 @@ window.__BOOKS__ = [
             "slug": "interfaces-and-addresses",
             "title": "Інтерфейси, адреси й стан лінка",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-rtnetlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ifconfig-to-iproute2.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "socket-api-linux",
             "title": "Сокети в Linux: від дескриптора до з'єднання",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-socket-syscalls-and-structures.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-bsd-sockets-to-linux.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-tcp-echo-server-client.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "routing-decision",
             "title": "Таблиця маршрутів і рішення про маршрут",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-fib-and-rtnetlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-route-cache-removal.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-rtnetlink-route-lookup.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "netfilter-model",
             "title": "netfilter: ланцюги, таблиці й NAT",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-netfilter-kernel-hooks.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-netfilter-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-nftables-rule-manager.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "network-namespaces",
             "title": "Мережеві простори імен, veth і мости",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-netns-syscalls.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-netns-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-netns-veth-setup.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "name-resolution-path",
             "title": "Шлях розв'язання імені: NSS, resolv, systemd-resolved",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-nss-and-resolv-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-hosts-to-systemd-resolved.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-nss-custom-module.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "tun-tap",
             "title": "TUN/TAP: віртуальні інтерфейси",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-tuntap-ioctl.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-universal-tun-tap.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-user-space-router.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "netlink-protocol",
             "title": "Обмін повідомленнями через netlink",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-netlink-headers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-netlink-origins.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-netlink-monitor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "nic-offloads",
             "title": "Розвантаження мережевої карти: контрольні суми, збирання й сегментація",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-ethtool-netlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-nic-offloads.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-offload-bench.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "kernel-tls",
             "title": "TLS усередині ядра: шар записів на сокеті",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-ktls-sockets.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ktls-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-ktls-file-server.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "out-of-band-data",
             "title": "Термінові дані TCP: покажчик терміновости, MSG_OOB і SIGURG",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-oob-socket-options.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-rfc-793-to-6093.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-oob-handling.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "ipsec-xfrm",
             "title": "IPsec у Linux: каркас перетворень xfrm",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-netlink-xfrm.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-freeswan-to-xfrm.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-xfrm-netlink-setup.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "rdma-in-linux",
             "title": "RDMA: віддалений прямий доступ до пам'яті",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-ibverbs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-rdma-origins.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-rdma-pingpong.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "tcp-connection-liveness",
             "title": "Виявлення мертвого TCP-з'єднання: keepalive, TCP_USER_TIMEOUT і прикладна перевірка",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-tcp-liveness.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tcp-keepalive.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-liveness-tracker.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "vhost-net-acceleration",
             "title": "Прискорення мережі у віртуалізації (vhost-net)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-vhost-net-ioctl.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tap-to-vhost-net.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-vhost-net-setup.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "xdp-express-data-path",
             "title": "eXpress Data Path (XDP): обробка пакетів на NIC",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-xdp-helpers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-xdp-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-xdp-pass-drop-router.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "wireguard-kernel-architecture",
             "title": "Ядерний тунель WireGuard",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-wireguard-netlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-wireguard-genesis.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-wireguard-netlink-control.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "ebpf-traffic-control-clsact",
             "title": "eBPF у підсистемі Traffic Control",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-clsact-bpf-helpers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tc-bpf-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-tc-ebpf-redirect.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "bonding-and-team-drivers",
             "title": "Агрегація каналів: Bonding та Team",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-bonding-team-netlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-bonding-to-team.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-netlink-bond-controller.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "macvlan-macvtap-drivers",
             "title": "Драйвери Macvlan та Macvtap",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-macvlan-netlink-sysfs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-macvlan-genesis.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-macvlan-creator.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "multipath-tcp-mptcp",
             "title": "Багатошляховий TCP (MPTCP)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-netlink-mptcp.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-mptcp-rfc6824-to-rfc8684.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-mptcp-socket-client.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "xdp-sockets-af-xdp",
             "title": "Сокети високої швидкості AF_XDP (XSK)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-xsk-umem.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kernel-bypass.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-af-xdp-packet-processor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "io-uring-net-passthrough",
             "title": "Мережевий ввід-вивід io_uring: SendZC та RecvZC",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-io-uring-net.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-zerocopy-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-zerocopy-tcp-server.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "bpf-sockmap-and-sk-skb",
             "title": "Прискорення сокетів BPF: sockmap та sk_skb",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-sockmap-sk-skb.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-sockmap-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-sockmap-proxy.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "ethtool-netlink-interface",
             "title": "Сучасний інтерфейс налаштування мережі ethtool Netlink",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-ethtool-netlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-netlink-ethtool.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-netlink-ethtool-client.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "packet-mmap-ring-buffers",
             "title": "Механізм PACKET_MMAP (TPACKET_V3 ring buffers)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-tpacket-v3.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tpacket-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-packet-mmap-capture.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "mptcp-path-managers",
             "title": "Менеджери шляхів у MPTCP (mptcpd та in-kernel path manager)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-mptcp-netlink.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-mptcp-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-mptcpd-plugin.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "netfilter-nftables-expression-engine",
             "title": "Рушій виразів nftables у ядрах Linux (nftables vs iptables)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-nftables-expressions.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-iptables-to-nftables.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-nftables-bytecode-emulator.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "bpf-cgroup-skb-hooks",
             "title": "Хуки eBPF на рівні cgroup: BPF_CGROUP_INET_INGRESS/EGRESS",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-cgroup-skb-helpers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-cgroup-bpf-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-cgroup-skb-firewall.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "macsec-ieee-802-1ae",
             "title": "Захист канального рівня MACsec (IEEE 802.1AE) у ядрі",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-rtnetlink-macsec.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-802-1ae-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-macsec-netlink-ctl.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "netfilter-conntrack-architecture",
             "title": "Підсистема відстеження зʼєднань Conntrack (nf_conntrack) та conntrack tables",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-netlink-conntrack.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-conntrack-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-conntrack-monitor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "ethtool-rss-indirection-tables",
             "title": "Масштабування на боці прийому: RSS Indirection Tables та Flow Hashing",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-ethtool-rss.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-rss-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-toeplitz-reta-sim.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "tls-ktls-kernel-offload",
             "title": "Ядерне прискорення TLS (kTLS / TLS_HW / TLS_SW)",
+              "basic": {
+                "status": "done",
+            "api": [
+              {
+                "file": "api-ktls-ulp-and-setsockopt.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ktls-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-ktls-c-cpp-socket.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
+              },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "xdp-cpumap-and-devmap",
             "title": "Маршрутизація XDP: BPF_MAP_TYPE_CPUMAP та BPF_MAP_TYPE_DEVMAP",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-cpumap-devmap-reference.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-cpumap-devmap-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-xdp-router-cpumap-devmap.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           }
         ]
@@ -11111,120 +11906,336 @@ window.__BOOKS__ = [
             "slug": "elf-structure",
             "title": "ELF: сегменти, секції, точка входу",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-elf-headers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-elf-format.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-elf-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "static-and-dynamic-linking",
             "title": "Статичне й динамічне лінкування",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-linker-internals.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-static-to-dynamic-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-custom-dynamic-loader-hooks.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "dynamic-loader",
             "title": "Динамічний завантажувач і його робота",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-dlfcn-and-rtld-debug.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ld-so-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-mini-dynamic-loader.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "soname-versioning",
             "title": "SONAME і версіонування спільних бібліотек",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-symbol-versioning.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-elf-versioning.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-abi-compatibility-wrapper.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "library-search-order",
             "title": "Порядок пошуку бібліотек: rpath, LD_LIBRARY_PATH, кеш",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-ld-so.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-rpath-runpath.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-search-order-inspector.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "symbol-resolution",
             "title": "Розв'язання символів і перекриття (interposition)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-dynamic-linker-flags.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-symbol-interposition.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-ld-preload-hook.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "plt-and-got",
             "title": "PLT і GOT: як працює виклик через межу бібліотеки",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-plt-got-relocations.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-lazy-binding-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-plt-got-inspector.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "library-abi-compat",
             "title": "Сумісність ABI бібліотеки й що її ламає",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-libabigail.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-cxx11-abi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-abi-safe-pimpl.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "vdso",
             "title": "vDSO: бібліотека від ядра в кожному процесі",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-vdso-symbols-and-auxv.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-vsyscall-to-vdso.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-vdso-dump-and-symbol-resolution.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "elf-tls",
             "title": "TLS в ELF: як потік дістає власні глобальні змінні",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-elf-tls-structures.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tls-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-inspecting-tls.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "auxiliary-vector",
             "title": "Допоміжний вектор ELF: що ядро передає програмі на старті",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-auxv-types.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-auxv-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-auxv-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "position-independent-code",
             "title": "Позиційно-незалежний код: PIC, PIE й ціна непрямості",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-gcc-pic-flags.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-pic-pie.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-pic-pie-demo.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           }
         ]
@@ -11241,100 +12252,280 @@ window.__BOOKS__ = [
             "slug": "proc-filesystem",
             "title": "/proc: процеси як файли",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-proc-filesystem.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-procfs.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-proc-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "ptrace-model",
             "title": "ptrace: на чому тримається трасування й налагодження",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-ptrace.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ptrace.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-tracer.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "syscall-tracing",
             "title": "Трасування системних викликів",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-ptrace-and-seccomp.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ptrace-to-seccomp.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-syscall-interceptor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "perf-events",
             "title": "Підсистема perf: лічильники й вибірковий профіль",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-perf-event-open.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-pmu-and-perf.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-ring-buffer-reader.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "ftrace-kernel-tracing",
             "title": "Трасування ядра ftrace (/sys/kernel/tracing, function, tracepoints, trace-cmd)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-tracefs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ftrace-origins.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-ftrace-user-reader.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "ebpf-extended-berkeley-packet-filter",
             "title": "eBPF (Extended Berkeley Packet Filter): власні програми всередині ядра",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-bpf-syscall-and-maps.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-ebpf-origins.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-ebpf-execve-monitor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "core-dump",
             "title": "Аварійний дамп: як налаштувати й що з нього видно",
             "basic": {
-              "status": "done"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-core-pattern.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-magnetic-core.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-gdb-core-analysis.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "load-and-pressure",
             "title": "Середнє навантаження й тиск на ресурси (PSI)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-proc-pressure-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-loadavg-to-psi.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-psi-monitor.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "kernel-oops-panic",
             "title": "Oops і паніка: що система робить, коли падає саме ядро",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-kernel-panic-sysctl-and-oops-format.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kernel-faults-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-oops-trigger-module.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "uprobes-and-kprobes",
             "title": "Динамічне трасування: kprobes та uprobes",
             "basic": {
-              "status": "done"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-kprobes-uprobes.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-dynamic-tracing.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-uprobe-latency-tracker.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
@@ -11351,149 +12542,449 @@ window.__BOOKS__ = [
             "slug": "kernel-log-printk",
             "title": "Журнал ядра: printk, рівні важливості й dmesg",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-kmsg-and-syslog.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-printk-lockless-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kmsg-watcher.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "latency-tracers",
             "title": "Трасувальники затримок: osnoise, timerlat і rtla",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-rtla-interfaces.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-rtla-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-latency-harness.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "syslog-protocol",
             "title": "Syslog: пріоритет, засоби (facility) і формат повідомлення",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-syslog-c-library.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-syslog-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-syslog-socket-parser.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "kallsyms-and-system-map",
             "title": "kallsyms: імена символів усередині ядра, System.map і %pS",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-kallsyms-kernel-surface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kallsyms-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kallsyms-symbol-resolver.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "debugfs",
             "title": "debugfs: службове вікно в нутрощі ядра",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-debugfs.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-debugfs.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-debugfs-custom-file.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "systemtap-and-bpftrace",
             "title": "Високорівневе трасування: SystemTap та bpftrace",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-bpftrace-and-systemtap.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-dtrace-to-bpftrace.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-usdt-and-tracing.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "lockdep-lock-validator",
             "title": "Валідатор блокувань Lockdep",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-lockdep-interfaces.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-lockdep-history.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-lockdep-validation.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "kasan-kernel-address-sanitizer",
             "title": "Kernel Address Sanitizer (KASAN)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-kasan-config.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kasan-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kasan-uaf-demo.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "kcsan-concurrency-sanitizer",
             "title": "Kernel Concurrency Sanitizer (KCSAN)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-kcsan-annotations.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kcsan-evolution.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kcsan-kernel-module.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "kmemleak-leak-detector",
             "title": "Виявлення витоків пам'яті ядра (Kmemleak)",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-kmemleak-interface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-mark-and-sweep-in-kernel.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kmemleak-driver-audit.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "bpf-iterators-and-user-ringbuf",
             "title": "Ітератори BPF (bpf_iter) та User Ring Buffer",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-bpf-iter-and-user-ringbuf.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-bpf-iter-and-user-ringbuf.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-bpf-iter-and-user-ringbuf.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "bpf-trampoline-and-fprobe",
             "title": "Сучасні оверхеди трасування: BPF Trampoline та fprobe",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-bpf-trampoline-and-fprobe.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tracing-overhead.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-fentry-tracing-benchmark.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "ebpf-perf-event-array",
             "title": "Канали подій eBPF Perf Event Array",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-perf-event-array.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-perf-event-array.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-perf-event-array.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "user-events-ftrace-subsystem",
             "title": "Користувацькі події у ftrace: User Events підсистема",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-user-events.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-user-events.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-user-events-demo.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "ebpf-arena-shared-memory-region",
             "title": "Спільні регіони памʼяті BPF Arena (Linux 6.8+)",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-bpf-arena.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-arena-shared-tree.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "kernel-kunit-test-framework",
             "title": "Фреймворк тестування ядра KUnit та відлагоджувачі KASAN/KCSAN/KFENCE",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-kunit-and-sanitizers.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-kunit-origins.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-kunit-test-suite.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           },
           {
             "slug": "bpf-ringbuf-vs-perfbuf",
             "title": "Порівняльний аналіз механізмів доставки подій BPF Ring Buffer vs Perf Event Array",
             "detailed": {
-              "status": "update"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-ringbuf-vs-perfbuf.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-perf-to-ringbuf.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-bpf-ringbuf-benchmark.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             }
           }
         ]
@@ -11507,80 +12998,224 @@ window.__BOOKS__ = [
             "slug": "package-manager-model",
             "title": "Модель пакетного менеджера",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-dpkg-status-database.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-tarballs-to-repositories.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-atomic-pkg-installer.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "deb-and-rpm",
             "title": "deb і rpm: два світи пакування",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-deb-rpm.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-formats.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-building.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "repositories-and-trust",
             "title": "Репозиторії, підписи й довіра",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-apt-rpm-trust-config.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-keyservers-and-web-of-trust.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-gpg-verification-tool.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "dependency-resolution",
             "title": "Розв'язання залежностей і конфлікти версій",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-libsolv-surface.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-sat-in-package-managers.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-sat-solver-engine.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "fhs-layout",
             "title": "Ієрархія файлової системи: куди що кладуть",
             "basic": {
-              "status": "empty"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-fhs-directory-spec.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-usrmerge-and-split-usr.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-fhs-traverser-and-mount-checker.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "self-contained-bundles",
             "title": "Самодостатні пакунки: AppImage, Flatpak, Snap",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-bundle-manifests.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-bundle-formats.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-minimal-bundle-launcher.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "containers-vs-packages",
             "title": "Контейнер проти пакунка",
             "basic": {
-              "status": "done"
+              "status": "done",
+            "api": [
+              {
+                "file": "api-container-vs-pkg-manifests.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-chroot-to-oci.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-chroot-overlay-runner.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           },
           {
             "slug": "multilib-multiarch",
             "title": "Multilib і multiarch: два комплекти бібліотек в одній ієрархії",
             "basic": {
-              "status": "empty"
+              "status": "empty",
+            "api": [
+              {
+                "file": "api-triplet-and-ldconfig.md",
+                "status": "done",
+            "hist": [
+              {
+                "file": "hist-amd64-and-multiarch.md",
+                "status": "done",
+            "proj": [
+              {
+                "file": "proj-multiarch-probe.md",
+                "status": "done"
+              }
+            ],
+              }
+            ],
+              }
+            ],
             },
             "detailed": {
-              "status": "update"
+              "status": "done"
             }
           }
         ]

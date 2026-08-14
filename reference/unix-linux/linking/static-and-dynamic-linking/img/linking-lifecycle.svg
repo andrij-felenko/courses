@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл запуску динамічного процесу Linux</text>
+<circle cx="65.0" cy="92.5" r="18.0" fill="#94a3b8" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="65.0" y="97.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="100.0" y="65.0" width="700.0" height="55.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="120.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">1. Виклик execve()</text>
+<text x="320.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start"><tspan x="320.0" dy="0.0">Ядро аналізує ELF-заголовок бінарного файла.</tspan><tspan x="320.0" dy="14.3">Зчитується сегмент PT_INTERP (/lib64/ld-linux-x86-64.so.2).</tspan></text>
+<line x1="65.0" y1="120.0" x2="65.0" y2="130.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="65.0" cy="157.5" r="18.0" fill="#0284c7" stroke="#0284c7" stroke-width="1.5"/>
+<text x="65.0" y="162.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<rect x="100.0" y="130.0" width="700.0" height="55.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="120.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">2. Завантаження ld.so</text>
+<text x="320.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start"><tspan x="320.0" dy="0.0">Ядро відображає в пам'ять бінарник та динамічний завантажувач ld.so.</tspan><tspan x="320.0" dy="14.3">Управління передається на entry point завантажувача.</tspan></text>
+<line x1="65.0" y1="185.0" x2="65.0" y2="195.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="65.0" cy="222.5" r="18.0" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="65.0" y="227.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<rect x="100.0" y="195.0" width="700.0" height="55.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="120.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">3. Парсинг залежностей</text>
+<text x="320.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start"><tspan x="320.0" dy="0.0">ld.so вичитує секцію .dynamic і теги DT_NEEDED.</tspan><tspan x="320.0" dy="14.3">Знаходить і відкриває файли .so через LD_LIBRARY_PATH та ld.so.cache.</tspan></text>
+<line x1="65.0" y1="250.0" x2="65.0" y2="260.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="65.0" cy="287.5" r="18.0" fill="#16a34a" stroke="#16a34a" stroke-width="1.5"/>
+<text x="65.0" y="292.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">4</text>
+<rect x="100.0" y="260.0" width="700.0" height="55.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="120.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">4. Релокації та GOT/PLT</text>
+<text x="320.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start"><tspan x="320.0" dy="0.0">ld.so виправляє адреси в GOT та PLT відповідно до реальних</tspan><tspan x="320.0" dy="14.3">базових адрес завантаження бібліотек у пам'ять (ASLR).</tspan></text>
+<line x1="65.0" y1="315.0" x2="65.0" y2="325.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="65.0" cy="352.5" r="18.0" fill="#c084fc" stroke="#c084fc" stroke-width="1.5"/>
+<text x="65.0" y="357.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">5</text>
+<rect x="100.0" y="325.0" width="700.0" height="55.0" rx="6" fill="#fae8ff" stroke="#c084fc" stroke-width="1.5"/>
+<text x="120.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">5. Ініціалізатори (.init)</text>
+<text x="320.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start"><tspan x="320.0" dy="0.0">Виконуються функції з секцій .init та .init_array</tspan><tspan x="320.0" dy="14.3">(глобальні конструктори C++ та ініціалізатори бібліотек).</tspan></text>
+<line x1="65.0" y1="380.0" x2="65.0" y2="390.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="65.0" cy="417.5" r="18.0" fill="#059669" stroke="#059669" stroke-width="1.5"/>
+<text x="65.0" y="422.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">6</text>
+<rect x="100.0" y="390.0" width="700.0" height="55.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+<text x="120.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">6. Передача в main()</text>
+<text x="320.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start"><tspan x="320.0" dy="0.0">ld.so передає управління на справжню точку входу програми (_start -&gt; main).</tspan><tspan x="320.0" dy="14.3">Програма починає виконання власних інструкцій.</tspan></text>
+</svg>

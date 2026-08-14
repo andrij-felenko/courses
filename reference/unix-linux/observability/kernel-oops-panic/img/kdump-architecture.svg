@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура Kdump: ізоляція Crash Kernel у зарезервованій пам'яті</text>
+<rect x="40.0" y="55.0" width="800.0" height="400.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Фізична оперативна пам'ять (RAM)</text>
+<rect x="60.0" y="95.0" width="480.0" height="340.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="300.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Основне ядро (Production Kernel)</text>
+<text x="300.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Виконує робоче навантаження, користувацькі процеси, VFS, мережу.</tspan><tspan x="300.0" dy="14.3">При зверненні panic() зупиняє всі CPU через NMI IPI</tspan><tspan x="300.0" dy="14.3">і передає управління через kexec без скидання апаратури (POST).</tspan></text>
+<rect x="80.0" y="220.0" width="440.0" height="195.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="300.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Стан пам'яті при збої (Заморожено)</text>
+<text x="300.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">• Таблиці сторінок ядра та процесів</tspan><tspan x="300.0" dy="13.7">• Спеціальні ELF-нотатки з записами регістрів CPU</tspan><tspan x="300.0" dy="13.7">• Буфери сокетів, VFS-кеш та структури даних</tspan><tspan x="300.0" dy="13.7">-&gt; Доступно в Crash Kernel як файл /proc/vmcore</tspan></text>
+<rect x="560.0" y="95.0" width="260.0" height="340.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="690.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Зарезервований простір</text>
+<text x="690.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">crashkernel=512M</text>
+<line x1="575.0" y1="160.0" x2="805.0" y2="160.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="575.0" y="175.0" width="230.0" height="240.0" rx="4" fill="#fff6e5" stroke="#333333" stroke-width="1.2"/>
+<text x="690.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Crash Kernel (Capture)</text>
+<text x="690.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Ізольоване міні-ядро</tspan><tspan x="690.0" dy="13.7">з власною initramfs</tspan><tspan x="690.0" dy="13.7">---------------------</tspan><tspan x="690.0" dy="13.7">1. Читає /proc/vmcore</tspan><tspan x="690.0" dy="13.7">2. Запускає makedumpfile</tspan><tspan x="690.0" dy="13.7">3. Стискає та зберігає</tspan><tspan x="690.0" dy="13.7">   дамп у /var/crash/</tspan><tspan x="690.0" dy="13.7">4. Виконує reboot</tspan></text>
+<line x1="480.0" y1="180.0" x2="560.0" y2="180.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="520.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">crash_kexec()</text>
+</svg>

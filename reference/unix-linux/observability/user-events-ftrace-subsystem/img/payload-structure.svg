@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бінарна структура пакунка події у writev()</text>
+<rect x="40.0" y="70.0" width="200.0" height="140.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="140.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">iovec[0]: Заголовок події</tspan><tspan x="140.0" dy="16.9">(4 байти, write_index)</tspan></text>
+<rect x="55.0" y="135.0" width="170.0" height="55.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="140.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle"><tspan x="140.0" dy="0.0">u32 write_index</tspan><tspan x="140.0" dy="15.6">(ID від ядра)</tspan></text>
+<rect x="270.0" y="70.0" width="510.0" height="240.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="525.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#15803d" text-anchor="middle" font-weight="700">iovec[1]: Структуроване тіло події (Payload)</text>
+<rect x="290.0" y="120.0" width="230.0" height="70.0" rx="4" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
+<text x="405.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700"><tspan x="405.0" dy="0.0">Фіксовані поля</tspan><tspan x="405.0" dy="15.6">u32 count / u64 latency</tspan></text>
+<rect x="535.0" y="120.0" width="230.0" height="70.0" rx="4" fill="#fef9c3" stroke="#eab308" stroke-width="1.2"/>
+<text x="650.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">__data_loc дескриптор</tspan><tspan x="650.0" dy="15.6">u16 offset | u16 len</tspan></text>
+<rect x="290.0" y="215.0" width="475.0" height="75.0" rx="4" fill="#fae8ff" stroke="#d946ef" stroke-width="1.2"/>
+<text x="527.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#86198f" text-anchor="middle" font-weight="700"><tspan x="527.0" dy="0.0">Динамічні дані змінної довжини (char[] / u8[])</tspan><tspan x="527.0" dy="15.6">Рядки, масиви байтів або вкладені структури</tspan></text>
+<line x1="650.0" y1="190.0" x2="527.0" y2="215.0" stroke="#eab308" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

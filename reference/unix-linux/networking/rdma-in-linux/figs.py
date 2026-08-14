@@ -1,63 +1,122 @@
 import os
+import sys
 
-def render():
-    svg_content = """<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="#f9f9f9"/>
-    
-    <!-- Node A -->
-    <rect x="50" y="50" width="250" height="350" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="10"/>
-    <text x="175" y="80" font-family="sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#0d47a1">Вузол A (Ініціатор)</text>
-    
-    <rect x="75" y="100" width="200" height="60" fill="#bbdefb" stroke="#1976d2" rx="5"/>
-    <text x="175" y="135" font-family="sans-serif" font-size="16" text-anchor="middle">Додаток (User Space)</text>
-    
-    <rect x="75" y="180" width="200" height="140" fill="#90caf9" stroke="#1976d2" rx="5"/>
-    <text x="175" y="210" font-family="sans-serif" font-size="16" text-anchor="middle" font-weight="bold">RDMA verbs / librdmacm</text>
-    <rect x="90" y="225" width="80" height="40" fill="#64b5f6" stroke="#0d47a1"/>
-    <text x="130" y="250" font-family="sans-serif" font-size="14" text-anchor="middle">QP (SQ/RQ)</text>
-    <rect x="180" y="225" width="80" height="40" fill="#64b5f6" stroke="#0d47a1"/>
-    <text x="220" y="250" font-family="sans-serif" font-size="14" text-anchor="middle">CQ</text>
-    <rect x="90" y="275" width="170" height="30" fill="#64b5f6" stroke="#0d47a1"/>
-    <text x="175" y="295" font-family="sans-serif" font-size="14" text-anchor="middle">Memory Region (MR)</text>
-    
-    <rect x="75" y="340" width="200" height="40" fill="#42a5f5" stroke="#0d47a1" rx="5"/>
-    <text x="175" y="365" font-family="sans-serif" font-size="16" text-anchor="middle" fill="white">RNIC / HCA</text>
-    
-    <!-- Node B -->
-    <rect x="500" y="50" width="250" height="350" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="10"/>
-    <text x="625" y="80" font-family="sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#1b5e20">Вузол B (Ціль)</text>
-    
-    <rect x="525" y="100" width="200" height="60" fill="#c8e6c9" stroke="#388e3c" rx="5"/>
-    <text x="625" y="135" font-family="sans-serif" font-size="16" text-anchor="middle">Додаток (User Space)</text>
-    
-    <rect x="525" y="180" width="200" height="140" fill="#a5d6a7" stroke="#388e3c" rx="5"/>
-    <text x="625" y="210" font-family="sans-serif" font-size="16" text-anchor="middle" font-weight="bold">RDMA verbs / librdmacm</text>
-    <rect x="540" y="225" width="80" height="40" fill="#81c784" stroke="#1b5e20"/>
-    <text x="580" y="250" font-family="sans-serif" font-size="14" text-anchor="middle">QP (SQ/RQ)</text>
-    <rect x="630" y="225" width="80" height="40" fill="#81c784" stroke="#1b5e20"/>
-    <text x="670" y="250" font-family="sans-serif" font-size="14" text-anchor="middle">CQ</text>
-    <rect x="540" y="275" width="170" height="30" fill="#81c784" stroke="#1b5e20"/>
-    <text x="625" y="295" font-family="sans-serif" font-size="14" text-anchor="middle">Memory Region (MR)</text>
-    
-    <rect x="525" y="340" width="200" height="40" fill="#66bb6a" stroke="#1b5e20" rx="5"/>
-    <text x="625" y="365" font-family="sans-serif" font-size="16" text-anchor="middle" fill="white">RNIC / HCA</text>
-    
-    <!-- Connections -->
-    <path d="M 275 360 L 500 360" stroke="#d32f2f" stroke-width="6" stroke-dasharray="8,4"/>
-    <polygon points="485,350 500,360 485,370" fill="#d32f2f"/>
-    <polygon points="290,350 275,360 290,370" fill="#d32f2f"/>
-    <text x="400" y="345" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#c62828" font-weight="bold">RDMA Фабрика (Мережа)</text>
-    
-    <!-- Zero Copy path -->
-    <path d="M 260 290 Q 400 200 540 290" stroke="#ff8f00" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
-    <polygon points="525,280 540,290 525,300" fill="#ff8f00"/>
-    <text x="400" y="235" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#ff8f00" font-weight="bold">Zero-Copy Memory Transfer</text>
-    <text x="400" y="255" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#ff8f00">(Обхід ядра / Kernel Bypass)</text>
-</svg>"""
-    
-    with open('rdma-arch.svg', 'w', encoding='utf-8') as f:
-        f.write(svg_content)
-    print("Generated rdma-arch.svg")
+# Додаємо шлях до scripts/ у корені репо
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts')))
+from svgkit import render, textbox, fitbox, rect, line, arrow, text, mtext, circle, POS, NEG, FIELD, INK, MUTED, LINE, FILL, BG
+
+def build_fig1():
+    # Порівняння Традиційного мережевого стека Linux та RDMA (Kernel Bypass + Zero-Copy)
+    w, h = 820, 480
+    frags = []
+
+    # Заголовок
+    frags.append(text(w / 2, 25, "Порівняння шляху даних: Традиційний TCP/IP стек vs RDMA", size=16, bold=True))
+
+    # Скляний бокс для TCP/IP
+    frags.append(rect(20, 55, 375, 395, fill="#fdfefe", stroke="#bdc3c7", sw=1.5, rx=8))
+    frags.append(text(207, 78, "Традиційний стек (TCP/IP)", size=15, bold=True, color="#c0392b"))
+
+    # Скляний бокс для RDMA
+    frags.append(rect(425, 55, 375, 395, fill="#f4f9f4", stroke="#abebc6", sw=1.5, rx=8))
+    frags.append(text(612, 78, "Шлях RDMA (Kernel Bypass)", size=15, bold=True, color="#27ae60"))
+
+    # TCP/IP шари
+    tb_u1, _, _ = textbox(207, 120, "Користувацький додаток\n(User Space Buffer)", size=12, pad=8, fill="#ebf5fb", stroke="#2980b9")
+    tb_k1, _, _ = textbox(207, 210, "Ядро Linux (Kernel Space)\nБуфери socket & sk_buff\nКопіювання пам'яті CPU", size=12, pad=8, fill="#fadbd8", stroke="#e74c3c")
+    tb_d1, _, _ = textbox(207, 300, "Драйвер та мережева карта\n(NIC DMA / Ring Buffer)", size=12, pad=8, fill="#eaeded", stroke="#7f8c8d")
+    tb_n1, _, _ = textbox(207, 390, "Мережевий дріт (Ethernet)", size=12, pad=8, fill="#d5dbdb", stroke="#34495e")
+
+    frags.extend([tb_u1, tb_k1, tb_d1, tb_n1])
+
+    # TCP/IP стрілки
+    frags.append(arrow(207, 145, 207, 182, color="#c0392b", sw=2))
+    frags.append(text(217, 163, "Копіювання + Syscall", size=10, color="#c0392b", anchor="left"))
+
+    frags.append(arrow(207, 245, 207, 278, color="#c0392b", sw=2))
+    frags.append(text(217, 261, "Переривання + DMA", size=10, color="#c0392b", anchor="left"))
+
+    frags.append(arrow(207, 325, 207, 368, color="#7f8c8d", sw=2))
+
+    # RDMA шари
+    tb_u2, _, _ = textbox(612, 120, "Користувацький додаток\n(Закріплена пам'ять / MR)", size=12, pad=8, fill="#e8f8f5", stroke="#1abc9c")
+    tb_k2, _, _ = textbox(612, 210, "Ядро Linux (Control Path)\nРеєстрація MR / Налаштування QP\n(Критичний шлях ОБІЙДЕНО)", size=11, pad=8, fill="#f9ebf9", stroke="#8e44ad", sw=1.0)
+    tb_d2, _, _ = textbox(612, 300, "RDMA Адаптер (RNIC / HCA)\nHardware Transport Engine", size=12, pad=8, fill="#d4efdf", stroke="#27ae60")
+    tb_n2, _, _ = textbox(612, 390, "Фабрика (InfiniBand / RoCE)", size=12, pad=8, fill="#d5dbdb", stroke="#27ae60")
+
+    frags.extend([tb_u2, tb_k2, tb_d2, tb_n2])
+
+    # RDMA Пряма стрілка (Zero-Copy)
+    frags.append(line(520, 140, 480, 140, color="#27ae60", sw=2))
+    frags.append(line(480, 140, 480, 280, color="#27ae60", sw=2, dash="4,4"))
+    frags.append(arrow(480, 280, 520, 280, color="#27ae60", sw=2))
+    frags.append(text(473, 210, "Прямий DMA\n(Zero-Copy)", size=11, color="#27ae60", anchor="end", bold=True))
+
+    frags.append(arrow(612, 325, 612, 368, color="#27ae60", sw=2))
+
+    # Пунктирна лінія від ядра до HCA (керування)
+    frags.append(line(612, 240, 612, 275, color="#8e44ad", sw=1.2, dash="2,2"))
+    frags.append(text(622, 258, "Лише Setup", size=10, color="#8e44ad", anchor="left"))
+
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(img_dir, exist_ok=True)
+    out_path = os.path.join(img_dir, 'rdma-arch.svg')
+    render(out_path, w, h, *frags)
+    print(f"Generated {out_path}")
+
+def build_fig2():
+    # Архітектура абстракцій RDMA: PD, QP (SQ/RQ), CQ, MR та HCA
+    w, h = 820, 480
+    frags = []
+
+    frags.append(text(w / 2, 25, "Внутрішні абстракції RDMA: Protection Domain, QP, CQ та MR", size=16, bold=True))
+
+    # Рамка процесу користувача
+    frags.append(rect(20, 50, 780, 290, fill="#fbfcfc", stroke="#34495e", sw=1.5, rx=8))
+    frags.append(text(40, 72, "Пам'ять процесу у просторі користувача (User Space Process)", size=13, bold=True, color="#2c3e50", anchor="left"))
+
+    # Protection Domain (PD)
+    frags.append(rect(40, 85, 740, 245, fill="#f4f6f7", stroke="#8e44ad", sw=1.5, rx=6))
+    frags.append(text(55, 105, "Protection Domain (PD) — Домен безпеки", size=12, bold=True, color="#8e44ad", anchor="left"))
+
+    # Queue Pair (QP)
+    frags.append(rect(55, 120, 310, 125, fill="#ebf5fb", stroke="#2980b9", sw=1.5, rx=6))
+    frags.append(text(210, 140, "Queue Pair (QP)", size=13, bold=True, color="#1b4f72"))
+
+    tb_sq, _, _ = textbox(130, 185, "Send Queue (SQ)\n[WQE1 -> WQE2]", size=11, pad=6, fill="#d4e6f1", stroke="#2980b9")
+    tb_rq, _, _ = textbox(290, 185, "Receive Queue (RQ)\n[WQE1 -> WQE2]", size=11, pad=6, fill="#d4e6f1", stroke="#2980b9")
+    frags.extend([tb_sq, tb_rq])
+
+    # Memory Region (MR)
+    frags.append(rect(380, 120, 385, 125, fill="#e8f8f5", stroke="#16a085", sw=1.5, rx=6))
+    frags.append(text(572, 140, "Memory Region (MR) [Pinned RAM]", size=13, bold=True, color="#0e6655"))
+
+    tb_mr, _, _ = textbox(572, 185, "Віртуальні сторінки пам'яті\nL_Key: Локальний доступ | R_Key: Віддалений доступ", size=11, pad=6, fill="#a3e4d7", stroke="#16a085")
+    frags.append(tb_mr)
+
+    # Completion Queue (CQ) внизу всередині PD
+    frags.append(rect(55, 255, 710, 60, fill="#fef9e7", stroke="#f39c12", sw=1.5, rx=6))
+    tb_cqe, _, _ = textbox(410, 285, "Completion Queue (CQ): [CQE1] [CQE2] [CQE3] (Асинхронний статус виконання)", size=11, pad=6, fill="#fdebd0", stroke="#f39c12")
+    frags.append(tb_cqe)
+
+    # Апаратний рівень HCA
+    frags.append(rect(20, 365, 780, 95, fill="#eaeded", stroke="#2c3e50", sw=2, rx=8))
+    frags.append(text(410, 390, "RDMA Network Interface Card (RNIC / HCA Hardware)", size=14, bold=True, color="#1b2631"))
+
+    tb_hca_engine, _, _ = textbox(410, 425, "Hardware DMA Controller  |  Translation & Protection Table (TPT)  |  Transport Engine", size=11, pad=6, fill="#d5dbdb", stroke="#34495e")
+    frags.append(tb_hca_engine)
+
+    # Зв'язки між пластами
+    frags.append(arrow(130, 230, 130, 365, color="#2980b9", sw=1.5))
+    frags.append(arrow(290, 230, 290, 365, color="#2980b9", sw=1.5))
+    frags.append(arrow(572, 230, 572, 365, color="#16a085", sw=1.5))
+
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(img_dir, exist_ok=True)
+    out_path = os.path.join(img_dir, 'rdma-qp-mr.svg')
+    render(out_path, w, h, *frags)
+    print(f"Generated {out_path}")
 
 if __name__ == '__main__':
-    render()
+    build_fig1()
+    build_fig2()

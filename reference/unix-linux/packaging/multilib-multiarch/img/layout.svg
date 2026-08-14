@@ -1,39 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="sans-serif">
-  <defs>
-    <style>
-      .title { font-size: 20px; font-weight: bold; }
-      .box { fill: #f0f0f0; stroke: #333; stroke-width: 2; rx: 5; ry: 5; }
-      .text { font-size: 14px; }
-      .code { font-family: monospace; font-size: 12px; }
-    </style>
-  </defs>
-
-  <text x="200" y="30" class="title" text-anchor="middle">RPM Multilib</text>
-  <text x="600" y="30" class="title" text-anchor="middle">Debian Multiarch</text>
-
-  <!-- Multilib -->
-  <rect x="50" y="60" width="300" height="300" class="box" />
-  <text x="60" y="90" class="text">/usr/</text>
-  <text x="80" y="115" class="code">├── lib/</text>
-  <text x="110" y="140" class="text">(32-bit libraries)</text>
-  <text x="110" y="165" class="code">│   └── libc.so.6</text>
-  <text x="80" y="195" class="code">├── lib64/</text>
-  <text x="110" y="220" class="text">(64-bit libraries)</text>
-  <text x="110" y="245" class="code">│   └── libc.so.6</text>
-  <text x="80" y="275" class="code">└── include/</text>
-  <text x="110" y="300" class="text">(Shared headers! Conflict risk)</text>
-  <text x="110" y="325" class="code">    └── stdio.h</text>
-
-  <!-- Multiarch -->
-  <rect x="450" y="60" width="300" height="300" class="box" />
-  <text x="460" y="90" class="text">/usr/</text>
-  <text x="480" y="115" class="code">├── lib/</text>
-  <text x="510" y="140" class="code">├── i386-linux-gnu/</text>
-  <text x="540" y="165" class="text">(32-bit libs)</text>
-  <text x="510" y="190" class="code">└── x86_64-linux-gnu/</text>
-  <text x="540" y="215" class="text">(64-bit libs)</text>
-  <text x="480" y="250" class="code">├── include/</text>
-  <text x="510" y="275" class="code">├── i386-linux-gnu/</text>
-  <text x="510" y="300" class="code">└── x86_64-linux-gnu/</text>
-  <text x="540" y="325" class="text">(Headers split! No conflicts)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння ієрархій каталогів у Multilib та Multiarch</text>
+<rect x="30.0" y="60.0" width="370.0" height="390.0" rx="8" fill="#fdfefe" stroke="#6b7280" stroke-width="1.5"/>
+<text x="215.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">RPM Multilib (розподіл за бітністю)</text>
+<rect x="50.0" y="110.0" width="330.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="215.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">/usr/lib/</tspan><tspan x="215.0" dy="15.6">32-бітні shared objects (.so)</tspan><tspan x="215.0" dy="15.6">Приклад: /usr/lib/libc.so.6</tspan></text>
+<rect x="50.0" y="200.0" width="330.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/><text x="215.0" y="226.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">/usr/lib64/</tspan><tspan x="215.0" dy="15.6">64-бітні shared objects (.so)</tspan><tspan x="215.0" dy="15.6">Приклад: /usr/lib64/libc.so.6</tspan></text>
+<rect x="50.0" y="290.0" width="330.0" height="135.0" rx="6" fill="#fff8e7" stroke="#f39c12" stroke-width="1.5"/><text x="215.0" y="333.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">/usr/include/</tspan><tspan x="215.0" dy="13.7">Спільні заголовні файли (.h)</tspan><tspan x="215.0" dy="13.7">Конфлікти типів sizeof(long), struct stat!</tspan><tspan x="215.0" dy="13.7">Вирішення: макроси-обгортки #if __WORDSIZE == 64</tspan><tspan x="215.0" dy="13.7">і файли типу types-32.h / types-64.h</tspan></text>
+<rect x="440.0" y="60.0" width="370.0" height="390.0" rx="8" fill="#fdfefe" stroke="#6b7280" stroke-width="1.5"/>
+<text x="625.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Debian Multiarch (GNU-триплети)</text>
+<rect x="460.0" y="110.0" width="330.0" height="95.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><text x="625.0" y="125.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="625.0" dy="0.0">/usr/lib/x86_64-linux-gnu/</tspan><tspan x="625.0" dy="14.3">64-бітні native бібліотеки</tspan><tspan x="625.0" dy="14.3">/usr/lib/i386-linux-gnu/</tspan><tspan x="625.0" dy="14.3">32-бітні compatibility бібліотеки</tspan><tspan x="625.0" dy="14.3">/usr/lib/aarch64-linux-gnu/</tspan><tspan x="625.0" dy="14.3">ARM64 бібліотеки для крос-компіляції</tspan></text>
+<rect x="460.0" y="220.0" width="330.0" height="95.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><text x="625.0" y="235.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="625.0" dy="0.0">/usr/include/x86_64-linux-gnu/</tspan><tspan x="625.0" dy="14.3">64-бітні заголовки з розрядністю типу</tspan><tspan x="625.0" dy="14.3">/usr/include/i386-linux-gnu/</tspan><tspan x="625.0" dy="14.3">32-бітні заголовки з розрядністю типу</tspan><tspan x="625.0" dy="14.3">/usr/include/</tspan><tspan x="625.0" dy="14.3">Арх-незалежні спільні заголовки</tspan></text>
+<rect x="460.0" y="330.0" width="330.0" height="95.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/><text x="625.0" y="359.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="625.0" dy="0.0">Перевага Multiarch:</tspan><tspan x="625.0" dy="15.0">Немає конфліктів у /usr/include.</tspan><tspan x="625.0" dy="15.0">Можна встановити довільну кількість</tspan><tspan x="625.0" dy="15.0">інородних архітектур поруч із нативною.</tspan></text>
 </svg>

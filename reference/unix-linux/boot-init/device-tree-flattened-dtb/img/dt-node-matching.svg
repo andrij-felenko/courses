@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зіставлення compatible між Device Tree та драйвером ядра</text>
+<rect x="30.0" y="50.0" width="350.0" height="260.0" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="205.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0369a1" text-anchor="middle" font-weight="700">Вузол у Device Tree (.dts)</text>
+<text x="70.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">serial@101f1000 {</text>
+<text x="90.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0284c7" text-anchor="start" font-weight="700">compatible = &quot;arm,pl011&quot;;</text>
+<text x="90.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="start">reg = &lt;0x101f1000 0x1000&gt;;</text>
+<text x="90.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="start">interrupts = &lt;1 14&gt;;</text>
+<text x="90.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="start">status = &quot;okay&quot;;</text>
+<text x="70.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">};</text>
+<line x1="380.0" y1="150.0" x2="440.0" y2="150.0" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="410.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Збіг рядка</text>
+<text x="410.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">compatible</text>
+<rect x="440.0" y="50.0" width="350.0" height="260.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="615.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#15803d" text-anchor="middle" font-weight="700">Драйвер ядра Linux (C)</text>
+<text x="460.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="start" font-weight="700">static const struct of_device_id</text>
+<text x="460.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="start" font-weight="700">pl011_match[] = {</text>
+<text x="480.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="start" font-weight="700">{ .compatible = &quot;arm,pl011&quot; },</text>
+<text x="480.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="start">{ /* sentinel */ }</text>
+<text x="460.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="start" font-weight="700">};</text>
+<text x="460.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="start" font-weight="700">-&gt; .probe(struct platform_device*)</text>
+</svg>

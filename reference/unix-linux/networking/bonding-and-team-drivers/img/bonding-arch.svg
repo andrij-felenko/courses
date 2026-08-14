@@ -1,15 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 710 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="710" height="310" fill="#ffffff"/>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура агрегації каналів (Bonding / Team)</text>
-<rect x="50.0" y="50.0" width="150.0" height="200.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
-<text x="125.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Server</text>
-<rect x="99.0" y="103.0" width="51.9" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="125.0" y="124.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="125.0" dy="0.0">eth0</tspan></text>
-<rect x="99.0" y="163.0" width="51.9" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="125.0" y="184.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="125.0" dy="0.0">eth1</tspan></text>
-<rect x="500.0" y="50.0" width="150.0" height="200.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
-<text x="575.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Switch</text>
-<rect x="541.1" y="103.0" width="67.9" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="575.0" y="124.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">port 1</tspan></text>
-<rect x="541.1" y="163.0" width="67.9" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="575.0" y="184.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">port 2</tspan></text>
-<line x1="180.0" y1="120.0" x2="520.0" y2="120.0" stroke="#3498db" stroke-width="4.0"/>
-<line x1="180.0" y1="180.0" x2="520.0" y2="180.0" stroke="#3498db" stroke-width="4.0"/>
-<rect x="250.0" y="53.9" width="200.0" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="75.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">Логічний канал</tspan><tspan x="350.0" dy="18.2">(bond0 / team0)</tspan></text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="500" viewBox="0 0 920 500">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-kernel { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        .box-user { fill: #fefce8; stroke: #ca8a04; stroke-width: 2; rx: 8px; }
+        .box-sub { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 6px; }
+        .box-slave { fill: #f1f5f9; stroke: #475569; stroke-width: 1.5; rx: 4px; }
+        .title-kernel { font-family: monospace; font-size: 15px; font-weight: bold; fill: #1e40af; }
+        .title-user { font-family: monospace; font-size: 15px; font-weight: bold; fill: #92400e; }
+        .text-bold { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #1e293b; }
+        .text-main { font-family: system-ui, sans-serif; font-size: 12px; fill: #334155; }
+        .text-code { font-family: monospace; font-size: 12px; fill: #0f172a; }
+        .arrow { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+        .arrow-orange { stroke: #d97706; stroke-width: 2; fill: none; marker-end: url(#arrowhead-orange); }
+    </style>
+
+    <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 9 3, 0 6" fill="#2563eb"/>
+        </marker>
+        <marker id="arrowhead-orange" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 9 3, 0 6" fill="#d97706"/>
+        </marker>
+    </defs>
+
+    <rect width="920" height="500" class="bg"/>
+
+    <!-- LEFT PANEL: MONOLITHIC BONDING -->
+    <rect x="30" y="30" width="410" height="440" class="box-kernel"/>
+    <text x="235" y="60" class="title-kernel" text-anchor="middle">Класичний Linux Bonding (Kernel Monolith)</text>
+
+    <rect x="50" y="85" width="370" height="40" class="box-sub"/>
+    <text x="235" y="110" class="text-bold" text-anchor="middle">Network Stack / Sockets (TCP/IP)</text>
+
+    <rect x="50" y="155" width="370" height="120" class="box-sub" stroke="#2563eb" stroke-width="2"/>
+    <text x="235" y="180" class="title-kernel" text-anchor="middle">Master net_device: bond0</text>
+    <text x="70" y="205" class="text-main">• xmit_hash_policy / mode (0-6)</text>
+    <text x="70" y="225" class="text-main">• MII Monitor / ARP State Machine</text>
+    <text x="70" y="245" class="text-main">• LACPDU State Machine (Mode 4)</text>
+    <text x="70" y="265" class="text-code">sysfs: /sys/class/net/bond0/bonding/</text>
+
+    <rect x="70" y="310" width="150" height="50" class="box-slave"/>
+    <text x="145" y="330" class="text-bold" text-anchor="middle">Slave: eth0</text>
+    <text x="145" y="348" class="text-main" text-anchor="middle">IFF_SLAVE</text>
+
+    <rect x="250" y="310" width="150" height="50" class="box-slave"/>
+    <text x="325" y="330" class="text-bold" text-anchor="middle">Slave: eth1</text>
+    <text x="325" y="348" class="text-main" text-anchor="middle">IFF_SLAVE</text>
+
+    <rect x="50" y="395" width="370" height="50" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="6"/>
+    <text x="235" y="425" class="text-bold" text-anchor="middle">Physical NIC Hardware Ports</text>
+
+    <path d="M 235 125 V 155" class="arrow"/>
+    <path d="M 145 275 V 310" class="arrow"/>
+    <path d="M 325 275 V 310" class="arrow"/>
+    <path d="M 145 360 V 395" class="arrow"/>
+    <path d="M 325 360 V 395" class="arrow"/>
+
+    <!-- RIGHT PANEL: TEAM DAEMON ARCHITECTURE -->
+    <rect x="480" y="30" width="410" height="440" class="box-kernel" fill="#f8fafc"/>
+
+    <rect x="500" y="50" width="370" height="110" class="box-user"/>
+    <text x="685" y="75" class="title-user" text-anchor="middle">User-space: teamd Daemon (Control Path)</text>
+    <text x="520" y="98" class="text-main">• LACP Runner / ActiveBackup Runner</text>
+    <text x="520" y="118" class="text-main">• Link Watchers (ethtool, arp_ping, nsna)</text>
+    <text x="520" y="138" class="text-code">JSON Config / DBus / teamdctl IPC</text>
+
+    <rect x="500" y="210" width="370" height="100" class="box-sub" stroke="#059669" stroke-width="2"/>
+    <text x="685" y="235" font-family="monospace" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">Kernel: team0 net_device (Data Path)</text>
+    <text x="520" y="260" class="text-main">• Fast-path Packet Scheduler (Runners)</text>
+    <text x="520" y="280" class="text-main">• eBPF Hash / Loadbalance Classifier</text>
+    <text x="520" y="300" class="text-code">Netlink (genl) Control Channel</text>
+
+    <rect x="520" y="340" width="150" height="45" class="box-slave"/>
+    <text x="595" y="360" class="text-bold" text-anchor="middle">Port: eth0</text>
+    <text x="595" y="375" class="text-main" text-anchor="middle">team port dev</text>
+
+    <rect x="700" y="340" width="150" height="45" class="box-slave"/>
+    <text x="775" y="360" class="text-bold" text-anchor="middle">Port: eth1</text>
+    <text x="775" y="375" class="text-main" text-anchor="middle">team port dev</text>
+
+    <rect x="500" y="410" width="370" height="45" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="6"/>
+    <text x="685" y="437" class="text-bold" text-anchor="middle">Physical NIC Hardware Ports</text>
+
+    <path d="M 685 160 V 210" class="arrow-orange"/>
+    <path d="M 595 310 V 340" class="arrow"/>
+    <path d="M 775 310 V 340" class="arrow"/>
+    <path d="M 595 385 V 410" class="arrow"/>
+    <path d="M 775 385 V 410" class="arrow"/>
 </svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 454" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="454" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний життєвий цикл сокета та дескриптора</text>
+<text x="180.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Серверний сокет (Passive)</text>
+<rect x="60.0" y="50.0" width="240.0" height="36.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="71.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">socket(AF_INET, SOCK_STREAM, 0)</tspan></text>
+<line x1="180.0" y1="86.0" x2="180.0" y2="106.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="106.0" width="240.0" height="36.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="127.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">bind(fd, local_addr, len)</tspan></text>
+<line x1="180.0" y1="142.0" x2="180.0" y2="162.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="162.0" width="240.0" height="36.0" rx="6" fill="#fef3c7" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="183.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">listen(fd, backlog) → TCP_LISTEN</tspan></text>
+<line x1="180.0" y1="198.0" x2="180.0" y2="218.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="218.0" width="240.0" height="36.0" rx="6" fill="#dcfce7" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="239.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">accept(fd, ...) → новий conn_fd</tspan></text>
+<text x="780.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнтський сокет (Active)</text>
+<rect x="660.0" y="50.0" width="240.0" height="36.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="71.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">socket(AF_INET, SOCK_STREAM, 0)</tspan></text>
+<line x1="780.0" y1="86.0" x2="780.0" y2="162.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="660.0" y="162.0" width="240.0" height="36.0" rx="6" fill="#dbeafe" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="183.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">connect(fd, server_addr, len)</tspan></text>
+<line x1="660.0" y1="180.0" x2="300.0" y2="236.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">3-Way Handshake</text>
+<rect x="340.0" y="260.0" width="300.0" height="60.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="490.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двосторонній обмін даними</text>
+<text x="490.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">read() / write() · recv() / send()</text>
+<line x1="180.0" y1="254.0" x2="340.0" y2="275.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="198.0" x2="640.0" y2="275.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="320.0" x2="490.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="350.0" width="300.0" height="44.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/><text x="490.0" y="368.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">close(fd) або shutdown(fd, how)</tspan><tspan x="490.0" dy="14.3">4-Way Teardown (FIN → ACK → FIN → ACK)</tspan></text>
+<rect x="660.0" y="350.0" width="240.0" height="44.0" rx="6" fill="#fecaca" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="368.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Стан TIME_WAIT у ядрі</tspan><tspan x="780.0" dy="14.3">(тривалість: 2 · MSL = 60 сек)</tspan></text>
+<line x1="640.0" y1="372.0" x2="660.0" y2="372.0" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="404.0" width="900.0" height="30.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="490.0" y="422.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">close() закриває дескриптор, але з'єднання в ядрі живе у TIME_WAIT до завершення таймера</tspan></text>
+</svg>

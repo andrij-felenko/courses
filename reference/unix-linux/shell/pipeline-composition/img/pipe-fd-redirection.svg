@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="30.0" width="230.0" height="360.0" rx="6" fill="#ffffff" stroke="#78909c" stroke-width="2.0"/>
+<text x="135.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#37474f" text-anchor="middle" font-weight="700">1. Оболонка (Shell)</text>
+<text x="135.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#00838f" text-anchor="middle">pipe(fds) → 3, 4</text>
+<rect x="35.0" y="105.0" width="200.0" height="160.0" rx="4" fill="#eceff1" stroke="#b0bec5" stroke-width="1.5"/>
+<text x="135.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="middle" font-weight="700">Дескриптори</text>
+<text x="135.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0: stdin (tty)</text>
+<text x="135.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1: stdout (tty)</text>
+<text x="135.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#00695c" text-anchor="middle">3: pipe[0] (читання)</text>
+<text x="135.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ad1457" text-anchor="middle">4: pipe[1] (запис)</text>
+<text x="135.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d84315" text-anchor="middle" font-weight="700">2. fork() 2 дітей</text>
+<text x="135.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">3. close(3, 4) у батька</text>
+<rect x="295.0" y="30.0" width="240.0" height="360.0" rx="6" fill="#ffffff" stroke="#ef6c00" stroke-width="2.0"/>
+<text x="415.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ef6c00" text-anchor="middle" font-weight="700">2. Дитина 1 (ls)</text>
+<text x="415.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e65100" text-anchor="middle">dup2(pipe[1], 1)</text>
+<rect x="315.0" y="105.0" width="200.0" height="200.0" rx="4" fill="#fff3e0" stroke="#ffe0b2" stroke-width="1.5"/>
+<text x="415.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e65100" text-anchor="middle" font-weight="700">Нові дескриптори</text>
+<text x="415.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0: stdin</text>
+<text x="415.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1: stdout → PIPE WRITE</text>
+<text x="415.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3: close(pipe[0])</text>
+<text x="415.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4: close(pipe[1])</text>
+<text x="415.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ef6c00" text-anchor="middle" font-weight="700">execvp(&quot;ls&quot;, ...)</text>
+<rect x="565.0" y="30.0" width="240.0" height="360.0" rx="6" fill="#ffffff" stroke="#283593" stroke-width="2.0"/>
+<text x="685.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#283593" text-anchor="middle" font-weight="700">3. Дитина 2 (wc)</text>
+<text x="685.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a237e" text-anchor="middle">dup2(pipe[0], 0)</text>
+<rect x="585.0" y="105.0" width="200.0" height="200.0" rx="4" fill="#e8eaf6" stroke="#c5cae9" stroke-width="1.5"/>
+<text x="685.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a237e" text-anchor="middle" font-weight="700">Нові дескриптори</text>
+<text x="685.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a237e" text-anchor="middle" font-weight="700">0: stdin → PIPE READ</text>
+<text x="685.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1: stdout (tty)</text>
+<text x="685.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3: close(pipe[0])</text>
+<text x="685.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4: close(pipe[1])</text>
+<text x="685.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#283593" text-anchor="middle" font-weight="700">execvp(&quot;wc&quot;, ...)</text>
+<line x1="515.0" y1="185.0" x2="580.0" y2="155.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

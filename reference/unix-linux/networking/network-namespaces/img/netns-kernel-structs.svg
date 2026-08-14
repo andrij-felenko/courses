@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-net { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        .box-sub { fill: #ffffff; stroke: #93c5fd; stroke-width: 1.5; rx: 6px; }
+        .box-vfs { fill: #fefce8; stroke: #ca8a04; stroke-width: 2; rx: 8px; }
+        .box-proc { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 6px; }
+        .title-main { font-family: monospace; font-size: 16px; font-weight: bold; fill: #1e40af; }
+        .title-vfs { font-family: monospace; font-size: 16px; font-weight: bold; fill: #854d0e; }
+        .title-sub { font-family: monospace; font-size: 13px; font-weight: bold; fill: #1e3a8a; }
+        .text-field { font-family: monospace; font-size: 12px; fill: #334155; }
+        .text-bold { font-family: monospace; font-size: 12px; font-weight: bold; fill: #0f172a; }
+        .arrow { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+        .arrow-gold { stroke: #ca8a04; stroke-width: 2; fill: none; marker-end: url(#arrowhead-gold); }
+    </style>
+
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+        <marker id="arrowhead-gold" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#ca8a04"/>
+        </marker>
+    </defs>
+
+    <rect width="960" height="540" class="bg"/>
+
+    <!-- Main struct net container -->
+    <rect x="30" y="30" width="580" height="480" class="box-net"/>
+    <text x="320" y="60" class="title-main" text-anchor="middle">struct net (include/net/net_namespace.h)</text>
+    
+    <text x="50" y="85" class="text-bold">refcnt: refcount_t (net->count)</text>
+    <text x="50" y="105" class="text-field">passive: refcount_t (net->passive)</text>
+
+    <!-- Sub-component 1: Devices -->
+    <rect x="50" y="125" width="250" height="160" class="box-sub"/>
+    <text x="175" y="148" class="title-sub" text-anchor="middle">dev_base_head (L2 Devices)</text>
+    <text x="65" y="173" class="text-field">• struct net_device *lo</text>
+    <text x="65" y="195" class="text-field">• struct net_device *veth0</text>
+    <text x="65" y="217" class="text-field">• struct net_device *eth0</text>
+    <text x="65" y="239" class="text-field">ifindex_generator: int</text>
+    <text x="65" y="261" class="text-field">dev_name_head: hlist_head</text>
+
+    <!-- Sub-component 2: FIB / Routing -->
+    <rect x="330" y="125" width="260" height="160" class="box-sub"/>
+    <text x="460" y="148" class="title-sub" text-anchor="middle">ipv4.fib_main / fib_local (L3)</text>
+    <text x="345" y="173" class="text-field">• fib_table (RT_TABLE_LOCAL)</text>
+    <text x="345" y="195" class="text-field">• fib_table (RT_TABLE_MAIN)</text>
+    <text x="345" y="217" class="text-field">• fib_rules_ops</text>
+    <text x="345" y="239" class="text-field">• ip_fib_trie (FIB Trie)</text>
+    <text x="345" y="261" class="text-field">• struct fib_nh_notifier</text>
+
+    <!-- Sub-component 3: Netfilter & Sockets -->
+    <rect x="50" y="300" width="250" height="190" class="box-sub"/>
+    <text x="175" y="323" class="title-sub" text-anchor="middle">netfilter &amp; Sockets (L4)</text>
+    <text x="65" y="348" class="text-field">• nf.hooks (PREROUTING...)</text>
+    <text x="65" y="370" class="text-field">• ct.hash (Conntrack table)</text>
+    <text x="65" y="392" class="text-field">• ipv4.tcp_death_row</text>
+    <text x="65" y="414" class="text-field">• inet_hashinfo (Sockets)</text>
+    <text x="65" y="436" class="text-field">• raw_v4_hash / udp_table</text>
+    <text x="65" y="458" class="text-field">• nftables tables/chains</text>
+
+    <!-- Sub-component 4: Sysctl & Loopback -->
+    <rect x="330" y="300" width="260" height="190" class="box-sub"/>
+    <text x="460" y="323" class="title-sub" text-anchor="middle">sysctl &amp; ProcFS (/proc/sys/net)</text>
+    <text x="345" y="348" class="text-field">• sysctl_ip_forward: int</text>
+    <text x="345" y="370" class="text-field">• sysctl_tcp_rmem / wmem</text>
+    <text x="345" y="392" class="text-field">• sysctl_somaxconn: int</text>
+    <text x="345" y="414" class="text-field">• proc_net: proc_dir_entry</text>
+    <text x="345" y="436" class="text-field">• proc_net_stat: entry</text>
+    <text x="345" y="458" class="text-field">• ns.inum (Inode number)</text>
+
+    <!-- VFS and Process representation -->
+    <rect x="640" y="30" width="290" height="480" class="box-vfs"/>
+    <text x="785" y="60" class="title-vfs" text-anchor="middle">VFS &amp; User-Space Bind Mounts</text>
+
+    <rect x="660" y="90" width="250" height="110" class="box-proc"/>
+    <text x="785" y="113" class="title-vfs" text-anchor="middle">Process task_struct</text>
+    <text x="675" y="138" class="text-bold">PID 4512 (Container Process)</text>
+    <text x="675" y="160" class="text-field">->nsproxy->net_ns ────────►</text>
+    <text x="675" y="182" class="text-field">fd[3] -> /proc/4512/ns/net</text>
+
+    <path d="M 670 160 C 620 160 620 90 610 90" class="arrow-gold"/>
+
+    <rect x="660" y="220" width="250" height="120" class="box-proc"/>
+    <text x="785" y="243" class="title-vfs" text-anchor="middle">/var/run/netns/red</text>
+    <text x="675" y="268" class="text-bold">VFS nsfs Inode (4026532581)</text>
+    <text x="675" y="290" class="text-field">Bind mounted file node</text>
+    <text x="675" y="312" class="text-field">Holds reference net->count</text>
+
+    <rect x="660" y="360" width="250" height="130" class="box-proc"/>
+    <text x="785" y="383" class="title-vfs" text-anchor="middle">Syscall Interfaces</text>
+    <text x="675" y="408" class="text-field">• clone(CLONE_NEWNET)</text>
+    <text x="675" y="430" class="text-field">• unshare(CLONE_NEWNET)</text>
+    <text x="675" y="452" class="text-field">• setns(fd, CLONE_NEWNET)</text>
+    <text x="675" y="474" class="text-field">• ioctl(fd, NS_GET_USERNS)</text>
+</svg>

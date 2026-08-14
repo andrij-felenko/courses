@@ -1,37 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
-    <rect width="100%" height="100%" fill="white"/>
-    <g font-family="sans-serif" font-size="14">
-        <rect x="50" y="50" width="300" height="40" fill="#f0f0f0" stroke="black"/>
-        <text x="200" y="75" text-anchor="middle">Information block (strings)</text>
-        
-        <rect x="50" y="90" width="300" height="20" fill="#e0e0e0" stroke="black"/>
-        <text x="200" y="105" text-anchor="middle">NULL</text>
-        
-        <rect x="50" y="110" width="300" height="80" fill="#d0e0ff" stroke="black"/>
-        <text x="200" y="145" text-anchor="middle">auxv array (Elf64_auxv_t)</text>
-        <text x="200" y="170" text-anchor="middle">AT_NULL, AT_SYSINFO_EHDR, ...</text>
-        
-        <rect x="50" y="190" width="300" height="20" fill="#e0e0e0" stroke="black"/>
-        <text x="200" y="205" text-anchor="middle">NULL</text>
-        
-        <rect x="50" y="210" width="300" height="80" fill="#d0ffd0" stroke="black"/>
-        <text x="200" y="255" text-anchor="middle">Environment variables (envp)</text>
-        
-        <rect x="50" y="290" width="300" height="20" fill="#e0e0e0" stroke="black"/>
-        <text x="200" y="305" text-anchor="middle">NULL</text>
-        
-        <rect x="50" y="310" width="300" height="80" fill="#ffd0d0" stroke="black"/>
-        <text x="200" y="355" text-anchor="middle">Arguments (argv)</text>
-        
-        <rect x="50" y="390" width="300" height="40" fill="#ffffd0" stroke="black"/>
-        <text x="200" y="415" text-anchor="middle">argc</text>
-        
-        <path d="M 20 410 L 40 410" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
-        <text x="10" y="415" fill="red" font-size="12" text-anchor="end">rsp</text>
-    </g>
-    <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="red"/>
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 590 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="590" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="290.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія стека процесу при виконанні execve</text>
+<text x="290.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Напрямок росту стека: від вищих адрес (0x7FFF...) до нижчих</text>
+<text x="40.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Вищі адреси</text>
+<line x1="40.0" y1="85.0" x2="40.0" y2="560.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="575.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Низькі адреси</text>
+<rect x="64.0" y="81.2" width="492.0" height="47.6" rx="6" fill="#f5f5f5" stroke="#888888" stroke-width="1.5"/><text x="310.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Інформаційний блок рядків</tspan><tspan x="310.0" dy="15.6">(Аргументи, змінні середовища, AT_EXECFN, AT_PLATFORM, AT_RANDOM 16B)</tspan></text>
+<rect x="69.4" y="171.2" width="481.3" height="47.6" rx="6" fill="#d0e0ff" stroke="#3b82f6" stroke-width="1.5"/><text x="310.0" y="191.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">Допоміжний вектор auxv (масив Elf64_auxv_t)</tspan><tspan x="310.0" dy="15.6">[AT_SYSINFO_EHDR, AT_PHDR, AT_PAGESZ, AT_RANDOM, ..., AT_NULL]</tspan></text>
+<rect x="90.0" y="249.5" width="440.0" height="31.0" rx="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/><text x="310.0" y="268.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Термінатор NULL (0x0000000000000000)</tspan></text>
+<rect x="90.0" y="319.0" width="440.0" height="32.0" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="1.5"/><text x="310.0" y="339.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Масив вказівників середовища: envp[0], envp[1], ..., envp[N]</tspan></text>
+<rect x="90.0" y="389.5" width="440.0" height="31.0" rx="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/><text x="310.0" y="408.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Термінатор NULL (0x0000000000000000)</tspan></text>
+<rect x="77.7" y="459.0" width="464.6" height="32.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/><text x="310.0" y="479.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Масив вказівників аргументів: argv[0], argv[1], ..., argv[argc-1]</tspan></text>
+<rect x="90.0" y="528.5" width="440.0" height="33.0" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/><text x="310.0" y="549.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">Кількість аргументів: argc (uint64_t)</tspan></text>
+<line x1="40.0" y1="545.0" x2="80.0" y2="545.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="35.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">%rsp</text>
 </svg>

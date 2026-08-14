@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-step { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 8px; }
+        .box-num { fill: #2563eb; rx: 12px; }
+        .text-num { font-family: monospace; font-size: 14px; font-weight: bold; fill: #ffffff; }
+        
+        .title-step { font-family: monospace; font-size: 14px; font-weight: bold; fill: #0f172a; }
+        .text-body { font-family: monospace; font-size: 12px; fill: #334155; }
+        .text-code { font-family: monospace; font-size: 12px; font-weight: bold; fill: #1e293b; }
+        
+        .box-fill { fill: #fef3c7; stroke: #d97706; stroke-width: 1; rx: 4px; }
+        .box-rx { fill: #dcfce7; stroke: #15803d; stroke-width: 1; rx: 4px; }
+        .box-tx { fill: #fee2e2; stroke: #dc2626; stroke-width: 1; rx: 4px; }
+        .box-comp { fill: #f3e8ff; stroke: #7e22ce; stroke-width: 1; rx: 4px; }
+        
+        .arrow { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrowhead-step); }
+    </style>
+
+    <defs>
+        <marker id="arrowhead-step" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 9 3, 0 6" fill="#64748b"/>
+        </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect width="960" height="540" class="bg"/>
+
+    <!-- Step 1 -->
+    <rect x="40" y="40" width="420" height="130" class="box-step"/>
+    <rect x="55" y="55" width="24" height="24" class="box-num"/>
+    <text x="67" y="72" class="text-num" text-anchor="middle">1</text>
+    <text x="90" y="72" class="title-step">Поповнення Fill Ring (Userspace)</text>
+    <text x="55" y="100" class="text-body">Додаток виділяє адреси вільних кадрів у UMEM</text>
+    <text x="55" y="120" class="text-body">і додає їх у Fill Ring для майбутніх пакетів.</text>
+    <rect x="55" y="132" width="390" height="26" class="box-fill"/>
+    <text x="65" y="150" class="text-code">Fill Ring Addrs: [0x0000, 0x0800, 0x1000]</text>
+
+    <!-- Step 2 -->
+    <rect x="500" y="40" width="420" height="130" class="box-step"/>
+    <rect x="515" y="55" width="24" height="24" class="box-num"/>
+    <text x="527" y="72" class="text-num" text-anchor="middle">2</text>
+    <text x="550" y="72" class="title-step">Zero-Copy DMA прийом (NIC &amp; XDP)</text>
+    <text x="515" y="100" class="text-body">NIC бере 0x0000 з Fill Ring, виконує DMA,</text>
+    <text x="515" y="120" class="text-body">eBPF XDP повертає bpf_redirect_map(XSKMAP).</text>
+    <rect x="515" y="132" width="390" height="26" class="box-rx"/>
+    <text x="525" y="150" class="text-code">RX Ring Desc: { addr: 0x0000, len: 128 }</text>
+
+    <!-- Step 3 -->
+    <rect x="40" y="210" width="420" height="130" class="box-step"/>
+    <rect x="55" y="225" width="24" height="24" class="box-num"/>
+    <text x="67" y="242" class="text-num" text-anchor="middle">3</text>
+    <text x="90" y="242" class="title-step">Обробка в Userspace (Zero-Copy Read)</text>
+    <text x="55" y="270" class="text-body">Додаток зчитує дескриптор з RX Ring</text>
+    <text x="55" y="290" class="text-body">і читає/модифікує пакет прямо в UMEM[0x0000].</text>
+    <rect x="55" y="302" width="390" height="26" fill="#eff6ff" stroke="#2563eb" rx="4"/>
+    <text x="65" y="320" class="text-code">Payload in UMEM: 0x0000 + offset (No copy)</text>
+
+    <!-- Step 4 -->
+    <rect x="500" y="210" width="420" height="130" class="box-step"/>
+    <rect x="515" y="225" width="24" height="24" class="box-num"/>
+    <text x="527" y="242" class="text-num" text-anchor="middle">4</text>
+    <text x="550" y="242" class="title-step">Відправка через TX Ring (Userspace)</text>
+    <text x="515" y="270" class="text-body">Додаток вміщує дескриптор у TX Ring і</text>
+    <text x="515" y="290" class="text-body">викликає sendto() (або use NEED_WAKEUP).</text>
+    <rect x="515" y="302" width="390" height="26" class="box-tx"/>
+    <text x="525" y="320" class="text-code">TX Ring Desc: { addr: 0x0000, len: 128 }</text>
+
+    <!-- Step 5 -->
+    <rect x="270" y="380" width="420" height="130" class="box-step"/>
+    <rect x="285" y="395" width="24" height="24" class="box-num"/>
+    <text x="297" y="412" class="text-num" text-anchor="middle">5</text>
+    <text x="320" y="412" class="title-step">Завершення передачи &amp; Reclaim (Kernel)</text>
+    <text x="285" y="440" class="text-body">NIC передає кадр у мережу, ядро повертає</text>
+    <text x="285" y="460" class="text-body">адресу 0x0000 у Completion Ring для повторного вжитку.</text>
+    <rect x="285" y="472" width="390" height="26" class="box-comp"/>
+    <text x="295" y="490" class="text-code">Completion Ring Addr: 0x0000 (Freed)</text>
+
+    <!-- Arrows between steps -->
+    <path d="M 460 105 H 500" class="arrow"/>
+    <path d="M 710 170 V 210" class="arrow"/>
+    <path d="M 500 275 H 460" class="arrow"/>
+    <path d="M 250 340 V 445 H 270" class="arrow"/>
+
+</svg>

@@ -1,31 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="410" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="420" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="10.0" y="10.0" width="580.0" height="380.0" rx="10" fill="#f8f9fa" stroke="#6b7280" stroke-width="2.0"/>
-<text x="300.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сесія (SID = 100, Лідер = bash)</text>
-<rect x="30.0" y="60.0" width="160.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
-<text x="110.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Управляючий</text>
-<text x="110.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">термінал (TTY)</text>
-<text x="110.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">/dev/pts/1</text>
-<rect x="220.0" y="60.0" width="350.0" height="120.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
-<text x="395.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Foreground Група (PGID = 200)</text>
-<rect x="240.0" y="105.0" width="120.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
-<text x="300.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">make</text>
-<text x="300.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">PID = 200</text>
-<rect x="430.0" y="105.0" width="120.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
-<text x="490.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">gcc</text>
-<text x="490.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">PID = 201</text>
-<line x1="360.0" y1="130.0" x2="430.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="220.0" y="200.0" width="350.0" height="80.0" rx="6" fill="#eef2f3" stroke="#6b7280" stroke-width="1.5"/>
-<text x="395.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Background Група (PGID = 150)</text>
-<rect x="340.0" y="240.0" width="110.0" height="30.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
-<text x="395.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">sleep 100</text>
-<rect x="30.0" y="200.0" width="160.0" height="80.0" rx="6" fill="#eef2f3" stroke="#6b7280" stroke-width="1.5"/>
-<text x="110.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Background</text>
-<text x="110.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Група (PGID=100)</text>
-<rect x="50.0" y="255.0" width="120.0" height="18.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
-<text x="110.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">bash</text>
-<line x1="110.0" y1="130.0" x2="220.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="165.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">tcsetpgrp()</text>
-<text x="165.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Ctrl+Z</text>
-<text x="165.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">(SIGTSTP)</text>
+<rect x="10.0" y="10.0" width="700.0" height="390.0" rx="8" fill="#f8f9fa" stroke="#4b5563" stroke-width="2.0"/>
+<text x="360.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="700">Сесія (Session, SID = 1000) — Лідер: bash (PID 1000)</text>
+<rect x="30.0" y="60.0" width="200.0" height="100.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2.0"/>
+<text x="130.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Управляючий термінал</text>
+<text x="130.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">/dev/pts/2</text>
+<text x="130.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle">TPGID = 2000 (fg group)</text>
+<text x="130.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прапор: ISIG | TOSTOP</text>
+<rect x="260.0" y="60.0" width="430.0" height="140.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2.0"/>
+<text x="475.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">Foreground Група (PGID = 2000)</text>
+<rect x="280.0" y="100.0" width="180.0" height="80.0" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<text x="370.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#111827" text-anchor="middle" font-weight="700">cat /var/log/syslog</text>
+<text x="370.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle">PID = 2000 (Лідер)</text>
+<text x="370.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle">Отримує ввід з TTY</text>
+<rect x="490.0" y="100.0" width="180.0" height="80.0" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<text x="580.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#111827" text-anchor="middle" font-weight="700">grep CRITICAL</text>
+<text x="580.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle">PID = 2001</text>
+<text x="580.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">Приймає SIGINT/SIGTSTP</text>
+<line x1="460.0" y1="140.0" x2="490.0" y2="140.0" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="80.0" x2="260.0" y2="80.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">tcsetpgrp()</text>
+<rect x="30.0" y="220.0" width="310.0" height="160.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="185.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#374151" text-anchor="middle" font-weight="700">Background Група Оболонки (PGID = 1000)</text>
+<rect x="50.0" y="260.0" width="270.0" height="100.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="185.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#111827" text-anchor="middle" font-weight="700">bash (Оболонка)</text>
+<text x="185.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle">PID = 1000, SID = 1000</text>
+<text x="185.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Чекає у waitpid(WUNTRACED)</text>
+<text x="185.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle">Керує таблицею завдань</text>
+<rect x="370.0" y="220.0" width="320.0" height="160.0" rx="6" fill="#fffbe6" stroke="#d97706" stroke-width="1.5"/>
+<text x="530.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">Background Завдання #1 (PGID = 1500)</text>
+<rect x="390.0" y="260.0" width="280.0" height="100.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="530.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#111827" text-anchor="middle" font-weight="700">make -j4 (Зупинено / Фоне)</text>
+<text x="530.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle">PID = 1500, Стан: TASK_STOPPED</text>
+<text x="530.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Спроба read() → SIGTTIN</text>
+<text x="530.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">Спроба write() (TOSTOP=1) → SIGTTOU</text>
 </svg>

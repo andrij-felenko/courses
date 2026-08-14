@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1200.0" height="600.0" rx="8" fill="#fcfcfc" stroke="#b0bec5" stroke-width="1.5"/>
+<text x="620.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#263238" text-anchor="middle" font-weight="700">Внутрішній механізм викликів VFS та безпека вилучення у debugfs</text>
+<rect x="50.0" y="90.0" width="1140.0" height="90.0" rx="6" fill="#f1f8e9" stroke="#7cb342" stroke-width="1.5"/>
+<text x="70.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#33691e" text-anchor="start" font-weight="700">User Space (Користувацький простір)</text>
+<rect x="90.0" y="130.0" width="440.0" height="40.0" rx="4" fill="#ffffff" stroke="#558b2f" stroke-width="1.0"/>
+<text x="310.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Процес читання: cat /sys/kernel/debug/my_mod/status</text>
+<rect x="710.0" y="130.0" width="440.0" height="40.0" rx="4" fill="#ffffff" stroke="#c62828" stroke-width="1.0"/>
+<text x="930.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b71c1c" text-anchor="middle" font-weight="700">Вивантаження модуля ядра: sudo rmmod my_mod</text>
+<rect x="50.0" y="210.0" width="1140.0" height="160.0" rx="6" fill="#eaf0fd" stroke="#1e88e5" stroke-width="1.5"/>
+<text x="70.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0d47a1" text-anchor="start" font-weight="700">VFS Layer (Шар віртуальної файлової системи)</text>
+<rect x="90.0" y="255.0" width="440.0" height="95.0" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.0"/>
+<text x="310.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Системний виклик read(fd, buf, len)</text>
+<text x="310.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1565c0" text-anchor="middle">vfs_read() -&gt; debugfs_file_read()</text>
+<text x="310.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">Вхід у SRCU read lock: debugfs_file_get()</text>
+<rect x="710.0" y="255.0" width="440.0" height="95.0" rx="4" fill="#ffffff" stroke="#d32f2f" stroke-width="1.0"/>
+<text x="930.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c62828" text-anchor="middle" font-weight="700">Виклик debugfs_remove_recursive()</text>
+<text x="930.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b71c1c" text-anchor="middle">Позначення dentry як DEAD</text>
+<text x="930.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d32f2f" text-anchor="middle" font-weight="700">Синхронізація SRCU: synchronize_srcu()</text>
+<rect x="50.0" y="400.0" width="1140.0" height="190.0" rx="6" fill="#fff6e5" stroke="#fb8c00" stroke-width="1.5"/>
+<text x="70.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#e65100" text-anchor="start" font-weight="700">Драйвер / Модуль ядра (Kernel Module State)</text>
+<rect x="90.0" y="450.0" width="440.0" height="120.0" rx="4" fill="#ffffff" stroke="#f57c00" stroke-width="1.0"/>
+<text x="310.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реалізація file_operations / seq_file</text>
+<text x="310.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e65100" text-anchor="middle">Виклик fops-&gt;read() або seq_printf()</text>
+<text x="310.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#424242" text-anchor="middle">Формування даних з оперативної пам'яті ядра</text>
+<rect x="710.0" y="450.0" width="440.0" height="120.0" rx="4" fill="#ffffff" stroke="#757575" stroke-width="1.0"/>
+<text x="930.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звільнення ресурсів модуля</text>
+<text x="930.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#616161" text-anchor="middle">Безнаслідкове вилучення структур даних</text>
+<text x="930.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">Запобігання Use-After-Free та Kernel Panic</text>
+<line x1="580.0" y1="175.0" x2="580.0" y2="245.0" stroke="#1565c0" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="570.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1565c0" text-anchor="end">read</text>
+<line x1="580.0" y1="355.0" x2="580.0" y2="445.0" stroke="#2e7d32" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="570.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2e7d32" text-anchor="end">fetch</text>
+<line x1="660.0" y1="175.0" x2="660.0" y2="245.0" stroke="#c62828" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c62828" text-anchor="start">rmmod</text>
+<line x1="660.0" y1="355.0" x2="660.0" y2="445.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d32f2f" text-anchor="start">cleanup</text>
+</svg>

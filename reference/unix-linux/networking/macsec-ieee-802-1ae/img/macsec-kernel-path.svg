@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 345" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="345" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Linux Kernel MACsec Architecture &amp; Offload Path</text>
+<rect x="20.0" y="20.0" width="760.0" height="50.0" rx="8" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.5"/>
+<text x="400.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212529" text-anchor="middle" font-weight="700">Простір користувача: додатки / wpa_supplicant (MKA)</text>
+<text x="400.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6c757d" text-anchor="middle">Сокети AF_INET/AF_PACKET | RTNETLINK API управління ключами SAK/CAK</text>
+<rect x="20.0" y="85.0" width="760.0" height="235.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="90.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро Linux (Kernel space)</text>
+<rect x="40.0" y="125.0" width="190.0" height="60.0" rx="6" fill="#e8edf5" stroke="#2457d6" stroke-width="1.5"/>
+<text x="135.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">macsec0 (віртуальний)</text>
+<text x="135.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3b6998" text-anchor="middle">net_device (чистий skb)</text>
+<rect x="260.0" y="125.0" width="270.0" height="175.0" rx="6" fill="#fff3cd" stroke="#ffc107" stroke-width="1.5"/>
+<text x="395.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#856404" text-anchor="middle" font-weight="700">Модуль macsec.ko &amp; Crypto API</text>
+<text x="395.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#533f03" text-anchor="middle">• macsec_start_xmit() (TX)</text>
+<text x="395.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#533f03" text-anchor="middle">• macsec_handle_frame() (RX)</text>
+<text x="395.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#533f03" text-anchor="middle">• crypto_aead_encrypt/decrypt</text>
+<text x="395.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#533f03" text-anchor="middle">• Перевірка вікна Replay Window</text>
+<text x="395.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#533f03" text-anchor="middle">• Вставка заголовка SecTAG &amp; ICV</text>
+<text x="395.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• SW Fallback (без розвантаження)</text>
+<rect x="560.0" y="125.0" width="200.0" height="60.0" rx="6" fill="#e8edf5" stroke="#2457d6" stroke-width="1.5"/>
+<text x="660.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">eth0 (фізичний NIC)</text>
+<text x="660.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3b6998" text-anchor="middle">dev_queue_xmit / rx_handler</text>
+<rect x="560.0" y="215.0" width="200.0" height="75.0" rx="6" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="660.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7e34" text-anchor="middle" font-weight="700">SmartNIC MACsec HW</text>
+<text x="660.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#145a32" text-anchor="middle">macsec_ops (HW Offload)</text>
+<text x="660.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#145a32" text-anchor="middle">Апаратний AES-GCM (100G+)</text>
+<line x1="230.0" y1="145.0" x2="260.0" y2="145.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="145.0" x2="560.0" y2="145.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">TX</text>
+<text x="545.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Enc</text>
+<line x1="560.0" y1="165.0" x2="530.0" y2="165.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="260.0" y1="165.0" x2="230.0" y2="165.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">RX</text>
+<text x="245.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Dec</text>
+<line x1="135.0" y1="185.0" x2="135.0" y2="250.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="135.0" y1="250.0" x2="560.0" y2="250.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="550.0" y1="250.0" x2="560.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7e34" text-anchor="middle" font-weight="700">HW Offload Path (обхід CPU)</text>
+</svg>

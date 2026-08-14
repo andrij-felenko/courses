@@ -1,20 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 260" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="260" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="380" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<rect x="100.0" y="100.0" width="150.0" height="80.0" rx="6" fill="#E91E63" stroke="#333333" stroke-width="1.5"/>
-<text x="175.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#fff" text-anchor="middle" font-weight="700">Userspace</text>
-<text x="175.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#fff" text-anchor="middle">Producer</text>
-<rect x="550.0" y="100.0" width="150.0" height="80.0" rx="6" fill="#00BCD4" stroke="#333333" stroke-width="1.5"/>
-<text x="625.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#fff" text-anchor="middle" font-weight="700">BPF Program</text>
-<text x="625.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#fff" text-anchor="middle">Consumer</text>
-<rect x="300.0" y="70.0" width="200.0" height="140.0" rx="70" fill="#333" stroke="#FFC107" stroke-width="3.0"/>
-<circle cx="400.0" cy="140.0" r="40.0" fill="#1e1e1e" stroke="#FFC107" stroke-width="3.0"/>
-<circle cx="400.0" cy="85.0" r="8.0" fill="#4CAF50" stroke="none" stroke-width="1.5"/>
-<circle cx="440.0" cy="110.0" r="8.0" fill="#4CAF50" stroke="none" stroke-width="1.5"/>
-<circle cx="440.0" cy="170.0" r="8.0" fill="#4CAF50" stroke="none" stroke-width="1.5"/>
-<circle cx="400.0" cy="195.0" r="8.0" fill="#555" stroke="none" stroke-width="1.5"/>
-<circle cx="360.0" cy="170.0" r="8.0" fill="#555" stroke="none" stroke-width="1.5"/>
-<circle cx="360.0" cy="110.0" r="8.0" fill="#555" stroke="none" stroke-width="1.5"/>
-<text x="400.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#FFC107" text-anchor="middle" font-weight="700">User Ring Buffer</text>
-<line x1="250.0" y1="140.0" x2="320.0" y2="140.0" stroke="#fff" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="480.0" y1="140.0" x2="550.0" y2="140.0" stroke="#fff" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="0.0" y="0.0" width="800.0" height="360.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="30.0" y="30.0" width="230.0" height="300.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2.0"/>
+<text x="145.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Userspace Producer</text>
+<rect x="45.0" y="90.0" width="200.0" height="50.0" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/><text x="145.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">Генератор подій / політик</tspan><tspan x="145.0" dy="15.6">(App / Daemon)</tspan></text>
+<rect x="45.0" y="160.0" width="200.0" height="60.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="145.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">libbpf helper API</tspan><tspan x="145.0" dy="13.0">reserve() -&gt; write -&gt; submit()</tspan></text>
+<rect x="45.0" y="240.0" width="200.0" height="60.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="145.0" y="265.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">Zero-Syscall Write!</tspan><tspan x="145.0" dy="18.2">Прямий запис у mmap</tspan></text>
+<rect x="280.0" y="30.0" width="240.0" height="300.0" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="2.0"/>
+<text x="400.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">BPF User Ring Buffer</text>
+<rect x="295.0" y="90.0" width="210.0" height="45.0" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/><text x="400.0" y="116.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Consumer Page (Kernel Head)</tspan></text>
+<rect x="295.0" y="145.0" width="210.0" height="45.0" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/><text x="400.0" y="172.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Producer Page (User Tail)</tspan></text>
+<rect x="295.0" y="200.0" width="210.0" height="115.0" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/><text x="400.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Ring Data Pages</tspan><tspan x="400.0" dy="14.3">[ S2 (Commit) ][ S1 (Commit) ]</tspan><tspan x="400.0" dy="14.3">[ S3 (Alloc)  ][ Free Space  ]</tspan></text>
+<rect x="540.0" y="30.0" width="230.0" height="300.0" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="655.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel eBPF Consumer</text>
+<rect x="555.0" y="90.0" width="200.0" height="60.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/><text x="655.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">bpf_user_ringbuf_drain()</tspan><tspan x="655.0" dy="16.9">Polling / Event Callback</tspan></text>
+<rect x="555.0" y="170.0" width="200.0" height="60.0" rx="6" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/><text x="655.0" y="195.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">bpf_dynptr Engine</tspan><tspan x="655.0" dy="18.2">Безпечна розпаковка</tspan></text>
+<rect x="555.0" y="250.0" width="200.0" height="60.0" rx="6" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/><text x="655.0" y="276.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Двигун фільтрації / XDP</tspan><tspan x="655.0" dy="16.9">Оновлення таблиць в ядрі</tspan></text>
+<line x1="245.0" y1="270.0" x2="295.0" y2="250.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="250.0" x2="555.0" y2="120.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="655.0" y1="150.0" x2="655.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="655.0" y1="230.0" x2="655.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

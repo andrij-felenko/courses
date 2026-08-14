@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-root { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 6px; }
+        .box-branch { fill: #fefce8; stroke: #ca8a04; stroke-width: 2; rx: 6px; }
+        .box-leaf { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 6px; }
+        .box-target { fill: #fee2e2; stroke: #dc2626; stroke-width: 2; rx: 6px; }
+        .title-node { font-family: monospace; font-size: 14px; font-weight: bold; fill: #1e40af; }
+        .title-branch { font-family: monospace; font-size: 14px; font-weight: bold; fill: #854d0e; }
+        .title-leaf { font-family: monospace; font-size: 14px; font-weight: bold; fill: #166534; }
+        .text-body { font-family: monospace; font-size: 12px; fill: #334155; }
+        .text-bold { font-family: monospace; font-size: 12px; font-weight: bold; fill: #0f172a; }
+        .arrow { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+        .arrow-red { stroke: #dc2626; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead-red); }
+        .arrow-green { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#arrowhead-green); }
+    </style>
+
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+        <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+        </marker>
+        <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+        </marker>
+    </defs>
+
+    <!-- Canvas Background -->
+    <rect width="960" height="500" class="bg"/>
+
+    <!-- Destination IP Panel -->
+    <rect x="40" y="30" width="880" height="60" class="box-target"/>
+    <text x="60" y="55" class="title-node" fill="#991b1b">Шукана адреса (Destination IP): 10.1.2.45</text>
+    <text x="60" y="75" class="text-body" fill="#991b1b">Бінарний вигляд: 00001010 . 00000001 . 00000010 . 00101101 (Префікс /24 збігається з 10.1.2.0/24)</text>
+
+    <!-- Root Node -->
+    <rect x="360" y="120" width="240" height="85" class="box-root"/>
+    <text x="480" y="145" class="title-node" text-anchor="middle">Root Node (trie_node)</text>
+    <text x="375" y="168" class="text-body">pos = 0, bits = 8 (256 slots)</text>
+    <text x="375" y="188" class="text-body">index = key &gt;&gt; 24 = 10 (0x0A)</text>
+
+    <!-- Branch Nodes (Level Compression) -->
+    <!-- Branch 1: 10.0.0.0/8 -->
+    <rect x="80" y="250" width="240" height="95" class="box-branch"/>
+    <text x="200" y="275" class="title-branch" text-anchor="middle">Branch (10.0.0.0/16)</text>
+    <text x="95" y="298" class="text-body">pos = 8, bits = 8</text>
+    <text x="95" y="318" class="text-body">index = (key &gt;&gt; 16) &amp; 0xFF = 0</text>
+    <text x="95" y="335" class="text-body">Префікс: 10.0.0.0/16</text>
+
+    <!-- Branch 2: 10.1.0.0/16 (Target Branch) -->
+    <rect x="360" y="250" width="240" height="95" class="box-branch" stroke="#dc2626" stroke-width="2.5"/>
+    <text x="480" y="275" class="title-branch" text-anchor="middle" fill="#991b1b">Branch (10.1.0.0/16)</text>
+    <text x="375" y="298" class="text-body" fill="#991b1b">pos = 8, bits = 8</text>
+    <text x="375" y="318" class="text-body" fill="#991b1b">index = (key &gt;&gt; 16) &amp; 0xFF = 1</text>
+    <text x="375" y="335" class="text-bold" fill="#dc2626">ЗБІГ: перехід до 10.1.2.0/24</text>
+
+    <!-- Branch 3: 192.168.0.0/16 -->
+    <rect x="640" y="250" width="240" height="95" class="box-branch"/>
+    <text x="760" y="275" class="title-branch" text-anchor="middle">Branch (192.168.0.0/16)</text>
+    <text x="655" y="298" class="text-body">pos = 8, bits = 8</text>
+    <text x="655" y="318" class="text-body">index = (key &gt;&gt; 16) &amp; 0xFF = 168</text>
+    <text x="655" y="335" class="text-body">Префікс: 192.168.0.0/16</text>
+
+    <!-- Arrows from Root to Branches -->
+    <path d="M 400 205 L 200 250" class="arrow"/>
+    <path d="M 480 205 L 480 250" class="arrow-red"/>
+    <path d="M 560 205 L 760 250" class="arrow"/>
+
+    <!-- Leaves under Branch 2 -->
+    <rect x="220" y="390" width="240" height="85" class="box-leaf"/>
+    <text x="340" y="413" class="title-leaf" text-anchor="middle">Leaf: 10.1.1.0/24</text>
+    <text x="235" y="435" class="text-body">fib_alias: tos=0, type=UNICAST</text>
+    <text x="235" y="455" class="text-body">fib_info: via 192.168.1.1 dev eth0</text>
+
+    <!-- Target Leaf: 10.1.2.0/24 -->
+    <rect x="500" y="390" width="240" height="85" class="box-leaf" stroke="#dc2626" stroke-width="2.5"/>
+    <text x="620" y="413" class="title-leaf" text-anchor="middle" fill="#991b1b">Leaf: 10.1.2.0/24 (LPM)</text>
+    <text x="515" y="435" class="text-body" fill="#991b1b">fib_alias: mask=/24, prio=100</text>
+    <text x="515" y="455" class="text-bold" fill="#dc2626">fib_info: via 10.1.2.1 dev eth1</text>
+
+    <!-- Arrows from Branch 2 to Leaves -->
+    <path d="M 440 345 L 340 390" class="arrow"/>
+    <path d="M 520 345 L 620 390" class="arrow-red"/>
+</svg>

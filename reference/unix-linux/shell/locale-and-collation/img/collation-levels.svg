@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 710 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="710" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівневе зіставлення рядків (Collation Weighting)</text>
+<rect x="40.0" y="50.0" width="620.0" height="62.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="60.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="start" font-weight="700">1. Первинний вага (Primary)</text>
+<text x="60.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Базовий символ / літера (напр. 'a' == 'A' == 'á' ≠ 'b') — Визначає основний алфавітний порядок слів</text>
+<rect x="40.0" y="122.0" width="620.0" height="62.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="60.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0369a1" text-anchor="start" font-weight="700">2. Вторинний вага (Secondary)</text>
+<text x="60.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Акценти та діакритичні знаки (напр. 'a' ≠ 'á') — Застосовується при збігу первинних вагових значень</text>
+<rect x="40.0" y="194.0" width="620.0" height="62.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="60.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">3. Третинний вага (Tertiary)</text>
+<text x="60.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Регістр символів (напр. 'a' ≠ 'A') — Розрізняє великі та малі літери</text>
+<rect x="40.0" y="266.0" width="620.0" height="62.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="60.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b21a8" text-anchor="start" font-weight="700">4. Четвертинний вага (Quaternary)</text>
+<text x="60.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пунктуація та спеціальні символи — Враховує дефіси, пробіли та розділові знаки</text>
+<rect x="40.0" y="338.0" width="620.0" height="62.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="60.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="700">5. Байтовий tie-breaker</text>
+<text x="60.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Двійкове кодування UTF-8 / ASCII (strcmp) — Забезпечує детермінованість при повній еквівалентності</text>
+</svg>

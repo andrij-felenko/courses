@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="43.6" y="146.6" width="132.8" height="66.8" rx="6" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/><text x="110.0" y="167.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Процес 1</tspan><tspan x="110.0" dy="16.9">(письменник)</tspan><tspan x="110.0" dy="16.9">write(fd, buf)</tspan></text>
+<rect x="230.0" y="40.0" width="340.0" height="280.0" rx="8" fill="#f1f8e9" stroke="#33691e" stroke-width="2.0"/>
+<text x="400.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#33691e" text-anchor="middle" font-weight="700">Простір ядра (Kernel Space)</text>
+<rect x="250.0" y="95.0" width="300.0" height="205.0" rx="6" fill="#ffffff" stroke="#558b2f" stroke-width="1.5"/>
+<text x="400.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">struct pipe_inode_info</text>
+<text x="400.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Кільцевий буфер (64 KB FIFO)</text>
+<rect x="265.0" y="165.0" width="40.0" height="50.0" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1.2"/>
+<text x="285.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Байт1</text>
+<rect x="310.0" y="165.0" width="40.0" height="50.0" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1.2"/>
+<text x="330.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Байт2</text>
+<rect x="355.0" y="165.0" width="40.0" height="50.0" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1.2"/>
+<text x="375.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Байт3</text>
+<rect x="400.0" y="165.0" width="40.0" height="50.0" rx="3" fill="#fff9c4" stroke="#81c784" stroke-width="1.2"/>
+<text x="420.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Head</text>
+<rect x="445.0" y="165.0" width="40.0" height="50.0" rx="3" fill="#ffffff" stroke="#81c784" stroke-width="1.2"/>
+<text x="465.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Вільн</text>
+<rect x="490.0" y="165.0" width="40.0" height="50.0" rx="3" fill="#ffffff" stroke="#81c784" stroke-width="1.2"/>
+<text x="510.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Tail</text>
+<text x="400.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга FIFO (Mutex + WaitQueue)</text>
+<text x="400.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Порожньо → read() спить | Повно → write() спить</text>
+<rect x="627.6" y="146.6" width="124.8" height="66.8" rx="6" fill="#e8eaf6" stroke="#1a237e" stroke-width="1.5"/><text x="690.0" y="167.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Процес 2</tspan><tspan x="690.0" dy="16.9">(читач)</tspan><tspan x="690.0" dy="16.9">read(fd, buf)</tspan></text>
+<line x1="180.0" y1="180.0" x2="245.0" y2="180.0" stroke="#e65100" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="555.0" y1="180.0" x2="615.0" y2="180.0" stroke="#1a237e" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

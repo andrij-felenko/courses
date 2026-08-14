@@ -1,31 +1,22 @@
-<svg width="600" height="250" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2px; }
-    .text { font-family: monospace; font-size: 14px; fill: #212529; }
-    .padding { fill: #e9ecef; stroke: #343a40; stroke-width: 2px; stroke-dasharray: 4; }
-    .title { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #212529; }
-  </style>
-
-  <text x="50" y="30" class="title">V1: struct { char a; int b; }</text>
-  <rect x="50" y="50" width="50" height="40" class="box" />
-  <text x="70" y="75" class="text">a (1)</text>
-  
-  <rect x="100" y="50" width="150" height="40" class="padding" />
-  <text x="130" y="75" class="text">padding (3)</text>
-  
-  <rect x="250" y="50" width="200" height="40" class="box" />
-  <text x="330" y="75" class="text">b (4)</text>
-
-  <text x="50" y="140" class="title">V2 (Порушення ABI): struct { char a; short c; int b; }</text>
-  <rect x="50" y="160" width="50" height="40" class="box" />
-  <text x="70" y="185" class="text">a (1)</text>
-
-  <rect x="100" y="160" width="50" height="40" class="padding" />
-  <text x="110" y="185" class="text">pad</text>
-
-  <rect x="150" y="160" width="100" height="40" class="box" />
-  <text x="180" y="185" class="text">c (2)</text>
-
-  <rect x="250" y="160" width="200" height="40" class="box" />
-  <text x="330" y="185" class="text">b (4)</text>
+<svg width="720" height="240" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+<style>text { font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif; }</style>
+<rect x="0.0" y="0.0" width="720.0" height="240.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/>
+<text x="360.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Версія 1: struct Data { char a; int b; } — 8 байтів</text>
+<text x="50.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x00</text>
+<text x="130.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x01</text>
+<text x="370.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x04</text>
+<text x="670.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x08</text>
+<rect x="61.7" y="50.2" width="56.6" height="39.6" rx="6" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/><text x="90.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">char a</tspan><tspan x="90.0" dy="15.6">(1 B)</tspan></text>
+<rect x="155.1" y="50.2" width="189.8" height="39.6" rx="6" fill="#f2f4f4" stroke="#6b7280" stroke-width="1.5"/><text x="250.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Padding (3 байти відступу)</tspan><tspan x="250.0" dy="15.6">для вирівнювання int</tspan></text>
+<rect x="480.5" y="50.2" width="79.0" height="39.6" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/><text x="520.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">int b</tspan><tspan x="520.0" dy="15.6">(4 байти)</tspan></text>
+<line x1="40.0" y1="115.0" x2="680.0" y2="115.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4"/>
+<text x="360.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Версія 2 (ПОЛОМКА ABI): вставка short c між a та b</text>
+<text x="50.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x00</text>
+<text x="130.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x01</text>
+<text x="210.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x02</text>
+<text x="510.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x04</text>
+<rect x="61.7" y="165.2" width="56.6" height="39.6" rx="6" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/><text x="90.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">char a</tspan><tspan x="90.0" dy="15.6">(1 B)</tspan></text>
+<rect x="146.9" y="165.2" width="46.2" height="39.6" rx="6" fill="#f2f4f4" stroke="#6b7280" stroke-width="1.5"/><text x="170.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">pad</tspan><tspan x="170.0" dy="15.6">(1 B)</tspan></text>
+<rect x="246.1" y="165.2" width="227.8" height="39.6" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">short c (2 байти)</tspan><tspan x="360.0" dy="15.6">[Нове поле зісуває наступні!]</tspan></text>
+<rect x="531.9" y="165.2" width="116.2" height="39.6" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/><text x="590.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">int b</tspan><tspan x="590.0" dy="15.6">(зсув змінено)</tspan></text>
 </svg>

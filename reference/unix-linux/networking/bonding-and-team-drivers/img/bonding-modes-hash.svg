@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 8px; }
+        .box-header { fill: #e0f2fe; stroke: #0284c7; stroke-width: 1.5; rx: 6px; }
+        .box-hash { fill: #fef3c7; stroke: #d97706; stroke-width: 1.5; rx: 6px; }
+        .box-port { fill: #f1f5f9; stroke: #475569; stroke-width: 1.5; rx: 4px; }
+        .title-card { font-family: system-ui, sans-serif; font-size: 15px; font-weight: bold; fill: #0369a1; }
+        .text-bold { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #0f172a; }
+        .text-main { font-family: system-ui, sans-serif; font-size: 12px; fill: #334155; }
+        .text-code { font-family: monospace; font-size: 12px; fill: #1e293b; }
+        .arrow { stroke: #0284c7; stroke-width: 2; fill: none; marker-end: url(#arrowhead-blue); }
+        .arrow-orange { stroke: #d97706; stroke-width: 2; fill: none; marker-end: url(#arrowhead-orange); }
+    </style>
+
+    <defs>
+        <marker id="arrowhead-blue" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 9 3, 0 6" fill="#0284c7"/>
+        </marker>
+        <marker id="arrowhead-orange" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 9 3, 0 6" fill="#d97706"/>
+        </marker>
+    </defs>
+
+    <rect width="920" height="460" class="bg"/>
+
+    <!-- Ingress Frame Header -->
+    <rect x="30" y="30" width="860" height="60" class="box-header"/>
+    <text x="460" y="55" class="title-card" text-anchor="middle">Вхідний Ethernet Кадр / IP Пакет</text>
+    <text x="460" y="75" class="text-code" text-anchor="middle">[ Src MAC | Dst MAC ]  [ Src IP | Dst IP ]  [ Src Port | Dst Port ]</text>
+
+    <!-- Hash Policy Box 1: Layer 2 -->
+    <rect x="30" y="130" width="270" height="200" class="box-card"/>
+    <text x="165" y="155" class="text-bold" text-anchor="middle">layer2 (За замовчуванням)</text>
+    <rect x="45" y="170" width="240" height="45" class="box-hash"/>
+    <text x="165" y="190" class="text-code" text-anchor="middle">hash = (MAC_src XOR MAC_dst)</text>
+    <text x="165" y="205" class="text-code" text-anchor="middle">port_idx = hash % N</text>
+    <text x="45" y="235" class="text-main">• Стійке сесійне призначення</text>
+    <text x="45" y="255" class="text-main">• Використовує лише L2 заголовок</text>
+    <text x="45" y="275" class="text-main">• Вузьке місце за один маршрутизатор</text>
+    <text x="165" y="310" class="text-code" text-anchor="middle">balance-xor / 802.3ad</text>
+
+    <!-- Hash Policy Box 2: Layer 2+3 -->
+    <rect x="325" y="130" width="270" height="200" class="box-card"/>
+    <text x="460" y="155" class="text-bold" text-anchor="middle">layer2+3 (Комбінований)</text>
+    <rect x="340" y="170" width="240" height="45" class="box-hash"/>
+    <text x="460" y="190" class="text-code" text-anchor="middle">hash = MAC_xor XOR IP_xor</text>
+    <text x="460" y="205" class="text-code" text-anchor="middle">port_idx = hash % N</text>
+    <text x="340" y="235" class="text-main">• Балансування між різними IP</text>
+    <text x="340" y="255" class="text-main">• Безпечно для більшості роутерів</text>
+    <text x="340" y="275" class="text-main">• Підтримує IPv4 та IPv6</text>
+    <text x="460" y="310" class="text-code" text-anchor="middle">xmit_hash_policy = layer2+3</text>
+
+    <!-- Hash Policy Box 3: Layer 3+4 -->
+    <rect x="620" y="130" width="270" height="200" class="box-card"/>
+    <text x="755" y="155" class="text-bold" text-anchor="middle">layer3+4 (Високодетальний)</text>
+    <rect x="635" y="170" width="240" height="45" class="box-hash"/>
+    <text x="755" y="190" class="text-code" text-anchor="middle">hash = IP_xor XOR Port_xor</text>
+    <text x="755" y="205" class="text-code" text-anchor="middle">port_idx = hash % N</text>
+    <text x="635" y="235" class="text-main">• Розподіл окремих TCP/UDP сесій</text>
+    <text x="635" y="255" class="text-main">• Максимальна рівномірність</text>
+    <text x="635" y="275" class="text-main">• Ігнорує фрагментовані пакети</text>
+    <text x="755" y="310" class="text-code" text-anchor="middle">xmit_hash_policy = layer3+4</text>
+
+    <!-- Output Ports Array -->
+    <rect x="30" y="360" width="860" height="70" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5" rx="6"/>
+    <text x="460" y="385" class="text-bold" text-anchor="middle">Підпорядковані Фізичні Інтерфейси (Slave Ports 0..N-1)</text>
+
+    <rect x="180" y="395" width="160" height="30" class="box-port"/>
+    <text x="260" y="415" class="text-code" text-anchor="middle">eth0 (Port 0)</text>
+
+    <rect x="380" y="395" width="160" height="30" class="box-port"/>
+    <text x="460" y="415" class="text-code" text-anchor="middle">eth1 (Port 1)</text>
+
+    <rect x="580" y="395" width="160" height="30" class="box-port"/>
+    <text x="660" y="415" class="text-code" text-anchor="middle">eth2 (Port 2)</text>
+
+    <!-- Arrows from Top to Hash Boxes -->
+    <path d="M 165 90 V 130" class="arrow"/>
+    <path d="M 460 90 V 130" class="arrow"/>
+    <path d="M 755 90 V 130" class="arrow"/>
+
+    <!-- Arrows from Hash Boxes to Ports -->
+    <path d="M 165 330 V 360" class="arrow-orange"/>
+    <path d="M 460 330 V 360" class="arrow-orange"/>
+    <path d="M 755 330 V 360" class="arrow-orange"/>
+</svg>
