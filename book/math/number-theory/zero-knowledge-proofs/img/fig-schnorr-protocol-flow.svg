@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол Шнорра</text>
+<text x="480.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерактивний трикроковий діалог протоколу Шнорра</text>
+<text x="480.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Доведення знання дискретного логарифма y = g^x mod p без розкриття x</text>
+<rect x="120.0" y="90.0" width="200.0" height="45.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доводжувач (Prover)</text>
+<text x="220.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Секрет: x ∈ ℤ_q</text>
+<rect x="640.0" y="90.0" width="200.0" height="45.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.5"/>
+<text x="740.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевіряльник (Verifier)</text>
+<text x="740.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Публічний ключ: y = g^x mod p</text>
+<line x1="220.0" y1="135.0" x2="220.0" y2="380.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="740.0" y1="135.0" x2="740.0" y2="380.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="28.3" y="150.8" width="123.4" height="38.5" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/><text x="90.0" y="166.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">Випадкове k ∈ ℤ_q</tspan><tspan x="90.0" dy="15.0">r = g^k mod p</tspan></text>
+<line x1="230.0" y1="170.0" x2="730.0" y2="170.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Зобов'язання: r</text>
+<rect x="808.3" y="230.8" width="123.4" height="38.5" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/><text x="870.0" y="246.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Випадковий виклик</tspan><tspan x="870.0" dy="15.0">c ∈ ℤ_q</tspan></text>
+<line x1="730.0" y1="250.0" x2="230.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Випробовувальний виклик: c</text>
+<rect x="15.2" y="318.2" width="149.7" height="23.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="90.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">s = (k + c · x) mod q</tspan></text>
+<line x1="230.0" y1="330.0" x2="730.0" y2="330.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Підтверджувальна відповідь: s</text>
+<rect x="793.2" y="308.8" width="153.7" height="42.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="870.0" y="326.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Перевірка тотожності:</tspan><tspan x="870.0" dy="15.0">g^s ≡ r · y^c (mod p)</tspan></text>
+</svg>

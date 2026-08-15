@@ -10,6 +10,7 @@ window.__BOOKS__.push(
       "title": "Логіка",
       "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин.",
       "topics": [
+        { slug: "pigeonhole-principle", title: "Принцип Діріхле", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-dirichlet-box.md", status: "done" }] , "math": [{ file: "math-generalized-pigeonhole.md", status: "done" }] , "proj": [{ file: "proj-pigeonhole-apps.md", status: "done" }] },
         {
           "slug": "truth-tables",
           "title": "Таблиці істинності та логічні зв'язки",
@@ -1588,6 +1589,48 @@ window.__BOOKS__.push(
       "title": "Теорія чисел",
       "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури.",
       "topics": [
+        { slug: "r-tree", title: "R-дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "k-d-tree", title: "K-d дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "sparse-table", title: "Розріджена таблиця", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "segment-tree", title: "Дерево відрізків", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-segment-tree.md", status: "done" }] , "hist": [{ file: "hist-segment-tree.md", status: "done" }] , "math": [{ file: "math-segment-tree-monoids.md", status: "done" }] , "proj": [{ file: "proj-segment-tree-impl.md", status: "done" }] },
+        { slug: "fenwick-tree", title: "Дерево Фенвіка", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-fenwick-interface.md", status: "done" }] , "hist": [{ file: "hist-fenwick-origin.md", status: "done" }] , "math": [{ file: "math-fenwick-algebra.md", status: "done" }] , "proj": [{ file: "proj-fenwick-implementation.md", status: "done" }] },
+        { slug: "mobius-inversion", title: "Обернення Мьобіуса", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-mobius-properties.md", status: "done" }] , "hist": [{ file: "hist-mobius-inversion.md", status: "done" }] , "math": [{ file: "math-mobius-algebra.md", status: "done" }] , "proj": [{ file: "proj-mobius-inversion.md", status: "done" }] },
+        { slug: "lowest-common-ancestor", title: "Найменший спільний предок", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-lca-interface.md", status: "done" }] , "hist": [{ file: "hist-lowest-common-ancestor.md", status: "done" }] , "math": [{ file: "math-lca-properties.md", status: "done" }] , "proj": [{ file: "proj-lca-algorithms.md", status: "done" }] },
+        { slug: "bell-numbers", title: "Числа Белла", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-bell-numbers.md", status: "done" }] , "math": [{ file: "math-dobinski-proof.md", status: "done" }] , "proj": [{ file: "proj-bell-algorithms.md", status: "done" }] },
+        { slug: "prefix-sums", title: "Префіксні суми", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-prefix-ops.md", status: "done" }] , "hist": [{ file: "hist-discrete-calculus.md", status: "done" }] , "math": [{ file: "math-subsegment-divisibility.md", status: "done" }] , "proj": [{ file: "proj-prefix-sum-algorithms.md", status: "done" }] },
+        { slug: "jacobi-theta-functions", title: "Тета-функції Якобі", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-jacobi-theta-genesis.md", status: "done" }] , "math": [{ file: "math-jacobi-triple-product.md", status: "done" }] , "proj": [{ file: "proj-jacobi-theta-calc.md", status: "done" }] },
+        { slug: "bresenham-algorithm", title: "Алгоритм Брезенгема", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-bresenham.md", status: "done" }] , "math": [{ file: "math-diophantine-rasterization.md", status: "done" }] , "proj": [{ file: "proj-bresenham-rasterizer.md", status: "done" }] },
+        { slug: "cryptographic-hash-functions", title: "Криптографічні хеш-функції", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-hash-evolution.md", status: "done" }] , "math": [{ file: "math-chp-proof.md", status: "done" }] , "proj": [{ file: "proj-merkle-damgard.md", status: "done" }] },
+        { slug: "eisenstein-series", title: "Ряди Ейзенштейна", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-eisenstein-series.md", status: "done" }] , "math": [{ file: "math-e2-quasi-modularity.md", status: "done" }] , "proj": [{ file: "proj-eisenstein-fourier.md", status: "done" }] },
+        { slug: "farey-sequences", title: "Послідовності Фарея", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-farey-haros.md", status: "done" }] , "math": [{ file: "math-farey-properties.md", status: "done" }] , "proj": [{ file: "proj-farey-generator.md", status: "done" }] },
+        { slug: "zero-knowledge-proofs", title: "Доведення з нульовим розголошенням", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-schnorr-protocol.md", status: "done" }] , "hist": [{ file: "hist-zkp-genesis.md", status: "done" }] , "math": [{ file: "math-zkp-formalism.md", status: "done" }] , "proj": [{ file: "proj-schnorr-zkp.md", status: "done" }] },
+        { slug: "rsa-cryptosystem", title: "Криптосистема RSA", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-rsa-keys-and-formats.md", status: "done" }] , "hist": [{ file: "hist-rsa-genesis.md", status: "done" }] , "math": [{ file: "math-rsa-correctness-and-attacks.md", status: "done" }] , "proj": [{ file: "proj-rsa-implementation.md", status: "done" }] },
+        { slug: "bernoulli-numbers", title: "Числа Бернуллі", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-faulhaber-bernoulli.md", status: "done" }] , "math": [{ file: "math-staudt-clausen-proof.md", status: "done" }] , "proj": [{ file: "proj-akiyama-tanigawa.md", status: "done" }] },
+        { slug: "arithmetic-functions", title: "Арифметичні функції", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-common-functions.md", status: "done" }] , "hist": [{ file: "hist-dirichlet-convolution.md", status: "done" }] , "math": [{ file: "math-dirichlet-algebra.md", status: "done" }] , "proj": [{ file: "proj-fast-convolution.md", status: "done" }] },
+        { slug: "cunningham-chain", title: "Ланцюжки Каннінгема", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-cunningham-life.md", status: "done" }] , "math": [{ file: "math-modular-obstructions.md", status: "done" }] , "proj": [{ file: "proj-chain-search.md", status: "done" }] },
+        { slug: "paillier-cryptosystem", title: "Криптосистема Пайє", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-paillier-interface.md", status: "done" }] , "hist": [{ file: "hist-paillier-origin.md", status: "done" }] , "math": [{ file: "math-composite-residuosity.md", status: "done" }] , "proj": [{ file: "proj-paillier-implementation.md", status: "done" }] },
+        { slug: "zeckendorf-theorem", title: "Теорема Цекендорфа", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-zeckendorf.md", status: "done" }] , "hist": [{ file: "hist-zeckendorf-discovery.md", status: "done" }] , "math": [{ file: "math-zeckendorf-proof.md", status: "done" }] , "proj": [{ file: "proj-zeckendorf-code.md", status: "done" }] },
+        { slug: "halls-conjecture", title: "Гіпотеза Холла", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-halls-genesis.md", status: "done" }] , "math": [{ file: "math-davenport-bound.md", status: "done" }] , "proj": [{ file: "proj-halls-search.md", status: "done" }] },
+        { slug: "szpiro-conjecture", title: "Гіпотеза Шпіро", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-szpiro-origin.md", status: "done" }] , "math": [{ file: "math-frey-curve-derivation.md", status: "done" }] , "proj": [{ file: "proj-szpiro-search.md", status: "done" }] },
+        { slug: "solovay-strassen-primality-test", title: "Тест Соловея–Штрассена на простоту", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-solovay-strassen.md", status: "done" }] , "math": [{ file: "math-euler-criterion-jacobi.md", status: "done" }] , "proj": [{ file: "proj-solovay-strassen.md", status: "done" }] },
+        { slug: "sieve-of-eratosthenes", title: "Сегментоване решето Ератосфена", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sieve-bench.md", status: "done" }] , "hist": [{ file: "hist-sieve-evolution.md", status: "done" }] , "math": [{ file: "math-segmentation-bounds.md", status: "done" }] , "proj": [{ file: "proj-segmented-sieve.md", status: "done" }] },
+        { slug: "abc-conjecture", title: "Гіпотеза ABC", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-abc-genesis.md", status: "done" }] , "math": [{ file: "math-mason-stothers.md", status: "done" }] , "proj": [{ file: "proj-abc-search.md", status: "done" }] },
+        { slug: "hensel-lemma", title: "Лема Гензеля", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-hensel-p-adic.md", status: "done" }] , "math": [{ file: "math-hensel-multivariate.md", status: "done" }] , "proj": [{ file: "proj-hensel-lifting.md", status: "done" }] },
+        { slug: "dirichlet-l-functions", title: "L-функції Діріхле", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-dirichlet-primes.md", status: "done" }] , "math": [{ file: "math-non-vanishing-l1.md", status: "done" }] , "proj": [{ file: "proj-dirichlet-l-calc.md", status: "done" }] },
+        { slug: "dirichlet-character", title: "Характери Діріхле", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-dirichlet-characters.md", status: "done" }] , "math": [{ file: "math-orthogonality-relations.md", status: "done" }] , "proj": [{ file: "proj-dirichlet-character-table.md", status: "done" }] },
+        { slug: "wieferich-primes", title: "Прості числа Віферіха", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-wieferich-verifier.md", status: "done" }] , "hist": [{ file: "hist-wieferich-flt.md", status: "done" }] , "math": [{ file: "math-wieferich-flt-proof.md", status: "done" }] , "proj": [{ file: "proj-wieferich-search.md", status: "done" }] },
+        { slug: "quadratic-residues", title: "Квадратичні лишки", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-quadratic-reciprocity.md", status: "done" }] , "math": [{ file: "math-legendre-reciprocity-proof.md", status: "done" }] , "proj": [{ file: "proj-tonelli-shanks.md", status: "done" }] },
+        { slug: "roth-theorem", title: "Теорема Рота про діофантові наближення", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-roth-approximation.md", status: "done" }] , "math": [{ file: "math-roths-lemma.md", status: "done" }] , "proj": [{ file: "proj-roth-approximation.md", status: "done" }] },
+        { slug: "local-zeta-functions", title: "Локальні дзета-функції кривих", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-weil-conjectures.md", status: "done" }] , "math": [{ file: "math-riemann-roch-zeta.md", status: "done" }] , "proj": [{ file: "proj-zeta-calculator.md", status: "done" }] },
+        { slug: "jacobi-sums", title: "Суми Якобі", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-jacobi-sums.md", status: "done" }] , "hist": [{ file: "hist-jacobi-sums.md", status: "done" }] , "math": [{ file: "math-jacobi-gauss-factorization.md", status: "done" }] , "proj": [{ file: "proj-jacobi-sum-calculator.md", status: "done" }] },
+        { slug: "gauss-sums", title: "Суми Гаусса", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-gauss-sums.md", status: "done" }] , "math": [{ file: "math-gauss-sign.md", status: "done" }] , "proj": [{ file: "proj-gauss-sums.md", status: "done" }] },
+        { slug: "multiplicative-characters", title: "Мультиплікативні й адитивні характери", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-character-genesis.md", status: "done" }] , "math": [{ file: "math-gauss-jacobi-sums.md", status: "done" }] , "proj": [{ file: "proj-character-computation.md", status: "done" }] },
+        { slug: "gerono-theorem", title: "Теорема Жероно", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-gerono-catalan.md", status: "done" }] , "math": [{ file: "math-gerono-proof.md", status: "done" }] , "proj": [{ file: "proj-gerono-solver.md", status: "done" }] },
+        { slug: "davenport-hasse-relations", title: "Співвідношення Девенпорта–Хассе", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-davenport-hasse.md", status: "done" }] , "math": [{ file: "math-davenport-hasse-proof.md", status: "done" }] , "proj": [{ file: "proj-gauss-sum-verifier.md", status: "done" }] },
+        { slug: "baker-method", title: "Метод логарифмічних форм Бейкера", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-baker-transcendence.md", status: "done" }] , "math": [{ file: "math-thue-equation-bound.md", status: "done" }] , "proj": [{ file: "proj-baker-reduction.md", status: "done" }] },
+        { slug: "faltings-theorem", title: "Теорема Фальтінгса", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-mordell-conjecture.md", status: "done" }] , "math": [{ file: "math-parshin-construction.md", status: "done" }] , "proj": [{ file: "proj-chabauty-coleman.md", status: "done" }] },
+        { slug: "catalan-conjecture", title: "Гіпотеза Каталана (теорема Міхайлеску)", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-catalan-conjecture.md", status: "done" }] , "math": [{ file: "math-mihailescu-machinery.md", status: "done" }] , "proj": [{ file: "proj-catalan-verifier.md", status: "done" }] },
+        { slug: "diophantine-equations", title: "Діофантові рівняння", basic: { status: "empty" }, detailed: { status: "done" } },
         {
           "slug": "why-binary",
           "title": "Чому двійкова",
@@ -2702,10 +2745,28 @@ window.__BOOKS__.push(
           "slug": "primitive-root",
           "title": "Первісний корінь",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-primitive-root-birth.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-primitive-root-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-primitive-root-finder.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2742,140 +2803,470 @@ window.__BOOKS__.push(
           "slug": "lucas-numbers",
           "title": "Числа Люка",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-lucas-sequence.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-lucas-sequences.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-pell-identity-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-fast-lucas-computation.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "pell-equation",
           "title": "Рівняння Пелля",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-pell-name.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-chakravala.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-pell-solver.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "triangular-numbers",
           "title": "Трикутні числа",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-tetraktys-to-eureka.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-square-triangular-pell.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-triangular-algorithms.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "amicable-numbers",
           "title": "Дружні числа",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-amicable-numbers.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-thabit-rule.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-amicable-search.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "abundant-deficient-numbers",
           "title": "Надлишкові й недостатні числа",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-nicomachus-aliquot.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-density-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-abundance-analyzer.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "sum-of-two-squares",
           "title": "Сума двох квадратів (теорема Ферма)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-fermat-euler-squares.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-descent-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-cornacchia-solver.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "germain-primes",
           "title": "Прості числа Софі Жермен",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-germain-fermat.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-germain-proof.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-safe-prime-generator.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "golden-ratio",
           "title": "Золотий перетин",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-golden-ratio.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-noble-irrational.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-golden-search.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "elliptic-curves",
           "title": "Еліптичні криві",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-elliptic-integrals.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-group-law-derivation.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-ecc-point-arithmetic.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "modular-forms",
           "title": "Модулярні форми",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-modular-forms.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-valence-formula.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-hecke-operators.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "floor-division",
           "title": "Цілочислове ділення й підлога",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-language-division-table.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-gauss-floor.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-hermite-legendre.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-division-implementations.md",
+              "status": "done",
+          "api": [
+            {
+              "file": "api-language-division-table.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-gauss-floor.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-hermite-legendre.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-division-implementations.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "fractions",
           "title": "Звичайні дроби",
           "basic": {
-            "status": "empty"
+            "status": "done",
+          "hist": [
+            {
+              "file": "hist-fraction-concept.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-field-construction.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-rational-arithmetic.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-fraction-concept.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-field-construction.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-rational-arithmetic.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "negative-numbers",
           "title": "Від'ємні числа",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-negative-numbers-genesis.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-formal-construction.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-twos-complement-ops.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-negative-numbers-genesis.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-formal-construction.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-twos-complement-ops.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "equidistribution",
           "title": "Рівномірний розподіл за модулем одиниці",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-discrepancy-metrics.md",
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-weyl-equidistribution.md",
+              "status": "done",
+          "math": [
+            {
+              "file": "math-weyl-criterion.md",
+              "status": "done",
+          "proj": [
+            {
+              "file": "proj-discrepancy-calculator.md",
+              "status": "done"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -3494,6 +3885,33 @@ window.__BOOKS__.push(
       "title": "Алгебра",
       "scope": "Абстрактні алгебраїчні структури — групи, кільця, поля, модулі — та поліноміальні рівняння.",
       "topics": [
+        { slug: "dual-space", title: "Дуальний простір", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "condition-number", title: "Число обумовленості", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "kronecker-delta", title: "Символ Кронекера", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "horner-scheme", title: "Схема Горнера", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-horner-scheme.md", status: "done" }] , "math": [{ file: "math-horner-proof.md", status: "done" }] , "proj": [{ file: "proj-horner-scheme.md", status: "done" }] },
+        { slug: "lagrange-interpolation", title: "Інтерполяція Лагранжа", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-interpolator.md", status: "done" }] , "hist": [{ file: "hist-lagrange.md", status: "done" }] , "math": [{ file: "math-barycentric-derivation.md", status: "done" }] , "proj": [{ file: "proj-lagrange-algorithm.md", status: "done" }] },
+        { slug: "perfect-secrecy", title: "Досконала таємність Шеннона", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "polynomials", title: "Поліноми", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "binomial-theorem", title: "Біноміальна теорема", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-binomial-theorem.md", status: "done" }] , "math": [{ file: "math-binomial-proofs.md", status: "done" }] , "proj": [{ file: "proj-binomial-coefficients.md", status: "done" }] },
+        { slug: "generating-functions", title: "Твірні функції", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-generating-functions.md", status: "done" }] , "math": [{ file: "math-catalan-derivation.md", status: "done" }] , "proj": [{ file: "proj-generating-functions.md", status: "done" }] },
+        { slug: "shamir-secret-sharing", title: "Розділення секрету Шаміра", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-shamir-secret-sharing.md", status: "done" }] , "math": [{ file: "math-shamir-proof.md", status: "done" }] , "proj": [{ file: "proj-shamir-secret-sharing.md", status: "done" }] },
+        { slug: "chebyshev-polynomials", title: "Поліноми Чебишова", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-chebyshev.md", status: "done" }] , "math": [{ file: "math-chebyshev-minimax.md", status: "done" }] , "proj": [{ file: "proj-clenshaw-algorithm.md", status: "done" }] },
+        { slug: "pohlig-hellman-algorithm", title: "Алгоритм Поліга — Геллмана", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "vieta-formulas", title: "Теорема Вієта", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mignotte-bound", title: "Межа Міньотта", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "berlekamp-algorithm", title: "Алгоритм Берлекампа", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "pontryagin-duality", title: "Двоїстість Понтрягіна", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "montgomery-reduction", title: "Арифметика та перетворення Монтгомері", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "lll-algorithm", title: "LLL-алгоритм редукції ґраток", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "irreducible-polynomials", title: "Непривідні многочлени", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "vandermonde-determinant", title: "Визначник Вандермонда", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "gaussian-integers", title: "Гауссові цілі числа ℤ[i]", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "dft-over-finite-fields", title: "Дискретне перетворення Фур'є над скінченними полями", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "galois-group", title: "Група Ґалуа", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cyclotomic-fields", title: "Кругові поля", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "frobenius-automorphism", title: "Автоморфізм Фробеніуса", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "finite-field-extensions", title: "Розширення скінченних полів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "galois-representations", title: "Зображення Галуа", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "rearranging-formulas",
           "title": "Перестановка формул",
@@ -4212,6 +4630,7 @@ window.__BOOKS__.push(
       "title": "Комбінаторика",
       "scope": "Підрахунок, перелік і структура скінченних та дискретних конфігурацій, графи.",
       "topics": [
+        { slug: "ramsey-theory", title: "Теорія Рамсея", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "graph-theory",
           "title": "Теорія графів",
@@ -4408,6 +4827,22 @@ window.__BOOKS__.push(
       "title": "Геометрія",
       "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
       "topics": [
+        { slug: "sphere-packing", title: "Пакування сфер", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "picks-theorem", title: "Теорема Піка", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "algebraic-curves", title: "Алгебраїчні криві", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "modular-curves", title: "Модулярні криві", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "tates-algorithm", title: "Алгоритм Тейта", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "oggs-formula", title: "Формула Оґґа", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "faltings-height", title: "Висота Фальтінгса", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "riemann-hurwitz-formula", title: "Формула Рімана–Гурвіца", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "frey-curve", title: "Крива Фрея", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "lefschetz-fixed-point-theorem", title: "Формула нерухомих точок Лефшеца", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "etale-cohomology", title: "Етальні l-адичні когомології", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "jacobian-varieties", title: "Многовиди Якобі та група класів дивізорів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "divisors-riemann-roch", title: "Дивізори та простір Рімана–Роха", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "blichfeldt-theorem", title: "Теорема Бліхфельдта", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "arakelov-geometry", title: "Арифметична геометрія Аракелова", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "abelian-varieties", title: "Абелеві многовиди", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "euler-angles",
           "title": "Кути Ейлера",
@@ -5078,6 +5513,20 @@ window.__BOOKS__.push(
       "title": "Аналіз",
       "scope": "Границі, диференціювання, інтегрування, теорія міри; включає гармонічний аналіз — ряди й перетворення Фур'є, вейвлети.",
       "topics": [
+        { slug: "cubic-splines", title: "Кубічні сплайни", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "bolzano-cauchy-theorem", title: "Теорема Больцано — Коші", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "discrete-cosine-transform", title: "Дискретне косинусне перетворення", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "arithmetic-geometric-mean", title: "Арифметико-геометричне середнє", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "fourier-transform", title: "Перетворення Фур'є", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "faa-di-bruno-formula", title: "Формула Фаа ді Бруно", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "lambert-w-function", title: "W-функція Ламберта", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "monte-carlo-method", title: "Метод Монте-Карло", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "weierstrass-approximation", title: "Теорема Вейєрштрасса про апроксимацію", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "borel-summation", title: "Підсумовування Бореля", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "lipschitz-summation-formula", title: "Формула підсумовування Ліпшиця", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "poisson-summation-formula", title: "Формула підсумовування Пуассона", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "kam-theorem", title: "Теорема КАМ", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "wronskian", title: "Вронськіан", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "time-and-frequency",
           "title": "Час і частота",
@@ -5740,6 +6189,11 @@ window.__BOOKS__.push(
       "title": "Комплексний аналіз",
       "scope": "Голоморфні функції комплексної змінної, лишки та конформні відображення.",
       "topics": [
+        { slug: "weierstrass-elliptic-functions", title: "Еліптичні функції Вейєрштрасса", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "saddle-point-method", title: "Метод перевалу", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "riemann-surfaces", title: "Риманові поверхні", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "riemann-zeta-function", title: "Дзета-функція Рімана", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mandelbrot-set", title: "Множина Мандельброта", basic: { status: "empty" }, detailed: { status: "pending" } },
         {
           "slug": "phasors",
           "title": "Фазори",

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура та потік обчислень у таблиці Горнера</text>
+<text x="420.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Кожен коефіцієнт частки bₖ = aₖ + x₀ · bₖ₊₁ обчислюється послідовно зліва направо</text>
+<rect x="40.0" y="210.0" width="110.0" height="40.0" rx="6" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="95.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">x = x₀</text>
+<text x="95.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Коефіцієнти P(x)</text>
+<text x="95.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(точка оцінки)</text>
+<line x1="30.0" y1="180.0" x2="810.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="185.0" y="132.0" width="90.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="230.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">aₙ</text>
+<rect x="180.0" y="212.0" width="100.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="230.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">bₙ = aₙ</text>
+<rect x="325.0" y="132.0" width="90.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="370.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">aₙ₋₁</text>
+<text x="370.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">x₀·bₙ</text>
+<rect x="320.0" y="212.0" width="100.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="370.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">bₙ₋₁</text>
+<rect x="465.0" y="132.0" width="90.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="510.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">aₙ₋₂</text>
+<text x="510.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">x₀·bₙ₋₁</text>
+<rect x="460.0" y="212.0" width="100.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="510.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">bₙ₋₂</text>
+<rect x="605.0" y="132.0" width="90.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="650.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">...</text>
+<rect x="600.0" y="212.0" width="100.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="650.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">...</text>
+<rect x="725.0" y="132.0" width="90.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="770.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">a₀</text>
+<text x="770.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">x₀·b₁</text>
+<rect x="720.0" y="212.0" width="100.0" height="36.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="770.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">b₀ = P(x₀)</text>
+<line x1="280.0" y1="230.0" x2="330.0" y2="200.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="290.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">× x₀</text>
+<line x1="370.0" y1="168.0" x2="370.0" y2="212.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="392.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">+</text>
+<line x1="420.0" y1="230.0" x2="470.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="510.0" y1="168.0" x2="510.0" y2="212.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="180.0" y="305.0" width="480.0" height="40.0" rx="6" fill="#f3e8ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="420.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рекурентна формула: bₙ = aₙ,   bₖ = aₖ + x₀ · bₖ₊₁   (для k = n-1, ..., 0)</text>
+</svg>

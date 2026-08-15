@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метод модульних перешкод: чому рівняння x² - 3y² = 2 не має цілих розв'язків</text>
+<rect x="60.0" y="75.0" width="430.0" height="390.0" rx="8" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="275.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Аналіз за модулем 3 (mod 3)</text>
+<text x="80.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="80.0" dy="0.0">Розглянемо рівняння  x² − 3y² = 2  за модулем 3:</tspan><tspan x="80.0" dy="18.2">Оскільки 3y² ≡ 0 (mod 3), рівняння спрощується до:</tspan></text>
+<rect x="140.0" y="190.0" width="270.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="275.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">x² ≡ 2 (mod 3)</text>
+<text x="80.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Таблиця можливих квадратів modulo 3:</text>
+<rect x="110.0" y="285.0" width="330.0" height="90.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<line x1="110.0" y1="315.0" x2="440.0" y2="315.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="220.0" y1="285.0" x2="220.0" y2="375.0" stroke="#333333" stroke-width="1.2"/>
+<text x="165.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">x (mod 3)</text>
+<text x="330.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">x² (mod 3)</text>
+<text x="165.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="330.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<text x="165.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="330.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="165.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2 (≡ −1)</text>
+<text x="330.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="275.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Квадрат цілого числа за mod 3 дає ЛИШЕ 0 або 1!</text>
+<text x="275.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Остача 2 є модульною перешкодою → розв'язків немає.</text>
+<rect x="530.0" y="75.0" width="450.0" height="390.0" rx="8" fill="#e6f7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="755.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Локально-глобальний принцип (Гассе)</text>
+<text x="550.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="550.0" dy="0.0">Глобальний розв'язок (у цілих числах ℤ або раціональних ℚ)</tspan><tspan x="550.0" dy="19.5">вимагає наявності локальних розв'язків усюди:</tspan></text>
+<rect x="570.0" y="210.0" width="370.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="755.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Розв'язок у ℤ  ⇒  Розв'язок у ℤ / mℤ  для ВСІХ m ≥ 2</text>
+<text x="550.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="550.0" dy="0.0">Якщо знайдено ХОЧ ОДИН модуль m, для якого</tspan><tspan x="550.0" dy="19.5">порівняння не має розв'язку — цілочисельний розв'язок</tspan><tspan x="550.0" dy="19.5">НЕМОЖЛИВИЙ В ПРИНЦИПІ (локальна перешкода).</tspan></text>
+<rect x="570.0" y="370.0" width="370.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="755.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="755.0" dy="0.0">Застереження: для рівнянь вищих степеней (n ≥ 3)</tspan><tspan x="755.0" dy="16.8">відсутність модульних перешкод НЕ гарантує наявності розв'язку!</tspan></text>
+</svg>

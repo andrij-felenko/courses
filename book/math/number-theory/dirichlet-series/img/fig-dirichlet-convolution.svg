@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дуальність згортки Діріхле</text>
+<rect x="0.0" y="0.0" width="800.0" height="400.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="400.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Дуальність: Множення рядів Діріхле та Згортка арифметичних функцій</text>
+<rect x="90.0" y="86.6" width="240.0" height="66.8" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/><text x="210.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Ряди Діріхле</tspan><tspan x="210.0" dy="16.9">F(s) = ∑ a[n] / nˢ</tspan><tspan x="210.0" dy="16.9">G(s) = ∑ b[n] / nˢ</tspan></text>
+<line x1="340.0" y1="120.0" x2="460.0" y2="120.0" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0369a1" text-anchor="middle" font-weight="700">F(s) · G(s)</text>
+<text x="400.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0284c7" text-anchor="middle">Множення рядів</text>
+<rect x="470.0" y="86.6" width="240.0" height="66.8" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/><text x="590.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">Добуток H(s) = ∑ c[n] / nˢ</tspan><tspan x="590.0" dy="16.9">c[n] = (a * b)(n)</tspan><tspan x="590.0" dy="16.9">= ∑_{d|n} a[d] b[n/d]</tspan></text>
+<line x1="400.0" y1="190.0" x2="400.0" y2="220.0" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="40.0" y="225.0" width="720.0" height="145.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="400.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Фундаментальні тотожності згортки та рядів Діріхле:</text>
+<text x="200.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">ζ(s) · ζ(s) = ∑ d(n) / nˢ</text>
+<text x="200.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">(число дільників d(n) = (1 * 1)(n))</text>
+<text x="600.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">ζ(s) · (1 / ζ(s)) = 1</text>
+<text x="600.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">(функція Мебіуса: (1 * μ)(n) = ε(n))</text>
+<text x="400.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">ζ(s - 1) / ζ(s) = ∑ φ(n) / nˢ   |   (φ * 1)(n) = n</text>
+</svg>

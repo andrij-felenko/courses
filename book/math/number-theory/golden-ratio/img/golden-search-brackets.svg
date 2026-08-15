@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема розбиття інтервалу в алгоритмі золотого перетину</text>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема розбиття інтервалу в пошуку золотого перетину</text>
+<line x1="60.0" y1="140.0" x2="760.0" y2="140.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<line x1="60.0" y1="125.0" x2="60.0" y2="155.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="760.0" y1="125.0" x2="760.0" y2="155.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="327.4" y1="115.0" x2="327.4" y2="165.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="492.6" y1="115.0" x2="492.6" y2="165.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="60.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">a</text>
+<text x="327.4" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">x₁</text>
+<text x="492.6" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">x₂</text>
+<text x="760.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">b</text>
+<line x1="60.0" y1="95.0" x2="492.6" y2="95.0" stroke="#d98a1e" stroke-width="1.5"/>
+<text x="276.3" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a1e" text-anchor="middle" font-weight="700">відстань = 0.618 · (b − a)</text>
+<line x1="327.4" y1="65.0" x2="760.0" y2="65.0" stroke="#d98a1e" stroke-width="1.5"/>
+<text x="543.7" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a1e" text-anchor="middle" font-weight="700">відстань = 0.618 · (b − a)</text>
+<rect x="100.0" y="220.0" width="620.0" height="85.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="410.0" y="258.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Якщо f(x₁) &lt; f(x₂), новий інтервал [a, x₂]. Точка x₁ стає новою x₂ у [a, x₂].</tspan><tspan x="410.0" dy="15.6">Потрібне лише одне нове обчислення функції за крок.</tspan></text>
+</svg>

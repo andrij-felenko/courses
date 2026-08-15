@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип гомоморфного додавання криптосистеми Пайє</text>
+<text x="500.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гомоморфне додавання Пайє: обчислення над зашифрованими даними</text>
+<rect x="40.0" y="90.0" width="260.0" height="340.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="170.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнти (власники даних)</text>
+<rect x="71.1" y="155.1" width="197.8" height="49.9" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/><text x="170.0" y="176.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Повідомлення m₁ = 15</tspan><tspan x="170.0" dy="16.9">Зашифрування: c₁ = E(m₁)</tspan></text>
+<rect x="71.1" y="255.1" width="197.8" height="49.9" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/><text x="170.0" y="276.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Повідомлення m₂ = 27</tspan><tspan x="170.0" dy="16.9">Зашифрування: c₂ = E(m₂)</tspan></text>
+<rect x="67.3" y="355.1" width="205.4" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="170.0" y="376.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">Отримано: m₁ + m₂ = 42</tspan><tspan x="170.0" dy="16.9">Розшифрування: D(c_sum)</tspan></text>
+<rect x="580.0" y="90.0" width="380.0" height="340.0" rx="8" fill="#f4f6f8" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="770.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Недовірений сервер (без приватного ключа)</text>
+<rect x="644.4" y="174.2" width="251.2" height="111.7" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/><text x="770.0" y="199.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Множення шифротекстів mod n²:</tspan><tspan x="770.0" dy="17.6">c_sum = (c₁ · c₂) mod n²</tspan><tspan x="770.0" dy="17.6"></tspan><tspan x="770.0" dy="17.6">Сервер обчислив суму,</tspan><tspan x="770.0" dy="17.6">НЕ знаючи m₁ та m₂!</tspan></text>
+<line x1="300.0" y1="180.0" x2="580.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">c₁ mod n²</text>
+<line x1="300.0" y1="280.0" x2="580.0" y2="250.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">c₂ mod n²</text>
+<line x1="580.0" y1="340.0" x2="300.0" y2="380.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">c_sum mod n²</text>
+</svg>

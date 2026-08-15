@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обернення Мебіуса</text>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула обернення Мебіуса: прямо та навпаки</text>
+<text x="480.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від накопичення g(n) = ∑ f(d) до відновлення f(n) = ∑ μ(d) g(n/d)</text>
+<rect x="40.0" y="100.0" width="420.0" height="280.0" rx="10" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<text x="250.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пряме накопичення: g = f * 1</text>
+<text x="250.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">g(n) = ∑_{d|n} f(d) · 1</text>
+<rect x="80.0" y="185.0" width="340.0" height="45.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.0"/>
+<text x="250.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Усі вагові коефіцієнти дорівнюють +1</text>
+<line x1="250.0" y1="240.0" x2="250.0" y2="280.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="80.0" y="290.0" width="340.0" height="60.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="250.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">g(12) = f(1)+f(2)+f(3)+f(4)+f(6)+f(12)</text>
+<text x="250.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">сумування по всіх дільниках</text>
+<rect x="500.0" y="100.0" width="420.0" height="280.0" rx="10" fill="#fcfdfe" stroke="#27ae60" stroke-width="1.5"/>
+<text x="710.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Обернення Мебіуса: f = g * μ</text>
+<text x="710.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">f(n) = ∑_{d|n} μ(d) g(n/d)</text>
+<rect x="540.0" y="185.0" width="340.0" height="45.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="710.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ваги μ(d): +1 (парні p), -1 (непарні p), 0 (p²|d)</text>
+<line x1="710.0" y1="240.0" x2="710.0" y2="280.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="540.0" y="290.0" width="340.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="710.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">f(12) = g(12) - g(6) - g(4) + g(2)</text>
+<text x="710.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">скасування знаків за принципом включень-виключень</text>
+</svg>

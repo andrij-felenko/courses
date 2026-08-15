@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двонаправлений обхід дерева Фенвіка: Запит vs Оновлення</text>
+<text x="430.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Запит віднімає LSB(i) для підсумовування; Оновлення додає LSB(i) для підйому до батьків</text>
+<rect x="60.0" y="85.0" width="340.0" height="265.0" rx="8" fill="#eaf0fd" stroke="#333333" stroke-width="1.2"/>
+<text x="230.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Запит префікса Pref(7)</text>
+<text x="230.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Кроки: i = i - LSB(i)</text>
+<rect x="75.0" y="165.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="85.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">1. i = 7 (0111_2), LSB=1</text>
+<text x="375.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Додати T[7]  (інтервал (6,7])</text>
+<rect x="75.0" y="207.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="85.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. i = 6 (0110_2), LSB=2</text>
+<text x="375.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Додати T[6]  (інтервал (4,6])</text>
+<rect x="75.0" y="249.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="85.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. i = 4 (0100_2), LSB=4</text>
+<text x="375.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Додати T[4]  (інтервал (0,4])</text>
+<rect x="75.0" y="291.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="85.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. i = 0 (0000_2)</text>
+<text x="375.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Зупинка!  Сума = T[7]+T[6]+T[4]</text>
+<rect x="460.0" y="85.0" width="340.0" height="265.0" rx="8" fill="#fdecea" stroke="#333333" stroke-width="1.2"/>
+<text x="630.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Точкове оновлення Add(3, +v)</text>
+<text x="630.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Кроки: i = i + LSB(i)</text>
+<rect x="475.0" y="165.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="485.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">1. i = 3 (0011_2), LSB=1</text>
+<text x="775.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Оновити T[3] += v</text>
+<rect x="475.0" y="207.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="485.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. i = 4 (0100_2), LSB=4</text>
+<text x="775.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Оновити T[4] += v</text>
+<rect x="475.0" y="249.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="485.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">3. i = 8 (1000_2), LSB=8</text>
+<text x="775.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Оновити T[8] += v</text>
+<rect x="475.0" y="291.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="485.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. i = 16 &gt; N=8</text>
+<text x="775.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Зупинка! Оновлено 3 вузли</text>
+</svg>

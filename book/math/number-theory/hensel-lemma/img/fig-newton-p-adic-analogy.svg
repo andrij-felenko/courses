@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння методу Ньютона та підйому Гензеля</text>
+<rect x="30.0" y="15.0" width="680.0" height="35.0" rx="6" fill="#f8f9fa" stroke="#343a40" stroke-width="1.5"/>
+<text x="370.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212529" text-anchor="middle" font-weight="700">Аналогія: Дійсний метод Ньютона vs p-Адичний підйом Гензеля</text>
+<rect x="30.0" y="65.0" width="330.0" height="280.0" rx="6" fill="#fff5f5" stroke="#f03e3e" stroke-width="1.5"/>
+<text x="195.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c92a2a" text-anchor="middle" font-weight="700">Дійсний аналіз (R)</text>
+<rect x="50.0" y="105.0" width="290.0" height="45.0" rx="4" fill="#ffffff" stroke="#f03e3e" stroke-width="1.0"/>
+<text x="195.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c92a2a" text-anchor="middle" font-weight="700">x_{n+1} = x_n - f(x_n) / f'(x_n)</text>
+<text x="50.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Метрика: |x - y| (евклідова)</text>
+<text x="50.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Неперервна геометрична пряма</text>
+<text x="50.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Дотична пряма в точці x_n</text>
+<text x="50.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Квадратична збіжність за кількістю</text>
+<text x="62.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">правильних десяткових цифр</text>
+<text x="50.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c92a2a" text-anchor="left" font-weight="700">Умова: f'(x_n) ≠ 0 на R</text>
+<rect x="380.0" y="65.0" width="330.0" height="280.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="545.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1864ab" text-anchor="middle" font-weight="700">p-Адична арифметика (Z_p)</text>
+<rect x="400.0" y="105.0" width="290.0" height="45.0" rx="4" fill="#ffffff" stroke="#1c7ed6" stroke-width="1.0"/>
+<text x="545.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1864ab" text-anchor="middle" font-weight="700">a_{k+1} ≡ a_k - f(a_k)·(f'(a_k))⁻¹ (mod p^{k+1})</text>
+<text x="400.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Метрика: |x - y|_p = p⁻ᵛ (арифметична)</text>
+<text x="400.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Дискретне кільце лишків Z/pᵏZ</text>
+<text x="400.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Диференціал Тейлора за модулем pᵏ⁺¹</text>
+<text x="400.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">• Лінійний / квадратичний підйом</text>
+<text x="412.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="left">p-адичних розрядів числа</text>
+<text x="400.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1864ab" text-anchor="left" font-weight="700">Умова: f'(a₁) ≢ 0 (mod p)</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Жадібний розклад числа у систему Цекендорфа</text>
+<rect x="10.0" y="10.0" width="760.0" height="260.0" rx="8" fill="#f8f9fa" stroke="#ced4da" stroke-width="1.2"/>
+<text x="390.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#212529" text-anchor="middle" font-weight="700">Жадібний розклад числа N = 100 у систему Цекендорфа</text>
+<rect x="30.0" y="55.0" width="720.0" height="50.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.2"/>
+<text x="45.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1864ab" text-anchor="middle" font-weight="700">Крок 1:</text>
+<text x="110.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#212529" text-anchor="middle" font-weight="700">N = 100</text>
+<line x1="180.0" y1="80.0" x2="240.0" y2="80.0" stroke="#1c7ed6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="250.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1864ab" text-anchor="middle">Найбільше F_k ≤ 100 це F_11 = 89</text>
+<line x1="510.0" y1="80.0" x2="570.0" y2="80.0" stroke="#1c7ed6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="580.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d9480f" text-anchor="middle" font-weight="700">Остача: 100 - 89 = 11</text>
+<rect x="30.0" y="115.0" width="720.0" height="50.0" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.2"/>
+<text x="45.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67700" text-anchor="middle" font-weight="700">Крок 2:</text>
+<text x="110.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#212529" text-anchor="middle" font-weight="700">N = 11</text>
+<line x1="180.0" y1="140.0" x2="240.0" y2="140.0" stroke="#f59f00" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="250.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67700" text-anchor="middle">Найбільше F_k ≤ 11 це F_6 = 8</text>
+<line x1="490.0" y1="140.0" x2="550.0" y2="140.0" stroke="#f59f00" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="560.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d9480f" text-anchor="middle" font-weight="700">Остача: 11 - 8 = 3</text>
+<rect x="30.0" y="175.0" width="720.0" height="50.0" rx="6" fill="#ebfbee" stroke="#2b8a3e" stroke-width="1.2"/>
+<text x="45.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b8a3e" text-anchor="middle" font-weight="700">Крок 3:</text>
+<text x="110.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#212529" text-anchor="middle" font-weight="700">N = 3</text>
+<line x1="180.0" y1="200.0" x2="240.0" y2="200.0" stroke="#2b8a3e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="250.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b8a3e" text-anchor="middle">Найбільше F_k ≤ 3 це F_4 = 3</text>
+<line x1="470.0" y1="200.0" x2="530.0" y2="200.0" stroke="#2b8a3e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b8a3e" text-anchor="middle" font-weight="700">Остача: 3 - 3 = 0 (кінець)</text>
+<text x="390.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#212529" text-anchor="middle" font-weight="700">Запис у фібоначчієвій системі (1000010100_Fib): 89 + 8 + 3 (жодні два розряди не сусідять)</text>
+</svg>

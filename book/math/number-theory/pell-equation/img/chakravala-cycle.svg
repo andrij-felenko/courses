@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="720" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл Чукравала</text>
+<rect x="0.0" y="0.0" width="700.0" height="320.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="350.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл методу Чукравала (Brahmagupta-Bhaskara)</text>
+<rect x="60.0" y="80.0" width="160.0" height="90.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Початкова трійка</text>
+<text x="140.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">a² - d·b² = k</tspan><tspan x="140.0" dy="13.0">Старт з (a₀, b₀, k₀)</tspan></text>
+<rect x="255.0" y="80.0" width="170.0" height="90.0" rx="6" fill="#fefce8" stroke="#d97706" stroke-width="1.5"/>
+<text x="340.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мінімізація m</text>
+<text x="340.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">|m² - d| → min</tspan><tspan x="340.0" dy="13.0">при (a + b·m) ≡ 0 (mod k)</tspan></text>
+<rect x="460.0" y="80.0" width="180.0" height="90.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="550.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нова трійка</text>
+<text x="550.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">a' = (a·m + d·b)/|k|</tspan><tspan x="550.0" dy="13.0">b' = (a + b·m)/|k|</tspan><tspan x="550.0" dy="13.0">k' = (m² - d)/k</tspan></text>
+<rect x="255.0" y="220.0" width="170.0" height="70.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="340.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка k' = 1</text>
+<text x="340.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">k' = 1 ⇒ СТОП (розв'язок)</tspan><tspan x="340.0" dy="13.0">k' ≠ 1 ⇒ k := k', повтор</tspan></text>
+<line x1="220.0" y1="125.0" x2="255.0" y2="125.0" stroke="#333333" stroke-width="1.5"/>
+<text x="238.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">→</text>
+<line x1="425.0" y1="125.0" x2="460.0" y2="125.0" stroke="#333333" stroke-width="1.5"/>
+<text x="443.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">→</text>
+<line x1="550.0" y1="170.0" x2="550.0" y2="255.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="550.0" y1="255.0" x2="425.0" y2="255.0" stroke="#333333" stroke-width="1.5"/>
+<text x="438.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">←</text>
+<rect x="277.3" y="180.0" width="125.4" height="30.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="340.0" y="198.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">k' ≠ 1 (ітерація)</tspan></text>
+</svg>

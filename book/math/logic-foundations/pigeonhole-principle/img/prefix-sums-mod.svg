@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1320 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1320" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підмасив із сумою, кратною N (N = 5)</text>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">6 префіксних сум S₀..S₅ беруть 5 можливих остач (0..4) — дві остачі збігаються!</text>
+<text x="120.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="left" font-weight="700">Масив A (N=5):</text>
+<rect x="260.0" y="80.0" width="104.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="312.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[1] = 4</text>
+<rect x="370.0" y="80.0" width="104.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="422.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[2] = 7</text>
+<rect x="480.0" y="80.0" width="104.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="532.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[3] = 2</text>
+<rect x="590.0" y="80.0" width="104.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="642.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[4] = 9</text>
+<rect x="700.0" y="80.0" width="104.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="752.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A[5] = 5</text>
+<text x="60.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="left" font-weight="700">Префіксні суми Sₖ:</text>
+<rect x="220.0" y="155.0" width="95.0" height="58.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="267.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S0 = 0</text>
+<text x="267.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">mod 5 = 0</text>
+<rect x="327.0" y="155.0" width="95.0" height="58.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="374.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S1 = 4</text>
+<text x="374.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">mod 5 = 4</text>
+<rect x="434.0" y="155.0" width="95.0" height="58.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="481.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S2 = 11</text>
+<text x="481.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">mod 5 = 1</text>
+<rect x="541.0" y="155.0" width="95.0" height="58.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="588.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S3 = 13</text>
+<text x="588.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">mod 5 = 3</text>
+<rect x="648.0" y="155.0" width="95.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="695.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S4 = 22</text>
+<text x="695.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">mod 5 = 2</text>
+<rect x="755.0" y="155.0" width="95.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="802.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S5 = 27</text>
+<text x="802.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">mod 5 = 2</text>
+<line x1="695.5" y1="230.0" x2="802.5" y2="230.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="749.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Збіг остач: S₄ ≡ S₅ ≡ 2 (mod 5)</text>
+<rect x="460.0" y="335.0" width="840.0" height="70.0" rx="6" fill="#f9fbfd" stroke="#2457d6" stroke-width="1.5"/><text x="880.0" y="358.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">Сума підмасиву A[5] = S₅ - S₄ = 27 - 22 = 5 (кратно 5!).</tspan><tspan x="880.0" dy="16.2">Оскільки S₄ mod 5 = S₅ mod 5, їхня різниця S₅ - S₄ ділиться на 5 без остачі.</tspan><tspan x="880.0" dy="16.2">Принцип Діріхле гарантує існування двох таких префіксних сум для будь-якого масиву з N елементів.</tspan></text>
+</svg>

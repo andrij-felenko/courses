@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр розкладу многочленів на множники за допомогою підйому Гензеля</text>
+<rect x="30.0" y="15.0" width="680.0" height="35.0" rx="6" fill="#f8f9fa" stroke="#343a40" stroke-width="1.5"/>
+<text x="370.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212529" text-anchor="middle" font-weight="700">Конвеєр факторизації многочленів у Z[x] через підйом Гензеля</text>
+<rect x="30.0" y="70.0" width="190.0" height="80.0" rx="6" fill="#edf2ff" stroke="#4c6ef5" stroke-width="1.5"/>
+<text x="125.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#364fc7" text-anchor="middle" font-weight="700">1. Вхідний багаточлен</text>
+<text x="125.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#364fc7" text-anchor="middle" font-weight="700">f(x) ∈ Z[x]</text>
+<text x="125.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#495057" text-anchor="middle">Ступінь n, бесквадратний</text>
+<line x1="220.0" y1="110.0" x2="260.0" y2="110.0" stroke="#4c6ef5" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="260.0" y="70.0" width="200.0" height="80.0" rx="6" fill="#e6fcf5" stroke="#0ca678" stroke-width="1.5"/>
+<text x="360.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#099268" text-anchor="middle" font-weight="700">2. Розклад у полі F_p</text>
+<text x="360.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#099268" text-anchor="middle" font-weight="700">f(x) ≡ g₁(x)·h₁(x) (mod p)</text>
+<text x="360.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#495057" text-anchor="middle">НСД(g₁, h₁) ≡ 1 (mod p)</text>
+<line x1="460.0" y1="110.0" x2="500.0" y2="110.0" stroke="#0ca678" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="70.0" width="210.0" height="80.0" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/>
+<text x="605.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67700" text-anchor="middle" font-weight="700">3. Підйом Гензеля</text>
+<text x="605.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67700" text-anchor="middle" font-weight="700">f(x) ≡ g_k(x)·h_k(x) (mod pᵏ)</text>
+<text x="605.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#495057" text-anchor="middle">До межі pᵏ &gt; 2·Bound(f)</text>
+<line x1="605.0" y1="150.0" x2="605.0" y2="190.0" stroke="#f59f00" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="260.0" y="190.0" width="450.0" height="75.0" rx="6" fill="#fff3bf" stroke="#f59f00" stroke-width="1.5"/>
+<text x="485.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d9480f" text-anchor="middle" font-weight="700">4. Комбінування множників за межею Міньотта (Mignotte Bound)</text>
+<text x="485.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#495057" text-anchor="middle">Перевірка комбінацій g_k(x)·h_k(x) mod pᵏ на точне ділення f(x) у Z[x]</text>
+<text x="485.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#868e96" text-anchor="middle">Відсікання подібних множників та відновлення справжніх коефіцієнтів</text>
+<line x1="485.0" y1="265.0" x2="485.0" y2="295.0" stroke="#d9480f" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="330.0" y="295.0" width="310.0" height="45.0" rx="6" fill="#ebfbee" stroke="#2b8a3e" stroke-width="2.0"/>
+<text x="485.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2b8a3e" text-anchor="middle" font-weight="700">Результат: f(x) = P₁(x)·P₂(x)...·P_r(x) у Z[x]</text>
+</svg>

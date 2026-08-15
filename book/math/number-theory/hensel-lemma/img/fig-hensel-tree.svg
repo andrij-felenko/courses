@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево підйому розв'язку Гензеля за модулями p^k</text>
+<rect x="40.0" y="15.0" width="640.0" height="35.0" rx="6" fill="#f8f9fa" stroke="#343a40" stroke-width="1.5"/>
+<text x="360.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#212529" text-anchor="middle" font-weight="700">Дерево підйому розв'язку: f(x) ≡ 0 (mod pᵏ)</text>
+<rect x="30.0" y="70.0" width="660.0" height="65.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="45.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1864ab" text-anchor="left" font-weight="700">Модуль p¹:</text>
+<text x="45.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1c7ed6" text-anchor="left">f'(a₁) ≢ 0 (mod p)</text>
+<rect x="300.0" y="80.0" width="200.0" height="45.0" rx="6" fill="#ffffff" stroke="#1c7ed6" stroke-width="2.0"/>
+<text x="400.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1864ab" text-anchor="middle" font-weight="700">a₁ (mod p)</text>
+<line x1="400.0" y1="125.0" x2="400.0" y2="165.0" stroke="#1c7ed6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="415.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1864ab" text-anchor="left" font-weight="700">t₁ ≡ -f(a₁)/p · (f'(a₁))⁻¹ (mod p)</text>
+<rect x="30.0" y="165.0" width="660.0" height="65.0" rx="6" fill="#e6fcf5" stroke="#0ca678" stroke-width="1.5"/>
+<text x="45.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#099268" text-anchor="left" font-weight="700">Модуль p²:</text>
+<text x="45.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0ca678" text-anchor="left">a₂ = a₁ + t₁·p</text>
+<rect x="280.0" y="175.0" width="240.0" height="45.0" rx="6" fill="#ffffff" stroke="#0ca678" stroke-width="2.0"/>
+<text x="400.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#099268" text-anchor="middle" font-weight="700">a₂ = a₁ + t₁·p (mod p²)</text>
+<line x1="400.0" y1="220.0" x2="400.0" y2="260.0" stroke="#0ca678" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="415.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#099268" text-anchor="left" font-weight="700">t₂ ≡ -f(a₂)/p² · (f'(a₂))⁻¹ (mod p)</text>
+<rect x="30.0" y="260.0" width="660.0" height="65.0" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/>
+<text x="45.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67700" text-anchor="left" font-weight="700">Модуль p³:</text>
+<text x="45.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#f59f00" text-anchor="left">a₃ = a₂ + t₂·p²</text>
+<rect x="260.0" y="270.0" width="280.0" height="45.0" rx="6" fill="#ffffff" stroke="#f59f00" stroke-width="2.0"/>
+<text x="400.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67700" text-anchor="middle" font-weight="700">a₃ = a₂ + t₂·p² (mod p³)</text>
+<line x1="400.0" y1="315.0" x2="400.0" y2="350.0" stroke="#868e96" stroke-width="2.0" stroke-dasharray="4,4"/>
+<line x1="400.0" y1="350.0" x2="400.0" y2="360.0" stroke="#868e96" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="360.0" width="320.0" height="40.0" rx="6" fill="#f1f3f5" stroke="#495057" stroke-width="1.5"/>
+<text x="400.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#212529" text-anchor="middle" font-weight="700">Границя в Z_p: α = a₁ + t₁·p + t₂·p² + ...</text>
+</svg>

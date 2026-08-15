@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метод нескінченного спуску Ферма: доведення відсутності розв'язків</text>
+<rect x="60.0" y="80.0" width="200.0" height="35.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">1. Припущення</text>
+<rect x="60.0" y="120.0" width="200.0" height="45.0" rx="6" fill="#e8eefc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">(x₀, y₀, z₀)</text>
+<rect x="60.0" y="175.0" width="200.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="160.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Припускаємо існування</tspan><tspan x="160.0" dy="16.8">найменшого натурального</tspan><tspan x="160.0" dy="16.8">розв'язку з z₀ &gt; 0</tspan></text>
+<line x1="265.0" y1="142.0" x2="295.0" y2="142.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="300.0" y="80.0" width="200.0" height="35.0" rx="6" fill="#7b1fa2" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="400.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">2. Алгебра</text>
+<rect x="300.0" y="120.0" width="200.0" height="45.0" rx="6" fill="#eef4ff" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="400.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7b1fa2" text-anchor="middle" font-weight="700">z₁ &lt; z₀</text>
+<rect x="300.0" y="175.0" width="200.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="400.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Шляхом подільності</tspan><tspan x="400.0" dy="16.8">та перетворень будуємо</tspan><tspan x="400.0" dy="16.8">новий розв'язок (x₁, y₁, z₁)</tspan></text>
+<line x1="505.0" y1="142.0" x2="535.0" y2="142.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="540.0" y="80.0" width="200.0" height="35.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="640.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">3. Ітерація</text>
+<rect x="540.0" y="120.0" width="200.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="640.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">z₀ &gt; z₁ &gt; z₂ &gt; ...</text>
+<rect x="540.0" y="175.0" width="200.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="640.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Повторення процедури дає</tspan><tspan x="640.0" dy="16.8">нескінченний спадний ланцюг</tspan><tspan x="640.0" dy="16.8">позитивних цілих чисел</tspan></text>
+<line x1="745.0" y1="142.0" x2="775.0" y2="142.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="780.0" y="80.0" width="200.0" height="35.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="880.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">4. Суперечність</text>
+<rect x="780.0" y="120.0" width="200.0" height="45.0" rx="6" fill="#e6f7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="880.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">∄ нескінченного спуску</text>
+<rect x="780.0" y="175.0" width="200.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="880.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">Множина ℕ цілком впорядкована:</tspan><tspan x="880.0" dy="16.8">не існує нескінченного спадного</tspan><tspan x="880.0" dy="16.8">ланцюга натуральних чисел!</tspan></text>
+<rect x="60.0" y="290.0" width="920.0" height="180.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="520.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрично: нескінченний спуск по ступенях натурального ряду</text>
+<rect x="120.0" y="350.0" width="160.0" height="20.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="200.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">z_0 = 100</text>
+<line x1="260.0" y1="370.0" x2="290.0" y2="385.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="375.0" width="160.0" height="20.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">z_1 = 72</text>
+<line x1="420.0" y1="395.0" x2="450.0" y2="410.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="440.0" y="400.0" width="160.0" height="20.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="520.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">z_2 = 44</text>
+<line x1="580.0" y1="420.0" x2="610.0" y2="435.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="600.0" y="425.0" width="160.0" height="20.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="680.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">z_k → ... ⚡</text>
+<text x="780.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Зупинка у 0!</text>
+<text x="780.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Розв'язку у ℕ &gt; 0 не існує.</text>
+</svg>

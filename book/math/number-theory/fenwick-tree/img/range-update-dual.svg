@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двохмасивна структура для оновлення та запиту відрізка</text>
+<text x="430.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Розклад префіксної суми сумарного різницевого масиву через два дерева T1 та T2</text>
+<rect x="70.0" y="85.0" width="720.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула префіксної суми відрізка:  Pref(p) = ∑_{i=1}^p A[i] = p · ∑_{i=1}^p D[i]  −  ∑_{i=1}^p (i − 1) · D[i]</text>
+<text x="430.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Де D[i] — різницевий масив: D[i] = A[i] − A[i-1]</text>
+<rect x="70.0" y="185.0" width="340.0" height="160.0" rx="8" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="240.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Перше дерево Фенвіка T1</text>
+<text x="240.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Зберігає чисто різницеві значення D[i]</text>
+<text x="240.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">При RangeUpdate(l, r, v):</text>
+<text x="240.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">T1.Add(l, v),   T1.Add(r + 1, -v)</text>
+<rect x="450.0" y="185.0" width="340.0" height="160.0" rx="8" fill="#f3e8ff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Друге дерево Фенвіка T2</text>
+<text x="620.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Зберігає зважені значення (i − 1) · D[i]</text>
+<text x="620.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">При RangeUpdate(l, r, v):</text>
+<text x="620.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">T2.Add(l, (l-1)·v),   T2.Add(r + 1, -r·v)</text>
+</svg>

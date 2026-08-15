@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 321" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="321" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Властивості безпеки хеш-функцій</text>
+<text x="390.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три базові властивості безпеки криптографічного хеша</text>
+<rect x="25.0" y="87.3" width="220.0" height="45.3" rx="6" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.5"/><text x="135.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">1. Стійкість до прообразу</tspan><tspan x="135.0" dy="14.3">(Preimage Resistance)</tspan></text>
+<rect x="25.0" y="145.0" width="220.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="135.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Дано:  y = H(x)</text>
+<text x="135.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Шукаємо:  x'  так, що H(x') = y</text>
+<text x="135.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Складність:  O(2ⁿ)</text>
+<text x="135.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Сліпий перебір входу)</text>
+<rect x="275.0" y="87.3" width="230.0" height="45.3" rx="6" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.5"/><text x="390.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">2. Стійкість до 2-го прообразу</tspan><tspan x="390.0" dy="14.3">(Second Preimage Resistance)</tspan></text>
+<rect x="275.0" y="145.0" width="230.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="390.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Дано:  відомий  x₁</text>
+<text x="390.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Шукаємо:  x₂ ≠ x₁  так, що</text>
+<text x="390.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">H(x₂) = H(x₁)</text>
+<text x="390.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Складність:  O(2ⁿ)</text>
+<text x="390.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Підміна повідомлення)</text>
+<rect x="545.0" y="87.3" width="220.0" height="45.3" rx="6" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.5"/><text x="655.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">3. Стійкість до колізій</tspan><tspan x="655.0" dy="14.3">(Collision Resistance)</tspan></text>
+<rect x="545.0" y="145.0" width="220.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="655.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Дано:  нічого</text>
+<text x="655.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Шукаємо:  будь-які  x₁ ≠ x₂</text>
+<text x="655.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">так, що  H(x₁) = H(x₂)</text>
+<text x="655.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Складність:  O(2ⁿ/²)</text>
+<text x="655.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Парадокс днів народжень)</text>
+<rect x="25.0" y="275.0" width="730.0" height="26.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="390.0" y="291.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Стійкість до колізій імпликує стійкість до другого прообразу. Поріг колізій нижчий через імовірнісний збіг у парадоксі днів народжень.</tspan></text>
+</svg>

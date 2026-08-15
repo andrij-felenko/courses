@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгебраїчне зведення рекурентності Фібоначчі</text>
+<text x="420.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Множення на x та x² зсуває члени ряду; віднімання гасить усі члени для n ≥ 2</text>
+<text x="120.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">F(x)</text>
+<text x="140.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<rect x="160.0" y="85.0" width="87.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="203.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">F₀</text>
+<rect x="255.0" y="85.0" width="87.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="298.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">F₁·x</text>
+<rect x="350.0" y="85.0" width="87.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="393.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">F₂·x²</text>
+<rect x="445.0" y="85.0" width="87.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="488.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">F₃·x³</text>
+<rect x="540.0" y="85.0" width="87.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="583.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">F₄·x⁴</text>
+<rect x="635.0" y="85.0" width="87.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="678.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">…</text>
+<text x="120.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">− x·F(x)</text>
+<text x="140.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<rect x="255.0" y="127.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="298.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₀·x</text>
+<rect x="350.0" y="127.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="393.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₁·x²</text>
+<rect x="445.0" y="127.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="488.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₂·x³</text>
+<rect x="540.0" y="127.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="583.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₃·x⁴</text>
+<rect x="635.0" y="127.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="678.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">…</text>
+<text x="120.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">− x²·F(x)</text>
+<text x="140.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<rect x="350.0" y="169.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="393.5" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₀·x²</text>
+<rect x="445.0" y="169.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="488.5" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₁·x³</text>
+<rect x="540.0" y="169.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="583.5" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">−F₂·x⁴</text>
+<rect x="635.0" y="169.0" width="87.0" height="34.0" rx="4" fill="#fdf1e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="678.5" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">…</text>
+<line x1="70.0" y1="216.0" x2="800.0" y2="216.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="120.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="end" font-weight="700">(1−x−x²)·F(x)</text>
+<text x="140.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<rect x="160.0" y="235.0" width="87.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="203.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="255.0" y="235.0" width="87.0" height="38.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="298.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">1·x</text>
+<rect x="350.0" y="235.0" width="87.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="393.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="445.0" y="235.0" width="87.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="488.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="540.0" y="235.0" width="87.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="583.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="635.0" y="235.0" width="87.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="678.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="160.0" y="291.0" width="560.0" height="48.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="440.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">(1 − x − x²) · F(x) = x   ⇒   F(x) = x / (1 − x − x²)</text>
+</svg>
