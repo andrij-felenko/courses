@@ -9,7 +9,7 @@ window.__BOOKS__ = [
         "title": "Віртуалізація й контейнери",
         "scope": "KVM, namespaces, cgroups як основа ізоляції",
         "topics": [
-          { slug: "kvm-and-qemu-architecture", title: "Архітектура KVM і QEMU: як ядро віддає процесор гостю", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kvm-ioctl.md", status: "done" }] , "hist": [{ file: "hist-kvm-creation.md", status: "done" }] , "proj": [{ file: "proj-kvm-mini-hypervisor.md", status: "done" }] },
+          { slug: "kvm-and-qemu-architecture", title: "Архітектура KVM і QEMU: як ядро віддає процесор гостю", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-kvm-ioctl.md", status: "done" }] , "hist": [{ file: "hist-kvm-creation.md", status: "done" }] , "proj": [{ file: "proj-kvm-mini-hypervisor.md", status: "done" }] },
         ]
       },
       {
@@ -24,9 +24,9 @@ window.__BOOKS__ = [
         "title": "Псевдофайлові системи",
         "scope": "procfs, sysfs, debugfs та інші вікна ядра у простір користувача",
         "topics": [
-          { slug: "tmpfs-shmem-ram-filesystem", title: "Тимчасова ВФС tmpfs та підсистема shmem: дисковий кеш у RAM", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-tmpfs-mount-and-shmem-sysctl.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-tmpfs.md", status: "done" }] , "proj": [{ file: "proj-posix-shm-and-memfd.md", status: "done" }] },
-          { slug: "sysfs-kobject-sysfs-dirent", title: "Файлова система sysfs, kobject та sysfs_dirent", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysfs-kobject.md", status: "done" }] , "hist": [{ file: "hist-sysfs-birth.md", status: "done" }] , "proj": [{ file: "proj-kobject-custom.md", status: "done" }] },
-          { slug: "sysctl-kernel-tuning-interface", title: "Інтерфейс тюнінгу ядра sysctl та /proc/sys", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysctl-handlers.md", status: "done" }] , "hist": [{ file: "hist-sysctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-sysctl-tool.md", status: "done" }] },
+          { slug: "tmpfs-shmem-ram-filesystem", title: "Тимчасова ВФС tmpfs та підсистема shmem: дисковий кеш у RAM", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-tmpfs-mount-and-shmem-sysctl.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-tmpfs.md", status: "done" }] , "proj": [{ file: "proj-posix-shm-and-memfd.md", status: "done" }] },
+          { slug: "sysfs-kobject-sysfs-dirent", title: "Файлова система sysfs, kobject та sysfs_dirent", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sysfs-kobject.md", status: "done" }] , "hist": [{ file: "hist-sysfs-birth.md", status: "done" }] , "proj": [{ file: "proj-kobject-custom.md", status: "done" }] },
+          { slug: "sysctl-kernel-tuning-interface", title: "Інтерфейс тюнінгу ядра sysctl та /proc/sys", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sysctl-handlers.md", status: "done" }] , "hist": [{ file: "hist-sysctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-sysctl-tool.md", status: "done" }] },
           {
             "slug": "psi-pressure-stall-information",
             "title": "Підсистема оцінки голодування ресурсів PSI (Pressure Stall Info)",
@@ -70,17 +70,17 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
-          { slug: "procfs-architecture-and-proc-pid", title: "Архітектура procfs та структура /proc/[pid]", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-proc-pid-nodes.md", status: "done" }] , "hist": [{ file: "hist-procfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-procfs-pid-inspector.md", status: "done" }] },
-          { slug: "kernfs-vfs-abstraction-layer", title: "Шар абстракції kernfs та його роль у розвантаженні VFS", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernfs-ops.md", status: "done" }] , "hist": [{ file: "hist-kernfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernfs-custom-fs.md", status: "done" }] },
-          { slug: "hugetlbfs-and-transparent-hugepages", title: "Файлова система hugetlbfs та прозорі великі сторінки THP", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-hugetlb-thp-sysfs.md", status: "done" }] , "hist": [{ file: "hist-hugepages-evolution.md", status: "done" }] , "proj": [{ file: "proj-hugepages-allocator.md", status: "done" }] },
-          { slug: "devtmpfs-kernel-device-node-management", title: "Автоматичне монтування вузлів пристроїв у devtmpfs", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-devtmpfs-kernel-surface.md", status: "done" }] , "hist": [{ file: "hist-dev-nodes-evolution.md", status: "done" }] , "proj": [{ file: "proj-devtmpfs-node-inspector.md", status: "done" }] },
-          { slug: "debugfs-tracefs-kernel-debugging-interfaces", title: "Налагодові ВФС: debugfs та tracefs", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-debugfs-tracefs-control.md", status: "done" }] , "hist": [{ file: "hist-debugfs-tracefs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernel-debugfs-module.md", status: "done" }] },
-          { slug: "configfs-user-space-kernel-object-creation", title: "Файлова система configfs: створення ядерних об'єктів із юзерспейсу", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-configfs-structures.md", status: "done" }] , "hist": [{ file: "hist-configfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-configfs-kernel-module.md", status: "done" }] },
-          { slug: "cgroupfs-v1-v2-resource-management-tree", title: "cgroupfs v1 та v2: ієрархічне дерево керування ресурсами", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cgroupv2-control-files.md", status: "done" }] , "hist": [{ file: "hist-cgroups-evolution.md", status: "done" }] , "proj": [{ file: "proj-cgroupv2-manager.md", status: "done" }] },
-          { slug: "bpffs-bpf-filesystem-and-map-pinning", title: "Файлова система bpffs та пінінг об'єктів BPF (maps, programs)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-bpffs-syscall-and-ops.md", status: "done" }] , "hist": [{ file: "hist-bpffs-evolution.md", status: "done" }] , "proj": [{ file: "proj-pinned-map-sharing.md", status: "done" }] },
+          { slug: "procfs-architecture-and-proc-pid", title: "Архітектура procfs та структура /proc/[pid]", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-proc-pid-nodes.md", status: "done" }] , "hist": [{ file: "hist-procfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-procfs-pid-inspector.md", status: "done" }] },
+          { slug: "kernfs-vfs-abstraction-layer", title: "Шар абстракції kernfs та його роль у розвантаженні VFS", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-kernfs-ops.md", status: "done" }] , "hist": [{ file: "hist-kernfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernfs-custom-fs.md", status: "done" }] },
+          { slug: "hugetlbfs-and-transparent-hugepages", title: "Файлова система hugetlbfs та прозорі великі сторінки THP", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-hugetlb-thp-sysfs.md", status: "done" }] , "hist": [{ file: "hist-hugepages-evolution.md", status: "done" }] , "proj": [{ file: "proj-hugepages-allocator.md", status: "done" }] },
+          { slug: "devtmpfs-kernel-device-node-management", title: "Автоматичне монтування вузлів пристроїв у devtmpfs", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-devtmpfs-kernel-surface.md", status: "done" }] , "hist": [{ file: "hist-dev-nodes-evolution.md", status: "done" }] , "proj": [{ file: "proj-devtmpfs-node-inspector.md", status: "done" }] },
+          { slug: "debugfs-tracefs-kernel-debugging-interfaces", title: "Налагодові ВФС: debugfs та tracefs", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-debugfs-tracefs-control.md", status: "done" }] , "hist": [{ file: "hist-debugfs-tracefs-evolution.md", status: "done" }] , "proj": [{ file: "proj-kernel-debugfs-module.md", status: "done" }] },
+          { slug: "configfs-user-space-kernel-object-creation", title: "Файлова система configfs: створення ядерних об'єктів із юзерспейсу", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-configfs-structures.md", status: "done" }] , "hist": [{ file: "hist-configfs-evolution.md", status: "done" }] , "proj": [{ file: "proj-configfs-kernel-module.md", status: "done" }] },
+          { slug: "cgroupfs-v1-v2-resource-management-tree", title: "cgroupfs v1 та v2: ієрархічне дерево керування ресурсами", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cgroupv2-control-files.md", status: "done" }] , "hist": [{ file: "hist-cgroups-evolution.md", status: "done" }] , "proj": [{ file: "proj-cgroupv2-manager.md", status: "done" }] },
+          { slug: "bpffs-bpf-filesystem-and-map-pinning", title: "Файлова система bpffs та пінінг об'єктів BPF (maps, programs)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-bpffs-syscall-and-ops.md", status: "done" }] , "hist": [{ file: "hist-bpffs-evolution.md", status: "done" }] , "proj": [{ file: "proj-pinned-map-sharing.md", status: "done" }] },
         ]
       },
       {
@@ -92,10 +92,10 @@ window.__BOOKS__ = [
             "slug": "unix-philosophy",
             "title": "Філософія Unix: малі програми, що складаються",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-filter-contract.md",
@@ -123,7 +123,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-one-namespace.md",
@@ -145,7 +145,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-border-origin.md",
@@ -167,7 +167,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "proj": [
                 {
                   "file": "proj-entry-path-walk.md",
@@ -183,7 +183,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-multics.md",
@@ -209,7 +209,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-conformance-query.md",
@@ -237,7 +237,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-first-distributions.md",
@@ -259,7 +259,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-gnu-vs-posix.md",
@@ -287,7 +287,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-libc-boundary.md",
@@ -312,10 +312,10 @@ window.__BOOKS__ = [
             "slug": "monolithic-with-modules",
             "title": "Монолітне ядро з модулями: вибір Linux",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-tanenbaum-torvalds.md",
@@ -337,7 +337,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-abi-surface.md",
@@ -365,7 +365,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-do-not-break.md",
@@ -415,7 +415,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-tick-to-tickless.md",
@@ -443,7 +443,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-compat-contract.md",
@@ -499,7 +499,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-time64-surface.md",
@@ -527,7 +527,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-kconfig-language.md",
@@ -555,7 +555,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sysctl-surface.md",
@@ -583,7 +583,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-kernel-self-editing.md",
@@ -605,7 +605,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-livepatch-surface.md",
@@ -633,7 +633,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-taint-surface.md",
@@ -661,7 +661,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-annotations.md",
@@ -717,11 +717,11 @@ window.__BOOKS__ = [
         "title": "Процес",
         "scope": "Процес як головна одиниця системи: як народжується, як планується, як ізолюється.",
         "topics": [
-          { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "done" }, detailed: { status: "done" } },
-          { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "done" }, detailed: { status: "done" } },
-          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "done" }, detailed: { status: "done" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
+          { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "recheck" }, detailed: { status: "recheck" } },
+          { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
+          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "recheck" }, detailed: { status: "recheck" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
           { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "done" }, detailed: { status: "done" } },
-          { slug: "atomics-and-memory-barriers", title: "Атомарні операції та бар'єри пам'яті в Linux", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "atomics-and-memory-barriers", title: "Атомарні операції та бар'єри пам'яті в Linux", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "systemd-architecture-and-cgroups",
             "title": "Архітектура systemd та cgroups",
@@ -729,7 +729,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -739,7 +739,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -749,7 +749,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-process-and-fork.md",
@@ -768,10 +768,10 @@ window.__BOOKS__ = [
             "slug": "pid-and-hierarchy",
             "title": "PID і дерево процесів",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pid-interfaces.md",
@@ -799,7 +799,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-fork-origin.md",
@@ -821,7 +821,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-exec-family.md",
@@ -849,7 +849,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-wait-family.md",
@@ -877,7 +877,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-orphan-and-subreaper.md",
@@ -896,10 +896,10 @@ window.__BOOKS__ = [
             "slug": "process-states",
             "title": "Стани процесу і що означає стан D",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-state-reporting.md",
@@ -924,10 +924,10 @@ window.__BOOKS__ = [
             "slug": "ptrace-and-debugging",
             "title": "ptrace: повний контроль над чужим процесом",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -937,7 +937,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-scheduler-evolution.md",
@@ -962,10 +962,10 @@ window.__BOOKS__ = [
             "slug": "priority-nice-realtime",
             "title": "Пріоритети, nice і реальночасові класи",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sched-interfaces.md",
@@ -996,10 +996,10 @@ window.__BOOKS__ = [
             "slug": "threads-as-tasks",
             "title": "Потоки в Linux: задача як одиниця планування",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-per-thread-scope.md",
@@ -1027,7 +1027,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cgroup2-interface.md",
@@ -1055,7 +1055,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-namespace-interfaces.md",
@@ -1080,10 +1080,10 @@ window.__BOOKS__ = [
             "slug": "spawn-alternatives",
             "title": "vfork, posix_spawn і clone: чим ще народжують процес",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-clone-flags.md",
@@ -1109,7 +1109,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-rlimit.md",
@@ -1134,10 +1134,10 @@ window.__BOOKS__ = [
             "slug": "cpu-time-accounting",
             "title": "Облік процесорного часу: як ядро набирає user і sys",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cputime-interfaces.md",
@@ -1171,7 +1171,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-daemon-word.md",
@@ -1193,7 +1193,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-affinity-interfaces.md",
@@ -1212,10 +1212,10 @@ window.__BOOKS__ = [
             "slug": "kernel-preemption",
             "title": "Витісненість ядра: від PREEMPT_NONE до PREEMPT_RT",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-preempt-controls.md",
@@ -1240,10 +1240,10 @@ window.__BOOKS__ = [
             "slug": "kernel-threads",
             "title": "Потоки ядра: задачі без простору користувача",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-kthread-names.md",
@@ -1271,7 +1271,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-register-format.md",
@@ -1299,7 +1299,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-wait-queue-interfaces.md",
@@ -1327,7 +1327,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-kernel-atomic-ops.md",
@@ -1352,10 +1352,10 @@ window.__BOOKS__ = [
             "slug": "memory-barriers",
             "title": "Бар'єри пам'яті: впорядкування операцій",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-kernel-memory-barriers.md",
@@ -1380,10 +1380,10 @@ window.__BOOKS__ = [
             "slug": "kernel-locking",
             "title": "Замки в ядрі й атомарний контекст: де спати не можна",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-locking-primitives.md",
@@ -1411,7 +1411,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-percpu.md",
@@ -1439,7 +1439,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-kernel-surface.md",
@@ -1473,7 +1473,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-hotplug-sysfs.md",
@@ -1501,7 +1501,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-rseq.md",
@@ -1529,7 +1529,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-birth-and-retreat.md",
@@ -1551,7 +1551,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-membarrier.md",
@@ -1579,7 +1579,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pidfd-info.md",
@@ -1607,7 +1607,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-isolation-knobs.md",
@@ -1635,7 +1635,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-job-control-birth.md",
@@ -1657,7 +1657,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-rt-lock-types.md",
@@ -1685,7 +1685,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -1695,7 +1695,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -1705,7 +1705,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -1715,7 +1715,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -1725,17 +1725,17 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "sched-ext-ebpf-scheduler",
             "title": "Планувальник sched_ext: eBPF розширення для sched",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sched-ext-ops.md",
@@ -1760,7 +1760,7 @@ window.__BOOKS__ = [
             "slug": "futex2-waitv-syscall",
             "title": "Багатооб’єктна синхронізація futex2 (sys_futex_waitv)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-futex-waitv.md",
@@ -1779,7 +1779,7 @@ window.__BOOKS__ = [
             "slug": "cgroup-v2-memory-peak-swap",
             "title": "Управління піками та пропускною здатністю у Cgroups v2 memory",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-memory-control-surface.md",
@@ -1798,7 +1798,7 @@ window.__BOOKS__ = [
             "slug": "sched-idle-and-sched-batch",
             "title": "Класи планирування SCHED_IDLE та SCHED_BATCH",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sched-attr.md",
@@ -1811,7 +1811,7 @@ window.__BOOKS__ = [
             "slug": "sched-energy-aware-eas",
             "title": "Енергоефективне планування Energy-Aware Scheduling (EAS) та Energy Model",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-energy-model-sysfs.md",
@@ -1838,17 +1838,17 @@ window.__BOOKS__ = [
               ]
             },
             "basic": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "uclamp-utilization-clamping",
             "title": "Обмеження утилізації CPU: uclamp (sched_setattr uclamp_min/uclamp_max)",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-uclamp-kernel-structures.md",
@@ -1873,10 +1873,10 @@ window.__BOOKS__ = [
             "slug": "sched-ext-custom-schedulers",
             "title": "Практична розробка BPF-планувальників у sched_ext (scx_rustland, scx_lavd)",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-scx-rust-framework.md",
@@ -1912,10 +1912,10 @@ window.__BOOKS__ = [
             "slug": "virtual-address-space",
             "title": "Віртуальний адресний простір процесу",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-maps-format.md",
@@ -1943,7 +1943,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pte-format.md",
@@ -1968,10 +1968,10 @@ window.__BOOKS__ = [
             "slug": "page-fault",
             "title": "Сторінковий збій: чому все ліниве",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fault-counters.md",
@@ -1999,7 +1999,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mmap-flags.md",
@@ -2027,7 +2027,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cow-controls.md",
@@ -2046,10 +2046,10 @@ window.__BOOKS__ = [
             "slug": "swap-and-reclaim",
             "title": "Свопінг і витіснення сторінок",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-reclaim-counters.md",
@@ -2083,7 +2083,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-oom-knobs.md",
@@ -2111,7 +2111,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-proc-memory-fields.md",
@@ -2139,7 +2139,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mallopt-tunables.md",
@@ -2167,7 +2167,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-huge-page-interfaces.md",
@@ -2192,10 +2192,10 @@ window.__BOOKS__ = [
             "slug": "address-space-randomization",
             "title": "Рандомізація адресного простору в системі: рівні та вимикачі",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-randomization-controls.md",
@@ -2220,10 +2220,10 @@ window.__BOOKS__ = [
             "slug": "userfaultfd",
             "title": "userfaultfd: сторінкові збої в руках програми",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-userfaultfd.md",
@@ -2248,10 +2248,10 @@ window.__BOOKS__ = [
             "slug": "kernel-page-table-isolation",
             "title": "Ізоляція таблиць сторінок ядра (KPTI): чому ядро прибрали з простору процесу",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pti-controls.md",
@@ -2276,10 +2276,10 @@ window.__BOOKS__ = [
             "slug": "ksm-page-merging",
             "title": "KSM: злиття однакових сторінок",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ksm-controls.md",
@@ -2307,7 +2307,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-slab-interfaces.md",
@@ -2332,10 +2332,10 @@ window.__BOOKS__ = [
             "slug": "physical-page-allocator",
             "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-allocator-controls.md",
@@ -2369,7 +2369,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pkey-interfaces.md",
@@ -2397,7 +2397,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-vmalloc-interfaces.md",
@@ -2422,10 +2422,10 @@ window.__BOOKS__ = [
             "slug": "reverse-mapping",
             "title": "Зворотне відображення сторінки (rmap): як знайти всіх, хто на неї вказує",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-rmap-interfaces.md",
@@ -2453,7 +2453,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-tlb-flush-controls.md",
@@ -2481,7 +2481,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cma-interfaces.md",
@@ -2509,7 +2509,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-gup-family.md",
@@ -2537,7 +2537,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-locking-interfaces.md",
@@ -2565,7 +2565,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-memblock-interfaces.md",
@@ -2593,7 +2593,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mmu-notifier-ops.md",
@@ -2621,7 +2621,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sparsemem-controls.md",
@@ -2649,7 +2649,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-hmm-birth.md",
@@ -2671,7 +2671,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cgwb-contract.md",
@@ -2709,7 +2709,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-move-pages.md",
@@ -2725,7 +2725,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-hwpoison-interfaces.md",
@@ -2747,7 +2747,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           }
         ]
@@ -2766,7 +2766,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fd-lifecycle.md",
@@ -2794,7 +2794,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fd-vs-ofd.md",
@@ -2819,10 +2819,10 @@ window.__BOOKS__ = [
             "slug": "inode-model",
             "title": "Inode: файл без імені",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-stat-fields.md",
@@ -2847,10 +2847,10 @@ window.__BOOKS__ = [
             "slug": "directory-as-mapping",
             "title": "Каталог як відображення імен",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-directory-syscalls.md",
@@ -2878,7 +2878,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-link-syscalls.md",
@@ -2906,7 +2906,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-resolution-controls.md",
@@ -2934,7 +2934,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-vfs-operation-tables.md",
@@ -2962,7 +2962,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mount-syscalls.md",
@@ -2987,10 +2987,10 @@ window.__BOOKS__ = [
             "slug": "filesystem-families",
             "title": "Родини файлових систем: ext4, XFS, Btrfs, F2FS",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mkfs-and-mount.md",
@@ -3018,7 +3018,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-journal-controls.md",
@@ -3043,10 +3043,10 @@ window.__BOOKS__ = [
             "slug": "page-cache-durability",
             "title": "Кеш сторінок, fsync і довговічність запису",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sync-syscalls.md",
@@ -3075,10 +3075,10 @@ window.__BOOKS__ = [
             "slug": "pseudo-filesystems",
             "title": "Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-proc-origin.md",
@@ -3100,7 +3100,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fuse-protocol.md",
@@ -3128,7 +3128,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sparse-syscalls.md",
@@ -3156,7 +3156,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-chroot-contract.md",
@@ -3181,10 +3181,10 @@ window.__BOOKS__ = [
             "slug": "network-filesystems",
             "title": "Мережеві файлові системи: NFS, SMB і чого від них чекати",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mount-options.md",
@@ -3209,10 +3209,10 @@ window.__BOOKS__ = [
             "slug": "file-locking",
             "title": "Блокування файлів: flock, POSIX-замки й замки на опис відкритого файлу",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-lock-interfaces.md",
@@ -3234,7 +3234,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-at-family-reference.md",
@@ -3253,10 +3253,10 @@ window.__BOOKS__ = [
             "slug": "reflink-copies",
             "title": "Копії з поділом блоків: reflink і copy_file_range",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-clone-and-copy.md",
@@ -3284,7 +3284,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-readahead-lineage.md",
@@ -3312,7 +3312,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-overlay-mount.md",
@@ -3340,7 +3340,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-seven-years-to-statx.md",
@@ -3362,7 +3362,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-lfs-surface.md",
@@ -3387,10 +3387,10 @@ window.__BOOKS__ = [
             "slug": "fsck-and-repair",
             "title": "fsck: перевірка й ремонт файлової системи",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fsck-invocation.md",
@@ -3412,7 +3412,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-pivot-root-birth.md",
@@ -3431,10 +3431,10 @@ window.__BOOKS__ = [
             "slug": "inotify-and-fanotify",
             "title": "Стеження за змінами у файловій системі: inotify і fanotify",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-notify-syscalls.md",
@@ -3459,10 +3459,10 @@ window.__BOOKS__ = [
             "slug": "log-structured-filesystems",
             "title": "Лог-структуровані файлові системи",
             "basic": {
-              "status": "done"
+              "status": "recheck"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-f2fs-ioctls.md",
@@ -3496,7 +3496,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-lease-interface.md",
@@ -3524,7 +3524,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-allocation-controls.md",
@@ -3552,7 +3552,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-two-births.md",
@@ -3580,7 +3580,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-handle-syscalls.md",
@@ -3608,7 +3608,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fsverity-ioctls.md",
@@ -3636,7 +3636,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-temp-file-races.md",
@@ -3658,7 +3658,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fileattr-interface.md",
@@ -3686,7 +3686,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-quota-control.md",
@@ -3708,7 +3708,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-freeze-interface.md",
@@ -3736,7 +3736,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fscrypt-ioctls.md",
@@ -3764,7 +3764,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-configfs-birth.md",
@@ -3786,7 +3786,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dax-controls.md",
@@ -3814,7 +3814,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-virtiofs-surface.md",
@@ -3842,7 +3842,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-zonefs-surface.md",
@@ -3864,7 +3864,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -3910,14 +3910,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "btrfs-b-tree-architecture",
             "title": "Btrfs: Архітектура B-дерев",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-btrfs-tree-types.md",
@@ -3956,7 +3956,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-btrfs-tree-types.md",
@@ -4020,7 +4020,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-btrfs-scrub-ioctl.md",
@@ -4084,14 +4084,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "zfs-native-encryption",
             "title": "Вбудоване шифрування та дедуплікація в ZFS",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-zfs-crypto-cli.md",
@@ -4122,7 +4122,7 @@ window.__BOOKS__ = [
             "slug": "erofs-read-only-filesystem",
             "title": "Стиснена файлова система EROFS для контейнерів та прошивок",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-erofs-ondisk.md",
@@ -4177,7 +4177,7 @@ window.__BOOKS__ = [
             "slug": "statx-extended-stat-api",
             "title": "Розширений системний виклик statx та маски атрибутів",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-statx-masks-and-flags.md",
@@ -4208,7 +4208,7 @@ window.__BOOKS__ = [
             "slug": "copy-file-range-syscall",
             "title": "Системний виклик copy_file_range(2) та server-side copy",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-copy-file-range-spec.md",
@@ -4239,7 +4239,7 @@ window.__BOOKS__ = [
             "slug": "pidfs-filesystem-architecture",
             "title": "Спеціалізована файлова система pidfs у сучасних ядрах",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-pidfs-ioctls.md",
@@ -4282,7 +4282,7 @@ window.__BOOKS__ = [
             "slug": "incfs-incremental-filesystem",
             "title": "Інкрементальна файлова система IncFS (Android Incremental Delivery)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-incfs-ctl.md",
@@ -4325,7 +4325,7 @@ window.__BOOKS__ = [
             "slug": "fanotify-fsnotify-permission-events",
             "title": "Розширений моніторинг файлів fanotify: перехоплення FAN_OPEN_PERM",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-fanotify-perm-reference.md",
@@ -4407,7 +4407,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           }
         ]
@@ -4417,10 +4417,10 @@ window.__BOOKS__ = [
         "title": "Ввід-вивід і очікування",
         "scope": "Як програма чекає на дані й чому саме тут вирішується, скільки з'єднань вона потягне.",
         "topics": [
-          { slug: "readdir-getdents64-directory-traversal", title: "Обхід каталогів: readdir, getdents64 та внутрішня структура", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-getdents64-structs.md", status: "done" }] , "hist": [{ file: "hist-readdir-r-deprecation.md", status: "done" }] , "proj": [{ file: "proj-fast-directory-walker.md", status: "done" }] },
-          { slug: "fsync-fdatasync-sync-file-range", title: "Гарантії скидання кешу: fsync, fdatasync та sync_file_range", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sync-contracts.md", status: "done" }] , "hist": [{ file: "hist-fsyncgate-and-cache.md", status: "done" }] , "proj": [{ file: "proj-sync-bench.md", status: "done" }] },
-          { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
-          { slug: "dma-mapping-subsystem-and-iommu", title: "Підсистема DMA mapping та IOMMU в ядрі Linux", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-dma-mapping-surface.md", status: "done" }] , "hist": [{ file: "hist-dma-evolution.md", status: "done" }] , "proj": [{ file: "proj-dma-driver-example.md", status: "done" }] },
+          { slug: "readdir-getdents64-directory-traversal", title: "Обхід каталогів: readdir, getdents64 та внутрішня структура", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-getdents64-structs.md", status: "done" }] , "hist": [{ file: "hist-readdir-r-deprecation.md", status: "done" }] , "proj": [{ file: "proj-fast-directory-walker.md", status: "done" }] },
+          { slug: "fsync-fdatasync-sync-file-range", title: "Гарантії скидання кешу: fsync, fdatasync та sync_file_range", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sync-contracts.md", status: "done" }] , "hist": [{ file: "hist-fsyncgate-and-cache.md", status: "done" }] , "proj": [{ file: "proj-sync-bench.md", status: "done" }] },
+          { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
+          { slug: "dma-mapping-subsystem-and-iommu", title: "Підсистема DMA mapping та IOMMU в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dma-mapping-surface.md", status: "done" }] , "hist": [{ file: "hist-dma-evolution.md", status: "done" }] , "proj": [{ file: "proj-dma-driver-example.md", status: "done" }] },
           {
             "slug": "zoned-storage-f2fs-integration",
             "title": "Файлова система f2fs для зонованих пристроїв ZNS",
@@ -4464,7 +4464,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -4474,7 +4474,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-nonblock-contract.md",
@@ -4502,7 +4502,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-two-lineages.md",
@@ -4521,7 +4521,7 @@ window.__BOOKS__ = [
             "slug": "select-poll-epoll",
             "title": "select, poll, epoll: чекати на багато джерел",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-epoll-interfaces.md",
@@ -4560,7 +4560,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-epoll-interfaces.md",
@@ -4588,7 +4588,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-uring-surface.md",
@@ -4616,7 +4616,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ancillary-data.md",
@@ -4638,7 +4638,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-socket-or-file.md",
@@ -4660,7 +4660,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-direct-io-contract.md",
@@ -4688,7 +4688,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-transfer-calls.md",
@@ -4716,7 +4716,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-restart-matrix.md",
@@ -4744,7 +4744,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-stdio-buffer-controls.md",
@@ -4772,7 +4772,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-signal-io-contract.md",
@@ -4800,7 +4800,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-aio-calls.md",
@@ -4822,7 +4822,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-aio-syscalls.md",
@@ -4844,7 +4844,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ioprio.md",
@@ -4884,7 +4884,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -4930,14 +4930,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "ublk-userspace-block-driver",
             "title": "Фреймворк ublk: блокові драйвери у просторі користувача",
               "basic": {
-                "status": "done",
+                "status": "recheck",
             "hist": [
               {
                 "file": "hist-userspace-block-devs.md",
@@ -4964,14 +4964,14 @@ window.__BOOKS__ = [
             ],
               },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "zoned-block-devices-zns",
             "title": "Зоновані блокові пристрої (ZBC/ZAC та zonefs)",
               "basic": {
-                "status": "done",
+                "status": "recheck",
             "api": [
               {
                 "file": "api-zbd-ioctls.md",
@@ -5010,7 +5010,7 @@ window.__BOOKS__ = [
             ],
               },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -5024,7 +5024,7 @@ window.__BOOKS__ = [
             "slug": "dm-writecache-and-dm-cache",
             "title": "Кешування блокових пристроїв: dm-writecache та dm-cache",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-dm-target-parameters-and-status.md",
@@ -5067,7 +5067,7 @@ window.__BOOKS__ = [
             "slug": "blk-iopoll-and-io-polling",
             "title": "Опитування блокових пристроїв: IO polling та blk-mq iopoll",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-iopoll-sysfs-params.md",
@@ -5110,7 +5110,7 @@ window.__BOOKS__ = [
             "slug": "nvme-target-kernel-subsystem",
             "title": "Підсистема NVMe Target (nvmet) у ядрі Linux",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-nvmet-ops.md",
@@ -5153,7 +5153,7 @@ window.__BOOKS__ = [
             "slug": "blk-mq-tag-sets-and-hardware-queues",
             "title": "Слоти команд у blk-mq: Tag Sets та Hardware Dispatch Queues",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-blk-mq-tag-set-surface.md",
@@ -5184,7 +5184,7 @@ window.__BOOKS__ = [
             "slug": "dma-buf-heaps-framework",
             "title": "Фреймворк dma-buf heaps: заміна ION для виділення неперервної памʼяті",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-uapi-dma-heap.md",
@@ -5215,7 +5215,7 @@ window.__BOOKS__ = [
             "slug": "io-uring-cmd-passthrough",
             "title": "Низькорівневий пасстру команд NVMe через IORING_OP_URING_CMD",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-uring-cmd-nvme.md",
@@ -5261,7 +5261,7 @@ window.__BOOKS__ = [
         "title": "Сигнали й взаємодія процесів",
         "scope": "Асинхронні сповіщення та способи, якими процеси домовляються між собою.",
         "topics": [
-          { slug: "signal-architecture-and-delivery", title: "Архітектура та доставка сигналів", basic: { status: "empty" }, detailed: { status: "done" } },
+          { slug: "signal-architecture-and-delivery", title: "Архітектура та доставка сигналів", basic: { status: "empty" }, detailed: { status: "recheck" } },
           {
             "slug": "signal-model",
             "title": "Сигнал: асинхронне сповіщення",
@@ -5269,7 +5269,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sending-signals.md",
@@ -5297,7 +5297,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sigaction.md",
@@ -5319,7 +5319,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-safe-functions.md",
@@ -5341,7 +5341,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-signal-mask-and-signalfd.md",
@@ -5369,7 +5369,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ipc-comparison.md",
@@ -5397,7 +5397,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-sysv-vs-posix.md",
@@ -5419,7 +5419,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-message-queues.md",
@@ -5441,7 +5441,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-futex-birth.md",
@@ -5463,7 +5463,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-timer-interfaces.md",
@@ -5491,7 +5491,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-signal-frame-layout.md",
@@ -5519,7 +5519,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-realtime-signals.md",
@@ -5541,7 +5541,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dbus-wire.md",
@@ -5569,7 +5569,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-memfd-and-seals.md",
@@ -5597,7 +5597,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-process-shared-sync.md",
@@ -5619,7 +5619,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-dijkstra-semaphore.md",
@@ -5641,7 +5641,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pipe-fifo.md",
@@ -5669,7 +5669,7 @@ window.__BOOKS__ = [
         "title": "Права й ідентичність",
         "scope": "Хто такий процес з погляду системи і як вирішується, що йому дозволено.",
         "topics": [
-          { slug: "seccomp-syscall-filtering", title: "Գ�������� ��������� ������� (seccomp)", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "seccomp-syscall-filtering", title: "Գ�������� ��������� ������� (seccomp)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "uid-gid-model",
@@ -5678,7 +5678,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-credential-syscalls.md",
@@ -5724,7 +5724,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -5734,7 +5734,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-mode-bits.md",
@@ -5762,7 +5762,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-environment-holes.md",
@@ -5784,7 +5784,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-umask-surface.md",
@@ -5812,7 +5812,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-capability-interfaces.md",
@@ -5840,7 +5840,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-xattr-and-acl.md",
@@ -5868,7 +5868,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-selinux-surface.md",
@@ -5918,7 +5918,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-seccomp.md",
@@ -5946,7 +5946,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pam-config.md",
@@ -5974,7 +5974,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-keyctl-surface.md",
@@ -6002,7 +6002,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ima-policy.md",
@@ -6030,7 +6030,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-privsep-origins.md",
@@ -6052,7 +6052,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-polkit-files.md",
@@ -6080,7 +6080,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-nsswitch-and-getent.md",
@@ -6108,7 +6108,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-lsm-module.md",
@@ -6136,7 +6136,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-landlock-syscalls.md",
@@ -6164,7 +6164,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ldap-search-and-schema.md",
@@ -6192,7 +6192,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sudoers-syntax.md",
@@ -6220,7 +6220,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-userdb-varlink.md",
@@ -6248,7 +6248,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sssd-config-and-tools.md",
@@ -6276,7 +6276,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-su-invocation.md",
@@ -6332,7 +6332,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-lockdown-controls.md",
@@ -6378,7 +6378,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6406,7 +6406,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6416,7 +6416,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6444,7 +6444,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6472,7 +6472,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6488,7 +6488,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6516,7 +6516,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6544,7 +6544,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6578,14 +6578,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "rootless-containers",
             "title": "Безкорінна контейнеризація",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-subuid-and-newuidmap.md",
@@ -6606,14 +6606,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "ebpf-lsm-custom-policies",
             "title": "Програмовані політики безпеки BPF-LSM",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-bpf-lsm-hooks.md",
@@ -6659,14 +6659,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "ima-evm-integrity-architecture",
             "title": "Вимірювання цілісності системи: IMA та EVM",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-evm-xattr-format.md",
@@ -6687,14 +6687,14 @@ window.__BOOKS__ = [
             ],
             },
             "basic": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "tpm2-software-stack",
             "title": "Стек TPM 2.0 та апаратне зберігання ключів",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-tss2-esapi.md",
@@ -6719,7 +6719,7 @@ window.__BOOKS__ = [
             "slug": "sigstruct-and-sgx-enclaves",
             "title": "Апаратні енклави Intel SGX та сигнатури SIGSTRUCT",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-sigstruct.md",
@@ -6744,7 +6744,7 @@ window.__BOOKS__ = [
             "slug": "kernel-lockdown-integrity",
             "title": "Режим мажоритарного захисту ядра: Kernel Lockdown Mode",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-lockdown-reasons.md",
@@ -6769,7 +6769,7 @@ window.__BOOKS__ = [
             "slug": "landlock-abi-v4-v5-features",
             "title": "Еволюція Landlock LSM: ABI v4/v5 (мережеві обмеження та ioctl)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-landlock-v4-v5-structs.md",
@@ -6800,7 +6800,7 @@ window.__BOOKS__ = [
             "slug": "apparmor-stacking-and-profiles",
             "title": "Стек профілів AppArmor та інстанціація політик",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-apparmor-stacking-interface.md",
@@ -6831,7 +6831,7 @@ window.__BOOKS__ = [
             "slug": "tomoyo-linux-path-based-lsm",
             "title": "Політики безпеки TOMOYO Linux: LSM на основі шляхів",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-tomoyo-policy-syntax.md",
@@ -6856,7 +6856,7 @@ window.__BOOKS__ = [
             "slug": "smack-simplified-mandatory-access",
             "title": "Спрощений мандатний контроль доступу SMACK (Simplified Mandatory Access Control)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-smackfs-and-xattr.md",
@@ -6881,7 +6881,7 @@ window.__BOOKS__ = [
             "slug": "bpf-lsm-audit-and-override",
             "title": "Модифікація поведінки Security Modules через bpf_lsm (bpf_override_return)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-bpf-lsm-helpers.md",
@@ -6909,17 +6909,17 @@ window.__BOOKS__ = [
         "title": "Пристрої та ядро",
         "scope": "Як залізо стає файлом і як ядро керує тим, що під'єднали.",
         "topics": [
-          { slug: "nvme-over-fabrics-nvme-of", title: "Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-nvmeof-pdu-structures.md", status: "done" }] , "hist": [{ file: "hist-iscsi-to-nvmeof.md", status: "done" }] , "math": [{ file: "math-nvmeof-latency-throughput.md", status: "done" }] , "proj": [{ file: "proj-nvmeof-c-cpp-client.md", status: "done" }] },
-          { slug: "gpio-descriptor-based-gpiod-api", title: "Ядерний дескрипторний API gpiod (gpiod_get, gpiod_set_value)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernel-gpiod-functions.md", status: "done" }] , "hist": [{ file: "hist-legacy-gpio-to-gpiod.md", status: "done" }] , "proj": [{ file: "proj-kernel-gpio-driver.md", status: "done" }] },
-          { slug: "devicetree-overlays-and-dtbo", title: "devicetree-overlays-and-dtbo", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-dtbo-kernel-interfaces.md", status: "done" }] , "hist": [{ file: "hist-dtbo-evolution.md", status: "done" }] , "proj": [{ file: "proj-dtbo-configfs-loader.md", status: "done" }] },
-          { slug: "usb-type-c-connector-class-framework", title: "Фреймворк коннекторів USB Type-C та Power Delivery", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-typec-kernel-sysfs.md", status: "done" }] , "comp": [{ file: "comp-tcpm-tcpci-ucsi.md", status: "done" }] , "hist": [{ file: "hist-typec-pd-evolution.md", status: "done" }] , "proj": [{ file: "proj-typec-role-switcher.md", status: "done" }] },
-          { slug: "input-event-codes-and-evdev", title: "Підсистема введення та події evdev (/dev/input/eventN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-evdev-ioctl.md", status: "done" }] , "hist": [{ file: "hist-linux-input-subsystem.md", status: "done" }] , "math": [{ file: "math-evdev-abs-scaling.md", status: "done" }] , "proj": [{ file: "proj-evdev-event-loop.md", status: "done" }] },
-          { slug: "gpio-character-device-v2", title: "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v2-structures-and-ioctls.md", status: "done" }] , "hist": [{ file: "hist-abi-v1-vs-v2.md", status: "done" }] , "proj": [{ file: "proj-v2-raw-ioctl-and-libgpiod.md", status: "done" }] },
-          { slug: "power-management-qos-framework", title: "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-pm-qos-kernel.md", status: "done" }] , "hist": [{ file: "hist-pm-qos-evolution.md", status: "done" }] , "proj": [{ file: "proj-pm-qos-benchmark.md", status: "done" }] },
-          { slug: "v4l2-media-subsystem", title: "Підсистема відео та медіа-пристроїв (V4L2, Media Controller)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v4l2-mc-core.md", status: "done" }] , "hist": [{ file: "hist-v4l1-to-media-controller.md", status: "done" }] , "math": [{ file: "math-media-pipeline-bandwidth.md", status: "done" }] , "proj": [{ file: "proj-v4l2-capture.md", status: "done" }] },
-          { slug: "virtio-mem-and-virtio-pmem", title: "Динамічне додавання пам'яті: virtio-mem та virtio-pmem", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-virtio-mem-spec.md", status: "done" }] , "comp": [{ file: "comp-virtio-mem-vs-acpi-dimm.md", status: "done" }] , "hist": [{ file: "hist-virtio-mem-genesis.md", status: "done" }] , "proj": [{ file: "proj-virtio-mem-driver.md", status: "done" }] },
-          { slug: "watchdog-timer-subsystem", title: "Підсистема та драйвери таймерів Watchdog (/dev/watchdog)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-watchdog-ioctl-abi.md", status: "done" }] , "comp": [{ file: "comp-hardware-watchdog-architecture.md", status: "done" }] , "hist": [{ file: "hist-watchdog-evolution.md", status: "done" }] , "math": [{ file: "math-watchdog-timeout-window.md", status: "done" }] , "proj": [{ file: "proj-watchdog-daemon.md", status: "done" }] },
-          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "done" }, detailed: { status: "done" } , "api": [{ file: "api-cdev-bdev-interfaces.md", status: "done" }] , "hist": [{ file: "hist-raw-devices-and-devfs.md", status: "done" }] , "proj": [{ file: "proj-cdev-bdev-userspace.md", status: "done" }] },
+          { slug: "nvme-over-fabrics-nvme-of", title: "Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-nvmeof-pdu-structures.md", status: "done" }] , "hist": [{ file: "hist-iscsi-to-nvmeof.md", status: "done" }] , "math": [{ file: "math-nvmeof-latency-throughput.md", status: "done" }] , "proj": [{ file: "proj-nvmeof-c-cpp-client.md", status: "done" }] },
+          { slug: "gpio-descriptor-based-gpiod-api", title: "Ядерний дескрипторний API gpiod (gpiod_get, gpiod_set_value)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-kernel-gpiod-functions.md", status: "done" }] , "hist": [{ file: "hist-legacy-gpio-to-gpiod.md", status: "done" }] , "proj": [{ file: "proj-kernel-gpio-driver.md", status: "done" }] },
+          { slug: "devicetree-overlays-and-dtbo", title: "devicetree-overlays-and-dtbo", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dtbo-kernel-interfaces.md", status: "done" }] , "hist": [{ file: "hist-dtbo-evolution.md", status: "done" }] , "proj": [{ file: "proj-dtbo-configfs-loader.md", status: "done" }] },
+          { slug: "usb-type-c-connector-class-framework", title: "Фреймворк коннекторів USB Type-C та Power Delivery", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-typec-kernel-sysfs.md", status: "done" }] , "comp": [{ file: "comp-tcpm-tcpci-ucsi.md", status: "done" }] , "hist": [{ file: "hist-typec-pd-evolution.md", status: "done" }] , "proj": [{ file: "proj-typec-role-switcher.md", status: "done" }] },
+          { slug: "input-event-codes-and-evdev", title: "Підсистема введення та події evdev (/dev/input/eventN)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-evdev-ioctl.md", status: "done" }] , "hist": [{ file: "hist-linux-input-subsystem.md", status: "done" }] , "math": [{ file: "math-evdev-abs-scaling.md", status: "done" }] , "proj": [{ file: "proj-evdev-event-loop.md", status: "done" }] },
+          { slug: "gpio-character-device-v2", title: "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-v2-structures-and-ioctls.md", status: "done" }] , "hist": [{ file: "hist-abi-v1-vs-v2.md", status: "done" }] , "proj": [{ file: "proj-v2-raw-ioctl-and-libgpiod.md", status: "done" }] },
+          { slug: "power-management-qos-framework", title: "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-pm-qos-kernel.md", status: "done" }] , "hist": [{ file: "hist-pm-qos-evolution.md", status: "done" }] , "proj": [{ file: "proj-pm-qos-benchmark.md", status: "done" }] },
+          { slug: "v4l2-media-subsystem", title: "Підсистема відео та медіа-пристроїв (V4L2, Media Controller)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-v4l2-mc-core.md", status: "done" }] , "hist": [{ file: "hist-v4l1-to-media-controller.md", status: "done" }] , "math": [{ file: "math-media-pipeline-bandwidth.md", status: "done" }] , "proj": [{ file: "proj-v4l2-capture.md", status: "done" }] },
+          { slug: "virtio-mem-and-virtio-pmem", title: "Динамічне додавання пам'яті: virtio-mem та virtio-pmem", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-virtio-mem-spec.md", status: "done" }] , "comp": [{ file: "comp-virtio-mem-vs-acpi-dimm.md", status: "done" }] , "hist": [{ file: "hist-virtio-mem-genesis.md", status: "done" }] , "proj": [{ file: "proj-virtio-mem-driver.md", status: "done" }] },
+          { slug: "watchdog-timer-subsystem", title: "Підсистема та драйвери таймерів Watchdog (/dev/watchdog)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-watchdog-ioctl-abi.md", status: "done" }] , "comp": [{ file: "comp-hardware-watchdog-architecture.md", status: "done" }] , "hist": [{ file: "hist-watchdog-evolution.md", status: "done" }] , "math": [{ file: "math-watchdog-timeout-window.md", status: "done" }] , "proj": [{ file: "proj-watchdog-daemon.md", status: "done" }] },
+          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "recheck" }, detailed: { status: "recheck" } , "api": [{ file: "api-cdev-bdev-interfaces.md", status: "done" }] , "hist": [{ file: "hist-raw-devices-and-devfs.md", status: "done" }] , "proj": [{ file: "proj-cdev-bdev-userspace.md", status: "done" }] },
           {
             "slug": "procfs-process-reflection",
             "title": "Відображення процесів у procfs",
@@ -6945,7 +6945,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -6955,7 +6955,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-dev-directory.md",
@@ -6977,7 +6977,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dev-numbers.md",
@@ -7005,7 +7005,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sysfs-tree.md",
@@ -7061,7 +7061,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-module-tooling.md",
@@ -7083,7 +7083,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-termios.md",
@@ -7111,7 +7111,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-usbfs-ioctl.md",
@@ -7139,7 +7139,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-deferred-work.md",
@@ -7167,7 +7167,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dma-mapping.md",
@@ -7195,7 +7195,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ioctl-encoding.md",
@@ -7223,7 +7223,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dm-table.md",
@@ -7251,7 +7251,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dmabuf-interfaces.md",
@@ -7279,7 +7279,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-v4l2-ioctls.md",
@@ -7307,7 +7307,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-queue-attributes.md",
@@ -7335,7 +7335,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-random-surface.md",
@@ -7363,7 +7363,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-rcu-primitives.md",
@@ -7391,7 +7391,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-smp-call.md",
@@ -7413,7 +7413,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-discard-controls.md",
@@ -7435,7 +7435,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cpuidle-sysfs.md",
@@ -7491,7 +7491,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-losetup-and-ioctls.md",
@@ -7519,7 +7519,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-verity-table.md",
@@ -7547,7 +7547,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pty-interfaces.md",
@@ -7575,7 +7575,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-crypt-target.md",
@@ -7603,7 +7603,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dt-bindings.md",
@@ -7631,7 +7631,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-common-sequences.md",
@@ -7659,7 +7659,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-xhci-structures.md",
@@ -7687,7 +7687,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-configfs-gadget.md",
@@ -7743,7 +7743,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-kms-objects.md",
@@ -7771,7 +7771,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fence-interfaces.md",
@@ -7799,7 +7799,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-media-ioctls.md",
@@ -7824,7 +7824,7 @@ window.__BOOKS__ = [
             "slug": "io-schedulers",
             "title": "Планувальники блокового введення-виведення: none, mq-deadline, BFQ і Kyber",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-scheduler-tunables.md",
@@ -7845,7 +7845,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-scheduler-tunables.md",
@@ -7873,7 +7873,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-gpt-layout.md",
@@ -7901,7 +7901,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-virtio-rng-surface.md",
@@ -7929,7 +7929,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-thin-pool-table.md",
@@ -7957,7 +7957,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-erase-commands.md",
@@ -7985,7 +7985,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ublk-protocol.md",
@@ -8041,7 +8041,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-runtime-pm.md",
@@ -8069,7 +8069,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-crypto-transforms.md",
@@ -8097,7 +8097,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-platform-surface.md",
@@ -8125,7 +8125,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-terminfo-surface.md",
@@ -8153,7 +8153,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-console-ioctls.md",
@@ -8181,7 +8181,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-stream-contexts.md",
@@ -8209,7 +8209,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sense-and-status.md",
@@ -8237,7 +8237,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-nvme-surface.md",
@@ -8265,7 +8265,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-submit-ioctls.md",
@@ -8293,7 +8293,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-request-ioctls.md",
@@ -8371,7 +8371,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-zone-interface.md",
@@ -8427,7 +8427,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-virtio-transports.md",
@@ -8455,7 +8455,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-vmgenid-surface.md",
@@ -8483,7 +8483,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-opal-ioctls.md",
@@ -8511,7 +8511,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sg-io-hdr.md",
@@ -8539,7 +8539,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-integrity-interfaces.md",
@@ -8567,7 +8567,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-genpd-provider.md",
@@ -8595,7 +8595,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-signature-trailer.md",
@@ -8623,7 +8623,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-binding-controls.md",
@@ -8651,7 +8651,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-hwmon-attributes.md",
@@ -8707,7 +8707,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-evdev-interface.md",
@@ -8735,7 +8735,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-nd-tree-and-ndctl.md",
@@ -8763,7 +8763,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-io-accessors.md",
@@ -8791,7 +8791,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-devm-surface.md",
@@ -8819,7 +8819,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ncurses-surface.md",
@@ -8847,7 +8847,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-fbdev-structs.md",
@@ -9015,7 +9015,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-ccf-functions.md",
@@ -9043,7 +9043,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-regulator-functions.md",
@@ -9065,7 +9065,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9075,7 +9075,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-device-link-flags.md",
@@ -9107,7 +9107,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-thermal-sysfs.md",
@@ -9179,7 +9179,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-hid-report-items.md",
@@ -9207,7 +9207,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9227,7 +9227,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-opp-functions.md",
@@ -9281,7 +9281,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-pci-config-space.md",
@@ -9315,7 +9315,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9349,7 +9349,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9383,7 +9383,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9411,7 +9411,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9421,7 +9421,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9449,7 +9449,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9477,7 +9477,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9511,7 +9511,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9545,14 +9545,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "vdpa-virtio-data-path-acceleration",
             "title": "Апаратне прискорення Virtio: vDPA та SmartNIC",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-vdpa-kernel-ops.md",
@@ -9577,7 +9577,7 @@ window.__BOOKS__ = [
             "slug": "nested-virtualization-kvm",
             "title": "Вкладена віртуалізація у KVM (Nested VT-x/AMD-V)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-kvm-nested-sysfs-and-msr.md",
@@ -9602,7 +9602,7 @@ window.__BOOKS__ = [
             "slug": "confidential-computing-sev-tdx",
             "title": "Конфіденційні обчислення: AMD SEV-SNP та Intel TDX",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-guest-attestation.md",
@@ -9633,7 +9633,7 @@ window.__BOOKS__ = [
             "slug": "cxl-compute-express-link",
             "title": "Шина CXL (Compute Express Link) та пулінг пам’яті",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-sysfs-cxl.md",
@@ -9664,7 +9664,7 @@ window.__BOOKS__ = [
             "slug": "viommu-virtual-iommu",
             "title": "Віртуальний IOMMU (vIOMMU) для вкладеного прокидання",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "proj": [
               {
                 "file": "proj-nested-iommufd-bind.md",
@@ -9673,14 +9673,14 @@ window.__BOOKS__ = [
             ],
             },
             "basic": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "virtio-fs-and-virtio-gpu",
             "title": "Спеціалізовані пристрої Virtio: virtio-fs та virtio-gpu",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-virtio-gpu-protocol.md",
@@ -9699,7 +9699,7 @@ window.__BOOKS__ = [
             "slug": "nvme-zoned-namespaces-zns",
             "title": "Зонований простір імен NVMe (ZNS)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-zns-ioctl-and-sysfs.md",
@@ -9724,7 +9724,7 @@ window.__BOOKS__ = [
             "slug": "i3c-bus-subsystem",
             "title": "Підсистема шини I3C (MIPI I3C)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-i3c-subsystem.md",
@@ -9761,7 +9761,7 @@ window.__BOOKS__ = [
             "slug": "pci-peer-to-peer-p2pdma",
             "title": "Прямий доступ між пристроями PCIe (P2PDMA)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-p2pdma-kernel.md",
@@ -9792,7 +9792,7 @@ window.__BOOKS__ = [
             "slug": "drm-kms-display-pipeline",
             "title": "Прямий рендеринг ядра DRM/KMS: атомне перемикання режимів",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-drm-kms-properties.md",
@@ -9823,7 +9823,7 @@ window.__BOOKS__ = [
             "slug": "spdm-device-attestation",
             "title": "Протокол атестації пристроїв SPDM на шинах PCIe",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-spdm-kernel-sysfs.md",
@@ -9848,7 +9848,7 @@ window.__BOOKS__ = [
             "slug": "sound-open-firmware-sof",
             "title": "Аудіоплатформа Sound Open Firmware (SOF) та ALSA SoC",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-ipc.md",
@@ -9873,7 +9873,7 @@ window.__BOOKS__ = [
             "slug": "v4l2-media-controller-api",
             "title": "Відео-підсистема V4L2 та Media Controller API",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-v4l2-media-ioctls.md",
@@ -9898,7 +9898,7 @@ window.__BOOKS__ = [
             "slug": "input-evdev-subsystem",
             "title": "Підсистема введення evdev та події /dev/input/eventX",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-evdev-ioctls.md",
@@ -9923,14 +9923,14 @@ window.__BOOKS__ = [
             "slug": "gpio-gpiod-descriptor-api",
             "title": "Сучасний двоврівневий API GPIO descriptors (gpiod)",
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "counter-subsystem-quadrature",
             "title": "Підсистема лічильників ядра Counter subsystem (Hardware Quadrature Encoders)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-counter-kernel-interface.md",
@@ -9955,7 +9955,7 @@ window.__BOOKS__ = [
             "slug": "iio-industrial-io-subsystem",
             "title": "Підсистема Industrial I/O (IIO) для аналогових сенсорів та ADC/DAC",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-iio-sysfs-abi.md",
@@ -9974,7 +9974,7 @@ window.__BOOKS__ = [
             "slug": "wmi-windows-management-instrumentation",
             "title": "Інтерфейс WMI (ACPI-WMI) у драйверах Linux",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-wmi-kernel-surface.md",
@@ -9999,7 +9999,7 @@ window.__BOOKS__ = [
             "slug": "hwrng-hardware-random-number-generator",
             "title": "Підсистема апаратних генераторів випадкових чисел (hwrng) та entropy pool",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-hwrng-framework.md",
@@ -10024,7 +10024,7 @@ window.__BOOKS__ = [
             "slug": "drm-accel-compute-subsystem",
             "title": "Підсистема прискорювачів DRM Accel (/dev/accel/accelX для NPU та AI-чіпів)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-accel-uapi-sysfs.md",
@@ -10052,17 +10052,17 @@ window.__BOOKS__ = [
         "title": "Завантаження й служби",
         "scope": "Шлях від увімкнення живлення до працюючої системи та як тримають служби.",
         "topics": [
-          { slug: "tmpfiles-d-runtime-volatile-files", title: "Управління тимчасовими файлами: сервіс systemd-tmpfiles та tmpfiles.d", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-tmpfiles-spec.md", status: "done" }] , "hist": [{ file: "hist-volatile-storage-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-tmpfiles-service.md", status: "done" }] },
-          { slug: "systemd-sysusers-and-sysctl-d", title: "Декларативне налаштування системи: systemd-sysusers та systemd-sysctl", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sysusers-and-sysctl-formats.md", status: "done" }] , "comp": [{ file: "comp-dot-d-hierarchy-precedence.md", status: "done" }] , "hist": [{ file: "hist-declarative-sysconfig-evolution.md", status: "done" }] , "proj": [{ file: "proj-declarative-provisioning-engine.md", status: "done" }] },
-          { slug: "systemd-nspawn-lightweight-containers", title: "Контейнеризація у systemd: інструмент systemd-nspawn", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-nspawn-cli-and-nspawn-file.md", status: "done" }] , "hist": [{ file: "hist-chroot-to-nspawn.md", status: "done" }] , "proj": [{ file: "proj-nspawn-custom-container.md", status: "done" }] },
-          { slug: "systemd-generator-architecture", title: "Генератори systemd (/lib/systemd/system-generators/)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-generator-interface.md", status: "done" }] , "hist": [{ file: "hist-generators-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-generator.md", status: "done" }] },
-          { slug: "systemd-target-units-and-boot-targets", title: "Цільові юніти (target) та ізоляція рівнів виконання systemd", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-target-unit-spec.md", status: "done" }] , "hist": [{ file: "hist-runlevels-to-targets.md", status: "done" }] , "proj": [{ file: "proj-custom-target-and-isolation.md", status: "done" }] },
-          { slug: "systemd-boot-and-systemd-stub-uki", title: "Завантажувачі UEFI: systemd-boot та Unified Kernel Images (UKI)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-uki-sections.md", status: "done" }] , "hist": [{ file: "hist-uki-evolution.md", status: "done" }] , "proj": [{ file: "proj-build-uki.md", status: "done" }] },
-          { slug: "journald-logging-subsystem-and-journalctl", title: "Логування у systemd: підсистема journald та інструмент journalctl", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sd-journal.md", status: "done" }] , "hist": [{ file: "hist-syslog-to-journald.md", status: "done" }] , "math": [{ file: "math-journal-fss-sealing.md", status: "done" }] , "proj": [{ file: "proj-journalctl-emulator.md", status: "done" }] },
-          { slug: "dracut-and-mkinitcpio-toolchains", title: "Генератори initramfs: dracut, mkinitcpio та initramfs-tools", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-toolchain-hook-interfaces.md", status: "done" }] , "hist": [{ file: "hist-initramfs-generators-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-dracut-module.md", status: "done" }] },
-          { slug: "systemd-systemctl-and-unit-files", title: "Системний менеджер systemd: unit-файли та systemctl", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-systemctl-dbus.md", status: "done" }] , "hist": [{ file: "hist-systemctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-dbus-unit-control.md", status: "done" }] },
-          { slug: "initramfs-and-initrd-architecture", title: "Архітектура initramfs та cpio: розгортання раннього простору користувача", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cpio-header-spec.md", status: "done" }] , "comp": [{ file: "comp-initrd-initramfs-memory.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-rootfs.md", status: "done" }] , "proj": [{ file: "proj-cpio-unpack-engine.md", status: "done" }] },
-          { slug: "kernel-boot-process-from-reset-vector-to-start-kernel", title: "Завантаження ядра: від вектора скидання процесора до start_kernel", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-boot-params-header.md", status: "done" }] , "hist": [{ file: "hist-real-mode-legacy-boot.md", status: "done" }] , "math": [{ file: "math-early-paging-layout.md", status: "done" }] , "proj": [{ file: "proj-parse-vmlinuz-header.md", status: "done" }] },
+          { slug: "tmpfiles-d-runtime-volatile-files", title: "Управління тимчасовими файлами: сервіс systemd-tmpfiles та tmpfiles.d", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-tmpfiles-spec.md", status: "done" }] , "hist": [{ file: "hist-volatile-storage-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-tmpfiles-service.md", status: "done" }] },
+          { slug: "systemd-sysusers-and-sysctl-d", title: "Декларативне налаштування системи: systemd-sysusers та systemd-sysctl", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sysusers-and-sysctl-formats.md", status: "done" }] , "comp": [{ file: "comp-dot-d-hierarchy-precedence.md", status: "done" }] , "hist": [{ file: "hist-declarative-sysconfig-evolution.md", status: "done" }] , "proj": [{ file: "proj-declarative-provisioning-engine.md", status: "done" }] },
+          { slug: "systemd-nspawn-lightweight-containers", title: "Контейнеризація у systemd: інструмент systemd-nspawn", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-nspawn-cli-and-nspawn-file.md", status: "done" }] , "hist": [{ file: "hist-chroot-to-nspawn.md", status: "done" }] , "proj": [{ file: "proj-nspawn-custom-container.md", status: "done" }] },
+          { slug: "systemd-generator-architecture", title: "Генератори systemd (/lib/systemd/system-generators/)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-generator-interface.md", status: "done" }] , "hist": [{ file: "hist-generators-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-generator.md", status: "done" }] },
+          { slug: "systemd-target-units-and-boot-targets", title: "Цільові юніти (target) та ізоляція рівнів виконання systemd", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-target-unit-spec.md", status: "done" }] , "hist": [{ file: "hist-runlevels-to-targets.md", status: "done" }] , "proj": [{ file: "proj-custom-target-and-isolation.md", status: "done" }] },
+          { slug: "systemd-boot-and-systemd-stub-uki", title: "Завантажувачі UEFI: systemd-boot та Unified Kernel Images (UKI)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-uki-sections.md", status: "done" }] , "hist": [{ file: "hist-uki-evolution.md", status: "done" }] , "proj": [{ file: "proj-build-uki.md", status: "done" }] },
+          { slug: "journald-logging-subsystem-and-journalctl", title: "Логування у systemd: підсистема journald та інструмент journalctl", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sd-journal.md", status: "done" }] , "hist": [{ file: "hist-syslog-to-journald.md", status: "done" }] , "math": [{ file: "math-journal-fss-sealing.md", status: "done" }] , "proj": [{ file: "proj-journalctl-emulator.md", status: "done" }] },
+          { slug: "dracut-and-mkinitcpio-toolchains", title: "Генератори initramfs: dracut, mkinitcpio та initramfs-tools", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-toolchain-hook-interfaces.md", status: "done" }] , "hist": [{ file: "hist-initramfs-generators-evolution.md", status: "done" }] , "proj": [{ file: "proj-custom-dracut-module.md", status: "done" }] },
+          { slug: "systemd-systemctl-and-unit-files", title: "Системний менеджер systemd: unit-файли та systemctl", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-systemctl-dbus.md", status: "done" }] , "hist": [{ file: "hist-systemctl-evolution.md", status: "done" }] , "proj": [{ file: "proj-dbus-unit-control.md", status: "done" }] },
+          { slug: "initramfs-and-initrd-architecture", title: "Архітектура initramfs та cpio: розгортання раннього простору користувача", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cpio-header-spec.md", status: "done" }] , "comp": [{ file: "comp-initrd-initramfs-memory.md", status: "done" }] , "hist": [{ file: "hist-ramdisk-to-rootfs.md", status: "done" }] , "proj": [{ file: "proj-cpio-unpack-engine.md", status: "done" }] },
+          { slug: "kernel-boot-process-from-reset-vector-to-start-kernel", title: "Завантаження ядра: від вектора скидання процесора до start_kernel", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-boot-params-header.md", status: "done" }] , "hist": [{ file: "hist-real-mode-legacy-boot.md", status: "done" }] , "math": [{ file: "math-early-paging-layout.md", status: "done" }] , "proj": [{ file: "proj-parse-vmlinuz-header.md", status: "done" }] },
           {
             "slug": "boot-chain",
             "title": "Ланцюг завантаження: від прошивки до init",
@@ -10092,7 +10092,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cmdline-reference.md",
@@ -10120,7 +10120,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-initrd-to-initramfs.md",
@@ -10142,7 +10142,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-shapes-of-init.md",
@@ -10192,7 +10192,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-service-unit.md",
@@ -10220,7 +10220,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-listen-fds.md",
@@ -10248,7 +10248,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-journal-protocol.md",
@@ -10276,7 +10276,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sleep-controls.md",
@@ -10304,7 +10304,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-initcall-reference.md",
@@ -10332,7 +10332,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-login1-dbus.md",
@@ -10360,7 +10360,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-dynamic-user-surface.md",
@@ -10388,7 +10388,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-efi-variables.md",
@@ -10416,7 +10416,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-secure-boot-variables.md",
@@ -10444,7 +10444,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-reboot-syscall.md",
@@ -10482,7 +10482,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-service-directories.md",
@@ -10501,7 +10501,7 @@ window.__BOOKS__ = [
             "slug": "kexec-and-kdump",
             "title": "kexec: завантаження нового ядра без прошивки, і kdump",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-kexec-interface.md",
@@ -10522,7 +10522,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10532,7 +10532,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10566,7 +10566,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10582,7 +10582,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10610,7 +10610,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10632,7 +10632,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10660,7 +10660,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10688,7 +10688,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           }
         ]
@@ -10723,7 +10723,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10751,7 +10751,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10779,7 +10779,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10807,7 +10807,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10835,7 +10835,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10863,7 +10863,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10885,7 +10885,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10907,7 +10907,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10935,7 +10935,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10963,7 +10963,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           }
         ]
@@ -10973,7 +10973,7 @@ window.__BOOKS__ = [
         "title": "Мережа в ядрі",
         "scope": "Як Linux бачить мережу зсередини: від інтерфейсу до маршруту й фільтра.",
         "topics": [
-          { slug: "network-stack-architecture", title: "Мережевий стек ядра Linux: архітектура та шлях пакета", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "network-stack-architecture", title: "Мережевий стек ядра Linux: архітектура та шлях пакета", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "netfilter-and-iptables-nftables", title: "Netfilter, iptables та nftables", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "network-stack",
@@ -11004,7 +11004,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11032,7 +11032,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11060,7 +11060,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11088,7 +11088,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11116,7 +11116,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11144,7 +11144,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11172,7 +11172,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11200,7 +11200,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11228,7 +11228,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11256,7 +11256,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11284,7 +11284,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11312,7 +11312,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11340,7 +11340,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11368,7 +11368,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11396,7 +11396,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11424,7 +11424,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11452,7 +11452,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11480,7 +11480,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11508,7 +11508,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11536,7 +11536,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11564,14 +11564,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "xdp-sockets-af-xdp",
             "title": "Сокети високої швидкості AF_XDP (XSK)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-xsk-umem.md",
@@ -11596,7 +11596,7 @@ window.__BOOKS__ = [
             "slug": "io-uring-net-passthrough",
             "title": "Мережевий ввід-вивід io_uring: SendZC та RecvZC",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-io-uring-net.md",
@@ -11621,7 +11621,7 @@ window.__BOOKS__ = [
             "slug": "bpf-sockmap-and-sk-skb",
             "title": "Прискорення сокетів BPF: sockmap та sk_skb",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-sockmap-sk-skb.md",
@@ -11646,7 +11646,7 @@ window.__BOOKS__ = [
             "slug": "ethtool-netlink-interface",
             "title": "Сучасний інтерфейс налаштування мережі ethtool Netlink",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-ethtool-netlink.md",
@@ -11671,7 +11671,7 @@ window.__BOOKS__ = [
             "slug": "packet-mmap-ring-buffers",
             "title": "Механізм PACKET_MMAP (TPACKET_V3 ring buffers)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-tpacket-v3.md",
@@ -11696,7 +11696,7 @@ window.__BOOKS__ = [
             "slug": "mptcp-path-managers",
             "title": "Менеджери шляхів у MPTCP (mptcpd та in-kernel path manager)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-mptcp-netlink.md",
@@ -11721,7 +11721,7 @@ window.__BOOKS__ = [
             "slug": "netfilter-nftables-expression-engine",
             "title": "Рушій виразів nftables у ядрах Linux (nftables vs iptables)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-nftables-expressions.md",
@@ -11746,7 +11746,7 @@ window.__BOOKS__ = [
             "slug": "bpf-cgroup-skb-hooks",
             "title": "Хуки eBPF на рівні cgroup: BPF_CGROUP_INET_INGRESS/EGRESS",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-cgroup-skb-helpers.md",
@@ -11771,7 +11771,7 @@ window.__BOOKS__ = [
             "slug": "macsec-ieee-802-1ae",
             "title": "Захист канального рівня MACsec (IEEE 802.1AE) у ядрі",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-rtnetlink-macsec.md",
@@ -11796,7 +11796,7 @@ window.__BOOKS__ = [
             "slug": "netfilter-conntrack-architecture",
             "title": "Підсистема відстеження зʼєднань Conntrack (nf_conntrack) та conntrack tables",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-netlink-conntrack.md",
@@ -11821,7 +11821,7 @@ window.__BOOKS__ = [
             "slug": "ethtool-rss-indirection-tables",
             "title": "Масштабування на боці прийому: RSS Indirection Tables та Flow Hashing",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-ethtool-rss.md",
@@ -11846,7 +11846,7 @@ window.__BOOKS__ = [
             "slug": "tls-ktls-kernel-offload",
             "title": "Ядерне прискорення TLS (kTLS / TLS_HW / TLS_SW)",
               "basic": {
-                "status": "done",
+                "status": "recheck",
             "api": [
               {
                 "file": "api-ktls-ulp-and-setsockopt.md",
@@ -11867,14 +11867,14 @@ window.__BOOKS__ = [
             ],
               },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "xdp-cpumap-and-devmap",
             "title": "Маршрутизація XDP: BPF_MAP_TYPE_CPUMAP та BPF_MAP_TYPE_DEVMAP",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-cpumap-devmap-reference.md",
@@ -11927,7 +11927,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11955,7 +11955,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -11983,7 +11983,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12011,7 +12011,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12039,7 +12039,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12067,7 +12067,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12095,7 +12095,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12123,7 +12123,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12151,7 +12151,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12179,7 +12179,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12207,7 +12207,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12235,7 +12235,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           }
         ]
@@ -12273,7 +12273,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12301,7 +12301,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12329,7 +12329,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12357,7 +12357,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12385,7 +12385,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12413,14 +12413,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "core-dump",
             "title": "Аварійний дамп: як налаштувати й що з нього видно",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-core-pattern.md",
@@ -12441,7 +12441,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12469,7 +12469,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12497,14 +12497,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "uprobes-and-kprobes",
             "title": "Динамічне трасування: kprobes та uprobes",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-kprobes-uprobes.md",
@@ -12525,7 +12525,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12563,7 +12563,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12591,7 +12591,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12619,7 +12619,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12647,7 +12647,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12675,7 +12675,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12703,7 +12703,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12731,7 +12731,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12759,7 +12759,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12787,7 +12787,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12815,14 +12815,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "bpf-iterators-and-user-ringbuf",
             "title": "Ітератори BPF (bpf_iter) та User Ring Buffer",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-bpf-iter-and-user-ringbuf.md",
@@ -12847,7 +12847,7 @@ window.__BOOKS__ = [
             "slug": "bpf-trampoline-and-fprobe",
             "title": "Сучасні оверхеди трасування: BPF Trampoline та fprobe",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-bpf-trampoline-and-fprobe.md",
@@ -12872,7 +12872,7 @@ window.__BOOKS__ = [
             "slug": "ebpf-perf-event-array",
             "title": "Канали подій eBPF Perf Event Array",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-perf-event-array.md",
@@ -12897,7 +12897,7 @@ window.__BOOKS__ = [
             "slug": "user-events-ftrace-subsystem",
             "title": "Користувацькі події у ftrace: User Events підсистема",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-user-events.md",
@@ -12922,7 +12922,7 @@ window.__BOOKS__ = [
             "slug": "ebpf-arena-shared-memory-region",
             "title": "Спільні регіони памʼяті BPF Arena (Linux 6.8+)",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-bpf-arena.md",
@@ -12941,7 +12941,7 @@ window.__BOOKS__ = [
             "slug": "kernel-kunit-test-framework",
             "title": "Фреймворк тестування ядра KUnit та відлагоджувачі KASAN/KCSAN/KFENCE",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-kunit-and-sanitizers.md",
@@ -12966,7 +12966,7 @@ window.__BOOKS__ = [
             "slug": "bpf-ringbuf-vs-perfbuf",
             "title": "Порівняльний аналіз механізмів доставки подій BPF Ring Buffer vs Perf Event Array",
             "detailed": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-ringbuf-vs-perfbuf.md",
@@ -13019,7 +13019,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -13047,7 +13047,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -13075,7 +13075,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -13103,14 +13103,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "fhs-layout",
             "title": "Ієрархія файлової системи: куди що кладуть",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-fhs-directory-spec.md",
@@ -13131,7 +13131,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -13159,14 +13159,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
             "slug": "containers-vs-packages",
             "title": "Контейнер проти пакунка",
             "basic": {
-              "status": "done",
+              "status": "recheck",
             "api": [
               {
                 "file": "api-container-vs-pkg-manifests.md",
@@ -13187,7 +13187,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -13215,7 +13215,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           }
         ]

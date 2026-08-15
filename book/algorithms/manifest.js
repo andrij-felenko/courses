@@ -15,8 +15,8 @@ window.__BOOKS__.push(
         { slug: "parity-p", title: "Клас ⊕P (Parity-P)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "p-poly", title: "Клас P/poly: схема складності", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "pspace", title: "Клас PSPACE: поліноміальна пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "cook-levin-theorem", title: "Теорема Кука — Левіна: фундаментальний камінь NP-повноти", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-cook-levin.md", status: "done" }] , "math": [{ file: "math-cook-levin-tableau.md", status: "done" }] , "proj": [{ file: "proj-sat-verifier.md", status: "done" }] },
-        { slug: "p-vs-np", title: "P проти NP: Головна загадка обчислюваності", basic: { status: "empty" }, detailed: { status: "done" } , "hist": [{ file: "hist-p-vs-np.md", status: "done" }] , "math": [{ file: "math-proof-barriers.md", status: "done" }] , "proj": [{ file: "proj-sat-solver.md", status: "done" }] },
+        { slug: "cook-levin-theorem", title: "Теорема Кука — Левіна: фундаментальний камінь NP-повноти", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-cook-levin.md", status: "done" }] , "math": [{ file: "math-cook-levin-tableau.md", status: "done" }] , "proj": [{ file: "proj-sat-verifier.md", status: "done" }] },
+        { slug: "p-vs-np", title: "P проти NP: Головна загадка обчислюваності", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-p-vs-np.md", status: "done" }] , "math": [{ file: "math-proof-barriers.md", status: "done" }] , "proj": [{ file: "proj-sat-solver.md", status: "done" }] },
         {
           "slug": "state-minimization",
           "title": "Мінімізація скінченного автомата",
@@ -164,7 +164,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -192,7 +192,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "math": [
             {
@@ -332,7 +332,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -378,7 +378,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -731,7 +731,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1135,7 +1135,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1221,7 +1221,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1267,7 +1267,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1409,7 +1409,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1467,7 +1467,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1525,7 +1525,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1563,7 +1563,7 @@ window.__BOOKS__.push(
             "status": "pending"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1591,7 +1591,7 @@ window.__BOOKS__.push(
             "status": "pending"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1667,7 +1667,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1713,7 +1713,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1723,7 +1723,7 @@ window.__BOOKS__.push(
             "status": "pending"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1865,7 +1865,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1923,7 +1923,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1981,7 +1981,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2039,7 +2039,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2097,7 +2097,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2143,7 +2143,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2201,7 +2201,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2259,7 +2259,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2345,7 +2345,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2391,7 +2391,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2449,7 +2449,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2507,7 +2507,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2553,7 +2553,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2611,7 +2611,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2669,7 +2669,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2743,7 +2743,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2801,7 +2801,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         }
       ]
@@ -2864,7 +2864,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2922,7 +2922,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -2932,7 +2932,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -2960,7 +2960,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3018,7 +3018,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3064,7 +3064,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3110,7 +3110,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3168,7 +3168,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3226,7 +3226,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3284,7 +3284,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -3342,7 +3342,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         }
       ]
@@ -3383,7 +3383,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {

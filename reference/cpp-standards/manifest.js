@@ -155,7 +155,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -183,7 +183,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -969,7 +969,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -997,7 +997,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1025,7 +1025,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1053,7 +1053,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1081,7 +1081,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1103,7 +1103,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         }
       ]
@@ -1138,7 +1138,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1166,7 +1166,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1194,7 +1194,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1222,7 +1222,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1250,7 +1250,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1278,7 +1278,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1306,7 +1306,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1334,7 +1334,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1362,7 +1362,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1390,7 +1390,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1418,7 +1418,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1446,7 +1446,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1474,7 +1474,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1508,7 +1508,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1536,7 +1536,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1564,7 +1564,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1592,7 +1592,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1620,7 +1620,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         }
       ]
@@ -1655,7 +1655,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1683,7 +1683,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1711,7 +1711,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1739,7 +1739,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1767,7 +1767,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
@@ -1795,7 +1795,7 @@ window.__BOOKS__.push(
           ],
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           }
         },
         {
