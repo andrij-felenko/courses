@@ -387,7 +387,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-release-metadata.md",
@@ -471,7 +471,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cve-record.md",
@@ -689,7 +689,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-9p-protocol.md",
@@ -720,7 +720,7 @@ window.__BOOKS__ = [
           { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "recheck" }, detailed: { status: "recheck" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
-          { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "atomics-and-memory-barriers", title: "Атомарні операції та бар'єри пам'яті в Linux", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "systemd-architecture-and-cgroups",
@@ -2699,7 +2699,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -2757,8 +2757,8 @@ window.__BOOKS__ = [
         "title": "Файли й файлові системи",
         "scope": "Що таке файл у Unix, як імена відв'язані від вмісту й на чому тримається узгодженість.",
         "topics": [
-          { slug: "file-descriptors-and-open-file-table", title: "file-descriptors-and-open-file-table", basic: { status: "empty" }, detailed: { status: "done" } },
-          { slug: "extended-attributes-xattr", title: "extended-attributes-xattr", basic: { status: "empty" }, detailed: { status: "done" } },
+          { slug: "file-descriptors-and-open-file-table", title: "file-descriptors-and-open-file-table", basic: { status: "empty" }, detailed: { status: "recheck" } },
+          { slug: "extended-attributes-xattr", title: "extended-attributes-xattr", basic: { status: "empty" }, detailed: { status: "recheck" } },
           {
             "slug": "file-descriptor",
             "title": "Файловий дескриптор",
@@ -4422,52 +4422,6 @@ window.__BOOKS__ = [
           { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
           { slug: "dma-mapping-subsystem-and-iommu", title: "Підсистема DMA mapping та IOMMU в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dma-mapping-surface.md", status: "done" }] , "hist": [{ file: "hist-dma-evolution.md", status: "done" }] , "proj": [{ file: "proj-dma-driver-example.md", status: "done" }] },
           {
-            "slug": "zoned-storage-f2fs-integration",
-            "title": "Файлова система f2fs для зонованих пристроїв ZNS",
-            "basic": {
-              "status": "empty",
-            "api": [
-              {
-                "file": "api-zns-f2fs-interfaces.md",
-                "status": "done",
-            "hist": [
-              {
-                "file": "hist-from-ftl-to-zns.md",
-                "status": "done",
-            "proj": [
-              {
-                "file": "proj-zns-zone-append.md",
-                "status": "done",
-            "api": [
-              {
-                "file": "api-zns-f2fs-interfaces.md",
-                "status": "done",
-            "hist": [
-              {
-                "file": "hist-from-ftl-to-zns.md",
-                "status": "done",
-            "proj": [
-              {
-                "file": "proj-zns-zone-append.md",
-                "status": "done"
-              }
-            ],
-              }
-            ],
-              }
-            ],
-              }
-            ],
-              }
-            ],
-              }
-            ],
-            },
-            "detailed": {
-              "status": "recheck"
-            }
-          },
-          {
             "slug": "blocking-and-nonblocking",
             "title": "Блокуючий і неблокуючий режим",
             "basic": {
@@ -5016,8 +4970,11 @@ window.__BOOKS__ = [
           {
             "slug": "zoned-storage-f2fs-integration",
             "title": "Файлова система f2fs для зонованих пристроїв ZNS",
+              "basic": {
+                "status": "empty"
+              },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -5670,7 +5627,7 @@ window.__BOOKS__ = [
         "scope": "Хто такий процес з погляду системи і як вирішується, що йому дозволено.",
         "topics": [
           { slug: "seccomp-syscall-filtering", title: "Գ�������� ��������� ������� (seccomp)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "uid-gid-model",
             "title": "Користувачі, групи й ідентичність процесу",
@@ -5896,7 +5853,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-udev-access-rules.md",
@@ -6304,7 +6261,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-homectl-and-record.md",
@@ -7033,7 +6990,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-rule-keys.md",
@@ -7463,7 +7420,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-lvm-commands.md",
@@ -7715,7 +7672,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-multipath-table.md",
@@ -8013,7 +7970,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-integrity-table.md",
@@ -8321,7 +8278,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-wbt-controls.md",
@@ -8343,7 +8300,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-io-controller-files.md",
@@ -8399,7 +8356,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-md-metadata.md",
@@ -8679,7 +8636,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-configfs-target.md",
@@ -8875,7 +8832,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-bot-vs-uas.md",
@@ -8903,7 +8860,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-sat-translation.md",
@@ -8931,7 +8888,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-nvmeof-transports.md",
@@ -8959,7 +8916,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-zbc-zns-spec.md",
@@ -8987,7 +8944,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-virtqueue-ring.md",
@@ -9097,7 +9054,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9129,7 +9086,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-iscsi-pdu.md",
@@ -9157,7 +9114,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-scsi-pr-commands.md",
@@ -9217,7 +9174,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9249,7 +9206,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -9259,7 +9216,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-cxl-spec.md",
@@ -10070,7 +10027,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "hist": [
                 {
                   "file": "hist-chain-shape.md",
@@ -10164,7 +10121,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done",
+              "status": "recheck",
               "api": [
                 {
                   "file": "api-unit-directives.md",
@@ -10472,7 +10429,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -10974,7 +10931,7 @@ window.__BOOKS__ = [
         "scope": "Як Linux бачить мережу зсередини: від інтерфейсу до маршруту й фільтра.",
         "topics": [
           { slug: "network-stack-architecture", title: "Мережевий стек ядра Linux: архітектура та шлях пакета", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "netfilter-and-iptables-nftables", title: "Netfilter, iptables та nftables", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "netfilter-and-iptables-nftables", title: "Netfilter, iptables та nftables", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "network-stack",
             "title": "Мережевий стек у ядрі",
@@ -10982,7 +10939,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {
@@ -12245,9 +12202,9 @@ window.__BOOKS__ = [
         "title": "Побачити, що відбувається",
         "scope": "Механізми, якими система показує себе зсередини — і що з них можна дізнатися.",
         "topics": [
-          { slug: "systemtap-scripting", title: "Інструментарій SystemTap", basic: { status: "empty" }, detailed: { status: "done" } },
-          { slug: "bpftrace-dynamic-tracing", title: "Високорівневе трасування через bpftrace", basic: { status: "empty" }, detailed: { status: "done" } },
-          { slug: "audit-framework", title: "Підсистема аудиту ядра: правила, події й auditd", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "systemtap-scripting", title: "Інструментарій SystemTap", basic: { status: "empty" }, detailed: { status: "recheck" } },
+          { slug: "bpftrace-dynamic-tracing", title: "Високорівневе трасування через bpftrace", basic: { status: "empty" }, detailed: { status: "recheck" } },
+          { slug: "audit-framework", title: "Підсистема аудиту ядра: правила, події й auditd", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "proc-filesystem",
             "title": "/proc: процеси як файли",
@@ -12535,7 +12492,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "done"
+              "status": "recheck"
             }
           },
           {

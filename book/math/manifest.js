@@ -258,7 +258,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -283,7 +283,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "proj": [
             {
@@ -303,7 +303,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -318,7 +318,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -348,7 +348,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -373,7 +373,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -403,7 +403,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -433,7 +433,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -458,7 +458,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -483,7 +483,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -513,7 +513,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -538,7 +538,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -568,7 +568,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -598,7 +598,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -628,7 +628,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -657,7 +657,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -687,7 +687,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "math": [
             {
@@ -707,7 +707,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -737,7 +737,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "math": [
             {
@@ -757,7 +757,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -787,7 +787,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -817,7 +817,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -842,7 +842,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -872,7 +872,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -902,7 +902,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "math": [
             {
@@ -926,7 +926,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1171,7 +1171,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1201,7 +1201,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -1216,7 +1216,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -1638,7 +1638,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1658,7 +1658,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1678,7 +1678,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1703,7 +1703,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -1718,7 +1718,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -1733,7 +1733,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1758,7 +1758,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1788,7 +1788,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1848,7 +1848,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1878,7 +1878,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -2237,7 +2237,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -2354,7 +2354,7 @@ window.__BOOKS__.push(
           "slug": "multiplicative-order",
           "title": "Мультиплікативний порядок",
           "basic": {
-            "status": "done"
+            "status": "recheck"
           },
           "detailed": {
             "status": "update"
@@ -2515,7 +2515,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -2579,7 +2579,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -2639,7 +2639,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -3919,7 +3919,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -3944,7 +3944,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4009,7 +4009,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4039,7 +4039,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4240,7 +4240,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4265,7 +4265,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4280,7 +4280,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4295,7 +4295,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4310,7 +4310,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4325,7 +4325,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4345,7 +4345,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4360,7 +4360,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4375,7 +4375,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4600,7 +4600,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4638,7 +4638,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4713,7 +4713,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4743,7 +4743,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4850,7 +4850,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -4870,7 +4870,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4885,7 +4885,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4900,7 +4900,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -4915,7 +4915,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5050,7 +5050,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5065,7 +5065,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5080,7 +5080,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5115,7 +5115,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5145,7 +5145,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5175,7 +5175,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5200,7 +5200,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "math": [
             {
@@ -5230,7 +5230,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5330,7 +5330,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5360,7 +5360,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5534,7 +5534,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -5554,7 +5554,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5569,7 +5569,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5584,7 +5584,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5599,7 +5599,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5614,7 +5614,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5629,7 +5629,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5644,7 +5644,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5659,7 +5659,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5674,7 +5674,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5689,7 +5689,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5714,7 +5714,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5729,7 +5729,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -5944,7 +5944,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6201,7 +6201,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6216,7 +6216,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6231,7 +6231,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6300,7 +6300,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6355,7 +6355,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6417,7 +6417,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6432,7 +6432,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6447,7 +6447,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6592,7 +6592,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -6662,7 +6662,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6677,7 +6677,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6829,7 +6829,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6874,7 +6874,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6899,7 +6899,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -6924,7 +6924,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7059,7 +7059,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7314,7 +7314,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "proj": [
             {
@@ -7334,7 +7334,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7349,7 +7349,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7364,7 +7364,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7466,7 +7466,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7481,7 +7481,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7496,7 +7496,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7511,7 +7511,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7526,7 +7526,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7551,7 +7551,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],
@@ -7736,7 +7736,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [],
           "comp": [],

@@ -17,7 +17,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -39,7 +39,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -61,7 +61,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -89,7 +89,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -111,7 +111,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -133,7 +133,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -205,7 +205,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -227,7 +227,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -255,7 +255,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -283,7 +283,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -311,7 +311,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -333,7 +333,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "api": [
             {
@@ -355,7 +355,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -377,7 +377,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "proj": [
             {
@@ -397,7 +397,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "api": [
             {
@@ -425,7 +425,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -447,7 +447,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -469,7 +469,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -491,7 +491,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "api": [
             {
@@ -519,7 +519,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -547,7 +547,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -569,7 +569,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -694,7 +694,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "proj": [
             {
@@ -716,7 +716,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -738,7 +738,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
@@ -766,7 +766,7 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "recheck"
           },
           "hist": [
             {
