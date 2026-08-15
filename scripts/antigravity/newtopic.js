@@ -5,7 +5,8 @@
    Ужиток:
      node scripts/antigravity/newtopic.js --book unix-linux --kind reference \
           --section devices --slug nvme-namespaces --title "Простори імен NVMe" \
-          --why "<чому це окрема тема>" --also <слуг наявної теми, якій це теж потрібне> [--from <тека>]
+          --why "<чому це окрема тема>" --also <слуг іншої теми книги, якій це теж потрібне> [--from <тека>]
+     node scripts/antigravity/newtopic.js --book unix-linux --drop <слуг>     (прибрати з черги)
      node scripts/antigravity/newtopic.js --book unix-linux --list
 
    ЧОМУ ТАК. Тему, яку помітили посеред письма, не можна ні заводити в маніфест
@@ -27,7 +28,7 @@ const val = (n) => { const i = argv.indexOf("--" + n); return i >= 0 ? argv[i + 
 const has = (n) => argv.includes("--" + n);
 
 const BOOK = val("book");
-if (!BOOK) { console.error("Ужиток: node scripts/antigravity/newtopic.js --book <книга> --kind <вид> --section <секція> --slug <слуг> --title <назва> --why <навіщо>"); process.exit(3); }
+if (!BOOK) { console.error("Ужиток: node scripts/antigravity/newtopic.js --book <книга> --kind <вид> --section <секція> --slug <слуг> --title <назва> --why <навіщо> --also <слуг іншої теми книги>"); process.exit(3); }
 
 const QDIR = path.join("scripts", "_finish");
 const QFILE = path.join(QDIR, `_ag-newtopics-${BOOK}.json`);
