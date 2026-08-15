@@ -32,8 +32,8 @@ def fig_entry_anatomy():
         (90, "procname = \"ip_forward\""),
         (142, "data → адреса справжньої змінної"),
         (194, "maxlen = 4 · mode = 0644"),
-        (246, "proc_handler = proc_dointvec_minmax"),
-        (298, "extra1 = 0 · extra2 = 1"),
+        (246, "proc_handler — функція підсистеми"),
+        (298, "extra1, extra2 — вказівники"),
     ]
     for y, s in rows:
         f.append(fitbox(380, y, 340, 42, s, size=13, fill=BG, stroke=MUTED))

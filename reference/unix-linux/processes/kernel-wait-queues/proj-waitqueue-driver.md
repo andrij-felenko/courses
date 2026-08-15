@@ -159,6 +159,8 @@ static ssize_t wqdemo_read(struct file *f, char __user *buf, size_t len, loff_t 
 
     if (len > sizeof(kbuf))
         len = sizeof(kbuf);
+    if (!len)
+        return 0;                            /* read(fd, buf, 0) не має чекати */
 
     for (;;) {
         spin_lock_irqsave(&d->lock, flags);
@@ -208,6 +210,8 @@ static ssize_t wqdemo_write(struct file *f, const char __user *buf, size_t len, 
 
     if (len > sizeof(kbuf))
         len = sizeof(kbuf);
+    if (!len)
+        return 0;                            /* нульовий запис не чекає на місце */
     if (copy_from_user(kbuf, buf, len))      /* замка ще немає — спати МОЖНА */
         return -EFAULT;
 
@@ -580,7 +584,7 @@ $ sudo perf stat -a -e sched:sched_wakeup,context-switches -- \
        0,029 s time elapsed
 ```
 
-Одна зміна прапорця в записі черги — і шістдесят чотири тисячі пробуджень перетворилися на тисячу. Арифметика тут проста настільки, що результат можна було передбачити наперед:
+Одна зміна прапорця в записі черги — і шістдесят чотири тисячі пробуджень перетворилися на неповні дві, з яких на читачів припадає тисяча — рівно стільки, скільки було записів у пристрій. Арифметика тут проста настільки, що результат можна було передбачити наперед:
 
 ```
 N = 64 читачі,  M = 1000 однобайтових записів

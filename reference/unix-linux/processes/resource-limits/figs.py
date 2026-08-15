@@ -346,7 +346,7 @@ def fig_emfile_accept_loop():
 
     p.append(text(W / 2, 700,
                   "Різниця лише в одному наперед відкритому дескрипторі, "
-                  "який тримають закритим саме на цей випадок",
+                  "який ні для чого не вживають і закривають саме в цю мить",
                   size=13.5, color=MUTED))
 
     render(os.path.join(OUT, "emfile-accept-loop.svg"), W, H, *p,

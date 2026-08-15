@@ -147,7 +147,7 @@ def fig_branch_lifetimes():
     for i in range(5):
         f.append(rect(600 + i * 40, 400, 20, 26, fill=GREY_FILL, stroke=MUTED))
     f.append(text(600, 452,
-                  "звичайні стабільні гілки: кожна живе кілька тижнів",
+                  "звичайні стабільні гілки: кожна живе близько трьох місяців",
                   size=12, color=MUTED, anchor="start"))
 
     # вісь років

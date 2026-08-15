@@ -384,7 +384,7 @@ def fig_delegation():
         (60, "/sys/fs/cgroup   —   корінь", PALE, MUTED),
         (122, "user.slice", SOFT, MUTED),
         (184, "user@1000.service", SOFT, MUTED),
-        (246, "run-cglab.scope   ·   Delegate=yes", COOL, NEG),
+        (246, "cglab.scope   ·   Delegate=yes", COOL, NEG),
     ]
     for y, lab, fill, accent in chain:
         p.append(fitbox(60, y, 400, 46, lab, size=12, fill=fill, stroke=accent,

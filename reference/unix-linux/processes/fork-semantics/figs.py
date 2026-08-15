@@ -122,8 +122,8 @@ def fig_cow_pagetables():
         p.append(arrow(CX - 6, y, FX + FW + 6, y, color=POS))
 
     # ── ряд 3: дитина записала в сторінку B ──
-    p.append(stage(2, "дитина записала в B — виняток, копія одного кадру, запис дозволено"))
-    p.extend(table(PX, PW, 2, "таблиця сторінок батька", ["ro", "rw", "ro"], NEG))
+    p.append(stage(2, "дитина записала в B — виняток і копія кадру; право запису повернуто лише їй"))
+    p.extend(table(PX, PW, 2, "таблиця сторінок батька", ["ro", "ro", "ro"], NEG))
     p.extend(table(CX, CW, 2, "таблиця сторінок дитини", ["ro", "rw", "ro"], POS))
     p.extend(frames(2, extra=1))
     for k in range(3):

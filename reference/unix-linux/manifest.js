@@ -167,7 +167,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "proj": [
                 {
                   "file": "proj-entry-path-walk.md",
@@ -183,7 +183,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-multics.md",
@@ -237,7 +237,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-first-distributions.md",
@@ -337,7 +337,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-abi-surface.md",
@@ -365,7 +365,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-do-not-break.md",
@@ -387,7 +387,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-release-metadata.md",
@@ -415,7 +415,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-tick-to-tickless.md",
@@ -443,7 +443,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-compat-contract.md",
@@ -499,7 +499,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-time64-surface.md",
@@ -555,7 +555,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sysctl-surface.md",
@@ -583,7 +583,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-kernel-self-editing.md",
@@ -605,7 +605,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-livepatch-surface.md",
@@ -633,7 +633,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-taint-surface.md",
@@ -661,7 +661,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-annotations.md",
@@ -689,7 +689,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-9p-protocol.md",
@@ -717,10 +717,10 @@ window.__BOOKS__ = [
         "title": "Процес",
         "scope": "Процес як головна одиниця системи: як народжується, як планується, як ізолюється.",
         "topics": [
-          { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "recheck" }, detailed: { status: "recheck" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
-          { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "recheck" }, detailed: { status: "recheck" } },
+          { slug: "rcu-read-copy-update", title: "RCU: читання без замків і відкладене звільнення", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "done" }, detailed: { status: "done" } },
+          { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "done" }, detailed: { status: "done" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
+          { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "systemd-architecture-and-cgroups",
             "title": "Архітектура systemd та cgroups",
@@ -748,7 +748,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-process-and-fork.md",
@@ -798,7 +798,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-fork-origin.md",
@@ -820,7 +820,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-exec-family.md",
@@ -936,7 +936,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-scheduler-evolution.md",
@@ -1026,7 +1026,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-cgroup2-interface.md",
@@ -1054,7 +1054,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-namespace-interfaces.md",
@@ -1108,7 +1108,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-rlimit.md",
@@ -1170,7 +1170,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-daemon-word.md",
@@ -1270,7 +1270,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-register-format.md",
@@ -1298,7 +1298,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-wait-queue-interfaces.md",

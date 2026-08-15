@@ -49,9 +49,9 @@ def fig_fast_slow_path():
     p.append(fitbox(600, 235, 430, 60, "Системний виклик sys_futex(FUTEX_WAIT)\nПерехід у режим ядра (syscall / sysenter)\nАтомарна перевірка *uaddr == val під hb->lock", size=13, fill=WARM_FILL, stroke=POS))
     p.append(arrow(815, 295, 815, 330, color=POS, sw=2))
 
-    p.append(fitbox(600, 330, 430, 65, "Додавання потоку в futex_hash_bucket\nПеревід потоку в стан TASK_INTERRUPTIBLE\nЗатримка: ~1000-2000 тактів CPU (~1-2 мкс)", size=13, fill=RED_FILL, stroke=POS, bold=True))
+    p.append(fitbox(600, 330, 430, 65, "Додавання потоку в futex_hash_bucket\nПереведення потоку в стан TASK_INTERRUPTIBLE\nЗатримка: ~1000-2000 тактів CPU (~0.3-0.7 мкс)", size=13, fill=RED_FILL, stroke=POS, bold=True))
 
-    p.append(text(815, 435, "Повна збереженість контексту та виклик планировщика", size=12, color=POS, italic=True))
+    p.append(text(815, 435, "Повне збереження контексту та виклик планувальника", size=12, color=POS, italic=True))
     p.append(text(815, 460, "Пробудження іншим потоком через FUTEX_WAKE", size=12, color=MUTED))
 
     render(os.path.join(IMG, 'futex-fast-slow-path.svg'), W, H, *p,
@@ -114,7 +114,7 @@ def fig_cmp_requeue():
     p.append(fitbox(70, 130, 430, 65, "Condvar Futex Bucket (uaddr_cond)\nWait Queue: Thread A, Thread B, Thread C, Thread D", size=13, fill=RED_FILL, stroke=POS, bold=True))
 
     p.append(text(285, 215, "Проблема без CMP_REQUEUE (Thundering Herd):", size=13, bold=True, color=POS))
-    p.append(fitbox(70, 235, 430, 90, "Викликом WAKE пробуджуються всі 4 потоки.\nУсі 4 повертаються у юзерспейс і змагаються\nза м'ютекс. 1 захоплює, 3 знову йдуть у ядро!\nРезультат: 3 марних перемикання контексту.", size=12, fill=WARM_FILL, stroke=POS))
+    p.append(fitbox(70, 235, 430, 90, "Викликом WAKE пробуджуються всі 4 потоки.\nУсі 4 повертаються у юзерспейс і змагаються\nза м'ютекс. 1 захоплює, 3 знову йдуть у ядро!\nРезультат: 6 марних перемикань контексту.", size=12, fill=WARM_FILL, stroke=POS))
 
     p.append(fitbox(70, 350, 430, 60, "Mutex Futex Bucket (uaddr_mutex)\nWait Queue: (Порожня або 1 власник)", size=13, fill=BLUE_FILL, stroke=NEG))
 

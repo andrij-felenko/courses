@@ -301,7 +301,7 @@ def fig_mult_shift_budget():
         ("пауза до 600 с\nTSC 3 ГГц, межа ядра", 40, 24,
          "mult = 5 592 405\nпохибка округлення −60 ppb"),
         ("пауза до 195 років\nTSC 3 ГГц без межі", 63, 1,
-         "коефіцієнт вироджується в mult = 1:\nтакт зараховано як наносекунду"),
+         "коефіцієнт вироджується в mult = 1:\nтакт зараховано в пів наносекунди"),
     ]
 
     for i, (label, nsb, sft, note) in enumerate(rows):
@@ -350,7 +350,7 @@ def fig_mask_wrap():
                 'stroke="%s" stroke-width="%.1f"%s/>'
                 % (x0, y0, rad, rad, large, x1, y1, color, sw, m))
 
-    A_LAST, A_NOW = 225.0, -67.5
+    A_LAST, A_NOW = 247.5, -67.5
 
     f.append(arc(r, A_LAST, A_LAST + 180, FIELD, 13))
     f.append(arc(r, A_LAST + 180, A_LAST + 360, POS, 13))
