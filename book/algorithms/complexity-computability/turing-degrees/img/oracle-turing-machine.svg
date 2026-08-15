@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 670 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="670" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="330.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура оракульної машини Тюринга M^B</text>
+<rect x="10.0" y="10.0" width="640.0" height="400.0" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.0"/>
+<rect x="30.0" y="60.0" width="320.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="190.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робоча стрічка M</text>
+<text x="190.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">[ ... | 1 | 0 | 1 | 1 | 0 | ... ]</text>
+<rect x="61.4" y="175.1" width="257.1" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="190.0" y="196.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Управляючий автомат M</tspan><tspan x="190.0" dy="16.9">Стан q_in -&gt; обчислення -&gt; q_out</tspan></text>
+<rect x="30.0" y="300.0" width="320.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="190.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стрічка запиту до оракула</text>
+<text x="190.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Запис елемента x у двійковому коді</text>
+<line x1="190.0" y1="170.0" x2="190.0" y2="120.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="230.0" x2="190.0" y2="300.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="410.0" y="166.6" width="220.1" height="66.8" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/><text x="520.0" y="187.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Зовнішній оракул B</tspan><tspan x="520.0" dy="16.9">(Характеристична множина B)</tspan><tspan x="520.0" dy="16.9">Миттєва відповідь за 1 крок</tspan></text>
+<line x1="350.0" y1="310.0" x2="450.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Запит: 'Чи x ∈ B?'</text>
+<line x1="450.0" y1="170.0" x2="290.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Відповідь: ТАК (1) / НІ (0)</text>
+</svg>

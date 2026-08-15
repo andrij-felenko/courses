@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 532" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="532" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гармонічні числа H[N] у фундаментальних алгоритмах</text>
+<rect x="45.0" y="75.0" width="390.0" height="190.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="65.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Швидке сортування (QuickSort)</text>
+<rect x="65.0" y="123.0" width="350.0" height="42.0" rx="5" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="240.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">C(N) = 2(N+1) H[N] - 4N</text>
+<text x="65.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Середня кількість порівнянь елементів</text>
+<text x="65.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Очікувана складність:  2 N ln N + O(N)</text>
+<rect x="475.0" y="75.0" width="390.0" height="190.0" rx="8" fill="#eafaf0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="495.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Випадкові дерева пошуку (BST)</text>
+<rect x="495.0" y="123.0" width="350.0" height="42.0" rx="5" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="670.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">E[D] = 2 H[N] - 3</text>
+<text x="495.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Середня глибина випадкового вузла</text>
+<text x="495.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Середня глибина вузла:  2 ln N - 1.85</text>
+<rect x="45.0" y="290.0" width="390.0" height="190.0" rx="8" fill="#fdf6ea" stroke="#b56500" stroke-width="1.8"/>
+<text x="65.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Хеш-таблиці та Coupon Collector</text>
+<rect x="65.0" y="338.0" width="350.0" height="42.0" rx="5" fill="#f4f6f8" stroke="#b56500" stroke-width="1.2"/>
+<text x="240.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#b56500" text-anchor="middle" font-weight="700">E[T] = N H[N]</text>
+<text x="65.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Очікувана кількість спроб до повного покриття</text>
+<text x="65.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Складність покриття:  N ln N + γ N + 1/2</text>
+<rect x="475.0" y="290.0" width="390.0" height="190.0" rx="8" fill="#efeaf2" stroke="#5e2ca5" stroke-width="1.8"/>
+<text x="495.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Пропускні списки та випадковий максимум</text>
+<rect x="495.0" y="338.0" width="350.0" height="42.0" rx="5" fill="#f4f6f8" stroke="#5e2ca5" stroke-width="1.2"/>
+<text x="670.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#5e2ca5" text-anchor="middle" font-weight="700">E[M] = H[N]</text>
+<text x="495.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Кількість оновлень максимуму в перестановці</text>
+<text x="495.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Середня кількість рівнів у Skip List:  log2 N</text>
+<rect x="45.0" y="492.0" width="790.0" height="20.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/>
+<text x="440.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Усі ці результати випливають з асимптотики: H[N] = ln N + γ + O(1/N)</text>
+</svg>

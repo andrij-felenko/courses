@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 450" width="840" height="450">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#333333" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оцінка імовірності відмови системи за допомогою перерізів (Cut-Sets)</text>
+<circle cx="80.0" cy="180.0" r="22.0" fill="#e0f2fe" stroke="#2457d6" stroke-width="2.0"/>
+<text x="80.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<circle cx="340.0" cy="180.0" r="22.0" fill="#e0f2fe" stroke="#2457d6" stroke-width="2.0"/>
+<text x="340.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">T</text>
+<circle cx="210.0" cy="100.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">V₁</text>
+<circle cx="210.0" cy="260.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">V₂</text>
+<line x1="100.0" y1="170.0" x2="195.0" y2="110.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="225.0" y1="110.0" x2="320.0" y2="170.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="100.0" y1="190.0" x2="195.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="225.0" y1="250.0" x2="320.0" y2="190.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="210.0" y1="118.0" x2="210.0" y2="242.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4 2"/>
+<rect x="69.2" y="302.1" width="281.6" height="65.9" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="210.0" y="317.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Граф мережі та мінімальні перерізи відмови:</tspan><tspan x="210.0" dy="14.3"> A₁: {e(S,V₁), e(S,V₂)}</tspan><tspan x="210.0" dy="14.3"> A₂: {e(V₁,T), e(V₂,T)}</tspan><tspan x="210.0" dy="14.3"> A₃: {e(S,V₁), e(V₁,V₂), e(V₂,T)}</tspan></text>
+<rect x="443.2" y="70.4" width="313.6" height="59.2" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.5"/><text x="600.0" y="88.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">Точний вираз Poincaré (2ⁿ - 1 доданків):</tspan><tspan x="600.0" dy="15.6"> P(A₁ ∪ A₂ ∪ A₃) = S₁ - S₂ + S₃</tspan><tspan x="600.0" dy="15.6"> Складність: NP-hard / #P-complete</tspan></text>
+<rect x="472.3" y="170.4" width="255.4" height="59.2" rx="6" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/><text x="600.0" y="188.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Оцінка k = 1 (Нерівність Буля):</tspan><tspan x="600.0" dy="15.6"> P(Відмови) ≤ P(A₁) + P(A₂) + P(A₃)</tspan><tspan x="600.0" dy="15.6"> Швидке верхнє обмеження risk O(n)</tspan></text>
+<rect x="417.6" y="270.4" width="364.8" height="59.2" rx="6" fill="#e8eaf6" stroke="#2457d6" stroke-width="1.5"/><text x="600.0" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Оцінка k = 2 (Бонферроні нижнє):</tspan><tspan x="600.0" dy="15.6"> P(Відмови) ≥ S₁ - [P(A₁∩A₂) + P(A₁∩A₃) + P(A₂∩A₃)]</tspan><tspan x="600.0" dy="15.6"> Враховує подвійні перетини cut-sets O(n²)</tspan></text>
+<rect x="92.1" y="391.0" width="655.8" height="28.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="409.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Перевага Бонферроні: Обчислення S₁ та S₂ вимагає O(n²), уникаючи вибуху 2ⁿ комбінацій.</tspan></text>
+</svg>
