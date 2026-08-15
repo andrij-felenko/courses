@@ -77,7 +77,7 @@ fs.writeFileSync(tmp, op, "utf8");
 let dryOut = "";
 try { dryOut = execSync(`node scripts/manifest-patch.js "${MF}" --ops "${tmp}" --dry`).toString(); }
 catch (e) { dryOut = ((e.stdout || "") + (e.stderr || "")).toString(); }
-fs.unlinkSync(tmp);
+try { try { fs.unlinkSync(tmp); } catch {} } catch {}
 const dupes = dryOut.split(/\r?\n/).filter((l) => /•/.test(l)).map((l) => l.trim());
 if (/МОЖЛИВІ ДУБЛІ/.test(dryOut)) {
   console.log(`\n⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ — глянь, перш ніж заводити нову тему:`);
