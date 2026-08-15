@@ -105,6 +105,11 @@ if (ghosts.length) {
 }
 if (OUT) {
   fs.mkdirSync(path.dirname(path.resolve(ROOT, OUT)), { recursive: true });
-  fs.writeFileSync(path.resolve(ROOT, OUT), JSON.stringify(take.map((x) => x.rel), null, 2), "utf8");
-  console.log(`\nчерга → ${OUT}`);
+  /* --with-files: віддаємо ще й перелік файлів теки. Це знімає з кожного редактора
+     крок на ls — найдорожчий крок, бо він перший, а роботи в ньому нуль. */
+  const payload = has("--with-files")
+    ? take.map((x) => ({ dir: x.rel, files: fs.readdirSync(path.join(ROOT, x.rel)).filter((f) => /\.(md|py)$/.test(f)) }))
+    : take.map((x) => x.rel);
+  fs.writeFileSync(path.resolve(ROOT, OUT), JSON.stringify(payload, null, 2), "utf8");
+  console.log(`\nчерга → ${OUT}${has("--with-files") ? " (зі списком файлів)" : ""}`);
 }
