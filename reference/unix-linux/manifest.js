@@ -721,7 +721,6 @@ window.__BOOKS__ = [
           { slug: "namespace-deep-dive", title: "Простори імен: глибокий семантичний розбір (Namespace Deep Dive)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "futex-fast-userspace-mutex", title: "Futex (Fast Userspace Mutex)", basic: { status: "recheck" }, detailed: { status: "recheck" } , "api": [{ file: "api-futex-syscall.md", status: "done" }] , "hist": [{ file: "hist-futex-evolution.md", status: "done" }] , "proj": [{ file: "proj-futex-mutex.md", status: "done" }] },
           { slug: "cgroup-v2-controllers", title: "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "atomics-and-memory-barriers", title: "Атомарні операції та бар'єри пам'яті в Linux", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "systemd-architecture-and-cgroups",
             "title": "Архітектура systemd та cgroups",
@@ -2758,7 +2757,6 @@ window.__BOOKS__ = [
         "scope": "Що таке файл у Unix, як імена відв'язані від вмісту й на чому тримається узгодженість.",
         "topics": [
           { slug: "file-descriptors-and-open-file-table", title: "file-descriptors-and-open-file-table", basic: { status: "empty" }, detailed: { status: "recheck" } },
-          { slug: "extended-attributes-xattr", title: "extended-attributes-xattr", basic: { status: "empty" }, detailed: { status: "recheck" } },
           {
             "slug": "file-descriptor",
             "title": "Файловий дескриптор",
@@ -10931,7 +10929,6 @@ window.__BOOKS__ = [
         "scope": "Як Linux бачить мережу зсередини: від інтерфейсу до маршруту й фільтра.",
         "topics": [
           { slug: "network-stack-architecture", title: "Мережевий стек ядра Linux: архітектура та шлях пакета", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "netfilter-and-iptables-nftables", title: "Netfilter, iptables та nftables", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "network-stack",
             "title": "Мережевий стек у ядрі",

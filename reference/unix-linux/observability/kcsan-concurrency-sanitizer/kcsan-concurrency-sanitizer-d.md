@@ -1,7 +1,7 @@
 # Kernel Concurrency Sanitizer (KCSAN)
 
 <preknowlist>
-- [Атомарні операції та бар'єри пам'яті в Linux](book:unix-linux/atomics-and-memory-barriers) — впорядкування пам'яті (memory ordering), оптимізації компілятора та атомарні інструкції CPU.
+- [Атомарні операції та бар'єри пам'яті в Linux](book:unix-linux/memory-barriers) — впорядкування пам'яті (memory ordering), оптимізації компілятора та атомарні інструкції CPU.
 - [KASAN (Kernel Address Sanitizer)](book:unix-linux/kasan-kernel-address-sanitizer) — динамічний аналіз помилок пам'яті ядра через тіньову пам'ять (shadow memory).
 - [Ядро й простір користувача](book:unix-linux/kernel-and-userspace) — межа привілеїв, виконання коду ядра, контексти переривань та задач.
 </preknowlist>
