@@ -33,6 +33,17 @@ const QDIR = path.join("scripts", "_finish");
 const QFILE = path.join(QDIR, `_ag-newtopics-${BOOK}.json`);
 const load = () => { try { return JSON.parse(fs.readFileSync(QFILE, "utf8")); } catch { return []; } };
 
+/* Відмова мусить лишати слід. 2026-08-15 після підняття планки жодна тема не
+   з'явилась у черзі — і з'ясувати, агенти не кликали чи кликали й діставали відмову,
+   було нізвідки: скрипт мовчки виходив із кодом. Тепер кожна відмова лягає на диск,
+   і наступний батч сам скаже, планка це чи невживаний важіль. */
+const RFILE = path.join(QDIR, "_ag-newtopic-refused.json");
+const refuse = (why, extra) => {
+  let log = []; try { log = JSON.parse(fs.readFileSync(RFILE, "utf8")); } catch { }
+  log.push({ when: new Date().toISOString(), book: BOOK, slug: val("slug") || "", from: val("from") || "", why, ...extra });
+  try { fs.mkdirSync(QDIR, { recursive: true }); fs.writeFileSync(RFILE, JSON.stringify(log, null, 2), "utf8"); } catch { }
+};
+
 if (has("list")) {
   const q = load();
   if (!q.length) { console.log(`черга нових тем для ${BOOK} порожня`); process.exit(0); }
@@ -78,20 +89,23 @@ if (new RegExp(`slug\\s*:\\s*["']${SLUG}["']`).test(mfSrc)) {
    відображення Ено чесно спирається на множину Кантора, теорему Такенса й
    підкову Смейла — але заведи їх усі, і книга про хаос затягує половину
    топології. Тому потрібне поняття, по яке прийде не лише ця стаття: назви
-   щонайменше одну ВЖЕ НАПИСАНУ тему цієї книги, якій воно теж потрібне, — і
-   скрипт перевірить, що така тема справді є в маніфесті. Одна стаття, якій
+   щонайменше одну ІНШУ тему цієї книги (написану чи заплановану), якій воно теж
+   потрібне, — і скрипт перевірить, що вона справді є в маніфесті. Одна стаття, якій
    щось знадобилось, — це привід сказати два речення в тексті, а не завести тему. */
 if (!ALSO.length) {
-  console.error(`\n✖ бракує --also: назви ВЖЕ НАПИСАНУ тему цієї книги (крім своєї), якій це поняття теж потрібне.`);
+  console.error(`\n✖ бракує --also: назви ІНШУ тему цієї книги (крім своєї), якій це поняття теж потрібне.`);
+  console.error(`   Годиться будь-яка тема з маніфесту — написана чи ще запланована; головне, щоб вона там була.`);
   console.error(`   Не можеш назвати жодної — поняття потрібне лише твоїй статті. Тоді це не тема:`);
   console.error(`   поясни його двома реченнями просто в тексті або віднеси у вставку своєї теки.`);
   console.error(`\n   node scripts/antigravity/newtopic.js … --also <слуг наявної теми>[,<ще один>]`);
+  refuse("no-also");
   process.exit(5);
 }
 const unknown = ALSO.filter((s) => !new RegExp(`slug\\s*:\\s*["']${s}["']`).test(mfSrc));
 if (unknown.length) {
   console.error(`\n✖ у --also названо теми, яких у ${MF} немає: ${unknown.join(", ")}`);
-  console.error(`   Треба слуг НАПИСАНОЇ теми цієї книги, а не тієї, яку ще хтось колись напише.`);
+  console.error(`   Треба слуг теми, яка є в маніфесті цієї книги.`);
+  refuse("also-unknown", { also: ALSO });
   process.exit(5);
 }
 
@@ -118,10 +132,14 @@ if (DROP) {
    черга росла швидше, ніж її розбирають. Стеля 2 знімає приблизно третину — і знімає
    саме хвіст, бо третя й четверта тема з однієї статті майже завжди або грань наявної,
    або те, що чесніше сказати двома реченнями просто в тексті. Судити «чи справді треба»
-   агент не може безсторонньо — тому судить лічильник. */
+   агент не може безсторонньо — тому судить лічильник.
+
+   Рахуємо ЛИШЕ те, що ще чекає в черзі. Записи з applied:true — це історія: вони вже
+   в маніфесті, і якби вони теж лічилися, стаття, яка колись завела дві теми, була б
+   забанена назавжди (саме так 2026-08-15 стеля мовчки замкнула 11 статей фізики). */
 const CAP = Number(process.env.AG_NEWTOPIC_CAP || 2);
 if (FROM) {
-  const mine = q.filter((t) => t.from && path.basename(t.from) === path.basename(FROM));
+  const mine = q.filter((t) => !t.applied && t.from && path.basename(t.from) === path.basename(FROM));
   if (mine.length >= CAP) {
     console.error(`\n✖ СТЕЛЯ: ця стаття вже завела ${mine.length} нові теми, більше не можна.`);
     mine.forEach((t) => console.error(`   • ${t.slug} — ${t.title}`));
@@ -130,6 +148,7 @@ if (FROM) {
     console.error(`   • це грань наявної теми — допиши ту тему, а не заводь нову;`);
     console.error(`   • нова важливіша за котрусь із заведених — заміни:`);
     console.error(`       node scripts/antigravity/newtopic.js … --drop <слуг тієї, що поступається>`);
+    refuse("cap", { queued: mine.map((t) => t.slug) });
     process.exit(4);
   }
 }
