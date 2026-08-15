@@ -77,7 +77,7 @@
 | `--auto-resize-mode=` | `off`, `grow`, `shrink-and-grow` | `shrink-and-grow` для LUKS2 з btrfs, інакше `off` |
 | `--rebalance-weight=` | ціле 1…10000 або `off` | `100` |
 
-Одна пастка серед тонких перемикачів LUKS2: `--luks-volume-key-size=` міряє ключ у **байтах** — як `/proc/crypto`, — тоді як `cryptsetup` те саме число подає в бітах. Переписані з чужої інструкції `512` дадуть не вчетверо довший ключ, а помилку.
+Одна пастка серед тонких перемикачів LUKS2: `--luks-volume-key-size=` міряє ключ у **байтах** — як `/proc/crypto`, — тоді як `cryptsetup` те саме число подає в бітах. Переписані з чужої інструкції `512` означатимуть тут не 512 бітів, а 512 байтів — тобто 4096 бітів, і замість довшого ключа вийде помилка.
 
 **Чим відмикати**
 
@@ -124,8 +124,8 @@
 {
   "type": "systemd-homed",
   "keyslots": [],
-  "record": "eyJ1c2VyTmFtZSI6ImFuZHJpaiIsIuKApiJ9",
-  "iv": "3Yx1QW5nZ0hLcE0="
+  "record": "wYb1n4lQe0Xj5tKcR2vP8mAz…(кілька кілобайтів шифротексту)…9dHs=",
+  "iv": "Yk8xU2p0bVc3RHFaNw=="
 }
 ```
 

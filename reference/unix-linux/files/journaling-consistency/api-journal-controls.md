@@ -142,7 +142,7 @@ Journal start:            0
 | `Journal device:` / `Journal UUID:` | з'являються замість цього, коли журнал зовнішній |
 | `Journal features:` | ознаки **самого журналу**: суми, розрядність, асинхронна фіксація, швидкі фіксації |
 | `Total journal blocks:` | довжина кільця; помножити на розмір блока — і виходить `Total journal size:` |
-| `Max transaction length:` | стеля однієї транзакції в блоках — скільки роботи щонайбільше буває в польоті |
+| `Max transaction length:` | довжина кільця, доступна під звичайні транзакції: `Total journal blocks` мінус ділянка швидких фіксацій |
 | `Journal start:` | `0` означає «нічого відтворювати»; ненульове — журнал містить незавершену роботу |
 | `Journal sequence:` | номер поточної транзакції; за ним відновлення відрізняє цілу транзакцію від обривка сусідньої |
 | `Journal errno:` | ненульове — JBD2 колись перервав фіксацію через помилку вводу-виводу |
@@ -153,7 +153,7 @@ JBD2 веде власні лічильники в `/proc/fs/jbd2/<пристр�
 
 ```sh
 $ cat /proc/fs/jbd2/sda1-8/info
-1284 transactions (1279 requested), each up to 16384 blocks
+1284 transactions, each up to 4096 blocks
 average:
   0ms waiting for transaction
   0ms request delay
@@ -241,7 +241,7 @@ mount -o logdev=/dev/nvme0n1p3 /dev/sda1 /srv
 | `JBD2: Invalid checksum ignored in transaction N, likely stale data` | на цьому місці кільця лежать старі байти з попереднього оберту |
 | `JBD2: Invalid checksum recovering block M in log` | зіпсовано конкретний блок усередині справної транзакції |
 | `JBD2: IO error N recovering block M in log` | носій не віддає блок журналу — далі тільки `e2fsck` |
-| `JBD2: corrupted journal superblock` | суперблок журналу нечитний; журнал уже не допоможе |
+| `JBD2: corrupted journal superblock` | суперблок журналу зіпсовано; журнал уже не допоможе |
 | `JBD2: recovery pass N ended at transaction A, expected B` | прохід відновлення зупинився не там, де мав |
 | `EXT4-fs (sda1): Ignoring removed <опція> option` | опція в `fstab` більше не існує в цьому ядрі й мовчки не діє |
 

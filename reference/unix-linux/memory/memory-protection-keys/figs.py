@@ -150,7 +150,7 @@ def fig_pkru_layout():
         F.append(text(gx + cw + cw / 2, y0 + 35, str(ad), size=16, bold=True))
         F.append(text(gx + cw, y0 - 16, str(k), size=13, color=MUTED))
 
-    F.append(text(x0 + 16 * 2 * cw + 14, y0 + 22, "біт 1", size=11, color=MUTED, anchor="start"))
+    F.append(text(x0 + 16 * 2 * cw + 14, y0 + 22, "біт 0", size=11, color=MUTED, anchor="start"))
     F.append(text(x0 - 14, y0 + 22, "біт 31", size=11, color=MUTED, anchor="end"))
     F.append(text(x0 + 16 * cw, y0 + ch + 26,
                   "на кожен ключ — два біти: WD (заборонити запис) і AD (заборонити доступ)",

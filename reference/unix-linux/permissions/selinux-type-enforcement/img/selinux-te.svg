@@ -50,7 +50,7 @@
   <text x="400" y="278" class="heading" text-anchor="middle">Політика безпеки (TE Rule Base)</text>
   <text x="400" y="305" class="code" text-anchor="middle">allow httpd_t httpd_sys_content_t : file</text>
   <text x="400" y="325" class="code" text-anchor="middle">{ read getattr ioctl lock };</text>
-  <text x="400" y="358" class="label-orange" text-anchor="middle">Рішення: Дозволити доступ (EACCES = 0)</text>
+  <text x="400" y="358" class="label-orange" text-anchor="middle">Рішення: доступ дозволено (повернено 0)</text>
 
   <!-- Policy Check Lines -->
   <path d="M 150 190 L 150 315 L 220 315" class="arrow arrow-orange"/>

@@ -4,7 +4,7 @@
 
 ## Архітектура та мета моніторингу
 
-Головним завданням асинхронного витіснення сторінок є абсолютне приховування затримок дискового вводу-виводу та впорядкування пам'яті від процесів користувача. Коли демон `kswapd` працює ефективно й завчасно реагує на падіння вільної пам'яті нижче порогу `WMARK_LOW`, зростають лише лічильники `pgscan_kswapd` та `pgsteal_kswapd`, а лічильник затримок процесів `allocstall` залишається строго нульовим.
+Головним завданням асинхронного витіснення сторінок є абсолютне приховування затримок дискового вводу-виводу та впорядкування пам'яті від процесів користувача. Коли демон `kswapd` працює ефективно й завчасно реагує на падіння вільної пам'яті нижче порогу `WMARK_LOW`, зростають лише лічильники `pgscan_kswapd` та `pgsteal_kswapd`, а лічильник затримок процесів `allocstall` не приростає жодного разу.
 
 Однак при недостатньому значенні `vm.min_free_kbytes` або занадто стрімкому сплеску аллокацій резервний зазор виснажується. Процеси користувача пробивають поріг `WMARK_MIN` і потрапляють у режим Direct Reclaim. У цей момент потік користувача зупиняє своє виконання і змушений самостійно сканувати списки LRU та чекати скидання брудних сторінок на диск.
 
@@ -18,7 +18,7 @@
 
 ## Внутрішній механізм лічильників ядра (/proc/vmstat)
 
-Усі лічильники витіснення в ядрі Linux оновлюються на кожному процесорному ядрі локально у масивах `struct vm_event_state`. При зчитуванні псевдо-файла `/proc/vmstat` підсистема віртуальної пам'яті сумує показники з усіх CPU (через функцію `all_vm_events()`), надаючи глобальну картину без значних засувів та блокувань.
+Усі лічильники витіснення в ядрі Linux оновлюються на кожному процесорному ядрі локально у масивах `struct vm_event_state`. При зчитуванні псевдо-файла `/proc/vmstat` підсистема віртуальної пам'яті сумує показники з усіх CPU (через функцію `all_vm_events()`), надаючи глобальну картину без значних блокувань.
 
 Зчитування файлу `/proc/vmstat` є вкрай дешевою операцією, оскільки дані формуються повністю в оперативній пам'яті ядра без звернення до блокових пристроїв. Це дозволяє утиліті моніторингу опитувати файл з високою частотою (наприклад, щосекунди) практично з нульовим overhead для системних ресурсів.
 
@@ -62,7 +62,8 @@ static int read_vmstat(vmstat_metrics_t *m) {
             else if (strcmp(key, "pgscan_direct") == 0)  m->pgscan_direct = val;
             else if (strcmp(key, "pgsteal_kswapd") == 0) m->pgsteal_kswapd = val;
             else if (strcmp(key, "pgsteal_direct") == 0) m->pgsteal_direct = val;
-            else if (strcmp(key, "allocstall") == 0)     m->allocstall = val;
+            /* від ядра 4.9 лічильник розбито по зонах: allocstall_dma, allocstall_normal, … */
+            else if (strncmp(key, "allocstall", 10) == 0) m->allocstall += val;
             else if (strcmp(key, "pageoutrun") == 0)     m->pageoutrun = val;
         }
     }
@@ -119,12 +120,13 @@ int main(int argc, char *argv[]) {
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <string_view>
-#include <unordered_map>
 #include <chrono>
 #include <thread>
-#include <iomanip>
 #include <format>
+#include <stdexcept>
+#include <algorithm>
+#include <cstdint>
+#include <cstdlib>
 
 struct VmstatMetrics {
     std::uint64_t pgscan_kswapd{0};
@@ -152,7 +154,8 @@ public:
             else if (key == "pgscan_direct")  m.pgscan_direct = value;
             else if (key == "pgsteal_kswapd") m.pgsteal_kswapd = value;
             else if (key == "pgsteal_direct") m.pgsteal_direct = value;
-            else if (key == "allocstall")     m.allocstall = value;
+            // від ядра 4.9 ключ розбито по зонах: allocstall_dma, allocstall_normal, …
+            else if (key.starts_with("allocstall")) m.allocstall += value;
             else if (key == "pageoutrun")     m.pageoutrun = value;
         }
         return m;
@@ -221,7 +224,7 @@ int main(int argc, char* argv[]) {
 # Трасування подій пробудження kswapd та початку Direct Reclaim у реальному часі
 sudo bpftrace -e '
 tracepoint:vmscan:mm_vmscan_kswapd_wake {
-    printf("kswapd woken for zone %d, order %d\n", args->nid, args->order);
+    printf("kswapd woken for node %d, order %d\n", args->nid, args->order);
 }
 tracepoint:vmscan:mm_vmscan_direct_reclaim_begin {
     printf("Process %s (PID %d) entered Direct Reclaim (order %d)\n", 
@@ -240,10 +243,10 @@ tracepoint:vmscan:mm_vmscan_direct_reclaim_begin {
 
 ## Оцінка результатів та інтеграція в продакшн
 
-Під час проведения бенчмарків або аналізу роботи сервісів у продакшн-середовищі результати монітора дозволяють точно локалізувати проблеми з підсистемою пам'яті.
+Під час проведення бенчмарків або аналізу роботи сервісів у продакшн-середовищі результати монітора дозволяють точно локалізувати проблеми з підсистемою пам'яті.
 
 ### Тлумачення відхилень у метриках:
 
 1. **Ефективність `kswapd Eff < 50%`**: Якщо `kswapd` сканує велику кількість сторінок, але вивільняє лише малу частку, це означає, що більшість сторінок у неактивному списку є брудними (dirty) або заблокованими. У цьому випадку необхідно зменшити поріг `vm.dirty_background_ratio`, щоб підсистема writeback раніше скидала сторінки на диск.
 2. **Переважання `Direct scan/s` над `kswapd scan/s`**: Якщо число `Direct scan/s` перевищує `kswapd scan/s`, це прямо вказує на те, що зазор `WMARK_LOW` занадто малий для даного типу навантаження. Демон `kswapd` прокидається занадто пізно. Для виправлення ситуації слід підняти `vm.watermark_scale_factor` з 10 до 50 або 100, або збільшити `vm.min_free_kbytes`.
-3. **Поява `allocstall > 0`**: Будь-який ненульовий спалах у колонці `Stalls/s` є індикатором прямого падіння продуктивності додатків користувача. У Prometheus експортерах (наприклад, `node_exporter`) цей параметр відображається метрикою `node_vmstat_allocstall`. Рекомендується налаштовувати алерт при появі приросту цієї метрики за 5-хвилинний інтервал.
+3. **Поява `allocstall > 0`**: Будь-який ненульовий спалах у колонці `Stalls/s` є індикатором прямого падіння продуктивності додатків користувача. У Prometheus-експортерах (наприклад, `node_exporter`) цим лічильникам відповідають метрики виду `node_vmstat_allocstall_normal` — по одній на зону, і підсумовувати їх треба самому. Рекомендується налаштовувати алерт при появі приросту цієї метрики за 5-хвилинний інтервал.

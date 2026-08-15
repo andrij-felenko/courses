@@ -36,7 +36,7 @@ def fig_layout():
         P.append(fitbox(tx + 16, sy, tw - 32, 62, name + "\n" + off, size=13, fill=BG, stroke=MUTED))
         sy += 82
     P.append(mtext(tx + tw / 2, ty + 330,
-                   ["у пам'ять як дані", "не потрапляє ніколи"],
+                   ["за цими адресами", "не звертається ніхто"],
                    size=12.5, color=MUTED, lh=1.4))
 
     # копії

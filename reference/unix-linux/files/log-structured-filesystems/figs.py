@@ -66,8 +66,8 @@ def imap_checkpoint():
     labels = [
         "каталог: «звіт.txt» → 17",
         "мапа inode: 17 → адреса 9042",
-        "inode 17: карта блоків",
-        "блок даних за адресою 9042",
+        "inode 17 за адресою 9042: карта блоків",
+        "блок даних за адресою 15870",
     ]
     boxes = []
     for y, lab in zip(ys, labels):
@@ -122,10 +122,14 @@ def segment_cleaning():
     f.append(text(60 + segw / 2, 372, "нова голова лога", size=13))
     f.append(text(60 + segw / 2, 396, "5 живих блоків переписано", size=12, color=MUTED))
 
-    for x in xs[1:]:
+    for x in (xs[1], xs[3]):
         f.append(rect(x, 292, segw, segh, fill=BG, rx=4))
         f.append(text(x + segw / 2, 324, "вільний", size=13, color=FIELD))
-    f.append(text(660, 372, "звільнено три сегменти цілком", size=13, color=FIELD))
+    for i in range(6):
+        fill = LIVE if i < live_counts[2] else DEAD
+        f.append(rect(xs[2] + i * cellw, 292, cellw, segh, fill=fill, rx=2))
+    f.append(text(xs[2] + segw / 2, 372, "лишився повним", size=12, color=POS))
+    f.append(text(510, 396, "звільнено два сегменти, третій став новою головою", size=13, color=FIELD))
 
     render(os.path.join(OUT, 'segment-cleaning.svg'), W, H, *f)
 
@@ -441,7 +445,7 @@ def cleaner_liveness_walk():
     # ── мапа блоків файлу ──────────────────────────────────────────────
     f.append(text(x0, 290, "inode[17]: адреса кожного зсуву файлу 17",
                   size=13, bold=True, anchor="start"))
-    strip(310, 8, 5, "9042", "·")
+    strip(310, 8, 5, "9027", "·")
     f.append(text(x0 + 5 * cw + cw / 2, 392, "зсув 5", size=12, color=MUTED))
 
     f.append(arrow(x0 + 3 * cw + cw / 2, 236, x0 + 5 * cw + cw / 2, 302,
@@ -453,8 +457,8 @@ def cleaner_liveness_walk():
 
     # ── порівняння ─────────────────────────────────────────────────────
     body, bw, bh = textbox(700, 460,
-                           "власна адреса слота\nv · 64 + 3 = 9042\n"
-                           "у мапі теж 9042\nблок живий",
+                           "власна адреса слота\nv · 64 + 3 = 9027\n"
+                           "у мапі теж 9027\nблок живий",
                            size=13, fill=LIVE, stroke=FIELD)
     f.append(body)
     f.append(arrow(x0 + 5 * cw + cw / 2, 406, 700 - bw / 2 - 12, 448,

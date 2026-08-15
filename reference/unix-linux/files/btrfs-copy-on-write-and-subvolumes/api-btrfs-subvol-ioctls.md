@@ -30,7 +30,7 @@
 // Заголовковий файл <linux/btrfs.h>
 struct btrfs_ioctl_vol_args {
     __s64 fd;                           // FD вихідного субтому (тільки для застарілого BTRFS_IOC_SNAP_CREATE)
-    char name[BTRFS_PATH_NAME_MAX + 1]; // Назва створимого або видаляємого субтому (до 4087 символів)
+    char name[BTRFS_PATH_NAME_MAX + 1]; // Ім'я субтому, який створюють або видаляють (до 4087 символів)
 };
 ```
 
@@ -38,26 +38,33 @@ struct btrfs_ioctl_vol_args {
 
 ### 2. Розширена структура `btrfs_ioctl_vol_args_v2`
 
-Використовується викликом `BTRFS_IOC_SNAP_CREATE_V2` для атомарного задання режимів доступу та успадкування обмежений дискових квот.
+Використовується викликом `BTRFS_IOC_SNAP_CREATE_V2` для атомарного задання режимів доступу та успадкування обмежень дискових квот.
 
 ```c
 struct btrfs_ioctl_vol_args_v2 {
     __s64 fd;                         // Відкритий файловий дескриптор джерельного субтому
+    __u64 transid;                    // Сюди ядро повертає номер транзакції створення
     __u64 flags;                      // Бітова маска прапорців створення
     union {
-        struct btrfs_qgroup_inherit *qgroup_inherit; // Вказівник на структуру успадкування квот
-        __u64 subvolid;               // ID субтому для BTRFS_IOC_SNAP_DESTROY_V2
-        __u64 reserved[4];
+        struct {
+            __u64 size;                                  // Розмір масиву qgroups у структурі
+            struct btrfs_qgroup_inherit *qgroup_inherit; // Вказівник на структуру успадкування квот
+        };
+        __u64 unused[4];
     };
-    char name[BTRFS_SUBVOL_NAME_MAX + 1]; // Ім'я нового субтому у батьківському каталозі
+    union {
+        char name[BTRFS_SUBVOL_NAME_MAX + 1]; // Ім'я нового субтому у батьківському каталозі
+        __u64 devid;                          // ID пристрою (операції з пристроями)
+        __u64 subvolid;                       // ID субтому для BTRFS_IOC_SNAP_DESTROY_V2
+    };
 };
 ```
 
 #### Бітові прапорці для поля `flags`:
-- `BTRFS_SUBVOL_CREATE_ASYNC` (`1ULL << 0`): Повертати управління негайно після додавання запису в операційну пам'ять, не чекаючи фізичного виклику commit транзакції на диск.
+- `BTRFS_SUBVOL_CREATE_ASYNC` (`1ULL << 0`): Повертати керування негайно після додавання запису в пам'ять, не чекаючи фіксації транзакції на диск. Підтримку вилучено в ядрі 5.7 — від нього ioctl із цим бітом повертає `EOPNOTSUPP`.
 - `BTRFS_SUBVOL_RDONLY` (`1ULL << 1`): Створити новий знімок у режимі «лише для читання». Зміна файлів у такому знімку блокуватиметься ядром на рівні VFS.
 - `BTRFS_SUBVOL_QGROUP_INHERIT` (`1ULL << 2`): Вказує ядру Linux застосувати налаштування qgroup із поля `qgroup_inherit`.
-- `BTRFS_SUBVOL_SPEC_BY_ID` (`1ULL << 3`): Використовується викликом `BTRFS_IOC_SNAP_DESTROY_V2` для вказання субтому за його 64-бітним numeric `subvolid`, а не за текстом імені в `name`.
+- `BTRFS_SUBVOL_SPEC_BY_ID` (`1ULL << 4`): Використовується викликом `BTRFS_IOC_SNAP_DESTROY_V2` для вказання субтому за його 64-бітним numeric `subvolid`, а не за текстом імені в `name`. Біт `1ULL << 3` зайнятий прапорцем `BTRFS_DEVICE_SPEC_BY_ID`, який те саме робить для пристроїв.
 
 ### 3. Успадкування квот `struct btrfs_qgroup_inherit`
 
@@ -169,5 +176,5 @@ sudo trace-cmd record -e btrfs:btrfs_subvolume_create -e btrfs:btrfs_snapshot_cr
 - `EEXIST` (File exists): Спроба створити субтом або знімок із ім'ям, яке вже присутнє в даній батьківській директорії.
 - `EROFS` (Read-only file system): Виклик модифікації файлів або створення субтому всередині знімка з прапорцем `BTRFS_SUBVOL_RDONLY`.
 - `ENOSPC` (No space left on device): Неможливо виділити нові вузли B-дерева метаданих у `ROOT_TREE` або `EXTENT_TREE`.
-- `EPERM` / `EACCES` (Operation not permitted): Спроба створення або видалення субтому без наявності привілеїв суперкористувача (`CAP_SYS_ADMIN`).
+- `EPERM` / `EACCES` (Operation not permitted): Спроба видалити субтом без прав власника чи `CAP_SYS_ADMIN` (том не змонтовано з опцією `user_subvol_rm_allowed`) або змінити дефолтний субтом без `CAP_SYS_ADMIN`. Створення субтому чи знімка привілеїв не потребує — досить права запису в батьківський каталог.
 - `EINVAL` (Invalid argument): Передано невирівняні зсуви в `FICLONERANGE` або некоректні ідентифікатори у `btrfs_ioctl_vol_args_v2`.

@@ -109,7 +109,7 @@ def fig_two_roads():
     p.append(fitbox(sx, inode_y, sw, 50, ["inode 4711"], size=15,
                     fill=WARM_FILL, stroke=INK, sw=2, bold=True))
     p.append(fitbox(px + 24, inode_y + 88, pw - 48, 78,
-                    ["П'ять кроків — чотири перевірки прав.",
+                    ["П'ять кроків — три перевірки права входу.",
                      "Без права входу в каталог файл недосяжний."],
                     size=14, fill=BG, stroke=NEG, sw=1.5))
 

@@ -57,7 +57,7 @@ static int feed(struct conn *c, const uint8_t *p, size_t n) {
 Читання йде в **один буфер на потік**. Не на з'єднання — на потік:
 
 ```c
-static uint8_t scratch[64 * 1024];        /* спільний для ВСІХ з'єднань цього потоку */
+static _Thread_local uint8_t scratch[64 * 1024];   /* спільний для ВСІХ з'єднань цього потоку */
 
 static void on_readable(int ep, struct conn *c) {
     for (;;) {

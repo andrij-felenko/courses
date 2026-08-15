@@ -100,7 +100,7 @@ def fig_descriptor_vs_connection():
         g.append(fitbox(x, 62, 150, 50, s, size=13, fill="#eef2f7"))
 
     g.append(text(40, 224, "з'єднання", size=14, anchor="start", bold=True))
-    row_b = [(330, "встановлено"), (490, "передає далі"), (810, "аж тепер FIN")]
+    row_b = [(330, "встановлено"), (490, "передає далі"), (810, "кінець розмови")]
     for x, s in row_b:
         g.append(fitbox(x, 198, 150, 50, s, size=13, fill="#eaf7ee"))
 

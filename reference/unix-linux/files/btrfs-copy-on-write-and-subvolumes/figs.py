@@ -63,10 +63,10 @@ def render_trees():
 
     # Subvolumes and Trees
     trees_info = [
-        ("CHUNK_TREE\n(ID 2: Адресація)", 100, "#dae8fc", "#6c8ebf"),
-        ("EXTENT_TREE\n(ID 2: Аллокації)", 260, "#dae8fc", "#6c8ebf"),
-        ("CSUM_TREE\n(ID 7: Чексуми)", 420, "#dae8fc", "#6c8ebf"),
-        ("Subvol @\n(ID 256: FS_TREE)", 580, "#ffe6cc", "#d79b00"),
+        ("CHUNK_TREE\n(ID 3: Адресація)", 100, "#dae8fc", "#6c8ebf"),
+        ("EXTENT_TREE\n(ID 2: Виділення)", 260, "#dae8fc", "#6c8ebf"),
+        ("CSUM_TREE\n(ID 7: Контрольні суми)", 420, "#dae8fc", "#6c8ebf"),
+        ("Subvol @\n(ID 256: дерево файлів)", 580, "#ffe6cc", "#d79b00"),
         ("Snap @snap1\n(ID 258: Snapshot)", 740, "#e1d5e7", "#9673a6")
     ]
 

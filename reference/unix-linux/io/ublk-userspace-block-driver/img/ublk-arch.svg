@@ -3,7 +3,7 @@
 <rect x="0.0" y="0.0" width="820.0" height="520.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
 <rect x="20.0" y="20.0" width="780.0" height="210.0" rx="8" fill="#f4f8ff" stroke="#2457d6" stroke-width="1.5"/>
 <text x="410.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Простір користувача (Userspace)</text>
-<rect x="48.0" y="103.0" width="224.1" height="53.9" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="160.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Покористувацький застосунок</tspan><tspan x="160.0" dy="16.9">(FS / DB / Ввід-вивід)</tspan></text>
+<rect x="55.4" y="103.0" width="209.2" height="53.9" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="160.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Користувацький застосунок</tspan><tspan x="160.0" dy="16.9">(FS / DB / Ввід-вивід)</tspan></text>
 <rect x="499.2" y="103.0" width="241.6" height="53.9" rx="6" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.5"/><text x="620.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Демон ublksrv</tspan><tspan x="620.0" dy="16.9">(Target Logic / libublksrv)</tspan></text>
 <rect x="331.9" y="106.2" width="136.3" height="47.6" rx="6" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">io_uring Кільця</tspan><tspan x="400.0" dy="15.6">(SQ / CQ Buffers)</tspan></text>
 <rect x="20.0" y="270.0" width="780.0" height="220.0" rx="8" fill="#f9fbe7" stroke="#27ae60" stroke-width="1.5"/>
@@ -16,6 +16,6 @@
 <text x="390.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">struct request</text>
 <line x1="620.0" y1="335.0" x2="620.0" y2="185.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
 <line x1="600.0" y1="185.0" x2="600.0" y2="335.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="630.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">FETCH_REQ / COMMIT</text>
-<text x="590.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">IORING_OP_URING_CMD</text>
+<text x="630.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">CQE: метадані запиту</text>
+<text x="590.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">SQE: FETCH_REQ / COMMIT</text>
 </svg>

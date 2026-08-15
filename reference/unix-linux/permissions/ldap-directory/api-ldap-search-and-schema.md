@@ -161,10 +161,10 @@ RFC 2307 (Люк Говард, березень 1998, статус експер�
 
 ## Практика: як спитати руками
 
-Мінімальний виклик — URI, база, фільтр, перелік атрибутів; `-LLL` прибирає з виводу коментарі й рядок версії:
+Мінімальний виклик — URI, база, фільтр, перелік атрибутів; `-LLL` прибирає з виводу коментарі й рядок версії, а `-x` вмикає простий bind замість типового для `ldapsearch` SASL — без нього анонімний запит навіть не почнеться:
 
 ```sh
-ldapsearch -LLL -H ldap://ldap.firma.ua \
+ldapsearch -LLL -x -H ldap://ldap.firma.ua \
   -b 'ou=people,dc=firma,dc=ua' -s sub \
   '(uid=andrij)' uid uidNumber gidNumber homeDirectory loginShell
 ```

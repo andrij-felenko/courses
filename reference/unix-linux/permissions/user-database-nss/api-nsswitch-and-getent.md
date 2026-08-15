@@ -73,7 +73,7 @@ passwd:  files [SUCCESS=merge] sss [!UNAVAIL=return] ldap
 | `shadow:` | усе з рядка `passwd:` |
 | `gshadow:` | усе з рядка `group:` |
 | `initgroups:` | рядок `group:`, але без зупинки на першому успіху |
-| `passwd:`, `group:`, `shadow:` | `compat [NOTFOUND=return] files` |
+| `passwd:`, `group:` | `compat [NOTFOUND=return] files` |
 | `hosts:`, `networks:` | `files dns` |
 
 Сам цей типовий рядок — найкращий приклад другого за вживаністю блока реакцій. `[NOTFOUND=return]` після джерела означає «як воно відповіло „такого нема“ — вір і не питай далі»; до `files` черга дійде лише тоді, коли `compat` узагалі не зміг відповісти.

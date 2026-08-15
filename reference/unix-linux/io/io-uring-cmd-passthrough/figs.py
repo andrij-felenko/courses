@@ -24,7 +24,7 @@ def fig_uring_passthrough():
     g.append(fitbox(40, 220, 390, 44, "Блоковий шар (blk-mq & struct bio)", size=12, fill="#f0f4f8"))
     g.append(fitbox(40, 290, 390, 44, "Драйвер блочного пристрою /dev/nvme0n1", size=12, fill="#f0f4f8"))
     g.append(fitbox(40, 360, 390, 44, "Апаратна черга NVMe SQ (PCIe DMA)", size=12, fill="#eef2f7"))
-    g.append(fitbox(40, 430, 390, 44, "Накладні витрати: аллокація bio/request, lock, IRQ", size=11, fill="#fdecea"))
+    g.append(fitbox(40, 430, 390, 44, "Накладні витрати: виділення bio/request, lock, IRQ", size=11, fill="#fdecea"))
 
     # Стрілки лівої колонки
     g.append(arrow(235, 124, 235, 148))
@@ -37,7 +37,7 @@ def fig_uring_passthrough():
     g.append(fitbox(510, 80, 390, 44, "Userspace: SQE (IORING_OP_URING_CMD)", size=12, fill="#eaf7ee"))
     g.append(fitbox(510, 150, 390, 44, "Обхід VFS & blk-mq (Bypass)", size=12, bold=True, fill="#fff3cd"))
     g.append(fitbox(510, 220, 390, 44, "Символьний пристрій /dev/ng0n1 (uring_cmd)", size=12, fill="#eaf7ee"))
-    g.append(fitbox(510, 290, 390, 44, "nvme_uring_cmd() → Напряму в hardware SQ", size=12, fill="#eaf7ee"))
+    g.append(fitbox(510, 290, 390, 44, "nvme_ns_chr_uring_cmd() → hardware SQ", size=12, fill="#eaf7ee"))
     g.append(fitbox(510, 360, 390, 44, "NVMe контролер + IOPOLL / CQE ring", size=12, fill="#eaf7ee"))
     g.append(fitbox(510, 430, 390, 44, "Переваги: Zero-copy, zero-alloc, прямі vendor NVMe cmd", size=11, fill="#eaf7ee"))
 

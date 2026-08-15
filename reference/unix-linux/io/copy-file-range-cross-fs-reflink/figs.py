@@ -34,7 +34,7 @@ def cross_fs_reflink_boundary():
     
     out0, _, _ = textbox(615, 145, "Inode #9012 (цільовий файл)\nПорожній / Новий файл", size=10, fill="#ffffff", stroke="#fb923c", rx=4)
     out1, _, _ = textbox(615, 215, "Окремий простір адресації блоків\nAG (Allocation Groups) / Block Map B", size=10, fill="#ffffff", stroke="#fb923c", rx=4)
-    out2, _, _ = textbox(615, 335, "Фізичне копіювання даних\nВиділення нових блоків у SB B\nPageCache / NVMe Copy / SSC", size=10, fill="#ffffff", stroke="#ea580c", rx=4)
+    out2, _, _ = textbox(615, 335, "Фізичне копіювання даних\nВиділення нових блоків у SB B\nPageCache splice / SSC сервера", size=10, fill="#ffffff", stroke="#ea580c", rx=4)
     frags.extend([out0, out1, out2])
     frags.append(arrow(615, 255, 615, 305, color="#c2410c"))
     
@@ -78,7 +78,7 @@ def vfs_copy_cascade_hierarchy():
     frags.append(text(415, 250, "Якщо f_op->copy_file_range = NULL", size=9, color="#64748b", anchor="start"))
     
     # Level 3: Block Layer Offload
-    n3, _, _ = textbox(400, 280, "Рівень 3: Апаратний Offload блочного шару (blkdev_issue_copy)\nNVMe Simple Copy (TP 4040) / SCSI EXTENDED COPY (XCOPY)", size=10, fill="#fef3c7", stroke="#f59e0b", rx=4)
+    n3, _, _ = textbox(400, 280, "Рівень 3 (у майнлайн НЕ прийнято): offload блочного шару\nПатчі blkdev_issue_copy: NVMe Copy TP 4065 / SCSI XCOPY", size=10, fill="#fef3c7", stroke="#f59e0b", rx=4)
     frags.append(n3)
     frags.append(arrow(400, 305, 400, 330, color="#64748b"))
     frags.append(text(415, 320, "Якщо апаратний offload не підтримується", size=9, color="#64748b", anchor="start"))
@@ -90,7 +90,7 @@ def vfs_copy_cascade_hierarchy():
     # Success/Return arrows on right
     frags.append(text(670, 140, "-> Повернення (0 байт I/O)", size=9, bold=True, color="#15803d", anchor="start"))
     frags.append(text(670, 210, "-> Повернення (Offload без CPU)", size=9, bold=True, color="#c2410c", anchor="start"))
-    frags.append(text(670, 280, "-> Повернення (PCIe Direct Copy)", size=9, bold=True, color="#b45309", anchor="start"))
+    frags.append(text(670, 280, "-> Немає у ванільному ядрі", size=9, bold=True, color="#b45309", anchor="start"))
     frags.append(text(670, 360, "-> Повернення (DRAM / PageCache)", size=9, bold=True, color="#b91c1c", anchor="start"))
     
     return frags
@@ -116,9 +116,9 @@ def offload_mechanisms_comparison():
     # Col 2: NVMe Copy (Controller)
     frags.append(rect(215, 60, 175, 340, rx=6, fill="#fef3c7", stroke="#fde047"))
     frags.append(text(302, 85, "2. NVMe Copy", size=12, bold=True, anchor="middle", color="#854d0e"))
-    c2_1, _, _ = textbox(302, 130, "Команда NVMe\nSimple Copy (TP4040)", size=9, fill="#ffffff", stroke="#facc15", rx=4)
+    c2_1, _, _ = textbox(302, 130, "Команда NVMe\nSimple Copy (TP 4065)", size=9, fill="#ffffff", stroke="#facc15", rx=4)
     c2_2, _, _ = textbox(302, 210, "Копіювання у SRAM\nконтролера SSD\nбез шини PCIe", size=9, fill="#ffffff", stroke="#facc15", rx=4)
-    c2_3, _, _ = textbox(302, 300, "Швидкість: 5-7 ГБ/с\nCPU: ~0.1%\nDRAM: 0 байт", size=9, fill="#ffffff", stroke="#a16207", rx=4)
+    c2_3, _, _ = textbox(302, 300, "Поза майнлайном:\nлише патчі offload\nCPU: ~0, DRAM: 0 байт", size=9, fill="#ffffff", stroke="#a16207", rx=4)
     frags.extend([c2_1, c2_2, c2_3])
     frags.append(arrow(302, 155, 302, 185, color="#ca8a04"))
     frags.append(arrow(302, 235, 302, 275, color="#ca8a04"))

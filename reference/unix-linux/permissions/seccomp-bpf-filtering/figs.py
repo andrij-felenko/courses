@@ -31,7 +31,7 @@ def render():
 
             svgkit.rect(45, 210, 200, 60, fill="#ffffff", stroke="#93c5fd", sw=1, rx=4),
             svgkit.text(145, 232, "Інструкція syscall", anchor="middle", size=13, bold=True, color="#1e3a8a"),
-            svgkit.text(145, 252, "RAX=nr, RDI..R8=args", anchor="middle", size=11, color="#6b7280"),
+            svgkit.text(145, 252, "RAX=nr, RDI…R9=args", anchor="middle", size=11, color="#6b7280"),
 
             # Arrow User -> Kernel
             svgkit.arrow(260, 240, 315, 240, color="#1d4ed8", sw=2),
@@ -93,7 +93,7 @@ def render():
     <text x="145" y="173" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4b5563">glibc wrapper / syscall()</text>
     <rect x="45" y="210" width="200" height="60" fill="#ffffff" stroke="#93c5fd" stroke-width="1" rx="4"/>
     <text x="145" y="232" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#1e3a8a">Інструкція syscall</text>
-    <text x="145" y="252" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6b7280">RAX=nr, RDI..R8=args</text>
+    <text x="145" y="252" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6b7280">RAX=nr, RDI…R9=args</text>
     <path d="M 260 240 L 315 240" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrow)"/>
     <text x="287" y="230" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#1d4ed8" font-weight="bold">Syscall Trap</text>
     <rect x="320" y="65" width="450" height="290" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" rx="6"/>

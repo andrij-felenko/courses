@@ -77,6 +77,7 @@ def render_vfs_path_resolution():
   <!-- Connectors -->
   <line x1="185" y1="140" x2="250" y2="140" class="arrow" />
   <line x1="345" y1="160" x2="345" y2="180" class="arrow" />
+  <line x1="440" y1="135" x2="505" y2="135" class="arrow" />
   <line x1="440" y1="215" x2="505" y2="215" class="arrow" />
   <line x1="580" y1="160" x2="580" y2="180" class="arrow" />
   <line x1="655" y1="195" x2="700" y2="140" class="arrow" />
@@ -137,11 +138,12 @@ def render_dfa_matching():
   <text x="320" y="120" class="edge-label" text-anchor="middle">"log/"</text>
 
   <line x1="438" y1="130" x2="582" y2="130" class="edge" />
-  <text x="510" y="120" class="edge-label" text-anchor="middle">"**"</text>
+  <text x="510" y="120" class="edge-label" text-anchor="middle">"/"</text>
 
   <!-- Self loop on S3 -->
   <path d="M 600,103 C 580,60 640,60 620,103" fill="none" class="edge" />
   <text x="610" y="52" class="edge-label" text-anchor="middle">any char</text>
+  <text x="410" y="225" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">мітка з кількох символів — ланцюжок односимвольних переходів</text>
 </svg>"""
     os.makedirs(IMG_DIR, exist_ok=True)
     out_path = os.path.join(IMG_DIR, "apparmor-dfa-matching.svg")

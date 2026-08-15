@@ -2,22 +2,22 @@
 
 Цей практичний проєкт присвячено розробці автономної низькорівневої утиліти моніторингу продуктивності блокових пристроїв `dm-cache` та `dm-writecache`. Системні адміністратори та інженери зберігання даних часто стикаються з потребою контролювати коефіцієнт влучання (hit ratio), обсяг брудних блоків та заповненість метаданих у режимі реального часу, щоб завчасно реагувати на деградацію продуктивності SSD або загрозу буксування (thrashing) кешу.
 
-У рамках цього проєкту розглянуто архітектуру збору телеметрії з підсистеми sysfs ядра Linux, алгоритми розрахунку ключових індикаторів (KPI), а також реалізовано дві повноцінні утиліти мовами C та C++, кожна з яких є ідіоматичною для своєї екосистеми.
+У рамках цього проєкту розглянуто архітектуру збору телеметрії зі статусного інтерфейсу Device Mapper, алгоритми розрахунку ключових індикаторів (KPI), а також реалізовано дві повноцінні утиліти мовами C та C++, кожна з яких є ідіоматичною для своєї екосистеми.
 
 ---
 
-## 1. Архітектура збору метрик та аналіз даних sysfs
+## 1. Архітектура збору метрик і джерело телеметрії
 
-Ядро Linux експортує поточний стан будь-якого мапованого пристрою Device Mapper через віртуальну файлову систему sysfs за шляхом `/sys/block/<dm-device>/dm/status`. Коли утиліта відкриває цей файл і виконує системний виклик `read()`, відповідний драйвер таргету (`dm-cache` або `dm-writecache`) формує однорядковий текстовий зріз по поточних лічильниках.
+Стан мапованого пристрою Device Mapper ядро віддає не через sysfs, а через ioctl `DM_TABLE_STATUS` на керувальному вузлі `/dev/mapper/control`: у `/sys/block/<dm-device>/dm/` лежать лише `name`, `uuid` та `suspended`, статусу там немає. У відповідь на ioctl драйвер таргету (`dm-cache` або `dm-writecache`) формує однорядковий текстовий зріз поточних лічильників.
 
-Слід враховувати, що віртуальні файли в sysfs не мають реального розміру (функція `stat()` повертає розмір 0 байтів). Через це спроба прочитати файл за допомогою фунцій, які покладаються на розмір файлу, завершиться невдачею. Зчитування повинно виконуватися фіксованим буфером (наприклад, 2048 байтів) за один системний виклик `read()`.
+До цього рядка ведуть два шляхи: лінкуватися з `libdevmapper` і викликати ioctl самотужки або запустити `dmsetup status <пристрій>` і розібрати його вивід. Нижче обрано другий — він не тягне зовнішньої залежності й дає той самий рядок. Обидва потребують прав `root`: ioctl на `/dev/mapper/control` вимагає `CAP_SYS_ADMIN`.
 
 ### 1.1 Структура рядка стану `dm-cache`
 
 Для таргету `dm-cache` рядок статусу має такий формат:
 
 ```
-0 204800000 cache 2 1024/32768 512 452100/524288 452100 12400 189000 3200 4500 12800 1024 ...
+0 209715200 cache 8 1024/32768 512 176000/204800 452100 12400 189000 3200 4500 12800 1024 ...
 ```
 
 Для аналізу продуктивності найбільший інтерес становлять наступні поля:
@@ -48,29 +48,29 @@
 
 При розробці системних утиліт моніторингу важливо передбачити наступні критичні ситуації:
 
-1. **Еволіція формату рядка статусу між версіями ядра:** У старих версіях ядер Linux (до 4.2) рядок статусу `dm-cache` містив менше полів, оскільки використовувалася політика `mq` замість `smq`. Парсер повинен перевіряти кількість успішно прочитаних полів (значення, повернене `sscanf`) і не робити припущень про наявність опціональних хвостів рядка.
-2. **Права доступу та відсутність пристрою:** Файли у `/sys/block/` доступні для читання всім користувачам, однак сам віртуальний пристрій `dm-X` може бути від'єднаний LVM під час виконання команди `lvconvert`. Утиліта повинна коректно повертати помилку з чітким описом, а не завершуватися з помилкою сегментації (segmentation fault).
-3. **Обнулення лічильників при перезавантаженні або зміні таблиці:** Лічильники `read_hits` та `write_misses` є 64-бітними неузгодженими інкрементальними величинами. При заміні таблиці `dmsetup reload` лічильники скидаються в 0, що повинно враховуватися в зовнішніх системах типу Prometheus при розрахунку похідних величин (`rate()`).
+1. **Еволюція формату рядка статусу між версіями ядра:** Хвіст рядка `dm-cache` залежить від версії ядра й обраної політики: до 4.2 типовою була `mq` з власним набором аргументів, потім `smq` без жодного, а поля `rw|ro` та `needs_check` дописали ще пізніше. Парсер повинен перевіряти кількість успішно прочитаних полів (значення, повернене `sscanf`) і не робити припущень про хвіст рядка.
+2. **Права доступу та відсутність пристрою:** Статус доступний лише з правами `root`, а сам пристрій може зникнути просто між двома опитуваннями — наприклад, поки LVM виконує `lvconvert --splitcache`. Утиліта повинна коректно повертати помилку з чітким описом, а не завершуватися з помилкою сегментації (segmentation fault).
+3. **Обнулення лічильників при перезавантаженні або зміні таблиці:** Лічильники `read_hits` та `write_misses` — 64-бітні величини, що лише зростають. При заміні таблиці `dmsetup reload` лічильники скидаються в 0, що повинно враховуватися в зовнішніх системах типу Prometheus при розрахунку похідних величин (`rate()`).
 
 ---
 
 ## 3. Особливості реалізації мовою C
 
-Реалізація мовою C орієнтована на мінімальні накладні витрати пам'яті та максимальну сумісність із POSIX-системами. Вона використовує системні виклики `open()`, `read()`, `close()`, працює з фіксованими стакровими буферами й здійснює безпечний розбір рядків за допомогою `sscanf()`.
+Реалізація мовою C орієнтована на мінімальні накладні витрати пам'яті та максимальну сумісність із POSIX-системами. Вона запускає `dmsetup status` через `popen()`, читає відповідь у фіксований стековий буфер і розбирає рядок за допомогою `sscanf()`.
 
 Основні інженерні рішення в C-версії:
 - **Перевірка помилок на кожному кроці:** Програма коректно обробляє відсутність пристрою в `/sys/block/`, помилки доступу (наприклад, якщо утиліта запущена без належних прав) та невідповідність формату статусу.
-- **Відсутність динамічного виділення пам'яті:** Утиліта не використовує `malloc()` чи `free()`, що робить її безпечною для використання в критичних системних демон-процесах або контейнерах із суворими обмеженнями пам'яті.
+- **Відсутність динамічного виділення пам'яті у власному коді:** Утиліта не викликає `malloc()` чи `free()` — усі буфери стекові. Плата за простоту — `popen()`, який породжує оболонку, тож ім'я пристрою перед підстановкою перевіряється на дозволені символи, а в оточенні має бути наявний `dmsetup`.
 - **Обробка ділення на нуль:** Якщо пристрій тільки-но створено і сумарна кількість операцій дорівнює 0, утиліта повертає `Hit Ratio = 0.0%` замість генерації винятку `SIGFPE`.
 
 ---
 
 ## 4. Особливості реалізації мовою C++
 
-Реалізація мовою C++20 базується на сучасних ідіомах безпеки та виразності. Вона використовує модуль `std::filesystem` для роботи з шляхами sysfs, файлові потоки `std::ifstream`, обгортку `std::optional` для безпечної обробки відсутності даних та безпечне форматування рядків `std::format`.
+Реалізація мовою C++20 базується на сучасних ідіомах безпеки та виразності. Вона бере той самий рядок від `dmsetup`, тримає канал у `std::unique_ptr` з власним видалювачем, розбирає рядок через `std::istringstream`, повертає результат у `std::optional` і форматує вивід через `std::format`.
 
 Основні переваги C++ реалізації:
-- **Концепція RAII (Resource Acquisition Is Initialization):** Файлові потоки закриваються автоматично при виході з області видимості, що повністю усуває ризик витоку файлових дескрипторів при виникненні помилок.
+- **Концепція RAII (Resource Acquisition Is Initialization):** Канал закривається автоматично при виході з області видимості — `pclose` викликає видалювач `unique_ptr`, тож дескриптор не тече навіть на шляху з помилкою.
 - **Використання `std::string_view`:** Дозволяє передавати назви пристроїв без зайвого копіювання рядків.
 - **Інкапсуляція логики в класі `DmStatusMonitor`:** Модульна структура дозволяє легко інтегрувати цей код як плагін до більших систем моніторингу (наприклад, Prometheus C++ client або утиліта діагностики накопичувачів).
 
@@ -86,11 +86,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include <ctype.h>
 #include <errno.h>
 
-#define SYSFS_PATH_MAX 256
+#define CMD_MAX 256
 #define BUFFER_SIZE 2048
 
 typedef struct {
@@ -106,21 +105,35 @@ typedef struct {
     double hit_ratio;
 } dm_cache_stats_t;
 
-static int read_sysfs_status(const char *dm_name, char *buffer, size_t buf_size) {
-    char path[SYSFS_PATH_MAX];
-    snprintf(path, sizeof(path), "/sys/block/%s/dm/status", dm_name);
+static int name_is_safe(const char *s) {
+    if (*s == '\0') return 0;
+    for (; *s; ++s) {
+        if (!isalnum((unsigned char)*s) && *s != '-' && *s != '_' && *s != '.')
+            return 0;
+    }
+    return 1;
+}
 
-    int fd = open(path, O_RDONLY);
-    if (fd < 0) {
-        fprintf(stderr, "Помилка відкриття %s: %s\n", path, strerror(errno));
+static int read_dm_status(const char *dm_name, char *buffer, size_t buf_size) {
+    char cmd[CMD_MAX];
+
+    if (!name_is_safe(dm_name)) {
+        fprintf(stderr, "Недопустиме ім'я пристрою: %s\n", dm_name);
+        return -1;
+    }
+    snprintf(cmd, sizeof(cmd), "dmsetup status %s", dm_name);
+
+    FILE *pipe = popen(cmd, "r");
+    if (!pipe) {
+        fprintf(stderr, "Не вдалося запустити dmsetup: %s\n", strerror(errno));
         return -1;
     }
 
-    ssize_t bytes = read(fd, buffer, buf_size - 1);
-    close(fd);
+    size_t bytes = fread(buffer, 1, buf_size - 1, pipe);
+    int rc = pclose(pipe);
 
-    if (bytes <= 0) {
-        fprintf(stderr, "Помилка читання зі статусного файлу sysfs\n");
+    if (bytes == 0 || rc != 0) {
+        fprintf(stderr, "dmsetup status не повернув даних для %s\n", dm_name);
         return -1;
     }
 
@@ -160,24 +173,26 @@ static int parse_dm_cache_status(const char *status_str, dm_cache_stats_t *stats
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        fprintf(stderr, "Використання: %s <dm-пристрій> (наприклад, dm-0)\n", argv[0]);
+        fprintf(stderr, "Використання: %s <dm-пристрій> (наприклад, my_cached_dev)\n", argv[0]);
         return EXIT_FAILURE;
     }
 
     char buffer[BUFFER_SIZE];
-    if (read_sysfs_status(argv[1], buffer, sizeof(buffer)) != 0) {
+    if (read_dm_status(argv[1], buffer, sizeof(buffer)) != 0) {
         return EXIT_FAILURE;
     }
 
-    dm_cache_stats_t stats;
+    dm_cache_stats_t stats = {0};
     if (parse_dm_cache_status(buffer, &stats) != 0) {
         return EXIT_FAILURE;
     }
 
     printf("=== Телеметрія dm-cache для %s ===\n", argv[1]);
+    double usage_pct = stats.total_cache_blocks
+                     ? (double)stats.used_cache_blocks / (double)stats.total_cache_blocks * 100.0
+                     : 0.0;
     printf("Кешовано блоків:   %llu / %llu (%.2f%%)\n",
-           stats.used_cache_blocks, stats.total_cache_blocks,
-           (double)stats.used_cache_blocks / (double)stats.total_cache_blocks * 100.0);
+           stats.used_cache_blocks, stats.total_cache_blocks, usage_pct);
     printf("Влучання (Hits):   Читання: %llu, Запис: %llu\n", stats.read_hits, stats.write_hits);
     printf("Промахи (Misses):  Читання: %llu, Запис: %llu\n", stats.read_misses, stats.write_misses);
     printf("Коефіцієнт Hit Ratio: %.2f%%\n", stats.hit_ratio);
@@ -194,16 +209,17 @@ int main(int argc, char *argv[]) {
 
 ```cpp
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <string_view>
 #include <sstream>
 #include <optional>
 #include <format>
-#include <filesystem>
+#include <memory>
+#include <algorithm>
+#include <cctype>
+#include <cstdint>
+#include <cstdio>
 #include <stdexcept>
-
-namespace fs = std::filesystem;
 
 struct DmCacheStats {
     uint64_t read_hits{0};
@@ -231,15 +247,25 @@ struct DmCacheStats {
 class DmStatusMonitor {
 public:
     static std::optional<DmCacheStats> fetch_cache_stats(std::string_view dm_name) {
-        const fs::path sysfs_path = fs::path("/sys/block") / dm_name / "dm" / "status";
-        std::ifstream file(sysfs_path);
-        if (!file.is_open()) {
-            std::cerr << "Не вдалося відкрити файл статусу: " << sysfs_path << '\n';
+        if (!name_is_safe(dm_name)) {
+            std::cerr << "Недопустиме ім'я пристрою: " << dm_name << '\n';
+            return std::nullopt;
+        }
+
+        const std::string cmd = std::format("dmsetup status {}", dm_name);
+        const std::unique_ptr<std::FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), &pclose);
+        if (!pipe) {
+            std::cerr << "Не вдалося запустити dmsetup для " << dm_name << '\n';
             return std::nullopt;
         }
 
         std::string line;
-        if (!std::getline(file, line)) {
+        char chunk[256];
+        while (std::fgets(chunk, sizeof(chunk), pipe.get()) != nullptr) {
+            line += chunk;
+            if (line.back() == '\n') break;
+        }
+        if (line.empty()) {
             return std::nullopt;
         }
 
@@ -247,6 +273,12 @@ public:
     }
 
 private:
+    static bool name_is_safe(std::string_view name) {
+        return !name.empty() && std::all_of(name.begin(), name.end(), [](unsigned char c) {
+            return std::isalnum(c) || c == '-' || c == '_' || c == '.';
+        });
+    }
+
     static std::optional<DmCacheStats> parse_status_line(const std::string& line) {
         std::istringstream iss(line);
         int64_t start{0}, length{0};
@@ -268,9 +300,14 @@ private:
         }
 
         const auto slash_pos = cache_usage.find('/');
-        if (slash_pos != std::string::npos) {
+        if (slash_pos == std::string::npos) {
+            return std::nullopt;
+        }
+        try {
             stats.used_cache_blocks = std::stoull(cache_usage.substr(0, slash_pos));
             stats.total_cache_blocks = std::stoull(cache_usage.substr(slash_pos + 1));
+        } catch (const std::exception&) {
+            return std::nullopt;
         }
 
         return stats;
@@ -279,7 +316,7 @@ private:
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cerr << "Використання: " << argv[0] << " <dm-пристрій> (наприклад, dm-0)\n";
+        std::cerr << "Використання: " << argv[0] << " <dm-пристрій> (наприклад, my_cached_dev)\n";
         return EXIT_FAILURE;
     }
 
@@ -313,20 +350,20 @@ int main(int argc, char* argv[]) {
 
 ## 6. Інтеграція та компіляція
 
-Компіляція утиліти вимагає вказання прапорців стандартів C/C++. Прапорець `-std=c11` необхідний для підтримки сучасного стандарту C, а `-std=c++20` зумовлений використанням модулів `std::filesystem` та `std::format` у C++ версії:
+Компіляція утиліти вимагає вказання прапорців стандартів C/C++. Прапорець `-std=c11` необхідний для підтримки сучасного стандарту C, а `-std=gnu++20` — використанням `std::format` разом із POSIX-функцією `popen()`, якої строгий `-std=c++20` не оголошує:
 
 ```bash
 # Компіляція C-версії (стандарт C11)
 gcc -std=c11 -O2 -Wall -Wextra proj-dm-cache-status-monitor.c -o dm_status_c
 
-# Компіляція C++-версії (стандарт C++20)
-g++ -std=c++20 -O2 -Wall -Wextra proj-dm-cache-status-monitor.cpp -o dm_status_cpp
+# Компіляція C++-версії (C++20 з POSIX-розширеннями)
+g++ -std=gnu++20 -O2 -Wall -Wextra proj-dm-cache-status-monitor.cpp -o dm_status_cpp
 ```
 
-Приклад запуску для віртуального пристрою `dm-0`:
+Приклад запуску для кешованого пристрою `my_cached_dev` (потрібні права `root`):
 
 ```bash
-./dm_status_c dm-0
+sudo ./dm_status_c my_cached_dev
 ```
 
 Утиліту можна легко обгорнути в системну службу systemd або інкорпорувати до складу агента моніторингу (наприклад, Telegraf exec plugin), забезпечуючи безперервний збір метрик для системного графічного аналізу в Grafana.

@@ -287,7 +287,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-libc-boundary.md",
@@ -1410,7 +1410,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-percpu.md",
@@ -1438,7 +1438,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-kernel-surface.md",
@@ -1500,7 +1500,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-rseq.md",
@@ -1528,7 +1528,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-birth-and-retreat.md",
@@ -1550,7 +1550,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-membarrier.md",
@@ -1578,7 +1578,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-pidfd-info.md",
@@ -1606,7 +1606,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-isolation-knobs.md",
@@ -1656,7 +1656,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-rt-lock-types.md",
@@ -1724,17 +1724,17 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "sched-ext-ebpf-scheduler",
             "title": "Планувальник sched_ext: eBPF розширення для sched",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sched-ext-ops.md",
@@ -1778,7 +1778,7 @@ window.__BOOKS__ = [
             "slug": "cgroup-v2-memory-peak-swap",
             "title": "Управління піками та пропускною здатністю у Cgroups v2 memory",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-memory-control-surface.md",
@@ -1810,7 +1810,7 @@ window.__BOOKS__ = [
             "slug": "sched-energy-aware-eas",
             "title": "Енергоефективне планування Energy-Aware Scheduling (EAS) та Energy Model",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-energy-model-sysfs.md",
@@ -1837,17 +1837,17 @@ window.__BOOKS__ = [
               ]
             },
             "basic": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "uclamp-utilization-clamping",
             "title": "Обмеження утилізації CPU: uclamp (sched_setattr uclamp_min/uclamp_max)",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-uclamp-kernel-structures.md",
@@ -1872,10 +1872,10 @@ window.__BOOKS__ = [
             "slug": "sched-ext-custom-schedulers",
             "title": "Практична розробка BPF-планувальників у sched_ext (scx_rustland, scx_lavd)",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-scx-rust-framework.md",
@@ -1967,10 +1967,10 @@ window.__BOOKS__ = [
             "slug": "page-fault",
             "title": "Сторінковий збій: чому все ліниве",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fault-counters.md",
@@ -2082,7 +2082,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-oom-knobs.md",
@@ -2110,7 +2110,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-proc-memory-fields.md",
@@ -2191,10 +2191,10 @@ window.__BOOKS__ = [
             "slug": "address-space-randomization",
             "title": "Рандомізація адресного простору в системі: рівні та вимикачі",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-randomization-controls.md",
@@ -2247,10 +2247,10 @@ window.__BOOKS__ = [
             "slug": "kernel-page-table-isolation",
             "title": "Ізоляція таблиць сторінок ядра (KPTI): чому ядро прибрали з простору процесу",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-pti-controls.md",
@@ -2306,7 +2306,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-slab-interfaces.md",
@@ -2331,10 +2331,10 @@ window.__BOOKS__ = [
             "slug": "physical-page-allocator",
             "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-allocator-controls.md",
@@ -2368,7 +2368,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-pkey-interfaces.md",
@@ -2421,10 +2421,10 @@ window.__BOOKS__ = [
             "slug": "reverse-mapping",
             "title": "Зворотне відображення сторінки (rmap): як знайти всіх, хто на неї вказує",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-rmap-interfaces.md",
@@ -2452,7 +2452,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-tlb-flush-controls.md",
@@ -2480,7 +2480,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-cma-interfaces.md",
@@ -2508,7 +2508,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-gup-family.md",
@@ -2564,7 +2564,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-memblock-interfaces.md",
@@ -2620,7 +2620,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sparsemem-controls.md",
@@ -2648,7 +2648,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-hmm-birth.md",
@@ -2670,7 +2670,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-cgwb-contract.md",
@@ -2698,7 +2698,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -2708,7 +2708,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-move-pages.md",
@@ -2724,7 +2724,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-hwpoison-interfaces.md",
@@ -2746,7 +2746,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           }
         ]
@@ -2792,7 +2792,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fd-vs-ofd.md",
@@ -2817,10 +2817,10 @@ window.__BOOKS__ = [
             "slug": "inode-model",
             "title": "Inode: файл без імені",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-stat-fields.md",
@@ -2845,10 +2845,10 @@ window.__BOOKS__ = [
             "slug": "directory-as-mapping",
             "title": "Каталог як відображення імен",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-directory-syscalls.md",
@@ -2904,7 +2904,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-resolution-controls.md",
@@ -2960,7 +2960,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-mount-syscalls.md",
@@ -2985,10 +2985,10 @@ window.__BOOKS__ = [
             "slug": "filesystem-families",
             "title": "Родини файлових систем: ext4, XFS, Btrfs, F2FS",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-mkfs-and-mount.md",
@@ -3016,7 +3016,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-journal-controls.md",
@@ -3041,10 +3041,10 @@ window.__BOOKS__ = [
             "slug": "page-cache-durability",
             "title": "Кеш сторінок, fsync і довговічність запису",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sync-syscalls.md",
@@ -3073,10 +3073,10 @@ window.__BOOKS__ = [
             "slug": "pseudo-filesystems",
             "title": "Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-proc-origin.md",
@@ -3154,7 +3154,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-chroot-contract.md",
@@ -3232,7 +3232,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-at-family-reference.md",
@@ -3251,10 +3251,10 @@ window.__BOOKS__ = [
             "slug": "reflink-copies",
             "title": "Копії з поділом блоків: reflink і copy_file_range",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-clone-and-copy.md",
@@ -3338,7 +3338,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-seven-years-to-statx.md",
@@ -3360,7 +3360,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-lfs-surface.md",
@@ -3385,10 +3385,10 @@ window.__BOOKS__ = [
             "slug": "fsck-and-repair",
             "title": "fsck: перевірка й ремонт файлової системи",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fsck-invocation.md",
@@ -3410,7 +3410,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-pivot-root-birth.md",
@@ -3494,7 +3494,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-lease-interface.md",
@@ -3522,7 +3522,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-allocation-controls.md",
@@ -3550,7 +3550,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-two-births.md",
@@ -3578,7 +3578,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-handle-syscalls.md",
@@ -3606,7 +3606,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fsverity-ioctls.md",
@@ -3634,7 +3634,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-temp-file-races.md",
@@ -3656,7 +3656,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fileattr-interface.md",
@@ -3684,7 +3684,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-quota-control.md",
@@ -3706,7 +3706,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-freeze-interface.md",
@@ -3734,7 +3734,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fscrypt-ioctls.md",
@@ -3762,7 +3762,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-configfs-birth.md",
@@ -3784,7 +3784,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-dax-controls.md",
@@ -3812,7 +3812,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-virtiofs-surface.md",
@@ -3840,7 +3840,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-zonefs-surface.md",
@@ -3908,14 +3908,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "btrfs-b-tree-architecture",
             "title": "Btrfs: Архітектура B-дерев",
             "basic": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-btrfs-tree-types.md",
@@ -3954,7 +3954,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-btrfs-tree-types.md",
@@ -4018,7 +4018,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-btrfs-scrub-ioctl.md",
@@ -4082,14 +4082,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "zfs-native-encryption",
             "title": "Вбудоване шифрування та дедуплікація в ZFS",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-zfs-crypto-cli.md",
@@ -4175,7 +4175,7 @@ window.__BOOKS__ = [
             "slug": "statx-extended-stat-api",
             "title": "Розширений системний виклик statx та маски атрибутів",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-statx-masks-and-flags.md",
@@ -4237,7 +4237,7 @@ window.__BOOKS__ = [
             "slug": "pidfs-filesystem-architecture",
             "title": "Спеціалізована файлова система pidfs у сучасних ядрах",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-pidfs-ioctls.md",
@@ -4280,7 +4280,7 @@ window.__BOOKS__ = [
             "slug": "incfs-incremental-filesystem",
             "title": "Інкрементальна файлова система IncFS (Android Incremental Delivery)",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-incfs-ctl.md",
@@ -4323,7 +4323,7 @@ window.__BOOKS__ = [
             "slug": "fanotify-fsnotify-permission-events",
             "title": "Розширений моніторинг файлів fanotify: перехоплення FAN_OPEN_PERM",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-fanotify-perm-reference.md",
@@ -4405,7 +4405,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           }
         ]
@@ -4416,7 +4416,7 @@ window.__BOOKS__ = [
         "scope": "Як програма чекає на дані й чому саме тут вирішується, скільки з'єднань вона потягне.",
         "topics": [
           { slug: "readdir-getdents64-directory-traversal", title: "Обхід каталогів: readdir, getdents64 та внутрішня структура", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-getdents64-structs.md", status: "done" }] , "hist": [{ file: "hist-readdir-r-deprecation.md", status: "done" }] , "proj": [{ file: "proj-fast-directory-walker.md", status: "done" }] },
-          { slug: "fsync-fdatasync-sync-file-range", title: "Гарантії скидання кешу: fsync, fdatasync та sync_file_range", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sync-contracts.md", status: "done" }] , "hist": [{ file: "hist-fsyncgate-and-cache.md", status: "done" }] , "proj": [{ file: "proj-sync-bench.md", status: "done" }] },
+          { slug: "fsync-fdatasync-sync-file-range", title: "Гарантії скидання кешу: fsync, fdatasync та sync_file_range", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sync-contracts.md", status: "done" }] , "hist": [{ file: "hist-fsyncgate-and-cache.md", status: "done" }] , "proj": [{ file: "proj-sync-bench.md", status: "done" }] },
           { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
           { slug: "dma-mapping-subsystem-and-iommu", title: "Підсистема DMA mapping та IOMMU в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dma-mapping-surface.md", status: "done" }] , "hist": [{ file: "hist-dma-evolution.md", status: "done" }] , "proj": [{ file: "proj-dma-driver-example.md", status: "done" }] },
           {
@@ -4454,7 +4454,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-two-lineages.md",
@@ -4590,7 +4590,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-socket-or-file.md",
@@ -4612,7 +4612,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-direct-io-contract.md",
@@ -4668,7 +4668,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-restart-matrix.md",
@@ -4696,7 +4696,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-stdio-buffer-controls.md",
@@ -4724,7 +4724,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-signal-io-contract.md",
@@ -4752,7 +4752,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-aio-calls.md",
@@ -4774,7 +4774,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-aio-syscalls.md",
@@ -4796,7 +4796,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ioprio.md",
@@ -4836,7 +4836,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -4882,7 +4882,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -4923,7 +4923,7 @@ window.__BOOKS__ = [
             "slug": "zoned-block-devices-zns",
             "title": "Зоновані блокові пристрої (ZBC/ZAC та zonefs)",
               "basic": {
-                "status": "recheck",
+                "status": "done",
             "api": [
               {
                 "file": "api-zbd-ioctls.md",
@@ -4962,7 +4962,7 @@ window.__BOOKS__ = [
             ],
               },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -4979,7 +4979,7 @@ window.__BOOKS__ = [
             "slug": "dm-writecache-and-dm-cache",
             "title": "Кешування блокових пристроїв: dm-writecache та dm-cache",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-dm-target-parameters-and-status.md",
@@ -5022,7 +5022,7 @@ window.__BOOKS__ = [
             "slug": "blk-iopoll-and-io-polling",
             "title": "Опитування блокових пристроїв: IO polling та blk-mq iopoll",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-iopoll-sysfs-params.md",
@@ -5139,7 +5139,7 @@ window.__BOOKS__ = [
             "slug": "dma-buf-heaps-framework",
             "title": "Фреймворк dma-buf heaps: заміна ION для виділення неперервної памʼяті",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-uapi-dma-heap.md",
@@ -5170,7 +5170,7 @@ window.__BOOKS__ = [
             "slug": "io-uring-cmd-passthrough",
             "title": "Низькорівневий пасстру команд NVMe через IORING_OP_URING_CMD",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-uring-cmd-nvme.md",
@@ -5216,7 +5216,7 @@ window.__BOOKS__ = [
         "title": "Сигнали й взаємодія процесів",
         "scope": "Асинхронні сповіщення та способи, якими процеси домовляються між собою.",
         "topics": [
-          { slug: "signal-architecture-and-delivery", title: "Архітектура та доставка сигналів", basic: { status: "empty" }, detailed: { status: "recheck" } },
+          { slug: "signal-architecture-and-delivery", title: "Архітектура та доставка сигналів", basic: { status: "empty" }, detailed: { status: "done" } },
           {
             "slug": "signal-model",
             "title": "Сигнал: асинхронне сповіщення",
@@ -5224,7 +5224,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sending-signals.md",
@@ -5252,7 +5252,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sigaction.md",
@@ -5274,7 +5274,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-safe-functions.md",
@@ -5418,7 +5418,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-timer-interfaces.md",
@@ -5446,7 +5446,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-signal-frame-layout.md",
@@ -5524,7 +5524,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-memfd-and-seals.md",
@@ -5625,7 +5625,7 @@ window.__BOOKS__ = [
         "scope": "Хто такий процес з погляду системи і як вирішується, що йому дозволено.",
         "topics": [
           { slug: "seccomp-syscall-filtering", title: "Գ�������� ��������� ������� (seccomp)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
-          { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "recheck" }, detailed: { status: "recheck" } },
+          { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "done" }, detailed: { status: "done" } },
           {
             "slug": "uid-gid-model",
             "title": "Користувачі, групи й ідентичність процесу",
@@ -5633,7 +5633,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-credential-syscalls.md",
@@ -5679,7 +5679,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -5689,7 +5689,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-mode-bits.md",
@@ -5717,7 +5717,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-environment-holes.md",
@@ -5739,7 +5739,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-umask-surface.md",
@@ -5767,7 +5767,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-capability-interfaces.md",
@@ -5795,7 +5795,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-xattr-and-acl.md",
@@ -5823,7 +5823,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-selinux-surface.md",
@@ -5851,7 +5851,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-udev-access-rules.md",
@@ -5873,7 +5873,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-seccomp.md",
@@ -5901,7 +5901,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-pam-config.md",
@@ -5929,7 +5929,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-keyctl-surface.md",
@@ -5957,7 +5957,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ima-policy.md",
@@ -5985,7 +5985,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-privsep-origins.md",
@@ -6007,7 +6007,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-polkit-files.md",
@@ -6035,7 +6035,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-nsswitch-and-getent.md",
@@ -6063,7 +6063,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-lsm-module.md",
@@ -6091,7 +6091,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-landlock-syscalls.md",
@@ -6119,7 +6119,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ldap-search-and-schema.md",
@@ -6147,7 +6147,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sudoers-syntax.md",
@@ -6175,7 +6175,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-userdb-varlink.md",
@@ -6203,7 +6203,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sssd-config-and-tools.md",
@@ -6231,7 +6231,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-su-invocation.md",
@@ -6259,7 +6259,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-homectl-and-record.md",
@@ -6287,7 +6287,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-lockdown-controls.md",
@@ -6333,7 +6333,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6361,7 +6361,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6371,7 +6371,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6399,7 +6399,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6427,7 +6427,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6443,7 +6443,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6471,7 +6471,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6499,7 +6499,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6540,7 +6540,7 @@ window.__BOOKS__ = [
             "slug": "rootless-containers",
             "title": "Безкорінна контейнеризація",
             "basic": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-subuid-and-newuidmap.md",
@@ -6561,7 +6561,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {

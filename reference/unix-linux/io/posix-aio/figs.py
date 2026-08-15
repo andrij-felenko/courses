@@ -49,7 +49,7 @@ def fig_request_life():
         g.append(fitbox(x, 312, w, 78, body, size=12, fill=FILL))
 
     g.append(fitbox(40, 404, 940, 40,
-                    "результат бере лише aio_return, і лише один раз: не забрати — лишити слід у пам'яті",
+                    "результат бере лише aio_return, і лише один раз: не забрати — лишити запит незакритим",
                     size=13, fill="#eaf7ee", stroke=FIELD))
 
     render(os.path.join(IMG, 'request-life.svg'), W, H, *g,

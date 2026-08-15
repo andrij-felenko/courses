@@ -8,7 +8,7 @@
 
 ## Постановка практичного завдання
 
-Головною метою бенчмарку є пряма передача команд апаратного зчитання блоків безпосередньо в контролер NVMe, минаючи VFS та підсистему `blk-mq`. Застосунок повинен ініціалізувати кільце `io_uring`, виділити пам'ять з alignment 4096 байт, сформувати 40-байтне навантаження `struct nvme_uring_cmd` всередині SQE, надіслати запит та обробити результат у CQE з мінімальними накладними витратами.
+Головною метою бенчмарку є пряма передача команд апаратного зчитання блоків безпосередньо в контролер NVMe, минаючи VFS та підсистему `blk-mq`. Застосунок повинен ініціалізувати кільце `io_uring`, виділити пам'ять з alignment 4096 байт, створити кільце зі 128-байтовими SQE та сформувати 72-байтну структуру `struct nvme_uring_cmd` всередині SQE, надіслати запит та обробити результат у CQE з мінімальними накладними витратами.
 
 Крім того, реалізація висуває вимоги щодо гарантії сумісності з різними розмірами секторів накопичувачів (512 байт та 4096 байт) та безпечного закриття ресурсів під час обробки системних сигналів переривання.
 
@@ -54,8 +54,16 @@ int main(int argc, char *argv[]) {
     }
     memset(buffer, 0, READ_SIZE);
 
-    /* Ініціалізуємо io_uring з глибиною черги 32 */
-    ret = io_uring_queue_init(32, &ring, 0);
+    /* Ініціалізуємо io_uring з глибиною черги 32.
+       NVMe passthrough вимагає 128-байтових SQE: struct nvme_uring_cmd
+       займає 72 байти, а у звичайному 64-байтовому SQE під sqe->cmd
+       лишається лише 16. Без IORING_SETUP_SQE128 драйвер відхилить команду.
+       CQE32 потрібен, щоб отримати cdw0 у cqe->big_cqe[0]. */
+    struct io_uring_params params;
+    memset(&params, 0, sizeof(params));
+    params.flags = IORING_SETUP_SQE128 | IORING_SETUP_CQE32;
+
+    ret = io_uring_queue_init_params(32, &ring, &params);
     if (ret < 0) {
         fprintf(stderr, "Помилка ініціалізації io_uring: %s\n", strerror(-ret));
         free(buffer);
@@ -164,7 +172,12 @@ class UringContext {
     bool active_{false};
 public:
     explicit UringContext(unsigned entries) {
-        if (::io_uring_queue_init(entries, &ring_, 0) == 0) {
+        // NVMe passthrough: nvme_uring_cmd займає 72 байти, тож кільце мусить
+        // бути створене зі 128-байтовими SQE (IORING_SETUP_SQE128), інакше
+        // команда просто не вміститься у 16 байт sqe->cmd звичайного SQE.
+        struct io_uring_params params{};
+        params.flags = IORING_SETUP_SQE128 | IORING_SETUP_CQE32;
+        if (::io_uring_queue_init_params(entries, &ring_, &params) == 0) {
             active_ = true;
         }
     }
@@ -289,7 +302,7 @@ int main(int argc, char* argv[]) {
 
 На відміну від С-реалізації, де помилки повертаються від'ємними значеннями `errno` і вимагають каскадних операторів `if (ret < 0) goto cleanup`, C++20 варіант будується на сучасній концепції обробки помилок `std::expected<T, E>`:
 
-1. **Відсутність винятків у гарячому шляху (Zero-cost exception handling):** Функція `read_nvme_block` не генерує C++ винятків (`throw`), що гарантує детермінований час виконання без раскручування стеку (stack unwinding).
+1. **Відсутність винятків у гарячому шляху (Zero-cost exception handling):** Функція `read_nvme_block` не генерує C++ винятків (`throw`), що гарантує детермінований час виконання без розкручування стеку (stack unwinding).
 2. **Типобезпечна обробка помилок:** Тип `std::error_code` повертає точний системний код помилки, отриманий від системного виклику або від CQE.
 3. **Автоматична очистка кілець:** Класи `NvmeDevice` та `UringContext` самостійно закривають файловий дескриптор (`close`) та звільняють кільце (`io_uring_queue_exit`) під час знищення об'єкта, навіть якщо функція завершилася достроково.
 
@@ -310,7 +323,7 @@ int main(int argc, char* argv[]) {
 /* Створення io_uring у режимі IOPOLL для низьких затримок на C */
 struct io_uring_params params;
 memset(&params, 0, sizeof(params));
-params.flags = IORING_SETUP_IOPOLL;
+params.flags = IORING_SETUP_IOPOLL | IORING_SETUP_SQE128 | IORING_SETUP_CQE32;
 
 int ret = io_uring_queue_init_params(32, &ring, &params);
 if (ret < 0) {
@@ -325,7 +338,7 @@ if (ret < 0) {
 std::expected<struct io_uring, std::error_code> create_iopoll_ring(unsigned entries) {
     struct io_uring ring{};
     struct io_uring_params params{};
-    params.flags = IORING_SETUP_IOPOLL;
+    params.flags = IORING_SETUP_IOPOLL | IORING_SETUP_SQE128 | IORING_SETUP_CQE32;
 
     int ret = ::io_uring_queue_init_params(entries, &ring, &params);
     if (ret < 0) {
@@ -338,22 +351,22 @@ std::expected<struct io_uring, std::error_code> create_iopoll_ring(unsigned entr
 
 У режимі `IOPOLL` замість виклику `io_uring_wait_cqe()` застосунок робить неблокуюче опитування `io_uring_enter()` із прапорцем `IORING_ENTER_GETEVENTS`. Це переводить CPU у вибіркову перевірку статусних бітів hardware CQ NVMe контролера, виключаючи переривання MSI-X та знімаючи накладні витрати на зміну контексту процесора.
 
-Завдяки уникненню переривань процесорний кеш L1/L2 залишається гарячим, а затримка зчитування зменшується до значення апаратного флеш-чипа SSD (близько 5-7 мікросекунд).
+Завдяки уникненню переривань процесорний кеш L1/L2 залишається гарячим, а затримка зчитування зменшується майже до апаратної затримки самого SSD (близько 4–7 мікросекунд).
 
 ## Трасування через bpftrace та ftrace
 
-Для перевірки того, що запити дійсно проходять повз підсистему `blk-mq`, використовується скрипт `bpftrace`. Він перехоплює вхід у функцію `nvme_ns_uring_cmd` та фіксує час виконання апаратного passthrough:
+Для перевірки того, що запити дійсно проходять повз підсистему `blk-mq`, використовується скрипт `bpftrace`. Він перехоплює вхід у функцію `nvme_ns_chr_uring_cmd` та фіксує час виконання апаратного passthrough:
 
 ```bpftrace
 #!/usr/bin/env bpftrace
-/* Трасування затримок виклику nvme_ns_uring_cmd у наносекундах */
+/* Трасування затримок виклику nvme_ns_chr_uring_cmd у наносекундах */
 
-kprobe:nvme_ns_uring_cmd
+kprobe:nvme_ns_chr_uring_cmd
 {
     @start[tid] = nsecs;
 }
 
-kretprobe:nvme_ns_uring_cmd
+kretprobe:nvme_ns_chr_uring_cmd
 /@start[tid]/
 {
     $duration = nsecs - @start[tid];
@@ -363,11 +376,11 @@ kretprobe:nvme_ns_uring_cmd
 
 END
 {
-    printf("Гістограма затримок nvme_ns_uring_cmd (мікросекунди):\n");
+    printf("Гістограма затримок nvme_ns_chr_uring_cmd (мікросекунди):\n");
 }
 ```
 
-Під час виконання трасування можна переконатися, що середній час проходження команди у ядрі становить менше 400 наносекунд, що у 5-8 разів швидше за класичний виклик `pread()` через `blk-mq`.
+Під час виконання трасування видно, що ядерна частина шляху вкладається у частки мікросекунди — помітно менше, ніж проходження того самого запиту крізь `blk-mq` при звичайному `pread()`.
 
 ## Професійне тестування через fio (Engine io_uring_cmd)
 
@@ -399,7 +412,7 @@ runtime=30
 
 1. **Вимкнення механізму службових переривань irqbalance:** На високонавантажених серверах автоматичний розподіл переривань `irqbalance` створює міжядерний трафік. Переривання від конкретної черги NVMe повинні бути жорстко прив'язані до відповідного ядра CPU через `/proc/irq/N/smp_affinity`.
 2. **Налаштування параметрів пам'яті hugepages:** Виділення пам'яті під пули буферів `io_uring` через механізм Transparent Huge Pages (THP) або статичні Hugepages розміром 2 МБ дозволяє зменшити кількість промахів у буфері трансляції адрес TLB (Translation Lookaside Buffer).
-3. **Пріоритет системного виклику:** Застосування прапорців `IOSQE_ASYNC` та налаштування пріоритету `ioprio_set` для виділених потоків обробки I/O.
+3. **Пріоритети потоків I/O:** Налаштування пріоритету через `ioprio_set` для виділених потоків обробки. А от прапорця `IOSQE_ASYNC` у гарячому шляху passthrough слід уникати: він примусово віддає запит робочому потокові ядра (io-wq) і додає саме ті перемикання контексту, заради усунення яких passthrough і будувався.
 
 ## Налаштування прав доступу udev
 
@@ -410,7 +423,7 @@ runtime=30
 KERNEL=="ng[0-9]*n[0-9]*", GROUP="disk", MODE="0660"
 ```
 
-Після створення правила його застосовують командою `sudo udevadm control --reload-rules && sudo udevadm trigger`.
+Після створення правила його застосовують командою `sudo udevadm control --reload-rules && sudo udevadm trigger`. Прав на файл вистачає лише для стандартних команд читання й запису; адміністративні та вендорські команди ядро однаково пропустить тільки з `CAP_SYS_ADMIN`.
 
 ## Інструкція зі збірки та запуску
 

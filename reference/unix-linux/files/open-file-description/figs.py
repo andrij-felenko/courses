@@ -188,7 +188,7 @@ def fig_v1_fsp():
     # процес
     p.append(rect(50, 56, 330, 190, fill="#ffffff", stroke=INK, sw=1.6, rx=10))
     p.append(text(215, 84, "u.fp процесу — 10 байтів", size=14, color=INK, bold=True))
-    slots = [("0", "3"), ("1", "3"), ("2", "7"), ("3", "0")]
+    slots = [("0", "3"), ("1", "7"), ("2", "0"), ("3", "0")]
     for i, (idx, val) in enumerate(slots):
         y = 100 + i * 34
         p.append(text(84, y + 20, "слот " + idx, size=12.5, color=MUTED, anchor="start"))
@@ -214,13 +214,12 @@ def fig_v1_fsp():
     p.append(fitbox(586, 320, 338, 26, "…", size=13, fill="#f4f6f8", stroke=MUTED, sw=1.2))
 
     p.append(arrow(246, 116, 580, 226, color=NEG))
-    p.append(arrow(246, 150, 580, 244, color=NEG))
 
     # дитина
     p.append(rect(50, 300, 330, 122, fill="#ffffff", stroke=POS, sw=1.6, rx=10))
     p.append(text(215, 328, "дитина після fork — копія u.fp", size=14, color=POS, bold=True))
     p.append(fitbox(74, 344, 282, 62,
-                    ["ті самі номери 3, 3, 7 —",
+                    ["ті самі номери 3 і 7 —",
                      "ядро лише збільшує лічильник"],
                     size=12.5, fill="#fdeeec", stroke=POS, sw=1.4))
     p.append(arrow(360, 372, 580, 288, color=POS))
@@ -329,7 +328,7 @@ def fig_scm_message():
                     size=13, fill="#fdeeec", stroke=POS, sw=1.4))
     p.append(fitbox(486, 318, 296, 46, "CMSG_DATA: int fd = 3",
                     size=13, fill="#f4f6f8", stroke=INK, sw=1.4))
-    p.append(fitbox(794, 318, 120, 46, "добивка", size=12.5,
+    p.append(fitbox(794, 318, 120, 46, "доповнення", size=12.5,
                     fill="#f4f6f8", stroke=MUTED, sw=1.2))
     p.append(arrow(376, 216, 464, 254, color=NEG, sw=1.6))
 

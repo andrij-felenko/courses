@@ -41,7 +41,7 @@ def draw_arch():
     frags.append(fitbox(30, 245, 210, 80, "VFS Layer\n(sys_read, page fault)", size=13, fill="#fae8ff", stroke="#c084fc", bold=True))
 
     # 4. IncFS Module
-    frags.append(fitbox(280, 245, 220, 80, "IncFS Module\n(Stacked VFS, bitmask,\nwait queues, verity)", size=13, fill="#ffe4e6", stroke="#e11d48", bold=True))
+    frags.append(fitbox(280, 245, 220, 80, "IncFS Module\n(Stacked VFS, block bitmap,\nwait queues, verity)", size=13, fill="#ffe4e6", stroke="#e11d48", bold=True))
 
     # Blocks in Disk/Net
     # 5. Backing Storage
@@ -82,7 +82,7 @@ def draw_block_load():
     # Sequence boxes
     steps = [
         ("1. Читання", "Додаток викликає\nread() або mmap()\nна відсутній блок", "#e0f2fe", "#0284c7"),
-        ("2. Запобігач", "IncFS блокує потік,\nстворює запит у\n.pending_reads", "#ffe4e6", "#e11d48"),
+        ("2. Блокування", "IncFS блокує потік,\nстворює запит у\n.pending_reads", "#ffe4e6", "#e11d48"),
         ("3. Отримання", "Демон читає подію,\nзавантажує 4KB з\nмережі/USB", "#fef3c7", "#d97706"),
         ("4. Заповнення", "Демон робить ioctl\nFILL_BLOCKS з\nперевіркою хешу", "#dcfce7", "#16a34a"),
         ("5. Розблокування", "IncFS пише блок на\nдиск і розблоковує\nпотік читання", "#f3e8ff", "#9333ea")

@@ -150,11 +150,11 @@ def fig_offline():
             (1, "геть із cpu_active_mask\nбудить потік cpuhp/N"),
             (2, "запускає stop_machine"),
             (3, "чекає звіту\n«мене більше немає»"),
-            (4, "teardown PREPARE\nстан CPUHP_OFFLINE"),
+            (4, "teardown PREPARE\nтаймери — на інші\nстан CPUHP_OFFLINE"),
         ]),
         (330, 150, "ядро процесора, що гасне", POS, WARM_BG, [
             (1, "teardown ONLINE-секції\nв потоці cpuhp/N\nпаркує smpboot-потоки"),
-            (2, "__cpu_disable()\nгеть із cpu_online_mask\nпереривання — на інші\nteardown STARTING"),
+            (2, "__cpu_disable()\nгеть із cpu_online_mask\nпереривання — на інші\nteardown STARTING:\nзадачі геть із черги"),
             (3, "останні задачі й таймери\nпереїжджають\nдалі idle і play_dead"),
             (4, "не виконує нічого"),
         ]),

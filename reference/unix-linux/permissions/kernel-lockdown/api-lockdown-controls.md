@@ -118,7 +118,7 @@ none [integrity] confidentiality
 | `LOCKDOWN_XFRM_SECRET` | `xfrm SA secret` |
 | **`LOCKDOWN_CONFIDENTIALITY_MAX`** | `confidentiality` — межа, не причина |
 
-Числові значення тут не є частиною жодного зовнішнього домовлення: назовні їх не видно ніде, і з випусками вони пливуть. Наочно: у першій версії механізму (5.4) `LOCKDOWN_INTEGRITY_MAX` дорівнював 15, а тепер 21 — бо між ними доклали `DEVICE_TREE`, `BPF_WRITE_USER`, `DBG_WRITE_KERNEL`, `RTAS_ERROR_INJECTION`, `XEN_USER_ACTIONS`; заразом `LOCKDOWN_BPF_READ` перейменували на `LOCKDOWN_BPF_READ_KERNEL`. Тому в коді й у розборі журналу спираються на імена та рядки, а не на числа.
+Числові значення тут не є частиною жодного зовнішнього домовлення: назовні їх не видно ніде, і з випусками вони пливуть. Наочно: у першій версії механізму (5.4) `LOCKDOWN_INTEGRITY_MAX` дорівнював 15, а тепер 21 — бо між ними доклали `DEVICE_TREE`, `XMON_WR`, `BPF_WRITE_USER`, `DBG_WRITE_KERNEL`, `RTAS_ERROR_INJECTION`, `XEN_USER_ACTIONS`; заразом `LOCKDOWN_BPF_READ` перейменували на `LOCKDOWN_BPF_READ_KERNEL`. Тому в коді й у розборі журналу спираються на імена та рядки, а не на числа.
 
 ## Виклик з коду ядра
 

@@ -32,7 +32,7 @@ def main():
     div = svgkit.line(410, 55, 410, 340, color="#cbd5e1", sw=1.5, dash="4,4")
 
     # Column 2: In-Kernel / Offload copy_file_range
-    col2_title = svgkit.text(615, 65, "Zero-Copy: copy_file_range()", size=15, color=svgkit.FIELD, bold=True)
+    col2_title = svgkit.text(615, 65, "У ядрі: copy_file_range()", size=15, color=svgkit.FIELD, bold=True)
     b2_src, _, _ = svgkit.textbox(615, 115, "Вихідний файл\n(fd_in)", size=13, pad=12, fill="#eef2f7", stroke="#4a5568")
     b2_vfs, _, _ = svgkit.textbox(615, 195, "VFS / Kernel Layer\n(CoW Reflink / Server-Side Copy)", size=13, pad=12, fill="#e6f4ea", stroke=svgkit.FIELD)
     b2_dst, _, _ = svgkit.textbox(615, 280, "Цільовий файл\n(fd_out)", size=13, pad=12, fill="#eef2f7", stroke="#4a5568")
@@ -40,14 +40,14 @@ def main():
     a2_vfs1 = svgkit.arrow(615, 140, 615, 170, color=svgkit.FIELD, sw=2)
     lbl2_in = svgkit.text(655, 160, "Offload / CoW", size=11, color=svgkit.FIELD, anchor="start")
     a2_vfs2 = svgkit.arrow(615, 222, 615, 253, color=svgkit.FIELD, sw=2)
-    lbl2_out = svgkit.text(655, 242, "O(1) Metadata update", size=11, color=svgkit.FIELD, anchor="start")
+    lbl2_out = svgkit.text(655, 242, "Оновлення метаданих", size=11, color=svgkit.FIELD, anchor="start")
 
     # Direct fast arrow (bypassing user space completely)
     a2_direct = svgkit.arrow(530, 125, 530, 270, color=svgkit.FIELD, sw=2.5)
     lbl2_fast = svgkit.text(440, 195, "Пряма передача\nбез User Space", size=11, color=svgkit.FIELD, anchor="middle", bold=True)
 
     # Footnote note
-    note = svgkit.text(410, 355, "copy_file_range виконує копіювання в ядрі або делегує його апаратному сховищу (NFS SSC / CoW)", size=12, color=svgkit.MUTED, italic=True)
+    note = svgkit.text(410, 355, "copy_file_range копіює всередині ядра або делегує роботу сховищу чи серверу (NVMe Copy / NFS SSC / CoW)", size=12, color=svgkit.MUTED, italic=True)
 
     frags = [
         t1,

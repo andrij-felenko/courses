@@ -37,7 +37,7 @@ def fig_buddy_split():
     for order, n, col in rows:
         per = 8 // n
         F.append(fitbox(24, y, 200, ROW_H,
-                        "порядок %d\n%d кадр%s у блоці" % (order, per, "" if per == 1 else "и"),
+                        "порядок %d\n%d %s у блоці" % (order, per, "кадр" if per == 1 else "кадри" if per < 5 else "кадрів"),
                         size=13, fill=FILL))
         w = SW / float(n)
         for i in range(n):
@@ -177,7 +177,7 @@ def fig_compaction():
     CH = 58
 
     busy_before = [0, 2, 3, 6, 9, 10, 13, 17, 19, 22, 25, 28]
-    busy_after = list(range(12))
+    busy_after = list(range(N - 12, N))
 
     def strip(sy, busy, caption):
         F.append(text(X0, sy - 20, caption, size=15, bold=True, anchor="start"))
@@ -205,7 +205,7 @@ def fig_compaction():
     F.append(fitbox(W / 2 + 30, 286, 330, 44,
                     "і правлять усі записи, що на неї вказували", size=13, fill=FILL))
 
-    strip(392, busy_after, "після: низ щільно зайнятий, згори — суцільне вільне поле")
+    strip(392, busy_after, "після: згори щільно зайнято, знизу — суцільне вільне поле")
 
     F.append(fitbox(X0, 486, 560, 52,
                     "зайнятих кадрів стільки ж — 12", size=14, fill=BLU_F))

@@ -10,18 +10,18 @@
 <text x="295.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle"><tspan x="295.0" dy="0.0">ЧЕРВОНА ЗОНА — 128 байтів</tspan><tspan x="295.0" dy="16.9">ядро їх не чіпає: вони можуть бути зайняті</tspan></text>
 <rect x="48.0" y="232.0" width="494.0" height="372.0" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="2.4"/>
 <text x="295.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">СИГНАЛЬНИЙ КАДР</text>
-<rect x="64.0" y="274.0" width="462.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.4"/>
-<text x="82.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">адреса повернення → батут</text>
-<text x="82.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">сюди подивиться інструкція</tspan><tspan x="82.0" dy="14.4">повернення обробника</tspan></text>
-<rect x="64.0" y="336.0" width="462.0" height="128.0" rx="6" fill="#eafaf1" stroke="#6b7280" stroke-width="1.4"/>
-<text x="82.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">ucontext_t</text>
-<text x="82.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">uc_mcontext: усі регістри, покажчики</tspan><tspan x="82.0" dy="14.4">інструкції та стека, прапорці</tspan><tspan x="82.0" dy="14.4">uc_sigmask: маска, яку відновити</tspan><tspan x="82.0" dy="14.4">uc_stack: запасний стек, що діяв</tspan></text>
-<rect x="64.0" y="474.0" width="462.0" height="52.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.4"/>
-<text x="82.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">siginfo_t</text>
-<text x="82.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">номер, код причини, відправник,</tspan><tspan x="82.0" dy="14.4">адреса збою  (при SA_SIGINFO)</tspan></text>
-<rect x="64.0" y="536.0" width="462.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
-<text x="82.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">розширений стан процесора</text>
-<text x="82.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">регістри співпроцесора й векторні;</tspan><tspan x="82.0" dy="14.4">розмір залежить від розширень</tspan></text>
+<rect x="64.0" y="274.0" width="462.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">розширений стан процесора</text>
+<text x="82.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">регістри співпроцесора й векторні;</tspan><tspan x="82.0" dy="14.4">розмір залежить від розширень</tspan></text>
+<rect x="64.0" y="338.0" width="462.0" height="52.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">siginfo_t</text>
+<text x="82.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">номер, код причини, відправник,</tspan><tspan x="82.0" dy="14.4">адреса збою  (при SA_SIGINFO)</tspan></text>
+<rect x="64.0" y="398.0" width="462.0" height="128.0" rx="6" fill="#eafaf1" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">ucontext_t</text>
+<text x="82.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">uc_mcontext: усі регістри, покажчики</tspan><tspan x="82.0" dy="14.4">інструкції та стека, прапорці</tspan><tspan x="82.0" dy="14.4">uc_sigmask: маска, яку відновити</tspan><tspan x="82.0" dy="14.4">uc_stack: запасний стек, що діяв</tspan></text>
+<rect x="64.0" y="534.0" width="462.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">адреса повернення → батут</text>
+<text x="82.0" y="572.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">сюди подивиться інструкція</tspan><tspan x="82.0" dy="14.4">повернення обробника</tspan></text>
 <line x1="34.0" y1="612.0" x2="556.0" y2="612.0" stroke="#2457d6" stroke-width="2.4"/>
 <text x="564.0" y="611.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start"><tspan x="564.0" dy="0.0">покажчик стека</tspan><tspan x="564.0" dy="15.0">на вході в обробник</tspan></text>
 <rect x="60.0" y="626.0" width="470.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>

@@ -56,7 +56,7 @@ def fig_dm_writecache_ring():
     W, H = 1100, 580
     p = []
 
-    p.append(text(W / 2, 40, "Архітектура та кільцевий журнал dm-writecache", size=16, bold=True, color=INK))
+    p.append(text(W / 2, 40, "Архітектура та журнал записів dm-writecache", size=16, bold=True, color=INK))
 
     p.append(fitbox(W / 2 - 250, 75, 500, 54, "Запит запису від додатка (write / pwrite)", size=13, bold=True, fill=COOL, stroke=NEG))
 
@@ -65,16 +65,16 @@ def fig_dm_writecache_ring():
     # Драйвер dm-writecache
     p.append(rect(150, 165, 800, 100, fill=SOFT, stroke=LINE, sw=1.8, rx=8))
     p.append(text(W / 2, 190, "Драйвер dm-writecache (NVMe / PMEM DAX direct log)", size=14, bold=True, color=INK))
-    p.append(text(W / 2, 215, "Миттєвий запис у швидкий журнал → підтвердження успіху додатуку", size=12, color=FIELD))
+    p.append(text(W / 2, 215, "Миттєвий запис у швидкий журнал → підтвердження успіху додатку", size=12, color=FIELD))
 
     # Журнал кешу
     p.append(arrow(W / 2, 265, W / 2, 310, color=NEG, sw=2))
 
     p.append(rect(100, 310, 900, 110, fill=ALERT, stroke=POS, sw=1.8, rx=6))
-    p.append(text(W / 2, 335, "Кільцевий журнал на PMEM / NVMe (/dev/nvme0n1)", size=13, bold=True, color=POS))
+    p.append(text(W / 2, 335, "Журнал записів на PMEM / NVMe (/dev/nvme0n1)", size=13, bold=True, color=POS))
 
     # Блоки журналу
-    p.append(fitbox(130, 350, 160, 55, "Суперблок\nметаданих", size=11, fill=WARM, stroke=POS))
+    p.append(fitbox(130, 350, 160, 55, "Суперблок і\nмасив метаданих", size=11, fill=WARM, stroke=POS))
     p.append(fitbox(310, 350, 160, 55, "Брудний блок #1\n(4096 байтів)", size=11, fill=GREEN, stroke=FIELD))
     p.append(fitbox(490, 350, 160, 55, "Брудний блок #2\n(4096 байтів)", size=11, fill=GREEN, stroke=FIELD))
     p.append(fitbox(670, 350, 160, 55, "Брудний блок #3\n(4096 байтів)", size=11, fill=GREEN, stroke=FIELD))
@@ -85,7 +85,7 @@ def fig_dm_writecache_ring():
     p.append(fitbox(300, 480, 540, 65, "Послідовне скидання (Sequential Flusher)\nСортування та злиття брудних блоків → Послідовний запис на Origin HDD", size=12, fill=GREY, stroke=LINE))
 
     render(os.path.join(OUT, "dm-writecache-ring.svg"), W, H, *p,
-           title="Кільцевий журнал та послідовне скидання dm-writecache")
+           title="Журнал записів та послідовне скидання dm-writecache")
 
 
 # ── 3. Порівняння режимів кешування ──────────────────────────────────────────
@@ -118,7 +118,7 @@ def fig_cache_modes_comparison():
             (170, "2. Прямий запис на Origin HDD\n(кеш оминається)"),
             (270, "3. Інвалідація застарілих\nблоків у SSD кеші"),
             (350, "4. Повернення успіху в VFS"),
-            (430, "Використання: масовий бэкап,\nщоб не вимивати кеш")
+            (430, "Використання: масовий бекап,\nщоб не вимивати кеш")
         ]),
     ]
 

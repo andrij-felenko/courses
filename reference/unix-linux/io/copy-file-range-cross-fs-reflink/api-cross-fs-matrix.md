@@ -15,7 +15,7 @@
 | Механізм | Системний виклик / `ioctl` | Межі застосування (Scope) | Механізм переміщення байтів | Атомарність та CoW | Вплив на CPU та DRAM |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Reflink Cloning** | `ioctl(fd_out, FICLONE, fd_in)` / `FICLONERANGE` | Лише у межах **одного екземпляра ФС** (`sb_in == sb_out`) | Модифікація B-дерева екстентів та інкремент `refcount` | Повна атомарність. Строгий Copy-on-Write | CPU: ~0%<br>DRAM: 0 B |
-| **copy_file_range** | `copy_file_range(fd_in, off_in, fd_out, off_out, len, 0)` | Intra-FS, **Cross-FS**, Cross-Mount, Network SSC | Каскадний offload (Reflink → Driver Hook → Block Offload → Splice) | Атомарно при Reflink; прогресивне копіювання при fallback | Від 0% (offload) до високого (splice fallback) |
+| **copy_file_range** | `copy_file_range(fd_in, off_in, fd_out, off_out, len, 0)` | Intra-FS, **Cross-FS**, Cross-Mount, Network SSC | Каскадний offload (Reflink → хук ФС / мережевий SSC → Splice) | Атомарно при Reflink; прогресивне копіювання при fallback | Від 0% (offload) до високого (splice fallback) |
 | **Zero-Copy Pipe Splice** | `splice(fd_in, off_in, pipe, NULL, len, flags)` + `splice(pipe, NULL, fd_out, ...)` | Будь-які дискові файли, сокети, безадресні канали | Транзит сторінок Page Cache через буфер `pipe` у ядрі | Неатомарне прогресивне копіювання | CPU: середня (робота зі сторінками пам'яті ядра)<br>DRAM: без User Space |
 | **User Space Loop** | `read(fd_in, buf, len)` + `write(fd_out, buf, len)` | Універсально для всіх типів файлів та пристроїв | Копіювання сторінок через буфер прикладного процесу | Неатомарне прогресивне копіювання | CPU: високе (перемикання контексту)<br>DRAM: подвійне прокачування |
 
@@ -25,12 +25,12 @@
 
 Особливу увагу слід приділяти поведінці в середовищах із віртуалізованими томами LVM, файловими системами OverlayFS та мережевими експортами NFS. У таких конфігураціях файли можуть зовні виглядати розташованими в єдиному дереві каталогів, але мати різні вказівники на `super_block` ядра, що робить операцію Reflink неможливою.
 
-| Сценарій розташування файлів | `FICLONE` (`ioctl`) | `copy_file_range` (Linux 4.5–5.2) | `copy_file_range` (Linux 5.3–5.17) | `copy_file_range` (Linux 5.18+) |
+| Сценарій розташування файлів | `FICLONE` (`ioctl`) | `copy_file_range` (Linux 4.5–5.2) | `copy_file_range` (Linux 5.3–5.18) | `copy_file_range` (Linux 5.19+) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Одна ФС, один томи (Same Superblock)** | Успіх (Reflink CoW) | Успіх (Reflink CoW) | Успіх (Reflink CoW) | Успіх (Reflink CoW) |
+| **Одна ФС, один том (Same Superblock)** | Успіх (Reflink CoW) | Успіх (Reflink CoW) | Успіх (Reflink CoW) | Успіх (Reflink CoW) |
 | **Різні сабволюми Btrfs одного пулу** | Успіх (Спільне B-дерево) | Успіх (Reflink CoW) | Успіх (Reflink CoW) | Успіх (Reflink CoW) |
 | **Різні пули Btrfs / моунт-поінти XFS** | Помилка `EXDEV` | Помилка `EXDEV` | Авто-фолбек на In-Kernel Splice | Оптимізований каскад offload / Splice |
-| **З Btrfs/XFS на Ext4 (Cross-FS)** | Помилка `EXDEV` | Помилка `EXDEV` | Авто-фолбек на In-Kernel Splice | Апаратний Block Offload або Splice |
+| **З Btrfs/XFS на Ext4 (Cross-FS)** | Помилка `EXDEV` | Помилка `EXDEV` | Авто-фолбек на In-Kernel Splice | Splice через Page Cache (свідомий фолбек) |
 | **Різні ресурси NFS v4.2 одного сервера** | Помилка `EXDEV` | Помилка `EXDEV` | Server-Side Copy (RPC `COPY`) | Server-Side Copy (RPC `COPY` / `CLONE`) |
 | **Мережеві ресурси SMB3 (CIFS)** | Помилка `EXDEV` | Помилка `EXDEV` | Server-Side Copy (`COPYCHUNK`) | Server-Side Copy (`COPYCHUNK`) |
 
@@ -49,8 +49,7 @@ struct file_operations {
     // Вказівник на реалізацію Reflink / CoW клонування екстентів
     loff_t (*remap_file_range)(struct file *file_in, loff_t pos_in,
                                struct file *file_out, loff_t pos_out,
-                               loff_t len, unsigned int remap_flags,
-                               struct inode_pair *idmap);
+                               loff_t len, unsigned int remap_flags);
 
     // Вказівники на потоковий splice
     ssize_t (*splice_read)(struct file *in, loff_t *ppos,
@@ -61,9 +60,9 @@ struct file_operations {
 };
 ```
 
-При отриманні виклику `copy_file_range` ядро VFS перевіряє наявність реалізації `file_in->f_op->copy_file_range`. Якщо вказівник дорівнює `NULL`, VFS виконує перехід на `generic_copy_file_range()`, яка використовує `splice_read` та `splice_write`.
+При отриманні виклику `copy_file_range` ядро VFS перевіряє наявність реалізації `file_out->f_op->copy_file_range`. Якщо вказівник дорівнює `NULL`, VFS виконує перехід на `generic_copy_file_range()`, яка використовує `splice_read` та `splice_write`.
 
-У реалізації драйвера XFS вказівник `remap_file_range` посилається на функцію `xfs_file_remap_range()`, яка обробляє додаткові прапорці `REMAP_FILE_EXCL` (вимога повернення помилки у разі неможливості CoW) та `REMAP_FILE_CAN_SHORTEN` (дозвіл часткового клонування діапазону).
+У реалізації драйвера XFS вказівник `remap_file_range` посилається на функцію `xfs_file_remap_range()`, яка обробляє додаткові прапорці `REMAP_FILE_DEDUP` (клонувати лише за побайтового збігу діапазонів — режим дедуплікації) та `REMAP_FILE_CAN_SHORTEN` (дозвіл часткового клонування діапазону).
 
 ## Специфікація ioctl FICLONERANGE та структури file_clone_range
 
@@ -89,7 +88,7 @@ struct file_clone_range {
 2. **Типізація файлів**: Обидва дескриптори мають вказувати на звичайні дискові файли (`S_ISREG`). Якщо будь-який операнд є каталогом, символьним пристроєм або сокетом, VFS повертає `EISDIR` або `EINVAL`.
 3. **Модулі безпеки LSM (Linux Security Modules)**: Функція VFS викликає `security_file_permission(file_in, MAY_READ)` та `security_file_permission(file_out, MAY_WRITE)`. Модулі SELinux або AppArmor перевіряють контексти безпеки процесів.
 4. **Перевірка режиму O_APPEND**: Якщо цільовий файл відкрито з прапорцем `O_APPEND`, VFS забороняє виклик `copy_file_range` з кодом `EBADF`, оскільки залучення фіксованого зміщення `off_out` суперечить семантиці допису в кінець файлу.
-5. **Файлові блокування POSIX**: Якщо на якийсь із файлів накладено жорстке блокування запису або читання (`flock` / `fcntl` із прапорцем `MANDATORY_LOCK`), VFS виконує виклик `locks_verify_truncate()` для захисту від конфліктів паралельного доступу.
+5. **Файлові блокування**: Оренди файлів (`fcntl(F_SETLEASE)`) VFS перевіряє звичайним шляхом запису. Обов'язкових блокувань (mandatory locking) розраховувати не варто взагалі — їх вилучено з ядра у версії 5.15, а до того вони вимагали окремої опції монтування.
 
 Окрім того, VFS перевіряє право процесів на запис у файл за допомогою функції `rw_verify_area()`. Ця функція контролює, що записуваний діапазон не перетинає обмеження розміру файлу процесу (Resource Limit `RLIMIT_FSIZE`). Якщо запит перевищує поріг `RLIMIT_FSIZE`, ядро надсилає процесу сигнал `SIGXFSZ` та повертає помилку `EFBIG`.
 
@@ -122,22 +121,22 @@ struct file_clone_range {
 ### 2. Вирівнювання для прямого введення-виведення (O_DIRECT)
 Якщо хоча б один із дескрипторів відкрито з прапорцем `O_DIRECT`, діють наступні правила:
 - **Логічний сектор (LBA Sector)**: Зміщення `off_in`, `off_out` та довжина `len` мають бути кратними 512 байтам (для традиційних секторів) або 4096 байтам (для секторів Advanced Format 4Kn).
-- **Виклик апаратного offload**: Якщо невирівняний виклик відправляється контролеру NVMe або SCSI, драйвер блочного шару ядра повертає помилку `EINVAL`. Ядро VFS перехоплює `EINVAL` і здійснює тимчасовий перехід на сторінкове копіювання через Page Cache.
+- **Що робить ядро з невирівняним запитом**: сам `copy_file_range` вимог вирівнювання до застосунку не висуває — він у будь-якому разі впаде у сторінковий фолбек, який працює через Page Cache. Вимоги вирівнювання лишаються чинними для `read`/`write` та `splice` над дескриптором з `O_DIRECT`.
 
 ## Технічна специфікація апаратних та протокольних механізмів Offload
 
-Нижче деталізовано специфікації апаратних прискорень та мережевих протоколів, які викликаються ядром Linux під час виконання системного виклику `copy_file_range`.
+Нижче деталізовано специфікації апаратних прискорень та мережевих протоколів. Мережеві механізми (NFS SSC, SMB3 CopyChunk) ядро задіює само з `copy_file_range`; апаратні (NVMe Simple Copy, SCSI XCOPY) описано як можливість пристроїв — у ванільному ядрі шляху до них із цього виклику немає.
 
-### 1. NVMe Simple Copy Command (NVM Express TP 4040)
-- **Підсистема ядра**: Блочний шар Linux (`block/blk-lib.c`, `blkdev_issue_copy`).
-- **Специфікація стандарту**: NVM Express TP 4040 / NVMe 2.0 Command Set.
+### 1. NVMe Simple Copy Command (NVM Express TP 4065)
+- **Підсистема ядра**: серія патчів copy offload для блочного шару (`block/blk-lib.c`, `blkdev_issue_copy`); у майнлайн не прийнята.
+- **Специфікація стандарту**: NVM Express TP 4065 / NVMe 2.0 Command Set.
 - **Вимоги до операндів**: Джерело і ціль повинні знаходитися у межах одного NVMe Namespace. Зміщення та довжина мають бути кратними розміру логічного сектора LBA (512B або 4096B).
 - **Структура команди**: Команда NVMe Simple Copy містить `CDW10`–`CDW15`, що визначають початковий LBA (Starting LBA, SLBA), кількість блоків (Number of Logical Blocks, NLB) та масив Source Range Entries (до 256 діапазонів джерела).
 - **Принцип роботи**: Контролер SSD зчитує блоки з осередків NAND-пам'яті у внутрішній буфер SRAM контролера та відразу переміщує їх за цільовими LBA-адресами.
 - **Пропускна здатність**: Від 5 до 8 Гігобайт/сек без транзиту даних через системну шину PCIe та без використання системної оперативно пам'яті (DRAM) комп'ютера.
 
 ### 2. SCSI EXTENDED COPY / XCOPY (SPC-4 / SBC-3)
-- **Підсистема ядра**: Драйвер SCSI-шару (`drivers/scsi/sd.c`).
+- **Підсистема ядра**: у Linux реалізовано бік цілі (`drivers/target/target_core_xcopy.c`); ініціювати XCOPY із `copy_file_range` ядро не вміє.
 - **Специфікація стандарту**: ANSI INCITS SCSI Primary Commands - 4 (SPC-4).
 - **Вимоги до операндів**: Файли повинні належати томам, що обслуговуються одним контролером дискового масиву SAN (Storage Area Network).
 - **Структура команди**: Хост відправляє команду `EXTENDED COPY (LIR=1)` з переліком Target/Source Segment Descriptors. Дескриптор містить ідентифікатори NAA IEEE Registered Extended LUN та блоки LBA.

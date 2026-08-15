@@ -22,7 +22,7 @@ def render_zbd_arch():
     
     # Sectors inside Conventional
     frags.append(rect(60, 160, 170, 70, fill="#ffffff", stroke="#90caf9", sw=1, rx=4))
-    frags.append(text(145, 190, "Випадковий запис", size=13, color=INK, anchor="middle"))
+    frags.append(text(145, 190, "Довільний запис", size=13, color=INK, anchor="middle"))
     frags.append(text(145, 210, "(Random I/O)", size=11, color=MUTED, anchor="middle"))
     
     frags.append(text(145, 260, "Запис у будь-який LBA", size=11, color=INK, anchor="middle"))
@@ -36,7 +36,7 @@ def render_zbd_arch():
     # Written region
     frags.append(rect(290, 160, 160, 70, fill="#dcfce7", stroke="#16a34a", sw=1.5, rx=4))
     frags.append(text(370, 195, "Записані дані", size=13, color="#15803d", bold=True, anchor="middle"))
-    frags.append(text(370, 215, "LBA 0 ... WP-1", size=11, color=MUTED, anchor="middle"))
+    frags.append(text(370, 215, "start ... WP-1", size=11, color=MUTED, anchor="middle"))
 
     # Unwritten (Capacity remaining)
     frags.append(rect(450, 160, 170, 70, fill="#ffffff", stroke="#d97706", sw=1.5, rx=4))
@@ -46,7 +46,7 @@ def render_zbd_arch():
     # Unused capacity gap up to Zone Size
     frags.append(rect(620, 160, 120, 70, fill="#f3f4f6", stroke="#9ca3af", sw=1.5, rx=4))
     frags.append(text(680, 195, "Невикористано", size=12, color="#4b5563", anchor="middle"))
-    frags.append(text(680, 215, "Діра флешу", size=11, color=MUTED, anchor="middle"))
+    frags.append(text(680, 215, "Capacity ... Size-1", size=11, color=MUTED, anchor="middle"))
 
     # Write Pointer line & marker
     frags.append(line(450, 145, 450, 245, color="#c0392b", sw=2.5))

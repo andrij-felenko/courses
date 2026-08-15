@@ -122,6 +122,7 @@ int main(void) {
     if (pid == 0) {
         write(fd, "BBBBB", 5);      /* та сама позиція: 5 → 10 */
         printf("дитина бачить позицію %lld\n", (long long)lseek(fd, 0, SEEK_CUR));
+        fflush(stdout);             /* _exit не зливає буфери stdio */
         _exit(0);
     }
     wait(NULL);
@@ -192,7 +193,7 @@ ssize_t n = pread(fd, buf, len, offset);
 ```sh
 $ cat /proc/self/fdinfo/1
 pos:    0
-flags:  02100002
+flags:  0100002
 mnt_id: 28
 ```
 

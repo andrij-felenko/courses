@@ -13,7 +13,7 @@ def fig_sched_ext_arch():
 
     # Title / Top boundary
     p.append(fitbox(40, 20, 920, 44,
-                    "Гібридна та вбудована архітектура BPF-планувальників u sched_ext",
+                    "Гібридна та вбудована архітектура BPF-планувальників у sched_ext",
                     size=16, fill="#f4f6f8", stroke=INK, sw=1.5))
 
     # User Space Container
@@ -69,7 +69,7 @@ def fig_sched_ext_arch():
 
     # Core Scheduler & DSQs
     p.append(fitbox(80, 445, 840, 55,
-                    ["Core Scheduler (kernel/sched/core.c)",
+                    ["Core Scheduler (kernel/sched/ext.c)",
                      "• Dispatch Queues (DSQ): Local DSQ (per-CPU), Global DSQ, Custom DSQs",
                      "• Перемикання контексту задач на виконуючих ядрах CPU"],
                     size=12.5, fill="#ebf5fb", stroke="#3498db", sw=1.5))
@@ -104,7 +104,7 @@ def fig_scx_lavd_topology():
     p.append(fitbox(520, 80, 420, 70,
                     ["Фонові & некритичні потоки (Downloads / Shaders)",
                      "• Ущільнення (Core Compaction)",
-                     "• Виконня на обмеженій групі ядер (Енергозбереження)"],
+                     "• Виконання на обмеженій групі ядер (Енергозбереження)"],
                     size=12, fill="#eef3fb", stroke=NEG, sw=1.5))
 
     # Arrows to CCX Domains

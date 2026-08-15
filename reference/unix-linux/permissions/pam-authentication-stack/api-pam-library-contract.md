@@ -87,7 +87,7 @@ int pam_get_item(const pam_handle_t *pamh, int item_type, const void **item);
 
 ## Допоміжний API для отримання паролів (pam_get_authtok)
 
-Коли у стеку задіяно кілька модулів автентифікації, повторний запит пароля через інтерактивний діалог створить незручності для користувача. Для уніфікації отримання паролів та усунення дублювання викликів функції розмови `pam_conv` у Linux-PAM розроблено допоміжну функцію `pam_get_authtok()`. Вона автоматично перевіряє, чи не збережено вже пароль у внутрішньому кєші в атрибуті `PAM_AUTHTOK`. Якщо пароль відсутній, вона самостійно викликає функцію розмови `pam_conv`, запитує пароль у користувача, зберігає його в атрибуті `PAM_AUTHTOK` та повертає вказівник у змінній `authtok`.
+Коли у стеку задіяно кілька модулів автентифікації, повторний запит пароля через інтерактивний діалог створить незручності для користувача. Для уніфікації отримання паролів та усунення дублювання викликів функції розмови `pam_conv` у Linux-PAM розроблено допоміжну функцію `pam_get_authtok()`. Вона автоматично перевіряє, чи не збережено вже пароль у внутрішньому кеші в атрибуті `PAM_AUTHTOK`. Якщо пароль відсутній, вона самостійно викликає функцію розмови `pam_conv`, запитує пароль у користувача, зберігає його в атрибуті `PAM_AUTHTOK` та повертає вказівник у змінній `authtok`.
 
 ```c
 int pam_get_authtok(
@@ -113,7 +113,7 @@ char **pam_getenvlist(pam_handle_t *pamh);
 
 ## Механізм розмови (Conversation Function)
 
-Функція розмови передається застосунком у `pam_start()` для надання модулям можливість запитувати інтерактивне введення у користувача через GUI чи CLI.
+Функція розмови передається застосунком у `pam_start()` для надання модулям можливості запитувати інтерактивне введення у користувача через GUI чи CLI.
 
 ```c
 struct pam_message {
@@ -136,7 +136,7 @@ struct pam_conv {
 ### Правила виділення та очищення пам'яті в pam_conv:
 1. Модуль формує масив вказівників на `struct pam_message` розміром `num_msg` і передає його у функцію `conv()`.
 2. Застосунок виділяє масив структур `struct pam_response` розміром `num_msg` за допомогою `calloc()` або `malloc()`.
-3. Для кожного запиту стилю `PAM_PROMPT_ECHO_OFF` або `PAM_PROMPT_ECHO_ON` застосунок виділяє динамичний рядок `strdup()` і записує його в `resp[i].resp`.
+3. Для кожного запиту стилю `PAM_PROMPT_ECHO_OFF` або `PAM_PROMPT_ECHO_ON` застосунок виділяє динамічний рядок `strdup()` і записує його в `resp[i].resp`.
 4. Модуль отримує відповіді, зчитує дані, після чого **зобов'язаний очистити чутливі рядки в пам'яті** (`explicit_bzero`) та вивільнити пам'ять масиву й кожного рядка через `free()`.
 
 Стилі повідомлень (`msg_style`):
@@ -199,7 +199,7 @@ int authenticate_user(const char *username) {
 #include <iostream>
 #include <memory>
 #include <string>
-#include <string_view>
+#include <cstring>
 #include <expected>
 #include <vector>
 #include <utility>
@@ -207,9 +207,9 @@ int authenticate_user(const char *username) {
 
 class PamSession {
 public:
-    static std::expected<PamSession, int> create(std::string_view service, std::string_view user, const struct pam_conv* conv) {
+    static std::expected<PamSession, int> create(const std::string& service, const std::string& user, const struct pam_conv* conv) {
         pam_handle_t* handle = nullptr;
-        int rc = pam_start(service.data(), user.data(), conv, &handle);
+        int rc = pam_start(service.c_str(), user.c_str(), conv, &handle);
         if (rc != PAM_SUCCESS) return std::unexpected(rc);
         return PamSession(handle);
     }
@@ -258,7 +258,7 @@ static int cpp_conv(int num_msg, const struct pam_message **msg,
     return PAM_SUCCESS;
 }
 
-std::expected<void, int> verify_credentials(std::string_view username) {
+std::expected<void, int> verify_credentials(const std::string& username) {
     struct pam_conv conv = { cpp_conv, nullptr };
     auto session = PamSession::create("check_service", username, &conv);
     if (!session) return std::unexpected(session.error());

@@ -66,7 +66,7 @@ long keyctl(int operation, ...);
 | 18 | `KEYCTL_SESSION_TO_PARENT` | — | нав'язати батьківському процесу свій сеанс |
 | 19 | `KEYCTL_REJECT` | `reject` | від'ємне наповнення з конкретним `errno` |
 | 20 | `KEYCTL_INSTANTIATE_IOV` | — | те саме, що 12, але з розсипаних буферів |
-| 21 | `KEYCTL_INVALIDATE` | — | знищити негайно, знявши з усіх кілець |
+| 21 | `KEYCTL_INVALIDATE` | `invalidate` | знищити негайно, знявши з усіх кілець |
 | 22 | `KEYCTL_GET_PERSISTENT` | `get_persistent` | дістати стале кільце UID |
 | 23 | `KEYCTL_DH_COMPUTE` | `dh_compute` | обчислення Діффі — Гелмана на вмісті ключів |
 | 24–28 | `KEYCTL_PKEY_*` | `pkey_query`, `pkey_sign`, `pkey_verify`, … | операції асиметричним ключем (з 4.20) |
@@ -114,7 +114,7 @@ encrypted:  new [default|ecryptfs|enc32] <тип>:<ім'я-господаря> <
 Дев'ять полів, розділених пробілами; останнє — опис із коротким підсумком після двокрапки.
 
 ```
-  3a1c0d21 I--Q---   2 perm 3f010000  1000  1000 keyring   _ses: 3
+  3a1c0d21 I--Q---   2 perm 3f030000  1000  1000 keyring   _ses: 3
   │        │       │ │    │        │     │     │        └── тип
   │        │       │ │    │        │     └─────┴─── UID і GID власника
   │        │       │ │    │        └── маска прав, чотири байти

@@ -138,7 +138,7 @@ def fig_cost():
     p.append(text(1035, AY + 52, "кожна поділка — у 10 разів", size=12,
                   color=MUTED, anchor="end"))
 
-    p.append(text(W / 2, 40, "порядки величин: чотири розряди між дрібним і великим збоєм",
+    p.append(text(W / 2, 40, "порядки величин: від двох до чотирьох розрядів між дрібним і великим збоєм",
                   size=16, bold=True))
     return render(os.path.join(OUT, "fault-cost.svg"), W, H, *p)
 

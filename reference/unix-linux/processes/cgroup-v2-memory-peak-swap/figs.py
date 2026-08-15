@@ -32,7 +32,7 @@ def fig_memory_limits():
     # 2. memory.high (М'який ліміт гальмування)
     p.append(line(100, 260, 560, 260, color="#ea580c", sw=2.0, dash="6 4"))
     p.append(fitbox(580, 240, 360, 40,
-                    "memory.high (М'яке гальмо) -> Штрафний сон allocators & посилений reclaim",
+                    "memory.high (М'яке гальмо) -> Штрафний сон при виділенні та посилений reclaim",
                     size=12.5, fill="#fff7ed", stroke="#ea580c", sw=1.4))
 
     # 3. memory.peak (Вотермарка піка)
@@ -57,12 +57,12 @@ def fig_memory_limits():
                     "memory.min (Тверда гарантія) -> Абсолютна недоторканність при reclaim",
                     size=12.5, fill="#f0f9ff", stroke="#0284c7", sw=1.4))
 
-    # 7. Swap розширення
-    p.append(rect(160, 110, 340, 60, fill="#f3e8ff", stroke="#7e22ce", sw=1.4, rx=4))
-    p.append(text(330, 130, "Простір підкачки Swap", size=12, color="#6b21a8"))
-    p.append(line(100, 110, 560, 110, color="#7e22ce", sw=2.0, dash="4 4"))
-    p.append(fitbox(580, 95, 360, 40,
-                    "memory.swap.max / high -> Лімітування анонімних сторінок на диску",
+    # 7. Swap — окремий простір ПІД групою, а не рівень усередині шкали RAM
+    p.append(line(100, 610, 560, 610, color="#7e22ce", sw=2.0, dash="4 4"))
+    p.append(rect(160, 615, 340, 50, fill="#f3e8ff", stroke="#7e22ce", sw=1.4, rx=4))
+    p.append(text(330, 645, "Простір підкачки Swap", size=12, color="#6b21a8"))
+    p.append(fitbox(580, 615, 360, 50,
+                    "memory.swap.max / high -> Ліміт анонімних сторінок, витіснених із цієї групи",
                     size=12.5, fill="#faf5ff", stroke="#7e22ce", sw=1.4))
 
     render(os.path.join(OUT, "cgroup-memory-limits.svg"), W, H, *p,
@@ -102,7 +102,7 @@ def fig_throttling_flow():
 
     p.append(arrow(912, 354, 912, 395))
     p.append(fitbox(805, 400, 215, 60,
-                    ["cgroup OOM Killer", "memory.oom.group стріляє"],
+                    ["cgroup OOM Killer", "memory.oom.group: уся група"],
                     size=13, fill="#dc2626", stroke="#7f1d1d", sw=1.8, color="#ffffff", bold=True))
 
     # Гілка НІ (під max)
@@ -118,7 +118,7 @@ def fig_throttling_flow():
     p.append(arrow(320, 327, 210, 327))
     p.append(text(250, 317, "ТАК", size=12, color="#ea580c", bold=True))
     p.append(fitbox(50, 295, 155, 64,
-                    ["Асинхронний Reclaim", "mem_cgroup_over_high"],
+                    ["Асинхронний Reclaim", "mem_cgroup_handle_over_high"],
                     size=12.5, fill="#fff7ed", stroke="#ea580c", sw=1.4))
 
     p.append(arrow(127, 360, 127, 405))
@@ -144,7 +144,7 @@ def fig_throttling_flow():
     # Примітка знизу
     p.append(fitbox(50, 640, 940, 56,
                     ["Захист memory.min та memory.low враховується під час Reclaim: сторінки захищених груп",
-                     "пропускаються під час виборі кандидатів на витіснення."],
+                     "пропускаються під час вибору кандидатів на витіснення."],
                     size=12.5, fill="#f4f6f8", stroke=INK, sw=1.3))
 
     render(os.path.join(OUT, "cgroup-throttling-flow.svg"), W, H, *p,

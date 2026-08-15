@@ -12,7 +12,7 @@
 <text x="255.0" y="207.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Гонка TOCTOU: процес 1234 помирає,</tspan><tspan x="255.0" dy="16.9">а ядро виділяє PID 1234 процесу B</tspan></text>
 <line x1="255.0" y1="239.0" x2="255.0" y2="274.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 <rect x="60.0" y="274.0" width="390.0" height="64.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
-<text x="255.0" y="301.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">kill(1234) нищить невинний процес B!</tspan><tspan x="255.0" dy="18.2">Синхронізація відсутня</tspan></text>
+<text x="255.0" y="301.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">kill(1234) нищить невинний процес B!</tspan><tspan x="255.0" dy="18.2">Перевірка й дія розділені в часі</tspan></text>
 <rect x="550.0" y="90.0" width="390.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
 <text x="745.0" y="115.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">Процес A отримує pidfd</tspan><tspan x="745.0" dy="16.9">(pidfd_open або clone3)</tspan></text>
 <line x1="745.0" y1="150.0" x2="745.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
@@ -20,6 +20,6 @@
 <text x="745.0" y="207.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">pidfd вказує на inode у pidfs</tspan><tspan x="745.0" dy="16.9">з унікальним 64-бітним stx_ino</tspan></text>
 <line x1="745.0" y1="239.0" x2="745.0" y2="274.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
 <rect x="550.0" y="274.0" width="390.0" height="64.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
-<text x="745.0" y="301.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Смерть процесу не переносить inode:</tspan><tspan x="745.0" dy="16.9">ioctl віддає ESRCH, а stx_ino не змінюється</tspan></text>
+<text x="745.0" y="301.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Смерть процесу не звільняє inode:</tspan><tspan x="745.0" dy="16.9">ioctl віддає ESRCH, а stx_ino не змінюється</tspan></text>
 <text x="500.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-style="italic">pidfs гарантує незмінність посилання на struct pid на весь час життя inode</text>
 </svg>

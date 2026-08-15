@@ -81,7 +81,7 @@ cache_credentials = true
 | `entry_cache_nowait_percentage` | `[nss]` | `0` | з якого відсотка терміну оновлювати запис у фоні, віддаючи поки що старе |
 | `refresh_expired_interval` | `[domain/…]` | — | як часто бекенд сам оновлює те, що вже протухло; `0` вимикає |
 | `memcache_timeout` | `[nss]` | `300` с | термін життя запису у відображеній пам'яті |
-| `memcache_size_passwd`, `…_group`, `…_initgroups` | `[nss]` | розмір у МБ | `0` вимикає цей рівень зовсім |
+| `memcache_size_passwd`, `…_group`, `…_initgroups` | `[nss]` | `8` / `6` / `10` МБ | розмір цього рівня; `0` вимикає його зовсім |
 | `cache_credentials` | `[domain/…]` | `FALSE` | чи зберігати хеш пароля для входу без мережі |
 | `offline_credentials_expiration` | **`[pam]`** | `0` (без межі) | скільки днів після останнього входу з мережею ще пускати без неї |
 | `account_cache_expiration` | `[domain/…]` | `0` (без межі) | через скільки днів після останнього входу прибрати запис при чистці кеша |

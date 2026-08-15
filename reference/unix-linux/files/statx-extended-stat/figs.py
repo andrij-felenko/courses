@@ -55,7 +55,7 @@ def fig_answer_forms():
         ("кількість імен", "1", POS),
         ("час зміни", "2026-04-02 11:07", INK),
         ("час доступу", "2026-04-02 11:09", INK),
-        ("час зміни inode", "2026-03-11 09:14", INK),
+        ("час зміни inode", "2026-04-02 11:07", INK),
         ("час створення", "поля немає", POS),
     ], rh=31)
 
@@ -70,7 +70,7 @@ def fig_answer_forms():
     p += panel(rx0, ry0, rw, rh, "statx: маска туди й маска назад", FIELD, GREEN_FILL)
 
     p.append(fitbox(rx0 + 20, ry0 + 54, rw - 40, 58,
-                    ["маска запиту: розмір · кількість імен · час створення"],
+                    ["маска запиту: розмір · час зміни · час створення"],
                     size=13, fill=BG, stroke=FIELD, sw=1.4))
     p.append(arrow(rx0 + rw / 2, ry0 + 118, rx0 + rw / 2, ry0 + 146, color=FIELD, sw=2))
     p.append(fitbox(rx0 + 20, ry0 + 150, rw - 40, 46,
@@ -84,7 +84,7 @@ def fig_answer_forms():
                   size=13, bold=True, color=FIELD))
     p += rows(rx0 + 20, ans_y + 34, rw - 40, [
         ("розмір", "8412  ✓ біт стоїть", FIELD),
-        ("кількість імен", "біта немає", POS),
+        ("час зміни", "2026-04-02  ✓ біт стоїть", FIELD),
         ("час створення", "біта немає", POS),
     ], rh=32)
 
@@ -161,7 +161,7 @@ def fig_growing_reply():
         ("0x90", "mnt_id · вирівнювання прямого вводу", "5.8 · 6.1", WARM_FILL, WARM),
         ("0xa0", "subvol · атомарний запис", "6.10 · 6.11", WARM_FILL, WARM),
         ("0xb0", "вирівнювання прямого читання", "6.14", WARM_FILL, WARM),
-        ("0xc0", "__spare3[8] — незайманий запас", "—", GREEN_FILL, FIELD),
+        ("0xc0", "незайманий запас до кінця структури", "—", GREEN_FILL, FIELD),
     ]
     for i, (off, what, ver, fill, col) in enumerate(segs):
         sy = my + seg_h * i

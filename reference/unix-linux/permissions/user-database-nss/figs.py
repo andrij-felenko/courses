@@ -215,9 +215,9 @@ def fig_nss_buffer():
         f.append(fitbox(x, 412, w, 60, txt, size=13, fill=fill))
 
     f.append(fitbox(80, 512, 1090, 84,
-                    "не влізло — це НЕ «такого користувача нема»:\n"
-                    "модуль кладе *errnop = ERANGE і повертає NSS_STATUS_TRYAGAIN,\n"
-                    "після чого libc бере буфер удвічі більший і питає те саме ще раз",
+                    "не влізло — це НЕ «такого користувача нема»: модуль кладе *errnop = ERANGE\n"
+                    "і повертає NSS_STATUS_TRYAGAIN, після чого те саме питання ставлять ще раз\n"
+                    "із більшим буфером — libc сама в getpwnam() або застосунок після getpwnam_r()",
                     size=13, fill="#eef3fd", stroke=NEG))
 
     render(os.path.join(OUT, 'nss-buffer.svg'), W, H, *f,

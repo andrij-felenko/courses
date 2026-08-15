@@ -465,7 +465,7 @@ def fig_lab_run():
 
     # фізична стеля
     p.append(line(X0, Y(3450), X1, Y(3450), color=MUTED, sw=1.6, dash="7,6"))
-    p.append(text(X0 + 12, Y(3450) - 12, "усе, що справді існує: RAM + своп",
+    p.append(text(X0 + 12, Y(3450) - 12, "стеля дотику: скільки ядро ще могло віддати",
                   size=12.5, color=MUTED, anchor="start"))
 
     # VmRSS: сходинки від першого дотику до стіни

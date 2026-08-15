@@ -141,7 +141,7 @@ struct seccomp_notif_addfd{ __u64 id; __u32 flags; __u32 srcfd, newfd, newfd_fla
 | `SECCOMP_IOCTL_NOTIF_RECV` | `_IOWR('!', 0, struct seccomp_notif)` | буфер, **заздалегідь занулений** | 0, буфер заповнено | `ENOENT` — підопічний загинув або його виклик перервано сигналом; `EINVAL` — у буфері були ненульові поля (з 5.5) |
 | `SECCOMP_IOCTL_NOTIF_SEND` | `_IOWR('!', 1, struct seccomp_notif_resp)` | заповнена відповідь | 0 | `EINPROGRESS` — на це сповіщення вже відповіли; `ENOENT`; `EINVAL` — `CONTINUE` разом із ненульовими `val`/`error` |
 | `SECCOMP_IOCTL_NOTIF_ID_VALID` | `_IOW('!', 2, __u64)` | вказівник на `id` | 0 — сповіщення ще живе | `ENOENT` — уже ні |
-| `SECCOMP_IOCTL_NOTIF_ADDFD` | `_IOW('!', 3, struct seccomp_notif_addfd)` | опис дескриптора | номер [дескриптора](book:unix-linux/file-descriptor) в підопічного | `EBADF` — упреться в `RLIMIT_NOFILE`; `EMFILE`; `EBUSY`; `EINPROGRESS`; `ENOENT` |
+| `SECCOMP_IOCTL_NOTIF_ADDFD` | `_IOW('!', 3, struct seccomp_notif_addfd)` | опис дескриптора | номер [дескриптора](book:unix-linux/file-descriptor) в підопічного | `EBADF` — `srcfd` не відкритий у наглядача; `EMFILE` — упреться в `RLIMIT_NOFILE`; `EBUSY`; `EINPROGRESS`; `ENOENT` |
 | `SECCOMP_IOCTL_NOTIF_SET_FLAGS` | `_IOW('!', 4, __u64)` | прапорці самого дескриптора | 0 | `EINVAL` |
 
 Ці ioctl-и живуть під літерою-магією `'!'` — про те, як така [операція над дескриптором](book:unix-linux/ioctl-interface) кодує напрямок і розмір, варто пам'ятати саме тут: `NOTIF_ID_VALID` спершу описали з неправильним напрямком (`_IOR` замість `_IOW`), і ядро досі приймає обидва номери, щоб не зламати давні програми.

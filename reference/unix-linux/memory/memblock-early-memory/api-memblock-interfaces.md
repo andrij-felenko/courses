@@ -165,7 +165,7 @@ memblock_set_current_limit(max_pfn_mapped << PAGE_SHIFT);
 memblock_allow_resize();
 
 /* 4. виділяти */
-void *tbl = memblock_alloc(nr * sizeof(*tbl), SMP_CACHE_BYTES);
+u32 *tbl = memblock_alloc(nr * sizeof(*tbl), SMP_CACHE_BYTES);
 if (!tbl)
         panic("немає ранньої пам'яті під таблицю\n");
 ```

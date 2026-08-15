@@ -29,5 +29,5 @@
 <line x1="615.0" y1="464.0" x2="685.0" y2="464.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
 <rect x="60.0" y="600.0" width="1080.0" height="75.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
 <text x="80.0" y="625.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Тимчасовий зсув (Watermark Boost):</text>
-<text x="80.0" y="652.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">При невдалій фрагментації для високих порядків ядро тимчасово піднімає пороги WMARK_LOW та WMARK_HIGH, змушуючи kswapd працювати агресивніше.</text>
+<text x="80.0" y="652.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Коли в межах одного pageblock змішуються сторінки різної мобільності (зовнішня фрагментація), ядро тимчасово піднімає пороги WMARK_LOW та WMARK_HIGH, змушуючи kswapd працювати агресивніше.</text>
 </svg>

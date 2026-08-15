@@ -382,7 +382,7 @@ void copy_all(int fd_in, int fd_out, off_t len)
 | помилка | де буває | причина |
 |---|---|---|
 | `EXDEV` | усі три | джерело й призначення на різних змонтованих файлових системах. Для `copy_file_range` — до Linux 5.3 завжди, а з 5.19 знову, коли типи файлових систем різні |
-| `EOPNOTSUPP` | `FICLONE*`, `FIDEDUPERANGE`, `copy_file_range` (з 5.19) | файлова система не підтримує операції для одного з дескрипторів або дескриптор веде на особливий inode |
+| `EOPNOTSUPP` | `FICLONE*`, `FIDEDUPERANGE` | файлова система не підтримує операції для одного з дескрипторів або дескриптор веде на особливий inode |
 | `EINVAL` | `FICLONE*`, `FIDEDUPERANGE` | файлова система не вміє операції для цих діапазонів; дескриптор представляє пристрій, FIFO чи сокет; зсуви або довжина не вирівняні на розмір блока; діапазони перекриваються в межах одного файлу |
 | `EINVAL` | `copy_file_range` | `flags` не дорівнює нулю; діапазони перекриваються, коли це той самий файл; один із дескрипторів не є звичайним файлом |
 | `EBADF` | усі три | дескриптор недійсний; джерело не відкрито на читання; призначення не відкрито на запис або відкрито тільки на дозапис (`O_APPEND`) |
@@ -430,7 +430,7 @@ void copy_all(int fd_in, int fd_out, off_t len)
 | Linux 4.9 (грудень 2016) | XFS із деревом лічильників посилань (формат v5, `reflink=1`) |
 | Linux 4.19 (жовтень 2018) | дедуплікацію дозволено власникові файлу, відкритого лише на читання; відмову в правах переведено з `EINVAL` на `EPERM` |
 | Linux 5.3 (вересень 2019) | велика переробка `copy_file_range`: суворіші перевірки меж і загальний відкат, який зняв безумовний `EXDEV` |
-| Linux 5.19 (липень 2022) | різні файлові системи для `copy_file_range` дозволено, лише коли вони одного типу й самі це вміють; інакше `EOPNOTSUPP`. Ці умови перенесено й у старіші стабільні гілки — саме на них слід орієнтуватися |
+| Linux 5.19 (липень 2022) | різні файлові системи для `copy_file_range` дозволено, лише коли вони одного типу й самі це вміють; інакше `EXDEV`. Ці умови перенесено й у старіші стабільні гілки — саме на них слід орієнтуватися |
 | Linux 6.7 (січень 2024) | bcachefs у головному дереві ядра |
 | Linux 6.18 (грудень 2025) | bcachefs прибрано з головного дерева, розповсюджується як модуль DKMS |
 
@@ -446,7 +446,7 @@ void copy_all(int fd_in, int fd_out, off_t len)
 - [ioctl_fideduperange(2), Linux manual page](https://man7.org/linux/man-pages/man2/ioctl_fideduperange.2.html) — обидві структури, стеля `src_length` близько 16 МіБ, вимога вміститися в сторінку пам'яті, значення `status`, перелік помилок.
 - [copy_file_range(2), Linux manual page](https://man7.org/linux/man-pages/man2/copy_file_range.2.html) — сигнатура, семантика `off_in`/`off_out`, `flags` дорівнює нулю, коротке копіювання, перелік помилок, переробка в 5.3, звуження умов у 5.19 і порада орієнтуватися саме на них, емуляція в glibc 2.27–2.29 і `ENOSYS` від 2.30, застереження про розкриття дір.
 - [include/uapi/linux/fs.h, дерево Linux](https://raw.githubusercontent.com/torvalds/linux/master/include/uapi/linux/fs.h) — визначення `FICLONE`, `FICLONERANGE`, `FIDEDUPERANGE` із магічним числом `0x94`, розміри полів обох структур, `FILE_DEDUPE_RANGE_SAME` і `FILE_DEDUPE_RANGE_DIFFERS`.
-- [vfs: allow dedupe of user owned read-only files, обговорення в linux-btrfs, травень 2018](https://www.spinics.net/lists/linux-btrfs/msg77944.html) — зміна правила прав Марком Фашегом (Mark Fasheh) і перехід відмови з `EINVAL` на `EPERM`; увійшло в Linux 4.19.
+- [vfs: allow dedupe of user owned read-only files, обговорення в linux-btrfs, травень 2018](https://www.spinics.net/lists/linux-btrfs/msg77944.html) — зміна правила прав Марком Фаше (Mark Fasheh) і перехід відмови з `EINVAL` на `EPERM`; увійшло в Linux 4.19.
 - [Linux 4.2, KernelNewbies](https://kernelnewbies.org/Linux_4.2) — «Add reflink copy support (cp --reflink) over SMB3.11» у клієнті `cifs`.
 - [What's in ocfs2.git, LWN.net, вересень 2009](https://lwn.net/Articles/351542/) — дерево лічильників посилань і reflink в OCFS2 до вікна злиття 2.6.32.
 - [Bcachefs removed from the mainline kernel, LWN.net](https://lwn.net/Articles/1040120/) — позначка «externally maintained» у 6.17 і вилучення коду в 6.18 з переходом на DKMS.

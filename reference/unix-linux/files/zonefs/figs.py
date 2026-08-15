@@ -100,7 +100,7 @@ def fig_seq_file_contract():
     p.append(arrow(wp, 210, wp, SY - 6, color=FIELD, sw=2.8))
 
     p.append(fitbox(cap - 190, 140, 380, 66,
-                    ["будь-яке звертання за", "місткістю зони — EFBIG"], size=14.5,
+                    ["запис, що починається за", "місткістю зони, — EFBIG"], size=14.5,
                     fill="#fdecea", stroke=POS, sw=2.2))
     p.append(line(cap + 30, 210, cap + 30, SY - 6, color=POS, sw=2, dash="6,5"))
 
@@ -129,7 +129,7 @@ def fig_seq_file_contract():
                      "вміст стерто фізично, вказівник на початку"],
                     size=14.5, fill=WARM, stroke=WARMLINE, sw=2.2))
     p.append(fitbox(700, ty, 550, 92,
-                    ["ftruncate до місткости — завершення зони:",
+                    ["ftruncate до місткості — завершення зони:",
                      "дописувати нікуди, розмір дорівнює місткості"],
                     size=14.5, fill=WARM, stroke=WARMLINE, sw=2.2))
 

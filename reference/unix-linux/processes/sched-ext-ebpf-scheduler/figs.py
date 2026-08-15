@@ -53,7 +53,7 @@ def generate_arch_svg():
     
     # Core Scheduler Box
     elements.append(rect(390, 245, 310, 155, fill="#fff8e1", stroke="#f57f17", sw=1.5, rx=4))
-    elements.append(text(545, 268, "Ядро планировщика Linux", size=13, bold=True, color="#e65100"))
+    elements.append(text(545, 268, "Ядро планувальника Linux", size=13, bold=True, color="#e65100"))
     elements.append(text(545, 290, "ext_sched_class (між RT і Fair)", size=12, color="#f57f17"))
     elements.append(text(410, 318, "• Черги DSQ (Global / Local / Custom)", size=11, color="#424242", anchor="start"))
     elements.append(text(410, 340, "• scx_watchdog (таймаут та захист)", size=11, color="#c62828", anchor="start"))

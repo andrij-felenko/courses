@@ -75,7 +75,7 @@ siginfo_t {
 | `SI_USER` | `kill(2)` або `raise(3)` |
 | `SI_KERNEL` | породжено самим ядром |
 | `SI_QUEUE` | `sigqueue(3)` — разом зі значенням у `si_value` |
-| `SI_TIMER` | спрацював POSIX-таймер, `setitimer(2)` або `alarm(2)` |
+| `SI_TIMER` | спрацював POSIX-таймер (`timer_create(2)`); `alarm(2)` і `setitimer(2)` дають натомість `SI_KERNEL` |
 | `SI_MESGQ` | змінився стан черги повідомлень (`mq_notify(3)`) |
 | `SI_ASYNCIO` | завершилася асинхронна операція вводу-виводу |
 | `SI_TKILL` | `tkill(2)` / `tgkill(2)` — сигнал конкретному потокові, а не процесові |
@@ -85,7 +85,7 @@ siginfo_t {
 | `SIGSEGV` | `SEGV_MAPERR` — за адресою нічого не відображено; `SEGV_ACCERR` — відображено, але права не ті; `SEGV_PKUERR` — заборонив ключ захисту пам'яті |
 | `SIGBUS` | `BUS_ADRALN` — невирівняна адреса; `BUS_ADRERR` — фізичної адреси не існує; `BUS_OBJERR` — апаратна помилка об'єкта; `BUS_MCEERR_AR`, `BUS_MCEERR_AO` — збійна сторінка пам'яті |
 | `SIGFPE` | `FPE_INTDIV`, `FPE_INTOVF` — цілочислове ділення на нуль і переповнення; `FPE_FLTDIV`, `FPE_FLTOVF`, `FPE_FLTUND`, `FPE_FLTINV` — плаваюча кома |
-| `SIGILL` | `ILL_ILLOPC` — недійсний код операції; `ILL_PRVOPC`, `ILL_PRVREG` — привілейована інструкція чи регістр; `ILL_BADSTK` — зіпсований стек співпроцесора |
+| `SIGILL` | `ILL_ILLOPC` — недійсний код операції; `ILL_PRVOPC`, `ILL_PRVREG` — привілейована інструкція чи регістр; `ILL_BADSTK` — внутрішня помилка стека |
 | `SIGTRAP` | `TRAP_BRKPT` — точка спину; `TRAP_TRACE` — покроковий слід; `TRAP_HWBKPT` — апаратна точка спостереження |
 | `SIGCHLD` | `CLD_EXITED`, `CLD_KILLED`, `CLD_DUMPED`, `CLD_TRAPPED`, `CLD_STOPPED`, `CLD_CONTINUED` |
 | `SIGSYS` | `SYS_SECCOMP` — виклик заборонив фільтр, поруч заповнено `si_syscall`, `si_arch`, `si_call_addr` ([seccomp](book:unix-linux/seccomp-filtering) — фільтр системних викликів, який може відповісти пасткою замість відмови) |
@@ -171,7 +171,7 @@ int arm_usr1(void) {
 | 3 | `SIGQUIT` | дамп | так | Ctrl+\ |
 | 4 | `SIGILL` | дамп | так | недійсна інструкція |
 | 5 | `SIGTRAP` | дамп | так | точка спину, крок налагоджувача |
-| 6 | `SIGABRT` = `SIGIOT` | дамп | так | `abort(3)`, спрацьоване твердження |
+| 6 | `SIGABRT` = `SIGIOT` | дамп | так | `abort(3)`, невдале твердження `assert` |
 | 7 | `SIGBUS` | дамп | так | звернення, яке не лягає на пам'ять: невирівняне, за кінцем відображеного файлу |
 | 8 | `SIGFPE` | дамп | так | хибна арифметика: ділення на нуль, переповнення |
 | 9 | `SIGKILL` | завершити | **ні** | безумовне вбивство |

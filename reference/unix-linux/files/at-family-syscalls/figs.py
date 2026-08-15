@@ -217,7 +217,7 @@ def fig_resolve_flags():
                     size=15, fill=GREEN_FILL, stroke=FIELD, bold=True))
 
     ways = [
-        (40, '"/etc/passwd"\nабсолютний шлях\nігнорує якір', "RESOLVE_IN_ROOT"),
+        (40, '"/etc/passwd"\nабсолютний шлях\nігнорує якір', "RESOLVE_BENEATH\nRESOLVE_IN_ROOT"),
         (330, '"../../etc"\nдві крапки виводять\nугору з піддерева', "RESOLVE_BENEATH\nRESOLVE_IN_ROOT"),
         (620, 'посилання вбік\nу будь-якому\nскладнику', "RESOLVE_NO_SYMLINKS"),
         (910, 'точка монтування\nусередині\nпіддерева', "RESOLVE_NO_XDEV"),
@@ -264,7 +264,7 @@ def fig_at_timeline():
          WARM_FILL, WARM),
         ("act", "ДІЯ ДРУГА — той самий важіль, але вже проти гонок", BLUE_FILL, NEG),
         ("2005", "Solaris 10: повний набір — fstatat, unlinkat, renameat,\n"
-                 "fchownat, futimesat, utimensat; мотив названо прямо: гонка",
+                 "fchownat, futimesat і решта; мотив названо прямо: гонка",
          BLUE_FILL, NEG),
         ("2006", "березень: Linux 2.6.16 і glibc 2.4 — справжні виклики ядра\n"
                  "замість колишніх обхідних трюків у бібліотеці",
@@ -272,7 +272,7 @@ def fig_at_timeline():
         ("2008", "POSIX.1-2008 (IEEE Std 1003.1-2008): набір стає обов'язковим",
          GREEN_FILL, FIELD),
         ("2008–15", "BSD підхоплюють: DragonFly і FreeBSD 2008–09 (openat — FreeBSD 8.0),\n"
-                    "OpenBSD 2011, NetBSD кінець 2014, macOS кінець 2015",
+                    "OpenBSD 2011, NetBSD і macOS — середина 2010-х",
          GREEN_FILL, FIELD),
         ("act", "ДІЯ ТРЕТЯ — якоря замало, і атрибути повертаються", RED_FILL, POS),
         ("2020", "Linux 5.6: openat2 (Алекса Сараї, SUSE) — прапорці RESOLVE_*,\n"
@@ -341,9 +341,9 @@ def fig_at_bits():
 
     p.append(fitbox(40, 396, 540, 122,
                     "той самий біт 0x200 читається за іменем виклику:\n"
-                    "faccessat — брати справжні UID і GID\n"
+                    "faccessat — брати чинні (effective) UID і GID\n"
                     "unlinkat — знімати каталог, а не файл\n"
-                    "name_to_handle_at — просити дескриптор без імені",
+                    "name_to_handle_at — ідентифікатор лише для порівняння",
                     size=13, fill=RED_FILL, stroke=POS))
     p.append(arrow(centers[1], 320, 300, 392))
 

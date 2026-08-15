@@ -125,7 +125,7 @@ def render_forest_of_trees():
     children = [
         ("FS_TREE\n(ID 5: Головний субтом)", 120, "#dcfce7", "#16a34a"),
         ("FS_TREE / Snap\n(ID 256: Субтом/Снапшот)", 300, "#dcfce7", "#16a34a"),
-        ("EXTENT_TREE\n(ID 2: Аллокації та CoW refs)", 480, "#f3e8ff", "#9333ea"),
+        ("EXTENT_TREE\n(ID 2: Алокації та CoW-посилання)", 480, "#f3e8ff", "#9333ea"),
         ("CSUM_TREE\n(ID 7: Чексуми блоків)", 660, "#fee2e2", "#dc2626"),
         ("FREE_SPACE_TREE\n(ID 10: Вільні екстенти)", 840, "#fef3c7", "#d97706")
     ]

@@ -40,9 +40,9 @@ def fig_image_layers():
 
     # межа пароля
     f.append(line(70, 660, 1270, 660, color=POS, sw=2, dash="8 6"))
-    f.append(text(70, 646, "видно без пароля:  що це домівка й чия",
+    f.append(text(70, 646, "без пароля читаються:  файл, GPT, тип і мітка розділу, заголовок LUKS2",
                   size=15, color=NEG, anchor="start", bold=True))
-    f.append(text(70, 690, "нижче межі:  усе, що потребує ключа тому",
+    f.append(text(70, 690, "потребує ключа тому:  сектори LUKS2, файлова система і весь її вміст",
                   size=15, color=POS, anchor="start", bold=True))
 
     return render(os.path.join(OUT, 'image-layers.svg'), W, H,

@@ -70,7 +70,7 @@ def abi_translation():
     f.append(text((left_x + pw + right_x) / 2, 262, "перекладає", size=13, color=MUTED))
 
     f.append(fitbox(40, 430, 400, 96,
-                    "інструкція syscall затирає rcx і r11:\nтуди ядро кладе адресу\nповернення та прапорці",
+                    "інструкція syscall затирає rcx і r11:\nтуди процесор кладе адресу\nповернення та прапорці",
                     size=13, fill="#fdecea", stroke=POS))
     f.append(fitbox(500, 430, 400, 96,
                     "rax у межах −4095…−1 — це помилка:\nlibc пише −rax у errno\nі повертає −1",
@@ -122,7 +122,7 @@ def startup_chain():
     f.append(text(40, 188, "простір користувача", size=12, color=MUTED, anchor="start"))
 
     f.append(fitbox(60, 66, 300, 84,
-                    "execve(): мапить сегменти ELF,\nкладе argv, envp і auxv на стек,\n"
+                    "execve(): відображає сегменти ELF,\nкладе argv, envp і auxv на стек,\n"
                     "передає керування на e_entry", size=13, fill="#eaf0fd", stroke=NEG))
     f.append(fitbox(640, 66, 280, 84,
                     "exit_group(): ядро прибирає\nресурси, процес зникає",

@@ -145,11 +145,11 @@ def fig_dirent_buffer():
                   "буфер програми після getdents64(fd, buf, count): записи різної довжини лежать упритул",
                   size=13, color=MUTED))
 
-    for x, s in [(40, "+0"), (300, "+32"), (600, "+72"), (820, "+96")]:
+    for x, s in [(40, "+0"), (300, "+24"), (600, "+56"), (820, "+80")]:
         f.append(text(x, 80, s, size=12, color=MUTED, anchor="start"))
 
-    f.append(fitbox(40, 90, 256, 52, "запис «.»\nd_reclen = 32", size=13, fill="#eef2f7"))
-    f.append(fitbox(300, 90, 296, 52, "запис «notes.txt»\nd_reclen = 40",
+    f.append(fitbox(40, 90, 256, 52, "запис «.»\nd_reclen = 24", size=13, fill="#eef2f7"))
+    f.append(fitbox(300, 90, 296, 52, "запис «notes.txt»\nd_reclen = 32",
                     size=13, fill="#eaf7ef", stroke=FIELD))
     f.append(fitbox(600, 90, 216, 52, "запис «src»\nd_reclen = 24", size=13, fill="#eef2f7"))
     f.append(fitbox(820, 90, 200, 52, "хвіст буфера\nне заповнено", size=13, fill=BG, stroke=MUTED))
@@ -163,7 +163,7 @@ def fig_dirent_buffer():
         (360, 140, "d_reclen\n2 байти"),
         (500, 120, "d_type\n1 байт"),
         (620, 240, "d_name\n«notes.txt» + \\0"),
-        (860, 140, "добивка\nдо межі 8"),
+        (860, 140, "вирівняно\nдо межі 8"),
     ]
     for x, w, s in cells:
         f.append(fitbox(x, 190, w, 60, s, size=13,

@@ -617,7 +617,7 @@ def fig_kernel_surface_grid():
                             color=MUTED if empty else INK))
 
     p.append(text(W / 2, RY + 5 * (RH + RGAP) + 26,
-                  "щільність зліва — це 2012 рік: більшу частину поверхні добудували за півтора року",
+                  "щільність зліва — це 2012 рік: кістяк поверхні добудували за півтора року",
                   size=12, color=MUTED, italic=True))
 
     render(os.path.join(OUT, "kernel-surface-grid.svg"), W, H, *p,

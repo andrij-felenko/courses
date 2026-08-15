@@ -52,7 +52,7 @@ SVG_MAIN = """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <text x="665" y="75" font-family="sans-serif" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро Linux (5.16+)</text>
 
   <rect x="575" y="110" width="180" height="40" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" />
-  <text x="665" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e8449" text-anchor="middle">futex_key sorting</text>
+  <text x="665" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e8449" text-anchor="middle">futex_key → hash bucket</text>
 
   <rect x="575" y="170" width="180" height="50" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" />
   <text x="665" y="192" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1e8449" text-anchor="middle">futex_q enqueue</text>

@@ -102,6 +102,8 @@ int main(int argc, char **argv)
 #include <iostream>
 #include <fstream>
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <fcntl.h>
 #include <unistd.h>
@@ -383,6 +385,8 @@ int main(int argc, char **argv)
 #include <filesystem>
 #include <cstdint>
 #include <cinttypes>
+#include <cstdio>
+#include <cctype>
 #include <cstring>
 #include <fcntl.h>
 #include <unistd.h>
@@ -533,7 +537,7 @@ int main(int argc, char **argv)
     if (fs::exists("/proc")) {
         for (const auto &entry : fs::directory_iterator("/proc")) {
             std::string name = entry.path().filename().string();
-            if (!name.empty() && std::isdigit(name[0])) {
+            if (!name.empty() && std::isdigit(static_cast<unsigned char>(name[0]))) {
                 scan_pid(std::stoi(name));
             }
         }

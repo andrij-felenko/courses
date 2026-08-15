@@ -9,12 +9,12 @@
 
 ## Встановлення інструментарію та структура пакета
 
-Пакет `erofs-utils` доступний у більшості дистрибутивів Linux або збирається з вихідних сирців репозиторію ядра Linux. Утиліти включають наступні ключові бінарники:
+Пакет `erofs-utils` доступний у більшості дистрибутивів Linux або збирається з вихідних кодів окремого репозиторію `erofs-utils` на `git.kernel.org` — до дерева ядра він не входить. Утиліти включають наступні ключові бінарники:
 
 - `mkfs.erofs`: Генератор дискового образу з вихідного дерева каталогів.
 - `dump.erofs`: Аналізатор метаданих, таблиць екстентів та геометрії тома.
-- `erofsck` / `fsck.erofs`: Інструмент верифікації цілісності дискових структур та перевірки чексум.
-- `erofsfused`: Драйвер FUSE для монування та читання образів EROFS у просторі користувача без прав суперкористувача.
+- `fsck.erofs`: Інструмент верифікації цілісності дискових структур та перевірки чексум; із ключем `--extract` ще й розпаковує образ у каталог.
+- `erofsfuse`: Драйвер FUSE для монтування та читання образів EROFS у просторі користувача без прав суперкористувача.
 
 Для встановлення утиліт у сучасних дистрибутивах використовуються стандартні пакетні менеджери:
 
@@ -43,7 +43,7 @@ mkfs.erofs -z lz4hc,12 sys_image.erofs ./target_rootfs/
 mkfs.erofs -z zstd,9 -E ztailpacking sys_image_zstd.erofs ./target_rootfs/
 
 # 3. Формування образу для контейнерного середовища з дедуплікацією (chunk-based)
-mkfs.erofs --chunksize=4096 -C4096 container_layer.erofs ./container_root/
+mkfs.erofs --chunksize=65536 container_layer.erofs ./container_root/
 
 # 4. Збирання з автоматичною індексацією та дедуплікацією атрибутів безпеки SELinux
 mkfs.erofs -z lz4hc,9 --file-contexts=/etc/selinux/targeted/contexts/files/file_contexts android_sys.erofs ./android_sys/
@@ -61,25 +61,25 @@ mkfs.erofs -z lz4hc,9 --file-contexts=/etc/selinux/targeted/contexts/files/file_
 
 ## Інспектування та перевірка цілісності образів
 
-Після збирання образу інженер може перевірити дискову геометрію, ефективність стиснення та цілісність індексних вузлів за допомогою утиліт `dump.erofs` та `erofsck`.
+Після збирання образу інженер може перевірити дискову геометрію, ефективність стиснення та цілісність індексних вузлів за допомогою утиліт `dump.erofs` та `fsck.erofs`.
 
-Утиліта `dump.erofs` дозволяє витягнути будь-які низькорівневі параметри дискового образу без його монування в систему, що робить її незамінною для CI/CD автоматизації перевірки контейнерних образів.
+Утиліта `dump.erofs` дозволяє витягнути будь-які низькорівневі параметри дискового образу без його монтування в систему, що робить її незамінною для CI/CD автоматизації перевірки контейнерних образів.
 
 ```bash
 # Вивід загальної інформації про суперблок та прапорці несумісності
-dump.erofs --superblock sys_image.erofs
+dump.erofs -s sys_image.erofs
 
 # Детальна статистика розподілу типів файлів, розмірів та коефіцієнта стиснення
-dump.erofs -s sys_image.erofs
+dump.erofs -S sys_image.erofs
 
 # Вивід карти екстентів для конкретного файла за його NID або шляхом
 dump.erofs --path=/usr/lib/libc.so sys_image.erofs
 
 # Повна перевірка цілісності всіх індексних вузлів та обчислення чексум
-erofsck sys_image.erofs
+fsck.erofs sys_image.erofs
 ```
 
-Приклад виводу утиліти `dump.erofs -s`:
+Приклад виводу утиліти `dump.erofs -S`:
 
 ```
 Filesystem magic number:                      0xE0F5E1E2
@@ -91,26 +91,26 @@ Filesystem compression algorithm:             lz4hc
 Filesystem average compression ratio:         48.25%
 ```
 
-## Монування та інспектування через sysfs ядра
+## Монтування та інспектування через sysfs ядра
 
-В ядрі Linux монування EROFS здійснюється стандартною командою `mount` із вказівкою типу файлової системи `erofs`:
+В ядрі Linux монтування EROFS здійснюється стандартною командою `mount` із вказівкою типу файлової системи `erofs`:
 
 ```bash
-# Монування образу через loop-пристрій у режим Read-Only
+# Монтування образу через loop-пристрій у режимі лише для читання
 sudo mount -t erofs -o loop sys_image.erofs /mnt/system
 
-# Перевірка параметрів монування у /proc/mounts
+# Перевірка параметрів монтування у /proc/mounts
 cat /proc/mounts | grep erofs
 ```
 
-Після монування ядро Linux експортує діагностичні інтерфейси підсистеми EROFS у віртуальну файлову систему `/sys/fs/erofs/`. Ці інтерфейси дозволяють відстежувати статистику декомпресії та активні параметри ядерного драйвера:
+Після монтування ядро Linux експортує діагностичні інтерфейси підсистеми EROFS у віртуальну файлову систему `/sys/fs/erofs/`. Ці інтерфейси дозволяють відстежувати статистику декомпресії та активні параметри ядерного драйвера:
 
 ```bash
-# Перевірка активних функціональних розширень монованого пристрою
-cat /sys/fs/erofs/loop0/features
+# Які розширення дискового формату розуміє поточне ядро
+ls /sys/fs/erofs/features/
 
-# Перевірка підтримуваних алгоритмів декомпресії в поточному ядрі
-cat /sys/fs/erofs/features/available_compr_algs
+# Режим синхронної декомпресії для змонтованого пристрою
+cat /sys/fs/erofs/loop0/sync_decompress
 ```
 
 ## Програмний аналіз суперблоку та індексних вузлів
@@ -137,12 +137,13 @@ struct erofs_super_block_raw {
     uint8_t  blkszbits;
     uint8_t  sb_extslots;
     uint16_t root_nid;
-    uint64_t inotree_ino;
+    uint64_t inos;
     uint64_t build_time;
     uint32_t build_time_nsec;
     uint32_t blocks;
     uint32_t meta_blkaddr;
     uint32_t xattr_blkaddr;
+    uint8_t  uuid[16];
     uint8_t  volume_name[16];
     uint32_t feature_incompat;
 };
@@ -168,7 +169,7 @@ int main(int argc, char *argv[]) {
 
     struct erofs_super_block_raw sb;
     ssize_t res = read(fd, &sb, sizeof(sb));
-    if (res != sizeof(sb)) {
+    if (res != (ssize_t)sizeof(sb)) {
         perror("Помилка зчитування суперблоку");
         close(fd);
         return 1;
@@ -220,12 +221,13 @@ struct ErofsSuperBlockRaw {
     uint8_t  blkszbits;
     uint8_t  sb_extslots;
     uint16_t root_nid;
-    uint64_t inotree_ino;
+    uint64_t inos;
     uint64_t build_time;
     uint32_t build_time_nsec;
     uint32_t blocks;
     uint32_t meta_blkaddr;
     uint32_t xattr_blkaddr;
+    uint8_t  uuid[16];
     uint8_t  volume_name[16];
     uint32_t feature_incompat;
 };
@@ -242,8 +244,8 @@ struct ErofsParsedInfo {
     uint32_t feature_incompat;
 };
 
-std::expected<ErofsParsedInfo, std::string> parse_erofs_image(std::string_view image_path) {
-    std::ifstream file(image_path.data(), std::ios::binary);
+std::expected<ErofsParsedInfo, std::string> parse_erofs_image(const std::string& image_path) {
+    std::ifstream file(image_path, std::ios::binary);
     if (!file.is_open()) {
         return std::unexpected("Не вдалося відкрити файл образу EROFS");
     }
@@ -255,7 +257,7 @@ std::expected<ErofsParsedInfo, std::string> parse_erofs_image(std::string_view i
 
     ErofsSuperBlockRaw sb{};
     file.read(reinterpret_cast<char*>(&sb), sizeof(sb));
-    if (file.gcount() != sizeof(sb)) {
+    if (file.gcount() != static_cast<std::streamsize>(sizeof(sb))) {
         return std::unexpected("Не вдалося зчитати повну структуру суперблоку");
     }
 
@@ -310,7 +312,7 @@ int main(int argc, char* argv[]) {
 
 Обидва варіанти програми реалізують сувору перевірку інваріантів безпеки дискового формату:
 
-1. **#pragma pack(push, 1)**: Усі бінарні структури ядра Linux упаковані без автоматичного вирівнювання заповненням (padding) між полями. Використання директиви упакування гарантує точний збіг розміру `sizeof(struct erofs_super_block_raw)` із дисковим 128-байтовим слотом.
-2. **Перевірка Magic ID**: Сигнатура `0xE0F5E1E2` (Little Endian) гарантує, що розібраний файл є образом EROFS, а не розрідженим томом ext4 чи SquashFS.
+1. **#pragma pack(push, 1)**: Усі бінарні структури ядра Linux упаковані без автоматичного вирівнювання заповненням (padding) між полями. Директива упакування гарантує, що поля лягають рівно на дискові зсуви; сама структура покриває перші 84 байти зі 128-байтового суперблоку, решту — резерв — ця програма не читає.
+2. **Перевірка Magic ID**: Сигнатура `0xE0F5E1E2` (Little Endian) гарантує, що розібраний файл є образом EROFS, а не образом ext4 чи SquashFS.
 3. **Обчислення адреси NID**: Ідентифікатор NID (Node Identifier) у EROFS описує зсув індексного вузла у блоках метаданих у 32-байтових одиницях. Формула `(meta_blkaddr * block_size) + (root_nid * 32)` розраховує точний абсолютний байтовий зсув кореневого inode від початку образу.
 4. **C++ RAII та std::expected**: Версія мовою C++ демонструє сучасний ідіоматичний підхід: потік `std::ifstream` автоматично закриває файловий дескриптор при виході з області видимості, а повертаний тип `std::expected<ErofsParsedInfo, std::string>` безпечно обробляє помилки відкриття та читання без використання винятків або небезпечного коду з `goto out`.

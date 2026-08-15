@@ -168,7 +168,7 @@ def fig_two_amplifications():
 
     f.append(text(x0, 246, "EROFS, -zlz4hc", size=15, bold=True, anchor="start"))
     band(260, 5, ["прочитано з пристрою", "лічильник loopN"], "5 КіБ → ×1.2", FIELD)
-    band(322, 16, ["розтиснено", "системний час"], "16 КіБ → ×4", FIELD)
+    band(322, 11, ["розтиснено", "системний час"], "11 КіБ → ×2.8", FIELD)
 
     f.append(rect(x0, 404, 22, 18, fill="#d8f0e0", stroke=FIELD, sw=1.4, rx=3))
     f.append(text(x0 + 34, 418, "4 КіБ, які програма справді просила", size=12,
@@ -201,7 +201,7 @@ def fig_read_window():
     cases = [
         (sx + cw + 34, "1 шматок", FIELD),
         (edges[3] - 27, "2 шматки", POS),
-        (edges[4] + 4, "1 шматок", FIELD),
+        (edges[4], "1 шматок", FIELD),
     ]
     for wx, lab, col in cases:
         f.append(rect(wx, wy, sw_, wh, fill="#d8f0e0", stroke=col, sw=1.8))

@@ -59,7 +59,7 @@ def render():
   <text x="400" y="278" class="heading" text-anchor="middle">Політика безпеки (TE Rule Base)</text>
   <text x="400" y="305" class="code" text-anchor="middle">allow httpd_t httpd_sys_content_t : file</text>
   <text x="400" y="325" class="code" text-anchor="middle">{ read getattr ioctl lock };</text>
-  <text x="400" y="358" class="label-orange" text-anchor="middle">Рішення: Дозволити доступ (EACCES = 0)</text>
+  <text x="400" y="358" class="label-orange" text-anchor="middle">Рішення: доступ дозволено (повернено 0)</text>
 
   <!-- Policy Check Lines -->
   <path d="M 150 190 L 150 315 L 220 315" class="arrow arrow-orange"/>
@@ -117,7 +117,7 @@ def render():
   <text x="410" y="98" class="heading" text-anchor="middle">2. Access Vector Cache</text>
   <text x="410" y="122" class="code" text-anchor="middle">avc_has_perm(ssid, tsid...)</text>
   <text x="410" y="148" class="subtext" text-anchor="middle">Хеш-пошук запису AVC</text>
-  <text x="410" y="170" class="label-fast" text-anchor="middle">Cache Hit (&gt; 99% викликів)</text>
+  <text x="410" y="170" class="label-fast" text-anchor="middle">Cache Hit (типовий шлях)</text>
   <text x="410" y="190" class="subtext" text-anchor="middle">Швидка бітова маска</text>
 
   <!-- Hook to AVC Arrow -->
@@ -146,7 +146,7 @@ def render():
   <text x="605" y="298" class="heading" text-anchor="middle">4. Логування аудит-подій (AVC Denial)</text>
   <text x="605" y="322" class="code" text-anchor="middle">type=AVC msg=audit(...): avc: denied</text>
   <text x="605" y="344" class="subtext" text-anchor="middle">Запис у /var/log/audit/audit.log</text>
-  <text x="605" y="364" class="label-deny" text-anchor="middle">якщо двійковий біт не дозволений або donutaudit = 0</text>
+  <text x="605" y="364" class="label-deny" text-anchor="middle">якщо дозвіл не наданий і немає правила dontaudit</text>
 
   <!-- AVC/SecServer to Audit Arrow -->
   <path d="M 470 210 L 470 260" class="arrow arrow-red"/>

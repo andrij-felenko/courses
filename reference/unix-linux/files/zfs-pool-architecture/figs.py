@@ -120,13 +120,13 @@ def render_vdev_topology():
 
     # RAIDZ2 VDEV
     frags.append(svgkit.rect(255, 125, 210, 160, fill="#dcfce7", stroke="#16a34a", sw=1.5, rx=6))
-    frags.append(svgkit.text(360, 145, "Top-Level VDEV 1\n(RAIDZ2)", size=11, bold=True, anchor="middle", color="#15803d"))
+    frags.append(svgkit.text(360, 145, "Top-Level VDEV 1\n(RAIDZ1: парність розподілена)", size=11, bold=True, anchor="middle", color="#15803d"))
     frags.append(svgkit.rect(270, 175, 180, 32, fill="#ffffff", stroke="#86efac", sw=1, rx=4))
-    frags.append(svgkit.text(360, 195, "Disk /dev/sdc (Data)", size=9, anchor="middle", color="#166534"))
+    frags.append(svgkit.text(360, 195, "Disk /dev/sdc", size=9, anchor="middle", color="#166534"))
     frags.append(svgkit.rect(270, 212, 180, 32, fill="#ffffff", stroke="#86efac", sw=1, rx=4))
-    frags.append(svgkit.text(360, 232, "Disk /dev/sdd (Data)", size=9, anchor="middle", color="#166534"))
+    frags.append(svgkit.text(360, 232, "Disk /dev/sdd", size=9, anchor="middle", color="#166534"))
     frags.append(svgkit.rect(270, 248, 180, 32, fill="#ffffff", stroke="#86efac", sw=1, rx=4))
-    frags.append(svgkit.text(360, 268, "Disk /dev/sde (Parity P+Q)", size=9, anchor="middle", color="#166534"))
+    frags.append(svgkit.text(360, 268, "Disk /dev/sde", size=9, anchor="middle", color="#166534"))
 
     # Special VDEV
     frags.append(svgkit.rect(485, 125, 180, 160, fill="#fae8ff", stroke="#c026d3", sw=1.5, rx=6))

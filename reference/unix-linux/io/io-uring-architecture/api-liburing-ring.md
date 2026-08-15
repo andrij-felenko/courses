@@ -26,7 +26,7 @@ struct io_uring_sqe {
     };
     __u32   len;          /* Довжина буфера або кількість iovec */
     union {
-        __kernel_rwf_t  rw_flags; /* Прапорці read/write (O_SYNC, RWF_HIPRI) */
+        __kernel_rwf_t  rw_flags; /* Прапорці read/write (RWF_HIPRI, RWF_NOWAIT) */
         __u32           fsync_flags;
         __u16           poll_events;
         __u32           sync_range_flags;
@@ -67,7 +67,7 @@ struct io_uring_sqe {
 - `IOSQE_IO_HARDLINK` — Створити суворий ланцюжок: наступний SQE почне виконуватися незалежно від того, чи поточний SQE завершився успішно, чи з помилкою.
 - `IOSQE_ASYNC` — Примусово передати запит на виконання в асинхронний пул потоків `io-wq`, оминаючи спробу виконання у швидкому неблокуючому контексті.
 - `IOSQE_BUFFER_SELECT` — Автоматично вибирати буфер для зчитування з вказаної групи `buf_group` (provided buffers), заповненої через `IORING_OP_PROVIDE_BUFFERS` або `IORING_REGISTER_PBUF_RING`.
-- `IOSQE_CQE_SKIP_SUCCESS` — Не ґенерувати CQE, якщо операція завершилася успішно (ґенерувати CQE лише у разі виникнення помилки), що оптимізує навантаження на чергу completion.
+- `IOSQE_CQE_SKIP_SUCCESS` — Не породжувати CQE, якщо операція завершилася успішно (CQE з'явиться лише в разі помилки), що знижує навантаження на чергу завершення.
 
 ### Результат: struct io_uring_cqe (16 байтів)
 
@@ -83,7 +83,7 @@ struct io_uring_cqe {
 
 #### Прапорці CQE (поле `flags`)
 
-- `IORING_CQE_F_BUFFER` — Усічено або обрано буфер з групи. Верхні 16 бітів містять ідентифікатор обраного буфера `bid`.
+- `IORING_CQE_F_BUFFER` — Дані записано в буфер, який ядро обрало з групи `buf_group`. Верхні 16 бітів поля `flags` містять ідентифікатор цього буфера `bid`.
 - `IORING_CQE_F_MORE` — Запит згенерував цей CQE, але залишається активним і може згенерувати наступні CQE (наприклад, для багаторазового `accept` або потокового `poll`).
 - `IORING_CQE_F_SOCK_NONEMPTY` — Підказка сокета: в сокеті залишилися доступні дані після виконання `recv`.
 - `IORING_CQE_F_NOTIF` — Сповіщення про звільнення буфера у zero-copy операціях (`IORING_OP_SEND_ZC`).
@@ -120,7 +120,7 @@ struct io_cqring_offsets {
 
 Мапінг вимагає двох або трьох окремих викликів `mmap()`:
 1. `mmap(NULL, sq_sz, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, ring_fd, IORING_OFF_SQ_RING)` — мапінг структур керування чергами.
-2. `mmap(NULL, sqes_sz, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, ring_fd, IORING_OFF_SQES)` — мапінг самого масиву 64-бітних полів SQE.
+2. `mmap(NULL, sqes_sz, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, ring_fd, IORING_OFF_SQES)` — мапінг самого масиву 64-байтних структур SQE.
 3. `mmap(NULL, cq_sz, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, ring_fd, IORING_OFF_CQ_RING)` — мапінг черги CQ (якщо не використовується єдиний мапінг `IORING_FEAT_SINGLE_MMAP`).
 
 ## Прапорці ініціалізації io_uring_setup()
@@ -130,7 +130,7 @@ struct io_cqring_offsets {
 - `IORING_SETUP_SQ_AFF` — Прив'язати потік `SQPOLL` до конкретного ядра CPU (вказується в `params.sq_thread_cpu`).
 - `IORING_SETUP_CQSIZE` — Задати власну глибину черги CQ (за замовчуванням у 2 рази більша за SQ).
 - `IORING_SETUP_SINGLE_ISSUER` — Оптимізація ядра під умову, що подавати SQE буде лише один конкретний потік простору користувача.
-- `IORING_SETUP_DEFER_TASKRUN` — Відкласти обробку `task_work` ядра до моменту, поки процес користувача явно не викличе `io_uring_enter` для очікування подій, що знижує міжпроцесорне сповіщення (IPI inter-processor interrupts).
+- `IORING_SETUP_DEFER_TASKRUN` — Відкласти обробку `task_work` ядра до моменту, поки процес користувача явно не викличе `io_uring_enter` для очікування подій, що прибирає міжпроцесорні сповіщення (IPI, inter-processor interrupts) зі шляху завершення.
 - `IORING_SETUP_REGISTERED_FD_ONLY` — Гарантувати, що нові дескриптори створюватимуться лише як прямі дескриптори (Direct Descriptors) у таблиці `io_uring`, минаючи таблицю файлів процесу.
 
 ## Ключові опкоди операцій (opcode)
@@ -143,7 +143,7 @@ struct io_cqring_offsets {
 | `IORING_OP_POLL_ADD` / `POLL_REMOVE` | Реєстрація маски подій сокета (подібно до `epoll_ctl`) |
 | `IORING_OP_ACCEPT` | Прийняття мережевого з'єднання (подібно до `accept4`) |
 | `IORING_OP_CONNECT` | Встановлення з'єднання (подібно до `connect`) |
-| `IORING_OP_SEND_ZC` / `RECV_ZC` | Zero-copy передача даних мережевою картою напряму з буфера користувача |
+| `IORING_OP_SEND_ZC` / `RECV_ZC` | Zero-copy обмін даними з мережевою картою без копіювання їх у проміжні буфери ядра |
 | `IORING_OP_PROVIDE_BUFFERS` | Надання ядру пулу буферів для автоматичного вибору при отриманні пакетів |
 | `IORING_OP_TIMEOUT` | Встановлення високоточного таймера або таймауту для завершення `N` запитів |
 | `IORING_OP_SPLICE` | Передача даних між двома дескрипторами (подібно до `splice`) |
@@ -173,6 +173,6 @@ struct io_cqring_offsets {
 - `io_uring_prep_send_zc(sqe, fd, buf, len, flags, zc_flags)` — Заповнення SQE параметрами Zero-copy відправки.
 - `io_uring_sqe_set_data(sqe, data)` — Запис власного маркера контексту в поле `user_data`.
 - `io_uring_submit(ring)` — Подання нових SQE в ядро (виклик `io_uring_enter` за потреби).
-- `io_uring_wait_cqe(ring, &cqe)` — Блокуюче очікування принаймні одного готову результату у CQ.
+- `io_uring_wait_cqe(ring, &cqe)` — Блокуюче очікування принаймні одного готового результату у CQ.
 - `io_uring_cqe_seen(ring, cqe)` — Зсув головного вказівника (head) CQ після зчитування результату.
 - `io_uring_queue_exit(ring)` — Звільнення пам'яті та закриття файлового дескриптора кільця.

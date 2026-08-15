@@ -119,7 +119,7 @@ def fig_doors():
         (166, "власний код у ядрі\nнепідписаний модуль, kexec"),
         (262, "залізо як посередник\nPCI BAR, порти, MSR, параметри модуля"),
         (358, "таблиці прошивки\nACPI custom_method, підміна таблиць"),
-        (454, "налагодження з правом запису\nkgdb, kprobes, bpf у пам'ять процесу"),
+        (454, "налагодження з правом запису\nkgdb, bpf у пам'ять процесу"),
     ]
     for y, s in write_doors:
         p.append(fitbox(60, y, 400, 76, s, size=13, fill=WARM_FILL, stroke=WARM))

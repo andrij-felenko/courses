@@ -16,7 +16,7 @@ def generate_dma_arch():
     frags.append(text(400, 42, "Драйвер пристрою та підсистеми ядра Linux", size=14, bold=True, color='#1565c0'))
     
     tb_driver, _, _ = textbox(150, 80, "Драйвер пристрою\n(NVMe / NIC / GPU)", size=11, fill='#ffffff', stroke='#1976d2')
-    tb_page, _, _ = textbox(400, 80, "Сторінковий розподільник\nkmalloc() / alloc_pages()", size=11, fill='#ffffff', stroke='#1976d2')
+    tb_page, _, _ = textbox(400, 80, "Розподільники пам'яті\nkmalloc() / alloc_pages()", size=11, fill='#ffffff', stroke='#1976d2')
     tb_sg, _, _ = textbox(650, 80, "Структури даних\nstruct scatterlist / bio", size=11, fill='#ffffff', stroke='#1976d2')
     frags.extend([tb_driver, tb_page, tb_sg])
 
@@ -116,7 +116,7 @@ def generate_iommu_translation():
     frags.append(text(680, 65, "Фізична RAM", size=14, bold=True, color='#512da8'))
     tb_p1, _, _ = textbox(680, 120, "Page #5 (Physical Address)", size=10, fill='#ffffff', stroke='#512da8')
     tb_p2, _, _ = textbox(680, 180, "Page #88 (Physical Address)", size=10, fill='#ffffff', stroke='#512da8')
-    tb_p3, _, _ = textbox(680, 240, "Розсічені фізичні сторінки\nвиглядають неперервними!", size=10, fill='#ede7f6', stroke='#512da8')
+    tb_p3, _, _ = textbox(680, 240, "Розкидані фізичні сторінки\nвиглядають неперервними!", size=10, fill='#ede7f6', stroke='#512da8')
     frags.extend([tb_p1, tb_p2, tb_p3])
 
     render(out_path, 800, 320, *frags)

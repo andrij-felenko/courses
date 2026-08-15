@@ -20,7 +20,7 @@
 
 ## Структура `dma_heap_allocation_data`
 
-Виділення пам'яті виконується єдиним системним викликом `ioctl(DMA_HEAP_IOC_ALLOC)` з передачею вказівника на структуру `struct dma_heap_allocation_data`:
+Виділення пам'яті виконується єдиною командою `ioctl(DMA_HEAP_IOC_ALLOC)` з передачею вказівника на структуру `struct dma_heap_allocation_data`:
 
 ```c
 struct dma_heap_allocation_data {
@@ -48,9 +48,9 @@ struct dma_heap_allocation_data {
 4. **`heap_flags` (`__u64`):**
    Зарезервоване бітове поле для передачі додаткових прапорців конкретному розподільнику купи. У стандартній реалізації ядра Linux для куп `system` та `cma` це поле повинно дорівнювати `0`. Якщо простір користувача передає біти, які не підтримуються драйвером купи, ядро негайно повертає помилку `-EINVAL`.
 
-## Системний виклик `DMA_HEAP_IOC_ALLOC`
+## Команда `DMA_HEAP_IOC_ALLOC`
 
-Системний виклик кодується стандартним макросом `_IOWR`:
+Команда кодується стандартним макросом `_IOWR`:
 
 ```c
 #define DMA_HEAP_IOC_MAGIC 'H'
@@ -61,10 +61,10 @@ struct dma_heap_allocation_data {
 
 У разі успішного виконання виклик повертає `0`. При виникненні збою виклик повертає `-1`, а системна змінна `errno` встановлюється в одне з наступних значень:
 
-- `EINVAL`: неокруглений або нульовий розмір `len`, встановлені непідтримувані біти в `heap_flags`, або передано некоректні `fd_flags`.
+- `EINVAL`: нульовий розмір `len`, встановлені непідтримувані біти в `heap_flags` або некоректні `fd_flags` (дозволені лише `O_CLOEXEC` і біти режиму доступу). Некратний сторінці розмір помилки не дає — ядро округлює його саме.
 - `ENOMEM`: ядру не вистачило оперативної пам'яті для виділення сторінок або пул CMA надто фрагментований для виділення суцільного неперервного блоку.
 - `ENOTTY`: виклик `ioctl` виконано на дескрипторі файлу, який не належить підсистемі dma-buf heaps.
-- `EACCES` / `EPERM`: процес не має достатніх прав доступу на читання або запис для відкриття вузла пристрою в `/dev/dma_heap/`.
+- `EACCES` / `EPERM`: помилка не самого `ioctl`, а попереднього `open()` — процес не має прав на вузол пристрою в `/dev/dma_heap/`.
 - `EFAULT`: вказівник на структуру `dma_heap_allocation_data` посилається на недопустиму область віртуальної пам'яті процесу.
 
 ## Відображення буфера у простір користувача через `mmap()`
@@ -114,7 +114,12 @@ ioctl(dma_buf_fd, DMA_BUF_IOCTL_SYNC, &sync);
 struct msghdr msg = {0};
 struct cmsghdr *cmsg;
 char buf[CMSG_SPACE(sizeof(int))];
+char payload = 'F';
+struct iovec iov = { .iov_base = &payload, .iov_len = 1 };
 
+/* хоча б один байт корисних даних: без нього дескриптор не передасться */
+msg.msg_iov = &iov;
+msg.msg_iovlen = 1;
 msg.msg_control = buf;
 msg.msg_controllen = sizeof(buf);
 
@@ -170,7 +175,7 @@ int allocate_dma_buffer(const char *heap_path, size_t size) {
 ```
 ```cpp
 #include <iostream>
-#include <string_view>
+#include <string>
 #include <expected>
 #include <system_error>
 #include <fcntl.h>
@@ -213,8 +218,8 @@ public:
     }
 };
 
-std::expected<UniqueFd, std::error_code> allocate_dma_buffer(std::string_view heap_path, std::size_t size) {
-    UniqueFd heap_fd(::open(heap_path.data(), O_RDONLY | O_CLOEXEC));
+std::expected<UniqueFd, std::error_code> allocate_dma_buffer(const std::string& heap_path, std::size_t size) {
+    UniqueFd heap_fd(::open(heap_path.c_str(), O_RDONLY | O_CLOEXEC));
     if (!heap_fd.valid()) {
         return std::unexpected(std::error_code(errno, std::generic_category()));
     }

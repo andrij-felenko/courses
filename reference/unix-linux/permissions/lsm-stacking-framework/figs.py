@@ -51,7 +51,7 @@ def render():
     <!-- Active LSM Modules -->
     <rect x="380" y="345" width="340" height="85" fill="#f3e8fd" stroke="#7627bb" stroke-width="1.5" rx="6" />
     <text x="550" y="370" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#7627bb">Активні модулі безпеки (Stacked Modules)</text>
-    <text x="550" y="392" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3c4043">Yama → AppArmor → SELinux → BPF-LSM → Landlock</text>
+    <text x="550" y="392" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3c4043">Landlock → Yama → SELinux → BPF-LSM</text>
     <text x="550" y="412" font-family="sans-serif" font-size="11" font-style="italic" text-anchor="middle" fill="#5f6368">(Логічне "І": кожен модуль має дозволити)</text>
     
     <!-- Arrow LSM Hook -> Modules -->
@@ -89,9 +89,9 @@ def render():
     
     <!-- Module 1: Yama -->
     <rect x="210" y="70" width="140" height="180" fill="#e6f4ea" stroke="#137333" stroke-width="2" rx="6" />
-    <text x="280" y="98" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#137333">1. Yama LSM</text>
+    <text x="280" y="98" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#137333">1. Landlock</text>
     <line x1="220" y1="110" x2="340" y2="110" stroke="#137333" stroke-width="1" />
-    <text x="280" y="140" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#202124">Перевірка ptrace</text>
+    <text x="280" y="140" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#202124">Правила пісочниці</text>
     <rect x="230" y="180" width="100" height="35" fill="#ffffff" stroke="#137333" stroke-width="1.5" rx="4" />
     <text x="280" y="202" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#137333">ret = 0 (OK)</text>
     
@@ -100,9 +100,9 @@ def render():
     
     <!-- Module 2: AppArmor -->
     <rect x="390" y="70" width="140" height="180" fill="#e6f4ea" stroke="#137333" stroke-width="2" rx="6" />
-    <text x="460" y="98" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#137333">2. AppArmor</text>
+    <text x="460" y="98" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#137333">2. SELinux</text>
     <line x1="400" y1="110" x2="520" y2="110" stroke="#137333" stroke-width="1" />
-    <text x="460" y="140" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#202124">Перевірка шляху</text>
+    <text x="460" y="140" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#202124">Перевірка типів</text>
     <rect x="410" y="180" width="100" height="35" fill="#ffffff" stroke="#137333" stroke-width="1.5" rx="4" />
     <text x="460" y="202" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#137333">ret = 0 (OK)</text>
     
@@ -119,7 +119,7 @@ def render():
     
     <!-- Arrow M3 (blocked before Landlock) -->
     <line x1="710" y1="110" x2="750" y2="110" stroke="#dadce0" stroke-width="2" stroke-dasharray="4,4" />
-    <text x="835" y="114" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#70757a">(Landlock пропущено)</text>
+    <text x="835" y="114" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#70757a">(решту ланцюга пропущено)</text>
     
     <!-- Return Arrow / Short Circuit -->
     <path d="M 640 250 L 640 350 L 100 350 L 100 140" fill="none" stroke="#c5221f" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrow-red)" />
@@ -178,19 +178,19 @@ def render():
     <!-- AppArmor Slot -->
     <rect x="440" y="130" width="100" height="130" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.5" rx="4" />
     <text x="490" y="160" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a73e8">AppArmor</text>
-    <text x="490" y="185" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#3c4043">Offset: 4</text>
+    <text x="490" y="185" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#3c4043">Offset: 8</text>
     <text x="490" y="210" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#5f6368">label ptr</text>
     
     <!-- Landlock Slot -->
     <rect x="550" y="130" width="95" height="130" fill="#f3e8fd" stroke="#7627bb" stroke-width="1.5" rx="4" />
     <text x="597" y="160" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#7627bb">Landlock</text>
-    <text x="597" y="185" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#3c4043">Offset: 12</text>
+    <text x="597" y="185" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#3c4043">Offset: 16</text>
     <text x="597" y="210" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#5f6368">domain ptr</text>
     
     <!-- BPF-LSM Slot -->
     <rect x="655" y="130" width="85" height="130" fill="#fce8e6" stroke="#c5221f" stroke-width="1.5" rx="4" />
     <text x="697" y="160" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c5221f">BPF-LSM</text>
-    <text x="697" y="185" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#3c4043">Offset: 20</text>
+    <text x="697" y="185" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#3c4043">Offset: 24</text>
     <text x="697" y="210" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#5f6368">storage</text>
     
     <text x="540" y="282" font-family="sans-serif" font-size="11" font-style="italic" text-anchor="middle" fill="#5f6368">Загальний розмір вираховується при старті ядра через struct lsm_blob_sizes</text>

@@ -165,8 +165,8 @@ def fig_target_choice():
 
     p.append(fitbox(30, 316, 236, 74, "пастка процесора\nв самому потоці B\n(SIGSEGV, SIGFPE)", size=12,
                     fill=SOFT, stroke=INK, sw=1.8, color=INK))
-    p.append(arrow(270, 500, 620, 500, color=INK, sw=1.6))
     p.append(line(148, 392, 148, 500, color=INK, sw=1.6))
+    p.append(arrow(148, 500, 620, 500, color=INK, sw=1.6))
     p.append(text(660, 504, "завжди тому потокові, чия інструкція завинила",
                   size=12, color=INK, anchor="start"))
 

@@ -315,6 +315,7 @@ int main(int argc, char **argv)
 #include <cstring>
 #include <iostream>
 #include <set>
+#include <string>
 #include <string_view>
 #include <utility>
 
@@ -337,9 +338,8 @@ static void walk(Context &c, int dfd, std::string_view label, int depth)
     }
     int d = dirfd(dp);
 
-    struct dirent *e;
-    while (errno = 0, (e = readdir(dp)) != nullptr) {
-        std::string_view name(e->d_name);
+    struct dirent *e;    while (errno = 0, (e = readdir(dp)) != nullptr) {
+        std::string name(e->d_name);   // копія: буфер потоку живе до наступного readdir()
         if (name == "." || name == "..") {
             continue;
         }

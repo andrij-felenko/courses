@@ -15,7 +15,7 @@
 |---|---|---|
 | `policyconfig` | корінь, рівно раз | вміщує все інше |
 | `vendor`, `vendor_url`, `icon_name` | у корені або в `action` | хто автор і яку піктограму показати; у `action` перекриває загальне |
-| `action id="…"` | 0…n | оголошення дії; в `id` дозволені `[A-Z][a-z][0-9]`, крапка й дефіс |
+| `action id="…"` | 0…n | оголошення дії; в `id` дозволені `[A-Za-z0-9]`, крапка й дефіс |
 | `description` | в `action` | коротка назва дії для людини («Mount a filesystem») |
 | `message` | в `action` | речення, яке побачить людина у вікні пароля |
 | `defaults` | в `action` | типові відповіді для трьох кошиків обставин |
@@ -104,7 +104,7 @@ string   polkit.spawn(string[] argv);
 | `seat`, `session` | string | ідентифікатори [місця й сеансу за logind](book:unix-linux/logind-sessions-seats) |
 | `local` | boolean | `true`, лише якщо місце локальне |
 | `active` | boolean | `true`, лише якщо сеанс зараз активний |
-| `system_unit` | string | [юніт systemd](book:unix-linux/systemd-model), у якому живе процес; лише системний — процес із користувацького юніта віддасть тут `user-1000.service` |
+| `system_unit` | string | [юніт systemd](book:unix-linux/systemd-model), у якому живе процес; лише системний — процес із користувацького сеансу віддасть тут `user@1000.service` |
 | `no_new_privileges` | boolean | заповнене, лише якщо `system_unit` непорожнє: `true`, коли в юніті ввімкнено `NoNewPrivileges=` |
 | `isInGroup(name)` | boolean | членство у групі |
 | `isInNetGroup(name)` | boolean | членство в мережевій групі [через NSS](book:unix-linux/user-database-nss) |

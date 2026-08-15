@@ -76,9 +76,9 @@ def loop():
 def funnel():
     W, H = 1020, 640
     n0 = B(490, 95, "Суб'єкт S + ідентифікатор дії A", size=14, bold=True)
-    n1 = B(490, 205, "/etc/polkit-1/rules.d/*.rules\nправила адміністратора, за іменем файлу",
+    n1 = B(490, 205, "перше правило .rules\nусі теки разом, лексикографічно за назвою файлу",
            fill=AUTH_F, stroke=AUTH_S)
-    n2 = B(490, 320, "/usr/share/polkit-1/rules.d/*.rules\nправила, що прийшли з пакунками",
+    n2 = B(490, 320, "наступні правила, доки котресь\nне поверне не null",
            fill=AUTH_F, stroke=AUTH_S)
     n3 = B(490, 440, "<defaults> у файлі .policy\nallow_any · allow_inactive · allow_active",
            fill=FILL, stroke=LINE)

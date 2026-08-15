@@ -166,7 +166,7 @@ def fig_lifecycle():
     ]
     right = [
         "ct_group_ops->make_group()\nмодуль виділяє пам'ять, лічильник = 1",
-        "ca_store()\nтекст, не більше 4096 байтів",
+        "configfs_attribute->store()\nтекст, не більше 4096 байтів",
         "ct_item_ops->allow_link()\nмодуль запам'ятовує зв'язок",
         "перевірки: діти? посилання? залежності?",
     ]

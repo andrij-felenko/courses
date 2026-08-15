@@ -66,7 +66,7 @@ def fig_watermark_levels():
     # Блок про watermark_boost внизу
     p.append(rect(60, 600, 1080, 75, fill=PALE, stroke=LINE, sw=1.5, rx=8))
     p.append(text(80, 625, "Тимчасовий зсув (Watermark Boost):", size=13, color=INK, anchor="start", bold=True))
-    p.append(text(80, 652, "При невдалій фрагментації для високих порядків ядро тимчасово піднімає пороги WMARK_LOW та WMARK_HIGH, змушуючи kswapd працювати агресивніше.", size=12, color=MUTED, anchor="start"))
+    p.append(text(80, 652, "Коли в межах одного pageblock змішуються сторінки різної мобільності (зовнішня фрагментація), ядро тимчасово піднімає пороги WMARK_LOW та WMARK_HIGH, змушуючи kswapd працювати агресивніше.", size=12, color=MUTED, anchor="start"))
 
     render(os.path.join(OUT, "watermark-levels.svg"), W, H, *p,
            title="Рівні водяних знаків у зоні пам'яті Linux")

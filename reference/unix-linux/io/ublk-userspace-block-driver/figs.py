@@ -20,7 +20,7 @@ def render():
     svg_arch.append(text(410, 45, "Простір користувача (Userspace)", size=16, color="#2457d6", bold=True))
     
     # App and ublksrv boxes
-    b_app, _, _ = textbox(160, 130, "Покористувацький застосунок\n(FS / DB / Ввід-вивід)", size=13, pad=12, fill="#ffffff", stroke="#2457d6")
+    b_app, _, _ = textbox(160, 130, "Користувацький застосунок\n(FS / DB / Ввід-вивід)", size=13, pad=12, fill="#ffffff", stroke="#2457d6")
     svg_arch.append(b_app)
     
     b_srv, _, _ = textbox(620, 130, "Демон ublksrv\n(Target Logic / libublksrv)", size=13, pad=12, fill="#e8f0fe", stroke="#1a73e8", bold=True)
@@ -52,8 +52,8 @@ def render():
     svg_arch.append(arrow(620, 335, 620, 185, color="#c0392b", sw=2.0))
     svg_arch.append(arrow(600, 185, 600, 335, color="#2457d6", sw=2.0))
     
-    svg_arch.append(text(630, 250, "FETCH_REQ / COMMIT", size=11, color="#c0392b", anchor="start"))
-    svg_arch.append(text(590, 270, "IORING_OP_URING_CMD", size=11, color="#2457d6", anchor="end"))
+    svg_arch.append(text(630, 250, "CQE: метадані запиту", size=11, color="#c0392b", anchor="start"))
+    svg_arch.append(text(590, 270, "SQE: FETCH_REQ / COMMIT", size=11, color="#2457d6", anchor="end"))
 
     svg_arch.append("</svg>")
 
@@ -74,7 +74,7 @@ def render():
     b_pages, _, _ = textbox(390, 140, "Фізичні сторінки ядра\n(struct page / bio_vec)", size=13, pad=12, fill="#f9fbe7", stroke="#27ae60")
     svg_zc.append(b_pages)
 
-    b_target_buf, _, _ = textbox(670, 140, "Відображення в ublksrv\n(mmap / Registered Buffers)", size=13, pad=12, fill="#e8f0fe", stroke="#1a73e8")
+    b_target_buf, _, _ = textbox(670, 140, "Буфери демона ublksrv\n(io_uring registered bvec)", size=13, pad=12, fill="#e8f0fe", stroke="#1a73e8")
     svg_zc.append(b_target_buf)
 
     b_storage, _, _ = textbox(390, 360, "Апаратний накопичувач\n(NVMe SSD / Мережеве сховище)", size=14, pad=14, fill="#f4f6f8", stroke="#333333", bold=True)

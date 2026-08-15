@@ -73,7 +73,7 @@ def fig_csum_tree_structure():
            title="Організація зберігання контрольних сум у Btrfs")
 
 
-# ── 2. Контроль цілісності та Самоновлення (Self-Healing) ────────────────────
+# ── 2. Контроль цілісності та самовідновлення (Self-Healing) ─────────────────
 def fig_scrub_repair_flow():
     W, H = 1260, 720
     p = []
@@ -105,7 +105,7 @@ def fig_scrub_repair_flow():
 
     f_bad, wbad, hbad = textbox(rx, y3, [
         "Помилка хешу (Checksum Mismatch / Bit Rot!)",
-        "Дані пошкоджено! Генериться dmesg warning"
+        "Дані пошкоджено! Ядро пише попередження в dmesg"
     ], size=13, pad=14, fill=RED, stroke=POS, sw=1.5)
     p.append(f_bad)
 
@@ -123,14 +123,14 @@ def fig_scrub_repair_flow():
 
     y5 = 640
     f_repair2, wr2, hr2 = textbox(rx, y5, [
-        "3. Повернення валидних даних користувачу",
+        "3. Повернення валідних даних користувачеві",
         "4. Автоматичний перезапис пошкодженого сектора на Дзеркалі 1"
     ], size=13, pad=14, fill=GREEN, stroke=FIELD, bold=True)
     p.append(f_repair2)
     p.append(arrow(rx, y4 + hr1 / 2 + 6, rx, y5 - hr2 / 2 - 6))
 
     render(os.path.join(IMG, 'btrfs-scrub-repair-flow.svg'), W, H, *p,
-           title="Механізм перевірки контрольних сум та самоновлення (Self-Healing)")
+           title="Механізм перевірки контрольних сум та самовідновлення (Self-Healing)")
 
 
 # ── 3. Мапування чанків та профілі RAID ──────────────────────────────────────
@@ -143,7 +143,7 @@ def fig_raid_stripe_chunk_mapping():
 
     f_log, wl, hl = textbox(cx, y_log, [
         "Логічний простір адресації Btrfs (Logical Address Space)",
-        "Чанки: Data Chunk (1 ГБ) | Metadata Chunk (256 МБ)"
+        "Чанки: Data Chunk (1 ГіБ) | Metadata Chunk (256 МіБ)"
     ], size=14, pad=16, fill=BLUE, stroke=LINE, bold=True)
     p.append(f_log)
 

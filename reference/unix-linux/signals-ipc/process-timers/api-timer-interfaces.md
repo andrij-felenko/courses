@@ -182,7 +182,7 @@ int timerfd_gettime(int fd, struct itimerspec *curr_value);
 | `TFD_CLOEXEC` | `timerfd_create` | закрити дескриптор при `execve` |
 | `TFD_NONBLOCK` | `timerfd_create` | `read` не спатиме, а поверне `EAGAIN` |
 | `TFD_TIMER_ABSTIME` | `timerfd_settime` | в `it_value` лежить абсолютна мить, а не тривалість |
-| `TFD_TIMER_CANCEL_ON_SET` | `timerfd_settime` | (від 3.11) позначити таймер скасовним при стрибку календарного годинника; лише разом із `TFD_TIMER_ABSTIME` і лише для `CLOCK_REALTIME` чи `CLOCK_REALTIME_ALARM` |
+| `TFD_TIMER_CANCEL_ON_SET` | `timerfd_settime` | (від 2.6.30) позначити таймер скасовним при стрибку календарного годинника; лише разом із `TFD_TIMER_ABSTIME` і лише для `CLOCK_REALTIME` чи `CLOCK_REALTIME_ALARM` |
 
 Обидва прапорці створення з'явилися в Linux 2.6.27; у ядрах 2.6.26 і давніших `flags` мусив бути нулем.
 

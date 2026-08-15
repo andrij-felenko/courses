@@ -135,7 +135,7 @@ ADMINS PROD = (DB) SVC
 | `passwd_timeout` | `5` (хвилин) | скільки чекати на введення |
 | `targetpw`, `rootpw` | вимкнено | питати пароль **цілі** чи root замість вашого |
 | `lecture` | `once` | коротка настанова при першому запуску |
-| `mail_badpass` | увімкнено | слати листа про невдалу спробу пароля |
+| `mail_badpass` | вимкнено (дистрибутиви часто вмикають) | слати листа про невдалу спробу пароля |
 
 `requiretty` варто знати навіть тим, хто його не вмикає: в збірках Red Hat він роками стояв увімкненим, і саме він давав класичне `sorry, you must have a tty to run sudo` в задачах `cron`.
 
@@ -157,7 +157,7 @@ ADMINS PROD = (DB) SVC
 Дозвіл можна прив'язати не до імені файлу, а до його вмісту:
 
 ```
-Cmnd_Alias LS = sha256:EYGH2oNk1JC0p9679IMATo8+BT7JVDCd4sQaJQ== /usr/bin/ls
+Cmnd_Alias LS = sha256:EYGH2oNk1JC0p9679IMATo8+BT7JVDCd4sQaJQXHb0Y= /usr/bin/ls
 ```
 
 Приймаються `sha224`, `sha256`, `sha384` і `sha512`, значення — шістнадцяткове або base64. Порахувати:

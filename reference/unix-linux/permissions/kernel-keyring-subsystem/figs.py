@@ -24,7 +24,7 @@ def fig_kernel_keyring_arch():
     b2, _, _ = textbox(520, 115, "Системні виклики\nadd_key() / request_key() / keyctl()", size=13, fill="#fef3c7", stroke="#d97706", min_w=300)
     f.append(b2)
 
-    b3, _, _ = textbox(870, 115, "Демон підкачки\n/sbin/request-key (upcall)", size=13, fill="#fff", min_w=190)
+    b3, _, _ = textbox(870, 115, "Помічник upcall\n/sbin/request-key", size=13, fill="#fff", min_w=190)
     f.append(b3)
 
     f.append(arrow(250, 115, 370, 115))

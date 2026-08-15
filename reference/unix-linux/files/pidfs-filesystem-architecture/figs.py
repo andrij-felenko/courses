@@ -41,7 +41,7 @@ def fig_pidfs_architecture():
     p += box(60, 185, 390, 54, ["Гонка TOCTOU: процес 1234 помирає,", "а ядро виділяє PID 1234 процесу B"], size=13, fill=RED_FILL, stroke=POS)
     p.append(arrow(255, 239, 255, 274))
 
-    p += box(60, 274, 390, 64, ["kill(1234) нищить невинний процес B!", "Синхронізація відсутня"], size=14, bold=True, fill=RED_FILL, stroke=POS)
+    p += box(60, 274, 390, 64, ["kill(1234) нищить невинний процес B!", "Перевірка й дія розділені в часі"], size=14, bold=True, fill=RED_FILL, stroke=POS)
 
     # Права колонка — pidfs
     p += box(550, 90, 390, 60, ["Процес A отримує pidfd", "(pidfd_open або clone3)"], size=13, fill=FILL)
@@ -50,7 +50,7 @@ def fig_pidfs_architecture():
     p += box(550, 185, 390, 54, ["pidfd вказує на inode у pidfs", "з унікальним 64-бітним stx_ino"], size=13, fill=BLUE_FILL, stroke=NEG)
     p.append(arrow(745, 239, 745, 274))
 
-    p += box(550, 274, 390, 64, ["Смерть процесу не переносить inode:", "ioctl віддає ESRCH, а stx_ino не змінюється"], size=13, bold=True, fill=GREEN_FILL, stroke=FIELD)
+    p += box(550, 274, 390, 64, ["Смерть процесу не звільняє inode:", "ioctl віддає ESRCH, а stx_ino не змінюється"], size=13, bold=True, fill=GREEN_FILL, stroke=FIELD)
 
     p.append(text(500, 415, "pidfs гарантує незмінність посилання на struct pid на весь час життя inode", size=14, color=MUTED, italic=True))
 

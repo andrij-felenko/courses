@@ -116,7 +116,7 @@ mount -t zonefs -o errors=zone-ro,explicit-open /dev/sdb /mnt/z
 | запис не за кінцем файлу | дозволено | `EINVAL` |
 | зміщення чи довжина, не кратні блокові пристрою | `EINVAL` | `EINVAL` |
 | `mmap` з `MAP_SHARED` і правом запису | дозволено | `EINVAL` |
-| `RWF_NOWAIT` без `O_DIRECT` | `EINVAL` | `EINVAL` |
+| `RWF_NOWAIT` в асинхронному прямому записі | дозволено | `EOPNOTSUPP` |
 | `O_APPEND` | `EINVAL` | дозволено — і саме так безпечно |
 | запис, що починається за місткістю зони | `EFBIG` | `EFBIG` |
 | запис, що перетинає місткість зони | короткий запис | короткий запис |

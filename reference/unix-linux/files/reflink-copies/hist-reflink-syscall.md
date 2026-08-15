@@ -75,7 +75,7 @@ FICLONE = _IOW(0x94, 9, int)
 - [The reflink(2) system call, LWN.net, травень 2009](https://lwn.net/Articles/331576/) — доповідь Бекера на LSF і сама пропозиція.
 - [The reflink(2) system call, LWN.net](https://lwn.net/Articles/332802/) — склад латок, `reflinkat(2)`, вимога `CAP_CHOWN`, гачки LSM.
 - [OCFS2 Reflink Design Doc, oss.oracle.com, 20.11.2008](https://oss.oracle.com/osswiki/OCFS2/DesignDocs/Reflink.html) — дерево лічильників і походження операції з пошуку знімків окремих файлів.
-- [vfs: hoist reflink/dedupe ioctls to the VFS](https://lore.kernel.org/all/20160728192543.GA15740@birch.djwong.org/) — серія Дарріка Вонга, що дала `FICLONE`/`FICLONERANGE`/`FIDEDUPERANGE` у 4.5, з поясненням мотиву.
+- [vfs: hoist reflink/dedupe ioctls to the VFS](https://lore.kernel.org/all/20160728192543.GA15740@birch.djwong.org/) — серія Дарріка Вонга про підняття ioctl-ів клонування й дедуплікації на рівень VFS, з поясненням мотиву; імена `FICLONE`/`FICLONERANGE`/`FIDEDUPERANGE` влилися в 4.5.
 - [man2: document FICLONE and FICLONERANGE, 19.12.2015](https://patchwork.kernel.org/project/linux-fsdevel/patch/20151219085613.12660.75735.stgit@birch.djwong.org/) — момент, коли btrfs-івські номери дістали загальні імена.
 - [ioctl_ficlonerange(2), man7.org](https://man7.org/linux/man-pages/man2/ioctl_ficlonerange.2.html) — «раніше відомі як `BTRFS_IOC_CLONE` і `BTRFS_IOC_CLONE_RANGE` та приватні для Btrfs».
 - [copy_file_range(), LWN.net, жовтень 2015](https://lwn.net/Articles/659523/) — робота Брауна й Шумейкер та прапорці, зняті перед вливанням.

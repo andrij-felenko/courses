@@ -85,7 +85,7 @@ def fig_key_tree():
     p = [text(W / 2, 40, "що з чого виводять і що з цього лежить на носії відкрито",
               size=17, bold=True, color=INK)]
 
-    b, bw, bh = textbox(300, 110, ["головний ключ", "32–64 байти, тільки в пам'яті ядра"],
+    b, bw, bh = textbox(300, 110, ["головний ключ", "16–64 байти, тільки в пам'яті ядра"],
                         size=14.5, fill=RED_FILL, stroke=POS, sw=2.2)
     p.append(b)
     b2, bw2, bh2 = textbox(960, 110, ["nonce файлу", "16 випадкових байтів у xattr inode"],

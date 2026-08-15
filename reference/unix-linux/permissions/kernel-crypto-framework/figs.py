@@ -99,7 +99,7 @@ def render_async_req():
         text(278, 110, "encrypt()", size=10, color="#1976d2", bold=True),
 
         # Step 2: Queue req
-        fitbox(300, 95, 260, 45, "2. Ставка в чергу DMA rings\ncrypto_enqueue_request()", size=11, fill="#ffffff", stroke="#4caf50"),
+        fitbox(300, 95, 260, 45, "2. Постановка в чергу драйвера\ncrypto_enqueue_request()", size=11, fill="#ffffff", stroke="#4caf50"),
 
         # Arrow 2 -> 1 (EINPROGRESS)
         arrow(300, 155, 255, 155, color="#d32f2f", sw=2),
@@ -116,7 +116,7 @@ def render_async_req():
         text(575, 212, "DMA", size=10, color="#e65100", bold=True),
 
         # Step 5: Silicon calculation
-        fitbox(590, 200, 230, 50, "5. Апаратне шифрування\nв кремнії без участі ЦП", size=11, fill="#ffffff", stroke="#fb8c00"),
+        fitbox(590, 200, 230, 50, "5. Апаратне шифрування\nбез участі ЦП", size=11, fill="#ffffff", stroke="#fb8c00"),
 
         # Step 6: Hardware Interrupt
         arrow(590, 280, 560, 280, color="#e65100", sw=2),

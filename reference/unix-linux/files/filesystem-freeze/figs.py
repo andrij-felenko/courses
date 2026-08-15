@@ -43,11 +43,11 @@ def fig_freeze_levels():
          GRAY_FILL, MUTED, BG, INK),
         ("SB_FREEZE_WRITE\nперекрито виклики",
          "сторінкові збої запису в mmap\nвнутрішні потоки файлової системи",
-         "sync_filesystem():\nвивезти на носій усе,\nщо вже вирішено",
+         "чекати, поки вийдуть\nписарі, що вже\nвсередині",
          BLUE_FILL, NEG, BLUE_FILL, NEG),
         ("SB_FREEZE_PAGEFAULT\nперекрито збої",
          "внутрішні потоки файлової системи:\nзапис назад, фіксація журналу,\nвідкладене виділення блоків",
-         "sync_filesystem() ще раз:\nтепер немає кому\nдобрудити сторінки",
+         "sync_filesystem():\nззовні писати вже нікому —\nвивозимо все на носій",
          WARM_FILL, WARM, WARM_FILL, WARM),
         ("SB_FREEZE_FS\nперекрито внутрішнє",
          "ніхто",
@@ -69,8 +69,8 @@ def fig_freeze_levels():
 
     y_end = y0 + len(ROWS) * (bh + gap)
     p.append(fitbox(LX, y_end + 6, 1180, 66,
-                    "На кожній сходинці коло тих, хто ще може щось змінити, звужується — "
-                    "і залишок відразу вивозять на носій.\n"
+                    "На кожній сходинці коло тих, хто ще може щось змінити, звужується; "
+                    "скидання на носій одне — між зовнішніми бар'єрами й внутрішнім.\n"
                     "Розморожування знімає бар'єри у зворотному порядку, і черга писарів рушає далі.",
                     size=14, fill=BG, stroke=MUTED, sw=1.5, color=INK))
 
@@ -115,12 +115,13 @@ def fig_freeze_window():
     # смуга роботи ядра
     p.append(text(80, 445, "ядро", size=13, anchor="end", bold=True, color=MUTED))
     STAGES = [
-        (FREEZE_X, 130, "бар'єри", BLUE_FILL, NEG),
-        (FREEZE_X + 130, 180, "скидання на носій", WARM_FILL, WARM),
-        (FREEZE_X + 310, 170, "журнал дописано,\nсуперблок чистий", GREEN_FILL, FIELD),
+        (FREEZE_X, 110, "бар'єри", BLUE_FILL, NEG),
+        (FREEZE_X + 110, 140, "скидання на носій", WARM_FILL, WARM),
+        (FREEZE_X + 250, 120, "журнал дописано,\nсуперблок чистий", GREEN_FILL, FIELD),
     ]
     for x_from, w, label, fill, color in STAGES:
         p.append(fitbox(x_from, 418, w, 54, label, size=12, fill=fill, stroke=color, sw=1.5))
+    p.append(text(845, 449, "тиша", size=12, color=MUTED))
 
     # вісь часу
     p.append(line(AX0, BASE, AX1, BASE, color=INK, sw=1.8))

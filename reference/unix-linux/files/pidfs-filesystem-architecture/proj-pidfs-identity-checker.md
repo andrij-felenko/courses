@@ -1,10 +1,10 @@
 # ⚙️ Практичний аналізатор процесів на основі pidfs
 
-У цьому проєкті реалізовано консольну утиліту перевірки тотожності двох процесів через інспектування номерів inode в `pidfs`, витягування дескриптора Network Namespace через `ioctl` та читанні бінарних метаданих процесу без звернення до Віртуальної файлової системи `/proc`.
+У цьому проєкті реалізовано консольну утиліту перевірки тотожності двох процесів через інспектування номерів inode в `pidfs`, витягування дескриптора Network Namespace через `ioctl` та читання бінарних метаданих процесу без звернення до Віртуальної файлової системи `/proc`.
 
 ## Опис задачі та архітектура рішення
 
-Системним демонам та контейнерним супервізорам (системам на кшталт `containerd`, `runc` чи `systemd`) часто необхідно перевірити, чи посилаються дві процедури або два дескриптори на один і той самий процес у системі. Застосування традиційних системних викликів над чисельним PID не дає жодних гарантій через можливість перевикористання ідентифікаторів (англ. *PID recycling*).
+Системним демонам та контейнерним супервізорам (системам на кшталт `containerd`, `runc` чи `systemd`) часто необхідно перевірити, чи посилаються два дескриптори на один і той самий процес у системі. Застосування традиційних системних викликів над чисельним PID не дає жодних гарантій через можливість перевикористання ідентифікаторів (англ. *PID recycling*).
 
 Коли один процес помирає, ядро Linux вивільняє його чисельний PID і через деякий час може віддати його новому процесу. Якщо наглядач намагається надіслати сигнал або перевірити стан процесу за чисельним PID, виникає гонка між перевіркою та використанням (англ. *Time-of-Check to Time-of-Use*, TOCTOU).
 
@@ -12,17 +12,17 @@
 1. Відкриває дескриптори `pidfd` для двох заданих чисельних PID за допомогою системного виклику `pidfd_open(2)`.
 2. Запитує атрибути файлової системи через виклик `statx()` для кожного `pidfd` і порівнює атрибути `stx_dev` та `stx_ino`. Збіг цих двох полів гарантує тотожність двох процесів на рівні об'єкта ядра `struct pid`.
 3. Запитує дескриптор Network Namespace цільового процесу безпосередньо з його `pidfd` через `ioctl(pidfd, PIDFD_GET_NET_NAMESPACE, 0)`. Це дозволяє отримати доступ до мережевого простору процесу без читання шляхів `/proc/<pid>/ns/net`.
-4. Викликає `ioctl(pidfd, PIDFD_GET_INFO, &info)` для швидкого бінарного зчитування ефективного UID, батьківського PPID та часу запуску процесу без накладних витрат на форматування й парсинг текстових файлів.
+4. Викликає `ioctl(pidfd, PIDFD_GET_INFO, &info)` для швидкого бінарного зчитування ефективного UID, батьківського PPID та ідентифікатора cgroup v2 без накладних витрат на форматування й парсинг текстових файлів.
 
 ## Механізми системних викликів та перевірка прав
 
-Системний виклик `pidfd_open(pid, flags)` є основною точкою входу для отримання дескриптора процесу. На архітектурі x86_64 цей системний виклик має номер 434. Першим аргументом передається чисельний PID цільового процесу у контексті поточного PID namespace викликача. Другим аргументом передаються прапорці (наразі зарезервовано `0`). При успіху виклик повертає новий файловий дескриптор, що посилається на об'єкт у псевдофайловій системі `pidfs`.
+Системний виклик `pidfd_open(pid, flags)` є основною точкою входу для отримання дескриптора процесу. На архітектурі x86_64 цей системний виклик має номер 434. Першим аргументом передається чисельний PID цільового процесу у контексті поточного PID namespace викликача. Другим аргументом передаються прапорці: `0` для звичайного дескриптора процесу, `PIDFD_NONBLOCK` (Linux 5.10+) для неблокувального режиму, `PIDFD_THREAD` (Linux 6.9+) для дескриптора окремого потоку. При успіху виклик повертає новий файловий дескриптор, що посилається на об'єкт у псевдофайловій системі `pidfs`.
 
 Для отримання атрибутів файлової системи утиліта використовує розширений системний виклик `statx(fd, "", AT_EMPTY_PATH, STATX_INO, &stx)`. Прапорець `AT_EMPTY_PATH` наказує ядрові працювати безпосередньо з відкритим файловим дескриптором `fd`, ігноруючи аргумент шляху. Маска `STATX_INO` запитує номер індексу `inode`. Файлова система `pidfs` гарантує, що `stx_ino` є унікальним 64-бітним цілим числом, яке залишається незмінним упродовж усього життєвого циклу об'єкта `struct pid`.
 
 Отримання дескриптора простору імен через `ioctl(pidfd, PIDFD_GET_NET_NAMESPACE, 0)` перевіряє права доступу викликача. Ядро звертається до внутрішньої функції `ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS)`. Якщо процес-викликач намагається отримати простір імен процесу з іншими ідентифікаторами UID/GID або з іншого простору користувачів (User Namespace), він мусить мати привілей `CAP_SYS_PTRACE`. Якщо привілеїв недостатньо, `ioctl` повертає помилку `EPERM`.
 
-Для отримання метаданих через `PIDFD_GET_INFO` структура `struct pidfd_info` заповнюється маскою бажаних полів (`PIDFD_INFO_PID`, `PIDFD_INFO_PPID`, `PIDFD_INFO_CREDENT`). Виклик заповнює поля `pid`, `ppid`, `euid`, `egid` та 64-бітний ідентифікатор контрольної групи `cgroupid` v2. Це дозволяє утиліті миттєво з'ясувати статус процесу в cgroup v2 без читання файлу `/proc/<pid>/cgroup`.
+Для отримання метаданих через `PIDFD_GET_INFO` структура `struct pidfd_info` заповнюється маскою бажаних полів (`PIDFD_INFO_PID`, `PIDFD_INFO_CREDS`, `PIDFD_INFO_CGROUPID`). Виклик заповнює поля `pid`, `ppid`, `euid`, `egid` та 64-бітний ідентифікатор контрольної групи `cgroupid` v2. Це дозволяє утиліті миттєво з'ясувати статус процесу в cgroup v2 без читання файлу `/proc/<pid>/cgroup`.
 
 ## Реалізація аналізатора
 
@@ -47,7 +47,7 @@
 #endif
 
 #ifndef PIDFS_IOCTL_MAGIC
-#define PIDFS_IOCTL_MAGIC 0x70
+#define PIDFS_IOCTL_MAGIC 0xFF
 #endif
 
 #ifndef PIDFD_GET_NET_NAMESPACE
@@ -61,15 +61,19 @@ struct pidfd_info {
     __u32 pid;
     __u32 tgid;
     __u32 ppid;
+    __u32 ruid;
+    __u32 rgid;
     __u32 euid;
     __u32 egid;
-    __u64 start_time;
-    __u64 spare[11];
+    __u32 suid;
+    __u32 sgid;
+    __u32 fsuid;
+    __u32 fsgid;
+    __s32 exit_code;
 };
-#define PIDFD_GET_INFO _IOWR(PIDFS_IOCTL_MAGIC, 9, struct pidfd_info)
-#define PIDFD_INFO_PID (1U << 1)
-#define PIDFD_INFO_PPID (1U << 3)
-#define PIDFD_INFO_CREDENT (1U << 4)
+#define PIDFD_GET_INFO _IOWR(PIDFS_IOCTL_MAGIC, 11, struct pidfd_info)
+#define PIDFD_INFO_PID   (1U << 0)  /* pid, tgid, ppid */
+#define PIDFD_INFO_CREDS (1U << 1)  /* ruid/rgid, euid/egid, suid/sgid, fsuid/fsgid */
 #endif
 
 static int open_pidfd(pid_t pid) {
@@ -138,7 +142,7 @@ int main(int argc, char *argv[]) {
     /* Отримання метаданих через PIDFD_GET_INFO */
     struct pidfd_info info;
     memset(&info, 0, sizeof(info));
-    info.mask = PIDFD_INFO_PID | PIDFD_INFO_PPID | PIDFD_INFO_CREDENT;
+    info.mask = PIDFD_INFO_PID | PIDFD_INFO_CREDS;
     if (ioctl(fd1, PIDFD_GET_INFO, &info) >= 0) {
         printf("Метадані PIDFD_GET_INFO: PID=%u, PPID=%u, EUID=%u, EGID=%u\n",
                info.pid, info.ppid, info.euid, info.egid);
@@ -158,6 +162,8 @@ int main(int argc, char *argv[]) {
 #include <string_view>
 #include <cstdlib>
 #include <cstring>
+#include <cstdint>
+#include <cerrno>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/syscall.h>
@@ -174,13 +180,13 @@ constexpr long sys_pidfd_open_nr = SYS_pidfd_open;
 #endif
 
 #ifndef PIDFS_IOCTL_MAGIC
-constexpr unsigned int pidfs_magic = 0x70;
+constexpr unsigned int pidfs_magic = 0xFF;
 #else
 constexpr unsigned int pidfs_magic = PIDFS_IOCTL_MAGIC;
 #endif
 
 #ifndef PIDFD_GET_NET_NAMESPACE
-#define PIDFD_GET_NET_NAMESPACE _IO(0x70, 4)
+#define PIDFD_GET_NET_NAMESPACE _IO(0xFF, 4)
 #endif
 
 struct pidfd_info_layout {
@@ -189,14 +195,19 @@ struct pidfd_info_layout {
     std::uint32_t pid;
     std::uint32_t tgid;
     std::uint32_t ppid;
+    std::uint32_t ruid;
+    std::uint32_t rgid;
     std::uint32_t euid;
     std::uint32_t egid;
-    std::uint64_t start_time;
-    std::uint64_t spare[11];
+    std::uint32_t suid;
+    std::uint32_t sgid;
+    std::uint32_t fsuid;
+    std::uint32_t fsgid;
+    std::int32_t  exit_code;
 };
 
 #ifndef PIDFD_GET_INFO
-#define PIDFD_GET_INFO _IOWR(0x70, 9, pidfd_info_layout)
+#define PIDFD_GET_INFO _IOWR(0xFF, 11, pidfd_info_layout)
 #endif
 
 class process_handle {
@@ -229,8 +240,8 @@ public:
 
     [[nodiscard]] int get() const noexcept { return fd_; }
 
-    [[nodiscard]] ::struct statx fetch_statx() const {
-        ::struct statx stx{};
+    [[nodiscard]] struct statx fetch_statx() const {
+        struct statx stx{};
         if (::statx(fd_, "", AT_EMPTY_PATH, STATX_INO, &stx) < 0) {
             throw std::system_error(errno, std::generic_category(), "statx on pidfd failed");
         }
@@ -247,7 +258,7 @@ public:
 
     [[nodiscard]] pidfd_info_layout get_info() const {
         pidfd_info_layout info{};
-        info.mask = (1U << 1) | (1U << 3) | (1U << 4); // PID | PPID | CREDENT
+        info.mask = (1U << 0) | (1U << 1); // PIDFD_INFO_PID | PIDFD_INFO_CREDS
         if (::ioctl(fd_, PIDFD_GET_INFO, &info) < 0) {
             throw std::system_error(errno, std::generic_category(), "PIDFD_GET_INFO failed");
         }
@@ -326,28 +337,28 @@ int main(int argc, char* argv[]) {
 
 Для глибокого розуміння роботи підсистеми `pidfs` корисно простежити виконання утиліти за допомогою утиліти трасування системних викликів `strace`.
 
-Під час відкриття дескрипторів `pidfd` ядро відображає їх на унікальні індекси у внутрішній файловій системі `pidfs`. Оскільки `pidfs` є анонімною псевдофайловою системою, ядро присвоює їй бекграундний пристрій з мажором `0` (структура `makedev(0, minor)`). При зверненні до файлових дескрипторів у `/proc/<pid>/fd/` VFS будує анонімні символьні посилання виду `pidfs:[<ino>]`, де в дужках зазначається унікальний 64-бітний номер inode. Це дозволяє спостерігати прив'язку дескрипторів до єдиної псевдофайлової системи під час трасування системних викликів.
+Під час відкриття дескрипторів `pidfd` ядро відображає їх на унікальні індекси у внутрішній файловій системі `pidfs`. Оскільки `pidfs` є анонімною псевдофайловою системою, ядро присвоює їй анонімний пристрій з мажором `0` (`makedev(0, minor)`). При зверненні до файлових дескрипторів у `/proc/<pid>/fd/` VFS будує символьні посилання виду `pidfd:[<ino>]`, де в дужках зазначається унікальний 64-бітний номер inode. Це дозволяє спостерігати прив'язку дескрипторів до єдиної псевдофайлової системи під час трасування системних викликів.
 
 При запуску команди `strace -e pidfd_open,statx,ioctl ./pidfs_checker 1234 1234` системний трасувальник виведе наступну послідовність викликів ядра:
 
 ```text
 pidfd_open(1234, 0)                     = 3
 pidfd_open(1234, 0)                     = 4
-statx(3, "", AT_EMPTY_PATH, STATX_INO, {stx_mask=STATX_INO, stx_dev=makedev(0, 0x33), stx_ino=140737488355328}) = 0
-statx(4, "", AT_EMPTY_PATH, STATX_INO, {stx_mask=STATX_INO, stx_dev=makedev(0, 0x33), stx_ino=140737488355328}) = 0
-ioctl(3, _IO(0x70, 0x4), 0)             = 5
-ioctl(3, _IOWR(0x70, 0x9, 0x7fff...), {mask=PIDFD_INFO_PID|..., pid=1234}) = 0
+statx(3, "", AT_EMPTY_PATH, STATX_INO, {stx_mask=STATX_INO, stx_dev=makedev(0, 0x33), stx_ino=5147}) = 0
+statx(4, "", AT_EMPTY_PATH, STATX_INO, {stx_mask=STATX_INO, stx_dev=makedev(0, 0x33), stx_ino=5147}) = 0
+ioctl(3, _IO(0xff, 0x4), 0)             = 5
+ioctl(3, _IOWR(0xff, 0xb, 0x7fff...), {mask=PIDFD_INFO_PID|..., pid=1234}) = 0
 ```
 
 З трасування чітко видно дві важливі архітектурні деталі:
-- Обидва виклики `pidfd_open` повернули окремі файлові дескриптори (`3` та `4`), але обидва дескриптори посилаються на анонімний пристрій `makedev(0, 0x33)` файлової системи `pidfs` і мають ідентичний `stx_ino=140737488355328`.
-- При огляді каталогу `/proc/self/fd/3` за допомогою символьних посилань операційна система виведе спеціальний шлях виду `anon_inode:[pidfs]` або `pidfs:[140737488355328]`, підтверджуючи, що дескриптор належить внутрішній псевдофайловій системі `pidfs`.
+- Обидва виклики `pidfd_open` повернули окремі файлові дескриптори (`3` та `4`), але обидва дескриптори посилаються на анонімний пристрій `makedev(0, 0x33)` файлової системи `pidfs` і мають ідентичний `stx_ino=5147`.
+- При огляді каталогу `/proc/self/fd/3` за допомогою символьних посилань операційна система виведе спеціальний шлях виду `pidfd:[5147]` (у ядрах до 6.9 — `anon_inode:[pidfd]`), підтверджуючи, що дескриптор належить внутрішній псевдофайловій системі `pidfs`.
 
 ## Поведінка при багатопотоковості та у зомбі-станах
 
 При практичному використанні утиліти слід враховувати поведінку `pidfs` у двох крайових випадках:
 
-1. **Багатопотокові процеси (TID проти TGID).** У ядрі Linux кожен потік виконання має власний `struct task_struct` та власне число TID. Системний виклик `pidfd_open(pid, flags)` за замовчуванням відкриває дескриптор для лідера групи потоків (TGID). Якщо спробувати відкрити `pidfd` для окремого дочірнього потоку, системний виклик `pidfd_open` повертає помилку `EINVAL`, оскільки `pidfs` призначена для ідентифікації повноцінних процесів, а не окремих ниток виконання.
+1. **Багатопотокові процеси (TID проти TGID).** У ядрі Linux кожен потік виконання має власний `struct task_struct` та власне число TID. Системний виклик `pidfd_open(pid, flags)` за замовчуванням відкриває дескриптор для лідера групи потоків (TGID). Якщо передати TID дочірнього потоку без прапорців, `pidfd_open` повертає помилку `EINVAL`; починаючи з Linux 6.9 дескриптор окремого потоку відкривається прапорцем `PIDFD_THREAD`.
 2. **Процеси в стані зомбі (Zombie processes).** Якщо цільовий процес завершив виконання (викликав `exit_group`), але його батько ще не зчитав статус через `waitpid`, процес перебуває в стані зомбі. Виклик `pidfd_open` для такого PID завершується успішно, а `statx()` віддає дійсний `stx_ino`. Проте спроба викликати `ioctl(pidfd, PIDFD_GET_NET_NAMESPACE, 0)` повертає помилку `ESRCH`, оскільки структури просторів імен процесу вже розформовано ядром.
 
 ## Очікуваний вивід утиліти
@@ -366,5 +377,5 @@ PID 1234: dev=(0,51), ino=140737488355328
 
 ## Пастки реалізації та особливості операційної системи
 
-1. **Права доступу PTRACE.** Спроба витягти дескриптори просторів імен через `PIDFD_GET_NET_NAMESPACE` або інші команди групи вимагає привілею `CAP_SYS_PTRACE` щодо цільового процесу. Якщо програма запускається від звичайного користувача для чужого процесу, `ioctl` поверне помилку `EPERM`.
+1. **Права доступу PTRACE.** Спроба витягти дескриптори просторів імен через `PIDFD_GET_NET_NAMESPACE` або інші команди групи вимагає права трасувати ціль. Для процесу з тими самими обліковими даними воно є в звичайного користувача; для чужого процесу потрібен `CAP_SYS_PTRACE`, інакше `ioctl` поверне помилку `EPERM`.
 2. **Поведінка після завершення процесу.** Якщо процес помер, виклики `ioctl` над `pidfd` повертають помилку `ESRCH` (процес відсутній). Проте системний виклик `statx()` продовжує віддавати оригінальні `stx_dev` та `stx_ino`. Це дозволяє перевірити тотожність процесу навіть після його завершення.

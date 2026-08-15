@@ -88,10 +88,10 @@ def fig_two_compilations():
     cols = [
         (lcx, NEG, BLUE_FILL, "cc -m32",
          ["off_t — 4 байти", "lseek(…) → символ lseek",
-          "struct stat — вузька", "стеля файлу — 2 ГіБ"]),
+          "struct stat — вузька", "стеля типу — 2 ГіБ"]),
         (rcx, FIELD, GREEN_FILL, "cc -m32 -D_FILE_OFFSET_BITS=64",
          ["off_t — 8 байтів", "lseek(…) → символ lseek64",
-          "struct stat — широка", "стеля файлу — 8 ЕіБ"]),
+          "struct stat — широка", "стеля типу — 8 ЕіБ"]),
     ]
     for cx, col, fill, head, rows in cols:
         b, _, _ = textbox(cx, 190, head, size=14, fill=fill, stroke=col,

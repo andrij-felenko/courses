@@ -71,7 +71,7 @@ def fig_label_vs_path():
     p = []
 
     p.append(fitbox(60, 120, 300, 160,
-                    "inode 1049601\n\nsecurity.selinux =\n…:httpd_sys_content_t",
+                    "inode 2359303\n\nsecurity.selinux =\n…:httpd_sys_content_t",
                     size=15, fill=BLUE_FILL, stroke=NEG))
     p.append(text(210, 312, "один об'єкт, два імені", size=14, color=MUTED))
 

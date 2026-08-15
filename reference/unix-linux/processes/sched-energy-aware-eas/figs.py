@@ -103,7 +103,7 @@ def draw_eas_wakeup_flow():
     # Step 3: Compute candidate energy
     frags.append(rect(530, 170, 240, 60, fill="#f4f6f7", stroke="#34495e", sw=1.5, rx=6))
     frags.append(text(650, 192, "Обчислення compute_energy()", size=13, bold=True))
-    frags.append(text(650, 212, "E_candidate = ∑ Power(OPP) · Util", size=12, color=MUTED))
+    frags.append(text(650, 212, "E_candidate = ∑ Power(OPP) доменів", size=12, color=MUTED))
 
     # Arrow left to Step 4
     frags.append(arrow(650, 230, 650, 280, color=LINE))
@@ -154,7 +154,7 @@ def draw_overutilized_state():
     # big cores box (idle)
     frags.append(rect(50, 240, 310, 85, fill="#f5f5f5", stroke=MUTED, sw=1.5, rx=6))
     frags.append(text(205, 270, "Кластер big — СПИТЬ (C-state / CPU Idle)", size=13, bold=True, color=MUTED))
-    frags.append(text(205, 295, "0 мВт споживання струму", size=12, color=POS, bold=True))
+    frags.append(text(205, 295, "Споживання близьке до нуля", size=12, color=POS, bold=True))
 
     # Mode 2: Overutilized (Spreading)
     frags.append(rect(420, 60, 350, 290, fill="#fdf2e9", stroke=POS, sw=1.8, rx=8))

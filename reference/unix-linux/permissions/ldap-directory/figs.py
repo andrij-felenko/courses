@@ -47,6 +47,7 @@ def fig_entry_and_tree():
     f.append(rect(560, 56, 640, 300, fill="#fbfcfe"))
     lines = [
         "dn: uid=andrij,ou=people,dc=firma,dc=ua",
+        "objectClass: inetOrgPerson",
         "objectClass: posixAccount",
         "objectClass: shadowAccount",
         "uid: andrij",
@@ -72,7 +73,7 @@ def fig_entry_and_tree():
                     size=13, fill="#eef7f0", stroke=FIELD))
 
     render(os.path.join(OUT, 'entry-and-tree.svg'), W, H, *f,
-           title="Дерево імен каталогу і запис облікового рахунку")
+           title="Дерево імен каталогу і той самий запис зсередини")
 
 
 def fig_search_then_bind():

@@ -53,10 +53,10 @@ mount -t incfs /tmp/incfs_backing /tmp/incfs_mount
 ### 2. Отримання дескрипторів та розмежування доступу
 Демон відкриває два критичні файлові дескриптори:
 - Дескриптор на псевдофайл `/tmp/incfs_mount/.pending_reads` для зчитування сповіщень ядра про відсутні блоки.
-- Дескриптор самого каталогу `/tmp/incfs_mount` (із прапором `O_DIRECTORY`) для виконання системних команд `ioctl`.
+- Дескриптор самого каталогу `/tmp/incfs_mount` (із прапором `O_DIRECTORY`) — через нього демон відкриває потрібний файл за його File ID у підкаталозі `.index`. Саму команду `INCFS_IOC_FILL_BLOCKS` подають уже на дескриптор цього файлу: структура заповнення не містить File ID, тож файл визначає саме дескриптор.
 
 ### 3. Групове заповнення блоків (Batching)
-Для оптимізації продуктивності та зменшення кількості системних викликів команда `INCFS_IOC_FILL_BLOCKS` дозволяє передавати масив заповнюваних блоків у сукупності. Поле `count` у структурі `incfs_fill_blocks` може вказувати на масив із 16, 32 або 64 блоків, які завантажено з мережі в одному пакеті. Це знижує накладні витрати на переключення контексту ядра при високошвидкісному потоковому завантаженні.
+Для оптимізації продуктивності та зменшення кількості системних викликів команда `INCFS_IOC_FILL_BLOCKS` дозволяє передати масив блоків одним викликом. Усі блоки такого масиву належать тому самому файлу — тому, чий дескриптор передано в `ioctl`. Поле `count` у структурі `incfs_fill_blocks` може вказувати на масив із 16, 32 або 64 блоків, які завантажено з мережі в одному пакеті. Це знижує накладні витрати на переключення контексту ядра при високошвидкісному потоковому завантаженні.
 
 ### 4. Багатопотоковість та неблокуюче введення-виведення
 У реальних виробничих умовах (Android `IncrementalService`) один потік очікування подій розподіляє запити по пулу робочих потоків (*worker thread pool*). Це дозволяє паралельно завантажувати десятки блоків через незалежні HTTP-з'єднання. Для забезпечення найвищої швидкості файлові дескриптори відкриваються із прапорцем `O_NONBLOCK`.
@@ -110,7 +110,7 @@ struct incfs_fill_blocks {
 
 #define BLOCK_SIZE 4096
 
-static int fill_single_block(int incfs_dir_fd, uint32_t block_idx) {
+static int fill_single_block(int incfs_file_fd, uint32_t block_idx) {
     uint8_t buffer[BLOCK_SIZE];
     /* Заповнюємо тестовий блок 4KB впізнаваним паттерном 'A' */
     memset(buffer, 'A', BLOCK_SIZE);
@@ -129,7 +129,7 @@ static int fill_single_block(int incfs_dir_fd, uint32_t block_idx) {
         .fill_blocks = (uint64_t)(uintptr_t)&fb
     };
 
-    if (ioctl(incfs_dir_fd, INCFS_IOC_FILL_BLOCKS, &fbs) < 0) {
+    if (ioctl(incfs_file_fd, INCFS_IOC_FILL_BLOCKS, &fbs) < 0) {
         perror("ioctl INCFS_IOC_FILL_BLOCKS failed");
         return -errno;
     }
@@ -186,7 +186,19 @@ int main(int argc, char *argv[]) {
                        (unsigned long long)req.file_id_low,
                        req.block_index);
 
-                fill_single_block(dir_fd, req.block_index);
+                char id_path[64];
+                snprintf(id_path, sizeof(id_path), ".index/%016llx%016llx",
+                         (unsigned long long)req.file_id_high,
+                         (unsigned long long)req.file_id_low);
+
+                int file_fd = openat(dir_fd, id_path, O_RDWR | O_CLOEXEC);
+                if (file_fd < 0) {
+                    perror("Не вдалося відкрити файл за File ID");
+                    continue;
+                }
+
+                fill_single_block(file_fd, req.block_index);
+                close(file_fd);
             }
         }
     }
@@ -205,6 +217,7 @@ int main(int argc, char *argv[]) {
 #include <span>
 #include <memory>
 #include <expected>
+#include <format>
 #include <system_error>
 #include <filesystem>
 #include <fcntl.h>
@@ -275,7 +288,7 @@ struct IncfsFillBlocks {
     uint64_t fill_blocks;
 };
 
-#define INCFS_IOC_FILL_BLOCKS_CPP _IOW(kIncfsIoctlBase, 2, IncfsFillBlocks)
+#define INCFS_IOC_FILL_BLOCKS _IOW(kIncfsIoctlBase, 2, IncfsFillBlocks)
 
 class IncfsDaemon {
     UniqueFd pending_fd_;
@@ -299,7 +312,16 @@ public:
         return IncfsDaemon(UniqueFd(pfd), UniqueFd(dfd));
     }
 
-    std::expected<void, std::error_code> fill_block(uint32_t block_index, std::span<const uint8_t> data) {
+    std::expected<void, std::error_code> fill_block(const PendingReadInfo& req, std::span<const uint8_t> data) {
+        // Заповнення подають на дескриптор самого файлу: IncfsFillBlock не містить File ID.
+        // Тому файл відкриваємо за його ідентифікатором у каталозі .index.
+        const auto id_path = std::format(".index/{:016x}{:016x}", req.file_id_high, req.file_id_low);
+        UniqueFd file_fd{::openat(dir_fd_.get(), id_path.c_str(), O_RDWR | O_CLOEXEC)};
+        if (!file_fd.valid()) {
+            return std::unexpected(std::error_code(errno, std::generic_category()));
+        }
+
+        const uint32_t block_index = req.block_index;
         IncfsFillBlock fb{
             .block_index = block_index,
             .data_len = static_cast<uint32_t>(data.size()),
@@ -311,7 +333,7 @@ public:
             .fill_blocks = reinterpret_cast<uint64_t>(&fb)
         };
 
-        if (::ioctl(dir_fd_.get(), INCFS_IOC_FILL_BLOCKS_CPP, &fbs) < 0) {
+        if (::ioctl(file_fd.get(), INCFS_IOC_FILL_BLOCKS, &fbs) < 0) {
             return std::unexpected(std::error_code(errno, std::generic_category()));
         }
 
@@ -345,7 +367,7 @@ public:
                     std::cout << "[IncFS Daemon C++] Запит блоку: Index=" << req.block_index 
                               << ", Timestamp=" << req.timestamp_us << "us\n";
 
-                    if (auto res = fill_block(req.block_index, dummy_payload); !res) {
+                    if (auto res = fill_block(req, dummy_payload); !res) {
                         std::cerr << "[IncFS Daemon C++] Не вдалося заповнити блок: " 
                                   << res.error().message() << '\n';
                     }
@@ -385,18 +407,18 @@ int main(int argc, char* argv[]) {
 При реалізації виробничих сервісів заповнення блоків IncFS виникає кілька критичних інженерних пасток:
 
 ### 1. Взаємне блокування (Deadlock) демона
-Якщо потік виконання самого демона спробує відкрити або прочитати інкрементальний файл, який сам же й обслуговує, до заповнення відсутнього блоку, потік демона заблокується у ядрі. Це призводить до мертвої петлі: демон чекає сам на себе. 
+Якщо потік виконання самого демона спробує відкрити або прочитати інкрементальний файл, який сам же й обслуговує, до заповнення відсутнього блоку, потік демона заблокується у ядрі. Це і є взаємне блокування: демон чекає сам на себе. 
 
-Для уникнення цього демон повинен працювати виключно з викликами `ioctl` над дескриптором каталогу або відкривати файли за допомогою нижньорівневих ідентифікаторів у папці `.index` із прапором `O_NOATIME`.
+Для уникнення цього демон відкриває файл лише за його File ID у каталозі `.index` і ніколи не читає його вміст: усе, що він робить із цим дескриптором, — це `ioctl` заповнення, який ніде не чекає на відсутні блоки.
 
-### 2. Вирівнювання пам'яті та розміри блоків
-Команда `INCFS_IOC_FILL_BLOCKS` приймає блоки розміром 4096 байт (або кратні сторінці ядра). Спроба передати некратну кількість байтів повертає системну помилку `EINVAL`. Буфери пам'яті у користувацькому просторі повинні бути вирівняні по межі сторінки (`posix_memalign` або `std::aligned_alloc`).
+### 2. Розміри блоків і межа файлу
+Команда `INCFS_IOC_FILL_BLOCKS` приймає блоки рівно по 4096 байтів. Виняток лише один — останній блок файлу: він може бути коротшим, і в `data_len` слід передати його справжню довжину. Некоректний `data_len` або індекс блоку поза межами файлу дають `EINVAL`.
 
 ### 3. Багатопоточність та конкурентний доступ
 Якщо кілька потоків прикладного додатку одночасно читають різні блоки того самого файлу, ядро Linux генерує кілька подій у `.pending_reads`. Демон повинен обробляти події у паралельних робочих потоках (*thread pool*), щоб уникнути затримок читання для користувача.
 
 ### 4. Обробка помилок мережевого з'єднання
-При втраті мережевого зв'язку демон повинен коректно обробляти ситуацію неможливості доставлення блоку. Замість вічного блокування чи виходу з ладу, демон може передати порожній або спеціально розмічений блок помилки, щоб ядро розблокувало потік читача з відповідним кодом помилки `EIO`.
+При втраті мережевого зв'язку демон повинен коректно обробляти ситуацію неможливості доставлення блоку. Спеціального «блоку помилки» в IncFS немає. Якщо блок доставити не вдалося, демон просто не заповнює його, і читача звільняє таймаут `read_timeout_ms`: `read()` завершиться помилкою `ETIME`, а звернення через `mmap` дістане `SIGBUS`. Підсовувати замість даних сміття не можна — воно або не пройде перевірку за деревом Меркла, або потрапить у гру як пошкоджений ресурс.
 
 ### 5. Методика тестування та верифікації через strace
 Для аналізу взаємодії демона з ядром та перевірки часу реакції застосовується інструмент `strace`:

@@ -98,11 +98,14 @@ def generate_pre_content_hsm():
     out.append(text(520, 105, "ALLOW", size=11, color="#d97706", anchor="middle"))
 
     # Від PRE_CONTENT вниз або від CONTENT до дозволу/відмови
-    out.append(line(380, 160, 380, 280, color="#16a34a", sw=2))
-    out.append(text(390, 220, "FAN_ALLOW", size=11, color="#16a34a", anchor="start", bold=True))
+    # Обидва вердикти виносить клас CONTENT — доступ надається лише після сканування
+    out.append(line(600, 160, 600, 230, color="#16a34a", sw=2))
+    out.append(line(600, 230, 380, 230, color="#16a34a", sw=2))
+    out.append(line(380, 230, 380, 280, color="#16a34a", sw=2))
+    out.append(text(470, 214, "FAN_ALLOW", size=11, color="#16a34a", anchor="middle", bold=True))
 
-    out.append(line(660, 160, 660, 280, color=POS, sw=2))
-    out.append(text(670, 220, "FAN_DENY", size=11, color=POS, anchor="start", bold=True))
+    out.append(line(700, 160, 700, 280, color="#dc2626", sw=2))
+    out.append(text(710, 214, "FAN_DENY", size=11, color="#dc2626", anchor="start", bold=True))
 
     out.append('</svg>')
     return '\n'.join(out)
