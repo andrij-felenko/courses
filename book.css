@@ -1185,3 +1185,15 @@ html[data-libview="one"] .lib-seg { display: none; }
 .c-badge.draft { background: var(--eng-bg); color: var(--eng-color); border: 1px solid var(--eng-border); }
 .sb-link.draft { opacity: 0.74; }
 .draft-note { font-size: 0.86rem; color: var(--eng-color); background: var(--eng-bg); border-left: 3px solid var(--eng-border); border-radius: 0 7px 7px 0; padding: 0.5rem 0.95rem; margin: 0 0 1.5rem; }
+
+
+/* Позначка «beta»: написано конвеєром, людина ще не перечитала (recheck/update/deeper).
+   Читається як усе інше — позначка лише попереджає, що текст можуть поправити. */
+.beta-tag {
+  font-size: .68em; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  padding: .05em .38em; margin-left: .45em; border-radius: .5em; vertical-align: .12em;
+  color: #8a5a00; background: #ffeec2; border: 1px solid #f0d089;
+}
+@media (prefers-color-scheme: dark) {
+  .beta-tag { color: #ffd98a; background: #4a3a12; border-color: #6b5520; }
+}

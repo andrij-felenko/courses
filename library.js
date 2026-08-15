@@ -1,3 +1,5 @@
+/* Написано ⟺ файл існує: done | update | deeper | recheck (три останні — beta, читаються). */
+function _readable(s) { return s === "done" || s === "update" || s === "deeper" || s === "recheck"; }
 /* ============================================================================
    library.js — стартова сторінка-«бібліотека»: Курси · Книги · Каталоги · Довідники.
    Реєстр — window.SUBJECT_BOOKS / GUIDE_COURSES / CATALOG_BOOKS / REFERENCE_BOOKS (books-index.js).
@@ -103,7 +105,7 @@
           if (READ.has(subj + "/" + sl)) read++;
         } else if (st.slug) {
           art++;
-          if ((st.basic && st.basic.status === "done") || (st.detailed && st.detailed.status === "done")) ownDone++;
+          if ((st.basic && _readable(st.basic.status)) || (st.detailed && _readable(st.detailed.status))) ownDone++;
           if (READ.has(slug + "/" + st.slug)) read++;
         }
       }

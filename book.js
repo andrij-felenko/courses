@@ -39,7 +39,11 @@
   function chHref(slug, at, ver) { return "#ch=" + slug + (at ? "&at=" + at : "") + verSuffix(ver); }
   function chReadable(c) { return !!(c.hasBasic || c.hasDetailed); }                                  // є що читати (будь-яка версія)
   function chVisible(c) { return chReadable(c) || c.status === "pending" || c.dstatus === "pending"; } // показати (або «незабаром»)
-  function menuVer(c) { return c.hasDetailed ? "d" : ""; }                                            // відкриття зі списку книги → повна, якщо є
+  function menuVer(c) { return c.hasDetailed ? "d" : ""; }
+  /* Написано, але людина ще не перечитала (recheck / update / deeper). Читається як усе інше —
+     позначка лише каже читачеві, що текст іще можуть поправити. Прапорець c.draft рахувався
+     від початку (див. індексацію), але його ніхто не малював. */
+  function betaTag(c) { return c.draft ? ' <span class="beta-tag">beta</span>' : ""; }                                            // відкриття зі списку книги → повна, якщо є
 
   // типи спец-вставок (підтем): історія / математика / компонент / практика
   var SPEC_META = {
@@ -941,7 +945,7 @@
         if (!chVisible(c)) return;
         if (c.slug) {
           var active = c.slug === chap.slug;
-          s += '<a class="sb-link' + (active ? " active" : "") + readClass(c.slug) + '" href="' + chHref(c.slug, null, active ? currentVer : menuVer(c)) + '">' + escapeHtml(c.title) + "</a>";
+          s += '<a class="sb-link' + (active ? " active" : "") + readClass(c.slug) + '" href="' + chHref(c.slug, null, active ? currentVer : menuVer(c)) + '">' + escapeHtml(c.title) + betaTag(c) + "</a>";
           if (active) s += sbSections(chap, sections);   // § поточної статті під активним рядком
         } else {
           s += '<span class="sb-link soon">' + escapeHtml(c.title) + "</span>";
@@ -1133,7 +1137,7 @@
         if (!chVisible(c)) return;   // ні тексту, ні «в планах» → не показуємо
         if (c.slug) {   // є текст → читабельне (зі списку книги відкриваємо повну, якщо є)
           h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row"><a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '">' +
-            '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
+            '<span class="c-ttl">' + escapeHtml(c.title) + betaTag(c) + "</span>" +
             '<span class="c-go">→</span></a></div></div>';
         } else {
           h += '<div class="ch-item pending"><div class="ch-row"><span class="c-ttl">' + escapeHtml(c.title) +
@@ -1153,7 +1157,7 @@
       s += sbGroupOpen(m.title, escapeHtml(m.title));
       m.chapters.forEach(function (c) {
         if (!chVisible(c)) return;
-        if (c.slug) s += '<a class="sb-link' + readClass(c.slug) + '" href="' + chHref(c.slug, null, menuVer(c)) + '">' + escapeHtml(c.title) + "</a>";
+        if (c.slug) s += '<a class="sb-link' + readClass(c.slug) + '" href="' + chHref(c.slug, null, menuVer(c)) + '">' + escapeHtml(c.title) + betaTag(c) + "</a>";
         else s += '<span class="sb-link soon">' + escapeHtml(c.title) + "</span>";
       });
       s += sbGroupClose();
@@ -1162,7 +1166,7 @@
   }
 
   function coverHtml(topics) {
-    var doneCount = FLAT.filter(function (c) { return c.status === "done"; }).length;
+    var doneCount = FLAT.filter(chReadable).length;
     var h = '<header class="ch-header ch-header-guide"><div class="ch-label">' + (BOOK.type === "catalog" ? "Каталог · довідник заліза" : "Курс · " + BOOK.modules.length + " модулів") + '</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
       '<header class="cover-hero cover-hero-guide"><p>' + escapeHtml(BOOK.subtitle) + "</p>" +
       '<div class="cover-stats">' +
@@ -1171,21 +1175,21 @@
 
     h += mapToolbar(false) + '<div class="toc">';
     BOOK.modules.forEach(function (m) {
-      var done = m.chapters.filter(function (c) { return c.status === "done"; }).length;
+      var done = m.chapters.filter(chReadable).length;
       h += '<div class="module-block' + (isCollapsed(m.title) ? " collapsed" : "") + '"><div class="module-head" data-collapse-group="' + escapeAttr(m.title) + '">' +
         '<span class="m-caret" aria-hidden="true">▾</span><span class="m-num">Модуль ' + m.n + "</span>" +
         '<span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
         '<span class="m-prog">' + done + " / " + m.chapters.length + ' готово</span></div><div class="ch-list">';
       m.chapters.forEach(function (c) {
         var mr = m.n + "." + c.n;
-        if (c.status === "done") {
+        if (chReadable(c)) {
           var entry = topics[mr] || { topics: [], specs: [] };
           var tops = entry.topics || [], specs = entry.specs || [];
           var tid = "tp-" + mr.replace(/\./g, "-");
           var btnLabel = plTopics(tops.length) + (specs.length ? " · " + specs.length + " вставок" : "");
           h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row">' +
             '<a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '"><span class="c-num">' + mr + "</span>" +
-            '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
+            '<span class="c-ttl">' + escapeHtml(c.title) + betaTag(c) + "</span>" +
             '<span class="c-go">→</span></a>';
           if (tops.length || specs.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + btnLabel + "</button>";
           h += "</div>";
@@ -1226,8 +1230,8 @@
     BOOK.modules.forEach(function (m) {
       s += sbGroupOpen(m.title, "Модуль " + m.n + " · " + escapeHtml(m.title));
       m.chapters.forEach(function (c) {
-        if (c.status === "done") {
-          s += '<a class="sb-link' + readClass(c.slug) + '" href="' + chHref(c.slug, null, menuVer(c)) + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
+        if (chReadable(c)) {
+          s += '<a class="sb-link' + readClass(c.slug) + '" href="' + chHref(c.slug, null, menuVer(c)) + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + betaTag(c) + "</a>";
         } else {
           s += '<span class="sb-link soon">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</span>";
         }
