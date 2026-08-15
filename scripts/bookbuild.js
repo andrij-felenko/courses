@@ -32,6 +32,11 @@
   /* book/<subject> або guide/<course> (та сама схема §2 v4) → формат рушія BOOK.
      Версія доступна читачу ⟺ її статус "done" (basic → chapter.status; detailed → chapter.full).
      Крок-`ref` у guide не має slug → відсіюємо (це не стаття, а вказівник; рендериться окремо в renderGuide). */
+  /* Написано ⟺ файл існує. Рушій (book.js) уже так і рахує: done | update | deeper | recheck —
+     усе це наявний текст, просто три останні позначаються чернеткою. Адаптер мусив казати те
+     саме, інакше стаття зі статусом recheck зникає з лінків і не має «повної версії». */
+  function _written(s) { return s === "done" || s === "update" || s === "deeper" || s === "recheck"; }
+
   function adaptSubjectBook(b, dir) {
     if (!b) return null;
     dir = dir || "book/";
@@ -48,7 +53,7 @@
             return {
               n: j + 1, title: t.title, status: (t.basic && t.basic.status) || "empty",
               dir: sec.slug + "/" + t.slug, main: t.slug + ".md",
-              full: !!(t.detailed && t.detailed.status === "done"),   // існує повна -d.md версія (done)
+              full: !!(t.detailed && _written(t.detailed.status)),    // існує повна -d.md версія
               dstatus: (t.detailed && t.detailed.status) || "empty",  // статус детальної (для single-link fallback)
               histories: files(t.hist),                               // 📜 → попапи
               extras: files(t.comp).concat(files(t.math), files(t.proj), files(t.api)) // 🔌🧮⚙️📋 → попапи
@@ -93,7 +98,7 @@
         if (!x.book) return;
         (x.book.sections || x.book.modules || []).forEach(function (sec) {
           (sec.topics || []).forEach(function (t) {
-            if (t && t.slug && ((t.basic && t.basic.status === "done") || (t.detailed && t.detailed.status === "done"))) written[x.sj + "/" + t.slug] = true;
+            if (t && t.slug && ((t.basic && _written(t.basic.status)) || (t.detailed && _written(t.detailed.status)))) written[x.sj + "/" + t.slug] = true;
           });
         });
       });
@@ -102,7 +107,7 @@
 
     function isWritten(s, written) {
       if (s.ref) { var pr = String(s.ref).split("/").filter(Boolean); return !!written[pr[0] + "/" + pr[pr.length - 1]]; }
-      if (s.slug) return (s.basic && s.basic.status === "done") || (s.detailed && s.detailed.status === "done");
+      if (s.slug) return (s.basic && _written(s.basic.status)) || (s.detailed && _written(s.detailed.status));
       return false;
     }
 

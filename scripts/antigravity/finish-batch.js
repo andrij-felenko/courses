@@ -15,10 +15,13 @@
      1. Ганяє gate.js по кожній темі. Хоч одна не готова → НІЧОГО не пише.
      2. Складає операції з ДИСКУ (диск — джерело правди: агент міг дописати
         вставку, про яку в журналі нічого нема):
-          детальна на диску  → detailed: done
-          базова на диску    → basic: done
+          детальна на диску  → detailed: recheck
+          базова на диску    → basic: recheck
           базової нема       → basic: pending → empty (лише якщо стояло pending)
-          кожна вставка      → insert … done
+          кожна вставка      → insert … recheck
+        Саме recheck, а не done: конвеєр свою частину скінчив, але людина тексту
+        ще не бачила. Рушій показує такі статті як чернетку — вони читаються й
+        лишаються на очах. У done переводить людина. Перекрити: AG_WRITTEN_STATUS.
      3. Додає теми з черги scripts/_finish/_ag-newtopics-<книга>.json як
         basic:empty + detailed:pending — і позначає чергу відпрацьованою.
      4. Кличе manifest-patch.js (він валідує результат і сам відмовиться псувати файл).
@@ -79,6 +82,12 @@ if (gateCode !== 0) {
 }
 console.log(`✓ усі ${dirs.length} тем пройшли всі 17 перевірок`);
 
+/* Статус, який дістає щойно написане. НЕ "done": конвеєр закінчив свою частину, але текст
+   ще не бачила людина, а «написано» і «перевірено» — різні речі. "recheck" означає рівно це:
+   стаття читається (рушій показує її як чернетку), лишається в полі зору й чекає людського
+   ока. У "done" її переводить людина, а не батч. */
+const WRITTEN_STATUS = process.env.AG_WRITTEN_STATUS || "recheck";
+
 /* ── 2. операції з диску ───────────────────────────────────────────────────── */
 const ops = [];
 const seen = [];
@@ -117,16 +126,16 @@ for (const dir of dirs) {
       const match = content.match(/^#\s+(.+)$/m);
       if (match) title = match[1].trim();
     }
-    ops.push({ op: "topic", section, slug, title, basic: hasB ? "done" : "empty", detailed: hasD ? "done" : "pending" });
+    ops.push({ op: "topic", section, slug, title, basic: hasB ? WRITTEN_STATUS : "empty", detailed: hasD ? WRITTEN_STATUS : "pending" });
     existingSlugs.add(slug);
   }
 
-  if (hasD) ops.push({ op: "status", slug, ver: "detailed", status: "done" });
-  if (hasB) ops.push({ op: "status", slug, ver: "basic", status: "done" });
+  if (hasD) ops.push({ op: "status", slug, ver: "detailed", status: WRITTEN_STATUS });
+  if (hasB) ops.push({ op: "status", slug, ver: "basic", status: WRITTEN_STATUS });
   else ops.push({ op: "status-if", slug, ver: "basic", from: "pending", to: "empty" });
   files.filter((f) => /^(hist|comp|math|proj|api)-/.test(f)).forEach((f) =>
-    ops.push({ op: "insert", slug, type: f.split("-")[0], file: f, status: "done", section }));
-  seen.push(`${slug}: детальна ${hasD ? "done" : "—"} · базова ${hasB ? "done" : "empty"} · вставок ${files.filter((f) => /^(hist|comp|math|proj|api)-/.test(f)).length}`);
+    ops.push({ op: "insert", slug, type: f.split("-")[0], file: f, status: WRITTEN_STATUS, section }));
+  seen.push(`${slug}: детальна ${hasD ? WRITTEN_STATUS : "—"} · базова ${hasB ? WRITTEN_STATUS : "empty"} · вставок ${files.filter((f) => /^(hist|comp|math|proj|api)-/.test(f)).length}`);
 }
 
 /* ── 3. черга нових тем ────────────────────────────────────────────────────── */
