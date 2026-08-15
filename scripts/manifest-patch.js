@@ -85,16 +85,15 @@ const findTopicLine = (slug) => lines.findIndex((l) =>
 /** Секція/модуль: рядок зі slug і `scope:` (це відрізняє секцію від теми), масив може відкриватися
     у цьому ж або в наступних рядках — повертаємо {open, key}. */
 function findSectionArray(sec) {
-  let si = lines.findIndex((l) => new RegExp(`\\{\\s*(?:n:\\s*\\d+,\\s*)?slug:\\s*"${esc(sec)}"`).test(l) && /\bscope:/.test(l));
-  if (si < 0) {
-    si = lines.findIndex((l) => new RegExp(`^\\s*"?slug"?\\s*:\\s*"${esc(sec)}"`).test(l));
-  }
-  if (si < 0) return null;
-  for (let i = si; i < Math.min(si + 6, lines.length); i++) {
-    const key = /\b"?topics"?\s*:\s*\[/.test(lines[i]) ? "topics"
-      : /\b"?steps"?\s*:\s*\[/.test(lines[i]) ? "steps"
-      : /\b"?chapters"?\s*:\s*\[/.test(lines[i]) ? "chapters" : null;
-    if (key) return { open: i, key, head: si };
+  for (let i = 0; i < lines.length; i++) {
+    if (new RegExp(`^\\s*"?slug"?\\s*:\\s*"${esc(sec)}"`).test(lines[i]) || new RegExp(`\\{\\s*(?:n:\\s*\\d+,\\s*)?slug:\\s*"${esc(sec)}"`).test(lines[i])) {
+      for (let j = i; j < Math.min(i + 15, lines.length); j++) {
+        const key = /\b"?topics"?\s*:\s*\[/.test(lines[j]) ? "topics"
+          : /\b"?steps"?\s*:\s*\[/.test(lines[j]) ? "steps"
+          : /\b"?chapters"?\s*:\s*\[/.test(lines[j]) ? "chapters" : null;
+        if (key) return { open: j, key, head: i };
+      }
+    }
   }
   return null;
 }
