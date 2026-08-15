@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="400.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Алгоритм BFS-розфарбовування вершин за рівнями відстані</text>
+<rect x="40.0" y="65.0" width="780.0" height="80.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="120.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Рівень d = 0
+(Колір 0)</text>
+<circle cx="260.0" cy="105.0" r="20.0" fill="#eaf0fd" stroke="#2563eb" stroke-width="2.0"/>
+<text x="260.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">r</text>
+<rect x="40.0" y="160.0" width="780.0" height="90.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="120.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Рівень d = 1
+(Колір 1)</text>
+<circle cx="260.0" cy="205.0" r="20.0" fill="#e9f7ef" stroke="#16a34a" stroke-width="2.0"/>
+<text x="260.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">a</text>
+<circle cx="440.0" cy="205.0" r="20.0" fill="#e9f7ef" stroke="#16a34a" stroke-width="2.0"/>
+<text x="440.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">b</text>
+<circle cx="660.0" cy="205.0" r="20.0" fill="#e9f7ef" stroke="#16a34a" stroke-width="2.0"/>
+<text x="660.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">c</text>
+<rect x="40.0" y="265.0" width="780.0" height="90.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="120.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Рівень d = 2
+(Колір 0)</text>
+<circle cx="260.0" cy="310.0" r="20.0" fill="#eaf0fd" stroke="#2563eb" stroke-width="2.0"/>
+<text x="260.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">d</text>
+<circle cx="440.0" cy="310.0" r="20.0" fill="#eaf0fd" stroke="#2563eb" stroke-width="2.0"/>
+<text x="440.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">e</text>
+<circle cx="660.0" cy="310.0" r="20.0" fill="#eaf0fd" stroke="#2563eb" stroke-width="2.0"/>
+<text x="660.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">f</text>
+<line x1="260.0" y1="125.0" x2="260.0" y2="185.0" stroke="#475569" stroke-width="1.8"/>
+<line x1="277.5" y1="114.7" x2="422.5" y2="195.3" stroke="#475569" stroke-width="1.8"/>
+<line x1="279.4" y1="109.9" x2="640.6" y2="200.1" stroke="#475569" stroke-width="1.8"/>
+<line x1="260.0" y1="225.0" x2="260.0" y2="290.0" stroke="#475569" stroke-width="1.8"/>
+<line x1="440.0" y1="225.0" x2="440.0" y2="290.0" stroke="#475569" stroke-width="1.8"/>
+<line x1="660.0" y1="225.0" x2="660.0" y2="290.0" stroke="#475569" stroke-width="1.8"/>
+<line x1="460.0" y1="205.0" x2="640.0" y2="205.0" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="4 3"/>
+<rect x="449.1" y="166.0" width="201.8" height="18.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="550.0" y="196.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Ребро (b, c) однакового Кольору 1!</tspan></text>
+<text x="440.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-style="italic">Правило: ребра між d і d+1 завжди з'єднують протилежні кольори. Ребро в межах одного рівня d руйнує двочастковість.</text>
+</svg>

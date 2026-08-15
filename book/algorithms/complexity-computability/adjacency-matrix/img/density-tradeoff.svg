@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-22.2 -10 929.4 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-22.2" y="-10" width="929.4" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залежність витрат пам'яті від щільності графа</text>
+<rect x="50.0" y="40.0" width="780.0" height="360.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<line x1="130.0" y1="340.0" x2="790.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="130.0" y1="340.0" x2="130.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="460.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Щільність графа ρ = M / N²  (0 = розріджений, 1 = повний) →</text>
+<text x="85.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Пам'ять
+(байти)</text>
+<line x1="130.0" y1="223.0" x2="790.0" y2="223.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="800.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Матриця O(N²)</text>
+<line x1="130.0" y1="308.8" x2="790.0" y2="119.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="800.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Список O(N + M)</text>
+<circle cx="428.4" cy="223.0" r="6.0" fill="#ffffff" stroke="#e08a1e" stroke-width="2.5"/>
+<line x1="428.4" y1="223.0" x2="428.4" y2="340.0" stroke="#e08a1e" stroke-width="1.3" stroke-dasharray="4 4"/>
+<text x="428.4" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">ρ ≈ 12-15%</text>
+<rect x="90.0" y="412.0" width="700.0" height="45.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="440.0" y="430.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Для розріджених графів (ρ &lt; 10%) список суміжності значно економніший за пам'яттю.</tspan><tspan x="440.0" dy="15.6">Для щільних графів (ρ &gt; 20%) матриця суміжності виграє за рахунок відсутності оверхеду вказівників.</tspan></text>
+</svg>

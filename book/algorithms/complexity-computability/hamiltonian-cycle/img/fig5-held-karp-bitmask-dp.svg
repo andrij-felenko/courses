@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="430.0" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="420.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Динамічне програмування з бітовими масками (Held-Karp): DP[S][v]</text>
+<rect x="157.0" y="59.0" width="525.9" height="32.0" rx="6" fill="#e6fffa" stroke="#0d9488" stroke-width="1.5"/><text x="420.0" y="79.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">dp[mask][v] = ⋁ { dp[mask \ {v}][u] ∧ HasEdge(u, v) }  для  u ∈ mask</tspan></text>
+<text x="110.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Розмір |S| = 1</text>
+<rect x="476.4" y="114.5" width="47.3" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="500.0" y="133.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">{v₀}</tspan></text>
+<text x="110.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Розмір |S| = 2</text>
+<rect x="347.7" y="194.5" width="74.6" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="385.0" y="213.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">{v₀, v₁}</tspan></text>
+<rect x="462.7" y="194.5" width="74.6" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="500.0" y="213.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">{v₀, v₂}</tspan></text>
+<rect x="577.7" y="194.5" width="74.6" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="615.0" y="213.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="615.0" dy="0.0">{v₀, v₃}</tspan></text>
+<text x="110.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Розмір |S| = 3</text>
+<rect x="334.1" y="274.5" width="101.8" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="385.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">{v₀, v₁, v₂}</tspan></text>
+<rect x="449.1" y="274.5" width="101.8" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="500.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">{v₀, v₁, v₃}</tspan></text>
+<rect x="564.1" y="274.5" width="101.8" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="615.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="615.0" dy="0.0">{v₀, v₂, v₃}</tspan></text>
+<text x="110.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Розмір |S| = N</text>
+<rect x="425.2" y="354.5" width="149.6" height="31.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="500.0" y="373.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">{v₀, v₁, ..., vₙ₋₁}</tspan></text>
+<line x1="500.0" y1="145.0" x2="385.0" y2="195.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="500.0" y1="145.0" x2="500.0" y2="195.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="500.0" y1="145.0" x2="615.0" y2="195.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="385.0" y1="225.0" x2="385.0" y2="275.0" stroke="#0d9488" stroke-width="2.0"/>
+<line x1="500.0" y1="225.0" x2="385.0" y2="275.0" stroke="#0d9488" stroke-width="2.0"/>
+<line x1="615.0" y1="225.0" x2="615.0" y2="275.0" stroke="#0d9488" stroke-width="2.0"/>
+<rect x="660.0" y="115.0" width="155.0" height="290.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="737.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Особливості</text>
+<text x="672.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">Часова складність:</text>
+<text x="672.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="start" font-weight="700">O(2ⁿ · n²)</text>
+<text x="672.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">Просторова пам'ять:</text>
+<text x="672.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="start" font-weight="700">O(2ⁿ · n)</text>
+<text x="672.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">Максимальний n:</text>
+<text x="672.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="start" font-weight="700">n ≤ 30..32</text>
+<text x="672.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">Прискорення від n!:</text>
+<text x="672.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="start" font-weight="700">в ~10¹² разів</text>
+</svg>

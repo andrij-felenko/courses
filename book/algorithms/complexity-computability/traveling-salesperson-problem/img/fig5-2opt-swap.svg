@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="400.0" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="420.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Локальна оптимізація 2-Opt: ліквідація самоперетинів ребер</text>
+<rect x="40.0" y="65.0" width="350.0" height="320.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="215.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">До 2-Opt: Перетин ребер (неоптимально)</text>
+<line x1="100.0" y1="150.0" x2="330.0" y2="310.0" stroke="#dc2626" stroke-width="3.0"/>
+<line x1="100.0" y1="310.0" x2="330.0" y2="150.0" stroke="#dc2626" stroke-width="3.0"/>
+<circle cx="215.0" cy="230.0" r="6.0" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text x="215.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Перетин!</text>
+<circle cx="100.0" cy="150.0" r="16.0" fill="#ffffff" stroke="#dc2626" stroke-width="2.0"/>
+<text x="100.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">U</text>
+<circle cx="330.0" cy="310.0" r="16.0" fill="#ffffff" stroke="#dc2626" stroke-width="2.0"/>
+<text x="330.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">V</text>
+<circle cx="100.0" cy="310.0" r="16.0" fill="#ffffff" stroke="#dc2626" stroke-width="2.0"/>
+<text x="100.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">X</text>
+<circle cx="330.0" cy="150.0" r="16.0" fill="#ffffff" stroke="#dc2626" stroke-width="2.0"/>
+<text x="330.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Y</text>
+<text x="215.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Довжина: d(U,V) + d(X,Y) = 18.4 + 18.4 = 36.8</text>
+<line x1="400.0" y1="225.0" x2="455.0" y2="225.0" stroke="#d97706" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="428.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">2-Opt Swap</text>
+<rect x="470.0" y="65.0" width="340.0" height="320.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="640.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Після 2-Opt: Паралельні ребра (розплетено)</text>
+<line x1="530.0" y1="150.0" x2="760.0" y2="150.0" stroke="#16a34a" stroke-width="3.0"/>
+<line x1="530.0" y1="310.0" x2="760.0" y2="310.0" stroke="#16a34a" stroke-width="3.0"/>
+<circle cx="530.0" cy="150.0" r="16.0" fill="#ffffff" stroke="#16a34a" stroke-width="2.0"/>
+<text x="530.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">U</text>
+<circle cx="760.0" cy="310.0" r="16.0" fill="#ffffff" stroke="#16a34a" stroke-width="2.0"/>
+<text x="760.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">V</text>
+<circle cx="530.0" cy="310.0" r="16.0" fill="#ffffff" stroke="#16a34a" stroke-width="2.0"/>
+<text x="530.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">X</text>
+<circle cx="760.0" cy="150.0" r="16.0" fill="#ffffff" stroke="#16a34a" stroke-width="2.0"/>
+<text x="760.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Y</text>
+<text x="640.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Довжина: d(U,Y) + d(X,V) = 11.5 + 11.5 = 23.0</text>
+</svg>

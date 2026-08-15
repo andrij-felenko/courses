@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 670 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="670" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="640.0" height="330.0" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="330.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема двоспостережуваних літералів (2-Watched Literals)</text>
+<text x="330.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Структура диз'юнкта C = (x₁ ∨ x₂ ∨ ¬x₃ ∨ x₄) та динаміка вказівників w₁, w₂</text>
+<rect x="45.5" y="108.4" width="108.9" height="63.2" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="100.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">Літерал 0</tspan><tspan x="100.0" dy="15.6">x₁</tspan><tspan x="100.0" dy="15.6">[Невизначено]</tspan></text>
+<rect x="162.1" y="108.4" width="115.8" height="63.2" rx="6" fill="#fde8e8" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Літерал 1</tspan><tspan x="220.0" dy="15.6">x₂</tspan><tspan x="220.0" dy="15.6">[Хибно (x₂=0)]</tspan></text>
+<rect x="285.5" y="108.4" width="108.9" height="63.2" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Літерал 2</tspan><tspan x="340.0" dy="15.6">¬x₃</tspan><tspan x="340.0" dy="15.6">[Невизначено]</tspan></text>
+<rect x="405.5" y="108.4" width="108.9" height="63.2" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="460.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Літерал 3</tspan><tspan x="460.0" dy="15.6">x₄</tspan><tspan x="460.0" dy="15.6">[Невизначено]</tspan></text>
+<line x1="100.0" y1="240.0" x2="100.0" y2="185.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="100.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">w₁ (Спостережуваний 1)</text>
+<line x1="220" y1="240" x2="220" y2="185" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+<text x="220.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Старий w₂ (x₂ стало 0!)</text>
+<path d="M 220 275 C 220 320, 460 320, 460 185" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="455.0" y1="195.0" x2="460.0" y2="185.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="340.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пошук нового не-хибного літерала → новий w₂ на x₄</text>
+</svg>

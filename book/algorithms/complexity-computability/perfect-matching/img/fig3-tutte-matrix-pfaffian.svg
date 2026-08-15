@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-509.57 -10 1473.14 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-509.57" y="-10" width="1473.14" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="400.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Алгебраїчна теорія: Матриця Тутте T(G) та фафіан Pf(T)</text>
+<rect x="25.0" y="60.0" width="405.0" height="330.0" rx="8" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="227.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7e22ce" text-anchor="middle" font-weight="700">Символьна матриця Тутте T(G)</text>
+<text x="227.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">┌                                   ┐
+│    0     x₁₂    -x₃₁    0    │
+│  -x₁₂     0      x₂₃   x₂₄   │
+│   x₃₁   -x₂₃      0     0    │
+│    0    -x₂₄      0     0    │
+└                                   ┘</text>
+<rect x="98.5" y="294.5" width="257.1" height="61.0" rx="6" fill="#ffffff" stroke="#7e22ce" stroke-width="1.5"/><text x="227.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="227.0" dy="0.0">• T[i,j] =  x[i,j]  якщо i &lt; j та (i,j) ∈ E</tspan><tspan x="227.0" dy="13.0">• T[i,j] = -x[j,i]  якщо i &gt; j та (i,j) ∈ E</tspan><tspan x="227.0" dy="13.0">• T[i,j] =  0       в інших випадках</tspan><tspan x="227.0" dy="13.0">• Кососиметрія: Tᵀ = -T</tspan></text>
+<rect x="450.0" y="60.0" width="405.0" height="330.0" rx="8" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/>
+<text x="652.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">Алгебраїчні властивості та рандомізація</text>
+<rect x="549.3" y="113.5" width="205.4" height="33.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="652.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="652.0" dy="0.0">det(T(G)) = (Pf(T(G)))²</tspan></text>
+<rect x="500.6" y="205.5" width="302.7" height="139.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text x="652.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="652.0" dy="0.0">1. det(T(G)) ≢ 0  ⇔  G має досконале паросполучення</tspan><tspan x="652.0" dy="13.0"></tspan><tspan x="652.0" dy="13.0">2. Тест Ловаса (1979):</tspan><tspan x="652.0" dy="13.0">   Замість символів x[i,j] підставляємо випадкові</tspan><tspan x="652.0" dy="13.0">   значення з скінченного поля F_q.</tspan><tspan x="652.0" dy="13.0"></tspan><tspan x="652.0" dy="13.0">3. Обчислення det(T) за O(nʷ) через Гаусса.</tspan><tspan x="652.0" dy="13.0"></tspan><tspan x="652.0" dy="13.0">4. За лемою Шварца-Ціппеля:</tspan><tspan x="652.0" dy="13.0">   P(помилки) ≤ n / q  (зменшується ростом q)</tspan></text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="460.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Модель дерева рішень для функції більшості MAJ(x₁, x₂, x₃)</text>
+<rect x="365.5" y="68.5" width="149.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="440.0" y="89.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Запит змінної x₁</tspan></text>
+<rect x="136.3" y="161.0" width="157.4" height="28.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="215.0" y="179.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Запит x₂ (при x₁=0)</tspan></text>
+<rect x="586.3" y="161.0" width="157.4" height="28.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="665.0" y="179.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="665.0" dy="0.0">Запит x₂ (при x₁=1)</tspan></text>
+<line x1="360.0" y1="100.0" x2="245.0" y2="155.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="285.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">x₁ = 0</text>
+<line x1="520.0" y1="100.0" x2="635.0" y2="155.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="595.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">x₁ = 1</text>
+<rect x="57.1" y="250.3" width="95.8" height="39.3" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="105.0" y="266.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">Листок = 0</tspan><tspan x="105.0" dy="14.3">(x₁=0, x₂=0)</tspan></text>
+<rect x="192.8" y="257.5" width="184.5" height="25.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="285.0" y="273.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="285.0" dy="0.0">Запит x₃ (при x₁=0, x₂=1)</tspan></text>
+<line x1="175.0" y1="195.0" x2="120.0" y2="245.0" stroke="#64748b" stroke-width="1.8"/>
+<text x="135.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">x₂ = 0</text>
+<line x1="255.0" y1="195.0" x2="275.0" y2="245.0" stroke="#64748b" stroke-width="1.8"/>
+<text x="280.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">x₂ = 1</text>
+<rect x="502.8" y="257.5" width="184.5" height="25.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="595.0" y="273.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="595.0" dy="0.0">Запит x₃ (при x₁=1, x₂=0)</tspan></text>
+<rect x="727.1" y="250.3" width="95.8" height="39.3" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="775.0" y="266.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Листок = 1</tspan><tspan x="775.0" dy="14.3">(x₁=1, x₂=1)</tspan></text>
+<line x1="625.0" y1="195.0" x2="605.0" y2="245.0" stroke="#64748b" stroke-width="1.8"/>
+<text x="600.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">x₂ = 0</text>
+<line x1="705.0" y1="195.0" x2="760.0" y2="245.0" stroke="#64748b" stroke-width="1.8"/>
+<text x="745.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">x₂ = 1</text>
+<rect x="154.2" y="358.5" width="121.6" height="33.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="215.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Листок = 0</tspan><tspan x="215.0" dy="13.0">(x₁=0, x₂=1, x₃=0)</tspan></text>
+<rect x="304.2" y="358.5" width="121.6" height="33.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="365.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="365.0" dy="0.0">Листок = 1</tspan><tspan x="365.0" dy="13.0">(x₁=0, x₂=1, x₃=1)</tspan></text>
+<line x1="260.0" y1="290.0" x2="230.0" y2="355.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="230.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">x₃=0</text>
+<line x1="310.0" y1="290.0" x2="350.0" y2="355.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="345.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle">x₃=1</text>
+<rect x="454.2" y="358.5" width="121.6" height="33.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="515.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="515.0" dy="0.0">Листок = 0</tspan><tspan x="515.0" dy="13.0">(x₁=1, x₂=0, x₃=0)</tspan></text>
+<rect x="604.2" y="358.5" width="121.6" height="33.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="665.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="665.0" dy="0.0">Листок = 1</tspan><tspan x="665.0" dy="13.0">(x₁=1, x₂=0, x₃=1)</tspan></text>
+<line x1="570.0" y1="290.0" x2="530.0" y2="355.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="535.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">x₃=0</text>
+<line x1="620.0" y1="290.0" x2="650.0" y2="355.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="650.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle">x₃=1</text>
+<rect x="40.0" y="425.0" width="800.0" height="35.0" rx="6" fill="#e6fffa" stroke="#0d9488" stroke-width="1.5"/>
+<text x="440.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f766e" text-anchor="middle" font-weight="700">Найгірший шлях = 3 запити (D(MAJ) = 3). Деякі шляхи (сертифікати) завершуються за 2 запити (C(MAJ) = 2).</text>
+</svg>

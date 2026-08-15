@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890.64 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890.64" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="420.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Задача китайського листоноші (CPP): Перетворення на Ейлерів граф</text>
+<rect x="30.0" y="65.0" width="390.0" height="345.0" rx="8" fill="#ffffff" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="225.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e08a1e" text-anchor="middle" font-weight="700">1. Початковий граф із непарними вершинами</text>
+<rect x="65.9" y="134.5" width="88.2" height="31.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="110.0" y="153.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">V₁ (deg=3)</tspan></text>
+<rect x="295.9" y="134.5" width="88.2" height="31.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="340.0" y="153.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">V₂ (deg=3)</tspan></text>
+<rect x="65.9" y="274.5" width="88.2" height="31.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="110.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">V₃ (deg=3)</tspan></text>
+<rect x="295.9" y="274.5" width="88.2" height="31.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="340.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">V₄ (deg=3)</tspan></text>
+<line x1="145.0" y1="150.0" x2="305.0" y2="150.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="225.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">w = 4</text>
+<line x1="110.0" y1="175.0" x2="110.0" y2="265.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="90.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">w = 2</text>
+<line x1="340.0" y1="175.0" x2="340.0" y2="265.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="360.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">w = 5</text>
+<line x1="145.0" y1="290.0" x2="305.0" y2="290.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="225.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">w = 3</text>
+<line x1="140.0" y1="170.0" x2="310.0" y2="270.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="240.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">w = 6</text>
+<rect x="83.3" y="347.4" width="283.3" height="45.3" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="225.0" y="366.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Непарні вершини: V₁, V₂, V₃, V₄ (усього 4)</tspan><tspan x="225.0" dy="14.3">Потрібно продублювати шляхи між ними!</tspan></text>
+<rect x="460.0" y="65.0" width="390.0" height="345.0" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="655.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">2. Продубльовані ребра (Мін. паросполучення)</text>
+<rect x="495.9" y="134.5" width="88.2" height="31.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="540.0" y="153.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">V₁ (deg=4)</tspan></text>
+<rect x="725.9" y="134.5" width="88.2" height="31.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="770.0" y="153.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">V₂ (deg=4)</tspan></text>
+<rect x="495.9" y="274.5" width="88.2" height="31.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="540.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">V₃ (deg=4)</tspan></text>
+<rect x="725.9" y="274.5" width="88.2" height="31.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="770.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">V₄ (deg=4)</tspan></text>
+<line x1="575.0" y1="150.0" x2="735.0" y2="150.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="770.0" y1="175.0" x2="770.0" y2="265.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="575.0" y1="290.0" x2="735.0" y2="290.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="570.0" y1="170.0" x2="740.0" y2="270.0" stroke="#64748b" stroke-width="2.0"/>
+<path d="M 510,175 Q 490,220 510,265" fill="none" stroke="#7e22ce" stroke-width="2.5"/>
+<text x="475.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">+V₁-V₃ (w=2)</text>
+<path d="M 800,175 Q 820,220 800,265" fill="none" stroke="#7e22ce" stroke-width="2.5"/>
+<text x="835.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">+V₂-V₄ (w=5)</text>
+<line x1="540.0" y1="175.0" x2="540.0" y2="265.0" stroke="#64748b" stroke-width="2.0"/>
+<rect x="475.7" y="340.2" width="358.6" height="59.6" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="655.0" y="359.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Додано повторні ребра: (V₁,V₃) та (V₂,V₄)</tspan><tspan x="655.0" dy="14.3">Мін. додаткова вага = 2 + 5 = 7</tspan><tspan x="655.0" dy="14.3">Тепер усі степені парні (4) ⇒ Побудовано Ейлерів цикл!</tspan></text>
+</svg>

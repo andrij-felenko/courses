@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="420.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Реляційна структура: Відношення R ⊆ D₁ × D₂ × ... × Dₖ</text>
+<rect x="70.0" y="61.3" width="180.0" height="37.3" rx="6" fill="#e6fffa" stroke="#0d9488" stroke-width="1.5"/><text x="160.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Домен D₁ (Integer)</tspan><tspan x="160.0" dy="14.3">{101, 102, 103}</tspan></text>
+<rect x="330.0" y="61.3" width="180.0" height="37.3" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="420.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Домен D₂ (String)</tspan><tspan x="420.0" dy="14.3">{'Аліса', 'Боб', 'Єва'}</tspan></text>
+<rect x="590.0" y="61.3" width="180.0" height="37.3" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="680.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Домен D₃ (Decimal)</tspan><tspan x="680.0" dy="14.3">{1500.0, 2400.0, 3100.0}</tspan></text>
+<line x1="160.0" y1="105.0" x2="160.0" y2="145.0" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="105.0" x2="420.0" y2="145.0" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="105.0" x2="680.0" y2="145.0" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="70.0" y="150.0" width="700.0" height="36.0" rx="4" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+<text x="160.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">ID (Первинний ключ)</text>
+<text x="420.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Name (Ім'я)</text>
+<text x="680.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Salary (Зарплата)</text>
+<rect x="70.0" y="189.0" width="700.0" height="34.0" rx="4" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="160.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">101</text>
+<text x="420.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Аліса</text>
+<text x="680.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">2400.0</text>
+<rect x="70.0" y="234.0" width="700.0" height="34.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="160.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">102</text>
+<text x="420.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Боб</text>
+<text x="680.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">1500.0</text>
+<rect x="70.0" y="279.0" width="700.0" height="34.0" rx="4" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.2"/>
+<text x="160.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">103</text>
+<text x="420.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Єва</text>
+<text x="680.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">3100.0</text>
+<rect x="50.0" y="358.5" width="200.0" height="33.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="150.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Первинний ключ (Key):</tspan><tspan x="150.0" dy="13.0">Унікально ідентифікує кортеж</tspan></text>
+<rect x="310.0" y="358.5" width="220.0" height="33.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="420.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Кортеж (Tuple):</tspan><tspan x="420.0" dy="13.0">Упорядкована послідовність n-значень</tspan></text>
+<rect x="580.0" y="358.5" width="220.0" height="33.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="690.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">1NF (Атомарність):</tspan><tspan x="690.0" dy="13.0">Значення не є списками чи множинами</tspan></text>
+</svg>

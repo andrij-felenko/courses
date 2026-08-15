@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="400.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Схема індукції та кодування обчислень через β-функцію Ґеделя</text>
+<rect x="30.0" y="60.0" width="395.0" height="320.0" rx="8" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/>
+<text x="227.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="700">Синтаксис схеми індукції у PA</text>
+<rect x="60.0" y="115.0" width="335.0" height="36.0" rx="5" fill="#ffffff" stroke="#2563eb" stroke-width="1.0"/>
+<text x="227.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle">База індукції: φ(0)</text>
+<rect x="60.0" y="175.0" width="335.0" height="36.0" rx="5" fill="#ffffff" stroke="#2563eb" stroke-width="1.0"/>
+<text x="227.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle">Крок індукції: ∀x (φ(x) → φ(S(x)))</text>
+<rect x="60.0" y="245.0" width="335.0" height="40.0" rx="5" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="227.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">Висновок: ∀x φ(x)</text>
+<line x1="227.0" y1="151.0" x2="227.0" y2="175.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="227.0" y1="211.0" x2="227.0" y2="245.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="455.0" y="60.0" width="395.0" height="320.0" rx="8" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="652.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7e22ce" text-anchor="middle" font-weight="700">β-функція Ґеделя (Кодування послідовностей)</text>
+<text x="652.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">β(a, b, i) = a mod (1 + (i + 1) · b)</text>
+<rect x="485.0" y="155.0" width="335.0" height="40.0" rx="5" fill="#ffffff" stroke="#7e22ce" stroke-width="1.0"/>
+<text x="652.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle">Послідовність чисел: a₀, a₁, a₂, ..., aₖ</text>
+<rect x="485.0" y="235.0" width="335.0" height="48.0" rx="5" fill="#e6fffa" stroke="#0d9488" stroke-width="1.0"/>
+<text x="652.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0d9488" text-anchor="middle">Кодується парою натуральних чисел (a, b)</text>
+<text x="652.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0d9488" text-anchor="middle">через Китайську теорему про залишки</text>
+<line x1="652.0" y1="195.0" x2="652.0" y2="235.0" stroke="#7e22ce" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="652.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Забезпечує Σ₁-виражуваність рекурсивних функцій у PA</text>
+</svg>

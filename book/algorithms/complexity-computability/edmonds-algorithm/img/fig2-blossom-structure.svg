@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="100%" height="100%">
+  <style>
+    .bg { fill: #ffffff; }
+    .title { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #1e293b; }
+    .label { font-family: sans-serif; font-size: 13px; fill: #334155; }
+    .node-txt { font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+    .edge { stroke: #64748b; stroke-width: 2; }
+    .match-edge { stroke: #2563eb; stroke-width: 4; }
+    .blossom-bg { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; stroke-dasharray: 6,4; rx: 20; }
+    .stem-bg { fill: #e0f2fe; stroke: #0284c7; stroke-width: 2; stroke-dasharray: 6,4; rx: 15; }
+    .node-root { fill: #dc2626; stroke: #991b1b; stroke-width: 2; }
+    .node-base { fill: #10b981; stroke: #047857; stroke-width: 2; }
+    .node-blossom { fill: #d97706; stroke: #b45309; stroke-width: 2; }
+    .node-stem { fill: #0284c7; stroke: #0369a1; stroke-width: 2; }
+  </style>
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="400" y="30" text-anchor="middle" class="title">Будова квітки (Blossom) та стебла (Stem)</text>
+
+  <!-- Background highlights -->
+  <!-- Stem Region -->
+  <rect x="50" y="70" width="280" height="180" class="stem-bg"/>
+  <text x="190" y="95" text-anchor="middle" class="label" font-weight="bold" fill="#0369a1">Стебло P (Stem)</text>
+
+  <!-- Blossom Region -->
+  <rect x="360" y="60" width="390" height="220" class="blossom-bg"/>
+  <text x="555" y="85" text-anchor="middle" class="label" font-weight="bold" fill="#b45309">Квітка B (Blossom: 2k + 1 = 5 вершин)</text>
+
+  <!-- Stem Edges & Nodes -->
+  <circle cx="90" cy="160" r="18" class="node-root"/>
+  <text x="90" y="160" class="node-txt">r</text>
+
+  <circle cx="180" cy="160" r="18" class="node-stem"/>
+  <text x="180" y="160" class="node-txt">s1</text>
+
+  <circle cx="270" cy="160" r="18" class="node-stem"/>
+  <text x="270" y="160" class="node-txt">s2</text>
+
+  <line x1="108" y1="160" x2="162" y2="160" class="edge"/>
+  <line x1="198" y1="160" x2="252" y2="160" class="match-edge"/>
+
+  <!-- Connection Stem to Base -->
+  <line x1="288" y1="160" x2="392" y2="160" class="edge"/>
+
+  <!-- Blossom Base Node -->
+  <circle cx="410" cy="160" r="20" class="node-base"/>
+  <text x="410" y="160" class="node-txt">b</text>
+
+  <!-- Other Blossom Nodes -->
+  <circle cx="490" cy="100" r="18" class="node-blossom"/>
+  <text x="490" y="100" class="node-txt">v1</text>
+
+  <circle cx="590" cy="100" r="18" class="node-blossom"/>
+  <text x="590" y="100" class="node-txt">v2</text>
+
+  <circle cx="630" cy="190" r="18" class="node-blossom"/>
+  <text x="630" y="190" class="node-txt">v3</text>
+
+  <circle cx="520" cy="220" r="18" class="node-blossom"/>
+  <text x="520" y="220" class="node-txt">v4</text>
+
+  <!-- Blossom Edges (Alternating) -->
+  <line x1="426" y1="148" x2="474" y2="112" class="match-edge"/>
+  <line x1="508" y1="100" x2="572" y2="100" class="edge"/>
+  <line x1="603" y1="113" x2="617" y2="177" class="match-edge"/>
+  <line x1="616" y1="199" x2="538" y2="216" class="edge"/>
+  <line x1="503" y1="214" x2="422" y2="173" class="match-edge"/>
+
+  <!-- Labels -->
+  <text x="90" y="200" text-anchor="middle" class="label">Корінь r</text>
+  <text x="410" y="200" text-anchor="middle" class="label">Основа b</text>
+  <text x="400" y="295" text-anchor="middle" class="label">Основа b — єдина вершина квітки, незанята її внутрішніми ребрами паросполучення</text>
+</svg>

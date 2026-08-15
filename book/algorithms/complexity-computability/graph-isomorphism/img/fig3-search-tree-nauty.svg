@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 918.2 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="918.2" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="400.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Дерево індивідуалізації-ущільнення (Nauty / Traces)</text>
+<rect x="340.0" y="60.0" width="200.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/>
+<text x="440.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Початкова розбивка π₀
+[v₁ v₂ v₃ | v₄ v₅ v₆]</text>
+<line x1="410.0" y1="105.0" x2="230.0" y2="160.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="300.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">Індивідуалізація v₁</text>
+<line x1="470.0" y1="105.0" x2="650.0" y2="160.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="580.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">Індивідуалізація v₂</text>
+<rect x="130.0" y="160.0" width="200.0" height="45.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="230.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Осередок {v₁} зафіксовано
+Ущільнення WL → π₁</text>
+<rect x="550.0" y="160.0" width="200.0" height="45.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="650.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Осередок {v₂} зафіксовано
+Ущільнення WL → π₁'</text>
+<line x1="330.0" y1="182.0" x2="550.0" y2="182.0" stroke="#dc2626" stroke-width="2.0" stroke-dasharray="5 3"/>
+<text x="440.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Автоморфізм γ ∈ Aut(G) → Відсікання!</text>
+<line x1="200.0" y1="205.0" x2="140.0" y2="270.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="50.0" y="270.0" width="180.0" height="45.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="140.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Канонічний листок L*
+Мінімальний хеш графа</text>
+<line x1="260.0" y1="205.0" x2="320.0" y2="270.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="250.0" y="270.0" width="160.0" height="45.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.0"/>
+<text x="330.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Листок L₂
+(гірший канонічний код)</text>
+<rect x="401.7" y="245.9" width="496.5" height="88.2" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><text x="650.0" y="265.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Основні етапи Nauty:</tspan><tspan x="650.0" dy="14.3">1. Вибір цільового осередку (Target Cell Selection).</tspan><tspan x="650.0" dy="14.3">2. Індивідуалізація (фіксація вершини) та ущільнення WL.</tspan><tspan x="650.0" dy="14.3">3. Обчислення канонічного підпису на листках дерева.</tspan><tspan x="650.0" dy="14.3">4. Виявлення автоморфізмів для геометричного відсікання гілок дерева пошуку.</tspan></text>
+<text x="440.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-style="italic">Завдяки генераторам групи автоморфізмів Aut(G) дерево пошуку скорочується з O(n!) до декількох кроків.</text>
+</svg>

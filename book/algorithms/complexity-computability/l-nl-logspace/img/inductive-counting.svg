@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="400.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="30.0" y="30.0" width="220.0" height="360.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.0"/>
+<text x="140.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#16a34a" text-anchor="middle" font-weight="700">1. База (k = 0)</text>
+<rect x="50.0" y="85.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="140.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">R₀ = {s}</text>
+<text x="140.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">|R₀| = 1</text>
+<text x="140.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Початкова вершина s</text>
+<text x="140.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">досяжна за 0 кроків.</text>
+<rect x="280.0" y="30.0" width="280.0" height="360.0" rx="8" fill="#fff6e5" stroke="#e08a1e" stroke-width="2.0"/>
+<text x="420.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e08a1e" text-anchor="middle" font-weight="700">2. Перехід k ──&gt; k+1</text>
+<rect x="295.0" y="85.0" width="250.0" height="120.0" rx="6" fill="#ffffff" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="420.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Для кожної вершини v ∈ V:</text>
+<text x="420.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вгадуємо |Rₖ| вершин u,</text>
+<text x="420.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">перевіряємо досяжність за k кроків</text>
+<text x="420.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">та наявність ребра (u, v).</text>
+<text x="420.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e08a1e" text-anchor="middle" font-weight="700">Якщо так ──&gt; |Rₖ₊₁|++</text>
+<rect x="295.0" y="220.0" width="250.0" height="150.0" rx="6" fill="#ffffff" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="420.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Параметри в пам'яті:</text>
+<text x="420.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Лічильник k ∈ [0..n]</text>
+<text x="420.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Розмір |Rₖ| ∈ [1..n]</text>
+<text x="420.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Поточна вершина v ∈ V</text>
+<text x="420.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">Разом: 4-5 лічильників = O(log n)</text>
+<line x1="250.0" y1="210.0" x2="280.0" y2="210.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="210.0" x2="590.0" y2="210.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="590.0" y="30.0" width="220.0" height="360.0" rx="8" fill="#f3e8ff" stroke="#7e22ce" stroke-width="2.0"/>
+<text x="700.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7e22ce" text-anchor="middle" font-weight="700">3. Фінал (k = n)</text>
+<rect x="605.0" y="85.0" width="190.0" height="140.0" rx="6" fill="#ffffff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="700.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7e22ce" text-anchor="middle" font-weight="700">Маємо точне |Rₙ|</text>
+<text x="700.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вгадуємо |Rₙ| вершин,</text>
+<text x="700.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">перевіряємо їх досяжність</text>
+<text x="700.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">і що жодна z ≠ t.</text>
+<text x="700.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e22ce" text-anchor="middle" font-weight="700">Якщо усе вірно ──&gt; t ∉ Rₙ!</text>
+</svg>
