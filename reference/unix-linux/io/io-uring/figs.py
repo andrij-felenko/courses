@@ -128,7 +128,7 @@ def fig_mmap_layout():
          "IORING_OFF_CQ_RING\n0x8000000",
          ["head, tail — лічильники",
           "ring_mask, ring_entries",
-          "overflow — скільки переповнень",
+          "overflow — втрачені завершення",
           "flags",
           "cqes[] — самі CQE, по 16 Б"]),
         (660, 250, "#fdf3e6",

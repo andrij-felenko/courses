@@ -148,7 +148,7 @@ struct sched_attr {
 | `sched_nice` | діє | ігнорується | ігнорується | ігнорується |
 | `sched_priority` | мусить бути 0 | 0 | **діє**, 1 … 99 | мусить бути 0 |
 | `sched_runtime` / `deadline` / `period` | ігноруються | ігноруються | ігноруються | **діють** |
-| `sched_util_min` / `max` | діють із прапорцем | діють | діють | діють |
+| `sched_util_min` / `max` | діють із прапорцем | діють із прапорцем | діють із прапорцем | діють із прапорцем |
 
 | прапорець `sched_flags` | значення | що робить | з ядра |
 |---|---|---|---|
@@ -394,6 +394,7 @@ renice -n 5 -g 1234               # уся група процесів
 | `-o` `-b` `-i` | `SCHED_OTHER` / `SCHED_BATCH` / `SCHED_IDLE` |
 | `-f` `-r` | `SCHED_FIFO` / `SCHED_RR` |
 | `-d` | `SCHED_DEADLINE`; аргумент пріоритету мусить бути `0` |
+| `-e` | `SCHED_EXT`; є лише в новіших util-linux, і потрібне ядро з `CONFIG_SCHED_CLASS_EXT` |
 | `-T` `-P` `-D` | runtime / period / deadline у **наносекундах** |
 | `-R` | додати `SCHED_RESET_ON_FORK` |
 | `-G` `-O` | `SCHED_FLAG_RECLAIM` / `SCHED_FLAG_DL_OVERRUN` |

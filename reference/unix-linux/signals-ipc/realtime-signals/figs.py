@@ -143,8 +143,8 @@ def fig_siginfo_record():
     p.append(text(870, 534, "Межа безпеки", size=13, color=POS, bold=True))
     p.append(mtext(870, 558,
                    ["Надіслати ЧУЖОМУ процесові запис із невід'ємним",
-                    "si_code ядро не дасть: підробити «це від ядра»",
-                    "чи «це таймер» неможливо."],
+                    "si_code ядро не дасть: невід'ємні коди належать",
+                    "самому ядру (0x80) і kill() (0)."],
                    size=11, color=INK))
 
     render(os.path.join(OUT, "siginfo-record.svg"), W, H, *p)
@@ -197,11 +197,11 @@ def fig_queue_budget():
 
     # ядро: один слот + лічильник
     p.append(rect(600, 336, 524, 108, fill=GREENFILL, stroke=FIELD, sw=1.6, rx=8))
-    p.append(text(862, 362, "Ядро собі квоти не бере", size=13, color=FIELD, bold=True))
+    p.append(text(862, 362, "Таймер бере запис наперед", size=13, color=FIELD, bold=True))
     p.append(mtext(862, 386,
-                   ["POSIX-таймер тримає щонайбільше ОДИН незабраний",
-                    "сигнал; решту спрацювань рахує лічильник пропусків",
-                    "(timer_getoverrun)."],
+                   ["POSIX-таймер бере свій запис при створенні й тримає",
+                    "щонайбільше ОДИН незабраний сигнал; решту спрацювань",
+                    "рахує лічильник пропусків (timer_getoverrun)."],
                    size=11, color=INK))
 
     p.append(rect(40, 472, 1084, 110, fill=SOFT, stroke=MUTED, sw=1.4, rx=8))

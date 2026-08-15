@@ -57,7 +57,7 @@ def make_architecture_fig(path):
     body.append(text(525, 418, "kswapd reclaim", size=11, color=MUTED, italic=True))
 
     # Swap підсистема для tmpfs
-    box_swap, ws, hs = textbox(430, 470, "Підсистема Swap (swp_entry_t)\nshmem_writepage() виносить сторінки tmpfs у swap\nxarray (i_pages) тримає слоти swap замість покажчиків на сторінки", size=12, pad=10, fill="#fef9e7", stroke="#f39c12", sw=2)
+    box_swap, ws, hs = textbox(430, 470, "Підсистема Swap (swp_entry_t)\nОперація витискання shmem виносить сторінки tmpfs у swap\nxarray (i_pages) тримає слоти swap замість покажчиків на сторінки", size=12, pad=10, fill="#fef9e7", stroke="#f39c12", sw=2)
     body.append(box_swap)
 
     render(path, w, h, "\n".join(body))
@@ -82,7 +82,7 @@ def make_dual_personality_fig(path):
     b_shm, _, _ = textbox(215, 200, "POSIX Shared Memory\n/dev/shm  (shm_open / shm_unlink)", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_shm)
 
-    b_custom, _, _ = textbox(215, 255, "Спеціальні монтування\nrootfs / initramfs  ·  overlayfs upperdir у RAM", size=11.5, fill="#ffffff", stroke=MUTED)
+    b_custom, _, _ = textbox(215, 255, "Монтування контейнерів\n--tmpfs у mount namespace  ·  overlayfs upperdir у RAM", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_custom)
 
     # Права колонка: Внутрішні механізми ядра та анонімні об'єкти
@@ -95,7 +95,7 @@ def make_dual_personality_fig(path):
     b_memfd, _, _ = textbox(625, 200, "Анонімні файлові дескриптори\nmemfd_create()  +  F_ADD_SEALS", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_memfd)
 
-    b_gpu, _, _ = textbox(625, 255, "Анонімний mmap(MAP_SHARED) & DRM/GEM\nБуфери графіки i915 / amdgpu / dma-buf", size=11.5, fill="#ffffff", stroke=MUTED)
+    b_gpu, _, _ = textbox(625, 255, "Анонімний mmap(MAP_SHARED) & DRM/GEM\nБуфери графіки: i915, drm_gem_shmem, dma-buf", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_gpu)
 
     # Стрілки від обох колонок до центрального ядра shmem

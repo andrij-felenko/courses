@@ -143,6 +143,7 @@ def fig_bench_budget():
     C_WAKE = ("#f0c6c0", POS)
     C_COPY = ("#c3d0f2", NEG)
     C_TOUCH = ("#dfe3e8", MUTED)
+    C_SPIN = ("#dff0e4", FIELD)
 
     X0 = 345
     BH = 30
@@ -169,7 +170,7 @@ def fig_bench_budget():
         ("канал",                         [(6.8, C_WAKE)], "6.8 мкс",  100),
         ("сокет домену Unix, SEQPACKET",  [(8.1, C_WAKE)], "8.1 мкс",  148),
         ("спільна пам'ять + futex",       [(4.3, C_WAKE)], "4.3 мкс",  196),
-        ("спільна пам'ять + опитування",  [(0.31, C_WAKE)], "0.31 мкс", 244),
+        ("спільна пам'ять + опитування",  [(0.31, C_SPIN)], "0.31 мкс", 244),
     ], S1, None)
 
     g.append(line(60, 296, 1090, 296, color=MUTED, sw=1, dash="5,5"))
@@ -189,7 +190,8 @@ def fig_bench_budget():
 
     LEG = [("пробудження й системні виклики", C_WAKE),
            ("копії через буфер ядра", C_COPY),
-           ("дотик до даних обома сторонами", C_TOUCH)]
+           ("дотик до даних обома сторонами", C_TOUCH),
+           ("опитування: сама когерентність кешів", C_SPIN)]
     lx = 120
     for label, (fill, stroke) in LEG:
         g.append(rect(lx, 540, 22, 14, fill=fill, stroke=stroke, sw=1.0, rx=2))

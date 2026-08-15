@@ -162,7 +162,7 @@ def fig_timeline():
         ('L', "05.01.1992 · випуск 0.12 переходить на GPL"),
         ('L', "1994 · форк Linux libc — шов роздвоївся"),
         ('G', "січень 1997 · glibc 2.0 — шов знову один"),
-        ('L', "1998 · супровід Linux libc припинено"),
+        ('L', "близько 1998 · супровід Linux libc припинено"),
     ]
 
     W = 960
@@ -207,7 +207,7 @@ def fig_initramfs_build():
         ("find . | cpio -o -H newc\nдерево тек стає одним потоком байтів", GNU_FILL, FIELD),
         ("gzip -9  →  initramfs.cpio.gz", GNU_FILL, FIELD),
         ("QEMU: -kernel vmlinuz -initrd initramfs.cpio.gz\nдва файли лягають у пам'ять поруч", OTH_FILL, MUTED),
-        ("ЯДРО розпаковує архів у rootfs (tmpfs)\nі шукає в корені файл /init", KRN_FILL, NEG),
+        ("ЯДРО розпаковує архів у rootfs (ramfs/tmpfs)\nі шукає в корені файл /init", KRN_FILL, NEG),
         ("exec /init — простір користувача живий", GNU_FILL, FIELD),
     ]
     ys = [46, 144, 242, 340, 438, 536]
@@ -266,7 +266,7 @@ def fig_what_breaks():
                   size=12, color=MUTED))
 
     render(os.path.join(IMG, 'minimal-what-breaks.svg'), W, H, *f,
-           title="П'ять способів не завантажитися і один робочий")
+           title="П'ять способів зламати систему і один робочий")
 
 
 # ── 7. Смуги переносності ключів (до вставки api-gnu-vs-posix) ─────────────
@@ -295,10 +295,10 @@ def fig_portability_bands():
          WARN, POS),
         ("є у двох діалектах\nіз трьох",
          "GNU і BSD, нема в busybox:  sort -h · sort -V · grep --include\n"
-         "GNU і busybox, нема в BSD:  date -d · stat -c ФОРМАТ",
+         "GNU і busybox, нема в BSD:  date -d · stat -c ФОРМАТ · cp --parents",
          OTH_FILL, MUTED),
         ("лише GNU",
-         "grep -P · cp --parents · find -printf · head -n -N\n"
+         "grep -P · find -printf · head -n -N\n"
          "ключі ПІСЛЯ операндів: sort f -o out працює тільки тут",
          BAD, POS),
     ]

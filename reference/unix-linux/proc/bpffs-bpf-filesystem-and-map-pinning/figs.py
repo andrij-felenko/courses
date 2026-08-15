@@ -141,7 +141,7 @@ def fig_bpffs_vfs_architecture():
 
     p.append(rect(990, 405, 350, 65, fill="#ffffff", stroke="#81c784", sw=1.5, rx=4))
     p.append(text(1165, 430, "struct bpf_prog", size=14, bold=True))
-    p.append(text(1165, 453, "atomic64_t refcnt, insnsi, aux", size=13, color="#555555"))
+    p.append(text(1165, 453, "insnsi, aux->refcnt (atomic64_t)", size=13, color="#555555"))
 
     p.append(rect(990, 490, 350, 110, fill="#ffffff", stroke="#81c784", sw=1.5, rx=4))
     p.append(text(1165, 515, "struct bpf_link", size=14, bold=True))

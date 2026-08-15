@@ -102,7 +102,7 @@ def fig_sharing_chain():
     dups = [
         (368, "двійник 1", "256 користувачів"),
         (614, "двійник 2", "256 користувачів"),
-        (860, "двійник 3", "23 користувачі"),
+        (860, "двійник 40", "16 користувачів"),
     ]
     for x, name, users in dups:
         f.append(fitbox(x, 150, 206, 86, name + "\n" + users, size=14,
@@ -111,8 +111,9 @@ def fig_sharing_chain():
     f.append(arrow(314, 193, 360, 193, color=FIELD))
     f.append(arrow(582, 193, 606, 193, color=FIELD))
     f.append(arrow(828, 193, 852, 193, color=FIELD))
+    f.append(text(840, 132, "… ще 37 …", size=13, color=MUTED))
 
-    f.append(mtext(550, 276, ["усі три кадри містять однакові байти;",
+    f.append(mtext(550, 276, ["усі 40 кадрів містять однакові байти;",
                               "новий охочий іде до того, у кого лишилося місце"],
                    size=14, color=MUTED))
 

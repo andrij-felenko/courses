@@ -13,7 +13,7 @@ def build_cgroup_tree():
     
     # Root VFS node
     elements.append(rect(300, 20, 200, 45, fill="#e8edf2", stroke=INK, rx=6))
-    elements.append(text(400, 47, "/sys/fs/cgroup (Root Slice)", size=14, bold=True))
+    elements.append(text(400, 47, "/sys/fs/cgroup  =  -.slice", size=13, bold=True))
     
     # Connections from root to slices
     elements.append(line(400, 65, 150, 115, color=INK, sw=2))
@@ -64,8 +64,8 @@ def build_cgroup_tree():
     elements.append(text(335, 363, "Scope (SSH bash)", size=10, color=MUTED))
 
     elements.append(rect(430, 325, 150, 50, fill="#e2f0d9", stroke=INK, rx=6))
-    elements.append(text(505, 347, "app.service", size=13, bold=True, color="#276749"))
-    elements.append(text(505, 363, "User Service", size=10, color=MUTED))
+    elements.append(text(505, 347, "user@1000.service", size=12, bold=True, color="#276749"))
+    elements.append(text(505, 363, "менеджер systemd --user", size=10, color=MUTED))
 
     # Lines down from machine.slice
     elements.append(line(650, 160, 650, 220, color=INK, sw=1.5))
@@ -166,11 +166,11 @@ def build_delegation():
     elements.append(line(590, 235, 590, 250, color=INK, sw=1.5))
 
     elements.append(rect(120, 250, 220, 55, fill="#ffffff", stroke="#38a169", rx=4))
-    elements.append(text(230, 272, "container-a.scope", size=12, bold=True, color="#276749"))
+    elements.append(text(230, 272, "container-a/ (проста тека)", size=12, bold=True, color="#276749"))
     elements.append(text(230, 290, "memory.max = 512M", size=10, color=MUTED))
 
     elements.append(rect(480, 250, 220, 55, fill="#ffffff", stroke="#38a169", rx=4))
-    elements.append(text(590, 272, "container-b.scope", size=12, bold=True, color="#276749"))
+    elements.append(text(590, 272, "container-b/ (проста тека)", size=12, bold=True, color="#276749"))
     elements.append(text(590, 290, "cpu.weight = 200", size=10, color=MUTED))
 
     return "".join(elements)

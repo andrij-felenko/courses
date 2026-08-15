@@ -36,7 +36,7 @@ def generate_hrtimer_architecture():
     frags.append(fitbox(45, 230, 330, 22, "Каскадування кошиків: перерозподіл O(N)", size=11, fill="#fdf0f0", stroke="none"))
     
     # Bottom legacy summary
-    frags.append(fitbox(35, 275, 350, 85, "Джиттер-відхилення до ±10 мс\nНеможливість субмілісекундного засинання\nНеперервні переривання в режимі Idle", size=11, fill="#f5e5e5", stroke="#c89898", color="#501010"))
+    frags.append(fitbox(35, 275, 350, 85, "Округлення сну вгору: похибка до +10 мс\nНеможливість субмілісекундного засинання\nНеперервні переривання в режимі Idle", size=11, fill="#f5e5e5", stroke="#c89898", color="#501010"))
 
     # Box 2: Hrtimers Subsystem
     frags.append(rect(420, 45, 380, 335, fill="#f4f9f4", stroke="#b0d8b0", sw=1.5, rx=6))

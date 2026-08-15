@@ -231,7 +231,7 @@ def fig_lineage():
         p.append(fitbox(x, rows[3][0], CW, rows[3][1], state, size=12,
                         fill=tint, stroke=accent, sw=1.4))
 
-    p.append(text(LX, 668, "ідея за всі сорок років не змінилася — переїжджав лише стан здогаду: "
+    p.append(text(LX, 668, "ідея за всі півстоліття не змінилася — переїжджав лише стан здогаду: "
                            "від того, хто кличе, до розкладки на носії, звідти в облік ядра — і врешті в самі дані",
                   size=12.5, color=INK, anchor="start"))
 
@@ -391,8 +391,9 @@ def fig_ramp_sum():
             x += w
         xend = x
         out.append(rect(56, y0 + 74, ceiling * scale, 40, fill=CEIL, stroke=NEG, sw=1.4, rx=3))
+        word = "сторінки" if ceiling % 10 in (2, 3, 4) and ceiling % 100 not in (12, 13, 14) else "сторінок"
         out.append(text(56 + ceiling * scale / 2, y0 + 100,
-                        "стеля %d сторінок" % ceiling, size=13, color=NEG))
+                        "стеля %d %s" % (ceiling, word), size=13, color=NEG))
         xb = 56 + ceiling * scale
         out.append(line(xend, y0 + 126, xb, y0 + 126, color=POS, sw=1.8))
         out.append(line(xend, y0 + 120, xend, y0 + 132, color=POS, sw=1.8))

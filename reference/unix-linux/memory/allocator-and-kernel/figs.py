@@ -22,7 +22,7 @@ def fig_two_levels():
 
     # лічильники над стрілками
     f.append(text((ax + aw + bx) / 2, 72, "1 000 000 разів", size=14, bold=True, color=POS))
-    f.append(text((bx + bw + cx) / 2, 72, "54 рази", size=14, bold=True, color=FIELD))
+    f.append(text((bx + bw + cx) / 2, 72, "десяток разів", size=14, bold=True, color=FIELD))
 
     f.append(fitbox(ax, by, aw, bh, "Програма\n\nmalloc(32)\nfree(p)", size=14))
     f.append(fitbox(bx, by - 12, bw, bh + 24,
@@ -184,7 +184,7 @@ def fig_three_layers():
         ]),
         ("Відображення\nу простір адрес", [
             "1983 · 4.2BSD\nmmap описано в System Manual,\nале «реалізовано лише\nsbrk і getpagesize»",
-            "1988 · SunOS 4.0\nперша широка реалізація;\nвіддати код Берклі\nSun відмовилася",
+            "1988 · SunOS 4.0\nперша широка реалізація;\nу BSD цей код\nне перейшов",
             "1990 · 4.3BSD-Reno\nсвоя реалізація на віртуальній\nпам'яті Mach; звідти —\nу вільні Unix і Linux",
         ]),
         ("Алокатор\nу бібліотеці C", [

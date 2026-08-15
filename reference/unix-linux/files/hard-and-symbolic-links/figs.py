@@ -27,11 +27,10 @@ def fig_names_and_inodes():
 
     dir_a, ax0, ax1, ay0, ay1 = tb(180, 150,
                                    ["каталог /home/ann",
-                                    "report.txt → 812",
-                                    "чернетка → 812"],
+                                    "report.txt → 812"],
                                    size=13, fill=BLUE_FILL, stroke=NEG, pad=12)
     dir_b, bx0, bx1, by0, by1 = tb(180, 300,
-                                   ["каталог /srv/pub",
+                                   ["каталог /home/ann/архів",
                                     "звіт → 812"],
                                    size=13, fill=BLUE_FILL, stroke=NEG, pad=12)
     dir_c, cx0, cx1, cy0, cy1 = tb(180, 452,
@@ -43,7 +42,7 @@ def fig_names_and_inodes():
     ino1, i1x0, i1x1, i1y0, i1y1 = tb(530, 225,
                                       ["inode 812",
                                        "тип: звичайний файл",
-                                       "імен: 3",
+                                       "імен: 2",
                                        "права, час, розмір",
                                        "покажчики на блоки"],
                                       size=13, fill=GREEN_FILL, stroke=FIELD, pad=14)

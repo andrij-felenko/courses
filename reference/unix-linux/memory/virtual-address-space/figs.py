@@ -25,10 +25,10 @@ def fig_same_address():
 
     # процес A
     f.append(fitbox(ax, 90, bw, bh, "0x7f9a12c00000\nкод libc", size=13))
-    f.append(fitbox(ax, 180, bw, bh, "0x404000\nдані програми", size=13))
+    f.append(fitbox(ax, 180, bw, bh, "0x404018\nдані програми", size=13))
     # процес B
     f.append(fitbox(bx, 90, bw, bh, "0x7fc3ee400000\nкод libc", size=13))
-    f.append(fitbox(bx, 180, bw, bh, "0x404000\nдані програми", size=13))
+    f.append(fitbox(bx, 180, bw, bh, "0x404018\nдані програми", size=13))
 
     # фізичні кадри
     f.append(fitbox(mx, 90, bw, bh, "кадр 0x3d0000\nкод libc", size=13,
@@ -44,7 +44,7 @@ def fig_same_address():
     f.append(arrow(bx - 6, 208, mx + bw + 8, 300))
 
     # пояснення знизу
-    f.append(text(490, 392, "однакове число 0x404000 у двох процесах — різні кадри", size=14))
+    f.append(text(490, 392, "однакове число 0x404018 у двох процесах — різні кадри", size=14))
     f.append(text(490, 424, "різні числа в двох процесах — один і той самий кадр libc",
                  size=14, color=FIELD))
 

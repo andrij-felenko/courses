@@ -19,7 +19,7 @@
 <text x="265.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мости cgroupfs у ядрі</text>
 <text x="265.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">cgroup_mkdir() -&gt; cgroup_create()</text>
 <text x="265.0" y="565.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">cgroup_procs_write() -&gt; cgroup_attach_task()</text>
-<text x="265.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">kernfs_notify() -&gt; epoll(cgroup.events)</text>
+<text x="265.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">kernfs_notify() -&gt; POLLPRI на cgroup.events</text>
 <rect x="510.0" y="230.0" width="430.0" height="410.0" rx="6" fill="#fff6e5" stroke="#f57c00" stroke-width="2.0"/>
 <text x="725.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#e65100" text-anchor="middle" font-weight="700">Ядро: Структури процесів та груп</text>
 <rect x="530.0" y="295.0" width="390.0" height="80.0" rx="4" fill="#ffffff" stroke="#f57c00" stroke-width="1.5"/>

@@ -221,7 +221,7 @@ def fig_cgroupfs_kernel_vfs_kernfs():
     p.append(text(265, 505, "Мости cgroupfs у ядрі", size=14, bold=True))
     p.append(text(265, 535, "cgroup_mkdir() -> cgroup_create()", size=12, color="#37474f"))
     p.append(text(265, 565, "cgroup_procs_write() -> cgroup_attach_task()", size=12, color="#37474f"))
-    p.append(text(265, 595, "kernfs_notify() -> epoll(cgroup.events)", size=12, color="#37474f"))
+    p.append(text(265, 595, "kernfs_notify() -> POLLPRI на cgroup.events", size=12, color="#37474f"))
 
     # Core Kernel Task & Cgroup Data Structures
     p.append(rect(510, 230, 430, 410, fill=WARM, stroke="#f57c00", sw=2, rx=6))

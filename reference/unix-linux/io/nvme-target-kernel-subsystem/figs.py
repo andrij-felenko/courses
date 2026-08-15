@@ -48,10 +48,10 @@ def draw_arch():
     
     frags.append(fitbox(445, 345, 320, 32, "bdev (blk-mq, submit_bio, Direct I/O)", size=12, fill="#ffffff", stroke="#e67e22"))
     frags.append(fitbox(445, 385, 320, 32, "file (VFS, read_iter / write_iter)", size=12, fill="#ffffff", stroke="#e67e22"))
-    frags.append(fitbox(445, 425, 320, 32, "passthru (PCIe NVMe, passthru_execute_cmd)", size=12, fill="#ffffff", stroke="#e67e22"))
+    frags.append(fitbox(445, 425, 320, 32, "passthru (PCIe NVMe) / zbd (ZNS, SMR)", size=12, fill="#ffffff", stroke="#e67e22"))
 
-    # Connections / Arrows
-    frags.append(arrow(215, 94, 215, 170, color="#0066cc", sw=1.5))
+    # Connections / Arrows: nvmetcli говорить з ядром лише через configfs
+    frags.append(arrow(380, 73, 410, 73, color="#0066cc", sw=1.5))
     frags.append(arrow(595, 94, 595, 170, color="#0066cc", sw=1.5))
 
     frags.append(arrow(215, 310, 215, 290, color="#f39c12", sw=1.5))
@@ -69,11 +69,11 @@ def draw_lifecycle():
     # Process boxes
     frags.append(fitbox(40, 70, 160, 50, "1. Прибуття PDU/Капсули\nTransport Rx (TCP/RDMA)", size=11, fill="#ebf5fb", stroke="#2980b9"))
     frags.append(fitbox(230, 70, 160, 50, "2. Ініціалізація nvmet_req\nВалідація nsid, SGL & Opcode", size=11, fill="#e8f8f5", stroke="#16a085"))
-    frags.append(fitbox(420, 70, 160, 50, "3. Диспетчеризація бекенду\n(nvmet_req->execute)", size=11, fill="#fef9e7", stroke="#f39c12"))
+    frags.append(fitbox(420, 70, 160, 50, "3. Побудова bio (bdev)\nSGL-сторінки → bio_vec, Zero-Copy", size=11, fill="#fef9e7", stroke="#f39c12"))
 
     # Decision Split
-    frags.append(fitbox(610, 70, 180, 45, "4a. bdev backend\nПобудова bio + submit_bio()", size=11, fill="#fadbd8", stroke="#b03a2e"))
-    frags.append(fitbox(610, 150, 180, 45, "4b. passthru backend\nForwarding to NVMe HW", size=11, fill="#f5eeed", stroke="#78281f"))
+    frags.append(fitbox(610, 70, 180, 45, "4. Передача у blk-mq\nsubmit_bio()", size=11, fill="#fadbd8", stroke="#b03a2e"))
+    frags.append(fitbox(610, 150, 180, 45, "4′. Бекенд passthru\nпрямо на NVMe-контролер", size=11, fill="#f5eeed", stroke="#78281f"))
 
     # Completion step
     frags.append(fitbox(420, 260, 190, 50, "5. Асинхронний колбек\nnvmet_bio_done() / completion", size=11, fill="#eaf2f8", stroke="#2471a3"))
@@ -83,17 +83,19 @@ def draw_lifecycle():
     frags.append(arrow(200, 95, 230, 95, color="#2980b9", sw=1.5))
     frags.append(arrow(390, 95, 420, 95, color="#16a085", sw=1.5))
     
-    # Arrow to 4a
-    frags.append(arrow(580, 92, 610, 92, color="#f39c12", sw=1.5))
+    # Arrow to 4
+    frags.append(arrow(580, 92, 610, 92, color="#b03a2e", sw=1.5))
 
-    # Orthogonal routed line to 4b (down then right)
-    frags.append(line(500, 120, 500, 172, color="#f39c12", sw=1.5))
-    frags.append(arrow(500, 172, 610, 172, color="#f39c12", sw=1.5))
+    # Гілка passthru відходить від кроку 2 (там ставиться req->execute), а не від побудови bio
+    frags.append(line(310, 120, 310, 172, color="#78281f", sw=1.5))
+    frags.append(arrow(310, 172, 610, 172, color="#78281f", sw=1.5))
 
-    # Completions back to 5
-    frags.append(arrow(700, 115, 700, 195, color="#b03a2e", sw=1.5))
-    frags.append(line(700, 195, 700, 285, color="#b03a2e", sw=1.5))
-    frags.append(arrow(700, 285, 610, 285, color="#b03a2e", sw=1.5))
+    # Зворотний шлях: 4 обходить блок 4′ праворуч, обидві гілки сходяться на лінії y=285
+    frags.append(line(760, 115, 760, 132, color="#b03a2e", sw=1.5))
+    frags.append(line(760, 132, 805, 132, color="#b03a2e", sw=1.5))
+    frags.append(line(805, 132, 805, 285, color="#b03a2e", sw=1.5))
+    frags.append(line(700, 195, 700, 285, color="#78281f", sw=1.5))
+    frags.append(arrow(805, 285, 610, 285, color="#b03a2e", sw=1.5))
 
     frags.append(arrow(420, 285, 220, 285, color="#2471a3", sw=1.5))
 

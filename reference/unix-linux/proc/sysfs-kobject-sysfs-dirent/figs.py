@@ -125,7 +125,7 @@ def fig_sysfs_dirent_kernfs_vfs():
     # Середня колонка: struct kernfs_node (історично sysfs_dirent)
     p.append(fitbox(445, 120, 350, 220,
                     "struct kernfs_node\n(історично sysfs_dirent)\n"
-                    "• розмір: ВСЬОГО ~48-64 байти!\n"
+                    "• вузол: ~48-64 B у 2.6.x, ~80-128 B нині\n"
                     "• автономне компактне дерево в RAM\n"
                     "• зберігає ім'я, права, тип вузла\n"
                     "• ПОСТІЙНО живе в пам'яті ядра\n"
@@ -160,9 +160,9 @@ def fig_sysfs_dirent_kernfs_vfs():
 
     p.append(fitbox(630, 440, 540, 130,
                     "Сучасна схема (sysfs_dirent з 2.6.10, kernfs з 3.14):\n"
-                    "500 000 атрибутів × kernfs_node 48 B = ~24 МБ ПАМ'ЯТІ!\n"
+                    "500 000 атрибутів × вузол у 48-128 B = десятки МБ\n"
                     "VFS dentry/inode виділяються лише для відкритих файлів\n"
-                    "Економія: понад 370 МБ RAM на порожньому місці",
+                    "Економія - на порядок: сотні МБ RAM на порожньому місці",
                     size=12, fill=GREEN_FILL, stroke=FIELD))
 
     render(os.path.join(IMG, 'sysfs-dirent-kernfs-vfs.svg'), W, H, *p)

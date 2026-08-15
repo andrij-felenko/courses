@@ -74,10 +74,10 @@ def generate_architecture():
     frags.append(fitbox(60, 90, 300, 50, "Періодичний системний тик\nCONFIG_HZ (1000 Гц)", size=12, fill="#ffe0b2", stroke="#ffb74d"))
     frags.append(fitbox(60, 155, 300, 50, "Оновлення jiffies, wall clock\nта системної статистики", size=12, fill="#ffe0b2", stroke="#ffb74d"))
     frags.append(fitbox(60, 220, 300, 50, "Обробка апаратних IRQ\n(irqaffinity=0)", size=12, fill="#ffe0b2", stroke="#ffb74d"))
-    frags.append(fitbox(60, 285, 300, 55, "RCU Offloading threads (rcuop/1)\nОбслуговування RCU колбеків", size=12, fill="#ffe0b2", stroke="#ffb74d"))
+    frags.append(fitbox(60, 285, 300, 55, "Нитки rcuop/X (прив'язані вручну)\nОбслуговування RCU колбеків", size=12, fill="#ffe0b2", stroke="#ffb74d"))
     
-    # Arrow between CPUs
-    frags.append(arrow(385, 312, 415, 312, sw=2, color="#757575"))
+    # Arrow between CPUs: callbacks travel FROM the isolated CPU TO the rcuop thread
+    frags.append(arrow(415, 312, 385, 312, sw=2, color="#757575"))
     frags.append(text(400, 300, "RCU колбеки", size=10, color=MUTED, bold=True))
     
     # Right box: Isolated CPU
@@ -86,7 +86,7 @@ def generate_architecture():
     
     frags.append(fitbox(440, 90, 300, 50, "NO_HZ_FULL активний:\nСистемний тик вимкнено", size=12, fill="#c8e6c9", stroke="#81c784"))
     frags.append(fitbox(440, 155, 300, 50, "Монополія одного процесу\n(Runnable task count = 1)", size=12, fill="#c8e6c9", stroke="#81c784"))
-    frags.append(fitbox(440, 220, 300, 50, "Апаратні переривання відсутні\n(IRQ routed to CPU 0)", size=12, fill="#c8e6c9", stroke="#81c784"))
+    frags.append(fitbox(440, 220, 300, 50, "Апаратні переривання відсутні\n(IRQ спрямовано на CPU 0)", size=12, fill="#c8e6c9", stroke="#81c784"))
     frags.append(fitbox(440, 285, 300, 55, "Делегування RCU станів спокою\nбез зупинки виконання", size=12, fill="#c8e6c9", stroke="#81c784"))
     
     render(os.path.join(IMG_DIR, 'nohz-architecture.svg'), 800, 375, *frags)

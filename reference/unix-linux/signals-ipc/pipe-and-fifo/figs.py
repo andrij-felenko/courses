@@ -152,7 +152,7 @@ def fig_fifo_open():
     C3, W3 = 640, 330
 
     for x, w, s in ((C1, W1, "як відкривають FIFO"),
-                    (C2, W2, "що робить open()"),
+                    (C2, W2, "що робить open() без пари"),
                     (C3, W3, "чому саме так")):
         g.append(fitbox(x, 26, w, 42, s, size=13, bold=True, fill="#f7f3e8"))
 

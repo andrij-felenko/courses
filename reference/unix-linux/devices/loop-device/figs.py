@@ -199,7 +199,7 @@ def fig_cryptoloop_timeline():
                   color=MUTED, anchor="end"))
 
     render(os.path.join(IMG, 'cryptoloop-timeline.svg'), W, H, *p,
-           title="Вісімнадцять років cryptoloop: від появи до вилучення")
+           title="Cryptoloop: від появи над Crypto API до вилучення у 5.16")
 
 
 # ── 5. Життя однієї прив'язки: від вільного номера до відчеплення ───────────

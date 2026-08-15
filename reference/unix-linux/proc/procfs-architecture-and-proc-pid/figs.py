@@ -68,7 +68,7 @@ def fig_procfs_vfs_architecture():
 
     # 2. VFS -> procfs
     p.append(arrow(450, 355, 502, 355, color="#1976d2", sw=2))
-    p.append(text(476, 343, "proc_ops", size=13, color="#1976d2"))
+    p.append(text(476, 343, "f_op", size=13, color="#1976d2"))
 
     # 3. procfs -> Kernel Data Structures
     p.append(arrow(920, 355, 962, 385, color="#e65100", sw=2))
@@ -140,7 +140,7 @@ def fig_proc_pid_structure():
 
     # Гілка 3: Символічні посилання та ієрархія
     p.append(rect(940, 170, 380, 410, fill=GREEN, stroke="#43a047", sw=1.5, rx=6))
-    p.append(text(1130, 200, "Символічні посилання та потоки", size=16, bold=True, color="#1b5e20"))
+    p.append(text(1130, 200, "Посилання, потоки, ієрархії", size=16, bold=True, color="#1b5e20"))
 
     sym_items = [
         ("cwd ->", "Поточний робочий каталог (magic link)"),

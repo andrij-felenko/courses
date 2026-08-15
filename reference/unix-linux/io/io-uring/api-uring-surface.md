@@ -68,7 +68,8 @@ struct io_cqring_offsets {
     __u32 head, tail;          /* тут навпаки: хвіст рухає ядро, голову — програма */
     __u32 ring_mask;
     __u32 ring_entries;
-    __u32 overflow;            /* скільки разів завершення не влізли в кільце      */
+    __u32 overflow;            /* скільки завершень втрачено зовсім (не врятував  */
+                               /* навіть список переповнення)                     */
     __u32 cqes;                /* самі записи CQE — у цьому ж відображенні         */
     __u32 flags;
     __u32 resv1;
@@ -263,7 +264,7 @@ struct io_uring_cqe {
 | `IORING_OP_URING_CMD` | 5.19 | наскрізна команда драйверові (звідси й потреба у SQE128) |
 | `IORING_OP_SEND_ZC` | 6.0 | надсилання без копіювання; успіх приходить двома CQE |
 | `IORING_OP_SENDMSG_ZC` | 6.1 | те саме для `sendmsg` |
-| `IORING_OP_WAITID` | 6.5 | `waitid` — навіть очікування дитини стає операцією кільця |
+| `IORING_OP_WAITID` | 6.7 | `waitid` — навіть очікування дитини стає операцією кільця |
 | `IORING_OP_FUTEX_WAIT`, `IORING_OP_FUTEX_WAKE` | 6.7 | операції з ф'ютексом усередині кільця |
 | `IORING_OP_FIXED_FD_INSTALL` | 6.8 | зробити із зареєстрованого дескриптора звичайний |
 | `IORING_OP_BIND`, `IORING_OP_LISTEN` | 6.11 | `bind`, `listen` |
@@ -336,8 +337,9 @@ int main(void)
 
     int fd = (int)syscall(__NR_io_uring_setup, 8, &p);
     if (fd < 0) { perror("io_uring_setup"); return 1; }
-    if (!(p.features & IORING_FEAT_SINGLE_MMAP)) {
-        fprintf(stderr, "ядро старше за 5.4: CQ треба відображати окремо\n");
+    if (!(p.features & IORING_FEAT_SINGLE_MMAP) ||   /* 5.4: одне відображення  */
+        !(p.features & IORING_FEAT_RW_CUR_POS)) {    /* 5.6: off = −1           */
+        fprintf(stderr, "заслабке ядро: треба одне відображення й off = −1\n");
         return 1;
     }
 

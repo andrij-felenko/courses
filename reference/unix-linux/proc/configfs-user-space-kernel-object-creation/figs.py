@@ -218,16 +218,17 @@ def fig_configfs_lifecycle():
 
     p.append(fitbox(620, 225, 510, 110,
                     "2. Перевірка залежностей та drop_item()\n"
-                    "configfs перевіряє відсутність симлінків та вкладених груп.\n"
-                    "Викликається group_ops->drop_item().\n"
-                    "Драйвер відключає об'єкт від активної роботи.",
+                    "configfs_detach_prep(): s_links != 0 ──► -EBUSY,\n"
+                    "діти або власні симлінки ──► -ENOTEMPTY.\n"
+                    "group_ops->drop_item(): драйвер відключає об'єкт\n"
+                    "від роботи і САМ робить config_item_put(item).",
                     size=12, fill=PURPLE_FILL, stroke=NEG))
 
     p.append(arrow(875, 335, 875, 365, color=NEG, sw=2))
 
     p.append(fitbox(620, 365, 510, 175,
-                    "3. Зменшення kref та release()\n"
-                    "config_item_put(item) ──► refcount зменшується.\n"
+                    "3. Обнулення kref та release()\n"
+                    "config_item_put(item) ──► ci_kref зменшується.\n"
                     "Коли ci_kref досягає 0 ──► викликається release().\n"
                     "Зворотний виклик release() виконує kfree(my_item).\n"
                     "Пам'ять ядра безпечно звільняється.",

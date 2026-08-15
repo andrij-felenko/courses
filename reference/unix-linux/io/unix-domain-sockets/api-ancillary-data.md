@@ -67,7 +67,7 @@ CMSG_SPACE(l) = CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(l)
 |---|---|---|---|
 | `SCM_RIGHTS` | масив `int` — дескриптори; не більш ніж `SCM_MAX_FD` = 253 | нічого | завжди |
 | `SCM_CREDENTIALS` | `struct ucred` — pid, uid, gid | `SO_PASSCRED` | потрібен `_GNU_SOURCE` для оголошення `struct ucred` |
-| `SCM_SECURITY` | рядок — мітка безпеки; буфер беруть від `NAME_MAX` | `SO_PASSSEC` | датаграми з Linux 2.6.18, потоки з 4.2 |
+| `SCM_SECURITY` | рядок — мітка безпеки; довжину диктують модуль MAC і політика, стелі контракт не називає, тож буфер беруть із запасом | `SO_PASSSEC` | датаграми з Linux 2.6.18, потоки з 4.2 |
 | `SCM_PIDFD` | один `int` — новий дескриптор процесу-відправника | `SO_PASSPIDFD` | з Linux 6.5 (glibc 2.39) |
 
 ```c
@@ -89,7 +89,7 @@ struct ucred {
 | опція | доступ | значення | що робить |
 |---|---|---|---|
 | `SO_PASSCRED` | `get`/`set` | `int`, 0 або 1 | вмикає прихід `SCM_CREDENTIALS` у **кожному** наступному повідомленні |
-| `SO_PEERCRED` | тільки `get` | `struct ucred` | облікові дані співрозмовника, зафіксовані в мить `connect`, `listen` або `socketpair`; лише для зʼєднаних потокових сокетів і пар від `socketpair` |
+| `SO_PEERCRED` | тільки `get` | `struct ucred` | облікові дані співрозмовника, зафіксовані в мить `connect`, `listen` або `socketpair`; uid і gid тут **чинні**, а не реальні; лише для зʼєднаних потокових сокетів і пар від `socketpair` |
 | `SO_PASSPIDFD` | `get`/`set` | `int`, 0 або 1 | вмикає прихід `SCM_PIDFD` |
 | `SO_PEERPIDFD` | тільки `get` | `int` | **новий дескриптор**, що вказує на процес-співрозмовника; закрити його — обовʼязок того, хто спитав |
 | `SO_PASSSEC` | `get`/`set` | `int`, 0 або 1 | вмикає прихід `SCM_SECURITY` |
@@ -185,7 +185,7 @@ if (msg.msg_flags & MSG_CTRUNC)
 |---|---|---|
 | `EINVAL` | `sendmsg` | у блоці більш ніж `SCM_MAX_FD` = 253 дескриптори (до Linux 2.6.38 — 255), або `cmsg_len` не сходиться з `msg_controllen` |
 | `EBADF` | `sendmsg` | у масиві є число, яке не є відкритим дескриптором; не передається жоден |
-| `ETOOMANYREFS` | `sendmsg` | дескрипторів «у польоті» більше за `RLIMIT_NOFILE`, і немає `CAP_SYS_RESOURCE` ([обмеження ресурсів](book:unix-linux/resource-limits) — мʼяка й жорстка межа на процес, зокрема на кількість відкритих файлів) |
+| `ETOOMANYREFS` | `sendmsg` | дескрипторів «у польоті» **в цього користувача** більше за `RLIMIT_NOFILE` відправника, і немає ані `CAP_SYS_RESOURCE`, ані `CAP_SYS_ADMIN` ([обмеження ресурсів](book:unix-linux/resource-limits) — мʼяка й жорстка межа на процес, зокрема на кількість відкритих файлів) |
 | `EPERM` | `sendmsg` | у `struct ucred` чужі pid, uid або gid без потрібної можливості |
 | `ESRCH` | `sendmsg` | у `struct ucred` pid, якого не існує |
 | `ENOMEM` | обидва | ядру немає з чого виділити керівну смугу |

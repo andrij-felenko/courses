@@ -1,6 +1,6 @@
 # ⚙️ Вимірювання точності та джиттера timerfd у просторі користувача
 
-Цей практичний проєкт присвячено створенню вимірювача системного джиттера (відхилення часу пробудження від заданого графіку) у просторі користувача. Ми використовуємо механізм `timerfd` ядра Linux для генерації періодичних спрацьовувань наносекундної точності та детально аналізуємо вплив конфігурації ядра, пріоритетів планування і стану процесора на реальні затримки.
+Цей практичний проєкт присвячено створенню вимірювача системного джиттера (відхилення часу пробудження від заданого графіку) у просторі користувача. Ми використовуємо механізм `timerfd` ядра Linux, щоб задати періодичні спрацьовування з наносекундним *зерном* часу (сама точність, як побачимо, вимірюється мікросекундами), та детально аналізуємо вплив конфігурації ядра, пріоритетів планування і стану процесора на реальні затримки.
 
 ## Концепція проєкту та джерела джиттера
 
@@ -12,7 +12,7 @@
 відхилення джиттера (ΔT)      = T_actual - T_target
 ```
 
-У ідеальній операційній системі `ΔT` мало б дорівнювати 0. Однак у реальних системах загального призначення існує кілька чинників, що викликають позитивне відхилення (`ΔT > 0`):
+В ідеальній операційній системі `ΔT` мало б дорівнювати 0. Однак у реальних системах загального призначення існує кілька чинників, що викликають позитивне відхилення (`ΔT > 0`):
 
 1. **Затримка обробки апаратного переривання (Hardirq latency)**: Час між моментом, коли апаратний APIC-таймер згенерував переривання, та моментом, коли ядро почало виконувати `hrtimer_interrupt()`. Викликається тимчасовим вимкненням переривань у критичних секціях ядра.
 2. **Затримка планувальника (Scheduling latency)**: Час між моментом, коли `hrtimer` перевів потік із стану `TASK_INTERRUPTIBLE` у стан `TASK_RUNNING`, та моментом, коли планувальник реально переключив контекст процесора (context switch) на цей потік.
@@ -52,17 +52,22 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    /* 2. Задаємо період 500 мікросекунд */
+    /* 2. Задаємо період 500 мікросекунд і АБСОЛЮТНИЙ момент першого тику.
+          Абсолютна позначка (TFD_TIMER_ABSTIME) потрібна, щоб ядро й програма
+          відлічували сітку від одного й того самого нуля: якби нулем був час
+          перед timerfd_settime(), у кожен вимір увійшла б ще й тривалість
+          самого системного виклику — а це той самий порядок, що й джиттер. */
+    struct timespec start_ts;
+    clock_gettime(CLOCK_MONOTONIC, &start_ts);
+    int64_t first_ns = timespec_to_ns(&start_ts) + 10000000LL; /* старт через 10 мс */
+
     struct itimerspec new_val = {0};
     new_val.it_interval.tv_sec = 0;
     new_val.it_interval.tv_nsec = PERIOD_NS;
-    new_val.it_value.tv_sec = 0;
-    new_val.it_value.tv_nsec = PERIOD_NS;
+    new_val.it_value.tv_sec = (time_t)(first_ns / 1000000000LL);
+    new_val.it_value.tv_nsec = (long)(first_ns % 1000000000LL);
 
-    struct timespec start_ts;
-    clock_gettime(CLOCK_MONOTONIC, &start_ts);
-
-    if (timerfd_settime(tfd, 0, &new_val, NULL) == -1) {
+    if (timerfd_settime(tfd, TFD_TIMER_ABSTIME, &new_val, NULL) == -1) {
         perror("timerfd_settime");
         close(tfd);
         return EXIT_FAILURE;
@@ -86,7 +91,7 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    int64_t expected_target = timespec_to_ns(&start_ts) + PERIOD_NS;
+    int64_t expected_target = first_ns;
     int64_t min_jitter = 1000000000LL;
     int64_t max_jitter = -1000000000LL;
     int64_t total_jitter = 0;
@@ -140,6 +145,8 @@ int main(void) {
 #include <algorithm>
 #include <system_error>
 #include <cstdint>
+#include <cstdlib>
+#include <cerrno>
 #include <cmath>
 #include <unistd.h>
 #include <sys/timerfd.h>
@@ -170,16 +177,25 @@ public:
 
     int native_handle() const noexcept { return m_fd; }
 
-    void set_interval(std::chrono::nanoseconds period) {
+    /* Абсолютна сітка: перший тик задано позначкою steady_clock (у Linux це
+       CLOCK_MONOTONIC), тож ядро й програма рахують від одного нуля. */
+    void arm(std::chrono::steady_clock::time_point first,
+             std::chrono::nanoseconds period) {
+        using std::chrono::duration_cast;
+        using std::chrono::nanoseconds;
+        using std::chrono::seconds;
+
+        auto since = first.time_since_epoch();
+        auto fsec = duration_cast<seconds>(since);
+        auto psec = duration_cast<seconds>(period);
+
         struct itimerspec new_val{};
-        auto secs = std::chrono::duration_cast<std::chrono::seconds>(period);
-        auto nsecs = period - secs;
+        new_val.it_value.tv_sec = fsec.count();
+        new_val.it_value.tv_nsec = duration_cast<nanoseconds>(since - fsec).count();
+        new_val.it_interval.tv_sec = psec.count();
+        new_val.it_interval.tv_nsec = duration_cast<nanoseconds>(period - psec).count();
 
-        new_val.it_interval.tv_sec = secs.count();
-        new_val.it_interval.tv_nsec = nsecs.count();
-        new_val.it_value = new_val.it_interval;
-
-        if (::timerfd_settime(m_fd, 0, &new_val, nullptr) == -1) {
+        if (::timerfd_settime(m_fd, TFD_TIMER_ABSTIME, &new_val, nullptr) == -1) {
             throw std::system_error(errno, std::generic_category(), "timerfd_settime failed");
         }
     }
@@ -214,10 +230,10 @@ int main() {
             throw std::system_error(errno, std::generic_category(), "epoll_ctl failed");
         }
 
-        auto start_time = std::chrono::steady_clock::now();
-        timer.set_interval(period);
+        auto first_tick = std::chrono::steady_clock::now() + std::chrono::milliseconds(10);
+        timer.arm(first_tick, period);
 
-        auto expected_target = start_time + period;
+        auto expected_target = first_tick;
         std::vector<double> jitters_us;
         jitters_us.reserve(iterations);
 
@@ -226,7 +242,10 @@ int main() {
         for (std::size_t i = 0; i < iterations; ++i) {
             struct epoll_event events[1];
             int nfds = ::epoll_wait(epfd, events, 1, -1);
-            if (nfds < 0) continue;
+            if (nfds < 0) {
+                if (errno == EINTR) continue;
+                throw std::system_error(errno, std::generic_category(), "epoll_wait failed");
+            }
 
             std::uint64_t overruns = timer.wait_expirations();
             auto now = std::chrono::steady_clock::now();
@@ -269,6 +288,8 @@ int main() {
 Якщо викликом `clock_gettime()` зчитувати час після пробудження й додавати до нього період, джиттер кожного тику додається до наступного інтервалу, і за 10 000 ітерацій системний годинник "втікає" на кілька мілісекунд.
 
 У нашому коді ми використовуємо абсолютну сітку часу, де кожна наступна точка спрацьовування додає період до попереднього планового значення. Множник `expirations` гарантує, що навіть якщо система була тимчасово заблокована і пропустила кілька тиків, розрахунок наступного дедлайну не зб'ється з точної часової сітки.
+
+Не менш важливо, звідки ця сітка починається. Ми не беремо за нуль момент перед `timerfd_settime()`, а передаємо ядру абсолютну позначку прапорцем `TFD_TIMER_ABSTIME`: тоді нуль у ядра й у програми буквально один і той самий. Інакше в кожен вимір увійшла б ще й тривалість самого системного виклику озброєння таймера — одиниці мікросекунд, тобто рівно той порядок, який ми й намагаємося виміряти.
 
 ### 2. Використання epoll замість блокуючого read()
 
@@ -317,7 +338,7 @@ g++ -O2 -std=c++20 -Wall benchmark_timerfd.cpp -o benchmark_cpp
 
 ### 2. Експеримент 1: Звичайний запуск (SCHED_OTHER)
 
-Запустіть вимірювання без привілеїв адміністратора на звичайній настільній системі під управлінням планувальника CFS (Completely Fair Scheduler):
+Запустіть вимірювання без привілеїв адміністратора на звичайній настільній системі під управлінням планувальника загального призначення (CFS, а від ядра 6.6 — EEVDF, що прийшов йому на зміну):
 
 ```bash
 ./benchmark_c
@@ -347,7 +368,7 @@ stress-ng --cpu 4 --vm 2 --vm-bytes 512M
 
 **Очікувані результати під навантаженням:**
 - Середній джиттер зростає до `25 – 60 мкс`
-- Максимальний джиттер може досягати `1500 – 4000 мкс` (1.5–4 мілісекунди) через чергу витіснення планувальника CFS.
+- Максимальний джиттер може досягати `1500 – 4000 мкс` (1.5–4 мілісекунди): наша задача стоїть у загальній черзі й чекає, поки планувальник витіснить чужі обчислення.
 
 ### 4. Експеримент 3: Оптимізація реального часу (SCHED_FIFO + CPU Pinning + CPU Governor)
 
@@ -359,9 +380,11 @@ stress-ng --cpu 4 --vm 2 --vm-bytes 512M
    ```
 2. **Вимкнення глибини C-states для усунення затримок пробудження ядра**:
    ```bash
-   # Максимально припустима затримка = 0 мкс (дескриптор мусить лишатися відкритим)
+   # Виконувати від root (файл доступний на запис лише йому) і саме в тому шелі,
+   # з якого потім запускають вимір: щойно дескриптор закриється, ліміт зникне.
+   sudo -i
    exec 3> /dev/cpu_dma_latency
-   echo -ne "\x00\x00\x00\x00" >&3
+   echo -ne "\x00\x00\x00\x00" >&3   # максимально припустима затримка = 0 мкс
    ```
 3. **Переведення процесу у клас реального часу SCHED_FIFO та ізоляція на ядрі №2**:
    ```bash

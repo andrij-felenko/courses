@@ -52,7 +52,7 @@ def fig_ptrace_attach_flow():
     p.append(fitbox(tx + 40, 280, 340, 48, "4. Інспекція та модифікація:\nPEEKDATA / POKEDATA / SETREGS",
                     size=11, fill="#fff", stroke=INK, sw=1.5, color=INK))
     p.append(line(tx + 380, 304, rx + 40, 304, color=INK, sw=1.5))
-    p.append(text(490, 296, "прямий доступ через ядро", size=10, color=MUTED))
+    p.append(text(490, 296, "доступ лише руками ядра", size=10, color=MUTED))
 
     # Крок 5: Відновлення виконання
     p.append(fitbox(tx + 40, 350, 340, 44, "5. ptrace(PTRACE_CONT, pid)\nПродовження роботи",

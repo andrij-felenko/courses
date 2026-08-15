@@ -11,7 +11,7 @@
 ```c
 struct ctl_table {
     const char *procname;         /* Ім'я файлу або каталогу в /proc/sys */
-    void *data;                   /* Указник на змінну в пам'яті ядра */
+    void *data;                   /* Вказівник на змінну в пам'яті ядра */
     int maxlen;                   /* Максимальний розмір даних у байтах */
     umode_t mode;                 /* Права доступу VFS (наприклад, 0644 або 0444) */
     proc_handler *proc_handler;   /* Обробник читання/запису */
@@ -27,32 +27,49 @@ struct ctl_table {
 - `data`: Прямий вказівник на глобальну або статичну змінну ядра у секції даних (`.data` або `.bss`).
 - `maxlen`: Обмеження обсягу пам'яті у байтах. Для цілих чисел `int` дорівнює `sizeof(int)`, для масивів — `N * sizeof(int)`, для рядків — розмір текстового буфера.
 - `mode`: Права доступу у форматі маски VFS. Типові значення: `0644` (читання для всіх, запис для root), `0444` (лише читання для всіх), `0600` (читання й запис лише для root).
-- `proc_handler`: Указник на функцію ядра, яка викликається при читанні або записі файлу.
+- `proc_handler`: Вказівник на функцію ядра, яка викликається при читанні або записі файлу.
 - `extra1` та `extra2`: Допоміжні вказівники для передачі нижньої та верхньої меж діапазону у перевірочних обробниках `proc_dointvec_minmax`.
 
 Для управління групою параметрів та їх реєстрації у дереві VFS ядро використовує обгортку `ctl_table_header`, яка повертається під час реєстрації:
 
 ```c
-struct ctl_table_header *register_sysctl(const char *path, struct ctl_table *table);
+/* Від Linux 6.6 register_sysctl — не функція, а макрос */
+#define register_sysctl(path, table)  \
+        register_sysctl_sz(path, table, ARRAY_SIZE(table))
+
+struct ctl_table_header *register_sysctl_sz(const char *path,
+                                            const struct ctl_table *table,
+                                            size_t table_size);
 void unregister_sysctl_table(struct ctl_table_header *header);
 ```
 
 Аргумент `path` задає відносний шлях у дереві `/proc/sys` (наприклад, `"net/ipv4"` або `"kernel"`).
 
+### Межа версій: сентинел і const
+
+Форма цього контракту мінялася тричі, і код, написаний під одну межу, на іншому боці або не збереться, або мовчки не зареєструється:
+
+- **До Linux 6.5 включно** `register_sysctl()` була звичайною функцією `(const char *path, struct ctl_table *table)`, а кінець масиву ядро знаходило за **термінальним порожнім елементом** `{ }`. Без нього обхід таблиці вибігав за межі масиву.
+- **Від Linux 6.6** довжину передає `ARRAY_SIZE()` через `register_sysctl_sz()`, і сентинел стає зайвим. Перехідні ядра 6.6–6.10 його ще терплять: макрос обходу `list_for_each_table_entry()` зупиняється на порожньому `procname`.
+- **Від Linux 6.11** цю поблажку прибрано. Забутий `{ }` тепер потрапляє у `sysctl_check_table()`, реєстрація провалюється, а в `dmesg` лягає діагностика `procname is null`. Тоді ж `proc_handler` і майже всі готові обробники дістали аргумент `const struct ctl_table *`; сама `register_sysctl_sz()` стала брати `const` пізніше, від Linux 6.13.
+
+Мережевий двійник живе за тим самим розкладом: `register_net_sysctl()` — макрос над `register_net_sysctl_sz()` від 6.6, але його аргумент `table` `const` не отримав досі.
+
 ## Сигнатура обробника proc_handler
 
-Кожен файл у `/proc/sys` має свій обробник читання та запису. Прототип функції `proc_handler` визначено у ядрі наступним чином:
+Кожен файл у `/proc/sys` має свій обробник читання та запису. Прототип функції `proc_handler` у ядрі має такий вигляд:
 
 ```c
-typedef int proc_handler(struct ctl_table *table, int write,
+/* Сигнатура ядер від Linux 6.11; до 6.10 — без const */
+typedef int proc_handler(const struct ctl_table *table, int write,
                          void *buffer, size_t *lenp, loff_t *ppos);
 ```
 
 Параметри обробника:
-- `table` — указник на елемент `struct ctl_table`, до якого звертається користувач.
+- `table` — вказівник на елемент `struct ctl_table`, до якого звертається користувач.
 - `write` — прапорець напрямку операції: `0` для читання (`read`), `1` для запису (`write`).
-- `buffer` — указник на буфер із даними. Від Linux 5.8 (набір патчів Крістофа Гельвіга «pass kernel pointers to ->proc_handler») це вже **ядерна** пам'ять: спільний код `proc_sys_call_handler()` сам копіює дані користувача й завершує рядок нулем, тому анотація `__user` із сигнатури зникла, а обробникам більше не потрібні `copy_from_user()`/`copy_to_user()`.
-- `lenp` — указник на розмір буфера (вхідний параметр — запитаний розмір користувача, вихідний — фактично оброблена кількість байтів).
+- `buffer` — вказівник на буфер із даними. Від Linux 5.8 (набір патчів Крістофа Гельвіга «pass kernel pointers to ->proc_handler») це вже **ядерна** пам'ять: спільний код `proc_sys_call_handler()` сам копіює дані користувача й завершує рядок нулем, тому анотація `__user` із сигнатури зникла, а обробникам більше не потрібні `copy_from_user()`/`copy_to_user()`.
+- `lenp` — вказівник на розмір буфера (вхідний параметр — запитаний розмір користувача, вихідний — фактично оброблена кількість байтів).
 - `ppos` — поточний зсув позиції у файлі (*file position offset*).
 
 Повертане значення: `0` у разі успішного виконання або від'ємний код помилки POSIX (наприклад, `-EINVAL`, `-EPERM`, `-EFAULT`, `-EOVERFLOW`).
@@ -91,7 +108,6 @@ static struct ctl_table example_table[] = {
         .extra1       = &val_min,
         .extra2       = &val_max,
     },
-    { }
 };
 ```
 
@@ -99,7 +115,7 @@ static struct ctl_table example_table[] = {
 
 ## Повний приклад реєстрації таблиці sysctl у модулі ядра
 
-Нижче наведено робочий приклад модуля ядра Linux, який реєструє власне піддерево у `/proc/sys/kernel/custom_tuning`.
+Нижче наведено робочий приклад модуля ядра Linux, який реєструє власне піддерево у `/proc/sys/kernel/custom_tuning`. Приклад написано під ядра від 6.6 — саме тому масив `custom_sysctl_table[]` не має термінального `{ }`; для старіших ядер цей елемент довелося б повернути.
 
 ```c
 #include <linux/init.h>
@@ -108,7 +124,7 @@ static struct ctl_table example_table[] = {
 #include <linux/sysctl.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Antigravity Course");
+MODULE_AUTHOR("sysctl demo");
 MODULE_DESCRIPTION("Приклад реєстрації параметрів sysctl");
 
 static int custom_debug_level = 0;
@@ -134,7 +150,6 @@ static struct ctl_table custom_sysctl_table[] = {
         .mode         = 0644,
         .proc_handler = proc_dostring,
     },
-    { } /* Порожній термінальний елемент масиву */
 };
 
 static struct ctl_table_header *custom_header;
@@ -176,7 +191,7 @@ module_exit(custom_sysctl_exit);
 ```c
 static int custom_cache_trigger = 0;
 
-static int custom_trigger_handler(struct ctl_table *table, int write,
+static int custom_trigger_handler(const struct ctl_table *table, int write,
                                   void *buffer, size_t *lenp, loff_t *ppos)
 {
     int old_val = custom_cache_trigger;
@@ -204,20 +219,24 @@ static int custom_trigger_handler(struct ctl_table *table, int write,
 
 ## Внутрішній механізм захисту пам'яті та синхронізації
 
-Під час реєстрації таблиць `ctl_table` ядро Linux будує внутрішню ієрархію вузлів `ctl_node`. Для захисту від гонки даних (*data races*) під час одночасного читання та запису з кількох процесів використовуються наступні механізми:
+Під час реєстрації таблиць `ctl_table` ядро Linux будує внутрішню ієрархію вузлів `ctl_node`. Для захисту від гонки даних (*data races*) під час одночасного читання та запису з кількох процесів працюють три механізми:
 
 - **Глобальний спінлок `sysctl_lock`:** Пошук вузла в дереві (`lookup_entry()` → `find_entry()`), реєстрація нових таблиць і зміна лічильників виконуються під одним спінлоком, оголошеним у `fs/proc/proc_sysctl.c`. Саме він, а не RCU, серіалізує доступ до дерева каталогів.
 - **Підрахунок використання (поле `used` у `ctl_table_header`):** Кожне відкриття файлу в `/proc/sys` тримає посилання на відповідний заголовок (`use_table()` / `unuse_table()`). Виклик `unregister_sysctl_table()` спершу позначає таблицю такою, що знімається з реєстру, і чекає, поки лічильник спорожніє, — лише тоді структура зникає з дерева.
-- **Відкладене звільнення через RCU (*Read-Copy-Update*):** Сама пам'ять заголовка звільняється не миттєво, а через `kfree_rcu(head, rcu)` — після завершення поточного грейс-періоду. Так паралельний читач, що вже отримав указник, гарантовано не наткнеться на звільнену пам'ять.
+- **Відкладене звільнення через RCU (*Read-Copy-Update*):** Сама пам'ять заголовка звільняється не миттєво, а через `kfree_rcu(head, rcu)` — після завершення поточного грейс-періоду. Так паралельний читач, що вже отримав вказівник, гарантовано не наткнеться на звільнену пам'ять.
 
 ## Ізоляція sysctl у мережевих просторах імен (Network NS)
 
 Для параметрів, які повинні мати окремі значення у кожному контейнері (мережевому просторі імен), ядро надає спеціалізовані функції реєстрації:
 
 ```c
-struct ctl_table_header *register_net_sysctl(struct net *net,
-                                            const char *path,
-                                            struct ctl_table *table);
+#define register_net_sysctl(net, path, table)  \
+        register_net_sysctl_sz(net, path, table, ARRAY_SIZE(table))
+
+struct ctl_table_header *register_net_sysctl_sz(struct net *net,
+                                                const char *path,
+                                                struct ctl_table *table,
+                                                size_t table_size);
 void unregister_net_sysctl_table(struct ctl_table_header *header);
 ```
 

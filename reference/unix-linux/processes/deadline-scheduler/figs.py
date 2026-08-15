@@ -67,7 +67,7 @@ def generate_dhall_effect():
     frags.append(text(645, 75, "Partitioned EDF (Прив'язка cpuset)", size=14, color=FIELD, bold=True))
     frags.append(textbox(530, 140, "Domain A\nCPU 0: Завдання T₁, T₂", size=11, fill="#e8f8f0", stroke=FIELD)[0])
     frags.append(textbox(750, 140, "Domain B\nCPU 1: Завдання T₃ (Ізольоване)", size=11, fill="#e8f8f0", stroke=FIELD)[0])
-    frags.append(text(645, 275, "Ніяких витіснень з інших ядер:\n100% гарантія дедлайнів", size=11, color=FIELD, bold=True))
+    frags.append(text(645, 275, "Ніяких витіснень з інших ядер:\nна кожному ядрі знову діє U ≤ U_max", size=11, color=FIELD, bold=True))
 
     render(path, w, h, *frags)
 

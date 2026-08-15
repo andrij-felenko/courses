@@ -25,7 +25,7 @@ def fig_two_spaces():
     b.append(text(700, 55, "Процес B (читає)", size=14, bold=True))
     b.append(rect(585, 78, 230, 62, fill=FILL))
     b.append(text(700, 103, "відображення MAP_SHARED", size=12))
-    b.append(text(700, 125, "0x55c9f4a00000", size=12, color=MUTED))
+    b.append(text(700, 125, "0x7f9d3e800000", size=12, color=MUTED))
 
     # Застереження посередині
     note, _, _ = textbox(430, 105, "адреси різні:\nвказівник із A\nу B нікуди\nне веде",

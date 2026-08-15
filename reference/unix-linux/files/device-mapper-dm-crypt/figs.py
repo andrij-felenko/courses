@@ -58,7 +58,7 @@ def render_figs():
         fitbox(70, 120, 300, 36, "Magic: LUKS\\xba\\xbe (Версія 1 або 2)", size=12, fill="#ffe3e3", stroke="#e03131"),
         fitbox(70, 165, 300, 36, "Метадані JSON: UUID, Алгоритм (AES-XTS)", size=12, fill="#ffe3e3", stroke="#e03131"),
         fitbox(70, 210, 300, 40, "Параметри KDF: Argon2id / PBKDF2\n(Сіль, ітерації, пам'ять)", size=12, fill="#ffe3e3", stroke="#e03131"),
-        fitbox(70, 260, 300, 95, "Key Slots 0 .. 31 (у LUKS1 — 0 .. 7)\n- Зашифрований Master Key (VK)\n- AF-Split: розсіювання матеріалу\n- Парольна фраза розшифровує KEK", size=12, fill="#fff0f6", stroke="#d6336c"),
+        fitbox(70, 260, 300, 95, "Key Slots 0 .. 31 (у LUKS1 — 0 .. 7)\n- Зашифрований Master Key (VK)\n- AF-Split: розсіювання матеріалу\n- Argon2id(пароль, сіль) дає KEK", size=12, fill="#fff0f6", stroke="#d6336c"),
 
         # Master key relation box
         fitbox(410, 180, 110, 80, "Master Key\n(Volume Key)\n🔑", size=13, fill="#fff9db", stroke="#f59f00", bold=True),

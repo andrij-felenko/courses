@@ -10,11 +10,11 @@
 
 Повна послідовність кроків складається з таких етапів:
 
-1. **Збереження початкового контексту мережі:** Відкриття файлового дескриптора `/proc/self/ns/net`. Це необхідно для того, щоб потік виконання мав змогу повернутися у вихідний мережевий простір хоста після створення нового простору, оскільки конфігурування `veth`-пари вимагає наявності контексту зводжуваних пристроїв.
+1. **Збереження початкового контексту мережі:** Відкриття файлового дескриптора `/proc/self/ns/net`. Це необхідно для того, щоб потік виконання мав змогу повернутися у вихідний мережевий простір хоста після створення нового: `veth`-пару треба створювати саме з боку хоста, бо один її кінець там і залишається.
 2. **Створення нового мережевого простору:** Виклик системного виклику `unshare(CLONE_NEWNET)`. Ядро виділяє нову структуру `struct net`, ініціалізує порожні таблиці маршрутизації FIB, створює вимкнений інтерфейс `loopback` (`lo`) та підключає новий простір до поточного процесу.
 3. **Закріплення простору у VFS (Bind Mount):** Створення файла у каталозі `/var/run/netns/demo_ns` та виконання системного виклику `mount(..., MS_BIND)`. Це збільшує лічильник посилань `net->count`, гарантуючи, що простір не зникне після завершення поточного процесу чи потоку.
 4. **Повернення у початковий простір:** Виклик `setns(orig_ns_fd, CLONE_NEWNET)`, щоб повернути потік виконання у мережевий простір хоста, де будуть створюватися віртуальні інтерфейси.
-5. **Ініціалізація Netlink сокета:** Відкриття сокета `socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE)` для спілкування з мережевим підрозділом ядра.
+5. **Ініціалізація Netlink сокета:** Відкриття сокета `socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE)` для спілкування з мережевою підсистемою ядра.
 6. **Формування бінарного повідомлення `RTM_NEWLINK`:** Складання заголовка `nlmsghdr`, структури `ifinfomsg` та вкладених атрибутів `rtattr`:
    - `IFLA_IFNAME`: Назва хостового кінця `veth`-пари (наприклад, `veth-host`).
    - `IFLA_LINKINFO` -> `IFLA_INFO_KIND`: Рядок `"veth"`.
@@ -26,13 +26,13 @@
 
 ## 2. Історичні альтернативи: ioctl проти Netlink
 
-Історично у ранніх версіях ядра Linux 2.4/2.6 управління мережевими пристроями виконувалося через сокетні виклики `ioctl(fd, SIOCSIFADDR, ...)` та `ioctl(fd, SIOCSIFFLAGS, ...)`. Проте підхід із `ioctl` володіє суттєвими обмеженнями:
+Історично у ранніх версіях ядра Linux 2.4/2.6 управління мережевими пристроями виконувалося через сокетні виклики `ioctl(fd, SIOCSIFADDR, ...)` та `ioctl(fd, SIOCSIFFLAGS, ...)`. Проте підхід із `ioctl` має суттєві обмеження:
 
 * **Відсутність атомарності:** Налаштування кожної IP-адреси, маски та прапорця вимагає окремого системного виклику.
 * **Обмеженість передачі даних:** Поля структури `ifreq` мають фіксований розмір (наприклад, ім'я інтерфейсу обмежене 16 байтами `IFNAMSIZ`).
 * **Неможливість створення складних віртуальних пристроїв:** Створення `veth`-пари із зазначенням цільового простору імен через `ioctl` непідтримуване.
 
-Сучасні системи повністю перейшли на сокети `AF_NETLINK` з протоколом `NETLINK_ROUTE`. Netlink є розширюваним бінарним протоколом типу "запит-відповідь", у якому повідомлення містять набір довільних вкладених атрибутів (TLV — Type-Length-Value). Це дозволяє передавати в одному системному виклику `sendto()` повне дерево конфігурації для кількох мережевих просторів імен.
+Сучасні системи повністю перейшли на сокети `AF_NETLINK` з протоколом `NETLINK_ROUTE`. Netlink є розширюваним бінарним протоколом типу "запит-відповідь", у якому повідомлення містять набір довільних вкладених атрибутів (TLV — Type-Length-Value). Це дозволяє передати одним викликом `sendto()` ціле дерево вкладених атрибутів — зокрема опис обох кінців `veth`-пари разом із цільовим простором для одного з них.
 
 ---
 
@@ -158,14 +158,23 @@ int main(void) {
     }
 
     int new_ns_fd = open(NETNS_PATH, O_RDONLY);
-    
-    /* Повертаємося в початковий простір для створення veth-пари */
-    setns(orig_ns_fd, CLONE_NEWNET);
+
+    /* Повертаємося в початковий простір для створення veth-пари.
+       Без цієї перевірки програма мовчки лишилася б у новому просторі
+       і створила б обидва кінці пари не там, де треба. */
+    if (setns(orig_ns_fd, CLONE_NEWNET) != 0) {
+        perror("setns(orig_ns)");
+        if (new_ns_fd >= 0) close(new_ns_fd);
+        close(orig_ns_fd);
+        return 1;
+    }
 
     int nl_fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
     if (nl_fd >= 0 && new_ns_fd >= 0) {
         if (create_veth_pair(nl_fd, "veth-host", "veth-ns", new_ns_fd) == 0) {
-            printf("Успішно створено veth-пару. veth-ns переміщено в netns '%s'\n", NETNS_PATH);
+            /* Запит надіслано; чи справді пара створена, покаже
+               NLMSG_ERROR-відповідь ядра — розбір див. у §5 */
+            printf("Запит на створення veth-пари надіслано (netns '%s')\n", NETNS_PATH);
         }
         close(nl_fd);
     }
@@ -176,13 +185,16 @@ int main(void) {
 }
 ```
 ```cpp
-#include <iostream>
-#include <string_view>
-#include <system_error>
-#include <vector>
+#include <algorithm>
 #include <array>
+#include <bit>
+#include <cstdint>
+#include <iostream>
 #include <memory>
 #include <span>
+#include <string>
+#include <string_view>
+#include <system_error>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sched.h>
@@ -190,6 +202,7 @@ int main(void) {
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <linux/rtnetlink.h>
+#include <linux/veth.h>
 #include <net/if.h>
 
 namespace netns {
@@ -266,8 +279,9 @@ public:
         }
 
         send_rtnetlink_veth_create(nl_socket.get(), host_if, ns_if, target_netns.get());
-        std::cout << "[C++ RAII] Успішно створено простір " << kNetnsPath 
-                  << " та з'єднано через " << host_if << " <-> " << ns_if << '\n';
+        std::cout << "[C++ RAII] Створено простір " << kNetnsPath
+                  << ", надіслано запит на пару " << host_if << " <-> " << ns_if
+                  << " (підтвердження ядра розбирається у §5)\n";
     }
 
 private:
@@ -287,11 +301,49 @@ private:
             std::copy(data.begin(), data.end(), static_cast<char*>(RTA_DATA(rta)));
             return RTA_ALIGN(rta->rta_len);
         };
+        // Рядок кладеться разом із термінальним нулем; std::string дає власний
+        // буфер, тож span не виходить за межі чужої пам'яті (на відміну від
+        // string_view, у якого нуля за кінцем може й не бути)
+        auto append_str = [&](uint16_t type, std::string_view value, size_t base_offset) -> size_t {
+            const std::string owned{value};
+            return append_attr(type, {owned.c_str(), owned.size() + 1}, base_offset);
+        };
+        // Заголовок вкладеного атрибута: довжину допишемо, коли буде відомий вміст
+        auto open_nested = [&](uint16_t type, size_t base_offset) -> size_t {
+            auto* rta = reinterpret_cast<struct rtattr*>(buffer.data() + base_offset);
+            rta->rta_type = type;
+            rta->rta_len = RTA_LENGTH(0);
+            return base_offset;
+        };
+        auto close_nested = [&](size_t nested_offset, size_t end_offset) {
+            auto* rta = reinterpret_cast<struct rtattr*>(buffer.data() + nested_offset);
+            rta->rta_len = static_cast<unsigned short>(end_offset - nested_offset);
+        };
 
-        // Формування атрибута IFLA_IFNAME
         size_t offset = nlh->nlmsg_len;
-        offset += append_attr(IFLA_IFNAME, {host_if.data(), host_if.size() + 1}, offset);
-        nlh->nlmsg_len = NLMSG_ALIGN(offset);
+
+        // IFLA_IFNAME — ім'я хостового кінця пари
+        offset += append_str(IFLA_IFNAME, host_if, offset);
+
+        // IFLA_LINKINFO { INFO_KIND="veth", INFO_DATA { VETH_INFO_PEER {…} } }
+        const size_t linkinfo = open_nested(IFLA_LINKINFO, offset);
+        offset += RTA_LENGTH(0);
+        offset += append_str(IFLA_INFO_KIND, "veth", offset);
+
+        const size_t info_data = open_nested(IFLA_INFO_DATA, offset);
+        offset += RTA_LENGTH(0);
+
+        const size_t peer = open_nested(VETH_INFO_PEER, offset);
+        offset += RTA_LENGTH(sizeof(struct ifinfomsg));   // нульовий ifinfomsg парного кінця
+        offset += append_str(IFLA_IFNAME, ns_if, offset);
+        // Дескриптор цільового простору: peer народжується вже всередині нього
+        const auto ns_fd_bytes = std::bit_cast<std::array<char, sizeof(int)>>(target_ns_fd);
+        offset += append_attr(IFLA_NET_NS_FD, ns_fd_bytes, offset);
+
+        close_nested(peer, offset);
+        close_nested(info_data, offset);
+        close_nested(linkinfo, offset);
+        nlh->nlmsg_len = static_cast<std::uint32_t>(offset);
 
         // Відправка запиту у ядро
         sockaddr_nl sa{.nl_family = AF_NETLINK};
@@ -343,6 +395,14 @@ req.ifa.ifa_prefixlen = 24; // Маска /24
 req.ifa.ifa_flags = IFA_F_PERMANENT;
 req.ifa.ifa_scope = RT_SCOPE_UNIVERSE;
 req.ifa.ifa_index = if_nametoindex("veth-host");
+
+/* Самої ifaddrmsg не досить: адреса передається окремим атрибутом IFA_LOCAL
+   у мережевому порядку байтів, інакше ядро відповість EINVAL */
+struct rtattr *rta = (struct rtattr *)(((char *)&req) + req.nlh.nlmsg_len);
+rta->rta_type = IFA_LOCAL;
+rta->rta_len = RTA_LENGTH(sizeof(struct in_addr));
+inet_pton(AF_INET, "10.0.0.1", RTA_DATA(rta));
+req.nlh.nlmsg_len = NLMSG_ALIGN(req.nlh.nlmsg_len) + RTA_ALIGN(rta->rta_len);
 ```
 ```cpp
 struct alignas(NLMSG_ALIGNTO) IpAddrRequest {
@@ -361,6 +421,13 @@ req.ifa.ifa_prefixlen = 24;
 req.ifa.ifa_flags = IFA_F_PERMANENT;
 req.ifa.ifa_scope = RT_SCOPE_UNIVERSE;
 req.ifa.ifa_index = ::if_nametoindex("veth-host");
+
+// Сама адреса — окремим атрибутом IFA_LOCAL
+auto* rta = reinterpret_cast<rtattr*>(reinterpret_cast<char*>(&req) + req.nlh.nlmsg_len);
+rta->rta_type = IFA_LOCAL;
+rta->rta_len = RTA_LENGTH(sizeof(in_addr));
+::inet_pton(AF_INET, "10.0.0.1", RTA_DATA(rta));
+req.nlh.nlmsg_len = NLMSG_ALIGN(req.nlh.nlmsg_len) + RTA_ALIGN(rta->rta_len);
 ```
 :::
 
@@ -405,8 +472,12 @@ struct {
     struct nlmsgerr err;
 } ack_res;
 
-recv(nl_fd, &ack_res, sizeof(ack_res), 0);
-if (ack_res.err.error != 0) {
+ssize_t n = recv(nl_fd, &ack_res, sizeof(ack_res), 0);
+
+/* Тип повідомлення перевіряємо ПЕРЕД читанням поля error: у відповідь
+   може прийти й дамп (RTM_NEWLINK), і тоді на місці err лежать чужі байти */
+if (n >= (ssize_t)sizeof(ack_res) && ack_res.nlh.nlmsg_type == NLMSG_ERROR
+    && ack_res.err.error != 0) {
     fprintf(stderr, "Помилка ядра Netlink: %s\n", strerror(-ack_res.err.error));
 }
 ```
@@ -419,7 +490,9 @@ struct AckResponse {
     nlmsgerr err;
 } ack_res{};
 
-if (::recv(nl_fd, &ack_res, sizeof(ack_res), 0) > 0 && ack_res.err.error != 0) {
+const auto received = ::recv(nl_fd, &ack_res, sizeof(ack_res), 0);
+if (received >= static_cast<ssize_t>(sizeof(ack_res))
+    && ack_res.nlh.nlmsg_type == NLMSG_ERROR && ack_res.err.error != 0) {
     std::cerr << "Помилка ядра Netlink: " 
               << std::system_category().message(-ack_res.err.error) << '\n';
 }
@@ -470,19 +543,21 @@ sockaddr_nl sa{.nl_family = AF_NETLINK};
 ## 7. Критичні нюанси, багатониточність та пастки реалізації
 
 ### 7.1. Права доступу та Capabilities
-Виконання системних викликів `unshare(CLONE_NEWNET)` та `setns()` вимагає наявності привілею `CAP_SYS_ADMIN` або `CAP_NET_ADMIN` у діючому User Namespace. 
+Виконання системних викликів `unshare(CLONE_NEWNET)` та `setns()` вимагає `CAP_SYS_ADMIN` у діючому User Namespace; `CAP_NET_ADMIN` потрібен окремо — уже для створення `veth`-пари та налаштування адрес через Netlink. 
 
 Якщо програма працює у невідокремленому середовищі звичайного користувача, виклики повернуть помилку `EPERM` (Permission denied). Для запуску програми без root-прав її необхідно або обгорнути у новий User Namespace (`CLONE_NEWUSER | CLONE_NEWNET`), або надати виконуваному файлу файлові привілеї через `setcap cap_net_admin,cap_sys_admin+ep ./app`.
 
 ### 7.2. Конфлікти багатониточності (POSIX Threads та setns)
-Системний виклик `setns()` у ядрі Linux змінює мережевий простір імен для конкретного потоку (task_struct), а не для всього процесу. 
+Системний виклик `setns()` змінює мережевий простір для конкретного потоку (`task_struct`), а не для всього процесу. Це не помилка, а модель: `nsproxy` належить потокові.
 
-Проте до версії ядра Linux 5.11 виклик `setns()` повертав помилку `EINVAL`, якщо процес мав більше ніж один активний потік виконання. Це була захисна поведінка ядра проти гонитви за ресурсами (Race Conditions). 
+Звідси головна пастка багатониточних програм: після вдалого `setns()` в одному потоці решта потоків залишаються у старому просторі, і сокет, відкритий випадковим робітником з пулу, опиниться не там, де очікує програміст. Особливо болісно це у середовищах із власним планувальником (як-от goroutine у Go), де код без явного закріплення може продовжитися вже на іншому потоці — саме тому такі рантайми примусово «прив'язують» потік на час роботи в чужому просторі.
 
-Для обходу цього обмеження у високонавантажених C++ сервісах використовується шаблон з окремим допоміжним потоком або створення просторів імен до моменту виклику `pthread_create()`.
+Практичні наслідки:
+* Мережеві простори створюють і перемикають **до** першого `pthread_create()`, поки процес однопотоковий, — або виносять роботу в окремий службовий потік, який більше нічого не робить.
+* Для просторів користувачів обмеження жорсткіше: `setns()` із `CLONE_NEWUSER` (а також `unshare(CLONE_NEWUSER)`) у багатониточному процесі відхиляється з `EINVAL`, тож rootless-сценарії з §16 треба розгортати на самому старті програми.
 
 ### 7.3. Вирівнювання байтів у Netlink-пакетах (Alignment)
-Під час виклику Netlink API вкрай важливо дотримуватися правил вирівнювання за межами слів (32-бітний вирівнювач). Макроси ядра `NLMSG_ALIGN()`, `NLMSG_LENGTH()`, `RTA_ALIGN()` та `RTA_LENGTH()` обов'язкові до використання:
+Під час виклику Netlink API вкрай важливо дотримуватися вирівнювання на межу 4 байтів. Макроси ядра `NLMSG_ALIGN()`, `NLMSG_LENGTH()`, `RTA_ALIGN()` та `RTA_LENGTH()` обов'язкові до використання:
 * `NLMSG_ALIGN(len)` округлює довжину заголовка повідомлення до кратного 4 байтам.
 * `RTA_ALIGN(len)` округлює довжину атрибута `rtattr` до кратного 4 байтам.
 
@@ -491,7 +566,7 @@ sockaddr_nl sa{.nl_family = AF_NETLINK};
 ### 7.4. Перевага `IFLA_NET_NS_FD` над послідовним `ip link set`
 Створення `veth`-пари з відразу вказаним атрибутом `IFLA_NET_NS_FD` є істотно швидшим та безпечнішим за алгоритм із двох кроків (створити на хості -> перемістити в netns):
 1. **Атомарність:** Ядро створює периферійний інтерфейс відразу у цільовому просторі імен.
-2. **Відсутність змагань (Race Conditions):** Відсутній проміжок часу, протягом якого інтерфейс `veth-ns` бачився б системними демонами хоста (типу NetworkManager або `systemd-networkd`), що виключає спроби автоматичного конфігурування або присвоєння ім'я хостом.
+2. **Відсутність змагань (Race Conditions):** Відсутній проміжок часу, протягом якого інтерфейс `veth-ns` бачився б системними демонами хоста (типу NetworkManager або `systemd-networkd`), що виключає спроби автоматичного конфігурування або перейменування пристрою правилами хоста.
 
 ---
 
@@ -499,7 +574,7 @@ sockaddr_nl sa{.nl_family = AF_NETLINK};
 
 | Помилка Netlink | Причина виникнення | Спосіб розв'язання та профілактика |
 | :--- | :--- | :--- |
-| `-EEXIST` (`17`) | Інтерфейс із вказаним `IFLA_IFNAME` вже існує в системі. | Видалити існуючий пристрій через `RTM_DELLINK` або обрати інше ім'я. |
+| `-EEXIST` (`17`) | Інтерфейс із вказаним `IFLA_IFNAME` вже існує в системі. | Видалити наявний пристрій через `RTM_DELLINK` або обрати інше ім'я. |
 | `-EPERM` (`1`) | Процес не має `CAP_NET_ADMIN` у даному User Namespace. | Запустити програму від імені root або надати `setcap cap_net_admin+ep`. |
 | `-EINVAL` (`22`) | Передано некоректну довжину атрибута або порушено 32-бітне вирівнювання RTA_ALIGN. | Перевірити використання макросів `RTA_ALIGN` та `NLMSG_ALIGN`. |
 | `-ENODEV` (`19`) | Вказано неіснуючий `ifindex` при спробі конфігурування IP чи прапорців. | Викликати `if_nametoindex()` після підтвердження створення пристрою. |
@@ -512,7 +587,7 @@ sockaddr_nl sa{.nl_family = AF_NETLINK};
 При створенні та конфігурації тисяч мережевих просторів імен (наприклад, під час ініціалізації великого вузла Kubernetes або запусках тисяч мікросервісів у Podman) запуск зовнішніх процесів `/sbin/ip` генерує колосальні накладні витрати:
 
 1. **Fork/Exec overhead:** Кожен запуск утиліти `ip netns add` вимагає викликів ядра `fork()`, `execve()`, завантаження динамічних бібліотек `libc.so` та парсингу текстових аргументів командного рядка.
-2. **Пряме C/C++ Netlink API:** Використання прямого Netlink API через бінарні бітові структури у єдиному довготривалому процесі працює приблизно у 50–100 разів швидше. Створення простору імен та `veth`-пари займає менше ніж 0.1 мілісекунди проти 10–15 мілісекунд при викликах зовнішніх команд.
+2. **Пряме C/C++ Netlink API:** Той самий результат в одному довготривалому процесі коштує двох системних викликів. Порядки такі: Netlink-запит — десятки мікросекунд, запуск зовнішньої утиліти — одиниці мілісекунд, тобто виграш приблизно на два порядки. Точні числа залежать від машини та ядра, але саме різниця порядків і робить прямий Netlink обов'язковим для CNI-плагінів, які створюють сотні просторів під час старту вузла.
 
 ---
 
@@ -551,6 +626,22 @@ void add_default_gateway(int nl_fd, const char *gw_ip, int if_index) {
     req.rtm.rtm_protocol = RTPROT_STATIC;
     req.rtm.rtm_scope = RT_SCOPE_UNIVERSE;
     req.rtm.rtm_type = RTN_UNICAST;
+    req.rtm.rtm_dst_len = 0;   /* 0.0.0.0/0 — маршрут за замовчуванням */
+
+    /* Куди слати (RTA_GATEWAY) і через який пристрій (RTA_OIF) */
+    struct rtattr *gw = (struct rtattr *)(((char *)&req) + req.nlh.nlmsg_len);
+    gw->rta_type = RTA_GATEWAY;
+    gw->rta_len = RTA_LENGTH(sizeof(struct in_addr));
+    inet_pton(AF_INET, gw_ip, RTA_DATA(gw));
+    req.nlh.nlmsg_len = NLMSG_ALIGN(req.nlh.nlmsg_len) + RTA_ALIGN(gw->rta_len);
+
+    struct rtattr *oif = (struct rtattr *)(((char *)&req) + req.nlh.nlmsg_len);
+    oif->rta_type = RTA_OIF;
+    oif->rta_len = RTA_LENGTH(sizeof(int));
+    *(int *)RTA_DATA(oif) = if_index;
+    req.nlh.nlmsg_len = NLMSG_ALIGN(req.nlh.nlmsg_len) + RTA_ALIGN(oif->rta_len);
+
+    send(nl_fd, &req, req.nlh.nlmsg_len, 0);
 }
 ```
 ```cpp
@@ -560,7 +651,7 @@ struct RtMsgRequest {
     std::array<char, 256> buf{};
 };
 
-void add_default_gateway(int nl_fd, std::string_view gw_ip, int if_index) {
+void add_default_gateway(int nl_fd, const std::string& gw_ip, int if_index) {
     RtMsgRequest req{};
     req.nlh.nlmsg_len = NLMSG_LENGTH(sizeof(rtmsg));
     req.nlh.nlmsg_flags = NLM_F_REQUEST | NLM_F_CREATE | NLM_F_EXCL | NLM_F_ACK;
@@ -571,11 +662,31 @@ void add_default_gateway(int nl_fd, std::string_view gw_ip, int if_index) {
     req.rtm.rtm_protocol = RTPROT_STATIC;
     req.rtm.rtm_scope = RT_SCOPE_UNIVERSE;
     req.rtm.rtm_type = RTN_UNICAST;
+    req.rtm.rtm_dst_len = 0;   // 0.0.0.0/0
+
+    auto put = [&](unsigned short type, const void* src, std::size_t len) {
+        auto* rta = reinterpret_cast<rtattr*>(reinterpret_cast<char*>(&req) + req.nlh.nlmsg_len);
+        rta->rta_type = type;
+        rta->rta_len = RTA_LENGTH(len);
+        std::memcpy(RTA_DATA(rta), src, len);
+        req.nlh.nlmsg_len = NLMSG_ALIGN(req.nlh.nlmsg_len) + RTA_ALIGN(rta->rta_len);
+    };
+
+    in_addr gw{};
+    if (::inet_pton(AF_INET, gw_ip.c_str(), &gw) != 1) {
+        throw std::invalid_argument{"некоректна адреса шлюзу: " + gw_ip};
+    }
+    put(RTA_GATEWAY, &gw, sizeof(gw));
+    put(RTA_OIF, &if_index, sizeof(if_index));
+
+    if (::send(nl_fd, &req, req.nlh.nlmsg_len, 0) < 0) {
+        throw std::system_error(errno, std::generic_category(), "RTM_NEWROUTE");
+    }
 }
 ```
 :::
 
-Такий C++20 модуль дозволяє будувати повний автоматизований CNI-плагін без використання операційної системи shell.
+Такий C++20 модуль дозволяє побудувати повноцінний CNI-плагін, жодного разу не запускаючи зовнішніх shell-утиліт.
 
 ---
 
@@ -583,9 +694,9 @@ void add_default_gateway(int nl_fd, std::string_view gw_ip, int if_index) {
 
 Виробничі мережеві демони (наприклад, CNI-плагіни або контейнерні рушії) зобов'язані коректно обробляти сигнали завершення роботи для відсутності "висячих" пристроїв та bind mount файлів.
 
-Алгоритм коректного виходу при отриманні `SIGINT` / `SIGTERM`:
+Алгоритм коректного виходу при отриманні `SIGINT` / `SIGTERM` (сам обробник лише виставляє прапорець — `umount2()`, `unlink()` і Netlink не є async-signal-safe, тож кроки 2–5 виконує основний цикл, побачивши цей прапорець):
 1. Реєстрація системного обробника через `sigaction()`.
-2. Видання команди `umount2("/var/run/netns/demo_ns", MNT_DETACH)` для від'єднання файлового вузла простору.
+2. Виклик `umount2("/var/run/netns/demo_ns", MNT_DETACH)` для від'єднання файлового вузла простору.
 3. Видалення файла точки монтування через `unlink("/var/run/netns/demo_ns")`.
 4. Видалення хостового кінця `veth`-пари через `RTM_DELLINK`, що атомарно знищує парний пристрій.
 5. Закриття всіх відкритих сокетів Netlink.
@@ -597,21 +708,22 @@ void add_default_gateway(int nl_fd, std::string_view gw_ip, int if_index) {
 При побудові бінарного Netlink пакета `RTM_NEWLINK` для veth-пари буфер пам'яті заповнюється за наступною строгою офсетною схемою:
 
 ```
-[0x00 - 0x0F] struct nlmsghdr (nlmsg_len, nlmsg_type=16, nlmsg_flags=0x601)
+[0x00 - 0x0F] struct nlmsghdr (nlmsg_len=0x6C, nlmsg_type=16 RTM_NEWLINK,
+                               nlmsg_flags=0x605 = REQUEST|ACK|EXCL|CREATE)
 [0x10 - 0x1F] struct ifinfomsg (ifi_family=0, ifi_type=0, ifi_index=0, ifi_flags=0)
-[0x20 - 0x33] struct rtattr IFLA_IFNAME (rta_len=14, rta_type=3, "veth-host\0")
-[0x34 - 0x37] Padding bytes (вирівнювання до 4 байт RTA_ALIGN)
-[0x38 - 0x3B] struct rtattr IFLA_LINKINFO (rta_len=..., rta_type=18)
-  [0x3C - 0x47] struct rtattr IFLA_INFO_KIND (rta_len=9, rta_type=1, "veth\0")
-  [0x48 - 0x4B] Padding bytes
-  [0x4C - ...] struct rtattr IFLA_INFO_DATA (rta_len=..., rta_type=2)
-    [0x50 - ...] struct rtattr VETH_INFO_PEER (rta_len=..., rta_type=1)
-      [... - ...] struct ifinfomsg (peer interface header)
-      [... - ...] struct rtattr IFLA_IFNAME ("veth-ns\0")
-      [... - ...] struct rtattr IFLA_NET_NS_FD (target_ns_fd)
+[0x20 - 0x2D] struct rtattr IFLA_IFNAME (rta_len=14, rta_type=3, "veth-host\0")
+[0x2E - 0x2F] Padding bytes (вирівнювання до 4 байт, RTA_ALIGN)
+[0x30 - 0x33] struct rtattr IFLA_LINKINFO (rta_len=60, rta_type=18) — лише заголовок
+  [0x34 - 0x3C] struct rtattr IFLA_INFO_KIND (rta_len=9, rta_type=1, "veth\0")
+  [0x3D - 0x3F] Padding bytes
+  [0x40 - 0x43] struct rtattr IFLA_INFO_DATA (rta_len=44, rta_type=2) — заголовок
+    [0x44 - 0x47] struct rtattr VETH_INFO_PEER (rta_len=40, rta_type=1) — заголовок
+      [0x48 - 0x57] struct ifinfomsg (заголовок парного кінця)
+      [0x58 - 0x63] struct rtattr IFLA_IFNAME (rta_len=12, "veth-ns\0")
+      [0x64 - 0x6B] struct rtattr IFLA_NET_NS_FD (rta_len=8, target_ns_fd)
 ```
 
-Строге дотримання використання макросів `NLMSG_ALIGN()` та `RTA_ALIGN()` для вирахування зміщень гарантує, що розробник не зробить помилок зміщення байтів при роботі на різних бінарних архітектурах (x86_64, ARM64, RISC-V).
+Зверніть увагу на дві речі, на яких найчастіше збиваються. По-перше, `rta_len` вкладеного атрибута рахує **весь** його вміст разом із заголовком: 60 у `IFLA_LINKINFO` — це 4 байти заголовка плюс 56 байтів вкладених атрибутів. По-друге, довжина у полі — фактична (14, 9), а наступний атрибут починається вже з вирівняного зміщення (0x30, 0x40): у самому полі довжини вирівнювання не відображається. Послідовне використання `NLMSG_ALIGN()` та `RTA_ALIGN()` для обчислення зміщень і рятує від цих двох помилок на будь-якій архітектурі (x86_64, ARM64, RISC-V).
 
 ---
 
@@ -692,7 +804,7 @@ void create_macvlan_device(int nl_socket, std::string_view dev_name, int master_
 
 1. Програма виконує `unshare(CLONE_NEWUSER | CLONE_NEWNET)`.
 2. Встановлює UID/GID mapping у `/proc/self/uid_map` та `/proc/self/gid_map`.
-3. Отримує привілеї `CAP_NET_ADMIN` у межах нового User Namespace і конфігурує локальну мережу без втручання в інфраструктуру хоста.
+3. Отримує повний набір capabilities у межах нового User Namespace (зокрема `CAP_SYS_ADMIN` для самого простору і `CAP_NET_ADMIN` для пристроїв у ньому) і конфігурує локальну мережу без втручання в інфраструктуру хоста.
 
 ---
 
@@ -702,7 +814,8 @@ void create_macvlan_device(int nl_socket, std::string_view dev_name, int master_
 
 :::tabs
 ```c
-// Ініціалізація таблиці nftables "filter" та ланцюжка "FORWARD" у контексті цільового netns
+// Крок 1: таблиця "filter" у контексті цільового netns
+// (ланцюжки forward/postrouting додаються далі через nftnl_chain_*)
 struct nftnl_table *table = nftnl_table_alloc();
 nftnl_table_set_str(table, NFTNL_TABLE_NAME, "filter");
 nftnl_table_set_u32(table, NFTNL_TABLE_FAMILY, NFPROTO_IPV4);
@@ -719,9 +832,9 @@ nftnl_table_set_u32(table, NFTNL_TABLE_FAMILY, NFPROTO_IPV4);
 
 ---
 
-## 18. Трасування системного виклику veth_xmit за допомогою eBPF kprobe
+## 18. Трасування функції ядра veth_xmit за допомогою eBPF kprobe
 
-Для аналізу внутрішньої продуктивності та простеження затримок доставки пакетів між просторами імен можна підключити eBPF kprobe до функції ядра `veth_xmit()`:
+`veth_xmit()` — це не системний виклик, а внутрішня функція драйвера (`ndo_start_xmit` пристрою `veth`), тому дістатися до неї можна лише динамічним зондом. Для аналізу продуктивності та простеження доставки пакетів між просторами імен до неї підключають eBPF kprobe:
 
 :::tabs
 ```c
@@ -729,18 +842,21 @@ SEC("kprobe/veth_xmit")
 int trace_veth_xmit(struct pt_regs *ctx) {
     struct sk_buff *skb = (struct sk_buff *)PT_REGS_PARM1(ctx);
     u32 len = BPF_CORE_READ(skb, len);
-    bpf_trace_printk("veth_xmit: packet length = %d\n", len);
+    /* bpf_printk — макрос libbpf; сирий помічник bpf_trace_printk()
+       додатково вимагає розмір рядка форматування */
+    bpf_printk("veth_xmit: packet length = %d\n", len);
     return 0;
 }
 ```
 ```cpp
-// eBPF kprobe виконується безпосередньо у просторі ядра C/eBPF.
-// З боку C++20 у користувацькому просторі підключення виконується через libbpf C++ RAII обгортки:
-// auto skeleton = std::unique_ptr<bpf_skeleton>(bpf_skeleton::open_and_load());
+// Сама eBPF-програма компілюється як C у простір ядра — вкладки C++ вона не має.
+// З боку користувацького простору libbpf-скелет обгортають у RAII-власника:
+// std::unique_ptr<veth_bpf, decltype(&veth_bpf__destroy)> skel{veth_bpf__open_and_load(),
+//                                                             veth_bpf__destroy};
 ```
 :::
 
-Це дозволяє точно вимірювати тривалість проходження пакета крізь функцію `skb_scrub_packet()` та фіксувати скидання пакетів під час міжпросторової маршрутизації.
+Один kprobe на вході у функцію дає лічильник кадрів та їхні розміри на межі просторів. Щоб виміряти саме тривалість обробки, потрібна пара `kprobe`/`kretprobe`: перший запам'ятовує мітку часу в мапі за ключем `pid`, другий рахує різницю. А скинуті на межі пакети надійніше ловити не тут, а на точці трасування `skb:kfree_skb`, яка одразу повідомляє причину.
 
 ---
 
@@ -750,8 +866,8 @@ int trace_veth_xmit(struct pt_regs *ctx) {
 
 Низькорівневі OCI-рушії (`runc`, `crun`):
 * Зчитують специфікацію `config.json`, де у секції `namespaces` вказано тип `network`.
-* Якщо вказано шлях до існуючого простору (наприклад, `/var/run/netns/demo_ns`), runc виконує виклик `open()` та `setns(fd, CLONE_NEWNET)` до моменту запуску бінарного файла контейнера.
-* Системний демон `systemd-nspawn` виконує аналогічну послідовність через параметри `--network-veth` або `--network-namespace-path`.
+* Якщо вказано шлях до наявного простору (наприклад, `/var/run/netns/demo_ns`), runc виконує виклик `open()` та `setns(fd, CLONE_NEWNET)` до моменту запуску бінарного файла контейнера.
+* Утиліта `systemd-nspawn` (не демон, а програма запуску контейнера) виконує аналогічну послідовність через параметри `--network-veth` або `--network-namespace-path`.
 
 ---
 
@@ -767,18 +883,18 @@ int trace_veth_xmit(struct pt_regs *ctx) {
 
 ## 21. Рекомендації з побудови виробничих C/C++ систем ізоляції
 
-Під час розробки власних мережевих демонів або CNI-плагінів на мовах C/C++ слід дотримуватися наступного чек-листа кращих практик:
+Під час розробки власних мережевих демонів або CNI-плагінів на мовах C/C++ слід дотримуватися такого чек-листа:
 
-* Завжди використовувати відносні та розширювані структури атрибутів Netlink TLV замість сирих `ioctl`.
+* Завжди використовувати розширювані TLV-атрибути Netlink замість сирих `ioctl`.
 * Перевіряти повернені відповіді ядра `NLMSG_ERROR` для кожної операції `sendto()`.
 * Застосовувати ідіоми RAII (наприклад, `ScopedFd` у C++20) для автоматичного закриття дескрипторів просторів та сокетів під час обробки винятків.
 * Використовувати атрибути `IFLA_NET_NS_FD` для атомарного створення пристроїв відразу в цільовому просторі імен.
 
 ---
 
-## 22. Сценічний приклад тестування продуктивності за допомогою iperf3
+## 22. Приклад вимірювання продуктивності за допомогою iperf3
 
-Для вимірювання максимальної пропускної здатності створеного `veth`-каналу між просторами використовуються інструменти профілювання мережі:
+Для вимірювання пропускної здатності створеного `veth`-каналу між просторами використовують звичайні мережеві інструменти. Обидва кінці на цей момент мають бути підняті й мати адреси (див. §4), інакше клієнт просто не знайде маршруту:
 
 ```bash
 # 1. Запуск сервера iperf3 всередині ізольованого простору demo_c_ns
@@ -788,7 +904,7 @@ ip netns exec demo_c_ns iperf3 -s -D
 iperf3 -c 10.0.0.2 -t 10
 ```
 
-Результати вимірювань типово показують швидкість від 20 до 40 Гбіт/с на сучасних багатоядерних процесорах x86_64, оскільки передача пакетів крізь `veth` обмежена виключно швидкістю копіювання пам'яті ядра та обробкою переривань softirq.
+На сучасних процесорах x86_64 такий тест типово показує десятки Гбіт/с. Причина високих чисел у тому, що `veth` **не копіює** даних пакета: на інший бік передається той самий `sk_buff` за вказівником, а межу задає вартість обробки кадру в стеку — планування softirq, проходження хуків та поведінка кешів ЦП. Тому результат сильно залежить від того, чи опинилися обидва боки на одному ядрі ЦП, і від увімкнених offload-ів (`GSO`/`GRO`), а не від пропускної здатності пам'яті.
 
 ---
 

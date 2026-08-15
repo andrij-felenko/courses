@@ -141,7 +141,7 @@ def fig_proc_vs_sysfs():
         "Призначення:",
         "Ієрархія об'єктів kobject:",
         "пристрої, драйвери, шини,",
-        "живлення, cgroups v2",
+        "живлення, завантажені модулі",
         "",
         "Формат даних:",
         "Один атрибут — один файл",
@@ -149,7 +149,7 @@ def fig_proc_vs_sysfs():
         "",
         "Головні піддерева:",
         "/sys/devices/, /sys/bus/",
-        "/sys/class/, /sys/fs/cgroup/"
+        "/sys/class/, /sys/module/"
     ], fill="#ffffff", stroke="#ffb74d", rx=6)
     p.append(f3)
 
@@ -171,7 +171,7 @@ def fig_sysctl_namespace_isolation():
         "(потрібен CAP_SYS_ADMIN у хості)",
         "",
         "fs.file-max, vm.swappiness",
-        "kernel.pid_max, kernel.shmmax"
+        "kernel.pid_max, kernel.threads-max"
     ], fill="#ffffff", stroke="#37474f", rx=6)
     p.append(f_host_glob)
 
@@ -192,7 +192,7 @@ def fig_sysctl_namespace_isolation():
         "",
         "net.ipv4.ip_forward = 0",
         "net.core.somaxconn = 1024",
-        "net.ipv4.tcp_rmem = 4096 87380..."
+        "net.ipv4.tcp_rmem = 4096 131072 ..."
     ], fill="#ffffff", stroke="#2e7d32", rx=6)
     p.append(f_ct1)
 
@@ -205,7 +205,7 @@ def fig_sysctl_namespace_isolation():
         "",
         "net.ipv4.ip_forward = 1",
         "net.core.somaxconn = 8192",
-        "net.ipv4.tcp_rmem = 8192 174760..."
+        "net.ipv4.tcp_rmem = 4096 262144 ..."
     ], fill="#ffffff", stroke="#e65100", rx=6)
     p.append(f_ct2)
 

@@ -345,13 +345,13 @@ def fig_sigcld_schism():
     p.append(fitbox(ROOT[0], ROOT[1], ROOT[2], ROOT[3],
                     ["спільний корінь",
                       "1971 · wait у першій редакції",
-                      "1973—74 · стан SZOMB у ядрі",
+                      "1974—75 · стан SZOMB у ядрі",
                       "батько мусить прийти по статус"],
                     size=13.5, fill=BG, stroke=INK, sw=1.8))
 
     UP_H = (420, 90, 380, 46)
     p.append(fitbox(UP_H[0], UP_H[1], UP_H[2], UP_H[3],
-                    "System III, 1980 — SIGCLD (18)",
+                    "System III, 1982 — SIGCLD (18)",
                     size=15, fill=RED_F, stroke=POS, sw=1.8, bold=True, color=POS))
     p.append(fitbox(420, 144, 380, 160,
                     ["сенс: «дитина померла»",

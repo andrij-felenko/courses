@@ -1,4 +1,4 @@
-# 🔬 Піддослід: витіснити власну сторінку й піймати її повернення
+# 🔬 Дослід: витіснити власну сторінку й піймати її повернення
 
 Цей дослід дає в руки те, чого не покаже жоден монітор: власну ділянку пам'яті, яку ви самі відправили у своп, і виміряну в мікросекундах ціну кожної сторінки, що прилетіла назад. Далі — робоча програма на C, розбір її виводу і перелік місць, де вимір легко зіпсувати так, що числа лишаться правдоподібними.
 
@@ -229,13 +229,16 @@ int main(int argc, char **argv)
 // запуск: ./swapprobe_cpp [МіБ] [r|w]
 #define _GNU_SOURCE
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <string>
 #include <chrono>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <cerrno>
+#include <ctime>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/resource.h>
@@ -391,6 +394,7 @@ int main(int argc, char** argv) {
     print_snapshot("4 після повернення", a, len);
 
     double us = std::chrono::duration<double, std::micro>(t1 - t0).count();
+    std::cout << std::fixed << std::setprecision(1);
     std::cout << "\nповернення " << pages << " сторінок (" << mib << " МіБ) "
               << (wmode ? "записом" : "читанням") << "\n"
               << "  великих збоїв   " << (mf1 - mf0) << " ("

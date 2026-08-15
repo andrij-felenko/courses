@@ -122,10 +122,10 @@ def fig_signal_vs_state():
     C1X, C1W = 310, 320
     C2X, C2W = 650, 310
 
-    p.append(fitbox(C1X, 76, C1W, 44, "звичайний сигнал", size=13, fill=COLD,
-                    stroke=NEG, sw=2, color=NEG, bold=True))
-    p.append(fitbox(C2X, 76, C2W, 44, "SIGKILL", size=13, fill=WARM,
-                    stroke=POS, sw=2, color=POS, bold=True))
+    p.append(fitbox(C1X, 72, C1W, 56, "сигнал, який процес перехопить\n(є обробник)",
+                    size=13, fill=COLD, stroke=NEG, sw=2, color=NEG, bold=True))
+    p.append(fitbox(C2X, 72, C2W, 56, "сигнал, який процес уб'є\n(SIGKILL, неперехоплений SIGTERM)",
+                    size=13, fill=WARM, stroke=POS, sw=2, color=POS, bold=True))
 
     rows = [
         (140, "S — переривний сон",
@@ -136,7 +136,7 @@ def fig_signal_vs_state():
          "не прокидається;\nчекає кінця операції"),
         (360, "D — сон із дозволом на смерть",
          "не прокидається;\nсигнал чекає в черзі",
-         "прокидається з помилкою;\nпроцес гине"),
+         "прокидається;\nпроцес гине"),
     ]
     for y, lab, c1, c2 in rows:
         p.append(fitbox(LX, y, LW, 90, lab, size=12, fill=FILL, stroke=LINE,
@@ -158,15 +158,15 @@ def fig_lab_run():
         ("R", FIELD, SOFT,
          "порожній цикл\nрівно 3 секунди",
          "нічого чекати не треба:\nзадача вже готова",
-         "SIGTERM — гине одразу"),
+         "SIGTERM без обробника\n— гине одразу"),
         ("S", NEG, COLD,
          "nanosleep(3 c)",
          "таймер — або\nбудь-який сигнал",
-         "SIGTERM — гине одразу"),
+         "SIGTERM без обробника\n— гине одразу"),
         ("T", MUTED, FILL,
          "raise(SIGSTOP)",
          "тільки SIGCONT;\nйого шле спостерігач",
-         "SIGTERM чекає\nдо SIGCONT"),
+         "SIGTERM без обробника\n— гине без SIGCONT"),
         ("Z", PURPLE, SOFT,
          "дитина вийшла,\nwait() ще не було",
          "wait() від батька",
@@ -174,7 +174,7 @@ def fig_lab_run():
         ("D", POS, WARM,
          "clone(CLONE_VFORK):\nбатько чекає дитину",
          "тільки вихід дитини",
-         "SIGTERM лежить у черзі,\nSIGKILL — виводить"),
+         "SIGTERM без обробника\nі SIGKILL — гине від обох"),
     ]
 
     p.append(text(1180, 70, "усі п'ять — на одному PID, окрім Z: зомбі — це дитина",
@@ -267,6 +267,7 @@ def fig_state_letter_path():
     p.append(text(210, 310, "поза маскою — назовні не потрапляє",
                   size=12, color=MUTED, bold=True))
     p.append(mtext(58, 336, [
+        "0x0080  TASK_DEAD — це не EXIT_DEAD",
         "0x0100  TASK_WAKEKILL — «можна вбити»",
         "0x0200  TASK_WAKING",
         "0x0400  TASK_NOLOAD — не в навантаженні",

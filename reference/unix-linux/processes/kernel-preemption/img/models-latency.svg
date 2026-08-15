@@ -9,19 +9,19 @@
 <rect x="790.2" y="120.0" width="79.8" height="32.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.5"/>
 <text x="830.1" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">R біжить</text>
 <text x="300.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="300.0" dy="0.0">тільки вихід у простір користувача</tspan><tspan x="300.0" dy="16.2">та явні cond_resched() у довгих циклах</tspan></text>
-<text x="970.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">мілісекунди</text>
+<text x="970.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">десятки мілісекунд</text>
 <rect x="15.0" y="219.0" width="200.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="115.0" y="245.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">PREEMPT_VOLUNTARY</tspan></text>
 <rect x="300.0" y="225.0" width="364.8" height="32.0" rx="6" fill="#e9ecef" stroke="#6b7280" stroke-width="1.2"/>
 <rect x="664.8" y="225.0" width="205.2" height="32.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.5"/>
 <text x="767.4" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">R біжить</text>
 <text x="300.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="300.0" dy="0.0">додатково — кожна позначка might_sleep()</tspan><tspan x="300.0" dy="16.2">у коді ядра</tspan></text>
-<text x="970.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">сотні мікросекунд</text>
+<text x="970.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">одиниці мілісекунд</text>
 <rect x="15.0" y="324.0" width="200.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="115.0" y="350.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">PREEMPT (повне)</tspan></text>
 <rect x="300.0" y="330.0" width="193.8" height="32.0" rx="6" fill="#e9ecef" stroke="#6b7280" stroke-width="1.2"/>
 <rect x="493.8" y="330.0" width="376.2" height="32.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.5"/>
 <text x="681.9" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">R біжить</text>
 <text x="300.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="300.0" dy="0.0">будь-де, крім ділянок під спін-замком</tspan><tspan x="300.0" dy="16.2">і коду переривань</tspan></text>
-<text x="970.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">десятки—сотні мкс</text>
+<text x="970.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">сотні мікросекунд</text>
 <rect x="15.0" y="429.0" width="200.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="115.0" y="455.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">PREEMPT_RT</tspan></text>
 <rect x="300.0" y="435.0" width="68.4" height="32.0" rx="6" fill="#e9ecef" stroke="#6b7280" stroke-width="1.2"/>
 <rect x="368.4" y="435.0" width="501.6" height="32.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.5"/>

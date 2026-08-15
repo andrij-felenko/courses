@@ -66,7 +66,7 @@ def make_tlb_walk_comparison():
     steps_4k = [
         ("CR3", "Корінь PGD"),
         ("PGD (L4)", "Page Global Dir"),
-        ("P4D / PUD (L3)", "Page Upper Dir"),
+        ("PUD (L3)", "Page Upper Dir"),
         ("PMD (L2)", "Page Middle Dir"),
         ("PTE (L1)", "Page Table Entry"),
         ("Фізична сторінка", "4 КіБ фрейм у RAM"),
@@ -124,7 +124,7 @@ def make_tlb_walk_comparison():
     steps_2m = [
         ("CR3", "Корінь PGD"),
         ("PGD (L4)", "Page Global Dir"),
-        ("P4D / PUD (L3)", "Page Upper Dir"),
+        ("PUD (L3)", "Page Upper Dir"),
         ("PMD (L2 + PSE)", "Page Size Extension"),
         ("Фізичний блок", "2 МіБ суцільний RAM"),
     ]
@@ -269,7 +269,7 @@ def make_hugetlbfs_vs_thp_architecture():
             180,
             370,
             70,
-            "Спеціалізована ФС hugetlbfs\n(mount -t hugetlbfs nodev /dev/hugepages)\nІзольований пул сторінок поза Buddy-аллокатором",
+            "Спеціалізована ФС hugetlbfs\n(mount -t hugetlbfs nodev /dev/hugepages)\nІзольований пул сторінок поза Buddy-алокатором",
             size=11,
             fill="#ffffff",
             stroke=LINE,
@@ -314,7 +314,7 @@ def make_hugetlbfs_vs_thp_architecture():
             80,
             370,
             70,
-            "Динамічний Buddy Allocator (Order-9)\nВиділення 2 МіБ сторінок 'на ходу'\nПолітики: always / madvise / never",
+            "Динамічний Buddy Allocator (Order-9)\nВиділення 2 МіБ сторінок «на ходу»\nПолітики: always / madvise / never",
             size=11,
             fill="#ffffff",
             stroke=LINE,

@@ -34,7 +34,7 @@
 
     <rect x="50" y="210" width="230" height="85" class="box-step"/>
     <text x="65" y="235" class="title-step">2. dev_queue_xmit()</text>
-    <text x="65" y="255" class="text-field">Passes skb to qdisc</text>
+    <text x="65" y="255" class="text-field">veth: noqueue, no qdisc</text>
     <text x="65" y="275" class="text-field">veth_xmit() invoked</text>
 
     <rect x="50" y="345" width="230" height="120" class="box-step"/>
@@ -58,7 +58,7 @@
 
     <rect x="365" y="280" width="230" height="100" class="box-step"/>
     <text x="380" y="305" class="title-step">5. NET_RX_SOFTIRQ</text>
-    <text x="380" y="325" class="text-field">Softirq daemon triggers</text>
+    <text x="380" y="325" class="text-field">Local softirq/ksoftirqd</text>
     <text x="380" y="345" class="text-field">netif_receive_skb()</text>
     <text x="380" y="365" class="text-field">Crosses netns boundary</text>
 

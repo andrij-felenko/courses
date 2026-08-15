@@ -275,7 +275,7 @@ def fig_states():
     ay, ah = 282, 158
     allowed = [
         "Дозволено лише UFFDIO_API.\n\nБудь-який інший ioctl і навіть read()\nдають EINVAL — об'єкт ще не ввімкнено.",
-        "UFFDIO_REGISTER, UFFDIO_UNREGISTER.\n\nПовторний UFFDIO_API — EINVAL,\nі всю структуру ядро затирає нулями.",
+        "UFFDIO_REGISTER, UFFDIO_UNREGISTER.\n\nПовторний UFFDIO_API — лише поки\nжодної можливости не ввімкнено;\nінакше EINVAL і нулі в структурі.",
         "Те, що ядро дозволило в reg.ioctls:\nCOPY · ZEROPAGE · WAKE · WRITEPROTECT\nCONTINUE · POISON · MOVE.\nread() віддає uffd_msg.",
     ]
     for x, t in zip(xs, allowed):

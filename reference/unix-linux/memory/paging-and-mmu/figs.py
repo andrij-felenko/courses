@@ -21,7 +21,7 @@ def fig_translate():
 
     SY, SH = 56, 74
     cells = [
-        (110, 170, "недоторкані\n63…48", FILL),
+        (110, 170, "канонічні\n63…48", FILL),
         (280, 185, "рівень 1\n47…39", BLU_F),
         (465, 185, "рівень 2\n38…30", BLU_F),
         (650, 185, "рівень 3\n29…21", BLU_F),
@@ -141,21 +141,23 @@ def fig_pte_bits():
     F.append(text(70, 68, "біт присутності = 1 — запис читає апаратура",
                   size=15, bold=True, anchor="start"))
     RY, RH = 84, 66
-    F.append(fitbox(70, RY, 200, RH, "ігноровані\n63…52", size=13, fill=FILL))
-    F.append(fitbox(270, RY, 680, RH, "номер кадру · біти 51…12", size=16, fill=BLU_F))
+    F.append(fitbox(70, RY, 70, RH, "NX\n63", size=13, fill=RED_F))
+    F.append(fitbox(140, RY, 110, RH, "ключ\n62…59", size=13, fill=FILL))
+    F.append(fitbox(250, RY, 120, RH, "вільні для ОС\n58…52", size=12, fill=FILL))
+    F.append(fitbox(370, RY, 580, RH, "номер кадру · біти 51…12", size=16, fill=BLU_F))
     F.append(fitbox(950, RY, 280, RH, "прапорці\n11…0", size=13, fill=YEL_F))
 
-    # збільшення прапорців
-    F.append(line(950, RY + RH, 300, 240, color=MUTED, sw=1.1, dash="5 4"))
+    # збільшення: прапорці прав і стану, розкидані по всьому запису
+    F.append(line(70, RY + RH, 300, 240, color=MUTED, sw=1.1, dash="5 4"))
     F.append(line(1230, RY + RH, 1230, 240, color=MUTED, sw=1.1, dash="5 4"))
 
     flags = [
-        "NX\nне виконувати",
-        "D\nзмінена",
-        "A\nдо неї зверталися",
-        "U/S\nвидно програмі",
-        "R/W\nможна писати",
-        "P\nприсутня",
+        "NX · біт 63\nне виконувати",
+        "D · біт 6\nзмінена",
+        "A · біт 5\nдо неї зверталися",
+        "U/S · біт 2\nвидно програмі",
+        "R/W · біт 1\nможна писати",
+        "P · біт 0\nприсутня",
     ]
     fx, fw = 300, 155
     for i, s in enumerate(flags):

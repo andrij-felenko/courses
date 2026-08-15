@@ -20,9 +20,8 @@ CONFIG_DEBUG_LOCK_ALLOC=y
 Другий, надійніший доказ — сама наявність файлів у `/proc`, які створює лише вбудований механізм ([псевдофайлові системи: /proc як інтерфейс до ядра](book:unix-linux/proc-filesystem) — це не файли на диску, а живі значення, які ядро малює на кожне читання):
 
 ```sh
-$ head -6 /proc/lockdep_stats
+$ grep -E 'lock-classes|dependencies|dependency chains' /proc/lockdep_stats
  lock-classes:                        1487 [max: 8192]
- dynamic-keys:                          21
  direct dependencies:                 9032 [max: 32768]
  indirect dependencies:              43127
  all direct dependencies:           218904
@@ -233,7 +232,7 @@ $ dmesg | tail -60
 ```
 ======================================================
 WARNING: possible circular locking dependency detected
-6.6.0-lockdep #1 Not tainted
+6.6.0-lockdep #1 Tainted: G           O
 ------------------------------------------------------
 lab_ba/1487 is trying to acquire lock:
 ffffffffc0a3d060 (lock_a){+.+.}-{2:2}, at: worker_ba+0x51/0xd0 [lockdep_lab]
@@ -282,7 +281,7 @@ other info that might help us debug this:
  #0: ffffffffc0a3d020 (lock_b){+.+.}-{2:2}, at: worker_ba+0x3a/0xd0 [lockdep_lab]
 
 stack backtrace:
-CPU: 1 PID: 1487 Comm: lab_ba Not tainted 6.6.0-lockdep #1
+CPU: 1 PID: 1487 Comm: lab_ba Tainted: G           O       6.6.0-lockdep #1
 Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-2 04/01/2014
 Call Trace:
  <TASK>
@@ -300,7 +299,7 @@ Call Trace:
 
 Тепер по частинах.
 
-**Заголовок.** `possible circular locking dependency` — слово `possible` тут не ввічливість і не невпевненість. Дедлока справді не сталося: обидва потоки добігли до кінця, машина жива, і `pr_info` з обох функцій ви побачите в журналі поруч зі звітом. Виявлено *можливість* — цикл у графі. Рядок нижче — версія ядра й прапорець забруднення (`Not tainted` означає, що жоден пропрієтарний модуль не завантажений; наш зі своїм `MODULE_LICENSE("GPL")` статусу не псує).
+**Заголовок.** `possible circular locking dependency` — слово `possible` тут не ввічливість і не невпевненість. Дедлока справді не сталося: обидва потоки добігли до кінця, машина жива, і `pr_info` з обох функцій ви побачите в журналі поруч зі звітом. Виявлено *можливість* — цикл у графі. Рядок нижче — версія ядра й прапорець забруднення. Він не порожній, і це нормально: літеру `O` ставить сам факт, що завантажено модуль, зібраний **поза деревом ядра**, — а наш саме такий, хоч би яку ліцензію він оголосив. `G` на першій позиції означає протилежне тому, чого лякаються: жодного пропрієтарного модуля немає, і цю літеру дає наш `MODULE_LICENSE("GPL")`. На роботу перевірки забруднення не впливає взагалі; воно лише попереджає того, хто читатиме звіт, що в ядрі є код не з дерева.
 
 **Дві половини обвинувачення.** `is trying to acquire lock:` — те, що беруть зараз; `but task is already holding lock:` — те, що вже тримають. Обидва рядки побудовані однаково, і в них п'ять полів.
 
@@ -355,7 +354,7 @@ $ sudo insmod lockdep_lab.ko mode=2
 ```
 ================================
 WARNING: inconsistent lock state
-6.6.0-lockdep #1 Not tainted
+6.6.0-lockdep #1 Tainted: G           O
 --------------------------------
 inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
 ksoftirqd/2/24 [HC0[0]:SC1[1]:HE1:SE0] takes:
@@ -387,7 +386,7 @@ other info that might help us debug this:
 no locks held by ksoftirqd/2/24.
 
 stack backtrace:
-CPU: 2 PID: 24 Comm: ksoftirqd/2 Not tainted 6.6.0-lockdep #1
+CPU: 2 PID: 24 Comm: ksoftirqd/2 Tainted: G           O       6.6.0-lockdep #1
 Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-2 04/01/2014
 Call Trace:
  <TASK>

@@ -259,7 +259,7 @@ def fig_shell_classes():
          "[ $x = y ] без лапок",
          "set -e мовчить у конвеєрі"],
         ["sed -i, grep -P, readlink -f",
-         "head -c на дореформених системах",
+         "head -c: немає до Issue 8",
          "sort і comm під LC_COLLATE",
          "[a-z] поза локаллю C",
          "awk: кома замість крапки"],

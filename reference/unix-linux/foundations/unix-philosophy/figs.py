@@ -202,7 +202,7 @@ def fig_birth_timeline():
     col_w, gut = 255, 8
     col_x = [180 + i * (col_w + gut) for i in range(4)]
     col_c = [x + col_w / 2 for x in col_x]
-    for cx, s in zip(col_c, ["1964", "1969–1971", "1972–1974", "1978–1984"]):
+    for cx, s in zip(col_c, ["1964", "1969–1971", "1972–1973", "1978–1984"]):
         f.append(text(cx, 78, s, size=15, bold=True, color=MUTED))
 
     row_y, row_h = [104, 250, 396], 130
@@ -232,7 +232,7 @@ def fig_birth_timeline():
     f.append(cell(1, 0))
     f.append(cell(1, 1, "1969 — вихід із Multics\nPDP-7: перший Unix,\nфайлова система, оболонка",
                   accent=True))
-    f.append(cell(1, 2, "1972 — V2: каналів ще нема\n1973 — V3: канал є,\nсинтаксис через знак >\n1974 — V4: символ |",
+    f.append(cell(1, 2, "1972 — V2: каналів ще нема\n1973 — V3: канал є,\nсинтаксис через знак >\n1973 — V4: символ |",
                   accent=True))
     f.append(cell(1, 3))
 

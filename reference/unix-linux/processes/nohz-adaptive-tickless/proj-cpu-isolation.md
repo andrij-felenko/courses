@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <string.h>
 #include <pthread.h>
 #include <sched.h>
@@ -26,6 +27,7 @@
 
 #define TARGET_CPU 1
 #define ITERATIONS 10000000
+#define JITTER_THRESHOLD_NS 1000
 
 static inline uint64_t get_time_ns(void) {
     struct timespec ts;
@@ -80,18 +82,17 @@ int main(void) {
         uint64_t delta = current_time - prev_time;
         prev_time = current_time;
 
-        // Припускаємо, що виконання однієї ітерації займає мінімальний час;
-        // будь-яка аномально велика дельта свідчить про переривання від ОС.
-        if (i > 0 && delta > 5000) { // Поріг 5 мікросекунд
-            uint64_t jitter = delta - 5000;
-            if (jitter > max_jitter_ns) {
-                max_jitter_ns = jitter;
+        // Порожня ітерація коштує десятки наносекунд, тож усе, що довше
+        // за поріг, — це втручання ззовні циклу, а сама дельта і є його ціна.
+        if (i > 0 && delta > JITTER_THRESHOLD_NS) {
+            if (delta > max_jitter_ns) {
+                max_jitter_ns = delta;
             }
         }
     }
 
     printf("Вимірювання завершено.\n");
-    printf("Максимальний OS jitter: %lu наносекунд\n", max_jitter_ns);
+    printf("Максимальний OS jitter: %" PRIu64 " наносекунд\n", max_jitter_ns);
 
     return EXIT_SUCCESS;
 }
@@ -103,7 +104,9 @@ int main(void) {
 #include <stdexcept>
 #include <system_error>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
+#include <cerrno>
 #include <pthread.h>
 #include <sched.h>
 #include <sys/mman.h>
@@ -133,6 +136,7 @@ public:
 int main() {
     constexpr int target_cpu = 1;
     constexpr uint64_t iterations = 10000000;
+    constexpr int64_t jitter_threshold_ns = 1000;
 
     try {
         std::cout << "Ініціалізація ізоляції для CPU " << target_cpu << "...\n";
@@ -153,8 +157,8 @@ int main() {
             auto delta_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - prev_time).count();
             prev_time = current_time;
 
-            if (i > 0 && delta_ns > 5000) {
-                uint64_t jitter = static_cast<uint64_t>(delta_ns - 5000);
+            if (i > 0 && delta_ns > jitter_threshold_ns) {
+                const auto jitter = static_cast<uint64_t>(delta_ns);
                 if (jitter > max_jitter_ns) {
                     max_jitter_ns = jitter;
                 }
@@ -184,7 +188,7 @@ int main() {
 Коли потік мігрує на інше ядро, всі його гарячі дані залишаються в кеші попереднього ядра. Нове ядро зазнає суцільних промахів кешу (*cache misses*), що викликає вимушені звернення до повільнішої загальної кеш-пам'яті L3 або до фізичної оперативної пам'яті DRAM. Крім того, міграція вимагає надсилання міжпроцесорних переривань IPI (*Inter-Processor Interrupts*) та перезавантаження буферів асоціативної трансляції адреси TLB (*Translation Lookaside Buffer*).
 
 #### 2. Пріоритет реального часу (`SCHED_FIFO`)
-За замовчуванням усі процеси в Linux запускаються під управлінням планувальника `SCHED_OTHER` (CFS), де квант часу розраховується динамічно на основі значення `nice`. Встановлення політики `SCHED_FIFO` із пріоритетом `99` (максимальний доступний пріоритет у POSIX) переводить потік у клас реального часу (*real-time scheduling class*). 
+За замовчуванням усі процеси в Linux запускаються під управлінням планувальника `SCHED_OTHER` (CFS), де квант часу розраховується динамічно на основі значення `nice`. Встановлення політики `SCHED_FIFO` із пріоритетом `99` (максимум, який повертає `sched_get_priority_max(SCHED_FIFO)` у Linux; POSIX вимагає лише 32 рівні, тож число залежить від системи) переводить потік у клас реального часу (*real-time scheduling class*). 
 
 На відміну від `SCHED_RR` (Round-Robin), де потоки однакового пріоритету витісняють один одного після закінчення кванта часу, потік `SCHED_FIFO` володіє абсолютним пріоритетом над будь-яким звичайним процесом. Він виконуватиметься нескінченно доти, доки сам не заблокується на I/O або не віддасть управління викликом `sched_yield()`. 
 
@@ -205,4 +209,9 @@ int main() {
 #### 5. Вимірювання часу через vDSO
 Функція `clock_gettime(CLOCK_MONOTONIC_RAW)` у сучасних системах Linux реалізована через механізм vDSO (virtual dynamically linked shared object). Ядро мапить сторінку з поточним часом безпосередньо в адресний простір користувацького процесу. 
 
-Використання годинника `CLOCK_MONOTONIC_RAW` є критичним для систем низької затримки, оскільки він надає абсолютний монотонний час апаратного таймера без корекцій з боку демонів NTP (`ntpd`, `chronyd`) та викликів `adjtimex`. Виклик `clock_gettime` зчитує лічильник `RDTSC` процесора без виконання системного виклику (`syscall`) та без перемикання контексту в режим ядра Ring 0 — а отже, не виводить процесор з безтикового режиму й не змушує ядро вмикати системний тик.
+Використання годинника `CLOCK_MONOTONIC_RAW` є критичним для систем низької затримки, оскільки він надає абсолютний монотонний час апаратного таймера без корекцій з боку демонів NTP (`ntpd`, `chronyd`) та викликів `adjtimex`. Виклик `clock_gettime` зчитує лічильник `RDTSC` процесора без виконання системного виклику (`syscall`) та без перемикання контексту в режим ядра Ring 0 — а отже, не додає до гарячого циклу ані вартості переходу через Context Tracking, ані шансу нажити залежність, яка поверне тик.
+
+Три застереження до цього твердження, кожне з яких перевіряється на місці:
+- **vDSO працює не з усяким джерелом часу.** Швидкий шлях існує, поки системне джерело — `tsc`; при `hpet` чи `acpi_pm` vDSO мовчки падає у справжній системний виклик. Перевірка: `cat /sys/devices/system/clocksource/clocksource0/current_clocksource`.
+- **Не всі годинники завжди були у vDSO.** `CLOCK_MONOTONIC_RAW` дістав реалізацію в vDSO пізніше за `CLOCK_MONOTONIC`; на старих ядрах той самий код тихо йшов через `syscall`. Остаточну відповідь дає `strace` на вашій машині: на справжньому vDSO-шляху жодного `clock_gettime` у виводі не буде.
+- **Вкладка C++ вище міряє іншим годинником.** `std::chrono::steady_clock` у glibc відображається на `CLOCK_MONOTONIC`, а не на `_RAW`, тобто його хід підправляє NTP. Для вимірювань тривалістю в секунди різниця мізерна, але якщо потрібен саме нескоригований апаратний час — і в C++ викликають `clock_gettime(CLOCK_MONOTONIC_RAW, …)` напряму.

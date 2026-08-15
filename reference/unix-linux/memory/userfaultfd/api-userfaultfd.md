@@ -388,7 +388,8 @@ struct uffd_msg {
         struct { __u32 ufd; }                  fork;
         struct { __u64 from, to, len; }        remap;
         struct { __u64 start, end; }           remove;
-    } arg;
+        struct { __u64 reserved1, reserved2, reserved3; } reserved;
+    } arg;                 /* саме reserved тримає об'єднання на 24 байтах */
 } __packed;
 ```
 ```cpp
@@ -403,7 +404,8 @@ struct uffd_msg {
         struct { __u32 ufd; }                  fork;
         struct { __u64 from, to, len; }        remap;
         struct { __u64 start, end; }           remove;
-    } arg;
+        struct { __u64 reserved1, reserved2, reserved3; } reserved;
+    } arg;                 // саме reserved тримає об'єднання на 24 байтах
 } __packed;
 ```
 :::
@@ -529,5 +531,7 @@ fetch(page, buf);                                  // буфер ПОЗА area
 ::ioctl(uffd, UFFDIO_COPY, &c);
 ```
 :::
+
+Одна межа версій, без якої ця послідовність не оживе на сучасній системі: від 5.11 типове значення `vm.unprivileged_userfaultfd` — нуль, тож непривілейований процес мусить додати до прапорців `UFFD_USER_MODE_ONLY`, інакше дістане `EPERM`. На ядрах до 5.11 той самий прапорець дає `EINVAL`, бо ядро його не знає, — тому переносний код пробує спершу з ним, а на `EINVAL` повторює без нього.
 
 Цих дванадцяти рядків досить, щоб механізм ожив, — але їх замало, щоб він пережив завершення програми, `fork` обслуговуваного процесу чи смерть самого наглядача. Повна програма з цими випадками розібрана окремо: [ділянка, яку заповнює сама програма](book:unix-linux/userfaultfd/proj-uffd-lazy-region.md).

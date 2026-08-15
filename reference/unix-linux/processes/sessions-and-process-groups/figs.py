@@ -175,8 +175,8 @@ def fig_flat_vs_session():
     W, H = 1320, 580
     f = []
 
-    # ── ЛІВА панель: 4.1BSD ────────────────────────────────────────────────
-    f.append(text(340, 74, "4.1BSD, 1981: сама лише група", size=16, bold=True, color=POS))
+    # ── ЛІВА панель: 4.2BSD ────────────────────────────────────────────────
+    f.append(text(340, 74, "4.2BSD, 1983: сама лише група", size=16, bold=True, color=POS))
 
     f.append(fitbox(80, 106, 230, 56, "вхід 1\nтермінал tty00", size=13,
                     fill=COOL, stroke=NEG))
@@ -242,10 +242,10 @@ def fig_terminal_handover():
 
     BY, BH = 92, 48
     segs = [
-        (260, 470, "оболонка · 901", COOL, NEG),
-        (470, 720, "завдання · 940", GOOD, FIELD),
-        (720, 950, "оболонка · 901", COOL, NEG),
-        (950, 1180, "завдання · 940", GOOD, FIELD),
+        (260, 470, "оболонка · 4210", COOL, NEG),
+        (470, 720, "завдання · 4271", GOOD, FIELD),
+        (720, 950, "оболонка · 4210", COOL, NEG),
+        (950, 1180, "завдання · 4271", GOOD, FIELD),
         (1180, 1320, "оболонка", COOL, NEG),
     ]
     for a, b, s, fl, col in segs:
@@ -253,10 +253,10 @@ def fig_terminal_handover():
                         fill=fl, stroke=col, color=col, bold=True))
 
     notes = [
-        (470, "tcsetpgrp(940)"),
-        (720, "tcsetpgrp(901)\ntcsetattr(режим оболонки)"),
-        (950, "fg: tcsetattr(режим завдання)\ntcsetpgrp(940) · kill(-940, SIGCONT)"),
-        (1180, "tcsetpgrp(901)"),
+        (470, "tcsetpgrp(4271)"),
+        (720, "tcsetpgrp(4210)\ntcsetattr(режим оболонки)"),
+        (950, "fg: tcsetpgrp(4271) · tcsetattr(режим завдання)\nkill(-4271, SIGCONT)"),
+        (1180, "tcsetpgrp(4210)"),
     ]
     for cx, s in notes:
         f.append(line(cx, BY + BH, cx, 176, color=MUTED, sw=1.2, dash="4 4"))
@@ -265,7 +265,7 @@ def fig_terminal_handover():
 
     f.append(text(40, 305, "оболонка", size=13, bold=True, color=MUTED, anchor="start"))
     for cx, s in [(365, "промпт"),
-                  (595, "waitpid(-940, WUNTRACED)\nспить"),
+                  (595, "waitpid(-4271, WUNTRACED)\nспить"),
                   (835, "промпт · «[1]+ Зупинено»"),
                   (1065, "waitpid — спить"),
                   (1250, "промпт")]:
@@ -281,7 +281,7 @@ def fig_terminal_handover():
         f.append(b)
 
     f.append(line(720, 410, 720, 438, color=POS, sw=1.2, dash="4 4"))
-    b, _w, _h = textbox(720, 458, "Ctrl+Z → SIGTSTP групі 940",
+    b, _w, _h = textbox(720, 458, "Ctrl+Z → SIGTSTP групі 4271",
                         size=11, fill=HOT, stroke=POS, color=POS)
     f.append(b)
 

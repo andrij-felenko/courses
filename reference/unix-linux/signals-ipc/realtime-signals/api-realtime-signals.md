@@ -92,13 +92,13 @@ extern int __libc_current_sigrtmax(void);
 | `SI_TIMER` | −2 | доспів POSIX-таймер | `si_value` (з `sigev_value`), `si_overrun`, `si_timerid` |
 | `SI_MESGQ` | −3 | `mq_notify(3)` | `si_value` (з `sigev_value`), `si_pid`, `si_uid` — того, хто **написав** повідомлення |
 | `SI_ASYNCIO` | −4 | завершилася операція `aio_*` | `si_value` (з `aio_sigevent.sigev_value`) |
-| `SI_SIGIO` | −5 | історичний: черга `SIGIO` до Linux 2.2 | `si_band`, `si_fd` |
+| `SI_SIGIO` | −5 | історичний: давня черга `SIGIO`; сучасні ядра його не ставлять | `si_band`, `si_fd` |
 | `SI_TKILL` | −6 | `tkill(2)`, `tgkill(2)`, `pthread_kill(3)` — і `raise(3)`, бо glibc робить її через `pthread_kill` | `si_pid`, `si_uid` |
 | `POLL_IN`…`POLL_HUP` | 1…6 | готовність дескриптора через `F_SETSIG` | `si_band`, `si_fd` |
 
 Знак коду — це критерій довіри, і в ядрі він оформлений двома макросами: `SI_FROMUSER(si)` — це `si->si_code <= 0`, `SI_FROMKERNEL(si)` — `si->si_code > 0`. Рідше трапляються `SI_ASYNCNL` (−60, завершено асинхронний пошук імені в glibc) і `SI_DETHREAD` (−7, `execve()` убиває решту потоків групи).
 
-Дві пастки в цій таблиці варті окремого слова. `si_timerid` — **внутрішній номер ядра**, а не ваш `timer_t`; щоб упізнати свій таймер, кладуть мітку в `sigev_value` і читають її з `si_value` ([таймери процесу](book:unix-linux/process-timers) — як `timer_create` заводить лічильник і що означає пропущене спрацювання). А готовність дескриптора сучасні ядра позначають кодами `POLL_*`, а не `SI_SIGIO`: цей код лишився з часів, коли черги в `SIGIO` ще не було ([ввід-вивід за сигналом](book:unix-linux/signal-driven-io) — як `F_SETOWN` і `F_SETSIG` перетворюють готовність дескриптора на сигнал із номером цього дескриптора).
+Дві пастки в цій таблиці варті окремого слова. `si_timerid` — **внутрішній номер ядра**, а не ваш `timer_t`; щоб упізнати свій таймер, кладуть мітку в `sigev_value` і читають її з `si_value` ([таймери процесу](book:unix-linux/process-timers) — як `timer_create` заводить лічильник і що означає пропущене спрацювання). А готовність дескриптора сучасні ядра позначають кодами `POLL_*`, а не `SI_SIGIO`: той код лишився від давнішого механізму, де готовність приносив сам `SIGIO` без розбору причини, і нині не виставляється ([ввід-вивід за сигналом](book:unix-linux/signal-driven-io) — як `F_SETOWN` і `F_SETSIG` перетворюють готовність дескриптора на сигнал із номером цього дескриптора).
 
 ## `struct sigevent`: як ядро дізнається, куди слати
 
@@ -120,7 +120,7 @@ struct sigevent {
 | `SIGEV_THREAD` | бібліотека кличе функцію, «наче» це початок нового потоку | `sigev_notify_function`, `sigev_value`, необов'язково `sigev_notify_attributes` |
 | `SIGEV_THREAD_ID` | сигнал **конкретній задачі**; лише для POSIX-таймерів | `sigev_signo`, `sigev_value`, `sigev_notify_thread_id` |
 
-Структуру заповнюють після `memset()`: три останні поля в glibc лежать в одному об'єднанні, тож писати їх разом безглуздо, а лишати незаповненими — небезпечно. Приймає `sigevent` не один інтерфейс: `timer_create(2)` бере його другим аргументом, `mq_notify(3)` — теж ([черги повідомлень](book:unix-linux/message-queues) — як процес підписується на появу першого повідомлення в порожній черзі), а `aio_read`/`aio_write` носять його полем `aio_sigevent` усередині `struct aiocb` ([POSIX AIO](book:unix-linux/posix-aio) — асинхронне читання й запис, зроблене в glibc потоками простору користувача).
+Структуру заповнюють після `memset()`: три останні поля в glibc лежать в одному об'єднанні — `sigev_notify_thread_id` ділить місце з парою `sigev_notify_function`/`sigev_notify_attributes`, тож заповнюють рівно ті, що відповідають обраному `sigev_notify`, а решту лишають обнуленою. Приймає `sigevent` не один інтерфейс: `timer_create(2)` бере його другим аргументом, `mq_notify(3)` — теж ([черги повідомлень](book:unix-linux/message-queues) — як процес підписується на появу першого повідомлення в порожній черзі), а `aio_read`/`aio_write` носять його полем `aio_sigevent` усередині `struct aiocb` ([POSIX AIO](book:unix-linux/posix-aio) — асинхронне читання й запис, зроблене в glibc потоками простору користувача).
 
 ## Помилки: за яких саме умов
 

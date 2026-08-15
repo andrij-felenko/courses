@@ -190,7 +190,7 @@ def fig_vnode_timeline():
           "вигляду /n/<машина>/<шлях> · дата без первинного джерела"], WARM_FILL, WARM),
         ("1985",
          ["П. Вайнберґер, «The UNIX eighth edition network file system»,",
-          "ACM Conference on Computer Science, с. 299–301"], WARM_FILL, WARM),
+          "13-та щорічна ACM Computer Science Conference, с. 299–301"], WARM_FILL, WARM),
         ("черв. 1986",
          ["С. Клейман, «Vnodes: An Architecture for Multiple File System Types",
           "in Sun UNIX», USENIX Summer, с. 238–247"], BLUE_FILL, NEG),

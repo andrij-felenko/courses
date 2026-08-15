@@ -53,7 +53,7 @@ mysh$ find / -name core | grep -v proc | less
 #define MAXP 8
 
 struct job {
-    pid_t pgid;                 /* імʼя групи = номер першої ланки */
+    pid_t pgid;                 /* ім'я групи = номер першої ланки */
     int   n;
     pid_t pid[MAXP];
     char  st[MAXP];             /* 'r' — живий · 's' — зупинений · 'x' — помер */
@@ -104,7 +104,7 @@ static void take_terminal(struct job *j, int save_modes)
 }
 ```
 
-Пробудження оболонки складається з двох частин, і порядок між ними важить:
+Запуск самої оболонки складається з двох частин, і порядок між ними важить:
 
 ```c
 static void shell_init(void)
@@ -217,7 +217,7 @@ static void launch_job(struct job *j, char **cmd[], int n, int foreground)
         if (pid < 0) { perror("fork"); return; }
 
         if (j->pgid == 0)
-            j->pgid = pid;      /* перша ланка дає групі імʼя */
+            j->pgid = pid;      /* перша ланка дає групі ім'я */
         setpgid(pid, j->pgid);  /* те саме ВДРУГЕ, з боку батька; помилку ігноруємо свідомо */
         j->pid[j->n] = pid;
         j->st[j->n++] = 'r';

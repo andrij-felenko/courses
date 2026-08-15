@@ -36,7 +36,7 @@
 #define BUF_COUNT   1024          /* мусить бути степенем двійки  */
 #define BUF_SIZE    2048
 #define BGID           1          /* номер групи наданих буферів  */
-#define MAX_CONN    4096
+#define MAX_CONN   16384          /* ≥ RLIMIT_NOFILE: індексуємо дескриптором */
 
 enum { OP_ACCEPT, OP_RECV, OP_SEND };
 
