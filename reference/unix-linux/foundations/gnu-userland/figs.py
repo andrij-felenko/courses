@@ -26,12 +26,12 @@ def fig_halves():
 
     # трійка простору користувача
     tw, gap = 190, 15
-    labels = ["init / systemd\n(перший процес)",
-              "bash, coreutils,\ngrep, sed, awk",
-              "gcc, as, ld,\nmake — тулчейн"]
-    for i, s in enumerate(labels):
+    labels = [("перший процес:\ninit / systemd — не GNU", OTH_FILL),
+              ("bash, coreutils,\ngrep, sed, awk", GNU_FILL),
+              ("gcc, as, ld,\nmake — тулчейн", GNU_FILL)]
+    for i, (s, bg) in enumerate(labels):
         f.append(fitbox(X + i * (tw + gap), 146, tw, 78, s, size=13,
-                        fill=GNU_FILL, stroke=FIELD))
+                        fill=bg, stroke=FIELD))
 
     # glibc
     f.append(fitbox(X, 254, BW, 56, "glibc — бібліотека C: open(), printf(), malloc(), pthread_create()",
@@ -54,7 +54,7 @@ def fig_halves():
     f.append(line(670, 146, 670, 310, color=FIELD, sw=2))
     f.append(line(670, 146, 682, 146, color=FIELD, sw=2))
     f.append(line(670, 310, 682, 310, color=FIELD, sw=2))
-    f.append(fitbox(696, 190, 178, 76, "GNU:\nуся ця частина", size=14,
+    f.append(fitbox(696, 190, 178, 76, "GNU:\nмайже вся ця частина", size=14,
                     fill=GNU_FILL, stroke=FIELD, bold=True))
 
     f.append(line(670, 374, 670, 462, color=NEG, sw=2))
@@ -280,9 +280,10 @@ def fig_portability_bands():
     f = []
 
     bands = [
-        ("POSIX\nє скрізь і однаково",
-         "grep -E -F -i -c -l -q · sed -E -n -e -f · find -print0 -iname\n"
-         "xargs -0 -r -I -n · head -c -n · tail -n +N · sort -n -k -t -u · cp -R -p",
+        ("POSIX\nдавній шар — скрізь",
+         "grep -E -F -i -c -l -q · sed -n -e -f · find -name -type -exec\n"
+         "xargs -I -n · head -n · tail -n +N · sort -n -k -t -u · cp -R -p\n"
+         "лише з Issue 8 (2024): sed -E · head -c · find -print0 · xargs -0 -r",
          GNU_FILL, FIELD),
         ("не POSIX, але скрізь\nсинтаксис той самий",
          "grep -r -R · readlink -f · mktemp -d ШАБЛОН\n"
@@ -297,7 +298,7 @@ def fig_portability_bands():
          "GNU і busybox, нема в BSD:  date -d · stat -c ФОРМАТ",
          OTH_FILL, MUTED),
         ("лише GNU",
-         "grep -P · cp --parents · find -printf · find -regex · head -n -N\n"
+         "grep -P · cp --parents · find -printf · head -n -N\n"
          "ключі ПІСЛЯ операндів: sort f -o out працює тільки тут",
          BAD, POS),
     ]

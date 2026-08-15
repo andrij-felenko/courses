@@ -48,7 +48,7 @@ def build_fig_architecture():
     b_tools, _, _ = textbox(
         160,
         98,
-        "Профільувальники\n(perf, trace-cmd, eBPF)",
+        "Профілювальники\n(perf, trace-cmd, eBPF)",
         size=11,
         pad=6,
         fill="#e0f2fe",
@@ -75,7 +75,7 @@ def build_fig_architecture():
     frags.extend([b_tools, b_shell, b_apps])
 
     # Системні виклики (Стрілки вниз)
-    frags.append(arrow(160, 122, 680, 160, color="#0284c7"))
+    frags.append(arrow(160, 122, 420, 160, color="#0284c7"))
     frags.append(arrow(420, 122, 420, 160, color="#0284c7"))
     frags.append(arrow(680, 122, 420, 160, color="#0284c7"))
 

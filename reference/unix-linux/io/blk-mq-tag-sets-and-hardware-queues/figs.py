@@ -88,7 +88,7 @@ def sbitmap_alloc():
     frags = []
     
     frags.append(rect(10, 10, 780, 410, rx=8, fill="#fafafa", stroke="#d0d0d0"))
-    b, _, _ = textbox(400, 30, "Будова sbitmap та sbitmap_queue для аллокації тегів", size=16, bold=True, fill="#ffffff", stroke="#d0d0d0")
+    b, _, _ = textbox(400, 30, "Будова sbitmap та sbitmap_queue для виділення тегів", size=16, bold=True, fill="#ffffff", stroke="#d0d0d0")
     frags.append(b)
     
     # Per-CPU hints
@@ -108,8 +108,8 @@ def sbitmap_alloc():
     frags.append(rect(30, 165, 740, 110, rx=6, fill="#fef2f2", stroke="#ef4444"))
     frags.append(text(60, 183, "sbitmap_word Array (Розподілена бітова карта)", size=12, bold=True, anchor="start"))
     
-    w0, _, _ = textbox(210, 230, "sbitmap_word [0]\ndepth = 64 | word = 0xFF00FFFE\nAtomic Test-and-Set", size=10, fill="#ffffff", stroke="#fca5a5", rx=4)
-    w1, _, _ = textbox(580, 230, "sbitmap_word [1]\ndepth = 64 | word = 0x0000000F\nAtomic Test-and-Set", size=10, fill="#ffffff", stroke="#fca5a5", rx=4)
+    w0, _, _ = textbox(210, 230, "sbitmap_word [0]\nword = 0xFF00FFFE | cleared = 0x0\ntest_and_set_bit_lock()", size=10, fill="#ffffff", stroke="#fca5a5", rx=4)
+    w1, _, _ = textbox(580, 230, "sbitmap_word [1]\nword = 0x0000000F | cleared = 0x30\ntest_and_set_bit_lock()", size=10, fill="#ffffff", stroke="#fca5a5", rx=4)
     frags.extend([w0, w1])
     
     # Arrow to waitqueues

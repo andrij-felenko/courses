@@ -234,7 +234,7 @@ def fig_scope_lanes():
     ]
     fix_items = [
         "setuid · setgid · setresuid · setgroups\nglibc розсилає SIGSETXID усім потокам\nсвого списку й чекає підтверджень",
-        "cap_set_proc\nсам по собі — лише свій потік;\n-lcap -lpsx і --wrap=pthread_create\nроблять із нього розсилку",
+        "cap_set_proc\nсам по собі — лише свій потік;\n-lcap разом із libpsx\nроблять із нього розсилку",
         "seccomp(…, SECCOMP_FILTER_FLAG_TSYNC)\nтут розсилку бере на себе саме ядро",
         "задача, народжена прямим clone()\nповз список libc — жодна розсилка\nїї не зачепить",
     ]

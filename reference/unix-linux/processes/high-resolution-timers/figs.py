@@ -33,7 +33,7 @@ def generate_hrtimer_architecture():
         frags.append(rect(bx, 185, 55, 35, fill=fill_col, stroke="#a05050", sw=1, rx=3))
         frags.append(text(bx + 27.5, 207, f"tv{i+1}", size=11, color="#401010", bold=True))
         
-    frags.append(fitbox(45, 230, 330, 22, "Спадання дискретностей: перекаскадування O(N)", size=11, fill="#fdf0f0", stroke="none"))
+    frags.append(fitbox(45, 230, 330, 22, "Каскадування кошиків: перерозподіл O(N)", size=11, fill="#fdf0f0", stroke="none"))
     
     # Bottom legacy summary
     frags.append(fitbox(35, 275, 350, 85, "Джиттер-відхилення до ±10 мс\nНеможливість субмілісекундного засинання\nНеперервні переривання в режимі Idle", size=11, fill="#f5e5e5", stroke="#c89898", color="#501010"))
@@ -49,12 +49,12 @@ def generate_hrtimer_architecture():
     frags.append(text(610, 170, "Червоно-чорне дерево (timerqueue)", size=13, bold=True, color="#105010"))
     
     # RB Tree Nodes
-    frags.append(circle(610, 195, 14, fill="#cc3333", stroke="#880000", sw=1.5))
+    frags.append(circle(610, 195, 14, fill="#333333", stroke="#000000", sw=1.5))
     frags.append(text(610, 199, "T2", size=10, bold=True, color="#ffffff"))
-    
-    frags.append(circle(540, 230, 14, fill="#333333", stroke="#000000", sw=1.5))
+
+    frags.append(circle(540, 230, 14, fill="#cc3333", stroke="#880000", sw=1.5))
     frags.append(text(540, 234, "T1", size=10, bold=True, color="#ffffff"))
-    
+
     frags.append(circle(680, 230, 14, fill="#cc3333", stroke="#880000", sw=1.5))
     frags.append(text(680, 234, "T3", size=10, bold=True, color="#ffffff"))
     

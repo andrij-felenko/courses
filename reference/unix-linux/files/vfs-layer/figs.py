@@ -324,7 +324,7 @@ def fig_tinyfs_objects():
                      "i_fop → tiny_dir_ops (iterate_shared)"],
                     size=15, fill=BLUE_FILL, stroke=NEG, sw=1.8, color=INK))
 
-    p.append(arrow(200, 476, 200, 528, color=NEG, sw=2))
+    p.append(arrow(200, 528, 200, 476, color=FIELD, sw=2))
     p.append(text(218, 512, "d_parent", size=14, anchor="start", color=MUTED))
 
     p.append(fitbox(60, 534, 300, 96,

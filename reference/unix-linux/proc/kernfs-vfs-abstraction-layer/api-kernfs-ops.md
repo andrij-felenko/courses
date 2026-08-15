@@ -18,37 +18,40 @@ struct kernfs_node {
     struct rb_node      rb;
     const void          *ns;
     unsigned int        hash;
-    union {
-        struct kernfs_elem_dir  dir;
-        struct kernfs_elem_file file;
-        struct kernfs_elem_symlink symlink;
-    } u;
+    union {                              /* безіменна: kn->dir, kn->attr, kn->symlink */
+        struct kernfs_elem_dir      dir;
+        struct kernfs_elem_symlink  symlink;
+        struct kernfs_elem_attr     attr;
+    };
     void                *priv;
+    union kernfs_node_id id;
     unsigned short      flags;
     umode_t             mode;
-    struct kernfs_iattr *iattr;
+    struct kernfs_iattrs *iattr;
 };
 ```
 
 #### Поля структури та їхній системний контракт:
 - **`count`**: Атомарний лічильник посилань (`atomic_t`) для керування життєвим циклом пам'яті самої структури `kernfs_node`. Пам'ять виділяється зі спеціалізованого кешу SLAB `kernfs_node_cache` і звільняється лише тоді, коли `count` досягає `0`.
-- **`active`**: Атомарний лічильник активних файлових операцій (`atomic_t`). Використовується для гарантії безпеки при вилученні вузла (гаряче відключення). Верхній біт прапора `KERNFS_DRAIN_PTR` сигналізує про процес деактивації та блокує виклики нових операцій.
+- **`active`**: Атомарний лічильник активних файлових операцій (`atomic_t`). Використовується для гарантії безпеки при вилученні вузла (гаряче відключення). Деактивація не має окремого прапора: до лічильника додається від'ємне зміщення `KN_DEACTIVATED_BIAS` (`INT_MIN + 1` у `fs/kernfs/dir.c`), після чого будь-яке нове взяття посилання зривається на перевірці знака.
 - **`parent`**: Вказівник на батьківський `kernfs_node` (для кореневого вузла дорівнює `NULL`). Зв'язки `parent` утворюють точне дерево ієрархії каталогів.
 - **`name`**: Рядок із ім'ям вузла у файловій системі (ASCIIZ). Виділяється динамічно або посилається на константну назву атрибута.
-- **`rb`**: Вузли червоно-чорного дерева (`struct rb_node`) для швидкого пошуку сиблінгів за іменем у батьківському каталозі (`O(log N)`).
+- **`rb`**: Вузол червоно-чорного дерева (`struct rb_node`) для швидкого пошуку братніх вузлів за іменем у батьківському каталозі (`O(log N)`).
 - **`ns`**: Вказівник на тег простору імен (наприклад, `struct net *` для мережевих просторів імен netns). Дозволяє прозоро ізолювати віртуальні файли у контейнерах.
+- **Безіменна union `dir` / `symlink` / `attr`**: Тип вузла визначає, яка з трьох гілок дійсна. Каталог тримає `dir.children` (корінь `rb_root` дочірніх вузлів), посилання — `symlink.target_kn`, файл — `attr.ops` (таблиця `kernfs_ops`), `attr.open` (`struct kernfs_open_node` із чергою `poll`) та `attr.size`. Оскільки union безіменна, звертаються без проміжного поля: `kn->dir.children`, `kn->attr.ops`.
+- **`id`**: `union kernfs_node_id` — 32 біти `ino` (з `root->ino_idr`) плюс 32 біти `generation`; разом дають 64-бітний ідентифікатор для VFS та NFS file handle.
 - **`priv`**: Довільний вказівник на дані підсистеми (наприклад, `struct kobject *` для sysfs або `struct cgroup *` для cgroup v2).
 - **`flags`**: Бітові прапори стану вузла (`KERNFS_HAS_SEQ_SHOW`, `KERNFS_HAS_MMAP`, `KERNFS_LOCKDEP` тощо).
 - **`mode`**: Права доступу файлової системи (`S_IRUGO`, `S_IWUSR` тощо).
-- **`iattr`**: Вказівник на структуру `struct kernfs_iattr`. Виділяється динамічно лише у разі виклику `chmod`, `chown` або оновлення часу доступу.
+- **`iattr`**: Вказівник на структуру `struct kernfs_iattrs`. Виділяється динамічно лише у разі виклику `chmod`, `chown` або оновлення часу доступу.
 
 ---
 
-### `struct kernfs_iattr`
+### `struct kernfs_iattrs`
 Структура метаданих файлової системи, яка виділяється на вимогу (ліниве виділення):
 
 ```c
-struct kernfs_iattr {
+struct kernfs_iattrs {
     struct iattr        ia_iattr;
     void                *ia_secdata;
     u32                 ia_secdata_len;
@@ -56,7 +59,7 @@ struct kernfs_iattr {
 };
 ```
 
-Поки процес користувача не змінює права чи власника файла за допомогою викликів `chmod()` або `chown()`, `kn->iattr` залишається `NULL`. Це заощаджує 48 байтів пам'яті для кожного з сотень тисяч вузлів у системі.
+Поки процес користувача не змінює права чи власника файла за допомогою викликів `chmod()` або `chown()`, `kn->iattr` залишається `NULL`. Оскільки вкладений `struct iattr` сам по собі несе три часові мітки `timespec64`, розмір, uid/gid і права, така економія знімає з кожного з сотень тисяч вузлів понад сотню байтів.
 
 ---
 
@@ -65,6 +68,8 @@ struct kernfs_iattr {
 
 ```c
 struct kernfs_ops {
+    int  (*open)(struct kernfs_open_file *of);
+    void (*release)(struct kernfs_open_file *of);
     int (*seq_show)(struct seq_file *sf, void *v);
     ssize_t (*read)(struct kernfs_open_file *of, char *buf,
                     size_t count, loff_t off);
@@ -73,8 +78,6 @@ struct kernfs_ops {
     int (*mmap)(struct kernfs_open_file *of, struct vm_area_struct *vma);
     __poll_t (*poll)(struct kernfs_open_file *of,
                      struct poll_table_struct *pt);
-    void (*open)(struct kernfs_open_file *of);
-    void (*release)(struct kernfs_open_file *of);
 };
 ```
 
@@ -82,7 +85,7 @@ struct kernfs_ops {
 - **`seq_show(sf, v)`**: Найпоширеніший метод для відформатованого виводу текстових даних. Використовує підсистему `seq_file`. Дозволяє безпечно записувати дані через `seq_printf(sf, fmt, ...)` без ризику переповнення буфера. Якщо визначено `seq_show`, ядро автоматично встановлює прапор `KERNFS_HAS_SEQ_SHOW`.
 - **`read(of, buf, count, off)`**: Низькорівневе зчитування сирих бінарних або текстових даних. Приймає виділений буфер `buf` розміром `count`. Повертає кількість зчитаних байтів або від'ємний код помилки (`-EIO`, `-EINVAL`).
 - **`write(of, buf, count, off)`**: Запис даних з простору користувача. Буфер `buf` гарантовано завершується нульовим символом `\0`, а його розмір становить `count`. Виклик виконується під захистом мутекса `of->mutex`.
-- **`mmap(of, vma)`**: Пряме відображення внутрішньої пам meті пристрою у простір адресації процесу користувача.
+- **`mmap(of, vma)`**: Пряме відображення внутрішньої пам'яті пристрою у простір адресації процесу користувача.
 - **`poll(of, pt)`**: Підтримка асинхронного сповіщення процесів через `select()`, `poll()` або `epoll()`. Повертає маску подій (`EPOLLIN`, `EPOLLPRI` тощо).
 - **`open(of)` / `release(of)`**: Контекстні виклики при відкритті та закритті файлового дескриптора. Дозволяють драйверу виділяти та звільняти ресурси у полях `of->priv`.
 
@@ -95,9 +98,10 @@ struct kernfs_ops {
 struct kernfs_open_file {
     struct kernfs_node  *kn;
     struct file         *file;
+    struct seq_file     *seq_file;
     void                *priv;
     struct mutex        mutex;
-    struct mutex        vm_ops_mutex;
+    struct mutex        prealloc_mutex;
     size_t              atomic_write_len;
     bool                mmapped;
 };
@@ -132,7 +136,7 @@ struct kernfs_syscall_ops {
 ## 2. Функції керування життєвим циклом вузлів
 
 ### `kernfs_create_root()`
-Створює нове коріння дерева `kernfs` для власної віртуальної файлової системи.
+Створює новий корінь дерева `kernfs` для власної віртуальної файлової системи.
 
 ```c
 struct kernfs_root *kernfs_create_root(
@@ -142,14 +146,14 @@ struct kernfs_root *kernfs_create_root(
 );
 ```
 - **`scops`**: Таблиця системних викликів для обробки `mkdir`/`rmdir`/`rename` (може бути `NULL`).
-- **`flags`**: Прапорці поведінки (наприклад, `KERNFS_ROOT_HAVESB`, `KERNFS_ROOT_EXTRA_OPEN_PERM`).
+- **`flags`**: Прапорці поведінки з `enum kernfs_root_flag`: `KERNFS_ROOT_CREATE_DEACTIVATED`, `KERNFS_ROOT_EXTRA_OPEN_PERM_CHECK`, `KERNFS_ROOT_SUPPORT_EXPORTOP`.
 - **`priv`**: Приватний вказівник володаря файлової системи.
 - **Повертає**: Вказівник на `struct kernfs_root` або `ERR_PTR(-errno)`.
 
 ---
 
 ### `kernfs_destroy_root()`
-Знищує корінь `kernfs` та рекурсивно вилучає всі вкладені вузли з пам meті з гарантією деактивації через `kernfs_drain()`.
+Знищує корінь `kernfs` та рекурсивно вилучає всі вкладені вузли з пам'яті з гарантією деактивації через `kernfs_drain()`.
 
 ```c
 void kernfs_destroy_root(struct kernfs_root *root);
@@ -246,7 +250,7 @@ struct kernfs_node *kernfs_find_and_get_ns(
 );
 ```
 - **Повертає**: Знайдений `kernfs_node *` із вже збільшеним `count` або `NULL`, якщо вузол відсутній.
-- **Обов meязок виклику**: Отриманий вузол після завершення роботи має бути звільнений парним викликом `kernfs_put(kn)`.
+- **Обов'язок виклику**: Отриманий вузол після завершення роботи має бути звільнений парним викликом `kernfs_put(kn)`.
 
 ---
 
@@ -263,36 +267,38 @@ struct kernfs_node *kernfs_walk_and_get(
 
 ---
 
-## 4. Активний підрахунок посилань та захист від гонитовних умов
+## 4. Активний підрахунок посилань та захист від умов гонитви
 
 ```c
-bool kernfs_get_active(struct kernfs_node *kn);
+struct kernfs_node *kernfs_get_active(struct kernfs_node *kn);
 void kernfs_put_active(struct kernfs_node *kn);
-void kernfs_drain(struct kernfs_node *kn);
+
+/* внутрішня, static у fs/kernfs/dir.c — модулю недоступна */
+static void kernfs_drain(struct kernfs_node *kn);
 ```
 
 ### Правила використання:
-1. `kernfs_get_active(kn)` перевіряє, чи не перебуває вузол у стані вилучення. Якщо вузол активний, атомарний лічильник `kn->active` збільшується на 1, і функція повертає `true`. Якщо вузол деактивовано (`kernfs_remove`), повертає `false`.
-2. Кожен успішний виклик `kernfs_get_active()` **ЗБОВ'ЯЗАНИЙ** супроводжуватися викликом `kernfs_put_active()` у парній гілці коду (наприклад, у блоці `finally` чи після завершення VFS-операції).
-3. `kernfs_drain(kn)` переводить вузол у стан знеструмлення і чекає на ваіт-черзі (`waitqueue`), доки значення `active` не впаде до нульового рівня.
+1. `kernfs_get_active(kn)` перевіряє, чи не перебуває вузол у стані вилучення. Якщо вузол активний, атомарний лічильник `kn->active` збільшується на 1, і функція повертає той самий `kn`. Якщо вузол деактивовано (`kernfs_remove`), повертає `NULL`, а VFS-обгортка віддає нагору `-ENODEV`.
+2. Кожен успішний виклик `kernfs_get_active()` **ЗОБОВ'ЯЗАНИЙ** супроводжуватися викликом `kernfs_put_active()` у парній гілці коду (наприклад, у блоці `finally` чи після завершення VFS-операції).
+3. `kernfs_drain(kn)` деактивує вузол і чекає на черзі очікування (`waitqueue`), доки значення `active` не впаде назад до `KN_DEACTIVATED_BIAS`. Драйвер не викликає її напряму — вона спрацьовує зсередини `kernfs_remove()` і `kernfs_destroy_root()`.
 
 ---
 
 ## 5. Блокування та покрокова інваріантність
 
-При роботі з `kernfs` ядро дотримується строгової ієрархії семафорів та мутексів:
+При роботі з `kernfs` ядро дотримується суворої ієрархії семафорів та мутексів:
 
 | Замок (Lock) | Опис та обсяг захисту |
 | :--- | :--- |
-| **`kernfs_rwsem`** | Глобальний read/write семафор ядра, який захищає структуру дерев `kernfs_root` та додавання/вилучення вузлів з `rb_node`. |
+| **`kernfs_rwsem`** | Read/write семафор, який захищає структуру дерева `kernfs_root` та додавання/вилучення вузлів у `rb_node`. Ім'я й розташування цього замка мінялися: від 3.14 і довгий час ту саму роль грав глобальний мутекс `kernfs_mutex`, згодом його замінили на rwsem заради паралельних пошуків, а ще пізніше семафор переїхав усередину `kernfs_root` — тобто став окремим на кожне дерево. |
 | **`kernfs_open_file_mutex`** | Захищає глобальний список відкритих файлів `kernfs_open_file`. |
 | **`of->mutex`** | Внутрішній мутекс конкретного відкритого файла. Послідовно блокує паралельні виклики `write()` від різних потоків одного процесу. |
 
-### Інваріанти покликів:
-- **Заборона спинлоків у `kernfs_ops`**: Методи `seq_show`, `read` та `write` виконуються у контексті процесу з можливістю сну (`might_sleep()`). Заборонено утримувати спинлоки (`spinlock_t`) при викликах методів `kernfs`, які можуть приводити до виділення пам'яті чи сну.
+### Інваріанти викликів:
+- **Заборона спинлоків у `kernfs_ops`**: Методи `seq_show`, `read` та `write` виконуються у контексті процесу з можливістю сну (`might_sleep()`). Заборонено утримувати спинлоки (`spinlock_t`) при викликах методів `kernfs`, які можуть призводити до виділення пам'яті чи сну.
 - **Гарантія нульового термінатора**: Буфер `buf`, який передається у метод `write`, завжди містить нуль-термінатор `\0` за індексом `count`, що упереджує виходи за межі масиву при використанні `sscanf()` чи `kstrtoint()`.
 - **Контракт повернення кодів помилок**:
   - `-ENODEV`: Пристрій або вузол деактивовано (повертається автоматично при `kernfs_get_active() == false`).
   - `-ENOENT`: Запитаний вузол відсутній у червоно-чорному дереві.
-  - `-EEXIST`: Спроба створити вузол із вже наявним ім meм у тому самому каталозі.
+  - `-EEXIST`: Спроба створити вузол із вже наявним ім'ям у тому самому каталозі.
   - `-EINVAL`: Некоректні параметри або невалідний формат числа при записі.

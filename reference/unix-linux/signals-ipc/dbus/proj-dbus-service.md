@@ -88,7 +88,7 @@ int main(void) {
     Counter c = { .value = 0, .threshold = 10 };
     int r;
 
-    r = sd_bus_open_user(&c.bus);        /* налагоджуємось на сеансовій шині */
+    r = sd_bus_open_user(&c.bus);        /* під'єднуємось до сеансової шини */
     if (r < 0) goto fail;
 
     /* СПОЧАТКУ об'єкт, ЛИШЕ ПОТІМ ім'я — інакше клієнт побачить ім'я раніше за метод */

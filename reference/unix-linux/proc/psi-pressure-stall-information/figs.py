@@ -8,7 +8,7 @@ def generate_psi_stalls(img_dir):
     frags = []
 
     # Title
-    frags.append(text(w / 2, 30, "Модель затримок PSI: розмежування продуктів 'some' та 'full'", size=16, bold=True))
+    frags.append(text(w / 2, 30, "Модель затримок PSI: розмежування режимів 'some' та 'full'", size=16, bold=True))
 
     COLOR_RUN = "#c8e6c9"      # Running on CPU (green)
     COLOR_SOME = "#ffe0b2"     # Some stall (orange)
@@ -99,13 +99,13 @@ def generate_psi_architecture(img_dir):
     frags.append(tb1)
 
     # Layer 2: Per-CPU aggregators
-    tb2, w2, _ = textbox(450, 90, "Per-CPU лічильники\npsi_group_cpu\n(накопичення total_us)", size=12, pad=10, fill="#e3f2fd", stroke=LINE, bold=True)
+    tb2, w2, _ = textbox(450, 90, "Per-CPU лічильники\npsi_group_cpu\ntimes[] у наносекундах", size=12, pad=10, fill="#e3f2fd", stroke=LINE, bold=True)
     frags.append(tb2)
 
     frags.append(arrow(160 + w1/2, 90, 450 - w2/2, 90, color=LINE, sw=2))
 
     # Layer 3: Moving Average Decay Engine
-    tb3, w3, _ = textbox(740, 90, "Обчислення EMA (2с)\npsi_update_work()\navg10, avg60, avg300", size=12, pad=10, fill="#fff3e0", stroke=LINE, bold=True)
+    tb3, w3, _ = textbox(740, 90, "Обчислення EWMA (2 с)\npsi_avgs_work()\navg10, avg60, avg300", size=12, pad=10, fill="#fff3e0", stroke=LINE, bold=True)
     frags.append(tb3)
 
     frags.append(arrow(450 + w2/2, 90, 740 - w3/2, 90, color=LINE, sw=2))

@@ -146,7 +146,9 @@ $ cc -std=gnu17 -dM -E -x c /dev/null | grep -c __STRICT_ANSI__
 
 Справді необов'язкові — ті, про які стандарт каже «якщо визначено, то `-1`, `0` або `202405L`»:
 
-`_POSIX_PRIORITY_SCHEDULING` · `_POSIX_SHARED_MEMORY_OBJECTS` · `_POSIX_MESSAGE_PASSING` · `_POSIX_SPAWN` · `_POSIX_MEMLOCK` · `_POSIX_MEMLOCK_RANGE` · `_POSIX_RAW_SOCKETS` · `_POSIX_IPV6` · `_POSIX_SPORADIC_SERVER` · `_POSIX_TRACE`
+`_POSIX_PRIORITY_SCHEDULING` · `_POSIX_SHARED_MEMORY_OBJECTS` · `_POSIX_MESSAGE_PASSING` · `_POSIX_SPAWN` · `_POSIX_MEMLOCK` · `_POSIX_MEMLOCK_RANGE` · `_POSIX_RAW_SOCKETS` · `_POSIX_IPV6` · `_POSIX_SPORADIC_SERVER`
+
+Рух буває і в третій бік: сталі `_POSIX_TRACE*` редакція 2024 року позначила як відмерлі — опцію трасування з тексту виводять, і реалізацій у неї майже не було.
 
 Окремо стоять `_POSIX_VERSION`, `_POSIX2_VERSION` і `_XOPEN_VERSION` — це не опції, а номер редакції, за якою система себе оголошує; `_XOPEN_UNIX` каже, чи є розширення XSI, і тоді `_XOPEN_VERSION` дорівнює `800`.
 

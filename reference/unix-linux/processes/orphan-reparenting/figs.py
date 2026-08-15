@@ -260,16 +260,16 @@ def fig_wait_strangers():
 
     # ── ліворуч: дерево під час досліду ────────────────────────────
     f.append(text(300, 60, "дерево під час досліду", size=13, bold=True))
-    b, _, _ = textbox(300, 110, "lab (PID 4001)\nPR_SET_CHILD_SUBREAPER = 1",
+    b, _, _ = textbox(300, 110, "lab (PID 51602)\nPR_SET_CHILD_SUBREAPER = 1",
                       size=13, stroke=NEG, color=NEG)
     f.append(b)
     f.append(arrow(300, 138, 300, 180))
-    b, _, _ = textbox(300, 207, "середній (4002)\nprctl-прапорця не має",
+    b, _, _ = textbox(300, 207, "середній (51603)\nprctl-прапорця не має",
                       size=13, stroke=POS, color=POS)
     f.append(b)
     f.append(text(200, 258, "вийшов", size=11, color=POS, anchor="end"))
     f.append(arrow(300, 233, 300, 284))
-    b, _, _ = textbox(300, 303, "онук (4003)", size=13)
+    b, _, _ = textbox(300, 303, "онук (51604)", size=13)
     f.append(b)
 
     f.append(line(352, 303, 480, 303, color=NEG, sw=1.6, dash="7 5"))
@@ -279,9 +279,9 @@ def fig_wait_strangers():
 
     # ── праворуч: що повертає wait ─────────────────────────────────
     f.append(text(825, 60, "що повертає waitpid(-1)", size=13, bold=True))
-    b, _, _ = textbox(825, 110, "4002, код 3 — мій", size=13)
+    b, _, _ = textbox(825, 110, "51603, код 3 — мій", size=13)
     f.append(b)
-    b, _, _ = textbox(825, 175, "4003, код 42 — ЧУЖИЙ", size=13,
+    b, _, _ = textbox(825, 175, "51604, код 42 — ЧУЖИЙ", size=13,
                       fill="#fdecea", stroke=POS, color=POS)
     f.append(b)
     b, _, _ = textbox(825, 240, "−1, errno = ECHILD", size=13,

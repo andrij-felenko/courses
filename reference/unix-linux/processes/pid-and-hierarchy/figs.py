@@ -192,7 +192,7 @@ def fig_ceiling_history():
     H = top + len(rows) * (rh + gap) + 66
     f = []
     heads = [(x0, colw, "епоха й спосіб задати стелю"),
-             (xn, numw, "найбільший номер"),
+             (xn, numw, "верхня межа"),
              (xb, barw, "розмір простору номерів (шкала логарифмічна)")]
     for x, w, s in heads:
         f.append(fitbox(x, 40, w, 40, s, size=13, bold=True, fill="#e6edf7"))
@@ -221,7 +221,6 @@ def fig_ceiling_history():
            title="Як росла стеля номера процесу")
 
 
-fig_ceiling_history()
 def fig_supervisor_loop():
     """Один цикл подій: команди й смерть дитини приходять однаково (для proj-розбору)."""
     W, H = 1080, 470
@@ -293,6 +292,7 @@ fig_race()
 fig_names()
 fig_sign()
 fig_pidfd_versions()
+fig_ceiling_history()
 fig_supervisor_loop()
 fig_stop_escalation()
 print("ok")

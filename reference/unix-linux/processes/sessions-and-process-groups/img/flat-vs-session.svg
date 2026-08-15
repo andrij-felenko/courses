@@ -12,8 +12,8 @@
 <line x1="195.0" y1="162.0" x2="174.0" y2="274.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
 <line x1="485.0" y1="162.0" x2="510.0" y2="274.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
 <line x1="174.0" y1="356.0" x2="500.0" y2="356.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
-<text x="80.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">kill(−402, SIGCONT) з першого входу</text>
-<text x="80.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">дістає до чужого термінала — і спрацьовує</text>
+<text x="80.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">setpgrp(0, 402) з процесу першого входу</text>
+<text x="80.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">вписує його в чужу групу — і спрацьовує</text>
 <line x1="640.0" y1="96.0" x2="640.0" y2="470.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6,6"/>
 <text x="980.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">POSIX.1-1988: сеанс як огорожа</text>
 <rect x="690.0" y="106.0" width="250.0" height="56.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="815.0" y="130.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">вхід 1</tspan><tspan x="815.0" dy="16.9">термінал tty00</tspan></text>
@@ -29,6 +29,6 @@
 <line x1="1135.0" y1="162.0" x2="1135.0" y2="214.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
 <line x1="944.0" y1="298.0" x2="1006.0" y2="298.0" stroke="#c0392b" stroke-width="2.2"/>
 <text x="975.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
-<text x="690.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">той самий постріл упирається в межу сеансу:</text>
+<text x="690.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">той самий виклик упирається в межу сеансу:</text>
 <text x="690.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">setpgid дозволений лише всередині свого сеансу</text>
 </svg>

@@ -89,7 +89,7 @@ def fig_rendezvous():
     b = []
 
     b.append(text(250, 34, "безіменний: sem_init(&s, 1, 0)", size=14, bold=True))
-    b.append(text(750, 34, "іменований: sem_open(\"/frames\", …)", size=14, bold=True))
+    b.append(text(750, 34, "іменований: sem_open(\"/frames.filled\", …)", size=14, bold=True))
 
     # ліва половина
     b.append(fitbox(40, 58, 180, 56, "процес A", size=13))
@@ -116,7 +116,7 @@ def fig_rendezvous():
     b.append(arrow(870, 116, 850, 196))
     b.append(rect(540, 200, 420, 110, fill="#f0f4ff", stroke=NEG))
     b.append(fitbox(560, 222, 380, 68,
-                    "/dev/shm/sem.frames — файл на tmpfs,\nякий libc відображає обом", size=12,
+                    "/dev/shm/sem.frames.filled — файл на tmpfs,\nякий libc відображає обом", size=12,
                     fill="#eaf0fd", stroke=NEG))
     b.append(text(750, 336, "домовляються про ім'я, а не про пам'ять:", size=12, color=MUTED))
     b.append(text(750, 356, "спорідненість процесів не потрібна", size=12, color=MUTED))

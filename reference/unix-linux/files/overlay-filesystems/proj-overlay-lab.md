@@ -328,7 +328,8 @@ int main(int argc, char **argv)
     double mib = st.st_size / 1048576.0, dt = t1 - t0;
     printf("open(%s%s): %.6f с при розмірі %.1f МіБ",
            argv[1], (flags & O_TRUNC) ? ", O_TRUNC" : "", dt, mib);
-    if (dt > 0.0) printf("  (%.0f МіБ/с)", mib / dt);
+    /* швидкість має сенс лише там, де копіювання справді сталося */
+    if (mib >= 1.0 && dt > 0.01) printf("  (%.0f МіБ/с)", mib / dt);
     printf("\n");
     return 0;
 }

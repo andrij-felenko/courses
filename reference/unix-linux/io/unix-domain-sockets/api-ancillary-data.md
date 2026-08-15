@@ -59,7 +59,7 @@ CMSG_SPACE(l) = CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(l)
 
 Кількість дескрипторів у прийнятому блоці окремим полем не приходить — її рахують із довжини: `n = (c->cmsg_len - CMSG_LEN(0)) / sizeof(int)`.
 
-Про переносність: `CMSG_FIRSTHDR`, `CMSG_NXTHDR` і `CMSG_DATA` описані в POSIX.1-2008, `CMSG_SPACE` і `CMSG_LEN` увійдуть у наступну редакцію стандарту, а `CMSG_ALIGN` — розширення Linux, у переносній програмі його не вживають. І окремо: `CMSG_DATA` не обіцяє вирівнювання під `int`, тому навантаження копіюють через `memcpy`, а не читають розіменуванням вказівника.
+Про переносність: `CMSG_FIRSTHDR`, `CMSG_NXTHDR` і `CMSG_DATA` описані ще в POSIX.1-2008, `CMSG_SPACE` і `CMSG_LEN` додано в POSIX.1-2024 (Issue 8), а `CMSG_ALIGN` — розширення Linux, у переносній програмі його не вживають. І окремо: `CMSG_DATA` не обіцяє вирівнювання під `int`, тому навантаження копіюють через `memcpy`, а не читають розіменуванням вказівника.
 
 ## Типи блоків (рівень `SOL_SOCKET`)
 
@@ -161,9 +161,10 @@ msg.msg_controllen = sizeof u.buf;
 
 if (recvmsg(sock, &msg, MSG_CMSG_CLOEXEC) <= 0)
     return -1;
-if (msg.msg_flags & MSG_CTRUNC)
-    return -1;                            /* зайві дескриптори ядро вже закрило само */
 
+/* Спершу забираємо ВСЕ, що влізло, і лише потім дивимось на MSG_CTRUNC:
+   ядро закрило само тільки той надлишок, який не вмістився, а те, що
+   вмістилося, вже лежить у нашій таблиці й нікому, крім нас, не відоме. */
 for (struct cmsghdr *c = CMSG_FIRSTHDR(&msg); c != NULL; c = CMSG_NXTHDR(&msg, c)) {
     if (c->cmsg_level != SOL_SOCKET || c->cmsg_type != SCM_RIGHTS)
         continue;
@@ -174,6 +175,8 @@ for (struct cmsghdr *c = CMSG_FIRSTHDR(&msg); c != NULL; c = CMSG_NXTHDR(&msg, c
         /* … got належить нам, і закрити його теж нам */
     }
 }
+if (msg.msg_flags & MSG_CTRUNC)
+    return -1;                            /* зібране вище закриваємо перед виходом */
 ```
 
 ## Помилки

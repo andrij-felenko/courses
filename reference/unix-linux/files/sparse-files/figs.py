@@ -204,10 +204,10 @@ def fig_seek_hole_timeline():
     rows = [
         ("2006", ["Solaris: lseek дістає SEEK_HOLE і SEEK_DATA",
                   "два питання про найближчу межу замість карти файлу"], FIELD, GREEN_FILL),
-        ("листопад 2007", ["Josef Bacik надсилає в LKML перший патч для Linux",
-                           "загальна реалізація поблочно, через bmap"], NEG, BLUE_FILL),
         ("жовтень 2007", ["Andreas Dilger пропонує ioctl FIEMAP — повну карту екстентів",
-                          "LWN, 3 грудня: «SEEK_HOLE or FIEMAP?» — вирок на користь карти"], WARM, WARM_FILL),
+                          "не «де найближча межа», а вся розкладка файлу на носії"], WARM, WARM_FILL),
+        ("листопад – грудень 2007", ["Josef Bacik надсилає в LKML перший патч, реалізація через bmap",
+                                     "LWN, 3 грудня: «SEEK_HOLE or FIEMAP?» — вирок на користь карти"], NEG, BLUE_FILL),
         ("грудень 2008", ["ядро 2.6.28: FIEMAP прийнято в Linux",
                           "SEEK_HOLE лишається поза ядром — його «зробить бібліотека C»"], WARM, WARM_FILL),
         ("квітень 2011", ["Bacik надсилає патч удруге",

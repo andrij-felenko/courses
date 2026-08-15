@@ -9,10 +9,10 @@
 <text x="60.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c62828" text-anchor="middle" font-weight="700">Простір ядра (Kernel Space)</text>
 <rect x="60.0" y="290.0" width="390.0" height="130.0" rx="6" fill="#eaf0fd" stroke="#1976d2" stroke-width="2.0"/>
 <text x="255.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0d47a1" text-anchor="middle" font-weight="700">Шар VFS (Virtual File System)</text>
-<text x="255.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">vfs_read() / proc_lookup()</text>
+<text x="255.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">vfs_read() / proc_pid_lookup()</text>
 <text x="255.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Перевірка dentry &amp; dentry_operations</text>
 <rect x="510.0" y="290.0" width="410.0" height="130.0" rx="6" fill="#fff6e5" stroke="#f57c00" stroke-width="2.0"/>
-<text x="715.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#e65100" text-anchor="middle" font-weight="700">Двигун procfs &amp; seq_file</text>
+<text x="715.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#e65100" text-anchor="middle" font-weight="700">Рушій procfs &amp; seq_file</text>
 <text x="715.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">proc_single_show() -&gt; seq_printf()</text>
 <text x="715.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Динамічна генерація тексту без диска</text>
 <rect x="970.0" y="290.0" width="390.0" height="310.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="2.0"/>
@@ -29,13 +29,13 @@
 <line x1="255.0" y1="210.0" x2="255.0" y2="282.0" stroke="#1565c0" stroke-width="2.0" marker-end="url(#arrow)"/>
 <text x="270.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1565c0" text-anchor="start">syscall: read()</text>
 <line x1="450.0" y1="355.0" x2="502.0" y2="355.0" stroke="#1976d2" stroke-width="2.0" marker-end="url(#arrow)"/>
-<text x="476.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1976d2" text-anchor="middle">file_ops</text>
+<text x="476.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1976d2" text-anchor="middle">proc_ops</text>
 <line x1="920.0" y1="355.0" x2="962.0" y2="385.0" stroke="#e65100" stroke-width="2.0" marker-end="url(#arrow)"/>
 <line x1="920.0" y1="355.0" x2="962.0" y2="465.0" stroke="#e65100" stroke-width="2.0" marker-end="url(#arrow)"/>
 <line x1="920.0" y1="355.0" x2="962.0" y2="545.0" stroke="#e65100" stroke-width="2.0" marker-end="url(#arrow)"/>
 <rect x="60.0" y="460.0" width="860.0" height="140.0" rx="6" fill="#ffffff" stroke="#78909c" stroke-width="1.5"/>
 <text x="490.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#263238" text-anchor="middle" font-weight="700">Життєвий цикл inode/dentry у procfs</text>
-<text x="490.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">1. lookup() створює імпровізований inode на вимогу виклику open()/stat()</text>
+<text x="490.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">1. lookup() створює тимчасовий inode на вимогу виклику open()/stat()</text>
 <text x="490.0" y="545.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">2. dentry_operations.d_revalidate() перевіряє, чи процес task_struct ще живий</text>
 <text x="490.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">3. Якщо процес помер -&gt; dentry зникає зі списків VFS без зчитування з диска</text>
 </svg>

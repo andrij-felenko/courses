@@ -45,7 +45,7 @@ def make_architecture_fig(path):
 
     # Нижній шар: Фізичні ресурси
     # RAM
-    box_ram, wr, hr = textbox(290, 360, "Фізична оперативна пам'ять (RAM)\nАнонімні сторінки (struct page / folio)\nВиділення при записі (shmem_getpage)\nЗвільнення при unlink / truncate", size=12, pad=10, fill="#e8f8f5", stroke=FIELD, sw=2)
+    box_ram, wr, hr = textbox(290, 360, "Фізична оперативна пам'ять (RAM)\nАнонімні сторінки (struct page / folio)\nВиділення при записі (shmem_get_folio)\nЗвільнення при unlink / truncate", size=12, pad=10, fill="#e8f8f5", stroke=FIELD, sw=2)
     body.append(box_ram)
 
     # Дисковий пристрій для ext4
@@ -57,7 +57,7 @@ def make_architecture_fig(path):
     body.append(text(525, 418, "kswapd reclaim", size=11, color=MUTED, italic=True))
 
     # Swap підсистема для tmpfs
-    box_swap, ws, hs = textbox(430, 470, "Підсистема Swap (swp_entry_t)\nshmem_writepage() виносить сторінки tmpfs у swap\nxarray (i_pages) відстежує слоти swap замість дисків", size=12, pad=10, fill="#fef9e7", stroke="#f39c12", sw=2)
+    box_swap, ws, hs = textbox(430, 470, "Підсистема Swap (swp_entry_t)\nshmem_writepage() виносить сторінки tmpfs у swap\nxarray (i_pages) тримає слоти swap замість покажчиків на сторінки", size=12, pad=10, fill="#fef9e7", stroke="#f39c12", sw=2)
     body.append(box_swap)
 
     render(path, w, h, "\n".join(body))
@@ -70,19 +70,19 @@ def make_dual_personality_fig(path):
 
     # Заголовок зверху
     body.append(rect(20, 15, 800, 45, fill="#f8fafc", stroke=MUTED, sw=1.5))
-    body.append(text(420, 43, "Ядерний двигун shmem (mm/shmem.c) та внутрішній shmem_mnt", size=15, bold=True, color=NEG))
+    body.append(text(420, 43, "Ядерний двигун shmem (mm/shmem.c) та внутрішній shm_mnt", size=15, bold=True, color=NEG))
 
     # Ліва колонка: Публічний ВФС-інтерфейс (User mounts)
     body.append(rect(30, 80, 370, 225, fill="#f4f6f8", stroke=NEG, sw=1.5))
     body.append(text(215, 105, "Публічний ВФС-інтерфейс (mount -t tmpfs)", size=13, bold=True, color=NEG))
 
-    b_tmp, _, _ = textbox(215, 145, "Тимчасові ФС системи\n/tmp  ·  /run  ·  /tmp/user/1000", size=11.5, fill="#ffffff", stroke=MUTED)
+    b_tmp, _, _ = textbox(215, 145, "Тимчасові ФС системи\n/tmp  ·  /run  ·  /run/user/1000", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_tmp)
 
     b_shm, _, _ = textbox(215, 200, "POSIX Shared Memory\n/dev/shm  (shm_open / shm_unlink)", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_shm)
 
-    b_custom, _, _ = textbox(215, 255, "Спеціальні монтування\n/sys/fs/cgroup  ·  overlayfs upperdir", size=11.5, fill="#ffffff", stroke=MUTED)
+    b_custom, _, _ = textbox(215, 255, "Спеціальні монтування\nrootfs / initramfs  ·  overlayfs upperdir у RAM", size=11.5, fill="#ffffff", stroke=MUTED)
     body.append(b_custom)
 
     # Права колонка: Внутрішні механізми ядра та анонімні об'єкти
@@ -108,7 +108,7 @@ def make_dual_personality_fig(path):
 
     # Нижня стрілка до RAM / Swap
     body.append(arrow(420, 435, 420, 460))
-    body.append(text(420, 480, "Спільний фонд оперативності: RAM (Page Cache) ↔ Swap", size=12, color=MUTED, bold=True))
+    body.append(text(420, 480, "Спільний фонд пам'яті: RAM (Page Cache) ↔ Swap", size=12, color=MUTED, bold=True))
 
     render(path, w, h, "\n".join(body))
 

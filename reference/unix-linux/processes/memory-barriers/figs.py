@@ -41,7 +41,7 @@ def build_store_buffer_architecture(filepath):
     elems.append(text(420, 440, "Системна шина інтерконнекту (Interconnect) та спільний L3 Кеш / RAM", size=14, bold=True, color=INK))
     
     # Memory barrier annotation box
-    elems.append(textbox(420, 300, "smp_wmb() примусово флешить Store Buffer | smp_rmb() спорожнює Invalidate Queue", size=12, fill="#dcfce7", stroke=FIELD, pad=6, bold=True)[0])
+    elems.append(textbox(420, 300, "smp_wmb() скидає Store Buffer | smp_rmb() спорожнює Invalidate Queue", size=12, fill="#dcfce7", stroke=FIELD, pad=6, bold=True)[0])
     
     body = "\n".join(elems)
     return render(filepath, w, h, body)
@@ -54,7 +54,7 @@ def build_reordering_taxonomy(filepath):
     
     # Table headers
     elems.append(rect(40, 60, 230, 40, fill="#e2e8f0", stroke=LINE, sw=1.5))
-    elems.append(text(155, 85, "Тип реодерингу", size=14, bold=True))
+    elems.append(text(155, 85, "Тип перевпорядкування", size=14, bold=True))
     
     elems.append(rect(270, 60, 170, 40, fill="#e2e8f0", stroke=LINE, sw=1.5))
     elems.append(text(355, 85, "x86-64 (TSO)", size=14, bold=True))
@@ -113,19 +113,19 @@ def build_acquire_release_flow(filepath):
     elems.append(rect(30, 60, 360, 300, fill="#faf5ff", stroke="#a855f7", sw=1.5, rx=8))
     elems.append(text(210, 85, "Потік 1: Виробник (Producer)", size=15, bold=True, color="#7e22ce"))
     
-    elems.append(textbox(210, 140, "1. Підготовка даних:\nWRITE payload = 0xDEADBEEF;", size=12, fill="#ffffff", stroke=LINE, pad=8)[0])
+    elems.append(textbox(210, 140, "1. Підготовка даних:\nWRITE payload = 42;", size=12, fill="#ffffff", stroke=LINE, pad=8)[0])
     elems.append(arrow(210, 175, 210, 215, color=LINE))
-    
-    elems.append(textbox(210, 270, "2. Публікація з Release:\nsmp_store_release(&ready, 1);\n[Бар'єр запису ВЕРХУ]", size=12, fill="#f3e8ff", stroke="#7e22ce", pad=8, bold=True)[0])
+
+    elems.append(textbox(210, 270, "2. Публікація з Release:\nsmp_store_release(&ready, 1);\n[Бар'єр ЗВЕРХУ, перед записом]", size=12, fill="#f3e8ff", stroke="#7e22ce", pad=8, bold=True)[0])
     
     # Thread 2 Container
     elems.append(rect(470, 60, 360, 300, fill="#eff6ff", stroke=NEG, sw=1.5, rx=8))
     elems.append(text(650, 85, "Потік 2: Споживач (Consumer)", size=15, bold=True, color=NEG))
     
-    elems.append(textbox(650, 140, "1. Зчитання з Acquire:\nif (smp_load_acquire(&ready) == 1)\n[Бар'єр читання НИЖЧУ]", size=12, fill="#dbeafe", stroke=NEG, pad=8, bold=True)[0])
+    elems.append(textbox(650, 140, "1. Зчитання з Acquire:\nif (smp_load_acquire(&ready) == 1)\n[Бар'єр ЗНИЗУ, після читання]", size=12, fill="#dbeafe", stroke=NEG, pad=8, bold=True)[0])
     elems.append(arrow(650, 185, 650, 225, color=NEG))
-    
-    elems.append(textbox(650, 270, "2. Використання даних:\nREAD payload (гарантовано 0xDEADBEEF!)", size=12, fill="#ffffff", stroke=LINE, pad=8)[0])
+
+    elems.append(textbox(650, 270, "2. Використання даних:\nREAD payload (гарантовано 42!)", size=12, fill="#ffffff", stroke=LINE, pad=8)[0])
     
     # Label Box for Synchronizes-With positioned above the diagonal
     elems.append(textbox(430, 130, "Синхронізація\n(Synchronizes-With)", size=11, fill="#dcfce7", stroke=FIELD, pad=6, bold=True)[0])

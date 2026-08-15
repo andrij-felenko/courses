@@ -55,7 +55,7 @@ def fig_cgroupfs_v1_vs_v2_tree():
     p.append(fitbox(80, 415, 570, 185, 
                     "• Процес P1 належить Group_A у CPU та Group_B у Memory.\n"
                     "• При скиданні брудних сторінок пам'яті (Buffered I/O Writeback)\n"
-                    "  ядерний kworker не знає, до якої cgroup блікового I/O\n"
+                    "  ядерний kworker не знає, до якої cgroup блокового I/O\n"
                     "  віднести операцію дискового запису.\n"
                     "• Розрив між контролерами унеможливлює точний облік I/O,\n"
                     "  створює гонки при міграції PID та блокування у ядрі.",
@@ -102,7 +102,7 @@ def fig_cgroupfs_v1_vs_v2_tree():
                     "✔ Перевага cgroup v2:\n"
                     "  Усі контролери (CPU, Memory, I/O) бачать однакову ієрархію.\n"
                     "  I/O Writeback tracking точно знає джерело сторінок пам'яті.\n"
-                    "  Повна узгодженість OOM-killer та ресурсної акумуляції.",
+                    "  Повна узгодженість OOM-killer та обліку ресурсів.",
                     size=13, fill="#ffffff", stroke="#388e3c", color="#1b5e20"))
 
     render(os.path.join(IMG, 'cgroupfs-v1-vs-v2-tree.svg'), W, H, *p)
@@ -144,7 +144,7 @@ def fig_cgroupfs_v2_no_internal_process_rule():
                     "Якщо parent_node має власні процеси у cgroup.procs І одночасно\n"
                     "розподіляє ресурси між child_A та child_B через subtree_control,\n"
                     "виникає невизначеність: як планувальник CPU чи memory-reclaim має\n"
-                    "конкурувати між безпосереднім PID 1024 та цілою групою child_A?\n"
+                    "ділити ресурс між безпосереднім PID 1024 та цілою групою child_A?\n"
                     "Ядро блокує такий запис і повертає помилку EBUSY.",
                     size=13, fill="#ffffff", stroke="#d32f2f", color="#b71c1c"))
 
@@ -178,7 +178,7 @@ def fig_cgroupfs_v2_no_internal_process_rule():
     # Пояснення рішення
     p.append(fitbox(740, 365, 600, 155,
                     "✔ Чому це працює коректно:\n"
-                    "Всі процеси розташовані виключно у листомних вузлах (leaf nodes).\n"
+                    "Всі процеси розташовані виключно у листкових вузлах (leaf nodes).\n"
                     "Процес PID 1024 винесено у власну cgroup leaf_main.\n"
                     "Батьківський вузол виступає виключно як контролер ієрархії.\n"
                     "Арбітраж ресурсів між leaf_main, child_A та child_B виконується\n"
@@ -215,10 +215,10 @@ def fig_cgroupfs_kernel_vfs_kernfs():
 
     p.append(rect(80, 385, 370, 70, fill="#ffffff", stroke="#1565c0", sw=1.5, rx=4))
     p.append(text(265, 415, "struct kernfs_node", size=14, bold=True))
-    p.append(text(265, 440, "Абстракція індексно-ієрархічного дерева у RAM", size=12, color="#555555"))
+    p.append(text(265, 440, "Абстракція ієрархії псевдофайлів у RAM", size=12, color="#555555"))
 
     p.append(rect(80, 475, 370, 140, fill="#ffffff", stroke="#1565c0", sw=1.5, rx=4))
-    p.append(text(265, 505, "Операндні мости cgroupfs", size=14, bold=True))
+    p.append(text(265, 505, "Мости cgroupfs у ядрі", size=14, bold=True))
     p.append(text(265, 535, "cgroup_mkdir() -> cgroup_create()", size=12, color="#37474f"))
     p.append(text(265, 565, "cgroup_procs_write() -> cgroup_attach_task()", size=12, color="#37474f"))
     p.append(text(265, 595, "kernfs_notify() -> epoll(cgroup.events)", size=12, color="#37474f"))
@@ -243,7 +243,7 @@ def fig_cgroupfs_kernel_vfs_kernfs():
     p.append(rect(530, 525, 390, 95, fill="#ffffff", stroke="#f57c00", sw=1.5, rx=4))
     p.append(text(725, 552, "struct cgroup (Об'єкт вузла в ядрі)", size=14, bold=True))
     p.append(text(725, 578, "self (cgroup_subsys_state), subtree_control, nr_descendants", size=11, color="#555555"))
-    p.append(text(725, 600, "flags (CGROUP_FILE_PINNED, etc.)", size=11, color="#555555"))
+    p.append(text(725, 600, "flags (CGRP_FREEZE, CGRP_FROZEN, CGRP_KILL)", size=11, color="#555555"))
 
     # Subsystem Resource Controllers
     p.append(rect(970, 230, 410, 410, fill=GREEN, stroke="#2e7d32", sw=2, rx=6))
@@ -251,7 +251,7 @@ def fig_cgroupfs_kernel_vfs_kernfs():
 
     p.append(rect(990, 295, 370, 95, fill="#ffffff", stroke="#4caf50", sw=1.5, rx=4))
     p.append(text(1175, 325, "cpu_cgrp_subsys (CPU Controller)", size=14, bold=True, color="#2e7d32"))
-    p.append(text(1175, 355, "struct task_group (CFS bandwith quota/period)", size=12, color="#555555"))
+    p.append(text(1175, 355, "struct task_group (CFS bandwidth quota/period)", size=12, color="#555555"))
     p.append(text(1175, 377, "tg->shares, tg->cfs_bandwidth", size=11, color="#777777"))
 
     p.append(rect(990, 405, 370, 95, fill="#ffffff", stroke="#4caf50", sw=1.5, rx=4))

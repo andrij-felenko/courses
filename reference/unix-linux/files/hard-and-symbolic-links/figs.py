@@ -145,7 +145,7 @@ def fig_crash_window():
 
     rows = [
         (110, "спершу — запис\nімені в каталог",
-         "ім'я вказує на inode,\nчиї блоки система вважає вільними:\nруйнація", RED_FILL, POS),
+         "лічильник менший за кількість імен:\nперший rm звільнить блоки\nз-під живого імені — руйнація", RED_FILL, POS),
         (270, "спершу — збільшити\nлічильник імен",
          "лічильник більший за кількість імен:\nмісце не звільниться,\nале дані цілі", WARM_FILL, WARM),
     ]
@@ -256,7 +256,7 @@ def fig_name_window():
                   "O_TMPFILE: ім'я дають наприкінці",
                   size=14, bold=True))
     lane2 = [
-        ("open(dir, O_TMPFILE)\nінод без імені", FILL, LINE),
+        ("open(dir, O_TMPFILE)\ninode без імені", FILL, LINE),
         ("запис даних\nімені все ще немає", FILL, LINE),
         ("fsync\nдані на носії", FILL, LINE),
         ("linkat(/proc/self/fd/N)\nім'я з'являється", GREEN_FILL, FIELD),

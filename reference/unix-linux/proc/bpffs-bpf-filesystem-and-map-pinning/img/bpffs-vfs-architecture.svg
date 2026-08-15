@@ -14,22 +14,22 @@
 <text x="255.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle">Обробка bpf_attr.pathname</text>
 <rect x="80.0" y="405.0" width="350.0" height="65.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/>
 <text x="255.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">VFS lookup &amp; permission</text>
-<text x="255.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle">may_open() / inode_permission()</text>
+<text x="255.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle">user_path_at() / inode_permission()</text>
 <rect x="80.0" y="490.0" width="350.0" height="110.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/>
 <text x="255.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct path &amp; struct dentry</text>
-<text x="255.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Перевірка sb-&gt;s_type == &amp;bpf_fs_type</text>
+<text x="255.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Перевірка dir-&gt;i_op == &amp;bpf_dir_iops</text>
 <text x="255.0" y="565.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Контроль атрибутів mode/uid/gid</text>
 <rect x="510.0" y="260.0" width="410.0" height="360.0" rx="6" fill="#fff6e5" stroke="#f57c00" stroke-width="2.0"/>
 <text x="715.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#e65100" text-anchor="middle" font-weight="700">Драйвер bpffs (kernel/bpf/inode.c)</text>
 <rect x="530.0" y="320.0" width="370.0" height="75.0" rx="4" fill="#ffffff" stroke="#ffcc80" stroke-width="1.5"/>
-<text x="715.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">bpf_mkobj() / bpf_obj_do_pin()</text>
+<text x="715.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">bpf_obj_do_pin() / bpf_mkobj_ops()</text>
 <text x="715.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle">Створення struct inode у bpf_fs</text>
 <rect x="530.0" y="415.0" width="370.0" height="75.0" rx="4" fill="#ffffff" stroke="#ffcc80" stroke-width="1.5"/>
 <text x="715.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">inode-&gt;i_private = bpf_ptr</text>
 <text x="715.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle">Збереження покажчика на об'єкт BPF</text>
 <rect x="530.0" y="510.0" width="370.0" height="90.0" rx="4" fill="#ffffff" stroke="#ffcc80" stroke-width="1.5"/>
-<text x="715.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оператори: bpf_dir_ops &amp; bpf_file_ops</text>
-<text x="715.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">bpf_evict_inode() -&gt; decrement refcnt</text>
+<text x="715.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оператори: bpf_dir_iops &amp; bpffs_obj_fops</text>
+<text x="715.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">bpf_destroy_inode() -&gt; decrement refcnt</text>
 <text x="715.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Захист від паралельних unlink</text>
 <rect x="970.0" y="260.0" width="390.0" height="360.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="2.0"/>
 <text x="1165.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1b5e20" text-anchor="middle" font-weight="700">Об'єкти ядра підсистеми BPF</text>

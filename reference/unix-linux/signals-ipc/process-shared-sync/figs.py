@@ -23,10 +23,10 @@ def fig_futex_key():
     f.append(rect(730, 62, 200, 210, fill="#ffffff"))
     f.append(text(830, 258, "адресний простір B", size=12, color=MUTED))
 
-    b, bw, bh = textbox(150, 110, "замок @ 0x7f2a1000", size=13,
+    b, bw, bh = textbox(150, 110, "замок @ 0x7f2a1040", size=13,
                         fill="#eaf0fd", stroke=NEG, min_w=176)
     f.append(b)
-    b, bw2, bh2 = textbox(830, 210, "замок @ 0x55c17000", size=13,
+    b, bw2, bh2 = textbox(830, 210, "замок @ 0x55c17040", size=13,
                           fill="#eaf0fd", stroke=NEG, min_w=176)
     f.append(b)
 
@@ -41,8 +41,8 @@ def fig_futex_key():
     f.append(rect(50, 330, 400, 210, fill="#fdf6f5", stroke=POS))
     f.append(text(250, 362, "Приватний ключ", size=15, bold=True, color=POS))
     f.append(text(250, 388, "(адресний простір, адреса)", size=13, color=MUTED))
-    f.append(text(250, 424, "A  →  (mm_A, 0x7f2a1000)", size=13))
-    f.append(text(250, 452, "B  →  (mm_B, 0x55c17000)", size=13))
+    f.append(text(250, 424, "A  →  (mm_A, 0x7f2a1040)", size=13))
+    f.append(text(250, 452, "B  →  (mm_B, 0x55c17040)", size=13))
     f.append(line(80, 472, 420, 472, color=POS, sw=1.2, dash="5,4"))
     f.append(text(250, 500, "дві різні черги:", size=13, color=POS, bold=True))
     f.append(text(250, 522, "пробудження не доходить", size=13, color=POS, bold=True))
@@ -189,13 +189,13 @@ def fig_recovery_windows():
 
     verdicts = [
         (110, FIELD, "#f2fbf6", ["помер до кроку 2:",
-                                 "gen парне, tail == T",
+                                 "gen == op_gen (не зросло)",
                                  "→ нічого не сталося, знімаємо намір"]),
-        (250, POS,   "#fdf6f5", ["помер на кроці 3:",
-                                 "gen НЕПАРНЕ — дані рвані",
-                                 "→ ВІДКІТ: gen++, tail лишається T"]),
+        (250, POS,   "#fdf6f5", ["помер між кроками 2 і 4:",
+                                 "gen == op_gen + 1 — НЕПАРНЕ, дані рвані",
+                                 "→ ВІДКІТ: gen = op_gen + 2, tail лишається T"]),
         (390, NEG,   "#eaf0fd", ["помер після кроку 4:",
-                                 "gen парне, tail == T",
+                                 "gen == op_gen + 2, а tail усе ще T",
                                  "→ ДОКОЧУВАННЯ: tail = T + 1"]),
         (500, FIELD, "#f2fbf6", ["помер після кроку 5:",
                                  "tail == T + 1 — уже опубліковано",

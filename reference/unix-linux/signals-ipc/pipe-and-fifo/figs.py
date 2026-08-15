@@ -187,7 +187,7 @@ def fig_close_accounting():
     BX, BW = 596, 344
 
     g.append(fitbox(AX, 48, AW, 36, "як має бути", size=13, bold=True, fill="#eaf7ee"))
-    g.append(fitbox(BX, 48, BW, 36, "без close(fd[1]) у батька", size=13, bold=True,
+    g.append(fitbox(BX, 48, BW, 36, "без close(pfd[1]) у батька", size=13, bold=True,
                     fill="#fdecea"))
 
     rows = [

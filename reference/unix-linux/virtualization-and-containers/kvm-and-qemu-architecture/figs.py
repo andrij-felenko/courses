@@ -84,7 +84,7 @@ def build_ept_address_translation():
     b_ept_root, _, _ = textbox(420, 80, "EPTP (EPT Pointer in VMCS)\nPoints to Host Physical EPT PML4", size=12, fill="#fef3c7", stroke="#d97706", color="#92400e", bold=True)
     frags.append(b_ept_root)
 
-    b_ept_tables, _, _ = textbox(420, 200, "Intel EPT / AMD NPT Page Walk\n• EPT PML4 → EPT PDPT\n• EPT PD → EPT Page Table\n(2D Paging in MMU Hardware)", size=12, fill="#fffbebe", stroke="#f59e0b", color="#78350f", bold=False)
+    b_ept_tables, _, _ = textbox(420, 200, "Intel EPT / AMD NPT Page Walk\n• EPT PML4 → EPT PDPT\n• EPT PD → EPT Page Table\n(2D Paging in MMU Hardware)", size=12, fill="#fffbeb", stroke="#f59e0b", color="#78350f", bold=False)
     frags.append(b_ept_tables)
 
     # Right: Host Physical Address

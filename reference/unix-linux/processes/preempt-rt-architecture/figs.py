@@ -5,6 +5,11 @@ def render():
     os.makedirs(img_dir, exist_ok=True)
 
     svg1 = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#28a745"/>
+    </marker>
+  </defs>
   <rect width="800" height="420" fill="#f8f9fa" rx="8"/>
   <text x="400" y="40" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Обробка переривань: Ванільне ядро vs PREEMPT_RT</text>
 
@@ -16,7 +21,7 @@ def render():
   <text x="210" y="143" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#721c24">Hard IRQ (Апаратний контекст)</text>
   <text x="210" y="162" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#721c24">Вимикає переривання/витіснення</text>
 
-  <rect x="60" y="195" width="300" height="55" fill="#fff3cd" stroke="#ffebaba" stroke-width="1.5" rx="4"/>
+  <rect x="60" y="195" width="300" height="55" fill="#fff3cd" stroke="#ffeeba" stroke-width="1.5" rx="4"/>
   <text x="210" y="218" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#856404">SoftIRQ / Tasklet (Нижня половина)</text>
   <text x="210" y="237" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#856404">Перешкоджає RT-завданням користувача</text>
 
@@ -30,7 +35,7 @@ def render():
 
   <rect x="440" y="120" width="300" height="45" fill="#f8d7da" stroke="#f5c6cb" stroke-width="1.5" rx="4"/>
   <text x="590" y="140" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#721c24">Micro-ISR (Лише ACK і розбудження)</text>
-  <text x="590" y="156" font-family="'Segoe UI', Arial, sans-serif" font-size="11" text-anchor="middle" fill="#721c24">Тривалість &lt; 1–2 мікросекунди</text>
+  <text x="590" y="156" font-family="'Segoe UI', Arial, sans-serif" font-size="11" text-anchor="middle" fill="#721c24">Тривалість менше 1 мікросекунди</text>
 
   <rect x="440" y="185" width="300" height="55" fill="#d4edda" stroke="#c3e6cb" stroke-width="1.5" rx="4"/>
   <text x="590" y="208" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#155724">RT-завдання користувача (Пріоритет 80)</text>
@@ -40,7 +45,8 @@ def render():
   <text x="590" y="283" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004085">Потік ядра irq/N-name (Пріоритет 50)</text>
   <text x="590" y="302" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#004085">Повноцінний потік (витіснюваний, може спати)</text>
 
-  <path d="M 590 165 L 590 185" stroke="#28a745" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 740 142 L 751 142 L 751 287 L 742 287" fill="none" stroke="#28a745" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="590" y="345" font-family="'Segoe UI', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#155724">Стрілка: Micro-ISR будить потік irq/N-name</text>
 </svg>"""
 
     svg2 = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="100%" height="100%">

@@ -49,7 +49,7 @@ def fig_bpffs_lifecycle():
     p.append(text(1150, 130, "Етап 3: Вихід Процесу 1", size=15, bold=True, color="#1b5e20"))
     p.append(text(1150, 160, "Процес 1 завершується (exit/close)", size=13, color="#37474f"))
     p.append(rect(980, 185, 340, 75, fill="#ffffff", stroke="#a5d6a7", sw=1.5, rx=4))
-    p.append(text(1150, 210, "FD закрити. VFS inode живе!", size=14, bold=True))
+    p.append(text(1150, 210, "FD закрито. VFS inode живе!", size=14, bold=True))
     p.append(text(1150, 235, "refcnt = 1 (0 FD + 1 VFS inode)", size=13, bold=True, color="#2e7d32"))
     p.append(text(1150, 320, "Об'єкт зберігається в пам'яті ядра", size=13, italic=True, color="#555555"))
 
@@ -71,7 +71,7 @@ def fig_bpffs_lifecycle():
     p.append(text(1050, 430, "Етап 5: Видалення файлу та RCU-очищення", size=15, bold=True, color="#b71c1c"))
     p.append(text(1050, 460, "Виконується unlink('/sys/fs/bpf/map') та close(FD)", size=13, color="#37474f"))
     p.append(rect(780, 485, 540, 75, fill="#ffffff", stroke="#ef9a9a", sw=1.5, rx=4))
-    p.append(text(1050, 510, "inode видалено z VFS, всі FD закриті", size=14, bold=True))
+    p.append(text(1050, 510, "inode видалено з VFS, всі FD закриті", size=14, bold=True))
     p.append(text(1050, 535, "refcnt = 0 -> bpf_map_free_deferred() (RCU)", size=13, bold=True, color="#c62828"))
     p.append(text(1050, 620, "Пам'ять ядра остаточно звільняється", size=13, italic=True, color="#555555"))
 
@@ -107,11 +107,11 @@ def fig_bpffs_vfs_architecture():
 
     p.append(rect(80, 405, 350, 65, fill="#ffffff", stroke="#90caf9", sw=1.5, rx=4))
     p.append(text(255, 430, "VFS lookup & permission", size=14, bold=True))
-    p.append(text(255, 453, "may_open() / inode_permission()", size=13, color="#555555"))
+    p.append(text(255, 453, "user_path_at() / inode_permission()", size=13, color="#555555"))
 
     p.append(rect(80, 490, 350, 110, fill="#ffffff", stroke="#90caf9", sw=1.5, rx=4))
     p.append(text(255, 515, "struct path & struct dentry", size=14, bold=True))
-    p.append(text(255, 540, "Перевірка sb->s_type == &bpf_fs_type", size=13, color="#37474f"))
+    p.append(text(255, 540, "Перевірка dir->i_op == &bpf_dir_iops", size=13, color="#37474f"))
     p.append(text(255, 565, "Контроль атрибутів mode/uid/gid", size=13, color="#37474f"))
 
     # Блок 2: Драйвер bpffs (kernel/bpf/inode.c)
@@ -119,7 +119,7 @@ def fig_bpffs_vfs_architecture():
     p.append(text(715, 290, "Драйвер bpffs (kernel/bpf/inode.c)", size=16, bold=True, color="#e65100"))
 
     p.append(rect(530, 320, 370, 75, fill="#ffffff", stroke="#ffcc80", sw=1.5, rx=4))
-    p.append(text(715, 345, "bpf_mkobj() / bpf_obj_do_pin()", size=14, bold=True))
+    p.append(text(715, 345, "bpf_obj_do_pin() / bpf_mkobj_ops()", size=14, bold=True))
     p.append(text(715, 373, "Створення struct inode у bpf_fs", size=13, color="#555555"))
 
     p.append(rect(530, 415, 370, 75, fill="#ffffff", stroke="#ffcc80", sw=1.5, rx=4))
@@ -127,8 +127,8 @@ def fig_bpffs_vfs_architecture():
     p.append(text(715, 468, "Збереження покажчика на об'єкт BPF", size=13, color="#555555"))
 
     p.append(rect(530, 510, 370, 90, fill="#ffffff", stroke="#ffcc80", sw=1.5, rx=4))
-    p.append(text(715, 535, "Оператори: bpf_dir_ops & bpf_file_ops", size=14, bold=True))
-    p.append(text(715, 560, "bpf_evict_inode() -> decrement refcnt", size=13, color="#37474f"))
+    p.append(text(715, 535, "Оператори: bpf_dir_iops & bpffs_obj_fops", size=14, bold=True))
+    p.append(text(715, 560, "bpf_destroy_inode() -> decrement refcnt", size=13, color="#37474f"))
     p.append(text(715, 580, "Захист від паралельних unlink", size=13, color="#37474f"))
 
     # Блок 3: Об'єкти ядра BPF Subsystem

@@ -47,8 +47,8 @@ def draw_arch():
     frags.append(text(445, 332, "Бекенди зберігання (Storage Backends)", size=13, color="#a04000", anchor="start", bold=True))
     
     frags.append(fitbox(445, 345, 320, 32, "bdev (blk-mq, submit_bio, Direct I/O)", size=12, fill="#ffffff", stroke="#e67e22"))
-    frags.append(fitbox(445, 385, 320, 32, "file (VFS page cache / vfs_iocb_iter)", size=12, fill="#ffffff", stroke="#e67e22"))
-    frags.append(fitbox(445, 425, 320, 32, "passthru (PCIe NVMe / nvme_exec_passthru)", size=12, fill="#ffffff", stroke="#e67e22"))
+    frags.append(fitbox(445, 385, 320, 32, "file (VFS, read_iter / write_iter)", size=12, fill="#ffffff", stroke="#e67e22"))
+    frags.append(fitbox(445, 425, 320, 32, "passthru (PCIe NVMe, passthru_execute_cmd)", size=12, fill="#ffffff", stroke="#e67e22"))
 
     # Connections / Arrows
     frags.append(arrow(215, 94, 215, 170, color="#0066cc", sw=1.5))
@@ -68,7 +68,7 @@ def draw_lifecycle():
 
     # Process boxes
     frags.append(fitbox(40, 70, 160, 50, "1. Прибуття PDU/Капсули\nTransport Rx (TCP/RDMA)", size=11, fill="#ebf5fb", stroke="#2980b9"))
-    frags.append(fitbox(230, 70, 160, 50, "2. Ініціалізація nvmet_req\nВалідація NQN, SGL & Opcode", size=11, fill="#e8f8f5", stroke="#16a085"))
+    frags.append(fitbox(230, 70, 160, 50, "2. Ініціалізація nvmet_req\nВалідація nsid, SGL & Opcode", size=11, fill="#e8f8f5", stroke="#16a085"))
     frags.append(fitbox(420, 70, 160, 50, "3. Диспетчеризація бекенду\n(nvmet_req->execute)", size=11, fill="#fef9e7", stroke="#f39c12"))
 
     # Decision Split

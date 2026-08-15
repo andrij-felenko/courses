@@ -262,7 +262,7 @@ def fig_module_refcount():
 
     f.append(text(40, 76, "збирання", size=12, color=MUTED, anchor="start"))
     f.append(box(200, 120, "make: hello.ko", size=13))
-    f.append(box(590, 120, "Module.symvers\nhello_ping → CRC + адреса", size=12))
+    f.append(box(590, 120, "Module.symvers\nhello_ping: CRC, ім'я, модуль", size=12))
     f.append(box(960, 120, "make: hello_user.ko\nKBUILD_EXTRA_SYMBOLS", size=12))
     f.append(arrow(268, 120, 488, 120))
     f.append(arrow(692, 120, 876, 120))

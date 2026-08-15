@@ -29,21 +29,21 @@ def fig_devtmpfs_architecture():
     # Блок 1: Драйвер пристрою та device_add()
     p.append(fitbox(40, 80, 520, 120,
                     "1. Ініціалізація та реєстрація пристрою\n"
-                    "• Драйвер викликом device_add() виділяє dev_t (major, minor)\n"
-                    "• device_add() потрапляє у devtmpfs_create_node(dev)\n"
-                    "• Працює в атомарному контексті драйвера (без спання)",
+                    "• Драйвер заповнює dev->devt (major, minor) і кличе device_add()\n"
+                    "• device_add() кличе devtmpfs_create_node() ДО kobject_uevent()\n"
+                    "• Виклик спить, доки kdevtmpfs не створить вузол",
                     size=13, fill=BLUE_FILL, stroke=NEG, sw=1.5))
 
     p.append(arrow(300, 200, 300, 240, color=LINE, sw=2))
-    p.append(text(315, 220, "асинхронна черга req_list", size=11, color=MUTED, anchor="start"))
+    p.append(text(315, 220, "список requests + wait_for_completion", size=11, color=MUTED, anchor="start"))
 
     # Блок 2: Демон kdevtmpfs та VFS операції
     p.append(fitbox(40, 240, 520, 150,
-                    "2. Потік ядра kdevtmpfs (асинхронний обробник)\n"
+                    "2. Потік ядра kdevtmpfs (виконавець VFS-операцій)\n"
                     "• Прокидається викликом wake_up_process(thread)\n"
-                    "• Витягує struct req з замкненої черги req_list\n"
+                    "• Знімає struct req зі списку requests під req_lock\n"
                     "• Виконує VFS-операції зі спанням: vfs_mkdir() та vfs_mknod()\n"
-                    "• Створює файл вузла (S_IFCHR / S_IFBLK) у пам'яті devtmpfs",
+                    "• Кличе complete(&req->done) — драйвер іде далі",
                     size=13, fill=WARM_FILL, stroke=LINE, sw=1.5))
 
     p.append(arrow(300, 390, 300, 430, color=LINE, sw=2))
@@ -52,7 +52,7 @@ def fig_devtmpfs_architecture():
     p.append(fitbox(40, 430, 520, 140,
                     "3. Віртуальне дерево devtmpfs (/dev/)\n"
                     "• Одразу створюються стандартні вузли (/dev/sda1, /dev/null)\n"
-                    "• Початкові права: 0600 або 0666, власник root:root (uid=0, gid=0)\n"
+                    "• Права: типово 0600 (драйвер може 0666), власник root:root\n"
                     "• Доступне для ядрового init та initramfs ДО запуску udevd",
                     size=13, fill=GREEN_FILL, stroke=FIELD, sw=1.5))
 
@@ -76,7 +76,7 @@ def fig_devtmpfs_architecture():
                     "5. Збагачення та модифікація /dev/\n"
                     "• Зміна власників та прав (chmod 0660 root:disk /dev/sda1)\n"
                     "• Створення символічних посилань:\n"
-                    "   /dev/disk/by-uuid/5E2A-11F0 ──► ../../sda1\n"
+                    "   /dev/disk/by-uuid/C12A-99F8 ──► ../../sda1\n"
                     "   /dev/snd/by-path/pci-0000:00:1f.3 ──► ../controlC0\n"
                     "• Застосування ACL-правил (systemd-logind / udev-acl)",
                     size=13, fill=WARM_FILL, stroke=LINE, sw=1.5))

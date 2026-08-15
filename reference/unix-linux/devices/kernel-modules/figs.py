@@ -65,35 +65,39 @@ def fig_link_vs_search():
 
 # ── 2. Залежності, лічильник тримачів і порядок ─────────────────────────────
 def fig_deps():
-    W, H = 1000, 470
+    W, H = 1140, 490
     f = []
 
-    chain = [
-        (86,  "iwlmvm\nтримачів: 0"),
-        (206, "mac80211\nтримачів: 1 — iwlmvm"),
-        (326, "cfg80211\nтримачів: 2 — iwlmvm, mac80211"),
-    ]
-    for cy, s in chain:
-        f.append(box(500, cy, s, size=13, min_w=340))
+    f.append(box(570,  86, "iwlmvm\nтримачів: 0", size=13, min_w=320))
+    f.append(box(400, 206, "mac80211\nтримачів: 1 — iwlmvm", size=13, min_w=290))
+    f.append(box(740, 206, "iwlwifi\nтримачів: 1 — iwlmvm", size=13, min_w=290))
+    f.append(box(570, 326, "cfg80211\nтримачів: 3 — iwlmvm, iwlwifi, mac80211",
+                 size=13, min_w=420))
 
-    for i in range(len(chain) - 1):
-        y1 = chain[i][0] + 30
-        y2 = chain[i + 1][0] - 30
-        f.append(arrow(410, y1, 410, y2, color=INK, sw=1.8))
-        f.append(text(452, (y1 + y2) / 2 + 4, "потребує символи", size=12,
-                      color=MUTED, anchor="start"))
+    # «потребує символи» — від споживача до постачальника
+    f.append(arrow(525, 116, 445, 176, color=INK, sw=1.8))
+    f.append(arrow(615, 116, 695, 176, color=INK, sw=1.8))
+    f.append(arrow(420, 236, 500, 296, color=INK, sw=1.8))
+    f.append(arrow(700, 236, 620, 296, color=INK, sw=1.8))
 
-    f.append(text(128, 64, "порядок завантаження", size=13, bold=True))
-    f.append(arrow(128, 356, 128, 96, color=NEG, sw=2))
+    # пряме ребро iwlmvm → cfg80211, обведене ліворуч
+    f.append(line(405, 86, 215, 86, color=INK, sw=1.8))
+    f.append(line(215, 86, 215, 326, color=INK, sw=1.8))
+    f.append(arrow(215, 326, 355, 326, color=INK, sw=1.8))
+
+    f.append(text(570, 266, "потребує символи", size=12, color=MUTED, italic=True))
+
+    f.append(text(100, 64, "порядок завантаження", size=13, bold=True))
+    f.append(arrow(100, 356, 100, 96, color=NEG, sw=2))
     for cy, n in ((326, "1"), (206, "2"), (86, "3")):
-        f.append(text(160, cy + 5, n, size=14, color=NEG, bold=True, anchor="start"))
+        f.append(text(128, cy + 5, n, size=14, color=NEG, bold=True, anchor="start"))
 
-    f.append(text(872, 64, "порядок вивантаження", size=13, bold=True))
-    f.append(arrow(872, 96, 872, 356, color=POS, sw=2))
+    f.append(text(1040, 64, "порядок вивантаження", size=13, bold=True))
+    f.append(arrow(1040, 96, 1040, 356, color=POS, sw=2))
     for cy, n in ((86, "1"), (206, "2"), (326, "3")):
-        f.append(text(840, cy + 5, n, size=14, color=POS, bold=True, anchor="end"))
+        f.append(text(1012, cy + 5, n, size=14, color=POS, bold=True, anchor="end"))
 
-    f.append(text(500, 414, "поки лічильник тримачів не нульовий, rmmod відмовляє",
+    f.append(text(570, 424, "поки лічильник тримачів не нульовий, rmmod відмовляє",
                   size=13, color=MUTED, italic=True))
 
     render(os.path.join(OUT, "deps.svg"), W, H, *f,

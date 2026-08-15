@@ -20,7 +20,7 @@
 <text x="1150.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1b5e20" text-anchor="middle" font-weight="700">Етап 3: Вихід Процесу 1</text>
 <text x="1150.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Процес 1 завершується (exit/close)</text>
 <rect x="980.0" y="185.0" width="340.0" height="75.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
-<text x="1150.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">FD закрити. VFS inode живе!</text>
+<text x="1150.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">FD закрито. VFS inode живе!</text>
 <text x="1150.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">refcnt = 1 (0 FD + 1 VFS inode)</text>
 <text x="1150.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Об'єкт зберігається в пам'яті ядра</text>
 <line x1="440.0" y1="225.0" x2="510.0" y2="225.0" stroke="#1976d2" stroke-width="2.0" marker-end="url(#arrow)"/>
@@ -36,7 +36,7 @@
 <text x="1050.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b71c1c" text-anchor="middle" font-weight="700">Етап 5: Видалення файлу та RCU-очищення</text>
 <text x="1050.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#37474f" text-anchor="middle">Виконується unlink('/sys/fs/bpf/map') та close(FD)</text>
 <rect x="780.0" y="485.0" width="540.0" height="75.0" rx="4" fill="#ffffff" stroke="#ef9a9a" stroke-width="1.5"/>
-<text x="1050.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">inode видалено z VFS, всі FD закриті</text>
+<text x="1050.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">inode видалено з VFS, всі FD закриті</text>
 <text x="1050.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c62828" text-anchor="middle" font-weight="700">refcnt = 0 -&gt; bpf_map_free_deferred() (RCU)</text>
 <text x="1050.0" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#555555" text-anchor="middle" font-style="italic">Пам'ять ядра остаточно звільняється</text>
 <line x1="640.0" y1="525.0" x2="760.0" y2="525.0" stroke="#8e24aa" stroke-width="2.0" marker-end="url(#arrow)"/>

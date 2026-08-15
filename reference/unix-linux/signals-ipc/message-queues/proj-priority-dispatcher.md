@@ -181,6 +181,8 @@ static int shelf_put(struct shelf *s, unsigned prio, const char *body, size_t le
     struct order *o;
     if (s->n == STAGE) return 0;
     o = &s->v[(s->head + s->n) % STAGE];
+    if (len > sizeof o->body) len = sizeof o->body;   /* успадкована черга могла мати
+                                                         слот, ширший за наш формат */
     o->prio = prio; o->len = len; memcpy(o->body, body, len);
     s->n++;
     return 1;

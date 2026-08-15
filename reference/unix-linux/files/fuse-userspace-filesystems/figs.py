@@ -97,15 +97,15 @@ def fig_mount_handshake():
     def step(cx_, y, s, h=78):
         return fitbox(cx_ - 155, y - h / 2, 310, h, s, size=13, fill=BG, stroke=INK, sw=1.4)
 
-    p.append(step(l1, 150, "1. open(\"/dev/fuse\") —\nдескриптор N, поки нікуди не веде"))
+    p.append(step(l1, 150, "1. демон робить пару сокетів\nі запускає помічника"))
     p.append(arrow(l1 + 158, 172, l2 - 158, 228, color=INK))
-    p.append(step(l2, 250, "2. демон запускає помічника\nі дає йому сокет для відповіді"))
+    p.append(step(l2, 250, "2. open(\"/dev/fuse\") —\nдескриптор N, поки нікуди не веде"))
     p.append(arrow(l2 + 158, 272, l3 - 158, 348, color=INK))
     p.append(step(l3, 370,
                   "3. mount(\"fuse\", точка, \"fd=N,\nrootmode=…,user_id=…,group_id=…\")\n"
                   "плюс примусові nosuid і nodev", h=94))
     p.append(arrow(l3 - 158, 400, l2 + 158, 462, color=INK))
-    p.append(step(l2, 480, "4. дескриптор повертається демонові\nчерез сокет; привілеї скинуто"))
+    p.append(step(l2, 480, "4. дескриптор N іде демонові\nчерез сокет; привілеї скинуто"))
     p.append(arrow(l2 - 158, 502, l1 + 158, 542, color=INK))
     p.append(step(l1, 550, "5. цикл на дескрипторі N:\nзапит → відповідь → запит"))
 

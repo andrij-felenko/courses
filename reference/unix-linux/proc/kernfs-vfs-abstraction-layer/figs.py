@@ -35,7 +35,7 @@ def fig_kernfs_vfs_architecture():
 
     # Стрілка між VFS та kernfs
     p.append(arrow(600, 250, 600, 290, color=LINE, sw=2.5))
-    p.append(text(615, 273, "динамічна мапінговий зв'язок (kernfs_iop_lookup / kernfs_get_inode)", size=11, color=MUTED, anchor="start"))
+    p.append(text(615, 273, "динамічний зв'язок за вимогою (kernfs_iop_lookup / kernfs_get_inode)", size=11, color=MUTED, anchor="start"))
 
     # Середній шар: kernfs (Центральний шар абстракції)
     p.append(fitbox(50, 290, 1100, 220,
@@ -79,15 +79,15 @@ def fig_kernfs_node_lifecycle():
     p = []
 
     p.append(rect(20, 20, 1160, 580, fill="#ffffff", stroke=MUTED, sw=1.2, rx=10))
-    p.append(fitbox(40, 40, 1120, 50, "БЕЗПЕКА ГАРЯЧОГО ВІДКТЮЧЕННЯ: АКТИВНИЙ ЛІЧИЛЬНИК ТА KERNFS_DRAIN()", size=15, bold=True, fill=WARM_FILL))
+    p.append(fitbox(40, 40, 1120, 50, "БЕЗПЕКА ГАРЯЧОГО ВІДКЛЮЧЕННЯ: АКТИВНИЙ ЛІЧИЛЬНИК ТА KERNFS_DRAIN()", size=15, bold=True, fill=WARM_FILL))
 
     # 3 Фази життєвого циклу
     # Фаза 1: Нормальна робота
     p.append(fitbox(50, 110, 340, 460,
                     "1. Нормальне виконання\n(Активний стан)\n\n"
                     "• VFS отримує запит read/write\n\n"
-                    "• Викликується kernfs_get_active(kn):\n"
-                    "  - Перевіряється прапор деактивації\n"
+                    "• Викликається kernfs_get_active(kn):\n"
+                    "  - Перевіряється знак atomic_t active\n"
                     "  - Збільшується atomic_t active\n\n"
                     "• Виконується метод драйвера:\n"
                     "  kernfs_ops->seq_show() / write()\n\n"
@@ -103,12 +103,12 @@ def fig_kernfs_node_lifecycle():
                     "2. Ініціація вилучення\n(kernfs_remove / drain)\n\n"
                     "• Драйвер/пристрій відключається\n"
                     "  та викликає kernfs_remove(kn)\n\n"
-                    "• Викликується kernfs_drain(kn):\n"
-                    "  - Встановлюється маска деактивації\n"
-                    "    (KERNFS_DRAIN_PTR)\n"
-                    "  - Нові kernfs_get_active() відхиляються з помилкою -ENODEV\n"
-                    "  - Потік БЛОКУЄТЬСЯ (wait_event)\n"
-                    "    доки active не стане 0!",
+                    "• Викликається kernfs_drain(kn):\n"
+                    "  - Додається від'ємне зміщення\n"
+                    "    KN_DEACTIVATED_BIAS = INT_MIN + 1\n"
+                    "  - Нові kernfs_get_active() повертають NULL, VFS віддає -ENODEV\n"
+                    "  - Потік БЛОКУЄТЬСЯ (wait_event), доки\n"
+                    "    active не впаде назад до зміщення",
                     size=13, fill=RED_FILL, stroke=POS, sw=1.5))
 
     p.append(arrow(770, 340, 810, 340, color=LINE, sw=2))
@@ -116,8 +116,9 @@ def fig_kernfs_node_lifecycle():
     # Фаза 3: Безпечне вилучення
     p.append(fitbox(810, 110, 340, 460,
                     "3. Завершення та очищення\n(Звільнення ресурсів)\n\n"
-                    "• Останній вкладений метод викликає\n"
-                    "  kernfs_put_active() -> active == 0\n\n"
+                    "• Останній метод у польоті викликає\n"
+                    "  kernfs_put_active(): active впало\n"
+                    "  назад до KN_DEACTIVATED_BIAS\n\n"
                     "• kernfs_drain() розблоковується\n"
                     "  та повертає керування драйверу\n\n"
                     "• Драйвер БЕЗПЕЧНО виконує kfree()\n"
@@ -135,7 +136,7 @@ def fig_kernfs_rb_tree_structure():
     p = []
 
     p.append(rect(20, 20, 1160, 560, fill="#ffffff", stroke=MUTED, sw=1.2, rx=10))
-    p.append(fitbox(40, 40, 1120, 50, "ОТРАНІЗАЦІЯ ДОЧІРНІХ ВУЗЛІВ У ЧЕРВОНО-ЧОРНЕ ДЕРЕВО ТА ЛІНИВІ АТРИБУТИ", size=15, bold=True, fill=WARM_FILL))
+    p.append(fitbox(40, 40, 1120, 50, "ОРГАНІЗАЦІЯ ДОЧІРНІХ ВУЗЛІВ У ЧЕРВОНО-ЧОРНЕ ДЕРЕВО ТА ЛІНИВІ АТРИБУТИ", size=15, bold=True, fill=WARM_FILL))
 
     # Батьківський каталог
     p.append(fitbox(50, 110, 1100, 110,
@@ -152,7 +153,7 @@ def fig_kernfs_rb_tree_structure():
                     "Дочірній вузол (rb_node)\n"
                     "kernfs_node (\"cpu0\")\n"
                     "• type: KERNFS_DIR\n"
-                    "• hash = name_hash(\"cpu0\")\n"
+                    "• hash = kernfs_name_hash(\"cpu0\")\n"
                     "• rb_left / rb_right",
                     size=12, fill=GREEN_FILL, stroke=FIELD))
 
@@ -160,7 +161,7 @@ def fig_kernfs_rb_tree_structure():
                     "Дочірній вузол (rb_node)\n"
                     "kernfs_node (\"uevent\")\n"
                     "• type: KERNFS_FILE\n"
-                    "• hash = name_hash(\"uevent\")\n"
+                    "• hash = kernfs_name_hash(\"uevent\")\n"
                     "• attr: show/store ops",
                     size=12, fill=WARM_FILL, stroke=LINE))
 
@@ -168,16 +169,16 @@ def fig_kernfs_rb_tree_structure():
                     "Дочірній вузол (rb_node)\n"
                     "kernfs_node (\"subsystem\")\n"
                     "• type: KERNFS_LINK\n"
-                    "• hash = name_hash(\"subsystem\")\n"
+                    "• hash = kernfs_name_hash(\"subsystem\")\n"
                     "• target_kn: вказівник",
                     size=12, fill=GREY_FILL, stroke=MUTED))
 
     # Нижня частина: Ліниве виділення iattr
     p.append(fitbox(50, 440, 1100, 110,
-                    "Оптимізація пам'яті: Ліниве виділення атрибутів struct kernfs_iattr\n"
+                    "Оптимізація пам'яті: Ліниве виділення атрибутів struct kernfs_iattrs\n"
                     "• kn->iattr == NULL за замовчуванням: права mode (0644/0444), uid=0, gid=0 та часові мітки обчислюються на льоту!\n"
                     "• Динамічне виділення iattr відбувається ЛИШЕ при явному виклику chmod(), chown() або utimes()\n"
-                    "• Економія: усуває 48 байт додаткової пам'яті для 99.9% стандартних віртуальних файлів ядра",
+                    "• Економія: знімає понад сотню байтів додаткової пам'яті з 99,9 % стандартних віртуальних файлів ядра",
                     size=12, fill=GREEN_FILL, stroke=FIELD))
 
     render(os.path.join(IMG, 'kernfs-rb-tree-structure.svg'), W, H, *p)

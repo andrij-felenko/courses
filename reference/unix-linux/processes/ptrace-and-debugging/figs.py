@@ -69,7 +69,7 @@ def fig_ptrace_attach_flow():
                     size=11, fill="#fff", stroke=MUTED, sw=1.2, color=INK))
 
     render(os.path.join(OUT, "ptrace-attach-flow.svg"), W, H, *p,
-           title="Схема ініціалізації та управління процесів через ptrace")
+           title="Схема ініціалізації та керування процесами через ptrace")
 
 
 # ── 2. Точка зупину INT 3 (Breakpoint) ─────────────────────────────────────────
@@ -109,7 +109,7 @@ def fig_breakpoint_int3():
                     "1. PTRACE_POKEDATA: запис оригінального байта 0x55 назад у пам'ять.\n"
                     "2. PTRACE_SETREGS: зменшення регістра RIP на 1 байт (з 0x401121 назад на 0x401120).\n"
                     "3. PTRACE_SINGLESTEP: встановлення прапорця TF (Trap Flag) у RFLAGS для виконання 1 інструкції.\n"
-                    "4. Після виконання 0x55 процесор знову генерує SIGTRAP, gdb повертає 0xCC і робить PTRACE_CONT.",
+                    "4. Після виконання 0x55 процесор генерує виняток #DB, ядро шле SIGTRAP; gdb повертає 0xCC і робить PTRACE_CONT.",
                     size=11, fill=PALE, stroke=MUTED, sw=1.3, color=INK))
 
     p.append(text(W / 2, 540,
@@ -117,7 +117,7 @@ def fig_breakpoint_int3():
                   size=11, color=MUTED, italic=True))
 
     render(os.path.join(OUT, "breakpoint-int3.svg"), W, H, *p,
-           title="Механізм роботи программної точки зупину (INT 3)")
+           title="Механізм роботи програмної точки зупину (INT 3)")
 
 
 # ── 3. Перехоплення системних викликів у strace ───────────────────────────────
@@ -132,7 +132,7 @@ def fig_syscall_interception():
     phases = [
         (60, 110, 260, "1. Вхід у виклик (Syscall Entry)", WARM, POS,
          "Зупинка перед виконанням виклику.\n"
-         "strace читає RAX (номер виклику)\n"
+         "strace читає ORIG_RAX (номер виклику)\n"
          "та RDI, RSI, RDX (аргументи)"),
 
         (390, 110, 260, "2. Виконання у ядрі", PALE, MUTED,
@@ -180,14 +180,14 @@ def fig_yama_security_scopes():
         ("Scope 1: Обмежений", GREENF, FIELD,
          "ptrace_scope = 1 (Стандарт)\n\n"
          "Процес може трасувати лише своїх\n"
-         "потомків (через fork + TRACEME).\n"
+         "нащадків (через fork + TRACEME).\n"
          "Прямий attach до сторонніх заборонено."),
 
         ("Scope 2: Лише Root", WARM, POS,
          "ptrace_scope = 2\n\n"
          "Трасування дозволено лише для\n"
          "процесів з CAP_SYS_PTRACE\n"
-         "(або суперкористувачу root)."),
+         "(зазвичай це root)."),
 
         ("Scope 3: Заблоковано", PALE, MUTED,
          "ptrace_scope = 3\n\n"

@@ -51,7 +51,7 @@ def fig_configfs_vs_sysfs():
 
     p.append(fitbox(50, 390, 510, 170,
                     "3. Доступ із простору користувача\n"
-                    "• Читання стан: cat /sys/class/net/eth0/operstate\n"
+                    "• Читання стану: cat /sys/class/net/eth0/operstate\n"
                     "• Запис значень: echo 1 > /sys/block/sda/device/rescan\n"
                     "• Обмеження: користувач НЕ може створювати нові\n"
                     "  екземпляри об'єктів ядра через файлові виклики",
@@ -73,8 +73,8 @@ def fig_configfs_vs_sysfs():
     p.append(fitbox(620, 245, 510, 110,
                     "2. Юзерспейс виконує mkdir\n"
                     "• mkdir /sys/kernel/config/target/core\n"
-                    "• VFS прехоплює vfs_mkdir() ──► configfs_mkdir()\n"
-                    "• Викликається zmake_group() / make_item()",
+                    "• VFS перехоплює vfs_mkdir() ──► configfs_mkdir()\n"
+                    "• Викликається make_group() / make_item()",
                     size=13, fill=PURPLE_FILL, stroke=NEG))
 
     p.append(arrow(875, 355, 875, 390, color=FIELD, sw=2))
@@ -90,7 +90,7 @@ def fig_configfs_vs_sysfs():
     render(os.path.join(IMG, 'configfs-vs-sysfs.svg'), W, H, *p)
 
 
-# ── 2. Дерево структур та зв'язок із kernfs/VFS ──────────────────────────────────
+# ── 2. Дерево структур та зв'язок із VFS ─────────────────────────────────────────
 def fig_configfs_hierarchy():
     W, H = 1180, 640
     p = []
@@ -117,7 +117,7 @@ def fig_configfs_hierarchy():
                     "struct config_group\n"
                     "• struct config_item cg_item (базовий атом)\n"
                     "• struct list_head cg_children (список дочірніх)\n"
-                    "• struct configfs_group_operations *cg_ops\n"
+                    "• операцій у групі немає: ci_type->ct_group_ops\n"
                     "   └─ make_item(), make_group(), drop_item()",
                     size=13, fill=WARM_FILL, stroke=LINE, sw=1.5))
 
@@ -127,15 +127,15 @@ def fig_configfs_hierarchy():
     # 3. struct config_item & cit
     p.append(fitbox(40, 390, 510, 190,
                     "struct config_item & struct config_item_type\n"
-                    "• ci_name: ім'я елемента в дерево каталогів\n"
-                    "• ci_kref: refcount_t (лічильник посилань)\n"
+                    "• ci_name: ім'я елемента у дереві каталогів\n"
+                    "• ci_kref: struct kref (лічильник посилань)\n"
                     "• ci_type (cit): таблиця методів config_item_type\n"
                     "   ├─ ct_item_ops: release(), allow_link(), drop_link()\n"
                     "   └─ ct_attrs: масив атрибутів configfs_attribute\n"
                     "       └─ show(), store() через container_of()",
                     size=12, fill=GREEN_FILL, stroke=FIELD, sw=1.5))
 
-    # Права сторона (VFS / kernfs)
+    # Права сторона (VFS)
     p.append(fitbox(610, 80, 520, 100,
                     "Каталог підсистеми у VFS\n"
                     "/sys/kernel/config/my_subsys/\n"
@@ -200,8 +200,8 @@ def fig_configfs_lifecycle():
     p.append(arrow(305, 335, 305, 365, color=LINE, sw=2))
 
     p.append(fitbox(50, 365, 510, 175,
-                    "3. Зв'язування з VFS та kernfs\n"
-                    "configfs створює вузол kernfs_node і dentry.\n"
+                    "3. Зв'язування з деревом VFS\n"
+                    "configfs створює власний configfs_dirent і dentry.\n"
                     "Створюються файли атрибутів (ct_attrs).\n"
                     "Повертається 0 (успіх) у простір користувача.\n"
                     "Об'єкт повністю готовий до роботи.",

@@ -15,7 +15,7 @@ struct config_item {
     struct config_item      *ci_parent;
     struct config_group     *ci_group;
     const struct config_item_type *ci_type;
-    struct kernfs_node      *ci_dentry;
+    struct dentry           *ci_dentry;
 };
 ```
 
@@ -26,7 +26,7 @@ struct config_item {
 - **`ci_parent`**: вказівник на батьківський `config_item`.
 - **`ci_group`**: вказівник на групу `config_group`, якій належить даний елемент.
 - **`ci_type`**: вказівник на таблицю типів `config_item_type`, яка описує операції та набір атрибутів.
-- **`ci_dentry`**: вказівник на легковаговий вузол файлової системи `kernfs_node`.
+- **`ci_dentry`**: вказівник на вузол `dentry` у дереві VFS. `configfs` не побудована на шарі `kernfs` (його вживають `sysfs` і `cgroupfs`), а веде власне службове дерево `struct configfs_dirent` поверх звичайних `dentry` та `inode`.
 
 Для маніпуляції лічильником посилань застосовуються такі функції:
 - `struct config_item *config_item_get(struct config_item *item)`: збільшує лічильник `ci_kref` на 1 і повертає вказівник на елемент.
@@ -39,21 +39,23 @@ struct config_item {
 struct config_group {
     struct config_item              cg_item;
     struct list_head                cg_children;
-    struct configfs_group_operations *cg_ops;
     struct configfs_subsystem       *cg_subsys;
     struct list_head                default_groups;
+    struct list_head                group_entry;
 };
 ```
 
 Поля структури `config_group`:
 - **`cg_item`**: вкладений базовий `config_item`. Дозволяє самій групі відображатися як каталог VFS.
 - **`cg_children`**: голова двозв'язного списку дочірніх елементів `config_item`.
-- **`cg_ops`**: таблиця операцій для створення та видалення дочірніх елементів.
 - **`cg_subsys`**: вказівник на підсистему верхнього рівня, до якої належить група.
-- **`default_groups`**: список дочірніх груп, які створюються автоматично при ініціалізації батьківської групи.
+- **`default_groups`**: голова списку дочірніх груп, які створюються автоматично разом із батьківською. Додають їх викликом `configfs_add_default_group()`.
+- **`group_entry`**: член списку `default_groups` батьківської групи.
+
+Окремого поля з таблицею операцій у групі **немає**: методи фабрики лежать у таблиці типів вкладеного елемента, за вказівником `cg_item.ci_type->ct_group_ops`. Це поширена помилка — шукати у групі поле на кшталт `cg_ops`.
 
 Функції ініціалізації груп:
-- `void config_group_init(struct config_group *group)`: виділяє початкові списки групи.
+- `void config_group_init(struct config_group *group)`: ініціалізує вкладений `cg_item` та списки групи.
 - `void config_group_init_type_name(struct config_group *group, const char *name, const struct config_item_type *type)`: ініціалізує вкладений `cg_item` та готує групу до прийому дочірніх вузлів.
 
 ## Типізація та таблиці операцій: `config_item_type`
@@ -91,8 +93,10 @@ struct configfs_item_operations {
 struct configfs_group_operations {
     struct config_item *(*make_item)(struct config_group *group, const char *name);
     struct config_group *(*make_group)(struct config_group *group, const char *name);
-    void (*drop_item)(struct config_group *group, struct config_item *item);
     void (*disconnect_notify)(struct config_group *group, struct config_item *item);
+    void (*drop_item)(struct config_group *group, struct config_item *item);
+    bool (*is_visible)(struct config_item *item, struct configfs_attribute *attr, int n);
+    bool (*is_bin_visible)(struct config_item *item, struct configfs_bin_attribute *attr, int n);
 };
 ```
 
@@ -162,7 +166,7 @@ struct configfs_subsystem {
 
 Функції керування підсистемою:
 - `int configfs_register_subsystem(struct configfs_subsystem *subsys)`: реєструє підсистему у ядрі. Створює кореневий каталог у `/sys/kernel/config/<subsys_name>`. Повертає `0` у разі успіху або від'ємний код помилки (наприклад, `-EEXIST`, якщо каталог з таким ім'ям вже зареєстровано).
-- `void configfs_unregister_subsystem(struct configfs_subsystem *subsys)`: вилучає підсистему з ядра та рекурсивно звільняє всі пов'язані з нею вузли `kernfs`.
+- `void configfs_unregister_subsystem(struct configfs_subsystem *subsys)`: вилучає підсистему з ядра та рекурсивно звільняє всі пов'язані з нею вузли `configfs_dirent`.
 
 Таблиця стандартних кодів помилок `configfs`:
 

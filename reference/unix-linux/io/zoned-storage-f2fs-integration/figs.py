@@ -38,7 +38,7 @@ def build_fig1(img_dir):
     # Right path (ZNS)
     tb5, _, _ = textbox(567, 105, "Прикладна програма (VFS / Write)", size=12, pad=6, fill="#ffffff", stroke="#86efac")
     tb6, _, _ = textbox(567, 165, "f2fs у LFS-режимі\n(Хостовий GC + Zone Management)", size=12, pad=8, fill="#dcfce7", stroke=FIELD, color=INK, bold=True)
-    tb7, _, _ = textbox(567, 230, "Блочний шар (Zone Append / Reset)", size=12, pad=6, fill="#ffffff", stroke="#86efac")
+    tb7, _, _ = textbox(567, 230, "Блочний шар (Zone Management / Reset)", size=12, pad=6, fill="#ffffff", stroke="#86efac")
     tb8, _, _ = textbox(567, 295, "NVMe ZNS накопичувач (Послідовні зони)", size=12, pad=6, fill="#dbeafe", stroke=NEG, color=NEG, bold=True)
 
     frags.extend([tb5, tb6, tb7, tb8])
@@ -61,7 +61,7 @@ def build_fig2(img_dir):
     frags.append(rect(10, 180, 740, 125, fill="#f0fdf4", stroke="#bbf7d0", sw=1.5, rx=8))
 
     # Top Section: Standard Write Conflict
-    frags.append(text(380, 68, "1. Ззвичайний запис (NVMe Write): Конфлікт покажчика запису (Write Pointer Race)", size=13, color=POS, bold=True))
+    frags.append(text(380, 68, "1. Звичайний запис (NVMe Write): конфлікт покажчика запису (Write Pointer Race)", size=13, color=POS, bold=True))
 
     tb_th1, _, _ = textbox(130, 110, "Потік A: Write(LBA=100)", size=11, pad=6, fill="#ffffff", stroke=POS)
     tb_th2, _, _ = textbox(130, 142, "Потік B: Write(LBA=100)", size=11, pad=6, fill="#ffffff", stroke=POS)
@@ -73,8 +73,8 @@ def build_fig2(img_dir):
     tb_zp1, _, _ = textbox(440, 123, "Контролер ZNS:\nWP вже просунувся! Помилка запису", size=11, pad=8, fill="#fee2e2", stroke=POS, color=POS, bold=True)
     frags.append(tb_zp1)
 
-    frags.append(arrow(545, 123, 620, 123))
-    tb_res1, _, _ = textbox(675, 123, "NVME_SC_INVALID_WP\n(Вимога блокування)", size=10, pad=6, fill="#ffffff", stroke=POS)
+    frags.append(arrow(566, 123, 608, 123))
+    tb_res1, _, _ = textbox(668, 123, "NVME_SC_ZONE_\nINVALID_WRITE\n(потрібен порядок)", size=10, pad=6, fill="#ffffff", stroke=POS)
     frags.append(tb_res1)
 
     # Bottom Section: Zone Append
@@ -85,11 +85,11 @@ def build_fig2(img_dir):
 
     frags.append(arrow(235, 242, 310, 242))
 
-    tb_zp2, _, _ = textbox(440, 242, "Контролер ZNS (Атомарно в апаратурі):\nЗапис A на LBA 100 → Запис B на LBA 101", size=11, pad=8, fill="#dcfce7", stroke=FIELD, color=INK, bold=True)
+    tb_zp2, _, _ = textbox(415, 242, "Контролер ZNS (атомарно в апаратурі):\nЗапис A → LBA 100…107\nЗапис B → LBA 108…115", size=11, pad=8, fill="#dcfce7", stroke=FIELD, color=INK, bold=True)
     frags.append(tb_zp2)
 
-    frags.append(arrow(560, 242, 615, 242))
-    tb_res2, _, _ = textbox(675, 242, "Повернення CQE:\nLBA 100 та LBA 101\n(без локів хоста)", size=10, pad=6, fill="#ffffff", stroke=FIELD)
+    frags.append(arrow(562, 242, 590, 242))
+    tb_res2, _, _ = textbox(668, 242, "Повернення CQE:\nLBA 100 та LBA 108\n(без блокувань на хості)", size=10, pad=6, fill="#ffffff", stroke=FIELD)
     frags.append(tb_res2)
 
     render(path, w, h, *frags, title="Механізм Zone Append проти звичайного запису")
@@ -103,7 +103,7 @@ def build_fig3(img_dir):
     # 4 Steps left to right with wide spacing
     steps = [
         ("1. Зона-жертва", "Зона містить застарілі\nта дійсні блоки", "#fff7ed", "#fdba74"),
-        ("2. Міграція GC", "Дійсні блоки читаються\nй пишуться в відкриту зону", "#eff6ff", "#93c5fd"),
+        ("2. Міграція GC", "Дійсні блоки читаються\nй пишуться у відкриту зону", "#eff6ff", "#93c5fd"),
         ("3. BLKRESETZONE", "f2fs надсилає команду\nZone Reset в ZNS", "#fef2f2", "#fca5a5"),
         ("4. Чиста зона", "Write Pointer = 0\nЗона готова до запису", "#f0fdf4", "#86efac"),
     ]

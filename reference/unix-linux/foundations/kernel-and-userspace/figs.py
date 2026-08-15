@@ -376,7 +376,8 @@ def fig_who_sees_what():
          [("у підсумку sys", YEL_F), ("лічить окремо", GRN_F), ("у підсумку sys", YEL_F),
           ("не видно", RED_F), ("не видно", RED_F), ("у підсумку sys", YEL_F)]),
         ("perf і ftrace — точки трасування по всьому ядру",
-         [("бачить", GRN_F)] * 6),
+         [("бачить", GRN_F), ("бачить", GRN_F), ("бачить", GRN_F),
+          ("бачить", GRN_F), ("перетину немає", YEL_F), ("бачить", GRN_F)]),
     ]
     for k, (lane_title, marks) in enumerate(lanes):
         Y = 205 + k * 110

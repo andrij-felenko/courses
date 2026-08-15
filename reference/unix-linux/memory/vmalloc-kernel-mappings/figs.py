@@ -166,7 +166,7 @@ def fig_lazy_purge():
         p.append(arrow(x + 85, 172, 1010, 208, color=FIELD, sw=1.6))
 
     p.append(fitbox(730, 212, 560, 74,
-                    "у список відкладених: записи ще стоять,\nадреси нікому не віддають",
+                    "у список відкладених: записи з таблиць зняті,\nа TLB і адреси — ще ні",
                     size=13, fill=GREENF, stroke=FIELD, sw=1.8, color=INK))
     p.append(arrow(1010, 290, 1010, 322, color=FIELD, sw=1.6))
     p.append(fitbox(730, 326, 560, 62,
@@ -182,9 +182,9 @@ def fig_lazy_purge():
                     size=13, fill=GREENF, stroke=FIELD, sw=1.4, color=INK))
 
     p.append(fitbox(70, 664, 1220, 92,
-                    "звідси видима дивина: після звільнення область vmalloc ще якийсь час\n"
-                    "виглядає зайнятою, а пам'ять не повертається в лічильники —\n"
-                    "чекає, поки набереться на одну спільну розсилку",
+                    "звідси видима дивина: кадри ядро віддає ще всередині vfree,\n"
+                    "а область vmalloc ще якийсь час виглядає зайнятою —\n"
+                    "адреси чекають, поки набереться на одну спільну розсилку",
                     size=14, fill=SOFT, stroke=INK, sw=1.5, color=INK))
 
     render(os.path.join(OUT, "lazy-purge.svg"), W, H, *p)
@@ -366,7 +366,7 @@ def fig_largest_gap():
     p.append(fitbox(1004, ax_y, 160, 60, "вільно", size=12,
                     fill=GREENF, stroke=FIELD, sw=1.6, color=FIELD, bold=True))
     p.append(line(1164, ax_y + 30, 1226, ax_y + 30, color=MUTED, sw=2, dash="7,7"))
-    p.append(text(1195, ax_y - 14, "≈ 60 ТіБ", size=12, color=MUTED))
+    p.append(text(1195, ax_y - 14, "≈ 23 ТіБ", size=12, color=MUTED))
     p.append(fitbox(1226, ax_y, 134, 60, "область\nмодулів", size=12,
                     fill=PALE, stroke=MUTED, sw=1.6, color=MUTED, bold=True))
 
@@ -395,8 +395,9 @@ def fig_largest_gap():
                         fill=fillc, stroke=accent, sw=1.6, color=INK))
 
     p.append(fitbox(70, 726, 1260, 96,
-                    "три перші пастки роблять із правильного числа занижене, четверта — завищене;\n"
-                    "усі чотири виправляються до того, як програма взагалі почне віднімати адреси",
+                    "безлад у рядках робить число випадковим, забутий хвіст — заниженим,\n"
+                    "а відкладені ділянки й чужі діапазони — завищеним;\n"
+                    "усі чотири виправляються до того, як програма почне віднімати адреси",
                     size=14, fill=SOFT, stroke=INK, sw=1.5, color=INK))
 
     render(os.path.join(OUT, "vmalloc-largest-gap.svg"), W, H, *p)

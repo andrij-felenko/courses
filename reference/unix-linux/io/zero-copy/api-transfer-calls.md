@@ -62,7 +62,7 @@ ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
 
 На 32-бітних збірках `off_t` за замовчуванням теж 32-бітний, і файл понад 2 ГіБ дасть `EOVERFLOW` ([великі файли](book:unix-linux/large-file-support) — 64-бітні варіанти викликів і макрос `_FILE_OFFSET_BITS=64`, який перемикає на них увесь код).
 
-Прототип **не переносний**. У FreeBSD і macOS це `int sendfile(int fd, int s, off_t offset, size_t nbytes, struct sf_hdtr *hdtr, off_t *sbytes, int flags)` — файл першим, сокет другим, тобто рівно навпаки до Linux, плюс окремі поля для заголовка й хвоста та повернений `int` замість кількости байтів. Переносний код не пише один виклик на обидві системи: він пише два під `#ifdef`.
+Прототип **не переносний**. У FreeBSD і macOS це `int sendfile(int fd, int s, off_t offset, size_t nbytes, struct sf_hdtr *hdtr, off_t *sbytes, int flags)` — файл першим, сокет другим, тобто рівно навпаки до Linux, плюс окремі поля для заголовка й хвоста та повернений `int` замість кількості байтів. Переносний код не пише один виклик на обидві системи: він пише два під `#ifdef`.
 
 ## splice
 

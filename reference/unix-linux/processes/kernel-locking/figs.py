@@ -123,7 +123,7 @@ def fig_lock_choice():
           ("spin_lock_irqsave()", GREEN_BG, FIELD)]),
         ("чекаю сплячи\n(ділянка довга)", 340,
          [("mutex_lock()", GREEN_BG, FIELD),
-          ("mutex_lock()", GREEN_BG, FIELD),
+          ("неможливо:\nsoftirq не задача", RED_BG, POS),
           ("неможливо:\nобробник не задача", RED_BG, POS)]),
         ("не змагаюся зовсім", 480,
          [("atomic_t · RCU", GREEN_BG, FIELD),

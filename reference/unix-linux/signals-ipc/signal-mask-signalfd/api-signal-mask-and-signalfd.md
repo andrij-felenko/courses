@@ -162,7 +162,7 @@ int signalfd(int fd, const sigset_t *mask, int flags);
 | `ssi_code` | значення | звідки сигнал |
 |---|---|---|
 | `SI_USER` | `0` | `kill()` або `raise()` |
-| `SI_KERNEL` | `0x80` | породив сам кернел |
+| `SI_KERNEL` | `0x80` | породило саме ядро |
 | `SI_QUEUE` | `-1` | `sigqueue()` — є `ssi_int` і `ssi_ptr` |
 | `SI_TIMER` | `-2` | таймер POSIX — є `ssi_tid` і `ssi_overrun` |
 | `SI_MESGQ` | `-3` | сповіщення черги повідомлень |

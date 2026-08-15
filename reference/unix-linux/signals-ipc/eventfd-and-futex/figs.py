@@ -55,7 +55,7 @@ def futex_paths():
     b, _, _ = textbox(xr, 120, "CAS 0 → 1 не вдався")
     body += b
     body += arrow(xr, 146, xr, 176)
-    b, _, _ = textbox(xr, 202, "futex(&lock, FUTEX_WAIT, 2)")
+    b, _, _ = textbox(xr, 202, "futex(&lock, FUTEX_WAIT, 1)")
     body += b
 
     body += line(20, 268, 860, 268, color=NEG, sw=2, dash="8,6")
@@ -95,7 +95,7 @@ def eventfd_join():
     b, _, _ = textbox(xr, 165, "список готових\nджерел", min_w=230)
     body += b
 
-    b, _, _ = textbox(xs, 345, "робочий потік:\nwrite(efd, 1)", stroke=FIELD)
+    b, _, _ = textbox(xs, 345, "робоча нитка:\nwrite(efd, 1)", stroke=FIELD)
     body += b
     body += arrow(xs, 315, xs, 232 + he / 2 + 6, color=FIELD)
     render(os.path.join(OUT, 'eventfd-join.svg'), W, H, body)

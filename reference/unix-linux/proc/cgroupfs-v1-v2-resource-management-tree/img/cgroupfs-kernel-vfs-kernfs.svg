@@ -14,9 +14,9 @@
 <text x="265.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">mount -t cgroup2 none /sys/fs/cgroup</text>
 <rect x="80.0" y="385.0" width="370.0" height="70.0" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
 <text x="265.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct kernfs_node</text>
-<text x="265.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">Абстракція індексно-ієрархічного дерева у RAM</text>
+<text x="265.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">Абстракція ієрархії псевдофайлів у RAM</text>
 <rect x="80.0" y="475.0" width="370.0" height="140.0" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
-<text x="265.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Операндні мости cgroupfs</text>
+<text x="265.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мости cgroupfs у ядрі</text>
 <text x="265.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">cgroup_mkdir() -&gt; cgroup_create()</text>
 <text x="265.0" y="565.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">cgroup_procs_write() -&gt; cgroup_attach_task()</text>
 <text x="265.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#37474f" text-anchor="middle">kernfs_notify() -&gt; epoll(cgroup.events)</text>
@@ -34,12 +34,12 @@
 <rect x="530.0" y="525.0" width="390.0" height="95.0" rx="4" fill="#ffffff" stroke="#f57c00" stroke-width="1.5"/>
 <text x="725.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct cgroup (Об'єкт вузла в ядрі)</text>
 <text x="725.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">self (cgroup_subsys_state), subtree_control, nr_descendants</text>
-<text x="725.0" y="600.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">flags (CGROUP_FILE_PINNED, etc.)</text>
+<text x="725.0" y="600.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">flags (CGRP_FREEZE, CGRP_FROZEN, CGRP_KILL)</text>
 <rect x="970.0" y="230.0" width="410.0" height="410.0" rx="6" fill="#eaf6ef" stroke="#2e7d32" stroke-width="2.0"/>
 <text x="1175.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1b5e20" text-anchor="middle" font-weight="700">Підсистеми контролерів ресурсів</text>
 <rect x="990.0" y="295.0" width="370.0" height="95.0" rx="4" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
 <text x="1175.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="middle" font-weight="700">cpu_cgrp_subsys (CPU Controller)</text>
-<text x="1175.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">struct task_group (CFS bandwith quota/period)</text>
+<text x="1175.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle">struct task_group (CFS bandwidth quota/period)</text>
 <text x="1175.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#777777" text-anchor="middle">tg-&gt;shares, tg-&gt;cfs_bandwidth</text>
 <rect x="990.0" y="405.0" width="370.0" height="95.0" rx="4" fill="#ffffff" stroke="#4caf50" stroke-width="1.5"/>
 <text x="1175.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2e7d32" text-anchor="middle" font-weight="700">mem_cgrp_subsys (Memory Controller)</text>

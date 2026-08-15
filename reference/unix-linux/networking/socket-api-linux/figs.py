@@ -43,7 +43,7 @@ def fig_socket_structures():
     g.append(fitbox(520, 250, 420, 54, "struct inet_connection_sock (з'єднувальний сокет)\nicsk_accept_queue (Accept queue) · icsk_rto (таймаути)\nicsk_af_ops (IPv4/IPv6 конкретні операції)", size=12, fill="#fcd34d"))
     g.append(arrow(730, 304, 730, 340, sw=1.6))
 
-    g.append(fitbox(520, 340, 420, 64, "struct tcp_sock (специфікація TCP)\nsnd_una · snd_nxt · rcv_nxt (номери послідовностей)\nsnd_wnd · rcv_wnd (вікна) · srtt · tcp_congestion_ops", size=12, fill="#f59e0b"))
+    g.append(fitbox(520, 340, 420, 64, "struct tcp_sock (специфікація TCP)\nsnd_una · snd_nxt · rcv_nxt (номери послідовностей)\nsnd_wnd · rcv_wnd (вікна) · srtt_us (RTT) · mss_cache", size=12, fill="#f59e0b"))
 
     # Нижня підсумкова картка
     g.append(fitbox(40, 424, 900, 46, "VFS бачить сокет як звичайний дескриптор через struct socket, "

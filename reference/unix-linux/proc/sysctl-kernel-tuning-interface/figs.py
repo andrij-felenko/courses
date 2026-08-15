@@ -64,7 +64,7 @@ def fig_sysctl_architecture():
     frag7, w7, h7 = textbox(750, 530, ["Власний handler ctl_table", "proc_dointvec() / proc_dostring()"], fill=RED_FILL, stroke="#e57373", rx=6)
     p.append(frag7)
 
-    frag8, w8, h8 = textbox(750, 640, ["Змінна в пам'яті ядра", "sysctl_net_ipv4_ipv4_forward"], fill="#ffffff", stroke="#2e7d32", rx=6)
+    frag8, w8, h8 = textbox(750, 640, ["Змінна в пам'яті ядра", "ipv4_devconf.data[...FORWARDING]"], fill="#ffffff", stroke="#2e7d32", rx=6)
     p.append(frag8)
 
     # Зв'язки ядра

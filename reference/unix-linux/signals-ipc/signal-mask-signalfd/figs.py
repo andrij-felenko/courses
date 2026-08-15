@@ -83,7 +83,7 @@ def fig_race_window():
                   color=POS, bold=True))
     p.append(line(90, 176, 960, 176, color=INK, sw=1.8))
     p.append(text(1000, 180, "час", size=12, color=MUTED, anchor="start"))
-    marks = [(150, "перевірка\nprapor == 0", -1), (430, "щілина", 1), (700, "pause()\nзасинає", -1)]
+    marks = [(150, "перевірка\nquit == 0", -1), (430, "щілина", 1), (700, "pause()\nзасинає", -1)]
     for x, lbl, side in marks:
         p.append(line(x, 168, x, 184, color=INK, sw=1.6))
         if side < 0:
@@ -102,7 +102,7 @@ def fig_race_window():
                   color=NEG, bold=True))
     p.append(line(90, 432, 960, 432, color=INK, sw=1.8))
     p.append(text(1000, 436, "час", size=12, color=MUTED, anchor="start"))
-    marks2 = [(150, "заблокувати\nINT"), (360, "перевірка\nprapor == 0"), (620, "sigsuspend():\nзняти маску + заснути")]
+    marks2 = [(150, "заблокувати\nINT"), (360, "перевірка\nquit == 0"), (620, "sigsuspend():\nзняти маску + заснути")]
     for x, lbl in marks2:
         p.append(line(x, 424, x, 440, color=INK, sw=1.6))
         p.append(mtext(x, 392, lbl, size=12, color=INK))

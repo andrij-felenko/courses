@@ -34,7 +34,7 @@ pthread_attr_getstack дає  lo   = B + guard
 
 ## Програма
 
-Мова тут не обирається: `pthread_getattr_np`, `gettid`, `arch_prctl` і `__thread` — це glibc і системні виклики Linux, отже C.
+Інтерфейси тут не обираються: `pthread_getattr_np`, `gettid`, `arch_prctl` і `__thread` — це glibc і системні виклики Linux. Сусідня вкладка показує ту саму програму на C++, але звертається вона до тих самих викликів.
 
 :::tabs
 ```c
@@ -204,6 +204,8 @@ int main(void)
 #include <vector>
 #include <atomic>
 #include <cerrno>
+#include <cstdint>
+#include <cstdio>
 #include <cstring>
 #include <csignal>
 #include <semaphore.h>
@@ -268,7 +270,7 @@ static void report()
 
     std::cout << (name[0] ? name : "worker")
               << " tid=" << my_tid << " getpid()=" << getpid() << '\n'
-              << "  стек  [" << lo << " .. " << static_cast<char *>(lo) + size << ") "
+              << "  стек  [" << lo << " .. " << static_cast<void *>(static_cast<char *>(lo) + size) << ") "
               << (size / 1024) << " КіБ, вартовий " << guard << " Б\n"
               << "  SP    " << &on_stack << " — на "
               << (static_cast<char *>(lo) + size - reinterpret_cast<char *>(&on_stack))
@@ -492,13 +494,13 @@ pthread_kill(worker-3)    -> спіймала задача 1205
 ```
 [ ... вільний стек ... ]
 [ __thread змінні (наприклад, own_counter на tp - 0x28) ]
-[ errno на tp - 0x40 ]
+[ errno на tp - 0x60 ]
 [ struct pthread (TCB) ]  <--- %fs вказує сюди
 ```
 
 Компілятор генерує інструкції доступу через сегментний префікс `%fs:`:
 - Для читання `own_counter`: `mov %fs:-0x28, %eax`
-- Для запису `errno`: `mov %edx, %fs:-0x40`
+- Для запису `errno`: `mov %edx, %fs:-0x60`
 
 Системний виклик `arch_prctl(ARCH_SET_FS, address)` встановлює базову адресу сегмента `%fs`. На сучасних процесорах (із підтримкою FSGSBASE) ядро може дозволити виконання інструкцій `rdfsbase` та `wrfsbase` у просторі користувача без системного виклику.
 
@@ -512,19 +514,19 @@ $ strace -f -e trace=clone3,clone,mmap,mprotect,arch_prctl ./thread-anatomy
 
 У виводі ви побачите послідовність системних викликів:
 1. `mmap(NULL, 8392704, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0)` — виділення 8 МіБ + 4 КіБ для стека нового потоку.
-2. `mprotect(0x7f2c4b200000, 4096, PROT_NONE)` — створення сторінки-вартового на початку виділеної ділянки.
+2. `mprotect(0x7f2c4b1ff000, 4096, PROT_NONE)` — створення сторінки-вартового на початку виділеної ділянки (сам стек починається на сторінку вище, з `0x7f2c4b200000`).
 3. `clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SETTLS, tls=0x7f2c4b9ff700, ...})` — створення нової задачі ядра з ініціалізацією сегмента `%fs` адресою блоку TCB.
 
 У `gdb` ви можете перевірити базову адресу `%fs` та розібрати інструкції доступу до TLS:
 
 ```text
 (gdb) info registers fs_base
-fs_base        0x7f2c4b9ff700      139828334425856
+fs_base        0x7f2c4b9ff700      139828224063232
 
 (gdb) disassemble worker
 Dump of assembler code for function worker:
    ...
-   mov    %fs:0x28, %rax          # Перевірка санітарного вартого стека
+   mov    %fs:0x28, %rax          # Читання сторожового слова стека (stack canary)
    mov    %fs:-0x28, %edx         # Читання own_counter від зсуву %fs
    ...
 ```

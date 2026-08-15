@@ -122,6 +122,7 @@ SCM_MAX_FD              253   дескрипторів на одне SCM_RIGHTS 
 #include <sys/mman.h>
 #include <sys/msg.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 /* 1. канал: створити ДО fork; dup2 у дитині зніме FD_CLOEXEC із копії */

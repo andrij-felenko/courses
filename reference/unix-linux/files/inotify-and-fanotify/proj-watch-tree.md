@@ -800,7 +800,7 @@ static void drain(struct ctx *c)
         }
         for (char *p = buf; p < buf + n; ) {
             const struct inotify_event *e = (const struct inotify_event *) p;
-            p += sizeof *e + e->len;             /* len — крок до наступного, не довжина імені */
+            p += sizeof *e + e->len;             /* len — поле name з доповненням, не strlen */
             on_event(c, e);
         }
     }

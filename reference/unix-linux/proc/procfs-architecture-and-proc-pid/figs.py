@@ -36,12 +36,12 @@ def fig_procfs_vfs_architecture():
     # Блок VFS Layer
     p.append(rect(60, 290, 390, 130, fill=BLUE, stroke="#1976d2", sw=2, rx=6))
     p.append(text(255, 325, "Шар VFS (Virtual File System)", size=15, bold=True, color="#0d47a1"))
-    p.append(text(255, 360, "vfs_read() / proc_lookup()", size=14))
+    p.append(text(255, 360, "vfs_read() / proc_pid_lookup()", size=14))
     p.append(text(255, 390, "Перевірка dentry & dentry_operations", size=13, color="#37474f"))
 
     # Блок procfs Core & seq_file
     p.append(rect(510, 290, 410, 130, fill=WARM, stroke="#f57c00", sw=2, rx=6))
-    p.append(text(715, 325, "Двигун procfs & seq_file", size=15, bold=True, color="#e65100"))
+    p.append(text(715, 325, "Рушій procfs & seq_file", size=15, bold=True, color="#e65100"))
     p.append(text(715, 360, "proc_single_show() -> seq_printf()", size=14))
     p.append(text(715, 390, "Динамічна генерація тексту без диска", size=13, color="#37474f"))
 
@@ -68,7 +68,7 @@ def fig_procfs_vfs_architecture():
 
     # 2. VFS -> procfs
     p.append(arrow(450, 355, 502, 355, color="#1976d2", sw=2))
-    p.append(text(476, 343, "file_ops", size=13, color="#1976d2"))
+    p.append(text(476, 343, "proc_ops", size=13, color="#1976d2"))
 
     # 3. procfs -> Kernel Data Structures
     p.append(arrow(920, 355, 962, 385, color="#e65100", sw=2))
@@ -78,7 +78,7 @@ def fig_procfs_vfs_architecture():
     # Нижній пояснювальний блок для procfs
     p.append(rect(60, 460, 860, 140, fill="#ffffff", stroke="#78909c", sw=1.5, rx=6))
     p.append(text(490, 490, "Життєвий цикл inode/dentry у procfs", size=15, bold=True, color="#263238"))
-    p.append(text(490, 520, "1. lookup() створює імпровізований inode на вимогу виклику open()/stat()", size=13, color="#37474f"))
+    p.append(text(490, 520, "1. lookup() створює тимчасовий inode на вимогу виклику open()/stat()", size=13, color="#37474f"))
     p.append(text(490, 545, "2. dentry_operations.d_revalidate() перевіряє, чи процес task_struct ще живий", size=13, color="#37474f"))
     p.append(text(490, 570, "3. Якщо процес помер -> dentry зникає зі списків VFS без зчитування з диска", size=13, color="#37474f"))
 
@@ -125,7 +125,7 @@ def fig_proc_pid_structure():
     mem_items = [
         ("maps", "Карта областей VMA (адреси, права)"),
         ("smaps", "Детальні метрики пам'яті (PSS, RSS, Swap)"),
-        ("mem", "Прямий доступ до VMA (для відлагоджувача)"),
+        ("mem", "Прямий доступ до адрес процесу (для gdb)"),
         ("fd/", "Каталог файлових дескрипторів (symlinks)"),
         ("fdinfo/", "Детальні позиції та прапори для fd"),
         ("limits", "Обмеження ресурсів процесу (rlimit)"),
@@ -144,7 +144,7 @@ def fig_proc_pid_structure():
 
     sym_items = [
         ("cwd ->", "Поточний робочий каталог (magic link)"),
-        ("exe ->", "Шлях до виконуваності бінарника"),
+        ("exe ->", "Шлях до виконуваного файла на диску"),
         ("root ->", "Кореневий каталог процесу (chroot)"),
         ("task/", "Підкаталоги потоків [tid] (POSIX threads)"),
         ("ns/", "Простори імен Linux (net, pid, mnt...)"),

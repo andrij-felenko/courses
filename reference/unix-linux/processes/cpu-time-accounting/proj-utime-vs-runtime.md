@@ -337,7 +337,6 @@ getrusage()                         cputime_adjust()        1 мкс
 ## Спалювання
 
 :::tabs
-:::tabs
 ```c
 static volatile uint64_t sink;   /* щоб оптимізатор не викинув цикл цілком */
 
@@ -427,57 +426,11 @@ static void burn_mix(double seconds, double kfrac, double slice)
 }
 ```
 :::
-```cpp
-static volatile uint64_t sink;   // щоб оптимізатор не викинув цикл цілком
-
-// Власний код: xorshift64 без жодного звертання до ядра.
-static void burn_user(double seconds)
-{
-    if (seconds <= 0.0) return;
-    using namespace std::chrono;
-    auto deadline = steady_clock::now() + duration_cast<steady_clock::duration>(duration<double>(seconds));
-    uint64_t x = sink | 1u;
-    do {
-        for (int i = 0; i < 20000; i++) {
-            x ^= x << 13;
-            x ^= x >> 7;
-            x ^= x << 17;
-        }
-        sink = x;
-    } while (steady_clock::now() < deadline);
-}
-
-// Код ядра: найдешевший виклик, що ГАРАНТОВАНО перетинає межу.
-static void burn_sys(double seconds)
-{
-    if (seconds <= 0.0) return;
-    using namespace std::chrono;
-    auto deadline = steady_clock::now() + duration_cast<steady_clock::duration>(duration<double>(seconds));
-    do {
-        for (int i = 0; i < 64; i++)
-            (void)syscall(SYS_getppid);
-    } while (steady_clock::now() < deadline);
-}
-
-// Спалити ~seconds часу, чергуючи два види роботи скибками по slice секунд.
-static void burn_mix(double seconds, double kfrac, double slice)
-{
-    using namespace std::chrono;
-    auto deadline = steady_clock::now() + duration_cast<steady_clock::duration>(duration<double>(seconds));
-    kfrac = std::clamp(kfrac, 0.0, 1.0);
-    while (steady_clock::now() < deadline) {
-        burn_sys(slice * kfrac);
-        burn_user(slice * (1.0 - kfrac));
-    }
-}
-```
-:::
 
 Розміри внутрішніх пачок — 20 000 обертів арифметики й 64 виклики — підібрані так, щоб кожна пачка коштувала приблизно 25–30 мкс. Це компроміс: менша пачка означала б, що перевірка часу (нехай і через vDSO, за двадцять наносекунд) починає важити помітну частку роботи; більша не дала б потрапити в мілісекундну скибку.
 
 ## Один прогін
 
-:::tabs
 :::tabs
 ```c
 static void report(const snap *d)
@@ -576,61 +529,6 @@ static int mode_mix(double seconds, double kfrac, double slice)
 }
 ```
 :::
-```cpp
-static void report(const snap& d)
-{
-    std::cout << "  точна сума (лічильник планувальника)\n"
-              << std::fixed << std::setprecision(6)
-              << "    clock_gettime(PROCESS_CPUTIME)   " << std::setw(11) << d.clk_proc << " с\n"
-              << "    clock_gettime(THREAD_CPUTIME)    " << std::setw(11) << d.clk_thr << " с\n";
-    if (d.sched_ok) {
-        std::cout << "    /proc/self/schedstat  [0]        " << std::setw(11) << d.sched_grp << " с\n"
-                  << "    /proc/thread-self/schedstat [0]  " << std::setw(11) << d.sched_thr << " с\n";
-    } else {
-        std::cout << "    schedstat  нема: ядро зібране без CONFIG_SCHED_INFO\n";
-    }
-
-    std::cout << "  поділ на режими (вибірка, зшита з точною сумою)\n"
-              << "    getrusage(RUSAGE_SELF)     user " << std::setw(10) << d.ru_self_u
-              << "  sys " << std::setw(10) << d.ru_self_s
-              << "  сума " << std::setw(11) << (d.ru_self_u + d.ru_self_s) << "\n"
-              << "    getrusage(RUSAGE_THREAD)   user " << std::setw(10) << d.ru_thr_u
-              << "  sys " << std::setw(10) << d.ru_thr_s
-              << "  сума " << std::setw(11) << (d.ru_thr_u + d.ru_thr_s) << "\n";
-    if (d.stat_ok) {
-        std::cout << "    /proc/self/stat 14-15      user " << std::setprecision(2)
-                  << std::setw(10) << d.stat_u << "  sys " << std::setw(10) << d.stat_s
-                  << "  сума " << std::setw(11) << (d.stat_u + d.stat_s)
-                  << std::setprecision(0)
-                  << "   (крок " << (1000.0 / clk_tck()) << " мс)\n";
-    }
-
-    double tot = d.ru_self_u + d.ru_self_s;
-    std::cout << std::setprecision(6) << std::showpos
-              << "  сума rusage − точна сума  " << (tot - d.clk_proc) << " с\n"
-              << std::noshowpos;
-    if (tot > 0.0) {
-        std::cout << std::setprecision(2)
-                  << "  частка sys за rusage      " << (100.0 * d.ru_self_s / tot) << " %\n";
-    }
-}
-
-static int mode_mix(double seconds, double kfrac, double slice)
-{
-    snap a{}, b{};
-    std::cout << std::fixed << std::setprecision(2)
-              << "спалюємо " << seconds << " с, скибка " << (slice * 1000.0)
-              << " мс, задана частка системних скибок " << std::setprecision(0)
-              << (kfrac * 100.0) << " %\n";
-    take(a);
-    burn_mix(seconds, kfrac, slice);
-    take(b);
-    snap d = diff(a, b);
-    report(d);
-    return 0;
-}
-```
-:::
 
 Прогін на машині з HZ = 250 і USER_HZ = 100:
 
@@ -656,13 +554,12 @@ $ ./cpulab mix 3.0 0.35 1.0
 
 **Число з `schedstat` менше за годинник на 1.3 мс.** Обидва читають те саме поле, але по-різному. `clock_gettime` іде шляхом, який спершу просить планувальник **довести облік поточної задачі до цієї миті** — дописати те, що вона встигла з останнього оновлення. `schedstat` друкує поле як є, тому відстає рівно на час, що минув з останнього оновлення обліку: від нуля до тику. Це та рідкісна розбіжність, яку видно неозброєним оком і яку легко прийняти за помилку в програмі.
 
-**`/proc` втратив 1.6 мс на порожньому місці.** Показані `2.28` і `0.72` дають рівно `3.00` — на півтори мілісекунди менше за справжню суму. Причина не в обліку, а в одиницях: кожне з двох чисел ділиться на USER_HZ і зрізається до цілого тику, тож на кожному губиться до 10 мс.
+**`/proc` втратив 1.6 мс на порожньому місці.** Показані `2.28` і `0.72` дають рівно `3.00` — на ті самі 1.6 мс менше за справжню суму. Причина не в обліку, а в одиницях: кожне з двох чисел ділиться на USER_HZ і зрізається до цілого тику, тож на кожному губиться до 10 мс.
 
-**Потік і процес збіглися** — бо потік тут один. Саме тому їхня різниця не видно доти, доки її не зробити видимою навмисно.
+**Потік і процес збіглися** — бо потік тут один. Саме тому їхньої різниці не видно доти, доки її не зробити видимою навмисно.
 
 ## Розмах: те саме вісім разів
 
-:::tabs
 :::tabs
 ```c
 static int mode_spread(int runs, double seconds, double kfrac, double slice)
@@ -697,45 +594,6 @@ static int mode_spread(int runs, double seconds, double kfrac, double slice)
     return 0;
 }
 ```
-```cpp
-static int mode_spread(int runs, double seconds, double kfrac, double slice)
-{
-    runs = std::clamp(runs, 2, 64);
-
-    double rt_min = 1e30, rt_max = -1e30, sh_min = 1e30, sh_max = -1e30;
-
-    std::cout << "прогін   точна сума        user           sys      частка sys\n";
-    for (int i = 1; i <= runs; i++) {
-        snap a{}, b{};
-        take(a);
-        burn_mix(seconds, kfrac, slice);
-        take(b);
-        snap d = diff(a, b);
-
-        double tot = d.ru_self_u + d.ru_self_s;
-        double share = tot > 0.0 ? d.ru_self_s / tot : 0.0;
-        std::cout << std::fixed << std::setprecision(6)
-                  << "  " << std::setw(2) << i
-                  << "    " << std::setw(10) << d.clk_proc
-                  << "   " << std::setw(10) << d.ru_self_u
-                  << "   " << std::setw(10) << d.ru_self_s
-                  << "     " << std::setprecision(2) << std::setw(6) << (100.0 * share) << " %\n";
-
-        rt_min = std::min(rt_min, d.clk_proc);
-        rt_max = std::max(rt_max, d.clk_proc);
-        sh_min = std::min(sh_min, share);
-        sh_max = std::max(sh_max, share);
-    }
-    std::cout << "\nточна сума: розмах " << std::setprecision(6) << (rt_max - rt_min)
-              << " с  (" << std::setprecision(3) << (100.0 * (rt_max - rt_min) / rt_min)
-              << " % від " << std::setprecision(3) << rt_min << " с)\n"
-              << "частка sys: розмах " << std::setprecision(2) << (100.0 * (sh_max - sh_min))
-              << " відсоткового пункту (від " << (100.0 * sh_min)
-              << " до " << (100.0 * sh_max) << ")\n";
-    return 0;
-}
-```
-:::
 ```cpp
 static int mode_spread(int runs, double seconds, double kfrac, double slice)
 {
@@ -812,7 +670,6 @@ $ ./cpulab spread 8 1.0 0.35
 ## Коротка програма: нулі, яких насправді немає
 
 :::tabs
-:::tabs
 ```c
 static int mode_short(double ms)
 {
@@ -826,21 +683,6 @@ static int mode_short(double ms)
     return 0;
 }
 ```
-```cpp
-static int mode_short(double ms)
-{
-    snap a{}, b{};
-    take(a);
-    burn_user(ms / 1000.0);
-    take(b);
-    snap d = diff(a, b);
-    std::cout << std::fixed << std::setprecision(0)
-              << "спалено ~" << ms << " мс самого лише власного коду\n";
-    report(d);
-    return 0;
-}
-```
-:::
 ```cpp
 static int mode_short(double ms)
 {
@@ -881,13 +723,12 @@ $ ./cpulab short 3
 
 Тут же видно й найбільше в цій лабораторії відставання `schedstat` — 1.5 мс замість 3.1. Задача проробила три мілісекунди суцільним рахунком, її ніхто не витісняв, тик не встиг ударити двічі, тому сире поле оновлювалося востаннє посеред роботи. Різниця плаває від нуля до тику й залежить лише від того, коли востаннє трапилася подія планувальника.
 
-І остання дрібниця: «сума rusage − точна сума» вийшла від'ємною на шість мікросекунд. Це не збій обліку, а плата за самі вимірювання: `getrusage()` читається раніше за `clock_gettime()`, і між ними встигає минути час на два системні виклики. На тритисячних частках секунди така дрібниця вже помітна.
+І остання дрібниця: «сума rusage − точна сума» вийшла від'ємною на шість мікросекунд. Це не збій обліку, а плата за самі вимірювання: `getrusage()` читається раніше за `clock_gettime()`, і між ними встигає минути час на два системні виклики. На трьох тисячних секунди така дрібниця вже помітна.
 
 ## Резонанс із тиком
 
 Уся статистика попереднього розділу трималася на одному припущенні: тик не пов'язаний із тим, що робить задача. Це припущення легко зламати — досить зробити період чергування рівним періодові тику.
 
-:::tabs
 :::tabs
 ```c
 /* Ті самі умови, різна довжина скибки. Одне зі значень збігається з періодом
@@ -936,31 +777,6 @@ static int mode_phase(double seconds, double kfrac)
 }
 ```
 :::
-```cpp
-// Ті самі умови, різна довжина скибки. Одне зі значень збігається з періодом
-// тику ядра — і саме на ньому поділ перестає бути схожим на сусідів.
-static int mode_phase(double seconds, double kfrac)
-{
-    constexpr std::array<double, 6> slices_ms = { 0.2, 1.0, 2.0, 4.0, 8.0, 10.0 };
-
-    std::cout << "скибка    частка sys    точна сума\n";
-    for (double slice : slices_ms) {
-        snap a{}, b{};
-        take(a);
-        burn_mix(seconds, kfrac, slice / 1000.0);
-        take(b);
-        snap d = diff(a, b);
-
-        double tot = d.ru_self_u + d.ru_self_s;
-        double share = tot > 0.0 ? 100.0 * d.ru_self_s / tot : 0.0;
-        std::cout << std::fixed << std::setprecision(1) << std::setw(5) << slice << " мс     "
-                  << std::setprecision(2) << std::setw(6) << share << " %     "
-                  << std::setprecision(6) << std::setw(10) << d.clk_proc << "\n";
-    }
-    return 0;
-}
-```
-:::
 
 ```
 $ ./cpulab phase 1.0 0.35
@@ -973,7 +789,7 @@ $ ./cpulab phase 1.0 0.35
  10.0 мс      24.12 %       1.000255
 ```
 
-П'ять рядків із шести кажуть те саме — близько 24 %, з розкидом на пів пункта, як і належить вибірці. Шостий випадає удвічі. Це та сама скибка 4 мс, що дорівнює періодові тику при HZ = 250: цикл програми й цикл опитування зчепилися фазами, і кожен тик почав заставати задачу приблизно в одному й тому самому місці її циклу.
+П'ять рядків із шести кажуть те саме — близько 24 %, з розкидом на пів пункта, як і належить вибірці. Той, що лишився, — четвертий, зі скибкою 4 мс, — випадає удвічі. Це рівно період тику при HZ = 250: цикл програми й цикл опитування зчепилися фазами, і кожен тик почав заставати задачу приблизно в одному й тому самому місці її циклу.
 
 На твоїй машині картина буде інша: при HZ = 1000 випаде рядок 1.0 мс, при HZ = 100 — рядок 10 мс, а замість 11.72 % може вийти 38 % або 3 % залежно від того, у яку фазу потрапило зчеплення. Незмінне одне: на одному зі значень поділ перестає узгоджуватися із сусідами, а точна сума в тій самій колонці не ворухнеться.
 
@@ -981,7 +797,6 @@ $ ./cpulab phase 1.0 0.35
 
 ## Процес і потік — одна тека, різні відповіді
 
-:::tabs
 :::tabs
 ```c
 struct tharg { double seconds, kfrac, slice, own; };
@@ -1096,66 +911,6 @@ static int mode_threads(int n, double seconds, double kfrac)
 }
 ```
 :::
-```cpp
-struct tharg {
-    double seconds = 0.0;
-    double kfrac = 0.0;
-    double slice = 0.001;
-    double own = 0.0;
-};
-
-static int mode_threads(int n, double seconds, double kfrac)
-{
-    if (n < 1 || n > 16) n = 4;
-
-    std::vector<tharg> args(n);
-    std::vector<std::thread> threads;
-    threads.reserve(n);
-
-    snap a{}, b{};
-    take(a);
-
-    for (int i = 0; i < n; i++) {
-        args[i].seconds = seconds;
-        args[i].kfrac   = kfrac;
-        args[i].slice   = 0.001;
-        args[i].own     = 0.0;
-
-        threads.emplace_back([&arg = args[i]]() {
-            burn_mix(arg.seconds, arg.kfrac, arg.slice);
-            arg.own = cpu_clock(CLOCK_THREAD_CPUTIME_ID);
-        });
-    }
-
-    double sum = 0.0;
-    for (int i = 0; i < n; i++) {
-        threads[i].join();
-        std::cout << std::fixed << std::setprecision(4)
-                  << "потік " << i << ": CLOCK_THREAD_CPUTIME_ID   "
-                  << std::setw(9) << args[i].own << " с\n";
-        sum += args[i].own;
-    }
-
-    take(b);
-    snap d = diff(a, b);
-
-    std::cout << std::fixed << std::setprecision(4)
-              << "\nсума по потоках                     " << std::setw(9) << sum << " с\n"
-              << "CLOCK_PROCESS_CPUTIME_ID (приріст)  " << std::setw(9) << d.clk_proc << " с\n";
-    if (d.stat_ok) {
-        std::cout << "/proc/self/stat 14-15    (приріст)  " << std::setprecision(2)
-                  << std::setw(9) << (d.stat_u + d.stat_s) << " с   ← теж уся група\n";
-    }
-    if (d.sched_ok) {
-        std::cout << "/proc/self/schedstat     (приріст)  " << std::setprecision(4)
-                  << std::setw(9) << d.sched_grp << " с   ← лише головний потік\n";
-    }
-    std::cout << "CLOCK_THREAD_CPUTIME_ID  (приріст)  " << std::setprecision(4)
-              << std::setw(9) << d.clk_thr << " с   ← теж лише головний\n";
-    return 0;
-}
-```
-:::
 
 ```
 $ ./cpulab threads 4 1.0 0.35
@@ -1181,7 +936,6 @@ CLOCK_THREAD_CPUTIME_ID  (приріст)     0.0004 с   ← теж лише г
 
 ## Як зібрати й запустити
 
-:::tabs
 :::tabs
 ```c
 int main(int argc, char **argv)
@@ -1253,43 +1007,6 @@ int main(int argc, char** argv)
 }
 ```
 :::
-```cpp
-int main(int argc, char** argv)
-{
-    std::string_view mode = argc > 1 ? argv[1] : "mix";
-    auto parse_double = [](const char* str) {
-        try { return std::stod(str); } catch (...) { return 0.0; }
-    };
-
-    double a2 = argc > 2 ? parse_double(argv[2]) : 0.0;
-    double a3 = argc > 3 ? parse_double(argv[3]) : 0.0;
-    double a4 = argc > 4 ? parse_double(argv[4]) : 0.0;
-
-    std::cout << std::unitbuf;
-
-    if (mode == "mix")
-        return mode_mix(a2 > 0 ? a2 : 3.0, argc > 3 ? a3 : 0.35,
-                        (a4 > 0 ? a4 : 1.0) / 1000.0);
-    if (mode == "spread")
-        return mode_spread(argc > 2 ? static_cast<int>(a2) : 8, a3 > 0 ? a3 : 1.0,
-                            argc > 4 ? a4 : 0.35, 0.001);
-    if (mode == "short")
-        return mode_short(a2 > 0 ? a2 : 3.0);
-    if (mode == "phase")
-        return mode_phase(a2 > 0 ? a2 : 1.0, argc > 3 ? a3 : 0.35);
-    if (mode == "threads")
-        return mode_threads(argc > 2 ? static_cast<int>(a2) : 4, a3 > 0 ? a3 : 1.0,
-                            argc > 4 ? a4 : 0.35);
-
-    std::cerr << "usage: cpulab mix     [с] [частка] [скибка_мс]\n"
-              << "              spread  [прогонів] [с] [частка]\n"
-              << "              short   [мс]\n"
-              << "              phase   [с] [частка]\n"
-              << "              threads [потоків] [с] [частка]\n";
-    return 2;
-}
-```
-:::
 
 ```sh
 cc -O2 -Wall -Wextra -pthread -o cpulab cpulab.c
@@ -1307,7 +1024,7 @@ cc -O2 -Wall -Wextra -pthread -o cpulab cpulab.c
 taskset -c 3 ./cpulab spread 8 1.0 0.35
 ```
 
-Перевірити, що системний час спалюється справжніми викликами, а не десь узявся, найпростіше збоку:
+Перевірити, що системний час спалюють справжні виклики, а не щось стороннє, найпростіше збоку:
 
 ```sh
 strace -c -f ./cpulab mix 1.0 0.35 1.0

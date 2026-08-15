@@ -20,7 +20,7 @@ def render_figs():
         fitbox(50, 65, 160, 48, "LVM2 (lvm)\nPV / VG / LV", size=13, fill="#e7f5ff", stroke="#1c7ed6"),
         fitbox(230, 65, 170, 48, "cryptsetup\nУправління LUKS", size=13, fill="#e7f5ff", stroke="#1c7ed6"),
         fitbox(420, 65, 150, 48, "dmsetup\nПряме керування", size=13, fill="#e7f5ff", stroke="#1c7ed6"),
-        fitbox(590, 65, 180, 48, "Системний утиліт\nmount / fsck", size=13, fill="#e7f5ff", stroke="#1c7ed6"),
+        fitbox(590, 65, 180, 48, "Системні утиліти\nmount / fsck", size=13, fill="#e7f5ff", stroke="#1c7ed6"),
 
         # Control interface ioctl node
         fitbox(280, 160, 260, 44, "/dev/mapper/control\n(ioctl виклики)", size=13, fill="#fff9db", stroke="#f59f00", bold=True),
@@ -58,7 +58,7 @@ def render_figs():
         fitbox(70, 120, 300, 36, "Magic: LUKS\\xba\\xbe (Версія 1 або 2)", size=12, fill="#ffe3e3", stroke="#e03131"),
         fitbox(70, 165, 300, 36, "Метадані JSON: UUID, Алгоритм (AES-XTS)", size=12, fill="#ffe3e3", stroke="#e03131"),
         fitbox(70, 210, 300, 40, "Параметри KDF: Argon2id / PBKDF2\n(Сіль, ітерації, пам'ять)", size=12, fill="#ffe3e3", stroke="#e03131"),
-        fitbox(70, 260, 300, 95, "Key Slots 0 .. 7\n- Зашифрований Master Key (VK)\n- AF-Split розмічування матеріалу\n- Парольна фраза розшифровує KEK", size=12, fill="#fff0f6", stroke="#d6336c"),
+        fitbox(70, 260, 300, 95, "Key Slots 0 .. 31 (у LUKS1 — 0 .. 7)\n- Зашифрований Master Key (VK)\n- AF-Split: розсіювання матеріалу\n- Парольна фраза розшифровує KEK", size=12, fill="#fff0f6", stroke="#d6336c"),
 
         # Master key relation box
         fitbox(410, 180, 110, 80, "Master Key\n(Volume Key)\n🔑", size=13, fill="#fff9db", stroke="#f59f00", bold=True),
@@ -86,17 +86,17 @@ def render_figs():
 
         arrow(250, 105, 300, 105, color="#1c7ed6"),
 
-        fitbox(300, 75, 220, 60, "Target dm-crypt\n1. Перераховує сектор IV\n2. Клонує структуру bio", size=12, fill="#fff9db", stroke="#f59f00", bold=True),
+        fitbox(300, 75, 220, 60, "Target dm-crypt\n1. Обчислює IV за номером сектора\n2. Клонує структуру bio", size=12, fill="#fff9db", stroke="#f59f00", bold=True),
 
-        arrow(410, 135, 410, 180, color="#f59f00"),
+        arrow(410, 135, 410, 175, color="#f59f00"),
 
-        fitbox(300, 180, 220, 60, "Kernel Crypto API / AES-NI\nШифрування/розшифрування\nблока (AES-256-XTS)", size=12, fill="#ffe3e3", stroke="#e03131", bold=True),
+        fitbox(300, 175, 220, 45, "Черга робочих потоків\nkcryptd", size=12, fill="#f3d9fa", stroke="#ae3ec9"),
 
-        arrow(410, 240, 410, 280, color="#e03131"),
+        arrow(410, 220, 410, 260, color="#ae3ec9"),
 
-        fitbox(300, 280, 220, 45, "Черга робочих потоків\nkcryptd", size=12, fill="#f3d9fa", stroke="#ae3ec9"),
+        fitbox(300, 260, 220, 60, "Kernel Crypto API / AES-NI\nШифрування/розшифрування\nблока (AES-256-XTS)", size=12, fill="#ffe3e3", stroke="#e03131", bold=True),
 
-        arrow(520, 302, 570, 302, color="#ae3ec9"),
+        arrow(520, 290, 570, 302, color="#e03131"),
 
         fitbox(570, 275, 200, 55, "Фізичний драйвер\nNVMe / SATA / SCSI\n/dev/nvme0n1p2", size=12, fill="#e6fcf5", stroke="#0ca678")
     ]

@@ -275,7 +275,7 @@ def fig_states():
     ay, ah = 282, 158
     allowed = [
         "Дозволено лише UFFDIO_API.\n\nБудь-який інший ioctl і навіть read()\nдають EINVAL — об'єкт ще не ввімкнено.",
-        "UFFDIO_REGISTER, UFFDIO_UNREGISTER.\n\nПовторний UFFDIO_API — EINVAL,\nі поле api ядро затирає нулем.",
+        "UFFDIO_REGISTER, UFFDIO_UNREGISTER.\n\nПовторний UFFDIO_API — EINVAL,\nі всю структуру ядро затирає нулями.",
         "Те, що ядро дозволило в reg.ioctls:\nCOPY · ZEROPAGE · WAKE · WRITEPROTECT\nCONTINUE · POISON · MOVE.\nread() віддає uffd_msg.",
     ]
     for x, t in zip(xs, allowed):
@@ -316,9 +316,11 @@ def fig_round_time():
                       size=15, bold=True, anchor="start"))
     frags.append(fitbox(200, y_vic, 100, h_vic, "звернення\nза адресою",
                         size=12, fill=WARM))
-    frags.append(fitbox(T0, y_vic, T1 - T0, h_vic,
-                        "спить у ядрі — 26.5 мкс непереривного сну",
+    frags.append(fitbox(T0, y_vic, X(26.5) - T0, h_vic,
+                        "спить у ядрі — 26.5 мкс; виводить лише сигнал, що вбиває",
                         size=15, fill="#eeeeee"))
+    frags.append(fitbox(X(26.5), y_vic, T1 - X(26.5), h_vic,
+                        "чекає\nна процесор", size=12, fill="#e6e6e6"))
     frags.append(fitbox(T1, y_vic, 90, h_vic, "інструкція\nнаново",
                         size=12, fill=WARM))
 

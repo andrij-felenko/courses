@@ -21,7 +21,7 @@ def fig_cache_locking_mesi():
     # Заголовок лівого блоку: Bus Lock
     p.append(rect(40, 40, 540, 480, fill=BG, stroke=MUTED, sw=1.2, rx=10))
     p.append(text(310, 75, "Шинне блокування (Bus Lock / #LOCK)", size=16, bold=True, color=POS))
-    p.append(text(310, 98, "Незрівняний доступ або незакешована пам'ять", size=13, color=MUTED))
+    p.append(text(310, 98, "Невирівняний доступ або незакешована пам'ять", size=13, color=MUTED))
 
     # Компоненти лівого блоку
     p.append(fitbox(70, 130, 220, 60, "Ядро CPU 0\n(виконує LOCK INC)", size=14, fill=RED_FILL, stroke=POS, bold=True))
@@ -63,7 +63,7 @@ def fig_cache_locking_mesi():
 
     # Системна RAM
     p.append(fitbox(750, 350, 280, 50, "Оперативна пам'ять (RAM)\nНе блокується для інших ядер", size=14, fill=BG, stroke=LINE))
-    p.append(text(890, 445, "Низька затримка: операція в межах кеш-лінії L1 (декілька тактів)", size=12, color=FIELD, italic=True))
+    p.append(text(890, 445, "Низька затримка: операція в межах кеш-лінії L1 (десятки тактів)", size=12, color=FIELD, italic=True))
     p.append(text(890, 470, "Шина пам'яті залишається вільною для паралельних операцій", size=12, color=MUTED))
 
     render(os.path.join(IMG, 'cache-locking-mesi.svg'), W, H, *p,
@@ -80,7 +80,7 @@ def fig_ll_sc_monitor():
     # Крок 1
     p.append(rect(40, 70, 1020, 140, fill=BG, stroke=MUTED, sw=1.2, rx=8))
     p.append(fitbox(60, 90, 140, 40, "Крок 1: LL", size=14, fill=BLUE_FILL, stroke=NEG, bold=True))
-    p.append(text(570, 110, "Ядро читає значення інструкцією LL (LDREX / lr.w) та активує Exclusive Monitor", size=14, bold=True))
+    p.append(text(570, 110, "Ядро читає значення інструкцією LL (LDXR / lr.w) та активує Exclusive Monitor", size=14, bold=True))
 
     p.append(fitbox(90, 145, 280, 50, "Процесорне ядро 0\nВиконує LL [addr]", size=13, fill=FILL, stroke=LINE))
     p.append(arrow(370, 170, 450, 170, color=NEG, sw=1.8))
@@ -96,7 +96,7 @@ def fig_ll_sc_monitor():
     p.append(fitbox(60, 280, 450, 45, "Жодне інше ядро не записувало за адресою [addr]\nExclusive Monitor залишається у стані EXCLUSIVE", size=13, fill=GREEN_FILL, stroke=FIELD))
     p.append(arrow(285, 325, 285, 355, color=FIELD, sw=1.8))
 
-    p.append(fitbox(60, 355, 450, 60, "Ядро 0 виконує SC (STREX / sc.w [addr], new_val)\nМонітор підтверджує право запису", size=13, fill=FILL, stroke=LINE))
+    p.append(fitbox(60, 355, 450, 60, "Ядро 0 виконує SC (STXR / sc.w [addr], new_val)\nМонітор підтверджує право запису", size=13, fill=FILL, stroke=LINE))
     p.append(arrow(285, 415, 285, 445, color=FIELD, sw=1.8))
 
     p.append(fitbox(60, 445, 450, 65, "Результат: SC повертає 0 (УСПІХ)\nЗначення в [addr] атомарно оновлено до new_val\nЦикл зупиняється", size=13, fill=GREEN_FILL, stroke=FIELD, bold=True))
@@ -108,7 +108,7 @@ def fig_ll_sc_monitor():
     p.append(fitbox(590, 280, 450, 45, "Інше ядро або переривання змінило дані [addr]\nExclusive Monitor скинуто у стан INVALID!", size=13, fill=RED_FILL, stroke=POS))
     p.append(arrow(815, 325, 815, 355, color=POS, sw=1.8))
 
-    p.append(fitbox(590, 355, 450, 60, "Ядро 0 виконує SC (STREX / sc.w [addr], new_val)\nМонітор ВІДХИЛЯЄ запис", size=13, fill=FILL, stroke=LINE))
+    p.append(fitbox(590, 355, 450, 60, "Ядро 0 виконує SC (STXR / sc.w [addr], new_val)\nМонітор ВІДХИЛЯЄ запис", size=13, fill=FILL, stroke=LINE))
     p.append(arrow(815, 415, 815, 445, color=POS, sw=1.8))
 
     p.append(fitbox(590, 445, 450, 65, "Результат: SC повертає ПОМИЛКУ (1)\nЗапис скасовано, значення [addr] не змінилося\nПрограма повторює цикл спроб з LL", size=13, fill=RED_FILL, stroke=POS, bold=True))

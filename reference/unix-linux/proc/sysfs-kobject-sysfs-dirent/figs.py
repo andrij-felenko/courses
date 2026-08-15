@@ -78,7 +78,7 @@ def fig_kobject_hierarchy():
                     "Каталог /sys/kernel/demo_kobj/\n"
                     "(створений об'єктом demo_kobj)\n\n"
                     "├── status   (0444, show -> status_show)\n"
-                    "└── control  (0664, show/store)",
+                    "└── control  (0644, show/store)",
                     size=13, fill=WARM_FILL, stroke=LINE))
 
     p.append(arrow(550, 335, 670, 335, color=LINE, sw=2))
@@ -152,14 +152,14 @@ def fig_sysfs_dirent_kernfs_vfs():
     p.append(text(620, 410, "ЕКОНОМІЯ ПАМ'ЯТІ НА СЕРВЕРІ З 500 000 АТРИБУТАМИ SYSFS", size=14, bold=True))
 
     p.append(fitbox(70, 440, 520, 130,
-                    "Стара схема sysfs (до Linux 2.6.23):\n"
+                    "Стара схема sysfs (перші випуски Linux 2.6):\n"
                     "500 000 атрибутів × (dentry 192 B + inode 600 B)\n"
                     "= ~400 МБ НЕСВАПОВАНОЇ ПАМ'ЯТІ SLAB\n"
                     "(виділялося постійно, навіть якщо /sys не відкривали)",
                     size=12, fill=RED_FILL, stroke=POS))
 
     p.append(fitbox(630, 440, 540, 130,
-                    "Сучасна схема з kernfs (починаючи з Linux 2.6.23 / 3.14):\n"
+                    "Сучасна схема (sysfs_dirent з 2.6.10, kernfs з 3.14):\n"
                     "500 000 атрибутів × kernfs_node 48 B = ~24 МБ ПАМ'ЯТІ!\n"
                     "VFS dentry/inode виділяються лише для відкритих файлів\n"
                     "Економія: понад 370 МБ RAM на порожньому місці",

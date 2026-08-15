@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Фігури до теми «Сеанси, групи процесів і керуючий термінал»."""
+"""Фігури до теми «Сеанси, групи процесів і керівний термінал»."""
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
@@ -49,7 +49,7 @@ def fig_session_map():
 
     # ── термінал ────────────────────────────────────────────────────────────
     f.append(rect(60, 236, 250, 150, fill=COOL, stroke=NEG, sw=2, rx=12))
-    f.append(mtext(185, 282, ["керуючий термінал", "/dev/pts/3"],
+    f.append(mtext(185, 282, ["керівний термінал", "/dev/pts/3"],
                    size=14, bold=True, color=NEG))
     f.append(text(185, 340, "TPGID = 940", size=14, color=NEG))
 
@@ -106,8 +106,8 @@ def fig_signal_reach():
     _reach_panel(f, 30, "Ctrl+C з клавіатури\n→ SIGINT", FIELD, rows_a,
                  "адреса — покажчик переднього плану", FIELD, GOOD)
     _reach_panel(f, 460, "термінал зник (обрив звʼязку)\n→ SIGHUP + SIGCONT", NEG, rows_b,
-                 "керуючий термінал прибрано всім у сеансі", NEG, COOL)
-    _reach_panel(f, 890, "керуючий процес завершився\n→ SIGHUP", POS, rows_c,
+                 "керівний термінал прибрано всім у сеансі", NEG, COOL)
+    _reach_panel(f, 890, "керівний процес завершився\n→ SIGHUP", POS, rows_c,
                  "термінал відʼєднано від сеансу", POS, HOT)
 
     f.append(text(W / 2, H - 26,
@@ -193,9 +193,9 @@ def fig_flat_vs_session():
     f.append(arrow(485, 162, 510, 274, color=NEG))
 
     f.append(arrow(174, 356, 500, 356, color=POS, sw=2.2))
-    f.append(text(80, 424, "kill(−402, SIGCONT) з першого входу", size=13,
+    f.append(text(80, 424, "setpgrp(0, 402) з процесу першого входу", size=13,
                   color=POS, anchor="start"))
-    f.append(text(80, 448, "дістає до чужого термінала — і спрацьовує", size=13,
+    f.append(text(80, 448, "вписує його в чужу групу — і спрацьовує", size=13,
                   color=POS, anchor="start"))
 
     # ── роздільник ──────────────────────────────────────────────────────────
@@ -223,7 +223,7 @@ def fig_flat_vs_session():
 
     f.append(line(944, 298, 1006, 298, color=POS, sw=2.2))
     f.append(text(975, 274, "✕", size=20, bold=True, color=POS))
-    f.append(text(690, 424, "той самий постріл упирається в межу сеансу:", size=13,
+    f.append(text(690, 424, "той самий виклик упирається в межу сеансу:", size=13,
                   color=FIELD, anchor="start"))
     f.append(text(690, 448, "setpgid дозволений лише всередині свого сеансу", size=13,
                   color=FIELD, anchor="start"))

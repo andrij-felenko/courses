@@ -403,7 +403,7 @@ def fig_walk_budget():
          "тож останнє читання обходу йде в DRAM"),
         (222, "2 МіБ — THP або HugeTLB", 19.9,
          "кінцевих записів лише 8192, це 64 КіБ; вони живуть у кеші другого рівня"),
-        (340, "1 ГіБ — HugeTLB", 0.5,
+        (340, "1 ГіБ — HugeTLB", 0.0,
          "шістнадцять перекладів на весь буфер просто лежать у TLB — обходу немає"),
     ]
     BH = 54
@@ -412,8 +412,9 @@ def fig_walk_budget():
                       anchor="end"))
         F.append(rect(px(0), y, px(DATA) - px(0), BH,
                       fill=BLU_F, stroke=NEG, sw=1.5, rx=4))
-        F.append(rect(px(DATA), y, px(DATA + tax) - px(DATA), BH,
-                      fill=RED_F, stroke=POS, sw=1.5, rx=4))
+        if tax > 0:
+            F.append(rect(px(DATA), y, px(DATA + tax) - px(DATA), BH,
+                          fill=RED_F, stroke=POS, sw=1.5, rx=4))
         F.append(text(px(DATA + tax) + 16, y + BH / 2 + 5,
                       "%.1f нс" % (DATA + tax), size=15, bold=True,
                       anchor="start"))

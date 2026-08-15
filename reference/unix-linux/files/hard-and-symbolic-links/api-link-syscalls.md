@@ -197,6 +197,11 @@ int renameat2(int olddirfd, const char *oldpath,
 #include <unistd.h>
 #include <sys/syscall.h>
 
+/* У glibc до 2.28 константи немає в жодному з цих заголовків. */
+#ifndef RENAME_NOREPLACE
+#define RENAME_NOREPLACE (1 << 0)
+#endif
+
 /* Перейменувати, НЕ витісняючи ціль. 0 — успіх, -1 і errno — ні. */
 int rename_noreplace(const char *old, const char *new)
 {

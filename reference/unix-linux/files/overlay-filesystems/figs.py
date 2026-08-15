@@ -267,18 +267,18 @@ def fig_hardlink_index():
         p.append(mtext(px + 190, 392, caption, size=11, color=MUTED))
 
     # панель 1 — одне нижнє тіло
-    p.append(inode_box(210, ["нижній inode 17", "nlink = 2"], GREY_FILL))
+    p.append(inode_box(210, ["нижній inode 18", "nlink = 2"], GREY_FILL))
     p.append(arrow(125, 196, 178, 272))
     p.append(arrow(295, 196, 242, 272))
 
     # панель 2 — тіла роз'їхалися
-    p.append(inode_box(515, ["верхній inode 91", "nlink = 1"], WARM_FILL))
-    p.append(inode_box(705, ["нижній inode 17", "nlink = 2"], GREY_FILL))
+    p.append(inode_box(515, ["верхній inode 19", "nlink = 1"], WARM_FILL))
+    p.append(inode_box(705, ["нижній inode 18", "nlink = 2"], GREY_FILL))
     p.append(arrow(525, 196, 518, 272))
     p.append(arrow(695, 196, 702, 272))
 
     # панель 3 — покажчик тримає тіло одним
-    p.append(inode_box(1010, ["верхній inode 91", "nlink = 2"], WARM_FILL))
+    p.append(inode_box(1010, ["верхній inode 20", "nlink = 2"], WARM_FILL))
     p.append(arrow(925, 196, 978, 272))
     p.append(arrow(1095, 196, 1042, 272))
     frag, _, _ = textbox(1010, 425, ["work/index/<дескриптор>",

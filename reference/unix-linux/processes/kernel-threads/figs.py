@@ -84,7 +84,7 @@ def fig_birth():
         ("драйвер чи підсистема\nkthread_run(fn, ...)", COOL, NEG),
         ("заявку в чергу\nkthread_create_list", SOFT, MUTED),
         ("прокидається kthreadd\nPID 2", GREENISH, FIELD),
-        ("клон від init_task:\nчисте оточення", SOFT, MUTED),
+        ("kthreadd клонує себе:\nчисте оточення", SOFT, MUTED),
         ("нова задача\nвиконує fn()", GREENISH, FIELD),
     ]
     bx, by, bw, bh, gap = 40, 84, 172, 66, 30

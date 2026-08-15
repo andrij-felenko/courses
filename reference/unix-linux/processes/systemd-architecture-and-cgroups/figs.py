@@ -117,7 +117,7 @@ def build_dbus_flow():
 
     elements.append(rect(585, 180, 160, 45, fill="#ffffff", stroke="#234e52", rx=5))
     elements.append(text(665, 200, "memory.max = 1G", size=11, bold=True))
-    elements.append(text(665, 215, "cpu.weight = 500", size=11, bold=True))
+    elements.append(text(665, 215, "cpu.weight = 200", size=11, bold=True))
 
     elements.append(rect(585, 245, 160, 45, fill="#ffffff", stroke="#234e52", rx=5))
     elements.append(text(665, 270, "cgroup.procs = [PID]", size=11, bold=True, color="#c0392b"))
@@ -148,7 +148,7 @@ def build_delegation():
 
     elements.append(rect(300, 85, 440, 65, fill="#ffffff", stroke="#3182ce", rx=4))
     elements.append(text(520, 107, "docker.service (Delegate=yes)", size=13, bold=True, color="#2b6cb0"))
-    elements.append(text(520, 127, "chown user:group + cgroup.subtree_control", size=11, color=MUTED))
+    elements.append(text(520, 127, "контролери доступні + межа невтручання", size=11, color=MUTED))
 
     # Boundary Line (Delegation point)
     elements.append(line(40, 190, 760, 190, color="#c0392b", sw=2, dash="6,4"))

@@ -319,7 +319,8 @@ int main(int argc, char **argv)
 
     setlocale(LC_ALL, "");                  /* поважати локаль користувача */
     signal(SIGPIPE, SIG_DFL);               /* не покладатися на успадковану */
-    color = isatty(1) && !getenv("NO_COLOR");
+    const char *nc = getenv("NO_COLOR");     /* «присутня й непорожня» — саме так */
+    color = isatty(1) && !(nc && *nc);
 
     for (; i < argc; i++) {                 /* ключі — до першого операнда */
         if (strcmp(argv[i], "--") == 0) { i++; break; }
