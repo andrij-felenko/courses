@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="420.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Експоненціальна розбіжність близьких траєкторій (показник Ляпунова)</text>
+<text x="420.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">початкова різниця у швидкості Δv₀ = 10⁻⁸ призводить до повної розбіжності за час t</text>
+<rect x="70.0" y="100.0" width="330.0" height="320.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="235.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відстань між траєкторіями Δr(t)</text>
+<line x1="110.0" y1="380.0" x2="380.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="385.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-style="italic">час t</text>
+<line x1="110.0" y1="380.0" x2="110.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="95.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">lg Δr</text>
+<line x1="110.0" y1="370.0" x2="300.0" y2="210.0" stroke="#e67e22" stroke-width="2.5"/>
+<text x="205.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="start" font-weight="700">експоненціальне зростання ~ e^{λ·t}</text>
+<line x1="300.0" y1="210.0" x2="370.0" y2="215.0" stroke="#e67e22" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="320.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">насичення (розмір системи)</text>
+<circle cx="110.0" cy="370.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="120.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Δr₀ = 10⁻⁸</text>
+<rect x="450.0" y="100.0" width="330.0" height="320.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="615.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Траєкторії у координатному просторі</text>
+<circle cx="510.0" cy="260.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="500.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">старт S₀</text>
+<path d="M 510.000000 260.000000 Q 590.000000 180.000000 650.000000 280.000000 T 720.000000 200.000000 T 750.000000 340.000000" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="745.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Траєкторія A</text>
+<path d="M 510.000000 260.000000 Q 590.000000 182.000000 645.000000 270.000000 T 690.000000 360.000000 T 740.000000 180.000000" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+<text x="745.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Траєкторія B (v₀ + Δv₀)</text>
+<circle cx="648.0" cy="275.0" r="5.0" fill="#e67e22" stroke="#e67e22" stroke-width="1.0"/>
+<line x1="648.0" y1="275.0" x2="648.0" y2="395.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="648.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">горизонт передбачуваності t_h</text>
+</svg>

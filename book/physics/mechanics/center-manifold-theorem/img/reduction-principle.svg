@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип зведення (редукції вимірності) на центральний многовид</text>
+<rect x="40.0" y="70.0" width="230.0" height="220.0" rx="8" fill="#FAFBFD" stroke="#c0392b" stroke-width="1.8"/>
+<text x="155.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Повна система</text>
+<text x="155.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Вимірність: n + m</text>
+<text x="155.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">dx/dt = A·x + f(x, y)</tspan><tspan x="155.0" dy="15.6">dy/dt = B·y + g(x, y)</tspan><tspan x="155.0" dy="15.6"></tspan><tspan x="155.0" dy="15.6">Re(λ_A) = 0 (n змінних)</tspan><tspan x="155.0" dy="15.6">Re(λ_B) &lt; 0 (m змінних)</tspan></text>
+<line x1="285.0" y1="180.0" x2="455.0" y2="180.0" stroke="#2457d6" stroke-width="3.0"/><path d="M 455.0 180.0 L 445.0 184.0 L 445.0 176.0 z" fill="#2457d6"/>
+<text x="370.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Експоненційне</text>
+<text x="370.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">згасання y(t) -&gt; h(x)</text>
+<text x="370.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Заміна: y = h(x)</text>
+<text x="370.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">N(h(x)) = 0</text>
+<rect x="470.0" y="70.0" width="230.0" height="220.0" rx="8" fill="#EAF0FD" stroke="#2457d6" stroke-width="2.0"/>
+<text x="585.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Редукована система</text>
+<text x="585.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Вимірність: n (лише W^c)</text>
+<text x="585.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">dx/dt = A·x + f(x, h(x))</tspan><tspan x="585.0" dy="15.6"></tspan><tspan x="585.0" dy="15.6">Захоплює точні:</tspan><tspan x="585.0" dy="15.6">• Біфуркації</tspan><tspan x="585.0" dy="15.6">• Граничні цикли</tspan><tspan x="585.0" dy="15.6">• Стійкість точки 0</tspan></text>
+<rect x="40.0" y="315.0" width="760.0" height="80.0" rx="6" fill="#FFFFFF" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="420.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Практичне значення редукції для механіки та фізики</text>
+<text x="420.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Замість розв'язувати складну система з сотень ступенів вільності (напр. флаттер крила чи конвекція),</text>
+<text x="420.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ми аналізуємо скалярне рівняння або 2D систему на W^c без втрати фізичної точності.</text>
+</svg>
