@@ -56,7 +56,8 @@ def tpm_architecture():
     
     # Connecting lines / arrows
     out.append(arrow(320, 135, 180, 160, color="#555555", sw=1.2))
-    out.append(arrow(320, 135, 460, 225, color="#555555", sw=1.2))
+    out.append(arrow(430, 135, 460, 225, color="#555555", sw=1.2))
+    out.append(arrow(390, 135, 262, 242, color="#555555", sw=1.2))
     out.append(arrow(180, 200, 180, 225, color="#555555", sw=1.2))
     out.append(arrow(180, 265, 280, 288, color="#555555", sw=1.2))
     out.append(arrow(460, 265, 360, 288, color="#555555", sw=1.2))

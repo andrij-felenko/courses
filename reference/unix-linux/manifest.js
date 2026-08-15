@@ -1472,7 +1472,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-hotplug-sysfs.md",
@@ -1759,7 +1759,7 @@ window.__BOOKS__ = [
             "slug": "futex2-waitv-syscall",
             "title": "Багатооб’єктна синхронізація futex2 (sys_futex_waitv)",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-futex-waitv.md",
@@ -1797,7 +1797,7 @@ window.__BOOKS__ = [
             "slug": "sched-idle-and-sched-batch",
             "title": "Класи планирування SCHED_IDLE та SCHED_BATCH",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sched-attr.md",
@@ -2536,7 +2536,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-locking-interfaces.md",
@@ -2592,7 +2592,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-mmu-notifier-ops.md",
@@ -4120,7 +4120,7 @@ window.__BOOKS__ = [
             "slug": "erofs-read-only-filesystem",
             "title": "Стиснена файлова система EROFS для контейнерів та прошивок",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-erofs-ondisk.md",
@@ -4417,7 +4417,7 @@ window.__BOOKS__ = [
         "topics": [
           { slug: "readdir-getdents64-directory-traversal", title: "Обхід каталогів: readdir, getdents64 та внутрішня структура", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-getdents64-structs.md", status: "done" }] , "hist": [{ file: "hist-readdir-r-deprecation.md", status: "done" }] , "proj": [{ file: "proj-fast-directory-walker.md", status: "done" }] },
           { slug: "fsync-fdatasync-sync-file-range", title: "Гарантії скидання кешу: fsync, fdatasync та sync_file_range", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sync-contracts.md", status: "done" }] , "hist": [{ file: "hist-fsyncgate-and-cache.md", status: "done" }] , "proj": [{ file: "proj-sync-bench.md", status: "done" }] },
-          { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
+          { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
           { slug: "dma-mapping-subsystem-and-iommu", title: "Підсистема DMA mapping та IOMMU в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dma-mapping-surface.md", status: "done" }] , "hist": [{ file: "hist-dma-evolution.md", status: "done" }] , "proj": [{ file: "proj-dma-driver-example.md", status: "done" }] },
           {
             "slug": "blocking-and-nonblocking",
@@ -6533,7 +6533,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6568,7 +6568,7 @@ window.__BOOKS__ = [
             "slug": "ebpf-lsm-custom-policies",
             "title": "Програмовані політики безпеки BPF-LSM",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-bpf-lsm-hooks.md",
@@ -6614,14 +6614,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "ima-evm-integrity-architecture",
             "title": "Вимірювання цілісності системи: IMA та EVM",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-evm-xattr-format.md",
@@ -6642,14 +6642,14 @@ window.__BOOKS__ = [
             ],
             },
             "basic": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "tpm2-software-stack",
             "title": "Стек TPM 2.0 та апаратне зберігання ключів",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-tss2-esapi.md",
@@ -6674,7 +6674,7 @@ window.__BOOKS__ = [
             "slug": "sigstruct-and-sgx-enclaves",
             "title": "Апаратні енклави Intel SGX та сигнатури SIGSTRUCT",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-sigstruct.md",
@@ -6699,7 +6699,7 @@ window.__BOOKS__ = [
             "slug": "kernel-lockdown-integrity",
             "title": "Режим мажоритарного захисту ядра: Kernel Lockdown Mode",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-lockdown-reasons.md",
@@ -6724,7 +6724,7 @@ window.__BOOKS__ = [
             "slug": "landlock-abi-v4-v5-features",
             "title": "Еволюція Landlock LSM: ABI v4/v5 (мережеві обмеження та ioctl)",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-landlock-v4-v5-structs.md",
@@ -6755,7 +6755,7 @@ window.__BOOKS__ = [
             "slug": "apparmor-stacking-and-profiles",
             "title": "Стек профілів AppArmor та інстанціація політик",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-apparmor-stacking-interface.md",
@@ -6786,7 +6786,7 @@ window.__BOOKS__ = [
             "slug": "tomoyo-linux-path-based-lsm",
             "title": "Політики безпеки TOMOYO Linux: LSM на основі шляхів",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-tomoyo-policy-syntax.md",
@@ -6836,7 +6836,7 @@ window.__BOOKS__ = [
             "slug": "bpf-lsm-audit-and-override",
             "title": "Модифікація поведінки Security Modules через bpf_lsm (bpf_override_return)",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-bpf-lsm-helpers.md",
@@ -6865,11 +6865,11 @@ window.__BOOKS__ = [
         "scope": "Як залізо стає файлом і як ядро керує тим, що під'єднали.",
         "topics": [
           { slug: "nvme-over-fabrics-nvme-of", title: "Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-nvmeof-pdu-structures.md", status: "done" }] , "hist": [{ file: "hist-iscsi-to-nvmeof.md", status: "done" }] , "math": [{ file: "math-nvmeof-latency-throughput.md", status: "done" }] , "proj": [{ file: "proj-nvmeof-c-cpp-client.md", status: "done" }] },
-          { slug: "gpio-descriptor-based-gpiod-api", title: "Ядерний дескрипторний API gpiod (gpiod_get, gpiod_set_value)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-kernel-gpiod-functions.md", status: "done" }] , "hist": [{ file: "hist-legacy-gpio-to-gpiod.md", status: "done" }] , "proj": [{ file: "proj-kernel-gpio-driver.md", status: "done" }] },
-          { slug: "devicetree-overlays-and-dtbo", title: "devicetree-overlays-and-dtbo", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dtbo-kernel-interfaces.md", status: "done" }] , "hist": [{ file: "hist-dtbo-evolution.md", status: "done" }] , "proj": [{ file: "proj-dtbo-configfs-loader.md", status: "done" }] },
-          { slug: "usb-type-c-connector-class-framework", title: "Фреймворк коннекторів USB Type-C та Power Delivery", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-typec-kernel-sysfs.md", status: "done" }] , "comp": [{ file: "comp-tcpm-tcpci-ucsi.md", status: "done" }] , "hist": [{ file: "hist-typec-pd-evolution.md", status: "done" }] , "proj": [{ file: "proj-typec-role-switcher.md", status: "done" }] },
-          { slug: "input-event-codes-and-evdev", title: "Підсистема введення та події evdev (/dev/input/eventN)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-evdev-ioctl.md", status: "done" }] , "hist": [{ file: "hist-linux-input-subsystem.md", status: "done" }] , "math": [{ file: "math-evdev-abs-scaling.md", status: "done" }] , "proj": [{ file: "proj-evdev-event-loop.md", status: "done" }] },
-          { slug: "gpio-character-device-v2", title: "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-v2-structures-and-ioctls.md", status: "done" }] , "hist": [{ file: "hist-abi-v1-vs-v2.md", status: "done" }] , "proj": [{ file: "proj-v2-raw-ioctl-and-libgpiod.md", status: "done" }] },
+          { slug: "gpio-descriptor-based-gpiod-api", title: "Ядерний дескрипторний API gpiod (gpiod_get, gpiod_set_value)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernel-gpiod-functions.md", status: "done" }] , "hist": [{ file: "hist-legacy-gpio-to-gpiod.md", status: "done" }] , "proj": [{ file: "proj-kernel-gpio-driver.md", status: "done" }] },
+          { slug: "devicetree-overlays-and-dtbo", title: "devicetree-overlays-and-dtbo", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-dtbo-kernel-interfaces.md", status: "done" }] , "hist": [{ file: "hist-dtbo-evolution.md", status: "done" }] , "proj": [{ file: "proj-dtbo-configfs-loader.md", status: "done" }] },
+          { slug: "usb-type-c-connector-class-framework", title: "Фреймворк коннекторів USB Type-C та Power Delivery", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-typec-kernel-sysfs.md", status: "done" }] , "comp": [{ file: "comp-tcpm-tcpci-ucsi.md", status: "done" }] , "hist": [{ file: "hist-typec-pd-evolution.md", status: "done" }] , "proj": [{ file: "proj-typec-role-switcher.md", status: "done" }] },
+          { slug: "input-event-codes-and-evdev", title: "Підсистема введення та події evdev (/dev/input/eventN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-evdev-ioctl.md", status: "done" }] , "hist": [{ file: "hist-linux-input-subsystem.md", status: "done" }] , "math": [{ file: "math-evdev-abs-scaling.md", status: "done" }] , "proj": [{ file: "proj-evdev-event-loop.md", status: "done" }] },
+          { slug: "gpio-character-device-v2", title: "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v2-structures-and-ioctls.md", status: "done" }] , "hist": [{ file: "hist-abi-v1-vs-v2.md", status: "done" }] , "proj": [{ file: "proj-v2-raw-ioctl-and-libgpiod.md", status: "done" }] },
           { slug: "power-management-qos-framework", title: "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-pm-qos-kernel.md", status: "done" }] , "hist": [{ file: "hist-pm-qos-evolution.md", status: "done" }] , "proj": [{ file: "proj-pm-qos-benchmark.md", status: "done" }] },
           { slug: "v4l2-media-subsystem", title: "Підсистема відео та медіа-пристроїв (V4L2, Media Controller)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-v4l2-mc-core.md", status: "done" }] , "hist": [{ file: "hist-v4l1-to-media-controller.md", status: "done" }] , "math": [{ file: "math-media-pipeline-bandwidth.md", status: "done" }] , "proj": [{ file: "proj-v4l2-capture.md", status: "done" }] },
           { slug: "virtio-mem-and-virtio-pmem", title: "Динамічне додавання пам'яті: virtio-mem та virtio-pmem", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-virtio-mem-spec.md", status: "done" }] , "comp": [{ file: "comp-virtio-mem-vs-acpi-dimm.md", status: "done" }] , "hist": [{ file: "hist-virtio-mem-genesis.md", status: "done" }] , "proj": [{ file: "proj-virtio-mem-driver.md", status: "done" }] },

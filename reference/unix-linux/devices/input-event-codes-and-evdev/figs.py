@@ -108,7 +108,7 @@ def gen_struct():
     # Explanation text boxes
     frags.append(fitbox(30, 175, 390, 130, 
                         "Поля структури struct input_event:\n"
-                        "• time: часова позначка драйвера (struct timeval)\n"
+                        "• time: позначка часу (input_event_sec / input_event_usec)\n"
                         "• type: тип події (EV_KEY=1, EV_REL=2, EV_ABS=3, EV_SYN=0)\n"
                         "• code: код органу (KEY_A=30, REL_X=0, ABS_X=0)\n"
                         "• value: значення (1=Down, 0=Up, 2=Repeat, delta/pos)", 
@@ -116,10 +116,10 @@ def gen_struct():
 
     frags.append(fitbox(440, 175, 350, 130,
                         "Особливості сумісності та Y2038:\n"
-                        "• З ядра Linux 5.8 підтримується 64-бітне time_t\n"
+                        "• З ядра Linux 4.16: поля input_event_sec / input_event_usec\n"
                         "• Читання read() повертає ціле число структур\n"
                         "• Часткове читання (наприклад, 10B) -> повертає EINVAL\n"
-                        "• Для 32-бітних бінарників на 64-бітному ядрі існує ioctl",
+                        "• 32-бітні програми на 64-бітному ядрі: шар CONFIG_COMPAT",
                         size=11, fill="#f4f6f8", stroke=LINE))
 
     render(path, w, h, *frags, title="Бінарне вирівнювання структури struct input_event")
@@ -204,7 +204,7 @@ def gen_uinput():
     # Bottom workflow description box
     frags.append(fitbox(40, 305, 740, 50, 
                         "Етапи створення віртуального пристрою uinput:\n"
-                        "1. UI_SET_EVBIT / UI_SET_KEYBIT (оголошення capabilities) → 2. write(uinput_setup) → 3. UI_DEV_CREATE → 4. write(input_event)",
+                        "1. UI_SET_EVBIT / UI_SET_KEYBIT (оголошення capabilities) → 2. ioctl(UI_DEV_SETUP) → 3. UI_DEV_CREATE → 4. write(input_event)",
                         size=11, fill="#f4f6f8", stroke=LINE))
 
     render(path, w, h, *frags, title="Схема роботи та інжекції подій через /dev/uinput")

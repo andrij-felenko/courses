@@ -91,7 +91,7 @@ def fig_line_request_config_layout():
     b_req1, _, _ = textbox(220, 140, ["offsets[64]", "Масив індексів ліній", "(наприклад: [4, 17, 22])"], size=12, pad=10, fill="#ffffff", stroke=LINE_DARK)
     frags.append(b_req1)
 
-    b_req2, _, _ = textbox(500, 140, ["consumer[32]", "Назва процесу / споживача", "для sysfs та debugfs"], size=12, pad=10, fill="#ffffff", stroke=LINE_DARK)
+    b_req2, _, _ = textbox(500, 140, ["consumer[32]", "Назва процесу / споживача", "для debugfs"], size=12, pad=10, fill="#ffffff", stroke=LINE_DARK)
     frags.append(b_req2)
 
     b_req3, _, _ = textbox(780, 140, ["config", "Вбудована структура", "gpio_v2_line_config"], size=12, pad=10, fill="#ffffff", stroke=LINE_GREEN)
@@ -109,7 +109,7 @@ def fig_line_request_config_layout():
     b_cfg1, _, _ = textbox(250, 380, ["flags (64-bit)", "Глобальні прапори за замовчуванням:", "INPUT / OUTPUT / ACTIVE_LOW / BIAS..."], size=12, pad=10, fill="#ffffff", stroke=LINE_DARK)
     frags.append(b_cfg1)
 
-    b_cfg2, _, _ = textbox(750, 380, ["attrs[10] (struct gpio_v2_line_attribute)", "Масив перевизначень конкретних атрибутів для окремих ліній"], size=12, pad=10, fill="#ffffff", stroke=LINE_GREEN)
+    b_cfg2, _, _ = textbox(750, 380, ["attrs[10] (gpio_v2_line_config_attribute)", "Масив перевизначень конкретних атрибутів для окремих ліній"], size=12, pad=10, fill="#ffffff", stroke=LINE_GREEN)
     frags.append(b_cfg2)
 
     # Приклади атрибутів усередині attrs[10]

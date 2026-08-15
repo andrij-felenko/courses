@@ -42,7 +42,7 @@ def generate_sched_comparison():
     # SCHED_IDLE: runs only when system idle
     frags.append(fitbox(175, y_idle, 320, 30, "Процесор зайнятий (OTHER / BATCH)", size=12, fill="#cfd8dc", stroke="#90a4ae", color="#455a64"))
     frags.append(fitbox(505, y_idle, 220, 30, "IDLE задача (фонові обчислення)", size=12, fill="#b2ebf2", stroke="#00acc1", bold=True))
-    frags.append(text(600, y_idle - 8, "Виконання лише при простої CPU", size=11, color="#00838f", italic=True))
+    frags.append(text(600, y_idle - 8, "Майже завжди чекає: ≈0.3% CPU", size=11, color="#00838f", italic=True))
     
     out_dir = os.path.join(os.path.dirname(__file__), "img")
     os.makedirs(out_dir, exist_ok=True)

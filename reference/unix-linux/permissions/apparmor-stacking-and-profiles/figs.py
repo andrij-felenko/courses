@@ -27,7 +27,7 @@ def generate_apparmor_stacking():
     <!-- Host Container Engine Profile -->
     <rect x="40" y="70" width="820" height="340" class="bg-host" />
     <text x="60" y="96" class="title-sub">Профіль контейнерного рушія хоста: docker-default / lxc-container-default</text>
-    <text x="60" y="118" class="txt-body">Обмежує небезпечні файлові системи (/proc, /sys), моунти та capability системних викликів</text>
+    <text x="60" y="118" class="txt-body">Обмежує небезпечні файлові системи (/proc, /sys), монтування та capability</text>
 
     <!-- Nested AppArmor Namespace -->
     <rect x="60" y="135" width="780" height="255" class="bg-ns" />
@@ -77,7 +77,7 @@ def generate_apparmor_label_intersection():
   <g transform="translate(0, 0)">
     <!-- Title -->
     <text x="30" y="30" class="txt-title">Перетин множин дозволів при стекуванні 3 профілів (Permitted Intersection)</text>
-    <text x="30" y="52" class="txt-sub">Операція дозволяється ядрам лише якщо вона належить центральній області перетину</text>
+    <text x="30" y="52" class="txt-sub">Операція дозволяється ядром лише тоді, коли належить центральній області перетину</text>
 
     <!-- Circle 1: Host Profile -->
     <circle cx="310" cy="220" r="120" fill="#3b82f6" fill-opacity="0.18" stroke="#2563eb" stroke-width="2" />

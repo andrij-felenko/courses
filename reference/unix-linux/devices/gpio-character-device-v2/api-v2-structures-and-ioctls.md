@@ -4,7 +4,7 @@
 
 Усі структури ABI v2 спроектовано з урахуванням суворого вирівнювання типів даних (64-бітне вирівнювання полів `__u64` та `__s64`). Це забезпечує абсолютну бінарну сумісність між 32-бітними програмами простору користувача (наприклад, armv7hf) та 64-бітним ядром Linux (arm64/x86_64) без використання проміжних трансляторів або адаптерів сумісності (compat ioctl wrappers).
 
-Кодування команд `ioctl()` спирається на базовий магічний символ підсистеми GPIO — букву `'B'` (`0x42`). Макроси `_IOR`, `_IOW` та `_IOWR` обчислюють унікальний 32-бітний код команди, об'єднуючи напрямок передачі даних (наприклад, read/write), розмір аргументу в байтах, магічний байт `'B'` та порядковий номер команди.
+Кодування команд `ioctl()` спирається на магічне число підсистеми GPIO — `0xB4`. Макроси `_IOR`, `_IOW` та `_IOWR` обчислюють унікальний 32-бітний код команди, об'єднуючи напрямок передачі даних (наприклад, read/write), розмір аргументу в байтах, магічний байт `0xB4` та порядковий номер команди.
 
 ---
 
@@ -29,7 +29,7 @@ struct gpiochip_info {
   * `label`: Мітка драйвера ядра або назва компонента з Device Tree / ACPI, який зареєстрував цей контролер.
   * `lines`: Загальна кількість доступних пінів на даному чипі (зазвичай від 8 до 128).
 * **Сигнатура виклику:** `ioctl(chip_fd, GPIO_GET_CHIPINFO_IOCTL, struct gpiochip_info *info)`
-* **Кодування ioctl:** `_IOR('B', 0x01, struct gpiochip_info)`
+* **Кодування ioctl:** `_IOR(0xB4, 0x01, struct gpiochip_info)`
 
 ---
 
@@ -56,11 +56,11 @@ struct gpio_v2_line_info {
   * `num_attrs`: Кількість дійсних атрибутів у масиві `attrs[]`, які описують специфічні параметри (наприклад, дебаунс).
   * `flags`: Активна 64-бітна бітова маска прапорів, яка відображає поточний напрямок, підтяжку та режими роботи лінії.
 * **Сигнатура виклику:** `ioctl(chip_fd, GPIO_V2_GET_LINEINFO_IOCTL, struct gpio_v2_line_info *info)`
-* **Кодування ioctl:** `_IOWR('B', 0x05, struct gpio_v2_line_info)`
+* **Кодування ioctl:** `_IOWR(0xB4, 0x05, struct gpio_v2_line_info)`
 
 ---
 
-### 1.3. `GPIO_V2_GET_LINEINFO_WATCH_IOCTL` та `GPIO_V2_GET_LINEINFO_UNWATCH_IOCTL`
+### 1.3. `GPIO_V2_GET_LINEINFO_WATCH_IOCTL` та `GPIO_GET_LINEINFO_UNWATCH_IOCTL`
 
 Підписка на асинхронне відстеження змін конфігурації лінії іншими процесами або драйверами ядра.
 
@@ -78,7 +78,7 @@ struct gpio_v2_line_info_changed {
   * `GPIO_V2_LINE_CHANGED_RELEASED` (`2`): Лінію вивільнено, вона повернулася у стан за замовчуванням.
   * `GPIO_V2_LINE_CHANGED_CONFIG_CHANGED` (`3`): Змінено конфігурацію лінії (напрямок, bias, debounce).
 * **Сигнатура виклику:** `ioctl(chip_fd, GPIO_V2_GET_LINEINFO_WATCH_IOCTL, struct gpio_v2_line_info *info)`
-* **Кодування ioctl:** `_IOWR('B', 0x06, struct gpio_v2_line_info)`
+* **Кодування ioctl:** `_IOWR(0xB4, 0x06, struct gpio_v2_line_info)`; скасування підписки — `GPIO_GET_LINEINFO_UNWATCH_IOCTL`, `_IOWR(0xB4, 0x0C, __u32)`, аргументом якого є саме зміщення лінії
 * **Механізм зчитання:** Після оформлення підписки дескриптор `chip_fd` починає сигналізувати про наявність нових даних через `poll()` / `epoll()`. Програма зчитує структури `gpio_v2_line_info_changed` за допомогою системного виклику `read(chip_fd, &changed_info, sizeof(changed_info))`.
 
 ---
@@ -107,7 +107,7 @@ struct gpio_v2_line_request {
   * `event_buffer_size`: Кількість елементів `struct gpio_v2_line_event` у внутрішньому кільцевому буфері ядра. Якщо передано 0, ядро автоматично виділяє розмір буфера.
   * `fd`: Результуючий файловий дескриптор. При успішному виконанні ядро створює новий файл у VFS та повертає його дескриптор у цьому полі.
 * **Сигнатура виклику:** `ioctl(chip_fd, GPIO_V2_GET_LINE_IOCTL, struct gpio_v2_line_request *req)`
-* **Кодування ioctl:** `_IOWR('B', 0x07, struct gpio_v2_line_request)`
+* **Кодування ioctl:** `_IOWR(0xB4, 0x07, struct gpio_v2_line_request)`
 
 ---
 
@@ -120,22 +120,26 @@ struct gpio_v2_line_config {
     __u64 flags;        /* Глобальні прапори за замовчуванням для всіх ліній */
     __u32 num_attrs;    /* Кількість активних елементів у attrs[] (до 10) */
     __u32 padding[5];
-    struct gpio_v2_line_attribute attrs[10]; /* Перевизначення атрибутів */
+    struct gpio_v2_line_config_attribute attrs[10]; /* Перевизначення атрибутів */
 };
 ```
 
-Структура індивідуального атрибута `gpio_v2_line_attribute`:
+Сам атрибут маски не містить — її додає обгортка `gpio_v2_line_config_attribute`, з яких і складається масив `attrs[]` у конфігурації:
 
 ```c
 struct gpio_v2_line_attribute {
     __u32 id;           /* Ідентифікатор атрибута (GPIO_V2_LINE_ATTR_ID_*) */
     __u32 padding;
-    __u64 mask;         /* Бітова маска ліній з offsets[], до яких застосовується атрибут */
     union {
         __u64 flags;                /* Нові прапори, якщо id == ATTR_ID_FLAGS */
         __u64 values;               /* Логічні значення, якщо id == ATTR_ID_OUTPUT_VALUES */
         __u32 debounce_period_us;   /* Період придушення брязкоту в мкс, якщо ATTR_ID_DEBOUNCE */
     };
+};
+
+struct gpio_v2_line_config_attribute {
+    struct gpio_v2_line_attribute attr; /* Сам атрибут */
+    __u64 mask;                         /* Маска ліній з offsets[], до яких він застосовується */
 };
 ```
 
@@ -186,10 +190,10 @@ struct gpio_v2_line_values {
 ```
 
 * **Зчитування рівнів:** `ioctl(line_fd, GPIO_V2_LINE_GET_VALUES_IOCTL, struct gpio_v2_line_values *val)`
-  * **Кодування ioctl:** `_IOWR('B', 0x0E, struct gpio_v2_line_values)`
+  * **Кодування ioctl:** `_IOWR(0xB4, 0x0E, struct gpio_v2_line_values)`
   * **Опис:** Додаток записує у `val.mask` біти ліній, стан яких потрібно дізнатися. Ядро повертає актуальні рівні у `val.bits`.
 * **Запис рівнів:** `ioctl(line_fd, GPIO_V2_LINE_SET_VALUES_IOCTL, struct gpio_v2_line_values *val)`
-  * **Кодування ioctl:** `_IOWR('B', 0x0F, struct gpio_v2_line_values)`
+  * **Кодування ioctl:** `_IOWR(0xB4, 0x0F, struct gpio_v2_line_values)`
   * **Опис:** Додаток виставляє у `val.mask` біти ліній для зміни, а у `val.bits` — бажані логічні значення.
 
 ---
@@ -199,7 +203,7 @@ struct gpio_v2_line_values {
 Атомарна зміна режимів роботи або конфігурації відкритих ліній без закриття дескриптора `line_fd`.
 
 * **Сигнатура виклику:** `ioctl(line_fd, GPIO_V2_LINE_SET_CONFIG_IOCTL, struct gpio_v2_line_config *cfg)`
-* **Кодування ioctl:** `_IOWR('B', 0x0D, struct gpio_v2_line_config)`
+* **Кодування ioctl:** `_IOWR(0xB4, 0x0D, struct gpio_v2_line_config)`
 * **Опис:** Виклик дозволяє безперервно перемикати лінії між режимами входу та виходу, змінювати затримки дебаунсу або прапори підтяжки без вивільнення володіння лінією у ядрі.
 
 ---
@@ -211,7 +215,7 @@ struct gpio_v2_line_values {
 ```c
 struct gpio_v2_line_event {
     __u64 timestamp_ns; /* Часова мітка виникнення переривання у наносекундах */
-    __u32 id;           /* Тип фронту: GPIO_V2_LINE_EVENT_GENERAL_RISING (1) або FALLING (2) */
+    __u32 id;           /* Тип фронту: GPIO_V2_LINE_EVENT_RISING_EDGE (1) або FALLING_EDGE (2) */
     __u32 offset;       /* Індекс лінії на контролері, де виникла подія */
     __u32 seqno;        /* Глобальний порядковий номер події для даного Line FD */
     __u32 line_seqno;   /* Порядковий номер події конкретно для цієї лінії */
@@ -228,9 +232,8 @@ struct gpio_v2_line_event {
 Під час виконання системних викликів `ioctl()` над символьним пристроєм GPIO ядро може повертати такі стандартні коди помилок у змінній `errno`:
 
 * `EBUSY` ("Device or resource busy"): Щонайменше одна з вказаних у запиті ліній вже захоплена іншим процесом, драйвером ядра або зарезервована підсистемою pinctrl.
-* `EINVAL` ("Invalid argument"): Передано некоректний offset лінії (поза межами `0 .. lines-1`), вказано суперечливі прапори (наприклад, одночасно `INPUT` та `OUTPUT`), або перевищено розмір атрибутів.
+* `EINVAL` ("Invalid argument"): Передано некоректний offset лінії (поза межами `0 .. lines-1`), вказано суперечливі прапори (наприклад, одночасно `INPUT` та `OUTPUT`), або порушено ліміти запиту (`num_lines` поза межами 1..64, `num_attrs` більше за 10).
 * `ENODEV` ("No such device"): Символьний пристрій `/dev/gpiochipN` відсутній у системі або відповідний драйвер контролера було розвантажено з ядра.
-* `E2BIG` ("Argument list too long"): Передано більше 64 ліній у списку `offsets[]` або кількість атрибутів `num_attrs` перевищує допустимий ліміт 10.
-* `EPERM` ("Operation not permitted"): Недостатньо прав доступу VFS для виконання запису у символьний пристрій.
-* `ENOMEM` ("Out of memory"): Недокількість системної оперативної пам'яті у ядрі для виділення внутрішнього кільцевого буфера подій `kfifo`.
-* `EFAULT` ("Bad address"): Покажчик на структуру даних, переданий у виклик `ioctl()`, посилається на недійсний ділянку адресної пам'яті простору користувача.
+* `EACCES` ("Permission denied"): немає прав на відкриття `/dev/gpiochipN` — цю помилку повертає ще `open()`, коли користувач не входить у групу, якій udev віддав пристрій.
+* `ENOMEM` ("Out of memory"): Ядру бракує пам'яті для виділення внутрішнього кільцевого буфера подій `kfifo`.
+* `EFAULT` ("Bad address"): Покажчик на структуру даних, переданий у виклик `ioctl()`, вказує на недійсну ділянку адресного простору процесу.

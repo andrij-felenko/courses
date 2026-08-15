@@ -17,13 +17,16 @@
 
 Для аналізу шляху виконуваного файлу програма використовує безпечний хелпер `bpf_d_path()`. Результат перевіряється на наявність префіксу забороненого каталогу `/tmp/`. Якщо шлях починається з цього префіксу, програма заповнює структуру аудиту для Ring Buffer та повертає код помилки `-EACCES`.
 
-Під час резервування пам'яті в `BPF Ring Buffer` за допомогою `bpf_ringbuf_reserve()` ядро виділяє заголовок події у кільцевому масиві спільної пам'яті. Це гарантує атомарність операції для кількох паралельно працюючих ядер процесора без використання Spinlocks. Після заповнення полів `pid`, `uid`, `comm` та `filename` програма публікує запис викликом `bpf_ringbuf_submit()`, роблячи його доступним для користувацького демона.
+Під час резервування пам'яті в `BPF Ring Buffer` за допомогою `bpf_ringbuf_reserve()` ядро виділяє заголовок події у кільцевому масиві спільної пам'яті. Резервування атомарне, тож кілька ядер процесора можуть писати у той самий буфер одночасно, не заважаючи одне одному, а споживач бачить лише вже опубліковані записи. Після заповнення полів `pid`, `uid`, `comm` та `filename` програма публікує запис викликом `bpf_ringbuf_submit()`, роблячи його доступним для користувацького демона.
 
 ```c
 #include <vmlinux.h>
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
+
+// vmlinux.h не містить макросів errno — потрібні коди оголошуємо самі
+#define EACCES 13
 
 char _license[] SEC("license") = "GPL";
 
@@ -138,6 +141,9 @@ int BPF_PROG(restrict_exec, struct linux_binprm *bprm)
 // C (libbpf Native C Implementation)
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <errno.h>
 #include <signal.h>
 #include <unistd.h>
 #include <bpf/libbpf.h>
@@ -247,14 +253,14 @@ int main(int argc, char **argv)
 }
 ```
 ```cpp
-// C++ (Modern C++20 Idiomatic Implementation with RAII & std::span)
+// C++ (Modern C++20 Idiomatic Implementation with RAII)
 #include <iostream>
 #include <memory>
 #include <string_view>
 #include <csignal>
 #include <atomic>
-#include <system_error>
-#include <span>
+#include <cstdint>
+#include <cerrno>
 
 #include <bpf/libbpf.h>
 #include <bpf/bpf.h>
@@ -400,7 +406,7 @@ cat /sys/kernel/security/lsm
 sudo ./lsm_loader
 ```
 
-Якщо при запуску `lsm_loader` виникає помилка `Function not implemented` або `Invalid argument`, слід переконатися, що параметр завантаження ядра містить `bpf` серед переліку активних модулів безпеки (`lsm=capability,landlock,lockdown,bpf,apparmor` у параметрах GRUB).
+Якщо при запуску `lsm_loader` виникає помилка `Function not implemented` або `Invalid argument`, слід переконатися, що параметр завантаження ядра містить `bpf` серед переліку активних модулів безпеки (`lsm=lockdown,capability,landlock,yama,apparmor,bpf` у параметрах GRUB).
 
 Після успішного запуску монітора відкрийте сусідній термінал і спробуйте створити й виконати будь-який бінарний файл або сценарій у системному каталозі `/tmp`:
 

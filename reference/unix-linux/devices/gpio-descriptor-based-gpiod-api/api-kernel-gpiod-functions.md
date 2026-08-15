@@ -10,12 +10,13 @@
 
 ```c
 enum gpiod_flags {
-    GPIOD_ASIS               = 0,
-    GPIOD_IN                 = 1,
-    GPIOD_OUT_LOW            = 2,
-    GPIOD_OUT_HIGH           = 3,
-    GPIOD_OUT_LOW_OPEN_DRAIN = 6,
-    GPIOD_OUT_HIGH_OPEN_DRAIN= 7,
+    GPIOD_ASIS                = 0,
+    GPIOD_IN                  = GPIOD_FLAGS_BIT_DIR_SET,
+    GPIOD_OUT_LOW             = GPIOD_FLAGS_BIT_DIR_SET | GPIOD_FLAGS_BIT_DIR_OUT,
+    GPIOD_OUT_HIGH            = GPIOD_FLAGS_BIT_DIR_SET | GPIOD_FLAGS_BIT_DIR_OUT |
+                                GPIOD_FLAGS_BIT_DIR_VAL,
+    GPIOD_OUT_LOW_OPEN_DRAIN  = GPIOD_OUT_LOW  | GPIOD_FLAGS_BIT_OPEN_DRAIN,
+    GPIOD_OUT_HIGH_OPEN_DRAIN = GPIOD_OUT_HIGH | GPIOD_FLAGS_BIT_OPEN_DRAIN,
 };
 ```
 
@@ -34,7 +35,7 @@ enum gpiod_flags {
 
 ## 2. Функції отримання та вивільнення дескрипторів
 
-Усі функції заголовочного файла `<linux/gpio/consumer.h>` поділяються на дві категорії: базові (вимагають ручного виклику `gpiod_put()`) та Devres-керовані (з автоматичним очищенням ресурсів при вилученні пристрою).
+Усі функції заголовкового файла `<linux/gpio/consumer.h>` поділяються на дві категорії: базові (вимагають ручного виклику `gpiod_put()`) та Devres-керовані (з автоматичним очищенням ресурсів при вилученні пристрою).
 
 ### 2.1. Базовий API (Manual Resource Management)
 
@@ -87,7 +88,7 @@ void devm_gpiod_put(struct device *dev, struct gpio_desc *desc);
 
 ### 3.1. Кодування коду помилки у вказівник (`ERR_PTR`)
 
-Функції `gpiod_get*` не повертають `NULL` у разі виникнення збою. Натомість вони використовують ядерну концепцію кодування негативного цілочисельного коду помилки у значення вказівника (діапазон адрес верхньої сторінки пам'яті `0xFFFFF000..0xFFFFFFFF`).
+Функції `gpiod_get*` не повертають `NULL` у разі виникнення збою. Натомість вони використовують ядерну концепцію кодування негативного цілочисельного коду помилки у значення вказівника: помилці відповідають останні `MAX_ERRNO` (4095) значень адресного простору — від `-MAX_ERRNO` до `-1`, які ніколи не бувають дійсними адресами.
 
 Для перевірки результату виклику використовуються спеціальні макроси:
 
@@ -155,7 +156,7 @@ int gpiod_get_raw_value_cansleep(const struct gpio_desc *desc);
 void gpiod_set_raw_value_cansleep(struct gpio_desc *desc, int value);
 ```
 
-> 🛑 **Попередження:** Виклик `gpiod_set_value()` замість `gpiod_set_value_cansleep()` для зовнішнього розширювача I2C при призведе до спрацювання системного макросу ядра `might_sleep()` та виводу стек-трейсу помилки у `dmesg`, якщо виклик здійснено всередині спінлоку або переривання.
+> 🛑 **Попередження:** Виклик `gpiod_set_value()` замість `gpiod_set_value_cansleep()` для зовнішнього розширювача I2C спричиняє спрацювання перевірки `WARN_ON(desc->gdev->can_sleep)` і вивід стек-трейсу у `dmesg` — незалежно від того, з якого контексту зроблено виклик.
 
 ---
 
@@ -182,7 +183,7 @@ void gpiod_set_array_value(unsigned int array_size,
                            struct gpio_array *array_info, 
                            unsigned long *value_bitmap);
 
-/* Пакетне встановлення значений для розширювачів I2C/SPI з сном */
+/* Пакетне встановлення значень для розширювачів I2C/SPI з сном */
 void gpiod_set_array_value_cansleep(unsigned int array_size, 
                                     struct gpio_desc **desc_array,
                                     struct gpio_array *array_info, 
@@ -202,4 +203,4 @@ int gpiod_to_irq(const struct gpio_desc *desc);
 ```
 
 * **Призначення:** Повертає віртуальний номер системного переривання (Linux IRQ number), який можна передати у `request_threaded_irq()` або `devm_request_threaded_irq()`.
-* **Помилка:** Повертає від'ємне значення (наприклад, `-EINVAL`), якщо вказана лінія не має апаратної підтримки генерації переривань або не налаштована у контролері переривань (`irq_domain`).
+* **Помилка:** Повертає `-ENXIO`, якщо контролер лінії не реалізує метод `to_irq()` — тобто вказана лінія не має апаратної підтримки генерації переривань або не прив'язана до контролера переривань (`irq_domain`).

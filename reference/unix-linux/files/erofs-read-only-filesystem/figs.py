@@ -17,7 +17,7 @@ def fig_erofs_architecture():
     W, H = 1180, 680
     p = []
 
-    p.append(fitbox(40, 60, 240, 60, "Блок 0 (1024 байти)\nСуперблок 0xE0F5E1E2", size=14,
+    p.append(fitbox(40, 60, 240, 60, "Блок 0 (4 КБ)\nСуперблок на зсуві 1024 Б", size=14,
                     fill=BLUE_FILL, stroke=NEG, bold=True))
     
     p.append(fitbox(310, 60, 380, 60, "Таблиці індексних вузлів (Inodes)\nCompact (32B) або Extended (64B)", size=14,
@@ -94,7 +94,7 @@ def fig_fixed_input_vs_fixed_output():
     p.append(fitbox(100, 440, 980, 240,
                     "Порівняльний підсумок ефективності:\n\n"
                     "• Read Amplification (підвищення обсягу зчитування):\n"
-                    "  SquashFS: зчитує до 32x більше даних, ніж потрібно для однієї 4 КБ сторінки.\n"
+                    "  SquashFS: розпаковує до 32× більше даних, ніж потрібно для однієї 4 КБ сторінки.\n"
                     "  EROFS: зчитує точно один або мінімальну кількість 4 КБ блоків (1x-2x amplification).\n\n"
                     "• Тимчасові буфери оперативної пам'яті:\n"
                     "  SquashFS: вимагає проміжного буфера декомпресії в RAM.\n"
@@ -112,7 +112,7 @@ def fig_inplace_decompression_pipeline():
         ("1. Читання сторінки", "Запит VFS page read fault\nдля логічної 4 КБ сторінки", BLUE_FILL, NEG),
         ("2. Пошук у Bmap", "Перетворення логічного зсуву\nу фізичний кластер диска", FILL, LINE),
         ("3. Драйвер пристрою", "Пряме читання 4 КБ блоку\nіз диска (Block I/O)", FILL, LINE),
-        ("4. Decompressor", "Rolling LZ4 / Zstd\nв режимі in-place / pcluster", GREEN_FILL, FIELD),
+        ("4. Decompressor", "LZ4 / Zstd у ковзному\nрежимі in-place", GREEN_FILL, FIELD),
         ("5. Заповнення Cache", "Дані записані прямо у цільові\nсторінки Page Cache RAM", GREEN_FILL, FIELD),
     ]
 
@@ -135,7 +135,7 @@ def fig_inplace_decompression_pipeline():
                     "4. Копіювання з B у цільові сторінки Page Cache.\n"
                     "5. Звільнення буферів A та B.\n\n"
                     "❌ Результат: подвійне копіювання, навантаження на kmalloc,\n"
-                    "  затримки таймінгу та фрагментація RAM.",
+                    "  сплески затримок та фрагментація RAM.",
                     size=13, fill=RED_FILL, stroke=POS))
 
     p.append(fitbox(610, 250, 510, 360,
@@ -165,7 +165,7 @@ def fig_erofs_container_stack():
                     "Класичний підхід (OverlayFS layer stack):\n"
                     "• Десятки шарів tgz розпаковуються в каталоги\n"
                     "• Мільйони окремих inodes/dentries у пам'яті\n"
-                    "• Оверхед dentry cache та повільний старт",
+                    "• Тиск на dentry cache та повільний старт",
                     size=13, fill=RED_FILL, stroke=POS))
 
     p.append(fitbox(620, 150, 520, 110,
@@ -179,9 +179,9 @@ def fig_erofs_container_stack():
 
     p.append(fitbox(400, 300, 560, 100,
                     "Шар ядра Linux: EROFS + FS-Cache (erofs over fscache)\n"
-                    "• Надекономне онлайн-завантаження блоків (On-demand pulling)\n"
+                    "• Ощадне онлайн-завантаження блоків (On-demand pulling)\n"
                     "• Запитуються лише ті 4 КБ блоки, які дійсно читаються під час старту\n"
-                    "• Прямий доступ через VFS без каскаду шарів OverlayFS",
+                    "• Прямий доступ через VFS без розпакованих шарів OverlayFS",
                     size=13, fill=WARM_FILL, stroke=WARM, bold=True))
 
     p.append(arrow(680, 400, 680, 435))

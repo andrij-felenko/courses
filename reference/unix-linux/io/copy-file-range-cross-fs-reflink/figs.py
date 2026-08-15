@@ -66,13 +66,13 @@ def vfs_copy_cascade_hierarchy():
     frags.append(arrow(400, 95, 400, 120, color="#64748b"))
     
     # Level 1: Same SB Reflink
-    n1, _, _ = textbox(400, 140, "Рівень 1: Reflink / Extent Cloning (sb_in == sb_out)\nВказівник file_in->f_op->remap_file_range (CoW на рівні метаданих ФС)", size=10, fill="#f0fdf4", stroke="#22c55e", rx=4)
+    n1, _, _ = textbox(400, 140, "Рівень 1: Reflink / Extent Cloning (sb_in == sb_out)\nВказівник file_out->f_op->remap_file_range (CoW на рівні метаданих ФС)", size=10, fill="#f0fdf4", stroke="#22c55e", rx=4)
     frags.append(n1)
     frags.append(arrow(400, 165, 400, 190, color="#64748b"))
     frags.append(text(415, 180, "Якщо rfr не підтримується або sb_in != sb_out (Cross-FS)", size=9, color="#64748b", anchor="start"))
     
     # Level 2: File System Specific / SSC
-    n2, _, _ = textbox(400, 210, "Рівень 2: Хук ФС file_in->f_op->copy_file_range\nServer-Side Copy (NFS v4.2 SSC, SMB3 CopyChunk) / Cross-Mount Offload", size=10, fill="#fff7ed", stroke="#f97316", rx=4)
+    n2, _, _ = textbox(400, 210, "Рівень 2: Хук ФС file_out->f_op->copy_file_range\nServer-Side Copy (NFS v4.2 SSC, SMB3 CopyChunk) / Cross-Mount Offload", size=10, fill="#fff7ed", stroke="#f97316", rx=4)
     frags.append(n2)
     frags.append(arrow(400, 235, 400, 260, color="#64748b"))
     frags.append(text(415, 250, "Якщо f_op->copy_file_range = NULL", size=9, color="#64748b", anchor="start"))
@@ -128,7 +128,7 @@ def offload_mechanisms_comparison():
     frags.append(text(492, 85, "3. Server-Side Copy", size=12, bold=True, anchor="middle", color="#9a3412"))
     c3_1, _, _ = textbox(492, 130, "RPC NFSv4.2 COPY /\nSMB3 CopyChunk", size=9, fill="#ffffff", stroke="#fb923c", rx=4)
     c3_2, _, _ = textbox(492, 210, "Локальне копіювання\nна сервері сховища\nбез мережі", size=9, fill="#ffffff", stroke="#fb923c", rx=4)
-    c3_3, _, _ = textbox(492, 300, "Швидкість: Диск серв.\nМережа трафік: 0 B\nКлієнт CPU: 0%", size=9, fill="#ffffff", stroke="#c2410c", rx=4)
+    c3_3, _, _ = textbox(492, 300, "Швидкість: диск серв.\nМережа: лише RPC\nКлієнт CPU: 0%", size=9, fill="#ffffff", stroke="#c2410c", rx=4)
     frags.extend([c3_1, c3_2, c3_3])
     frags.append(arrow(492, 155, 492, 185, color="#ea580c"))
     frags.append(arrow(492, 235, 492, 275, color="#ea580c"))

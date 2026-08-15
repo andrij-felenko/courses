@@ -27,7 +27,7 @@ def fig_uid_mapping_translation():
     f.append(b1)
     b2, _, _ = textbox(265, 305, "Діапазон SubUID (/etc/subuid)\nHost UID 100000 .. 165535", size=13, pad=12, fill="#ffffff", stroke="#2457d6", rx=6)
     f.append(b2)
-    b3, _, _ = textbox(265, 395, "Невідображені UID хоста\nHost UID > 200000 -> nobody (65534)", size=12, pad=8, fill="#fff5f5", stroke="#c0392b", rx=6)
+    b3, _, _ = textbox(265, 395, "Невідображені UID хоста\nпоза 1000 та 100000..165535 -> nobody (65534)", size=12, pad=8, fill="#fff5f5", stroke="#c0392b", rx=6)
     f.append(b3)
 
     # Контейнер User Namespace
@@ -35,7 +35,7 @@ def fig_uid_mapping_translation():
     f.append(text(785, 125, "Новий User Namespace (Контейнер)", size=15, bold=True, color="#27ae60"))
 
     # Блоки контейнера
-    b4, _, _ = textbox(785, 185, "Суперкористувач контейнера (UID 0)\nправа CAP_SYS_ADMIN у своєму_ns", size=13, pad=12, fill="#ffffff", stroke="#27ae60", rx=6)
+    b4, _, _ = textbox(785, 185, "Суперкористувач контейнера (UID 0)\nCAP_SYS_ADMIN лише в межах цього ns", size=13, pad=12, fill="#ffffff", stroke="#27ae60", rx=6)
     f.append(b4)
     b5, _, _ = textbox(785, 305, "Користувачі та сервіси контейнера\nUID 1 .. 65536 (daemon, www-data)", size=13, pad=12, fill="#ffffff", stroke="#27ae60", rx=6)
     f.append(b5)
@@ -99,11 +99,11 @@ def fig_idmapped_mounts_vfs():
 
     # Шари системи
     # 1. Physical Disk / FS Layer
-    b_disk, _, _ = textbox(200, 240, "Дискова файлова система\n(ext4 / xfs / btrfs)\n\nInode owner: UID 100000\nФізичний вміст тома", size=14, pad=14, fill="#f4f6f8", stroke="#333333", rx=8)
+    b_disk, _, _ = textbox(200, 240, "Дискова файлова система\n(ext4 / xfs / btrfs)\n\nInode owner: UID 1000\nФізичний вміст тома", size=14, pad=14, fill="#f4f6f8", stroke="#333333", rx=8)
     f.append(b_disk)
 
     # 2. VFS Layer (ID-mapped mount)
-    b_vfs, _, _ = textbox(510, 240, "Шар VFS (ID-mapped Mount)\nmnt_userns відображення\n\nТрансляція на льоту:\nUID 100000 <-> UID 0", size=14, pad=14, fill="#eef3fd", stroke="#2457d6", rx=8)
+    b_vfs, _, _ = textbox(510, 240, "Шар VFS (ID-mapped Mount)\nmnt_userns відображення\n\nТрансляція на льоту:\nUID 1000 <-> UID 0", size=14, pad=14, fill="#eef3fd", stroke="#2457d6", rx=8)
     f.append(b_vfs)
 
     # 3. User Space / Container

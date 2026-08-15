@@ -349,7 +349,7 @@ clean:
 ```sh
 $ make
 $ sudo insmod cpucache.ko
-$ sudo dmesg | tail -6
+$ sudo dmesg | tail -5
 cpucache: startup  cpu=0 count=8 (біжу на cpu0)
 cpucache: startup  cpu=1 count=8 (біжу на cpu1)
 cpucache: startup  cpu=2 count=8 (біжу на cpu2)
@@ -382,10 +382,10 @@ cpu  online  count  hits  misses  filled  drained
 
 ```sh
 $ grep cpucache /sys/devices/system/cpu/hotplug/states
- 220: cpucache:online
-$ tail -3 /sys/devices/system/cpu/hotplug/states
- 232: sched:active
- 233: online
+220: cpucache:online
+$ tail -2 /sys/devices/system/cpu/hotplug/states
+232: sched:active
+233: online
 $ cat /sys/devices/system/cpu/cpu3/hotplug/state
 233
 ```
@@ -444,9 +444,9 @@ tee: /sys/devices/system/cpu/cpu3/hotplug/target: Resource temporarily unavailab
 $ cat /sys/devices/system/cpu/cpu3/hotplug/state
 219
 $ sudo dmesg | tail -3
-cpucache: teardown cpu=3 злито 8, у пулі 8
+cpucache: teardown cpu=3 злито 8, у пулі 16
 cpucache: startup  cpu=3 count=8 (біжу на cpu3)
-cpucache: teardown cpu=3 злито 8, у пулі 8
+cpucache: teardown cpu=3 злито 8, у пулі 24
 ```
 
 Ось воно все, у трьох рядках. Спуск покликав наш `teardown`. Підйом дійшов до `220`, покликав наш `startup` — запас наповнився. На `232` підставилася помилка, і машина станів пішла назад, скасовуючи все, що встигла зробити, — зокрема й наш стан, звідки третій рядок. Ядро процесора лишилося там, звідки вирушало, а `tee` чесно повідомив `EAGAIN`.

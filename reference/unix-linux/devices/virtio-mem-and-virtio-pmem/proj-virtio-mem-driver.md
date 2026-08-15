@@ -37,6 +37,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <inttypes.h>
 
 #define SUBBLOCK_SIZE_BYTES (2 * 1024 * 1024ULL) /* 2 МБ суб-блок */
 #define MAX_SUBBLOCKS 64                       /* Вікно 128 МБ */
@@ -79,8 +80,8 @@ int virtio_mem_plug_blocks(virtio_mem_device_t *dev, uint64_t target_bytes) {
             dev->blocks[i] = BLOCK_STATE_PLUGGED;
             dev->plugged_size += SUBBLOCK_SIZE_BYTES;
             plugged_now++;
-            printf("[virtio-mem C] Блок #%u (GPA: 0x%lx) -> PLUGGED\n",
-                   i, dev->gpa_start + (i * SUBBLOCK_SIZE_BYTES));
+            printf("[virtio-mem C] Блок #%u (GPA: 0x%" PRIx64 ") -> PLUGGED\n",
+                   i, dev->gpa_start + (uint64_t)i * SUBBLOCK_SIZE_BYTES);
         }
     }
     return (int)plugged_now;
@@ -100,8 +101,8 @@ int virtio_mem_unplug_blocks(virtio_mem_device_t *dev, uint64_t target_bytes) {
             dev->blocks[(uint32_t)i] = BLOCK_STATE_UNPLUGGED;
             dev->plugged_size -= SUBBLOCK_SIZE_BYTES;
             unplugged_now++;
-            printf("[virtio-mem C] Блок #%d (GPA: 0x%lx) -> UNPLUGGED\n",
-                   i, dev->gpa_start + ((uint32_t)i * SUBBLOCK_SIZE_BYTES));
+            printf("[virtio-mem C] Блок #%d (GPA: 0x%" PRIx64 ") -> UNPLUGGED\n",
+                   i, dev->gpa_start + (uint64_t)i * SUBBLOCK_SIZE_BYTES);
         } else if (dev->blocks[(uint32_t)i] == BLOCK_STATE_UNMOVABLE) {
             printf("[virtio-mem C] Блок #%d містить unmovable pages -> Пропущено\n", i);
         }
@@ -122,7 +123,7 @@ int main(void) {
     printf("\n--- Запит на зменшення до 4 МБ (Unplug 12 МБ) ---\n");
     virtio_mem_unplug_blocks(&dev, 4 * 1024 * 1024ULL);
 
-    printf("\nПідсумковий plugged_size: %lu МБ\n", dev.plugged_size / (1024 * 1024));
+    printf("\nПідсумковий plugged_size: %" PRIu64 " МБ\n", dev.plugged_size / (1024 * 1024));
     return 0;
 }
 ```
@@ -238,7 +239,7 @@ int main() {
 Кожна мова демонструє свій підхід до виділення ресурсів, безпеки типів та обробки помилок у низькорівневих драйверах.
 
 ### 1. Керування пам'яттю та динамічне виділення
-* **C-версія:** Використовує стасуваний або статично зарезервований масив станів усередині структури `virtio_mem_device_t`. Це підхід, ідентичний реальному коду ядра Linux `drivers/virtio/virtio_mem.c`. Динамічне виділення пам'яті через `kmalloc` усередині обробника переривань є небажаним, тому стан заздалегідь розраховується на весь `region_size`.
+* **C-версія:** Використовує статично зарезервований масив станів усередині структури `virtio_mem_device_t`. Це підхід, ідентичний реальному коду ядра Linux `drivers/virtio/virtio_mem.c`. Динамічне виділення пам'яті через `kmalloc` усередині обробника переривань є небажаним, тому стан заздалегідь розраховується на весь `region_size`.
 * **C++20 версія:** Застосовує `std::vector<MemBlock>` з попереднім резервуванням пам'яті `reserve()`. Об'єкт гарантує RAII-збереження ресурсів: при знищенні екземпляра `VirtioMemDevice` вектор автоматично вивільняє пам'ять без ризику витоків.
 
 ### 2. Ітератори та алгоритми сканування
@@ -253,7 +254,7 @@ int main() {
 
 ## Модуль обробки флаш-запитів virtio-pmem
 
-У пристроях перзистентної пам'яті `virtio-pmem` операції читання та запису проходять через прямо відображені сторінки BAR (DAX). Проте операції забезпечення стійкості (durability) надсилаються через віртчергу. Обробник хоста (QEMU) повинен викликати системний виклик `fdatasync()` для примусового збереження даних на фізичному диску.
+У пристроях перзистентної пам'яті `virtio-pmem` операції читання та запису проходять через сторінки, прямо відображені у фізичний адресний простір гостя (DAX). Проте операції забезпечення стійкості (durability) надсилаються через віртчергу. Обробник хоста (QEMU) повинен викликати системний виклик `fdatasync()` для примусового збереження даних на фізичному диску.
 
 :::tabs
 ```c
@@ -294,11 +295,12 @@ int handle_virtio_pmem_request(int backend_fd, const struct virtio_pmem_req *req
 }
 ```
 ```cpp
-// virtio_pmem_flush.cpp — Обробник флаш-запитів мовою C++ (RAII + expected)
+// virtio_pmem_flush.cpp — Обробник флаш-запитів мовою C++ (std::expected замість кодів помилок)
 #include <iostream>
 #include <cstdint>
 #include <expected>
 #include <system_error>
+#include <cerrno>
 #include <unistd.h>
 
 enum class PmemReqType : uint32_t {

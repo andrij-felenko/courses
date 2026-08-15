@@ -62,7 +62,8 @@ def fig_virtio_mem_arch():
     info_box, _, _ = textbox(cx, 630, [
         "Гнучкість sub-block unplug:",
         "Якщо Блок #1 містить непереміщувані дані ядра (unmovable pages), virtio-mem пропускає його,",
-        "але успішно повертає господарю Блок #3. На відміну від ACPI DIMM, система не блокується повністю."
+        "але успішно вивільняє й повертає господарю Блок #2 (Блок #3 віддано ще раніше).",
+        "На відміну від ACPI DIMM, вилучення не скасовується цілком."
     ], size=12.5, pad=14, fill=GREEN_FILL, stroke=FIELD, sw=1.3, min_w=960)
     p.append(info_box)
 
@@ -99,7 +100,7 @@ def fig_virtio_pmem_dax_flush():
     p.append(dax_fs)
     p.append(arrow(lx, 345, lx, 405))
 
-    dax_bar, _, _ = textbox(lx, 440, ["Прямий доступ до BAR пам'яті хоста\n(Без копіювання в page cache гостя)"], size=12.5, pad=13, fill=BLUE_FILL, stroke=LINE, sw=1.4, min_w=460)
+    dax_bar, _, _ = textbox(lx, 440, ["Прямий доступ до пам'яті хоста у вікні GPA\n(Без копіювання в page cache гостя)"], size=12.5, pad=13, fill=BLUE_FILL, stroke=LINE, sw=1.4, min_w=460)
     p.append(dax_bar)
 
     # Правий канал: Durability / Virtqueue Flush
@@ -108,7 +109,7 @@ def fig_virtio_pmem_dax_flush():
     p.append(flush_req)
     p.append(arrow(rx, 215, rx, 275))
 
-    virtio_drv, _, _ = textbox(rx, 310, ["virtio_pmem.ko (виправка VIRTIO_PMEM_REQ_TYPE_FLUSH)"], size=13, pad=13, fill=WARM_FILL, stroke=LINE, sw=1.4, min_w=460)
+    virtio_drv, _, _ = textbox(rx, 310, ["virtio_pmem.ko (надсилання VIRTIO_PMEM_REQ_TYPE_FLUSH)"], size=13, pad=13, fill=WARM_FILL, stroke=LINE, sw=1.4, min_w=460)
     p.append(virtio_drv)
     p.append(arrow(rx, 345, rx, 405))
 
@@ -120,7 +121,7 @@ def fig_virtio_pmem_dax_flush():
     # Нижній синтез
     syn_box, _, _ = textbox(740, 660, [
         "Чому звичайні CPU-інструкції (clwb/clflush) не гарантують збереження в VM:",
-        "Інструкція clwb гостя виштовхує дані з кешу CPU у кеш сторінок хоста або контролер RAID хоста.",
+        "Інструкція clwb гостя виштовхує дані з кешу CPU лише в пам'ять хоста або в його кеш сторінок.",
         "При аварійному вимкненні хоста ці дані втрачаються. Лише virtio_pmem flush через virtqueue",
         "примушує ядро хоста записати дані на фізичний енергонезалежний носій."
     ], size=12.5, pad=16, fill=WARM_FILL, stroke=FIELD, sw=1.4, min_w=1280)

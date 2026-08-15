@@ -15,7 +15,7 @@
 
 ### 1.1. Детальний аналіз механізму масок атрибутів
 
-У структурі `gpio_v2_line_request` масив `offsets` містить перелік фізичних пінів на контролері. Порядок елементів у цьому масиві визначає бітову позицію у масках `mask` розширених атрибутів:
+У структурі `gpio_v2_line_request` масив `offsets` містить перелік фізичних пінів на контролері. Кожен елемент `config.attrs[]` — це `struct gpio_v2_line_config_attribute`, тобто пара з самого атрибута (`attr`) та маски ліній (`mask`); порядок елементів у `offsets` визначає бітову позицію в цій масці:
 * Якщо `offsets[0] = 17` та `offsets[1] = 27`, то перший елемент (індекс 0) відповідає біту `1 << 0` (маска `0x01`), а другий елемент (індекс 1) — біту `1 << 1` (маска `0x02`).
 * Атрибут із `id = GPIO_V2_LINE_ATTR_ID_FLAGS` та `mask = 0x01` перевизначає прапори конфігурації лише для лінії 17 (робить її виходом з підтяжкою Pull-Up).
 * Атрибут із `id = GPIO_V2_LINE_ATTR_ID_DEBOUNCE` та `mask = 0x02` задає період фільтрації брязкоту 5000 мікросекунд (5 мс) лише для лінії 27.
@@ -32,7 +32,7 @@
 
 У цьому прикладі реалізовано повний цикл управління двома лініями:
 * **Лінія 17 (Offset 17):** Конфігурується як цифровий вихід із підтяжкою до живлення (`GPIO_V2_LINE_FLAG_OUTPUT | GPIO_V2_LINE_FLAG_BIAS_PULL_UP`). Після захоплення програма виставляє на ній логічну 1 через виклик `GPIO_V2_LINE_SET_VALUES_IOCTL`.
-* **Лінія 27 (Offset 27):** Конфігурується як цифровий вхід із моніторингом двох фронтів сигналу (`EDGE_RISING | EDGE_FALLING`) та фільтрацією брязкоту 5 мікросекунд (`GPIO_V2_LINE_ATTR_ID_DEBOUNCE`).
+* **Лінія 27 (Offset 27):** Конфігурується як цифровий вхід із моніторингом двох фронтів сигналу (`EDGE_RISING | EDGE_FALLING`) та фільтрацією брязкоту 5 мілісекунд (5000 мкс, `GPIO_V2_LINE_ATTR_ID_DEBOUNCE`).
 
 * **Версія мовою C:** Застосовує перевірку повернення викликів `open()`, `ioctl()`, `poll()` та `read()`. Обробка помилок спирається на макроси `perror()` та перевірку змінної `errno`. Вивільнення ресурсів виконується явно через `close(line_fd)` та `close(chip_fd)`.
 * **Версія мовою C++20:** Використовує власну шаблонізовану RAII-обгортку `sys::UniqueFd`. Вона позбавляє розробника необхідності вручну закривати файлові дескриптори у гілках обробки помилок: при виході з області видимості деструктор `UniqueFd` автоматично викликає `::close()`. Помилки системних викликів транслюються у текстові повідомлення через `std::generic_category().message(errno)`.
@@ -75,14 +75,14 @@ int main(void) {
     req.config.num_attrs = 2;
     
     /* Атрибут 0: Прапори для лінії 17 (маска 0x01 = перший елемент offsets[]) */
-    req.config.attrs[0].id = GPIO_V2_LINE_ATTR_ID_FLAGS;
+    req.config.attrs[0].attr.id = GPIO_V2_LINE_ATTR_ID_FLAGS;
+    req.config.attrs[0].attr.flags = GPIO_V2_LINE_FLAG_OUTPUT | GPIO_V2_LINE_FLAG_BIAS_PULL_UP;
     req.config.attrs[0].mask = 0x01;
-    req.config.attrs[0].flags = GPIO_V2_LINE_FLAG_OUTPUT | GPIO_V2_LINE_FLAG_BIAS_PULL_UP;
 
     /* Атрибут 1: Фільтрація брязкоту 5 мс (5000 мкс) для лінії 27 (маска 0x02 = другий елемент) */
-    req.config.attrs[1].id = GPIO_V2_LINE_ATTR_ID_DEBOUNCE;
+    req.config.attrs[1].attr.id = GPIO_V2_LINE_ATTR_ID_DEBOUNCE;
+    req.config.attrs[1].attr.debounce_period_us = 5000;
     req.config.attrs[1].mask = 0x02;
-    req.config.attrs[1].debounce_period_us = 5000;
 
     if (ioctl(chip_fd, GPIO_V2_GET_LINE_IOCTL, &req) < 0) {
         perror("Помилка виконання GPIO_V2_GET_LINE_IOCTL");
@@ -117,7 +117,7 @@ int main(void) {
         if (bytes == sizeof(event)) {
             printf("ПОДІЯ! Час: %llu нс, Фронт: %s, Лінія: %u, SeqNo: %u\n",
                    (unsigned long long)event.timestamp_ns,
-                   (event.id == GPIO_V2_LINE_EVENT_GENERAL_RISING) ? "RISING" : "FALLING",
+                   (event.id == GPIO_V2_LINE_EVENT_RISING_EDGE) ? "RISING" : "FALLING",
                    event.offset, event.seqno);
         }
     } else if (ret == 0) {
@@ -138,6 +138,8 @@ int main(void) {
 #include <system_error>
 #include <cstdint>
 #include <cstring>
+#include <cstdlib>
+#include <cerrno>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
@@ -197,14 +199,14 @@ int main() {
     req.config.num_attrs = 2;
     
     // Атрибут 0: Output + Pull-Up для лінії 17 (mask = 0x01)
-    req.config.attrs[0].id = GPIO_V2_LINE_ATTR_ID_FLAGS;
+    req.config.attrs[0].attr.id = GPIO_V2_LINE_ATTR_ID_FLAGS;
+    req.config.attrs[0].attr.flags = GPIO_V2_LINE_FLAG_OUTPUT | GPIO_V2_LINE_FLAG_BIAS_PULL_UP;
     req.config.attrs[0].mask = 0x01;
-    req.config.attrs[0].flags = GPIO_V2_LINE_FLAG_OUTPUT | GPIO_V2_LINE_FLAG_BIAS_PULL_UP;
 
     // Атрибут 1: Debounce 5000 мкс для лінії 27 (mask = 0x02)
-    req.config.attrs[1].id = GPIO_V2_LINE_ATTR_ID_DEBOUNCE;
+    req.config.attrs[1].attr.id = GPIO_V2_LINE_ATTR_ID_DEBOUNCE;
+    req.config.attrs[1].attr.debounce_period_us = 5000;
     req.config.attrs[1].mask = 0x02;
-    req.config.attrs[1].debounce_period_us = 5000;
 
     if (::ioctl(chip_fd.get(), GPIO_V2_GET_LINE_IOCTL, &req) < 0) {
         std::cerr << "Помилка ioctl GET_LINE: " << std::generic_category().message(errno) << '\n';
@@ -229,7 +231,7 @@ int main() {
         ::gpio_v2_line_event event{};
         if (::read(line_fd.get(), &event, sizeof(event)) == sizeof(event)) {
             std::cout << "ПОДІЯ C++! Timestamp: " << event.timestamp_ns << " нс, "
-                      << "Фронт: " << (event.id == GPIO_V2_LINE_EVENT_GENERAL_RISING ? "RISING" : "FALLING")
+                      << "Фронт: " << (event.id == GPIO_V2_LINE_EVENT_RISING_EDGE ? "RISING" : "FALLING")
                       << ", Пін: " << event.offset << ", SeqNo: " << event.seqno << '\n';
         }
     }
@@ -289,9 +291,11 @@ target_link_libraries(my_app PRIVATE PkgConfig::GPIODCXX)
 /* Приклад використання libgpiod v2 мовою C */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <gpiod.h>
 
 int main(void) {
+    int rc = EXIT_SUCCESS;
     struct gpiod_chip *chip = gpiod_chip_open("/dev/gpiochip0");
     if (!chip) {
         perror("Не вдалося відкрити чип через libgpiod");
@@ -325,6 +329,7 @@ int main(void) {
     struct gpiod_line_request *request = gpiod_chip_request_lines(chip, req_cfg, line_cfg);
     if (!request) {
         perror("Помилка захоплення ліній через gpiod");
+        rc = EXIT_FAILURE;
         goto cleanup;
     }
 
@@ -355,13 +360,14 @@ cleanup:
     gpiod_line_settings_free(out_settings);
     gpiod_line_settings_free(in_settings);
     gpiod_chip_close(chip);
-    return EXIT_SUCCESS;
+    return rc;
 }
 ```
 ```cpp
 // Ідіоматичний приклад C++20 з використанням сучасного libgpiod v2 C++ API (<gpiod.hpp>)
 #include <iostream>
 #include <chrono>
+#include <cstdlib>
 #include <gpiod.hpp>
 
 int main() {

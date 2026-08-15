@@ -52,7 +52,7 @@
 /* Компактний індексний вузол EROFS (32 байти) */
 struct erofs_inode_compact {
     uint16_t i_format;       /* Біти 0..0: 0=compact, 1=extended; Біти 1..3: layout */
-    uint16_t i_xattr_icount; /* Кількість інлайн-атрибутів хattr */
+    uint16_t i_xattr_icount; /* Кількість інлайн-атрибутів xattr */
     uint16_t i_mode;         /* Прапорці доступу та тип файла (POSIX mode_t) */
     uint16_t i_nlink;        /* Лічильник жорстких посилань */
     uint32_t i_size;         /* Розмір файла в байтах (до 4 ГБ) */
@@ -70,7 +70,7 @@ struct erofs_inode_compact {
 /* Розширений індексний вузол EROFS (64 байти) */
 struct erofs_inode_extended {
     uint16_t i_format;       /* Біти 0..0: 1=extended; Біти 1..3: layout */
-    uint16_t i_xattr_icount; /* Кількість інлайн-атрибутів хattr */
+    uint16_t i_xattr_icount; /* Кількість інлайн-атрибутів xattr */
     uint16_t i_mode;         /* Прапорці доступу та тип файла */
     uint16_t i_reserved1;    /* Зарезервовано */
     uint64_t i_size;         /* Повний 64-бітний розмір файла в байтах */
@@ -93,7 +93,7 @@ struct erofs_inode_extended {
 /* Компактний індексний вузол EROFS (32 байти) */
 struct alignas(2) ErofsInodeCompact {
     uint16_t i_format;       // Біти 0..0: 0=compact; Біти 1..3: layout
-    uint16_t i_xattr_icount; // Кількість інлайн-атрибутів хattr
+    uint16_t i_xattr_icount; // Кількість інлайн-атрибутів xattr
     uint16_t i_mode;         // Прапорці доступу та тип файла
     uint16_t i_nlink;        // Лічильник жорстких посилань
     uint32_t i_size;         // Розмір файла в байтах (до 4 ГБ)
@@ -111,7 +111,7 @@ struct alignas(2) ErofsInodeCompact {
 /* Розширений індексний вузол EROFS (64 байти) */
 struct alignas(4) ErofsInodeExtended {
     uint16_t i_format;       // Біти 0..0: 1=extended; Біти 1..3: layout
-    uint16_t i_xattr_icount; // Кількість інлайн-атрибутів хattr
+    uint16_t i_xattr_icount; // Кількість інлайн-атрибутів xattr
     uint16_t i_mode;         // Прапорці доступу та тип файла
     uint16_t i_reserved1;    // Зарезервовано
     uint64_t i_size;         // Повний 64-бітний розмір файла
@@ -162,8 +162,10 @@ struct alignas(4) ErofsInodeExtended {
 
 | Зсув (Байт) | Тип даних | Назва поля | Опис |
 | :--- | :--- | :--- | :--- |
-| `0x00` | `uint32_t` | `h_shared_count` | Кількість індексів у масиві спільних атрибутів (Shared xattr) |
-| `0x04` | `uint32_t[]`| `h_shared_xattrs` | Масив 32-бітних індексів, що посилаються на таблицю `xattr_blkaddr` |
+| `0x00` | `uint32_t` | `h_reserved` | Зарезервоване поле (у новіших ядрах — фільтр імен атрибутів) |
+| `0x04` | `uint8_t` | `h_shared_count` | Кількість індексів у масиві спільних атрибутів (Shared xattr) |
+| `0x05` | `uint8_t[7]`| `h_reserved2` | Вирівнювання заголовка до 12 байтів |
+| `0x0C` | `uint32_t[]`| `h_shared_xattrs` | Масив 32-бітних індексів, що посилаються на таблицю `xattr_blkaddr` |
 
 Одразу після масиву індексів розміщуються власні інлайн-записи `struct erofs_xattr_entry`:
 

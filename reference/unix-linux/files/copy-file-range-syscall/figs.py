@@ -47,7 +47,7 @@ def main():
     lbl2_fast = svgkit.text(440, 195, "Пряма передача\nбез User Space", size=11, color=svgkit.FIELD, anchor="middle", bold=True)
 
     # Footnote note
-    note = svgkit.text(410, 355, "copy_file_range копіює всередині ядра або делегує роботу сховищу чи серверу (NVMe Copy / NFS SSC / CoW)", size=12, color=svgkit.MUTED, italic=True)
+    note = svgkit.text(410, 355, "copy_file_range копіює всередині ядра, зводить копію до метаданих (CoW reflink) або делегує серверу (NFS SSC / SMB3)", size=12, color=svgkit.MUTED, italic=True)
 
     frags = [
         t1,

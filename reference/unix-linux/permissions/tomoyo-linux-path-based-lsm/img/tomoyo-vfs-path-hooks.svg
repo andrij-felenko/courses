@@ -43,7 +43,7 @@
   <text x="340" y="146" class="code" text-anchor="middle">do_sys_openat2()</text>
 
   <rect x="245" y="185" width="190" height="75" fill="#ffffff" stroke="#86efac" rx="4" />
-  <text x="340" y="206" class="label" text-anchor="middle">Розлучення VFS-структур</text>
+  <text x="340" y="206" class="label" text-anchor="middle">Розбір VFS-структур</text>
   <text x="340" y="224" class="code" text-anchor="middle">struct path { dentry, mnt }</text>
   <text x="340" y="244" class="code" text-anchor="middle">tomoyo_realpath()</text>
 
@@ -53,7 +53,7 @@
 
   <rect x="495" y="105" width="170" height="55" fill="#ffffff" stroke="#fde047" rx="4" />
   <text x="580" y="126" class="label" text-anchor="middle">LSM Hook VFS</text>
-  <text x="580" y="146" class="code" text-anchor="middle">security_path_open()</text>
+  <text x="580" y="146" class="code" text-anchor="middle">security_file_open()</text>
 
   <rect x="495" y="185" width="170" height="75" fill="#ffffff" stroke="#fde047" rx="4" />
   <text x="580" y="206" class="label" text-anchor="middle">Зіставлення з доменом</text>

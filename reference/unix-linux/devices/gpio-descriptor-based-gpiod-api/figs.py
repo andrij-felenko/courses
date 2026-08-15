@@ -36,7 +36,7 @@ def generate_figs():
     
     frags1.append(rect(355, 160, 230, 125, fill="#ffffff", stroke="#4caf50", sw=1.5, rx=6))
     frags1.append(text(470, 180, "struct gpio_desc", size=14, bold=True, color="#1b5e20"))
-    gpiolib_info = "• Chip pointer: &gpio_chip\n• Hw pin index: 10\n• Flags: GPIOD_ACTIVE_LOW\n• Label: \"reset\"\n• Active consumer: &dev"
+    gpiolib_info = "• Chip pointer: &gpio_chip\n• Hw pin index: 10\n• Flags: FLAG_ACTIVE_LOW\n• Label: \"reset\"\n• Active consumer: &dev"
     frags1.append(mtext(365, 198, gpiolib_info.split('\n'), size=11, color="#212529", anchor="start"))
     
     # Right Arrow
@@ -120,7 +120,7 @@ def generate_figs():
     b_s1, _, _ = textbox(675, 125, "Function: gpiod_set_value_cansleep()", size=13, fill="#ffffff", stroke="#f57c00", bold=True, min_w=340)
     frags3.append(b_s1)
     
-    sleep_text = "• Execution time: Milliseconds (I2C/SPI transaction)\n• Context: Threaded IRQ / Workqueue / Process only\n• Sleeping: MANDATORY (wait_for_completion / mutex)"
+    sleep_text = "• Execution time: Microseconds to milliseconds (I2C bus)\n• Context: Threaded IRQ / Workqueue / Process only\n• Sleeping: MANDATORY (wait_for_completion / mutex)"
     frags3.append(mtext(495, 185, sleep_text.split('\n'), size=11, color="#212529", anchor="start"))
     
     frags3.append(rect(490, 240, 370, 40, fill="#ffcdd2", stroke="#c62828", sw=1.5, rx=6))

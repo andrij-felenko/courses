@@ -4,7 +4,7 @@
 
 ## Постановка задачі та системні вимоги
 
-Програма виконує роль підсистеми захисту ключів шифрування диска (LUKS2) або критичних токенів доступу. Головна мета — забезпечити ситуацію, за якої 32-байтний майстер-ключ не зберігається на диску у відкритому вигляді, а створюється як запечатаний блоб під захистом апаратного чипа TPM 2.0.
+Програма виконує роль підсистеми захисту ключів шифрування диска (LUKS2) або критичних токенів доступу. Головна мета — забезпечити ситуацію, за якої майстер-ключ не зберігається на диску у відкритому вигляді, а створюється як запечатаний блоб під захистом апаратного чипа TPM 2.0.
 
 Для успішного запуску прикладу в системі повинні бути встановлені розробницькі пакети бібліотек `libtss2-dev`, `libtss2-esys0`, `libtss2-tctildr0`, а також наявний доступ до внутрішньоядерного менеджера ресурсів `/dev/tpmrm0`.
 
@@ -32,7 +32,7 @@
 2. **Генерація первинного ключа (Primary Key):** Створення первинного асиметричного ключа RSA-2048 в ієрархії `TPM2_RH_OWNER` на основі детермінованого зерна Primary Seed.
 3. **Відкриття сесії політики (Policy Session):** Запуск сесії авторизації типу `TPM2_SE_POLICY` із гешуванням SHA-256.
 4. **Фіксація стану регістрів PCR 0 та PCR 7:** Виклик `Esys_PolicyPCR` для додавання поточних підписів завантаження прошивки та Secure Boot до підсумкового `PolicyDigest`.
-5. **Запечатування корисного навантаження (Sealing):** Виклик `Esys_Create` для генерації запечатаного блобу приватної частини `TPM2B_PRIVATE`, пов'язаного із розрахованим `PolicyDigest`.
+5. **Запечатування корисного навантаження (Sealing):** Вилучення підсумкового `PolicyDigest` сесії через `Esys_PolicyGetDigest`, запис його у поле `authPolicy` шаблону об'єкта і виклик `Esys_Create` для генерації запечатаного блобу приватної частини `TPM2B_PRIVATE`.
 6. **Завантаження та розпечатування (Unseal):** Завантаження приватної/публічної частини у віртуальний простір TPM через `Esys_Load` та вилучення вихідного секрету через `Esys_Unseal` за умови успішного проходження перевірки стану PCR у сесії.
 7. **Безпечне вивантаження:** Очищення та скидання дескрипторів пам'яті через `Esys_FlushContext` для запобігання витоку ресурсів у менеджері ресурсів.
 
@@ -68,6 +68,7 @@ int main(void) {
     TPM2B_PRIVATE *out_private = NULL;
     TPM2B_PUBLIC *out_public = NULL;
     TPM2B_SENSITIVE_DATA *unsealed_data = NULL;
+    TPM2B_DIGEST *policy_digest = NULL;
 
     printf("[+] Ініціалізація TCTI та контексту ESAPI...\n");
     rc = Tss2_TctiLdr_Initialize("device:/dev/tpmrm0", &tcti_ctx);
@@ -104,7 +105,7 @@ int main(void) {
 
     printf("[+] Генерація Primary Key в ієрархії TPM2_RH_OWNER...\n");
     rc = Esys_CreatePrimary(
-        esys_ctx, TPM2_RH_OWNER,
+        esys_ctx, ESYS_TR_RH_OWNER,
         ESYS_TR_PASSWORD, ESYS_TR_NONE, ESYS_TR_NONE,
         &in_public_primary, NULL, NULL,
         &primary_handle, NULL, NULL, NULL, NULL
@@ -144,6 +145,14 @@ int main(void) {
     );
     CHECK_RC(rc, "Помилка виконання Esys_PolicyPCR");
 
+    /* 3a. Вилучення підсумкового PolicyDigest сесії */
+    rc = Esys_PolicyGetDigest(
+        esys_ctx, session_handle,
+        ESYS_TR_NONE, ESYS_TR_NONE, ESYS_TR_NONE,
+        &policy_digest
+    );
+    CHECK_RC(rc, "Помилка отримання PolicyDigest");
+
     /* 4. Запечатування секретних даних під зафіксовану політику */
     const char secret_payload[] = "MasterDiskKey-32-Bytes-Length!";
     TPM2B_SENSITIVE_CREATE in_sensitive = {
@@ -171,6 +180,10 @@ int main(void) {
             .unique.keyedHash = { .size = 0 }
         }
     };
+
+    /* Прив'язка об'єкта до розрахованої політики: без цього authPolicy порожній
+       і об'єкт із знятим USERWITHAUTH не авторизується взагалі. */
+    in_public_seal.publicArea.authPolicy = *policy_digest;
 
     printf("[+] Створення запечатаного об'єкта в TPM...\n");
     rc = Esys_Create(
@@ -201,6 +214,7 @@ int main(void) {
 
 cleanup:
     if (unsealed_data) Esys_Free(unsealed_data);
+    if (policy_digest) Esys_Free(policy_digest);
     if (out_private) Esys_Free(out_private);
     if (out_public) Esys_Free(out_public);
 
@@ -217,8 +231,10 @@ cleanup:
 ```cpp
 // tpm2_seal_lab.cpp — Ідіоматична реалізація C++20 з використанням RAII та шаблонів
 #include <iostream>
+#include <algorithm>
 #include <memory>
 #include <vector>
+#include <string>
 #include <string_view>
 #include <span>
 #include <stdexcept>
@@ -273,9 +289,9 @@ private:
 
 class Tpm2Session {
 public:
-    explicit Tpm2Session(std::string_view tctiName = "device:/dev/tpmrm0") {
+    explicit Tpm2Session(const std::string& tctiName = "device:/dev/tpmrm0") {
         TSS2_TCTI_CONTEXT* tctiRaw = nullptr;
-        TSS2_RC rc = Tss2_TctiLdr_Initialize(tctiName.data(), &tctiRaw);
+        TSS2_RC rc = Tss2_TctiLdr_Initialize(tctiName.c_str(), &tctiRaw);
         if (rc != TSS2_RC_SUCCESS) {
             throw std::runtime_error(std::format("Не вдалося відкрити TCTI: 0x{:08x}", rc));
         }
@@ -311,7 +327,7 @@ public:
             }
         };
 
-        TSS2_RC rc = Esys_CreatePrimary(ctx, TPM2_RH_OWNER, ESYS_TR_PASSWORD, ESYS_TR_NONE, ESYS_TR_NONE,
+        TSS2_RC rc = Esys_CreatePrimary(ctx, ESYS_TR_RH_OWNER, ESYS_TR_PASSWORD, ESYS_TR_NONE, ESYS_TR_NONE,
                                         &primaryTemplate, nullptr, nullptr, primaryKey.ptr(), nullptr, nullptr, nullptr, nullptr);
         if (rc != TSS2_RC_SUCCESS) {
             throw std::runtime_error(std::format("Esys_CreatePrimary помилка: 0x{:08x}", rc));
@@ -335,8 +351,18 @@ public:
             throw std::runtime_error(std::format("Esys_PolicyPCR помилка: 0x{:08x}", rc));
         }
 
+        TPM2B_DIGEST* policyDigestRaw = nullptr;
+        rc = Esys_PolicyGetDigest(ctx, policySession.get(), ESYS_TR_NONE, ESYS_TR_NONE, ESYS_TR_NONE, &policyDigestRaw);
+        if (rc != TSS2_RC_SUCCESS) {
+            throw std::runtime_error(std::format("Esys_PolicyGetDigest помилка: 0x{:08x}", rc));
+        }
+        std::unique_ptr<TPM2B_DIGEST, decltype([](auto* p){ Esys_Free(p); })> policyDigest(policyDigestRaw);
+
         // 3. Запечатування секрету
         TPM2B_SENSITIVE_CREATE sensitiveData{};
+        if (secretData.size() > sizeof(sensitiveData.sensitive.data.buffer)) {
+            throw std::runtime_error("Секрет не вміщається у TPM2B_SENSITIVE_DATA");
+        }
         sensitiveData.sensitive.data.size = static_cast<UINT16>(secretData.size());
         std::copy(secretData.begin(), secretData.end(), sensitiveData.sensitive.data.buffer);
 
@@ -349,6 +375,8 @@ public:
                 .parameters = { .keyedHashDetail = { .scheme = { .scheme = TPM2_ALG_NULL } } }
             }
         };
+
+        sealTemplate.publicArea.authPolicy = *policyDigest;
 
         TPM2B_PRIVATE* outPrivateRaw = nullptr;
         TPM2B_PUBLIC* outPublicRaw = nullptr;
@@ -417,7 +445,7 @@ int main() {
 strace -e trace=openat,write,read,ioctl ./tpm2_seal_lab
 ```
 
-У лозі системних викликів можна спостерігати:
+У журналі системних викликів можна спостерігати:
 1. `openat(AT_FDCWD, "/dev/tpmrm0", O_RDWR)` — повертає файловий дескриптор пристрою.
 2. `write(fd, "\x80\x02\x00\x00\x00...", 64)` — відправка бінарного кадру виклику `TPM2_CreatePrimary`.
 3. `read(fd, "\x80\x02\x00\x00\x00...", 4096)` — отримання відповіді від TPM із новим дескриптором об'єкта.
@@ -441,12 +469,12 @@ sudo cat /sys/kernel/tracing/trace | tail -n 20
 
 ## Аналіз архітектурних рішень та пасток реалізації
 
-> 🔧 **Навіщо це.** Безпосередня розробка системного ПЗ мовами C або C++ із залученням ESAPI дає змогу виключити залежності від сторонніх утиліт командного рядка у продуктивному середовищі, знизити overhead на створення нових процесів та зафіксувати точний контроль над кожним кроком сесії політики.
+> 🔧 **Навіщо це.** Безпосередня розробка системного ПЗ мовами C або C++ із залученням ESAPI дає змогу виключити залежності від сторонніх утиліт командного рядка у продуктивному середовищі, знизити накладні витрати на створення нових процесів та зафіксувати точний контроль над кожним кроком сесії політики.
 
 ### Переваги застосування C++ RAII над C-стилем
 
 1. **Гарантоване скидання контекстів (`Esys_FlushContext`):** У реалізації C будь-яке дострокове повернення через ручну обробку помилок вимагає блоку `goto cleanup`. Якщо розробник забуде виклики `Esys_FlushContext`, ресурси в SRAM TPM або менеджера ресурсів будуть вичерпані. У C++ клас `ScopedEsysHandle` гарантує виклики `Esys_FlushContext` при виході з області видимості, включаючи розгортання стека під час генерування винятків `std::runtime_error`.
-2. **Управління динамічною пам'яттю ESAPI (`Esys_Free`):** Функції ESAPI виділяють вихідні структури `TPM2B_PUBLIC`, `TPM2B_PRIVATE` та `TPM2B_SENSITIVE_DATA` за допомогою системного `malloc`. Використання `std::unique_ptr` із пользовательськими deleter-лямбдами виключає витоки пам'яті в демонах із тривалим часом виконання.
+2. **Управління динамічною пам'яттю ESAPI (`Esys_Free`):** Функції ESAPI виділяють вихідні структури `TPM2B_PUBLIC`, `TPM2B_PRIVATE` та `TPM2B_SENSITIVE_DATA` за допомогою системного `malloc`. Використання `std::unique_ptr` із власними deleter-лямбдами виключає витоки пам'яті в демонах із тривалим часом виконання.
 3. **Типобезпека даних (`std::span` та `std::string_view`):** Заміна сирих покажчиків `const char*` та `size_t` на сучасні концепції `std::span` мінімізує ризики переповнення буфера при роботі з секретними бінарними ключами.
 
 ### Практичні пастки під час роботи з ESAPI

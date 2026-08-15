@@ -125,7 +125,7 @@ def fig_dtbo_resolution():
     step2, w2, h2 = textbox(cx, 300, ["2. Пошук міток в __symbols__ базового дерева"], size=12, pad=8, fill=BG, stroke=LINE)
     step3, w3, h3 = textbox(cx, 380, ["3. Підстановка phandle: i2c1->0x1, gpio2->0x2"], size=12, pad=8, fill=BG, stroke=LINE)
     step4, w4, h4 = textbox(cx, 460, ["4. Перерахунок локальних phandle в оверлеї"], size=12, pad=8, fill=BG, stroke=LINE)
-    step5, w5, h5 = textbox(cx, 540, ["5. Злиття вузлів у жива дерево of_root"], size=12, pad=8, fill=PURPLE, stroke=LINE)
+    step5, w5, h5 = textbox(cx, 540, ["5. Злиття вузлів у живе дерево of_root"], size=12, pad=8, fill=PURPLE, stroke=LINE)
 
     p.extend([step1, step2, step3, step4, step5])
 
@@ -138,7 +138,7 @@ def fig_dtbo_resolution():
     p.append(arrow(650, 485, 650, 515))
 
     render(os.path.join(IMG, 'dtbo-resolution-flow.svg'), W, H, *p,
-           title="Процес дозвілу символів та розв'язання phandle під час накладання DTBO")
+           title="Розв'язання символів і phandle під час накладання DTBO")
 
 # ── 3. Життєвий цикл DTBO через ConfigFS ─────────────────────────────────────
 def fig_dtbo_lifecycle():
@@ -159,8 +159,8 @@ def fig_dtbo_lifecycle():
     p.append(rect(60, 280, 1180, 220, fill=BLUE, stroke=LINE, sw=1.5, rx=8))
     p.append(text(80, 315, "Ядро Linux: Менеджер оверлеїв (OF Overlay Core)", size=14, bold=True, anchor="start"))
 
-    f_k1, w_k1, h_k1 = textbox(250, 400, ["Створення токена оверлею", "struct of_overlay_token"], size=12, pad=10, fill=BG, stroke=LINE)
-    f_k2, w_k2, h_k2 = textbox(650, 400, ["of_overlay_fdt_apply()", "• дозвіл phandle", "• модифікація of_root", "• сповіщення нотифікаторів"], size=12, pad=10, fill=GREEN, stroke=LINE)
+    f_k1, w_k1, h_k1 = textbox(250, 400, ["Створення запису оверлею", "struct overlay_changeset"], size=12, pad=10, fill=BG, stroke=LINE)
+    f_k2, w_k2, h_k2 = textbox(650, 400, ["of_overlay_fdt_apply()", "• розв'язання phandle", "• модифікація of_root", "• сповіщення нотифікаторів"], size=12, pad=10, fill=GREEN, stroke=LINE)
     f_k3, w_k3, h_k3 = textbox(1050, 400, ["of_overlay_remove()", "• OF_OVERLAY_PRE_REMOVE", "• видалення device_node", "• звільнення токена"], size=12, pad=10, fill=RED, stroke=LINE)
 
     p.extend([f_k1, f_k2, f_k3])

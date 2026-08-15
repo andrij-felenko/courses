@@ -44,12 +44,12 @@ def draw_hooks_flow():
     
     # Branch 1: Deny (-EACCES)
     frags.append(arrow(680, 310, 830, 310))
-    b_deny, w_deny, h_deny = textbox(950, 310, "Відмова (Return -EACCES)\nНегайне переривання виклику\nта повернення EPERM", size=11, pad=10, fill="#fef2f2", stroke="#dc2626", bold=True)
+    b_deny, w_deny, h_deny = textbox(950, 310, "Відмова (Return -EACCES)\nНегайне переривання виклику\nта повернення EACCES", size=11, pad=10, fill="#fef2f2", stroke="#dc2626", bold=True)
     frags.append(b_deny)
     
     # Branch 2: Allow (Return 0)
     frags.append(arrow(680, 310, 500, 310))
-    b_allow, w_allow, h_allow = textbox(360, 310, "Дозвіл (Return 0)\nВиконання AppArmor / SELinux", size=11, pad=10, fill="#ecfdf5", stroke="#059669", bold=True)
+    b_allow, w_allow, h_allow = textbox(360, 310, "Дозвіл (Return 0)\nНаступні LSM у ланцюжку", size=11, pad=10, fill="#ecfdf5", stroke="#059669", bold=True)
     frags.append(b_allow)
     
     # Final VFS execution

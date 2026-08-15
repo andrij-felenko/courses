@@ -66,7 +66,7 @@ def generate_rule_evaluation():
     frags.append(text(380, 32, "Алгоритм перевірки доступу SMACK LSM", size=16, bold=True))
 
     # Step 1: Input
-    b1 = fitbox(40, 55, 680, 45, "Запит доступу: Суб'єкт (Subject Label) -> Об'єкт (Object Label) [Права: r/w/x/a/t/b]", size=13, fill="#eaf0fd", stroke="#2457d6", bold=True)
+    b1 = fitbox(40, 55, 680, 45, "Запит доступу: Суб'єкт (Subject Label) -> Об'єкт (Object Label) [Права: r/w/x/a/t/l]", size=13, fill="#eaf0fd", stroke="#2457d6", bold=True)
     frags.append(b1)
 
     frags.append(arrow(380, 100, 380, 125))
@@ -75,14 +75,14 @@ def generate_rule_evaluation():
     b2 = fitbox(160, 125, 440, 45, "Суб'єкт має мітку '*' (Star)?", size=13, fill="#fff8f0", stroke="#bf8700", bold=True)
     frags.append(b2)
     frags.append(arrow(600, 147, 660, 147))
-    frags.append(text(625, 138, "Так", size=11, color="#27ae60", bold=True))
-    frags.append(fitbox(660, 130, 70, 34, "ДОЗВІЛ", size=12, fill="#e6ffed", stroke="#27ae60", color="#1a7f37", bold=True))
+    frags.append(text(625, 138, "Так", size=11, color="#c0392b", bold=True))
+    frags.append(fitbox(660, 130, 80, 34, "ВІДМОВА", size=11, fill="#ffebe9", stroke="#c0392b", color="#c0392b", bold=True))
 
     frags.append(arrow(380, 170, 380, 195))
     frags.append(text(400, 185, "Ні", size=11, color="#c0392b", bold=True))
 
     # Step 3: Equal check or Floor check
-    b3 = fitbox(160, 195, 440, 45, "Збіг міток (Subject == Object) або Об'єкт '_', '^', '@'?", size=12, fill="#fff8f0", stroke="#bf8700", bold=True)
+    b3 = fitbox(160, 195, 440, 45, "Об'єкт '*' чи '@', збіг міток,\nабо лише r/x/l при об'єкті '_' або суб'єкті '^'?", size=12, fill="#fff8f0", stroke="#bf8700", bold=True)
     frags.append(b3)
     frags.append(arrow(600, 217, 660, 217))
     frags.append(text(625, 208, "Так", size=11, color="#27ae60", bold=True))

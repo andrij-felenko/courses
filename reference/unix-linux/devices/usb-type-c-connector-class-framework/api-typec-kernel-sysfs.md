@@ -4,22 +4,22 @@
 
 ## Ядерні структури даних (`include/linux/usb/typec.h`)
 
-Для опису фізичного порту та його вроджених апаратних можливостей низхідний драйвер контролера заповнює структуру `struct typec_capability`. Ця структура передається підсистемі ядра під час ініціалізації порту:
+Для опису фізичного порту та його апаратних можливостей низькорівневий драйвер контролера заповнює структуру `struct typec_capability`. Ця структура передається підсистемі ядра під час ініціалізації порту:
 
 ```c
-/* Цитата з заголовочного файлу ядра include/linux/usb/typec.h */
+/* Скорочено за заголовком ядра include/linux/usb/typec.h */
 struct typec_capability {
-    enum typec_port_type    type;           /* TYPEC_PORT_DFP, TYPEC_PORT_UFP, TYPEC_PORT_DRP */
+    enum typec_port_type    type;           /* TYPEC_PORT_SRC, TYPEC_PORT_SNK, TYPEC_PORT_DRP */
     enum typec_port_data    data;           /* TYPEC_PORT_DFP, TYPEC_PORT_UFP, TYPEC_PORT_DRD */
-    enum typec_role         revision;       /* Версія специфікації Type-C (наприклад, TYPEC_REV_1_3) */
-    enum typec_power_role   pd_revision;    /* Версія специфікації USB PD (наприклад, 0x0300 для PD 3.0) */
+    u16                     revision;       /* Версія специфікації Type-C у BCD: 0x0130 = 1.3 */
+    u16                     pd_revision;    /* Версія специфікації USB PD у BCD: 0x0300 = 3.0 */
 
     const struct typec_operations *ops;     /* Покажчик на функції зворотного виклику (callback ops) */
     
     struct fwnode_handle   *fwnode;         /* Зв'язок із вузлом Device Tree або ACPI */
-    struct device          *dev;            /* Батьківський пристрій у системній ієрархії */
+    void                   *driver_data;    /* Приватні дані драйвера контролера */
 
-    bool                    prefer_role;    /* Бажана роль при початковому підключенні (Try.SRC / Try.SNK) */
+    int                     prefer_role;    /* Бажана роль при підключенні: Try.SRC / Try.SNK */
 };
 ```
 
@@ -31,17 +31,17 @@ struct typec_capability {
 Структура операцій зворотного виклику `struct typec_operations`:
 
 ```c
-/* Цитата з заголовочного файлу ядра include/linux/usb/typec.h */
+/* Скорочено за заголовком ядра include/linux/usb/typec.h */
 struct typec_operations {
-    int (*try_role)(enum typec_port_type type, const struct typec_capability *cap, int role);
-    int (*dr_set)(enum typec_port_type type, const struct typec_capability *cap, enum typec_data_role role);
-    int (*pr_set)(enum typec_port_type type, const struct typec_capability *cap, enum typec_power_role role);
-    int (*vconn_set)(enum typec_port_type type, const struct typec_capability *cap, enum typec_role role);
-    int (*port_type_set)(enum typec_port_type type, const struct typec_capability *cap, enum typec_port_type type_role);
+    int (*try_role)(struct typec_port *port, int role);
+    int (*dr_set)(struct typec_port *port, enum typec_data_role role);
+    int (*pr_set)(struct typec_port *port, enum typec_power_role role);
+    int (*vconn_set)(struct typec_port *port, enum typec_role role);
+    int (*port_type_set)(struct typec_port *port, enum typec_port_type type);
 };
 ```
 
-Опис операцій зворотності виклику:
+Опис операцій зворотного виклику:
 - `dr_set`: Викликається підсистемою ядра при спробі змінити роль даних (Data Role Swap). Драйвер контролера надсилає пакет `DR_Swap` через лінію CC і повертає `0` при успіху або від'ємний код помилки (`-EOPNOTSUPP`, `-ETIMEDOUT`).
 - `pr_set`: Викликається для виконання Power Role Swap (переключення між `source` та `sink`).
 - `vconn_set`: Запитує переключення джерела живлення для e-Marker чипа кабелю (VCONN Swap).
@@ -63,10 +63,10 @@ struct typec_operations {
 - `void typec_unregister_partner(struct typec_partner *partner)`
   Викликається при фізичному від'єднанні кабелю або втраті сигналу CC.
 
-- `int typec_set_data_role(struct typec_port *port, enum typec_data_role role)`
+- `void typec_set_data_role(struct typec_port *port, enum typec_data_role role)`
   Оновлює внутрішній стан ролі даних порту у пам'яті ядра та сповіщає простір користувача через події `kobject_uevent`.
 
-- `int typec_set_pwr_role(struct typec_port *port, enum typec_power_role role)`
+- `void typec_set_pwr_role(struct typec_port *port, enum typec_power_role role)`
   Оновлює відображення активної ролі живлення.
 
 ## Докладний довідник sysfs-атрибутів `/sys/class/typec/`
@@ -118,7 +118,7 @@ struct typec_operations {
    - **Опис:** 32-бітне значення заголовка VDM (Vendor Defined Message), зчитаного з партнера. Містить тип пристрою та USB Vendor ID.
 
 4. `identity/product` (доступ: `read-only`)
-   - **Опис:** 32-бітний USB Product ID (PID) підключеного обладнання.
+   - **Опис:** 32-бітний Product VDO; у старших 16 бітах — USB Product ID (PID) підключеного обладнання.
 
 5. `identity/cert_stat` (доступ: `read-only`)
    - **Опис:** Сертифікаційний ідентифікатор XID, присвоєний консорціумом USB-IF.
@@ -128,8 +128,8 @@ struct typec_operations {
 Кожен оголошений партнером альтернативний режим створює піддиректорію вигляду `portX-partner.0`, `portX-partner.1`:
 
 1. `svid` (доступ: `read-only`)
-   - **Опис:** 16-бітний шестнадцятирічний ідентифікатор стандарту (Standard / Vendor ID).
-   - **Приклади:** `0014` (DisplayPort), `8087` (Thunderbolt 3 / USB4), `0005` (HDMI).
+   - **Опис:** 16-бітний шістнадцятковий ідентифікатор стандарту (Standard / Vendor ID).
+   - **Приклади:** `ff01` (DisplayPort, SVID VESA), `8087` (Thunderbolt 3 / USB4, SVID Intel).
 
 2. `mode` (доступ: `read-only`)
    - **Опис:** Внутрішній індекс режиму, визначений специфікацією даного SVID (наприклад, `1` для стандартного DisplayPort).
@@ -150,4 +150,4 @@ struct typec_operations {
   - `voltage`: Напруга профілю у мілівольтах (наприклад, `20000` для 20 В).
   - `maximum_current`: Максимальний струм у міліамперах (наприклад, `3250` для 3.25 А).
 - `pdX/sink-capabilities/`: Директорія із профілями PDO, які споживач здатен прийняти.
-- `pdX/contract/`: Інформація про поточний активний контракт живлення між пристроями.
+- Пара директорій разом дає повну картину: що джерело пропонує і що споживач готовий прийняти. Який саме профіль урешті обрано, видно за поточною напругою й струмом у відповідному об'єкті класу `power_supply`.

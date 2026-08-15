@@ -27,13 +27,13 @@ def draw_architecture():
     frags.append(rect(20, 130, 860, 190, fill="#f1f5f9", stroke="#94a3b8", sw=1.5, rx=8))
     frags.append(text(40, 155, "Ядерні драйвери та фреймворк (Kernel Subsystem & Drivers)", size=14, bold=True, anchor="start", color=INK))
 
-    b_tcpci, w_tcpci, _ = textbox(150, 205, "TCPCI / UCSI Driver\n(drivers/usb/typec/tcpm/)", size=12, fill="#dbeafe", bold=True)
+    b_tcpci, w_tcpci, _ = textbox(150, 205, "TCPCI / UCSI Driver\n(typec/tcpm/ · typec/ucsi/)", size=12, fill="#dbeafe", bold=True)
     frags.append(b_tcpci)
 
     b_tcpm, w_tcpm, _ = textbox(420, 205, "TCPM (Port Manager)\n& PD State Machine", size=12, fill="#bfdbfe", bold=True)
     frags.append(b_tcpm)
 
-    b_core, w_core, _ = textbox(700, 205, "Type-C Class Core\n(drivers/usb/typec/core.c)", size=12, fill="#93c5fd", bold=True)
+    b_core, w_core, _ = textbox(700, 205, "Type-C Class Core\n(drivers/usb/typec/class.c)", size=12, fill="#93c5fd", bold=True)
     frags.append(b_core)
 
     b_muxdev, w_muxdev, _ = textbox(250, 280, "Type-C Switch / Mux / Retimer\n(drivers/usb/typec/mux.c)", size=12, fill="#dbeafe", bold=True)
@@ -52,7 +52,7 @@ def draw_architecture():
     b_usbcore, w_usbcore, _ = textbox(400, 410, "USB Host / Gadget Core\n(xHCI / UDC Driver)", size=11, fill="#e0e7ff", bold=True)
     frags.append(b_usbcore)
 
-    b_drm, w_drm, _ = textbox(620, 410, "DRM DisplayPort AltMode\n(dp_altmode driver)", size=11, fill="#e0e7ff", bold=True)
+    b_drm, w_drm, _ = textbox(620, 410, "DisplayPort AltMode\n(altmodes/displayport.c)", size=11, fill="#e0e7ff", bold=True)
     frags.append(b_drm)
 
     b_psy, w_psy, _ = textbox(790, 410, "Power Supply Class\n(Charger / Psy)", size=11, fill="#e0e7ff", bold=True)
@@ -104,7 +104,7 @@ def draw_sysfs_hierarchy():
     frags.append(b_cable)
 
     # Altmode child under partner
-    b_alt, w_alt, _ = textbox(210, 340, "port0-partner.0\n(struct typec_altmode)\nsvid: 0014 (DP)", size=10, fill="#f1f5f9", bold=True)
+    b_alt, w_alt, _ = textbox(210, 340, "port0-partner.0\n(struct typec_altmode)\nsvid: ff01 (DP)", size=10, fill="#f1f5f9", bold=True)
     frags.append(b_alt)
 
     # PD hierarchy under usb_power_delivery
@@ -188,7 +188,7 @@ def draw_mux_routing():
     b_conn, w_conn, _ = textbox(120, 190, "Роз'єм Type-C\n(24-Pin Receptacle)", size=12, fill="#e2e8f0", bold=True)
     frags.append(b_conn)
 
-    b_sw, w_sw, _ = textbox(320, 190, "Orientation Switch\n(typec_switch)\nПеревертання CC1/CC2", size=11, fill="#dbeafe", bold=True)
+    b_sw, w_sw, _ = textbox(320, 190, "Orientation Switch\n(typec_switch)\nДзеркалення пар SuperSpeed", size=11, fill="#dbeafe", bold=True)
     frags.append(b_sw)
 
     # Multiplexer & Retimer
@@ -221,7 +221,7 @@ def draw_mux_routing():
 
     out_dir = os.path.join(os.path.dirname(__file__), "img")
     os.makedirs(out_dir, exist_ok=True)
-    render(os.path.join(out_dir, "mux-retimer-switch-path.svg"), w, h, *frags, title="Фізична та логічна коммутація сигналів Type-C Switch, Mux та Retimer")
+    render(os.path.join(out_dir, "mux-retimer-switch-path.svg"), w, h, *frags, title="Фізична та логічна комутація сигналів Type-C Switch, Mux та Retimer")
 
 if __name__ == "__main__":
     draw_architecture()

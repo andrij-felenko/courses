@@ -40,7 +40,7 @@ def build_sgx_arch_fig(filename):
     frags.append(fitbox(445, 195, 340, 115, "EPCM (Enclave Page Cache Map)\n\n• Перевірка належності сторінки енклаву\n• Збіг віртуальної адреси (ELRANGE)\n• Права доступу (R, W, X) та тип (SECS/TCS/REG)", size=11, fill="#e8f5e9", stroke=FIELD, color=INK))
 
     # MEE
-    frags.append(fitbox(445, 325, 340, 100, "MEE (Memory Encryption Engine)\n\n• Апаратне AES-GCM шифрування шини DRAM\n• Дерево Меркла для захисту цілісності\n• Ключі шифрування не покидають процесор", size=11, fill="#ffffff", stroke=FIELD, color=INK))
+    frags.append(fitbox(445, 325, 340, 100, "MEE (Memory Encryption Engine)\n\n• AES-CTR шифрування трафіку до DRAM\n• Дерево Меркла для захисту цілісності\n• Ключі шифрування не покидають процесор", size=11, fill="#ffffff", stroke=FIELD, color=INK))
 
     # Connectors
     frags.append(arrow(375, 142, 445, 142, color=LINE, sw=1.8))
@@ -65,7 +65,7 @@ def build_sigstruct_flow_fig(filename):
     frags.append(arrow(390, 110, 430, 110, color=LINE, sw=1.8))
 
     # Step 3: MRENCLAVE match
-    frags.append(fitbox(30, 205, 360, 110, "3. Зіставлення вимірювань коду\n\nОбчислений при EADD/EXTEND хеш MRENCLAVE\n== SIGSTRUCT.ENCLAVEHASH", size=12, fill="#f4f6f8", stroke=LINE, color=INK))
+    frags.append(fitbox(30, 205, 360, 110, "3. Зіставлення вимірювань коду\n\nОбчислений при EADD/EEXTEND хеш MRENCLAVE\n== SIGSTRUCT.ENCLAVEHASH", size=12, fill="#f4f6f8", stroke=LINE, color=INK))
 
     # Arrow 2 -> 3
     frags.append(line(610, 160, 610, 185, color=LINE, sw=1.8))
