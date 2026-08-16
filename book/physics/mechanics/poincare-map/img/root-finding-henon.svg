@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чисельний алгоритм виявлення перетину секущої поверхні</text>
+<rect x="40.0" y="50.0" width="740.0" height="290.0" rx="6" fill="#FAFBFD" stroke="#d0d7de" stroke-width="1.2"/>
+<line x1="420.0" y1="80.0" x2="420.0" y2="310.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="420.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Секуща поверхня g(x) = 0</text>
+<text x="300.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6e7781" text-anchor="middle" font-weight="700">g(x) &lt; 0</text>
+<text x="540.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6e7781" text-anchor="middle" font-weight="700">g(x) &gt; 0</text>
+<path d="M 120 240 Q 220 210 420 160 T 600 110 T 700 90" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="220.0" y1="210.0" x2="600.0" y2="110.0" stroke="#6e7781" stroke-width="1.2" stroke-dasharray="4,4"/>
+<circle cx="220.0" cy="210.0" r="6.0" fill="#2457d6" stroke="#24292f" stroke-width="1.5"/>
+<text x="205.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#24292f" text-anchor="middle" font-weight="700">xₖ (tₖ)</text>
+<circle cx="600.0" cy="110.0" r="6.0" fill="#c0392b" stroke="#24292f" stroke-width="1.5"/>
+<text x="615.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#24292f" text-anchor="middle" font-weight="700">xₖ₊₁ (tₖ + Δt)</text>
+<circle cx="420.0" cy="160.0" r="7.0" fill="#27ae60" stroke="#24292f" stroke-width="1.8"/>
+<text x="402.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Точний перетин x* (g=0)</text>
+<line x1="600.0" y1="90.0" x2="435.0" y2="145.0" stroke="#27ae60" stroke-width="1.8"/><path d="M 435.0 145.0 L 441.6 139.4 L 443.6 145.5 z" fill="#27ae60"/>
+<text x="522.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Корінь t*: Ено / Ерміт</text>
+<rect x="60.0" y="295.0" width="700.0" height="32.0" rx="4" fill="#FFFFFF" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="410.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#24292f" text-anchor="middle" font-weight="700">Виявлення знака g(xₖ)·g(xₖ₊₁) &lt; 0 ──► Пошук кореня t* з точністю до 10⁻¹²</text>
+</svg>

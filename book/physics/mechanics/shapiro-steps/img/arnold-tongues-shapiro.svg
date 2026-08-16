@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 440" width="850" height="440" style="background-color: #1e1e2e; font-family: system-ui, -apple-system, sans-serif;">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#a6adc8" />
+  </marker>
+  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#89dceb" />
+  </marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#f38ba8" />
+  </marker>
+</defs>
+<rect x="15" y="15" width="820" height="410" rx="12" fill="#181825" stroke="#313244" stroke-width="2" />
+<text x="425" y="45" fill="#cdd6f4" font-size="20" font-weight="bold" text-anchor="middle">Язики Арнольда та області фазового захоплення у просторі параметрів</text>
+<path d="M 120 350 L 780 350" stroke="#a6adc8" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M 120 350 L 120 70" stroke="#a6adc8" stroke-width="2.5" marker-end="url(#arrow)" />
+<text x="790" y="380" fill="#cdd6f4" font-size="14" font-weight="bold" text-anchor="end">Постійний струм I_dc / ω_rf</text>
+<text x="110" y="55" fill="#cdd6f4" font-size="15" font-weight="bold" text-anchor="middle">Амплітуда НВЧ струму I_ac</text>
+<path d="M 200 350 L 155 100 L 245 100 Z" fill="#a6e3a1" fill-opacity="0.25" stroke="#a6e3a1" stroke-width="2.5" />
+<text x="200" y="150" fill="#a6e3a1" font-size="16" font-weight="bold" text-anchor="middle">n = 0</text>
+<circle cx="200" cy="350" r="4" fill="#a6e3a1" />
+<path d="M 350 350 L 305 100 L 395 100 Z" fill="#89dceb" fill-opacity="0.25" stroke="#89dceb" stroke-width="2.5" />
+<text x="350" y="150" fill="#89dceb" font-size="16" font-weight="bold" text-anchor="middle">n = 1</text>
+<circle cx="350" cy="350" r="4" fill="#89dceb" />
+<path d="M 500 350 L 455 100 L 545 100 Z" fill="#b4befe" fill-opacity="0.25" stroke="#b4befe" stroke-width="2.5" />
+<text x="500" y="150" fill="#b4befe" font-size="16" font-weight="bold" text-anchor="middle">n = 2</text>
+<circle cx="500" cy="350" r="4" fill="#b4befe" />
+<path d="M 650 350 L 605 100 L 695 100 Z" fill="#f9e2af" fill-opacity="0.25" stroke="#f9e2af" stroke-width="2.5" />
+<text x="650" y="150" fill="#f9e2af" font-size="16" font-weight="bold" text-anchor="middle">n = 3</text>
+<circle cx="650" cy="350" r="4" fill="#f9e2af" />
+<text x="270" y="110" fill="#6c7086" font-size="13">Квазіперіодичний рух / розсинхронізація</text>
+<line x1="120" y1="200" x2="760" y2="200" stroke="#f38ba8" stroke-width="2" stroke-dasharray="6,4" />
+<text x="765" y="190" fill="#f38ba8" font-size="12" text-anchor="end">Перетин при фіксованій НВЧ потужності</text>
+<rect x="160" y="370" width="530" height="35" rx="6" fill="#313244" stroke="#45475a" />
+<text x="425" y="392" fill="#cdd6f4" font-size="13" text-anchor="middle">Всередині кожного "язика" середня частота ⟨dφ/dt⟩ строго дорівнює n·ω_rf</text>
+</svg>

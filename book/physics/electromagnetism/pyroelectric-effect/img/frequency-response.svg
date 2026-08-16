@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="740.0" height="400.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="380.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Частотна характеристика вольтової чутливості R_v(f)</text>
+<line x1="80.0" y1="330.0" x2="700.0" y2="330.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="330.0" x2="80.0" y2="80.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="690.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Частота модуляції f (Гц, логарифмічна шкала)</text>
+<text x="65.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Чутливість R_v (В/Вт)</text>
+<path d="M 90 320 C 160 310, 220 120, 260 110 L 460 110 C 520 120, 580 310, 660 320" fill="none" stroke="#27ae60" stroke-width="3"/>
+<line x1="260.0" y1="330.0" x2="260.0" y2="90.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+<circle cx="260.0" cy="110.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.5"/>
+<text x="260.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">f_th = 1/(2π·τ_th)</text>
+<text x="260.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тепловий зріз (~0.1–1 Гц)</text>
+<line x1="460.0" y1="330.0" x2="460.0" y2="90.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<circle cx="460.0" cy="110.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="460.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">f_e = 1/(2π·τ_e)</text>
+<text x="460.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Електричний зріз (~10–100 Гц)</text>
+<text x="160.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Підйом +20 дБ/дек
+(Витік тепла G_th)</text>
+<text x="360.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Максимальна чутливість R_v,max
+(Плоска робоча зона)</text>
+<text x="570.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Спад -20 дБ/дек
+(Шунтування C_in)</text>
+<line x1="260.0" y1="110.0" x2="460.0" y2="110.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+</svg>

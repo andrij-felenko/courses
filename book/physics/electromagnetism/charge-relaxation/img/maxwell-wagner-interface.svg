@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" width="820" height="440">
+<rect width="820" height="440" fill="#ffffff"/>
+<defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+<rect x="121.0" y="12.5" width="578.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="35.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Міжфазна релаксація Максвелла-Вагнера на межі двох середовищ</tspan></text>
+<g transform="translate(0,0)">
+<rect x="80.0" y="80.0" width="320.0" height="260.0" rx="0" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.0"/>
+<rect x="149.4" y="95.0" width="181.2" height="49.9" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="240.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">Середовище 1</tspan><tspan x="240.0" dy="16.9">ε₁, σ₁  (τ₁ = ε₁/σ₁)</tspan></text>
+<rect x="400.0" y="80.0" width="320.0" height="260.0" rx="0" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<rect x="469.4" y="95.0" width="181.2" height="49.9" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="560.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">Середовище 2</tspan><tspan x="560.0" dy="16.9">ε₂, σ₂  (τ₂ = ε₂/σ₂)</tspan></text>
+<line x1="400.0" y1="80.0" x2="400.0" y2="230.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="400.0" y1="340.0" x2="400.0" y2="340.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="400.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Межа розділу (Interface)</text>
+<line x1="110.0" y1="190.0" x2="390.0" y2="190.0" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="200.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Струм J₁ = σ₁·E₁</text>
+<line x1="410.0" y1="190.0" x2="690.0" y2="190.0" stroke="#d97706" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Струм J₂ = σ₂·E₂</text>
+<rect x="330.0" y="240.0" width="140.0" height="90.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="400.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">+ σ_f(t) +</tspan><tspan x="400.0" dy="15.6">Вільний заряд</tspan><tspan x="400.0" dy="15.6">на межі</tspan></text>
+</g>
+<rect x="80.0" y="360.0" width="660.0" height="60.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Якщо τ₁ ≠ τ₂, струми J₁ та J₂ не рівні у перехідному режимі:</text>
+<text x="410.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">σ_f(∞) = E₀ · (ε₁·σ₂ - ε₂·σ₁) / (σ₁ + σ₂),  з часом релаксації τ_MW = (ε₁ + ε₂)/(σ₁ + σ₂)</text>
+</svg>

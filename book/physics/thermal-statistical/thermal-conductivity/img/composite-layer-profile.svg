@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Усталений розподіл температури у багатошаровій стінці</text>
+<rect x="80.0" y="80.0" width="200.0" height="260.0" rx="6" fill="#fff5eb" stroke="#d35400" stroke-width="1.5"/>
+<text x="180.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Шар 1: Метал</text>
+<text x="180.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">λ₁ = 390 Вт/(м·К)</text>
+<rect x="280.0" y="80.0" width="140.0" height="260.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="350.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Шар 2: TIM</text>
+<text x="350.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">λ₂ = 5 Вт/(м·К)</text>
+<rect x="420.0" y="80.0" width="220.0" height="260.0" rx="6" fill="#f5f0ff" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="530.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7f8c8d" text-anchor="middle" font-weight="700">Шар 3: Ізоляція</text>
+<text x="530.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">λ₃ = 0.04 Вт/(м·К)</text>
+<line x1="40.0" y1="310.0" x2="680.0" y2="310.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Сталий потік q = const крізь усі шари</text>
+<line x1="80.0" y1="150.0" x2="280.0" y2="165.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="280.0" y1="165.0" x2="420.0" y2="210.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="420.0" y1="210.0" x2="640.0" y2="305.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="80.0" cy="150.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<circle cx="280.0" cy="165.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<circle cx="420.0" cy="210.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<circle cx="640.0" cy="305.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">120 °C</text>
+<text x="280.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">115 °C</text>
+<text x="420.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">95 °C</text>
+<text x="615.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">30 °C</text>
+<text x="180.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle">Пологий нахил
+(малий перепад ΔT₁)</text>
+<text x="350.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Помірний нахил
+(ΔT₂)</text>
+<text x="530.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Крутий нахил!
+(основний перепад ΔT₃)</text>
+<text x="410.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Оскільки потік q = -λ · (dT/dx) однаковий у всіх шарах, кут нахилу температури обернено пропорційний λ.</tspan><tspan x="410.0" dy="14.3">Найбільший перепад температури завжди падає на матеріал із найменшою теплопровідністю!</tspan></text>
+</svg>

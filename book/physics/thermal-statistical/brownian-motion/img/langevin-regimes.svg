@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 771.28 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="771.28" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="720.0" height="360.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка зсуву: від інерційного польоту до дифузії</text>
+<text x="360.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Залежність середнього квадрата зсуву &lt;x²(t)&gt; від часу t у логарифмічному масштабі</text>
+<line x1="90.0" y1="310.0" x2="670.0" y2="310.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="310.0" x2="90.0" y2="60.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="680.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">час t (log)</text>
+<text x="90.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">&lt;x²(t)&gt; (log)</text>
+<line x1="310.0" y1="310.0" x2="310.0" y2="80.0" stroke="#ea4335" stroke-width="1.5" stroke-dasharray="5,5"/>
+<rect x="203.7" y="322.5" width="212.6" height="19.0" rx="6" fill="#fce8e6" stroke="#f5c2c7" stroke-width="1.0"/><text x="310.0" y="335.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c5221f" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">t = τ_p = m/γ (час релаксації)</tspan></text>
+<line x1="90.0" y1="290.0" x2="310.0" y2="190.0" stroke="#1a73e8" stroke-width="3.0"/>
+<line x1="310.0" y1="190.0" x2="650.0" y2="100.0" stroke="#1a73e8" stroke-width="3.0"/>
+<rect x="88.5" y="191.3" width="203.0" height="37.3" rx="6" fill="#e8f0fe" stroke="#aecbfa" stroke-width="1.0"/><text x="190.0" y="206.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1557b0" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">Балістичний режим</tspan><tspan x="190.0" dy="14.3">&lt;x²&gt; ≈ v_th² · t²  (нахил 2)</tspan></text>
+<rect x="378.1" y="111.3" width="243.9" height="37.3" rx="6" fill="#e8f0fe" stroke="#aecbfa" stroke-width="1.0"/><text x="500.0" y="114.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1557b0" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Дифузійний режим (закон Ейнштейна)</tspan><tspan x="500.0" dy="14.3">&lt;x²&gt; = 2 D t  (нахил 1)</tspan></text>
+<text x="180.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">короткі часи: t &lt;&lt; τ_p</text>
+<text x="510.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">довгі часи: t &gt;&gt; τ_p</text>
+</svg>

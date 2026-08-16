@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420" style="background-color: #1e1e2e; font-family: system-ui, -apple-system, sans-serif;">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#a6adc8" />
+  </marker>
+  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#89dceb" />
+  </marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#f38ba8" />
+  </marker>
+</defs>
+<rect x="15" y="15" width="870" height="390" rx="12" fill="#181825" stroke="#313244" stroke-width="2" />
+<text x="450" y="45" fill="#cdd6f4" font-size="20" font-weight="bold" text-anchor="middle">Еквівалентна електрична схема RCSJ моделі Джозефсонівського переходу</text>
+<path d="M 80 100 L 620 100" stroke="#a6adc8" stroke-width="3" fill="none" />
+<path d="M 80 340 L 620 340" stroke="#a6adc8" stroke-width="3" fill="none" />
+<path d="M 80 100 L 80 180 M 80 240 L 80 340" stroke="#89b4fa" stroke-width="3" fill="none" />
+<circle cx="80" cy="210" r="28" fill="#1e1e2e" stroke="#89b4fa" stroke-width="3" />
+<path d="M 80 225 L 80 195" stroke="#89b4fa" stroke-width="2.5" marker-end="url(#arrow-cyan)" />
+<text x="70" y="215" fill="#89b4fa" font-size="14" font-weight="bold" text-anchor="end">I(t)</text>
+<text x="120" y="205" fill="#89b4fa" font-size="13">I(t) = I_dc + I_ac·sin(ω_rf·t)</text>
+<path d="M 260 100 L 260 195 M 260 225 L 260 340" stroke="#f9e2af" stroke-width="3" fill="none" />
+<line x1="240" y1="195" x2="280" y2="195" stroke="#f9e2af" stroke-width="4" />
+<line x1="240" y1="225" x2="280" y2="225" stroke="#f9e2af" stroke-width="4" />
+<text x="295" y="215" fill="#f9e2af" font-size="15" font-weight="bold">C (ємність)</text>
+<path d="M 430 100 L 430 170 M 430 250 L 430 340" stroke="#a6e3a1" stroke-width="3" fill="none" />
+<rect x="415" y="170" width="30" height="80" fill="#1e1e2e" stroke="#a6e3a1" stroke-width="3" rx="4" />
+<text x="460" y="215" fill="#a6e3a1" font-size="15" font-weight="bold">R (опір)</text>
+<path d="M 580 100 L 580 185 M 580 235 L 580 340" stroke="#f38ba8" stroke-width="3" fill="none" />
+<line x1="565" y1="195" x2="595" y2="225" stroke="#f38ba8" stroke-width="4" />
+<line x1="565" y1="225" x2="595" y2="195" stroke="#f38ba8" stroke-width="4" />
+<text x="615" y="200" fill="#f38ba8" font-size="15" font-weight="bold">I_c · sin(φ)</text>
+<text x="615" y="225" fill="#f38ba8" font-size="12">(Джозефсонівський елемент)</text>
+<circle cx="620" cy="100" r="5" fill="#89dceb" />
+<circle cx="620" cy="340" r="5" fill="#89dceb" />
+<path d="M 730 115 L 730 325" stroke="#89dceb" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-cyan)" marker-start="url(#arrow-cyan)" />
+<text x="870" y="215" fill="#89dceb" font-size="14" font-weight="bold" text-anchor="end">V(t) = (ħ/2e)·dφ/dt</text>
+<rect x="200" y="360" width="500" height="35" rx="6" fill="#313244" stroke="#45475a" />
+<text x="450" y="383" fill="#cdd6f4" font-size="14" font-family="monospace" text-anchor="middle">C·d²φ/dt² + (1/R)·dφ/dt + I_c·sin(φ) = I_dc + I_ac·sin(ω_rf·t)</text>
+</svg>

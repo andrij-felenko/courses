@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Закон Фурьє: Градієнт температури та тепловий потік q</text>
+<rect x="130.0" y="100.0" width="30.0" height="260.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="145.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">T₁</text>
+<text x="145.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">(гаряче)</text>
+<rect x="160.0" y="100.0" width="260.0" height="260.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.5"/>
+<text x="290.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матеріал із теплопровідністю λ</text>
+<rect x="420.0" y="100.0" width="30.0" height="260.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="435.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">T₂</text>
+<text x="435.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">(холодне)</text>
+<line x1="160.0" y1="170.0" x2="420.0" y2="310.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="160.0" cy="170.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="420.0" cy="310.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="270.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">dT/dx = (T₂ - T₁)/L &lt; 0</text>
+<line x1="200.0" y1="320.0" x2="380.0" y2="320.0" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="290.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Тепловий потік q = -λ · (dT/dx)</text>
+<line x1="160.0" y1="385.0" x2="420.0" y2="385.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="385.0" x2="160.0" y2="385.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="290.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle">Товщина шару L</text>
+<rect x="480.0" y="100.0" width="280.0" height="310.0" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="620.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив величини λ</text>
+<text x="500.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Висока λ (напр. мідь):</text>
+<line x1="500.0" y1="195.0" x2="720.0" y2="215.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="500.0" y1="230.0" x2="700.0" y2="230.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="610.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Великий потік q при малому ΔT</text>
+<text x="500.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Низька λ (напр. вата):</text>
+<line x1="500.0" y1="305.0" x2="720.0" y2="365.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="500.0" y1="380.0" x2="580.0" y2="380.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Малий потік q (теплоізоляція)</text>
+</svg>
