@@ -69,7 +69,7 @@ const stub = {
     ["список файлів", /Файли в ній/],
     ["заборона Edit", /Edit і Write тобі ЗАБОРОНЕН/],
     ["формат замін", /old — ДОСЛІВНА цитата/],
-    ["--also у newtopic", /--also </],
+    ["--meets у newtopic", /--meets /],
     ["бюджет кроків", /Бюджет на тему/],
   ];
   const missing = must.filter(([, re]) => !re.test(editor.prompt)).map(([n]) => n);

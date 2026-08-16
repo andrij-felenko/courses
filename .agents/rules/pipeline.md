@@ -101,7 +101,7 @@ node scripts/checks/NN-*.js "<тека>"                        # одна пе�
 node scripts/checks/verdict.js NN "<тека>" --item <N> --status ok|defect --proof "<доказ>"
 node scripts/checks/verdict.js NN "<тека>" --item 1 --status ok --proof "…" --item 2 --status defect --proof "…"   # СЕРІЯ за один виклик
 node scripts/checks/verdict.js NN "<тека>" --list            # пункти й наявні вироки
-node scripts/antigravity/newtopic.js --book … --kind … --section … --slug … --title … --why … --meets <ознаки через кому> [--also <слуг іншої теми книги>]
+node scripts/antigravity/newtopic.js --book … --kind … --section … --slug … --title … --why … --meets <ознаки через кому>   (--book може бути ІНШОЮ книгою, ніж стаття)
 node scripts/antigravity/finish-batch.js --book … --kind … [--apply]
 node scripts/audit-layout.js                                   # диск ↔ маніфест: розлади розкладки
 ```
@@ -182,9 +182,9 @@ node scripts/audit-layout.js                                   # диск ↔ м
 
 **Тема** — самостійне поняття, на яке стаття лише **спирається**, і яке належить предметові
 ЦІЄЇ книги. Дві ознаки разом: про нього можна написати статтю, яку читатимуть, не читавши
-цієї. Планка — рахунок: пʼять ознак (`subject`, `leaned`, `too-big`, `searchable`, `also`),
-вистачає трьох, перелічуєш їх у `--meets`. Дотичне поняття з сусідньої галузі трьох не набере.
-Заводиться `newtopic.js` — у чергу, не в роботу; стеля — дві на статтю. Лінк на таку тему ставиться одразу й битим не вважається: 05-та знає про чергу, а
+цієї. Планка — рахунок: чотири ознаки (`too-big`, `key`, `eases`, `searchable`), вистачає
+ДВОХ, перелічуєш їх у `--meets`. Поняття з іншої галузі заводиться в ІНШУ книгу (`--book math`),
+а не відкидається. Заводиться `newtopic.js` — у чергу, не в роботу; стеля — дві на статтю. Лінк на таку тему ставиться одразу й битим не вважається: 05-та знає про чергу, а
 попап покаже стаб, доки тему не напишуть.
 
 Перед заведенням — перевір, чи це не синонім наявної: вужче й ширше про те саме
