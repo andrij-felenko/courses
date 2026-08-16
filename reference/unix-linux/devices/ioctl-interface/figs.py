@@ -115,7 +115,7 @@ def fig_dispatch():
 
     p.append(arrow(384, 173, 464, 173, color=MUTED, sw=1.6))
     p.append(fitbox(470, 140, 400, 66,
-                    ["ядро розбирає саме лише кілька:", "FIONBIO · FIOCLEX · FIONREAD"],
+                    ["ядро розбирає саме лише кілька:", "FIONBIO · FIOCLEX · FIONCLEX"],
                     size=12.5, fill=FILL, stroke=MUTED, sw=1.4, rx=8))
 
     p.append(arrow(215, 205, 215, 246, color=LINE, sw=1.8))

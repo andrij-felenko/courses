@@ -121,7 +121,7 @@ def fig_tree_and_links():
     # напрями обходу
     AX = LX + 20
     P.append(arrow(AX, 400, AX, 190, color=NEG, sw=2))
-    P.append(text(AX - 14, 300, "пробудження", size=12.5, color=NEG, anchor="end"))
+    P.append(text(AX - 14, 300, "присипляння", size=12.5, color=NEG, anchor="end"))
     P.append(text(AX - 14, 318, "знизу вгору", size=12.5, color=NEG, anchor="end"))
 
     P.append(text(LX, 530,

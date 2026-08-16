@@ -99,10 +99,17 @@ static void report_discovery(int fd)
                 unsigned ver  = buf[off + 2] >> 4;
                 unsigned len  = buf[off + 3];
                 const unsigned char *p = buf + off + 4;   /* дані дескриптора */
+                unsigned need = code == 0x0003 ? 28 : code == 0x0203 ? 9 :
+                                code == 0x0200 ? 4 : 1;   /* скільки байтів читає switch */
 
                 if (off + 4 + len > have) {
                         printf("  дескриптор 0x%04x обрізано\n", code);
                         break;
+                }
+                if (len < need) {                         /* прошивка дала коротший дескриптор */
+                        printf("  дескриптор 0x%04x: лише %u байтів даних\n", code, len);
+                        off += 4u + len;
+                        continue;
                 }
                 switch (code) {
                 case 0x0001:

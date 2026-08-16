@@ -34,19 +34,19 @@ def fig_devres_anatomy():
     # Вузли
     xs = [430, 720, 1010]
     payload = [
+        "стан драйвера\n(самі дані)",
         "вказівник\nвід ioremap()",
         "номер лінії\nі dev_id",
-        "стан драйвера\n(самі дані)",
     ]
     rel = [
+        "release =\nнічого",
         "release =\niounmap",
         "release =\nfree_irq",
-        "release =\nнічого",
     ]
     src = [
+        "devm_kzalloc()",
         "devm_ioremap()",
         "devm_request_irq()",
-        "devm_kzalloc()",
     ]
     for i, x in enumerate(xs):
         f.append(rect(x - 125, 100, 250, 210, fill=BG, stroke=LINE, sw=1.6))

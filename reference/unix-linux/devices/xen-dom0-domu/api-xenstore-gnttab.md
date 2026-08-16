@@ -23,7 +23,7 @@ Xenstore являє собою централізовану базу даних 
 │           ├── domid = "<domid>"
 │           ├── cpu/                # Конфігурація віртуальних ядер VCPU
 │           ├── memory/
-│           │   └── target = "4194304" # Офіційно виділений обсяг ОЗП у кілобайтах
+│           │   └── target = "4194304" # Цільовий обсяг ОЗП у кілобайтах (= 4 ГіБ)
 │           ├── store/
 │           │   ├── port = "1"      # Номер порту Event Channel для зв'язку з xenstored
 │           │   └── ring-ref = "8"  # Номер Grant Reference сторінки спільної пам'яті Xenstore
@@ -61,9 +61,9 @@ Xenstore являє собою централізовану базу даних 
 
 ## 2. Перелічення станів Xenbus та автомат узгодження
 
-Взаємодія та синхронізація станів між фронтендом у DomU та бекендом у Dom0 виконується за допомогою автомата станів Xenbus. Стан кожного пристрою кодується цілочисельним значенням `enum xenbus_state`, яке записується у строковому формати ASCII у відповідний ключ `state` в ієрархії Xenstore.
+Взаємодія та синхронізація станів між фронтендом у DomU та бекендом у Dom0 виконується за допомогою автомата станів Xenbus. Стан кожного пристрою кодується цілочисельним значенням `enum xenbus_state`, яке записується десятковим числом у текстовому вигляді у відповідний ключ `state` в ієрархії Xenstore.
 
-Обидві сторони підписуються на зміни ключів `state` за допомогою механізму спостерігачів (Watches). При зміні стану гіпервізор надсилає переривання через Event Channel, змушуючи відповідне ядро перевірити новий стан.
+Обидві сторони підписуються на зміни ключів `state` за допомогою механізму спостерігачів (Watches). При зміні стану `xenstored` надсилає підписникам сповіщення, а гіпервізор доставляє його як подію в Event Channel, змушуючи відповідне ядро перевірити новий стан.
 
 :::tabs
 ```c
@@ -96,7 +96,7 @@ enum class XenbusState : std::uint32_t {
 
 Якщо під час ініціалізації виникає збій (наприклад, неможливість виділити gref чи порт подій), пристрій переходить у стан `XenbusStateClosing` або `Closed`, а в ключ `error` записується текстовий опис помилки.
 
-## 3. Двоверсійна структура записів Grant Table
+## 3. Структура записів Grant Table: версії 1 і 2
 
 Таблиця грантів (Grant Table) містить інформацію про правила доступу до сторінок пам'яті, наданих іншим доменам. Залежно від конфігурації ядра та версії Xen використовуються записи версії 1 (`grant_entry_v1_t`) або версії 2 (`grant_entry_v2_t`).
 
@@ -149,14 +149,14 @@ union grant_entry_v2 {
         uint16_t flags;
         domid_t  domid;
         uint32_t pad0;
-        uint64_t full_page; /* 64-бітний MFN для систем з розширеною пам'яттю > 16 ТВ */
+        uint64_t frame;     /* 64-бітний MFN для систем з ОЗП понад 16 ТіБ */
     } full_page;
     struct {
         uint16_t flags;
         domid_t  domid;
         uint16_t page_off;  /* Зміщення всередині сторінки в байтах від початку кадру */
         uint16_t length;    /* Довжина дозволеного фрагмента в байтах */
-        uint64_t full_page;
+        uint64_t frame;     /* MFN сторінки, фрагмент якої відкрито */
     } sub_page;
 };
 typedef union grant_entry_v2 grant_entry_v2_t;
@@ -167,7 +167,7 @@ union GrantEntryV2 {
         std::uint16_t flags;
         std::uint16_t domid;
         std::uint32_t pad0;
-        std::uint64_t full_page; // 64-бітний MFN для пам'яті > 16 ТВ
+        std::uint64_t frame;     // 64-бітний MFN для ОЗП понад 16 ТіБ
     } full_page;
 
     struct SubPage {
@@ -175,7 +175,7 @@ union GrantEntryV2 {
         std::uint16_t domid;
         std::uint16_t page_off;  // Зміщення всередині сторінки в байтах
         std::uint16_t length;    // Довжина дозволеного фрагмента
-        std::uint64_t full_page;
+        std::uint64_t frame;     // MFN сторінки, фрагмент якої відкрито
     } sub_page;
 };
 ```
@@ -185,7 +185,7 @@ union GrantEntryV2 {
 
 ## 4. Інтерфейс ioctl пристрою `/dev/xen/gntdev`
 
-Символьний пристрій `/dev/xen/gntdev` надає інтерфейс для простору користувача у Dom0, дозволяючи мостувати міждоменні гранти у віртуальний адресний простір процесів бекенда за допомогою виклику `mmap()`.
+Символьний пристрій `/dev/xen/gntdev` надає інтерфейс для простору користувача у Dom0, дозволяючи відображати міждоменні гранти у віртуальний адресний простір процесів бекенда за допомогою виклику `mmap()`.
 
 Основними командами керування `ioctl` є:
 - `IOCTL_GNTDEV_MAP_GRANT_REF`: надсилає запит гіпервізору на перевірку прав та мапування грантів. Повертає псевдо-зміщення (`index`), яке передається аргументом `offset` у виклик `mmap()`.
@@ -202,7 +202,7 @@ struct ioctl_gntdev_map_grant_ref {
         uint32_t ref;   /* Індекс grant reference (gref) */
     } refs[1];          /* Динамічний масив елементів для пакетного мапування */
 
-    uint64_t index;     /* Вихідний віртуальне зміщення для подальшого виклику mmap() */
+    uint64_t index;     /* Вихідне псевдо-зміщення для подальшого виклику mmap() */
 };
 
 /* Структура запиту на зняття відображення */
@@ -244,25 +244,27 @@ struct GntdevUnmapGrantRef {
 
 :::tabs
 ```c
-/* Прив'язка до незв'язаного порту Event Channel */
+/* Прив'язка до незв'язаного порту Event Channel.
+   Номер виділеного локального порту повертає сам ioctl своїм значенням —
+   окремого вихідного поля в структурі немає. */
 struct ioctl_evtchn_bind_unbound_port {
-    uint32_t remote_domain; /* ID віддаленого домену (DomU) */
-    uint32_t port;          /* Вихідний виділений локальний порт */
+    unsigned int remote_domain; /* ID домену, якому дозволено з'єднатися */
 };
 
 /* Надсилання сповіщення у порт (генерація upcall) */
 struct ioctl_evtchn_notify {
-    uint32_t port;          /* Локальний порт для генерації upcall */
+    unsigned int port;          /* Локальний порт для генерації upcall */
 };
 
-#define IOCTL_EVTCHN_BIND_UNBOUND_PORT _IO('E', 1)
-#define IOCTL_EVTCHN_NOTIFY            _IO('E', 2)
+#define IOCTL_EVTCHN_BIND_UNBOUND_PORT \
+    _IOC(_IOC_NONE, 'E', 2, sizeof(struct ioctl_evtchn_bind_unbound_port))
+#define IOCTL_EVTCHN_NOTIFY            \
+    _IOC(_IOC_NONE, 'E', 4, sizeof(struct ioctl_evtchn_notify))
 ```
 ```cpp
 // C++ підсистема обгортки Event Channel ioctl
 struct EvtchnBindUnboundPort {
-    std::uint32_t remote_domain; // ID віддаленого домену
-    std::uint32_t port;          // Вихідний виділений локальний порт
+    std::uint32_t remote_domain; // ID віддаленого домену; порт повертає сам ioctl
 };
 
 struct EvtchnNotify {

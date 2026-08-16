@@ -53,7 +53,7 @@ def fig_split_virtqueue():
     # ужите кільце
     used, wu, hu = textbox(cx, 620,
                            ["УЖИТЕ КІЛЬЦЕ",
-                            "flags │ idx = 3 │ ring[] = { id = 6, len = 1513 }, …"],
+                            "flags │ idx = 3 │ ring[] = { id = 6, len = 1501 }, …"],
                            size=13, pad=15, fill=WARM_FILL, stroke=LINE, sw=1.6)
     p.append(used)
 
@@ -225,7 +225,7 @@ def fig_driver_zoo():
 
     frag, _, _ = textbox(lx, y + 22,
                          ["Спільного між ними — самі лише наміри.",
-                          "Кожен виправлений баг лікує один світ із шести."],
+                          "Кожна виправлена помилка лікує один світ із п'яти."],
                          size=12.5, pad=14, fill=GREY_FILL, stroke=MUTED, sw=1.2)
     p.append(frag)
 

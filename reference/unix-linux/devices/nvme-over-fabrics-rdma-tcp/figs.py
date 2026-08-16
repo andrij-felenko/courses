@@ -68,7 +68,7 @@ def fig_transport_comparison():
 
     p.append(rect(x2 + 20, 250, 260, 65, fill=GREEN_FILL, stroke=LINE_COLOR, rx=4))
     p.append(text(x2 + 150, 275, "Віддалений Target SSD", size=12, bold=True))
-    p.append(text(x2 + 150, 295, "Затримка: 15 - 35 µs", size=11, color="#2e7d32", bold=True))
+    p.append(text(x2 + 150, 295, "Затримка: 20 - 45 µs", size=11, color="#2e7d32", bold=True))
 
     p.append(rect(x2 + 20, 340, 260, 105, fill="#ffffff", stroke=LINE_COLOR, rx=4))
     p.append(text(x2 + 150, 362, "Особливості:", size=11, bold=True))
@@ -209,7 +209,7 @@ def fig_kernel_nvme_stack():
 
     p.append(rect(560, 245, 400, 65, fill=GREEN_FILL, stroke=LINE_COLOR, rx=4))
     p.append(text(760, 267, "nvmet_bdev / nvmet_passthru", size=12, bold=True))
-    p.append(text(760, 290, "Емуляція контролера або Прямий Пассру", size=11, color="#333333"))
+    p.append(text(760, 290, "Емуляція контролера або Pass-through", size=11, color="#333333"))
 
     p.append(arrow(760, 310, 760, 325, color=LINE_COLOR, sw=2))
 

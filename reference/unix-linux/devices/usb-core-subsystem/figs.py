@@ -36,7 +36,7 @@ def fig_usb_core_architecture():
     # Layer 3: USB Core Subsystem
     f_core, _, _ = textbox(W / 2, 360, [
         "Ядро підсистеми USB (USB Core / usbcore)",
-        "• Менеджер нумерації (Enumeration & khubd)    • Маршрутизатор запитів URB",
+        "• Менеджер нумерації (Enumeration, hub_event)  • Маршрутизатор запитів URB",
         "• Управління живленням (Runtime PM & Autosuspend) • Розбір та валідація дескрипторів",
         "• Модель шини 'usb' та прив'язка struct usb_driver до struct usb_interface"
     ], size=13, bold=True, fill=WARM, stroke=LINE)
@@ -86,7 +86,7 @@ def fig_urb_lifecycle():
     p.append(f_st4)
 
     # Step 5: Decision (Free or Resubmit)
-    f_st5, _, _ = textbox(540, 360, ["5. Завершення або Перепідпис", "Перевірка status (0 = ОК, -ENOENT)", "Повторна відправка usb_submit_urb()", "або виклик usb_free_urb()"], size=12, fill=RED, stroke=LINE)
+    f_st5, _, _ = textbox(540, 360, ["5. Завершення або повторна відправка", "Перевірка status (0 = ОК, -ENOENT)", "Повторна відправка usb_submit_urb()", "або виклик usb_free_urb()"], size=12, fill=RED, stroke=LINE)
     p.append(f_st5)
 
     # Arrows
@@ -97,7 +97,7 @@ def fig_urb_lifecycle():
     p.append(arrow(540, 290, 540, 200)) # Resubmit loop arrow
 
     # Annotations (placed nicely away from arrows)
-    p.append(text(620, 245, "Цикл повторного підпису (Resubmit)", size=11, color=MUTED, bold=True))
+    p.append(text(620, 245, "Цикл повторної відправки (Resubmit)", size=11, color=MUTED, bold=True))
 
     out_path = os.path.join(IMG, 'urb-lifecycle.svg')
     render(out_path, W, H, *p)
@@ -111,7 +111,7 @@ def fig_usb_enumeration_pipeline():
     p.append(f_hdr)
 
     # Step 1
-    f_s1, _, _ = textbox(170, 120, ["1. Виявлення підключення", "Переривання змінення стану порту", "Сигнал на D+/D- ↔ Hub Event", "Запуск обробника khubd / workqueue"], size=12, fill=BLUE, stroke=LINE)
+    f_s1, _, _ = textbox(170, 120, ["1. Виявлення підключення", "Переривання змінення стану порту", "Сигнал на D+/D- ↔ Hub Event", "Запуск hub_event() у робочій черзі"], size=12, fill=BLUE, stroke=LINE)
     p.append(f_s1)
 
     # Step 2

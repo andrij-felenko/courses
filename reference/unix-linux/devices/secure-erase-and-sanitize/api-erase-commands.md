@@ -46,7 +46,7 @@
 | 0000h | `SANITIZE STATUS EXT` | — | відповідь у полі COUNT |
 | 0011h | `CRYPTO SCRAMBLE EXT` | 43727970h («Cryp») | — |
 | 0012h | `BLOCK ERASE EXT` | 426B4572h («BkEr») | — |
-| 0014h | `OVERWRITE EXT` | **візерунок**, 32 біти | LBA(47:32) = 4F57h («OW»); COUNT — кількість проходів 0–7, де 0 означає 16 |
+| 0014h | `OVERWRITE EXT` | **візерунок**, 32 біти | LBA(47:32) = 4F57h («OW»); COUNT — кількість проходів, де 0 означає 16 |
 | 0020h | `SANITIZE FREEZE LOCK EXT` | 46724C6Bh («FrLk») | — |
 | 0040h | `SANITIZE ANTIFREEZE LOCK EXT` | 416E7469h («Anti») | — |
 
@@ -103,7 +103,7 @@
 | `--sanitize-status` | feature 0000h |
 | `--sanitize-block-erase` · `--sanitize-crypto-scramble` | 0012h · 0011h |
 | `--sanitize-overwrite hex:XXXXXXXX` | 0014h із чотирибайтовим візерунком |
-| `--sanitize-overwrite-passes N` | 0–7, де **0 означає 16 проходів** |
+| `--sanitize-overwrite-passes N` | кількість проходів; **0 означає 16** |
 | `--sanitize-freeze-lock` · `--sanitize-antifreeze-lock` | 0020h · 0040h |
 
 Усі три руйнівні `--sanitize-*` hdparm виконує лише разом із `--yes-i-know-what-i-am-doing`; на `--security-erase` такої вимоги, хоч як це дивно, немає.
@@ -202,4 +202,4 @@ if (info->feature_secdiscard)
         lim->max_secure_erase_sectors = UINT_MAX;
 ```
 
-Скрізь інде поле лишається нулем, і блоковий шар відхиляє запит, навіть не дійшовши до драйвера. Усі команди з таблиць вище йдуть повз цей шар — наскрізним каналом до транспорту ([SG_IO і `NVME_IOCTL_ADMIN_CMD`](book:unix-linux/scsi-generic-passthrough)), який вимагає `CAP_SYS_ADMIN` і відкритого на запис пристрою.
+Скрізь інде поле лишається нулем, і блоковий шар відхиляє запит, навіть не дійшовши до драйвера. Усі команди з таблиць вище йдуть повз цей шар — наскрізним каналом до транспорту ([SG_IO і `NVME_IOCTL_ADMIN_CMD`](book:unix-linux/scsi-generic-passthrough)), і права на двох дорогах різні: адміністративній команді NVMe досить `CAP_SYS_ADMIN`, а `SG_IO` з такою командою вимагає `CAP_SYS_RAWIO` і пристрою, відкритого на запис.

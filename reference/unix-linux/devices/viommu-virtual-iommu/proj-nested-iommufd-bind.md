@@ -1,6 +1,6 @@
 # ⚙️ Налаштування вкладеної трансляції через IOMMUFD у C та C++
 
-Взаємодія з новим фреймворком IOMMUFD у ядрі Linux дозволяє гіпервізору L0 виділити апаратну таблицю сторінок Стадії 2 (Stage 2 HWPT) та прив'язати до неї вкладену таблицю сторінок Стадії 1 (Nested Stage 1 HWPT), якою керує гостьова операційна система L1. Це позбавляє гіпервізор необхідності емулювати тіньові таблиці сторінок (Shadow Page Tables) та обробляти тисячі системних переривань і перемикань контексту (VM-exits) на секунду під час інтенсивного вводу-виводу.
+Взаємодія з новим фреймворком IOMMUFD у ядрі Linux дозволяє гіпервізору L0 виділити апаратну таблицю сторінок Стадії 2 (Stage 2 HWPT) та прив'язати до неї вкладену таблицю сторінок Стадії 1 (Nested Stage 1 HWPT), якою керує гостьова операційна система L1. Це позбавляє гіпервізор необхідності емулювати тіньові таблиці сторінок (Shadow Page Tables) та обробляти тисячі виходів у гіпервізор (VM-exits) на секунду під час інтенсивного вводу-виводу.
 
 ## Архітектурний механізм IOMMUFD для вкладеної трансляції
 
@@ -13,9 +13,9 @@
 
 Процес налаштування вкладеного домену складається з послідовних кроків:
 - Відкриття файлового дескриптора `/dev/iommufd`.
-- Отримання інформації про можливості фізичного IOMMU за допомогою системного виклику `IOMMU_DEVICE_GET_HW_INFO`.
+- Отримання інформації про можливості фізичного IOMMU командою `ioctl(IOMMU_GET_HW_INFO)`.
 - Виділення базового простору IOAS (`IOMMU_IOAS_ALLOC`) та створення HWPT Стадії 2.
-- Викликання `ioctl(IOMMU_HWPT_ALLOC)` з прапорцем `IOMMU_HWPT_ALLOC_NESTED` для створення вкладеної HWPT Стадії 1, куди передається фізична адреса гостьового кореневого каталогу сторінок L1 (`user_data_uptr`).
+- Виклик `ioctl(IOMMU_HWPT_ALLOC)` для вкладеної HWPT Стадії 1: батьківським `pt_id` вказано HWPT Стадії 2 (її виділено з прапорцем `IOMMU_HWPT_ALLOC_NEST_PARENT`), а `data_type`/`data_uptr` описують гостьовий формат Стадії 1 разом з адресою кореня таблиць L1 у просторі L1 GPA.
 - Прив'язка PCI-пристрою до новоствореної вкладеної HWPT.
 
 Гіпервізор L0 виступає арбітром між фізичним залізом і гостем L1. Гіпервізор L0 відповідає за валідацію форматів та перевірку того, що гостьова адреса кореня знаходиться в межах дозволеного адресного простору L1.
@@ -26,23 +26,23 @@
 
 1. **`IOMMU_GET_HW_INFO`:** Повертає структуру `struct iommu_hw_info`, яка містить тип апаратного забезпечення (`IOMMU_HW_INFO_TYPE_INTEL_VTD` або `IOMMU_HW_INFO_TYPE_ARM_SMMUV3`), версію специфікації, ширину підтримуваних адрес та підтримувані прапорці інвалідації.
 2. **`IOMMU_IOAS_ALLOC`:** Створює порожній простір IOAS і повертає його `ioas_id`.
-3. **`IOMMU_IOAS_MAP`:** Заповнює мапінг між GPA та HPA для Стадії 2. Усі фізичні сторінки пам'яті гостя L1 запінюються у ядрі L0 за допомогою виклику `pin_user_pages_fast()` з прапорцем `FOLL_LONGTERM`.
-4. **`IOMMU_HWPT_ALLOC`:** Створює апаратну таблицю сторінок. Якщо вказано `IOMMU_HWPT_ALLOC_NESTED`, ядро створює зв'язану пару HWPT, де Стадія 1 читає гостьові таблиці L1, а Стадія 2 транслює L1 GPA у HPA.
+3. **`IOMMU_IOAS_MAP`:** Заповнює Стадію 2 — прив'язує діапазон IOVA (для гостя L1 це його L1 GPA) до сторінок у пам'яті процесу QEMU. Усі фізичні сторінки пам'яті гостя L1 запінюються у ядрі L0 за допомогою виклику `pin_user_pages_fast()` з прапорцем `FOLL_LONGTERM`.
+4. **`IOMMU_HWPT_ALLOC`:** Створює апаратну таблицю сторінок. Якщо `pt_id` вказує на вже наявну HWPT Стадії 2, а `data_type` описує гостьовий формат, ядро створює зв'язану пару HWPT, де Стадія 1 читає гостьові таблиці L1, а Стадія 2 транслює L1 GPA у HPA.
 
-## Детальний розбір структури IOMMU_DEVICE_GET_HW_INFO
+## Детальний розбір структури IOMMU_GET_HW_INFO
 
-Перед створенням HWPT Стадії 1 програма зобов'язана запитати апаратні характеристики конкретного PCI-пристрою та контролера IOMMU. Нищче наведено описи відповідної структури мовами C та C++:
+Перед створенням HWPT Стадії 1 програма зобов'язана запитати апаратні характеристики конкретного PCI-пристрою та контролера IOMMU. Нижче наведено описи відповідної структури мовами C та C++:
 
 :::tabs
 ```c
 /* Структура запиту апаратних можливостей пристрою у C */
 struct iommu_hw_info {
     __u32 size;            /* Розмір структури для зворотної сумісності */
-    __u32 flags;           /* Битове поле прапорів capabilities */
+    __u32 flags;           /* Бітове поле прапорців */
     __u32 dev_id;          /* Ідентифікатор пристрою у системі IOMMUFD */
-    __u32 hwpt_type;       /* Повернений тип апаратного забезпечення */
-    __u32 user_data_len;   /* Довжина буфера специфічних даних */
-    __u64 user_data_uptr;  /* Вказівник на буфер у пам'яті користувача */
+    __u32 data_len;        /* Довжина буфера специфічних даних */
+    __u64 data_uptr;       /* Вказівник на буфер у пам'яті користувача */
+    __u32 out_data_type;   /* Повернений тип апаратного забезпечення */
 };
 ```
 ```cpp
@@ -51,18 +51,18 @@ struct IommuHardwareInfo {
     std::uint32_t size{sizeof(IommuHardwareInfo)};
     std::uint32_t flags{0};
     std::uint32_t dev_id{0};
-    std::uint32_t hwpt_type{0};
-    std::uint32_t user_data_len{0};
-    std::uint64_t user_data_uptr{0};
+    std::uint32_t data_len{0};
+    std::uint64_t data_uptr{0};
+    std::uint32_t out_data_type{0};
 };
 ```
 :::
 
-Прапорець `hwpt_type` повертає один із підтримуваних типів вкладеної трансляції:
+Поле `out_data_type` повертає один із підтримуваних типів вкладеної трансляції:
 - `IOMMU_HW_INFO_TYPE_INTEL_VTD`: апаратний контролер Intel VT-d з підтримкою Scalable Mode та двох стадій трансляції.
 - `IOMMU_HW_INFO_TYPE_ARM_SMMUV3`: апаратний контролер ARM SMMUv3 з підтримкою Stream Table Entry (STE) та Context Descriptors (CD).
 
-Якщо поле `user_data_uptr` заповнене вказівником на буфер, ядро поверне специфічну для архітектури маску можливостей. Наприклад, для Intel VT-d ядро повертає регістр capabilities (CAP_REG) та extended capabilities (ECAP_REG), що дозволяє гіпервізору перевірити підтримку 5-рівневого пейджингу та підтримку версій специфікації PASID.
+Якщо поле `data_uptr` заповнене вказівником на буфер, ядро поверне специфічну для архітектури маску можливостей. Наприклад, для Intel VT-d ядро повертає регістр capabilities (CAP_REG) та extended capabilities (ECAP_REG), що дозволяє гіпервізору перевірити підтримку 5-рівневого пейджингу та підтримку версій специфікації PASID.
 
 ## Створення мапінгів простору IOAS та HugePages
 
@@ -78,7 +78,8 @@ int map_ioas_region_c(int iommufd_fd, uint32_t ioas_id, uint64_t hva_address,
     memset(&map_cmd, 0, sizeof(map_cmd));
     map_cmd.size = sizeof(map_cmd);
     map_cmd.ioas_id = ioas_id;
-    map_cmd.flags = IOMMU_IOAS_MAP_READ | IOMMU_IOAS_MAP_WRITE;
+    map_cmd.flags = IOMMU_IOAS_MAP_READABLE | IOMMU_IOAS_MAP_WRITEABLE |
+                    IOMMU_IOAS_MAP_FIXED_IOVA; /* IOVA задає викликач, а не ядро */
     map_cmd.user_va = hva_address;
     map_cmd.iova = l1_gpa_address;
     map_cmd.length = memory_region_size;
@@ -102,7 +103,8 @@ int map_ioas_region_c(int iommufd_fd, uint32_t ioas_id, uint64_t hva_address,
     iommu_ioas_map map_cmd{};
     map_cmd.size = sizeof(map_cmd);
     map_cmd.ioas_id = ioas_id;
-    map_cmd.flags = IOMMU_IOAS_MAP_READ | IOMMU_IOAS_MAP_WRITE;
+    map_cmd.flags = IOMMU_IOAS_MAP_READABLE | IOMMU_IOAS_MAP_WRITEABLE |
+                    IOMMU_IOAS_MAP_FIXED_IOVA; // IOVA задає викликач, а не ядро
     map_cmd.user_va = hva_address;
     map_cmd.iova = l1_gpa_address;
     map_cmd.length = memory_region_size;
@@ -115,7 +117,7 @@ int map_ioas_region_c(int iommufd_fd, uint32_t ioas_id, uint64_t hva_address,
 ```
 :::
 
-Використання великих сторінок пам'яті (HugePages 2 МБ або 1 ГБ) у системі L0 значно спрощує структуру Стадії 2. Апаратний IOMMU мапить регіони HugePages за допомогою єдиного запису в таблиці другого рівня, що мінімізує кількість промахів у внутрішньому кеші IOTLB хоста під час тривалих операцій DMA.
+Використання великих сторінок пам'яті (HugePages 2 МБ або 1 ГБ) у системі L0 значно спрощує структуру Стадії 2. Апаратний IOMMU покриває регіон HugePage одним великим записом на рівні каталогу замість сотень дрібних, що мінімізує кількість промахів у внутрішньому кеші IOTLB хоста під час тривалих операцій DMA.
 
 При виникненні помилок створення мапінгу ядро повертає стандартні коди системних помилок: `EFAULT` у разі передачі некоректного віртуального покажчика HVA, `EOPNOTSUPP` якщо апаратний IOMMU не підтримує запитаний розмір сторінки, або `ENOMEM` при недостатності фізичної оперативної пам'яті для запінювання буферів. Гіпервізор зобов'язаний коректно обробляти ці помилки та переривати завантаження вкладеного гостя L2.
 
@@ -165,12 +167,12 @@ int create_nested_stage1_hwpt_c(int iommufd_fd, uint32_t dev_id,
     struct iommu_hwpt_alloc alloc_cmd;
     memset(&alloc_cmd, 0, sizeof(alloc_cmd));
     alloc_cmd.size = sizeof(alloc_cmd);
-    alloc_cmd.flags = IOMMU_HWPT_ALLOC_NESTED;
+    alloc_cmd.flags = 0; /* вкладеність задає не прапорець, а батьківський pt_id */
     alloc_cmd.dev_id = dev_id;
     alloc_cmd.pt_id = stage2_hwpt_id; /* Базовий батьківський HWPT Стадії 2 */
-    alloc_cmd.hwpt_type = IOMMU_HWPT_TYPE_VTD_S1; /* Режим Intel VT-d Stage 1 */
-    alloc_cmd.user_data_len = sizeof(vtd_s1_cfg);
-    alloc_cmd.user_data_uptr = (uint64_t)(uintptr_t)&vtd_s1_cfg;
+    alloc_cmd.data_type = IOMMU_HWPT_DATA_VTD_S1; /* Режим Intel VT-d Stage 1 */
+    alloc_cmd.data_len = sizeof(vtd_s1_cfg);
+    alloc_cmd.data_uptr = (uint64_t)(uintptr_t)&vtd_s1_cfg;
 
     if (ioctl(iommufd_fd, IOMMU_HWPT_ALLOC, &alloc_cmd) < 0) {
         perror("[C-API] Помилка виконання ioctl(IOMMU_HWPT_ALLOC)");
@@ -244,12 +246,12 @@ struct VtdStage1Config {
 
     iommu_hwpt_alloc alloc_cmd{};
     alloc_cmd.size = sizeof(alloc_cmd);
-    alloc_cmd.flags = IOMMU_HWPT_ALLOC_NESTED;
+    alloc_cmd.flags = 0; // вкладеність задає не прапорець, а батьківський pt_id
     alloc_cmd.dev_id = dev_id;
     alloc_cmd.pt_id = stage2_hwpt_id;
-    alloc_cmd.hwpt_type = IOMMU_HWPT_TYPE_VTD_S1;
-    alloc_cmd.user_data_len = sizeof(vtd_cfg);
-    alloc_cmd.user_data_uptr = reinterpret_cast<std::uint64_t>(&vtd_cfg);
+    alloc_cmd.data_type = IOMMU_HWPT_DATA_VTD_S1;
+    alloc_cmd.data_len = sizeof(vtd_cfg);
+    alloc_cmd.data_uptr = reinterpret_cast<std::uint64_t>(&vtd_cfg);
 
     if (::ioctl(iommufd, IOMMU_HWPT_ALLOC, &alloc_cmd) < 0) {
         return std::unexpected(std::error_code(errno, std::generic_category()));
@@ -334,8 +336,8 @@ int invalidate_stage1_iotlb_c(int iommufd_fd, uint32_t nested_hwpt_id,
 
 Кожен елемент масиву інвалідації `struct iommu_hwpt_vtd_s1_invalidate` описує конкретну операцію скидання кешу:
 - **`addr`:** Початкова віртуальна адреса DMA, для якої видаляється трансляція.
-- **`npages`:** Кількість 4-кілобайтних сторінок, підлягаючих видаленню z IOTLB.
-- **`flags`:** Битове поле прапорів. Прапорець `IOMMU_VTD_INV_FLAGS_LEAF` вказує, що треба інвалідувати лише кінцеву сторінку, а не самі міжрівневі каталоги сторінок.
+- **`npages`:** Кількість 4-кілобайтних сторінок, які треба видалити з IOTLB.
+- **`flags`:** Бітове поле прапорців. Прапорець `IOMMU_VTD_INV_FLAGS_LEAF` вказує, що треба інвалідувати лише кінцеву сторінку, а не самі міжрівневі каталоги сторінок.
 
 При виконанні `IOMMU_HWPT_INVALIDATE` ядро Linux бере масив цих структур, перевіряє їхні межі у пам'яті користувача, а потім відправляє відповідні команди до інвалідаційної черги фізичного IOMMU (Invalidation Queue).
 
@@ -358,21 +360,21 @@ struct IommuHwptArmSmmuV3S1 {
 ```
 :::
 
-На відміну від Intel VT-d, де передається безпосередньо корінь таблиці сторінок, в ARM SMMUv3 передається покажчик на Context Descriptor, який нативно включає не лише корінь TTB0/TTB1, але й ідентифікатор ASID (Address Space ID) та параметри атрибутів пам'яті (MAIR). Це надає гіпервізору L1 повну свободу конфігурування режимів кешування для пристроїв L2.
+На відміну від Intel VT-d, де передається безпосередньо корінь таблиці сторінок, в ARM SMMUv3 передається покажчик на Context Descriptor, який містить не лише корінь TTB0/TTB1, але й ідентифікатор ASID (Address Space ID) та параметри атрибутів пам'яті (MAIR). Це надає гіпервізору L1 повну свободу конфігурування режимів кешування для пристроїв L2.
 
 ## Демонтаж та руйнування ресурсів (Teardown Lifecycle)
 
 При завершенні роботи віртуальної машини L2 або при відв'язуванні пристрою, гіпервізор L0 зобов'язаний виконати чисту процедуру демонтажу об'єктів IOMMUFD у зворотному порядку:
 
-1. **`IOMMU_OPTION_HUGETLB` і припинення DMA:** Гіпервізор надсилає сигнал пристрою зупинити всі активні DMA-транзакції через конфігураційний простір PCI (Command Register Bit 2: Bus Master Disable).
-2. **Звільнення вкладеного HWPT:** Закриття дескриптора або виклик `IOMMU_OBJ_DESTROY` над `nested_hwpt_id` знищує зв'язок з гостьовою Стадією 1. Фізичний IOMMU припиняє читати таблиці сторінок з пам'яті L1.
+1. **Припинення DMA:** Гіпервізор надсилає сигнал пристрою зупинити всі активні DMA-транзакції через конфігураційний простір PCI (Command Register Bit 2: Bus Master Disable).
+2. **Звільнення вкладеного HWPT:** Закриття дескриптора або виклик `ioctl(IOMMU_DESTROY)` над `nested_hwpt_id` знищує зв'язок з гостьовою Стадією 1. Фізичний IOMMU припиняє читати таблиці сторінок з пам'яті L1.
 3. **Звільнення HWPT Стадії 2:** Знищення батьківської таблиці Стадії 2 розформовує мапінг L1 GPA → HPA.
 4. **Розпінування пам'яті (Unpinning):** Ядро L0 знижує лічильники посилань на фізичні сторінки пам'яті `unpin_user_page()`, роблячи їх доступними для звичайного підкачування та перерозподілу ядра.
 
 ## Типові підводні камені та практичні рекомендації
 
-1. **Перевірка апаратних можливостей (Capability Check):** Перед спробою виклику `IOMMU_HWPT_ALLOC_NESTED` необхідно викликати `ioctl(IOMMU_DEVICE_GET_HW_INFO)`. Якщо апаратне забезпечення чи драйвер хоста не підтримують двостадійну трансляцію, системний виклик поверне помилку `EOPNOTSUPP`. Гіпервізор повинен бути готовим відкотитися до емуляції Shadow IOMMU.
+1. **Перевірка апаратних можливостей (Capability Check):** Перед створенням вкладеної HWPT необхідно викликати `ioctl(IOMMU_GET_HW_INFO)`. Якщо апаратне забезпечення чи драйвер хоста не підтримують двостадійну трансляцію, системний виклик поверне помилку `EOPNOTSUPP`. Гіпервізор повинен бути готовим відкотитися до емуляції Shadow IOMMU.
 2. **Узгодження глибини пейджингу (4-level vs 5-level):** Значення `addr_width` у конфігураційній структурі має чітко відповідати конфігурації ядра L1. Якщо L1 використовує 57-бітний адресний простір (5-level paging), а хост налаштований на 48-бітний, спроби DMA-доступу спричинять `DMAR Fault`.
-3. **Синхронізація ATS (Address Translation Services):** Якщо прокинутий PCI-пристрій підтримує кешування записів у власному DevTLB, команди інвалідації повинні поширюватися не лише на IOTLB контролера IOMMU, але й на DevTLB самого пристрою через прапорці `IOMMU_VTD_INV_FLAGS_LEAF` та відповідні пакети PCIe ATS.
+3. **Синхронізація ATS (Address Translation Services):** Якщо прокинутий PCI-пристрій підтримує кешування записів у власному DevTLB, команди інвалідації повинні поширюватися не лише на IOTLB контролера IOMMU, але й на DevTLB самого пристрою — окремими пакетами PCIe ATS `Invalidate Request`, на які пристрій відповідає `Invalidate Completion`.
 4. **Вирівнювання сторінок (Alignment):** Адреса кореня таблиці сторінок `pgtbl_pptr` повинна бути суворо вирівняна по межі 4 КБ (`0x1000`), інакше апаратний IOMMU згенерує помилку конфігурації контекстного запису.
-5. **Безпека живого мігрування (Live Migration):** Під час міграції віртуальної машини L1 на інший хост, гіпервізор L0 повинен повністю зупинити вкладену HWPT Стадії 1, очистити таблиці ІОТLB і заново зареєструвати таблиці на цільовому хості.
+5. **Безпека живого мігрування (Live Migration):** Під час міграції віртуальної машини L1 на інший хост, гіпервізор L0 повинен повністю зупинити вкладену HWPT Стадії 1, очистити кеш IOTLB і заново зареєструвати таблиці на цільовому хості.

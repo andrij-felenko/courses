@@ -14,14 +14,14 @@
 - `mdev` (`struct media_device *`): Вказівник на пов'язаний об'єкт графа Media Controller. Якщо поле заповнене, кожен зареєстрований субпристрій автоматично реєструє свою сутність у загальному медіа-графі.
 - `subdevs` (`struct list_head`): Двобічно зв'язаний список усіх реєстрацій `struct v4l2_subdev`, що належать даному пристрою.
 - `lock` (`spinlock_t`): Спінлок для захисту цілісності списку `subdevs` при одночасному додаванні або видаленні субпристроїв із різних контекстів переривань.
-- `name` (`char[32]`): Унікальний ідентифікатор пристрою у системному каталозі `/sys/class/video4linux/`. Якщо назва не вказана явно, ядро формує її на основі імені драйвера та адреси пристрою.
+- `name` (`char[]`): Текстова назва пристрою, під якою він фігурує у повідомленнях ядра. Якщо назва не вказана явно, ядро формує її з імені драйвера та адреси батьківського пристрою.
 - `ctrl_handler` (`struct v4l2_ctrl_handler *`): Глобальний обробник користувацьких елементів керування (Control Handler), який об'єднує контролі всіх дочірніх субпристроїв.
 
 ### Абстракція субпристрою: `struct v4l2_subdev`
 
 Субпристрій представляє конкретний апаратний модуль — сенсор камери, приймач MIPI CSI-2, ISP, масштабувальник чи декодер відеосигналу.
 
-- `entity` (`struct media_gobj` / `struct media_entity`): Вбудований об'єкт графа Media Controller, який дозволяє субпристрою виступати вузлом у топології.
+- `entity` (`struct media_entity`): Вбудований об'єкт графа Media Controller, який дозволяє субпристрою виступати вузлом у топології.
 - `list` (`struct list_head`): Елемент зв'язаного списку для прикріплення до `v4l2_device->subdevs`.
 - `owner` (`struct module *`): Вказівник на модуль ядра (`THIS_MODULE`), що запобігає вивантаженню драйвера під час активного використання субпристрою.
 - `flags` (`u32`): Прапорці конфігурації. Найважливіший прапор `V4L2_SUBDEV_FL_HAS_DEVNODE` вказує ядру створити окремий символьний пристрій у `/dev/v4l-subdevX` для прямого управління з простору користувача.
@@ -36,7 +36,7 @@
 
 - `core` (`const struct v4l2_subdev_core_ops *`): Загальні операції управління живленням (`s_power`), скиданням (`reset`), обробкою низькорівневих переривань та обробкою нестандартних `ioctl`.
 - `video` (`const struct v4l2_subdev_video_ops *`): Потокові операції управління передачею даних: `s_stream(enable)` для запуску/зупинки генерації сигналів, `g_frame_interval` та `s_frame_interval` для налаштування частоти кадрів.
-- `pad` (`const struct v4l2_subdev_pad_ops *`): Операції налаштування майданчиків. Включає `enum_mbus_code` (перелічення форматів шини), `get_fmt` / `set_fmt` (узгодження розпиновки та геометрії кадру), `get_selection` / `set_selection` (управління геометрією кадрування Crop/Compose).
+- `pad` (`const struct v4l2_subdev_pad_ops *`): Операції налаштування майданчиків. Включає `enum_mbus_code` (перелічення форматів шини), `get_fmt` / `set_fmt` (узгодження медіа-коду шини та геометрії кадру), `get_selection` / `set_selection` (управління геометрією кадрування Crop/Compose).
 
 ### Графові об'єкти Media Controller: `struct media_device`, `struct media_entity`, `struct media_pad`, `struct media_link`
 
@@ -56,12 +56,12 @@
 
 Ядро Linux надає чітко визначений API для реєстрації та зв'язування медіа-компонентів під час пробінгу драйверів (Driver Probe):
 
-- `int media_device_register(struct media_device *mdev)`: Фіксує граф Media Controller у системі, створює символьний пристрій `/dev/mediaX` та експортує топологію у sysfs.
+- `int media_device_register(struct media_device *mdev)`: Фіксує граф Media Controller у системі та створює символьний пристрій `/dev/mediaX`, через який топологію читають викликом `MEDIA_IOC_G_TOPOLOGY`.
 - `int v4l2_device_register(struct device *dev, struct v4l2_device *v4l2_dev)`: Ініціалізує базову структуру V4L2. Переданий `dev` стає батьківським пристроєм у sysfs.
 - `int v4l2_device_register_subdev(struct v4l2_device *v4l2_dev, struct v4l2_subdev *sd)`: Додає субпристрій `sd` до списку `subdevs`. Якщо `v4l2_dev->mdev` заповнено, сутність субпристрою автоматично реєструється у графі Media Controller.
 - `int v4l2_device_register_subdev_nodes(struct v4l2_device *v4l2_dev)`: Проходить по всіх зареєстрованих субпристроях і створює вузли `/dev/v4l-subdevX` для тих субпристроїв, у яких встановлено прапор `V4L2_SUBDEV_FL_HAS_DEVNODE`.
 - `int media_create_pad_link(struct media_entity *source, u16 source_pad, struct media_entity *sink, u16 sink_pad, u32 flags)`: Динамічно виділяє та ініціалізує структуру `struct media_link` між двома майданчиками.
-- `int video_register_device(struct video_device *vdev, int type, int nr)`: Створює символ `/dev/videoX` для потокового обміну буферами. Параметр `type` визначає тип пристрою (`VFL_TYPE_VIDEO` для відео, `VFL_TYPE_SUBDEV` для субпристроїв).
+- `int video_register_device(struct video_device *vdev, int type, int nr)`: Створює символьний вузол `/dev/videoX` для потокового обміну буферами. Параметр `type` визначає тип пристрою (`VFL_TYPE_VIDEO` для відео, `VFL_TYPE_SUBDEV` для субпристроїв).
 
 ---
 
@@ -85,7 +85,7 @@
 Символьні вузли `/dev/v4l-subdevX` надають доступ до налаштування внутрішніх точок конвеєра.
 
 1. `VIDIOC_SUBDEV_G_FMT` / `VIDIOC_SUBDEV_S_FMT` (`struct v4l2_subdev_format`):
-   Чинник `pad` вказує номер майданчика. Чинник `which` визначає контекст: `V4L2_SUBDEV_FORMAT_TRY` перевіряє сумісність у тимчасовій «тіньовій» конфігурації без зачіпання апаратури; `V4L2_SUBDEV_FORMAT_ACTIVE` записує новий формат безпосередньо в апаратні регістри. Поле `format.code` містить медіа-код шини (наприклад, `MEDIA_BUS_FMT_SBGGR10_1X10`).
+   Поле `pad` вказує номер майданчика. Поле `which` визначає контекст: `V4L2_SUBDEV_FORMAT_TRY` перевіряє сумісність у тимчасовій «тіньовій» конфігурації без зачіпання апаратури; `V4L2_SUBDEV_FORMAT_ACTIVE` записує новий формат безпосередньо в апаратні регістри. Поле `format.code` містить медіа-код шини (наприклад, `MEDIA_BUS_FMT_SBGGR10_1X10`).
 2. `VIDIOC_SUBDEV_G_SELECTION` / `VIDIOC_SUBDEV_S_SELECTION` (`struct v4l2_subdev_selection`):
    Керує прямокутниками геометричного перетворення. Поле `target` визначає ціль:
    - `V4L2_SEL_TGT_CROP` — область зчитування кадру з матриці сенсора;
@@ -105,7 +105,7 @@
 3. `VIDIOC_S_FMT` (`struct v4l2_format`):
    Фіксує роздільну здатність (`width`, `height`), FourCC-код формату `pixelformat` та розмір кроку рядка у байтах `bytesperline`.
 4. `VIDIOC_REQBUFS` (`struct v4l2_requestbuffers`):
-   Направляється до підсистеми Videobuf2 для виділення масиву буферів. Чинник `memory` задає тип пам'яті: `V4L2_MEMORY_MMAP`, `V4L2_MEMORY_DMABUF` або `V4L2_MEMORY_USERPTR`.
+   Направляється до підсистеми Videobuf2 для виділення масиву буферів. Поле `memory` задає тип пам'яті: `V4L2_MEMORY_MMAP`, `V4L2_MEMORY_DMABUF` або `V4L2_MEMORY_USERPTR`.
 5. `VIDIOC_QBUF` / `VIDIOC_DQBUF` (`struct v4l2_buffer`):
    Постановка порожнього буфера у чергу ядра та вилучення заповненого буфера із готовими піксельними даними після завершення транзакції DMA.
 6. `VIDIOC_EXPBUF` (`struct v4l2_exportbuffer`):

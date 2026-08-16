@@ -50,7 +50,7 @@ def make_architecture_fig():
     a5 = arrow(410, 243, 410, 277, color=LINE, sw=1.5)
     a6 = arrow(320, 277, 160, 335, color=LINE, sw=1.5)
     a7 = arrow(410, 277, 410, 335, color=LINE, sw=1.5)
-    a8 = arrow(245, 355, 565, 355, color=LINE, sw=1.5)
+    a8 = arrow(160, 390, 645, 390, color=LINE, sw=1.5)
 
     render(
         path,
@@ -100,8 +100,8 @@ def make_timeline_fig():
     l_tout = line(80, 100, 720, 100, color=MUTED, sw=1.0, dash="3,3")
     lbl_tout = text(75, 104, "T_out (30s)", size=11, color=MUTED, anchor="end")
 
-    l_tpre = line(80, 170, 720, 170, color=POS, sw=1.0, dash="3,3")
-    lbl_tpre = text(75, 174, "T_pre (5s)", size=11, color=POS, anchor="end")
+    l_tpre = line(80, 250, 720, 250, color=POS, sw=1.0, dash="3,3")
+    lbl_tpre = text(75, 254, "T_pre (5 с до нуля)", size=11, color=POS, anchor="end")
 
     p_cnt1 = line(80, 100, 240, 220, color=NEG, sw=2.0)
     p_reset1 = line(240, 220, 240, 100, color=FIELD, sw=1.5, dash="2,2")
@@ -115,14 +115,14 @@ def make_timeline_fig():
 
     lbl_crash = text(470, 240, "Зависання демона\nабо CPU Deadlock", size=11, color=POS, bold=True)
 
-    p_cnt3 = line(400, 100, 610, 170, color=NEG, sw=2.0)
-    p_cnt4 = line(610, 170, 670, 280, color=POS, sw=2.5)
+    p_cnt3 = line(400, 100, 600, 250, color=NEG, sw=2.0)
+    p_cnt4 = line(600, 250, 640, 280, color=POS, sw=2.5)
 
-    c_pre = circle(610, 170, 5, fill=POS, stroke=INK)
-    lbl_pre_event = text(610, 150, "NMI Interrupt\n(Pretimeout Governor)", size=10, color=POS, bold=True)
+    c_pre = circle(600, 250, 5, fill=POS, stroke=INK)
+    lbl_pre_event = text(520, 220, "NMI Interrupt\n(Pretimeout Governor)", size=10, color=POS, bold=True)
 
-    c_zero = circle(670, 280, 6, fill=POS, stroke=INK)
-    lbl_reset_event = text(670, 320, "HARDWARE RESET!\n(System Reboot)", size=11, color=POS, bold=True)
+    c_zero = circle(640, 280, 6, fill=POS, stroke=INK)
+    lbl_reset_event = text(660, 320, "HARDWARE RESET!\n(System Reboot)", size=11, color=POS, bold=True)
 
     render(
         path,
@@ -165,10 +165,10 @@ def make_pretimeout_fig():
     b_irq, _, _ = textbox(360, 120, "NMI / High-Priority IRQ\n(Переривання ядра)", size=12, fill="#fef3c7", stroke="#d97706", min_w=180)
     b_gov, _, _ = textbox(620, 120, "Watchdog Pretimeout Governor\n(watchdog_pretimeout.c)", size=12, fill="#e0e7ff", stroke="#4338ca", min_w=220)
 
-    # 3 Варіанти Governors рознесені по X без накладання
-    b_gov_panic, _, _ = textbox(160, 230, "Governor 'panic'\n(Виклик panic -> Kdump)", size=11, fill="#f3f4f6", stroke="#374151", min_w=210)
-    b_gov_dump, _, _ = textbox(410, 230, "Governor 'dumper'\n(printk + register dump)", size=11, fill="#f3f4f6", stroke="#374151", min_w=210)
-    b_gov_noop, _, _ = textbox(660, 230, "Governor 'noop'\n(Тільки sysfs uevent)", size=11, fill="#f3f4f6", stroke="#374151", min_w=200)
+    # Два регулятори з основного дерева ядра + спосіб вибору
+    b_gov_panic, _, _ = textbox(160, 230, "Governor 'panic'\n(panic() -> Kdump)", size=11, fill="#f3f4f6", stroke="#374151", min_w=210)
+    b_gov_noop, _, _ = textbox(410, 230, "Governor 'noop'\n(лише запис у dmesg)", size=11, fill="#f3f4f6", stroke="#374151", min_w=210)
+    b_gov_sel, _, _ = textbox(660, 230, "Вибір регулятора\n(sysfs pretimeout_governor)", size=11, fill="#f3f4f6", stroke="#374151", min_w=200)
 
     a1 = arrow(215, 120, 270, 120, color=LINE, sw=1.8)
     a2 = arrow(450, 120, 510, 120, color=LINE, sw=1.8)
@@ -186,8 +186,8 @@ def make_pretimeout_fig():
         b_irq,
         b_gov,
         b_gov_panic,
-        b_gov_dump,
         b_gov_noop,
+        b_gov_sel,
         a1,
         a2,
         a3,

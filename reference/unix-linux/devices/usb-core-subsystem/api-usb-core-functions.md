@@ -21,7 +21,7 @@ struct usb_driver {
     int (*reset_resume) (struct usb_interface *intf);
     const struct usb_device_id *id_table;
     struct usb_dynids dynids;
-    struct driver_driver_driver drvwrap;
+    struct device_driver driver;
     unsigned int supports_autosuspend:1;
     unsigned int disable_hub_initiated_lpm:1;
 };
@@ -64,9 +64,9 @@ struct usb_device_id {
 };
 ```
 
-#### Вспоміжні макроси заповнення
+#### Допоміжні макроси заповнення
 
-Для уникнення ручного запонювання прапорців `match_flags` ядро надає стандартні макроси:
+Щоб не заповнювати прапорці `match_flags` вручну, ядро надає стандартні макроси:
 
 - `USB_DEVICE(vendor, product)`: Створює правило для суворого збігу по ідентифікаторах виробника (`idVendor`) та продукту (`idProduct`).
 - `USB_DEVICE_VER(vendor, product, lo, hi)`: Додає обмеження по версії прошивки пристрою (`bcdDevice`).
@@ -121,8 +121,8 @@ struct urb {
 - `status`: Поточний стан виконання транзакції. Заповнюється підсистемою `usbcore` або HCD перед викликом `complete`:
   - `0`: Транзакція завершилася успішно.
   - `-EINPROGRESS`: URB знаходиться в черзі HCD і чекає обробки на шині.
-  - `-ENOENT`: URB було асинхронно скасовано через виклик `usb_unlink_urb()`.
-  - `-ECONNRESET`: URB було синхронно зупинено через виклик `usb_kill_urb()`.
+  - `-ECONNRESET`: URB було асинхронно скасовано через виклик `usb_unlink_urb()`.
+  - `-ENOENT`: URB було синхронно зупинено через виклик `usb_kill_urb()`.
   - `-ESHUTDOWN`: Хост-контролер зупинено або пристрій відключено від шини.
   - `-EPIPE`: Кінцева точка відповіла сигналом STALL (потрібне скидання стану через `usb_clear_halt()`).
   - `-EOVERFLOW`: Отримано більше даних, ніж розмір буфера `transfer_buffer_length` (Babble error).
@@ -174,7 +174,7 @@ struct urb *usb_get_urb(struct urb *urb);
 
 ## Функції ініціалізації (Helper Functions)
 
-Перед відправленням URB у ядро його полях слід правильно заповнити. Для цього використовуються стаціонарні inline-функції:
+Перед відправленням URB у ядро його поля слід правильно заповнити. Для цього використовуються статичні inline-функції:
 
 ```c
 static inline void usb_fill_control_urb(
@@ -210,7 +210,7 @@ static inline void usb_fill_int_urb(
 );
 ```
 
-- `interval`: Інтервал опитування для переривальних (Interrupt) передач. Задається у кадрах (1 мс для Low/Full Speed) або мікрокадрах ($2^{interval-1} \times 125$ мкс для High/SuperSpeed).
+- `interval`: Інтервал опитування для Interrupt-передач. Задається у кадрах (1 мс для Low/Full Speed) або в мікрокадрах: реальний період дорівнює 2^(interval−1) × 125 мкс для High/SuperSpeed.
 
 ---
 
@@ -223,7 +223,7 @@ int usb_submit_urb(struct urb *urb, gfp_t mem_flags);
 ```
 
 Передає URB до підсистеми `usbcore` та драйвера HCD.
-- Виклик є **атомарним** і не блокує потік виконання.
+- Виклик є **неблокуючим**: керування повертається негайно, ще до фактичного обміну на шині.
 - Аргумент `mem_flags`:
   - `GFP_ATOMIC`: Обов'язковий, якщо виклик виконується у функціях callback завершення URB, обробниках переривань або під утриманням spinlock.
   - `GFP_KERNEL`: Використовується у звичайному контексті процесів.
@@ -236,12 +236,12 @@ int usb_unlink_urb(struct urb *urb);
 void usb_kill_urb(struct urb *urb);
 ```
 
-- `usb_unlink_urb()`: Асинхронно ініціює вилучення URB з апаратної черги HCD. Повертає керування негайно зі статусом `-EINPROGRESS`. Функцію `complete` буде викликано пізніше зі статусом `urb->status = -ENOENT`. Може безпечно викликатися в атомарному контексті.
-- `usb_kill_urb()`: Синхронно очікує повного вилучення URB з апаратури та завершення роботи його callback. Гарантує, що після повернення з функції callback більше не виконується. **Заборонено викликати в атомарному контексті чи перериванні!**
+- `usb_unlink_urb()`: Асинхронно ініціює вилучення URB з апаратної черги HCD. Повертає керування негайно зі статусом `-EINPROGRESS`. Функцію `complete` буде викликано пізніше зі статусом `urb->status = -ECONNRESET`. Може безпечно викликатися в атомарному контексті.
+- `usb_kill_urb()`: Синхронно очікує повного вилучення URB з апаратури та завершення роботи його callback. Гарантує, що після її повернення функція callback уже не виконується. **Заборонено викликати в атомарному контексті чи перериванні!**
 
 ---
 
-## Механізм錨ування пакетами: `struct usb_anchor`
+## Механізм якорів для пакетів: `struct usb_anchor`
 
 При обробці десятків паралельних асинхронних URB драйверу складно відстежувати їх життєвий цикл вручну при відключенні пристрою. Для цього ядро надає абстракцію **Anchor (Якір)**:
 
@@ -251,7 +251,7 @@ void usb_anchor_urb(struct urb *urb, struct usb_anchor *anchor);
 void usb_unanchor_urb(struct urb *urb);
 void usb_kill_anchored_urbs(struct usb_anchor *anchor);
 void usb_scuttle_anchored_urbs(struct usb_anchor *anchor);
-int usb_wait_for_anchored_urbs(struct usb_anchor *anchor, int timeout);
+int usb_wait_anchor_empty_timeout(struct usb_anchor *anchor, unsigned int timeout);
 ```
 
 ### Принцип роботи якоря

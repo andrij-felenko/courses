@@ -89,7 +89,7 @@ def render():
 
     # DMA arrow from pages straight to hardware
     svg_zc.append(arrow(390, 195, 390, 305, color="#c0392b", sw=2.2))
-    svg_zc.append(text(400, 250, "Прямий DMA-трансфер (без CPU copy)", size=12, color="#c0392b", bold=True, anchor="start"))
+    svg_zc.append(text(400, 250, "Трансфер бекенду (без копії CPU)", size=12, color="#c0392b", bold=True, anchor="start"))
 
     # Target control line
     svg_zc.append(line(670, 195, 670, 360, color="#1a73e8", sw=1.5, dash="4,4"))

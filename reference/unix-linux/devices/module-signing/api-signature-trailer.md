@@ -78,7 +78,7 @@ sig_len < F − 28 − 12           інакше −EBADMSG (підпис не �
 | `CONFIG_INTEGRITY_CA_MACHINE_KEYRING` | у `.machine` беруть лише сертифікати центрів сертифікації |
 | `CONFIG_INTEGRITY_CA_MACHINE_KEYRING_MAX` | звужує ще: обов'язкові `CA:TRUE` і `keyCertSign`, а сертифікати з `digitalSignature` відкидають |
 | `CONFIG_SYSTEM_BLACKLIST_KEYRING` | заводить `.blacklist` |
-| `CONFIG_SYSTEM_BLACKLIST_HASH_LIST` | string: файл із хешами, які вбудують у образ як заборонені |
+| `CONFIG_SYSTEM_BLACKLIST_HASH_LIST` | string: файл із хешами, які вбудують в образ як заборонені |
 | `CONFIG_SYSTEM_REVOCATION_LIST` / `_KEYS` | відкликані ключі, вбудовані в образ |
 
 Що це за кільця й за якими правилами до них щось потрапляє на ходу — у [кільцях ключів ядра](book:unix-linux/kernel-keyrings): ядро тримає ключі у власних іменованих сховищах, кожне зі своїм правилом прийому, і сторонній процес бачить їх лише через `keyctl`.

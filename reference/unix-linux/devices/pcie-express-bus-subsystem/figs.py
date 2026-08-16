@@ -18,7 +18,7 @@ RED = "#fdecea"
 GREY = "#eceff1"
 
 def fig_pci_config_space():
-    W, H = 1000, 720
+    W, H = 1000, 780
     p = []
 
     # Standard Header (0x00 - 0x3C)
@@ -47,6 +47,7 @@ def fig_pci_config_space():
         ("0x2C", [("Subsystem ID (16 біт)", 2, WARM), ("Subsystem Vendor ID (16 біт)", 2, GREEN)]),
         ("0x30", [("Expansion ROM Base Address (32 біти)", 4, GREY)]),
         ("0x34", [("Зарезервовано (24 біти)", 3, GREY), ("Capabilities Pointer (8 біт)", 1, RED)]),
+        ("0x38", [("Зарезервовано (32 біти)", 4, GREY)]),
         ("0x3C", [("Max_Lat (8)", 1, GREY), ("Min_Gnt (8)", 1, GREY), ("Interrupt Pin (8)", 1, WARM), ("Interrupt Line (8)", 1, WARM)]),
     ]
 
@@ -108,7 +109,7 @@ def fig_pcie_topology():
                                   ["Root Port 00:02.0", "PCI Bridge (Bus 00 → 02)"],
                                   size=12, pad=12, fill=BLUE, stroke=LINE)
     f_rp3, w_rp3, h_rp3 = textbox(x_rp3, cy_rp,
-                                  ["Root Port 00:03.0", "PCI Bridge (Bus 00 → 04)"],
+                                  ["Root Port 00:03.0", "PCI Bridge (Bus 00 → 06)"],
                                   size=12, pad=12, fill=BLUE, stroke=LINE)
     p.append(f_rp1)
     p.append(f_rp2)
@@ -125,7 +126,7 @@ def fig_pcie_topology():
                                   ["NVidia GPU Endpoint",
                                    "BDF: 0000:01:00.0",
                                    "PCIe x16 Gen4 Link",
-                                   "BAR0: MMIO 128MB, BAR2: 16GB VRAM"],
+                                   "BAR0: MMIO 16MB, BAR1: 16GB VRAM (prefetchable)"],
                                   size=12, pad=12, fill=GREEN, stroke=LINE)
     p.append(f_ep1)
     p.append(arrow(x_rp1, cy_rp + h_rp1 / 2 + 2, x_rp1, cy_l3 - h_ep1 / 2 - 2))
@@ -134,7 +135,7 @@ def fig_pcie_topology():
     f_sw, w_sw, h_sw = textbox(x_rp2, cy_l3,
                                ["PCIe Switch (Комутатор)",
                                 "Upstream Port: 02:00.0",
-                                "Downstream Ports: 03:01.0, 03:02.0"],
+                                "Downstream Ports: 03:00.0, 03:01.0"],
                                size=12, pad=12, fill=WARM, stroke=LINE)
     p.append(f_sw)
     p.append(arrow(x_rp2, cy_rp + h_rp2 / 2 + 2, x_rp2, cy_l3 - h_sw / 2 - 2))
@@ -142,7 +143,7 @@ def fig_pcie_topology():
     # Right: Direct NVMe Endpoint
     f_ep2, w_ep2, h_ep2 = textbox(x_rp3, cy_l3,
                                   ["NVMe Controller",
-                                   "BDF: 0000:04:00.0",
+                                   "BDF: 0000:06:00.0",
                                    "PCIe x4 Gen4 Link",
                                    "BAR0: MMIO 16KB (MSI-X Table)"],
                                   size=12, pad=12, fill=GREEN, stroke=LINE)
@@ -153,10 +154,10 @@ def fig_pcie_topology():
     cy_sw_dev = 600
     x_sw1, x_sw2 = 440, 660
     f_sw_dev1, _, h_sd1 = textbox(x_sw1, cy_sw_dev,
-                                  ["M.2 NVMe SSD", "BDF: 0000:03:00.0"],
+                                  ["M.2 NVMe SSD", "BDF: 0000:04:00.0"],
                                   size=12, pad=10, fill=GREY, stroke=LINE)
     f_sw_dev2, _, h_sd2 = textbox(x_sw2, cy_sw_dev,
-                                  ["10GbE NIC", "BDF: 0000:03:01.0"],
+                                  ["10GbE NIC", "BDF: 0000:05:00.0"],
                                   size=12, pad=10, fill=GREY, stroke=LINE)
     p.append(f_sw_dev1)
     p.append(f_sw_dev2)
@@ -216,7 +217,7 @@ def fig_interrupt_mechanisms():
 
     y_apic = 300
     f_apic, _, h_apic = textbox(x_msi, y_apic,
-                                ["Local APIC Message Address (0xFEE00000 + CPU_ID)",
+                                ["Local APIC Message Address 0xFEE00000, APIC ID у бітах 19:12",
                                  "Прямий запис у пам'ять системного контролера переривань",
                                  "Немає розділення ліній (No Sharing), унікальний вектор!"],
                                 size=12, pad=12, fill=BLUE, stroke=LINE)

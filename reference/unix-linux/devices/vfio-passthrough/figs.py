@@ -79,7 +79,7 @@ def generate_iommu_group_topology():
     elements.append(rect(40, 130, 380, 310, fill="#fdf2e9", stroke="#e67e22", sw=1.5, rx=8))
     elements.append(text(230, 150, "Без ACS (P2P DMA без фільтрації)", size=12, bold=True, color="#a04000"))
     
-    box_sw1, _, _ = textbox(230, 210, "PCIe Switch (Без ACS)\nP2P йде вминай IOMMU", size=12, pad=10, fill="#ffffff", stroke="#e67e22")
+    box_sw1, _, _ = textbox(230, 210, "PCIe Switch (Без ACS)\nP2P йде повз IOMMU", size=12, pad=10, fill="#ffffff", stroke="#e67e22")
     elements.append(box_sw1)
     
     box_devA, _, _ = textbox(130, 310, "Пристрій A\n(GPU)", size=12, pad=8, fill="#ffffff", stroke="#d35400")

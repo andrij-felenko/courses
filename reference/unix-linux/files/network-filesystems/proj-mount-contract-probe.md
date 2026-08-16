@@ -1121,7 +1121,7 @@ static void probe_excl_race() {
 
     std::string theirs;
     if (recv_line(theirs) < 0) return;
-    if (theirs.size() != ROUNDS) { std::cout << "6. мапа не тієї довжини\n"; return; }
+    if (theirs.size() != static_cast<size_t>(ROUNDS)) { std::cout << "6. мапа не тієї довжини\n"; return; }
 
     int mine_won = 0, their_won = 0, both = 0, none = 0;
     for (int i = 0; i < ROUNDS; ++i) {

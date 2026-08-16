@@ -39,7 +39,7 @@ def fig_virtio_fs():
     frags.append(arrow(320, 260, 405, 260))
     frags.append(arrow(595, 260, 645, 260))
 
-    b4, _, _ = textbox(790, 260, ["Демон virtiofsd (Host Userspace)", "(vhost-user / openat, readat)"], size=13, pad=16, fill=GREEN, stroke=LINE)
+    b4, _, _ = textbox(790, 260, ["Демон virtiofsd (Host Userspace)", "(vhost-user / openat2, pread)"], size=13, pad=16, fill=GREEN, stroke=LINE)
     frags.append(b4)
 
     b5, _, _ = textbox(790, 440, ["Сторінковий кеш хоста", "(Host Page Cache & FS)"], size=13, pad=16, fill=GREEN, stroke=LINE)

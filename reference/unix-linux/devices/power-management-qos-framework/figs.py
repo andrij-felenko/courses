@@ -26,7 +26,7 @@ def fig_architecture():
     
     b1, w1, h1 = textbox(160, 120, "User Space Application\n/dev/cpu_dma_latency", size=13, fill=BLUE_BG, stroke=NEG)
     b2, w2, h2 = textbox(160, 225, "Device Drivers (Kernel)\nNetwork, Storage, GPU", size=13, fill=BLUE_BG, stroke=NEG)
-    b3, w3, h3 = textbox(160, 330, "Sysfs Control Nodes\npower/pm_qos_*", size=13, fill=BLUE_BG, stroke=NEG)
+    b3, w3, h3 = textbox(160, 330, "Thermal Governors / Sysfs\nscaling_min_freq", size=13, fill=BLUE_BG, stroke=NEG)
     P.extend([b1, b2, b3])
 
     # Колонка 2: Менеджери PM QoS
@@ -81,7 +81,7 @@ def fig_plist_flow():
     P.append(arrow(150 + nw1/2 + 3, 160, 325 - nw2/2 - 3, 160, color=NEG))
     P.append(arrow(325 + nw2/2 + 3, 160, 490 - nw3/2 - 3, 160, color=NEG))
 
-    P.append(text(325, 230, "Сортування за значенням у O(1) для відшукання min/max", size=12, color=MUTED, bold=False))
+    P.append(text(325, 230, "plist: вставка за O(K) пріоритетів, вибір min/max за O(1)", size=12, color=MUTED, bold=False))
     P.append(text(325, 260, "Агреговане значення: target_value = plist_first() = 10 µs", size=13, color=POS, bold=True))
 
     P.append(rect(610, 75, 290, 245, fill=ORANGE_BG, stroke=POS, sw=1.5))

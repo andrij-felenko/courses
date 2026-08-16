@@ -42,7 +42,7 @@
 | `meta_device:<пристрій>` | немає — теги чергуються з даними на тому самому носії | форматування |
 | `sectors_per_bit:<N>` | `32768` (`DEFAULT_SECTORS_PER_BITMAP_BIT`); степінь двійки | форматування, режим `B` |
 | `journal_mac:<алг>(:<ключ>)` | немає | форматування |
-| `fix_padding` | вимкнено — інакше під теги береться велике вирівнювання заради сумісності зі старими ядрами | форматування |
+| `fix_padding` | вимкнено — тобто під теги береться зайво велике вирівнювання, залишене заради сумісності зі старими ядрами; прапорець вмикає ощадливе | форматування |
 | `fix_hmac` | вимкнено | форматування |
 | `internal_hash:<алг>(:<ключ>)` | немає — тоді теги приймаються згори | щоразу в таблиці |
 | `journal_crypt:<алг>(:<ключ>)` | немає | щоразу в таблиці |
@@ -60,7 +60,7 @@
 
 **`fix_hmac`** робить три речі одразу: домішує до згортки номер секції журналу (щоб не можна було перекласти сектори з однієї секції в іншу), накриває `journal_mac`'ом сам суперблок і домішує 16-байтову сіль із суперблока — щоб не було видно, що два диски мають однаковий ключ, і щоб сектор не переносився з диска на диск.
 
-**`legacy_recalculate`** знято з-під заборони не з обережності, а через конкретну атаку: маючи змогу перерахувати том із HMAC-ключем, зловмисник змінює дані, ставить `recalc_sector` у нуль — і ядро підпише його зміни справжнім ключем, нічого не помітивши.
+**`legacy_recalculate`** знімає заборону перераховувати том із HMAC-ключем, а сама заборона стоїть не з обережності, а через конкретну атаку: зловмисник змінює дані, ставить `recalc_sector` у нуль — і ядро підпише його зміни справжнім ключем, нічого не помітивши.
 
 **`allow_discards`** без `internal_hash` не має сенсу взагалі: [discard](book:unix-linux/discard-and-trim) лишає на місці невизначений вміст, і тег, отриманий згори, після нього завідомо не збігатиметься.
 
@@ -77,8 +77,8 @@
 integritysetup format /dev/sdb1 --integrity crc32c --tag-size 4 --sector-size 4096
 integritysetup open   /dev/sdb1 idata --integrity crc32c
 
-# те саме руками: довжину беруть НЕ з розділу, а з поля "data size" суперблока
-SECT=$(integritysetup dump /dev/sdb1 | awk '/^data size:/ {print $3}')
+# те саме руками: довжину беруть НЕ з розділу, а з поля provided_data_sectors суперблока
+SECT=$(integritysetup dump /dev/sdb1 | awk '/^provided_data_sectors/ {print $2}')
 dmsetup create idata --table \
   "0 $SECT integrity /dev/sdb1 0 4 J 2 internal_hash:crc32c block_size:4096"
 ```
@@ -112,7 +112,7 @@ dmsetup create idata --table \
 | `SB_FLAG_FIXED_HMAC` | `0x10` | увімкнено посилення `fix_hmac` |
 | `SB_FLAG_INLINE` | `0x20` | теги в апаратних полях носія |
 
-`integritysetup dump <пристрій>` друкує саме ці поля, декодовані: `version`, `tag size`, `sector size`, `data size` (у 512-байтових одиницях і в байтах), `journal sections`, `log2 interleave sectors`, `log2 blocks per bitmap`, `flags`, а за наявності `SB_FLAG_RECALCULATING` — ще й `recalculate sector`. Команда читає носій, тому працює і на закритому пристрої.
+`integritysetup dump <пристрій>` друкує саме ці поля під їхніми власними іменами, по одному на рядок: `superblock_version`, `log2_interleave_sectors`, `integrity_tag_size`, `journal_sections`, `provided_data_sectors` (завжди у 512-байтових одиницях, хоч би який був `--sector-size`), `sector_size`, `log2_blocks_per_bitmap` і `flags` — словами, а не числом. Команда читає носій, тому працює і на закритому пристрої.
 
 ## 6. Стан живого пристрою
 

@@ -12,10 +12,9 @@
 
 ```c
 enum pm_qos_type {
-    PM_QOS_UNION,
-    PM_QOS_MIN,
-    PM_QOS_MAX,
-    PM_QOS_SUM,
+    PM_QOS_UNITLESS,
+    PM_QOS_MAX,   /* агрегат — найбільше зі значень */
+    PM_QOS_MIN,   /* агрегат — найменше зі значень */
 };
 
 struct pm_qos_constraints {
@@ -29,7 +28,6 @@ struct pm_qos_constraints {
 
 struct pm_qos_request {
     struct plist_node node;
-    int pm_qos_class;
     struct pm_qos_constraints *qos;
 };
 ```
@@ -37,7 +35,7 @@ struct pm_qos_request {
 Поля структури `struct pm_qos_constraints` мають такі значення та призначення:
 * `list`: пріоритетний список `struct plist_head`, у якому запити клієнтів автоматично впорядковані за зростанням або спаданням їх пріоритетного значення.
 * `target_value`: поточне розраховане агреговане значення для всього списку клієнтів (значення типу `s32`).
-* `default_value`: стандартне значення, яке повертається тоді, коли список запитів є порожнім (наприклад, `PM_QOS_CPU_LAT_DEFAULT_VALUE` дорівнює `2000000000` нс для затримок процесора).
+* `default_value`: стандартне значення, яке повертається тоді, коли список запитів є порожнім (для затримок процесора це `PM_QOS_CPU_LATENCY_DEFAULT_VALUE` — `2000 * USEC_PER_SEC`, тобто 2 000 000 000 мкс).
 * `no_constraint_value`: спеціальне значення, що позначає відсутність будь-яких обмежень з боку клієнтів.
 * `type`: тип математичної агрегації: `PM_QOS_MIN` (вибирається найменше значення серед усіх запитів) або `PM_QOS_MAX` (вибирається найбільше значення).
 * `notifiers`: вказувальник на ланцюжок сповіщень `struct blocking_notifier_head`, підписники якого отримують виклик при кожній зміні `target_value`.
@@ -46,7 +44,7 @@ struct pm_qos_request {
 
 #### Структури PM QoS для конкретних пристроїв (`dev_pm_qos`)
 
-Кожен екземпляр пристрою `struct device` містить вказувальник `power.qos` на об'єкт `struct dev_pm_qos`, який керує локальними вимогами відновлення та відновлення живлення:
+Кожен екземпляр пристрою `struct device` містить вказувальник `power.qos` на об'єкт `struct dev_pm_qos`, який тримає локальні вимоги до затримки відновлення, допуску затримки, частоти та станів живлення:
 
 ```c
 enum dev_pm_qos_req_type {
@@ -65,20 +63,24 @@ struct dev_pm_qos_request {
 };
 
 struct dev_pm_qos {
-    struct dev_pm_qos_constraints resume_latency;
-    struct dev_pm_qos_constraints latency_tolerance;
+    struct pm_qos_constraints resume_latency;
+    struct pm_qos_constraints latency_tolerance;
+    struct freq_constraints freq;
     struct pm_qos_flags flags;
-    struct blocked_notifier_head resume_latency_notifiers;
-    struct blocked_notifier_head latency_tolerance_notifiers;
-    struct mutex mtx;
+    struct dev_pm_qos_request *resume_latency_req;
+    struct dev_pm_qos_request *latency_tolerance_req;
+    struct dev_pm_qos_request *flags_req;
 };
 ```
 
 Поля структури `struct dev_pm_qos`:
 * `resume_latency`: об'єкт обмежень затримки відновлення робочого стану пристрою D0 (у мкс).
 * `latency_tolerance`: об'єкт обмежень допуску затримки для апаратних повідомлень шини PCIe LTR (у мкс).
-* `flags`: бітові прапорці управління доденами живлення (`PM_QOS_FLAG_NO_POWER_OFF` та `PM_QOS_FLAG_REMOTE_WAKEUP`).
-* `mtx`: локальний м'ютекс `struct mutex`, який захищає структури даних QoS конкретного пристрою від паралельних модифікацій з різних ядер.
+* `freq`: межі робочої частоти пристрою — той самий `struct freq_constraints`, що й у політиках `cpufreq`.
+* `flags`: бітові прапорці управління доменами живлення (`PM_QOS_FLAG_NO_POWER_OFF` та `PM_QOS_FLAG_REMOTE_WAKEUP`).
+* `resume_latency_req`, `latency_tolerance_req`, `flags_req`: запити, які ядро створює від імені sysfs-вузлів `power/pm_qos_*`, щоб простір користувача мав власний голос нарівні з драйверами.
+
+Власного м'ютекса структура не має: усі зміни пристроєвих обмежень серіалізує глобальний `dev_pm_qos_mtx`, а ланцюжок сповіщень живе у полі `notifiers` кожного об'єкта обмежень.
 
 #### Структури гарантій частоти (`freq_constraints` та `freq_qos_request`)
 
@@ -171,7 +173,7 @@ int dev_pm_qos_remove_request(struct dev_pm_qos_request *req);
 ```c
 s32 dev_pm_qos_read_value(struct device *dev, enum dev_pm_qos_req_type type);
 ```
-Зчитує поточне агреговане значення обмеження типу `type` для пристрою `dev`. Виконується атомарно без блокувань.
+Зчитує поточне агреговане значення обмеження типу `type` для пристрою `dev`. Захоплює спін-лок `dev->power.lock`, тому лишається безпечною і в атомарному контексті.
 
 ```c
 int dev_pm_qos_add_notifier(struct device *dev, struct notifier_block *notifier,
@@ -192,7 +194,7 @@ int dev_pm_qos_remove_notifier(struct device *dev, struct notifier_block *notifi
 int freq_qos_add_request(struct freq_constraints *qos, struct freq_qos_request *req,
                          enum freq_qos_req_type type, s32 value);
 ```
-Додає запит обмеження частоти `value` (у килогерцах, кГц) до об'єкта `qos`.
+Додає запит обмеження частоти `value` (у кілогерцах, кГц) до об'єкта `qos`.
 * **Параметри:** `qos` — вказувальник на об'єкт обмежень (наприклад, `&policy->constraints`); `req` — дескриптор запиту; `type` — `FREQ_QOS_MIN` (нижня межа) або `FREQ_QOS_MAX` (верхня межа); `value` — частота у кГц.
 * **Повертане значення:** `0` або `1` при успіху, негативний код помилки при помилці.
 

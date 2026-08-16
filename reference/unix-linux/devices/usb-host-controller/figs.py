@@ -304,7 +304,7 @@ def fig_input_context():
         p.append(text(x + bw / 2, 288, "DCI " + dci, size=13, color=MUTED))
 
     # біти масок над блоками
-    p.append(text(60, 130, "біт A1 / D1", size=12, color=MUTED, anchor="start"))
+    p.append(text(60, 130, "біти маски", size=12, color=MUTED, anchor="start"))
     for i, lbl in enumerate(["", "A0", "A1", "A2", "A3", "…", "A31"]):
         if not lbl:
             continue
@@ -423,7 +423,7 @@ def fig_split_budget():
     p.append(fitbox(710, 434, 590, 116,
                     "з високої шини Linux списує 31 блок протоколу\n"
                     "і 94 блоки даних: 125 · 4 = 500 Б за мікрокадр,\n"
-                    "тобто 24 Мбіт/с — удвічі більше за самі 12 Мбіт/с",
+                    "тобто 32 Мбіт/с — майже втричі більше за 12 Мбіт/с",
                     size=14, fill=WARM_FILL, stroke=WARM))
 
     render(os.path.join(IMG, 'split-budget.svg'), W, H, *p)

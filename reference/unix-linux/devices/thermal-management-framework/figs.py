@@ -21,7 +21,7 @@ def make_thermal_arch():
         fitbox(280, 130, 290, 90, "Thermal Core (thermal_core.c)\n/sys/class/thermal/ (sysfs) & Netlink", fill="#c3deef", stroke="#5792b5", size=14, bold=True, color="#1c3b52"),
 
         # Governors
-        fitbox(50, 130, 190, 90, "Thermal Governors\nstep_wise, power_allocator,\nbang_bang, fair_share", fill="#d2f2d9", stroke="#66a877", size=13, bold=True, color="#2a5737"),
+        fitbox(50, 130, 190, 90, "Thermal Governors\nstep_wise, power_allocator,\nbang_bang, fair_share, user_space", fill="#d2f2d9", stroke="#66a877", size=13, bold=True, color="#2a5737"),
 
         # Thermal Zones & Sensors
         fitbox(100, 280, 300, 130, "Thermal Zones (thermal_zone_device)\nSensors (x86 TSENS, ARM DT)\nTrip Points (passive, active, crit)\nHysteresis evaluation", fill="#f9e3e3", stroke="#b56363", size=13, bold=True, color="#612323"),
@@ -64,7 +64,7 @@ def make_trip_points_hysteresis():
         text(210, 282, "Passive Trip Point (50°C)", size=12, bold=True, color="#2980b9"),
 
         # Shaded Hysteresis Band
-        rect(100, 160, 680, 60, fill="#27ae60", stroke="none"),
+        rect(100, 160, 680, 60, fill="#d5f5e3", stroke="none"),
         text(600, 195, "Петля гістерезису ΔT_hyst = 4°C", size=12, bold=True, color="#1e8449"),
 
         # Temperature Curve Path

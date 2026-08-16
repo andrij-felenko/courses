@@ -71,10 +71,10 @@ def fig_one_stream():
     g.append(arrow(292, 144, 356, 144))
     g.append(arrow(702, 144, 766, 144))
 
-    g.append(fitbox(360, 232, 340, 44,
+    g.append(fitbox(770, 216, 310, 60,
                     "курсор, кольори, розмір екрана — стан живе тут",
                     size=12, fill="#fff8e6", stroke=MUTED))
-    g.append(arrow(925, 200, 800, 230, color=MUTED, sw=1.4))
+    g.append(arrow(925, 196, 925, 212, color=MUTED, sw=1.4))
 
     g.append(text(W / 2, 316,
                   "назад: натиснуті клавіші й відповіді термінала — теж один потік",

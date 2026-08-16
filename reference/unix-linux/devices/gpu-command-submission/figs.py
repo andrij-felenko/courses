@@ -40,8 +40,8 @@ def fig_ring_and_batch():
                   size=13, color=MUTED, anchor="start"))
 
     # стрибки з кільця в пакети
-    f.append(arrow(300, 166, 380, Y0 - 6, color=NEG))
-    f.append(arrow(760, 166, 560, Y0 - 6, color=NEG))
+    f.append(arrow(380, Y0 - 6, 300, 166, color=NEG))
+    f.append(arrow(560, Y0 - 6, 760, 166, color=NEG))
 
     # ── два вказівники ────────────────────────────────────────────────────
     READ_X = X0 + CELL_W              # 300 — межа «виконано / ще ні»
@@ -145,7 +145,7 @@ def fig_pipeline_depth():
         f.append(text(x, ROW1 + BAR + 26, label, size=11, color=MUTED))
 
     f.append(text(650, 310,
-                  "подано о другій мітці, а кільце звільниться о 700 — різницю завдання пересидить у планувальнику",
+                  "подання N+1 приходить, поки GPU ще жує кадр N, — цю різницю завдання пересидить у планувальнику",
                   size=12, color=MUTED))
 
     f.append(arrow(160, 344, 1050, 344, color=INK))

@@ -1,6 +1,6 @@
 # ⚙️ Асинхронний двигун обміну через URB
 
-Усунення блокування обчислювальних потоків під час очікування апаратних відповідей шини USB є критичною інженерною задачею при побудові високопродуктивних систем введення-виведення. Використання псевдофайлової системи ядра `usbfs` (USB Filesystem) у поєднанні з неблокувальним асинхронним механізмом URB (USB Request Block) дозволяє виключити простій процесорних ядер, реалізувати конвеєризацію запитів із нульовим копіюванням буферів (Zero-Copy DMA) та забезпечити граничну пропускну здатність каналу зв'язку в реальному часі.
+Усунення блокування обчислювальних потоків під час очікування апаратних відповідей шини USB є критичною інженерною задачею при побудові високопродуктивних систем введення-виведення. Використання псевдофайлової системи ядра `usbfs` (USB Filesystem) у поєднанні з неблокувальним асинхронним механізмом URB (USB Request Block) дозволяє виключити простій процесорних ядер, реалізувати конвеєризацію запитів та забезпечити граничну пропускну здатність каналу зв'язку в реальному часі.
 
 ---
 
@@ -8,7 +8,7 @@
 
 При розробці систем комп'ютерного зору (опитування вебкамер високої чіткості), програмно-визначених радіосистем (SDR) або швидких вимірювальних приладів розробники нерідко стикаються з межею продуктивності синхронних викликів.
 
-При використанні блокуючого синхронного підходу (наприклад, викликів `libusb_bulk_transfer` або блокуючих читань з файлового дескриптора) потік виконання програми занурюється в сон на час апаратного обміну пакетами по шині. У цей проміжок часу шина USB залишається порожньою між завершенням одного пакета та підготовкою наступного системного виклику у юзерспейсі. Цей паузовий інтервал називається **простоєм шини (Bus Idle Time)**. На високошвидкісних шинах USB 3.x (5–10 Гбіт/с) простій у кілька мікросекунд призводить до падіння реальної пропускної здатності на 30–50% та систематичної втрати кадрів (Frame Drops).
+При використанні блокуючого синхронного підходу (наприклад, викликів `libusb_bulk_transfer` або блокуючих читань з файлового дескриптора) потік виконання програми занурюється в сон на час апаратного обміну пакетами по шині. У цей проміжок часу шина USB залишається порожньою між завершенням одного пакета та підготовкою наступного системного виклику у юзерспейсі. Цей паузовий інтервал називається **простоєм шини (Bus Idle Time)**. На високошвидкісних шинах USB 3.x (5–10 Гбіт/с) простій у кілька мікросекунд між пакетами відчутно знижує реальну пропускну здатність і призводить до систематичної втрати кадрів (Frame Drops).
 
 ```
 Синхронний підхід (Паузи та простій шини):
@@ -29,10 +29,10 @@
 
 Взаємодія з цим файлом здійснюється за допомогою системних викликів `ioctl()` зі спеціальними командами:
 
-1. `USBFS_CLAIMINTERFACE`: Запитує у ядра `usbcore` право на володіння конкретним інтерфейсом пристрою (`struct usb_interface`). Якщо до цього інтерфейсу був прив'язаний ядерний драйвер, ядро поверне помилку `-EBUSY` (із юзерспейсу можна попередньо викликати `USBFS_DISCONNECT` для від'єднання ядерного драйвера).
-2. `USBFS_SUBMITURB`: Приймає покажчик на структуру `struct usbdevfs_urb`. Ядро перевіряє права доступу, виділяє внутрішній об'єкт `struct urb`, виконує пряме DMA-відображення буфера пам'яті юзерспейсу (`transfer_buffer`) у фізичні сторінки та відправляє транзакцію в чергу HCD. Виклик повертає керування **негайно**.
-3. `USBFS_REAPURBNDELAY`: Перевіряє апаратне кільце завершених транзакцій. Якщо є готові URB, функція записує покажчик на завершений `struct usbdevfs_urb` у передану змінну і повертає `0`. Якщо готових пакетів немає, функція негайно повертає `-EAGAIN`.
-4. `USBFS_RELEASEINTERFACE`: Звільняє володіння інтерфейсом та повертає його під контроль ядра.
+1. `USBDEVFS_CLAIMINTERFACE`: Запитує у ядра `usbcore` право на володіння конкретним інтерфейсом пристрою (`struct usb_interface`). Якщо до цього інтерфейсу вже прив'язаний ядерний драйвер, виклик падає з `errno = EBUSY`; від'єднати драйвер можна окремою командою `USBDEVFS_DISCONNECT`.
+2. `USBDEVFS_SUBMITURB`: Приймає покажчик на структуру `struct usbdevfs_urb`. Ядро перевіряє права доступу, виділяє внутрішній об'єкт `struct urb`, готує придатний для DMA буфер (власний — або, якщо пам'ять отримано через `mmap()` цього самого файлу, безпосередньо юзерспейсну) та відправляє транзакцію в чергу HCD. Виклик повертає керування **негайно**.
+3. `USBDEVFS_REAPURBNDELAY`: Перевіряє чергу завершених транзакцій. Якщо є готові URB, функція записує покажчик на завершений `struct usbdevfs_urb` у передану змінну і повертає `0`. Якщо готових пакетів немає, повертає `-1` зі значенням `errno = EAGAIN`.
+4. `USBDEVFS_RELEASEINTERFACE`: Звільняє володіння інтерфейсом та повертає його під контроль ядра.
 
 ---
 
@@ -76,8 +76,8 @@ int main(int argc, char *argv[]) {
 
     /* Запитуємо володіння інтерфейсом 0 у usbcore */
     int interface_num = 0;
-    if (ioctl(fd, USBFS_CLAIMINTERFACE, &interface_num) < 0) {
-        perror("Помилка захоплення інтерфейсу USBFS_CLAIMINTERFACE");
+    if (ioctl(fd, USBDEVFS_CLAIMINTERFACE, &interface_num) < 0) {
+        perror("Помилка захоплення інтерфейсу USBDEVFS_CLAIMINTERFACE");
         close(fd);
         return EXIT_FAILURE;
     }
@@ -88,14 +88,14 @@ int main(int argc, char *argv[]) {
     /* Ініціалізація та асинхронна відправка пакетів URB */
     for (int i = 0; i < NUM_URBS; ++i) {
         transfers[i].id = i;
-        transfers[i].urb.type = USBFS_URB_TYPE_BULK;
+        transfers[i].urb.type = USBDEVFS_URB_TYPE_BULK;
         transfers[i].urb.endpoint = ENDPOINT_IN;
         transfers[i].urb.buffer = transfers[i].buffer;
         transfers[i].urb.buffer_length = BUFFER_SIZE;
         transfers[i].urb.usercontext = &transfers[i];
 
-        if (ioctl(fd, USBFS_SUBMITURB, &transfers[i].urb) < 0) {
-            perror("Помилка відправки USBFS_SUBMITURB");
+        if (ioctl(fd, USBDEVFS_SUBMITURB, &transfers[i].urb) < 0) {
+            perror("Помилка відправки USBDEVFS_SUBMITURB");
             goto release_and_close;
         }
         printf("[+] Асинхронний URB #%d успішно відправлено до usbcore\n", i);
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
         }
 
         struct usbdevfs_urb *reaped_urb = NULL;
-        while (ioctl(fd, USBFS_REAPURBNDELAY, &reaped_urb) == 0) {
+        while (ioctl(fd, USBDEVFS_REAPURBNDELAY, &reaped_urb) == 0) {
             struct async_transfer *st = (struct async_transfer *)reaped_urb->usercontext;
             printf("[✓] URB #%d завершено: статус=%d, отримано=%d байтів\n",
                    st->id, reaped_urb->status, reaped_urb->actual_length);
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
     }
 
 release_and_close:
-    ioctl(fd, USBFS_RELEASEINTERFACE, &interface_num);
+    ioctl(fd, USBDEVFS_RELEASEINTERFACE, &interface_num);
     close(fd);
     return EXIT_SUCCESS;
 }
@@ -154,15 +154,15 @@ public:
             throw std::system_error(errno, std::generic_category(), "Не вдалося відкрити USB-пристрій");
         }
 
-        if (::ioctl(fd_, USBFS_CLAIMINTERFACE, &interface_num_) < 0) {
+        if (::ioctl(fd_, USBDEVFS_CLAIMINTERFACE, &interface_num_) < 0) {
             ::close(fd_);
-            throw std::system_error(errno, std::generic_category(), "Помилка захоплення інтерфейсу USBFS");
+            throw std::system_error(errno, std::generic_category(), "Помилка захоплення інтерфейсу через usbfs");
         }
     }
 
     ~UsbDeviceHandle() noexcept {
         if (fd_ >= 0) {
-            ::ioctl(fd_, USBFS_RELEASEINTERFACE, &interface_num_);
+            ::ioctl(fd_, USBDEVFS_RELEASEINTERFACE, &interface_num_);
             ::close(fd_);
         }
     }
@@ -180,7 +180,7 @@ struct UrbTransfer {
 
     explicit UrbTransfer(std::size_t id_val, std::size_t size, uint8_t endpoint)
         : buffer(size, 0), id(id_val) {
-        urb.type = USBFS_URB_TYPE_BULK;
+        urb.type = USBDEVFS_URB_TYPE_BULK;
         urb.endpoint = endpoint;
         urb.buffer = buffer.data();
         urb.buffer_length = static_cast<int>(buffer.size());
@@ -206,8 +206,8 @@ int main(int argc, char* argv[]) {
         /* Відправлення асинхронних пакетів через RAII контексти */
         for (std::size_t i = 0; i < kNumUrbs; ++i) {
             auto transfer = std::make_unique<UrbTransfer>(i, kBufferSize, kEndpointIn);
-            if (::ioctl(device.native_handle(), USBFS_SUBMITURB, &transfer->urb) < 0) {
-                throw std::system_error(errno, std::generic_category(), "Помилка відправки USBFS_SUBMITURB");
+            if (::ioctl(device.native_handle(), USBDEVFS_SUBMITURB, &transfer->urb) < 0) {
+                throw std::system_error(errno, std::generic_category(), "Помилка відправки USBDEVFS_SUBMITURB");
             }
             std::cout << "[+] Асинхронний URB #" << i << " надіслано в usbcore\n";
             transfers.push_back(std::move(transfer));
@@ -227,7 +227,7 @@ int main(int argc, char* argv[]) {
             }
 
             ::usbdevfs_urb* reaped{nullptr};
-            while (::ioctl(device.native_handle(), USBFS_REAPURBNDELAY, &reaped) == 0) {
+            while (::ioctl(device.native_handle(), USBDEVFS_REAPURBNDELAY, &reaped) == 0) {
                 auto* st = static_cast<UrbTransfer*>(reaped->usercontext);
                 std::cout << "[✓] URB #" << st->id << " завершено: status="
                           << reaped->status << ", actual_length=" << reaped->actual_length << "\n";
@@ -251,21 +251,21 @@ int main(int argc, char* argv[]) {
 
 ### 1. Управління ресурсами (RAII vs goto cleanup)
 
-У версії мовою C вивільнення ресурсів при виникненні помилки здійснюється через класичний ядерний паттерн `goto release_and_close`. Якщо під час виконання `ioctl(USBFS_SUBMITURB)` виникає помилка, потік виконання стрибає на мітку очищення, де послідовно звільняє інтерфейс та закриває дескриптор.
+У версії мовою C вивільнення ресурсів при виникненні помилки здійснюється через класичний ядерний паттерн `goto release_and_close`. Якщо під час виконання `ioctl(USBDEVFS_SUBMITURB)` виникає помилка, потік виконання стрибає на мітку очищення, де послідовно звільняє інтерфейс та закриває дескриптор.
 
-У версії на C++20 управління файловим дескриптором та інтерфейсом повністю загорнуто у RAII-клас `UsbDeviceHandle`. Деструктор класу гарантує виклики `USBFS_RELEASEINTERFACE` та `close()` при виході з області видимості за будь-яких умов, включно з виникненням винятків `std::system_error`.
+У версії на C++20 управління файловим дескриптором та інтерфейсом повністю загорнуто у RAII-клас `UsbDeviceHandle`. Деструктор класу гарантує виклики `USBDEVFS_RELEASEINTERFACE` та `close()` при виході з області видимості за будь-яких умов, включно з виникненням винятків `std::system_error`.
 
-### 2. Керування пам'яттю буферів (Zero-Copy DMA)
+### 2. Керування пам'яттю буферів і копіювання
 
-Обидві реалізації використовують принцип **Zero-Copy**. Буфери пам'яті виділяються у просторі користувача (структура `unsigned char buffer[]` у C або `std::vector<uint8_t>` у C++).
+Обидві реалізації виділяють буфери у просторі користувача (масив `unsigned char buffer[]` у C або `std::vector<uint8_t>` у C++).
 
-Покажчик на цей буфер передається в ядро у полі `urb.buffer`. Під час виклику `USBFS_SUBMITURB` ядро Linux pinned-страничками закріплює цей буфер у фізичній пам'яті і передає його фізичну адресу безпосередньо у кільце дескрипторів TRB контролера xHCI. Таким чином, передача даних з фізичного порту USB у буфер вашої програми відбувається взагалі без проміжного копіювання процесором (`memcpy`).
+Покажчик на цей буфер передається в ядро у полі `urb.buffer`. За замовчуванням `usbfs` не віддає контролеру юзерспейсну пам'ять напряму: на кожен URB ядро бере власний придатний для DMA буфер і копіює дані між ним і буфером програми. Справжнє нульове копіювання доступне лише тоді, коли буфер отримано через `mmap()` того самого файлу `/dev/bus/usb/BBB/DDD` — тоді контролер працює з тією ж фізичною пам'яттю, і зайвого `memcpy` не відбувається.
 
 ### 3. Очікування подій та неблокуючий збір (Reaping)
 
-Файловий дескриптор `/dev/bus/usb/BBB/DDD` сигналізує про готовність до читання (подія `POLLOUT` або `POLLIN`), коли хост-контролер генерує переривання про завершення хоча б одного URB.
+Файловий дескриптор `/dev/bus/usb/BBB/DDD` сигналізує подією `POLLOUT`, щойно в черзі з'явиться хоча б один завершений URB, готовий до збирання, — саме тому в `pollfd` вказано `POLLOUT`.
 
-Програма занурюється в сон у системному виклику `poll()`, не споживаючи ресурсів процесора. Як тільки `poll()` повертає керування, програма викликає `USBFS_REAPURBNDELAY` у внутрішньому циклі `while`. Оскільки один сигнал переривання може відповідати завершенню одразу кількох пакетів URB, внутрішній цикл `while` зчитує всі готові пакети до тих пір, поки `ioctl` не поверне помилку `-EAGAIN`.
+Програма занурюється в сон у системному виклику `poll()`, не споживаючи ресурсів процесора. Як тільки `poll()` повертає керування, програма викликає `USBFS_REAPURBNDELAY` у внутрішньому циклі `while`. Оскільки один сигнал переривання може відповідати завершенню одразу кількох пакетів URB, внутрішній цикл `while` зчитує всі готові пакети доти, доки `ioctl` не поверне `-1` зі значенням `errno = EAGAIN`.
 
 ---
 
@@ -273,6 +273,6 @@ int main(int argc, char* argv[]) {
 
 При експлуатації асинхронних двигунів у реальних умовах слід враховувати такі крайові ситуації:
 
-1. **Раптове відключення пристрою (Unplug Event)**: Якщо користувач висмикнув кабель під час активного обміну, виклик `poll()` негайно поверне поверне прапорець `POLLHUP` або `POLLERR`. Спроба викликати `USBFS_REAPURBNDELAY` поверне всі підпорядковані URB зі статусом `reaped_urb->status = -ENODEV` або `-ESHUTDOWN`.
+1. **Раптове відключення пристрою (Unplug Event)**: Якщо користувач висмикнув кабель під час активного обміну, виклик `poll()` негайно поверне прапорець `POLLHUP` або `POLLERR`. Спроба викликати `USBDEVFS_REAPURBNDELAY` поверне всі відправлені URB зі статусом `reaped_urb->status = -ENODEV` або `-ESHUTDOWN`.
 2. **Короткі пакети (Short Packets)**: Якщо пристрій надіслав менше байтів, ніж розмір буфера `buffer_length`, обмін вважається успішно завершеним. Фактичну кількість отриманих байтів слід зчитувати з поля `reaped_urb->actual_length`.
 3. **Вирівнювання пам'яті (DMA Alignment)**: Для досягнення максимальної швидкості на архітектурах x86_64 та ARM64 буфери пам'яті `transfer_buffer` рекомендовано вирівнювати по межі 64 байтів (розмір лінії кешу L1/L2) за допомогою `posix_memalign()` або `std::aligned_alloc()`.

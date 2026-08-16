@@ -186,7 +186,7 @@ def fig_sign_extension():
 def fig_bus_race():
     W, H = 1420, 660
     P = []
-    P.append(text(W / 2, 40, "Без замка два читачі забирають відповіді один в одного",
+    P.append(text(W / 2, 40, "Вибір регістра й читання розірвано — читачі забирають відповіді один в одного",
                   size=18, bold=True))
 
     P.append(text(96, 118, "Читач A", size=14, bold=True, anchor="start", color=NEG))
@@ -204,9 +204,9 @@ def fig_bus_race():
     P.append(arrow(200, 316, 1390, 316, color=MUTED, sw=2))
     P.append(text(200, 340, "час на шині", size=13, color=MUTED, anchor="start"))
 
-    P.append(fitbox(220, 356, 1170, 54,
-                    "покажчик регістра в мікросхемі один на всіх — його перезаписав той, "
-                    "хто прийшов другим",
+    P.append(fitbox(220, 356, 1170, 62,
+                    "покажчик регістра один на всіх — його перезаписав той, хто прийшов другим;\n"
+                    "так буває, коли вибір і читання зроблено двома окремими командами",
                     size=13.5, fill=BG, stroke=POS, sw=2))
 
     P.append(line(60, 448, 1380, 448, color=MUTED, sw=1.5, dash="6 6"))

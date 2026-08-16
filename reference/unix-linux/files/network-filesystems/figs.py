@@ -315,7 +315,7 @@ def fig_timeout_ladder():
     marks = [
         (120, "0 с", "запит пішов"),
         (330, "60 с", "тиша → повтор №1"),
-        (610, "180 с", "тиша → повтор №2"),
+        (610, "180 с", "тиша → великий таймаут"),
     ]
     for x, t, s in marks:
         p.append(circle(x, AY, 5.5, fill=INK, stroke=INK, sw=1.0))

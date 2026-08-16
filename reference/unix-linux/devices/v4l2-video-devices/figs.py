@@ -144,10 +144,10 @@ def fig_readback_fields():
          "width  = 1366\nheight = 768\nYUYV",
          "1366 × 768, YUYV\nbytesperline = 2752 Б\nsizeimage = 2 113 536 Б"),
         (215, "VIDIOC_REQBUFS",
-         "count = 8",
-         "count = 4\nстільки пам'яті під DMA дали"),
+         "count = 4",
+         "count = 2\nстільки пам'яті під DMA дали"),
         (330, "VIDIOC_QUERYBUF",
-         "index = 2",
+         "index = 1",
          "m.offset — де шукати у вузлі\nlength = 2 113 536 Б"),
     ]
 

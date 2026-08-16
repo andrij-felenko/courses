@@ -3457,10 +3457,10 @@ window.__BOOKS__ = [
             "slug": "log-structured-filesystems",
             "title": "Лог-структуровані файлові системи",
             "basic": {
-              "status": "recheck"
+              "status": "done"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-f2fs-ioctls.md",
@@ -4889,7 +4889,7 @@ window.__BOOKS__ = [
             "slug": "ublk-userspace-block-driver",
             "title": "Фреймворк ublk: блокові драйвери у просторі користувача",
               "basic": {
-                "status": "recheck",
+                "status": "done",
             "hist": [
               {
                 "file": "hist-userspace-block-devs.md",
@@ -4916,7 +4916,7 @@ window.__BOOKS__ = [
             ],
               },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6811,7 +6811,7 @@ window.__BOOKS__ = [
             "slug": "smack-simplified-mandatory-access",
             "title": "Спрощений мандатний контроль доступу SMACK (Simplified Mandatory Access Control)",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-smackfs-and-xattr.md",
@@ -6870,11 +6870,11 @@ window.__BOOKS__ = [
           { slug: "usb-type-c-connector-class-framework", title: "Фреймворк коннекторів USB Type-C та Power Delivery", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-typec-kernel-sysfs.md", status: "done" }] , "comp": [{ file: "comp-tcpm-tcpci-ucsi.md", status: "done" }] , "hist": [{ file: "hist-typec-pd-evolution.md", status: "done" }] , "proj": [{ file: "proj-typec-role-switcher.md", status: "done" }] },
           { slug: "input-event-codes-and-evdev", title: "Підсистема введення та події evdev (/dev/input/eventN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-evdev-ioctl.md", status: "done" }] , "hist": [{ file: "hist-linux-input-subsystem.md", status: "done" }] , "math": [{ file: "math-evdev-abs-scaling.md", status: "done" }] , "proj": [{ file: "proj-evdev-event-loop.md", status: "done" }] },
           { slug: "gpio-character-device-v2", title: "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v2-structures-and-ioctls.md", status: "done" }] , "hist": [{ file: "hist-abi-v1-vs-v2.md", status: "done" }] , "proj": [{ file: "proj-v2-raw-ioctl-and-libgpiod.md", status: "done" }] },
-          { slug: "power-management-qos-framework", title: "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-pm-qos-kernel.md", status: "done" }] , "hist": [{ file: "hist-pm-qos-evolution.md", status: "done" }] , "proj": [{ file: "proj-pm-qos-benchmark.md", status: "done" }] },
-          { slug: "v4l2-media-subsystem", title: "Підсистема відео та медіа-пристроїв (V4L2, Media Controller)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-v4l2-mc-core.md", status: "done" }] , "hist": [{ file: "hist-v4l1-to-media-controller.md", status: "done" }] , "math": [{ file: "math-media-pipeline-bandwidth.md", status: "done" }] , "proj": [{ file: "proj-v4l2-capture.md", status: "done" }] },
-          { slug: "virtio-mem-and-virtio-pmem", title: "Динамічне додавання пам'яті: virtio-mem та virtio-pmem", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-virtio-mem-spec.md", status: "done" }] , "comp": [{ file: "comp-virtio-mem-vs-acpi-dimm.md", status: "done" }] , "hist": [{ file: "hist-virtio-mem-genesis.md", status: "done" }] , "proj": [{ file: "proj-virtio-mem-driver.md", status: "done" }] },
-          { slug: "watchdog-timer-subsystem", title: "Підсистема та драйвери таймерів Watchdog (/dev/watchdog)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-watchdog-ioctl-abi.md", status: "done" }] , "comp": [{ file: "comp-hardware-watchdog-architecture.md", status: "done" }] , "hist": [{ file: "hist-watchdog-evolution.md", status: "done" }] , "math": [{ file: "math-watchdog-timeout-window.md", status: "done" }] , "proj": [{ file: "proj-watchdog-daemon.md", status: "done" }] },
-          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "recheck" }, detailed: { status: "recheck" } , "api": [{ file: "api-cdev-bdev-interfaces.md", status: "done" }] , "hist": [{ file: "hist-raw-devices-and-devfs.md", status: "done" }] , "proj": [{ file: "proj-cdev-bdev-userspace.md", status: "done" }] },
+          { slug: "power-management-qos-framework", title: "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-pm-qos-kernel.md", status: "done" }] , "hist": [{ file: "hist-pm-qos-evolution.md", status: "done" }] , "proj": [{ file: "proj-pm-qos-benchmark.md", status: "done" }] },
+          { slug: "v4l2-media-subsystem", title: "Підсистема відео та медіа-пристроїв (V4L2, Media Controller)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-v4l2-mc-core.md", status: "done" }] , "hist": [{ file: "hist-v4l1-to-media-controller.md", status: "done" }] , "math": [{ file: "math-media-pipeline-bandwidth.md", status: "done" }] , "proj": [{ file: "proj-v4l2-capture.md", status: "done" }] },
+          { slug: "virtio-mem-and-virtio-pmem", title: "Динамічне додавання пам'яті: virtio-mem та virtio-pmem", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-virtio-mem-spec.md", status: "done" }] , "comp": [{ file: "comp-virtio-mem-vs-acpi-dimm.md", status: "done" }] , "hist": [{ file: "hist-virtio-mem-genesis.md", status: "done" }] , "proj": [{ file: "proj-virtio-mem-driver.md", status: "done" }] },
+          { slug: "watchdog-timer-subsystem", title: "Підсистема та драйвери таймерів Watchdog (/dev/watchdog)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-watchdog-ioctl-abi.md", status: "done" }] , "comp": [{ file: "comp-hardware-watchdog-architecture.md", status: "done" }] , "hist": [{ file: "hist-watchdog-evolution.md", status: "done" }] , "math": [{ file: "math-watchdog-timeout-window.md", status: "done" }] , "proj": [{ file: "proj-watchdog-daemon.md", status: "done" }] },
+          { slug: "character-and-block-devices", title: "Символьні та блочні пристрої", basic: { status: "done" }, detailed: { status: "done" } , "api": [{ file: "api-cdev-bdev-interfaces.md", status: "done" }] , "hist": [{ file: "hist-raw-devices-and-devfs.md", status: "done" }] , "proj": [{ file: "proj-cdev-bdev-userspace.md", status: "done" }] },
           {
             "slug": "procfs-process-reflection",
             "title": "Відображення процесів у procfs",
@@ -6900,7 +6900,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -6910,7 +6910,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "hist": [
                 {
                   "file": "hist-dev-directory.md",
@@ -6932,7 +6932,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-dev-numbers.md",
@@ -6960,7 +6960,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sysfs-tree.md",
@@ -6988,7 +6988,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-rule-keys.md",
@@ -7038,7 +7038,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-termios.md",
@@ -7066,7 +7066,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-usbfs-ioctl.md",
@@ -7094,7 +7094,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-deferred-work.md",
@@ -7122,7 +7122,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-dma-mapping.md",
@@ -7150,7 +7150,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ioctl-encoding.md",
@@ -7178,7 +7178,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-dm-table.md",
@@ -7206,7 +7206,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-dmabuf-interfaces.md",
@@ -7234,7 +7234,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-v4l2-ioctls.md",
@@ -7262,7 +7262,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-queue-attributes.md",
@@ -7290,7 +7290,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-random-surface.md",
@@ -7318,7 +7318,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-rcu-primitives.md",
@@ -7346,7 +7346,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-smp-call.md",
@@ -7368,7 +7368,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-discard-controls.md",
@@ -7390,7 +7390,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-cpuidle-sysfs.md",
@@ -7418,7 +7418,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-lvm-commands.md",
@@ -7474,7 +7474,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-verity-table.md",
@@ -7502,7 +7502,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-pty-interfaces.md",
@@ -7530,7 +7530,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-crypt-target.md",
@@ -7558,7 +7558,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-dt-bindings.md",
@@ -7586,7 +7586,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-common-sequences.md",
@@ -7614,7 +7614,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-xhci-structures.md",
@@ -7642,7 +7642,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-configfs-gadget.md",
@@ -7670,7 +7670,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-multipath-table.md",
@@ -7698,7 +7698,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-kms-objects.md",
@@ -7726,7 +7726,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fence-interfaces.md",
@@ -7754,7 +7754,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-media-ioctls.md",
@@ -7828,7 +7828,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-gpt-layout.md",
@@ -7856,7 +7856,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-virtio-rng-surface.md",
@@ -7884,7 +7884,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-thin-pool-table.md",
@@ -7912,7 +7912,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-erase-commands.md",
@@ -7940,7 +7940,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ublk-protocol.md",
@@ -7968,7 +7968,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-integrity-table.md",
@@ -7996,7 +7996,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-runtime-pm.md",
@@ -8024,7 +8024,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-crypto-transforms.md",
@@ -8052,7 +8052,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-platform-surface.md",
@@ -8080,7 +8080,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-terminfo-surface.md",
@@ -8108,7 +8108,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-console-ioctls.md",
@@ -8164,7 +8164,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sense-and-status.md",
@@ -8192,7 +8192,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-nvme-surface.md",
@@ -8220,7 +8220,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-submit-ioctls.md",
@@ -8248,7 +8248,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-request-ioctls.md",
@@ -8276,7 +8276,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-wbt-controls.md",
@@ -8326,7 +8326,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-zone-interface.md",
@@ -8354,7 +8354,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-md-metadata.md",
@@ -8382,7 +8382,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-virtio-transports.md",
@@ -8410,7 +8410,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-vmgenid-surface.md",
@@ -8438,7 +8438,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-opal-ioctls.md",
@@ -8466,7 +8466,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sg-io-hdr.md",
@@ -8522,7 +8522,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-genpd-provider.md",
@@ -8550,7 +8550,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-signature-trailer.md",
@@ -8578,7 +8578,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-binding-controls.md",
@@ -8606,7 +8606,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-hwmon-attributes.md",
@@ -8634,7 +8634,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-configfs-target.md",
@@ -8662,7 +8662,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-evdev-interface.md",
@@ -8690,7 +8690,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-nd-tree-and-ndctl.md",
@@ -8718,7 +8718,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-io-accessors.md",
@@ -8746,7 +8746,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-devm-surface.md",
@@ -8774,7 +8774,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ncurses-surface.md",
@@ -8802,7 +8802,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-fbdev-structs.md",
@@ -8830,7 +8830,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-bot-vs-uas.md",
@@ -8858,7 +8858,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-sat-translation.md",
@@ -8886,7 +8886,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-nvmeof-transports.md",
@@ -8914,7 +8914,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-zbc-zns-spec.md",
@@ -8942,7 +8942,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-virtqueue-ring.md",
@@ -8970,7 +8970,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-ccf-functions.md",
@@ -8998,7 +8998,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-regulator-functions.md",
@@ -9020,7 +9020,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9030,7 +9030,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-device-link-flags.md",
@@ -9052,7 +9052,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9062,7 +9062,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-thermal-sysfs.md",
@@ -9084,7 +9084,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-iscsi-pdu.md",
@@ -9112,7 +9112,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-scsi-pr-commands.md",
@@ -9134,7 +9134,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-hid-report-items.md",
@@ -9162,7 +9162,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9172,7 +9172,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9182,7 +9182,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-opp-functions.md",
@@ -9204,7 +9204,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9214,7 +9214,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-cxl-spec.md",
@@ -9236,7 +9236,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck",
+              "status": "done",
               "api": [
                 {
                   "file": "api-pci-config-space.md",
@@ -9270,7 +9270,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9304,7 +9304,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9338,7 +9338,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9366,7 +9366,7 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9376,7 +9376,7 @@ window.__BOOKS__ = [
               "status": "empty"
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
@@ -9500,14 +9500,14 @@ window.__BOOKS__ = [
             ],
             },
             "detailed": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "vdpa-virtio-data-path-acceleration",
             "title": "Апаратне прискорення Virtio: vDPA та SmartNIC",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-vdpa-kernel-ops.md",
@@ -9532,7 +9532,7 @@ window.__BOOKS__ = [
             "slug": "nested-virtualization-kvm",
             "title": "Вкладена віртуалізація у KVM (Nested VT-x/AMD-V)",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-kvm-nested-sysfs-and-msr.md",
@@ -9557,7 +9557,7 @@ window.__BOOKS__ = [
             "slug": "confidential-computing-sev-tdx",
             "title": "Конфіденційні обчислення: AMD SEV-SNP та Intel TDX",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-guest-attestation.md",
@@ -9588,7 +9588,7 @@ window.__BOOKS__ = [
             "slug": "cxl-compute-express-link",
             "title": "Шина CXL (Compute Express Link) та пулінг пам’яті",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-sysfs-cxl.md",
@@ -9619,7 +9619,7 @@ window.__BOOKS__ = [
             "slug": "viommu-virtual-iommu",
             "title": "Віртуальний IOMMU (vIOMMU) для вкладеного прокидання",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "proj": [
               {
                 "file": "proj-nested-iommufd-bind.md",
@@ -9628,14 +9628,14 @@ window.__BOOKS__ = [
             ],
             },
             "basic": {
-              "status": "recheck"
+              "status": "done"
             }
           },
           {
             "slug": "virtio-fs-and-virtio-gpu",
             "title": "Спеціалізовані пристрої Virtio: virtio-fs та virtio-gpu",
             "detailed": {
-              "status": "recheck",
+              "status": "done",
             "api": [
               {
                 "file": "api-virtio-gpu-protocol.md",

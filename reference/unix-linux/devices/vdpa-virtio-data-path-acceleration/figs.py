@@ -71,11 +71,11 @@ def render_vhost_vdpa_control_flow():
     steps = [
         (70, "1. open('/dev/vhost-vdpa-0')", 100, 340, "#b45309"),
         (130, "2. VHOST_GET_FEATURES / SET_FEATURES", 100, 340, "#b45309"),
-        (190, "3. VHOST_VDPA_SET_GROUP_ASID (IOMMU setup)", 100, 340, "#b45309"),
+        (190, "3. Реєстрація регіонів пам'яті (IOTLB) та ASID", 100, 340, "#b45309"),
         (250, "4. VHOST_SET_VRING_ADDR (GPA кілець vring)", 100, 340, "#b45309"),
         (310, "5. Програмування кілець та IOMMU в залізо", 340, 620, "#1d4ed8"),
         (370, "6. VHOST_VDPA_SET_STATUS (DRIVER_OK)", 100, 340, "#b45309"),
-        (420, "7. Прямий DMA Data Path (0% CPU)", 100, 620, "#15803d")
+        (420, "7. Data Path: DMA між пам'яттю гостя та SmartNIC (0% CPU)", 100, 620, "#15803d")
     ]
     
     for y, label_text, x1, x2, col in steps:
@@ -94,7 +94,7 @@ def render_vdpa_bus_drivers():
     
     # Upper drivers layer
     frags.append(rect(40, 40, 720, 90, fill="#f8fafc", stroke="#94a3b8", rx=8))
-    frags.append(text(400, 60, "Верхній рівень: Драйвери-споживачі vDPA (vDPA Upper Drivers)", size=14, bold=True))
+    frags.append(text(400, 60, "Верхній рівень: споживачі та керування (vDPA Upper Layer)", size=14, bold=True))
     
     tb1, _, _ = textbox(160, 95, "vhost-vdpa\n(/dev/vhost-vdpa-N -> QEMU)", size=11, pad=6, fill="#fef3c7", stroke="#d97706")
     tb2, _, _ = textbox(400, 95, "virtio-vdpa\n(Local host / Container virtio)", size=11, pad=6, fill="#dbeafe", stroke="#2563eb")

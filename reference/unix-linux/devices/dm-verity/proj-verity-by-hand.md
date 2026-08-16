@@ -95,7 +95,7 @@ printf 'X' | dd of="$WORK/data.img" bs=1 seek="$OFF" conv=notrunc status=none
 sync
 ```
 
-`conv=notrunc` тут життєво потрібен: без нього `dd` обріже файл на цьому місці, і посиплеться геть усе, а не один блок. `sync` теж не забобон — loop типово читає бекінг-файл через його ж кеш сторінок, але з `--direct-io` пішов би повз кеш, тож зміну треба довести до самого файлу.
+`conv=notrunc` тут життєво потрібен: без нього `dd` обріже файл на цьому місці, і посиплеться геть усе, а не один блок. `sync` теж не забобон — loop типово читає файл-підкладку через його ж кеш сторінок, але з `--direct-io` пішов би повз кеш, тож зміну треба довести до самого файлу.
 
 А тепер спроба прочитати — і нічого не стається:
 
@@ -135,10 +135,10 @@ device-mapper: verity: 7:0: data block 4112 is corrupted
 
 ```sh
 dd if=/dev/zero of=/dev/mapper/vlab bs=4096 count=1 oflag=direct
-#   dd: error writing '/dev/mapper/vlab': Operation not permitted
+#   dd: failed to open '/dev/mapper/vlab': Operation not permitted
 ```
 
-Це відмова блокового рівня, а не цілі: `blockdev --getro` показав одиницю, і ядро завертає запис ще до того, як його побачить verity. Щоб дістати відмову самої цілі, зберімо той самий пристрій руками — `dmsetup create` без `--readonly` лишає його записуваним:
+Це відмова блокового рівня, а не цілі: `blockdev --getro` показав одиницю, тож ядро не дає навіть відкрити такий пристрій на запис — до verity не доходить ані байта. Щоб дістати відмову самої цілі, зберімо той самий пристрій руками — `dmsetup create` без `--readonly` лишає його записуваним:
 
 ```sh
 SALT=$(veritysetup dump "$LOOP_H" | awk '/^Salt:/ {print $NF}')

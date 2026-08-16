@@ -117,8 +117,8 @@ def fig_bar_mapping():
     P.append(arrow(LX + LW, 358, RX, 358, color=FIELD, sw=2.4))
 
     P.append(fitbox(RX - 60, 508, RW + 120, 72,
-                    "Відтепер звертання процесора за цією адресою\n"
-                    "контролер пам'яті направляє на шину PCI саме цьому пристрою",
+                    "Відтепер звернення процесора за цією адресою\n"
+                    "кореневий міст направляє на шину PCI саме цьому пристрою",
                     size=13, fill=BLUE_BG))
 
     return render(os.path.join(OUT, "pci-bar-mapping.svg"), W, H, *P,

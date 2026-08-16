@@ -99,7 +99,7 @@ def fig_virtqueue_split():
     # Used ring
     used, wu, hu = textbox(cx, 620,
                            ["ВИКОРИСТАНЕ КІЛЬЦЕ (Used Ring)",
-                            "flags │ idx = 3 │ ring[] = { id = 6, len = 1517 }, …"],
+                            "flags │ idx = 3 │ ring[] = { id = 6, len = 1501 }, …"],
                            size=13, pad=15, fill=WARM_FILL, stroke=LINE, sw=1.6)
     p.append(used)
 
@@ -115,7 +115,7 @@ def fig_virtqueue_split():
         p.append(line(cx + anchor_w / 2 + 14, y, nx - nw / 2 - 14, y, color=MUTED, sw=1.1, dash="5 4"))
 
     note(165, ["idx драйвер збільшує останнім:", "після запису дескрипторів", "та бар'єра пам'яті smp_wmb()"], GREEN_FILL, wa)
-    note(410, ["VIRTQ_DESC_F_WRITE каже,", "хто має право писати у буфер:", "1 — пристрій, 0 — гость"], GREY_FILL, dgeo[1][1])
+    note(410, ["VIRTQ_DESC_F_WRITE каже,", "хто має право писати у буфер:", "1 — пристрій, 0 — драйвер гостя"], GREY_FILL, dgeo[1][1])
     note(620, ["len — скільки байтів записано;", "id — індекс голови ланцюжка,", "а не позиція в масиві"], WARM_FILL, wu)
 
     frag, _, _ = textbox(cx, 780,
@@ -126,7 +126,7 @@ def fig_virtqueue_split():
 
     frag, _, _ = textbox(cx, 880,
                          ["Межу між гостем і хостом перетинають дві події: Kick у дверний дзвоник",
-                          "та переривання MSI-X. Самі дані передаються за 0 копіювань (Zero-Copy)."],
+                          "та переривання MSI-X. Через кільце ходять лише адреси буферів, не самі дані."],
                          size=12.5, pad=14, fill=GREY_FILL, stroke=MUTED, sw=1.2)
     p.append(frag)
 

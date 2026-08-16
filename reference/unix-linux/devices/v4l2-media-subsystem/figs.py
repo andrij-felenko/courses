@@ -32,7 +32,7 @@ def fig_v4l2_mc_architecture():
 
     # VFS / Device Nodes Layer
     y_dev = 230
-    f_dev_sub, _, _ = textbox(250, y_dev, ["Вузли субпристроїв", "/dev/v4l-subdev0 .. N", "Конфігурація форматів і крапів"], size=13, fill=PURPLE, stroke=LINE)
+    f_dev_sub, _, _ = textbox(250, y_dev, ["Вузли субпристроїв", "/dev/v4l-subdev0 .. N", "Конфігурація форматів і кадрування"], size=13, fill=PURPLE, stroke=LINE)
     p.append(f_dev_sub)
 
     f_dev_mc, _, _ = textbox(500, y_dev, ["Вузол медіа-контролера", "/dev/media0", "Топологія графа та зв'язки"], size=13, fill=GREEN, stroke=LINE)
@@ -67,7 +67,7 @@ def fig_v4l2_mc_architecture():
 
     p.append(line(250, 265, 300, 345, color=LINE, sw=2))
     p.append(line(500, 265, 700, 345, color=LINE, sw=2))
-    p.append(line(750, 265, 700, 345, color=LINE, sw=2))
+    p.append(line(750, 265, 300, 345, color=LINE, sw=2))
 
     p.append(line(300, 415, 200, 505, color=LINE, sw=2))
     p.append(line(300, 415, 500, 505, color=LINE, sw=2))
@@ -113,7 +113,7 @@ def fig_mc_graph_topology():
     p.append(f_l2)
 
     # Pipeline validation box below
-    f_pipe, _, _ = textbox(W / 2, 380, ["Валідація медіа-конвеєра: media_pipeline_start()", "Перевірка збігу форматів (Subdev Format Negotiation) та активності посилань"], size=13, fill=BLUE, stroke=LINE)
+    f_pipe, _, _ = textbox(W / 2, 380, ["Валідація медіа-конвеєра: media_pipeline_start()", "Перевірка збігу форматів (Subdev Format Negotiation) та активності зв'язків"], size=13, fill=BLUE, stroke=LINE)
     p.append(f_pipe)
 
     p.append(line(312, 235, 312, 350, color=LINE, sw=2))
@@ -155,7 +155,7 @@ def fig_vb2_buffer_lifecycle():
     p.append(f_t2)
 
     p.append(line(830, 160, 950, 295, color=LINE, sw=2))
-    f_t3, _, _ = textbox(920, 210, ["STREAMON"], size=11, fill=FILL, stroke=LINE)
+    f_t3, _, _ = textbox(920, 210, ["Апаратура бере буфер"], size=11, fill=FILL, stroke=LINE)
     p.append(f_t3)
 
     p.append(line(870, 340, 540, 340, color=LINE, sw=2))
@@ -167,7 +167,7 @@ def fig_vb2_buffer_lifecycle():
     p.append(f_t5)
 
     # Bottom summary box
-    f_summary, _, _ = textbox(W / 2, 460, ["Типи пам'яті: V4L2_MEMORY_MMAP (аллокація у драйвері) / V4L2_MEMORY_DMABUF (Zero-Copy з GPU) / V4L2_MEMORY_USERPTR"], size=12, fill=GREY, stroke=LINE)
+    f_summary, _, _ = textbox(W / 2, 460, ["Типи пам'яті: V4L2_MEMORY_MMAP (виділення у драйвері) / V4L2_MEMORY_DMABUF (Zero-Copy з GPU) / V4L2_MEMORY_USERPTR"], size=12, fill=GREY, stroke=LINE)
     p.append(f_summary)
 
     render(os.path.join(IMG, 'vb2-buffer-lifecycle.svg'), W, H, *p)

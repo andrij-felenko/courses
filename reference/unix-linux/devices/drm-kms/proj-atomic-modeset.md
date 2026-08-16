@@ -203,7 +203,7 @@ int main(void)
         drmModeFreeEncoder(enc);
     }
     if (!crtc_id)
-        die("для цього роз'єму немає вільного CRTC", -ENODEV);
+        die("для цього роз'єму немає придатного CRTC", -ENODEV);
 
     /* основна плоскість цього ж CRTC */
     drmModePlaneRes *pres = drmModeGetPlaneResources(fd);

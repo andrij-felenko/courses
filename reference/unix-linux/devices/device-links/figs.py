@@ -9,7 +9,7 @@ svg_content = """<?xml version="1.0" encoding="UTF-8"?>
   </defs>
 
   <!-- Title -->
-  <text x="300" y="30" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Linux Device Hierarchy vs Device Links</text>
+  <text x="300" y="30" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Дерево пристроїв і ребро Device Link</text>
 
   <!-- Root -->
   <rect x="250" y="60" width="100" height="40" rx="5" fill="#eceff1" stroke="#90a4ae" stroke-width="2"/>

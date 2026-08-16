@@ -276,7 +276,7 @@ def fig_unit_naming():
     p += box(325, 34, 580, 104, [
         "подія про ttyUSB0",
         "KERNEL == ttyUSB0        (у правилі — %k)",
-        "DEVNAME == /dev/ttyUSB0",
+        "DEVNAME == /dev/ttyUSB0   (у базі udev)",
     ], size=14, fill=GREY_FILL)
 
     cols = [

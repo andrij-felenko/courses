@@ -189,18 +189,21 @@ public:
     }
 
 private:
-    DirectoryWalker() : buffer_(std::make_unique<char[]>(BufferSize)) {}
+    DirectoryWalker() = default;
 
     void process_fd(int dir_fd) {
+        // Буфер власний на кожен рівень рекурсії: спільний перезаписався б
+        // вкладеним викликом, і батьківський цикл дочитував би чужі записи.
+        auto buffer = std::make_unique<char[]>(BufferSize);
         while (true) {
-            long nread = ::syscall(SYS_getdents64, dir_fd, buffer_.get(), BufferSize);
+            long nread = ::syscall(SYS_getdents64, dir_fd, buffer.get(), BufferSize);
             if (nread <= 0) {
                 break;
             }
 
             std::size_t bpos = 0;
             while (bpos < static_cast<std::size_t>(nread)) {
-                auto* d = reinterpret_cast<const linux_dirent64*>(buffer_.get() + bpos);
+                auto* d = reinterpret_cast<const linux_dirent64*>(buffer.get() + bpos);
                 std::string_view name(d->d_name);
 
                 if (name != "." && name != "..") {
@@ -230,7 +233,6 @@ private:
         }
     }
 
-    std::unique_ptr<char[]> buffer_;
     TraversalStats stats_{};
 };
 

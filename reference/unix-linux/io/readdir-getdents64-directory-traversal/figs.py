@@ -28,7 +28,7 @@ def fig_traversal_flow():
     # Блоки всередині шару 1
     p.append(textbox(220, y1 + 75, "Додаток\nreaddir() / opendir()", size=13, pad=12, fill=BG, stroke=NEG, bold=True)[0])
     p.append(arrow(340, y1 + 75, 430, y1 + 75, color=NEG, sw=1.8))
-    p.append(textbox(600, y1 + 75, "C-бібліотека (glibc / musl)\nБуфер DIR* (32 KB)\nЗсув у буфері ptr", size=13, pad=12, fill=BG, stroke=NEG, bold=True)[0])
+    p.append(textbox(600, y1 + 75, "C-бібліотека (glibc / musl)\nБуфер DIR* (у glibc 32 KB)\nЗсув у буфері ptr", size=13, pad=12, fill=BG, stroke=NEG, bold=True)[0])
 
     # Перехід до системного виклику
     y_sys = 245

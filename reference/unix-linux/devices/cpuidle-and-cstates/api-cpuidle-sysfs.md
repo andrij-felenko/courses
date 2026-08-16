@@ -71,7 +71,7 @@ done
 state0  POLL  lat=0     res=0     usage=14211     above=0        below=0
 state1  C1    lat=2     res=2     usage=1892344   above=1204     below=98211
 state2  C1E   lat=10    res=20    usage=744102    above=88431    below=210554
-state3  C6    lat=92    res=345   usage=2310887   above=331209   below=0
+state3  C6    lat=85    res=200   usage=2310887   above=331209   below=0
 ```
 
 ## Керування станами

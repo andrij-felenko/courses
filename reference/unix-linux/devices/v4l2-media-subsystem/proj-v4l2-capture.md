@@ -13,9 +13,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdint.h>
 #include <sys/ioctl.h>
-#include <sys/mmap.h>
-#include <sys/poll.h>
+#include <sys/mman.h>
+#include <poll.h>
 #include <linux/videodev2.h>
 #include <linux/media.h>
 #include <linux/v4l2-subdev.h>
@@ -27,8 +28,8 @@ struct buffer_entry {
     size_t length;
 };
 
-/* Активація посилання у графі Media Controller */
-static int enable_media_link(int media_fd, u32 src_ent, u16 src_pad, u32 sink_ent, u16 sink_pad) {
+/* Активація зв'язку у графі Media Controller */
+static int enable_media_link(int media_fd, uint32_t src_ent, uint16_t src_pad, uint32_t sink_ent, uint16_t sink_pad) {
     struct media_link_desc link;
     memset(&link, 0, sizeof(link));
 
@@ -46,7 +47,7 @@ static int enable_media_link(int media_fd, u32 src_ent, u16 src_pad, u32 sink_en
 }
 
 /* Налаштування формату на субпристрої (сенсор/CSI) */
-static int set_subdev_format(const char *subdev_path, u32 pad, u32 width, u32 height, u32 code) {
+static int set_subdev_format(const char *subdev_path, uint32_t pad, uint32_t width, uint32_t height, uint32_t code) {
     int sd_fd = open(subdev_path, O_RDWR);
     if (sd_fd < 0) {
         perror("Failed to open subdev");
@@ -74,7 +75,7 @@ static int set_subdev_format(const char *subdev_path, u32 pad, u32 width, u32 he
 
 int main(void) {
     int media_fd = -1, video_fd = -1;
-    struct buffer_entry buffers[REQ_BUF_COUNT];
+    struct buffer_entry buffers[REQ_BUF_COUNT] = {0};
     enum v4l2_buf_type type;
 
     /* 1. Відкриваємо Media Controller та активуємо зв'язок у графі */
@@ -110,7 +111,7 @@ int main(void) {
         goto err_close;
     }
 
-    /* 5. Запитуємо буфери в кеші ядра (MMAP) */
+    /* 5. Просимо ядро виділити буфери (MMAP) */
     struct v4l2_requestbuffers req;
     memset(&req, 0, sizeof(req));
     req.count  = REQ_BUF_COUNT;
@@ -193,11 +194,13 @@ err_close:
 #include <memory>
 #include <system_error>
 #include <span>
+#include <cstdlib>
+#include <cerrno>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
-#include <sys/mmap.h>
-#include <sys/poll.h>
+#include <sys/mman.h>
+#include <poll.h>
 #include <linux/videodev2.h>
 #include <linux/media.h>
 #include <linux/v4l2-subdev.h>
@@ -270,8 +273,8 @@ public:
 
 class MediaPipeline {
 public:
-    static void setup_link(std::string_view media_path, uint32_t src_ent, uint16_t src_pad, uint32_t sink_ent, uint16_t sink_pad) {
-        FileDescriptor fd(::open(media_path.data(), O_RDWR));
+    static void setup_link(const char* media_path, uint32_t src_ent, uint16_t src_pad, uint32_t sink_ent, uint16_t sink_pad) {
+        FileDescriptor fd(::open(media_path, O_RDWR));
         if (!fd.valid()) return; // Граф може бути вже налаштований у системі
 
         struct media_link_desc link{};
@@ -286,8 +289,8 @@ public:
         }
     }
 
-    static void set_subdev_format(std::string_view subdev_path, uint32_t pad, uint32_t width, uint32_t height, uint32_t code) {
-        FileDescriptor fd(::open(subdev_path.data(), O_RDWR));
+    static void set_subdev_format(const char* subdev_path, uint32_t pad, uint32_t width, uint32_t height, uint32_t code) {
+        FileDescriptor fd(::open(subdev_path, O_RDWR));
         if (!fd.valid()) {
             throw std::system_error(errno, std::generic_category(), "Failed to open subdev node");
         }
@@ -397,13 +400,13 @@ int main() {
 
 Робота з медіа-конвеєром ядра вимагає дотримання суворої послідовності кроків, недотримання якої призводить до помилок ядра під час валідації графа.
 
-### Крок 1. Активація посилання у графі Media Controller
+### Крок 1. Активація зв'язку у графі Media Controller
 
-Функція `enable_media_link()` відкриває контролер `/dev/media0` та формує структуру `struct media_link_desc`. Чинник `source.entity` вказує на ідентифікатор сутності сенсора камери, а `sink.entity` — на вхідний майданчик приймача MIPI CSI-2. Прапор `MEDIA_LNK_FL_ENABLED` сповіщає ядро, що потік даних між цими двома блоками активовано. Якщо цей крок пропустити, подальший запуск відеопотоку поверне помилку `EPIPE` (Broken pipe).
+Функція `enable_media_link()` відкриває контролер `/dev/media0` та формує структуру `struct media_link_desc`. Поле `source.entity` вказує на ідентифікатор сутності сенсора камери, `sink.entity` — на ідентифікатор приймача MIPI CSI-2, а `source.index` і `sink.index` — на номери відповідних майданчиків. Прапор `MEDIA_LNK_FL_ENABLED` сповіщає ядро, що потік даних між цими двома блоками активовано. Якщо цей крок пропустити, подальший запуск відеопотоку поверне помилку `EPIPE` (Broken pipe).
 
 ### Крок 2. Налаштування формату на субпристрої
 
-Функція `set_subdev_format()` відкриває вузол субпристрою `/dev/v4l-subdev0` та викликає `VIDIOC_SUBDEV_S_FMT`. Зверніть увагу, що чинник `which` встановлено у `V4L2_SUBDEV_FORMAT_ACTIVE`. Це означає, що переданий колірний код шини `MEDIA_BUS_FMT_YUYV8_1X16` записується безпосередньо в апаратні регістри контролера.
+Функція `set_subdev_format()` відкриває вузол субпристрою `/dev/v4l-subdev0` та викликає `VIDIOC_SUBDEV_S_FMT`. Зверніть увагу, що поле `which` встановлено у `V4L2_SUBDEV_FORMAT_ACTIVE`. Це означає, що переданий колірний код шини `MEDIA_BUS_FMT_YUYV8_1X16` записується безпосередньо в апаратні регістри контролера.
 
 ### Крок 3. Налаштування формату на потоковому відеовузлі
 
@@ -411,7 +414,7 @@ int main() {
 
 ### Крок 4. Запит буферів у підсистеми Videobuf2
 
-Виклик `VIDIOC_REQBUFS` із прапором `V4L2_MEMORY_MMAP` змушує драйвер ядра виділити в оперативній пам'яті системного кешу (або у зоні CMA) кільцеву чергу з 4 буферів (`REQ_BUF_COUNT`). У циклі для кожного буфера виконується виклик `VIDIOC_QUERYBUF` для отримання фізичного зсуву `m.offset`, після чого викликом `mmap()` пам'ять відображається в адресний простір нашого процесу.
+Виклик `VIDIOC_REQBUFS` із типом пам'яті `V4L2_MEMORY_MMAP` змушує драйвер ядра виділити кільцеву чергу з 4 буферів (`REQ_BUF_COUNT`) — звичайними сторінками ядра або, якщо апаратурі потрібна суцільна фізична пам'ять, у зоні CMA. У циклі для кожного буфера виконується виклик `VIDIOC_QUERYBUF`: він повертає у `m.offset` умовний зсув, який `mmap()` на цьому ж дескрипторі впізнає як позначку конкретного буфера й відображає його в адресний простір нашого процесу.
 
 ### Крок 5. Постановка буферів у чергу та запуск DMA
 
@@ -453,7 +456,7 @@ if (::ioctl(video_fd.get(), VIDIOC_EXPBUF, &expbuf) == 0) {
 ```
 :::
 
-Виклик `VIDIOC_EXPBUF` створює у ядрі файловий дескриптор підсистеми `dma-buf`, який експортує сторінки пам'яті буфера Videobuf2. Це дає змогу іншим драйверам (DRM/KMS чи NPU-прискорювачу) імпортувати ці ж фізичні сторінки пам'яті через систему IOMMU, уникаючи подвійної копи процесора.
+Виклик `VIDIOC_EXPBUF` створює у ядрі файловий дескриптор підсистеми `dma-buf`, який експортує сторінки пам'яті буфера Videobuf2. Це дає змогу іншим драйверам (DRM/KMS чи NPU-прискорювачу) імпортувати ці ж фізичні сторінки пам'яті через IOMMU, уникаючи зайвого копіювання процесором.
 
 ---
 
@@ -469,7 +472,7 @@ if (::ioctl(video_fd.get(), VIDIOC_EXPBUF, &expbuf) == 0) {
 
 ## Типові пастки системного розробника та їх подолання
 
-- **Помилка `EPIPE` (Broken Pipe) при `VIDIOC_STREAMON`**: Виникає під час валідації графа у ядрі (`media_pipeline_start()`). Найчастіші причини: розбіжність роздільної здатності між вихідним майданчиком субпристрою та відеовузлом, вимкнене посилання між сутностями, або неузгоджені коди медіа-шини.
+- **Помилка `EPIPE` (Broken Pipe) при `VIDIOC_STREAMON`**: Виникає під час валідації графа у ядрі (`media_pipeline_start()`). Найчастіші причини: розбіжність роздільної здатності між вихідним майданчиком субпристрою та відеовузлом, вимкнений зв'язок між сутностями, або неузгоджені коди медіа-шини.
 - **Помилка `EBUSY` при `VIDIOC_S_FMT`**: Спроба змінити формат відеовузла, коли буфери вже виділені викликом `VIDIOC_REQBUFS` або коли потік вже запущено. Зміна формату вимагає попередньої зупинки `VIDIOC_STREAMOFF` та звільнення буферів `VIDIOC_REQBUFS` із `count = 0`.
 - **Витік відображень пам'яті `mmap` у мові C**: Якщо вихід із програми здійснюється за помилкою через `goto err_close`, скасування відображень `munmap()` має відбутися для кожного виділеного буфера. У реалізації C++20 деструктор `MmappedBuffer` гарантує виклики `munmap()` навіть при виникненні винятків `std::system_error`.
 - **Гонка ресурсів при повторному виклику `VIDIOC_QBUF`**: Після обробки кадрів у просторі користувача буфер обов'язково повинен бути повернений ядру викликом `VIDIOC_QBUF`. Якщо додаток не повертає буфери вчасно, кільцева черга Videobuf2 вичерпується і драйвер починає скидати кадри (Frame drops).

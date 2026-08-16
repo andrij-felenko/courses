@@ -63,7 +63,7 @@ static int load_smack_rule(const char *subject, const char *object, const char *
 static int set_smack_label(const char *filepath, const char *label) {
     size_t label_len = strlen(label);
 
-    /* Зверніть увагу: нульовий байт '\\0' НЕ включається у значення xattr для SMACK */
+    /* Зверніть увагу: нульовий байт '\0' НЕ включається у значення xattr для SMACK */
     if (setxattr(filepath, SMACK_XATTR_NAME, label, label_len, 0) < 0) {
         perror("Помилка setxattr security.SMACK64");
         return -1;
@@ -73,7 +73,7 @@ static int set_smack_label(const char *filepath, const char *label) {
     return 0;
 }
 
-/* Перевірка дозволу доступу через /sys/fs/smackfs/access */
+/* Перевірка дозволу доступу через /sys/fs/smackfs/access2 */
 static int check_smack_access(const char *subject, const char *object, const char *access_request) {
     char query_buf[768];
     char reply_buf[16];
@@ -228,7 +228,7 @@ std::expected<void, std::error_code> set_label(const std::filesystem::path& path
     return {};
 }
 
-// Перевірка прав доступу через /sys/fs/smackfs/access
+// Перевірка прав доступу через /sys/fs/smackfs/access2
 std::expected<bool, std::error_code> check_access(std::string_view subject,
                                                    std::string_view object,
                                                    std::string_view access_req) {
@@ -281,8 +281,8 @@ int main() {
     auto access_r = smack::check_access("WebBrowser", "UserData", "r");
     auto access_x = smack::check_access("WebBrowser", "UserData", "x");
 
-    if (access_r && access_x) {
-        std::cout << "Перевірку завершено успішно.\n";
+    if (access_r.has_value() && access_x.has_value()) {
+        std::cout << "Обидва запити до ядра виконано; 'x' очікувано заборонено правилом rw.\n";
     }
 
     return 0;
@@ -335,7 +335,7 @@ int main() {
 - **Виправлення:** Усі сучасні додатки повинні використовувати виключно файл `/sys/fs/smackfs/load2`.
 
 ### 4. Конкурентність та атомарність змін
-Ядро Linux захищає внутрішню таблицю `smack_known_list` за допомогою м'ютекса ядра `smack_known_lock`. Запис у `load2` є атомарною операцією. Проте перевірка прав у системному додатку між викликами `open()` та `setxattr()` створить стан гонки (англ. *race condition*), якщо паралельний процес змінить конфігурацію `onlycap` чи `change-self`.
+Ядро Linux захищає внутрішню таблицю `smack_known_list` за допомогою м'ютекса ядра `smack_known_lock`. Запис у `load2` є атомарною операцією. Проте перевірка прав у системному додатку між викликами `open()` та `setxattr()` створить стан гонки (англ. *race condition*), якщо паралельний процес змінить конфігурацію `onlycap` чи `relabel-self`.
 
 ### 5. Поведінка на файлових системах без підтримки xattr
 Якщо файл створюється у файловій системі, яка не підтримує розширені атрибути `security` (наприклад, деякі віртуальні FS або монтування NFS без підтримки xattr), виклик `setxattr()` повертає помилку `-EOPNOTSUPP` (Operation not supported). У цьому випадку об'єкт назавжди отримує мітку за замовчуванням `_` (floor), що слід враховувати при проєктуванні тимчасових системних сховищ у `/tmp` чи `/dev/shm`.

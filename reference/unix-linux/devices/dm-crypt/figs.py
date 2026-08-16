@@ -121,7 +121,7 @@ def fig_luks_chain():
          ["його можна змінити,", "не чіпаючи жодного сектора даних"]),
         (250, ["Argon2id: сіль, час і пам'ять",
                "узяті з опису слота"], WARM_FILL,
-         ["повільно й на десятки мегабайтів пам'яті —", "щоб перебір коштував дорого"]),
+         ["повільно й на сотні мегабайтів пам'яті —", "щоб перебір коштував дорого"]),
         (390, ["ключ слота"], BLUE_FILL,
          ["живе лише кілька мілісекунд,", "на диску його немає"]),
         (530, ["розшифрувати матеріал слота", "і згорнути смуги назад"], WARM_FILL,
@@ -145,10 +145,10 @@ def fig_luks_chain():
     for a, b in zip(boxes, boxes[1:]):
         p.append(arrow(cx, a[0] + a[1] / 2, cx, b[0] - b[1] / 2))
 
-    p.append(text(105, 390, "слотів вісім;", size=12, color=MUTED, anchor="start"))
-    p.append(text(105, 412, "кожен веде", size=12, color=MUTED, anchor="start"))
-    p.append(text(105, 434, "до того самого", size=12, color=MUTED, anchor="start"))
-    p.append(text(105, 456, "майстер-ключа", size=12, color=MUTED, anchor="start"))
+    p.append(text(105, 372, "слотів вісім,", size=12, color=MUTED, anchor="start"))
+    p.append(text(105, 394, "у LUKS2 — тридцять два;", size=12, color=MUTED, anchor="start"))
+    p.append(text(105, 416, "кожен веде до того", size=12, color=MUTED, anchor="start"))
+    p.append(text(105, 438, "самого майстер-ключа", size=12, color=MUTED, anchor="start"))
 
     render(os.path.join(IMG, 'luks-chain.svg'), W, H, *p,
            title="Пароль не шифрує дані: він лише відмикає майстер-ключ")

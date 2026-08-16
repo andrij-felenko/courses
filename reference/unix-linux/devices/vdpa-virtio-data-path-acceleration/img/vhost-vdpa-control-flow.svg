@@ -12,7 +12,7 @@
 <line x1="100.0" y1="130.0" x2="340.0" y2="130.0" stroke="#b45309" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="220.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">2. VHOST_GET_FEATURES / SET_FEATURES</text>
 <line x1="100.0" y1="190.0" x2="340.0" y2="190.0" stroke="#b45309" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="220.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">3. VHOST_VDPA_SET_GROUP_ASID (IOMMU setup)</text>
+<text x="220.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">3. Реєстрація регіонів пам'яті (IOTLB) та ASID</text>
 <line x1="100.0" y1="250.0" x2="340.0" y2="250.0" stroke="#b45309" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="220.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">4. VHOST_SET_VRING_ADDR (GPA кілець vring)</text>
 <line x1="340.0" y1="310.0" x2="620.0" y2="310.0" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#arrow)"/>
@@ -20,5 +20,5 @@
 <line x1="100.0" y1="370.0" x2="340.0" y2="370.0" stroke="#b45309" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="220.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">6. VHOST_VDPA_SET_STATUS (DRIVER_OK)</text>
 <line x1="100.0" y1="420.0" x2="620.0" y2="420.0" stroke="#15803d" stroke-width="2.5" marker-end="url(#arrow)"/>
-<text x="360.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">7. Прямий DMA Data Path (0% CPU)</text>
+<text x="360.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">7. Data Path: DMA між пам'яттю гостя та SmartNIC (0% CPU)</text>
 </svg>

@@ -56,7 +56,7 @@ def fig_stack_and_table():
     # два фізичні носії
     dfrag_b, wb, hb = textbox(250, y_disk, ["/dev/sdb", "1 ГіБ"], size=13,
                               pad=13, fill=GREY_FILL, stroke=LINE)
-    dfrag_c, wc, hc = textbox(520, y_disk, ["/dev/sdc", "2 ГіБ"], size=13,
+    dfrag_c, wc, hc = textbox(520, y_disk, ["/dev/sdc", "понад 2 ГіБ"], size=13,
                               pad=13, fill=GREY_FILL, stroke=LINE)
     p.append(dfrag_b)
     p.append(dfrag_c)
@@ -94,7 +94,7 @@ def fig_two_fates():
     p.append(text(rx, 116, "DM_MAPIO_SUBMITTED", size=12, color=MUTED))
 
     left_rows = [
-        ["bio від файлової системи", "сектор 100 у /dev/mapper/home"],
+        ["bio від файлової системи", "сектор 100 у /dev/mapper/vol"],
         ["ціль linear: два поля змінено"],
         ["той самий bio", "сектор 4196 у /dev/sdc"],
         ["черга блокового шару й залізо"],
@@ -103,7 +103,7 @@ def fig_two_fates():
     left_fills = [GREEN_FILL, WARM_FILL, GREEN_FILL, GREY_FILL, None]
 
     right_rows = [
-        ["bio від файлової системи", "сектор 100 у /dev/mapper/home"],
+        ["bio від файлової системи", "сектор 100 у /dev/mapper/vol"],
         ["ціль crypt: власні сторінки", "і прохід шифру"],
         ["клон bio на нові сторінки", "сектор 4196 у /dev/sdc"],
         ["черга блокового шару й залізо"],

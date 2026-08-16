@@ -57,7 +57,7 @@ def draw_vmcs_shadowing():
     frags.append(fitbox(60, 195, 320, 55, "L0 (Host KVM) перехоплює trap,\nпрограмно емулює читання/запис", size=13, fill="#fdecea", stroke=POS))
     frags.append(arrow(220, 250, 220, 290, color=LINE, sw=1.5))
     
-    frags.append(fitbox(60, 290, 320, 75, "Результат: тисячі VM Exits\nна один цикл запуску L2\n(Колосальні накладні витрати)", size=13, fill="#fdf2e9", stroke="#e67e22"))
+    frags.append(fitbox(60, 290, 320, 75, "Результат: сотні VM Exits\nна один цикл запуску L2\n(Колосальні накладні витрати)", size=13, fill="#fdf2e9", stroke="#e67e22"))
     
     # Right Box: With Shadowing
     frags.append(rect(440, 55, 360, 335, fill="#fdfefe", stroke="#bdc3c7", sw=1.5))

@@ -221,11 +221,11 @@ def fig_timeline():
 
     for i, (year, name, body) in enumerate(down):
         x = px(year)
-        y = 430 + (i % 3) * 66
+        y = 430 + (i % 4) * 66
         p.append(line(x, AXY + 8, x, y, color=FIELD, sw=1.6, dash="5,5"))
         p.append(circle(x, AXY, 7, fill=CLEAN_FILL, stroke=FIELD, sw=2))
         p.append(text(x, AXY - 18, str(year), size=14, bold=True, color=FIELD))
-        p.append(fitbox(x - 150, y, 300, 60, [name] + body, size=12.5,
+        p.append(fitbox(x - 145, y, 290, 60, [name] + body, size=12.5,
                         fill=CLEAN_FILL, stroke=FIELD, sw=1.6))
 
     render(os.path.join(IMG, 'erasure-timeline.svg'), W, H, *p)

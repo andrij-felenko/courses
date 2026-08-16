@@ -65,7 +65,7 @@ def fig_who_creates():
         "ТАБЛИЦІ ACPI\nоб'єкти простору імен, для яких\nнема спеціальнішої шини",
         "КОД ПЛАТИ В ЯДРІ\nplatform_device_register() з готовим\nмасивом ресурсів",
         "ІНШИЙ ДРАЙВЕР\nбагатофункційна мікросхема заводить\nдіти на свої блоки",
-        "ЧИСТО ПРОГРАМНА РІЧ\nзапис без заліза — щоб дістати\nprobe(), sysfs і живлення",
+        "ЗАПИС БЕЗ ЗАЛІЗА\nтой самий код заводить пристрій\nзаради probe(), sysfs і живлення",
     ]
     ys = [90, 196, 302, 408, 514]
     for i, y in enumerate(ys):
@@ -109,7 +109,7 @@ def fig_props_to_resources():
         ("reg = <0xe0001000 0x1000>",
          "resource[0], IORESOURCE_MEM →\ndevm_platform_ioremap_resource()"),
         ("interrupts = <0 59 4>",
-         "resource[1], IORESOURCE_IRQ →\nplatform_get_irq() після мапування"),
+         "не ресурс, з якого читають:\nplatform_get_irq() дає номер Linux"),
         ("clocks = <&clkc 24>",
          "лишається у вузлі: драйвер бере\nйого сам, уже в probe()"),
     ]

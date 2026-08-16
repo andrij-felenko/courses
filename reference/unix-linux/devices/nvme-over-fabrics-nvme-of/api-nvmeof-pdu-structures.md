@@ -43,7 +43,7 @@
 
 Розбивка та призначення ключових полів структури SQE:
 
-- **Opcode (байт 0):** Код операції командного набору. Для спеціалізованих команд керування мережевою фабрикою Fabrics цей код завжди дорівнює значенням `0x7F`. Для стандартних операцій введення-виведення блокового рівня використовуються коди: `0x01` (Write — запис блоків у простір імен), `0x02` (Read — зчитування блоків), `0x09` (Flush — скидання кешу на енергонезалежний носій).
+- **Opcode (байт 0):** Код операції командного набору. Для спеціалізованих команд керування мережевою фабрикою Fabrics цей код завжди дорівнює значенням `0x7F`. Для стандартних операцій введення-виведення блокового рівня використовуються коди: `0x01` (Write — запис блоків у простір імен), `0x02` (Read — зчитування блоків), `0x00` (Flush — скидання кешу на енергонезалежний носій).
 - **Command ID / CID (байти 2–3):** Унікальний ідентифікатор команди, який призначається драйвером хоста для відстеження стану виконання. Коли таргет завершує обробку запиту, він повертає цей самий CID у капсулі відповіді.
 - **Namespace ID / NSID (байти 4–7):** 32-бітний ідентифікатор логічного простору імен таргета (наприклад, `0x00000001`), до якого адресована конкретна операція введення-виведення.
 - **Metadata Pointer / MPTR (байти 16–23):** 64-бітний вказівник на додатковий буфер метаданих (якщо простір імен сформовано з підтримкою підсистеми захисту цілісності даних End-to-End Data Protection, T10-PI).
@@ -54,14 +54,14 @@
 
 Для спеціалізованих команд Fabrics (`Opcode = 0x7F`) значення першого подвійного слова `DW10` визначає підтип мережевої команди `fctype`:
 
-| fctype | Поле в DW10 | Назва команди Fabrics | Призначення операції |
+| fctype | Константа в ядрі Linux | Назва команди Fabrics | Призначення операції |
 | :--- | :--- | :--- | :--- |
-| `0x00` | `NVME_FABRICS_TYPE_PROPERTY_SET` | Property Set | Запис у 64-бітний віртуальний регістр контролера (наприклад, реєстрація конфігурації CC) |
-| `0x01` | `NVME_FABRICS_TYPE_CONNECT` | Connect | Запит на створення черги SQ/CQ та узгодження ідентифікаторів NQN хоста й таргета |
-| `0x02` | `NVME_FABRICS_TYPE_PROPERTY_GET` | Property Get | Зчитування значення з 64-бітного віртуального регістра контролера (наприклад, стан CSTS) |
-| `0x03` | `NVME_FABRICS_TYPE_AUTH_SEND` | Authentication Send | Передача криптографічних даних аутентифікації DH-HMAC-CHAP у підсистему таргета |
-| `0x04` | `NVME_FABRICS_TYPE_AUTH_RECV` | Authentication Receive | Отримання відповіді та підтвердження аутентифікації від контролера таргета |
-| `0x05` | `NVME_FABRICS_TYPE_DISCONNECT` | Disconnect | Явне закриття підключеної черги та звільнення виділених системних ресурсів |
+| `0x00` | `nvme_fabrics_type_property_set` | Property Set | Запис у 64-бітний віртуальний регістр контролера (наприклад, реєстрація конфігурації CC) |
+| `0x01` | `nvme_fabrics_type_connect` | Connect | Запит на створення черги SQ/CQ та узгодження ідентифікаторів NQN хоста й таргета |
+| `0x04` | `nvme_fabrics_type_property_get` | Property Get | Зчитування значення з 64-бітного віртуального регістра контролера (наприклад, стан CSTS) |
+| `0x05` | `nvme_fabrics_type_auth_send` | Authentication Send | Передача криптографічних даних аутентифікації DH-HMAC-CHAP у підсистему таргета |
+| `0x06` | `nvme_fabrics_type_auth_receive` | Authentication Receive | Отримання відповіді та підтвердження аутентифікації від контролера таргета |
+| `0x08` | `nvme_fabrics_type_disconnect` | Disconnect | Явне закриття підключеної черги та звільнення виділених системних ресурсів |
 
 Параметри команди **Connect (`fctype = 0x01`)** деталізуються у супутньому буфері даних, де передаються 1024 байти конфігурації:
 - **Host NQN:** Рядок унікального імені хоста (наприклад, `nqn.2014-08.org.nvmexpress:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6`).
@@ -99,12 +99,13 @@
 Розшифровка основних кодів помилок Status Field у NVMe-oF:
 
 - `0x0000` (Success): Операцію виконано успішно.
-- `0x000B` (Invalid Null Command): Отримано порожню або невідому команду.
-- `0x0014` (Data SGL Length Invalid): Вказана довжина в дескрипторі SGL не відповідає розміру блоку.
-- `0x0180` (Connect Invalid Parameters): Некоректні параметри підключення у команді Connect.
-- `0x0181` (Connect Invalid Host/Target NQN): Зазначений NQN підсистеми не існує на таргеті або хосту відмовлено у доступі.
-- `0x0182` (Connect Response Incompatible Format): Несумісний формат капсули відповіді.
-- `0x0183` (Connect Controller Busy): Контролер таргета перевантажений і не може прийняти нову чергу.
+- `0x000B` (Invalid Namespace or Format): Указано неіснуючий простір імен або несумісний формат.
+- `0x000F` (Data SGL Length Invalid): Вказана довжина в дескрипторі SGL не відповідає розміру передачі.
+- `0x0180` (Connect Incompatible Format): Несумісний формат капсули Connect.
+- `0x0181` (Connect Controller Busy): Контролер таргета перевантажений і не може прийняти нову чергу.
+- `0x0182` (Connect Invalid Parameters): Некоректні параметри підключення у команді Connect.
+- `0x0183` (Connect Restart Discovery): Змінилася топологія — хост має перезапитати сторінку виявлення.
+- `0x0184` (Connect Invalid Host): Зазначений NQN хоста не має доступу до цієї підсистеми.
 
 ## 3. Формат дескрипторів SGL (Keyed SGL Data Block Descriptor)
 
@@ -144,7 +145,7 @@ struct nvme_sgl_desc {
 | Type (4 біти) | Subtype (4 біти) | Назва типу | Опис призначення |
 | :--- | :--- | :--- | :--- |
 | `0x0` | `0x0` | SGL Data Block Descriptor | Суцільний блок пам'яті на локальній шині PCIe |
-| `0x1` | `0x0` | SGL Segment Descriptor | Вказує на наступну таблицю SGL дескрипторів |
+| `0x2` | `0x0` | SGL Segment Descriptor | Вказує на наступну таблицю SGL дескрипторів (`0x1` — Bit Bucket, `0x3` — Last Segment) |
 | `0x4` | `0x0` | Keyed SGL Data Block | Дистанційний буфер пам'яті з ключем rkey для RDMA/TCP |
 | `0x5` | `0x0` | Transport SGL Data Block | Буфер, прив'язаний до специфічних вимог мережевого транспорту |
 
@@ -155,7 +156,7 @@ struct nvme_sgl_desc {
 :::tabs
 ```c
 struct nvme_tcp_hdr {
-    uint8_t  type;       /* Тип PDU (ICReq, CmdKVec, H2CData тощо) */
+    uint8_t  type;       /* Тип PDU (ICReq, CapsuleCmd, H2CData тощо) */
     uint8_t  flags;      /* Прапорці (HDigest, DDigest, LAST_PDU) */
     uint8_t  hlen;       /* Довжина заголовка PDU в байтах */
     uint8_t  pdo;        /* PDU Data Offset (зсув корисного навантаження) */
@@ -166,7 +167,7 @@ struct nvme_tcp_hdr {
 #include <cstdint>
 
 struct nvme_tcp_hdr {
-    std::uint8_t  type;       // Тип PDU (ICReq, CmdKVec, H2CData тощо)
+    std::uint8_t  type;       // Тип PDU (ICReq, CapsuleCmd, H2CData тощо)
     std::uint8_t  flags;      // Прапорці (HDigest, DDigest, LAST_PDU)
     std::uint8_t  hlen;       // Довжина заголовка PDU в байтах
     std::uint8_t  pdo;        // PDU Data Offset (зсув корисного навантаження)
@@ -186,11 +187,12 @@ struct nvme_tcp_hdr {
 
 - **`0x00` — ICReq (Initialize Connection Request):** Запит ініціатора на встановлення параметрів TCP-з'єднання (версія стандарту, підтримка digest, MAXH2CDATA).
 - **`0x01` — ICResp (Initialize Connection Response):** Відповідь таргета з підтвердженням обраних параметрів та узгодженим MAXH2CDATA.
-- **`0x02` — CmdKVec / H2CCmd (Command Capsule PDU):** Передає 64-байтну командну капсулу (SQE) від хоста до таргета.
-- **`0x03` — RspKVec / C2HResp (Response Capsule PDU):** Передає 16-байтну капсулу відповіді (CQE) від таргета до хоста.
-- **`0x04` — H2CData (Host to Controller Data):** Передає потік даних від хоста до таргета при виконанні операцій запису.
-- **`0x05` — C2HData (Controller to Host Data):** Передає потік даних від таргета до хоста при виконанні операцій читання.
-- **`0x06` — R2T (Ready to Transfer):** Запит таргета до хоста на надсилання чергової порції H2CData для запису з вказанням зсуву (`ttag`, `offset`, `length`).
+- **`0x02` — H2CTermReq та `0x03` — C2HTermReq:** Аварійне завершення зʼєднання з боку хоста або контролера.
+- **`0x04` — CapsuleCmd (Command Capsule PDU):** Передає 64-байтну командну капсулу (SQE) від хоста до таргета.
+- **`0x05` — CapsuleResp (Response Capsule PDU):** Передає 16-байтну капсулу відповіді (CQE) від таргета до хоста.
+- **`0x06` — H2CData (Host to Controller Data):** Передає потік даних від хоста до таргета при виконанні операцій запису.
+- **`0x07` — C2HData (Controller to Host Data):** Передає потік даних від таргета до хоста при виконанні операцій читання.
+- **`0x09` — R2T (Ready to Transfer):** Запит таргета до хоста на надсилання чергової порції H2CData для запису з вказанням зсуву (`ttag`, `offset`, `length`).
 
 ### Структура кадрів ініціалізації ICReq та ICResp
 
@@ -231,7 +233,7 @@ struct nvme_tcp_icresp_pdu {
     uint16_t pfv;                /* Підтверджена версія протоколу (0x0000) */
     uint8_t  cpda;               /* Controller PDU Data Alignment */
     uint8_t  digest_flags;       /* Підтверджені прапорці цілісності digests */
-    uint32_t maxh2cdata;         /* Узгоджений межа розміру кадру H2CData */
+    uint32_t maxh2cdata;         /* Узгоджена межа розміру кадру H2CData */
     uint8_t  reserved[112];
 };
 ```
@@ -252,10 +254,10 @@ struct nvme_tcp_icresp_pdu {
 
 ### Прапорці PDU (Header Flags):
 
-- **`NVME_TCP_F_HDIGEST` (`0x01`):** Заголовок PDU захищений 4-байтною контрольною сумою Header Digest (CRC32c).
-- **`NVME_TCP_F_DDIGEST` (`0x02`):** Корисне навантаження PDU захищене 4-байтною контрольною сумою Data Digest (CRC32c).
+- **`NVME_TCP_F_HDGST` (`0x01`):** Заголовок PDU захищений 4-байтною контрольною сумою Header Digest (CRC32c).
+- **`NVME_TCP_F_DDGST` (`0x02`):** Корисне навантаження PDU захищене 4-байтною контрольною сумою Data Digest (CRC32c).
 - **`NVME_TCP_F_DATA_LAST` (`0x04`):** Цей PDU є останнім у серії передач для цієї команди.
-- **`NVME_TCP_F_DATA_SUCCESS` (`0x08`):** Кадр C2HData несе в собі імпортичний статус завершення (дозволяє уникнути окремого RspKVec PDU).
+- **`NVME_TCP_F_DATA_SUCCESS` (`0x08`):** Кадр C2HData несе в собі вбудований статус завершення (дозволяє уникнути окремого PDU CapsuleResp).
 
 ## 5. Формат відповідей Discovery Log Page (`struct nvmf_disc_rsp_page_entry`)
 
@@ -270,10 +272,10 @@ struct nvmf_disc_rsp_page_entry {
     uint8_t  treq;               /* Запити транспорту: Secure channel support */
     uint16_t portid;             /* Номер порту таргета */
     uint16_t cntlid;             /* Ідентифікатор контролера */
-    uint16_t asqcxt;             /* Розмір адміністративної черги SQ */
-    uint8_t  resv20[22];
+    uint16_t asqsz;              /* Максимальний розмір адміністративної черги SQ */
+    uint8_t  resv10[22];
     char     trsvcid[32];        /* Рядок сервісного порту, наприклад "4420" */
-    uint8_t  resv74[238];
+    uint8_t  resv64[192];
     char     subnqn[256];        /* NQN підсистеми зберігання */
     char     traddr[256];        /* Мережева адреса (наприклад "192.168.1.100") */
     char     tsas[256];          /* Transport Specific Address Subsystem */
@@ -290,10 +292,10 @@ struct nvmf_disc_rsp_page_entry {
     std::uint8_t  treq;          // Запити транспорту: Secure channel support
     std::uint16_t portid;        // Номер порту таргета
     std::uint16_t cntlid;        // Ідентифікатор контролера
-    std::uint16_t asqcxt;        // Розмір адміністративної черги SQ
-    std::array<std::uint8_t, 22> resv20;
+    std::uint16_t asqsz;         // Максимальний розмір адміністративної черги SQ
+    std::array<std::uint8_t, 22> resv10;
     std::array<char, 32>  trsvcid;// Рядок сервісного порту, наприклад "4420"
-    std::array<std::uint8_t, 238> resv74;
+    std::array<std::uint8_t, 192> resv64;
     std::array<char, 256> subnqn; // NQN підсистеми зберігання
     std::array<char, 256> traddr; // Мережева адреса (наприклад "192.168.1.100")
     std::array<char, 256> tsas;   // Transport Specific Address Subsystem
@@ -303,8 +305,8 @@ struct nvmf_disc_rsp_page_entry {
 
 Пояснення параметрів запису сторінки виявлення:
 - **`trtype`:** Числовий ідентифікатор мережевого транспорту (`1` відповідає RDMA, `3` — TCP, `4` — Fibre Channel).
-- **`adrfam`:** Семейство мережевих адрес (`1` — IPv4 у текстовому або бінарному вигляді, `2` — IPv6, `3` — InfiniBand subnet).
-- **`subnqn`:** Повний текстовий NQN віддаленої підсистеми (наприклад, `nqn.2024-08.com.example:nvme.target1`), до якого клієнт можу виконати підключення через команду Connect.
+- **`adrfam`:** Родина мережевих адрес (`1` — IPv4 у текстовому або бінарному вигляді, `2` — IPv6, `3` — InfiniBand subnet).
+- **`subnqn`:** Повний текстовий NQN віддаленої підсистеми (наприклад, `nqn.2024-08.com.example:nvme.target1`), до якого клієнт може виконати підключення через команду Connect.
 - **`traddr`:** Рядок мережевої IP-адреси або ім'я вузла, на якому таргет прослуховує вхідні підключення.
 - **`trsvcid`:** Номер мережевого порту сервісу (за замовчуванням для NVMe/TCP та NVMe/RDMA використовується порт `4420`).
 

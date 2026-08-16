@@ -23,7 +23,7 @@ static int my_sensor_probe(struct platform_device *pdev)
         return -ENOMEM;
 
     /* 1. Запитуємо регулятор з ім'ям "vdd" (прив'язка описується у Device Tree).
-     * Використовуємо devm_* версію, щоб ядро само звільнило ресурс. */
+     * Використовуємо devm_* версію, щоб ядро саме звільнило ресурс. */
     data->vdd_supply = devm_regulator_get(&pdev->dev, "vdd");
     if (IS_ERR(data->vdd_supply)) {
         dev_err(&pdev->dev, "Не вдалося знайти регулятор VDD\n");
@@ -31,8 +31,8 @@ static int my_sensor_probe(struct platform_device *pdev)
     }
 
     /* 2. Запитуємо зміну напруги (мінімум 3.0V, максимум 3.3V).
-     * Якщо інший пристрій на цій же лінії вимагає 3.3V, 
-     * фреймворк залишить 3.3V, що влаштує всіх. */
+     * Якщо інший пристрій на цій же лінії вимагає щонайменше 3.3V, 
+     * фреймворк виставить 3.3V — найнижчу напругу, що влаштує всіх. */
     ret = regulator_set_voltage(data->vdd_supply, 3000000, 3300000);
     if (ret) {
         dev_err(&pdev->dev, "Помилка встановлення напруги: %d\n", ret);
@@ -76,3 +76,5 @@ module_platform_driver(my_sensor_driver);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Приклад використання Regulator Framework");
 ```
+
+Одне застереження щодо версій ядра: до 6.10 включно поле `remove` у `struct platform_driver` мало підпис `int (*remove)(struct platform_device *)` — саме так, як у прикладі вище. Від 6.11 воно повертає `void`: код помилки з вивантаження драйвера ядро все одно ніде не обробляло. Тіло функції лишається тим самим, зникає лише `return 0;`.

@@ -175,7 +175,7 @@ struct drm_msm_syncobj { __u32 handle, flags; __u64 point; };  /* MSM_SYNCOBJ_RE
 ```c
 struct drm_xe_exec {                  /* DRM_XE_EXEC = 0x09, DRM_IOW  */
     __u64 extensions;
-    __u32 exec_queue_id, num_syncs;   /* DRM_XE_MAX_SYNCS = 1024      */
+    __u32 exec_queue_id, num_syncs;   /* черга виконання й довжина syncs */
     __u64 syncs;                      /* масив drm_xe_sync            */
     __u64 address;                    /* адреса пакета у просторі VM  */
     __u16 num_batch_buffer; __u16 pad[3]; __u64 reserved[2];

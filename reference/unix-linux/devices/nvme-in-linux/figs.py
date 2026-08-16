@@ -63,7 +63,7 @@ def fig_queue_pair():
     p.append(f_db)
 
     f_ex, w_ex, h_ex = textbox(dx, 420,
-                               ["виконавець:",
+                               ["④ виконавець:",
                                 "забирає команди DMA,",
                                 "працює з мікросхемами пам'яті"],
                                size=14, pad=15, fill=GREY, stroke=LINE)
@@ -130,7 +130,7 @@ def fig_subsystem_topology():
                                 "вузла в /dev немає"],
                                size=13, pad=14, fill=GREY, stroke=MUTED, sw=1.2)
     f_p1, w_p1, h_p1 = textbox(rx, 570,
-                               ["nvme1c0n1 — шлях",
+                               ["nvme0c1n1 — шлях",
                                 "прихований: є в sysfs,",
                                 "вузла в /dev немає"],
                                size=13, pad=14, fill=GREY, stroke=MUTED, sw=1.2)
@@ -208,7 +208,7 @@ def fig_failover_path():
     p.append(line(90, 660, 90, 350, color=POS))
     p.append(arrow(90, 350, cx - w_c / 2 - 8, 350, color=POS))
     f_note, w_n, h_n = textbox(255, 268,
-                               ["той самий bio —", "назад у чергу голови", "й на інший шлях"],
+                               ["той самий bio —", "назад до голови", "й на інший шлях"],
                                size=13, pad=12, fill="#ffffff", stroke=POS, sw=1.2)
     p.append(f_note)
 
@@ -315,7 +315,7 @@ def fig_ioctl_two_answers():
     f_krn, w_krn, h_krn = textbox(kx, 190,
                                   ["перевірка прав,",
                                    "копія 72 Б із процесу,",
-                                   "з них — 64 Б команди"],
+                                   "з неї ядро складає 64 Б команди"],
                                   size=13, pad=14, fill=GREY, stroke=LINE)
     p.append(f_krn)
 

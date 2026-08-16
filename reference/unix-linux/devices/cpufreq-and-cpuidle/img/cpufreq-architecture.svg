@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="500" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми cpufreq у Linux</text>
-<rect x="20.0" y="60.0" width="380.0" height="350.0" rx="8" fill="#fcf3cf" stroke="#f1c40f" stroke-width="1.5"/>
-<text x="210.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b7950b" text-anchor="middle" font-weight="700">Планувальник EAS (select_task_rq_fair)</text>
-<rect x="61.1" y="108.9" width="297.8" height="52.2" rx="6" fill="#ffffff" stroke="#f39c12" stroke-width="1.5"/><text x="210.0" y="130.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Нове / Пробуджене завдання</tspan><tspan x="210.0" dy="18.2">Метрика завантаження PELT (util)</tspan></text>
-<rect x="56.8" y="203.9" width="306.4" height="52.2" rx="6" fill="#fef9e7" stroke="#d68910" stroke-width="1.5"/><text x="210.0" y="225.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Розрахунок ΔE (Energy Delta)</tspan><tspan x="210.0" dy="18.2">E_system(LITTLE) vs E_system(big)</tspan></text>
-<rect x="91.5" y="313.9" width="237.0" height="52.2" rx="6" fill="#f9e79f" stroke="#b7950b" stroke-width="1.5"/><text x="210.0" y="335.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Вибір оптимального ядра</tspan><tspan x="210.0" dy="18.2">з мінімальним споживанням</tspan></text>
-<line x1="210.0" y1="165.0" x2="210.0" y2="200.0" stroke="#f39c12" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="210.0" y1="260.0" x2="210.0" y2="310.0" stroke="#d68910" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="430.0" y="60.0" width="390.0" height="350.0" rx="8" fill="#ebf5fb" stroke="#3498db" stroke-width="1.5"/>
-<text x="625.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2980b9" text-anchor="middle" font-weight="700">Енергетична Модель (Energy Model)</text>
-<rect x="450.0" y="110.0" width="350.0" height="110.0" rx="6" fill="#e8f8f5" stroke="#1ea27a" stroke-width="1.5"/>
-<text x="465.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1ea27a" text-anchor="start" font-weight="700">Кластер LITTLE (Енергоефективний)</text>
-<text x="465.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="start">• Низька пікова потужність (Capacity: 350)</text>
-<text x="465.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="start">• Висока ефективність на малих частотах</text>
-<text x="465.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="start" font-style="italic">• Таблиця: [Freq, Cap, Power_mW]</text>
-<rect x="450.0" y="240.0" width="350.0" height="150.0" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
-<text x="465.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Кластер big (Високопродуктивний)</text>
-<text x="465.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="start">• Висока обчислювальна здатність (1024)</text>
-<text x="465.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="start">• Квадратичний ріст споживання струму</text>
-<text x="465.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="start">• Використовується для важких задач</text>
-<text x="465.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="start" font-style="italic">• Інтеграція з cpufreq schedutil</text>
-<line x1="310.0" y1="230.0" x2="445.0" y2="165.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="310.0" y1="230.0" x2="445.0" y2="310.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="425.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми cpufreq у Linux</text>
+<rect x="20.0" y="45.0" width="810.0" height="80.0" rx="8" fill="#f4f6f8" stroke="#95a5a6" stroke-width="1.5"/>
+<text x="40.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7f8c8d" text-anchor="start" font-weight="700">Користувацький простір / Процеси</text>
+<rect x="20.0" y="145.0" width="810.0" height="200.0" rx="8" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+<text x="40.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="start" font-weight="700">Підсистема ядра Linux (cpufreq framework)</text>
+<rect x="20.0" y="365.0" width="810.0" height="95.0" rx="8" fill="#fdf2e9" stroke="#d35400" stroke-width="1.5"/>
+<text x="40.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="start" font-weight="700">Апаратний рівень (CPU Hardware / PCU)</text>
+<rect x="45.8" y="68.9" width="228.3" height="52.2" rx="6" fill="#ffffff" stroke="#7f8c8d" stroke-width="1.5"/><text x="160.0" y="90.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Застосунки та потоки</tspan><tspan x="160.0" dy="18.2">(створюють навантаження)</tspan></text>
+<rect x="356.2" y="68.9" width="167.6" height="52.2" rx="6" fill="#ffffff" stroke="#7f8c8d" stroke-width="1.5"/><text x="440.0" y="90.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Інтерфейс sysfs</tspan><tspan x="440.0" dy="18.2">/sys/.../cpufreq/</tspan></text>
+<rect x="603.2" y="68.9" width="193.6" height="52.2" rx="6" fill="#ffffff" stroke="#7f8c8d" stroke-width="1.5"/><text x="700.0" y="90.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">PM QoS Запити</tspan><tspan x="700.0" dy="18.2">/dev/cpu_dma_latency</tspan></text>
+<rect x="41.5" y="228.9" width="237.0" height="52.2" rx="6" fill="#e8f8f5" stroke="#16a085" stroke-width="1.5"/><text x="160.0" y="250.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Cpufreq Governor</tspan><tspan x="160.0" dy="18.2">(schedutil / performance)</tspan></text>
+<rect x="369.2" y="228.9" width="141.5" height="52.2" rx="6" fill="#d4efdf" stroke="#27ae60" stroke-width="1.5"/><text x="440.0" y="250.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Ядро cpufreq</tspan><tspan x="440.0" dy="18.2">(cpufreq core)</tspan></text>
+<rect x="572.8" y="228.9" width="254.4" height="52.2" rx="6" fill="#ebdef0" stroke="#8e44ad" stroke-width="1.5"/><text x="700.0" y="250.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">Драйвер cpufreq</tspan><tspan x="700.0" dy="18.2">(intel_pstate / amd-pstate)</tspan></text>
+<rect x="157.5" y="398.9" width="184.9" height="52.2" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/><text x="250.0" y="420.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Регістри MSR / CPPC</tspan><tspan x="250.0" dy="18.2">(IA32_HWP_REQUEST)</tspan></text>
+<rect x="485.8" y="398.9" width="228.3" height="52.2" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/><text x="600.0" y="420.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">Power Control Unit (PCU)</tspan><tspan x="600.0" dy="18.2">Тактовий генератор &amp; VRM</tspan></text>
+<line x1="160.0" y1="180.0" x2="160.0" y2="225.0" stroke="#16a085" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="180.0" x2="440.0" y2="225.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="180.0" x2="700.0" y2="225.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="255.0" x2="365.0" y2="255.0" stroke="#16a085" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="515.0" y1="255.0" x2="615.0" y2="255.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="285.0" x2="600.0" y2="400.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="285.0" x2="250.0" y2="400.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="345.0" y1="425.0" x2="480.0" y2="425.0" stroke="#d35400" stroke-width="1.8" marker-end="url(#arrow)"/>
 </svg>

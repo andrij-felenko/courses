@@ -16,7 +16,7 @@ def draw_clock_tree():
     frags.append(bx_osc)
     
     # PLL
-    bx_pll, bw_pll, bh_pll = textbox(250, 100, "PLL (x24)\nСистемний\nгодинник", bold=True, fill="#fdecea")
+    bx_pll, bw_pll, bh_pll = textbox(250, 100, "PLL\nСистемний\nтакт", bold=True, fill="#fdecea")
     frags.append(bx_pll)
     
     # Divider

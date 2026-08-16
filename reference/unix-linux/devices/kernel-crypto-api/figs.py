@@ -109,7 +109,7 @@ def fig_name_grammar():
 
     alt_fr, alt_w, alt_h = textbox(1145, root_y + 40,
                                    ["один запис від заліза:",
-                                    "caam-authenc-hmac-sha256-cbc-aes",
+                                    "authenc-hmac-sha256-cbc-aes-caam",
                                     "пріоритет 3000"],
                                    size=13, pad=15, fill=GREY_FILL, stroke=MUTED, sw=1.4)
     p.append(alt_fr)

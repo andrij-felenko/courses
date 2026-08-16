@@ -21,7 +21,7 @@ def draw_cpufreq_arch():
     frags.append(text(40, 385, "Апаратний рівень (CPU Hardware / PCU)", size=12, bold=True, color="#d35400", anchor="start"))
 
     # Userspace box
-    bx_apps, _, _ = textbox(160, 95, "Дані PELT / Потоки\nПланувальник CFS", bold=True, fill="#ffffff", stroke="#7f8c8d")
+    bx_apps, _, _ = textbox(160, 95, "Застосунки та потоки\n(створюють навантаження)", bold=True, fill="#ffffff", stroke="#7f8c8d")
     frags.append(bx_apps)
 
     bx_sysfs, _, _ = textbox(440, 95, "Інтерфейс sysfs\n/sys/.../cpufreq/", bold=True, fill="#ffffff", stroke="#7f8c8d")
@@ -146,7 +146,7 @@ def draw_cstate_residency():
     frags.append(line(540, 340, 540, 355, color="#2980b9", sw=1.5))
     frags.append(arrow(260, 350, 540, 350, color="#2980b9"))
     frags.append(arrow(540, 350, 260, 350, color="#2980b9"))
-    frags.append(text(400, 370, "Мінімальний інтервал проходження (Target Residency)", size=11, bold=True, color="#2980b9"))
+    frags.append(text(400, 370, "Мінімальний час перебування (Target Residency)", size=11, bold=True, color="#2980b9"))
 
     out_dir = os.path.join(os.path.dirname(__file__), "img")
     render(os.path.join(out_dir, "cstate-residency-energy.svg"), w, h, *frags, title="Енергетичний баланс та Target Residency при переході в C-стан")
@@ -180,13 +180,13 @@ def draw_eas_energy_model():
     frags.append(text(465, 132, "Кластер LITTLE (Енергоефективний)", size=12, bold=True, color="#1ea27a", anchor="start"))
     frags.append(text(465, 160, "• Низька пікова потужність (Capacity: 350)", size=11, color="#2c3e50", anchor="start"))
     frags.append(text(465, 182, "• Висока ефективність на малих частотах", size=11, color="#2c3e50", anchor="start"))
-    frags.append(text(465, 204, "• Таблиця: [Freq, Cap, Power_mW]", size=11, italic=True, color="#7f8c8d", anchor="start"))
+    frags.append(text(465, 204, "• Таблиця: [Freq, Cap, Power]", size=11, italic=True, color="#7f8c8d", anchor="start"))
 
     # big cluster
     frags.append(rect(450, 240, 350, 150, fill="#fadbd8", stroke="#e74c3c", rx=6))
     frags.append(text(465, 262, "Кластер big (Високопродуктивний)", size=12, bold=True, color="#c0392b", anchor="start"))
     frags.append(text(465, 290, "• Висока обчислювальна здатність (1024)", size=11, color="#2c3e50", anchor="start"))
-    frags.append(text(465, 312, "• Квадратичний ріст споживання струму", size=11, color="#2c3e50", anchor="start"))
+    frags.append(text(465, 312, "• Кубічний ріст потужності з частотою (P ∝ f³)", size=11, color="#2c3e50", anchor="start"))
     frags.append(text(465, 334, "• Використовується для важких задач", size=11, color="#2c3e50", anchor="start"))
     frags.append(text(465, 356, "• Інтеграція з cpufreq schedutil", size=11, italic=True, color="#7f8c8d", anchor="start"))
 
@@ -195,7 +195,7 @@ def draw_eas_energy_model():
     frags.append(arrow(310, 230, 445, 310, color="#2980b9"))
 
     out_dir = os.path.join(os.path.dirname(__file__), "img")
-    render(os.path.join(out_dir, "cpufreq-architecture.svg"), w, h, *frags, title="Архітектура підсистеми cpufreq у Linux")
+    render(os.path.join(out_dir, "eas-energy-model.svg"), w, h, *frags, title="Модель Energy-Aware Scheduling (EAS) та завантаження ядер")
 
 if __name__ == "__main__":
     draw_cpufreq_arch()

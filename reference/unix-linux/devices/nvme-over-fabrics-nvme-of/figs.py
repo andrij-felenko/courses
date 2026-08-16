@@ -107,20 +107,20 @@ def fig_nvme_tcp_pdu_sequence():
 
     # 2. Читання
     p.append(arrow(hx, 185, tx, 185))
-    p.append(textbox(480, 175, ["CmdKVec PDU (SQE Read + SGL Descriptor)"], size=11, fill=BLUE_FILL, stroke=LINE)[0])
+    p.append(textbox(480, 175, ["CapsuleCmd PDU (SQE Read + SGL Descriptor)"], size=11, fill=BLUE_FILL, stroke=LINE)[0])
 
     p.append(arrow(tx, 235, hx, 235))
     p.append(textbox(480, 225, ["C2HData PDU (Data Payload + Data Digest CRC32)"], size=11, fill=GREEN_FILL, stroke=LINE)[0])
 
     p.append(arrow(tx, 280, hx, 280))
-    p.append(textbox(480, 270, ["RspKVec PDU (CQE Completion Status)"], size=11, fill=WARM_FILL, stroke=LINE)[0])
+    p.append(textbox(480, 270, ["CapsuleResp PDU (CQE Completion Status)"], size=11, fill=WARM_FILL, stroke=LINE)[0])
 
     p.append(line(80, 310, 880, 310, color="#dddddd", sw=1))
     p.append(text(480, 325, "--- Операція Запису (NVMe Write Command) ---", size=12, bold=True, color="#555555"))
 
     # 3. Запис
     p.append(arrow(hx, 350, tx, 350))
-    p.append(textbox(480, 340, ["CmdKVec PDU (SQE Write + In-capsule or SGL)"], size=11, fill=BLUE_FILL, stroke=LINE)[0])
+    p.append(textbox(480, 340, ["CapsuleCmd PDU (SQE Write + In-capsule or SGL)"], size=11, fill=BLUE_FILL, stroke=LINE)[0])
 
     p.append(arrow(tx, 395, hx, 395))
     p.append(textbox(480, 385, ["R2T PDU (Ready to Transfer: Offset & Length)"], size=11, fill=RED_FILL, stroke=LINE)[0])
@@ -129,7 +129,7 @@ def fig_nvme_tcp_pdu_sequence():
     p.append(textbox(480, 430, ["H2CData PDU (Host to Controller Data Payload)"], size=11, fill=GREEN_FILL, stroke=LINE)[0])
 
     p.append(arrow(tx, 475, hx, 475))
-    p.append(textbox(480, 465, ["RspKVec PDU (CQE Status Success)"], size=11, fill=WARM_FILL, stroke=LINE)[0])
+    p.append(textbox(480, 465, ["CapsuleResp PDU (CQE Status Success)"], size=11, fill=WARM_FILL, stroke=LINE)[0])
 
     render(os.path.join(IMG, 'nvme-tcp-pdu-sequence.svg'), W, H, *p)
 

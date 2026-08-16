@@ -126,7 +126,7 @@ def fig_process_tree():
     p.append(fitbox(980, 125, 140, 45, ["Ізоляція", "ns/ та cgroup"], size=13, fill=BLUE_FILL, stroke=BLUE_STROKE, sw=1.8))
     p.append(arrow(1050, 172, 1050, 205))
     p.append(fitbox(970, 210, 160, 140, [
-        "ns/net  (pid_ns)",
+        "ns/net  (net_ns)",
         "ns/mnt  (mount_ns)",
         "ns/pid  (pid_ns)",
         "cgroup  (групи)",

@@ -117,7 +117,7 @@ capi:<ім'я з криптопідсистеми ядра>-ivmode[:ivopts]
 | `--allow-discards` | `allow_discards` |
 | `--perf-same_cpu_crypt` та інші `--perf-*` | однойменний прапорець без префікса |
 | `--integrity` | `integrity:<байти>:<тип>` |
-| `--offset` / `-o` | поле `<зсув>` (лише для типу `plain`) |
+| `--offset` / `-o` | поле `<зсув>`: для типу `plain` — при відмиканні, для LUKS — при `luksFormat`, де він задає зсув даних у томі |
 | `--skip` / `-p` | поле `<зсув IV>` (лише для типу `plain`) |
 | `--volume-key-keyring` | форма ключа з посиланням на кільце |
 

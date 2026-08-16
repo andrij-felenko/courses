@@ -25,6 +25,7 @@
 /* gptdump.c — перелік розділів GPT із сирого пристрою або файлу-образу.
    Складання: cc -O2 -Wall -Wextra -o gptdump gptdump.c
    Запуск:    sudo ./gptdump /dev/sda        ./gptdump disk.img [розмір-сектора] */
+#define _FILE_OFFSET_BITS 64     /* інакше на 32-бітній збірці зсув понад 2 ГіБ не читається */
 #define _DEFAULT_SOURCE
 #include <endian.h>
 #include <errno.h>

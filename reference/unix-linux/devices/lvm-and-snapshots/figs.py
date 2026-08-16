@@ -57,9 +57,9 @@ def fig_extent_mapping():
     p.append(text(84, 524, "Те саме, як його бачить ядро — таблиця device mapper:",
                   size=14, anchor="start", bold=True))
     rows = [
-        "0        16384   linear   /dev/sda2   24576",
+        "0        16384   linear   /dev/sda2   26624",
         "16384    16384   linear   /dev/sdb1    2048",
-        "32768    16384   linear   /dev/sdc1   42048",
+        "32768    16384   linear   /dev/sdc1   43008",
     ]
     for j, r in enumerate(rows):
         p.append(text(84, 566 + j * 34, r, size=14, anchor="start", color=NEG))

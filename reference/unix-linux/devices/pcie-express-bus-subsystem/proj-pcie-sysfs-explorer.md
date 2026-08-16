@@ -65,7 +65,7 @@ private:
 ```
 :::
 
-Прапор `O_SYNC` є критично важливим: він гарантує, що ядро відкриває сторінки фізичної пам'яті у режимі Uncached або Write-Combining, вимикаючи процесорне кешування. Після цього будь-яке читання або запис за вказівником `bar0_mmio + offset` породжує миттєву транзакцію TLP на шині PCIe.
+Відображення файла `resourceN` ядро робить некешованим, тож будь-яке читання чи запис за вказівником `bar0_mmio + offset` одразу породжує транзакцію TLP на шині PCIe. Прапор `O_SYNC` тут позначає намір працювати з пам'яттю пристрою без кешування; якщо ж потрібне об'єднання записів (типовий випадок — відеобуфер), sysfs віддає для цього окремий файл `resourceN_wc`.
 
 Цей механізм слугує основою для драйверів користувацького простору (Userspace Drivers). Проте слід пам'ятати про ризики: помилка у зсуві регістра під час запису через `mmap()` може спричинити апаратне блокування пристрою або згенерувати фатальну помилку шини AER Uncorrectable Fatal.
 
@@ -117,7 +117,8 @@ typedef struct {
 
 /* Розшифровка Capabilities */
 static void parse_capabilities(int fd, uint8_t cap_ptr) {
-    uint8_t pos = cap_ptr;
+    uint8_t pos = cap_ptr & 0xFC;   /* два молодші біти зарезервовані */
+    int guard = 48;                 /* запобіжник від зациклення списку */
     printf("    Capabilities list:");
     
     while (pos >= 0x40 && pos < 0xFF) {
@@ -175,7 +176,7 @@ static void inspect_device(const char *bdf) {
             if (is_64bit && i < 5) {
                 uint64_t high = hdr.bar[i + 1];
                 addr |= (high << 32);
-                printf("    BAR%d (64-bit MMIO%s): 0x%016LX\n",
+                printf("    BAR%d (64-bit MMIO%s): 0x%016llX\n",
                        i, is_prefetchable ? ", Prefetchable" : "", (unsigned long long)addr);
                 i++; /* Пропускаємо наступний BAR, бо він є старшою частиною */
             } else {
@@ -227,7 +228,7 @@ namespace fs = std::filesystem;
 namespace pcie {
 
 // Структура конфігураційного простору згідно зі специфікацією PCI-SIG
-struct alignas(1) ConfigHeader {
+struct ConfigHeader {
     uint16_t vendor_id;
     uint16_t device_id;
     uint16_t command;
@@ -253,6 +254,7 @@ struct alignas(1) ConfigHeader {
     uint8_t  min_gnt;
     uint8_t  max_lat;
 };
+static_assert(sizeof(ConfigHeader) == 64, "Заголовок PCI Header Type 0 має бути рівно 64 байти");
 
 class DeviceInspector {
 public:
@@ -315,10 +317,11 @@ private:
     }
 
     void print_capabilities(std::ifstream& file, uint8_t cap_ptr) const {
-        uint8_t pos = cap_ptr;
+        uint8_t pos = cap_ptr & 0xFC;
+        int guard = 48;   // запобіжник від зациклення списку можливостей
         std::cout << "    Capabilities list:";
 
-        while (pos >= 0x40 && pos < 0xFF) {
+        while (pos >= 0x40 && pos < 0xFF && guard-- > 0) {
             file.seekg(pos, std::ios::beg);
             uint8_t cap_hdr[2]{0, 0};
             file.read(reinterpret_cast<char*>(cap_hdr), 2);
@@ -373,7 +376,7 @@ int main() {
 Під час роботи з бінарним файлом `config` через `sysfs` слід враховувати два крайових випадки:
 
 1. **Права доступу (Permissions):** Звичайний користувач у Linux має права на прочитання перших 64 байтів файлу `config` (стандартного заголовка PCI). Проте прочитання розширеного простору PCIe (байти `0x0100`..`0x0FFF`) або запис у конфігураційний простір вимагають прав суперкористувача `root` або наявності POSIX-капабіліті `CAP_SYS_RAWIO`.
-2. **Порядок байтів (Endianness):** Усі числові поля у специфікації PCI/PCIe зберігаються у форматі Little-Endian. Архітектури x86-64 та ARM64 (у стандартному режимі) є Little-Endian, тому бінарне зчитування байтів безпосередньо у поля `uint16_t` та `uint32_t` є безпечним. На Big-Endian архітектурах (наприклад, PowerPC чи s390x) вимагається явне перетворення за допомогою функцій `le16_to_cpu()` або `le32_to_cpu()`.
+2. **Порядок байтів (Endianness):** Усі числові поля у специфікації PCI/PCIe зберігаються у форматі Little-Endian. Архітектури x86-64 та ARM64 (у стандартному режимі) є Little-Endian, тому бінарне зчитування байтів безпосередньо у поля `uint16_t` та `uint32_t` є безпечним. На Big-Endian архітектурах (наприклад, PowerPC чи s390x) вимагається явне перетворення — у користувацькому просторі це `le16toh()` / `le32toh()` з `<endian.h>` (`le16_to_cpu()` — їхній відповідник усередині ядра).
 
 Збірка обох версій утиліти здійснюється стандартними компіляторами `gcc` та `g++`:
 

@@ -82,7 +82,7 @@ def generate_rule_evaluation():
     frags.append(text(400, 185, "Ні", size=11, color="#c0392b", bold=True))
 
     # Step 3: Equal check or Floor check
-    b3 = fitbox(160, 195, 440, 45, "Об'єкт '*' чи '@', збіг міток,\nабо лише r/x/l при об'єкті '_' або суб'єкті '^'?", size=12, fill="#fff8f0", stroke="#bf8700", bold=True)
+    b3 = fitbox(160, 195, 440, 45, "Мітка '@' у суб'єкта чи об'єкта, об'єкт '*', збіг міток,\nабо лише r/x/l при об'єкті '_' або суб'єкті '^'?", size=12, fill="#fff8f0", stroke="#bf8700", bold=True)
     frags.append(b3)
     frags.append(arrow(600, 217, 660, 217))
     frags.append(text(625, 208, "Так", size=11, color="#27ae60", bold=True))
@@ -98,7 +98,7 @@ def generate_rule_evaluation():
     frags.append(arrow(380, 315, 380, 340))
 
     # Step 5: Rule match check
-    b5 = fitbox(160, 340, 440, 45, "Знайдено правило і запрашивані маски rwxatb збігаються?", size=12, fill="#fff8f0", stroke="#bf8700", bold=True)
+    b5 = fitbox(160, 340, 440, 45, "Знайдено правило, і всі запитувані біти в його масці є?", size=12, fill="#fff8f0", stroke="#bf8700", bold=True)
     frags.append(b5)
 
     # Granted branch

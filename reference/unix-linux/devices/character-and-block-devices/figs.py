@@ -52,7 +52,7 @@ def fig_cdev_vs_bdev_architecture():
     p.append(f_bdev_title)
 
     y_bdev_vfs = 310
-    f_bdev_vfs, _, _ = textbox(cx_bdev + 50, y_bdev_vfs, ["VFS & Page Cache", "Сторінковий кеш (address_space)", "Буферизація та читання звипередженням"], size=13, fill=FILL, stroke=LINE)
+    f_bdev_vfs, _, _ = textbox(cx_bdev + 50, y_bdev_vfs, ["VFS & Page Cache", "Сторінковий кеш (address_space)", "Буферизація та читання з випередженням"], size=13, fill=FILL, stroke=LINE)
     p.append(f_bdev_vfs)
 
     y_bdev_bio = 430
@@ -97,18 +97,18 @@ def fig_dev_t_split_and_vfs_lookup():
     p.append(f_inode)
 
     # Split decision box
-    f_dec, _, _ = textbox(250, 240, ["Перевірка типу пристрою в VFS", "sys_open() -> init_special_inode()"], size=13, bold=True, fill=WARM, stroke=LINE)
+    f_dec, _, _ = textbox(250, 240, ["Перевірка типу пристрою в VFS", "init_special_inode() задає i_fop"], size=13, bold=True, fill=WARM, stroke=LINE)
     p.append(f_dec)
 
     # Branch Left: S_ISCHR
-    f_chr_branch, _, _ = textbox(180, 360, ["Символьний пристрій (S_ISCHR)", "def_chr_fops -> chrdev_open()", "Пошук в chrdevs[Major]"], size=13, fill=GREEN, stroke=LINE)
+    f_chr_branch, _, _ = textbox(180, 360, ["Символьний пристрій (S_ISCHR)", "def_chr_fops -> chrdev_open()", "kobj_lookup() у cdev_map"], size=13, fill=GREEN, stroke=LINE)
     p.append(f_chr_branch)
 
     f_chr_op, _, _ = textbox(180, 500, ["struct cdev", "file->f_op = cdev->ops", "Прямий системний виклик read/write"], size=13, fill=FILL, stroke=LINE)
     p.append(f_chr_op)
 
     # Branch Right: S_ISBLK
-    f_blk_branch, _, _ = textbox(720, 360, ["Блочний пристрій (S_ISBLK)", "def_blk_fops -> blkdev_open()", "Пошук у bdev_map / bdev_filesystem"], size=13, fill=PURPLE, stroke=LINE)
+    f_blk_branch, _, _ = textbox(720, 360, ["Блочний пристрій (S_ISBLK)", "def_blk_fops -> blkdev_open()", "пошук block_device за dev_t"], size=13, fill=PURPLE, stroke=LINE)
     p.append(f_blk_branch)
 
     f_blk_op, _, _ = textbox(720, 500, ["struct block_device & gendisk", "file->f_op = def_blk_fops", "Перенаправлення до Page Cache & blk-mq"], size=13, fill=FILL, stroke=LINE)
