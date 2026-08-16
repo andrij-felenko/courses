@@ -165,10 +165,39 @@ if (fresh.length) {
 const queuedTotal = queue.length;
 console.log("");
 console.log(`  залежності: написано тем ${dirs.length} · заведено нових тем ${fresh.length} (усього в черзі ${queuedTotal})`);
-if (dirs.length >= 10 && fresh.length === 0) {
-  console.log(`  ⚠ НУЛЬ НОВИХ ТЕМ на ${dirs.length} написаних. Так буває, коли книга справді закрита,`);
-  console.log(`    але частіше — коли перевірка 16 звіряла лише preknowlist. Перечитай кілька статей`);
-  console.log(`    і спитай себе: на що вони спираються мовчки, без пояснення й без лінка?`);
+
+/* Облік важеля, а не самих тем. «Нуль нових тем» саме по собі нічого не каже: воно
+   означає і закриту книгу, і те, що до newtopic.js ніхто не дотягнувся. Розрізняє їх
+   журнал відмов — якщо і черга порожня, і відмов нема, важіль просто не вживали.
+   2026-08-15 саме так і було: батч фізики дав нуль тем при порожньому журналі. */
+let refused = [];
+try { refused = JSON.parse(fs.readFileSync(path.join("scripts", "_finish", "_ag-newtopic-refused.json"), "utf8")); } catch { }
+const mine = refused.filter((r) => r.book === BOOK);
+const byWhy = {};
+mine.forEach((r) => (byWhy[r.why] = (byWhy[r.why] || 0) + 1));
+const elsewhere = [];
+for (const f of fs.existsSync(path.join("scripts", "_finish")) ? fs.readdirSync(path.join("scripts", "_finish")) : []) {
+  const m = f.match(/^_ag-newtopics-(.+)\.json$/);
+  if (!m || m[1] === BOOK) continue;
+  try {
+    JSON.parse(fs.readFileSync(path.join("scripts", "_finish", f), "utf8"))
+      .filter((t) => !t.applied && t.from && t.from.includes(`/${BOOK}/`))
+      .forEach((t) => elsewhere.push(`${m[1]}/${t.slug}`));
+  } catch { }
+}
+console.log(`  важіль newtopic: заведено ${fresh.length} · відмовлено ${mine.length}${mine.length ? " (" + Object.entries(byWhy).map(([k, v]) => `${k}: ${v}`).join(", ") + ")" : ""}`);
+if (elsewhere.length) console.log(`  теми, віддані ІНШИМ книгам: ${elsewhere.join(", ")}`);
+
+if (fresh.length === 0 && mine.length === 0 && dirs.length >= 5) {
+  console.log(`\n  ⚠ ВАЖІЛЬ НЕ ВЖИВАЛИ: на ${dirs.length} написаних тем нуль заведених і нуль відмов.`);
+  console.log(`    Це не «книга закрита» — це означає, що newtopic.js не кликали жодного разу.`);
+  console.log(`    Планка низька навмисно: ДВІ ознаки з чотирьох (too-big · key · eases · searchable),`);
+  console.log(`    і поняття чужої галузі не відкидають, а заводять у ЙОГО книгу (--book math).`);
+  console.log(`    Перечитай кілька написаних статей і спитай: на що вони спираються мовчки?`);
+  console.log(`    Нуль — законна відповідь, але тільки після того, як питання поставлено.`);
+} else if (dirs.length >= 10 && fresh.length === 0) {
+  console.log(`  ⚠ нуль заведених при ${mine.length} відмовах — важіль вживали, планка не пустила.`);
+  console.log(`    Подивись у scripts/_finish/_ag-newtopic-refused.json, чи справедливо.`);
 }
 
 /* ── 4. маніфест ───────────────────────────────────────────────────────────── */
