@@ -5,7 +5,8 @@
    Ужиток:
      node scripts/antigravity/newtopic.js --book unix-linux --kind reference \
           --section devices --slug nvme-namespaces --title "Простори імен NVMe" \
-          --why "<чому це окрема тема>" --also <слуг іншої теми книги, якій це теж потрібне> [--from <тека>]
+          --why "<чому це окрема тема>" --meets subject,leaned,too-big  (треба 3 ознаки з 5)
+          [--also <слуг іншої теми книги — 5-та ознака, її перевіряє скрипт>] [--from <тека>]
      node scripts/antigravity/newtopic.js --book unix-linux --drop <слуг>     (прибрати з черги)
      node scripts/antigravity/newtopic.js --book unix-linux --list
 
@@ -28,7 +29,7 @@ const val = (n) => { const i = argv.indexOf("--" + n); return i >= 0 ? argv[i + 
 const has = (n) => argv.includes("--" + n);
 
 const BOOK = val("book");
-if (!BOOK) { console.error("Ужиток: node scripts/antigravity/newtopic.js --book <книга> --kind <вид> --section <секція> --slug <слуг> --title <назва> --why <навіщо> --also <слуг іншої теми книги>"); process.exit(3); }
+if (!BOOK) { console.error("Ужиток: node scripts/antigravity/newtopic.js --book <книга> --kind <вид> --section <секція> --slug <слуг> --title <назва> --why <навіщо> --meets <ознаки через кому>"); process.exit(3); }
 
 const QDIR = path.join("scripts", "_finish");
 const QFILE = path.join(QDIR, `_ag-newtopics-${BOOK}.json`);
@@ -85,28 +86,47 @@ if (new RegExp(`slug\\s*:\\s*["']${SLUG}["']`).test(mfSrc)) {
   process.exit(0);
 }
 
-/* ── ОБҐРУНТУВАННЯ: хто ЩЕ по неї прийде ────────────────────────────────────
-   Найдорожча помилка черги — не дубль, а розповзання предмета. Стаття про
+/* ── ОБҐРУНТУВАННЯ: три ознаки з п'яти ───────────────────────────────────────
+   Найдорожча помилка черги — не дубль, а розповзання предмета: стаття про
    відображення Ено чесно спирається на множину Кантора, теорему Такенса й
-   підкову Смейла — але заведи їх усі, і книга про хаос затягує половину
-   топології. Тому потрібне поняття, по яке прийде не лише ця стаття: назви
-   щонайменше одну ІНШУ тему цієї книги (написану чи заплановану), якій воно теж
-   потрібне, — і скрипт перевірить, що вона справді є в маніфесті. Одна стаття, якій
-   щось знадобилось, — це привід сказати два речення в тексті, а не завести тему. */
-if (!ALSO.length) {
-  console.error(`\n✖ бракує --also: назви ІНШУ тему цієї книги (крім своєї), якій це поняття теж потрібне.`);
-  console.error(`   Годиться будь-яка тема з маніфесту — написана чи ще запланована; головне, щоб вона там була.`);
-  console.error(`   Не можеш назвати жодної — поняття потрібне лише твоїй статті. Тоді це не тема:`);
-  console.error(`   поясни його двома реченнями просто в тексті або віднеси у вставку своєї теки.`);
-  console.error(`\n   node scripts/antigravity/newtopic.js … --also <слуг наявної теми>[,<ще один>]`);
-  refuse("no-also");
-  process.exit(5);
+   підкову Смейла, але заведи їх усі — і книга про хаос затягла половину топології.
+
+   Спершу тут стояла кон'юнкція з обов'язковим --also (назви іншу тему, якій це
+   теж потрібне). Вона різала зайве, але різала й потрібне: ДРУГИЙ споживач поняття
+   зазвичай зʼявляється пізніше за першого, і вимагати його «зараз» означає
+   відмовляти темам просто тому, що черга ще не дійшла до сусідів.
+
+   Тому не всі умови разом, а рахунок: пʼять ознак, вистачає ТРЬОХ. Чотири з них
+   судить сам агент — машина цього не вміє; пʼяту (--also) перевіряє скрипт. Сенс
+   не в тому, щоб зловити брехню, а в тому, щоб рішення було свідомим: назвати три
+   ознаки важче, ніж не думаючи набрати команду. */
+const CRITERIA = {
+  subject: "поняття лежить у предметі ЦІЄЇ книги, а не в сусідній галузі",
+  leaned: "стаття спирається на нього не в одному місці, і без нього читач застрягає",
+  "too-big": "не вміщається у два речення просто в тексті — треба механізм, виведення чи приклад",
+  searchable: "читач шукатиме його за назвою сам, не читавши цієї статті",
+  also: "по нього прийде ще хтось: --also <слуг іншої теми книги> (перевіряє скрипт)",
+};
+const MIN = Number(process.env.AG_NEWTOPIC_MIN || 3);
+const claimed = new Set((val("meets") || "").split(",").map((s) => s.trim()).filter(Boolean));
+
+/* --also, якщо названий і правдивий, зараховується сам */
+let alsoOk = false;
+if (ALSO.length) {
+  const unknown = ALSO.filter((s) => !new RegExp(`slug\\s*:\\s*["']${s}["']`).test(mfSrc));
+  if (unknown.length) console.log(`⚠ у --also названо теми, яких у ${MF} немає: ${unknown.join(", ")} — ця ознака не зараховується`);
+  else { alsoOk = true; claimed.add("also"); }
 }
-const unknown = ALSO.filter((s) => !new RegExp(`slug\\s*:\\s*["']${s}["']`).test(mfSrc));
-if (unknown.length) {
-  console.error(`\n✖ у --also названо теми, яких у ${MF} немає: ${unknown.join(", ")}`);
-  console.error(`   Треба слуг теми, яка є в маніфесті цієї книги.`);
-  refuse("also-unknown", { also: ALSO });
+const bad = [...claimed].filter((c) => !CRITERIA[c]);
+if (bad.length) { console.error(`✖ невідомі ознаки в --meets: ${bad.join(", ")}`); bad.forEach((b) => claimed.delete(b)); }
+
+if (claimed.size < MIN) {
+  console.error(`\n✖ ознак ${claimed.size}, а треба ${MIN}. Перелічи ті, що справді справджуються:`);
+  console.error(`   --meets ${Object.keys(CRITERIA).filter((k) => k !== "also").join(",")}`);
+  Object.entries(CRITERIA).forEach(([k, v]) => console.error(`     ${claimed.has(k) ? "✓" : " "} ${k.padEnd(11)} — ${v}`));
+  console.error(`\n   Менше трьох — це не тема: поясни поняття двома реченнями просто в тексті`);
+  console.error(`   або віднеси у вставку своєї теки. Нуль нових тем — нормальний результат.`);
+  refuse("few-criteria", { claimed: [...claimed] });
   process.exit(5);
 }
 
@@ -170,7 +190,7 @@ if (/МОЖЛИВІ ДУБЛІ/.test(dryOut)) {
   console.log(`   Якщо це те саме поняття — не заводь тему, а допиши наявну.`);
 }
 
-q.push({ section: SECTION, slug: SLUG, title: TITLE, why: WHY, from: FROM, also: ALSO, kind: KIND, dupes, queuedAt: new Date().toISOString() });
+q.push({ section: SECTION, slug: SLUG, title: TITLE, why: WHY, from: FROM, also: ALSO, meets: [...claimed], kind: KIND, dupes, queuedAt: new Date().toISOString() });
 fs.writeFileSync(QFILE, JSON.stringify(q, null, 2), "utf8");
 console.log(`\n✓ у черзі: [${SECTION}] ${SLUG} — ${TITLE}`);
 console.log(`  файл: ${QFILE}  (тем у черзі: ${q.length})`);
