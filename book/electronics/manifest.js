@@ -210,6 +210,7 @@
       ] },
     { slug: "digital", title: "Цифрова", scope: "Логічні схеми на дискретних рівнях і станах разом із цифровим обробленням сигналів — перетворенням дискретизованих сигналів алгоритмами.",
       topics: [
+        { slug: "mipi-csi2", title: "MIPI CSI-2: послідовний інтерфейс камери", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "push-pull-output", title: "Push-pull вихід", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "mpu-cortex-m", title: "Блок захисту пам'яті (MPU) в Cortex-M", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-memory-protection.md", status: "done" }], proj: [{ file: "proj-rtos-task-isolation.md", status: "done" }] },
         { slug: "demultiplexer", title: "Демультиплексор", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-demux-write-strobe.md", status: "done" }] },

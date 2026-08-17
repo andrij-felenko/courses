@@ -212,15 +212,25 @@ function manifestOf(dir) {
 }
 
 /* Черга нових тем Antigravity — теми, які ще не в маніфесті, але вже вирішено завести.
-   Лінк на таку тему битим НЕ вважається: її зареєструє finish-batch наприкінці батчу. */
+   Лінк на таку тему битим НЕ вважається: її зареєструє finish-batch наприкінці батчу.
+
+   Читаємо ЧЕРГИ ВСІХ КНИГ, а не лише своєї. Поняття з чужої галузі заводять у ту книгу,
+   якій воно належить (стаття з фізики → тема в math), і лінк на неї стоїть одразу. Поки
+   тут дивилися лише свою чергу, такий лінк оголошувався битим — тобто правило «заводь у
+   сусідню книгу» каралося перевіркою 05, і автор мусив або прибрати лінк, або відмовитись
+   від теми. Слуги в корпусі унікальні, тож плаский список безпечний. */
 function queuedTopics(dir) {
-  const rel = path.relative(ROOT, path.resolve(dir)).split(/[\\/]/);
-  const book = rel[1];
-  if (!book) return [];
-  try {
-    return JSON.parse(fs.readFileSync(path.join(ROOT, "scripts", "_finish", `_ag-newtopics-${book}.json`), "utf8"))
-      .filter((t) => !t.applied).map((t) => t.slug);
-  } catch { return []; }
+  const qdir = path.join(ROOT, "scripts", "_finish");
+  let files = [];
+  try { files = fs.readdirSync(qdir).filter((f) => /^_ag-newtopics-.+\.json$/.test(f)); } catch { return []; }
+  const out = [];
+  for (const f of files) {
+    try {
+      JSON.parse(fs.readFileSync(path.join(qdir, f), "utf8"))
+        .filter((t) => !t.applied).forEach((t) => out.push(t.slug));
+    } catch { }
+  }
+  return out;
 }
 
 /* ── зовнішні команди ─────────────────────────────────────────────────────── */

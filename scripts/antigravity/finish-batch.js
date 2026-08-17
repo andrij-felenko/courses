@@ -139,7 +139,8 @@ for (const dir of dirs) {
 }
 
 /* ── 3. черга нових тем ────────────────────────────────────────────────────── */
-const QFILE = path.join("scripts", "_finish", `_ag-newtopics-${BOOK}.json`);
+const QDIRP = path.join("scripts", "_finish");
+const QFILE = path.join(QDIRP, `_ag-newtopics-${BOOK}.json`);
 let queue = [];
 try { queue = JSON.parse(fs.readFileSync(QFILE, "utf8")); } catch { }
 const fresh = queue.filter((t) => !t.applied);
@@ -218,5 +219,50 @@ if (APPLY && fresh.length) {
   fresh.forEach((t) => { t.applied = true; t.appliedAt = new Date().toISOString(); });
   fs.writeFileSync(QFILE, JSON.stringify(queue, null, 2), "utf8");
   console.log(`  чергу нових тем позначено відпрацьованою: ${QFILE}`);
+}
+
+/* ── 5. теми, віддані ЧУЖИМ книгам ──────────────────────────────────────────
+   Поняття з іншої галузі заводять у ту книгу, якій воно належить: стаття з фізики
+   кладе тему в math, з unix-linux — в electronics. Досі така тема лягала в чергу
+   чужої книги й чекала ЇЇ батчу — а якщо тієї книги Antigravity не пише взагалі
+   (electronics і programming пише Клод), вона не реєструвалася ніколи, і лінк на неї
+   лишався висіти. Тому цей батч реєструє й їх: одна атомарна topic-операція на книгу,
+   тим самим manifest-patch, який сам валідує результат і відмовиться псувати файл.
+
+   Межа: секція мусить існувати в маніфесті книги-господаря. Немає — тему лишаємо в
+   черзі й кажемо вголос, бо вигадувати секцію в чужій книзі не наша справа. */
+const foreign = {};
+for (const f of fs.existsSync(QDIRP) ? fs.readdirSync(QDIRP) : []) {
+  const m = f.match(/^_ag-newtopics-(.+)\.json$/);
+  if (!m || m[1] === BOOK) continue;
+  let q = []; try { q = JSON.parse(fs.readFileSync(path.join(QDIRP, f), "utf8")); } catch { continue; }
+  const mineHere = q.filter((t) => !t.applied && t.from && t.from.includes(`/${BOOK}/`));
+  if (mineHere.length) foreign[m[1]] = { file: path.join(QDIRP, f), all: q, take: mineHere };
+}
+if (Object.keys(foreign).length) {
+  console.log(`\n=== ТЕМИ, ВІДДАНІ ЧУЖИМ КНИГАМ ===`);
+  for (const [book, F] of Object.entries(foreign)) {
+    const kind = F.take[0].kind || "book";
+    const mf = path.join(kind, book, "manifest.js");
+    if (!fs.existsSync(mf)) { console.log(`  ✖ ${book}: нема маніфесту ${mf} — лишаємо в черзі`); continue; }
+    const src = fs.readFileSync(mf, "utf8");
+    const ok = [], noSection = [];
+    for (const t of F.take)
+      (new RegExp(`slug\\s*:\\s*["']${t.section}["']`).test(src) ? ok : noSection).push(t);
+    noSection.forEach((t) => console.log(`  ✖ ${book}/${t.slug}: секції «${t.section}» у ${mf} немає — лишаємо в черзі`));
+    if (!ok.length) continue;
+    const fops = path.join(QDIRP, `_mfops-ag-foreign-${book}.json`);
+    fs.writeFileSync(fops, JSON.stringify(ok.map((t) => ({ op: "topic", section: t.section, slug: t.slug, title: t.title, basic: "empty", detailed: "pending" })), null, 2), "utf8");
+    let fout = "", fcode = 0;
+    try { fout = execSync(`node scripts/manifest-patch.js "${mf}" --ops "${fops}"${APPLY ? "" : " --dry"}`, { maxBuffer: 32e6, timeout: 600000 }).toString(); }
+    catch (e) { fcode = e.status || 1; fout = ((e.stdout || "") + (e.stderr || "")).toString(); }
+    console.log(`  ${book}: ${ok.map((t) => t.slug).join(", ")}`);
+    console.log("    " + fout.trim().split("\n").pop());
+    if (fcode) { console.log(`    ✖ manifest-patch повернув ${fcode} — ${book} не змінено, теми лишаються в черзі`); continue; }
+    if (APPLY) {
+      ok.forEach((t) => { t.applied = true; t.appliedAt = new Date().toISOString(); });
+      fs.writeFileSync(F.file, JSON.stringify(F.all, null, 2), "utf8");
+    }
+  }
 }
 console.log(APPLY ? `\n✓ батч закрито.` : `\nЦе був звіт. Щоб записати — той самий рядок із --apply.`);
