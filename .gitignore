@@ -71,3 +71,29 @@ audit_report.json
 /*_out.txt
 /*_res.txt
 grep.exe.stackdump
+
+# ── корінь репо — не смітник ────────────────────────────────────────────────
+# Вивід гейтів і перевірок, разові скрипти агентів, чернетки. Місце для такого —
+# scripts/_finish/ (уже в ігнорі). 2026-08-16 у корені лежало 51: gate_out2.txt,
+# scratch_gate_live.js, шматок kernel/smp.c, затягнутий для звірки фактів, і навіть
+# Qt-проєкт q_v4.2.0.pro — при тому, що Qt за каноном поза корпусом назавжди.
+/gate*.txt
+/gate*.log
+/*_out.txt
+/*_out2.txt
+/*_utf8.txt
+/out.txt
+/claims.txt
+/check*.txt
+/check*.log
+/scratch_*
+/temp_*
+/test_*.txt
+/record_verdicts.js
+/runner.js
+/*.stackdump
+# сирці, затягнуті для звірки фактів, і чужі проєкти — у корпусі їм не місце
+/*.c
+/*.h
+/*.pro
+/*.qrc
