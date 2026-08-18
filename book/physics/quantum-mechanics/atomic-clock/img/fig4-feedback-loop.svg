@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 360" width="850" height="360">
+  <style>
+    .bg { fill: #ffffff; }
+    .title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; }
+    .label-center { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; text-anchor: middle; }
+    .label-small { font-family: system-ui, sans-serif; font-size: 10px; fill: #64748b; text-anchor: middle; }
+    .label-bold { font-family: system-ui, sans-serif; font-size: 11px; font-weight: bold; fill: #0f172a; }
+    .axis { stroke: #475569; stroke-width: 1.5; marker-end: url(#arrow); }
+    .grid { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 4,4; }
+    .line-blue { stroke: #0284c7; stroke-width: 2; fill: none; }
+    .line-red { stroke: #e11d48; stroke-width: 2; fill: none; }
+    .line-green { stroke: #059669; stroke-width: 2; fill: none; }
+    .box { fill: #f8fafc; stroke: #0284c7; stroke-width: 1.5; rx: 6; ry: 6; }
+    .box-green { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 6; ry: 6; }
+    .box-amber { fill: #fffbeb; stroke: #d97706; stroke-width: 1.5; rx: 6; ry: 6; }
+    .box-purple { fill: #faf5ff; stroke: #9333ea; stroke-width: 1.5; rx: 6; ry: 6; }
+    .level { stroke: #1e293b; stroke-width: 2; }
+    .transition { stroke: #dc2626; stroke-width: 1.5; stroke-dasharray: 3,3; marker-end: url(#arrow-red); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" class="bg" />
+  <g transform="translate(0, 0)">
+  <text x="425" y="25" class="title">Контур автопідстроювання частоти (Phase-Locked Servo Loop)</text>
+  <rect x="50" y="140" width="130" height="60" class="box" />
+  <text x="115" y="165" class="label-center" font-weight="bold">Кварцовий</text>
+  <text x="115" y="185" class="label-center" font-weight="bold">генератор VCXO</text>
+  <text x="115" y="215" class="label-small">(f ≈ 10 МГц)</text>
+  <line x1="180" y1="170" x2="250" y2="170" class="axis" />
+  <rect x="250" y="140" width="130" height="60" class="box-amber" />
+  <text x="315" y="165" class="label-center" font-weight="bold">НВЧ-синтезатор</text>
+  <text x="315" y="185" class="label-center" font-weight="bold">частоти</text>
+  <text x="315" y="215" class="label-small">(× 919.26...)</text>
+  <line x1="380" y1="170" x2="450" y2="170" class="axis" />
+  <text x="415" y="160" class="label-small">9.192 ГГц</text>
+  <rect x="450" y="130" width="140" height="80" class="box-green" />
+  <text x="520" y="160" class="label-center" font-weight="bold">Атомна комірка /</text>
+  <text x="520" y="177" class="label-center" font-weight="bold">Фонтан (Cs-133)</text>
+  <text x="520" y="194" class="label-small">Резонанс Рамзі</text>
+  <line x1="590" y1="170" x2="650" y2="170" class="axis" />
+  <rect x="650" y="140" width="130" height="60" class="box-purple" />
+  <text x="715" y="165" class="label-center" font-weight="bold">Детектор</text>
+  <text x="715" y="185" class="label-center" font-weight="bold">флуоресценції</text>
+  <path d="M 715 200 L 715 290 L 600 290" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="670" y="260" class="label-small">Сигнал N₄ / N₃</text>
+  <rect x="430" y="260" width="170" height="60" class="box" />
+  <text x="515" y="285" class="label-center" font-weight="bold">Синхронний детектор</text>
+  <text x="515" y="302" class="label-center" font-weight="bold">&amp; PID-регулятор</text>
+  <path d="M 430 290 L 115 290 L 115 200" fill="none" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <rect x="220" y="275" width="160" height="26" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+  <text x="300" y="292" class="label-center" fill="#1e40af" font-weight="bold">Напруга помилки U_ctrl</text>
+  <path d="M 115 140 L 115 75 L 220 75" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)" />
+  <rect x="225" y="60" width="180" height="30" fill="#f0fdf4" rx="4" stroke="#bbf7d0" />
+  <text x="315" y="80" class="label-center" fill="#15803d" font-weight="bold">Вихід 10 МГц / 1 PPS (SI)</text>
+  </g>
+</svg>

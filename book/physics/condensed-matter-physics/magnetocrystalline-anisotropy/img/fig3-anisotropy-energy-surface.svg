@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <rect width="800" height="420" fill="#ffffff"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#1e293b">Полярні кутові діаграми густини енергії анізотропії E_A(θ)</text>
+
+  <!-- Panel 1: Uniaxial Polar Plot -->
+  <g transform="translate(50, 50)">
+    <rect width="330" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="165" y="26" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Одноосьова анізотропія (K_1 &gt; 0)</text>
+
+    <!-- Polar Grid -->
+    <circle cx="165" cy="180" r="110" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+    <circle cx="165" cy="180" r="75" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="165" cy="180" r="40" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Axis lines -->
+    <line x1="165" y1="40" x2="165" y2="320" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="35" y1="180" x2="295" y2="180" stroke="#64748b" stroke-width="1.5"/>
+
+    <text x="172" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#059669">θ = 0° (Легка вісь)</text>
+    <text x="172" y="315" font-family="sans-serif" font-size="12" font-weight="bold" fill="#059669">θ = 180°</text>
+    <text x="235" y="172" font-family="sans-serif" font-size="12" font-weight="bold" fill="#dc2626">θ = 90° (Важка)</text>
+
+    <!-- Energy surface r(θ) = r0 + r1 * sin^2(θ) -->
+    <!-- Peanut / dumbbell shape along equator -->
+    <path d="M 165 140
+             C 210 140, 265 150, 265 180
+             C 265 210, 210 220, 165 220
+             C 120 220, 65 210, 65 180
+             C 65 150, 120 140, 165 140 Z" 
+          fill="#3b82f6" fill-opacity="0.25" stroke="#1d4ed8" stroke-width="2.5"/>
+
+    <circle cx="165" cy="140" r="5" fill="#059669"/>
+    <circle cx="165" cy="220" r="5" fill="#059669"/>
+    <circle cx="265" cy="180" r="5" fill="#dc2626"/>
+    <circle cx="65" cy="180" r="5" fill="#dc2626"/>
+  </g>
+
+  <!-- Panel 2: Cubic Polar Plot (001 plane) -->
+  <g transform="translate(420, 50)">
+    <rect width="330" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="165" y="26" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Кубічна анізотропія Fe (K_1 &gt; 0)</text>
+
+    <!-- Polar Grid -->
+    <circle cx="165" cy="180" r="110" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+    <line x1="165" y1="40" x2="165" y2="320" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="35" y1="180" x2="295" y2="180" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="66" y1="81" x2="264" y2="279" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+    <line x1="66" y1="279" x2="264" y2="81" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+
+    <text x="172" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#059669">[010] Легка</text>
+    <text x="240" y="172" font-family="sans-serif" font-size="12" font-weight="bold" fill="#059669">[100] Легка</text>
+    <text x="230" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">[110] Важка</text>
+
+    <!-- 4-fold rose shape for cubic energy -->
+    <!-- Maxima along 45 degree diagonals -->
+    <path d="M 165 130
+             Q 210 135 225 120
+             Q 200 170 215 180
+             Q 200 190 225 240
+             Q 210 225 165 230
+             Q 120 225 105 240
+             Q 130 190 115 180
+             Q 130 170 105 120
+             Q 120 135 165 130 Z"
+          fill="#ef4444" fill-opacity="0.25" stroke="#b91c1c" stroke-width="2.5"/>
+
+    <!-- Minima dots along axes -->
+    <circle cx="165" cy="130" r="5" fill="#059669"/>
+    <circle cx="215" cy="180" r="5" fill="#059669"/>
+    <circle cx="165" cy="230" r="5" fill="#059669"/>
+    <circle cx="115" cy="180" r="5" fill="#059669"/>
+
+    <!-- Maxima dots along diagonals -->
+    <circle cx="225" cy="120" r="4" fill="#dc2626"/>
+    <circle cx="225" cy="240" r="4" fill="#dc2626"/>
+    <circle cx="105" cy="240" r="4" fill="#dc2626"/>
+    <circle cx="105" cy="120" r="4" fill="#dc2626"/>
+  </g>
+</svg>

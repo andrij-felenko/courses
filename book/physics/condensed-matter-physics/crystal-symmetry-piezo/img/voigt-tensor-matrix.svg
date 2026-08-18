@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Згортка тензора п'єзомодулів у нотацію Фойгта: d_ijk (3×3×3) → d_iα (3×6)</text>
+<rect x="30.0" y="55.0" width="340.0" height="280.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="200.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700">Мапування індексів напруження (jk)</text>
+<rect x="50.0" y="115.0" width="130.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="115.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">σ_11 (нормальне х)</text>
+<line x1="185.0" y1="128.0" x2="240.0" y2="128.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="115.0" width="105.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="297.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">(11) → α = 1</text>
+<rect x="50.0" y="149.0" width="130.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="115.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">σ_22 (нормальне y)</text>
+<line x1="185.0" y1="162.0" x2="240.0" y2="162.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="149.0" width="105.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="297.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">(22) → α = 2</text>
+<rect x="50.0" y="183.0" width="130.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="115.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">σ_33 (нормальне z)</text>
+<line x1="185.0" y1="196.0" x2="240.0" y2="196.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="183.0" width="105.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="297.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">(33) → α = 3</text>
+<rect x="50.0" y="217.0" width="130.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="115.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">σ_23 = σ_32 (зсув yz)</text>
+<line x1="185.0" y1="230.0" x2="240.0" y2="230.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="217.0" width="105.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="297.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">(23, 32) → α = 4</text>
+<rect x="50.0" y="251.0" width="130.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="115.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">σ_13 = σ_31 (зсув xz)</text>
+<line x1="185.0" y1="264.0" x2="240.0" y2="264.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="251.0" width="105.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="297.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">(13, 31) → α = 5</text>
+<rect x="50.0" y="285.0" width="130.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="115.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">σ_12 = σ_21 (зсув xy)</text>
+<line x1="185.0" y1="298.0" x2="240.0" y2="298.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="285.0" width="105.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="297.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">(12, 21) → α = 6</text>
+<rect x="400.0" y="55.0" width="370.0" height="280.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="585.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700">Структура матриці п'єзомодулів d_iα</text>
+<text x="474.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">α=1</text>
+<text x="522.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">α=2</text>
+<text x="570.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">α=3</text>
+<text x="618.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">α=4</text>
+<text x="666.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">α=5</text>
+<text x="714.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">α=6</text>
+<text x="425.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">i=1</text>
+<text x="425.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">i=2</text>
+<text x="425.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">i=3</text>
+<path d="M 445 112 L 438 112 L 438 243 L 445 243" fill="none" stroke="#0f172a" stroke-width="2.0"/>
+<path d="M 743 112 L 750 112 L 750 243 L 743 243" fill="none" stroke="#0f172a" stroke-width="2.0"/>
+<rect x="452.0" y="132.0" width="44.0" height="32.0" rx="3" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="474.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_11</text>
+<rect x="500.0" y="132.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="522.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_12</text>
+<rect x="548.0" y="132.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="570.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_13</text>
+<rect x="596.0" y="132.0" width="44.0" height="32.0" rx="3" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="618.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_14</text>
+<rect x="644.0" y="132.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="666.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_15</text>
+<rect x="692.0" y="132.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="714.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_16</text>
+<rect x="452.0" y="168.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="474.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_21</text>
+<rect x="500.0" y="168.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="522.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_22</text>
+<rect x="548.0" y="168.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="570.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_23</text>
+<rect x="596.0" y="168.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="618.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_24</text>
+<rect x="644.0" y="168.0" width="44.0" height="32.0" rx="3" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="666.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_25</text>
+<rect x="692.0" y="168.0" width="44.0" height="32.0" rx="3" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="714.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_26</text>
+<rect x="452.0" y="204.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="474.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_31</text>
+<rect x="500.0" y="204.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="522.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_32</text>
+<rect x="548.0" y="204.0" width="44.0" height="32.0" rx="3" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="570.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_33</text>
+<rect x="596.0" y="204.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="618.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_34</text>
+<rect x="644.0" y="204.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="666.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_35</text>
+<rect x="692.0" y="204.0" width="44.0" height="32.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="714.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">d_36</text>
+<text x="585.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">18 незалежних коефіцієнтів у найнижчій (триклінній) симетрії</text>
+<text x="585.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Симетрія кристала обнуляє або пов'язує елементи матриці</text>
+</svg>

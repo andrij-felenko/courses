@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" width="780" height="360">
+<style>
+    .bg { fill: #1e1e2e; }
+    .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: bold; fill: #cdd6f4; text-anchor: middle; }
+    .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #bac2de; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 13px; fill: #cdd6f4; }
+    .label-center { font-family: system-ui, sans-serif; font-size: 13px; fill: #cdd6f4; text-anchor: middle; }
+    .label-muted { font-family: system-ui, sans-serif; font-size: 12px; fill: #a6adc8; text-anchor: middle; }
+    .formula { font-family: "Courier New", monospace; font-size: 14px; font-weight: bold; fill: #f9e2af; text-anchor: middle; }
+    .wire { stroke: #89b4fa; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-dash { stroke: #89b4fa; stroke-width: 2; stroke-dasharray: 5,5; fill: none; }
+    .field-line { stroke: #f38ba8; stroke-width: 2; fill: none; }
+    .ext-line { stroke: #a6e3a1; stroke-width: 2.5; fill: none; }
+    .box { fill: #313244; stroke: #45475a; stroke-width: 2; rx: 8; ry: 8; }
+    .source-box { fill: #181825; stroke: #a6e3a1; stroke-width: 2; stroke-dasharray: 4,4; rx: 8; ry: 8; }
+    .charge-pos { fill: #f38ba8; stroke: #11111b; stroke-width: 1.5; }
+    .charge-neg { fill: #89b4fa; stroke: #11111b; stroke-width: 1.5; }
+    .text-pos { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #11111b; text-anchor: middle; dominant-baseline: central; }
+    .text-neg { font-family: system-ui, sans-serif; font-size: 15px; font-weight: bold; fill: #11111b; text-anchor: middle; dominant-baseline: central; }
+    .arrow { fill: #f38ba8; }
+    .arrow-ext { fill: #a6e3a1; }
+    .arrow-b { fill: #fab387; }
+    .arrow-v { fill: #cba6f7; }
+    .resistor { stroke: #f9e2af; stroke-width: 3; fill: none; stroke-linejoin: round; }
+</style>
+<rect width="100%" height="100%" class="bg" />
+
+    <defs>
+        <marker id="arr-blue2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#89b4fa" />
+        </marker>
+    </defs>
+
+    <g transform="translate(10, 10)">
+        <rect x="0" y="0" width="370" height="340" class="box" />
+        <text x="185" y="30" class="title">Модель реального джерела</text>
+
+        <rect x="30" y="70" width="150" height="200" class="source-box" />
+        <text x="105" y="90" class="label-center" fill="#a6e3a1">Реальне джерело</text>
+
+        <circle cx="70" cy="170" r="18" fill="none" stroke="#a6e3a1" stroke-width="2" />
+        <text x="70" y="174" class="label-center" fill="#a6e3a1" font-weight="bold">E</text>
+
+        <path d="M 70 152 L 70 130 L 130 130" class="wire" />
+        <path d="M 130 130 L 133 123 L 139 137 L 145 123 L 151 137 L 157 123 L 160 130" class="resistor" stroke="#f38ba8" />
+        <text x="145" y="115" class="label-center" fill="#f38ba8">r</text>
+
+        <circle cx="170" cy="130" r="4" fill="#cdd6f4" />
+        <text x="170" y="115" class="label-center">A (+)</text>
+        <circle cx="70" cy="230" r="4" fill="#cdd6f4" />
+        <text x="70" y="250" class="label-center">B (−)</text>
+
+        <path d="M 170 130 L 290 130 L 290 150" class="wire" />
+        <path d="M 290 150 L 283 154 L 297 162 L 283 170 L 297 178 L 283 186 L 290 190" class="resistor" />
+        <text x="315" y="174" class="label" fill="#f9e2af">R (навантаження)</text>
+        <path d="M 290 190 L 290 230 L 70 230 L 70 188" class="wire" />
+
+        <path d="M 200 130 L 250 130" class="wire" marker-end="url(#arr-blue2)" />
+        <text x="225" y="120" class="label-center" fill="#89b4fa">I</text>
+
+        <text x="185" y="295" class="formula">V_term = E − I · r</text>
+        <text x="185" y="320" class="label-muted">V_term = I · R (напруга на клемах)</text>
+    </g>
+
+    <g transform="translate(400, 10)">
+        <rect x="0" y="0" width="370" height="340" class="box" />
+        <text x="185" y="30" class="title">Навантажувальна характеристика</text>
+
+        <path d="M 60 260 L 330 260" stroke="#a6adc8" stroke-width="2" marker-end="url(#arr-blue2)" />
+        <text x="330" y="280" class="label-center" fill="#a6adc8">I (струм)</text>
+        <path d="M 60 260 L 60 70" stroke="#a6adc8" stroke-width="2" marker-end="url(#arr-blue2)" />
+        <text x="50" y="65" class="label-center" fill="#a6adc8">V</text>
+
+        <line x1="60" y1="90" x2="300" y2="260" stroke="#f38ba8" stroke-width="3" />
+
+        <circle cx="60" cy="90" r="5" fill="#a6e3a1" />
+        <text x="45" y="95" class="label" fill="#a6e3a1" font-weight="bold">E</text>
+        <text x="140" y="85" class="label" fill="#a6e3a1">Холостий хід (I = 0)</text>
+
+        <circle cx="300" cy="260" r="5" fill="#f38ba8" />
+        <text x="300" y="285" class="label-center" fill="#f38ba8" font-weight="bold">I_sc = E/r</text>
+        <text x="240" y="240" class="label-center" fill="#f38ba8">Коротке замикання</text>
+
+        <circle cx="180" cy="175" r="5" fill="#f9e2af" />
+        <line x1="180" y1="175" x2="60" y2="175" stroke="#f9e2af" stroke-dasharray="3,3" />
+        <line x1="180" y1="175" x2="180" y2="260" stroke="#f9e2af" stroke-dasharray="3,3" />
+        <text x="40" y="180" class="label" fill="#f9e2af">V_term</text>
+        <text x="180" y="280" class="label-center" fill="#f9e2af">I_робочий</text>
+
+        <text x="185" y="320" class="label-muted">Спад напруги ΔV = I · r залежить від струму</text>
+    </g>
+    
+</svg>

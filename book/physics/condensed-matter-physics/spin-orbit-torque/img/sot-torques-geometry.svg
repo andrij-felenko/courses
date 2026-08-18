@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторна геометрія обертальних моментів (DL-torque та FL-torque)</text>
+<line x1="250.0" y1="250.0" x2="410.0" y2="250.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="425.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">x (струм J_c)</text>
+<line x1="250.0" y1="250.0" x2="160.0" y2="325.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="145.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">y (спін σ)</text>
+<line x1="250.0" y1="250.0" x2="250.0" y2="90.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="250.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">z (нормаль)</text>
+<line x1="250.0" y1="250.0" x2="180.0" y2="308.0" stroke="#eab308" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="165.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ca8a04" text-anchor="end" font-weight="700">σ (спіновий потік)</text>
+<line x1="250.0" y1="250.0" x2="320.0" y2="130.0" stroke="#1d4ed8" stroke-width="4.0" marker-end="url(#arrow)"/>
+<text x="335.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="start" font-weight="700">m (намагніченість)</text>
+<line x1="320.0" y1="130.0" x2="375.0" y2="195.0" stroke="#059669" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="385.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="start" font-weight="700">τ_FL ~ m × σ (Field-like)</text>
+<line x1="320.0" y1="130.0" x2="240.0" y2="155.0" stroke="#dc2626" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="230.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="end" font-weight="700">τ_DL ~ m × (m × σ) (Damping-like)</text>
+<rect x="490.0" y="55.0" width="310.0" height="360.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="645.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Компоненти SOT</text>
+<rect x="502.0" y="95.0" width="286.0" height="140.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="510.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="start" font-weight="700">Damping-like torque (τ_DL):</text>
+<text x="510.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">• Дія: Протидіє дисипації (Гільберту)</text>
+<text x="510.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="start" font-weight="700">• Формула: τ_DL = τ_DL0 · m × (m × σ)</text>
+<text x="510.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">• Джерело: Передебільшого SHE</text>
+<text x="510.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="start" font-weight="700">• Роль: Відповідає за перемикання</text>
+<rect x="502.0" y="250.0" width="286.0" height="140.0" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+<text x="510.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#065f46" text-anchor="start" font-weight="700">Field-like torque (τ_FL):</text>
+<text x="510.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#064e3b" text-anchor="start">• Дія: Викликає прецесію навколо σ</text>
+<text x="510.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="start" font-weight="700">• Формула: τ_FL = τ_FL0 · (m × σ)</text>
+<text x="510.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#064e3b" text-anchor="start">• Джерело: Передебільшого REE</text>
+<text x="510.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#064e3b" text-anchor="start">• Роль: Знижує енергетичний бар'єр</text>
+<text x="410.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Damping-like момент виштовхує намагніченість з площини та забезпечує інверсію спіна</text>
+</svg>

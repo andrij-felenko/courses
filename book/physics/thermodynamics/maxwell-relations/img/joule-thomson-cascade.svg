@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+<rect width="640" height="360" fill="#ffffff"/>
+<defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+      </marker>
+    </defs>
+<text x="320.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскад заміни похідних у термодинаміці</text>
+<rect x="59.4" y="85.0" width="181.2" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="150.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Невимірювана похідна</tspan><tspan x="150.0" dy="16.9">(∂S/∂P)ᵀ</tspan></text>
+<line x1="240.0" y1="110.0" x2="380.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Заміна за Максвеллом (G)</text>
+<text x="310.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">(∂S/∂P)ᵀ = −(∂V/∂T)ₚ</text>
+<rect x="403.4" y="85.0" width="173.1" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="490.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Вимірювана величина</tspan><tspan x="490.0" dy="16.9">−(∂V/∂T)ₚ = −V·α</tspan></text>
+<line x1="490.0" y1="155.0" x2="490.0" y2="220.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="155.0" x2="150.0" y2="220.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="53.4" y="243.1" width="193.3" height="53.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="266.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Різниця теплоємностей</tspan><tspan x="150.0" dy="16.9">Cₚ − Cᵥ = T·V·α² / κₜ</tspan></text>
+<rect x="369.2" y="243.1" width="241.6" height="53.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="266.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Ефект Джоуля — Томсона</tspan><tspan x="490.0" dy="16.9">μ_JT = (V / Cₚ) · (T·α − 1)</tspan></text>
+</svg>

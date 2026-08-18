@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 380" width="660" height="380">
+<rect width="660" height="380" fill="#ffffff"/>
+<defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+      </marker>
+      <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#27ae60"/>
+      </marker>
+      <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#2457d6"/>
+      </marker>
+    </defs>
+<line x1="40.0" y1="190.0" x2="600.0" y2="190.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="590.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Вісь Z</text>
+<ellipse cx="140" cy="190" rx="35" ry="110" fill="none" stroke="#333333" stroke-width="3"/>
+<line x1="175.0" y1="190.0" x2="175.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="185.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">I</text>
+<line x1="140.0" y1="190.0" x2="140.0" y2="80.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">R</text>
+<circle cx="410.0" cy="190.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="410.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">P (z)</text>
+<line x1="140.0" y1="190.0" x2="410.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="275.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">z</text>
+<line x1="140.0" y1="80.0" x2="410.0" y2="190.0" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="265.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-style="italic">r = √(R² + z²)</text>
+<line x1="410.0" y1="190.0" x2="475.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="485.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">dB</text>
+<line x1="410.0" y1="190.0" x2="475.0" y2="190.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="455.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">dB_z</text>
+<line x1="475.0" y1="190.0" x2="475.0" y2="150.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="482.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">dB_⊥ (сума = 0)</text>
+<rect x="72.6" y="308.9" width="514.8" height="52.2" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="330.0" y="330.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Поле на осі витка: B_z = (μ₀ · I · R²) / [2 · (R² + z²)^(3/2)]</tspan><tspan x="330.0" dy="18.2">У центрі витка (z = 0): B = (μ₀ · I) / (2 · R)</tspan></text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерела шуму фотодетектора: фотострум, темновий струм та навантаження</text>
+<rect x="40.0" y="50.0" width="680.0" height="220.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="70.0" y="90.0" width="110.0" height="140.0" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="125.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">p-n Фотодіод</text>
+<line x1="45.0" y1="145.0" x2="70.0" y2="145.0" stroke="#eab308" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="45.0" y1="165.0" x2="70.0" y2="165.0" stroke="#eab308" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ca8a04" text-anchor="middle" font-weight="700">hν</text>
+<text x="125.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">I_ph (фотострум)</text>
+<text x="125.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">I_dark (темновий)</text>
+<circle cx="260.0" cy="160.0" r="28.0" fill="#ffffff" stroke="#dc2626" stroke-width="2.0"/>
+<text x="260.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">i_shot</text>
+<text x="260.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">2q(I_ph+I_d)Δf</text>
+<rect x="380.0" y="135.0" width="50.0" height="50.0" rx="6" fill="#ffffff" stroke="#059669" stroke-width="2.0"/>
+<text x="405.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">R_L</text>
+<circle cx="480.0" cy="160.0" r="28.0" fill="#ffffff" stroke="#059669" stroke-width="2.0"/>
+<text x="480.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">i_thermal</text>
+<text x="480.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">4k_BTΔf/R_L</text>
+<path d="M 560 120 L 630 160 L 560 200 Z" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.0"/>
+<text x="585.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">TIA</text>
+<line x1="630.0" y1="160.0" x2="680.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">V_out</text>
+<line x1="180.0" y1="160.0" x2="232.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="288.0" y1="160.0" x2="380.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="430.0" y1="160.0" x2="452.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="508.0" y1="160.0" x2="560.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="40.0" y="285.0" width="330.0" height="115.0" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+<text x="205.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Дробово-шумовий предел (Shot-Noise Limit)</text>
+<text x="205.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">I_ph великий (висока інтенсивність світла)</text>
+<text x="205.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">SNR ≈ I_ph / (2 q Δf)^0.5 = (N_photons)^0.5</text>
+<text x="205.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-style="italic">Квантова границя чутливості детектора</text>
+<rect x="390.0" y="285.0" width="330.0" height="115.0" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+<text x="555.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#065f46" text-anchor="middle" font-weight="700">Теплово-шумовий предел (Thermal-Noise Limit)</text>
+<text x="555.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">I_ph малий (слабкі оптичні сигнали)</text>
+<text x="555.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">SNR ≈ I_ph / (4 k_B T Δf / R_L)^0.5</text>
+<text x="555.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-style="italic">Обмежено опором R_L та температурою T</text>
+<text x="380.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">При високій потужності оптичного сигналу SNR визначається виключно дробовим шумом фотонів</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 455" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="455" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аналогове множення вектор-матриця (MVM) у Кросбар-матриці</text>
+<line x1="80.0" y1="100.0" x2="680.0" y2="100.0" stroke="#333333" stroke-width="2.0"/>
+<text x="65.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">V₁</text>
+<line x1="80.0" y1="180.0" x2="680.0" y2="180.0" stroke="#333333" stroke-width="2.0"/>
+<text x="65.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">V₂</text>
+<line x1="80.0" y1="260.0" x2="680.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<text x="65.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">V₃</text>
+<line x1="200.0" y1="60.0" x2="200.0" y2="330.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="200.0" y1="330.0" x2="200.0" y2="355.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="200.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">I₁ = Σ V_i · G_i1</text>
+<line x1="400.0" y1="60.0" x2="400.0" y2="330.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="400.0" y1="330.0" x2="400.0" y2="355.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">I₂ = Σ V_i · G_i2</text>
+<line x1="600.0" y1="60.0" x2="600.0" y2="330.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="600.0" y1="330.0" x2="600.0" y2="355.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="600.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">I₃ = Σ V_i · G_i3</text>
+<circle cx="200.0" cy="100.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="200.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₁₁</text>
+<circle cx="400.0" cy="100.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="400.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₁₂</text>
+<circle cx="600.0" cy="100.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="600.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₁₃</text>
+<circle cx="200.0" cy="180.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="200.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₂₁</text>
+<circle cx="400.0" cy="180.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="400.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₂₂</text>
+<circle cx="600.0" cy="180.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="600.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₂₃</text>
+<circle cx="200.0" cy="260.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="200.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₃₁</text>
+<circle cx="400.0" cy="260.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="400.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₃₂</text>
+<circle cx="600.0" cy="260.0" r="18.0" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="600.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">G₃₃</text>
+<rect x="60.0" y="395.0" width="320.0" height="40.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="220.0" y="418.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">1. Закон Ома у кожному вузлі: I_ij = V_i · G_ij</tspan></text>
+<rect x="420.0" y="395.0" width="320.0" height="40.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="580.0" y="418.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">2. 1-е правило Кірхгофа у стовпці: I_j = Σ_i I_ij</tspan></text>
+</svg>

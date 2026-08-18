@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 360" width="770" height="360">
+<style>
+    .bg { fill: #1e1e2e; }
+    .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: bold; fill: #cdd6f4; text-anchor: middle; }
+    .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #bac2de; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 13px; fill: #cdd6f4; }
+    .label-center { font-family: system-ui, sans-serif; font-size: 13px; fill: #cdd6f4; text-anchor: middle; }
+    .label-muted { font-family: system-ui, sans-serif; font-size: 12px; fill: #a6adc8; text-anchor: middle; }
+    .formula { font-family: "Courier New", monospace; font-size: 14px; font-weight: bold; fill: #f9e2af; text-anchor: middle; }
+    .wire { stroke: #89b4fa; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-dash { stroke: #89b4fa; stroke-width: 2; stroke-dasharray: 5,5; fill: none; }
+    .field-line { stroke: #f38ba8; stroke-width: 2; fill: none; }
+    .ext-line { stroke: #a6e3a1; stroke-width: 2.5; fill: none; }
+    .box { fill: #313244; stroke: #45475a; stroke-width: 2; rx: 8; ry: 8; }
+    .source-box { fill: #181825; stroke: #a6e3a1; stroke-width: 2; stroke-dasharray: 4,4; rx: 8; ry: 8; }
+    .charge-pos { fill: #f38ba8; stroke: #11111b; stroke-width: 1.5; }
+    .charge-neg { fill: #89b4fa; stroke: #11111b; stroke-width: 1.5; }
+    .text-pos { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #11111b; text-anchor: middle; dominant-baseline: central; }
+    .text-neg { font-family: system-ui, sans-serif; font-size: 15px; font-weight: bold; fill: #11111b; text-anchor: middle; dominant-baseline: central; }
+    .arrow { fill: #f38ba8; }
+    .arrow-ext { fill: #a6e3a1; }
+    .arrow-b { fill: #fab387; }
+    .arrow-v { fill: #cba6f7; }
+    .resistor { stroke: #f9e2af; stroke-width: 3; fill: none; stroke-linejoin: round; }
+</style>
+<rect width="100%" height="100%" class="bg" />
+<defs><marker id="arr-yellow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f9e2af" /></marker></defs>
+    <g transform="translate(10, 10)">
+        <rect x="0" y="0" width="175" height="340" class="box" />
+        <text x="87" y="30" class="title" font-size="14">1. Хімічна</text>
+        <text x="87" y="50" class="label-muted">(Акумулятор)</text>
+
+        <rect x="30" y="120" width="115" height="130" fill="#181825" stroke="#89b4fa" stroke-width="2" rx="4" />
+        <rect x="35" y="150" width="105" height="95" fill="#313244" opacity="0.7" />
+
+        <rect x="45" y="90" width="15" height="120" fill="#f38ba8" rx="2" />
+        <text x="52" y="80" class="label-center" fill="#f38ba8">+</text>
+        <rect x="115" y="90" width="15" height="120" fill="#89b4fa" rx="2" />
+        <text x="122" y="80" class="label-center" fill="#89b4fa">−</text>
+
+        <text x="87" y="275" class="label-center" fill="#a6e3a1">Окисно-відновні</text>
+        <text x="87" y="295" class="label-center" fill="#a6e3a1">реакції</text>
+        <text x="87" y="320" class="label-muted">Розділення іонів</text>
+    </g>
+
+    <g transform="translate(200, 10)">
+        <rect x="0" y="0" width="175" height="340" class="box" />
+        <text x="87" y="30" class="title" font-size="14">2. Індукційна</text>
+        <text x="87" y="50" class="label-muted">(Генератор)</text>
+
+        <rect x="30" y="100" width="50" height="40" fill="#f38ba8" rx="4" />
+        <text x="55" y="125" class="label-center" fill="#11111b" font-weight="bold">N</text>
+        <rect x="30" y="140" width="50" height="40" fill="#89b4fa" rx="4" />
+        <text x="55" y="165" class="label-center" fill="#11111b" font-weight="bold">S</text>
+
+        <ellipse cx="120" cy="140" rx="25" ry="40" class="wire" stroke="#f9e2af" stroke-width="3" />
+        <path d="M 30 115 C 80 110, 100 120, 150 115" class="field-line" stroke-dasharray="3,3" />
+        <path d="M 30 165 C 80 160, 100 170, 150 165" class="field-line" stroke-dasharray="3,3" />
+
+        <text x="87" y="275" class="label-center" fill="#f9e2af">Зміна поля B(t)</text>
+        <text x="87" y="295" class="formula" font-size="12">E = −dΦ/dt</text>
+        <text x="87" y="320" class="label-muted">Сила Лоренца</text>
+    </g>
+
+    <g transform="translate(390, 10)">
+        <rect x="0" y="0" width="175" height="340" class="box" />
+        <text x="87" y="30" class="title" font-size="14">3. Термоелектрична</text>
+        <text x="87" y="50" class="label-muted">(Термопара)</text>
+
+        <path d="M 30 180 L 87 120 L 145 180" stroke="#fab387" stroke-width="4" fill="none" />
+        <path d="M 30 200 L 87 140 L 145 200" stroke="#cba6f7" stroke-width="4" fill="none" />
+        <circle cx="87" cy="130" r="10" fill="#f38ba8" />
+        <text x="87" y="95" class="label-center" fill="#f38ba8">Гарячий T1</text>
+        <text x="40" y="225" class="label-center" fill="#89b4fa">T2</text>
+        <text x="135" y="225" class="label-center" fill="#89b4fa">T2</text>
+
+        <text x="87" y="275" class="label-center" fill="#fab387">Градієнт T</text>
+        <text x="87" y="295" class="formula" font-size="12">E = α · ΔT</text>
+        <text x="87" y="320" class="label-muted">Ефект Зеєбека</text>
+    </g>
+
+    <g transform="translate(580, 10)">
+        <rect x="0" y="0" width="180" height="340" class="box" />
+        <text x="90" y="30" class="title" font-size="14">4. Фотоелектрична</text>
+        <text x="90" y="50" class="label-muted">(Сонячна панель)</text>
+
+        <rect x="30" y="110" width="120" height="40" fill="#89b4fa" opacity="0.8" rx="2" />
+        <text x="90" y="134" class="label-center" fill="#11111b" font-weight="bold">n-шар</text>
+        <rect x="30" y="150" width="120" height="50" fill="#f38ba8" opacity="0.8" rx="2" />
+        <text x="90" y="180" class="label-center" fill="#11111b" font-weight="bold">p-шар</text>
+
+        <path d="M 40 70 L 60 105" stroke="#f9e2af" stroke-width="2" marker-end="url(#arr-yellow)" />
+        <path d="M 80 65 L 100 105" stroke="#f9e2af" stroke-width="2" marker-end="url(#arr-yellow)" />
+        <path d="M 120 70 L 140 105" stroke="#f9e2af" stroke-width="2" marker-end="url(#arr-yellow)" />
+        <text x="90" y="60" class="label-center" fill="#f9e2af">Фотони (hν)</text>
+
+        <text x="90" y="275" class="label-center" fill="#f9e2af">Поглинання світла</text>
+        <text x="90" y="295" class="label-center" fill="#a6e3a1">Розділення e-/h+</text>
+        <text x="90" y="320" class="label-muted">Внутрішнє поле p-n</text>
+    </g>
+    
+</svg>

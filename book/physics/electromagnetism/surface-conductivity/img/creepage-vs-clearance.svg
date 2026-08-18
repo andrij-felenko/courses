@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+    </marker>
+    <marker id="arrow-pos" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-field" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+<rect x="60.0" y="150.0" width="80.0" height="100.0" rx="4" fill="#fca5a5" stroke="#dc2626" stroke-width="2.0"/>
+<text x="100.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">HV 1
+(+10 kV)</text>
+<rect x="620.0" y="150.0" width="80.0" height="100.0" rx="4" fill="#93c5fd" stroke="#2563eb" stroke-width="2.0"/>
+<text x="660.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">HV 2
+(0 V)</text>
+<path d="M 140 180 L 220 180 L 220 120 L 260 120 L 260 180 L 340 180 L 340 120 L 380 120 L 380 180 L 460 180 L 460 120 L 500 120 L 500 180 L 620 180 L 620 220 L 500 220 L 500 280 L 460 280 L 460 220 L 380 220 L 380 280 L 340 280 L 340 220 L 260 220 L 260 280 L 220 280 L 220 220 L 140 220 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+<text x="380.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#334155" text-anchor="middle" font-weight="700">Ребристий діелектричний ізолятор</text>
+<line x1="140" y1="90" x2="620" y2="90" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-pos)"/>
+<rect x="124.8" y="48.0" width="510.5" height="24.0" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/><text x="380.0" y="64.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Повітряний зазор (Clearance) — найкоротший шлях по повітрю (480 мм)</tspan></text>
+<path d="M 140 180 H 220 V 120 H 260 V 180 H 340 V 120 H 380 V 180 H 460 V 120 H 500 V 180 H 620" fill="none" stroke="#27ae60" stroke-width="3"/>
+<rect x="110.1" y="312.1" width="539.9" height="45.9" rx="6" fill="#ecfdf5" stroke="#34d399" stroke-width="1.5"/><text x="380.0" y="331.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#065f46" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Шлях витоку (Creepage distance) — огинає ребра ізолятора (840 мм)</tspan><tspan x="380.0" dy="16.9">Збільшує опір поверхневого перекриття та уповільнює трекінг</tspan></text>
+</svg>

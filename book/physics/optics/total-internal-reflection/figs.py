@@ -215,7 +215,72 @@ def fig_uses():
     render(os.path.join(IMG, 'uses.svg'), W, H, *f)
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# Figure 4 — хвильова картина: стояча хвиля у середовищі 1 та згасаюча
+# хвиля у середовищі 2 з глибиною проникнення dp.
+# ═══════════════════════════════════════════════════════════════════════════
+def fig_evanescent():
+    W, H = 680, 340
+    f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
+    f.append(text(W / 2, 26, 'Хвильова структура: згасаюче поле у рідшому середовищі',
+                  16, INK, 'middle', bold=True))
+
+    py = 180    # межа z = 0
+    f.append(rect(40, py, 600, H - py - 40, fill=GLASS, stroke='none', sw=0, rx=0))
+    f.append(line(40, py, 640, py, color=INK, sw=2))
+
+    # підписи середовищ
+    f.append(text(50, py - 12, 'рідке середовище  n₂  (z > 0)', 11, MUTED, 'start'))
+    f.append(text(50, py + 22, 'щільне середовище  n₁  (z < 0)', 11, MUTED, 'start'))
+
+    # профілі амплітуди по z (від x = 220 до 580)
+    # Згасаюча хвиля у середовищі 2 (z > 0, вгору на екрані)
+    # y = py - A * exp(-z/dp)
+    dp_pixels = 45
+    A0 = 70
+    pts_ev = []
+    for z in range(0, 130, 2):
+        x = 340 + z * 1.8
+        y = py - A0 * math.exp(-z / dp_pixels)
+        pts_ev.append((x, y))
+    
+    # лінія огинаючої E0 * exp(-z/dp)
+    d_str = "M " + " L ".join("%.1f %.1f" % p for p in pts_ev)
+    f.append('<path d="%s" fill="none" stroke="%s" stroke-width="2.5"/>' % (d_str, FIELD))
+
+    # пунктир на рівні z = dp (де амплітуда падає в e разів)
+    y_dp = py - A0 * math.exp(-1.0)
+    f.append(line(340, y_dp, 340 + 130 * 1.8, y_dp, color=MUTED, sw=1.2, dash='4,3'))
+    f.append(text(340 + 130 * 1.8 + 8, y_dp + 4, 'E₀ / e', 11, MUTED, 'start'))
+
+    # стрілка глибини проникнення dp
+    f.append(line(320, py, 320, py - dp_pixels, color=NEG, sw=1.8))
+    f.append(text(312, py - dp_pixels / 2, 'dp', 12, NEG, 'end', bold=True, italic=True))
+
+    # Стояча хвиля у середовищі 1 (z < 0, вниз на екрані)
+    pts_st = []
+    for z in range(0, 130, 2):
+        x = 340 - z * 1.8
+        # інтерференція падаючої й відбитої хвиль вздовж z
+        y = py + A0 * math.cos(z / 12.0)
+        pts_st.append((x, y))
+    d_st_str = "M " + " L ".join("%.1f %.1f" % p for p in pts_st)
+    f.append('<path d="%s" fill="none" stroke="%s" stroke-width="2.2"/>' % (d_st_str, POS))
+
+    # текстові блоки з поясненнями
+    f.append(text(200, py + 80, 'Інтерференційна хвиля (z < 0)\nв узлах і пучностях', 11, POS, 'middle'))
+    f.append(text(480, py - 80, 'Експоненційне згасання (z > 0)\nE(z) = E₀ · e⁻ᶻ/ᵈᵖ', 11, FIELD, 'middle'))
+
+    f.append(text(W / 2, H - 12,
+                  'За межею розділу електромагнітне поле не зникає миттєво: воно проникає на глибину dp ~ λ, згасаючи експоненційно',
+                  11, MUTED, 'middle'))
+
+    render(os.path.join(IMG, 'evanescent-wave.svg'), W, H, *f)
+
+
 fig_regimes()
 fig_critical()
 fig_uses()
+fig_evanescent()
 print('Done.')
+

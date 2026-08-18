@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="640" height="380">
+<rect width="640" height="380" fill="#ffffff"/>
+<defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+      </marker>
+      <marker id="arrow-pos" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+      </marker>
+      <marker id="arrow-field" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#27ae60"/>
+      </marker>
+      <marker id="arrow-neg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#2457d6"/>
+      </marker>
+    </defs>
+<ellipse cx="260" cy="200" rx="170" ry="110" fill="#f0fdf4" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="260.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-style="italic">Поверхня S</text>
+<ellipse cx="260" cy="200" rx="170" ry="110" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="190.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контур L</text>
+<line x1="230.0" y1="90.0" x2="270.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="310.0" x2="250.0" y2="310.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="100.0" x2="200.0" y2="240.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="200.0" y1="200.0" x2="200.0" y2="105.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="172.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">I₁ (+)</text>
+<line x1="300.0" y1="140.0" x2="300.0" y2="280.0" stroke="#2457d6" stroke-width="3.0"/>
+<line x1="300.0" y1="180.0" x2="300.0" y2="275.0" stroke="#2457d6" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="335.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">I₂ (−)</text>
+<line x1="510.0" y1="120.0" x2="510.0" y2="260.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="510.0" y1="220.0" x2="510.0" y2="125.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">I₃ (зовні)</text>
+<circle cx="90.0" cy="200.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="90.0" y1="200.0" x2="90.0" y2="160.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="68.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700" font-style="italic">dl</text>
+<line x1="90.0" y1="200.0" x2="55.0" y2="235.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">B</text>
+<rect x="382.2" y="272.8" width="215.5" height="74.4" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">∮_L B · dl = μ₀ · I_охоп</tspan><tspan x="490.0" dy="18.2"></tspan><tspan x="490.0" dy="18.2">I_охоп = I₁ − I₂</tspan></text>
+<rect x="414.5" y="43.4" width="191.0" height="63.2" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/><text x="510.0" y="63.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Правило правого гвинта:</tspan><tspan x="510.0" dy="15.6">напрямок обходу L виганяє</tspan><tspan x="510.0" dy="15.6">позитивний напрямок I</tspan></text>
+</svg>

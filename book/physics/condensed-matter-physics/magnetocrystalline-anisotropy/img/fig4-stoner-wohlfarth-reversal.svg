@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <rect width="800" height="420" fill="#ffffff"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#1e293b">Перемагнічування за моделлю Стонера — Вольфарта</text>
+
+  <!-- Left Panel: Vector diagram -->
+  <g transform="translate(40, 50)">
+    <rect width="340" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="170" y="26" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Геометрія полів та векторів</text>
+
+    <!-- Easy Axis n -->
+    <line x1="170" y1="300" x2="170" y2="60" stroke="#059669" stroke-width="2.5" stroke-dasharray="6,3"/>
+    <text x="175" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#047857">Вісь легкого намагнічування (EA)</text>
+
+    <!-- Magnetization M -->
+    <line x1="170" y1="200" x2="245" y2="110" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow-blue)"/>
+    <text x="245" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1d4ed8">M</text>
+
+    <!-- Angle theta -->
+    <path d="M 170 140 A 60 60 0 0 1 210 152" fill="none" stroke="#2563eb" stroke-width="2"/>
+    <text x="195" y="140" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1d4ed8">θ</text>
+
+    <!-- External Field H -->
+    <line x1="170" y1="200" x2="80" y2="100" stroke="#dc2626" stroke-width="3" marker-end="url(#arrow-red)"/>
+    <text x="65" y="95" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b91c1c">H</text>
+
+    <!-- Angle psi -->
+    <path d="M 170 130 A 70 70 0 0 0 130 155" fill="none" stroke="#dc2626" stroke-width="2"/>
+    <text x="135" y="135" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b91c1c">ψ</text>
+
+    <text x="170" y="315" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#334155">Умова рівноваги: ∂E/∂θ = 0</text>
+  </g>
+
+  <!-- Right Panel: Hysteresis loop & switching -->
+  <g transform="translate(420, 50)">
+    <rect width="340" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="170" y="26" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Необоротне стрибкоподібне переключення</text>
+
+    <!-- Axes -->
+    <line x1="40" y1="180" x2="300" y2="180" stroke="#475569" stroke-width="2" marker-end="url(#arrow-dark)"/>
+    <line x1="170" y1="310" x2="170" y2="50" stroke="#475569" stroke-width="2" marker-end="url(#arrow-dark)"/>
+
+    <text x="300" y="205" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">H</text>
+    <text x="145" y="45" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">M_H</text>
+
+    <!-- Hysteresis loop rectangle with switching jumps -->
+    <!-- Forward branch -->
+    <path d="M 50 270 L 110 270 L 110 90 L 290 90" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+    <!-- Backward branch -->
+    <path d="M 290 90 L 230 90 L 230 270 L 50 270" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+
+    <!-- Switching field arrows -->
+    <line x1="110" y1="250" x2="110" y2="110" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow-red)"/>
+    <line x1="230" y1="110" x2="230" y2="250" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow-red)"/>
+
+    <text x="110" y="290" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#b91c1c">-H_sw</text>
+    <text x="230" y="290" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#b91c1c">+H_sw</text>
+  </g>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+</svg>

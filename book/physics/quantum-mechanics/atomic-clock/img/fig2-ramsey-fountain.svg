@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 410" width="850" height="410">
+  <style>
+    .bg { fill: #ffffff; }
+    .title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; }
+    .label-center { font-family: system-ui, sans-serif; font-size: 11px; fill: #334155; text-anchor: middle; }
+    .label-small { font-family: system-ui, sans-serif; font-size: 10px; fill: #64748b; text-anchor: middle; }
+    .label-bold { font-family: system-ui, sans-serif; font-size: 11px; font-weight: bold; fill: #0f172a; }
+    .axis { stroke: #475569; stroke-width: 1.5; marker-end: url(#arrow); }
+    .grid { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 4,4; }
+    .line-blue { stroke: #0284c7; stroke-width: 2; fill: none; }
+    .line-red { stroke: #e11d48; stroke-width: 2; fill: none; }
+    .line-green { stroke: #059669; stroke-width: 2; fill: none; }
+    .box { fill: #f8fafc; stroke: #0284c7; stroke-width: 1.5; rx: 6; ry: 6; }
+    .box-green { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 6; ry: 6; }
+    .box-amber { fill: #fffbeb; stroke: #d97706; stroke-width: 1.5; rx: 6; ry: 6; }
+    .box-purple { fill: #faf5ff; stroke: #9333ea; stroke-width: 1.5; rx: 6; ry: 6; }
+    .level { stroke: #1e293b; stroke-width: 2; }
+    .transition { stroke: #dc2626; stroke-width: 1.5; stroke-dasharray: 3,3; marker-end: url(#arrow-red); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" class="bg" />
+  <g transform="translate(0, 0)">
+  <text x="425" y="25" class="title">Будова цезієвого атомного фонтана (NIST-F1 / SYRTE)</text>
+  <rect x="300" y="50" width="220" height="340" fill="#f8fafc" stroke="#64748b" stroke-width="2" rx="10" />
+  <text x="410" y="72" class="label-center" font-weight="bold">Високовакуумна камера</text>
+  <circle cx="410" cy="350" r="24" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" />
+  <circle cx="410" cy="350" r="6" fill="#e11d48" />
+  <text x="180" y="348" class="label" font-weight="bold">МОТ / Охолодження</text>
+  <text x="180" y="364" class="label-small">(T ≈ 1 мкК, 6 лазерів)</text>
+  <path d="M 405 320 C 405 260 405 255 405 255" fill="none" stroke="#e11d48" stroke-width="2" stroke-dasharray="4,4" />
+  <path d="M 405 205 C 405 120 405 100 410 95 C 415 100 415 120 415 205" fill="none" stroke="#e11d48" stroke-width="2" stroke-dasharray="4,4" />
+  <path d="M 415 255 C 415 260 415 320 415 320" fill="none" stroke="#e11d48" stroke-width="2" stroke-dasharray="4,4" />
+  <text x="445" y="110" class="label-small">Апогей траєкторії (H ≈ 1 м)</text>
+  <rect x="320" y="210" width="180" height="42" fill="#fef3c7" stroke="#d97706" stroke-width="2" rx="4" />
+  <text x="410" y="228" class="label-center" font-weight="bold">НВЧ-резонатор Рамзі</text>
+  <text x="410" y="243" class="label-small">Перший прохід (вгору) та другий (вниз)</text>
+  <text x="515" y="235" class="label" font-weight="bold">НВЧ 9.192 ГГц</text>
+  <rect x="340" y="275" width="140" height="25" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5" rx="3" />
+  <text x="410" y="291" class="label-center" font-weight="bold">Селекція (F=3, m_F=0)</text>
+  <rect x="545" y="325" width="180" height="50" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="6" />
+  <text x="635" y="346" class="label-center" font-weight="bold">Детектор флуоресценції</text>
+  <text x="635" y="363" class="label-small">Вимірювання N(F=4) та N(F=3)</text>
+  <line x1="434" y1="350" x2="545" y2="350" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="280" y1="130" x2="280" y2="190" stroke="#0284c7" stroke-width="2" />
+  <line x1="275" y1="130" x2="285" y2="130" stroke="#0284c7" stroke-width="2" />
+  <line x1="275" y1="190" x2="285" y2="190" stroke="#0284c7" stroke-width="2" />
+  <text x="140" y="155" class="label" font-weight="bold">Зовнішнє C-поле B₀</text>
+  <text x="140" y="172" class="label-small">Однорідний соленоїд</text>
+  </g>
+</svg>

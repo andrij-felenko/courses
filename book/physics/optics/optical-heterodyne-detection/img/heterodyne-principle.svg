@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 740 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="740" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="720.0" height="420.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема та принцип оптичного гетеродинного детектування</text>
+<rect x="40.0" y="60.0" width="140.0" height="55.0" rx="6" fill="#eff6ff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="110.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сигнальний лазер</text>
+<text x="110.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">E⛛(t), частота f⛛</text>
+<rect x="230.0" y="175.0" width="140.0" height="55.0" rx="6" fill="#fef2f2" stroke="#2457d6" stroke-width="1.8"/>
+<text x="300.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Гетеродин (LO)</text>
+<text x="300.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Eₗ(t), частота fₗ</text>
+<rect x="275.0" y="62.0" width="50.0" height="50.0" rx="2" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="275.0" y1="112.0" x2="325.0" y2="62.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="300.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Світлодільник (50:50)</text>
+<line x1="180.0" y1="87.0" x2="275.0" y2="87.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="215.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">P⛛ (слабкий)</text>
+<line x1="300.0" y1="175.0" x2="300.0" y2="112.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="342.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">Pₗ (потужний)</text>
+<line x1="325.0" y1="87.0" x2="460.0" y2="87.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="392.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">E⛛(t) + Eₗ(t)</text>
+<rect x="460.0" y="60.0" width="95.0" height="55.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="507.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фотодіод</text>
+<text x="507.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">i(t) ∝ |E⛛ + Eₗ|²</text>
+<line x1="555.0" y1="87.0" x2="605.0" y2="87.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="605.0" y="60.0" width="95.0" height="55.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="652.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Смуговий фільтр</text>
+<text x="652.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">f_IF = |f⛛ - fₗ|</text>
+<line x1="652.0" y1="115.0" x2="652.0" y2="230.0" stroke="#b45309" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="652.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Сигнал f_IF</text>
+<rect x="40.0" y="260.0" width="640.0" height="140.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/><text x="360.0" y="307.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Фізика виникнення биття:</tspan><tspan x="360.0" dy="13.0">1. Фотострум пропорційний квадрату сумарної амплітуди: i(t) ∝ P⛛ + Pₗ + 2√(P⛛Pₗ)·cos(2π·f_IF·t + Δφ)</tspan><tspan x="360.0" dy="13.0">2. Оптичні частоти 2f⛛, 2fₗ (~400 THz) усереднюються інерцією фотодетектора.</tspan><tspan x="360.0" dy="13.0">3. Проміжна частота f_IF = |f⛛ - fₗ| (MHz...GHz) виділяється радіоелектронним фільтром.</tspan><tspan x="360.0" dy="13.0">4. Гетеродинне підсилення: амплітуда струму биття пропорційна √(Pₗ), що піднімає сигнал над шумами.</tspan></text>
+</svg>

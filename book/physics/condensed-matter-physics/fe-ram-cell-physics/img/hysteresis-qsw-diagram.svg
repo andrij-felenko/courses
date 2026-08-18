@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440">
+<rect width="880" height="440" fill="#ffffff"/>
+<defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2c3e50"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2980b9"/>
+    </marker>
+  </defs>
+<text x="440.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Петля гістерезису P-E та виділення заряду переключення Q_sw</text>
+<rect x="20.0" y="50.0" width="400.0" height="370.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="220.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Петля гістерезису P-E</text>
+<line x1="50.0" y1="235.0" x2="390.0" y2="235.0" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="390.0" x2="220.0" y2="95.0" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="375.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Поле (E)</text>
+<text x="185.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Поляризація (P)</text>
+<path d="M 90,325 C 120,325 160,325 180,305 C 220,285 270,265 340,145 C 360,145 370,145 370,145 C 340,145 280,145 260,165 C 220,185 170,205 100,325 Z" fill="none" stroke="#2c3e50" stroke-width="2.5"/>
+<circle cx="220.0" cy="170.0" r="5.0" fill="#2980b9" stroke="#333333" stroke-width="1.5"/>
+<text x="285.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle" font-weight="700">+Pᵣ (Стан «0»)</text>
+<circle cx="220.0" cy="300.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="155.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">-Pᵣ (Стан «1»)</text>
+<circle cx="288.0" cy="235.0" r="4.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="290.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+E_c</text>
+<circle cx="152.0" cy="235.0" r="4.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">-E_c</text>
+<line x1="230.0" y1="295.0" x2="320.0" y2="155.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow-red)"/>
+<text x="315.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Перемикання «1»</text>
+<rect x="440.0" y="50.0" width="420.0" height="370.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="650.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компоненти заряду зчитування Q</text>
+<rect x="505.0" y="170.0" width="95.0" height="190.0" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="2.0"/>
+<text x="552.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle" font-weight="700">Q_nsw (C_lin · V)</text>
+<text x="552.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зчитування «0»</text>
+<rect x="730.0" y="280.0" width="105.0" height="80.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="2.0"/>
+<text x="782.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle">Q_nsw</text>
+<rect x="730.0" y="110.0" width="105.0" height="170.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="782.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Q_sw = 2·Pᵣ·A_cap</text>
+<text x="782.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зчитування «1»</text>
+<line x1="610.0" y1="110.0" x2="720.0" y2="110.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="610.0" y1="280.0" x2="720.0" y2="280.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="665.0" y1="195.0" x2="665.0" y2="110.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow-red)"/>
+<line x1="665.0" y1="195.0" x2="665.0" y2="280.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow-red)"/>
+<text x="665.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ΔQ = Q_sw</text>
+</svg>

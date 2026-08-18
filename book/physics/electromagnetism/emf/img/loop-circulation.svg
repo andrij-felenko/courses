@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" width="780" height="360">
+<style>
+    .bg { fill: #1e1e2e; }
+    .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: bold; fill: #cdd6f4; text-anchor: middle; }
+    .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #bac2de; text-anchor: middle; }
+    .label { font-family: system-ui, sans-serif; font-size: 13px; fill: #cdd6f4; }
+    .label-center { font-family: system-ui, sans-serif; font-size: 13px; fill: #cdd6f4; text-anchor: middle; }
+    .label-muted { font-family: system-ui, sans-serif; font-size: 12px; fill: #a6adc8; text-anchor: middle; }
+    .formula { font-family: "Courier New", monospace; font-size: 14px; font-weight: bold; fill: #f9e2af; text-anchor: middle; }
+    .wire { stroke: #89b4fa; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-dash { stroke: #89b4fa; stroke-width: 2; stroke-dasharray: 5,5; fill: none; }
+    .field-line { stroke: #f38ba8; stroke-width: 2; fill: none; }
+    .ext-line { stroke: #a6e3a1; stroke-width: 2.5; fill: none; }
+    .box { fill: #313244; stroke: #45475a; stroke-width: 2; rx: 8; ry: 8; }
+    .source-box { fill: #181825; stroke: #a6e3a1; stroke-width: 2; stroke-dasharray: 4,4; rx: 8; ry: 8; }
+    .charge-pos { fill: #f38ba8; stroke: #11111b; stroke-width: 1.5; }
+    .charge-neg { fill: #89b4fa; stroke: #11111b; stroke-width: 1.5; }
+    .text-pos { font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; fill: #11111b; text-anchor: middle; dominant-baseline: central; }
+    .text-neg { font-family: system-ui, sans-serif; font-size: 15px; font-weight: bold; fill: #11111b; text-anchor: middle; dominant-baseline: central; }
+    .arrow { fill: #f38ba8; }
+    .arrow-ext { fill: #a6e3a1; }
+    .arrow-b { fill: #fab387; }
+    .arrow-v { fill: #cba6f7; }
+    .resistor { stroke: #f9e2af; stroke-width: 3; fill: none; stroke-linejoin: round; }
+</style>
+<rect width="100%" height="100%" class="bg" />
+
+    <defs>
+        <marker id="arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#f38ba8" />
+        </marker>
+        <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#a6e3a1" />
+        </marker>
+        <marker id="arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#89b4fa" />
+        </marker>
+    </defs>
+
+    <g transform="translate(10, 10)">
+        <rect x="0" y="0" width="370" height="340" class="box" />
+        <text x="185" y="30" class="title">Консервативне поле E_es</text>
+        <text x="185" y="50" class="label-muted">Без сторонніх сил струм згасає</text>
+
+        <circle cx="100" cy="180" r="22" class="charge-pos" />
+        <text x="100" y="180" class="text-pos">+</text>
+        <circle cx="270" cy="180" r="22" class="charge-neg" />
+        <text x="270" y="180" class="text-neg">−</text>
+
+        <path d="M 122 170 Q 185 130 248 170" class="field-line" marker-end="url(#arr-red)" />
+        <path d="M 122 180 Q 185 150 248 180" class="field-line" marker-end="url(#arr-red)" />
+        <path d="M 122 190 Q 185 230 248 190" class="field-line" marker-end="url(#arr-red)" />
+        <text x="185" y="120" class="label-center" fill="#f38ba8">E_es (від + до -)</text>
+
+        <text x="185" y="270" class="formula">∮ E_es · dl = 0</text>
+        <text x="185" y="300" class="label-muted">Робота за замкненим контуром дорівнює 0</text>
+    </g>
+
+    <g transform="translate(400, 10)">
+        <rect x="0" y="0" width="370" height="340" class="box" />
+        <text x="185" y="30" class="title">Контур із джерелом ЕРС</text>
+        <text x="185" y="50" class="label-muted">Сторонні сили F_ext долають кулонівське поле</text>
+
+        <rect x="50" y="90" width="270" height="180" rx="15" ry="15" class="wire" />
+
+        <rect x="120" y="245" width="130" height="50" class="box" stroke="#a6e3a1" stroke-width="2" />
+        <text x="185" y="267" class="label-center" fill="#a6e3a1">Джерело ЕРС</text>
+        <text x="185" y="284" class="label-muted">F_ext всередині</text>
+
+        <text x="135" y="270" class="label" fill="#f38ba8" font-weight="bold">+</text>
+        <text x="230" y="270" class="label" fill="#89b4fa" font-weight="bold">−</text>
+
+        <path d="M 120 90 L 250 90" class="field-line" stroke="#89b4fa" stroke-width="3" marker-end="url(#arr-blue)" />
+        <text x="185" y="80" class="label-center" fill="#89b4fa">Струм I у зовнішньому колі</text>
+
+        <path d="M 220 255 L 150 255" class="ext-line" marker-end="url(#arr-green)" />
+        <text x="185" y="240" class="label-center" fill="#a6e3a1">E_ext (від - до +)</text>
+
+        <text x="185" y="315" class="formula">E = ∮ E_ext · dl &gt; 0</text>
+    </g>
+    
+</svg>

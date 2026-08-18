@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <rect width="800" height="450" fill="#ffffff"/>
+  
+  <!-- Title -->
+  <text x="400" y="32" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#1e293b">Спин-орбітальний механізм магнітокристалічної анізотропії</text>
+  
+  <!-- Panel 1: Crystal Field & Orbitals -->
+  <g transform="translate(40, 60)">
+    <rect width="320" height="340" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="160" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0f172a">1. Кристалічне поле іонів ґратки</text>
+    
+    <!-- Lattice Ions -->
+    <circle cx="60" cy="120" r="16" fill="#ef4444" opacity="0.85"/>
+    <text x="60" y="125" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">Z+</text>
+    <circle cx="260" cy="120" r="16" fill="#ef4444" opacity="0.85"/>
+    <text x="260" y="125" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">Z+</text>
+    <circle cx="160" cy="260" r="16" fill="#ef4444" opacity="0.85"/>
+    <text x="160" y="265" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">Z+</text>
+    <circle cx="160" cy="60" r="16" fill="#ef4444" opacity="0.85"/>
+    <text x="160" y="65" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">Z+</text>
+
+    <!-- Electron Orbital (d-orbital lobe) -->
+    <ellipse cx="160" cy="160" rx="22" ry="55" fill="#3b82f6" opacity="0.4" transform="rotate(0 160 160)"/>
+    <ellipse cx="160" cy="160" rx="22" ry="55" fill="#3b82f6" opacity="0.4" transform="rotate(90 160 160)"/>
+    <circle cx="160" cy="160" r="8" fill="#1e3a8a"/>
+
+    <!-- Orbital Angular Momentum L -->
+    <line x1="160" y1="160" x2="160" y2="85" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    <text x="175" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1d4ed8">L (орбіталь)</text>
+
+    <text x="160" y="305" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#334155">Електростатичне поле ґратки</text>
+    <text x="160" y="322" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#334155">орієнтує електронну хмару L</text>
+  </g>
+
+  <!-- Middle Arrow: Spin-Orbit Coupling -->
+  <g transform="translate(370, 180)">
+    <rect width="60" height="90" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+    <text x="30" y="28" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0f172a">Зв'язок</text>
+    <text x="30" y="48" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">λ L · S</text>
+    <text x="30" y="70" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">спін-орбіта</text>
+  </g>
+
+  <!-- Panel 2: Spin & Magnetization Vector -->
+  <g transform="translate(440, 60)">
+    <rect width="320" height="340" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="160" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0f172a">2. Фіксація спіна до осей ґратки</text>
+
+    <!-- Crystal Axes -->
+    <line x1="160" y1="230" x2="160" y2="70" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <line x1="90" y1="170" x2="230" y2="170" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="165" y="80" font-family="sans-serif" font-size="12" fill="#64748b">Вісь c [0001]</text>
+
+    <!-- Easy Axis Spin S -->
+    <line x1="160" y1="170" x2="160" y2="90" stroke="#059669" stroke-width="4" marker-end="url(#arrow-green)"/>
+    <text x="175" y="120" font-family="sans-serif" font-size="14" font-weight="bold" fill="#047857">S (легка вісь)</text>
+
+    <!-- Hard Axis Spin S' (Rotated) -->
+    <line x1="160" y1="170" x2="225" y2="115" stroke="#dc2626" stroke-width="3.5" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>
+    <text x="220" y="105" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b91c1c">S' (важка вісь)</text>
+
+    <!-- Angle Arc -->
+    <path d="M 160 120 A 50 50 0 0 1 195 135" fill="none" stroke="#d97706" stroke-width="2"/>
+    <text x="180" y="115" font-family="sans-serif" font-size="13" font-weight="bold" fill="#d97706">θ</text>
+
+    <text x="160" y="280" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#334155">Поворот спіна S на кут θ вимагає</text>
+    <text x="160" y="298" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#334155">деформації орбіти L проти поля ґратки</text>
+    <text x="160" y="320" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#b91c1c">Енергетичні витрати = E_A(θ)</text>
+  </g>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>

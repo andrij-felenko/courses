@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 380" width="620" height="380">
+<rect width="620" height="380" fill="#ffffff"/>
+<defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a1a1a"/>
+      </marker>
+      <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+      </marker>
+      <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#27ae60"/>
+      </marker>
+    </defs>
+<line x1="180.0" y1="30.0" x2="180.0" y2="320.0" stroke="#333333" stroke-width="4.0"/>
+<line x1="180.0" y1="280.0" x2="180.0" y2="50.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="155.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">I</text>
+<circle cx="420.0" cy="180.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="435.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">P</text>
+<line x1="180.0" y1="180.0" x2="420.0" y2="180.0" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="295.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">R (відстань)</text>
+<circle cx="180.0" cy="180.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="180.0" y1="85.0" x2="180.0" y2="115.0" stroke="#c0392b" stroke-width="6.0"/>
+<text x="150.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">dz</text>
+<line x1="180.0" y1="100.0" x2="420.0" y2="180.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="310.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">r = √(R² + z²)</text>
+<line x1="420.0" y1="180.0" x2="420.0" y2="250.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="435.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">B (напрямок за правилом правої руки)</text>
+<ellipse cx="180" cy="180" rx="240" ry="45" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+<rect x="58.6" y="330.0" width="502.8" height="30.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="310.0" y="349.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Для нескінченного прямого провідника: B = (μ₀ · I) / (2π · R)</tspan></text>
+</svg>
