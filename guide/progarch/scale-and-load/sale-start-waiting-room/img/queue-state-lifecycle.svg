@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 470" width="1020" height="470">
+<style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 8px; }
+    .box-highlight { fill: #1c2128; stroke: #58a6ff; stroke-width: 2; rx: 8px; }
+    .box-success { fill: #1c2128; stroke: #3fb950; stroke-width: 2; rx: 8px; }
+    .box-warning { fill: #1c2128; stroke: #d29922; stroke-width: 2; rx: 8px; }
+    .box-danger { fill: #1c2128; stroke: #f85149; stroke-width: 2; rx: 8px; }
+    text { font-family: system-ui, -apple-system, sans-serif; }
+    .title { font-size: 13px; font-weight: bold; fill: #f0f6fc; }
+    .subtitle { font-size: 11px; fill: #8b949e; }
+    .text-sm { font-size: 10px; fill: #c9d1d9; }
+    .line { stroke: #8b949e; stroke-width: 1.5; fill: none; }
+    .line-blue { stroke: #58a6ff; stroke-width: 2; fill: none; }
+    .line-green { stroke: #3fb950; stroke-width: 2; fill: none; }
+    .line-orange { stroke: #d29922; stroke-width: 2; fill: none; stroke-dasharray: 4 4; }
+    .arrow { fill: #8b949e; }
+    .arrow-blue { fill: #58a6ff; }
+    .arrow-green { fill: #3fb950; }
+</style>
+<rect width="100%" height="100%" class="bg"/>
+<defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-blue"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-green"/>
+    </marker>
+</defs>
+
+    <text x="510" y="35" class="title" text-anchor="middle">Життєвий цикл сесії користувача у Virtual Waiting Room</text>
+
+    <!-- State 1: Pre-queue -->
+    <rect x="25" y="70" width="185" height="120" class="box"/>
+    <text x="117" y="105" class="title" text-anchor="middle">1. Pre-queue</text>
+    <text x="117" y="135" class="subtitle" text-anchor="middle">Відлік до початку продажів</text>
+    <text x="117" y="165" class="text-sm" text-anchor="middle">Лендинг із таймером</text>
+
+    <line x1="210" y1="130" x2="275" y2="130" class="line" marker-end="url(#arrow)"/>
+    <text x="242" y="115" class="text-sm" text-anchor="middle">T = 0</text>
+
+    <!-- State 2: Random Shuffle -->
+    <rect x="280" y="70" width="185" height="120" class="box-warning"/>
+    <text x="372" y="105" class="title" text-anchor="middle">2. Pre-sale Shuffle</text>
+    <text x="372" y="135" class="subtitle" text-anchor="middle">Рандомізація черги</text>
+    <text x="372" y="165" class="text-sm" text-anchor="middle">Захист від скриптів</text>
+
+    <line x1="465" y1="130" x2="525" y2="130" class="line" marker-end="url(#arrow)"/>
+    <text x="495" y="115" class="text-sm" text-anchor="middle">Позиція</text>
+
+    <!-- State 3: Active Queue -->
+    <rect x="530" y="70" width="185" height="120" class="box-highlight"/>
+    <text x="622" y="105" class="title" text-anchor="middle">3. Active Queue</text>
+    <text x="622" y="135" class="subtitle" text-anchor="middle">Очікування в черзі</text>
+    <text x="622" y="165" class="text-sm" text-anchor="middle">SSE / Опитування</text>
+
+    <line x1="715" y1="130" x2="775" y2="130" class="line-green" marker-end="url(#arrow-green)"/>
+    <text x="745" y="115" class="text-sm" text-anchor="middle" fill="#3fb950">Допущено</text>
+
+    <!-- State 4: Admitted -->
+    <rect x="780" y="70" width="185" height="120" class="box-success"/>
+    <text x="872" y="105" class="title" text-anchor="middle">4. Admitted</text>
+    <text x="872" y="135" class="subtitle" text-anchor="middle">Отримано Pass Token</text>
+    <text x="872" y="165" class="text-sm" text-anchor="middle">Криптографічний HMAC</text>
+
+    <!-- Down arrow to Checkout -->
+    <line x1="872" y1="190" x2="872" y2="245" class="line-green" marker-end="url(#arrow-green)"/>
+    <text x="885" y="220" class="text-sm" text-anchor="start" fill="#3fb950">Перехід</text>
+
+    <!-- State 5: Checkout Session -->
+    <rect x="780" y="250" width="185" height="120" class="box-success"/>
+    <text x="872" y="285" class="title" text-anchor="middle">5. Checkout Session</text>
+    <text x="872" y="315" class="subtitle" text-anchor="middle">Вибір місця й оплата</text>
+    <text x="872" y="345" class="text-sm" text-anchor="middle">Таймер сесії 10 хв</text>
+
+    <!-- Path to Completed -->
+    <line x1="780" y1="310" x2="605" y2="310" class="line-green" marker-end="url(#arrow-green)"/>
+    <text x="692" y="295" class="text-sm" text-anchor="middle" fill="#3fb950">Оплата успішна</text>
+
+    <rect x="420" y="250" width="185" height="120" class="box"/>
+    <text x="512" y="285" class="title" text-anchor="middle">6. Completed</text>
+    <text x="512" y="315" class="subtitle" text-anchor="middle">Квиток викуплено</text>
+    <text x="512" y="345" class="text-sm" text-anchor="middle">Сесію завершено</text>
+
+    <!-- Path to Timeout Expired -->
+    <path d="M 872 370 L 872 430 L 272 430 L 272 370" class="line-orange" marker-end="url(#arrow)"/>
+    <text x="572" y="415" class="text-sm" text-anchor="middle" fill="#d29922">Таймаут вибору квитка або оплати</text>
+
+    <rect x="180" y="250" width="185" height="120" class="box-danger"/>
+    <text x="272" y="285" class="title" text-anchor="middle">7. Slot Released</text>
+    <text x="272" y="315" class="subtitle" text-anchor="middle">Анулювання токену</text>
+    <text x="272" y="345" class="text-sm" text-anchor="middle">Слот передано черзі</text>
+    
+</svg>

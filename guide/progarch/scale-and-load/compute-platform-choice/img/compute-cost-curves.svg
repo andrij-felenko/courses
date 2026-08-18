@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-51 -10 1091 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-51" y="-10" width="1091" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння кривих TCO обчислювальних платформ залежно від утилізації</text>
+<rect x="40.0" y="30.0" width="960.0" height="45.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="520.0" y="57.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Криві витрат TCO: Serverless vs Kubernetes vs Bare Metal / VM</tspan></text>
+<line x1="90.0" y1="410.0" x2="740.0" y2="410.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="730.0" y1="410.0" x2="745.0" y2="410.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="750.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Середня утилізація / RPS</text>
+<line x1="90.0" y1="410.0" x2="90.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="90.0" y1="100.0" x2="90.0" y2="85.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="80.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Щомісячні витрати TCO ($)</text>
+<line x1="90.0" y1="410.0" x2="90.0" y2="416.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0%</text>
+<line x1="245.0" y1="410.0" x2="245.0" y2="416.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="245.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">25%</text>
+<line x1="245.0" y1="410.0" x2="245.0" y2="110.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="400.0" y1="410.0" x2="400.0" y2="416.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="400.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">50%</text>
+<line x1="400.0" y1="410.0" x2="400.0" y2="110.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="555.0" y1="410.0" x2="555.0" y2="416.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="555.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">75%</text>
+<line x1="555.0" y1="410.0" x2="555.0" y2="110.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="710.0" y1="410.0" x2="710.0" y2="416.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="710.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100%</text>
+<line x1="710.0" y1="410.0" x2="710.0" y2="110.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="80.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">$0</text>
+<text x="80.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Базовий кворум</text>
+<text x="80.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Високий фіксований TCO</text>
+<line x1="90.0" y1="410.0" x2="710.0" y2="120.0" stroke="#27ae60" stroke-width="3.5"/>
+<text x="590.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Serverless / Fargate</text>
+<line x1="90.0" y1="320.0" x2="710.0" y2="190.0" stroke="#2457d6" stroke-width="3.5"/>
+<text x="610.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Managed Kubernetes</text>
+<line x1="90.0" y1="200.0" x2="710.0" y2="185.0" stroke="#c0392b" stroke-width="3.5"/>
+<text x="540.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Bare Metal / VM Fleet</text>
+<circle cx="200.0" cy="359.0" r="6.0" fill="#e08a1e" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="200.0" y1="359.0" x2="200.0" y2="410.0" stroke="#e08a1e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="145.0" y="314.0" width="115.0" height="36.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="202.5" y="329.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="202.5" dy="0.0">U_crit1 ≈ 15-20%</tspan><tspan x="202.5" dy="11.7">Serverless ↔ K8s</tspan></text>
+<circle cx="495.0" cy="192.0" r="6.0" fill="#e08a1e" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="495.0" y1="192.0" x2="495.0" y2="410.0" stroke="#e08a1e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="435.0" y="147.0" width="125.0" height="36.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="497.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="497.5" dy="0.0">U_crit2 ≈ 65-70%</tspan><tspan x="497.5" dy="13.0">K8s ↔ Bare Metal</tspan></text>
+<rect x="765.0" y="95.0" width="235.0" height="100.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="882.5" y="130.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="882.5" dy="0.0">1. Зона Serverless (0–18%)</tspan><tspan x="882.5" dy="11.7">• Нульова плата за простій</tspan><tspan x="882.5" dy="11.7">• Оплата за ms виконання</tspan><tspan x="882.5" dy="11.7">• Вигідна для пилкоподібного / спалахового навантаження</tspan></text>
+<rect x="765.0" y="210.0" width="235.0" height="100.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="882.5" y="242.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="882.5" dy="0.0">2. Зона Kubernetes (18–68%)</tspan><tspan x="882.5" dy="14.3">• Автомасштабування (HPA)</tspan><tspan x="882.5" dy="14.3">• Щільне пакування (Bin-packing)</tspan><tspan x="882.5" dy="14.3">• Баланс між Ops та ціною</tspan></text>
+<rect x="765.0" y="325.0" width="235.0" height="95.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="882.5" y="354.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="882.5" dy="0.0">3. Зона Bare Metal (68–100%)</tspan><tspan x="882.5" dy="14.3">• Мінімальна ціна 1 core/sec</tspan><tspan x="882.5" dy="14.3">• Нульовий Virtualization Overhead</tspan><tspan x="882.5" dy="14.3">• Висока операційна складність</tspan></text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-88.4 -10 1108.4 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-88.4" y="-10" width="1108.4" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залежність сукупної вартості володіння TCO від архітектурної складності та навантаження</text>
+<rect x="40.0" y="25.0" width="940.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="510.0" y="51.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Порівняння TCO: Моноліт / Vertical Scale vs Мікросервіси / Distributed Scale</tspan></text>
+<line x1="80.0" y1="390.0" x2="960.0" y2="390.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="80.0" y1="90.0" x2="80.0" y2="390.0" stroke="#333333" stroke-width="2.0"/>
+<text x="80.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<text x="300.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">10k RPS</text>
+<text x="520.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">50k RPS</text>
+<text x="740.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">200k RPS</text>
+<text x="950.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1M RPS</text>
+<text x="520.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навантаження системи (Requests Per Second)</text>
+<text x="70.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">$100k/mo</text>
+<text x="70.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">$20k/mo</text>
+<text x="70.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">$1k/mo</text>
+<text x="35.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCO (Специфікація + SRE / Зарплати)</text>
+<polyline points="80.0,380.0 300.0,370.0 520.0,350.0 680.0,310.0 740.0,180.0 760.0,100.0" fill="none" stroke="#27ae60" stroke-width="3.0"/>
+<rect x="450.0" y="310.0" width="210.0" height="32.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="555.0" y="315.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">Scale-Up / Потужний вузол</tspan><tspan x="555.0" dy="14.3">(Низькі витрати до 100k RPS)</tspan></text>
+<polyline points="80.0,240.0 300.0,235.0 520.0,220.0 740.0,190.0 950.0,130.0" fill="none" stroke="#c0392b" stroke-width="3.0" stroke-dasharray="6 3"/>
+<rect x="200.0" y="175.0" width="230.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="315.0" y="193.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">Мікросервіси / Distributed Scale</tspan><tspan x="315.0" dy="11.7">(Висока фіксована ціна інфраструктури + SRE)</tspan></text>
+<rect x="120.0" y="255.0" width="340.0" height="105.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="290.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">Зона передчасного овер-інжинірингу:</tspan><tspan x="290.0" dy="14.3">Витрати на мікросервіси в 5-10 разів вищі,</tspan><tspan x="290.0" dy="14.3">ніж реальна потреба системи</tspan></text>
+</svg>

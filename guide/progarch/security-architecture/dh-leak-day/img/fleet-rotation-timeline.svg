@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова шкала зрізу ротації: Хмара vs Поле (Fleet)</text>
+<line x1="60.0" y1="350.0" x2="900.0" y2="350.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="920.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Час</text>
+<line x1="100.0" y1="345.0" x2="100.0" y2="355.0" stroke="#333333" stroke-width="2.0"/>
+<text x="100.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">t=0</text>
+<text x="100.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Витік CI</text>
+<line x1="250.0" y1="345.0" x2="250.0" y2="355.0" stroke="#333333" stroke-width="2.0"/>
+<text x="250.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">15 хв</text>
+<text x="250.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">JWT Bloom filter</text>
+<line x1="420.0" y1="345.0" x2="420.0" y2="355.0" stroke="#333333" stroke-width="2.0"/>
+<text x="420.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 год</text>
+<text x="420.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">JWKS kid_v2</text>
+<line x1="590.0" y1="345.0" x2="590.0" y2="355.0" stroke="#333333" stroke-width="2.0"/>
+<text x="590.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">24 год</text>
+<text x="590.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">KMS KEK done</text>
+<line x1="760.0" y1="345.0" x2="760.0" y2="355.0" stroke="#333333" stroke-width="2.0"/>
+<text x="760.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">14 днів</text>
+<text x="760.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Fleet mTLS 100%</text>
+<rect x="100.0" y="80.0" width="320.0" height="45.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="260.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Cloud Edge &amp; API (Негайний розрив сесій)</text>
+<rect x="250.0" y="145.0" width="340.0" height="45.0" rx="4" fill="#fffceb" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Backend Services &amp; KEK (Ротація секретів БД)</text>
+<rect x="420.0" y="210.0" width="340.0" height="45.0" rx="4" fill="#eef2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="590.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1.2M Home Hubs (Staggered mTLS rollover)</text>
+<rect x="590.0" y="275.0" width="280.0" height="45.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="730.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Автономні датчики (Lazy re-bind)</text>
+</svg>

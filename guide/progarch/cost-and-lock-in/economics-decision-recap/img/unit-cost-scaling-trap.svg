@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка Unit Cost та пастка недосяжного масштабу</text>
+<line x1="80.0" y1="370.0" x2="900.0" y2="370.0" stroke="#111827" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="370.0" x2="80.0" y2="60.0" stroke="#111827" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="890.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#111827" text-anchor="end">Кількість активних користувачів / трафік (N)</text>
+<text x="90.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#111827" text-anchor="start">Вартість інфраструктури на 1 користувача ($ / Unit)</text>
+<line x1="80.0" y1="180.0" x2="880.0" y2="180.0" stroke="#15803d" stroke-width="2.5" stroke-dasharray="6 4"/>
+<text x="860.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="end" font-weight="700">Дохід на користувача (ARPU = $1.50)</text>
+<path d="M 80 320 Q 400 310 880 300" fill="none" stroke="#1e40af" stroke-width="3"/>
+<text x="860.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="end" font-weight="700">Ефективний Unit Cost: O(1) / O(log N)</text>
+<path d="M 80 350 Q 500 310 830 70" fill="none" stroke="#b91c1c" stroke-width="3.5"/>
+<text x="810.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="end" font-weight="700">Пастка архітектури: Unit Cost O(N)</text>
+<circle cx="675.0" cy="180.0" r="7.0" fill="#e08a1e" stroke="#111827" stroke-width="1.5"/>
+<line x1="675.0" y1="180.0" x2="675.0" y2="370.0" stroke="#e08a1e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="530.0" y="90.0" width="220.0" height="65.0" rx="6" fill="#fdecea" stroke="#b91c1c" stroke-width="1.5"/><text x="640.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Точка банкрутства:</tspan><tspan x="640.0" dy="14.3">Unit Cost перевищує ARPU!</tspan><tspan x="640.0" dy="14.3">Збиток на кожному юзері</tspan></text>
+<rect x="150.0" y="220.0" width="240.0" height="55.0" rx="6" fill="#e7f6ec" stroke="#15803d" stroke-width="1.5"/><text x="270.0" y="244.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">Зона прибутку (Gross Margin &gt; 0):</tspan><tspan x="270.0" dy="14.3">ARPU перевищує витрати</tspan></text>
+<rect x="710.0" y="220.0" width="160.0" height="55.0" rx="6" fill="#fdecea" stroke="#b91c1c" stroke-width="1.5"/><text x="790.0" y="244.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Зона збитків:</tspan><tspan x="790.0" dy="14.3">Від'ємна маржа</tspan></text>
+</svg>

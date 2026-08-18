@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ретрофітинг проти системної безпеки</text>
+<rect x="20.0" y="20.0" width="960.0" height="225.0" rx="8" fill="#fdfefe" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="35.0" y="32.0" width="280.0" height="28.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="175.0" y="49.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">1. Ретрофітинг (безпека наклеєна «потім»)</tspan></text>
+<rect x="45.0" y="80.0" width="150.0" height="135.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="120.0" y="128.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Зовнішній WAF /</tspan><tspan x="120.0" dy="15.6">Патч авторизації</tspan><tspan x="120.0" dy="15.6"></tspan><tspan x="120.0" dy="15.6">(лише на вході)</tspan></text>
+<rect x="240.0" y="80.0" width="715.0" height="135.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="597.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Спільний неізольований контекст (soft belly)</text>
+<rect x="260.0" y="120.0" width="160.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="340.0" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Блок A</tspan><tspan x="340.0" dy="15.6">(БД / Запити)</tspan></text>
+<rect x="445.0" y="120.0" width="160.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="525.0" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="525.0" dy="0.0">Блок B</tspan><tspan x="525.0" dy="15.6">(Сенсори / Пристрої)</tspan></text>
+<rect x="630.0" y="120.0" width="160.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="710.0" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Блок C</tspan><tspan x="710.0" dy="15.6">(Замок / Права)</tspan></text>
+<rect x="815.0" y="120.0" width="125.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="877.5" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="877.5" dy="0.0">Спільний</tspan><tspan x="877.5" dy="15.6">стан у пам'яті</tspan></text>
+<line x1="195.0" y1="147.0" x2="260.0" y2="147.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="157.0" x2="445.0" y2="157.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="157.0" x2="630.0" y2="157.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="157.0" x2="815.0" y2="157.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="597.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">Обхід периметра → прямий витік між блоками через спільний стан</text>
+<rect x="20.0" y="265.0" width="960.0" height="235.0" rx="8" fill="#fdfefe" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="35.0" y="277.0" width="310.0" height="28.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="190.0" y="294.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">2. Системна безпека (властивість структури)</tspan></text>
+<rect x="45.0" y="325.0" width="280.0" height="155.0" rx="6" fill="#e7f6ec" stroke="#a0b0c0" stroke-width="1.2"/>
+<text x="185.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Домен датчиків
+(Низька довіра)</text>
+<rect x="360.0" y="325.0" width="280.0" height="155.0" rx="6" fill="#eaf0fd" stroke="#a0b0c0" stroke-width="1.2"/>
+<text x="500.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлюз обробки
+(Проміжна довіра)</text>
+<rect x="675.0" y="325.0" width="280.0" height="155.0" rx="6" fill="#e7f6ec" stroke="#a0b0c0" stroke-width="1.2"/>
+<text x="815.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро керування
+(Висока довіра)</text>
+<rect x="60.0" y="365.0" width="250.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="386.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">Вхідний фільтр інваріантів</tspan><tspan x="185.0" dy="14.3">+ обмеження частоти</tspan></text>
+<rect x="60.0" y="425.0" width="250.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="448.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">Ізольований буфер датчика</tspan></text>
+<rect x="375.0" y="365.0" width="250.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="386.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Точка повної медіації</tspan><tspan x="500.0" dy="14.3">(Complete Mediation)</tspan></text>
+<rect x="375.0" y="425.0" width="250.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="448.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Валідація токенів / крипто</tspan></text>
+<rect x="690.0" y="365.0" width="250.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="815.0" y="386.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">Доменні інваріанти замка</tspan><tspan x="815.0" dy="14.3">+ RBAC / ABAC</tspan></text>
+<rect x="690.0" y="425.0" width="250.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="815.0" y="448.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">Аудит та захищений стан</tspan></text>
+<line x1="340.0" y1="325.0" x2="340.0" y2="480.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="340.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Межа довіри 1</text>
+<line x1="655.0" y1="325.0" x2="655.0" y2="480.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="655.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Межа довіри 2</text>
+<line x1="310.0" y1="390.0" x2="375.0" y2="390.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="390.0" x2="690.0" y2="390.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

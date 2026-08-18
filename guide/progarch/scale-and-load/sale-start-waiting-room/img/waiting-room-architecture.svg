@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480">
+<style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 8px; }
+    .box-highlight { fill: #1c2128; stroke: #58a6ff; stroke-width: 2; rx: 8px; }
+    .box-success { fill: #1c2128; stroke: #3fb950; stroke-width: 2; rx: 8px; }
+    .box-warning { fill: #1c2128; stroke: #d29922; stroke-width: 2; rx: 8px; }
+    .box-danger { fill: #1c2128; stroke: #f85149; stroke-width: 2; rx: 8px; }
+    text { font-family: system-ui, -apple-system, sans-serif; }
+    .title { font-size: 13px; font-weight: bold; fill: #f0f6fc; }
+    .subtitle { font-size: 11px; fill: #8b949e; }
+    .text-sm { font-size: 10px; fill: #c9d1d9; }
+    .line { stroke: #8b949e; stroke-width: 1.5; fill: none; }
+    .line-blue { stroke: #58a6ff; stroke-width: 2; fill: none; }
+    .line-green { stroke: #3fb950; stroke-width: 2; fill: none; }
+    .line-orange { stroke: #d29922; stroke-width: 2; fill: none; stroke-dasharray: 4 4; }
+    .arrow { fill: #8b949e; }
+    .arrow-blue { fill: #58a6ff; }
+    .arrow-green { fill: #3fb950; }
+</style>
+<rect width="100%" height="100%" class="bg"/>
+<defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-blue"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-green"/>
+    </marker>
+</defs>
+
+    <text x="500" y="35" class="title" text-anchor="middle">Архітектура згладжування спалаху трафіку за допомогою Virtual Waiting Room</text>
+
+    <!-- Clients / Ingress -->
+    <rect x="30" y="70" width="170" height="210" class="box-danger"/>
+    <text x="115" y="105" class="title" text-anchor="middle">500,000 користувачів</text>
+    <text x="115" y="135" class="subtitle" text-anchor="middle">Спалах трафіку на T=0</text>
+    <text x="115" y="165" class="text-sm" text-anchor="middle">500k HTTP GET /buy</text>
+    <text x="115" y="195" class="text-sm" text-anchor="middle">Мобільні + Web + Боти</text>
+    <text x="115" y="245" class="subtitle" text-anchor="middle" fill="#f85149">100x від ємності Origin</text>
+
+    <!-- Arrow from clients to Edge Gatekeeper -->
+    <line x1="200" y1="175" x2="255" y2="175" class="line" marker-end="url(#arrow)"/>
+    <text x="227" y="160" class="text-sm" text-anchor="middle">500k rps</text>
+
+    <!-- Edge / CDN Gatekeeper -->
+    <rect x="260" y="70" width="240" height="210" class="box-highlight"/>
+    <text x="380" y="105" class="title" text-anchor="middle">Edge Gatekeeper (CDN / WAF)</text>
+    <text x="380" y="130" class="subtitle" text-anchor="middle">Cloudflare / NGINX / Envoy</text>
+    <rect x="275" y="145" width="210" height="40" class="box"/>
+    <text x="380" y="170" class="text-sm" text-anchor="middle">HMAC Перевірка Токену</text>
+    <rect x="275" y="195" width="210" height="70" class="box"/>
+    <text x="380" y="220" class="text-sm" text-anchor="middle">Редирект 302 (без токену)</text>
+    <text x="380" y="245" class="text-sm" text-anchor="middle">Пропуск Pass (з токеном)</text>
+
+    <!-- Arrow Redirect to Waiting Room -->
+    <path d="M 380 280 L 380 375 L 565 375" class="line-orange" marker-end="url(#arrow)"/>
+    <text x="470" y="360" class="text-sm" text-anchor="middle" fill="#d29922">Без токену -&gt; Waiting Room (302)</text>
+
+    <!-- Virtual Waiting Room System -->
+    <rect x="575" y="290" width="270" height="160" class="box-warning"/>
+    <text x="710" y="320" class="title" text-anchor="middle">Virtual Waiting Room</text>
+    <text x="710" y="342" class="subtitle" text-anchor="middle">Статичний CDN + SSE / Polling</text>
+    <rect x="595" y="355" width="230" height="38" class="box"/>
+    <text x="710" y="379" class="text-sm" text-anchor="middle">Redis Cluster FIFO Queue</text>
+    <rect x="595" y="400" width="230" height="38" class="box"/>
+    <text x="710" y="424" class="text-sm" text-anchor="middle">Token Issuer (Signed JWT)</text>
+
+    <!-- Arrow from Gatekeeper to Origin -->
+    <line x1="500" y1="175" x2="635" y2="175" class="line-green" marker-end="url(#arrow-green)"/>
+    <text x="567" y="160" class="text-sm" text-anchor="middle" fill="#3fb950">5,000 rps</text>
+
+    <!-- Protected Origin -->
+    <rect x="640" y="70" width="240" height="210" class="box-success"/>
+    <text x="760" y="105" class="title" text-anchor="middle">Protected Origin Backend</text>
+    <text x="760" y="130" class="subtitle" text-anchor="middle">Сервіс Продажу Квитків</text>
+    <rect x="655" y="145" width="210" height="40" class="box"/>
+    <text x="760" y="170" class="text-sm" text-anchor="middle">API Gateway / App Cluster</text>
+    <rect x="655" y="195" width="210" height="70" class="box"/>
+    <text x="760" y="220" class="text-sm" text-anchor="middle">Transactional DB / Lock</text>
+    <text x="760" y="245" class="text-sm" text-anchor="middle">Лимитований пропуск</text>
+
+    <!-- Feedback loop: Issued Token -->
+    <path d="M 710 290 L 710 250 L 530 250 L 530 215 L 500 215" class="line-blue" marker-end="url(#arrow-blue)"/>
+    <text x="620" y="240" class="text-sm" text-anchor="middle" fill="#58a6ff">Pass Token</text>
+    
+</svg>

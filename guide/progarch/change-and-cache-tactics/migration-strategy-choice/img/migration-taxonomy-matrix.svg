@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця вибору стратегії міграції за ризиком та вимогами до SLA</text>
+<rect x="100.0" y="50.0" width="780.0" height="400.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<line x1="490.0" y1="50.0" x2="490.0" y2="450.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+<line x1="100.0" y1="250.0" x2="880.0" y2="250.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="490.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимоги до SLA / Недопустимість простою (Downtime Tolerance)</text>
+<text x="490.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Складність стану та ризик втрати даних (State &amp; Financial Risk) →</text>
+<rect x="120.0" y="70.0" width="340.0" height="160.0" rx="8" fill="#e8f4f8" stroke="#1b6ec2" stroke-width="1.8"/>
+<text x="290.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1b6ec2" text-anchor="middle" font-weight="700">Expand-Contract</text>
+<text x="290.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Паралельна зміна схем БД та API</text>
+<line x1="140.0" y1="130.0" x2="440.0" y2="130.0" stroke="#1b6ec2" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="290.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Локальні зміни контрактів</text>
+<text x="290.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Нульовий downtime схеми</text>
+<text x="290.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Багатоетапний деплой</text>
+<rect x="510.0" y="70.0" width="340.0" height="160.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="680.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Parallel Run (Dual Run)</text>
+<text x="680.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Паралельне виконання 100% трафіку</text>
+<line x1="530.0" y1="130.0" x2="830.0" y2="130.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="680.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Фінансові обчислення, білінг</text>
+<text x="680.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Звіряння виходів у реальному часі</text>
+<text x="680.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Висока ціна подвійної інфраструктури</text>
+<rect x="120.0" y="270.0" width="340.0" height="160.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="290.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Strangler Fig</text>
+<text x="290.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Покрокове витіснення моноліту</text>
+<line x1="140.0" y1="330.0" x2="440.0" y2="330.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="290.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Перехоплення на периметрі API</text>
+<text x="290.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Заміна сервіс за сервісом</text>
+<text x="290.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Без ризику Big Bang релізу</text>
+<rect x="510.0" y="270.0" width="340.0" height="160.0" rx="8" fill="#fff8e1" stroke="#d97706" stroke-width="1.8"/>
+<text x="680.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#d97706" text-anchor="middle" font-weight="700">Dark Launch (Shadow)</text>
+<text x="680.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Тіньовий трафік без впливу на відповідь</text>
+<line x1="530.0" y1="330.0" x2="830.0" y2="330.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="680.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Валідація latency та TPS</text>
+<text x="680.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Ізоляція побічних ефектів</text>
+<text x="680.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• 0% впливу на користувача</text>
+</svg>

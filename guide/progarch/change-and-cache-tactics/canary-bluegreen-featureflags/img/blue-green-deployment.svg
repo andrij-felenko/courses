@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Blue-Green розгортання: миттєве перемикання між двома середовищами</text>
+<rect x="40.0" y="210.0" width="140.0" height="60.0" rx="8" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="110.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний трафік</text>
+<text x="110.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">HTTP / gRPC</text>
+<rect x="230.0" y="190.0" width="160.0" height="100.0" rx="8" fill="#fdf6e3" stroke="#c0392b" stroke-width="2.0"/>
+<text x="310.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Маршрутизатор</text>
+<text x="310.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">L7 Router / ALB</text>
+<text x="310.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Cutover: 0% → 100%</text>
+<line x1="180.0" y1="240.0" x2="230.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="450.0" y="40.0" width="260.0" height="170.0" rx="10" fill="#e8f4f8" stroke="#1b6ec2" stroke-width="2.0"/>
+<text x="580.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1b6ec2" text-anchor="middle" font-weight="700">BLUE (Активне / v1.0)</text>
+<rect x="470.0" y="95.0" width="100.0" height="45.0" rx="6" fill="#ffffff" stroke="#1b6ec2" stroke-width="1.2"/>
+<text x="520.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">App v1.0 (A)</text>
+<rect x="590.0" y="95.0" width="100.0" height="45.0" rx="6" fill="#ffffff" stroke="#1b6ec2" stroke-width="1.2"/>
+<text x="640.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">App v1.0 (B)</text>
+<text x="580.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b6ec2" text-anchor="middle" font-weight="700">Обслуговує 100% користувачів</text>
+<rect x="450.0" y="270.0" width="260.0" height="170.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="580.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">GREEN (Нове / v1.1)</text>
+<rect x="470.0" y="325.0" width="100.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">App v1.1 (A)</text>
+<rect x="590.0" y="325.0" width="100.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="640.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">App v1.1 (B)</text>
+<text x="580.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Стенд тестування / Готовий до перемикання</text>
+<line x1="390.0" y1="220.0" x2="450.0" y2="130.0" stroke="#1b6ec2" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="405.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b6ec2" text-anchor="middle" font-weight="700">100%</text>
+<line x1="390.0" y1="260.0" x2="450.0" y2="350.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="405.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">0%</text>
+<rect x="780.0" y="160.0" width="150.0" height="160.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="855.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Спільна БД</text>
+<text x="855.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Shared Database</text>
+<line x1="800.0" y1="235.0" x2="910.0" y2="235.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="855.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Expand-Contract</text>
+<text x="855.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зворотно-сумісна</text>
+<text x="855.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">схема (v1.0 &amp; v1.1)</text>
+<line x1="710.0" y1="130.0" x2="780.0" y2="210.0" stroke="#1b6ec2" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="350.0" x2="780.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

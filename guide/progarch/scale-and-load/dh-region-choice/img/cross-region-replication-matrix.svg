@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="970.0" height="450.0" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="35.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Матриця CAP / PACELC: Топологія узгодженості за підсистемами DH</text>
+<line x1="120.0" y1="400.0" x2="930.0" y2="400.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="120.0" y1="400.0" x2="120.0" y2="80.0" stroke="#333333" stroke-width="2.0"/>
+<text x="525.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Накладні витрати мережевої затримки (Cross-Region Latency Trade-off)</text>
+<text x="130.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Вимоги до строгості узгодженості (Consistency Level)</text>
+<rect x="140.0" y="90.0" width="360.0" height="140.0" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="320.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">1. Глобальний IAM та Ключі</text>
+<text x="155.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="155.0" dy="0.0">• Модель: PC/EC (Strong Consistency)</tspan><tspan x="155.0" dy="13.0">• Синхронний мультирегіональний Raft</tspan><tspan x="155.0" dy="13.0">• Затримка запису: 120-250 ms (крос-DC)</tspan><tspan x="155.0" dy="13.0">• Інваріант: унікальність акаунтів</tspan></text>
+<rect x="530.0" y="90.0" width="380.0" height="140.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="720.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">2. Оперативний Стан Дому (Home State)</text>
+<text x="545.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="545.0" dy="0.0">• Модель: PA/EL (Primary Region Pinning)</tspan><tspan x="545.0" dy="13.0">• Локальний запис у Primary DC (8-15 ms)</tspan><tspan x="545.0" dy="13.0">• Асинхронна реплікація в DR регіон</tspan><tspan x="545.0" dy="13.0">• Інваріант: миттєве керування пристроями</tspan></text>
+<rect x="530.0" y="250.0" width="380.0" height="130.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="720.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">3. Телеметрія датчиків та Медіа</text>
+<text x="545.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="545.0" dy="0.0">• Модель: Eventual Consistency</tspan><tspan x="545.0" dy="13.0">• Пакетний асинхронний експорт</tspan><tspan x="545.0" dy="13.0">• Затримка: секунди / хвилини</tspan><tspan x="545.0" dy="13.0">• Інваріант: втрата метрики некритична</tspan></text>
+<rect x="140.0" y="250.0" width="360.0" height="130.0" rx="6" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="320.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4338ca" text-anchor="middle" font-weight="700">4. Автономний режим Хаба (LAN Edge)</text>
+<text x="155.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="155.0" dy="0.0">• Модель: Offline-First Autonomy</tspan><tspan x="155.0" dy="13.0">• Обробка подій без хмари (0 ms)</tspan><tspan x="155.0" dy="13.0">• Синхронний зв'язок по Zigbee/LAN</tspan><tspan x="155.0" dy="13.0">• Інваріант: безпека при обриві WAN</tspan></text>
+</svg>

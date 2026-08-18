@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Feature Flags: відокремлення задеплоєного коду від моментального випуску</text>
+<line x1="80.0" y1="340.0" x2="900.0" y2="340.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="890.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час (Time)</text>
+<line x1="160.0" y1="100.0" x2="160.0" y2="340.0" stroke="#1b6ec2" stroke-width="1.8" stroke-dasharray="6,4"/>
+<rect x="80.0" y="50.0" width="160.0" height="40.0" rx="6" fill="#ffffff" stroke="#1b6ec2" stroke-width="1.5"/>
+<text x="160.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b6ec2" text-anchor="middle" font-weight="700">1. Deploy Code</text>
+<text x="160.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Деплой коду на прод</text>
+<text x="160.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(Flag = FALSE)</text>
+<line x1="380.0" y1="100.0" x2="380.0" y2="340.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6,4"/>
+<rect x="300.0" y="50.0" width="160.0" height="40.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="380.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Dark Launch</text>
+<text x="380.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Трафік тестування</text>
+<text x="380.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(Flag = USER_ID % 100 &lt; 5)</text>
+<line x1="620.0" y1="100.0" x2="620.0" y2="340.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="6,4"/>
+<rect x="540.0" y="50.0" width="160.0" height="40.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="620.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Business Release</text>
+<text x="620.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Увімкнення для всіх</text>
+<text x="620.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(Flag = TRUE)</text>
+<line x1="820.0" y1="100.0" x2="820.0" y2="340.0" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="6,4"/>
+<rect x="740.0" y="50.0" width="160.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="820.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">4. Cleanup Debt</text>
+<text x="820.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Видалення прапорця</text>
+<text x="820.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(Код спрощено)</text>
+<rect x="140.0" y="130.0" width="680.0" height="160.0" rx="8" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="480.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний оцінювач прапорців (Feature Flag Evaluator)</text>
+<rect x="160.0" y="175.0" width="180.0" height="95.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="250.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Код у проді, але OFF</text>
+<text x="250.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">if (flags.isOff()) {</text>
+<text x="250.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">  runLegacyCode();</text>
+<text x="250.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">}</text>
+<rect x="360.0" y="175.0" width="240.0" height="95.0" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.2"/>
+<text x="480.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Канарейка / Dark Launch</text>
+<text x="480.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">if (eval(flag, userCtx)) {</text>
+<text x="480.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">  runNewFeature();</text>
+<text x="480.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">}</text>
+<rect x="620.0" y="175.0" width="180.0" height="95.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="710.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">100% Реліз (ON)</text>
+<text x="710.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">if (true) {</text>
+<text x="710.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">  runNewFeature();</text>
+<text x="710.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">}</text>
+</svg>

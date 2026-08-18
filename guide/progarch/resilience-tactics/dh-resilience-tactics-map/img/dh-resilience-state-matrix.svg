@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця станів Brownout та Circuit Breaker</text>
+<rect x="30.0" y="40.0" width="440.0" height="370.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="250.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні деградації Brownout (Система)</text>
+<line x1="50.0" y1="82.0" x2="450.0" y2="82.0" stroke="#c8ced6" stroke-width="1.2"/>
+<rect x="50.0" y="95.0" width="400.0" height="48.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="122.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">L0 · Normal State: 100% трафіку проходить</tspan></text>
+<rect x="50.0" y="155.0" width="400.0" height="48.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="250.0" y="182.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">L1 · Mild Pressure: Drop P4 (Video Upload)</tspan></text>
+<rect x="50.0" y="215.0" width="400.0" height="48.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="250.0" y="242.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">L2 · High Pressure: Drop P3 (Telemetry Analytics)</tspan></text>
+<rect x="50.0" y="275.0" width="400.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="302.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">L3 · Severe Strain: Drop P2 + Throttling P1</tspan></text>
+<rect x="50.0" y="335.0" width="400.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="362.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">L4 · Blackout Defense: Pass P0 ONLY (Locks/Alarms)</tspan></text>
+<line x1="470.0" y1="225.0" x2="520.0" y2="225.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="520.0" y="40.0" width="450.0" height="370.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="745.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів Circuit Breaker (Сервіс)</text>
+<line x1="540.0" y1="82.0" x2="950.0" y2="82.0" stroke="#c8ced6" stroke-width="1.2"/>
+<rect x="645.0" y="100.0" width="200.0" height="60.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="745.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">CLOSED (Норма)</tspan><tspan x="745.0" dy="14.3">Запити проходять до БД</tspan><tspan x="745.0" dy="14.3">Помилки &lt; Threshold</tspan></text>
+<line x1="745.0" y1="160.0" x2="745.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="755.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Error Rate &gt; 50%</text>
+<rect x="645.0" y="210.0" width="200.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="745.0" y="229.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">OPEN (Роззомкнено)</tspan><tspan x="745.0" dy="14.3">Швидка відмова (Fast Fail)</tspan><tspan x="745.0" dy="14.3">Виклик Fallback</tspan></text>
+<line x1="645.0" y1="240.0" x2="580.0" y2="240.0" stroke="#e08a1e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="612.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle">Sleep Window
+(e.g., 10s)</text>
+<rect x="645.0" y="320.0" width="200.0" height="60.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="745.0" y="339.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">HALF-OPEN (Проба)</tspan><tspan x="745.0" dy="14.3">Тестовий пропуск N запитів</tspan><tspan x="745.0" dy="14.3">Перевірка здоров'я</tspan></text>
+<line x1="745.0" y1="270.0" x2="745.0" y2="320.0" stroke="#e08a1e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="845.0" y1="350.0" x2="910.0" y2="350.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="910.0" y1="350.0" x2="910.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="910.0" y1="130.0" x2="845.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="920.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Успіх -&gt; Reset</text>
+</svg>

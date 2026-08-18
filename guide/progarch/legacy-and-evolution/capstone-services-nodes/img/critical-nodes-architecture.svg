@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Взаємодія п'яти критичних обчислювальних вузлів платформи PayFlow</text>
+<rect x="360.0" y="180.0" width="220.0" height="100.0" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="2.0"/>
+<text x="470.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e5109" text-anchor="middle" font-weight="700">1. Payment Core Node</text>
+<text x="470.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Saga &amp; Transaction Flow</text>
+<text x="470.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Idempotency &amp; State Machine</text>
+<text x="470.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Orchestration &amp; Validation</text>
+<rect x="50.0" y="60.0" width="200.0" height="80.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/>
+<text x="150.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">2. Identity &amp; Access Node</text>
+<text x="150.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">OAuth2 Token Validation</text>
+<text x="150.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">mTLS / Scope Checker</text>
+<line x1="250.0" y1="110.0" x2="360.0" y2="195.0" stroke="#2980b9" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="275.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b4f72" text-anchor="middle" font-weight="700">Verify JWT &amp; Scopes</text>
+<rect x="690.0" y="60.0" width="200.0" height="80.0" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="790.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78281f" text-anchor="middle" font-weight="700">3. Money &amp; Ledger Node</text>
+<text x="790.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Double-Entry Accounting</text>
+<text x="790.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ACID Invariants &amp; Reconcile</text>
+<line x1="580.0" y1="195.0" x2="690.0" y2="110.0" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="665.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78281f" text-anchor="middle" font-weight="700">gRPC Strict ACID Write</text>
+<rect x="50.0" y="320.0" width="200.0" height="80.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="150.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4a235a" text-anchor="middle" font-weight="700">4. Tenancy &amp; Billing Node</text>
+<text x="150.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Quota &amp; Rate Enforcement</text>
+<text x="150.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Usage Metering &amp; Tier Limits</text>
+<line x1="360.0" y1="250.0" x2="250.0" y2="335.0" stroke="#8e44ad" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="325.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a235a" text-anchor="middle" font-weight="700">Check Limits &amp; Metering</text>
+<rect x="690.0" y="320.0" width="200.0" height="80.0" rx="6" fill="#e8f8f5" stroke="#16a085" stroke-width="1.5"/>
+<text x="790.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0e6251" text-anchor="middle" font-weight="700">5. Webhook Dispatcher Node</text>
+<text x="790.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Outbox Consumer &amp; Retry</text>
+<text x="790.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">HMAC Signer &amp; Fan-Out</text>
+<line x1="580.0" y1="250.0" x2="690.0" y2="335.0" stroke="#16a085" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="615.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0e6251" text-anchor="middle" font-weight="700">Outbox Event Stream</text>
+<rect x="380.0" y="50.0" width="180.0" height="45.0" rx="4" fill="#fcf3cf" stroke="#f1c40f" stroke-width="1.2"/>
+<text x="470.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">Time &amp; Scheduler Node</text>
+<text x="470.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Monotonic Clocks &amp; Temporal Cron</text>
+<line x1="470.0" y1="95.0" x2="470.0" y2="180.0" stroke="#f1c40f" stroke-width="1.2" marker-end="url(#arrow)"/>
+</svg>

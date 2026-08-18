@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-32.25 -10 1150.75 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-32.25" y="-10" width="1150.75" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюжок криптографічної перевірки оновлення прошивки (OTA)</text>
+<text x="540.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюжок довіри криптографічної перевірки оновлення прошивки (OTA)</text>
+<rect x="50.0" y="80.0" width="180.0" height="380.0" rx="8" fill="#eef2fd" stroke="#333333" stroke-width="1.6"/>
+<text x="140.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. CI/CD &amp; HSM Підпис</text>
+<text x="140.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Публікація артефакту:</text>
+<text x="140.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Більд прошивки v2.4 + Ed25519 підпис HSM ключем розробника.</text>
+<line x1="230.0" y1="270.0" x2="255.0" y2="270.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="255.0" y="80.0" width="180.0" height="380.0" rx="8" fill="#fffceb" stroke="#333333" stroke-width="1.6"/>
+<text x="345.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Завантаження на Хаб</text>
+<text x="345.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Передача по mTLS:</text>
+<text x="345.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Отримання артефакту через HTTPS/mTLS у тимчасове сховище RAM.</text>
+<line x1="435.0" y1="270.0" x2="460.0" y2="270.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="460.0" y="80.0" width="180.0" height="380.0" rx="8" fill="#fffceb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="550.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Hardware Root of Trust</text>
+<text x="550.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Перевірка eFuse / TPM:</text>
+<text x="550.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Версія v2.4 ≥ поточна v2.3. Захист від відкату (Anti-Rollback).</text>
+<line x1="640.0" y1="270.0" x2="665.0" y2="270.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="665.0" y="80.0" width="180.0" height="380.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="755.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Валідація Ed25519</text>
+<text x="755.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Криптографічний підпис:</text>
+<text x="755.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Публічний ключ із Read-Only flash підтверджує цілісність.</text>
+<line x1="845.0" y1="270.0" x2="870.0" y2="270.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="870.0" y="80.0" width="180.0" height="380.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="960.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Атомний Boot A/B</text>
+<text x="960.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Запис у банк B та Reboot:</text>
+<text x="960.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Перемикання bootloader. У разі збою — відкат у банк A.</text>
+</svg>

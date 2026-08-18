@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">4-фазна zero-downtime міграція цифрового твіна DH від Варіанта Б до В</text>
+<text x="540.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">4-фазна zero-downtime міграція цифрового твіна Digital Homes (Б → В)</text>
+<rect x="60.0" y="70.0" width="960.0" height="116.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="60.0" y="70.0" width="10.0" height="116.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="86.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 0: Baseline (Стабільний стан Б)</text>
+<text x="86.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">100% запитів іде на Твін Б (PostgreSQL + Redis). Твін В не існує або в розробці.</text>
+<text x="86.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• Відкат: Не потрібен • Ризик: 0 • Метрика mismatch: N/A</text>
+<line x1="540.0" y1="186.0" x2="540.0" y2="208.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="208.0" width="960.0" height="116.0" rx="8" fill="#fffceb" stroke="#333333" stroke-width="1.6"/>
+<rect x="60.0" y="208.0" width="10.0" height="116.0" rx="0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="86.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 1: Expand &amp; Dual-Write (Подвійний запис і порівняння)</text>
+<text x="86.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Запис синхронно в Б + через Outbox в Kafka → Твін В. Читання з Б. Verification Harness порівнює 1% відповідей.</text>
+<text x="86.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• Відкат: Вимкнути dual_write_flag • Метрика mismatch: twin_mismatch_total → 0</text>
+<line x1="540.0" y1="324.0" x2="540.0" y2="346.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="346.0" width="960.0" height="116.0" rx="8" fill="#eef2fd" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="60.0" y="346.0" width="10.0" height="116.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="86.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 2: Switch Read Primary &amp; Backfill (Перемикання читання і тротльований backfill)</text>
+<text x="86.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Онлайн-backfill історичних твінів Б → В (тротлінг 500 req/s). Читання з В, Fallback на Б при помилках.</text>
+<text x="86.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• ТОЧКА НЕПОВЕРНЕННЯ: В стає джерелом нової телеметрії • Відкат: Потребує реверсного backfill</text>
+<line x1="540.0" y1="462.0" x2="540.0" y2="484.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="484.0" width="960.0" height="116.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="60.0" y="484.0" width="10.0" height="116.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="86.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 3: Contract &amp; Deprecate B (Завершення та відключення Б)</text>
+<text x="86.0" y="544.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">100% читань і записів тільки через Твін В. Твін Б відключено, таблиці архівуються після 72г без fallback.</text>
+<text x="86.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• Цільовий стан: Event-Driven CQRS твін без боргу • SLO доступності: 99.99%</text>
+</svg>

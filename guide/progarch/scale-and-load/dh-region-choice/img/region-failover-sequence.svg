@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="970.0" height="470.0" rx="8" fill="#fdfdfd" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="35.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Послідовність аварійної евакуації регіону (Disaster Evacuation Protocol)</text>
+<rect x="35.0" y="90.0" width="172.0" height="360.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="121.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Фаза 1: Детекція</text>
+<rect x="46.0" y="206.9" width="150.0" height="46.2" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.0"/><text x="121.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="121.0" dy="0.0">Heartbeat Gate виявляє</tspan><tspan x="121.0" dy="12.3">втрату зв'язку з DC-1</tspan><tspan x="121.0" dy="12.3">(3x 5s probe fails)</tspan></text>
+<line x1="209.0" y1="230.0" x2="226.0" y2="230.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="228.0" y="90.0" width="172.0" height="360.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="314.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Фаза 2: Фенсинг</text>
+<rect x="239.0" y="206.9" width="150.0" height="46.2" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/><text x="314.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="314.0" dy="0.0">Fencing Token revocation:</tspan><tspan x="314.0" dy="12.3">блокування нових записів</tspan><tspan x="314.0" dy="12.3">у пошкоджений DC-1</tspan></text>
+<line x1="402.0" y1="230.0" x2="419.0" y2="230.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="421.0" y="90.0" width="172.0" height="360.0" rx="6" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="507.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4338ca" text-anchor="middle" font-weight="700">Фаза 3: Перемикання</text>
+<rect x="432.0" y="206.9" width="150.0" height="46.2" rx="6" fill="#ffffff" stroke="#4338ca" stroke-width="1.0"/><text x="507.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="507.0" dy="0.0">Global Directory оновлює</tspan><tspan x="507.0" dy="12.3">Primary Region прапор:</tspan><tspan x="507.0" dy="12.3">DC-1 -&gt; DC-2</tspan></text>
+<line x1="595.0" y1="230.0" x2="612.0" y2="230.0" stroke="#4338ca" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="614.0" y="90.0" width="172.0" height="360.0" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+<text x="700.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">Фаза 4: Read-Only</text>
+<rect x="625.0" y="206.9" width="150.0" height="46.2" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.0"/><text x="700.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">DC-2 приймає трафік у R/O</tspan><tspan x="700.0" dy="12.3">поки доганяє асинхронні</tspan><tspan x="700.0" dy="12.3">WAL логи реплікації</tspan></text>
+<line x1="788.0" y1="230.0" x2="805.0" y2="230.0" stroke="#047857" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="807.0" y="90.0" width="172.0" height="360.0" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="893.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">Фаза 5: Full Active</text>
+<rect x="805.8" y="206.9" width="174.4" height="46.2" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.0"/><text x="893.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="893.0" dy="0.0">Підтвердження RPO=0 / RTO&lt;30s.</tspan><tspan x="893.0" dy="12.3">Повне відновлення запису</tspan><tspan x="893.0" dy="12.3">у резервному DC-2</tspan></text>
+</svg>

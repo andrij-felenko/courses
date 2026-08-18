@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр архітектурних стилів</text>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурний спектр: від спагеті до ізольованих мікросервісів</text>
+<rect x="20.0" y="80.0" width="280.0" height="250.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="160.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Спагеті-моноліт</text>
+<text x="160.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">«Big Ball of Mud»</text>
+<text x="160.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Хаотичні виклики коду,</text>
+<text x="160.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">прямі SQL JOIN між таблицями,</text>
+<text x="160.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">нульова модуляризація.</text>
+<rect x="340.0" y="80.0" width="280.0" height="250.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="480.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Модульний моноліт</text>
+<text x="480.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">«Monolith-First» (Дефолт)</text>
+<text x="480.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Суворі мовні модулі (Façade),</text>
+<text x="480.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ізольовані схеми БД в 1 процесі,</text>
+<text x="480.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">виклики в пам'яті (150 нс).</text>
+<rect x="660.0" y="80.0" width="280.0" height="250.0" rx="10" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="800.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Мікросервіси</text>
+<text x="800.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-style="italic">«Service-First»</text>
+<text x="800.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Фізичні мережеві межі,</text>
+<text x="800.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">окремі процеси й бази даних,</text>
+<text x="800.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">RPC/Event затримка (5 мс).</text>
+<rect x="40.0" y="340.0" width="880.0" height="75.0" rx="8" fill="#f7f8fa" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">💡 Ключовий висновок для зеленого газону</text>
+<text x="480.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Альтернативою поганим мікросервісам є не спагеті-моноліт, а МОДУЛЬНИЙ моноліт. Збереження чистоти меж у пам'яті дає гнучкість без мережевого податку.</text>
+</svg>

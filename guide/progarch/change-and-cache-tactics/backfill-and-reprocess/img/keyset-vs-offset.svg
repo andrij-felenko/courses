@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння OFFSET та Keyset (Cursor) пагінації під час бекфілу</text>
+<rect x="30.0" y="40.0" width="435.0" height="360.0" rx="10" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="247.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">OFFSET Пагінація: O(N²) сканування</text>
+<text x="247.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SELECT * FROM events ORDER BY id LIMIT 1000 OFFSET 1000000</text>
+<rect x="55.0" y="125.0" width="385.0" height="45.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="247.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Прочитати та ВІДКИНУТИ 1 000 000 рядків</text>
+<text x="247.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Високий IOPS, виснаження Buffer Pool</text>
+<line x1="247.0" y1="170.0" x2="247.0" y2="195.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="55.0" y="195.0" width="385.0" height="45.0" rx="6" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="247.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повернути лише 1 000 рядків</text>
+<text x="247.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час запиту зростає з кожною наступною сторінкою</text>
+<rect x="55.0" y="260.0" width="385.0" height="120.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="75.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Тривалі Read-locks на сторінках індексу</text>
+<text x="75.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Пропущені або дубльовані записи при паралельному INSERT</text>
+<text x="75.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Деградація продуктивності бази для живих OLTP запитів</text>
+<text x="75.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Ризик падаючого OOM або таймауту з'єднання</text>
+<rect x="495.0" y="40.0" width="435.0" height="360.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="712.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Keyset Пагінація: O(1) B-Tree точковий пошук</text>
+<text x="712.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WHERE id &gt; 1000000 ORDER BY id ASC LIMIT 1000</text>
+<rect x="520.0" y="125.0" width="385.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="712.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Прямий стрибок за індексом B-Tree до id = 1000001</text>
+<text x="712.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Нульове сканування застарілих даних</text>
+<line x1="712.0" y1="170.0" x2="712.0" y2="195.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="520.0" y="195.0" width="385.0" height="45.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="712.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Миттєва вибірка 1 000 рядків</text>
+<text x="712.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Постійний час відповіді незалежно від глибини історії</text>
+<rect x="520.0" y="260.0" width="385.0" height="120.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="540.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Стабільне короткочасне блокування чанку</text>
+<text x="540.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Стійкість до паралельного додавання нових рядків</text>
+<text x="540.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Просте створення чекпоінтів (last_processed_id)</text>
+<text x="540.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">• Передбачуване навантаження на I/O СУБД</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три виміри зв'язаності в сервіс-аудиті</text>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три виміри зв'язаності під час сервіс-аудиту</text>
+<rect x="15.0" y="80.0" width="290.0" height="310.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="160.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Зчеплення за даними</text>
+<text x="160.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Data Coupling)</text>
+<line x1="40.0" y1="170.0" x2="280.0" y2="170.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="35.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Спільні таблиці SQL та FK</text>
+<text x="35.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Прямі JOIN між доменами</text>
+<text x="35.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Спільний Redis / Shared DB</text>
+<text x="35.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Прямий доступ до чужого storage</text>
+<rect x="335.0" y="80.0" width="290.0" height="310.0" rx="10" fill="#fffde7" stroke="#d35400" stroke-width="1.8"/>
+<text x="480.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Зчеплення за часом</text>
+<text x="480.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Temporal / Execution)</text>
+<line x1="360.0" y1="170.0" x2="600.0" y2="170.0" stroke="#d35400" stroke-width="1.2"/>
+<text x="355.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Синхронні HTTP/gRPC виклики</text>
+<text x="355.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Накопичення затримок (Latency)</text>
+<text x="355.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Каскадні відмови сервісів</text>
+<text x="355.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Транзакційні замки та 2PC</text>
+<rect x="655.0" y="80.0" width="290.0" height="310.0" rx="10" fill="#eef2fb" stroke="#2980b9" stroke-width="1.8"/>
+<text x="800.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Зчеплення за моделлю</text>
+<text x="800.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Domain / Model)</text>
+<line x1="680.0" y1="170.0" x2="920.0" y2="170.0" stroke="#2980b9" stroke-width="1.2"/>
+<text x="675.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Спільні DTO й бібліотеки</text>
+<text x="675.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Протікання вендорських протоколів</text>
+<text x="675.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Позичення сутностей домену</text>
+<text x="675.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Монолітні класи-боги</text>
+<rect x="40.0" y="410.0" width="880.0" height="50.0" rx="6" fill="#f7f8fa" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мета аудиту: знайти модулі з МІНІМАЛЬНИМ зчепленням за даними й максимальним виграшем від винесення.</text>
+</svg>

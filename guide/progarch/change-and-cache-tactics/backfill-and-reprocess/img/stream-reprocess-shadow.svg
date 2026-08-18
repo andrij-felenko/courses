@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повторна обробка подій через Shadow Consumer Group та придушення side-effects</text>
+<rect x="40.0" y="180.0" width="200.0" height="100.0" rx="8" fill="#fdf6e3" stroke="#c0392b" stroke-width="2.0"/>
+<text x="140.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Event Stream</text>
+<text x="140.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Topic: telemetry-events</text>
+<text x="140.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Незимовний журнал (Retention)</text>
+<line x1="240.0" y1="210.0" x2="340.0" y2="120.0" stroke="#1b6ec2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b6ec2" text-anchor="middle" font-weight="700">Live Offset</text>
+<rect x="340.0" y="60.0" width="240.0" height="110.0" rx="8" fill="#e8f4f8" stroke="#1b6ec2" stroke-width="1.8"/>
+<text x="460.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1b6ec2" text-anchor="middle" font-weight="700">Live Worker Group (v1)</text>
+<text x="460.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Обробка поточних подій</text>
+<text x="460.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зовнішні side-effects: УВІМКНЕНО</text>
+<line x1="580.0" y1="115.0" x2="680.0" y2="115.0" stroke="#1b6ec2" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="680.0" y="85.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#1b6ec2" stroke-width="1.2"/>
+<text x="795.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Основна БД / Read Model v1</text>
+<text x="795.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Обслуговує користувачів</text>
+<line x1="240.0" y1="250.0" x2="340.0" y2="320.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Reset Offset=0</text>
+<rect x="340.0" y="270.0" width="240.0" height="120.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="460.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Shadow Worker Group (v2)</text>
+<text x="460.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Replay всієї історії з початку</text>
+<line x1="355.0" y1="335.0" x2="565.0" y2="335.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="460.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Side-Effect Suppressor (No-Op)</text>
+<text x="460.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Email / Webhooks ЗАБЛОКОВАНО</text>
+<line x1="580.0" y1="330.0" x2="680.0" y2="330.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="680.0" y="300.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="795.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Shadow БД / Read Model v2</text>
+<text x="795.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Новий формат / Новий алгоритм</text>
+<line x1="795.0" y1="300.0" x2="795.0" y2="145.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="795.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Switchover після наздоганяння (Catch-up)</text>
+</svg>

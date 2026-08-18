@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-58.16 -10 998.16 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-58.16" y="-10" width="998.16" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія каскадного колапсу Roblox (28–31 жовтня 2021 року)</text>
+<line x1="80.0" y1="75.0" x2="80.0" y2="415.0" stroke="#333333" stroke-width="3.0"/>
+<circle cx="80.0" cy="75.0" r="10.0" fill="#3498db" stroke="#ffffff" stroke-width="2.0"/>
+<text x="62.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">15:00 PDT (0 год)</text>
+<rect x="105.0" y="51.0" width="780.0" height="52.0" rx="6" fill="#f8f9fa" stroke="#3498db" stroke-width="1.5"/>
+<text x="120.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Увімкнення Consul Streaming</text>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Активація прапорця стримінгу викликала масове зростання записів у KV-сховище</text>
+<circle cx="80.0" cy="143.0" r="10.0" fill="#e74c3c" stroke="#ffffff" stroke-width="2.0"/>
+<text x="62.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">+15 хв (0.25 год)</text>
+<rect x="105.0" y="119.0" width="780.0" height="52.0" rx="6" fill="#f8f9fa" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="120.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Пастка Freelist у BoltDB</text>
+<text x="120.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Розростання списку вільних сторінок. Сортування O(N log N) блокує записи</text>
+<circle cx="80.0" cy="211.0" r="10.0" fill="#e74c3c" stroke="#ffffff" stroke-width="2.0"/>
+<text x="62.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">+1 год</text>
+<rect x="105.0" y="187.0" width="780.0" height="52.0" rx="6" fill="#f8f9fa" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="120.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Чехарда лідерів Raft</text>
+<text x="120.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Лідер запізнюється з серцебиттям через блокування BoltDB. Кластер зациклюється у виборах</text>
+<circle cx="80.0" cy="279.0" r="10.0" fill="#f39c12" stroke="#ffffff" stroke-width="2.0"/>
+<text x="62.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">+2 год</text>
+<rect x="105.0" y="255.0" width="780.0" height="52.0" rx="6" fill="#f8f9fa" stroke="#f39c12" stroke-width="1.5"/>
+<text x="120.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Осліплення телеметрії</text>
+<text x="120.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Prometheus та Grafana втрачають Service Discovery. Інженери потрапляють у сліпу зону</text>
+<circle cx="80.0" cy="347.0" r="10.0" fill="#e74c3c" stroke="#ffffff" stroke-width="2.0"/>
+<text x="62.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">+4–30 год</text>
+<rect x="105.0" y="323.0" width="780.0" height="52.0" rx="6" fill="#f8f9fa" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="120.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Метастабільний шторм</text>
+<text x="120.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">18 000 агентів без джиттера безперервно штормлять відновлювані сервери</text>
+<circle cx="80.0" cy="415.0" r="10.0" fill="#2ecc71" stroke="#ffffff" stroke-width="2.0"/>
+<text x="62.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">+30–73 год</text>
+<rect x="105.0" y="391.0" width="780.0" height="52.0" rx="6" fill="#f8f9fa" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="120.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Офлайн-ремонт та шлюз</text>
+<text x="120.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Офлайн-компактизація BoltDB, мережевий шлюз допуску та покрокове повернення трафіку</text>
+<text x="470.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Загальний час відновлення платформи — 73 години</text>
+</svg>

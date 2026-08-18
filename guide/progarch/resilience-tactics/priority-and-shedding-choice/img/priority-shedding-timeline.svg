@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 760" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="760" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Родовід і еволюція тактик відкидання навантаження</text>
+<line x1="240.0" y1="70.0" x2="240.0" y2="680.0" stroke="#c8ced6" stroke-width="2.0"/>
+<rect x="290.0" y="70.0" width="660.0" height="60.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/>
+<text x="306.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1960-ті · Телефонні мережі (PSTN)</text>
+<text x="306.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">ACR (Automatic Congestion Control): відкидання дзвінків на вході АТС</text>
+<circle cx="240.0" cy="100.0" r="7.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="100.0" x2="290.0" y2="100.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="290.0" y="160.0" width="660.0" height="60.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/>
+<text x="306.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1980-ті · Електромережі (Power Grids)</text>
+<text x="306.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Brownout (просідання напруги) &amp; Automatic Load Shedding за частотою 49.5 Гц</text>
+<circle cx="240.0" cy="190.0" r="7.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="190.0" x2="290.0" y2="190.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="290.0" y="250.0" width="660.0" height="60.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/>
+<text x="306.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1990-ті · Ранній Інтернет (IP QoS)</text>
+<text x="306.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">DiffServ / DSCP заголовки в IP-пакетах, Weighted Fair Queueing (WFQ) у роутерах</text>
+<circle cx="240.0" cy="280.0" r="7.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="280.0" x2="290.0" y2="280.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="290.0" y="340.0" width="660.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="306.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2000-ні · Ранній Веб &amp; E-Commerce</text>
+<text x="306.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Голий 503 Service Unavailable, static rate limiting за IP-адресами</text>
+<circle cx="240.0" cy="370.0" r="7.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="370.0" x2="290.0" y2="370.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="290.0" y="430.0" width="660.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="306.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2010-ті · AWS / Google SRE</text>
+<text x="306.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Adaptive Concurrency Limiting, CoDel queue management, Priority Shedding</text>
+<circle cx="240.0" cy="460.0" r="7.0" fill="#2457d6" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="460.0" x2="290.0" y2="460.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="290.0" y="520.0" width="660.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="306.0" y="544.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2020-ті · Cloud-Native &amp; Microservices</text>
+<text x="306.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Header-based Traffic Shedding, Brownout Automation, Envoy/Istio Adaptive Limiters</text>
+<circle cx="240.0" cy="550.0" r="7.0" fill="#2457d6" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="550.0" x2="290.0" y2="550.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="290.0" y="610.0" width="660.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="306.0" y="634.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Сучасність · Zero-Trust Priority</text>
+<text x="306.0" y="656.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Cryptographic Priority Headers, ML-driven Brownout Controllers, E2E Backpressure</text>
+<circle cx="240.0" cy="640.0" r="7.0" fill="#2457d6" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="247.0" y1="640.0" x2="290.0" y2="640.0" stroke="#c8ced6" stroke-width="1.4"/>
+<rect x="205.0" y="80.0" width="5.0" height="230.0" rx="2" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="110.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Телеком і</tspan><tspan x="110.0" dy="16.9">Енергетика</tspan></text>
+<rect x="205.0" y="340.0" width="5.0" height="70.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="110.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Примітивний</tspan><tspan x="110.0" dy="16.9">Веб</tspan></text>
+<rect x="205.0" y="430.0" width="5.0" height="240.0" rx="2" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="110.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Адаптивні</tspan><tspan x="110.0" dy="16.9">Хмари</tspan></text>
+</svg>

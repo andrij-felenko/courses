@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етапи безпечної ізоляції даних під час розпилу моноліта</text>
+<rect x="40.0" y="90.0" width="265.0" height="340.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="40.0" y="90.0" width="265.0" height="42.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="172.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">А. Спільні таблиці</text>
+<text x="172.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Модуль А  ──  Модуль Б</text>
+<text x="172.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">       │      │</text>
+<text x="172.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">       ▼      ▼</text>
+<text x="172.5" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">   [Спільні JOIN / FK]</text>
+<text x="172.5" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">   [ Таблиця Order/User ]</text>
+<line x1="309.0" y1="260.0" x2="331.0" y2="260.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="335.0" y="90.0" width="265.0" height="340.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="335.0" y="90.0" width="265.0" height="42.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="467.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Б. Логічні схеми</text>
+<text x="467.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Схема А  │  Схема Б</text>
+<text x="467.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"> (User)  │  (Order)</text>
+<text x="467.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">─────────┼─────────</text>
+<text x="467.5" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Прибрано FK та JOINs</text>
+<text x="467.5" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Доступ лише своєму коду</text>
+<line x1="604.0" y1="260.0" x2="626.0" y2="260.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="630.0" y="90.0" width="265.0" height="340.0" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2.0"/>
+<rect x="630.0" y="90.0" width="265.0" height="42.0" rx="0" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="762.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">В. Dual Write / CDC</text>
+<text x="762.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Модуль А ──CDC──► Сервіс Б</text>
+<text x="762.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">  │                │</text>
+<text x="762.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">  ▼                ▼</text>
+<text x="762.5" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">  БД-Моноліт      БД-Сервісу</text>
+<text x="762.5" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Подвійне оновлення стану</text>
+<line x1="899.0" y1="260.0" x2="921.0" y2="260.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="925.0" y="90.0" width="265.0" height="340.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="925.0" y="90.0" width="265.0" height="42.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="1057.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Г. Database-per-Service</text>
+<text x="1057.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Моноліт          Сервіс Б</text>
+<text x="1057.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">   │                │</text>
+<text x="1057.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">   ▼                ▼</text>
+<text x="1057.5" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"> БД-Моноліт      БД-Сервіс Б</text>
+<text x="1057.5" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Повна фізична ізоляція</text>
+<rect x="170.0" y="474.0" width="900.0" height="32.0" rx="6" fill="#f7f9fc" stroke="#6b7280" stroke-width="1.5"/><text x="620.0" y="494.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Ізоляція даних є передумовою мережевого розколу: без розділення БД сервіси лишаються зв'язаними на рівні сховища</tspan></text>
+</svg>

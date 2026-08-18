@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="80.0" y1="370.0" x2="950.0" y2="370.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="940.0" y1="370.0" x2="960.0" y2="370.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="950.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час (t)</text>
+<line x1="140.0" y1="360.0" x2="140.0" y2="380.0" stroke="#333333" stroke-width="2.0"/>
+<text x="140.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 0</text>
+<rect x="39.1" y="143.1" width="201.8" height="73.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="140.0" y="162.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Звичайний режим</tspan><tspan x="140.0" dy="14.3"></tspan><tspan x="140.0" dy="14.3">Хаб підключений до Gateway 1.</tspan><tspan x="140.0" dy="14.3">Тривають gRPC стрими.</tspan></text>
+<line x1="140.0" y1="225.0" x2="140.0" y2="355.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="360.0" x2="370.0" y2="380.0" stroke="#333333" stroke-width="2.0"/>
+<text x="370.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">t = 1h</text>
+<rect x="294.2" y="83.0" width="151.7" height="73.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="370.0" y="102.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Max Connection Age</tspan><tspan x="370.0" dy="14.3"></tspan><tspan x="370.0" dy="14.3">Envoy надсилає GOAWAY</tspan><tspan x="370.0" dy="14.3">з max_stream_id.</tspan></text>
+<line x1="370.0" y1="165.0" x2="370.0" y2="355.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="360.0" x2="630.0" y2="380.0" stroke="#333333" stroke-width="2.0"/>
+<text x="630.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">t = 1h + 10s</text>
+<rect x="535.4" y="83.0" width="189.3" height="73.9" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="630.0" y="102.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Завершення стримів</tspan><tspan x="630.0" dy="14.3"></tspan><tspan x="630.0" dy="14.3">Активні RPC доробляються.</tspan><tspan x="630.0" dy="14.3">Нові стрими не створюються.</tspan></text>
+<line x1="630.0" y1="165.0" x2="630.0" y2="355.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="360.0" x2="880.0" y2="380.0" stroke="#333333" stroke-width="2.0"/>
+<text x="880.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">t = 1h + 15s</text>
+<rect x="772.8" y="83.0" width="214.4" height="73.9" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="880.0" y="102.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">М'яке перепідключення</tspan><tspan x="880.0" dy="14.3"></tspan><tspan x="880.0" dy="14.3">Хаб закриває сокет 1 і з jitter</tspan><tspan x="880.0" dy="14.3">підключається до Gateway 2.</tspan></text>
+<line x1="880.0" y1="165.0" x2="880.0" y2="355.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="15.0" y="15.0" width="970.0" height="50.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Плавне перепідключення (Graceful Drain) запобігає втраті даних та сплескам Thundering Herd</text>
+</svg>
