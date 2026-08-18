@@ -102,7 +102,17 @@ const m = (isGuide ? sb.__GUIDES__ : sb.__BOOKS__ || [])[0];
    Раніше тут стояла ручна табличка підміни на одну книгу — вона лікувала симптом одного
    батчу й мовчки ламалася на будь-якому іншому розходженні. */
 const sectionBySlug = new Map();
-(m.sections || []).forEach((s) => (s.topics || []).forEach((t) => sectionBySlug.set(t.slug, s.slug)));
+if (isGuide) {
+  (m.modules || m.sections || []).forEach((mod) => {
+    (mod.chapters || [{ steps: mod.steps || mod.topics || [] }]).forEach((ch) => {
+      (ch.steps || ch.topics || []).forEach((s) => {
+        if (s && s.slug && !s.ref) sectionBySlug.set(s.slug, mod.slug);
+      });
+    });
+  });
+} else {
+  (m.sections || []).forEach((s) => (s.topics || []).forEach((t) => sectionBySlug.set(t.slug, s.slug)));
+}
 const existingSlugs = new Set(sectionBySlug.keys());
 /* Для НОВОЇ теми секції в маніфесті ще нема — тоді (і лише тоді) беремо назву теки. */
 const sectionOf = (slug, dirSection) => sectionBySlug.get(slug) || dirSection;
