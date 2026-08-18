@@ -58,7 +58,7 @@ if (T.detailed) {
   else {
     const block = m[1];
     if (/<details|<summary/i.test(block)) bad.push("усередині <preknowlist> зайва обгортка <details>/<summary> — рушій читає блок порядково, теги стануть фальшивими пунктами");
-    if (!/\]\(book:/.test(block)) bad.push("пункти <preknowlist> без book:-лінків — читач не має куди піти по передумову");
+    if (!/\]\((?:book|guide):/.test(block)) bad.push("пункти <preknowlist> без book:- або guide:-лінків — читач не має куди піти по передумову");
     const lines = block.split(/\r?\n/).filter((l) => l.trim());
     if (lines.length < 2) bad.push("<preknowlist> порожній або з одного рядка — назви справжні передумови");
   }
@@ -71,8 +71,8 @@ T.inserts.forEach((ins) => {
     bad.push(`${ins.file} (${ins.label}): вставку не згадано в прозі теми — читач її не відкриє ніколи`);
     return;
   }
-  const linked = new RegExp(`\\]\\(book:[^)]*${ins.file.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`).test(proseAll);
-  if (!linked) bad.push(`${ins.file} (${ins.label}): згадка є, але не book:-лінком — попап не відкриється (§6)`);
+  const linked = new RegExp(`\\]\\((?:book|guide):[^)]*${ins.file.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`).test(proseAll);
+  if (!linked) bad.push(`${ins.file} (${ins.label}): згадка є, але не book:/guide:-лінком — попап не відкриється (§6)`);
 });
 
 /* (4) зовнішніх .md-лінків усередині теми бути не має — лише book: */
