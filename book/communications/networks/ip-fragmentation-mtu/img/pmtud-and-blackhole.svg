@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Path MTU Discovery (PMTUD) та проблема «чорних дір» (Black Hole)</text>
+<rect x="45.0" y="55.0" width="360.0" height="345.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="225.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Штатний PMTUD (ICMP діє)</text>
+<rect x="65.0" y="105.0" width="80.0" height="36.0" rx="4" fill="#eef3ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="105.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост A</text>
+<rect x="185.0" y="105.0" width="80.0" height="36.0" rx="4" fill="#fff7e6" stroke="#c0392b" stroke-width="1.3"/>
+<text x="225.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роутер R</text>
+<rect x="305.0" y="105.0" width="80.0" height="36.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.3"/>
+<text x="345.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост B</text>
+<line x1="105.0" y1="160.0" x2="225.0" y2="160.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="165.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Пакет 1500 B (DF=1)</text>
+<text x="225.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">MTU=1400 → Drop!</text>
+<line x1="225.0" y1="215.0" x2="105.0" y2="215.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="165.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ICMP T3 C4 (Next MTU=1400)</text>
+<line x1="105.0" y1="255.0" x2="345.0" y2="255.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="225.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Пакет 1400 B (DF=1) → Доставлено!</text>
+<rect x="60.0" y="290.0" width="330.0" height="95.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="225.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Результат: Хост A кешує PMTU = 1400 B.</tspan><tspan x="225.0" dy="13.0">Усі наступні сегменти надсилаються без</tspan><tspan x="225.0" dy="13.0">фрагментації та втрат даних.</tspan></text>
+<rect x="435.0" y="55.0" width="360.0" height="345.0" rx="8" fill="#fdfaf9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="615.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">PMTUD Black Hole (ICMP заблоковано)</text>
+<rect x="455.0" y="105.0" width="75.0" height="36.0" rx="4" fill="#eef3ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="492.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост A</text>
+<rect x="550.0" y="105.0" width="75.0" height="36.0" rx="4" fill="#fff7e6" stroke="#c0392b" stroke-width="1.3"/>
+<text x="587.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роутер R</text>
+<rect x="640.0" y="105.0" width="65.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.3"/>
+<text x="672.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Фаєрвол</text>
+<rect x="720.0" y="105.0" width="60.0" height="36.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.3"/>
+<text x="750.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост B</text>
+<line x1="492.0" y1="160.0" x2="587.0" y2="160.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="540.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Пакет 1500 B (DF=1)</text>
+<text x="587.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">MTU=1400 → Drop!</text>
+<line x1="587.0" y1="215.0" x2="655.0" y2="215.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="672.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✖ Блок ICMP</text>
+<text x="615.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">Хост A НЕ знає причини й нескінченно ретранслює...</text>
+<rect x="450.0" y="280.0" width="330.0" height="105.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/><text x="615.0" y="316.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="615.0" dy="0.0">Наслідок: TCP-рукостискання проходить (малі SYN),</tspan><tspan x="615.0" dy="13.0">але щойно йде повний кадр із даними (TLS/HTTP) —</tspan><tspan x="615.0" dy="13.0">з'єднання «зависає наглухо» (Black Hole).</tspan><tspan x="615.0" dy="13.0">Лікування: TCP MSS Clamping або PLPMTUD.</tspan></text>
+</svg>

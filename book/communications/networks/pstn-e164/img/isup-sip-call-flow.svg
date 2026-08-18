@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Взаємодія протоколів сигналізації: трансляція SS7 ISUP у SIP через шлюз VoIP</text>
+<rect x="25.0" y="50.0" width="130.0" height="48.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="90.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">Абонент PSTN</text>
+<text x="90.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Аналоговий телефон</text>
+<line x1="90.0" y1="98.0" x2="90.0" y2="475.0" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="195.0" y="50.0" width="130.0" height="48.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="260.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Class 5 (SSP)</text>
+<text x="260.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Місцева станція PSTN</text>
+<line x1="260.0" y1="98.0" x2="260.0" y2="475.0" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="395.0" y="50.0" width="130.0" height="48.0" rx="6" fill="#ffffff" stroke="#0891b2" stroke-width="1.8"/>
+<text x="460.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0891b2" text-anchor="middle" font-weight="700">MGC / Softswitch</text>
+<text x="460.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контролер шлюзу VoIP</text>
+<line x1="460.0" y1="98.0" x2="460.0" y2="475.0" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="575.0" y="50.0" width="130.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="640.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Media Gateway (MG)</text>
+<text x="640.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перетворювач TDM/RTP</text>
+<line x1="640.0" y1="98.0" x2="640.0" y2="475.0" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="735.0" y="50.0" width="130.0" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="800.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">SIP Клієнт</text>
+<text x="800.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">IP-телефон / IMS</text>
+<line x1="800.0" y1="98.0" x2="800.0" y2="475.0" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="90.0" y1="120.0" x2="260.0" y2="120.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="175.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">Зняття слухавки + DTMF</text>
+<line x1="260.0" y1="160.0" x2="460.0" y2="160.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">ISUP IAM (Initial Address Msg, CIC=12)</text>
+<line x1="460.0" y1="195.0" x2="800.0" y2="195.0" stroke="#0891b2" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="630.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle" font-weight="700">SIP INVITE (SDP: PCMA/8000)</text>
+<line x1="460.0" y1="230.0" x2="640.0" y2="230.0" stroke="#0891b2" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="550.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle" font-weight="700">Megaco/H.248: Reserve TDM/RTP context</text>
+<line x1="800.0" y1="265.0" x2="460.0" y2="265.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="630.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">SIP 180 Ringing</text>
+<line x1="460.0" y1="300.0" x2="260.0" y2="300.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">ISUP ACM (Address Complete Msg)</text>
+<line x1="260.0" y1="330.0" x2="90.0" y2="330.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="175.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">КПВ (Сигнал контролю виклику)</text>
+<line x1="800.0" y1="365.0" x2="460.0" y2="365.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="630.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">SIP 200 OK (SDP Answer)</text>
+<line x1="460.0" y1="395.0" x2="800.0" y2="395.0" stroke="#0891b2" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="630.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle" font-weight="700">SIP ACK</text>
+<line x1="460.0" y1="425.0" x2="260.0" y2="425.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">ISUP ANM (Answer Msg / Старт тарифікації)</text>
+<rect x="80.0" y="445.0" width="730.0" height="32.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="445.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Голосовий тракт: PSTN (64 кбіт/с DS0 G.711) &lt;──TDM──&gt; Media Gateway &lt;──RTP/UDP──&gt; SIP Телефон</text>
+<text x="440.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Шлюз транслює стани ISUP у SIP: IAM -&gt; INVITE, 180 Ringing -&gt; ACM, 200 OK -&gt; ANM.</text>
+</svg>

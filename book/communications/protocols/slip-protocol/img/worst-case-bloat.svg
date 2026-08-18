@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 918.1 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="918.1" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оверхед кадрування: типовий випадок проти найгіршого</text>
+<text x="40.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SLIP (типовий IP)</text>
+<rect x="280.0" y="55.0" width="190.5" height="38.0" rx="3" fill="#e8eaed" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="375.2" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1000 B даних</text>
+<rect x="470.5" y="55.0" width="6.0" height="38.0" rx="3" fill="#27ae60" stroke="#27ae60" stroke-width="1.2"/>
+<text x="486.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">1008 B (+0.8% (2x END + ~6x ESC))</text>
+<text x="40.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SLIP (найгірший: всі 0xC0/0xDB)</text>
+<rect x="280.0" y="111.0" width="190.5" height="38.0" rx="3" fill="#e8eaed" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="375.2" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1000 B даних</text>
+<rect x="470.5" y="111.0" width="190.9" height="38.0" rx="3" fill="#c0392b" stroke="#c0392b" stroke-width="1.2"/>
+<text x="671.3" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">2002 B (+100.2% (подвоєння кожного байта))</text>
+<text x="40.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">COBS (найгірший гарантований)</text>
+<rect x="280.0" y="167.0" width="190.5" height="38.0" rx="3" fill="#e8eaed" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="375.2" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1000 B даних</text>
+<rect x="470.5" y="167.0" width="6.0" height="38.0" rx="3" fill="#2457d6" stroke="#2457d6" stroke-width="1.2"/>
+<text x="486.5" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">1005 B (+0.5% (максимум +1 байт на 254))</text>
+<text x="40.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">HDLC / PPP (типовий)</text>
+<rect x="280.0" y="223.0" width="190.5" height="38.0" rx="3" fill="#e8eaed" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="375.2" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1000 B даних</text>
+<rect x="470.5" y="223.0" width="6.0" height="38.0" rx="3" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="486.5" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="start" font-weight="700">1010 B (+1.0% (Flags + Address + Control + CRC))</text>
+<rect x="40.0" y="290.0" width="680.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.2"/><text x="380.0" y="317.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">У найгіршому випадку SLIP подвоює розмір кадру (роздування до 200%), тоді як COBS усуває цю залежність, гарантуючи фіксований оверхед ≤ 0.4%.</tspan></text>
+</svg>

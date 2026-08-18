@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зв'язність ICE: виявлення адрес через STUN та ретрансляція TURN</text>
+<rect x="15.0" y="50.0" width="110.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="70.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="70.0" dy="0.0">Peer A</tspan><tspan x="70.0" dy="14.3">(192.168.1.50)</tspan></text>
+<line x1="70.0" y1="95.0" x2="70.0" y2="385.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="175.0" y="50.0" width="110.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="230.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">NAT A</tspan><tspan x="230.0" dy="14.3">(Маршрутизатор)</tspan></text>
+<line x1="230.0" y1="95.0" x2="230.0" y2="385.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="385.0" y="50.0" width="110.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">STUN / TURN</tspan><tspan x="440.0" dy="14.3">Сервер</tspan></text>
+<line x1="440.0" y1="95.0" x2="440.0" y2="385.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="595.0" y="50.0" width="110.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="650.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">NAT B</tspan><tspan x="650.0" dy="14.3">(Маршрутизатор)</tspan></text>
+<line x1="650.0" y1="95.0" x2="650.0" y2="385.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="755.0" y="50.0" width="110.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="810.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">Peer B</tspan><tspan x="810.0" dy="14.3">(10.0.0.12)</tspan></text>
+<line x1="810.0" y1="95.0" x2="810.0" y2="385.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="70.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. Збір локальних адрес (Host)</text>
+<rect x="60.0" y="122.0" width="160.0" height="22.0" rx="4" fill="#fdf3e0" stroke="#b08900" stroke-width="1.5"/>
+<text x="140.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">cand: host (192.168.1.50)</text>
+<line x1="70.0" y1="155.0" x2="440.0" y2="155.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">STUN Binding Request</text>
+<line x1="440.0" y1="180.0" x2="70.0" y2="180.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Binding Success (XOR-MAPPED: 203.0.113.4:54320)</text>
+<rect x="60.0" y="188.0" width="160.0" height="22.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">cand: srflx (203.0.113.4)</text>
+<line x1="70.0" y1="220.0" x2="440.0" y2="220.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">TURN Allocate Request</text>
+<line x1="440.0" y1="245.0" x2="70.0" y2="245.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Allocate Response (Relayed: 198.51.100.1:34780)</text>
+<rect x="60.0" y="252.0" width="160.0" height="22.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">cand: relay (198.51.100.1)</text>
+<line x1="70.0" y1="295.0" x2="810.0" y2="295.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="70.0" y1="295.0" x2="805.0" y2="295.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Прямий P2P-канал (STUN Connectivity Check: srflx ↔ srflx)</text>
+<line x1="70.0" y1="335.0" x2="440.0" y2="335.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="440.0" y1="335.0" x2="810.0" y2="335.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="440.0" y1="335.0" x2="805.0" y2="335.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">Резервний шлях через TURN Relay (якщо пряме пробиття NAT заблоковане)</text>
+<rect x="50.0" y="370.0" width="780.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пріоритет перевірки пар кандидатів: Host (найвищий) → Server Reflexive (STUN) → Relayed (TURN fallback).</text>
+<text x="440.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Переможна пара фіксується атрибутом USE-CANDIDATE і використовується для всього трафіку сесії.</text>
+</svg>

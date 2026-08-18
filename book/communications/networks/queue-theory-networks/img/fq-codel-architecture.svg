@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура FQ-CoDel: хешування потоків + незалежні CoDel черги</text>
+<text x="75.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний змішаний трафік</text>
+<rect x="40.0" y="95.0" width="38.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="59.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">DNS</text>
+<rect x="85.0" y="95.0" width="38.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="104.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SSH</text>
+<rect x="130.0" y="95.0" width="38.0" height="30.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="149.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">TCP 1</text>
+<rect x="175.0" y="95.0" width="38.0" height="30.0" rx="3" fill="#ffffff" stroke="#e67e22" stroke-width="1.8"/>
+<text x="194.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e67e22" text-anchor="middle" font-weight="700">TCP 2</text>
+<rect x="220.0" y="95.0" width="38.0" height="30.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="239.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">TCP 1</text>
+<line x1="150.0" y1="135.0" x2="150.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="165.0" width="180.0" height="55.0" rx="6" fill="#fef9e7" stroke="#e67e22" stroke-width="1.5"/>
+<text x="150.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хешування (5-tuple)</text>
+<text x="150.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">IP src/dst + Port src/dst + Proto</text>
+<line x1="240.0" y1="180.0" x2="310.0" y2="100.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="192.0" x2="310.0" y2="192.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="205.0" x2="310.0" y2="285.0" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="310.0" y="75.0" width="170.0" height="50.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="395.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Черга 1: Інтерактивна</text>
+<text x="395.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0-1 пакет, затримка &lt; 1 мс</text>
+<rect x="310.0" y="165.0" width="170.0" height="55.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="395.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Черга 2: Завантаження 1</text>
+<text x="395.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">CoDel стежить за sojourn</text>
+<rect x="310.0" y="260.0" width="170.0" height="55.0" rx="4" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/>
+<text x="395.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">Черга N: Завантаження 2</text>
+<text x="395.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e67e22" text-anchor="middle">CoDel скидає надлишок</text>
+<line x1="480.0" y1="100.0" x2="540.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="192.0" x2="540.0" y2="192.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="285.0" x2="540.0" y2="210.0" stroke="#e67e22" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="540.0" y="155.0" width="160.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="620.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">DRR Планувальник</text>
+<text x="620.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Справедлива черга</text>
+<text x="620.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Квант ~1514 байтів</text>
+<line x1="700.0" y1="192.0" x2="745.0" y2="192.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="340.0" width="660.0" height="60.0" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="380.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: тонкі інтерактивні потоки передаються МИТТЄВО без черги,</text>
+<text x="380.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">а масивні завантаження повністю утилізують канал під контролем CoDel.</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кодування семантичної версії в 32-бітному полі flight_sw_version</text>
+<rect x="40.0" y="65.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="130.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Біти 31..24 [Байт 3 / MSB]</text>
+<text x="130.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Major (головна версія)</text>
+<text x="130.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Приклад: 1 (0x01)</text>
+<rect x="220.0" y="65.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="310.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Біти 23..16 [Байт 2]</text>
+<text x="310.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Minor (додаткова версія)</text>
+<text x="310.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Приклад: 14 (0x0E)</text>
+<rect x="400.0" y="65.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="490.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Біти 15..8 [Байт 1]</text>
+<text x="490.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Patch (патч/виправлення)</text>
+<text x="490.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Приклад: 0 (0x00)</text>
+<rect x="580.0" y="65.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="670.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Біти 7..0 [Байт 0 / LSB]</text>
+<text x="670.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Release Type (тип релізу)</text>
+<text x="670.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Приклад: 192 (0xC0 = RC)</text>
+<rect x="40.0" y="145.0" width="720.0" height="80.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.2"/>
+<text x="400.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шкала FIRMWARE_VERSION_TYPE (значення байта 0):</text>
+<text x="112.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0x00 (0)</text>
+<text x="112.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">DEV (розробка)</text>
+<text x="256.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0x40 (64)</text>
+<text x="256.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ALPHA</text>
+<text x="400.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0x80 (128)</text>
+<text x="400.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">BETA</text>
+<text x="544.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0xC0 (192)</text>
+<text x="544.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">RC (кандидат)</text>
+<text x="688.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0xFF (255)</text>
+<text x="688.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">OFFICIAL (стабільний)</text>
+<text x="400.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Число 0x010E00C0 розпаковується як v1.14.0-rc</text>
+</svg>

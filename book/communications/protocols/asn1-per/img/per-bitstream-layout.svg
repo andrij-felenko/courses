@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1120 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1120" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія бітового потоку UPER для повідомлення ASN.1</text>
+<rect x="20.0" y="20.0" width="1020.0" height="640.0" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Анатомія бітового потоку UPER (UNALIGNED PER)</text>
+<text x="40.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Кодування структури RRCConnectionRequest: поля упаковані без вирівнювання на межі байтів</text>
+<rect x="40.0" y="100.0" width="360.0" height="310.0" rx="8" fill="#eef3fb" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="55.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e50a2" text-anchor="start" font-weight="700">Вихідна схема ASN.1 (X.680)</text>
+<text x="55.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">RRCConnectionRequest ::= SEQUENCE {</text>
+<text x="55.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  criticalExtensions  CHOICE {</text>
+<text x="55.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">    rrcConnectionRequest-r8  SEQUENCE {</text>
+<text x="55.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">      ue-Identity       InitialUE-Identity,</text>
+<text x="55.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">      establishmentCause EstablishmentCause,</text>
+<text x="55.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">      spare             BIT STRING (SIZE (1))</text>
+<text x="55.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">    },</text>
+<text x="55.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">    criticalExtensionsFuture CHOICE { ... }</text>
+<text x="55.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  }</text>
+<text x="55.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">}</text>
+<text x="55.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">EstablishmentCause ::= ENUMERATED {</text>
+<text x="55.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  emergency, highPriorityAccess, mt-Access,</text>
+<text x="55.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  mo-Signalling, mo-Data, delayTolerant-v1020,</text>
+<text x="55.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  mo-VoiceCall-v1280, spare1 }  -- 8 значень</text>
+<rect x="420.0" y="100.0" width="600.0" height="310.0" rx="8" fill="#fdf3e6" stroke="#f0c38c" stroke-width="1.2"/>
+<text x="435.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="start" font-weight="700">Розподіл бітів у невирівняному потоці UPER</text>
+<rect x="435.0" y="154.0" width="220.0" height="32.0" rx="6" fill="#ffffff" stroke="#1e50a2" stroke-width="1.5"/><text x="545.0" y="173.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">CHOICE index (criticalExtensions)</tspan></text>
+<rect x="665.0" y="154.0" width="70.0" height="32.0" rx="6" fill="#1e50a2" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="173.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">1 біт</tspan></text>
+<text x="745.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">значення 0 (rrcConnectionRequest-r8 з двох альтернатив)</text>
+<rect x="435.0" y="196.0" width="220.0" height="32.0" rx="6" fill="#ffffff" stroke="#1b813e" stroke-width="1.5"/><text x="545.0" y="215.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">ue-Identity CHOICE tag</tspan></text>
+<rect x="665.0" y="196.0" width="70.0" height="32.0" rx="6" fill="#1b813e" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="215.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">1 біт</tspan></text>
+<text x="745.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">значення 0 (s-TMSI проти randomValue)</text>
+<rect x="435.0" y="238.0" width="220.0" height="32.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="545.0" y="257.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">s-TMSI (MMEC + M-TMSI)</tspan></text>
+<rect x="665.0" y="238.0" width="70.0" height="32.0" rx="6" fill="#1a1a1a" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="257.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">40 бітів</tspan></text>
+<text x="745.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">8 бітів MMEC + 32 біти M-TMSI (цілі фіксованої довжини)</text>
+<rect x="435.0" y="280.0" width="220.0" height="32.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="545.0" y="299.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">establishmentCause (ENUMERATED)</tspan></text>
+<rect x="665.0" y="280.0" width="70.0" height="32.0" rx="6" fill="#d97706" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="299.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">3 біти</tspan></text>
+<text x="745.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ceil(log2(8)) = 3 біти для вибору 1 з 8 причин виклику</text>
+<rect x="435.0" y="322.0" width="220.0" height="32.0" rx="6" fill="#ffffff" stroke="#c53030" stroke-width="1.5"/><text x="545.0" y="341.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">spare (BIT STRING SIZE(1))</tspan></text>
+<rect x="665.0" y="322.0" width="70.0" height="32.0" rx="6" fill="#c53030" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="341.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">1 біт</tspan></text>
+<text x="745.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">рівно 1 біт конфігурації, без префікса довжини</text>
+<rect x="435.0" y="364.0" width="220.0" height="32.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="545.0" y="383.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">Загальна довжина PDU</tspan></text>
+<rect x="665.0" y="364.0" width="70.0" height="32.0" rx="6" fill="#1a1a1a" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="383.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">46 бітів</tspan></text>
+<text x="745.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">5 повних байтів + 6 бітів у шостому байті (хвіст доповнюється 2 нулями)</text>
+<rect x="40.0" y="430.0" width="980.0" height="210.0" rx="8" fill="#f8f9fa" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="55.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Розкладка бітів у 6 байтах корисного навантаження (46 бітів даних + 2 нульові біти вирівнювання PDU):</text>
+<rect x="60.0" y="475.0" width="140.0" height="140.0" rx="6" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="130.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 0 (0x3A)</text>
+<rect x="66.0" y="510.0" width="16.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1e50a2" stroke-width="1.2"/>
+<text x="74.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e50a2" text-anchor="middle" font-weight="700">C:0</text>
+<text x="74.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1б</text>
+<rect x="82.0" y="510.0" width="16.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1b813e" stroke-width="1.2"/>
+<text x="90.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b813e" text-anchor="middle" font-weight="700">U:0</text>
+<text x="90.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1б</text>
+<rect x="98.0" y="510.0" width="96.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="146.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">M[39..34]</text>
+<text x="146.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">6б</text>
+<text x="130.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біти 7..0</text>
+<rect x="212.0" y="475.0" width="140.0" height="140.0" rx="6" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="282.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 1 (0x8F)</text>
+<rect x="218.0" y="510.0" width="128.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="282.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">M[33..26] (8 бітів)</text>
+<text x="282.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8б</text>
+<text x="282.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біти 7..0</text>
+<rect x="364.0" y="475.0" width="140.0" height="140.0" rx="6" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="434.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 2 (0x02)</text>
+<rect x="370.0" y="510.0" width="128.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="434.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">M[25..18] (8 бітів)</text>
+<text x="434.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8б</text>
+<text x="434.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біти 7..0</text>
+<rect x="516.0" y="475.0" width="140.0" height="140.0" rx="6" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="586.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 3 (0x41)</text>
+<rect x="522.0" y="510.0" width="128.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="586.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">M[17..10] (8 бітів)</text>
+<text x="586.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8б</text>
+<text x="586.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біти 7..0</text>
+<rect x="668.0" y="475.0" width="140.0" height="140.0" rx="6" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="738.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 4 (0x1C)</text>
+<rect x="674.0" y="510.0" width="128.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="738.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">M[9..2] (8 бітів)</text>
+<text x="738.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8б</text>
+<text x="738.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біти 7..0</text>
+<rect x="820.0" y="475.0" width="140.0" height="140.0" rx="6" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.2"/>
+<text x="890.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 5 (0x94)</text>
+<rect x="826.0" y="510.0" width="32.0" height="60.0" rx="4" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="842.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">M[1..0]</text>
+<text x="842.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2б</text>
+<rect x="858.0" y="510.0" width="48.0" height="60.0" rx="4" fill="#eef3fb" stroke="#d97706" stroke-width="1.2"/>
+<text x="882.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Cause</text>
+<text x="882.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3б</text>
+<rect x="906.0" y="510.0" width="16.0" height="60.0" rx="4" fill="#eef3fb" stroke="#c53030" stroke-width="1.2"/>
+<text x="914.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c53030" text-anchor="middle" font-weight="700">S:1</text>
+<text x="914.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1б</text>
+<rect x="922.0" y="510.0" width="32.0" height="60.0" rx="4" fill="#eeeeee" stroke="#6b7280" stroke-width="1.2"/>
+<text x="938.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">00</text>
+<text x="938.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2б</text>
+<text x="890.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біти 7..0</text>
+</svg>

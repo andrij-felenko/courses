@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SVD-декомпозиція каналу та розподіл потужності Water-filling</text>
+<rect x="20.0" y="50.0" width="360.0" height="245.0" rx="8" fill="#fcfcfd" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="200.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">SVD-факторизація: H = U · Σ · Vᴴ</text>
+<rect x="35.0" y="105.0" width="75.0" height="45.0" rx="4" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="72.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Прекодер V</text>
+<text x="72.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">x = V · s</text>
+<line x1="110.0" y1="127.0" x2="150.0" y2="127.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="150.0" y="105.0" width="80.0" height="45.0" rx="4" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="190.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Канал H</text>
+<text x="190.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">y = Hx + n</text>
+<line x1="230.0" y1="127.0" x2="270.0" y2="127.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="270.0" y="105.0" width="95.0" height="45.0" rx="4" fill="#fbeee6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="317.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Посткодер Uᴴ</text>
+<text x="317.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ỹ = Uᴴ · y</text>
+<rect x="35.0" y="165.0" width="330.0" height="115.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/><text x="200.0" y="202.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Розв'язка на r незалежних SISO-підканалів:</tspan><tspan x="200.0" dy="11.7">ỹ = Uᴴ(H·V·s + n) = Uᴴ(U·Σ·Vᴴ·V·s + n) = Σ·s + ñ</tspan><tspan x="200.0" dy="11.7"></tspan><tspan x="200.0" dy="11.7">де матриця Σ = diag(σ₁, σ₂, …, σ_r) містить сингулярні числа каналу.</tspan><tspan x="200.0" dy="11.7">Кожен потік s_i передається без перехресних завад: ỹ_i = σ_i · s_i + ñ_i.</tspan></text>
+<rect x="400.0" y="50.0" width="360.0" height="245.0" rx="8" fill="#fcfcfd" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="580.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Розподіл потужності Water-filling</text>
+<line x1="420.0" y1="120.0" x2="740.0" y2="120.0" stroke="#2980b9" stroke-width="2.0" stroke-dasharray="4,2"/>
+<text x="710.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">Рівень μ</text>
+<rect x="435.0" y="170.0" width="65.0" height="70.0" rx="6" fill="#d5dbdb" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="435.0" y="120.0" width="65.0" height="50.0" rx="6" fill="#aed6f1" stroke="#2980b9" stroke-width="1.2"/>
+<text x="467.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">P₁</text>
+<text x="467.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N₀/σ₁²</text>
+<text x="467.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Мода 1</text>
+<rect x="515.0" y="145.0" width="65.0" height="95.0" rx="6" fill="#d5dbdb" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="515.0" y="120.0" width="65.0" height="25.0" rx="6" fill="#aed6f1" stroke="#2980b9" stroke-width="1.2"/>
+<text x="547.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">P₂</text>
+<text x="547.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N₀/σ₂²</text>
+<text x="547.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Мода 2</text>
+<rect x="595.0" y="195.0" width="65.0" height="45.0" rx="6" fill="#d5dbdb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="627.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N₀/σ₃²</text>
+<text x="627.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Мода 3</text>
+<rect x="675.0" y="95.0" width="65.0" height="145.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="707.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">N₀/σ₄² &gt; μ</text>
+<text x="707.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">P₄ = 0</text>
+<text x="707.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вимкнено</text>
+<rect x="20.0" y="308.0" width="740.0" height="60.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="390.0" y="335.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Правило Water-filling оптимізує ємність Шеннона C = ∑ log₂(1 + P_i · σ_i² / N₀) за умови ∑ P_i ≤ P_total.</tspan><tspan x="390.0" dy="11.7">Більше потужності виділяється у власні моди з високим підсиленням σ_i². Слабкі моди з великим рівнем шуму (N₀/σ_i² ≥ μ) не живляться взагалі.</tspan></text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Простір ідентифікаторів повідомлень: 8-бітний MAVLink v1 проти 24-бітного v2</text>
+<rect x="40.0" y="70.0" width="760.0" height="95.0" rx="8" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="55.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="start" font-weight="700">MAVLink v1 (1 байт MSG ID, діапазон 0 – 255)</text>
+<rect x="55.0" y="105.0" width="427.7" height="48.0" rx="4" fill="#d2b4de" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="268.9" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 – 149 (150 ID)</text>
+<text x="268.9" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стандартні та спільні (minimal, standard, common)</text>
+<rect x="482.7" y="105.0" width="259.5" height="48.0" rx="4" fill="#ebdef0" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="612.5" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">150 – 240 (91 ID)</text>
+<text x="612.5" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Діалекти вендорів (ArduPilot, PX4 тощо)</text>
+<rect x="742.2" y="105.0" width="42.8" height="48.0" rx="4" fill="#fadbd8" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="763.6" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">241 – 255 (15 ID)</text>
+<text x="763.6" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тести / налагодження</text>
+<rect x="40.0" y="190.0" width="760.0" height="140.0" rx="8" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.8"/>
+<text x="55.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="start" font-weight="700">MAVLink v2 (3 байти MSG ID, діапазон 0 – 16 777 215)</text>
+<rect x="55.0" y="225.0" width="80.0" height="80.0" rx="4" fill="#d4e6f1" stroke="#2980b9" stroke-width="1.2"/>
+<text x="95.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 – 255</text>
+<text x="95.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Спадщина v1</text>
+<text x="95.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Зворотна сумісність</text>
+<rect x="135.0" y="225.0" width="150.0" height="80.0" rx="4" fill="#aed6f1" stroke="#2980b9" stroke-width="1.2"/>
+<text x="210.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">256 – 9 999</text>
+<text x="210.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Нові спільні v2</text>
+<text x="210.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Розширення common.xml</text>
+<rect x="285.0" y="225.0" width="140.0" height="80.0" rx="4" fill="#f9e79f" stroke="#2980b9" stroke-width="1.2"/>
+<text x="355.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">10 000 – 12 999</text>
+<text x="355.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ArduPilot v2</text>
+<text x="355.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Діалектний простір APM</text>
+<rect x="425.0" y="225.0" width="100.0" height="80.0" rx="4" fill="#f5cba7" stroke="#2980b9" stroke-width="1.2"/>
+<text x="475.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">13 000 – 13 999</text>
+<text x="475.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">PX4 v2</text>
+<text x="475.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Діалектний простір PX4</text>
+<rect x="525.0" y="225.0" width="260.0" height="80.0" rx="4" fill="#d5f5e3" stroke="#2980b9" stroke-width="1.2"/>
+<text x="655.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">14 000 – 16 777 215</text>
+<text x="655.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Користувацькі та майбутні</text>
+<text x="655.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Величезний резерв</text>
+</svg>

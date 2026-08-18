@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура регістра USART_BRR у мікроконтролерах STM32</text>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">розподіл бітів мантиси та дробової частини в режимах передискретизації 16× та 8×</text>
+<text x="60.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Режим 16× передискретизації (OVER8 = 0, стандартний):</text>
+<rect x="60.0" y="110.0" width="600.0" height="48.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DIV_Mantissa[11:0]  (біти 15..4)</text>
+<text x="360.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ціла частина коефіцієнта ділення N</text>
+<rect x="660.0" y="110.0" width="200.0" height="48.0" rx="4" fill="#fef3d6" stroke="#b07a00" stroke-width="1.5"/>
+<text x="760.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b07a00" text-anchor="middle" font-weight="700">DIV_Fraction[3:0] (біти 3..0)</text>
+<text x="760.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Дріб: F / 16</text>
+<text x="460.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула: USARTDIV = DIV_Mantissa + (DIV_Fraction / 16) = BRR / 16</text>
+<text x="60.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Режим 8× передискретизації (OVER8 = 1, високошвидкісний):</text>
+<rect x="60.0" y="230.0" width="600.0" height="48.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DIV_Mantissa[11:0]  (біти 15..4)</text>
+<text x="360.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ціла частина коефіцієнта ділення N</text>
+<rect x="660.0" y="230.0" width="50.0" height="48.0" rx="2" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="685.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<text x="685.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[3]</text>
+<rect x="710.0" y="230.0" width="150.0" height="48.0" rx="4" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="785.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">DIV_Fraction[2:0] (біти 2..0)</text>
+<text x="785.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Дріб: F / 8</text>
+<text x="460.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула: USARTDIV = DIV_Mantissa + (DIV_Fraction[2:0] / 8), біт BRR[3] мусить бути 0</text>
+<rect x="60.0" y="325.0" width="800.0" height="95.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="460.0" y="354.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Приклад: тактова частота APB1 f_CK = 42 МГц, цільова швидкість 115 200 бод (OVER8 = 0).</tspan><tspan x="460.0" dy="14.3">1. USARTDIV = 42 000 000 / (16 × 115 200) = 22.786458...</tspan><tspan x="460.0" dy="14.3">2. Мантиса = 22 = 0x016. Дробова частина = round(0.786458 × 16) = round(12.58) = 13 = 0xD.</tspan><tspan x="460.0" dy="14.3">3. Значення регістра BRR = (22 &lt;&lt; 4) | 13 = 0x016D. Реальний baud = 42 МГц / (16 × 22.8125) = 115 068 бод (−0.11%).</tspan></text>
+</svg>

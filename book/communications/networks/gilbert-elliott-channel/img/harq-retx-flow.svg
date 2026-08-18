@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950.9 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950.9" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гібридний ARQ (HARQ) у каналі з пам'яттю Гілберта–Елліота</text>
+<line x1="180.0" y1="80.0" x2="180.0" y2="420.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="660.0" y1="80.0" x2="660.0" y2="420.0" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="120.1" y="47.5" width="119.7" height="29.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/><text x="180.0" y="66.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Передавач (TX)</tspan></text>
+<rect x="607.5" y="47.5" width="104.9" height="29.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/><text x="660.0" y="66.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">Приймач (RX)</tspan></text>
+<rect x="345.0" y="75.0" width="150.0" height="80.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="420.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Канал у стані G
+(високий SNR)</text>
+<rect x="345.0" y="165.0" width="150.0" height="140.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="420.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Канал у стані B (пачка)
+(завмирання / низький SNR)</text>
+<rect x="345.0" y="315.0" width="150.0" height="80.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="420.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Канал у стані G
+(відновлення)</text>
+<line x1="180.0" y1="95.0" x2="660.0" y2="125.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="270.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пакет #1 [Дані + FEC]</text>
+<text x="725.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">CRC OK → декодовано</text>
+<line x1="660.0" y1="135.0" x2="180.0" y2="155.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ACK #1</text>
+<line x1="180.0" y1="185.0" x2="660.0" y2="215.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="270.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пакет #2 (Спроба 1)</text>
+<text x="745.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">CRC Помилка! Збереження
+м'яких бітів у HARQ-буфер</text>
+<line x1="660.0" y1="230.0" x2="180.0" y2="250.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">NACK #2</text>
+<line x1="180.0" y1="275.0" x2="660.0" y2="305.0" stroke="#d35400" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="270.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Пакет #2 (Спроба 2 / IR-надлишковість)</text>
+<text x="750.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Chase Combining: LLR₁ + LLR₂
+Акумуляція SNR перемагає пачку!
+CRC OK</text>
+<line x1="660.0" y1="345.0" x2="180.0" y2="365.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ACK #2</text>
+<rect x="63.2" y="423.2" width="713.7" height="43.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/><text x="420.0" y="441.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Замість викидання пошкодженого пакета HARQ зберігає м'які рішення (LLR) у буфері.</tspan><tspan x="420.0" dy="15.6">Повторна передача накопичує енергію сигналу, забезпечуючи успішне декодування навіть у тривалій пачці.</tspan></text>
+</svg>

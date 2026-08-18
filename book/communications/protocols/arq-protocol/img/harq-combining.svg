@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми гібридного ARQ (HARQ): Chase Combining та Incremental Redundancy</text>
+<text x="210.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Chase Combining (CC, HARQ Type I)</text>
+<rect x="20.0" y="50.0" width="380.0" height="360.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="40.0" y="70.0" width="160.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="120.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Спроба 1: Біти [S + P]</text>
+<text x="210.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ Шумовий канал →</text>
+<rect x="320.0" y="70.0" width="60.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="350.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">CRC ✗</text>
+<line x1="350.0" y1="110.0" x2="350.0" y2="145.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="270.0" y="150.0" width="120.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="330.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збережено LLR₁</text>
+<rect x="40.0" y="210.0" width="160.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="120.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Спроба 2: Ті самі [S + P]</text>
+<text x="210.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ Шумовий канал →</text>
+<rect x="320.0" y="210.0" width="60.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="350.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">LLR₂</text>
+<line x1="330.0" y1="185.0" x2="330.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="250.0" x2="350.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="180.0" y="275.0" width="200.0" height="40.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="280.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Soft Combining (додавання LLR):</text>
+<text x="280.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">LLR_total = LLR₁ + LLR₂ (SNR ↑)</text>
+<line x1="280.0" y1="320.0" x2="280.0" y2="345.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="240.0" y="350.0" width="80.0" height="36.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="280.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CRC ✓</text>
+<text x="630.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Incremental Redundancy (IR, HARQ Type II)</text>
+<rect x="440.0" y="50.0" width="380.0" height="360.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="460.0" y="70.0" width="160.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="540.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Спроба 1 (RV0): Інфо S + P₁</text>
+<text x="630.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ R = 3/4 →</text>
+<rect x="740.0" y="70.0" width="60.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="770.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">CRC ✗</text>
+<line x1="770.0" y1="110.0" x2="770.0" y2="145.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="690.0" y="150.0" width="120.0" height="32.0" rx="3" fill="#e2e8f0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="750.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер: кодові біти RV0</text>
+<rect x="460.0" y="210.0" width="160.0" height="36.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="540.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Спроба 2 (RV2): Додаткові P₂</text>
+<text x="630.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ Нові біти →</text>
+<rect x="740.0" y="210.0" width="60.0" height="36.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="770.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">RV2</text>
+<line x1="750.0" y1="185.0" x2="750.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="250.0" x2="770.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="590.0" y="275.0" width="215.0" height="40.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="697.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Об'єднання RV0 + RV2 у декодері:</text>
+<text x="697.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ефективна швидкість R: 3/4 → 1/2</text>
+<line x1="697.0" y1="320.0" x2="697.0" y2="345.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="657.0" y="350.0" width="80.0" height="36.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="697.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CRC ✓</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ефективність Jumbo Frames: зменшення накладних витрат L1/L2 і CPU</text>
+<rect x="30.0" y="55.0" width="760.0" height="145.0" rx="6" fill="#fdfaf4" stroke="#e67e22" stroke-width="1.4"/>
+<text x="45.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="start" font-weight="700">Стандартний MTU 1500: передача 9000 байтів даних = 6 кадрів</text>
+<rect x="45.0" y="90.0" width="118.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="104.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр #1 (1500 Б)</text>
+<text x="104.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оверхед: 38 Б L1/L2</text>
+<rect x="170.0" y="90.0" width="118.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="229.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр #2 (1500 Б)</text>
+<text x="229.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оверхед: 38 Б L1/L2</text>
+<rect x="295.0" y="90.0" width="118.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="354.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр #3 (1500 Б)</text>
+<text x="354.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оверхед: 38 Б L1/L2</text>
+<rect x="420.0" y="90.0" width="118.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="479.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр #4 (1500 Б)</text>
+<text x="479.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оверхед: 38 Б L1/L2</text>
+<rect x="545.0" y="90.0" width="118.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="604.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр #5 (1500 Б)</text>
+<text x="604.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оверхед: 38 Б L1/L2</text>
+<rect x="670.0" y="90.0" width="118.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="729.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр #6 (1500 Б)</text>
+<text x="729.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оверхед: 38 Б L1/L2</text>
+<text x="45.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="45.0" dy="0.0">Сумарний оверхед L1/L2/L3 на 9000 Б даних: 6 × 38 Б (L1/L2) + 6 × 40 Б (IP+TCP) = 468 байтів.</tspan><tspan x="45.0" dy="13.5">Навантаження на ОС: 6 переривань NIC, 6 дескрипторів кілець DMA, 6 обчислень заголовків.</tspan></text>
+<rect x="30.0" y="215.0" width="760.0" height="170.0" rx="6" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="45.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Jumbo Frame MTU 9000: передача 9000 байтів даних = 1 кадр</text>
+<rect x="45.0" y="250.0" width="730.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="410.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Єдиний Jumbo Frame (9000 байтів корисного навантаження)</text>
+<text x="410.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Оверхед: 38 Б L1/L2 + 40 Б (IP+TCP) = лише 78 байтів (економія 83% оверхеду!)</text>
+<text x="45.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="45.0" dy="0.0">• Пропускна здатність: зменшення кількості пакетів у 6 разів (з 812 000 до 135 000 на 10 GbE лінку).</tspan><tspan x="45.0" dy="13.5">• CPU overhead: 1 апаратне переривання замість 6, менше перемикань контексту ядра.</tspan><tspan x="45.0" dy="13.5">• Обмеження: вимагає однакової підтримки на ВСІХ комутаторах і NIC локального L2-сегмента!</tspan></text>
+</svg>

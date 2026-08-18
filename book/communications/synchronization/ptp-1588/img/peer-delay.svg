@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм Peer Delay (P2P): вимірювання затримки сусіднього лінка</text>
+<line x1="220.0" y1="70.0" x2="220.0" y2="370.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="620.0" y1="70.0" x2="620.0" y2="370.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="101.2" y="35.2" width="237.6" height="33.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Порт-ініціатор (Requester)</tspan></text>
+<rect x="505.4" y="35.2" width="229.2" height="33.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="620.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Сусідній порт (Responder)</tspan></text>
+<line x1="220.0" y1="105.0" x2="620.0" y2="155.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="220.0" cy="105.0" r="4.5" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="620.0" cy="155.0" r="4.5" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="208.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">t1 (вихід Pdelay_Req)</text>
+<text x="632.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">t2 (вхід Pdelay_Req)</text>
+<text x="420.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Pdelay_Req</text>
+<line x1="620.0" y1="205.0" x2="220.0" y2="255.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="620.0" cy="205.0" r="4.5" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="220.0" cy="255.0" r="4.5" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="632.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">t3 (вихід Pdelay_Resp)</text>
+<text x="208.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">t4 (вхід Pdelay_Resp)</text>
+<text x="420.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Pdelay_Resp (несе мітку t2 або зсув)</text>
+<line x1="620.0" y1="280.0" x2="220.0" y2="320.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">3. Pdelay_Resp_Follow_Up (несе точну мітку t3)</text>
+<rect x="93.2" y="371.6" width="653.5" height="46.8" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="391.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Затримка одного фізичного лінка:   PeerMeanPathDelay = ((t4 - t1) - (t3 - t2)) / 2</tspan><tspan x="420.0" dy="16.2">Вимірюється локально між кожною парою сусідів, незалежно від наявності Grandmaster</tspan></text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Симетричні сценарії: одночасне відкриття та одночасне закриття TCP</text>
+<rect x="25.0" y="20.0" width="370.0" height="350.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="425.0" y="20.0" width="370.0" height="350.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="210.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Одночасне відкриття (Simultaneous Open)</text>
+<text x="210.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Обидва вузли надсилають SYN майже одночасно</text>
+<line x1="80.0" y1="85.0" x2="80.0" y2="335.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="340.0" y1="85.0" x2="340.0" y2="335.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="80.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="340.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B</text>
+<line x1="80.0" y1="110.0" x2="340.0" y2="145.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="190.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SYN (seq=x)</text>
+<line x1="340.0" y1="110.0" x2="80.0" y2="145.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="230.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SYN (seq=y)</text>
+<text x="80.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">SYN_SENT → SYN_RCVD</text>
+<text x="340.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">SYN_SENT → SYN_RCVD</text>
+<line x1="80.0" y1="195.0" x2="340.0" y2="230.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="190.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SYN+ACK (seq=x, ack=y+1)</text>
+<line x1="340.0" y1="195.0" x2="80.0" y2="230.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="230.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SYN+ACK (seq=y, ack=x+1)</text>
+<text x="80.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ESTABLISHED</text>
+<text x="340.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ESTABLISHED</text>
+<text x="610.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Одночасне закриття (Simultaneous Close)</text>
+<text x="610.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Обидва вузли викликають close() одночасно</text>
+<line x1="480.0" y1="85.0" x2="480.0" y2="335.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="740.0" y1="85.0" x2="740.0" y2="335.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="740.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B</text>
+<line x1="480.0" y1="110.0" x2="740.0" y2="145.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="590.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FIN (seq=u)</text>
+<line x1="740.0" y1="110.0" x2="480.0" y2="145.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="630.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FIN (seq=v)</text>
+<text x="480.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">FIN_WAIT_1 → CLOSING</text>
+<text x="740.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">FIN_WAIT_1 → CLOSING</text>
+<line x1="480.0" y1="195.0" x2="740.0" y2="230.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="590.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK (ack=v+1)</text>
+<line x1="740.0" y1="195.0" x2="480.0" y2="230.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="630.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK (ack=u+1)</text>
+<text x="480.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TIME_WAIT (2·MSL)</text>
+<text x="740.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TIME_WAIT (2·MSL)</text>
+</svg>

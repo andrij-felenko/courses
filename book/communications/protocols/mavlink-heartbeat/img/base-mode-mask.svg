@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура бітової маски base_mode (uint8, MAV_MODE_FLAG)</text>
+<rect x="30.0" y="57.0" width="780.0" height="26.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="52.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Біт</text>
+<text x="113.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Маска</text>
+<text x="170.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Ім'я прапорця MAV_MODE_FLAG</text>
+<text x="385.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Функціональне призначення</text>
+<rect x="30.0" y="87.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="91.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="54.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">7</text>
+<text x="113.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x80</text>
+<text x="170.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">SAFETY_ARMED</text>
+<text x="385.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Мотори розблоковані й отримують живлення (1 = небезпечно, 0 = вимкнено)</text>
+<rect x="30.0" y="120.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="124.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#d35400" stroke-width="1.2"/>
+<text x="54.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">6</text>
+<text x="113.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x40</text>
+<text x="170.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">MANUAL_INPUT_ENABLED</text>
+<text x="385.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Увімкнено пряме ручне керування від пульта радіокерування або джойстика</text>
+<rect x="30.0" y="153.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="157.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="54.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle" font-weight="700">5</text>
+<text x="113.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x20</text>
+<text x="170.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="start" font-weight="700">HIL_ENABLED</text>
+<text x="385.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Апарат працює в режимі апаратно-програмної симуляції (Hardware-in-the-Loop)</text>
+<rect x="30.0" y="186.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="190.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="54.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">4</text>
+<text x="113.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x10</text>
+<text x="170.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">STABILIZE_ENABLED</text>
+<text x="385.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Активний контур кутової стабілізації за гіроскопами й акселерометрами</text>
+<rect x="30.0" y="219.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="223.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#2980b9" stroke-width="1.2"/>
+<text x="54.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">3</text>
+<text x="113.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x08</text>
+<text x="170.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="start" font-weight="700">GUIDED_ENABLED</text>
+<text x="385.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Автопілот слідує за зовнішніми цільовими векторами від GCS або супутнього комп'ютера</text>
+<rect x="30.0" y="252.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="256.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+<text x="54.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2</text>
+<text x="113.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x04</text>
+<text x="170.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">AUTO_ENABLED</text>
+<text x="385.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Повністю автономна навігація за точками маршруту завантаженої місії</text>
+<rect x="30.0" y="285.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="289.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="54.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle" font-weight="700">1</text>
+<text x="113.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x02</text>
+<text x="170.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="start" font-weight="700">TEST_ENABLED</text>
+<text x="385.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Апарат перебуває в інженерному або тестовому режимі заводської перевірки</text>
+<rect x="30.0" y="318.0" width="780.0" height="29.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.7"/>
+<rect x="40.0" y="322.0" width="28.0" height="20.0" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="54.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<text x="113.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x01</text>
+<text x="170.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">CUSTOM_MODE_ENABLED</text>
+<text x="385.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Поле custom_mode активне: розшифровка режиму за правилами конкретної прошивки</text>
+</svg>

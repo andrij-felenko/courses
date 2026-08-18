@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія криптографічних жетонів: Ticket проти Authenticator</text>
+<rect x="40.0" y="65.0" width="460.0" height="430.0" rx="8" fill="#fdfefe" stroke="#b8d0ee" stroke-width="1.5"/>
+<rect x="40.0" y="65.0" width="460.0" height="42.0" rx="8" fill="#eef3fb" stroke="#b8d0ee" stroke-width="1.5"/>
+<text x="270.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">КВИТОК (Ticket / EncTicketPart)</text>
+<text x="55.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Зашифровано ключем:</text>
+<text x="210.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">K_s (ключ служби) або K_{tgs} (для TGT)</text>
+<text x="55.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Хто створює:</text>
+<text x="210.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Виключно KDC (AS або TGS)</text>
+<text x="55.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Час життя:</text>
+<text x="210.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Довготривалий (типово 8–10 годин)</text>
+<text x="55.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Призначення:</text>
+<text x="210.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Багаторазовий пропуск до ресурсу</text>
+<text x="55.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Вміст поля EncPart:</text>
+<text x="65.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• flags (пересилка, відновлення)</text>
+<text x="65.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• key (сесійний ключ K_{c,s})</text>
+<text x="65.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• crealm / cname (ім'я клієнта)</text>
+<text x="65.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• authtime, starttime, endtime</text>
+<text x="65.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• caddr (дозволені IP-адреси)</text>
+<text x="65.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• authorization-data (MS-PAC)</text>
+<rect x="540.0" y="65.0" width="460.0" height="430.0" rx="8" fill="#fdfefe" stroke="#e8d39c" stroke-width="1.5"/>
+<rect x="540.0" y="65.0" width="460.0" height="42.0" rx="8" fill="#fdf8e8" stroke="#e8d39c" stroke-width="1.5"/>
+<text x="770.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">АВТЕНТИФІКАТОР (Authenticator)</text>
+<text x="555.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Зашифровано ключем:</text>
+<text x="710.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">K_{c,s} (сесійний ключ з квитка)</text>
+<text x="555.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Хто створює:</text>
+<text x="710.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Клієнт (Alice) на кожен запит</text>
+<text x="555.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Час життя:</text>
+<text x="710.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Одноразовий (вікно валідності ±5 хв)</text>
+<text x="555.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Призначення:</text>
+<text x="710.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Доказ володіння сесійним ключем</text>
+<text x="555.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Вміст повідомлення:</text>
+<text x="565.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• authenticator-vno (версія: 5)</text>
+<text x="565.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• crealm / cname (ім'я клієнта)</text>
+<text x="565.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• cksum (контрольна сума тіла запиту)</text>
+<text x="565.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• cusec + ctime (мітка мікросекунд)</text>
+<text x="565.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• subkey (опційний ключ підвибірки)</text>
+<text x="565.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• seq-number (початковий номер)</text>
+</svg>

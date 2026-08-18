@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізація широкомовного сегмента: вибір DR/BDR</text>
+<rect x="30.0" y="55.0" width="370.0" height="300.0" rx="8" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="215.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Без DR/BDR (Повна сітка)</text>
+<text x="215.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Кількість зв'язків: N · (N − 1) / 2</text>
+<line x1="215.0" y1="140.0" x2="295.0" y2="190.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="215.0" y1="140.0" x2="265.0" y2="270.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="215.0" y1="140.0" x2="165.0" y2="270.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="215.0" y1="140.0" x2="135.0" y2="190.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="295.0" y1="190.0" x2="265.0" y2="270.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="295.0" y1="190.0" x2="165.0" y2="270.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="295.0" y1="190.0" x2="135.0" y2="190.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="265.0" y1="270.0" x2="165.0" y2="270.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="265.0" y1="270.0" x2="135.0" y2="190.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="165.0" y1="270.0" x2="135.0" y2="190.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="215.0" cy="140.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="215.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R1</text>
+<circle cx="295.0" cy="190.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="295.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R2</text>
+<circle cx="265.0" cy="270.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="265.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R3</text>
+<circle cx="165.0" cy="270.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="165.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R4</text>
+<circle cx="135.0" cy="190.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="135.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R5</text>
+<rect x="45.0" y="305.0" width="340.0" height="42.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/><text x="215.0" y="323.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">Для N = 5: 10 сусідств.</tspan><tspan x="215.0" dy="11.7">Для N = 50: 1 225 сусідств (лавинний шторм синхронізацій).</tspan></text>
+<rect x="430.0" y="55.0" width="380.0" height="300.0" rx="8" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="620.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">З виділеними DR та BDR (Зіркова схема)</text>
+<text x="620.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Кількість сусідств зменшується до 2N − 3</text>
+<rect x="500.0" y="125.0" width="90.0" height="45.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="545.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">DR</text>
+<text x="545.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">224.0.0.6</text>
+<rect x="640.0" y="125.0" width="90.0" height="45.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="685.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">BDR</text>
+<text x="685.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">224.0.0.6</text>
+<circle cx="480.0" cy="240.0" r="20.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R3</text>
+<text x="480.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">DROther</text>
+<circle cx="615.0" cy="240.0" r="20.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="615.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R4</text>
+<text x="615.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">DROther</text>
+<circle cx="750.0" cy="240.0" r="20.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="750.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R5</text>
+<text x="750.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">DROther</text>
+<line x1="480.0" y1="220.0" x2="530.0" y2="170.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="480.0" y1="220.0" x2="660.0" y2="170.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="615.0" y1="220.0" x2="555.0" y2="170.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="615.0" y1="220.0" x2="675.0" y2="170.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="750.0" y1="220.0" x2="580.0" y2="170.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="750.0" y1="220.0" x2="700.0" y2="170.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="500.0" y1="240.0" x2="595.0" y2="240.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="635.0" y1="240.0" x2="730.0" y2="240.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="547.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">2-Way</text>
+<text x="682.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">2-Way</text>
+<rect x="445.0" y="295.0" width="350.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/><text x="620.0" y="312.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">• DROther шлють оновлення до DR/BDR на адресу 224.0.0.6.</tspan><tspan x="620.0" dy="11.7">• DR розсилає оновлення всім маршрутизаторам на 224.0.0.5.</tspan><tspan x="620.0" dy="11.7">• BDR пасивно слухає і миттєво підхоплює роль у разі відмови DR.</tspan></text>
+<rect x="30.0" y="368.0" width="780.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/><text x="420.0" y="385.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Алгоритм вибору DR/BDR: 1) Найвищий пріоритет інтерфейсу (Router Priority, 0..255; 0 — ніколи не стає DR).</tspan><tspan x="420.0" dy="13.7">2) За однакового пріоритету перемагає найбільший Router ID. Вибір є непереривним (Non-preemptive).</tspan></text>
+</svg>

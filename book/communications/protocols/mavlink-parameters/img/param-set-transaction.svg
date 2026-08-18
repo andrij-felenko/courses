@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Транзакція зміни параметра: запис, валідація та підтвердження</text>
+<rect x="95.0" y="55.0" width="170.0" height="35.0" rx="5" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Наземна станція (GCS)</text>
+<rect x="575.0" y="55.0" width="170.0" height="35.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="660.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Автопілот (Vehicle)</text>
+<line x1="180.0" y1="90.0" x2="180.0" y2="425.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="660.0" y1="90.0" x2="660.0" y2="425.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="180.0" y1="120.0" x2="660.0" y2="120.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PARAM_SET (id='MPC_XY_VEL_MAX', val=25.0f, type=REAL32)</text>
+<rect x="540.0" y="145.0" width="240.0" height="75.0" rx="5" fill="#faf5ff" stroke="#333333" stroke-width="1.2"/>
+<text x="660.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка діапазону в автопілоті:</text>
+<text x="660.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Межі: min=0.5, max=20.0, def=12.0</text>
+<text x="660.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Значення 25.0 &gt; max → обрізка до 20.0!</text>
+<line x1="660.0" y1="255.0" x2="180.0" y2="255.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE (id='MPC_XY_VEL_MAX', val=20.0f, type=REAL32)</text>
+<rect x="70.0" y="280.0" width="220.0" height="55.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.2"/>
+<text x="180.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння відправленого і прийнятого:</text>
+<text x="180.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Запитували: 25.0 ≠ Збережено: 20.0</text>
+<rect x="180.0" y="360.0" width="480.0" height="45.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="420.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">GCS оновлює інтерфейс фактичним збереженим значенням (20.0 м/с)</tspan><tspan x="420.0" dy="12.3">та інформує оператора про застосування апаратного ліміту</tspan></text>
+</svg>

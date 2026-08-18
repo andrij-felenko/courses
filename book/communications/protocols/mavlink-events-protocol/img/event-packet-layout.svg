@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="790.0" height="205.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="35.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Структура корисного навантаження повідомлення EVENT (ID #410, розмір до 53 байтів)</text>
+<rect x="30.0" y="50.0" width="115.0" height="36.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="87.5" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">event_time_boot_ms</text>
+<text x="87.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B uint32</text>
+<text x="87.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="87.5" dy="0.0">Час зі старту</tspan><tspan x="87.5" dy="11.4">(мілісекунди)</tspan></text>
+<rect x="155.0" y="50.0" width="85.0" height="36.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="197.5" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">sequence</text>
+<text x="197.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2B uint16</text>
+<text x="197.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="197.5" dy="0.0">Порядковий</tspan><tspan x="197.5" dy="11.4">номер події</tspan></text>
+<rect x="250.0" y="50.0" width="105.0" height="36.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="302.5" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">id (event_id)</text>
+<text x="302.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B uint32</text>
+<text x="302.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="302.5" dy="0.0">Хеш простору</tspan><tspan x="302.5" dy="11.4">та імені</tspan></text>
+<rect x="365.0" y="50.0" width="95.0" height="36.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="412.5" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">log_levels</text>
+<text x="412.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1B uint8</text>
+<text x="412.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="412.5" dy="0.0">4b внутр. /</tspan><tspan x="412.5" dy="11.4">4b зовн. severity</tspan></text>
+<rect x="470.0" y="50.0" width="95.0" height="36.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="517.5" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">dest_sys / comp</text>
+<text x="517.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2B 2×uint8</text>
+<text x="517.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="517.5" dy="0.0">Адресація</tspan><tspan x="517.5" dy="11.4">(0 = broadcast)</tspan></text>
+<rect x="575.0" y="50.0" width="215.0" height="36.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="682.5" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">arguments[40]</text>
+<text x="682.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">до 40B uint8[]</text>
+<text x="682.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="682.5" dy="0.0">Типізовані двійкові</tspan><tspan x="682.5" dy="11.4">аргументи (LE)</tspan></text>
+<rect x="30.0" y="145.0" width="760.0" height="60.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="45.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Поле log_levels (1 байт):</text>
+<rect x="205.0" y="155.0" width="265.0" height="40.0" rx="3" fill="#fdf0ed" stroke="#c0392b" stroke-width="1.0"/>
+<text x="337.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="337.0" dy="0.0">Старші 4 біти: Внутрішній рівень</tspan><tspan x="337.0" dy="11.4">для Flash/SD-карти (0..7)</tspan></text>
+<rect x="485.0" y="155.0" width="290.0" height="40.0" rx="3" fill="#edf5fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="630.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">Молодші 4 біти: Зовнішній рівень</tspan><tspan x="630.0" dy="11.4">для станції QGroundControl (0..7)</tspan></text>
+<rect x="15.0" y="235.0" width="790.0" height="140.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="35.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Структура повідомлення CURRENT_EVENT_SEQUENCE (ID #411, періодичний стан)</text>
+<rect x="35.0" y="275.0" width="190.0" height="36.0" rx="4" fill="#edfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="130.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">sequence (2B uint16)</text>
+<text x="130.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Останній лічильник</text>
+<text x="130.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Поточний виданий номер</text>
+<rect x="240.0" y="275.0" width="165.0" height="36.0" rx="4" fill="#edfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="322.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">flags (1B uint8)</text>
+<text x="322.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Прапорці стану</text>
+<text x="322.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ознака перезапуску буфера</text>
+<rect x="420.0" y="270.0" width="370.0" height="90.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="605.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="605.0" dy="0.0">Транслюється автопілотом періодично (1 Гц) або при появі нової події.</tspan><tspan x="605.0" dy="12.8">GCS порівнює отриманий sequence із локальним лічильником:</tspan><tspan x="605.0" dy="12.8">якщо є розрив — негайно запитує втрачені кадри через REQUEST_EVENT.</tspan><tspan x="605.0" dy="12.8">Працює як легковагове серцебиття системи журналювання.</tspan></text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Агрегація маршрутів (Supernetting) та зменшення таблиць BGP</text>
+<rect x="40.0" y="60.0" width="290.0" height="250.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="185.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4 окремі локальні мережі клієнта</text>
+<rect x="60.0" y="102.0" width="250.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="185.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">198.51.100.0/24</text>
+<text x="185.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11000110.00110011.011001 00.0</text>
+<rect x="60.0" y="152.0" width="250.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="185.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">198.51.101.0/24</text>
+<text x="185.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11000110.00110011.011001 01.0</text>
+<rect x="60.0" y="202.0" width="250.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="185.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">198.51.102.0/24</text>
+<text x="185.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11000110.00110011.011001 10.0</text>
+<rect x="60.0" y="252.0" width="250.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="185.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">198.51.103.0/24</text>
+<text x="185.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11000110.00110011.011001 11.0</text>
+<line x1="330.0" y1="185.0" x2="410.0" y2="185.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="370.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Агрегація</text>
+<rect x="410.0" y="135.0" width="120.0" height="100.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="470.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Межовий</text>
+<text x="470.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">роутер ISP</text>
+<text x="470.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(BGP)</text>
+<line x1="530.0" y1="185.0" x2="600.0" y2="185.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="600.0" y="110.0" width="180.0" height="150.0" rx="8" fill="#eef6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="690.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Єдиний анонс у BGP:</text>
+<text x="690.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">198.51.100.0/22</text>
+<text x="690.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Маска: 255.255.252.0</text>
+<text x="690.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4 записи → 1 запис!</text>
+<rect x="50.0" y="330.0" width="720.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/><text x="410.0" y="354.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Правило агрегації: адреси мусять бути суміжними, їхня кількість — степенем двійки,</tspan><tspan x="410.0" dy="14.3">а спільний префікс — вирівняним по двійковій межі. Глобальний BGP бачить 1 маршрут замість 4.</tspan></text>
+</svg>

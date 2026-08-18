@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм пробивання отворів (UDP Hole Punching) через STUN та Сигналізацію</text>
+<rect x="33.1" y="49.3" width="93.8" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="80.0" y="64.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="80.0" dy="0.0">Клієнт A</tspan><tspan x="80.0" dy="14.3">192.168.1.50</tspan></text>
+<line x1="80.0" y1="92.0" x2="80.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="189.7" y="49.3" width="100.7" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="240.0" y="64.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">NAT A (Шлюз)</tspan><tspan x="240.0" dy="14.3">198.51.100.10</tspan></text>
+<line x1="240.0" y1="92.0" x2="240.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="345.3" y="49.3" width="189.3" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="64.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Сервер STUN / Сигналізація</tspan><tspan x="440.0" dy="14.3">203.0.113.1</tspan></text>
+<line x1="440.0" y1="92.0" x2="440.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="589.7" y="49.3" width="100.7" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="64.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">NAT B (Шлюз)</tspan><tspan x="640.0" dy="14.3">198.51.100.20</tspan></text>
+<line x1="640.0" y1="92.0" x2="640.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="763.3" y="49.3" width="73.4" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="64.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Клієнт B</tspan><tspan x="800.0" dy="14.3">10.0.0.22</tspan></text>
+<line x1="800.0" y1="92.0" x2="800.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="120.0" x2="240.0" y2="120.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="160.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. UDP:порт 5000</text>
+<line x1="240.0" y1="120.0" x2="440.0" y2="120.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="340.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">STUN Binding Request (зовн. порт 40001)</text>
+<line x1="440.0" y1="155.0" x2="240.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="340.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">STUN Binding Resp (XOR: 198.51.100.10:40001)</text>
+<line x1="240.0" y1="155.0" x2="80.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="190.0" x2="640.0" y2="190.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="720.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2. UDP:порт 6000</text>
+<line x1="640.0" y1="190.0" x2="440.0" y2="190.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">STUN Binding Request (зовн. порт 50002)</text>
+<line x1="440.0" y1="225.0" x2="640.0" y2="225.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">STUN Binding Resp (XOR: 198.51.100.20:50002)</text>
+<line x1="640.0" y1="225.0" x2="800.0" y2="225.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="180.0" y="253.0" width="520.0" height="24.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="440.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Обмін рефлексивними сокетами через Сигналізацію (SDP / WebSocket)</text>
+<line x1="80.0" y1="310.0" x2="635.0" y2="335.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="280.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">4. Пакет A ➔ B (створює стан у NAT A; NAT B відкидає)</text>
+<circle cx="640.0" cy="335.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<line x1="800.0" y1="355.0" x2="245.0" y2="380.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="600.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">5. Пакет B ➔ A (проходить відкритий NAT A! Відкриває NAT B)</text>
+<circle cx="240.0" cy="380.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.0"/>
+<rect x="70.0" y="405.0" width="740.0" height="48.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="90.0" y1="429.0" x2="790.0" y2="429.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="429.0" x2="90.0" y2="429.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">6. Прямий двонаправлений P2P медіапотік (RTP / UDP канал відкрито)</text>
+<text x="440.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Створено сесії conntrack: 198.51.100.10:40001 ⇄ 198.51.100.20:50002</text>
+</svg>

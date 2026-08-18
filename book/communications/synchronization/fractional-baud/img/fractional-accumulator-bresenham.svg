@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схемотехніка дробового дільника: фазовий акумулятор та подвійний модуль</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">динамічне подовження окремих циклів ділення на 1 такт для синтезу середнього дробового коефіцієнта</text>
+<rect x="40.0" y="110.0" width="100.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f_CK</text>
+<text x="90.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">тактовий сигнал</text>
+<line x1="140.0" y1="137.0" x2="200.0" y2="137.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="95.0" width="230.0" height="84.0" rx="6" fill="#eef4fa" stroke="#2457d6" stroke-width="1.8"/>
+<text x="315.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Дільник з подвійним модулем</text>
+<text x="315.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ділить на N або N+1</text>
+<text x="315.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">керований лічильник тактів</text>
+<line x1="430.0" y1="137.0" x2="510.0" y2="137.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="510.0" y="110.0" width="180.0" height="54.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="600.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Sampling Clock (16× baud)</text>
+<text x="600.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">імпульси стробування</text>
+<line x1="470.0" y1="137.0" x2="470.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="470.0" y1="240.0" x2="410.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="180.0" y="210.0" width="230.0" height="100.0" rx="6" fill="#fdf8ec" stroke="#b07a00" stroke-width="1.8"/>
+<text x="295.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b07a00" text-anchor="middle" font-weight="700">Фазовий акумулятор</text>
+<text x="295.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ACC = ACC + FRAC</text>
+<text x="295.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">модуль M (16 або 8)</text>
+<text x="295.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">регістр фази [m біт]</text>
+<line x1="240.0" y1="210.0" x2="240.0" y2="179.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="240.0" y1="185.0" x2="240.0" y2="179.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="230.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Carry (+1)</text>
+<line x1="80.0" y1="260.0" x2="180.0" y2="260.0" stroke="#b07a00" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="125.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b07a00" text-anchor="middle" font-weight="700">FRAC</text>
+<text x="125.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дробова частина</text>
+<rect x="450.0" y="195.0" width="470.0" height="125.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="685.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова послідовність періодів дільника (при FRAC/16 = 3/16)</text>
+<rect x="465.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="478.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="491.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="504.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="517.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="530.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="543.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#fde8e8" stroke="#333333" stroke-width="1.0"/>
+<text x="556.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">N+1</text>
+<rect x="575.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="588.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="601.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="614.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="627.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="640.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="653.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="666.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="685.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#fde8e8" stroke="#333333" stroke-width="1.0"/>
+<text x="698.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">N+1</text>
+<rect x="711.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="724.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="737.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="750.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="763.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="776.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="795.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="808.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="821.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#fde8e8" stroke="#333333" stroke-width="1.0"/>
+<text x="834.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">N+1</text>
+<rect x="847.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="860.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<rect x="873.0" y="227.0" width="26.0" height="36.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="886.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">N</text>
+<text x="685.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">16 циклів дільника = 13 циклів по N тактів + 3 цикли по (N+1) тактів</text>
+<text x="685.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">Середній коефіцієнт ділення: DIV_avg = N + 3/16 (без накопичення фазового дрейфу)</text>
+<rect x="40.0" y="335.0" width="880.0" height="105.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="369.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Принцип роботи фазового акумулятора (алгоритм Брезенгема): на кожному вихідному такті до регістра ACC додається дріб FRAC.</tspan><tspan x="480.0" dy="15.0">Коли ACC досягає модуля M (16 або 8), виникає переповнення (Carry), яке вмикає поділ на N+1 замість N на один цикл,</tspan><tspan x="480.0" dy="15.0">а з акумулятора віднімається M. Завдяки рівномірному розподілу додаткових тактів у часі сумарна фазова похибка</tspan><tspan x="480.0" dy="15.0">кадру UART утримується в межах 1/16 біта, що унеможливлює накопичення фазового розсинхрону.</tspan></text>
+</svg>

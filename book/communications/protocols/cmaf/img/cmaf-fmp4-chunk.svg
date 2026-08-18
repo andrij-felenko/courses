@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 940 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="940" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="920.0" height="460.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="20.0" y="20.0" width="880.0" height="95.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+<text x="460.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMAF Header (Ініціалізаційний сегмент: init.mp4)</text>
+<rect x="40.0" y="55.0" width="120.0" height="45.0" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+<text x="100.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ftyp</text>
+<text x="100.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">brand: cmfc</text>
+<rect x="170.0" y="55.0" width="710.0" height="45.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="525.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700">moov (Метадані треку та кодека: mvhd, trak, mdia, minf, stbl [stsd], mvex [trex])</text>
+<text x="525.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Не містить жодного медіасемплу; завантажується клієнтом один раз на початку сеансу</text>
+<rect x="20.0" y="135.0" width="880.0" height="160.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.8"/>
+<text x="460.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7e22ce" text-anchor="middle" font-weight="700">CMAF Media Segment (seg-001.m4s) — поділений на 3 CMAF Chunks по 660 мс</text>
+<rect x="35.0" y="175.0" width="75.0" height="105.0" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+<text x="72.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">styp</text>
+<text x="72.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">cmfs</text>
+<rect x="120.0" y="175.0" width="240.0" height="105.0" rx="5" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="240.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">CMAF Chunk 1 (Ключовий)</text>
+<rect x="130.0" y="205.0" width="105.0" height="65.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="182.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">moof</text>
+<text x="182.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">mfhd, traf</text>
+<text x="182.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">tfdt, trun</text>
+<rect x="245.0" y="205.0" width="105.0" height="65.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="297.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">mdat</text>
+<text x="297.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">IDR NAL-кадр</text>
+<text x="297.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ P-кадри</text>
+<rect x="370.0" y="175.0" width="240.0" height="105.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CMAF Chunk 2</text>
+<rect x="380.0" y="205.0" width="105.0" height="65.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="432.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">moof</text>
+<text x="432.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">mfhd, traf</text>
+<text x="432.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">tfdt, trun</text>
+<rect x="495.0" y="205.0" width="105.0" height="65.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="547.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">mdat</text>
+<text x="547.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">P / B кадри</text>
+<rect x="620.0" y="175.0" width="240.0" height="105.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="740.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CMAF Chunk 3</text>
+<rect x="630.0" y="205.0" width="105.0" height="65.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="682.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">moof</text>
+<text x="682.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">mfhd, traf</text>
+<text x="682.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">tfdt, trun</text>
+<rect x="745.0" y="205.0" width="105.0" height="65.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="797.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">mdat</text>
+<text x="797.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">P / B кадри</text>
+<rect x="20.0" y="315.0" width="880.0" height="125.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="460.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">HTTP Chunked Transfer Encoding (LL-DASH / LL-HLS) — прогресивна видача без очікування кінця сегмента</text>
+<line x1="240.0" y1="280.0" x2="240.0" y2="355.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="140.0" y="358.0" width="200.0" height="65.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="240.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">HTTP Chunk 1 (0.66s)</text>
+<text x="240.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Негайно летить у CDN і плеєр</text>
+<text x="240.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Плеєр уже декодує кадри</text>
+<line x1="490.0" y1="280.0" x2="490.0" y2="355.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="358.0" width="200.0" height="65.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="490.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">HTTP Chunk 2 (1.33s)</text>
+<text x="490.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Доливається тим самим з'єднанням</text>
+<text x="490.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Затримка: 1–2 секунди від камери</text>
+<line x1="740.0" y1="280.0" x2="740.0" y2="355.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="640.0" y="358.0" width="200.0" height="65.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="740.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">HTTP Chunk 3 (2.00s)</text>
+<text x="740.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Завершує сегмент (0-chunk trailer)</text>
+<text x="740.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Кеш CDN фіксує повний .m4s</text>
+</svg>

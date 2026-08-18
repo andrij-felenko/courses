@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">BGP Anycast: топологічні басейни притягання (Catchments) для префікса 198.51.100.0/24</text>
+<rect x="60.0" y="65.0" width="220.0" height="115.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="170.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">PoP Франкфурт (EU)</text>
+<rect x="70.0" y="101.0" width="200.0" height="68.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="170.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">198.51.100.0/24</tspan><tspan x="170.0" dy="13.0">ASN: 13335</tspan><tspan x="170.0" dy="13.0">AS_PATH: [13335]</tspan></text>
+<rect x="320.0" y="65.0" width="220.0" height="115.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="430.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PoP Ашберн (US-East)</text>
+<rect x="330.0" y="101.0" width="200.0" height="68.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="430.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">198.51.100.0/24</tspan><tspan x="430.0" dy="13.0">ASN: 13335</tspan><tspan x="430.0" dy="13.0">AS_PATH: [13335]</tspan></text>
+<rect x="580.0" y="65.0" width="220.0" height="115.0" rx="8" fill="#fff7e6" stroke="#c0392b" stroke-width="1.6"/>
+<text x="690.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">PoP Токіо (APAC)</text>
+<rect x="590.0" y="101.0" width="200.0" height="68.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="690.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">198.51.100.0/24</tspan><tspan x="690.0" dy="13.0">ASN: 13335</tspan><tspan x="690.0" dy="13.0">AS_PATH: [13335]</tspan></text>
+<rect x="50.0" y="230.0" width="760.0" height="75.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="430.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальна транзитна мережа Інтернет (Tier-1 / Tier-2 ISP)</text>
+<text x="430.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кожен провайдер обирає найкращий шлях за правилами BGP Best Path (найкоротший AS_PATH / найменший IGP Cost)</text>
+<rect x="60.0" y="360.0" width="220.0" height="85.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Користувач у Берліні</text>
+<rect x="68.0" y="390.0" width="204.0" height="48.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="0.6"/><text x="170.0" y="404.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Запит до 198.51.100.1</tspan><tspan x="170.0" dy="13.0">Маршрут: AS3320 -&gt; AS13335 (EU)</tspan><tspan x="170.0" dy="13.0">RTT = 8 мс</tspan></text>
+<rect x="320.0" y="360.0" width="220.0" height="85.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="430.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Користувач у Чикаго</text>
+<rect x="328.0" y="390.0" width="204.0" height="48.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="0.6"/><text x="430.0" y="404.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Запит до 198.51.100.1</tspan><tspan x="430.0" dy="13.0">Маршрут: AS701 -&gt; AS13335 (US)</tspan><tspan x="430.0" dy="13.0">RTT = 14 мс</tspan></text>
+<rect x="580.0" y="360.0" width="220.0" height="85.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="690.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Користувач у Сеулі</text>
+<rect x="588.0" y="390.0" width="204.0" height="48.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="0.6"/><text x="690.0" y="404.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Запит до 198.51.100.1</tspan><tspan x="690.0" dy="13.0">Маршрут: AS4766 -&gt; AS13335 (JP)</tspan><tspan x="690.0" dy="13.0">RTT = 18 мс</tspan></text>
+<line x1="170.0" y1="360.0" x2="170.0" y2="305.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="360.0" x2="430.0" y2="305.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="360.0" x2="690.0" y2="305.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="230.0" x2="170.0" y2="180.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="230.0" x2="430.0" y2="180.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="230.0" x2="690.0" y2="180.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

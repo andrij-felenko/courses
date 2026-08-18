@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корисне навантаження повідомлення HEARTBEAT (MSG ID 0, 9 байтів)</text>
+<rect x="35.0" y="80.0" width="342.2" height="58.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="206.1" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">custom_mode</text>
+<text x="206.1" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">uint32 (4 Б)</text>
+<rect x="377.2" y="80.0" width="85.6" height="58.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="2.2"/>
+<text x="420.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">type</text>
+<text x="420.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">uint8 (1 Б)</text>
+<rect x="462.8" y="80.0" width="85.6" height="58.0" rx="6" fill="#ffffff" stroke="#2980b9" stroke-width="2.2"/>
+<text x="505.6" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="middle" font-weight="700">autopilot</text>
+<text x="505.6" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">uint8 (1 Б)</text>
+<rect x="548.3" y="80.0" width="85.6" height="58.0" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="2.2"/>
+<text x="591.1" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">base_mode</text>
+<text x="591.1" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">uint8 (1 Б)</text>
+<rect x="633.9" y="80.0" width="85.6" height="58.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="669.7" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">system_status</text>
+<text x="676.7" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">uint8 (1 Б)</text>
+<rect x="719.4" y="80.0" width="85.6" height="58.0" rx="6" fill="#ffffff" stroke="#7f8c8d" stroke-width="2.2"/>
+<text x="762.2" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7f8c8d" text-anchor="middle" font-weight="700">mavlink_version</text>
+<text x="762.2" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">uint8 (1 Б)</text>
+<rect x="35.0" y="152.0" width="770.0" height="120.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="45.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">custom_mode (4 Б):</text>
+<text x="190.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Власний режим польоту конкретного автопілота (PX4 / ArduPilot: MANUAL, POSHOLD, AUTO, RTL)</text>
+<text x="45.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="start" font-weight="700">type (1 Б):</text>
+<text x="190.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Фізична конфігурація апарата за MAV_TYPE (квадрокоптер, літак, вертоліт, ровер, GCS)</text>
+<text x="45.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="start" font-weight="700">autopilot (1 Б):</text>
+<text x="190.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Тип системи керування за MAV_AUTOPILOT (PX4, ArduPilot, Generic, Betaflight)</text>
+<text x="45.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">base_mode (1 Б):</text>
+<text x="190.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Стандартизовані прапорці MAV_MODE_FLAG: статус безпеки (ARMED), стабілізація, автономність</text>
+<text x="45.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">system_status (1 Б):</text>
+<text x="190.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Поточний стан за MAV_STATE (BOOT, CALIBRATING, STANDBY, ACTIVE, CRITICAL, EMERGENCY)</text>
+</svg>

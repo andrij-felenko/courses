@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проблема виявлення меж кадру в двійковому потоці даних</text>
+<rect x="15.0" y="15.0" width="810.0" height="330.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="35.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Необроблений двійковий потік (UART / RS-485):</text>
+<rect x="35.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="74.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xAA</text>
+<text x="74.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані</text>
+<rect x="125.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="164.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<text x="164.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Нуль у float!</text>
+<rect x="215.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="254.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x42</text>
+<text x="254.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані</text>
+<rect x="305.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="344.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x13</text>
+<text x="344.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані</text>
+<rect x="395.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="434.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<text x="434.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Справжній кінець</text>
+<rect x="485.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="524.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x55</text>
+<text x="524.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані 2</text>
+<rect x="575.0" y="65.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="614.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x77</text>
+<text x="614.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані 2</text>
+<line x1="119.0" y1="55.0" x2="119.0" y2="139.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="119.0" y="49.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Хибна межа кадру!</text>
+<line x1="479.0" y1="55.0" x2="479.0" y2="139.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="479.0" y="49.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Реальна межа</text>
+<line x1="35.0" y1="175.0" x2="805.0" y2="175.0" stroke="#e1e4e8" stroke-width="1.2"/>
+<text x="35.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Класичний байт-стаффінг (SLIP / PPP): екранування подвоює байти</text>
+<rect x="35.0" y="225.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="74.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xAA</text>
+<text x="74.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані</text>
+<rect x="125.0" y="225.0" width="78.0" height="44.0" rx="4" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+<text x="164.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDB</text>
+<text x="164.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="700">ESC</text>
+<rect x="215.0" y="225.0" width="78.0" height="44.0" rx="4" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+<text x="254.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDC</text>
+<text x="254.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="700">ESC_NUL</text>
+<rect x="305.0" y="225.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="344.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x42</text>
+<text x="344.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані</text>
+<rect x="395.0" y="225.0" width="78.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="434.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x13</text>
+<text x="434.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дані</text>
+<rect x="485.0" y="225.0" width="78.0" height="44.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="524.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC0</text>
+<text x="524.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">END (0xC0)</text>
+<rect x="559.2" y="223.1" width="201.5" height="53.8" rx="6" fill="#fff8e6" stroke="#d97706" stroke-width="1.2"/><text x="660.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle"><tspan x="660.0" dy="0.0">Найгірший випадок SLIP:</tspan><tspan x="660.0" dy="13.7">кожен байт 0x00/0xDB → 2 байти.</tspan><tspan x="660.0" dy="13.7">Розмір буфера зростає до 200%!</tspan></text>
+</svg>

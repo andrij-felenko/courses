@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Логіка мажоритарного голосування 3 вибірок (3-Sample Majority Voting)</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">значення біта = (S7 ∧ S8) ∨ (S8 ∧ S9) ∨ (S7 ∧ S9); прапорець завади NF активується при 2:1</text>
+<rect x="60.0" y="90.0" width="420.0" height="275.0" rx="8" fill="#f8f9fa" stroke="#d0d4d8" stroke-width="1.5"/>
+<text x="270.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна логіка мажоритарного селектора</text>
+<rect x="80.0" y="146.0" width="110.0" height="28.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="135.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">S7 (вибірка 1)</text>
+<line x1="190.0" y1="160.0" x2="235.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="80.0" y="186.0" width="110.0" height="28.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="135.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">S8 (вибірка 2)</text>
+<line x1="190.0" y1="200.0" x2="235.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="80.0" y="226.0" width="110.0" height="28.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="135.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">S9 (вибірка 3)</text>
+<line x1="190.0" y1="240.0" x2="235.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="235.0" y="150.0" width="110.0" height="115.0" rx="6" fill="#e8f8ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="290.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Більшість</text>
+<text x="290.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(≥ 2 однакових)</text>
+<text x="290.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2 з 3</text>
+<line x1="345.0" y1="205.0" x2="400.0" y2="205.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="188.0" width="65.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="432.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">БІТ</text>
+<rect x="235.0" y="285.0" width="110.0" height="50.0" rx="6" fill="#fdf2f2" stroke="#b07a00" stroke-width="1.5"/>
+<text x="290.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b07a00" text-anchor="middle" font-weight="700">Детектор шуму</text>
+<text x="290.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">S7 ⊕ S8 ∨ S8 ⊕ S9</text>
+<line x1="345.0" y1="310.0" x2="400.0" y2="310.0" stroke="#b07a00" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="400.0" y="293.0" width="65.0" height="34.0" rx="4" fill="#fffaf0" stroke="#b07a00" stroke-width="1.5"/>
+<text x="432.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b07a00" text-anchor="middle" font-weight="700">NF</text>
+<rect x="500.0" y="90.0" width="390.0" height="275.0" rx="8" fill="#ffffff" stroke="#d0d4d8" stroke-width="1.5"/>
+<text x="695.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця станів 3 вибірок</text>
+<rect x="510.0" y="132.0" width="370.0" height="26.0" rx="3" fill="#f0f3f6" stroke="none" stroke-width="1.5"/>
+<text x="525.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">S7</text>
+<text x="560.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">S8</text>
+<text x="595.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">S9</text>
+<text x="655.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат</text>
+<text x="735.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прапорець NF</text>
+<text x="830.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оцінка</text>
+<text x="525.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="560.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="595.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="655.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<text x="735.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">0 (чисто)</text>
+<text x="830.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ідеальний нуль</text>
+<text x="525.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="560.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="595.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="655.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07a00" text-anchor="middle" font-weight="700">0</text>
+<text x="735.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07a00" text-anchor="middle">1 (завада)</text>
+<text x="830.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відновлено 0 (шум на S9)</text>
+<text x="525.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="560.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="595.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="655.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07a00" text-anchor="middle" font-weight="700">0</text>
+<text x="735.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07a00" text-anchor="middle">1 (завада)</text>
+<text x="830.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відновлено 0 (сплеск на S8)</text>
+<text x="525.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="560.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="595.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="655.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07a00" text-anchor="middle" font-weight="700">1</text>
+<text x="735.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07a00" text-anchor="middle">1 (завада)</text>
+<text x="830.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відновлено 1 (провал на S7)</text>
+<text x="525.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="560.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="595.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="655.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07a00" text-anchor="middle" font-weight="700">0</text>
+<text x="735.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07a00" text-anchor="middle">1 (завада)</text>
+<text x="830.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відновлено 0 (сплеск на S7)</text>
+<text x="525.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="560.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="595.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="655.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07a00" text-anchor="middle" font-weight="700">1</text>
+<text x="735.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07a00" text-anchor="middle">1 (завада)</text>
+<text x="830.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відновлено 1 (провал на S8)</text>
+<text x="525.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="560.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="595.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="655.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07a00" text-anchor="middle" font-weight="700">1</text>
+<text x="735.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07a00" text-anchor="middle">1 (завада)</text>
+<text x="830.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відновлено 1 (провал на S9)</text>
+<text x="525.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="560.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="595.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="655.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="735.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">0 (чисто)</text>
+<text x="830.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ідеальна одиниця</text>
+</svg>

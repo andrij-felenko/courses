@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обробка високосної секунди: POSIX Step Jump проти Leap Smear</text>
+<line x1="420.0" y1="50.0" x2="420.0" y2="460.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+<rect x="25.0" y="52.0" width="375.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="212.5" y="68.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="212.5" dy="0.0">1. POSIX Step Jump (Повтор секунди)</tspan><tspan x="212.5" dy="15.6">Стандартна поведінка ядра Linux / Unix</tspan></text>
+<line x1="40.0" y1="150.0" x2="385.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="360.0" y1="150.0" x2="390.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="142.0" x2="70.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<text x="70.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">23:59:58</text>
+<line x1="145.0" y1="142.0" x2="145.0" y2="158.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="145.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">23:59:59</text>
+<line x1="225.0" y1="142.0" x2="225.0" y2="158.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="225.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">23:59:59</text>
+<line x1="305.0" y1="142.0" x2="305.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<text x="305.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">00:00:00</text>
+<line x1="365.0" y1="142.0" x2="365.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<text x="365.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">00:00:01</text>
+<line x1="225.0" y1="138.0" x2="225.0" y2="120.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="225.0" y1="120.0" x2="145.0" y2="120.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="145.0" y1="120.0" x2="145.0" y2="136.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="185.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Стрибок назад (−1 с)</text>
+<rect x="25.0" y="205.0" width="375.0" height="230.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="212.5" y="273.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="212.5" dy="0.0">Критичні наслідки для систем:</tspan><tspan x="212.5" dy="14.3">• Порушення монотонності: t2 &lt; t1 (clock_gettime)</tspan><tspan x="212.5" dy="14.3">• Від'ємні інтервали в логах і транзакціях (Δt &lt; 0)</tspan><tspan x="212.5" dy="14.3">• Збій hrtimer/futex: таймери очікують абсолютного</tspan><tspan x="212.5" dy="14.3">  дедлайну; після стрибка назад потрапляють у</tspan><tspan x="212.5" dy="14.3">  нескінченний цикл негайного пробудження</tspan><tspan x="212.5" dy="14.3">• 100% CPU lockup у JVM, MySQL, Hadoop (2012 р.)</tspan><tspan x="212.5" dy="14.3">• Ризик розсинхронізації баз даних та кластерів</tspan></text>
+<rect x="435.0" y="52.0" width="385.0" height="40.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="627.5" y="68.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="627.5" dy="0.0">2. Leap Smear / Slew (Розмазування)</tspan><tspan x="627.5" dy="15.6">Технологія Google NTP, AWS, Cloudflare, Meta</tspan></text>
+<line x1="450.0" y1="150.0" x2="810.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="790.0" y1="150.0" x2="815.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="457.2" y="96.9" width="335.5" height="34.1" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="625.0" y="110.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="625.0" dy="0.0">Вікно 24 години: частота уповільнена на −11.57 ppm</tspan><tspan x="625.0" dy="13.7">(1 секунда рівномірно розподіляється на 86 400 с)</tspan></text>
+<line x1="475.0" y1="142.0" x2="475.0" y2="158.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="475.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">−12:00:00</text>
+<line x1="625.0" y1="142.0" x2="625.0" y2="158.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="625.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">00:00:00 UTC</text>
+<line x1="775.0" y1="142.0" x2="775.0" y2="158.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="775.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+12:00:00</text>
+<rect x="435.0" y="205.0" width="385.0" height="230.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="627.5" y="273.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="627.5" dy="0.0">Переваги розмазування:</tspan><tspan x="627.5" dy="14.3">• Сувора монотонність: час завжди зростає (t2 &gt; t1)</tspan><tspan x="627.5" dy="14.3">• Жодного стрибка дедлайнів у hrtimer та futex</tspan><tspan x="627.5" dy="14.3">• Клієнтська ОС не знає про високосну секунду</tspan><tspan x="627.5" dy="14.3">  (прапорець LI = 00 у відповідях NTP)</tspan><tspan x="627.5" dy="14.3">• Відхилення частоти (11.6 ppm) непомітне для</tspan><tspan x="627.5" dy="14.3">  більшості додатків і компенсується PLL</tspan><tspan x="627.5" dy="14.3">• Повна стабільність високонавантажених сервісів</tspan></text>
+</svg>

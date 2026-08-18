@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм BMCA: послідовне порівняння якості джерел часу</text>
+<rect x="50.0" y="65.0" width="340.0" height="36.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">1. Priority 1</text>
+<line x1="390.0" y1="83.0" x2="420.0" y2="83.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="65.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Адміністративний пріоритет (0–255), ручне перевизначення вибору</text>
+<rect x="50.0" y="111.0" width="340.0" height="36.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">2. Clock Class</text>
+<line x1="390.0" y1="129.0" x2="420.0" y2="129.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="111.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Рівень простежуваності (Atomic/GNSS=6, Holdover=7, Free-running=248)</text>
+<rect x="50.0" y="157.0" width="340.0" height="36.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">3. Clock Accuracy</text>
+<line x1="390.0" y1="175.0" x2="420.0" y2="175.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="157.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Заявлена точність шкали часу (наприклад, &lt;25 нс, &lt;100 нс, &lt;1 мкс)</text>
+<rect x="50.0" y="203.0" width="340.0" height="36.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">4. Offset Scaled Log Variance</text>
+<line x1="390.0" y1="221.0" x2="420.0" y2="221.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="203.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Стабільність / дисперсія Аллана внутрішнього генератора</text>
+<rect x="50.0" y="249.0" width="340.0" height="36.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">5. Priority 2</text>
+<line x1="390.0" y1="267.0" x2="420.0" y2="267.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="249.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Другорядний адміністративний пріоритет (тонке балансування)</text>
+<rect x="50.0" y="295.0" width="340.0" height="36.0" rx="5" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="65.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e22ce" text-anchor="start" font-weight="700">6. Clock Identity</text>
+<line x1="390.0" y1="313.0" x2="420.0" y2="313.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="295.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Унікальний 64-бітний ідентифікатор EUI-64 (розв'язання нічиєї)</text>
+<rect x="50.0" y="341.0" width="340.0" height="36.0" rx="5" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="65.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">7. Steps Removed</text>
+<line x1="390.0" y1="359.0" x2="420.0" y2="359.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="341.0" width="370.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="435.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Кількість мережевих переходів (BC) від GMC до поточного порту</text>
+</svg>

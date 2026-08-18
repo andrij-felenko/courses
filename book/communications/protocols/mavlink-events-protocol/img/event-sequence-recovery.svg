@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="180.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Польотний контролер (Автопілот)</text>
+<line x1="180.0" y1="45.0" x2="180.0" y2="395.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="640.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наземна станція керування (GCS)</text>
+<line x1="640.0" y1="45.0" x2="640.0" y2="395.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="180.0" y1="80.0" x2="640.0" y2="100.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">EVENT #410 (sequence = 12, Arming Check OK)</text>
+<rect x="594.4" y="84.1" width="91.2" height="31.9" rx="6" fill="#eef9f2" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="104.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Отримано seq=12</tspan><tspan x="640.0" dy="12.3">Очікується: 13</tspan></text>
+<line x1="180.0" y1="140.0" x2="410.0" y2="155.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="430.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">✖ ВТРАТА В ЕФІРІ</text>
+<text x="300.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">EVENT #410 (seq = 13, Gyro High Bias)</text>
+<line x1="180.0" y1="195.0" x2="640.0" y2="215.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">EVENT #410 (sequence = 14, Mode Changed)</text>
+<rect x="591.7" y="204.1" width="96.6" height="31.9" rx="6" fill="#fdf0ed" stroke="#c0392b" stroke-width="1.5"/><text x="640.0" y="217.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Отримано seq=14!</tspan><tspan x="640.0" dy="12.3">Пропуск: seq=13</tspan></text>
+<line x1="640.0" y1="265.0" x2="180.0" y2="285.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">REQUEST_EVENT (target_seq = 13)</text>
+<rect x="112.7" y="299.1" width="134.5" height="31.9" rx="6" fill="#edf5fd" stroke="#2457d6" stroke-width="1.5"/><text x="180.0" y="312.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Кільцевий буфер RAM:</tspan><tspan x="180.0" dy="12.3">Пошук seq=13 (знайдено)</tspan></text>
+<line x1="180.0" y1="345.0" x2="640.0" y2="365.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">EVENT #410 (sequence = 13, Gyro High Bias) [Повтор]</text>
+<rect x="572.7" y="354.1" width="134.5" height="31.9" rx="6" fill="#eef9f2" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="367.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">seq=13 відновлено!</tspan><tspan x="640.0" dy="12.3">Черга повна: 12, 13, 14</tspan></text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня архітектура та автомат станів Auto-MDIX</text>
+<text x="470.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Електронна матриця перемикання пар у PHY та алгоритм псевдовипадкового таймера для уникнення взаємного блокування</text>
+<rect x="30.0" y="70.0" width="430.0" height="420.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="245.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний матричний перемикач PHY</text>
+<rect x="43.8" y="152.9" width="102.5" height="54.2" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><text x="95.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">RJ45</tspan><tspan x="95.0" dy="12.3">Пара 1-2</tspan><tspan x="95.0" dy="12.3">(Контакти 1,2)</tspan></text>
+<rect x="43.8" y="332.9" width="102.5" height="54.2" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><text x="95.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">RJ45</tspan><tspan x="95.0" dy="12.3">Пара 3-6</tspan><tspan x="95.0" dy="12.3">(Контакти 3,6)</tspan></text>
+<rect x="160.0" y="130.0" width="150.0" height="300.0" rx="5" fill="#ffffff" stroke="#6366f1" stroke-width="1.8"/>
+<text x="235.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4338ca" text-anchor="middle" font-weight="700">Аналоговий кросбар</text>
+<text x="235.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Керується логікою Auto-MDIX</text>
+<rect x="330.8" y="172.9" width="108.3" height="54.2" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="385.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">TX Драйвер</tspan><tspan x="385.0" dy="12.3">(Передавач PHY)</tspan><tspan x="385.0" dy="12.3">FLP / 100M / 1G</tspan></text>
+<rect x="324.9" y="302.9" width="120.1" height="54.2" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="385.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">RX Підсилювач</tspan><tspan x="385.0" dy="12.3">та енергодетектор</tspan><tspan x="385.0" dy="12.3">(Приймач PHY)</tspan></text>
+<line x1="145.0" y1="180.0" x2="175.0" y2="180.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="145.0" y1="360.0" x2="175.0" y2="360.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="175.0" cy="180.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="175.0" cy="360.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="270.0" cy="200.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="270.0" cy="330.0" r="3.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="175.0" y1="180.0" x2="266.0" y2="199.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="175.0" y1="360.0" x2="266.0" y2="331.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="270.0" y1="200.0" x2="330.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="330.0" x2="330.0" y2="330.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="180.0" x2="266.0" y2="325.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="175.0" y1="360.0" x2="266.0" y2="205.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="235.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">— Прямий режим (MDI)</text>
+<text x="235.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">┈┈ Перехресний (MDI-X)</text>
+<rect x="480.0" y="70.0" width="430.0" height="420.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="695.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм розв'язання колізії Auto-MDIX</text>
+<rect x="524.1" y="123.5" width="261.8" height="43.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="655.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">1. Початковий стан: MDI (прямий режим)</tspan><tspan x="655.0" dy="13.0">Передача на 1-2, прослуховування на 3-6</tspan></text>
+<line x1="655.0" y1="170.0" x2="655.0" y2="200.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="527.2" y="198.5" width="255.6" height="43.0" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/><text x="655.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">2. Перевірка: чи є сигнал на парі 3-6?</tspan><tspan x="655.0" dy="13.0">(Енергія FLP/NLP або 100M несучої)</tspan></text>
+<line x1="780.0" y1="220.0" x2="820.0" y2="220.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="800.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="809.7" y="199.1" width="90.7" height="41.9" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="855.0" y="217.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="855.0" dy="0.0">Фіксація!</tspan><tspan x="855.0" dy="12.3">Лінк піднято</tspan></text>
+<line x1="655.0" y1="245.0" x2="655.0" y2="280.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="680.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">НІ (таймаут)</text>
+<rect x="521.3" y="277.9" width="267.4" height="54.2" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">3. Випадковий таймер T_sample</tspan><tspan x="655.0" dy="12.3">62 мс ± 16 мс (псевдовипадкове число LFSR)</tspan><tspan x="655.0" dy="12.3">Запобігає синхронному перемиканню кінців</tspan></text>
+<line x1="655.0" y1="335.0" x2="655.0" y2="365.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="539.0" y="364.1" width="232.0" height="41.9" rx="6" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/><text x="655.0" y="382.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">4. Інверсія: перемикання MDI ↔ MDI-X</tspan><tspan x="655.0" dy="12.3">TX переходить на 3-6, RX — на 1-2</tspan></text>
+<line x1="515.0" y1="385.0" x2="495.0" y2="385.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="495.0" y1="385.0" x2="495.0" y2="220.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="495.0" y1="220.0" x2="530.0" y2="220.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+</svg>

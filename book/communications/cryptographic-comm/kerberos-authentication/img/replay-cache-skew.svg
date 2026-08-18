@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захист від Replay-атак: часове вікно та кеш автентифікаторів</text>
+<rect x="290.0" y="75.0" width="440.0" height="50.0" rx="4" fill="#e8f8f5" stroke="#a9dfbf" stroke-width="1.5"/>
+<text x="510.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Допустиме вікно розсинхронізації (Clock Skew Window: ±5 хв)</text>
+<line x1="80.0" y1="150.0" x2="940.0" y2="150.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="920.0" y1="150.0" x2="960.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="955.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Час (t)</text>
+<line x1="510.0" y1="130.0" x2="510.0" y2="170.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="510.0" cy="150.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="510.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Час сервера (T_server)</text>
+<line x1="290.0" y1="135.0" x2="290.0" y2="165.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="730.0" y1="135.0" x2="730.0" y2="165.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="290.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">T_server - 5 хв</text>
+<text x="730.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">T_server + 5 хв</text>
+<text x="180.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Застарілий запит (Replay)
+ВІДХИЛЯЄТЬСЯ
+(KRB_AP_ERR_SKEW)</text>
+<text x="840.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Запит «з майбутнього»
+ВІДХИЛЯЄТЬСЯ
+(KRB_AP_ERR_SKEW)</text>
+<rect x="80.0" y="240.0" width="860.0" height="220.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="100.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Алгоритм перевірки автентифікатора у серверному кеші повторів (Replay Cache)</text>
+<rect x="123.6" y="312.2" width="172.8" height="55.6" rx="6" fill="#eef3fb" stroke="#b8d0ee" stroke-width="1.5"/><text x="210.0" y="329.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">1. Отримано Authenticator</tspan><tspan x="210.0" dy="14.3">ctime = 14:02:15.123456</tspan><tspan x="210.0" dy="14.3">cname = alice@REALM</tspan></text>
+<line x1="315.0" y1="340.0" x2="395.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="423.6" y="312.2" width="172.8" height="55.6" rx="6" fill="#fdf8e8" stroke="#e8d39c" stroke-width="1.5"/><text x="510.0" y="329.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">2. Пошук запису в кеші:</tspan><tspan x="510.0" dy="14.3">Хеш (cname, ctime, cusec)</tspan><tspan x="510.0" dy="14.3">Чи був такий запис?</tspan></text>
+<line x1="625.0" y1="315.0" x2="735.0" y2="290.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="680.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ТАК (знайдено)</text>
+<rect x="752.0" y="266.0" width="136.0" height="48.0" rx="6" fill="#fdedec" stroke="#f5b7b1" stroke-width="1.5"/><text x="820.0" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">ВІДХИЛИТИ ЗАПИТ!</tspan><tspan x="820.0" dy="13.0">KRB_AP_ERR_REPEAT</tspan><tspan x="820.0" dy="13.0">(Зафіксовано Replay)</tspan></text>
+<line x1="625.0" y1="365.0" x2="735.0" y2="390.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="680.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">НІ (перший раз)</text>
+<rect x="742.7" y="366.0" width="154.6" height="48.0" rx="6" fill="#eafaf1" stroke="#a9dfbf" stroke-width="1.5"/><text x="820.0" y="380.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">ПРИЙНЯТИ ЗАПИТ</tspan><tspan x="820.0" dy="13.0">Записати в Replay Cache</tspan><tspan x="820.0" dy="13.0">з TTL = 5 хвилин</tspan></text>
+</svg>

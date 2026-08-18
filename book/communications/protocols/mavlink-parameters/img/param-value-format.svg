@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія кадру PARAM_VALUE та пакування 32-бітних даних</text>
+<rect x="25.0" y="55.0" width="790.0" height="135.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Корисне навантаження повідомлення PARAM_VALUE (MAVLink ID #22, 25 байтів)</text>
+<rect x="40.0" y="95.0" width="170.0" height="55.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="125.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">param_value (4 байти)</tspan><tspan x="125.0" dy="12.3">Тип: float (IEEE 754) / контейнер</tspan></text>
+<rect x="220.0" y="95.0" width="110.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="275.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="275.0" dy="0.0">param_count (2B)</tspan><tspan x="275.0" dy="12.3">Всього параметрів</tspan></text>
+<rect x="340.0" y="95.0" width="110.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="395.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="395.0" dy="0.0">param_index (2B)</tspan><tspan x="395.0" dy="12.3">Індекс (0..count-1)</tspan></text>
+<rect x="460.0" y="95.0" width="230.0" height="55.0" rx="4" fill="#fff7ed" stroke="#c0392b" stroke-width="1.5"/>
+<text x="575.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="575.0" dy="0.0">param_id (16 байтів)</tspan><tspan x="575.0" dy="12.3">ASCII-рядок (символьна назва)</tspan></text>
+<rect x="700.0" y="95.0" width="100.0" height="55.0" rx="4" fill="#faf5ff" stroke="#333333" stroke-width="1.2"/>
+<text x="750.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">param_type (1B)</tspan><tspan x="750.0" dy="12.3">MAV_PARAM_TYPE</tspan></text>
+<text x="420.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка param_id: при довжині рівно 16 символів кінцевий нуль '\0' відсутній!</text>
+<rect x="25.0" y="205.0" width="790.0" height="255.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Небезпека математичного перетворення (float)val vs побітове відображення (Bit-cast)</text>
+<rect x="40.0" y="245.0" width="365.0" height="195.0" rx="5" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="222.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Небезпечно: Стандартний каст (float)integer</text>
+<text x="55.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">uint32_t val = 0x80000001 (2 147 483 649)</text>
+<text x="55.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Каст: float f = (float)val;</text>
+<text x="55.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Мантиса float має лише 24 біти точності!</text>
+<text x="55.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Молодші 8 бітів стираються округленням:</text>
+<text x="55.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Результат: 2 147 483 648.0f (втрата молодшого біта)</text>
+<text x="55.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Наслідок: спотворення масок портів і прапорців!</text>
+<rect x="435.0" y="245.0" width="365.0" height="195.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="617.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Коректно: Побітове відображення memcpy / bit_cast</text>
+<text x="450.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">uint32_t val = 0x80000001 (2 147 483 649)</text>
+<text x="450.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Копіювання: memcpy(&amp;f, &amp;val, sizeof(float));</text>
+<text x="450.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Всі 32 біти двійкового стану переносяться 1:1</text>
+<text x="450.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Приймач читає тип MAV_PARAM_TYPE_UINT32:</text>
+<text x="450.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Розпакування: memcpy(&amp;res, &amp;f, sizeof(uint32_t));</text>
+<text x="450.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Результат: точне відновлення 0x80000001!</text>
+</svg>

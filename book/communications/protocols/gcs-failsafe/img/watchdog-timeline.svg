@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія детектора пульсу (Heartbeat Watchdog) при розриві каналу</text>
+<line x1="40.0" y1="130.0" x2="740.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="740.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час t (секунди) →</text>
+<line x1="70.0" y1="112.0" x2="70.0" y2="148.0" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="70.0" cy="112.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="70.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB</text>
+<text x="70.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0 с</text>
+<line x1="135.0" y1="112.0" x2="135.0" y2="148.0" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="135.0" cy="112.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="135.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB</text>
+<text x="135.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1 с</text>
+<line x1="200.0" y1="112.0" x2="200.0" y2="148.0" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="200.0" cy="112.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="200.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB</text>
+<text x="200.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2 с</text>
+<line x1="265.0" y1="112.0" x2="265.0" y2="148.0" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="265.0" cy="112.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="265.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB</text>
+<text x="265.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3 с</text>
+<line x1="295.0" y1="95.0" x2="295.0" y2="165.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="295.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Обрив сигналу</text>
+<rect x="60.0" y="190.0" width="220.0" height="130.0" rx="6" fill="#f0faf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="170.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">СТАН: CONNECTED</text>
+<rect x="70.0" y="228.0" width="200.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="250.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">• Δt &lt; 1.5 с</tspan><tspan x="170.0" dy="14.3">• Телеметрія активна</tspan><tspan x="170.0" dy="14.3">• Джойстик і команди</tspan><tspan x="170.0" dy="14.3">  дозволені</tspan></text>
+<rect x="295.0" y="190.0" width="210.0" height="130.0" rx="6" fill="#fffbf0" stroke="#d97706" stroke-width="1.5"/>
+<text x="400.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">СТАН: DEGRADED</text>
+<rect x="305.0" y="228.0" width="190.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="250.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">• 1.5 с ≤ Δt &lt; 3.5 с</tspan><tspan x="400.0" dy="14.3">• Жовтий статус у GCS</tspan><tspan x="400.0" dy="14.3">• Очікування пакета,</tspan><tspan x="400.0" dy="14.3">  накопичення втрат</tspan></text>
+<rect x="520.0" y="190.0" width="220.0" height="130.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="630.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">СТАН: LINK LOST</text>
+<rect x="530.0" y="228.0" width="200.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="250.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">• Δt ≥ 3.5–5.0 с</tspan><tspan x="630.0" dy="14.3">• Звукова тривога в GCS</tspan><tspan x="630.0" dy="14.3">• Блокування джойстика</tspan><tspan x="630.0" dy="14.3">• Автопілот: DataLink FS</tspan></text>
+<line x1="330.0" y1="118.0" x2="330.0" y2="142.0" stroke="#d1d5db" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="330.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖</text>
+<text x="330.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4 с</text>
+<line x1="395.0" y1="118.0" x2="395.0" y2="142.0" stroke="#d1d5db" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="395.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖</text>
+<text x="395.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5 с</text>
+<line x1="460.0" y1="118.0" x2="460.0" y2="142.0" stroke="#d1d5db" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="460.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖</text>
+<text x="460.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">6 с</text>
+<line x1="525.0" y1="118.0" x2="525.0" y2="142.0" stroke="#d1d5db" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="525.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖</text>
+<text x="525.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">7 с</text>
+<line x1="590.0" y1="118.0" x2="590.0" y2="142.0" stroke="#d1d5db" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="590.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖</text>
+<text x="590.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">8 с</text>
+<line x1="525.0" y1="105.0" x2="525.0" y2="155.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="525.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Спрацювання Failsafe</text>
+</svg>

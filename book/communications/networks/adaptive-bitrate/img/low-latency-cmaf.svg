@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння затримки: Традиційний ABR проти Low-Latency CMAF (Chunked Transfer)</text>
+<rect x="30.0" y="70.0" width="800.0" height="140.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Традиційний HLS / DASH (Затримка від прямого ефіру: 15–30 секунд)</text>
+<rect x="50.0" y="115.0" width="220.0" height="46.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Кодування повного сегмента (6 с)</tspan></text>
+<rect x="276.0" y="115.0" width="170.0" height="46.0" rx="4" fill="#fef3c7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="361.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="361.0" dy="0.0">Публікація на Origin &amp; маніфест</tspan></text>
+<rect x="452.0" y="115.0" width="150.0" height="46.0" rx="4" fill="#ecfeff" stroke="#0891b2" stroke-width="1.2"/>
+<text x="527.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="527.0" dy="0.0">Кешування на CDN Edge</tspan></text>
+<rect x="608.0" y="115.0" width="210.0" height="46.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="713.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="713.0" dy="0.0">Завантаження чанка клієнтом + 3 чанки буфера</tspan></text>
+<text x="50.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Сегмент доступний для запиту ЛИШЕ після того, як кодер повністю запише і закриє 6-секундний файл.</text>
+<rect x="30.0" y="230.0" width="800.0" height="155.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="50.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Low-Latency CMAF / LL-HLS (Затримка: 1.5–3 секунди)</text>
+<rect x="50.0" y="275.0" width="115.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="107.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="107.5" dy="0.0">Chunk #1 (200 мс)</tspan><tspan x="107.5" dy="11.4">moof + mdat</tspan></text>
+<rect x="171.0" y="275.0" width="115.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="228.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="228.5" dy="0.0">Chunk #2 (200 мс)</tspan><tspan x="228.5" dy="11.4">moof + mdat</tspan></text>
+<rect x="292.0" y="275.0" width="115.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="349.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="349.5" dy="0.0">Chunk #3 (200 мс)</tspan><tspan x="349.5" dy="11.4">moof + mdat</tspan></text>
+<rect x="413.0" y="275.0" width="115.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="470.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="470.5" dy="0.0">Chunk #4 (200 мс)</tspan><tspan x="470.5" dy="11.4">moof + mdat</tspan></text>
+<rect x="534.0" y="275.0" width="115.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="591.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="591.5" dy="0.0">Chunk #5 (200 мс)</tspan><tspan x="591.5" dy="11.4">moof + mdat</tspan></text>
+<rect x="655.0" y="275.0" width="125.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="717.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="717.5" dy="0.0">Chunk #N (200 мс)...</tspan></text>
+<line x1="50.0" y1="338.0" x2="770.0" y2="338.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="780.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="end" font-weight="700">HTTP Chunked Transfer → Клієнт отримує кадри ще під час кодування сегмента</text>
+<text x="50.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">CMAF розбиває 2-секундний фрагмент на мікро-блоки (chunks), які відправляються клієнту конвеєрно.</text>
+<text x="430.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Low-Latency ABR передає відео частинами через HTTP/2 та HTTP/3 без очікування завершення повного сегмента.</text>
+</svg>

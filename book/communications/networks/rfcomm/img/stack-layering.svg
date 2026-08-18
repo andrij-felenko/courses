@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Місце RFCOMM у стеку протоколів Bluetooth Classic</text>
+<rect x="40.0" y="58.0" width="680.0" height="44.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text x="380.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#475569" text-anchor="middle" font-weight="700">Застосунки / Служби</text>
+<text x="380.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Термінал (SPP), PPP/Модем (DUN), Телефонна книга (PBAP), AT-команди (HFP)</text>
+<line x1="70.0" y1="103.0" x2="70.0" y2="109.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="690.0" y1="103.0" x2="690.0" y2="109.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="40.0" y="110.0" width="680.0" height="44.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="380.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Віртуальний COM-порт ОС</text>
+<text x="380.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Драйвер TTY / POSIX пристрій (/dev/rfcomm0), емуляція 9-контактного RS-232</text>
+<line x1="70.0" y1="155.0" x2="70.0" y2="161.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="690.0" y1="155.0" x2="690.0" y2="161.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="40.0" y="162.0" width="680.0" height="44.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/>
+<text x="380.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Протокол RFCOMM</text>
+<text x="380.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Мультиплексування DLCI 0..30, емуляція ліній V.24 (MSC/RPN), кредитний контроль CBFC</text>
+<line x1="70.0" y1="207.0" x2="70.0" y2="213.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="690.0" y1="207.0" x2="690.0" y2="213.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="40.0" y="214.0" width="680.0" height="44.0" rx="6" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.6"/>
+<text x="380.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#a855f7" text-anchor="middle" font-weight="700">Рівень L2CAP</text>
+<text x="380.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Канал PSM 0x0003, фіксований/динамічний CID, сегментація та складання (SAR), MTU</text>
+<line x1="70.0" y1="259.0" x2="70.0" y2="265.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="690.0" y1="259.0" x2="690.0" y2="265.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="40.0" y="266.0" width="680.0" height="44.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="380.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Інтерфейс HCI</text>
+<text x="380.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Пакетна передача кадрів ACL (HCI_ACLDATA_PKT) через фізичний інтерфейс UART/USB</text>
+<line x1="70.0" y1="311.0" x2="70.0" y2="317.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="690.0" y1="311.0" x2="690.0" y2="317.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="40.0" y="318.0" width="680.0" height="44.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="380.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Контролер Bluetooth (PHY / Baseband)</text>
+<text x="380.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Радіоканал 2.4 ГГц, стрибки частоти FHSS, апаратний CRC, повтори ARQ</text>
+</svg>

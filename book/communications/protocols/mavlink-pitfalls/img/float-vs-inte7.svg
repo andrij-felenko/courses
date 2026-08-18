@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="780.0" height="320.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роздільна здатність географічних координат: float32 проти int32 (degE7)</text>
+<rect x="40.0" y="75.0" width="355.0" height="245.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="217.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">float32 (24 біти мантиси)</text>
+<text x="217.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="217.0" dy="0.0">Формат: 1 біт знак, 8 біт експонента, 23 біти мантиса</tspan><tspan x="217.0" dy="13.7">Кількість рівнів дискретизації: 2²⁴ = 16 777 216</tspan><tspan x="217.0" dy="13.7">Діапазон довготи: −180.0° .. +180.0°</tspan></text>
+<line x1="60.0" y1="185.0" x2="370.0" y2="185.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="80.0" y1="178.0" x2="80.0" y2="192.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="80.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">179.99°</text>
+<line x1="190.0" y1="178.0" x2="190.0" y2="192.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="190.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+1.69 м</text>
+<line x1="300.0" y1="178.0" x2="300.0" y2="192.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="300.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+3.38 м</text>
+<text x="217.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="217.0" dy="0.0">Крок квантування при λ ≈ 180°:</tspan><tspan x="217.0" dy="13.7">Δλ = 180° / 2²³ ≈ 2.15 × 10⁻⁵ градуса</tspan><tspan x="217.0" dy="13.7">Похибка на екваторі: ≈ 2.39 метра!</tspan><tspan x="217.0" dy="13.7">(Непридатно для автопосадки та RTK!)</tspan></text>
+<rect x="425.0" y="75.0" width="355.0" height="245.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="602.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">int32_t (degE7 = градуси × 10⁷)</text>
+<text x="602.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">Формат: 32-бітне ціле число зі знаком</tspan><tspan x="602.0" dy="13.7">Кількість рівнів: 2³² ≈ 4.29 × 10⁹</tspan><tspan x="602.0" dy="13.7">Масштабування: 1 одиниця = 10⁻⁷ градуса (0.0000001°)</tspan></text>
+<line x1="445.0" y1="185.0" x2="755.0" y2="185.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="465.0" y1="180.0" x2="465.0" y2="190.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="465.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">0 см</text>
+<line x1="525.0" y1="180.0" x2="525.0" y2="190.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="525.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">1.1 см</text>
+<line x1="585.0" y1="180.0" x2="585.0" y2="190.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="585.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">2.2 см</text>
+<line x1="645.0" y1="180.0" x2="645.0" y2="190.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">3.3 см</text>
+<line x1="705.0" y1="180.0" x2="705.0" y2="190.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="705.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">4.4 см</text>
+<text x="602.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="602.0" dy="0.0">Крок квантування фіксований скрізь:</tspan><tspan x="602.0" dy="13.7">Δλ = 10⁻⁷ градуса (стала цілочисельна сітка)</tspan><tspan x="602.0" dy="13.7">Похибка на екваторі: 1.11 сантиметра!</tspan><tspan x="602.0" dy="13.7">(Повна підтримка сантиметрового RTK GNSS)</tspan></text>
+</svg>

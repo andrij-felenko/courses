@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність підтверджень та повторної передачі пакетів у протоколі ARQ BLE Link Layer</text>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний протокол Stop-and-Wait ARQ у BLE Link Layer</text>
+<rect x="120.0" y="45.0" width="140.0" height="35.0" rx="4" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="190.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Master (Tx / Rx)</text>
+<line x1="190.0" y1="80.0" x2="190.0" y2="410.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="580.0" y="45.0" width="140.0" height="35.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Slave (Rx / Tx)</text>
+<line x1="650.0" y1="80.0" x2="650.0" y2="410.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="190.0" y1="105.0" x2="650.0" y2="140.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="420.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Data PDU [SN=0, NESN=0]</text>
+<line x1="650.0" y1="155.0" x2="190.0" y2="190.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="420.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ACK PDU [SN=0, NESN=1] (підтверджено)</text>
+<line x1="190.0" y1="215.0" x2="650.0" y2="250.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="420.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Data PDU [SN=1, NESN=0] (пошкоджено в ефірі)</text>
+<circle cx="530.0" cy="241.0" r="10.0" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="530.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<line x1="650.0" y1="265.0" x2="190.0" y2="300.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="420.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">NACK PDU [SN=0, NESN=1] (NESN не змінився!)</text>
+<line x1="190.0" y1="325.0" x2="650.0" y2="360.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Retransmit: Data PDU [SN=1, NESN=0]</text>
+<line x1="650.0" y1="375.0" x2="190.0" y2="410.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="420.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ACK PDU [SN=1, NESN=0] (успішно прийнято)</text>
+</svg>

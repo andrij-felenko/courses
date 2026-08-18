@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Точки фіксації міток часу в мережевому стеку: джерела похибок</text>
+<rect x="60.0" y="65.0" width="440.0" height="72.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="80.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Програмний рівень застосунку (User Space)</text>
+<text x="80.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">gettimeofday() / clock_gettime()</text>
+<rect x="520.0" y="65.0" width="260.0" height="72.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Джитер: 10 мкс – 10 мс</text>
+<text x="650.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(перемикання контексту, планувальник ОС)</text>
+<line x1="280.0" y1="137.0" x2="280.0" y2="151.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="151.0" width="440.0" height="72.0" rx="6" fill="#fed7aa" stroke="#c2410c" stroke-width="1.8"/>
+<text x="80.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Рівень ядра ОС (Kernel Socket Buffer)</text>
+<text x="80.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">SO_TIMESTAMP (обробник мережевих пакетів ядра)</text>
+<rect x="520.0" y="151.0" width="260.0" height="72.0" rx="6" fill="#ffffff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="650.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c2410c" text-anchor="middle" font-weight="700">Джитер: 1 – 100 мкс</text>
+<text x="650.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(обробка переривань, софт-IRQ, блокування)</text>
+<line x1="280.0" y1="223.0" x2="280.0" y2="237.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="237.0" width="440.0" height="72.0" rx="6" fill="#fef08a" stroke="#854d0e" stroke-width="1.8"/>
+<text x="80.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Контролер Ethernet MAC (Network Adapter)</text>
+<text x="80.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Апаратний лічильник MAC під час старту кадру</text>
+<rect x="520.0" y="237.0" width="260.0" height="72.0" rx="6" fill="#ffffff" stroke="#854d0e" stroke-width="1.5"/>
+<text x="650.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="middle" font-weight="700">Джитер: 10 – 50 нс</text>
+<text x="650.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(затримка DMA-буфера та буфера дескрипторів)</text>
+<line x1="280.0" y1="309.0" x2="280.0" y2="323.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="323.0" width="440.0" height="72.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="80.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Фізичний трансивер Ethernet PHY (MII / GMII)</text>
+<text x="80.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Апаратне захоплення на делімітері початку кадру (SFD)</text>
+<rect x="520.0" y="323.0" width="260.0" height="72.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Джитер: &lt; 5 нс (субнаносекундна точність)</text>
+<text x="650.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(виключає всі затримки черг, DMA та софту)</text>
+</svg>

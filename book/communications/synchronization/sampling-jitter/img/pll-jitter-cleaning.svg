@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-69.2 -10 1055.8 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-69.2" y="-10" width="1055.8" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура очищувача тактового сигналу</text>
+<rect x="15.0" y="15.0" width="730.0" height="390.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="380.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура очищувача тактового сигналу (PLL Jitter Cleaner)</text>
+<text x="65.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Засмічений тактовий
+сигнал f_ref (з джиттером)</text>
+<line x1="65.0" y1="150.0" x2="115.0" y2="150.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="110.6" y="126.0" width="108.9" height="48.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="165.0" y="140.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Фазовий</tspan><tspan x="165.0" dy="13.0">детектор PFD</tspan><tspan x="165.0" dy="13.0">+ Насос заряду CP</tspan></text>
+<line x1="215.0" y1="150.0" x2="265.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="240.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">i_cp(t)</text>
+<rect x="284.8" y="126.0" width="80.4" height="48.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/><text x="325.0" y="140.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="325.0" dy="0.0">Петльовий</tspan><tspan x="325.0" dy="13.0">фільтр ФНЧ</tspan><tspan x="325.0" dy="13.0">(Смуга f_BW)</tspan></text>
+<line x1="385.0" y1="150.0" x2="435.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="410.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">V_ctrl</text>
+<rect x="470.5" y="126.0" width="69.0" height="48.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="505.0" y="140.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="505.0" dy="0.0">Малошумний</tspan><tspan x="505.0" dy="13.0">генератор</tspan><tspan x="505.0" dy="13.0">VCXO / VCO</tspan></text>
+<line x1="575.0" y1="150.0" x2="680.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="610.0" cy="150.0" r="3.0" fill="#1a1a1a" stroke="none" stroke-width="1.5"/>
+<line x1="610.0" y1="150.0" x2="610.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<line x1="610.0" y1="240.0" x2="385.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="286.2" y="222.5" width="97.5" height="35.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="335.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">Дільник частоти</tspan><tspan x="335.0" dy="13.0">/ N</tspan></text>
+<line x1="285.0" y1="240.0" x2="165.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<line x1="165.0" y1="240.0" x2="165.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="175.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">f_fb</text>
+<text x="685.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Очищений клок f_out
+(Ультранизький джиттер σ &lt; 100 фс)</text>
+<rect x="30.0" y="290.0" width="700.0" height="100.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="45.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Компроміс смуги петлі ФАПЧ (Loop Bandwidth f_BW):</text>
+<text x="45.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• f &lt; f_BW (Низькі частоти): Петля відстежує опорний сигнал f_ref (виправляє повільний дрейф частоти).</text>
+<text x="45.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• f &gt; f_BW (Високі частоти): Петльовий фільтр блокує швидкий фазовий шум f_ref; вихід визначається надчистим VCXO.</text>
+<text x="45.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">• Оптимум f_BW: Обирається на точці перетину спектральних густин фазового шуму вхідного клоку та внутрішнього VCXO.</text>
+</svg>

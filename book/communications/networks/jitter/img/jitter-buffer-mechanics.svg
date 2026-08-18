@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип роботи буфера відтворення (Jitter Buffer)</text>
+<text x="100.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідні пакети (змінний інтервал)</text>
+<line x1="40.0" y1="95.0" x2="230.0" y2="95.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="78.0" width="32.0" height="34.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="76.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">P₁</text>
+<rect x="105.0" y="78.0" width="32.0" height="34.0" rx="3" fill="#ffffff" stroke="#16a085" stroke-width="1.5"/>
+<text x="121.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a085" text-anchor="middle" font-weight="700">P₂</text>
+<rect x="170.0" y="78.0" width="32.0" height="34.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="186.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">P₃</text>
+<rect x="195.0" y="78.0" width="32.0" height="34.0" rx="3" fill="#ffffff" stroke="#e67e22" stroke-width="1.5"/>
+<text x="211.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">P₄</text>
+<rect x="240.0" y="60.0" width="280.0" height="160.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="380.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер відтворення (Jitter Buffer)</text>
+<text x="380.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фіксована/адаптивна глибина D_buf (напр. 60 мс)</text>
+<rect x="260.0" y="115.0" width="42.0" height="48.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="281.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">P₁</text>
+<text x="281.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Готовий</text>
+<rect x="310.0" y="115.0" width="42.0" height="48.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="331.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">P₂</text>
+<text x="331.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Готовий</text>
+<rect x="360.0" y="115.0" width="42.0" height="48.0" rx="4" fill="#fef9e7" stroke="#e67e22" stroke-width="1.2"/>
+<text x="381.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">P₃</text>
+<text x="381.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">У черзі</text>
+<rect x="410.0" y="115.0" width="42.0" height="48.0" rx="4" fill="#fef9e7" stroke="#e67e22" stroke-width="1.2"/>
+<text x="431.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">P₄</text>
+<text x="431.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">У черзі</text>
+<rect x="460.0" y="115.0" width="42.0" height="48.0" rx="4" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.2"/>
+<text x="481.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">—</text>
+<text x="481.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вільний</text>
+<line x1="260.0" y1="185.0" x2="480.0" y2="185.0" stroke="#333333" stroke-width="1.5"/>
+<text x="370.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Часовий дедлайн вичитування</text>
+<line x1="520.0" y1="135.0" x2="600.0" y2="135.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="600.0" y="75.0" width="130.0" height="120.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="665.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ЦАП / Декодер</text>
+<text x="665.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Строгий період</text>
+<text x="665.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">T_play = 20.00 мс</text>
+<text x="665.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Безперервний звук</text>
+<rect x="40.0" y="245.0" width="325.0" height="155.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="202.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Буферне голодування (Underrun)</text>
+<text x="202.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пакет прибув ПІСЛЯ дедлайну відтворення:</text>
+<text x="202.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t_arrive &gt; t_play_deadline</text>
+<text x="202.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Декодер отримує порожнечу (клік/тиша)</text>
+<text x="202.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Вмикається маскування втрат (PLC)</text>
+<text x="202.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• Запізнілий пакет відкидається як непотрібний</text>
+<rect x="395.0" y="245.0" width="325.0" height="155.0" rx="6" fill="#fef5e7" stroke="#e67e22" stroke-width="1.4"/>
+<text x="557.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">2. Переповнення буфера (Overrun)</text>
+<text x="557.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сплеск затримки роздуває чергу:</text>
+<text x="557.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">Queue_Depth &gt; Max_Buffer_Capacity</text>
+<text x="557.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Нові або найстаріші пакети скидаються</text>
+<text x="557.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Загальна інтерактивна затримка зростає</text>
+<text x="557.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">• Потрібне прискорення відтворення (WSOLA)</text>
+</svg>

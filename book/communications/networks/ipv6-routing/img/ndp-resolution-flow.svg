@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розв'язання L2-адреси в IPv6 (NDP) замість широкомовного ARP</text>
+<rect x="50.0" y="70.0" width="160.0" height="90.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="130.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="130.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2001:db8::10</text>
+<text x="130.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">MAC: 00:11:22:33:44:aa</text>
+<rect x="610.0" y="70.0" width="160.0" height="90.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="690.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол B (Ціль)</text>
+<text x="690.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2001:db8::20</text>
+<text x="690.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">MAC: 00:11:22:33:44:bb</text>
+<rect x="330.0" y="255.0" width="160.0" height="75.0" rx="6" fill="#fdf2f2" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="410.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#4b5563" text-anchor="middle" font-weight="700">Вузол C (Сусід)</text>
+<text x="410.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2001:db8::99</text>
+<text x="410.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">NIC відкидає кадр</text>
+<line x1="215.0" y1="88.0" x2="605.0" y2="88.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="235.0" y="58.0" width="350.0" height="24.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="410.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. ICMPv6 NS → ff02::1:ff00:20 (MAC 33:33:ff:00:00:20)</text>
+<line x1="410.0" y1="88.0" x2="410.0" y2="250.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<circle cx="410.0" cy="175.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="410.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<line x1="605.0" y1="142.0" x2="215.0" y2="142.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="235.0" y="112.0" width="350.0" height="24.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="410.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. ICMPv6 NA (Unicast) → Вузол A з MAC 00:11:22:33:44:bb</text>
+<rect x="50.0" y="235.0" width="260.0" height="125.0" rx="6" fill="#fff7e6" stroke="#d97706" stroke-width="1.2"/><text x="180.0" y="268.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">IPv4 (ARP): запит слався на</tspan><tspan x="180.0" dy="13.0">FF:FF:FF:FF:FF:FF (broadcast) —</tspan><tspan x="180.0" dy="13.0">кожен комп'ютер у мережі мусив</tspan><tspan x="180.0" dy="13.0">переривати CPU і читати пакет.</tspan><tspan x="180.0" dy="13.0">У великих сегментах це створювало</tspan><tspan x="180.0" dy="13.0">шторми широкомовлення.</tspan></text>
+<rect x="510.0" y="235.0" width="260.0" height="125.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><text x="640.0" y="268.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">IPv6 (NDP): запит надсилається на</tspan><tspan x="640.0" dy="13.0">вузьку групу Solicited-Node Multicast.</tspan><tspan x="640.0" dy="13.0">Сторонні вузли не чують запиту:</tspan><tspan x="640.0" dy="13.0">апаратний фільтр мережевої карти</tspan><tspan x="640.0" dy="13.0">відкидає кадр до передачі в OS.</tspan><tspan x="640.0" dy="13.0">Відповідь NA повертається unicast.</tspan></text>
+</svg>

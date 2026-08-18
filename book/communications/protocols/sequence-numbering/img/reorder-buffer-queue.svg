@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура буфера перевпорядкування (Reordering Buffer)</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Трансформація невпорядкованого UDP/радіо потоку в строго послідовну чергу доставки</text>
+<rect x="47.1" y="116.3" width="165.7" height="67.4" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="130.0" y="133.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Вхідний потік з мережі:</tspan><tspan x="130.0" dy="13.7">[#12] [#14] [#11] [#15]</tspan><tspan x="130.0" dy="13.7">(перевпорядкування,</tspan><tspan x="130.0" dy="13.7">втрати, затримки)</tspan></text>
+<line x1="225.0" y1="150.0" x2="285.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="290.0" y="90.0" width="270.0" height="220.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="425.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слоти буфера очікування</text>
+<rect x="305.0" y="135.0" width="240.0" height="26.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="315.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 11</text>
+<text x="535.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">Пакет #11 (Готовий)</text>
+<rect x="305.0" y="167.0" width="240.0" height="26.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="315.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 12</text>
+<text x="535.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">Пакет #12 (Готовий)</text>
+<rect x="305.0" y="199.0" width="240.0" height="26.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="315.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 13</text>
+<text x="535.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="end" font-weight="700">ДІРКА (Очікування #13)</text>
+<rect x="305.0" y="231.0" width="240.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="315.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 14</text>
+<text x="535.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Пакет #14 (У буфері)</text>
+<rect x="305.0" y="263.0" width="240.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="315.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 15</text>
+<text x="535.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Пакет #15 (У буфері)</text>
+<line x1="565.0" y1="150.0" x2="625.0" y2="150.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="627.4" y="116.3" width="185.3" height="67.4" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="133.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Видача застосунку:</tspan><tspan x="720.0" dy="13.7">[#11] → [#12] → (пауза)</tspan><tspan x="720.0" dy="13.7">Потік строго за зростанням</tspan><tspan x="720.0" dy="13.7">seq_expected = 13</tspan></text>
+<rect x="100.0" y="340.0" width="640.0" height="90.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.3"/>
+<text x="420.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Логіка розблокування дірки (Таймаут перевпорядкування):</text>
+<text x="420.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Якщо Пакет #13 надходить до спливання таймауту → видати #13, #14, #15 суцільним ланцюжком.</text>
+<text x="420.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Якщо таймаут сплив (пакет #13 втрачено безповоротно) → зафіксувати втрату, перескочити на seq_exp = 14 і видати #14, #15.</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="780.0" height="130.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="35.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">MAVLink 1 (Максимум 263 байти)</text>
+<text x="780.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Фіксований заголовок 6 байтів, без прапорців і підпису</text>
+<rect x="35.0" y="60.0" width="55.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="62.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="62.5" dy="0.0">STX</tspan><tspan x="62.5" dy="13.0">0xFE</tspan></text>
+<rect x="95.0" y="60.0" width="65.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="127.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="127.5" dy="0.0">LEN</tspan><tspan x="127.5" dy="13.0">0..255</tspan></text>
+<rect x="165.0" y="60.0" width="55.0" height="50.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="192.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="192.5" dy="0.0">SEQ</tspan><tspan x="192.5" dy="13.0">0..255</tspan></text>
+<rect x="225.0" y="60.0" width="55.0" height="50.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="252.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="252.5" dy="0.0">SYS</tspan><tspan x="252.5" dy="13.0">1..255</tspan></text>
+<rect x="285.0" y="60.0" width="60.0" height="50.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="315.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">COMP</tspan><tspan x="315.0" dy="13.0">1..255</tspan></text>
+<rect x="350.0" y="60.0" width="110.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="405.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="405.0" dy="0.0">MSG ID</tspan><tspan x="405.0" dy="13.0">0..255 (8-біт)</tspan></text>
+<rect x="465.0" y="60.0" width="240.0" height="50.0" rx="4" fill="#ffffff" stroke="#f4f6f8" stroke-width="1.5"/>
+<text x="585.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="585.0" dy="0.0">PAYLOAD (Корисні дані)</tspan><tspan x="585.0" dy="13.0">0..255 байтів (без обрізання нулів)</tspan></text>
+<rect x="710.0" y="60.0" width="80.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="750.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">CRC</tspan><tspan x="750.0" dy="13.0">2 байти</tspan></text>
+<text x="35.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-style="italic">⚠ Пастка v1: MSG ID обмежений 255; буфери парсера розраховані максимум на 263 байти</text>
+<rect x="20.0" y="175.0" width="780.0" height="165.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="35.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">MAVLink 2 (Максимум 280 байтів)</text>
+<text x="780.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Заголовок 10 байтів, 24-біт MSG ID, zero-trimming, підпис</text>
+<rect x="35.0" y="215.0" width="42.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="56.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="56.0" dy="0.0">STX</tspan><tspan x="56.0" dy="12.3">0xFD</tspan></text>
+<rect x="81.0" y="215.0" width="46.0" height="52.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="104.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="104.0" dy="0.0">LEN</tspan><tspan x="104.0" dy="12.3">0..255</tspan></text>
+<rect x="131.0" y="215.0" width="42.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="152.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="152.0" dy="0.0">INC</tspan><tspan x="152.0" dy="12.3">flags</tspan></text>
+<rect x="177.0" y="215.0" width="42.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="198.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="198.0" dy="0.0">CMP</tspan><tspan x="198.0" dy="12.3">flags</tspan></text>
+<rect x="223.0" y="215.0" width="42.0" height="52.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="244.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="244.0" dy="0.0">SEQ</tspan><tspan x="244.0" dy="12.3">num</tspan></text>
+<rect x="269.0" y="215.0" width="42.0" height="52.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="290.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">SYS</tspan><tspan x="290.0" dy="12.3">id</tspan></text>
+<rect x="315.0" y="215.0" width="42.0" height="52.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="336.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="336.0" dy="0.0">COMP</tspan><tspan x="336.0" dy="12.3">id</tspan></text>
+<rect x="361.0" y="215.0" width="78.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="400.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">MSG ID</tspan><tspan x="400.0" dy="12.3">24-біт (3 B)</tspan></text>
+<rect x="443.0" y="215.0" width="190.0" height="52.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="538.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="538.0" dy="0.0">PAYLOAD (Zero-trimmed)</tspan><tspan x="538.0" dy="12.3">Хвостові нулі відтято!</tspan></text>
+<rect x="637.0" y="215.0" width="48.0" height="52.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="661.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="661.0" dy="0.0">CRC</tspan><tspan x="661.0" dy="12.3">2 B</tspan></text>
+<rect x="689.0" y="215.0" width="90.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="734.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="734.0" dy="0.0">SIGNATURE</tspan><tspan x="734.0" dy="12.3">13 B (опція)</tspan></text>
+<text x="35.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">⚠ Пастка Zero-Trimming: перед розпакуванням обов'язковий memset(&amp;msg, 0, sizeof(msg))!</text>
+<text x="35.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">⚠ Пастка Signed: невідомий біт у INC flags (0x01) змушує v1-парсери відкидати пакет або ламатися на хвості</text>
+</svg>

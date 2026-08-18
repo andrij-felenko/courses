@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 530.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="530.5" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура пакета SCTP (Заголовок та Chunks)</text>
+<rect x="190.4" y="37.5" width="439.1" height="33.0" rx="6" fill="#f0f4f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="58.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Загальний заголовок SCTP (12 байтів / Common Header)</tspan></text>
+<rect x="60.0" y="70.0" width="350.0" height="34.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="235.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Source Port (16 біт)</text>
+<rect x="410.0" y="70.0" width="350.0" height="34.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="585.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Destination Port (16 біт)</text>
+<rect x="60.0" y="104.0" width="700.0" height="34.0" rx="6" fill="#fef3e8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="410.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Verification Tag (32 біти) — валідація належності асоціації</text>
+<rect x="60.0" y="138.0" width="700.0" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="410.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Checksum (32 біти) — CRC32c (RFC 3309) або Adler-32</text>
+<rect x="121.9" y="188.5" width="576.1" height="33.0" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="209.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Послідовність Chunks (кожен вирівняний по 32-бітному слову з Padding)</tspan></text>
+<text x="140.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DATA Chunk (Type = 0x00):</text>
+<rect x="60.0" y="245.0" width="175.0" height="30.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="147.5" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Type = 0 (8b)</text>
+<rect x="235.0" y="245.0" width="175.0" height="30.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="322.5" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Flags: U, B, E (8b)</text>
+<rect x="410.0" y="245.0" width="350.0" height="30.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="585.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Chunk Length (16 біт)</text>
+<rect x="60.0" y="275.0" width="700.0" height="28.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Transmission Sequence Number — TSN (32 біти, надійність асоціації)</text>
+<rect x="60.0" y="303.0" width="350.0" height="28.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="235.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Stream Identifier — SID (16b)</text>
+<rect x="410.0" y="303.0" width="350.0" height="28.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="585.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Stream Sequence Number — SSN (16b)</text>
+<rect x="60.0" y="331.0" width="700.0" height="28.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Payload Protocol Identifier — PPID (32 біти, M3UA, WebRTC, S1AP)</text>
+<rect x="60.0" y="359.0" width="700.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">User Data Payload (корисні дані прикладного повідомлення) + Падінг (0-3 байти)</text>
+<text x="140.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">SACK Chunk (Type = 0x03, Selective ACK):</text>
+<rect x="60.0" y="415.0" width="350.0" height="28.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="235.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cumulative TSN Ack (32 біти)</text>
+<rect x="410.0" y="415.0" width="350.0" height="28.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="585.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">a_rwnd (Advertised Window, 32 біти)</text>
+<rect x="60.0" y="443.0" width="700.0" height="28.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="410.0" y="461.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Gap Ack Blocks (діапазони доставлених блоків) + Duplicate TSNs (дублікати)</text>
+<rect x="142.9" y="479.5" width="534.1" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="498.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Один IP-пакет може об'єднувати кілька керуючих та інформаційних чанків у межах MTU</tspan></text>
+</svg>

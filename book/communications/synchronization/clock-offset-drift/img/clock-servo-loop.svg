@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 774.4 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="774.4" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура цифрового PI-сервоконтролера: синхронізація фази та швидкості ходу</text>
+<rect x="33.0" y="66.2" width="153.9" height="47.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Еталонний час</tspan><tspan x="110.0" dy="15.6">T_ref(k) [PPS/PTP]</tspan></text>
+<circle cx="250.0" cy="90.0" r="18.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="250.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="700">−</text>
+<line x1="170.0" y1="90.0" x2="232.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="226.0" y1="86.0" x2="232.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="226.0" y1="94.0" x2="232.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="305.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Похибка e_k</text>
+<line x1="268.0" y1="90.0" x2="350.0" y2="90.0" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="350.0" cy="90.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="350.0" y1="90.0" x2="350.0" y2="60.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="350.0" y1="60.0" x2="390.0" y2="60.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="355.2" y="37.9" width="169.6" height="44.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="440.0" y="56.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="440.0" dy="0.0">Пропорційна: K_p · e_k</tspan><tspan x="440.0" dy="13.7">(корекція фазового зсуву)</tspan></text>
+<line x1="350.0" y1="90.0" x2="350.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="350.0" y1="130.0" x2="390.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="352.2" y="107.9" width="175.6" height="44.1" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="440.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="440.0" dy="0.0">Інтегральна: K_i · Σ e_j</tspan><tspan x="440.0" dy="13.7">(оцінка швидкості ходу α̂)</tspan></text>
+<line x1="520.0" y1="60.0" x2="560.0" y2="60.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="560.0" y1="60.0" x2="560.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="520.0" y1="130.0" x2="560.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="560.0" y1="130.0" x2="560.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="560.0" cy="90.0" r="14.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="560.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">+</text>
+<line x1="574.0" y1="90.0" x2="610.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="591.8" y="67.3" width="156.4" height="45.3" rx="6" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/><text x="670.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">Підстроювання темпу</tspan><tspan x="670.0" dy="14.3">і фазовий акумулятор</tspan></text>
+<line x1="670.0" y1="125.0" x2="670.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="585.6" y="221.2" width="168.8" height="47.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="670.0" y="241.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">Синхронізована шкала</tspan><tspan x="670.0" dy="15.6">часу T_local(t)</tspan></text>
+<line x1="610.0" y1="245.0" x2="250.0" y2="245.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="250.0" y1="245.0" x2="250.0" y2="108.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="246.0" y1="114.0" x2="250.0" y2="108.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="254.0" y1="114.0" x2="250.0" y2="108.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Зворотний зв'язок: поточний час місцевого годинника T_local</text>
+<rect x="92.3" y="299.8" width="235.5" height="30.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="210.0" y="318.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">P-ланка усуває миттєвий розрив міток</tspan></text>
+<rect x="359.4" y="299.8" width="361.1" height="30.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="540.0" y="318.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">I-ланка вчиться компенсувати постійний нахил кварцу (ppm)</tspan></text>
+</svg>

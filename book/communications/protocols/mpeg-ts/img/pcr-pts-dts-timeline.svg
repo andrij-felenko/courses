@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація часу PCR, PTS і DTS</text>
+<text x="40.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Часова синхронізація в MPEG-TS: опорний годинник PCR проти міток PTS/DTS</text>
+<rect x="40.0" y="56.0" width="760.0" height="72.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="55.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Опорна часова база передавача: System Time Clock (STC 27 МГц)</text>
+<text x="55.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Передається через регулярні мітки PCR в адаптаційних полях кожні 20..40 мс</text>
+<line x1="55.0" y1="110.0" x2="770.0" y2="110.0" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="120.0" cy="110.0" r="4.0" fill="#2457d6" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">PCR₁ = 0.00 s</text>
+<circle cx="320.0" cy="110.0" r="4.0" fill="#2457d6" stroke="#333333" stroke-width="1.5"/>
+<text x="320.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">PCR₂ = 0.04 s</text>
+<circle cx="520.0" cy="110.0" r="4.0" fill="#2457d6" stroke="#333333" stroke-width="1.5"/>
+<text x="520.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">PCR₃ = 0.08 s</text>
+<circle cx="720.0" cy="110.0" r="4.0" fill="#2457d6" stroke="#333333" stroke-width="1.5"/>
+<text x="720.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">PCR₄ = 0.12 s</text>
+<line x1="440.0" y1="130.0" x2="440.0" y2="156.0" stroke="#4f46e5" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4f46e5" text-anchor="start" font-weight="700">Синхронізація частоти генератора (PLL/VCXO)</text>
+<rect x="40.0" y="180.0" width="760.0" height="195.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="55.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Часова шкала представлення медіа (90 кГц): DTS (декодування) vs PTS (показ на екрані)</text>
+<rect x="70.0" y="216.0" width="135.0" height="84.0" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.4"/>
+<text x="137.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">I₁ (Keyframe)</text>
+<text x="137.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">DTS = 100 ms</text>
+<text x="137.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">PTS = 180 ms</text>
+<text x="137.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DTS ≠ PTS)</text>
+<rect x="215.0" y="216.0" width="135.0" height="84.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.4"/>
+<text x="282.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P₄ (Ref Frame)</text>
+<text x="282.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">DTS = 140 ms</text>
+<text x="282.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">PTS = 300 ms</text>
+<text x="282.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DTS ≠ PTS)</text>
+<rect x="360.0" y="216.0" width="135.0" height="84.0" rx="4" fill="#fef9c3" stroke="#854d0e" stroke-width="1.4"/>
+<text x="427.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">B₂ (Bi-dir)</text>
+<text x="427.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">DTS = 180 ms</text>
+<text x="427.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">PTS = 220 ms</text>
+<text x="427.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Двосторонній)</text>
+<rect x="505.0" y="216.0" width="135.0" height="84.0" rx="4" fill="#fef9c3" stroke="#854d0e" stroke-width="1.4"/>
+<text x="572.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">B₃ (Bi-dir)</text>
+<text x="572.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">DTS = 220 ms</text>
+<text x="572.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">PTS = 260 ms</text>
+<text x="572.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Двосторонній)</text>
+<rect x="650.0" y="216.0" width="135.0" height="84.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.4"/>
+<text x="717.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P₇ (Ref Frame)</text>
+<text x="717.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">DTS = 260 ms</text>
+<text x="717.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">PTS = 420 ms</text>
+<text x="717.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DTS ≠ PTS)</text>
+<text x="55.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PCR (27 МГц): усуває дрейф фізичного кварцового генератора приймача, гарантуючи рівномірність споживання буфера.</text>
+<text x="55.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• DTS (90 кГц): вказує точний момент вилучення стисненого кадру з буфера та подачі на відеодекодер.</text>
+<text x="55.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PTS (90 кГц): вказує момент рендерингу оцифрованого зображення на дисплеї, узгоджуючи відео зі звуком (Lip Sync).</text>
+</svg>

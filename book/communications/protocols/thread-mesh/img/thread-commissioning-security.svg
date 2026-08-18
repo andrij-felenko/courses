@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес безпечного комісіонування вузла у мережу Thread</text>
+<rect x="50.0" y="40.0" width="190.0" height="60.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.6"/>
+<text x="145.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">Joiner (Новий вузол)</text>
+<text x="145.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Знає лише PSKd (пароль)</text>
+<text x="145.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Не має мережевих ключів</text>
+<rect x="315.0" y="40.0" width="190.0" height="60.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="410.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Joiner Router (Relay)</text>
+<text x="410.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Маршрутизатор Thread</text>
+<text x="410.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Транслює трафік Joiner UDP</text>
+<rect x="580.0" y="40.0" width="190.0" height="60.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="675.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Commissioner (Смартфон/OTBR)</text>
+<text x="675.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Авторизує нові пристрої</text>
+<text x="675.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Вводить PSKd користувача</text>
+<line x1="145.0" y1="100.0" x2="145.0" y2="340.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="410.0" y1="100.0" x2="410.0" y2="340.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="675.0" y1="100.0" x2="675.0" y2="340.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="145.0" y1="125.0" x2="410.0" y2="140.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="277.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1. Discovery Request (Нешифрований)</text>
+<line x1="410.0" y1="155.0" x2="145.0" y2="170.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="277.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2. Discovery Response (Підтримка Joiner)</text>
+<line x1="145.0" y1="190.0" x2="410.0" y2="195.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="195.0" x2="675.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">3. DTLS ClientHello + ECJPAKE обмін (Автентифікація через PSKd)</text>
+<line x1="675.0" y1="225.0" x2="410.0" y2="230.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="230.0" x2="145.0" y2="235.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">4. DTLS ServerHello / Finished → Встановлено сесійний ключ KEK</text>
+<line x1="675.0" y1="255.0" x2="145.0" y2="270.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">5. Передача конфігурації: Network Master Key, PAN ID, Extended PAN, Prefix</text>
+<rect x="60.0" y="290.0" width="170.0" height="45.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="145.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Мережевий ключ отримано</text>
+<text x="145.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Вузол готовий до Mesh</text>
+<rect x="50.0" y="360.0" width="720.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="410.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подальший захист усього трафіку в Thread Mesh:</text>
+<text x="410.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Шифрування та аутентифікація AES-128 CCM (MAC Payload + MIC-32/64) + Frame Counter проти Replay-атак</text>
+</svg>

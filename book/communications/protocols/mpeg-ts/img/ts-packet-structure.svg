@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія 188-байтного пакета MPEG-TS</text>
+<text x="40.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Структура 188-байтного пакета MPEG-2 Transport Stream (MPEG-TS)</text>
+<rect x="40.0" y="48.0" width="160.0" height="44.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="120.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Заголовок TS (4 байти)</text>
+<text x="120.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фіксована службова частина</text>
+<rect x="208.0" y="48.0" width="210.0" height="44.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="313.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Адаптаційне поле (0..184 B)</text>
+<text x="313.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опційне: PCR, стаффінг 0xFF</text>
+<rect x="426.0" y="48.0" width="374.0" height="44.0" rx="4" fill="#dcfce7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="613.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Корисне навантаження Payload (до 184 байтів)</text>
+<text x="613.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фрагмент кадру PES (відео/аудіо) або секція таблиці PSI</text>
+<text x="40.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Побайтова та побітова розкладка заголовка TS (4 байти / 32 біти):</text>
+<rect x="40.0" y="135.0" width="100.0" height="56.0" rx="3" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="90.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Sync Byte</text>
+<text x="90.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">8 бітів = 0x47</text>
+<text x="90.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхромаркер</text>
+<rect x="144.0" y="135.0" width="56.0" height="56.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.4"/>
+<text x="172.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">TEI</text>
+<text x="172.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 біт</text>
+<text x="172.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Помилка</text>
+<rect x="204.0" y="135.0" width="56.0" height="56.0" rx="3" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.4"/>
+<text x="232.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">PUSI</text>
+<text x="232.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 біт</text>
+<text x="232.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Старт</text>
+<rect x="264.0" y="135.0" width="56.0" height="56.0" rx="3" fill="#f1f5f9" stroke="#64748b" stroke-width="1.4"/>
+<text x="292.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">Priority</text>
+<text x="292.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 біт</text>
+<text x="292.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пріоритет</text>
+<rect x="324.0" y="135.0" width="160.0" height="56.0" rx="3" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.4"/>
+<text x="404.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4338ca" text-anchor="middle" font-weight="700">PID (Packet Identifier)</text>
+<text x="404.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">13 бітів (0x0000..0x1FFF)</text>
+<text x="404.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ідентифікатор потоку</text>
+<rect x="488.0" y="135.0" width="80.0" height="56.0" rx="3" fill="#f1f5f9" stroke="#64748b" stroke-width="1.4"/>
+<text x="528.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">TSC</text>
+<text x="528.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2 біти</text>
+<text x="528.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Шифрування</text>
+<rect x="572.0" y="135.0" width="120.0" height="56.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/>
+<text x="632.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Adaptation Ctrl</text>
+<text x="632.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2 біти (01, 10, 11)</text>
+<text x="632.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Наявність AF/Payload</text>
+<rect x="696.0" y="135.0" width="104.0" height="56.0" rx="3" fill="#dcfce7" stroke="#c0392b" stroke-width="1.4"/>
+<text x="748.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Continuity</text>
+<text x="748.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4 біти (0..15)</text>
+<text x="748.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Лічильник втрат</text>
+<text x="40.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Внутрішня будова адаптаційного поля (Adaptation Field):</text>
+<rect x="40.0" y="236.0" width="84.0" height="54.0" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.3"/>
+<text x="82.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">AF Length</text>
+<text x="82.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 байт</text>
+<text x="82.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Довжина поля</text>
+<rect x="128.0" y="236.0" width="136.0" height="54.0" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.3"/>
+<text x="196.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">8 прапорців (Flags)</text>
+<text x="196.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">PCR, OPCR, Splicing...</text>
+<text x="196.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 байт конфігурації</text>
+<rect x="268.0" y="236.0" width="230.0" height="54.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.3"/>
+<text x="383.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">PCR (Program Clock Reference)</text>
+<text x="383.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Base (33 b, 90 kHz) + Ext (9 b, 27 MHz)</text>
+<text x="383.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхронізація опорного генератора</text>
+<rect x="502.0" y="236.0" width="298.0" height="54.0" rx="3" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.3"/>
+<text x="651.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">Байтове набивання (Stuffing Bytes)</text>
+<text x="651.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Послідовність байтів 0xFF до кінця пакета</text>
+<text x="651.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вирівнювання довжини пакетів CBR</text>
+<rect x="40.0" y="312.0" width="760.0" height="105.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="55.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Ключові інваріанти формату:</text>
+<text x="55.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Завжди рівно 188 байтів: апаратні DVB/ATSC приймачі синхронізуються за першим байтом 0x47 кожні 188 октетів.</text>
+<text x="55.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PUSI = 1: вказує на початок нового кадру PES (відео/аудіо) або наявність Pointer Field для таблиць PSI.</text>
+<text x="55.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Continuity Counter (4 біти): інкрементується від 0 до 15 для кожного наступного пакета з тим самим PID.</text>
+<text x="55.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Null Packet (PID 0x1FFF): заповнювальний порожній пакет для вирівнювання постійного бітрейту (CBR) каналу.</text>
+</svg>

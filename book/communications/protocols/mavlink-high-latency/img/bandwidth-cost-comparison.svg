@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="410.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння обсягу трафіку та вартості: Стандартний потік vs HIGH_LATENCY2</text>
+<rect x="35.0" y="60.0" width="375.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="222.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Швидкість передачі даних (Traffic Rate)</text>
+<rect x="55.0" y="105.0" width="150.0" height="115.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="130.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Стандартний потік</text>
+<text x="130.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">2000 байт/с</tspan><tspan x="130.0" dy="13.0">(16.0 кбіт/с)</tspan><tspan x="130.0" dy="13.0">7.2 МБ / год</tspan></text>
+<text x="130.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">100% (базовий)</text>
+<rect x="235.0" y="145.0" width="150.0" height="75.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="310.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">HIGH_LATENCY2 (0.05 Гц)</text>
+<text x="310.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">3.85 байт/с (13.8 КБ/год)</tspan><tspan x="310.0" dy="11.7">Економія: 99.8%</tspan></text>
+<text x="310.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Стиснення ~520 : 1</text>
+<rect x="430.0" y="60.0" width="375.0" height="180.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="617.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фінансові витрати через Iridium SBD ($ / год)</text>
+<rect x="450.0" y="105.0" width="150.0" height="115.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="525.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Без HLP (неприпустимо)</text>
+<text x="525.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="525.0" dy="0.0">~$12 000 / год</tspan><tspan x="525.0" dy="12.3">(240 000 SBD msg)</tspan><tspan x="525.0" dy="12.3">Канал перевантажено</tspan></text>
+<text x="525.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Буфер переповнено</text>
+<rect x="630.0" y="145.0" width="150.0" height="75.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="705.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">З HIGH_LATENCY2 (0.05 Гц)</text>
+<text x="705.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="705.0" dy="0.0">180 SBD msg / год</tspan><tspan x="705.0" dy="12.3">~$9.00 / год</tspan></text>
+<text x="705.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">0.01 Гц: ~$1.80 / год</text>
+<rect x="35.0" y="255.0" width="770.0" height="155.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зведена таблиця характеристик протоколів телеметрії</text>
+<rect x="45.0" y="290.0" width="750.0" height="30.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="130.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Параметр</text>
+<text x="310.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Стандартна телеметрія (RF)</text>
+<text x="510.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">HIGH_LATENCY2 (0.05 Гц)</text>
+<text x="690.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">HIGH_LATENCY2 (0.01 Гц)</text>
+<rect x="45.0" y="323.0" width="750.0" height="24.0" rx="2" fill="#fdfefe" stroke="#333333" stroke-width="0.6"/>
+<text x="130.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Період передачі</text>
+<text x="310.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">20..100 мс (10..50 Гц)</text>
+<text x="510.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">20 секунд (0.05 Гц)</text>
+<text x="690.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">100 секунд (0.01 Гц)</text>
+<rect x="45.0" y="349.0" width="750.0" height="24.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="0.6"/>
+<text x="130.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розмір за транзакцію</text>
+<text x="310.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">20..40 пакетів/с (~2000 B)</text>
+<text x="510.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">1 пакет = 77 байтів</text>
+<text x="690.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">1 пакет = 77 байтів</text>
+<rect x="45.0" y="375.0" width="750.0" height="24.0" rx="2" fill="#fdfefe" stroke="#333333" stroke-width="0.6"/>
+<text x="130.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Цільове призначення</text>
+<text x="310.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ручне керування, FPV, посадка</text>
+<text x="510.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">BVLOS патрулювання, моніторинг</text>
+<text x="690.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Трансокеанські місії, автономія</text>
+</svg>

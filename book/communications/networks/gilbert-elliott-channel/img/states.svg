@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<path d="M 198.0 150.0 C 148.0 58.0 312.0 58.0 262.0 150.0" fill="none" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="230.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1 − P_GB  (лишитися в G)</text>
+<path d="M 558.0 150.0 C 508.0 58.0 672.0 58.0 622.0 150.0" fill="none" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="590.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1 − P_BG  (лишитися в B)</text>
+<path d="M 290.0 178.0 Q 410.0 116.0 530.0 178.0" fill="none" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="311.4" y="111.5" width="197.2" height="25.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="410.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">P_GB  (погіршення каналу)</tspan></text>
+<path d="M 530.0 242.0 Q 410.0 304.0 290.0 242.0" fill="none" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="307.7" y="283.5" width="204.7" height="25.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="410.0" y="300.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">P_BG  (відновлення каналу)</tspan></text>
+<circle cx="230.0" cy="210.0" r="68.0" fill="#eafaf0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="230.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="32" fill="#27ae60" text-anchor="middle" font-weight="700">G</text>
+<text x="230.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Добрий (Good)</text>
+<circle cx="590.0" cy="210.0" r="68.0" fill="#fdecea" stroke="#c0392b" stroke-width="3.0"/>
+<text x="590.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="32" fill="#c0392b" text-anchor="middle" font-weight="700">B</text>
+<text x="590.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Поганий (Bad)</text>
+<rect x="126.2" y="304.4" width="207.5" height="59.2" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="230.0" y="322.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Помилка e_G ≪ e_B</tspan><tspan x="230.0" dy="15.6">(e_G ≈ 0 або 10⁻⁵)</tspan><tspan x="230.0" dy="15.6">Сер. довжина серії: 1 / P_GB</tspan></text>
+<rect x="486.2" y="304.4" width="207.5" height="59.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="590.0" y="322.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Помилка e_B ≈ 0.5 (пачка)</tspan><tspan x="590.0" dy="15.6">(або e_B = 1.0 для стирань)</tspan><tspan x="590.0" dy="15.6">Сер. довжина пачки: 1 / P_BG</tspan></text>
+</svg>

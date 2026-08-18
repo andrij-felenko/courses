@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому мінімальний кадр рівно 64 байти (512 біт-часів)</text>
+<rect x="40.0" y="60.0" width="150.0" height="65.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="115.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="115.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">початок передачі t=0</text>
+<rect x="630.0" y="60.0" width="150.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="705.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вузол B</text>
+<text x="705.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">передача перед t=T_prop</text>
+<line x1="190.0" y1="92.0" x2="630.0" y2="92.0" stroke="#333333" stroke-width="3.0"/>
+<text x="410.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільний кабель Ethernet (максимальний домен: час поширення T_prop ≈ 25.6 мкс)</text>
+<line x1="190.0" y1="140.0" x2="580.0" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Хвиля сигналу A рухається праворуч (t = 0 → T_prop)</text>
+<circle cx="600.0" cy="140.0" r="14.0" fill="#fff3cd" stroke="#c0392b" stroke-width="2.0"/>
+<text x="600.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle">⚡</text>
+<text x="600.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Колізія при t ≈ T_prop</text>
+<line x1="580.0" y1="195.0" x2="200.0" y2="195.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="390.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Хвиля зіткнення (Jam-сигнал) повертається до A (t = 2 · T_prop ≈ 51.2 мкс)</text>
+<rect x="40.0" y="230.0" width="740.0" height="170.0" rx="6" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.4"/>
+<text x="410.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Правило виявлення колізії (Slot Time = 512 біт-часів = 64 байти):</text>
+<text x="60.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="60.0" dy="0.0">1. Передавач A ПОВИНЕН продовжувати передачу кадру, доки хвиля колізії не повернеться назад (2 · T_prop).</tspan><tspan x="60.0" dy="15.9">2. Якщо кадр надто короткий (&lt; 64 Б), A закінчить передачу ДО приходу відлуння колізії і вважатиме її успішною!</tspan><tspan x="60.0" dy="15.9">3. 51.2 мкс на 10 Мбіт/с = рівно 512 бітів = 64 байти (Slot Time).</tspan><tspan x="60.0" dy="15.9">4. Навіть у сучасному Full-Duplex комутованому Ethernet, де колізій немає, ліміт 64 байти збережено</tspan><tspan x="60.0" dy="15.9">   для сумісності стандартів, конвеєрів ASIC і лічильників помилок (Runt frames).</tspan></text>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура шифрування та автентифікації кадрів IEEE 802.11i CCMP</text>
+<rect x="30.0" y="60.0" width="260.0" height="90.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+<text x="160.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок кадру MAC (AAD)</text>
+<text x="160.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Адреси A1, A2, A3 + SC + QC</text>
+<text x="160.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Передається відкрито, захищений MIC</text>
+<rect x="30.0" y="180.0" width="260.0" height="90.0" rx="6" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корисне навантаження (MSDU / Data)</text>
+<text x="160.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Мережевий пакет (IPv4/IPv6, TCP/UDP)</text>
+<text x="160.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Потребує шифрування та контролю цілісності</text>
+<rect x="30.0" y="300.0" width="260.0" height="90.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="160.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Криптографічний контекст</text>
+<text x="160.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сеансовий ключ: TK (128 біт)</text>
+<text x="160.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Лічильник: PN (Packet Number, 48 біт)</text>
+<rect x="360.0" y="60.0" width="270.0" height="140.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="495.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення автентифікації (CBC-MAC)</text>
+<text x="495.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1. Формування блоку B₀ з Nonce (PN, A2, Pri)</text>
+<text x="495.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2. Ланцюгове шифрування AAD + Payload</text>
+<text x="495.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">3. Обчислення залишкового вектору T</text>
+<text x="495.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Результат: 64/128-бітний код MIC</text>
+<line x1="290.0" y1="105.0" x2="360.0" y2="105.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="200.0" x2="360.0" y2="150.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="330.0" x2="360.0" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="360.0" y="240.0" width="270.0" height="150.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="495.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шифрування даних (CTR Mode)</text>
+<text x="495.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Блок лічильника: A₀ = Flag || Nonce || i</text>
+<text x="495.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Криптографічна гама: Sᵢ = AES(TK, Aᵢ)</text>
+<text x="495.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шифротекст: Cᵢ = Dataᵢ ⊕ Sᵢ</text>
+<text x="495.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Шифрування MIC: Зашифрований MIC = T ⊕ S₀</text>
+<line x1="290.0" y1="235.0" x2="360.0" y2="300.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="360.0" x2="360.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="495.0" y1="200.0" x2="495.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="690.0" y="60.0" width="240.0" height="330.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="810.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сформований кадр MPDU</text>
+<rect x="710.0" y="105.0" width="200.0" height="40.0" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/>
+<text x="810.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MAC Header (відкритий)</text>
+<rect x="710.0" y="155.0" width="200.0" height="45.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="810.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CCMP Header (8 байтів)</text>
+<text x="810.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PN0..PN5 + Key ID + ExtIV</text>
+<rect x="710.0" y="210.0" width="200.0" height="70.0" rx="4" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="810.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Encrypted Data</text>
+<text x="810.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зашифровані байти MSDU</text>
+<text x="810.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Режим AES-128-CTR</text>
+<rect x="710.0" y="290.0" width="200.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="810.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MIC (8 байтів)</text>
+<text x="810.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зашифрований CBC-MAC</text>
+<rect x="710.0" y="340.0" width="200.0" height="35.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="810.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FCS (CRC-32, 4 байти)</text>
+<line x1="630.0" y1="315.0" x2="690.0" y2="315.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="480.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PN захищає від атак повторного відтворення (Replay Attack): кадр з PN ≤ PN_останній відкидається приймачем</text>
+<text x="480.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">CBC-MAC гарантує автентичність заголовка й даних, а CTR унеможливлює розкриття корисного навантаження</text>
+</svg>

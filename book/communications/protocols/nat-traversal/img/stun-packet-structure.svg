@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура заголовка пакета STUN (RFC 8489) та атрибута XOR-MAPPED-ADDRESS</text>
+<rect x="50.0" y="55.0" width="760.0" height="22.0" rx="2" fill="#e5e8e8" stroke="#333333" stroke-width="1.2"/>
+<text x="61.9" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">0</text>
+<text x="109.4" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">2</text>
+<text x="441.9" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">16</text>
+<text x="774.4" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">31</text>
+<rect x="50.0" y="81.0" width="47.5" height="44.0" rx="2" fill="#fdedec" stroke="#333333" stroke-width="1.2"/>
+<text x="73.8" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<rect x="97.5" y="81.0" width="332.5" height="44.0" rx="2" fill="#ebf5fb" stroke="#333333" stroke-width="1.2"/>
+<text x="263.8" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="263.8" dy="0.0">STUN Message Type (14 бітів)</tspan><tspan x="263.8" dy="13.0">Class (2) + Method (12)</tspan></text>
+<rect x="430.0" y="81.0" width="380.0" height="44.0" rx="2" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="620.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Message Length (16 бітів)</tspan><tspan x="620.0" dy="13.0">(без урахування 20 байтів заголовка)</tspan></text>
+<rect x="50.0" y="129.0" width="760.0" height="44.0" rx="2" fill="#e8f8f5" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Magic Cookie: 0x2112A442 (32 біти)</tspan><tspan x="430.0" dy="14.3">Фіксована константа для детектування STUN та захисту від некоректних NAT ALG</tspan></text>
+<rect x="50.0" y="177.0" width="760.0" height="50.0" rx="2" fill="#f4f6f7" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Transaction ID (96 бітів / 12 байтів)</tspan><tspan x="430.0" dy="14.3">Криптографічно випадковий ідентифікатор транзакції для запобігання підміні та зіставлення пар запит-відповідь</tspan></text>
+<text x="58.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Корисне навантаження: Атрибут XOR-MAPPED-ADDRESS (Тип 0x0020)</text>
+<rect x="50.0" y="247.0" width="380.0" height="36.0" rx="2" fill="#f5eef8" stroke="#333333" stroke-width="1.2"/>
+<text x="240.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Type = 0x0020 (XOR-MAPPED-ADDRESS)</text>
+<rect x="430.0" y="247.0" width="380.0" height="36.0" rx="2" fill="#f5eef8" stroke="#333333" stroke-width="1.2"/>
+<text x="620.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Length = 0x0008 (8 байтів для IPv4)</text>
+<rect x="50.0" y="285.0" width="190.0" height="36.0" rx="2" fill="#fef5e7" stroke="#333333" stroke-width="1.2"/>
+<text x="145.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Reserved (0x00)</text>
+<rect x="240.0" y="285.0" width="190.0" height="36.0" rx="2" fill="#fef5e7" stroke="#333333" stroke-width="1.2"/>
+<text x="335.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Family: IPv4 (0x01)</text>
+<rect x="430.0" y="285.0" width="380.0" height="36.0" rx="2" fill="#e8f6f3" stroke="#333333" stroke-width="1.2"/>
+<text x="620.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">X-Port = Реальний Порт ⊕ 0x2112</text>
+<rect x="50.0" y="325.0" width="760.0" height="36.0" rx="2" fill="#e8f6f3" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">X-Address = Реальна IPv4-адреса ⊕ Magic Cookie (0x2112A442)</text>
+</svg>

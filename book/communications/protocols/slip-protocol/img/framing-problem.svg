@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виділення меж пакетів у безперервному потоці UART</text>
+<text x="40.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Сирий потік байтів UART (без меж пакетів):</text>
+<rect x="40.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="68.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x45</text>
+<rect x="100.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="128.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<rect x="160.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="188.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<rect x="220.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="248.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x3C</text>
+<rect x="280.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="296.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x1A</text>
+<rect x="340.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="368.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x02</text>
+<rect x="400.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="428.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x45</text>
+<rect x="460.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="488.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<rect x="520.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="548.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<rect x="580.0" y="75.0" width="56.0" height="38.0" rx="4" fill="#f5f7fa" stroke="#7f8c8d" stroke-width="1.6"/>
+<text x="608.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x28</text>
+<line x1="308.0" y1="65.0" x2="308.0" y2="123.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="308.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">де закінчується пакет 1 і починається пакет 2?</text>
+<text x="40.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Потік SLIP з обрамленням маркерами END (0xC0):</text>
+<rect x="40.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdeeed" stroke="#c0392b" stroke-width="1.6"/>
+<text x="70.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">END</text>
+<text x="70.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC0</text>
+<rect x="104.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="134.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IP Data</text>
+<text x="134.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x45</text>
+<rect x="168.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="198.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IP Data</text>
+<text x="198.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00</text>
+<rect x="232.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="262.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IP Data</text>
+<text x="262.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x3C</text>
+<rect x="296.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdeeed" stroke="#c0392b" stroke-width="1.6"/>
+<text x="326.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">END</text>
+<text x="326.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC0</text>
+<rect x="360.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdeeed" stroke="#c0392b" stroke-width="1.6"/>
+<text x="390.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">END</text>
+<text x="390.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC0</text>
+<rect x="424.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="454.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IP Data</text>
+<text x="454.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x45</text>
+<rect x="488.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="518.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IP Data</text>
+<text x="518.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x28</text>
+<rect x="552.0" y="190.0" width="60.0" height="38.0" rx="4" fill="#fdeeed" stroke="#c0392b" stroke-width="1.6"/>
+<text x="582.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">END</text>
+<text x="582.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC0</text>
+<rect x="40.0" y="260.0" width="680.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.2"/><text x="380.0" y="286.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Маркер END (0xC0) однозначно позначає завершення поточного пакета. Подвійний END на стику скидає завади лінії перед початком наступного кадру.</tspan></text>
+</svg>

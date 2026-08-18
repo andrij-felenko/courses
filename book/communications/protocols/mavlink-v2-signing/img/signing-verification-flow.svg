@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="400.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр перевірки вхідного підписаного пакета MAVLink v2</text>
+<rect x="35.0" y="60.0" width="220.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="145.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Парсинг кадру v2</text>
+<text x="145.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="145.0" dy="0.0">Перевірка STX == 0xFD</tspan><tspan x="145.0" dy="12.3">Аналіз incompat_flags</tspan></text>
+<line x1="255.0" y1="95.0" x2="295.0" y2="95.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="295.0" y="60.0" width="250.0" height="70.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. incompat_flags &amp; 0x01?</text>
+<text x="420.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Біт 0x01: пакет підписано</tspan><tspan x="420.0" dy="12.3">Очікується 13 байтів трейлера</tspan></text>
+<line x1="545.0" y1="95.0" x2="585.0" y2="95.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="585.0" y="60.0" width="220.0" height="70.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Валідація CRC-16</text>
+<text x="695.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="695.0" dy="0.0">CRC з урахуванням CRC_EXTRA</tspan><tspan x="695.0" dy="12.3">Не збіглася -&gt; Drop</tspan></text>
+<line x1="695.0" y1="130.0" x2="695.0" y2="165.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="540.0" y="165.0" width="265.0" height="80.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="672.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">4. Пошук потоку (Stream Table)</text>
+<text x="672.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="672.0" dy="0.0">Ключ: (sysid, compid, link_id)</tspan><tspan x="672.0" dy="12.3">Отримання last_timestamp для</tspan><tspan x="672.0" dy="12.3">цього конкретного лінку</tspan></text>
+<line x1="540.0" y1="205.0" x2="490.0" y2="205.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="220.0" y="165.0" width="270.0" height="80.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="355.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5. Перевірка Replay-атаки</text>
+<text x="355.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="355.0" dy="0.0">incoming_ts &gt; stream.last_ts?</tspan><tspan x="355.0" dy="12.3">Ні (ts &lt;= last_ts) -&gt; ВІДХИЛИТИ!</tspan><tspan x="355.0" dy="12.3">Так -&gt; Перевірка хешу</tspan></text>
+<line x1="220.0" y1="205.0" x2="170.0" y2="205.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="35.0" y="165.0" width="135.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="102.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">6. SHA-256</text>
+<text x="102.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="102.0" dy="0.0">Хеш(Key + Пакет)</tspan><tspan x="102.0" dy="12.3">Обтинання до</tspan><tspan x="102.0" dy="12.3">перших 48 бітів</tspan></text>
+<line x1="102.0" y1="245.0" x2="102.0" y2="280.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="35.0" y="280.0" width="360.0" height="75.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">7. Порівняння computed_sig == incoming_sig</text>
+<text x="215.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="215.0" dy="0.0">Постійний час виконання (Constant-time compare)</tspan><tspan x="215.0" dy="12.3">Збіглося -&gt; Валідний автентичний пакет</tspan><tspan x="215.0" dy="12.3">Розбіжність -&gt; Відкинути як підробку!</tspan></text>
+<line x1="395.0" y1="317.0" x2="450.0" y2="317.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="450.0" y="280.0" width="355.0" height="75.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="627.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">8. Оновлення стану та виконання</text>
+<text x="627.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="627.0" dy="0.0">stream.last_timestamp = incoming_ts</tspan><tspan x="627.0" dy="12.3">Передача корисного навантаження в обробник команд</tspan><tspan x="627.0" dy="12.3">Безпечне виконання на борту апарата</tspan></text>
+<rect x="35.0" y="370.0" width="770.0" height="32.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Жодна підроблена чи повторно надіслана команда не потрапляє в логіку керування польотом</text>
+</svg>

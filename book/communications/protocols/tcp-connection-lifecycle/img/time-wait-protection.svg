@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 831.69 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="831.69" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два критичні механізми захисту стану TIME_WAIT</text>
+<rect x="25.0" y="20.0" width="370.0" height="380.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="425.0" y="20.0" width="370.0" height="380.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="210.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Захист 1: Втрата фінального ACK</text>
+<text x="210.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Без TIME_WAIT сервер застрягне в LAST_ACK</text>
+<line x1="80.0" y1="85.0" x2="80.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="340.0" y1="85.0" x2="340.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="80.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="340.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервер</text>
+<line x1="340.0" y1="110.0" x2="80.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FIN</text>
+<line x1="80.0" y1="160.0" x2="210.0" y2="185.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="225.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ACK ✗ (загубився)</text>
+<line x1="340.0" y1="230.0" x2="80.0" y2="255.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ретрансмісія FIN</text>
+<line x1="80.0" y1="280.0" x2="340.0" y2="305.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Повторний ACK з TIME_WAIT</text>
+<text x="340.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">Сервер переходить у CLOSED ✓</text>
+<text x="610.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Захист 2: Запізнілі дублікати (Ghost Packets)</text>
+<text x="610.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Захист від пошкодження нового втілення (5-кортеж)</text>
+<line x1="480.0" y1="85.0" x2="480.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="740.0" y1="85.0" x2="740.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="740.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервер</text>
+<line x1="480.0" y1="110.0" x2="600.0" y2="140.0" stroke="#d4b106" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="590.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Дані з'єднання #1
+(застрягли в маршрутизаторі)</text>
+<rect x="460.0" y="160.0" width="290.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="605.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">З'єднання #1 закрите. TIME_WAIT триває 2·MSL.</text>
+<text x="605.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Усі запізнілі пакети зникають (TTL вичерпується)</text>
+<line x1="480.0" y1="235.0" x2="740.0" y2="260.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="610.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SYN нового з'єднання #2 (той самий 5-кортеж)</text>
+<text x="610.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Якщо старий пакет прийде у TIME_WAIT —
+ядро його відкине, не ламаючи нове з'єднання</text>
+</svg>

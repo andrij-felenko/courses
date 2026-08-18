@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10.75 -10 791.5 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10.75" y="-10" width="791.5" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просторово-часовий блоковий код Аламоуті (STBC 2×1 та 2×2)</text>
+<rect x="20.0" y="50.0" width="260.0" height="245.0" rx="8" fill="#fcfcfd" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="150.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Передавач Аламоуті (2 Tx)</text>
+<rect x="35.0" y="100.0" width="230.0" height="110.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="35.0" y1="135.0" x2="265.0" y2="135.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="35.0" y1="175.0" x2="265.0" y2="175.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="115.0" y1="100.0" x2="115.0" y2="210.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="190.0" y1="100.0" x2="190.0" y2="210.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="75.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Час</text>
+<text x="152.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Антена Tx₁</text>
+<text x="227.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Антена Tx₂</text>
+<text x="75.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт t₁</text>
+<text x="152.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">s₁</text>
+<text x="227.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67e22" text-anchor="middle" font-weight="700">s₂</text>
+<text x="75.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт t₂</text>
+<text x="152.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67e22" text-anchor="middle" font-weight="700">−s₂*</text>
+<text x="227.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">s₁*</text>
+<rect x="30.0" y="220.0" width="240.0" height="65.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Властивість матриці S:</tspan><tspan x="150.0" dy="11.7">Рядки і стовпці взаємно ортогональні: S · Sᴴ = (|s₁|² + |s₂|²) · I₂</tspan><tspan x="150.0" dy="11.7">Повна швидкість R = 1 (2 символи за 2 такти).</tspan></text>
+<rect x="295.0" y="50.0" width="170.0" height="245.0" rx="8" fill="#fdfefe" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="380.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">Канал 2×1</text>
+<circle cx="330.0" cy="125.0" r="14.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="330.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Tx₁</text>
+<circle cx="330.0" cy="185.0" r="14.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="330.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Tx₂</text>
+<circle cx="430.0" cy="155.0" r="14.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="430.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Rx₁</text>
+<line x1="345.0" y1="125.0" x2="415.0" y2="150.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">h₁</text>
+<line x1="345.0" y1="185.0" x2="415.0" y2="160.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">h₂</text>
+<rect x="305.0" y="215.0" width="150.0" height="70.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/><text x="380.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Прийняті сигнали:</tspan><tspan x="380.0" dy="12.3">y₁ = h₁s₁ + h₂s₂ + n₁</tspan><tspan x="380.0" dy="12.3">y₂ = −h₁s₂* + h₂s₁* + n₂</tspan></text>
+<rect x="480.0" y="50.0" width="280.0" height="245.0" rx="8" fill="#fcfcfd" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="620.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Лінійний декодер Аламоуті</text>
+<rect x="490.0" y="100.0" width="260.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="620.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Матричне перемноження на H_effᴴ:</tspan><tspan x="620.0" dy="11.7"></tspan><tspan x="620.0" dy="11.7">ŝ₁ = h₁*·y₁ + h₂·y₂* = (|h₁|² + |h₂|²)·s₁ + ñ₁</tspan><tspan x="620.0" dy="11.7">ŝ₂ = h₂*·y₁ − h₁·y₂* = (|h₁|² + |h₂|²)·s₂ + ñ₂</tspan><tspan x="620.0" dy="11.7"></tspan><tspan x="620.0" dy="11.7">Перехресна інтерференція повністю зникає!</tspan></text>
+<rect x="490.0" y="215.0" width="260.0" height="70.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="620.0" y="241.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Головний результат:</tspan><tspan x="620.0" dy="11.7">• Не потрібен зворотний зв'язок (CSI на передавачі не вимагається).</tspan><tspan x="620.0" dy="11.7">• Повний порядок рознесення d = 2 без матричного обернення.</tspan></text>
+<rect x="20.0" y="308.0" width="740.0" height="60.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="390.0" y="335.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Схема Аламоуті (IEEE 802.11n, LTE, WCDMA) — єдиний ортогональний просторово-часовий код для комплексних сигналів зі швидкістю R = 1.</tspan><tspan x="390.0" dy="11.7">Для систем 2×2 з двома антена приймача рознесення зростає до d = 4, а результуючий SNR масштабується як (|h₁₁|² + |h₁₂|² + |h₂₁|² + |h₂₂|²).</tspan></text>
+</svg>

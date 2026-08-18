@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія затримки давача</text>
+<rect x="15.0" y="15.0" width="730.0" height="390.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="380.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія сумарної затримки сигналу давача (τ_total)</text>
+<text x="380.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Від механічного збурення чутливого елемента до обробки алгоритмом керування в RTOS</text>
+<rect x="35.0" y="85.0" width="160.0" height="175.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="115.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Механічний відгук</text>
+<line x1="45.0" y1="120.0" x2="185.0" y2="120.0" stroke="#3b82f6" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="115.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Чутлива маса MEMS,</text>
+<text x="115.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">підвіс, перехідні процеси</text>
+<text x="115.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">динаміки 2-го порядку</text>
+<rect x="45.0" y="218.0" width="140.0" height="30.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="115.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle" font-weight="700">τ_phys ≈ 50–200 мкс</text>
+<line x1="198.0" y1="172.5" x2="212.0" y2="172.5" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="215.0" y="85.0" width="160.0" height="175.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="295.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Цифрова ЦОС</text>
+<line x1="225.0" y1="120.0" x2="365.0" y2="120.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="295.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Апаратний АЦП, децимація,</text>
+<text x="295.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">фільтри НЧ (DLPF/IIR/FIR)</text>
+<text x="295.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">для гасіння вібрацій</text>
+<rect x="225.0" y="218.0" width="140.0" height="30.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+<text x="295.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">τ_filter ≈ 2–15 мс</text>
+<line x1="378.0" y1="172.5" x2="392.0" y2="172.5" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="395.0" y="85.0" width="160.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="475.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Інтерфейсна шина</text>
+<line x1="405.0" y1="120.0" x2="545.0" y2="120.0" stroke="#16a34a" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="475.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Серіалізація пакетів</text>
+<text x="475.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SPI (10 МГц) vs I2C (400 кГц),</text>
+<text x="475.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">опитування vs переривання</text>
+<rect x="405.0" y="218.0" width="140.0" height="30.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="475.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">τ_bus ≈ 0.02–2 мс</text>
+<line x1="558.0" y1="172.5" x2="572.0" y2="172.5" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="575.0" y="85.0" width="160.0" height="175.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="655.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. RTOS та оцінювач</text>
+<line x1="585.0" y1="120.0" x2="725.0" y2="120.0" stroke="#9333ea" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="655.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Черги uORB/AP_HAL,</text>
+<text x="655.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">перемикання контексту,</text>
+<text x="655.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">дискретизація ZOH (T/2)</text>
+<rect x="585.0" y="218.0" width="140.0" height="30.0" rx="4" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="655.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="middle" font-weight="700">τ_rtos ≈ 1–5 мс</text>
+<rect x="35.0" y="285.0" width="690.0" height="70.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="50.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Сумарний бюджет затримки: τ_total = τ_phys + τ_filter + τ_bus + τ_rtos</text>
+<text x="50.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Швидкі давачі (IMU — гіроскоп, акселерометр): τ_total ≈ 3–20 мс (критично для контуру кутової стабілізації)</text>
+<text x="50.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Повільні давачі (GNSS, барометр, оптичний потік): τ_total ≈ 30–250 мс (потребує відкладеного злиття в EKF)</text>
+<rect x="35.0" y="380.0" width="690.0" height="24.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="380.0" y="395.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Анатомія затримки давача: кожен каскад вимірювального тракту додає фазове запізнення Δφ = -ω·τ.</tspan></text>
+</svg>

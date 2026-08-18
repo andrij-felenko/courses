@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна межа MAC ↔ PHY та інтерфейси з'єднання</text>
+<text x="480.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Цифровий контролер MAC у SoC підключається до трансивера PHY через шину даних та шину керування MDIO</text>
+<rect x="40.0" y="70.0" width="240.0" height="440.0" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.8"/>
+<text x="160.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SoC / Мережевий MAC</text>
+<text x="160.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(цифрова логіка, кадри, DMA)</text>
+<rect x="390.0" y="70.0" width="260.0" height="440.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="520.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">PHY-трансивер</text>
+<text x="520.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(кодери, ЦАП/АЦП, DSP, AFE)</text>
+<rect x="730.0" y="70.0" width="190.0" height="440.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="825.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Гальванорозв'язка</text>
+<text x="825.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Трансформатори + RJ-45</text>
+<rect x="60.0" y="145.0" width="200.0" height="230.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="160.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерфейси даних:</text>
+<rect x="88.3" y="175.1" width="143.4" height="29.9" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/><text x="160.0" y="187.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">MII (100M)</tspan><tspan x="160.0" dy="12.3">4 біти @ 25 МГц, 16 ліній</tspan></text>
+<rect x="91.0" y="220.1" width="138.0" height="29.9" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.5"/><text x="160.0" y="232.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">RMII (100M)</tspan><tspan x="160.0" dy="12.3">2 біти @ 50 МГц, 7 ліній</tspan></text>
+<rect x="74.8" y="265.1" width="170.4" height="29.9" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/><text x="160.0" y="277.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">RGMII (1G)</tspan><tspan x="160.0" dy="12.3">4 біти DDR @ 125 МГц, 12 ліній</tspan></text>
+<rect x="63.9" y="310.1" width="192.1" height="29.9" rx="6" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.5"/><text x="160.0" y="322.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">SGMII (1G)</tspan><tspan x="160.0" dy="12.3">1 пара SerDes 1.25 Гбод, 4-6 ліній</tspan></text>
+<line x1="280.0" y1="240.0" x2="390.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="260.0" x2="280.0" y2="260.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="335.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">TX Data / Clock</text>
+<text x="335.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX Data / Clock</text>
+<rect x="60.0" y="395.0" width="200.0" height="95.0" rx="5" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="160.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Шина керування (SMI):</text>
+<text x="160.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MDC (тактування до 2.5 МГц)</text>
+<text x="160.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MDIO (двонаправлені дані)</text>
+<text x="160.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Регістри 0..31 (Clause 22/45)</text>
+<line x1="280.0" y1="430.0" x2="390.0" y2="430.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="455.0" x2="390.0" y2="455.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="380.0" y1="455.0" x2="390.0" y2="455.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="455.0" x2="280.0" y2="455.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="335.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">MDC →</text>
+<text x="335.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">← MDIO →</text>
+<rect x="410.0" y="145.0" width="220.0" height="95.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/><text x="520.0" y="177.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Блок узгодження (PCS/PMA):</tspan><tspan x="520.0" dy="12.3">- 4B5B / 8B10B / PAM кодери</tspan><tspan x="520.0" dy="12.3">- Скремблер і дескремблер</tspan><tspan x="520.0" dy="12.3">- Синхронізація бітів і слів</tspan></text>
+<rect x="410.0" y="255.0" width="220.0" height="115.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/><text x="520.0" y="291.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Аналогова частина (PMD/AFE):</tspan><tspan x="520.0" dy="12.3">- ЦАП передавача (драйвер лінії)</tspan><tspan x="520.0" dy="12.3">- АЦП високої швидкості</tspan><tspan x="520.0" dy="12.3">- Ехо- та NEXT-компенсатори</tspan><tspan x="520.0" dy="12.3">- Автовизначення Auto-MDIX</tspan></text>
+<rect x="410.0" y="395.0" width="220.0" height="95.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/><text x="520.0" y="421.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Регістровий файл MDIO:</tspan><tspan x="520.0" dy="12.3">- 0x00 BMCR (керування режимом)</tspan><tspan x="520.0" dy="12.3">- 0x01 BMSR (статус лінка)</tspan><tspan x="520.0" dy="12.3">- 0x04 ANAR (здатності автопогодж.)</tspan><tspan x="520.0" dy="12.3">- 0x09/0x0A (1000BASE-T Ctrl/Stat)</tspan></text>
+<line x1="650.0" y1="190.0" x2="730.0" y2="190.0" stroke="#b45309" stroke-width="1.8"/>
+<text x="690.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle">Пара A (TX+/TX-)</text>
+<line x1="650.0" y1="260.0" x2="730.0" y2="260.0" stroke="#b45309" stroke-width="1.8"/>
+<text x="690.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle">Пара B (RX+/RX-)</text>
+<line x1="650.0" y1="330.0" x2="730.0" y2="330.0" stroke="#b45309" stroke-width="1.8"/>
+<text x="690.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle">Пара C (TRD2+/TRD2-)</text>
+<line x1="650.0" y1="400.0" x2="730.0" y2="400.0" stroke="#b45309" stroke-width="1.8"/>
+<text x="690.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle">Пара D (TRD3+/TRD3-)</text>
+<rect x="745.0" y="145.0" width="160.0" height="120.0" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/><text x="825.0" y="184.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Трансформатори (Magnetics):</tspan><tspan x="825.0" dy="11.7">- Гальванічна ізоляція 1.5 кВ</tspan><tspan x="825.0" dy="11.7">- Common-Mode Choke (CMC)</tspan><tspan x="825.0" dy="11.7">- Захист від напруг і ESD</tspan><tspan x="825.0" dy="11.7">- Термінація Боба Сміта</tspan></text>
+<rect x="745.0" y="290.0" width="160.0" height="100.0" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/><text x="825.0" y="324.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Конектор 8P8C (RJ-45):</tspan><tspan x="825.0" dy="12.3">- 4 кручені пари UTP</tspan><tspan x="825.0" dy="12.3">- Категорії Cat5e / Cat6</tspan><tspan x="825.0" dy="12.3">- До 100 метрів лінії</tspan></text>
+<line x1="825.0" y1="410.0" x2="825.0" y2="470.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="825.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">До 100 м кабелю UTP</text>
+</svg>

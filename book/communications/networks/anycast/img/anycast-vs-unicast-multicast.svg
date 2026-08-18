@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири парадигми адресації та маршрутизації в IP-мережах</text>
+<rect x="20.0" y="60.0" width="195.0" height="395.0" rx="8" fill="#edf4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="117.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Unicast (один до одного)</text>
+<rect x="35.0" y="115.0" width="60.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="65.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="125.0" y="180.0" width="75.0" height="30.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="162.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Сервер A</text>
+<line x1="95.0" y1="130.0" x2="125.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="125.0" y="240.0" width="75.0" height="30.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="162.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сервер B</text>
+<rect x="28.0" y="295.0" width="179.0" height="145.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="117.5" y="351.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="117.5" dy="0.0">Адреса належить</tspan><tspan x="117.5" dy="13.0">рівно одному інтерфейсу.</tspan><tspan x="117.5" dy="13.0">Маршрут веде до єдиного</tspan><tspan x="117.5" dy="13.0">фізичного вузла в мережі.</tspan></text>
+<rect x="230.0" y="60.0" width="195.0" height="395.0" rx="8" fill="#fff7e6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="327.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Broadcast (один до всіх)</text>
+<rect x="245.0" y="115.0" width="60.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="275.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="335.0" y="160.0" width="75.0" height="26.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="372.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 1</text>
+<rect x="335.0" y="200.0" width="75.0" height="26.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="372.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 2</text>
+<rect x="335.0" y="240.0" width="75.0" height="26.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="372.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 3</text>
+<line x1="305.0" y1="130.0" x2="335.0" y2="170.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="130.0" x2="335.0" y2="210.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="130.0" x2="335.0" y2="250.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="238.0" y="295.0" width="179.0" height="145.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="327.5" y="353.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="327.5" dy="0.0">Пакет копіюється всім</tspan><tspan x="327.5" dy="11.7">вузлам у межах одного</tspan><tspan x="327.5" dy="11.7">L2-домену мовлення.</tspan><tspan x="327.5" dy="11.7">Не виходить за маршрутизатор.</tspan></text>
+<rect x="440.0" y="60.0" width="195.0" height="395.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="537.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Multicast (один до групи)</text>
+<rect x="455.0" y="115.0" width="60.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="485.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="545.0" y="160.0" width="75.0" height="26.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="582.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Член гр. 1</text>
+<rect x="545.0" y="200.0" width="75.0" height="26.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="582.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Не підпис.</text>
+<rect x="545.0" y="240.0" width="75.0" height="26.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="582.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Член гр. 2</text>
+<line x1="515.0" y1="130.0" x2="545.0" y2="170.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="515.0" y1="130.0" x2="545.0" y2="250.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="448.0" y="295.0" width="179.0" height="145.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="537.5" y="353.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="537.5" dy="0.0">Пакет доставляється групі</tspan><tspan x="537.5" dy="11.7">підписників через дерево</tspan><tspan x="537.5" dy="11.7">розподілу (IGMP / PIM).</tspan><tspan x="537.5" dy="11.7">Ефективно для потокового відео.</tspan></text>
+<rect x="650.0" y="60.0" width="195.0" height="395.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="747.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Anycast (один до найближчого)</text>
+<rect x="665.0" y="115.0" width="60.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="695.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="755.0" y="160.0" width="75.0" height="28.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="792.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">PoP Токіо</text>
+<rect x="755.0" y="205.0" width="75.0" height="28.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="792.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PoP Франкф.</text>
+<rect x="755.0" y="245.0" width="75.0" height="28.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="792.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PoP Ашберн</text>
+<line x1="725.0" y1="130.0" x2="755.0" y2="172.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="728.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RTT 5ms</text>
+<rect x="658.0" y="295.0" width="179.0" height="145.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="747.5" y="351.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="747.5" dy="0.0">Одна адреса анонсується</tspan><tspan x="747.5" dy="13.0">багатьма вузлами одночасно.</tspan><tspan x="747.5" dy="13.0">Мережа спрямовує пакет до</tspan><tspan x="747.5" dy="13.0">найближчого за метрикою BGP.</tspan></text>
+</svg>

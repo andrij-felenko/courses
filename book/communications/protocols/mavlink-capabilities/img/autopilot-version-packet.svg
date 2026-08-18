@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура корисного навантаження AUTOPILOT_VERSION (#148, 78 байтів)</text>
+<rect x="30.0" y="65.0" width="390.0" height="52.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="225.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">capabilities (uint64_t, 8 байтів)</text>
+<text x="225.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бітова маска підтримуваних протоколів та команд MAVLink</text>
+<rect x="420.0" y="65.0" width="390.0" height="52.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="2.0"/>
+<text x="615.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">uid (uint64_t, 8 байтів)</text>
+<text x="615.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Застарілий 64-бітний апаратний ідентифікатор CPU</text>
+<rect x="30.0" y="130.0" width="195.0" height="52.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="127.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">flight_sw_version</text>
+<text x="127.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SemVer прошивки</text>
+<rect x="225.0" y="130.0" width="195.0" height="52.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="322.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">middleware_sw_version</text>
+<text x="322.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Версія middleware</text>
+<rect x="420.0" y="130.0" width="195.0" height="52.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="517.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">os_sw_version</text>
+<text x="517.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Версія RTOS (NuttX)</text>
+<rect x="615.0" y="130.0" width="195.0" height="52.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="712.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">board_version</text>
+<text x="712.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ревізія друкованої плати</text>
+<rect x="30.0" y="195.0" width="179.4" height="54.0" rx="6" fill="#fef9e7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="119.7" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">flight_custom_version</text>
+<text x="119.7" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Git SHA прошивки (8Б)</text>
+<rect x="209.4" y="195.0" width="179.4" height="54.0" rx="6" fill="#fef9e7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="299.1" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">middleware_custom_version</text>
+<text x="299.1" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Git SHA middleware (8Б)</text>
+<rect x="388.8" y="195.0" width="179.4" height="54.0" rx="6" fill="#fef9e7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="478.5" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">os_custom_version</text>
+<text x="478.5" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Git SHA RTOS (8Б)</text>
+<rect x="568.2" y="195.0" width="120.9" height="54.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="628.7" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">vendor_id</text>
+<text x="628.7" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ID вендора (2Б)</text>
+<rect x="689.1" y="195.0" width="120.9" height="54.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="749.5" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">product_id</text>
+<text x="749.5" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ID продукту (2Б)</text>
+<rect x="30.0" y="262.0" width="780.0" height="52.0" rx="6" fill="#fbeee6" stroke="#d35400" stroke-width="2.0"/>
+<text x="420.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">uid2 (uint8_t[18], 18 байтів)</text>
+<text x="420.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">128-бітний апаратний серійний номер чіпа (UUID) або розширений UID з байтом формату</text>
+<text x="420.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Усі багатобайтові поля впорядковано за спаданням розміру (uint64 -&gt; uint32 -&gt; uint16 -&gt; uint8) для сумісності з MAVLink v2 x255</text>
+</svg>

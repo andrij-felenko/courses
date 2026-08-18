@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процедура узгодження ATT MTU та фрагментація пакетів</text>
+<text x="210.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Процедура узгодження ATT MTU</text>
+<line x1="85.0" y1="55.0" x2="85.0" y2="310.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="335.0" y1="55.0" x2="335.0" y2="310.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="85.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="335.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Сервер</text>
+<line x1="85.0" y1="85.0" x2="335.0" y2="115.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Exchange MTU Req (Client_Rx = 512)</text>
+<line x1="335.0" y1="145.0" x2="85.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Exchange MTU Rsp (Server_Rx = 247)</text>
+<rect x="55.0" y="205.0" width="310.0" height="60.0" rx="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="210.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат узгодження (Negotiated MTU):</text>
+<text x="210.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MTU = min(512, 247) = 247 байтів</text>
+<line x1="430.0" y1="25.0" x2="430.0" y2="325.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="630.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Фрагментація кадру ATT у Link Layer</text>
+<rect x="455.0" y="60.0" width="350.0" height="40.0" rx="4" fill="#fdf4ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="630.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="middle" font-weight="700">ATT PDU (247 байтів)</text>
+<text x="630.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 B Opcode + 2 B Handle + 244 B Payload</text>
+<line x1="630.0" y1="105.0" x2="630.0" y2="130.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="630.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сегментація L2CAP / LL</text>
+<text x="455.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">А) Без DLE (LE Data Length = 27 байтів):</text>
+<rect x="455.0" y="160.0" width="50.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="480.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LL #1</text>
+<rect x="511.0" y="160.0" width="50.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="536.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LL #2</text>
+<rect x="567.0" y="160.0" width="50.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="592.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LL #3</text>
+<rect x="623.0" y="160.0" width="50.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="648.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LL #4</text>
+<rect x="679.0" y="160.0" width="50.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="704.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LL #5</text>
+<text x="755.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">... (10 пакетів)</text>
+<text x="455.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Б) З DLE (LE Data Length = 251 байт):</text>
+<rect x="455.0" y="228.0" width="350.0" height="34.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="630.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">1 єдиний пакет Link Layer (247 B + 4 B L2CAP Header)</text>
+<text x="420.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Обмін MTU збільшує корисне навантаження; DLE уникає фрагментації в ефірі</text>
+</svg>

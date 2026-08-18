@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм Longest Prefix Match (LPM) у таблиці маршрутизації</text>
+<rect x="40.0" y="60.0" width="740.0" height="50.0" rx="6" fill="#fff2e6" stroke="#c0392b" stroke-width="1.8"/>
+<text x="410.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вхідний IP-пакет: адреса призначення = 198.51.100.45</text>
+<text x="410.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Двійковий вигляд: 11000110 . 00110011 . 01100100 . 00101101</text>
+<rect x="40.0" y="130.0" width="740.0" height="48.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="60.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">0.0.0.0/0 (Default Route)</text>
+<text x="370.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Збіг: 0 бітів</text>
+<text x="60.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Шлюз за замовчуванням (Next-hop: 203.0.113.1)</text>
+<rect x="40.0" y="185.0" width="740.0" height="48.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="60.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">198.51.0.0/16 (ISP Регіон)</text>
+<text x="370.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Збіг: 16 бітів</text>
+<text x="60.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Магістральний інтерфейс eth0 (Next-hop: 10.0.0.1)</text>
+<rect x="40.0" y="240.0" width="740.0" height="48.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="60.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">198.51.100.0/22 (Дата-центр)</text>
+<text x="370.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Збіг: 22 біти</text>
+<text x="60.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Агрегований канал агрегації eth1 (Next-hop: 10.0.1.1)</text>
+<rect x="40.0" y="295.0" width="740.0" height="54.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="60.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">198.51.100.32/27 (Серверний кластер)</text>
+<text x="370.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Збіг: 27 бітів</text>
+<text x="60.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">ПЕРЕМОЖЕЦЬ: найдовший префікс /27 → Інтерфейс eth2</text>
+<text x="410.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому перемагає /27: правило LPM обирає маршрут із максимальною кількістю співпалих бітів префікса.</text>
+<text x="410.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Це дозволяє мати загальний маршрут для регіону (/16) і точкові винятки (/27) без конфліктів.</text>
+</svg>

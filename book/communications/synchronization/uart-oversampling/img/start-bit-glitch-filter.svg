@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фільтрація завад та верифікація стартового біта</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">короткий сплеск шуму відсікається перевіркою середини; справжній старт фіксує 0</text>
+<rect x="50.0" y="90.0" width="840.0" height="140.0" rx="8" fill="#fffaf5" stroke="#f0d0b0" stroke-width="1.5"/>
+<text x="65.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Випадок А: Хибний старт (коротка завада &lt; 4 тактів)</text>
+<line x1="80.0" y1="160.0" x2="140.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="140.0" y1="160.0" x2="140.0" y2="195.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="140.0" y1="195.0" x2="210.0" y2="195.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="210.0" y1="195.0" x2="210.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="210.0" y1="160.0" x2="500.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="110.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IDLE ('1')</text>
+<text x="175.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">завада 20 нс</text>
+<line x1="140.0" y1="145.0" x2="140.0" y2="215.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="140.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">спад (такт 0)</text>
+<line x1="340.0" y1="145.0" x2="340.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="340.0" cy="160.0" r="5.0" fill="#fff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="340.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">перевірка (такт 7, 8, 9): лінія = 1</text>
+<rect x="520.0" y="135.0" width="350.0" height="75.0" rx="6" fill="#fdf2f2" stroke="#333333" stroke-width="1.5"/><text x="695.0" y="155.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">1. Спад запускає лічильник 16×.</tspan><tspan x="695.0" dy="13.7">2. На середині старт-біта (такти 7-9) зчитується '1'.</tspan><tspan x="695.0" dy="13.7">3. Вердикт: ХИБНИЙ СТАРТ (Glitch).</tspan><tspan x="695.0" dy="13.7">4. FSM скидається в IDLE, кадр не спотворюється.</tspan></text>
+<rect x="50.0" y="245.0" width="840.0" height="140.0" rx="8" fill="#f6fbf7" stroke="#c5e8ce" stroke-width="1.5"/>
+<text x="65.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Випадок Б: Справжній старт-біт (тривалість = 16 тактів)</text>
+<line x1="80.0" y1="315.0" x2="140.0" y2="315.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="140.0" y1="315.0" x2="140.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="140.0" y1="350.0" x2="460.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="460.0" y1="350.0" x2="460.0" y2="315.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="460.0" y1="315.0" x2="500.0" y2="315.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="110.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IDLE ('1')</text>
+<text x="300.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Старт-біт триває повні 16 тактів (рівень '0')</text>
+<line x1="300.0" y1="300.0" x2="300.0" y2="370.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="300.0" cy="350.0" r="5.0" fill="#fff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="300.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">перевірка (такти 7, 8, 9): лінія = 0</text>
+<rect x="520.0" y="290.0" width="350.0" height="75.0" rx="6" fill="#eef7f0" stroke="#333333" stroke-width="1.5"/><text x="695.0" y="310.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">1. Спад запускає субтактовий лічильник.</tspan><tspan x="695.0" dy="13.7">2. Усі 3 центральні вибірки підтверджують '0'.</tspan><tspan x="695.0" dy="13.7">3. Вердикт: ДІЙСНИЙ СТАРТ-БІТ.</tspan><tspan x="695.0" dy="13.7">4. FSM переходить до прийому бітів даних D0..D7.</tspan></text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">64-бітна маска capabilities: ключові прапорці протоколу MAVLink</text>
+<rect x="30.0" y="60.0" width="140.0" height="24.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.4"/>
+<text x="100.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Бит 0 (0x0001)</text>
+<rect x="175.0" y="60.0" width="200.0" height="24.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.4"/>
+<text x="275.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISSION_FLOAT</text>
+<rect x="380.0" y="60.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Застарілі float-координати місії (точність ~1.1 м на екваторі)</text>
+<rect x="30.0" y="88.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 2 (0x0004)</text>
+<rect x="175.0" y="88.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISSION_INT</text>
+<rect x="380.0" y="88.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Цілочисельні int32 координати (1e7 град, точність ~1 см)</text>
+<rect x="30.0" y="116.0" width="140.0" height="24.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.4"/>
+<text x="100.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Бит 1 (0x0002)</text>
+<rect x="175.0" y="116.0" width="200.0" height="24.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.4"/>
+<text x="275.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PARAM_FLOAT</text>
+<rect x="380.0" y="116.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Базовий протокол параметрів (одинарна точність float32)</text>
+<rect x="30.0" y="144.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 4 (0x0010)</text>
+<rect x="175.0" y="144.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PARAM_UNION</text>
+<rect x="380.0" y="144.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Розширений протокол параметрів PARAM_EXT_* (типізовані поля int/float)</text>
+<rect x="30.0" y="172.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 5 (0x0020)</text>
+<rect x="175.0" y="172.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FTP</text>
+<rect x="380.0" y="172.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Протокол MAVLink FTP (пакетний обмін файлами та логами через burst-пакети)</text>
+<rect x="30.0" y="200.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 6 (0x0040)</text>
+<rect x="175.0" y="200.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SET_ATTITUDE_TARGET</text>
+<rect x="380.0" y="200.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пряме керування орієнтацією та тягою (offboard attitude setpoints)</text>
+<rect x="30.0" y="228.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 7 (0x0080)</text>
+<rect x="175.0" y="228.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SET_POS_TARGET_LOCAL_NED</text>
+<rect x="380.0" y="228.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Керування положенням/швидкістю в локальній системі NED</text>
+<rect x="30.0" y="256.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 11 (0x0800)</text>
+<rect x="175.0" y="256.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">COMPASS_CALIBRATION</text>
+<rect x="380.0" y="256.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Бортове калібрування компаса (автопілот сам обчислює матрицю корекції)</text>
+<rect x="30.0" y="284.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 12 (0x1000)</text>
+<rect x="175.0" y="284.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MAVLINK2 / PROTOCOL_V2</text>
+<rect x="380.0" y="284.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Повна підтримка кадрів MAVLink 2.0 (пакетні розширення та підпис)</text>
+<rect x="30.0" y="312.0" width="140.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="100.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бит 15 (0x8000)</text>
+<rect x="175.0" y="312.0" width="200.0" height="24.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="275.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FLIGHT_INFORMATION</text>
+<rect x="380.0" y="312.0" width="410.0" height="24.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Повідомлення FLIGHT_INFORMATION (час озброєння, час польоту)</text>
+<text x="410.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">GCS формує внутрішню таблицю можливостей апарата під час підключення і блокує несумісні команди</text>
+</svg>

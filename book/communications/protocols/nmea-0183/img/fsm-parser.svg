@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий автомат (FSM) потокового парсера NMEA 0183</text>
+<rect x="20.0" y="78.0" width="140.0" height="64.0" rx="6" fill="#fdeeed" stroke="#c0392b" stroke-width="1.6"/>
+<text x="90.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">WAIT_START</text>
+<text x="90.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Очікування</text>
+<text x="90.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">'$' або '!'</text>
+<rect x="210.0" y="78.0" width="140.0" height="64.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="280.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">READ_PAYLOAD</text>
+<text x="280.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Накопичення тіла</text>
+<text x="280.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">оновлення XOR</text>
+<rect x="410.0" y="78.0" width="140.0" height="64.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.6"/>
+<text x="480.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">READ_CS1</text>
+<text x="480.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зчитування</text>
+<text x="480.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CS digit 1</text>
+<rect x="610.0" y="78.0" width="140.0" height="64.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.6"/>
+<text x="680.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">READ_CS2</text>
+<text x="680.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зчитування CS 2</text>
+<text x="680.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">звірка суми</text>
+<rect x="610.0" y="238.0" width="140.0" height="64.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.6"/>
+<text x="680.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">WAIT_CR</text>
+<text x="680.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Очікування</text>
+<text x="680.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0x0D (CR)</text>
+<rect x="410.0" y="238.0" width="140.0" height="64.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.6"/>
+<text x="480.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">WAIT_LF</text>
+<text x="480.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Очікування</text>
+<text x="480.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0x0A (LF)</text>
+<rect x="170.0" y="238.0" width="140.0" height="64.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="240.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">SENTENCE_READY</text>
+<text x="240.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Пакет готовий</text>
+<text x="240.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">виклик обробника</text>
+<line x1="160.0" y1="110.0" x2="210.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="185.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт == '$'</text>
+<line x1="280.0" y1="78.0" x2="280.0" y2="56.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="280.0" y1="56.0" x2="320.0" y2="56.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="320.0" y1="56.0" x2="320.0" y2="78.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="300.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт ≠ '*' / xor ^= b</text>
+<line x1="350.0" y1="110.0" x2="410.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="380.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт == '*'</text>
+<line x1="550.0" y1="110.0" x2="610.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="580.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">hex-цифра 1</text>
+<line x1="680.0" y1="142.0" x2="680.0" y2="238.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="745.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">XOR збігся</text>
+<line x1="610.0" y1="270.0" x2="550.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="580.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт == '\r'</text>
+<line x1="410.0" y1="270.0" x2="310.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">байт == '\n'</text>
+<line x1="170.0" y1="270.0" x2="90.0" y2="142.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="105.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">скидання FSM</text>
+<line x1="680.0" y1="142.0" x2="680.0" y2="165.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,3"/>
+<line x1="680.0" y1="165.0" x2="90.0" y2="165.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,3"/>
+<line x1="90.0" y1="165.0" x2="90.0" y2="142.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="390.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка суми XOR або переповнення буфера (&gt;82 B) → скидання</text>
+<rect x="30.0" y="345.0" width="780.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/><text x="420.0" y="365.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Потоковий парсер не потребує динамічної пам'яті (0 alloc): байти обробляються безпосередньо в ISR або циклі опитування UART.</tspan></text>
+</svg>

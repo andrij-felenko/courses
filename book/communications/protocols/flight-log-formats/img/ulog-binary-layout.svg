@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Побайтова структура та типи секцій формату PX4 ULog</text>
+<rect x="30.0" y="60.0" width="820.0" height="75.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок файлу ULog (16 байтів)</text>
+<rect x="45.0" y="95.0" width="260.0" height="30.0" rx="6" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/><text x="175.0" y="113.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">Магічні байти: 0x55 0x4C 0x6F 0x67 (ULog)</tspan></text>
+<rect x="315.0" y="95.0" width="110.0" height="30.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/><text x="370.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Версія: 0x01</tspan></text>
+<rect x="435.0" y="95.0" width="130.0" height="30.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/><text x="500.0" y="113.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Сумісність: 0x12 0x35</tspan></text>
+<rect x="575.0" y="95.0" width="260.0" height="30.0" rx="6" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.5"/><text x="705.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="705.0" dy="0.0">Часова мітка старту: uint64_t (мкс)</tspan></text>
+<rect x="30.0" y="150.0" width="820.0" height="145.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="160.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція визначень та метаданих</text>
+<rect x="45.0" y="185.0" width="375.0" height="45.0" rx="4" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="232.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Тип 'F' (Format) — схема повідомлення uORB</text>
+<text x="232.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">format_name:uint64_t timestamp;float[3] gyro_rad;...</text>
+<rect x="430.0" y="185.0" width="405.0" height="45.0" rx="4" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.2"/>
+<text x="632.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e24aa" text-anchor="middle" font-weight="700">Тип 'I' / 'M' (Information) — метадані системи</text>
+<text x="632.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">key_len (uint8) + key_name (string) + value (sys_name, ver_sw)</text>
+<rect x="45.0" y="240.0" width="375.0" height="45.0" rx="4" fill="#fff2cc" stroke="#d6b656" stroke-width="1.2"/>
+<text x="232.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b78103" text-anchor="middle" font-weight="700">Тип 'P' (Parameter) — початкові параметри</text>
+<text x="232.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">key_len + key_name + value (MC_ROLL_P, MPC_XY_VEL_MAX)</text>
+<rect x="430.0" y="240.0" width="405.0" height="45.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="632.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Тип 'A' (Add Logged Msg) — підписка на потік</text>
+<text x="632.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">multi_id (uint8) + msg_id (uint16) + message_name</text>
+<rect x="30.0" y="310.0" width="820.0" height="170.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція даних реального часу</text>
+<rect x="45.0" y="345.0" width="790.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="50.0" y="350.0" width="120.0" height="30.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="368.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">msg_size (uint16)</tspan></text>
+<rect x="175.0" y="350.0" width="110.0" height="30.0" rx="6" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/><text x="230.0" y="368.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">msg_type (uint8)</tspan></text>
+<rect x="290.0" y="350.0" width="540.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="368.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Корисне навантаження (довжина = msg_size байтів)</tspan></text>
+<rect x="45.0" y="395.0" width="375.0" height="45.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="232.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Тип 'D' (Data) — бінарні вибірки</text>
+<text x="232.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">msg_id (uint16) + бінарне тіло згідно зі схемою 'F'</text>
+<rect x="430.0" y="395.0" width="405.0" height="45.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="632.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тип 'L' / 'C' (Log String) — текстові логи</text>
+<text x="632.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">log_level (uint8) + timestamp (uint64) + UTF-8 string</text>
+<rect x="45.0" y="445.0" width="790.0" height="25.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="440.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Тип 'S' (Sync / Dropout): тривалість пропуску duration (uint16, мс) — маркер втрати пакетів</text>
+</svg>

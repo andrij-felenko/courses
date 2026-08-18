@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація дерева параметрів: виявлення та закриття прогалин (Missing Indices)</text>
+<rect x="80.0" y="34.0" width="240.0" height="32.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="200.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наземна станція (GCS)</text>
+<rect x="640.0" y="34.0" width="200.0" height="32.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="740.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автопілот (Борт)</text>
+<line x1="200.0" y1="70.0" x2="200.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,5"/>
+<line x1="740.0" y1="70.0" x2="740.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,5"/>
+<line x1="200.0" y1="105.0" x2="740.0" y2="125.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="220.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">PARAM_REQUEST_LIST (#21)</text>
+<line x1="740.0" y1="150.0" x2="200.0" y2="168.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">PARAM_VALUE (idx=0, count=4, 'SYS_ID')</text>
+<line x1="740.0" y1="185.0" x2="440.0" y2="203.0" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,4"/>
+<text x="720.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">PARAM_VALUE (idx=1, count=4, 'PILOT_THR_FILT')</text>
+<text x="450.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">✗ втрачено в радіоефірі</text>
+<line x1="740.0" y1="227.0" x2="200.0" y2="245.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">PARAM_VALUE (idx=2, count=4, 'BATT_CAPACITY')</text>
+<line x1="740.0" y1="262.0" x2="200.0" y2="280.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">PARAM_VALUE (idx=3, count=4, 'RTL_ALT')</text>
+<rect x="40.0" y="297.0" width="220.0" height="64.0" rx="6" fill="#fff6e5" stroke="#d97706" stroke-width="1.5"/><text x="150.0" y="318.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">GCS аналізує бітову маску:</tspan><tspan x="150.0" dy="14.3">отримано [0, 2, 3], бракує [1]</tspan><tspan x="150.0" dy="14.3">→ таймаут потоку вичерпано</tspan></text>
+<line x1="200.0" y1="372.0" x2="740.0" y2="392.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="220.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">PARAM_REQUEST_READ (param_index=1)</text>
+<line x1="740.0" y1="417.0" x2="200.0" y2="437.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="720.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">PARAM_VALUE (idx=1, count=4, 'PILOT_THR_FILT')</text>
+<rect x="60.0" y="452.0" width="280.0" height="28.0" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="200.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Всі 4 параметри отримано: СИНХРОНІЗОВАНО</text>
+</svg>

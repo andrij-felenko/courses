@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атаки на основі фрагментації IP: механізми порушення меж</text>
+<rect x="35.0" y="60.0" width="240.0" height="345.0" rx="8" fill="#fffaf9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="155.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Атака Teardrop</text>
+<text x="155.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перекриття зміщень (Overlap)</text>
+<line x1="50.0" y1="114.0" x2="260.0" y2="114.0" stroke="#fecaca" stroke-width="1.0"/>
+<rect x="50.0" y="130.0" width="140.0" height="30.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="120.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Frag 1: [0 .. 599]</text>
+<rect x="120.0" y="168.0" width="140.0" height="30.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="190.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Frag 2: [300 .. 700]</text>
+<text x="155.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зона накладення: [300 .. 599]</text>
+<rect x="47.0" y="240.0" width="216.0" height="145.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.1"/><text x="155.0" y="284.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">Механіка: Розрахунок розміру:</tspan><tspan x="155.0" dy="12.3">len = end - start &lt; 0.</tspan><tspan x="155.0" dy="12.3">При виклику memcpy(..., len)</tspan><tspan x="155.0" dy="12.3">від'ємне число як unsigned</tspan><tspan x="155.0" dy="12.3">стає 4 ГБ → аварійне падіння</tspan><tspan x="155.0" dy="12.3">ядра системи (BSOD / Kernel Panic).</tspan></text>
+<rect x="300.0" y="60.0" width="240.0" height="345.0" rx="8" fill="#fffdf8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="420.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">2. Ping of Death</text>
+<text x="420.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Переповнення ліміту 65 535 B</text>
+<line x1="315.0" y1="114.0" x2="525.0" y2="114.0" stroke="#bfdbfe" stroke-width="1.0"/>
+<rect x="315.0" y="130.0" width="130.0" height="32.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="380.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Frag 1: Offset = 0</text>
+<text x="420.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">• • •</text>
+<rect x="375.0" y="185.0" width="150.0" height="32.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="450.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Frag N: Off=65528, Len=100</text>
+<text x="420.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Total: 65528 + 100 = 65628 B</text>
+<rect x="312.0" y="250.0" width="216.0" height="135.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/><text x="420.0" y="289.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Механіка: Буфер виділявся</tspan><tspan x="420.0" dy="12.3">строго під 65 535 байтів.</tspan><tspan x="420.0" dy="12.3">Сума Offset × 8 + PayloadLen</tspan><tspan x="420.0" dy="12.3">перевищує 64 КБ → запис</tspan><tspan x="420.0" dy="12.3">за межі виділеної пам'яті</tspan><tspan x="420.0" dy="12.3">та крах мережевого стека.</tspan></text>
+<rect x="565.0" y="60.0" width="240.0" height="345.0" rx="8" fill="#faf5ff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="685.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Tiny Fragment</text>
+<text x="685.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Обхід фаєрволів (NIDS Bypass)</text>
+<line x1="580.0" y1="114.0" x2="790.0" y2="114.0" stroke="#e9d5ff" stroke-width="1.0"/>
+<rect x="580.0" y="130.0" width="210.0" height="32.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="685.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Frag 1: IP (20B) + TCP Port (8B)</text>
+<rect x="580.0" y="172.0" width="210.0" height="32.0" rx="3" fill="#fff7e6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="685.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Frag 2: Offset=1 → TCP Flags (SYN)</text>
+<rect x="577.0" y="220.0" width="216.0" height="165.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/><text x="685.0" y="276.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Механіка: Фаєрвол перевіряє</tspan><tspan x="685.0" dy="11.7">правило «блокувати нові SYN».</tspan><tspan x="685.0" dy="11.7">У Frag 1 прапорці відсутні (він вміщує</tspan><tspan x="685.0" dy="11.7">лише порти), тому фаєрвол його пропускає.</tspan><tspan x="685.0" dy="11.7">Frag 2 не має портів (offset &gt; 0) і теж проходить.</tspan><tspan x="685.0" dy="11.7">Ціль збирає повний SYN-пакет.</tspan></text>
+</svg>

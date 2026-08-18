@@ -8,6 +8,7 @@
 
 Перш ніж вести вікно, треба знати, що подає в нього ядро. На кожному такті ACS для кожного стану-призначення обирає, з якого з двох попередників прийшов дешевший шлях, і лишає про це рівно **один біт** — молодший біт переможного попередника. Цього біта досить, щоб попередника відновити: для коду швидкості 1/2 два попередники стану `s′` різняться саме молодшим бітом, а решту дає сам `s′`. Метрику гілки беремо як [відстань Геммінга](book:communications/hamming-distance) — скільки з двох очікуваних бітів ребра не збіглося з прийнятою парою. Ось увесь підмурок; його ґратка й повний вивід — у [згорткових кодах](book:communications/convolutional-codes), а тут він лише постачає нам дві речі щотакту: масив нових метрик і масив бітів рішень.
 
+:::tabs
 ```c
 #include <limits.h>
 #include <string.h>
@@ -46,6 +47,63 @@ static int best(const int m[S]) {                     /* стан із найм�
     return b;
 }
 ```
+```cpp
+#include <algorithm>
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <limits>
+
+namespace viterbi {
+
+constexpr std::size_t K   = 3;
+constexpr std::size_t NU  = K - 1;             // біти пам'яті коду: тут 2
+constexpr std::size_t S   = 1u << NU;          // число станів: 4
+constexpr std::size_t LOW = (1u << (NU - 1)) - 1; // маска молодших ν−1 бітів стану
+constexpr std::size_t D   = 10;                // глибина вікна ≈ 5·(K−1)
+
+constexpr int INF = std::numeric_limits<int>::max();
+
+// Ґратка коду (7,5): наступний стан і пакована пара виходів (v1<<1)|v2.
+constexpr std::array<std::array<int, 2>, S> NXT = {{{0, 2}, {0, 2}, {1, 3}, {1, 3}}};
+constexpr std::array<std::array<int, 2>, S> OUT = {{{0, 3}, {3, 0}, {2, 1}, {1, 2}}};
+
+[[nodiscard]] constexpr int hamming_distance(int o, int r0, int r1) noexcept {
+    return ((o >> 1) ^ r0) + ((o & 1) ^ r1);   // відстань Геммінга пари
+}
+
+struct AcsStep {
+    std::array<int, S>      metrics{};
+    std::array<unsigned, S> decisions{};
+};
+
+// Один такт ACS: нові метрики й один біт рішення на стан (молодший біт попередника).
+[[nodiscard]] constexpr AcsStep acs(const std::array<int, S>& pm, int r0, int r1) noexcept {
+    AcsStep step{};
+    step.metrics.fill(INF);
+
+    for (std::size_t s = 0; s < S; ++s) {
+        if (pm[s] == INF) continue;            // у цей стан ще не дійшли
+        for (int u = 0; u < 2; ++u) {
+            std::size_t ns = static_cast<std::size_t>(NXT[s][u]);
+            int cand = pm[s] + hamming_distance(OUT[s][u], r0, r1);
+            if (cand < step.metrics[ns]) {
+                step.metrics[ns]   = cand;
+                step.decisions[ns] = static_cast<unsigned>(s & 1u); // переможець
+            }
+        }
+    }
+    return step;
+}
+
+[[nodiscard]] constexpr std::size_t best_state(const std::array<int, S>& m) noexcept {
+    return static_cast<std::size_t>(std::distance(m.begin(), std::min_element(m.begin(), m.end())));
+}
+
+} // namespace viterbi
+```
+:::
 
 ## Архітектура перша: простеження (traceback)
 
@@ -53,6 +111,7 @@ static int best(const int m[S]) {                     /* стан із найм�
 
 Прямокутник рішень тримаємо в [кільцевому буфері](book:algorithms/ring-buffer): D колонок, і нова колонка щотакту затирає найстарішу — та однаково вже видана. Крок такий: подали пару, ACS дав нову колонку рішень (пишемо її прямо в кільце), і якщо вікно повне — від найкращого стану крокуємо назад на D−1 колонок, відновлюючи щоразу попередника, аж поки не опинимося на дні вікна; біт, що вів у той давній стан, і є видача.
 
+:::tabs
 ```c
 typedef struct {
     unsigned dec[D][S];   /* кільце з D колонок; колонка — по біту рішення на стан */
@@ -83,6 +142,56 @@ static int tb_step(tb_smu *q, int r0, int r1, int *out) {
     return 1;
 }
 ```
+```cpp
+#include <array>
+#include <cstddef>
+#include <optional>
+
+namespace viterbi {
+
+class TracebackSmu {
+public:
+    constexpr TracebackSmu() noexcept {
+        reset();
+    }
+
+    constexpr void reset() noexcept {
+        t_ = 0;
+        metric_.fill(INF);
+        metric_[0] = 0;                               // старт відомий — стан 00
+        for (auto& row : dec_) {
+            row.fill(0);
+        }
+    }
+
+    // Подати прийняту пару; повертає декодований біт, якщо вікно наповнене.
+    [[nodiscard]] constexpr std::optional<int> step(int r0, int r1) noexcept {
+        const auto res = acs(metric_, r0, r1);
+        dec_[t_ % D] = res.decisions;                 // нову колонку — одразу в кільце
+        metric_ = res.metrics;
+        t_++;
+
+        if (t_ < D) return std::nullopt;              // вікно ще не повне — warm-up
+
+        std::size_t s = best_state(metric_);          // старт простеження — найкращий стан
+        for (std::size_t k = 0; k < D - 1; ++k) {     // крок назад крізь вікно
+            const std::size_t col = (t_ - 1 - k) % D;
+            s = ((s & LOW) << 1) | dec_[col][s];      // відновити попередника з біта рішення
+        }
+        return static_cast<int>(s >> (NU - 1));       // найдавніший вхідний біт вікна
+    }
+
+    [[nodiscard]] constexpr std::size_t ticks() const noexcept { return t_; }
+
+private:
+    std::array<std::array<unsigned, S>, D> dec_{};    // кільце з D колонок рішень
+    std::array<int, S> metric_{};
+    std::size_t t_{0};                                // скільки тактів опрацьовано
+};
+
+} // namespace viterbi
+```
+:::
 
 Уся пам'ять — `D·S` бітів, а запис — лише `S` бітів на такт (одна колонка). Розплата — рядок циклу `for k`: щоб видати **один** біт, ми читаємо `D−1` разів, крокуючи назад. Це та «зайва робота на прохід», якою traceback платить за дешеву пам'ять.
 
@@ -90,6 +199,7 @@ static int tb_step(tb_smu *q, int r0, int r1, int *out) {
 
 Протилежна крайність — не крокувати назад **ніколи**. Для цього доводиться зберігати більше: нехай кожен стан несе не один біт, а **весь** декодований префікс свого вцілілого шляху за останні D тактів — як D-бітний регістр. Тоді видача тривіальна: найдавніший біт — це просто найстарший біт регістра найкращого стану, візьми та віддай. А вся робота переїжджає на оновлення: щотакту, коли ACS каже, що в стан `s′` виграв попередник `s`, ми **копіюємо** регістр `s`, зсуваємо його на біт і дописуємо свіжий вхідний біт ребра. Регістр тут — це [зсувний регістр](book:electronics/shift-register): бити марширують на позицію щотакту, найстаріший випадає.
 
+:::tabs
 ```c
 typedef struct {
     unsigned reg[S];      /* D-бітний декодований префікс на стан; біт D−1 — найдавніший */
@@ -128,6 +238,68 @@ static int rx_step(rx_smu *q, int r0, int r1, int *out) {
     return 1;
 }
 ```
+```cpp
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include <optional>
+
+namespace viterbi {
+
+class RegisterExchangeSmu {
+public:
+    constexpr RegisterExchangeSmu() noexcept {
+        reset();
+    }
+
+    constexpr void reset() noexcept {
+        t_ = 0;
+        metric_.fill(INF);
+        metric_[0] = 0;
+        reg_.fill(0);
+    }
+
+    // Подати прийняту пару; повертає декодований біт без зворотного проходу.
+    [[nodiscard]] constexpr std::optional<int> step(int r0, int r1) noexcept {
+        std::array<int, S> nm{};
+        std::array<uint32_t, S> nreg{};
+        nm.fill(INF);
+        nreg.fill(0);
+
+        for (std::size_t s = 0; s < S; ++s) {
+            if (metric_[s] == INF) continue;
+            for (int u = 0; u < 2; ++u) {
+                const std::size_t ns = static_cast<std::size_t>(NXT[s][u]);
+                const int cand = metric_[s] + hamming_distance(OUT[s][u], r0, r1);
+                if (cand < nm[ns]) {
+                    nm[ns] = cand;
+                    const uint32_t unew = static_cast<uint32_t>(ns >> (NU - 1)); // вхідний біт ребра
+                    nreg[ns] = ((reg_[s] << 1) | unew) & ((1u << D) - 1);        // копія + зсув
+                }
+            }
+        }
+
+        metric_ = nm;
+        reg_ = nreg;                                  // УСЯ пам'ять оновлюється щотакту
+        t_++;
+
+        if (t_ < D) return std::nullopt;
+
+        const std::size_t best = best_state(metric_);
+        return static_cast<int>((reg_[best] >> (D - 1)) & 1u); // найстарший біт — миттєво
+    }
+
+    [[nodiscard]] constexpr std::size_t ticks() const noexcept { return t_; }
+
+private:
+    std::array<uint32_t, S> reg_{};                   // D-бітний префікс шляху на кожен стан
+    std::array<int, S> metric_{};
+    std::size_t t_{0};
+};
+
+} // namespace viterbi
+```
+:::
 
 Видача — один рядок без жодного циклу: `reg[best] >> (D−1)`. Але гляньте на два `memcpy`: щотакту переписується **вся** пам'ять вцілілих, `S·D` бітів. Пам'ять та сама, що в traceback, а от рух даних — геть інший.
 

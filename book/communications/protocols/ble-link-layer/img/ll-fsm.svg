@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий автомат станів Link Layer у BLE</text>
+<rect x="340.0" y="30.0" width="160.0" height="50.0" rx="8" fill="#f8fafc" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="420.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">STANDBY</text>
+<rect x="40.0" y="150.0" width="200.0" height="65.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="140.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ADVERTISING</text>
+<text x="140.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Випромінює пакети реклами</text>
+<rect x="320.0" y="150.0" width="200.0" height="65.0" rx="8" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="420.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SCANNING</text>
+<text x="420.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Слухає рекламні канали</text>
+<rect x="600.0" y="150.0" width="200.0" height="65.0" rx="8" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="700.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">INITIATING</text>
+<text x="700.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Слухає та надсилає CONNECT</text>
+<rect x="160.0" y="310.0" width="520.0" height="140.0" rx="10" fill="#fdfcf8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="420.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">CONNECTION STATE (Стан з'єднання)</text>
+<rect x="190.0" y="360.0" width="210.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="295.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Slave (Ведений)</text>
+<text x="295.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхронізується з розкладом Master</text>
+<rect x="440.0" y="360.0" width="210.0" height="70.0" rx="6" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.6"/>
+<text x="545.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Master (Ведучий)</text>
+<text x="545.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Задає сітку Anchor Points і стрибки</text>
+<line x1="360.0" y1="80.0" x2="200.0" y2="150.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="260.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Host: Start Adv</text>
+<line x1="420.0" y1="80.0" x2="420.0" y2="150.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="435.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Host: Scan</text>
+<line x1="480.0" y1="80.0" x2="640.0" y2="150.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="580.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Host: Connect</text>
+<line x1="140.0" y1="215.0" x2="250.0" y2="360.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="145.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Прийнято CONNECT_IND</text>
+<line x1="700.0" y1="215.0" x2="590.0" y2="360.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="695.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Надіслано CONNECT_IND</text>
+<line x1="420.0" y1="310.0" x2="420.0" y2="80.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="340.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">LL_TERMINATE / Timeout</text>
+<line x1="100.0" y1="150.0" x2="340.0" y2="60.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="740.0" y1="150.0" x2="500.0" y2="60.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+</svg>

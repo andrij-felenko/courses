@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фази процедури спарювання Bluetooth</text>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири фази спарювання у протоколі безпеки LE Secure Connections (SMP)</text>
+<rect x="20.0" y="55.0" width="190.0" height="280.0" rx="8" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="115.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1</text>
+<text x="115.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Feature Exchange</text>
+<line x1="35.0" y1="113.0" x2="195.0" y2="113.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="34.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Обмін параметрами SMP:</text>
+<text x="34.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• IO Capabilities</text>
+<text x="34.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Прапорець AuthReq</text>
+<text x="34.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Вимоги MITM / SC</text>
+<text x="34.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Розмір ключа (16 байт)</text>
+<line x1="213.0" y1="195.0" x2="227.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="55.0" width="190.0" height="280.0" rx="8" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.5"/>
+<text x="325.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="325.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Key Exchange &amp; Auth</text>
+<line x1="245.0" y1="113.0" x2="405.0" y2="113.0" stroke="#b8860b" stroke-width="1.0"/>
+<text x="244.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ECDH та автентифікація:</text>
+<text x="244.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Обмін точками PKa, PKb</text>
+<text x="244.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Обчислення DHKey</text>
+<text x="244.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Stage 1: Numeric Comp</text>
+<text x="244.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Stage 2: DHKey Check</text>
+<line x1="423.0" y1="195.0" x2="437.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="440.0" y="55.0" width="190.0" height="280.0" rx="8" fill="#f0faf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="535.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 3</text>
+<text x="535.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">LTK Generation</text>
+<line x1="455.0" y1="113.0" x2="615.0" y2="113.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="454.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Деривація ключів:</text>
+<text x="454.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Функція f5(DHKey)</text>
+<text x="454.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Генерація MacKey</text>
+<text x="454.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Генерація LTK (128 біт)</text>
+<text x="454.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Розрахунок для CTKD</text>
+<line x1="633.0" y1="195.0" x2="647.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="55.0" width="190.0" height="280.0" rx="8" fill="#f2ecf8" stroke="#8a5fb0" stroke-width="1.5"/>
+<text x="745.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5fb0" text-anchor="middle" font-weight="700">Фаза 4</text>
+<text x="745.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Encryption &amp; Distr</text>
+<line x1="665.0" y1="113.0" x2="825.0" y2="113.0" stroke="#8a5fb0" stroke-width="1.0"/>
+<text x="664.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Шифрування та передача:</text>
+<text x="664.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Старт AES-CCM у Link Layer</text>
+<text x="664.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Захищений обмін IRK</text>
+<text x="664.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Передача CSRK</text>
+<text x="664.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Захист адреси (RPA)</text>
+<text x="430.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Шифрування радіоефіру активується на Фазі 4; усі ключі розподілу передаються виключно в зашифрованому каналі</text>
+</svg>

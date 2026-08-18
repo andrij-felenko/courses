@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння: повне вичитування дерева параметрів проти валідації через хеш (CRC)</text>
+<rect x="50.0" y="80.0" width="400.0" height="340.0" rx="8" fill="#fffaf0" stroke="#d97706" stroke-width="2.0"/>
+<text x="250.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d97706" text-anchor="middle" font-weight="700">Класичний обмін без хешу</text>
+<text x="250.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Передача кожного параметра щоразу</text>
+<text x="75.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">1. GCS шле PARAM_REQUEST_LIST</text>
+<text x="75.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">2. Автопілот шле 2000 пакетів PARAM_VALUE</text>
+<text x="75.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">3. Обсяг даних: 2000 × 37 байтів ≈ 74 кБ</text>
+<text x="75.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">4. Швидкість каналу: 57.6 кбіт/с (≈ 5 кБ/с)</text>
+<text x="75.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">5. Затримка старту: 15–20 СЕКУНД</text>
+<text x="75.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">6. Ризик: втрата 10–20% пакетів у повітрі,</text>
+<text x="75.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">   тривалий цикл дозапиту дірок</text>
+<rect x="75.0" y="360.0" width="350.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Високе навантаження радіоканалу</text>
+<rect x="490.0" y="80.0" width="400.0" height="340.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="690.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Оптимізація: Хеш конфігурації</text>
+<text x="690.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Локальний кеш GCS + перевірка CRC</text>
+<text x="515.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">1. GCS шле запит хешу (PARAM_HASH)</text>
+<text x="515.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">2. Борт рахує CRC32 таблиці параметрів</text>
+<text x="515.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">3. Борт повертає 4-байтовий хеш</text>
+<text x="515.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">4. Порівняння з локальним кешем на диску:</text>
+<text x="515.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">   • Хеш збігся: параметри ідентичні!</text>
+<text x="515.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">     → Завантаження НЕ потрібне (0 мс)</text>
+<text x="515.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">   • Хеш інший: зміна конфігурації</text>
+<text x="515.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">     → Завантаження лише за потреби</text>
+<rect x="515.0" y="360.0" width="350.0" height="40.0" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Миттєва готовність до польоту (&lt; 50 мс)</text>
+</svg>

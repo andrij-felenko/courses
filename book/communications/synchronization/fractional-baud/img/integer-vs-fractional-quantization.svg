@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цілочисельне квантування проти дробового дільника baud</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">на високих швидкостях (921600 бод при f_CK = 42 МГц) цілий дільник дає помилку кадру</text>
+<rect x="50.0" y="75.0" width="400.0" height="240.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Цілочисельний дільник (Integer Prescaler)</text>
+<rect x="65.0" y="115.0" width="370.0" height="48.0" rx="6" fill="#ffffff" stroke="#f0c0c0" stroke-width="1.5"/><text x="250.0" y="135.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">DIV = 42 000 000 / (16 × 921 600) = 2.8489</tspan><tspan x="250.0" dy="14.3">Ціле число N вимагає округлення: N = 2 або N = 3</tspan></text>
+<rect x="65.0" y="173.0" width="370.0" height="56.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="75.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">N = 3 (округлення вгору):</text>
+<text x="75.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">baud = 42 МГц / (16 × 3) = 875 000 бод  (−5.06%)</text>
+<text x="425.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">✗ ЗБІЙ</text>
+<rect x="65.0" y="239.0" width="370.0" height="56.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="75.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">N = 2 (округлення вниз):</text>
+<text x="75.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">baud = 42 МГц / (16 × 2) = 1 312 500 бод  (+42.4%)</text>
+<text x="425.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">✗ ЗБІЙ</text>
+<rect x="490.0" y="75.0" width="400.0" height="240.0" rx="8" fill="#f0f9f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Дробовий дільник (Fractional Baud Rate)</text>
+<rect x="505.0" y="115.0" width="370.0" height="48.0" rx="6" fill="#ffffff" stroke="#c0e8cc" stroke-width="1.5"/><text x="690.0" y="135.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">DIV = 2 + 14/16 = 2.8750  (мантиса 2, дріб 14/16)</tspan><tspan x="690.0" dy="14.3">Акумулятор чергує цикли ділення на 2 та 3</tspan></text>
+<rect x="505.0" y="173.0" width="370.0" height="56.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="515.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">16× передискретизація (OVER8 = 0, F = 14):</text>
+<text x="515.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">baud = 42 МГц / (16 × 2.875) = 913 043 бод  (−0.93%)</text>
+<text x="865.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ В ДОПУСКУ</text>
+<rect x="505.0" y="239.0" width="370.0" height="56.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="515.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">8× передискретизація (OVER8 = 1, DIV = 5.698):</text>
+<text x="515.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">baud = 42 МГц / (8 × 5.700) = 921 053 бод  (−0.06%)</text>
+<text x="865.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ ІДЕАЛЬНО</text>
+<rect x="50.0" y="330.0" width="840.0" height="72.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="355.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Цілочисельний дільник на високих швидкостях має завеликий крок квантування, і похибка 5.06% виходить</tspan><tspan x="470.0" dy="15.0">за поріг стійкості UART (±2.5% на пристрій). Дробовий дільник усуває квантування, зводячи похибку до 0.06–0.93%,</tspan><tspan x="470.0" dy="15.0">що гарантує безпомилковий прийом байтів без заміни опорного кварцового резонатора.</tspan></text>
+</svg>

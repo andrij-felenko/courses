@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 453" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="453" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захисні смуги (Guard Bands), позасмугові випромінювання та ACLR</text>
+<line x1="50.0" y1="340.0" x2="790.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="760.0" y1="340.0" x2="795.0" y2="340.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="790.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">Частота (f)</text>
+<line x1="50.0" y1="340.0" x2="50.0" y2="60.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="50.0" y1="80.0" x2="50.0" y2="55.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="45.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">PSD (дБм/Гц)</text>
+<rect x="240.0" y="90.0" width="320.0" height="250.0" rx="2" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+<text x="400.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">Корисний сигнал (Зайнята смуга / OBW)</text>
+<text x="400.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">наприклад, 100 піднесучих OFDM (18 МГц із 20 МГц каналу)</text>
+<line x1="70.0" y1="290.0" x2="180.0" y2="290.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="180.0" y1="290.0" x2="230.0" y2="80.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="230.0" y1="80.0" x2="570.0" y2="80.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="570.0" y1="80.0" x2="620.0" y2="290.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="620.0" y1="290.0" x2="760.0" y2="290.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="500.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Спектральна маска (SEM)</text>
+<rect x="190.0" y="140.0" width="50.0" height="200.0" rx="2" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/>
+<text x="215.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">Guard</text>
+<text x="215.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">Band</text>
+<rect x="560.0" y="140.0" width="50.0" height="200.0" rx="2" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/>
+<text x="585.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">Guard</text>
+<text x="585.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">Band</text>
+<line x1="190.0" y1="85.0" x2="190.0" y2="340.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="610.0" y1="85.0" x2="610.0" y2="340.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="190.0" y1="355.0" x2="610.0" y2="355.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="400.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Номінальна смуга каналу (Channel Bandwidth, наприклад 20 МГц)</text>
+<rect x="630.0" y="220.0" width="130.0" height="120.0" rx="3" fill="#fdedec" stroke="#c0392b" stroke-width="1.2"/>
+<text x="695.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сусідній канал</text>
+<text x="695.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Інший оператор)</text>
+<line x1="580.0" y1="200.0" x2="640.0" y2="240.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="655.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">OOBE / Спад</text>
+<rect x="50.0" y="385.0" width="740.0" height="48.0" rx="6" fill="#fcfcfd" stroke="#6b7280" stroke-width="1.5"/><text x="420.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">ACLR = P_корисного_каналу / P_витоку_в_сусідній_канал (норматив 3GPP: ACLR ≥ 45 дБ).</tspan><tspan x="420.0" dy="13.0">Захисна смуга (Guard Band) дає аналоговим і цифровим фільтрам смугу переходу для згасання OOBE.</tspan></text>
+</svg>

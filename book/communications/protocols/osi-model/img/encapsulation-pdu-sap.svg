@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 541" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="541" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інкапсуляція даних та точки доступу до послуг (SAP)</text>
+<rect x="20.0" y="65.0" width="160.0" height="50.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L7 Прикладний</text>
+<rect x="330.0" y="65.0" width="240.0" height="50.0" rx="5" fill="#e8f4fd" stroke="#1b6ca8" stroke-width="1.5"/>
+<text x="450.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дані програми</text>
+<text x="450.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b6ca8" text-anchor="middle">SDU + PCI = L7-PDU (APDU)</text>
+<rect x="720.0" y="65.0" width="160.0" height="50.0" rx="5" fill="#e8f4fd" stroke="#1b6ca8" stroke-width="1.2"/>
+<text x="800.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b6ca8" text-anchor="middle" font-weight="700">L7-PDU</text>
+<line x1="450.0" y1="115.0" x2="450.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="570.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Точка доступу: PSAP (Presentation SAP)</text>
+<rect x="20.0" y="135.0" width="160.0" height="50.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L6 Представницький</text>
+<rect x="305.0" y="135.0" width="290.0" height="50.0" rx="5" fill="#edf7ed" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="450.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PH | Дані програми</text>
+<text x="450.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">SDU + PCI = L6-PDU (PPDU)</text>
+<rect x="720.0" y="135.0" width="160.0" height="50.0" rx="5" fill="#edf7ed" stroke="#2e7d32" stroke-width="1.2"/>
+<text x="800.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2e7d32" text-anchor="middle" font-weight="700">L6-PDU</text>
+<line x1="450.0" y1="185.0" x2="450.0" y2="205.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="570.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Точка доступу: SSAP (Session SAP)</text>
+<rect x="20.0" y="205.0" width="160.0" height="50.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L5 Сеансовий</text>
+<rect x="280.0" y="205.0" width="340.0" height="50.0" rx="5" fill="#fff4e5" stroke="#ed6c02" stroke-width="1.5"/>
+<text x="450.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SH | PH | Дані програми</text>
+<text x="450.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ed6c02" text-anchor="middle">SDU + PCI = L5-PDU (SPDU)</text>
+<rect x="720.0" y="205.0" width="160.0" height="50.0" rx="5" fill="#fff4e5" stroke="#ed6c02" stroke-width="1.2"/>
+<text x="800.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ed6c02" text-anchor="middle" font-weight="700">L5-PDU</text>
+<line x1="450.0" y1="255.0" x2="450.0" y2="275.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="570.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Точка доступу: TSAP (Transport SAP / Port)</text>
+<rect x="20.0" y="275.0" width="160.0" height="50.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L4 Транспортний</text>
+<rect x="250.0" y="275.0" width="400.0" height="50.0" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1.5"/>
+<text x="450.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TH | SH | PH | Дані програми</text>
+<text x="450.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2185b" text-anchor="middle">SDU + PCI = L4-PDU (Сегмент)</text>
+<rect x="720.0" y="275.0" width="160.0" height="50.0" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1.2"/>
+<text x="800.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c2185b" text-anchor="middle" font-weight="700">L4-PDU</text>
+<line x1="450.0" y1="325.0" x2="450.0" y2="345.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="570.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Точка доступу: NSAP (Network SAP / IP)</text>
+<rect x="20.0" y="345.0" width="160.0" height="50.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L3 Мережевий</text>
+<rect x="225.0" y="345.0" width="450.0" height="50.0" rx="5" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+<text x="450.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">NH | TH | SH | PH | Дані</text>
+<text x="450.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7b1fa2" text-anchor="middle">SDU + PCI = L3-PDU (Пакет)</text>
+<rect x="720.0" y="345.0" width="160.0" height="50.0" rx="5" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.2"/>
+<text x="800.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7b1fa2" text-anchor="middle" font-weight="700">L3-PDU</text>
+<line x1="450.0" y1="395.0" x2="450.0" y2="415.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="570.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Точка доступу: LSAP (Link SAP / MAC-тип)</text>
+<rect x="20.0" y="415.0" width="160.0" height="50.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L2 Канальний</text>
+<rect x="200.0" y="415.0" width="500.0" height="50.0" rx="5" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+<text x="450.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DH | NH | TH | SH | Дані | DT</text>
+<text x="450.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#00796b" text-anchor="middle">SDU + PCI = L2-PDU (Кадр)</text>
+<rect x="720.0" y="415.0" width="160.0" height="50.0" rx="5" fill="#e0f2f1" stroke="#00796b" stroke-width="1.2"/>
+<text x="800.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#00796b" text-anchor="middle" font-weight="700">L2-PDU</text>
+<rect x="20.0" y="485.0" width="160.0" height="36.0" rx="5" fill="#eceff1" stroke="#455a64" stroke-width="1.2"/>
+<text x="100.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="middle" font-weight="700">L1 Фізичний</text>
+<rect x="200.0" y="485.0" width="500.0" height="36.0" rx="5" fill="#263238" stroke="#333333" stroke-width="1.5"/>
+<text x="450.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#81d4fa" text-anchor="middle" font-weight="700">Потік бітів: 0 1 1 0 1 0 0 1 0 1 1 1 0 1 0 0 1 1 0 0 1 ...</text>
+<rect x="720.0" y="485.0" width="160.0" height="36.0" rx="5" fill="#eceff1" stroke="#455a64" stroke-width="1.2"/>
+<text x="800.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#455a64" text-anchor="middle" font-weight="700">Біти</text>
+</svg>

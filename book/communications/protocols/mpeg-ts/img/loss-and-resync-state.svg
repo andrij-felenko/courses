@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат синхронізації та обробка втрат у радіоефірі</text>
+<text x="40.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Скінченний автомат синхронізації та обробка втрат у завадозахищеному радіоканалі</text>
+<rect x="55.0" y="67.0" width="190.0" height="96.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.8"/>
+<text x="150.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">1. Пошук синхронізації</text>
+<text x="150.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Побайтний зсув буфера</text>
+<text x="150.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">Очікування 0x47</text>
+<text x="150.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Скидання демультиплексора</text>
+<rect x="315.0" y="67.0" width="210.0" height="96.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="420.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">2. Підтвердження періоду</text>
+<text x="420.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка N наступних</text>
+<text x="420.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">байтів 0x47 з кроком 188 B</text>
+<text x="420.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від 0x47 у даних</text>
+<rect x="595.0" y="67.0" width="190.0" height="96.0" rx="6" fill="#dcfce7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="690.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Захоплення (Locked)</text>
+<text x="690.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Нормальний демультиплекс</text>
+<text x="690.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Перевірка CC та TEI</text>
+<text x="690.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Потік іде в декодер</text>
+<line x1="248.0" y1="100.0" x2="312.0" y2="100.0" stroke="#d97706" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="285.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Знайдено перший 0x47</text>
+<line x1="528.0" y1="100.0" x2="592.0" y2="100.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="555.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">3..5 валідних пакетів підряд</text>
+<line x1="380.0" y1="165.0" x2="190.0" y2="165.0" stroke="#ef4444" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="285.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ef4444" text-anchor="middle">Крок ≠ 188 B (фальшивий старт)</text>
+<line x1="690.0" y1="165.0" x2="150.0" y2="189.0" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ef4444" text-anchor="middle" font-weight="700">Втрата 3+ маркерів 0x47 поспіль → зрив синхронізації</text>
+<rect x="40.0" y="240.0" width="760.0" height="120.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.3"/>
+<text x="55.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Реакція на пошкодження окремих пакетів у радіоефірі (DVB-T / Відео з дрона):</text>
+<text x="55.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• TEI (Transport Error Indicator) = 1: демодулятор не зміг виправити біти кодом Reed-Solomon/LDPC. Пакет відкидається.</text>
+<text x="55.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Розрив Continuity Counter (наприклад, 4 → 7): демультиплексор фіксує втрату 2 пакетів і скидає поточний PES-кадр.</text>
+<text x="55.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">• Автоматичне відновлення: наступний пакет з PUSI = 1 починає новий чистий кадр I/P без зависання всього потоку.</text>
+<text x="55.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Ізоляція програм: пошкодження пакетів однієї програми (PID X) не впливає на декодування інших (PID Y).</text>
+</svg>

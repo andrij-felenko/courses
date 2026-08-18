@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формування променя (Beamforming), MU-MIMO та концепція Massive MIMO</text>
+<rect x="20.0" y="50.0" width="360.0" height="265.0" rx="8" fill="#fcfcfd" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="200.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Формування діаграми спрямованості</text>
+<text x="200.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Когерентне додавання фаз антенної решітки</text>
+<rect x="30.0" y="101.0" width="36.0" height="18.0" rx="3" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="48.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">w_1</text>
+<line x1="66.0" y1="110.0" x2="84.0" y2="110.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="84.0" y1="103.0" x2="84.0" y2="117.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="30.0" y="129.0" width="36.0" height="18.0" rx="3" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="48.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">w_2</text>
+<line x1="66.0" y1="138.0" x2="84.0" y2="138.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="84.0" y1="131.0" x2="84.0" y2="145.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="30.0" y="157.0" width="36.0" height="18.0" rx="3" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="48.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">w_3</text>
+<line x1="66.0" y1="166.0" x2="84.0" y2="166.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="84.0" y1="159.0" x2="84.0" y2="173.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="30.0" y="185.0" width="36.0" height="18.0" rx="3" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="48.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">w_4</text>
+<line x1="66.0" y1="194.0" x2="84.0" y2="194.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="84.0" y1="187.0" x2="84.0" y2="201.0" stroke="#2457d6" stroke-width="1.5"/>
+<path d="M 90 150 Q 200 105 310 120 Q 200 195 90 150 Z" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/>
+<text x="200.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Головний промінь (Beam)</text>
+<text x="200.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Підсилення ~ N антен</text>
+<line x1="90.0" y1="150.0" x2="230.0" y2="200.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+<text x="275.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Просторовий нуль (Null)</text>
+<circle cx="325.0" cy="120.0" r="12.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="325.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">UE</text>
+<rect x="30.0" y="222.0" width="340.0" height="85.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Керування вектором ваг w = [e^(jθ₁), e^(jθ₂), …]:</tspan><tspan x="200.0" dy="11.7">• Конструктивна інтерференція у напрямку корисного сигналу (+10·log₁₀(N) дБ).</tspan><tspan x="200.0" dy="11.7">• Деструктивна інтерференція (нули) у напрямку інтерферентів.</tspan></text>
+<rect x="400.0" y="50.0" width="360.0" height="265.0" rx="8" fill="#fcfcfd" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="580.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">Massive MIMO (64T64R / 128T128R)</text>
+<text x="580.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Багатокористувацький режим (MU-MIMO) у 5G NR</text>
+<rect x="415.0" y="105.0" width="55.0" height="80.0" rx="4" fill="#5d6d7e" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="426.0" cy="116.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="442.0" cy="116.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="458.0" cy="116.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="426.0" cy="134.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="442.0" cy="134.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="458.0" cy="134.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="426.0" cy="152.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="442.0" cy="152.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="458.0" cy="152.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="426.0" cy="170.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="442.0" cy="170.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="458.0" cy="170.0" r="3.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="442.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">64T64R</text>
+<path d="M 475 130 Q 560 100 670 110 Q 560 145 475 130 Z" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.2"/>
+<circle cx="685.0" cy="110.0" r="9.0" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/>
+<text x="685.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2980b9" text-anchor="middle" font-weight="700">UE₁</text>
+<path d="M 475 145 Q 560 150 670 155 Q 560 180 475 145 Z" fill="#fef5e7" stroke="#e67e22" stroke-width="1.2"/>
+<circle cx="685.0" cy="155.0" r="9.0" fill="#ffffff" stroke="#e67e22" stroke-width="1.5"/>
+<text x="685.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e67e22" text-anchor="middle" font-weight="700">UE₂</text>
+<path d="M 475 160 Q 550 190 650 200 Q 550 215 475 160 Z" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<circle cx="665.0" cy="200.0" r="9.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="665.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">UE₃</text>
+<rect x="410.0" y="222.0" width="340.0" height="85.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/><text x="580.0" y="250.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">Ефекти Massive MIMO:</tspan><tspan x="580.0" dy="11.7">1. Асимптотична ортогональність каналів: (Hᴴ·H)/M → I при M → ∞.</tspan><tspan x="580.0" dy="11.7">2. Затвердіння каналу (Channel Hardening): швидкі завмирання зникають.</tspan><tspan x="580.0" dy="11.7">3. Простий лінійний прекодинг (ZF/MRT) досягає оптимуму.</tspan></text>
+<rect x="20.0" y="325.0" width="740.0" height="72.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="390.0" y="358.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Massive MIMO усуває внутрішньостільникову інтерференцію виключно просторовою фільтрацією в цифровій базовій смузі.</tspan><tspan x="390.0" dy="11.7">Стандарти Wi-Fi 6/7 (802.11ax/be) та 5G NR використовують явний та неявний зворотний зв'язок (SRS reciprocity в TDD) для побудови прекодерів.</tspan></text>
+</svg>

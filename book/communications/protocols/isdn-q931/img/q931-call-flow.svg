@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 850" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="850" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність сигнальних повідомлень Q.931 під час встановлення та завершення виклику</text>
+<rect x="20.0" y="20.0" width="1000.0" height="800.0" rx="10" fill="#ffffff" stroke="#c8d6ea" stroke-width="1.4"/>
+<text x="40.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Повний цикл виклику Q.931: встановлення, розмова по B-каналу та розрив</text>
+<rect x="50.0" y="65.0" width="180.0" height="45.0" rx="6" fill="#fdf3e6" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="84.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Абонент А (TE1-A)</tspan><tspan x="140.0" dy="13.7">Термінал, що дзвонить</tspan></text>
+<line x1="140.0" y1="115.0" x2="140.0" y2="790.0" stroke="#b0bec5" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="280.0" y="65.0" width="180.0" height="45.0" rx="6" fill="#eef3fb" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="84.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Станція А (LE-A)</tspan><tspan x="370.0" dy="13.7">Місцевий комутатор</tspan></text>
+<line x1="370.0" y1="115.0" x2="370.0" y2="790.0" stroke="#b0bec5" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="580.0" y="65.0" width="180.0" height="45.0" rx="6" fill="#eef3fb" stroke="#333333" stroke-width="1.5"/><text x="670.0" y="84.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">Станція Б (LE-B)</tspan><tspan x="670.0" dy="13.7">Кінцевий комутатор</tspan></text>
+<line x1="670.0" y1="115.0" x2="670.0" y2="790.0" stroke="#b0bec5" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="810.0" y="65.0" width="180.0" height="45.0" rx="6" fill="#eefaf1" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="84.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="900.0" dy="0.0">Абонент Б (TE1-B)</tspan><tspan x="900.0" dy="13.7">Термінал, що приймає</tspan></text>
+<line x1="900.0" y1="115.0" x2="900.0" y2="790.0" stroke="#b0bec5" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="40.0" y="120.0" width="960.0" height="24.0" rx="6" fill="#f0f4f8" stroke="none" stroke-width="1.5"/>
+<text x="520.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ФАЗА 1: ІНІЦІАЦІЯ ТА МАРШРУТИЗАЦІЯ ВИКЛИКУ (SETUP)</text>
+<line x1="140.0" y1="160.0" x2="370.0" y2="160.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="255.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SETUP (CRV=1, Bearer=Voice, B1)</text>
+<text x="80.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Старт T303</text>
+<line x1="370.0" y1="190.0" x2="140.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="255.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">CALL PROCEEDING (B1 виділено)</text>
+<text x="80.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стоп T303, старт T310</text>
+<line x1="370.0" y1="220.0" x2="670.0" y2="220.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="520.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Магістраль SS7 ISUP: IAM (Initial Address Message)</text>
+<line x1="670.0" y1="250.0" x2="900.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="785.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SETUP (CRV=85, Bearer, B-ch)</text>
+<rect x="40.0" y="275.0" width="960.0" height="24.0" rx="6" fill="#f0f4f8" stroke="none" stroke-width="1.5"/>
+<text x="520.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ФАЗА 2: ОПОВІЩЕННЯ (ALERTING) ТА ВІДПОВІДЬ (CONNECT)</text>
+<line x1="900.0" y1="315.0" x2="670.0" y2="315.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="785.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ALERTING (термінал дзвонить)</text>
+<line x1="670.0" y1="345.0" x2="370.0" y2="345.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="520.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">SS7 ISUP: ACM (Address Complete Message)</text>
+<line x1="370.0" y1="375.0" x2="140.0" y2="375.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="255.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">ALERTING (гудки контролю посилки виклику)</text>
+<text x="80.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стоп T310, старт T301</text>
+<line x1="900.0" y1="410.0" x2="670.0" y2="410.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="785.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CONNECT (знято слухавку)</text>
+<line x1="670.0" y1="435.0" x2="900.0" y2="435.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="785.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">CONNECT ACKNOWLEDGE</text>
+<line x1="670.0" y1="465.0" x2="370.0" y2="465.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="520.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SS7 ISUP: ANM (Answer Message)</text>
+<line x1="370.0" y1="495.0" x2="140.0" y2="495.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="255.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CONNECT</text>
+<text x="80.0" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стоп T301</text>
+<line x1="140.0" y1="520.0" x2="370.0" y2="520.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="255.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">CONNECT ACKNOWLEDGE</text>
+<rect x="40.0" y="545.0" width="960.0" height="50.0" rx="6" fill="#eefaf1" stroke="#81c784" stroke-width="1.5"/>
+<text x="520.0" y="567.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА РОЗМОВА: B-КАНАЛ (64 кбіт/с, PCM G.711 прозорий потік в обидва боки)</text>
+<text x="520.0" y="585.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Стан Q.931: U10 (Active / Active) · D-канал вільний для інших викликів або сигналів</text>
+<rect x="40.0" y="608.0" width="960.0" height="24.0" rx="6" fill="#f0f4f8" stroke="none" stroke-width="1.5"/>
+<text x="520.0" y="624.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ФАЗА 4: РОЗРИВ З'ЄДНАННЯ (DISCONNECT / RELEASE / RELEASE COMPLETE)</text>
+<line x1="140.0" y1="648.0" x2="370.0" y2="648.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="255.0" y="640.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">DISCONNECT (Cause #16 Normal Clearing)</text>
+<text x="80.0" y="650.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Старт T305</text>
+<line x1="370.0" y1="675.0" x2="670.0" y2="675.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="520.0" y="667.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">SS7 ISUP: REL (Release)</text>
+<line x1="370.0" y1="700.0" x2="140.0" y2="700.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="255.0" y="692.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">RELEASE (B-канал звільнено)</text>
+<text x="80.0" y="702.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стоп T305, старт T308</text>
+<line x1="140.0" y1="725.0" x2="370.0" y2="725.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="255.0" y="717.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">RELEASE COMPLETE (CRV закрито)</text>
+<text x="80.0" y="727.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стоп T308 -&gt; Стан U0 (Null)</text>
+<line x1="670.0" y1="750.0" x2="900.0" y2="750.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="785.0" y="742.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">DISCONNECT (Cause #16)</text>
+<line x1="900.0" y1="775.0" x2="670.0" y2="775.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="785.0" y="767.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">RELEASE / RELEASE COMPLETE</text>
+</svg>

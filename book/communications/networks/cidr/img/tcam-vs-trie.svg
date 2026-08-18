@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реалізація LPM: програмний Radix Trie проти апаратного TCAM</text>
+<rect x="40.0" y="55.0" width="350.0" height="310.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.6"/>
+<text x="215.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Програмний пошук: Radix / Patricia Trie</text>
+<circle cx="215.0" cy="120.0" r="18.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корінь</text>
+<line x1="205.0" y1="134.0" x2="155.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="225.0" y1="134.0" x2="275.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<text x="170.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="260.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<circle cx="155.0" cy="175.0" r="15.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<circle cx="275.0" cy="175.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="275.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">/16</text>
+<line x1="275.0" y1="190.0" x2="275.0" y2="225.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="275.0" cy="235.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="275.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">/24</text>
+<text x="215.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покроковий спуск по бітах адреси</text>
+<text x="215.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Складність: O(W) звернень до пам'яті (W = 32 біти)</text>
+<text x="215.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Затримка: 30–100 нс на пошук у DRAM</text>
+<text x="215.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Гнучко, дешево, оновлення без перебоїв</text>
+<rect x="430.0" y="55.0" width="350.0" height="310.0" rx="8" fill="#fffaf5" stroke="#c0392b" stroke-width="1.6"/>
+<text x="605.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратний пошук: TCAM (ASIC / NPU)</text>
+<rect x="450.0" y="110.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">198.51.0.0 /16</text>
+<text x="460.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">11000110.00110011 . XXXXXXXX.XXXXXXXX</text>
+<rect x="450.0" y="150.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">198.51.100.0 /22</text>
+<text x="460.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">11000110.00110011 . 011001XX.XXXXXXXX</text>
+<rect x="450.0" y="190.0" width="310.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">198.51.100.32 /27</text>
+<text x="460.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">11000110.00110011 . 01100100.001XXXXX</text>
+<text x="605.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Паралельне порівняння всіх рядків за 1 такт!</text>
+<text x="605.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Трійкова комірка пам'яті: 0, 1 або X (Don't care)</text>
+<text x="605.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Priority Encoder миттєво віддає найдовший префікс</text>
+<text x="605.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Швидкість: 1–2 нс (до мільярдів пакетів/с)</text>
+<text x="605.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Висока ціна, високе енергоспоживання (15–30 Вт)</text>
+<text x="410.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Програмні роутери (Linux kernel / VPP) використовують дерева; магістральні чіпи (Broadcom, Cisco) — TCAM.</text>
+</svg>

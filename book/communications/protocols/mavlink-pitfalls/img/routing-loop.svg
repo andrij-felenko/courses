@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="780.0" height="310.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Топологія з кількома інтерфейсами та ризик маршрутної петлі</text>
+<rect x="40.0" y="80.0" width="200.0" height="75.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Автопілот (FC)</tspan><tspan x="140.0" dy="14.3">SYS 1, COMP 1</tspan><tspan x="140.0" dy="14.3">UART1 (57600/921600)</tspan></text>
+<rect x="310.0" y="80.0" width="200.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="410.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Бортовий комп'ютер (SBC)</tspan><tspan x="410.0" dy="13.7">SYS 1, COMP 191 (mavlink-router)</tspan><tspan x="410.0" dy="13.7">UART ↔ UDP ↔ USB</tspan></text>
+<rect x="580.0" y="80.0" width="200.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="680.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Телеметричний модем</tspan><tspan x="680.0" dy="14.3">SYS 1, COMP 158</tspan><tspan x="680.0" dy="14.3">Радіолінія (57600 бод)</tspan></text>
+<rect x="580.0" y="215.0" width="200.0" height="75.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="680.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Наземна станція (GCS)</tspan><tspan x="680.0" dy="13.7">SYS 255, COMP 190</tspan><tspan x="680.0" dy="13.7">QGroundControl / MissionPlanner</tspan></text>
+<line x1="240.0" y1="117.0" x2="310.0" y2="117.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="510.0" y1="117.0" x2="580.0" y2="117.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="680.0" y1="155.0" x2="680.0" y2="172.0" stroke="#333333" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="680.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Радіоканал (RF)</text>
+<line x1="680.0" y1="196.0" x2="680.0" y2="215.0" stroke="#333333" stroke-width="1.8" stroke-dasharray="4,3"/>
+<line x1="410.0" y1="155.0" x2="410.0" y2="230.0" stroke="#333333" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="495.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Wi-Fi / 4G UDP</text>
+<line x1="410.0" y1="252.0" x2="580.0" y2="252.0" stroke="#333333" stroke-width="1.8" stroke-dasharray="4,3"/>
+<circle cx="495.0" cy="160.0" r="36.0" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<text x="495.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ПЕТЛЯ!</text>
+<text x="495.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Broadcast storm</text>
+<rect x="40.0" y="215.0" width="340.0" height="85.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="210.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Причина: у MAVLink немає поля TTL!</tspan><tspan x="210.0" dy="13.0">Широкомовний HEARTBEAT із SBC дублюється в UART і UDP,</tspan><tspan x="210.0" dy="13.0">повертається назад і розмножується лавиноподібно.</tspan><tspan x="210.0" dy="13.0">Захист: Split-Horizon + таблиця маршрутизації за sys/comp.</tspan></text>
+</svg>

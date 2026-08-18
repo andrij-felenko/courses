@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">MAVLink 2: розширення extensions, Zero-Byte Truncation та трансляція у v1</text>
+<text x="40.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Структура корисного навантаження (Payload) повідомлення MAVLink 2:</text>
+<rect x="40.0" y="93.0" width="420.0" height="75.0" rx="6" fill="#d4efdf" stroke="#27ae60" stroke-width="1.8"/>
+<text x="250.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Базові поля (Base Fields, v1-сумісні)</text>
+<text x="250.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сортовані за розміром (8 → 4 → 2 → 1).</text>
+<text x="250.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Беруть участь у розрахунку CRC_EXTRA!</text>
+<rect x="470.0" y="93.0" width="330.0" height="75.0" rx="6" fill="#fdebd0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="635.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Поля розширення (&lt;extensions/&gt;)</text>
+<text x="635.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Додаються після базових у порядку оголошення.</text>
+<text x="635.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">НЕ змінюють CRC_EXTRA! (сумісність)</text>
+<rect x="40.0" y="198.0" width="760.0" height="68.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/>
+<text x="55.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="start" font-weight="700">Zero-Byte Truncation (економія байтів у MAVLink 2):</text>
+<text x="55.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Якщо наприкінці корисних даних стоять байти 0x00 (наприклад, нульові прапорці чи невикористані поля розширення),</text>
+<text x="55.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">вони обрізаються перед відправкою (LEN зменшується). Приймач автоматично заповнює відсутні байти нулями.</text>
+<rect x="40.0" y="280.0" width="760.0" height="68.0" rx="6" fill="#fdf2e9" stroke="#d35400" stroke-width="1.5"/>
+<text x="55.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">Правила шлюзування / трансляції з MAVLink 2 у MAVLink 1:</text>
+<text x="55.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Поля розширення відкидаються (Payload обрізається до розміру базової частини).</text>
+<text x="55.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Якщо MSG ID &gt; 255, повідомлення не транслюється у v1 (drop), бо v1 підтримує лише 8-бітні ID.</text>
+</svg>

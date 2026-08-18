@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сигнальний обмін Offer / Answer та збір Trickle ICE</text>
+<rect x="60.0" y="50.0" width="120.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="120.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Peer A (Ініціатор)</text>
+<line x1="120.0" y1="90.0" x2="120.0" y2="360.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="365.0" y="50.0" width="150.0" height="40.0" rx="6" fill="#fdf3e0" stroke="#b08900" stroke-width="1.5"/>
+<text x="440.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сигнальний сервер</text>
+<line x1="440.0" y1="90.0" x2="440.0" y2="360.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="700.0" y="50.0" width="120.0" height="40.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Peer B (Відповідач)</text>
+<line x1="760.0" y1="90.0" x2="760.0" y2="360.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="115.0" x2="440.0" y2="115.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="280.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. SDP Offer (кодеки, ufrag, DTLS fingerprint)</text>
+<line x1="440.0" y1="130.0" x2="760.0" y2="130.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="600.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">1. SDP Offer ретранслюється до Peer B</text>
+<line x1="760.0" y1="165.0" x2="440.0" y2="165.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="600.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. SDP Answer (обрані кодеки, DTLS fingerprint)</text>
+<line x1="440.0" y1="180.0" x2="120.0" y2="180.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="280.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">2. SDP Answer повертається до Peer A</text>
+<line x1="120.0" y1="215.0" x2="440.0" y2="215.0" stroke="#b08900" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="225.0" x2="760.0" y2="225.0" stroke="#b08900" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="middle">3. Trickle ICE: асинхронна відправка ICE Candidate A</text>
+<line x1="760.0" y1="250.0" x2="440.0" y2="250.0" stroke="#b08900" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="260.0" x2="120.0" y2="260.0" stroke="#b08900" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="middle">3. Trickle ICE: асинхронна відправка ICE Candidate B</text>
+<rect x="140.0" y="290.0" width="600.0" height="45.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="145.0" y1="312.0" x2="735.0" y2="312.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="145.0" y1="312.0" x2="735.0" y2="312.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="312.0" x2="145.0" y2="312.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Прямий двонаправлений медіа-трафік SRTP / DataChannel</text>
+<text x="440.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Сигнальний сервер потрібен виключно для початкового узгодження метаданих і не бере участі в передачі медіа.</text>
+</svg>

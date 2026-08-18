@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 920 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="920" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="900.0" height="450.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="20.0" y="30.0" width="230.0" height="390.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.8"/>
+<text x="135.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMAF Пакувальник</text>
+<text x="135.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Одне кодування відео</text>
+<rect x="35.0" y="110.0" width="200.0" height="110.0" rx="5" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="135.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Один набір медіафайлів</text>
+<text x="135.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">init.mp4 (CMAF Header)</text>
+<text x="135.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">seg-1.m4s, seg-2.m4s …</text>
+<text x="135.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Спільні fMP4 байти)</text>
+<rect x="35.0" y="240.0" width="200.0" height="75.0" rx="5" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="135.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a16207" text-anchor="middle" font-weight="700">Маніфест HLS</text>
+<text x="135.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">master.m3u8 / index.m3u8</text>
+<text x="135.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#a16207" text-anchor="middle">#EXT-X-MAP:URI=&quot;init.mp4&quot;</text>
+<rect x="35.0" y="325.0" width="200.0" height="75.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="135.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Маніфест DASH</text>
+<text x="135.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">manifest.mpd (XML)</text>
+<text x="135.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">&lt;Initialization sourceURL=&quot;init.mp4&quot;/&gt;</text>
+<line x1="250.0" y1="165.0" x2="310.0" y2="165.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="275.0" x2="310.0" y2="275.0" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="360.0" x2="310.0" y2="360.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="310.0" y="30.0" width="280.0" height="390.0" rx="8" fill="#fdf4ff" stroke="#a21caf" stroke-width="2.0"/>
+<text x="450.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#86198f" text-anchor="middle" font-weight="700">CDN Кеш та Сховище</text>
+<text x="450.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100% спільне використання кешу</text>
+<rect x="325.0" y="110.0" width="250.0" height="120.0" rx="6" fill="#ffffff" stroke="#a21caf" stroke-width="1.5"/>
+<text x="450.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#86198f" text-anchor="middle" font-weight="700">Кеш медіасегментів (99% трафіку)</text>
+<text x="450.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">GET /video/1080p/init.mp4</text>
+<text x="450.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">GET /video/1080p/seg-100.m4s</text>
+<text x="450.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Один кеш-хіт для обох екосистем!</text>
+<rect x="325.0" y="245.0" width="250.0" height="155.0" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="450.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Легковагі текстові маніфести</text>
+<text x="450.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a16207" text-anchor="middle">master.m3u8 (кілька КБ)</text>
+<text x="450.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">manifest.mpd (кілька КБ)</text>
+<text x="450.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Обидва посилаються на ті самі</text>
+<text x="450.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">відносні URL-адреси .m4s</text>
+<text x="450.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Економія сховища: 50%</text>
+<line x1="590.0" y1="180.0" x2="660.0" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="290.0" x2="660.0" y2="165.0" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="210.0" x2="660.0" y2="310.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="330.0" x2="660.0" y2="335.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="660.0" y="70.0" width="220.0" height="150.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.8"/>
+<text x="770.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#a16207" text-anchor="middle" font-weight="700">Apple Екосистема (HLS)</text>
+<text x="770.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">iOS, iPadOS, macOS, Safari, tvOS</text>
+<text x="770.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. Читає master.m3u8</text>
+<text x="770.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2. Завантажує init.mp4</text>
+<text x="770.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. Качає seg-1.m4s (fMP4)</text>
+<rect x="660.0" y="250.0" width="220.0" height="150.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="770.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">DASH / Інші плеєри</text>
+<text x="770.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Android, Chrome, Smart TV, Web</text>
+<text x="770.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. Читає manifest.mpd</text>
+<text x="770.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2. Завантажує init.mp4</text>
+<text x="770.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. Качає той самий seg-1.m4s!</text>
+</svg>

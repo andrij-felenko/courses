@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="41.5" y="35.0" width="157.0" height="49.9" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="56.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Абонент A</tspan><tspan x="120.0" dy="16.9">SIP-телефон / PBX</tspan></text>
+<rect x="293.4" y="35.0" width="173.1" height="49.9" rx="6" fill="#fdf3e6" stroke="#d97706" stroke-width="1.5"/><text x="380.0" y="56.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Softswitch / SBC</tspan><tspan x="380.0" dy="16.9">Вихідний SIP-проксі</tspan></text>
+<rect x="573.6" y="35.0" width="132.8" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="56.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">DNS Резолвер</tspan><tspan x="640.0" dy="16.9">Зона e164.arpa</tspan></text>
+<rect x="801.5" y="35.0" width="157.0" height="49.9" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="880.0" y="56.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">Абонент B / Домен</tspan><tspan x="880.0" dy="16.9">sip.operator.ua</tspan></text>
+<line x1="120.0" y1="95.0" x2="120.0" y2="510.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="380.0" y1="95.0" x2="380.0" y2="510.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="640.0" y1="95.0" x2="640.0" y2="510.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="880.0" y1="95.0" x2="880.0" y2="510.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="140.0" x2="380.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. INVITE sip:+380441234567@proxy</text>
+<line x1="380.0" y1="200.0" x2="640.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="510.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. DNS Query: NAPTR</text>
+<text x="510.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">7.6.5.4.3.2.1.4.4.0.8.3.e164.arpa</text>
+<line x1="640.0" y1="270.0" x2="380.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="510.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. DNS Response: NAPTR (E2U+sip)</text>
+<text x="510.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">!^.*$!sip:user@operator.ua!</text>
+<rect x="257.1" y="317.4" width="245.7" height="45.3" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="380.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">4. Підстановка Regex:</tspan><tspan x="380.0" dy="14.3">+380441234567 → sip:user@operator.ua</tspan></text>
+<line x1="380.0" y1="410.0" x2="880.0" y2="410.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="630.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">5. INVITE sip:user@operator.ua (прямий IP-маршрут)</text>
+<line x1="880.0" y1="470.0" x2="380.0" y2="470.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="470.0" x2="120.0" y2="470.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">6. 200 OK (Сеанс встановлено повз PSTN)</text>
+</svg>

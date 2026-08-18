@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матрична модель MIMO-радіоканалу: y = H·x + n</text>
+<rect x="25.0" y="60.0" width="160.0" height="240.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="105.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Передавач (Tx)</text>
+<text x="105.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">N_t антен</text>
+<rect x="40.0" y="124.0" width="50.0" height="32.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">x_1</text>
+<line x1="90.0" y1="140.0" x2="120.0" y2="140.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="128.0" x2="120.0" y2="152.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="140.0" x2="135.0" y2="130.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="120.0" y1="140.0" x2="135.0" y2="150.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="40.0" y="174.0" width="50.0" height="32.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">x_2</text>
+<line x1="90.0" y1="190.0" x2="120.0" y2="190.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="178.0" x2="120.0" y2="202.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="190.0" x2="135.0" y2="180.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="120.0" y1="190.0" x2="135.0" y2="200.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="40.0" y="244.0" width="50.0" height="32.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">x_{N_t}</text>
+<line x1="90.0" y1="260.0" x2="120.0" y2="260.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="248.0" x2="120.0" y2="272.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="260.0" x2="135.0" y2="250.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="120.0" y1="260.0" x2="135.0" y2="270.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="105.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<rect x="230.0" y="60.0" width="310.0" height="240.0" rx="8" fill="#fdfefe" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="385.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">Багатопроменеве середовище H</text>
+<text x="385.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Розмірність: N_r × N_t</text>
+<line x1="140.0" y1="140.0" x2="600.0" y2="140.0" stroke="#3498db" stroke-width="1.8" stroke-dasharray="4,2"/>
+<line x1="140.0" y1="140.0" x2="600.0" y2="190.0" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="140.0" y1="190.0" x2="600.0" y2="140.0" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="140.0" y1="190.0" x2="600.0" y2="190.0" stroke="#e74c3c" stroke-width="1.8" stroke-dasharray="4,2"/>
+<rect x="280.0" y="130.0" width="210.0" height="120.0" rx="4" fill="#f9f9fb" stroke="#6b7280" stroke-width="1.0"/>
+<text x="385.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">H = [ h₁₁  h₁₂  …  h₁_Nt ]</text>
+<text x="385.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">    [ h₂₁  h₂₂  …  h₂_Nt ]</text>
+<text x="385.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">    [  ⋮    ⋮   ⋱    ⋮   ]</text>
+<text x="385.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">    [ h_Nr1 …   …  h_NrNt]</text>
+<rect x="585.0" y="60.0" width="170.0" height="240.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="670.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Приймач (Rx)</text>
+<text x="670.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">N_r антен + шум n</text>
+<line x1="600.0" y1="128.0" x2="600.0" y2="152.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="140.0" x2="615.0" y2="140.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="130.0" x2="585.0" y2="140.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="600.0" y1="150.0" x2="585.0" y2="140.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="625.0" y="124.0" width="50.0" height="32.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">y_1</text>
+<text x="710.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">+ n_1</text>
+<line x1="600.0" y1="178.0" x2="600.0" y2="202.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="190.0" x2="615.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="180.0" x2="585.0" y2="190.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="600.0" y1="200.0" x2="585.0" y2="190.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="625.0" y="174.0" width="50.0" height="32.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">y_2</text>
+<text x="710.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">+ n_2</text>
+<line x1="600.0" y1="248.0" x2="600.0" y2="272.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="260.0" x2="615.0" y2="260.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="250.0" x2="585.0" y2="260.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="600.0" y1="270.0" x2="585.0" y2="260.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="625.0" y="244.0" width="50.0" height="32.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">y_{N_r}</text>
+<text x="710.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">+ n_{N_r}</text>
+<text x="650.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<rect x="25.0" y="312.0" width="730.0" height="55.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="390.0" y="336.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Рівняння сигналу: y = H·x + n, де кожне h_ij — комплексний коефіцієнт передачі з Tx_j на Rx_i.</tspan><tspan x="390.0" dy="14.3">Багатопроменеве розсіювання створює незалежні коефіцієнти h_ij, забезпечуючи високий ранг матриці rank(H).</tspan></text>
+</svg>

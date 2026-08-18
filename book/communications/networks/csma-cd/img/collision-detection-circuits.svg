@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.7 -10 831.7 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-11.7" y="-10" width="831.7" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні механізми виявлення колізій у середовищі Ethernet</text>
+<rect x="20.0" y="45.0" width="380.0" height="360.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Коаксіальний кабель (10BASE5 / 10BASE2)</text>
+<line x1="45.0" y1="140.0" x2="375.0" y2="140.0" stroke="#333333" stroke-width="3.0"/>
+<rect x="35.0" y="115.0" width="30.0" height="50.0" rx="6" fill="#eef3ff" stroke="#333333" stroke-width="1.5"/><text x="50.0" y="137.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="50.0" dy="0.0">50</tspan><tspan x="50.0" dy="11.7">Ω</tspan></text>
+<rect x="355.0" y="115.0" width="30.0" height="50.0" rx="6" fill="#eef3ff" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="137.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">50</tspan><tspan x="370.0" dy="11.7">Ω</tspan></text>
+<text x="210.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спільний сегмент: R_екв = 50 || 50 = 25 Ом</text>
+<line x1="110.0" y1="200.0" x2="110.0" y2="145.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="70.0" y="205.0" width="90.0" height="32.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/><text x="115.0" y="218.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">TX 1: 82 мА</tspan><tspan x="115.0" dy="12.3">(генератор)</tspan></text>
+<line x1="310.0" y1="200.0" x2="310.0" y2="145.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="270.0" y="205.0" width="90.0" height="32.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/><text x="315.0" y="218.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">TX 2: 82 мА</tspan><tspan x="315.0" dy="12.3">(генератор)</tspan></text>
+<rect x="35.0" y="255.0" width="350.0" height="135.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="210.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні напруги на центральній жилі:</text>
+<line x1="45.0" y1="290.0" x2="375.0" y2="290.0" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="55.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 станцій (тиша):</text>
+<text x="365.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">U = 0.0 В</text>
+<text x="55.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 станція передає:</text>
+<text x="365.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">U_сер ≈ −1.02 В</text>
+<text x="55.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Поріг компаратора CD:</text>
+<text x="365.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">U_ref = −1.50 В</text>
+<text x="55.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2 станції (колізія):</text>
+<text x="365.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">U_сер &lt; −1.6 В  (CD!)</text>
+<rect x="420.0" y="45.0" width="380.0" height="360.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="610.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Вита пара на хабі (10BASE-T Half-Duplex)</text>
+<rect x="440.0" y="100.0" width="100.0" height="130.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="490.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мережева
+карта (NIC)</text>
+<rect x="680.0" y="100.0" width="100.0" height="130.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="730.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Концентратор
+(Multiport Hub)</text>
+<line x1="540.0" y1="150.0" x2="680.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="565.0" y="132.0" width="90.0" height="20.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="610.0" y="145.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Пара TX (1-2)</tspan></text>
+<line x1="680.0" y1="190.0" x2="540.0" y2="190.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="565.0" y="195.0" width="90.0" height="20.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="208.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Пара RX (3-6)</tspan></text>
+<rect x="435.0" y="255.0" width="350.0" height="135.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="610.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Логічне виявлення колізії в напівдуплексі:</text>
+<rect x="445.0" y="290.0" width="330.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="610.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">TX активний І RX активний одночасно</tspan><tspan x="610.0" dy="13.0">=&gt; Контролер фіксує колізію (Collision Detect)</tspan></text>
+<rect x="445.0" y="340.0" width="330.0" height="42.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">У повному дуплексі (Full-Duplex на світчі):</tspan><tspan x="610.0" dy="13.0">TX і RX розділені повністю, колізій НЕ буває!</tspan></text>
+</svg>

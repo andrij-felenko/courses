@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт-стаффінг SLIP: екранування колізій керуючих символів</text>
+<text x="50.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Випадок 1: Корисні дані містять байт 0xC0 (збіг із маркером END)</text>
+<rect x="60.0" y="85.0" width="75.0" height="40.0" rx="4" fill="#fdeeed" stroke="#c0392b" stroke-width="1.6"/>
+<text x="97.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Дані</text>
+<text x="97.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC0</text>
+<line x1="150.0" y1="105.0" x2="230.0" y2="105.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="190.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кодувати</text>
+<rect x="245.0" y="85.0" width="70.0" height="40.0" rx="4" fill="#fef5e7" stroke="#d35400" stroke-width="1.6"/>
+<text x="280.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">ESC</text>
+<text x="280.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDB</text>
+<rect x="325.0" y="85.0" width="85.0" height="40.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="367.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">ESC_END</text>
+<text x="367.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDC</text>
+<text x="430.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→ 2 байти в потоці (0xDB 0xDC замість 0xC0)</text>
+<text x="50.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Випадок 2: Корисні дані містять байт 0xDB (збіг із префіксом ESC)</text>
+<rect x="60.0" y="175.0" width="75.0" height="40.0" rx="4" fill="#fef5e7" stroke="#d35400" stroke-width="1.6"/>
+<text x="97.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Дані</text>
+<text x="97.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDB</text>
+<line x1="150.0" y1="195.0" x2="230.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="190.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кодувати</text>
+<rect x="245.0" y="175.0" width="70.0" height="40.0" rx="4" fill="#fef5e7" stroke="#d35400" stroke-width="1.6"/>
+<text x="280.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">ESC</text>
+<text x="280.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDB</text>
+<rect x="325.0" y="175.0" width="85.0" height="40.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="367.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">ESC_ESC</text>
+<text x="367.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xDD</text>
+<text x="430.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→ 2 байти в потоці (0xDB 0xDD замість 0xDB)</text>
+<text x="50.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Випадок 3: Будь-який інший байт (не 0xC0 і не 0xDB)</text>
+<rect x="60.0" y="265.0" width="75.0" height="40.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="97.5" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дані</text>
+<text x="97.5" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x45</text>
+<line x1="150.0" y1="285.0" x2="230.0" y2="285.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="190.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Без змін</text>
+<rect x="245.0" y="265.0" width="75.0" height="40.0" rx="4" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="282.5" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дані</text>
+<text x="282.5" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x45</text>
+<text x="340.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→ 1 байт у потоці без додаткового оверхеду</text>
+</svg>

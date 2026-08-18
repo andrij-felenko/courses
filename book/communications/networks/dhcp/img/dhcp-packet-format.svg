@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура пакета DHCP / BOOTP (RFC 2131)</text>
+<rect x="40.0" y="45.0" width="760.0" height="22.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.0"/>
+<text x="85.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="230.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">7 8</text>
+<text x="420.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">15 16</text>
+<text x="610.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">23 24</text>
+<text x="785.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">31</text>
+<rect x="40.0" y="72.0" width="190.0" height="32.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="135.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OP (1B)</text>
+<text x="135.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1=Req, 2=Reply</text>
+<rect x="230.0" y="72.0" width="190.0" height="32.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="325.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HTYPE (1B)</text>
+<text x="325.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 = Ethernet</text>
+<rect x="420.0" y="72.0" width="190.0" height="32.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="515.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HLEN (1B)</text>
+<text x="515.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">6 байтів</text>
+<rect x="610.0" y="72.0" width="190.0" height="32.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="705.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HOPS (1B)</text>
+<text x="705.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">К-ть ретрансляцій</text>
+<rect x="40.0" y="106.0" width="760.0" height="28.0" rx="2" fill="#f0f4fc" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">XID — Transaction ID (4 байти, псевдовипадкове число клієнта)</text>
+<rect x="40.0" y="136.0" width="380.0" height="32.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="230.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SECS (2 байти)</text>
+<text x="230.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Секунди від старту</text>
+<rect x="420.0" y="136.0" width="380.0" height="32.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="610.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FLAGS (2 байти)</text>
+<text x="610.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Біт 0: Broadcast (B) | Біти 1-15: MBZ</text>
+<rect x="40.0" y="170.0" width="760.0" height="28.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CIADDR — Client IP Address (4 байти, заповнено лише при Renewing / Bound)</text>
+<rect x="40.0" y="200.0" width="760.0" height="28.0" rx="2" fill="#f0f4fc" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">YIADDR — «Your» IP Address (4 байти, адреса, яку виділяє сервер клієнту)</text>
+<rect x="40.0" y="230.0" width="760.0" height="28.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SIADDR — Next Server IP Address (4 байти, адреса TFTP/PXE сервера)</text>
+<rect x="40.0" y="260.0" width="760.0" height="28.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">GIADDR — Relay Agent IP Address (4 байти, IP-інтерфейс ретранслятора)</text>
+<rect x="40.0" y="290.0" width="760.0" height="28.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CHADDR — Client Hardware Address (16 байтів, перші 6 байтів = MAC клієнта)</text>
+<rect x="40.0" y="320.0" width="760.0" height="28.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SNAME — Server Host Name (64 байти, необов'язкове символьне ім'я сервера)</text>
+<rect x="40.0" y="350.0" width="760.0" height="28.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FILE — Boot File Name (128 байтів, шлях до завантажувального образу PXE)</text>
+<rect x="40.0" y="380.0" width="760.0" height="28.0" rx="2" fill="#fff8e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="420.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">DHCP MAGIC COOKIE (4 байти: 0x63, 0x82, 0x53, 0x63 = 99.130.83.99)</text>
+<rect x="40.0" y="410.0" width="760.0" height="28.0" rx="2" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="420.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">DHCP OPTIONS — Змінна довжина TLV (Type, Length, Value) ... Опція 255 (End)</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура та життєвий цикл ретрансляції TURN (RFC 8656)</text>
+<rect x="26.0" y="46.3" width="127.9" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="61.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Клієнт A</tspan><tspan x="90.0" dy="14.3">(Симетричний NAT)</tspan></text>
+<line x1="90.0" y1="88.0" x2="90.0" y2="450.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="233.5" y="46.3" width="52.9" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="61.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">NAT A</tspan><tspan x="260.0" dy="14.3">(Шлюз)</tspan></text>
+<line x1="260.0" y1="88.0" x2="260.0" y2="450.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="409.2" y="46.3" width="141.6" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="61.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Сервер TURN (Релей)</tspan><tspan x="480.0" dy="14.3">203.0.113.50 (WAN)</tspan></text>
+<line x1="480.0" y1="88.0" x2="480.0" y2="450.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="722.9" y="46.3" width="114.3" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="61.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Співрозмовник B</tspan><tspan x="780.0" dy="14.3">(Peer B)</tspan></text>
+<line x1="780.0" y1="88.0" x2="780.0" y2="450.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="90.0" y1="115.0" x2="480.0" y2="115.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. Allocate Request (Автентифікація + Запит релею)</text>
+<line x1="480.0" y1="145.0" x2="90.0" y2="145.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle"><tspan x="285.0" dy="0.0">Allocate Success Resp (XOR-RELAYED-ADDRESS: 203.0.113.50:60000)</tspan><tspan x="285.0" dy="11.7">Lifetime = 600 с</tspan></text>
+<line x1="90.0" y1="190.0" x2="480.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">2. CreatePermission Request (Дозвіл для IP вузла B: 198.51.100.20)</text>
+<line x1="480.0" y1="218.0" x2="90.0" y2="218.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">CreatePermission Success Response (IP авторизовано)</text>
+<line x1="90.0" y1="260.0" x2="480.0" y2="260.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">3. ChannelBind Request (Прив'язка ChannelNumber = 0x4001 до Peer B)</text>
+<line x1="480.0" y1="288.0" x2="90.0" y2="288.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ChannelBind Success Response (Канал 0x4001 активовано)</text>
+<rect x="80.0" y="327.0" width="710.0" height="85.0" rx="6" fill="#fcf3cf" stroke="#f39c12" stroke-width="1.5"/>
+<text x="435.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Передача медіа через оптимізовані канали ChannelData (4 байти оверхеду)</text>
+<line x1="90.0" y1="367.0" x2="480.0" y2="367.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ChannelData: [0x4001][Len][RTP Payload]</text>
+<line x1="480.0" y1="367.0" x2="780.0" y2="367.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сирий UDP / RTP (від 203.0.113.50:60000)</text>
+<line x1="780.0" y1="395.0" x2="480.0" y2="395.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сирий UDP / RTP відповідь</text>
+<line x1="480.0" y1="395.0" x2="90.0" y2="395.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ChannelData: [0x4001][Len][RTP Payload]</text>
+</svg>

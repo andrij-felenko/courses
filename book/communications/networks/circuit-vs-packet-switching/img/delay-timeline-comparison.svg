@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова шкала передачі (Timeline): комутація каналів проти дейтаграмних пакетів</text>
+<rect x="20.0" y="45.0" width="410.0" height="480.0" rx="6" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<text x="225.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Комутація каналів (Circuit Switching)</text>
+<line x1="50.0" y1="90.0" x2="50.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="140.0" y1="90.0" x2="140.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="230.0" y1="90.0" x2="230.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="320.0" y1="90.0" x2="320.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="50.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Src</text>
+<text x="140.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SW1</text>
+<text x="230.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SW2</text>
+<text x="320.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Dst</text>
+<line x1="50.0" y1="100.0" x2="140.0" y2="120.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="140.0" y1="120.0" x2="230.0" y2="140.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="140.0" x2="320.0" y2="160.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="160.0" x2="230.0" y2="180.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<line x1="230.0" y1="180.0" x2="140.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<line x1="140.0" y1="200.0" x2="50.0" y2="220.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<rect x="335.0" y="135.0" width="85.0" height="50.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="377.5" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="377.5" dy="0.0">Фаза Setup</tspan><tspan x="377.5" dy="13.0">(Час RTT)</tspan></text>
+<rect x="47.0" y="230.0" width="6.0" height="120.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="50.0" y1="230.0" x2="320.0" y2="250.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="50.0" y1="350.0" x2="320.0" y2="370.0" stroke="#2457d6" stroke-width="2.0"/>
+<polygon points="50,230 320,250 320,370 50,350" fill="#dbeafe" opacity="0.6"/>
+<text x="185.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Неперервний потік бітів (Data)</text>
+<line x1="50.0" y1="380.0" x2="320.0" y2="405.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2"/>
+<text x="185.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Teardown (розрив каналу)</text>
+<rect x="35.0" y="435.0" width="380.0" height="75.0" rx="6" fill="#fffaf0" stroke="#d97706" stroke-width="1.5"/><text x="225.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Повний час = T_setup + L_даних / C + t_поширення + T_teardown</tspan><tspan x="225.0" dy="13.0">• Неефективно для коротких повідомлень (T_setup &gt;&gt; T_передачі)</tspan><tspan x="225.0" dy="13.0">• Ідеально для довгих неперервних потоків (нульовий джитер)</tspan></text>
+<rect x="450.0" y="45.0" width="410.0" height="480.0" rx="6" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<text x="655.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Комутація пакетів (Store-and-Forward)</text>
+<line x1="480.0" y1="90.0" x2="480.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="570.0" y1="90.0" x2="570.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="660.0" y1="90.0" x2="660.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="750.0" y1="90.0" x2="750.0" y2="420.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="480.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Src</text>
+<text x="570.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R1</text>
+<text x="660.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R2</text>
+<text x="750.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Dst</text>
+<rect x="477.0" y="100.0" width="6.0" height="40.0" rx="6" fill="#16a34a" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="480.0" y1="100.0" x2="570.0" y2="115.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="480.0" y1="140.0" x2="570.0" y2="155.0" stroke="#27ae60" stroke-width="1.5"/>
+<polygon points="480,100 570,115 570,155 480,140" fill="#dcfce7" opacity="0.8"/>
+<text x="525.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пакет 1</text>
+<rect x="567.0" y="155.0" width="6.0" height="40.0" rx="6" fill="#16a34a" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="570.0" y1="155.0" x2="660.0" y2="170.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="570.0" y1="195.0" x2="660.0" y2="210.0" stroke="#27ae60" stroke-width="1.5"/>
+<polygon points="570,155 660,170 660,210 570,195" fill="#dcfce7" opacity="0.8"/>
+<rect x="657.0" y="210.0" width="6.0" height="40.0" rx="6" fill="#16a34a" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="660.0" y1="210.0" x2="750.0" y2="225.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="660.0" y1="250.0" x2="750.0" y2="265.0" stroke="#27ae60" stroke-width="1.5"/>
+<polygon points="660,210 750,225 750,265 660,250" fill="#dcfce7" opacity="0.8"/>
+<rect x="477.0" y="140.0" width="6.0" height="40.0" rx="6" fill="#2563eb" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="480.0" y1="140.0" x2="570.0" y2="155.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="480.0" y1="180.0" x2="570.0" y2="195.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="525.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Пакет 2</text>
+<rect x="567.0" y="195.0" width="6.0" height="40.0" rx="6" fill="#2563eb" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="570.0" y1="195.0" x2="660.0" y2="210.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="570.0" y1="235.0" x2="660.0" y2="250.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="657.0" y="250.0" width="6.0" height="40.0" rx="6" fill="#2563eb" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="660.0" y1="250.0" x2="750.0" y2="265.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="660.0" y1="290.0" x2="750.0" y2="305.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="477.0" y="180.0" width="6.0" height="40.0" rx="6" fill="#d97706" stroke="#c0392b" stroke-width="1.0"/>
+<text x="525.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пакет 3</text>
+<rect x="765.0" y="125.0" width="85.0" height="50.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/><text x="807.5" y="147.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="807.5" dy="0.0">Час серіа-</tspan><tspan x="807.5" dy="11.7">лізації L / R</tspan></text>
+<rect x="765.0" y="245.0" width="85.0" height="60.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="807.5" y="266.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="807.5" dy="0.0">Конвеєр</tspan><tspan x="807.5" dy="11.7">пакетів</tspan><tspan x="807.5" dy="11.7">(Pipelining)</tspan></text>
+<rect x="465.0" y="435.0" width="380.0" height="75.0" rx="6" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.5"/><text x="655.0" y="463.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Повний час = (N_пакетів + K_хопів − 1) · (L / R) + K_хопів · t_поширення + ∑ W_q</tspan><tspan x="655.0" dy="11.7">• Немає затримки на встановлення з'єднання (Setup RTT = 0)</tspan><tspan x="655.0" dy="11.7">• Конвеєризація скорочує загальний час доставки порівняно з цілим файлом</tspan></text>
+</svg>

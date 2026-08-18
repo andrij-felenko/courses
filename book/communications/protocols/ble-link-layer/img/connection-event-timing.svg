@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таймінги події з'єднання BLE Link Layer та міжкадровий інтервал T_IFS</text>
+<text x="420.0" y="43.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія події з'єднання (Connection Event) та міжкадрові інтервали</text>
+<line x1="40.0" y1="160.0" x2="800.0" y2="160.0" stroke="#333333" stroke-width="1.5"/>
+<text x="805.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">t</text>
+<line x1="60.0" y1="60.0" x2="60.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="60.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Anchor Point (n)</text>
+<rect x="60.0" y="110.0" width="110.0" height="45.0" rx="4" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="115.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Master Tx</text>
+<text x="115.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Data PDU (SN=0)</text>
+<line x1="170.0" y1="135.0" x2="230.0" y2="135.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="170.0" y1="128.0" x2="170.0" y2="142.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="230.0" y1="128.0" x2="230.0" y2="142.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="200.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">T_IFS</text>
+<text x="200.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">150 мкс</text>
+<rect x="230.0" y="170.0" width="110.0" height="45.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="285.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Slave Tx</text>
+<text x="285.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ACK (NESN=1)</text>
+<line x1="340.0" y1="135.0" x2="400.0" y2="135.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="340.0" y1="128.0" x2="340.0" y2="142.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="400.0" y1="128.0" x2="400.0" y2="142.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="370.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">T_IFS</text>
+<rect x="400.0" y="110.0" width="100.0" height="45.0" rx="4" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="450.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Master Tx</text>
+<text x="450.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Data (MD=0)</text>
+<rect x="530.0" y="170.0" width="100.0" height="45.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="580.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Slave Tx</text>
+<text x="580.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ACK (MD=0)</text>
+<rect x="635.0" y="145.0" width="115.0" height="30.0" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.0"/>
+<text x="692.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Режим сну (Sleep)</text>
+<line x1="755.0" y1="60.0" x2="755.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="755.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Anchor Point (n+1)</text>
+<line x1="60.0" y1="80.0" x2="755.0" y2="80.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="60.0" y1="73.0" x2="60.0" y2="87.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="755.0" y1="73.0" x2="755.0" y2="87.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="410.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Connection Interval (connInterval: 7.5 мс .. 4.0 с)</text>
+<rect x="40.0" y="250.0" width="760.0" height="150.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="60.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Ключові часові параметри Link Layer:</text>
+<text x="60.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• connInterval — період між точками прив'язки (Anchor Points), крок 1.25 мс.</text>
+<text x="60.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• connSlaveLatency — кількість подій зв'язку (0..499), які ведений може проспати за відсутності даних.</text>
+<text x="60.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• connSupervisionTimeout — граничний час (100 мс..32 с) очікування успішного пакету до розриву зв'язку.</text>
+<text x="60.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">• T_IFS (Inter-Frame Space) — фіксована пауза 150 ± 1 мкс між передачею та прийомом для перемикання радіотракту.</text>
+</svg>

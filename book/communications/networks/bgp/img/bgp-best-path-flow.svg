@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм вибору найкращого маршруту BGP (Best Path Decision Engine)</text>
+<rect x="120.0" y="52.0" width="580.0" height="42.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="135.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0. Перевірка досяжності NEXT_HOP</text>
+<text x="135.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Чи є маршрут до Next-Hop в IGP/RIB? Якщо ні -&gt; шлях відкидається</text>
+<line x1="410.0" y1="94.0" x2="410.0" y2="102.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="102.0" width="580.0" height="42.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="135.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">1. Найвищий LOCAL_PREF</text>
+<text x="135.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Порівнює локальний пріоритет виходу з AS (типово 100). Більше -&gt; краще</text>
+<line x1="410.0" y1="144.0" x2="410.0" y2="152.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="152.0" width="580.0" height="42.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">2. Локально згенерований маршрут</text>
+<text x="135.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Власний префікс (network / redistribute / aggregate) переважає отриманий</text>
+<line x1="410.0" y1="194.0" x2="410.0" y2="202.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="202.0" width="580.0" height="42.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="135.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. Найкоротший AS_PATH</text>
+<text x="135.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Найменша кількість ASN у послідовності AS_SEQUENCE (без prepending)</text>
+<line x1="410.0" y1="244.0" x2="410.0" y2="252.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="252.0" width="580.0" height="42.0" rx="6" fill="#fff7e6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="135.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">4. Найнижчий код ORIGIN</text>
+<text x="135.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Порядок пріоритету: IGP (0) &lt; EGP (1) &lt; INCOMPLETE (2)</text>
+<line x1="410.0" y1="294.0" x2="410.0" y2="302.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="302.0" width="580.0" height="42.0" rx="6" fill="#fff7e6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="135.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">5. Найменший MED</text>
+<text x="135.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Дискримінатор виходу між шляхами від однієї й тієї самої сусідньої AS</text>
+<line x1="410.0" y1="344.0" x2="410.0" y2="352.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="352.0" width="580.0" height="42.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="135.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">6. eBGP перед iBGP</text>
+<text x="135.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Зовнішній маршрут eBGP завжди переважає внутрішній маршрут iBGP</text>
+<line x1="410.0" y1="394.0" x2="410.0" y2="402.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="402.0" width="580.0" height="42.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="135.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">7. Найменша метрика IGP до NEXT_HOP</text>
+<text x="135.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Гаряча картопля (Hot Potato Routing): якнайшвидший вихід із власної AS</text>
+<line x1="410.0" y1="444.0" x2="410.0" y2="452.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120.0" y="452.0" width="580.0" height="42.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="135.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">8. Тайбрейкери детермінізму</text>
+<text x="135.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Найстаріший eBGP -&gt; Найменший BGP Router ID -&gt; Найменша IP піра</text>
+</svg>

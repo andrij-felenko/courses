@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 730" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="730" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Триетапний обмін повідомленнями Kerberos v5 (6 кроків)</text>
+<rect x="73.5" y="61.3" width="52.9" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="100.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">Клієнт</tspan><tspan x="100.0" dy="14.3">Alice</tspan></text>
+<line x1="100.0" y1="106.0" x2="100.0" y2="680.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="326.3" y="61.3" width="107.5" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">KDC / AS</tspan><tspan x="380.0" dy="14.3">Автентифікація</tspan></text>
+<line x1="380.0" y1="106.0" x2="380.0" y2="680.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="626.3" y="61.3" width="107.5" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="680.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">KDC / TGS</tspan><tspan x="680.0" dy="14.3">Видача квитків</tspan></text>
+<line x1="680.0" y1="106.0" x2="680.0" y2="680.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="926.7" y="61.3" width="66.6" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="960.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="960.0" dy="0.0">Сервер</tspan><tspan x="960.0" dy="14.3">Resource</tspan></text>
+<line x1="960.0" y1="106.0" x2="960.0" y2="680.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="40.0" y="135.0" width="980.0" height="160.0" rx="6" fill="#fbfcfd" stroke="#e0e6ed" stroke-width="1.0"/>
+<text x="60.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Етап 1: Первинна автентифікація (отримання TGT)</text>
+<line x1="100.0" y1="185.0" x2="380.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. KRB_AS_REQ: {alice, krbtgt/EXAMPLE.ORG, Nonce_1, PA-ENC-TIMESTAMP_{K_c}}</text>
+<line x1="380.0" y1="245.0" x2="100.0" y2="245.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">2. KRB_AS_REP: Enc_{K_c}{K_{c,tgs}, Nonce_1, час} + TGT: Enc_{K_{tgs}}{alice, K_{c,tgs}, час}</text>
+<rect x="40.0" y="315.0" width="980.0" height="160.0" rx="6" fill="#fbfcfd" stroke="#e0e6ed" stroke-width="1.0"/>
+<text x="60.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Етап 2: Отримання сервісного квитка на конкретну службу</text>
+<line x1="100.0" y1="365.0" x2="680.0" y2="365.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="390.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">3. KRB_TGS_REQ: {cifs/fs, Nonce_2, TGT, Authenticator: Enc_{K_{c,tgs}}{alice, ctime}}</text>
+<line x1="680.0" y1="425.0" x2="100.0" y2="425.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="390.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">4. KRB_TGS_REP: Enc_{K_{c,tgs}}{K_{c,s}, Nonce_2, час} + ST: Enc_{K_s}{alice, K_{c,s}, PAC, час}</text>
+<rect x="40.0" y="495.0" width="980.0" height="160.0" rx="6" fill="#fbfcfd" stroke="#e0e6ed" stroke-width="1.0"/>
+<text x="60.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Етап 3: Доступ до сервера та взаємна автентифікація</text>
+<line x1="100.0" y1="545.0" x2="960.0" y2="545.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="530.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">5. KRB_AP_REQ: {ST: Enc_{K_s}{alice, K_{c,s}, PAC}, Authenticator: Enc_{K_{c,s}}{alice, ctime, [subkey]}}</text>
+<line x1="960.0" y1="605.0" x2="100.0" y2="605.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="530.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">6. KRB_AP_REP: Enc_{K_{c,s}}{ctime, [subkey]} (доказ клієнту, що сервер знає K_{c,s})</text>
+</svg>

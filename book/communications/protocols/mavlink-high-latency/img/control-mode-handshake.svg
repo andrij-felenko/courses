@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="410.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перемикання та керування режимом High Latency (MAV_CMD_CONTROL_HIGH_LATENCY)</text>
+<rect x="45.0" y="55.0" width="210.0" height="40.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="150.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Наземна станція (GCS)</text>
+<rect x="315.0" y="55.0" width="210.0" height="40.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Супутниковий шлюз / SBD</text>
+<rect x="585.0" y="55.0" width="210.0" height="40.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="690.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Бортовий автопілот (FCU)</text>
+<line x1="150.0" y1="95.0" x2="150.0" y2="115.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="150.0" y1="170.0" x2="150.0" y2="240.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="150.0" y1="305.0" x2="150.0" y2="335.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="150.0" y1="385.0" x2="150.0" y2="395.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="420.0" y1="95.0" x2="420.0" y2="185.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="420.0" y1="235.0" x2="420.0" y2="275.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="420.0" y1="330.0" x2="420.0" y2="395.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="690.0" y1="95.0" x2="690.0" y2="115.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="690.0" y1="175.0" x2="690.0" y2="205.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="690.0" y1="260.0" x2="690.0" y2="345.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="690.0" y1="390.0" x2="690.0" y2="395.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="595.0" y="115.0" width="190.0" height="55.0" rx="3" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="690.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">LOS Timeout: Heartbeat &gt; 10 с</tspan><tspan x="690.0" dy="12.3">Втрата прямої радіолінії!</tspan><tspan x="690.0" dy="12.3">Активація HLP Failsafe</tspan></text>
+<line x1="690.0" y1="175.0" x2="690.0" y2="205.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="595.0" y="205.0" width="190.0" height="50.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="690.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Зупинка потоків 20 Гц</tspan><tspan x="690.0" dy="12.3">Генерація HIGH_LATENCY2</tspan><tspan x="690.0" dy="12.3">Відправка в UART модема</tspan></text>
+<line x1="595.0" y1="230.0" x2="425.0" y2="230.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="510.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">AT+SBDWT (65 B)</text>
+<rect x="325.0" y="240.0" width="190.0" height="45.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="420.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Сесія Iridium SBDIX</tspan><tspan x="420.0" dy="12.3">Затримка каналу: 5..15 с</tspan></text>
+<line x1="325.0" y1="262.0" x2="155.0" y2="262.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">HIGH_LATENCY2 (#235)</text>
+<rect x="55.0" y="265.0" width="190.0" height="40.0" rx="3" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="150.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">GCS: режим High Latency</tspan><tspan x="150.0" dy="11.7">Збільшення тайм-аутів до 60 с</tspan></text>
+<rect x="55.0" y="335.0" width="190.0" height="48.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="150.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Оператор: MAV_CMD_CONTROL_</tspan><tspan x="150.0" dy="11.7">HIGH_LATENCY (#2600)</tspan><tspan x="150.0" dy="11.7">param1 = 1 (вкл) або 0 (викл)</tspan></text>
+<line x1="245.0" y1="360.0" x2="685.0" y2="360.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="465.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">COMMAND_LONG (#2600) через SBD/RF</text>
+<rect x="595.0" y="345.0" width="190.0" height="45.0" rx="3" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="690.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">COMMAND_ACK (ACCEPTED)</tspan><tspan x="690.0" dy="12.3">Зміна темпу або вимкнення HLP</tspan></text>
+</svg>

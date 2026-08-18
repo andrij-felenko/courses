@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія маніфестів: Apple HLS (M3U8) проти MPEG-DASH (MPD)</text>
+<rect x="25.0" y="60.0" width="405.0" height="355.0" rx="8" fill="#fdf6e3" stroke="#b9770e" stroke-width="1.8"/>
+<text x="227.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">HLS (HTTP Live Streaming) — Текстові плейлисти</text>
+<line x1="35.0" y1="96.0" x2="420.0" y2="96.0" stroke="#b9770e" stroke-width="1.0"/>
+<rect x="39.0" y="106.0" width="377.0" height="72.0" rx="5" fill="#ffffff" stroke="#b9770e" stroke-width="1.2"/>
+<text x="49.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Головний плейлист: master.m3u8</text>
+<text x="49.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">#EXT-X-STREAM-INF: BANDWIDTH=6000000, 1080p.m3u8</text>
+<text x="49.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">#EXT-X-STREAM-INF: BANDWIDTH=1200000, 480p.m3u8</text>
+<line x1="227.5" y1="182.0" x2="227.5" y2="204.0" stroke="#b9770e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="39.0" y="208.0" width="377.0" height="192.0" rx="5" fill="#ffffff" stroke="#b9770e" stroke-width="1.2"/>
+<text x="49.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Медіа-плейлист якості: 1080p.m3u8</text>
+<text x="49.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">#EXT-X-TARGETDURATION: 6</text>
+<text x="49.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">#EXTINF:6.0, segment_0.mp4</text>
+<text x="49.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">#EXTINF:6.0, segment_1.mp4</text>
+<text x="49.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">#EXTINF:6.0, segment_2.mp4</text>
+<text x="49.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Плейлист перелічує прямі посилання на файли чанків</text>
+<text x="49.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Для Live: ковзне вікно з нових #EXTINF рядків</text>
+<text x="49.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Для VoD: закривається тегом #EXT-X-ENDLIST</text>
+<rect x="450.0" y="60.0" width="405.0" height="355.0" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="652.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">MPEG-DASH — XML-дерево маніфесту (MPD)</text>
+<line x1="460.0" y1="96.0" x2="845.0" y2="96.0" stroke="#7c3aed" stroke-width="1.0"/>
+<rect x="464.0" y="106.0" width="377.0" height="294.0" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="474.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">&lt;MPD minBufferTime=&quot;PT2S&quot;&gt;</text>
+<text x="488.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">&lt;Period duration=&quot;PT1H&quot;&gt;</text>
+<text x="502.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0891b2" text-anchor="start" font-weight="700">&lt;AdaptationSet mimeType=&quot;video/mp4&quot;&gt;</text>
+<rect x="512.0" y="184.0" width="323.0" height="54.0" rx="4" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="520.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">&lt;Representation id=&quot;1080p&quot; bandwidth=&quot;6M&quot;/&gt;</text>
+<text x="520.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">&lt;Representation id=&quot;480p&quot;  bandwidth=&quot;1.2M&quot;/&gt;</text>
+<rect x="512.0" y="246.0" width="323.0" height="74.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="520.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">&lt;SegmentTemplate init=&quot;init-$RepID$.mp4&quot;</text>
+<text x="520.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">  media=&quot;chunk-$RepID$-$Number$.m4s&quot;</text>
+<text x="520.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">  duration=&quot;2000&quot; startNumber=&quot;1&quot;/&gt;</text>
+<text x="502.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0891b2" text-anchor="start" font-weight="700">&lt;/AdaptationSet&gt;</text>
+<text x="488.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">&lt;/Period&gt;</text>
+<text x="474.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">&lt;/MPD&gt;</text>
+<text x="440.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">HLS явно перелічує сегменти або їх ковзне вікно; DASH формує URL чанків динамічно за шаблоном SegmentTemplate.</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол автентифікації WPA3 SAE (Dragonfly Key Exchange)</text>
+<rect x="88.5" y="50.2" width="183.0" height="39.6" rx="6" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.5"/><text x="180.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Клієнт (STA)</tspan><tspan x="180.0" dy="15.6">Пароль: pwd, MAC: STA_MAC</tspan></text>
+<rect x="691.9" y="50.2" width="176.2" height="39.6" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="780.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Точка доступу (AP)</tspan><tspan x="780.0" dy="15.6">Пароль: pwd, MAC: AP_MAC</tspan></text>
+<line x1="180.0" y1="105.0" x2="180.0" y2="500.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="780.0" y1="105.0" x2="780.0" y2="500.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="240.0" y="110.0" width="480.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 0: Виведення елемента пароля (PWE) на еліптичній кривій</text>
+<text x="480.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">PWE = HashToCurve(pwd, STA_MAC, AP_MAC)  [Точка кривої NIST P-256]</text>
+<rect x="40.0" y="170.0" width="230.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="155.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">STA генерує r_A, m_A ∈ [1, q-1]</text>
+<text x="155.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">scalar_A = (r_A + m_A) mod q</text>
+<text x="155.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Element_A = -(m_A · PWE)</text>
+<rect x="690.0" y="170.0" width="230.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="805.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">AP генерує r_B, m_B ∈ [1, q-1]</text>
+<text x="805.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">scalar_B = (r_B + m_B) mod q</text>
+<text x="805.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Element_B = -(m_B · PWE)</text>
+<line x1="180.0" y1="253.0" x2="780.0" y2="253.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="277.0" x2="180.0" y2="277.0" stroke="#f39c12" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="310.0" y="245.0" width="340.0" height="40.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SAE Commit: (scalar_A, Element_A) ⇄ (scalar_B, Element_B)</text>
+<text x="480.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пасивний слухач не може перевірити пароль офлайн!</text>
+<rect x="220.0" y="308.0" width="520.0" height="46.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="480.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Взаємне обчислення спільної точки: K = r_A · r_B · PWE</text>
+<text x="480.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">STA: K = r_A · (scalar_B · PWE + Element_B)   |   AP: K = r_B · (scalar_A · PWE + Element_A)</text>
+<line x1="180.0" y1="395.0" x2="780.0" y2="395.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="415.0" x2="180.0" y2="415.0" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="280.0" y="385.0" width="400.0" height="38.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="480.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SAE Confirm: Confirm_A ⇄ Confirm_B</text>
+<text x="480.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Confirm = SHA-256(K_x || send-confirm || scalar || Element)</text>
+<rect x="210.0" y="460.0" width="540.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PMK = KDF(K_x, 'SAE PMK', ...) ──► Перехід до 4-Way Handshake</text>
+<text x="480.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Властивість PFS (Perfect Forward Secrecy): компрометація пароля не розкриває старі сесії</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Когерентне проти некогерентного накопичення</text>
+<rect x="15.0" y="15.0" width="690.0" height="410.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30.0" y="35.0" width="315.0" height="340.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="187.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Когерентне накопичення (T_coh)</text>
+<text x="187.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Додавання комплексних відліків I + jQ</text>
+<line x1="70.0" y1="160.0" x2="110.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="110.0" y1="150.0" x2="148.0" y2="142.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="148.0" y1="142.0" x2="190.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="130.0" x2="229.0" y2="121.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="195.0" x2="229.0" y2="156.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="149.5" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сигнал: V = N × v₀ (потужність N²)</text>
+<text x="187.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шум додається випадково: σ²_noise = N × σ₀²</text>
+<text x="187.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Виграш SNR: +10 lg(N) дБ (ідеальний)</text>
+<rect x="45.0" y="300.0" width="285.0" height="60.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="187.5" y="320.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="187.5" dy="0.0">Обмеження: доплерівський зсув Δf,</tspan><tspan x="187.5" dy="13.0">маніпуляція навігаційних бітів (20 мс),</tspan><tspan x="187.5" dy="13.0">фазовий шум генератора.</tspan></text>
+<rect x="375.0" y="35.0" width="315.0" height="340.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="532.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Некогерентне накопичення (M блоків)</text>
+<text x="532.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Додавання потужностей: ∑ |I_m + jQ_m|²</text>
+<rect x="405.0" y="120.0" width="56.0" height="36.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="433.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">|S_1|²</text>
+<text x="467.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<rect x="473.0" y="120.0" width="56.0" height="36.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="501.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">|S_2|²</text>
+<text x="535.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<rect x="541.0" y="120.0" width="56.0" height="36.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="569.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">|S_3|²</text>
+<text x="603.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<rect x="609.0" y="120.0" width="56.0" height="36.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="637.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">|S_4|²</text>
+<text x="532.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Фазова чутливість відсутня (φ знищується)</text>
+<text x="532.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">При низькому вхідному SNR (SNR &lt; 1):</text>
+<text x="532.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Шум × шум домінує → втрати квадратування</text>
+<text x="532.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Виграш SNR ≈ +5 lg(M) дБ (∼ √M)</text>
+<rect x="390.0" y="300.0" width="285.0" height="60.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="532.5" y="320.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="532.5" dy="0.0">Перевага: проходить крізь межі бітів,</tspan><tspan x="532.5" dy="13.0">стійке до нескомпенсованого Доплера,</tspan><tspan x="532.5" dy="13.0">дозволяє нарощувати час T_meas.</tspan></text>
+<rect x="30.0" y="398.0" width="660.0" height="26.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="360.0" y="414.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Когерентне накопичення дає виграш N завдяки фазовій узгодженості, некогерентне додає потужності з виграшем близько √M.</tspan></text>
+</svg>

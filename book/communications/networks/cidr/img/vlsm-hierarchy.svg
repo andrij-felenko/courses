@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархічний поділ простору IP-адрес: механізм VLSM</text>
+<rect x="50.0" y="55.0" width="720.0" height="50.0" rx="6" fill="#eaf3ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="410.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Батьківський блок компанії: 192.0.2.0/24 (всього 256 адрес)</text>
+<text x="410.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Маска /24: 255.255.255.0</text>
+<line x1="230.0" y1="105.0" x2="230.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="105.0" x2="590.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="135.0" width="350.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="225.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Відділ розробки (128 IP)</text>
+<text x="225.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">192.0.2.0/25 (Діапазон .1 – .126)</text>
+<text x="225.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Маска: 255.255.255.128</text>
+<rect x="420.0" y="135.0" width="350.0" height="70.0" rx="6" fill="#fdfaf0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="595.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Резервний блок під поділ: 192.0.2.128/25</text>
+<text x="595.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">128 адрес (розбиваємо на менші частини)</text>
+<line x1="500.0" y1="205.0" x2="500.0" y2="235.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="205.0" x2="690.0" y2="235.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="235.0" width="165.0" height="75.0" rx="6" fill="#fff2e6" stroke="#c0392b" stroke-width="1.4"/>
+<text x="502.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сервери (64 IP)</text>
+<text x="502.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">192.0.2.128/26</text>
+<text x="502.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Хости: .129 – .190</text>
+<rect x="605.0" y="235.0" width="165.0" height="75.0" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="687.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Офіс (32 IP)</text>
+<text x="687.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">192.0.2.192/27</text>
+<text x="687.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Хости: .193 – .222</text>
+<line x1="687.0" y1="310.0" x2="687.0" y2="335.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="335.0" width="350.0" height="55.0" rx="6" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.4"/>
+<text x="595.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Міжмаршрутизаторні лінки P2P (/30 та /31)</text>
+<text x="595.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">192.0.2.224/30 (лінковий шлюз) та 192.0.2.228/31 (RFC 3021)</text>
+<text x="410.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">VLSM дозволяє призначати різну довжину маски під конкретну потребу кожної підмережі без марнування.</text>
+</svg>

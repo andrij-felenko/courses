@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння виділення ресурсів у часі та частоті між OFDM та OFDMA</text>
+<text x="240.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">OFDM (один користувач у часовий слот)</text>
+<text x="720.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">OFDMA (множинний доступ у часі та частоті)</text>
+<line x1="80.0" y1="340.0" x2="430.0" y2="340.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="420.0" y1="340.0" x2="435.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="435.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Час (t)</text>
+<line x1="80.0" y1="340.0" x2="80.0" y2="60.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="80.0" y1="70.0" x2="80.0" y2="55.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="68.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Частота (f)</text>
+<rect x="80.0" y="80.0" width="76.0" height="260.0" rx="4" fill="#eaf0fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="118.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Слот 1</text>
+<text x="118.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Абонент A</text>
+<rect x="160.0" y="80.0" width="76.0" height="260.0" rx="4" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="198.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Слот 2</text>
+<text x="198.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Абонент B</text>
+<rect x="240.0" y="80.0" width="76.0" height="260.0" rx="4" fill="#fbeee6" stroke="#d35400" stroke-width="1.6"/>
+<text x="278.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Слот 3</text>
+<text x="278.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Абонент C</text>
+<rect x="320.0" y="80.0" width="76.0" height="260.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="358.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">Слот 4</text>
+<text x="358.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Абонент D</text>
+<text x="240.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Монопольний доступ до каналу:</text>
+<text x="240.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Короткий пакет VoIP блокує всю смугу 20/80 МГц;</text>
+<text x="240.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">висока затримка очікування в черзі</text>
+<line x1="560.0" y1="340.0" x2="910.0" y2="340.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="900.0" y1="340.0" x2="915.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="915.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Час (t)</text>
+<line x1="560.0" y1="340.0" x2="560.0" y2="60.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="560.0" y1="70.0" x2="560.0" y2="55.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="548.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Частота (f)</text>
+<rect x="560.0" y="80.0" width="102.7" height="117.0" rx="4" fill="#eaf0fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="611.3" y="137.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Абонент A</text>
+<rect x="560.0" y="202.2" width="102.7" height="65.0" rx="4" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="611.3" y="233.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Абонент B</text>
+<rect x="560.0" y="272.4" width="102.7" height="65.0" rx="4" fill="#fbeee6" stroke="#d35400" stroke-width="1.6"/>
+<text x="611.3" y="303.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Абонент C</text>
+<rect x="666.7" y="80.0" width="102.7" height="65.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="718.0" y="111.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Абонент D</text>
+<rect x="666.7" y="150.2" width="102.7" height="187.2" rx="4" fill="#eaf0fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="718.0" y="243.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Абонент A (Відео)</text>
+<rect x="773.3" y="80.0" width="102.7" height="62.0" rx="4" fill="#eaf0fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="824.7" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Абонент A</text>
+<rect x="773.3" y="146.0" width="102.7" height="62.0" rx="4" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="824.7" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Абонент B</text>
+<rect x="773.3" y="212.0" width="102.7" height="62.0" rx="4" fill="#fbeee6" stroke="#d35400" stroke-width="1.6"/>
+<text x="824.7" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Абонент C</text>
+<rect x="773.3" y="278.0" width="102.7" height="62.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="824.7" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Абонент D</text>
+<text x="720.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Паралельний доступ у 2D-сітці:</text>
+<text x="720.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Спектр ділиться на дрібні субканали (RU / RB);</text>
+<text x="720.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">одночасне обслуговування багатьох клієнтів</text>
+</svg>

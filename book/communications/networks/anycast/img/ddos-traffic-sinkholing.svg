@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розсіювання об'ємної DDoS-атаки (Anycast Sinkholing) проти Unicast</text>
+<rect x="20.0" y="50.0" width="410.0" height="420.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="225.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Традиційний Unicast (Один дата-центр)</text>
+<rect x="40.0" y="100.0" width="150.0" height="55.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="115.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ботнет США</text>
+<text x="115.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">350 Гбіт/с атаки</text>
+<rect x="260.0" y="100.0" width="150.0" height="55.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="335.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ботнет Європа</text>
+<text x="335.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">450 Гбіт/с атаки</text>
+<rect x="150.0" y="175.0" width="150.0" height="55.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="225.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ботнет Азія</text>
+<text x="225.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">300 Гбіт/с атаки</text>
+<line x1="115.0" y1="155.0" x2="180.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="335.0" y1="155.0" x2="270.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="225.0" y1="230.0" x2="225.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="80.0" y="260.0" width="290.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="225.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Єдиний Origin Сервер (Unicast)</text>
+<text x="225.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Канал 100 Гбіт/с перевантажено!</text>
+<text x="225.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Сумарно 1.1 Тбіт/с -&gt; 100% ВІДМОВА</text>
+<rect x="35.0" y="350.0" width="380.0" height="105.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="225.0" y="386.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Результат: локальний аплінк повністю</tspan><tspan x="225.0" dy="13.0">забитий сміттєвими пакетами атаки;</tspan><tspan x="225.0" dy="13.0">легітимні клієнти у всьому світі</tspan><tspan x="225.0" dy="13.0">не можуть встановити з'єднання.</tspan></text>
+<rect x="450.0" y="50.0" width="410.0" height="420.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="655.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Розподілений Anycast (Глобальна мережа PoP)</text>
+<rect x="470.0" y="100.0" width="115.0" height="75.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="527.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PoP Ашберн</text>
+<text x="527.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Ботнет US: 350G</text>
+<text x="527.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фільтр: L3/L4 BPF</text>
+<rect x="598.0" y="100.0" width="115.0" height="75.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="655.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PoP Франкфурт</text>
+<text x="655.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Ботнет EU: 450G</text>
+<text x="655.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фільтр: L3/L4 BPF</text>
+<rect x="725.0" y="100.0" width="115.0" height="75.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="782.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PoP Сінгапур</text>
+<text x="782.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Ботнет Asia: 300G</text>
+<text x="782.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фільтр: L3/L4 BPF</text>
+<line x1="527.0" y1="175.0" x2="610.0" y2="260.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="655.0" y1="175.0" x2="655.0" y2="260.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="782.0" y1="175.0" x2="700.0" y2="260.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="510.0" y="260.0" width="290.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="655.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Origin Дата-Центр (Захищений)</text>
+<text x="655.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Очищений трафік: лише 50 Мбіт/с</text>
+<text x="655.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">DDoS локалізовано й поглинуто на Edge</text>
+<rect x="465.0" y="350.0" width="380.0" height="105.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/><text x="655.0" y="386.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Результат: трафік атаки розсіюється по</tspan><tspan x="655.0" dy="13.0">регіональних вузлах і фільтрується на краю;</tspan><tspan x="655.0" dy="13.0">легітимні клієнти продовжують працювати</tspan><tspan x="655.0" dy="13.0">з найближчим справним PoP.</tspan></text>
+</svg>

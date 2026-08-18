@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="340.0" rx="8" fill="#fdfdfd" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="420.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Числове представлення координат: небезпека float32 проти int32 10^7</text>
+<rect x="30.0" y="55.0" width="780.0" height="125.0" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="420.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Одинарна точність IEEE 754 float (4 байти): лише 24 біти мантиси (~7.2 знаки)</text>
+<rect x="50.0" y="95.0" width="30.0" height="30.0" rx="6" fill="#feeef0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="65.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">s</text>
+<text x="65.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 біт</text>
+<rect x="85.0" y="95.0" width="160.0" height="30.0" rx="6" fill="#fff8e1" stroke="#ffa000" stroke-width="1.5"/>
+<text x="165.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b78103" text-anchor="middle" font-weight="700">Експонента (8 бітів)</text>
+<text x="165.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Діапазон 2^-126 .. 2^127</text>
+<rect x="250.0" y="95.0" width="300.0" height="30.0" rx="6" fill="#e8f4fd" stroke="#0288d1" stroke-width="1.5"/>
+<text x="400.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0288d1" text-anchor="middle" font-weight="700">Мантиса (23 явні + 1 неявний біт = 24 біти)</text>
+<text x="400.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Точність: 2^-23 ≈ 1.19 × 10^-7</text>
+<rect x="570.0" y="90.0" width="220.0" height="55.0" rx="4" fill="#feeef0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="680.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідок на широті 50°:</text>
+<text x="680.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1° ≈ 111.3 км  =&gt;  похибка ~1.1 метра!</text>
+<text x="680.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Непридатно для RTK/точного зависання</text>
+<rect x="30.0" y="195.0" width="780.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="420.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Цілочисельне масштабування MAVLink int32_t (10^7 градусів): гарантовані 1.11 см</text>
+<rect x="50.0" y="235.0" width="495.0" height="30.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="297.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">32-бітне знакове ціле: діапазон від -2 147 483 648 до +2 147 483 647</text>
+<text x="297.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Довгота ±180° =&gt; ±1 800 000 000 одиниць (ідеально вміщується в int32_t)</text>
+<rect x="570.0" y="230.0" width="220.0" height="65.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="680.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Гарантована роздільність:</text>
+<text x="680.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок: 10^-7 deg = 0.0000001°</text>
+<text x="680.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Похибка на місцевості ≈ 1.11 сантиметра!</text>
+<text x="680.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Компактно: лише 4 байти без втрат</text>
+</svg>

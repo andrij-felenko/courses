@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="440.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура каналів зв'язку БПЛА: лінія прямої видимості та супутниковий міст</text>
+<rect x="35.0" y="60.0" width="770.0" height="130.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бортовий комплекс безпілотного апарата (БПЛА)</text>
+<rect x="50.0" y="95.0" width="200.0" height="80.0" rx="5" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="150.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Автопілот (FCU)</text>
+<text x="150.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">PX4 / ArduPilot</tspan><tspan x="150.0" dy="12.3">Диспетчер потоків MAVLink</tspan></text>
+<rect x="290.0" y="95.0" width="220.0" height="80.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="400.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маршрутизатор каналів</text>
+<text x="400.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="400.0" dy="0.0">Визначення стану каналів</tspan><tspan x="400.0" dy="12.3">Перемикання Standard ↔ HLP</tspan></text>
+<line x1="250.0" y1="135.0" x2="290.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="550.0" y="95.0" width="115.0" height="38.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="607.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">RF-модем (UART1)</text>
+<rect x="550.0" y="137.0" width="115.0" height="38.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="607.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">Iridium SBD (UART2)</text>
+<line x1="510.0" y1="114.0" x2="550.0" y2="114.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="156.0" x2="550.0" y2="156.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="710.0" cy="114.0" r="15.0" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="710.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">433M</text>
+<circle cx="710.0" cy="156.0" r="15.0" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="710.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">SAT</text>
+<line x1="665.0" y1="114.0" x2="695.0" y2="114.0" stroke="#27ae60" stroke-width="1.2"/>
+<line x1="665.0" y1="156.0" x2="695.0" y2="156.0" stroke="#d97706" stroke-width="1.2"/>
+<rect x="35.0" y="205.0" width="375.0" height="115.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="222.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Основний канал: Пряма радіовидимість (LOS)</text>
+<text x="222.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="222.0" dy="0.0">Частота: 433 / 868 / 915 МГц або Wi-Fi / COFDM</tspan><tspan x="222.0" dy="12.3">Пропускна здатність: 57.6 .. 115.2 кбіт/с</tspan><tspan x="222.0" dy="12.3">Затримка (RTT): 20 .. 80 мс</tspan><tspan x="222.0" dy="12.3">Повний потік телеметрії: 2000 байт/с (10..50 Гц)</tspan></text>
+<rect x="430.0" y="205.0" width="375.0" height="115.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="617.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Резервний канал: Супутниковий зв'язок (BVLOS)</text>
+<text x="617.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="617.0" dy="0.0">Супутникова мережа: Iridium SBD / Inmarsat IDP</tspan><tspan x="617.0" dy="12.3">Пропускна здатність: лімітовані пакети (SBD ~340 B)</tspan><tspan x="617.0" dy="12.3">Затримка (RTT): 5 .. 30 секунд</tspan><tspan x="617.0" dy="12.3">Агреговане повідомлення HIGH_LATENCY2: 3.85 байт/с</tspan></text>
+<line x1="607.0" y1="195.0" x2="222.0" y2="205.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="607.0" y1="195.0" x2="617.0" y2="205.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="35.0" y="335.0" width="770.0" height="105.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наземна станція керування (GCS: QGroundControl / Mission Planner)</text>
+<rect x="50.0" y="370.0" width="350.0" height="58.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="225.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Режим прямого зв'язку (Standard)</text>
+<text x="225.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Плавний авіагоризонт, жива телеметрія 20 Гц,</tspan><tspan x="225.0" dy="12.3">миттєве підтвердження команд оператора</tspan></text>
+<rect x="440.0" y="370.0" width="350.0" height="58.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="615.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">Режим високої затримки (High Latency)</text>
+<text x="615.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="615.0" dy="0.0">Оновлення позиції 1 раз на 20..100 с, тайм-аути</tspan><tspan x="615.0" dy="12.3">команд 60 с, відображення бітових прапорців відмов</tspan></text>
+<line x1="222.0" y1="320.0" x2="222.0" y2="370.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="617.0" y1="320.0" x2="617.0" y2="370.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

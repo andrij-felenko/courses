@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільцевий числовий простір номерів послідовності за модулем 2^N</text>
+<text x="420.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вікно однозначності: майбутні пакети [+1, +2^(N-1)-1] та минулі пакети [-2^(N-1), -1]</text>
+<circle cx="420.0" cy="270.0" r="170.0" fill="#f8fafc" stroke="#333333" stroke-width="2.0"/>
+<circle cx="420.0" cy="270.0" r="115.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<line x1="420.0" y1="155.0" x2="420.0" y2="100.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="420.0" cy="100.0" r="7.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="313.6" y="64.0" width="212.9" height="24.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="420.0" y="80.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">seq_max (поточний максимум)</tspan></text>
+<line x1="420.0" y1="385.0" x2="420.0" y2="440.0" stroke="#d97706" stroke-width="3.0" stroke-dasharray="4 3"/>
+<circle cx="420.0" cy="440.0" r="6.0" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<rect x="270.8" y="447.4" width="298.4" height="37.3" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="420.0" y="462.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Горизонт невизначеності: seq_max ± 2^(N-1)</tspan><tspan x="420.0" dy="14.3">(дистанція рівно напівпростору)</tspan></text>
+<line x1="500.0" y1="150.0" x2="550.0" y2="210.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="545.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Майбутні номери (Δ &gt; 0)</text>
+<text x="545.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">seq ∈ [seq_max + 1,  seq_max + 2^(N-1) - 1]</text>
+<text x="552.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Новий пакет або пропуск (втрата)</text>
+<text x="552.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Просування seq_max уперед</text>
+<line x1="290.0" y1="210.0" x2="340.0" y2="150.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="295.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">Минулі номери (Δ &lt; 0)</text>
+<text x="295.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">seq ∈ [seq_max - 2^(N-1) + 1,  seq_max - 1]</text>
+<text x="295.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">• Перевпорядкований пакет (запізнілий)</text>
+<text x="288.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">• Дублікат або застарілий кадр</text>
+<text x="420.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модуль M = 2^N</text>
+<text x="420.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Напівпростір W = 2^(N-1)</text>
+<text x="420.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Приклад N=8: M=256, W=128</text>
+<line x1="438.0" y1="115.0" x2="475.0" y2="120.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">+1 зростання</text>
+</svg>

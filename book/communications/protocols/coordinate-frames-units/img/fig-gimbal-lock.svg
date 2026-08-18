@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="340.0" rx="8" fill="#fdfdfd" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="420.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сингулярність кутів Ейлера: втрата ступеня вільності (Gimbal Lock)</text>
+<rect x="30.0" y="55.0" width="370.0" height="280.0" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="215.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Нормальний стан: 3 незалежні осі</text>
+<text x="215.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тангаж θ = 0° (ніс по горизонту)</text>
+<ellipse cx="215" cy="205" rx="80" ry="80" stroke="#2457d6" stroke-width="3" fill="none"/>
+<text x="215.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вісь Yaw (Z) [зовнішнє кільце]</text>
+<ellipse cx="215" cy="205" rx="60" ry="25" stroke="#c0392b" stroke-width="3" fill="none"/>
+<text x="290.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Вісь Pitch (Y)</text>
+<ellipse cx="215" cy="205" rx="20" ry="45" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+<text x="215.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вісь Roll (X) [внутрішнє]</text>
+<circle cx="215.0" cy="205.0" r="5.0" fill="#1a1a1a" stroke="none" stroke-width="1.5"/>
+<rect x="440.0" y="55.0" width="370.0" height="280.0" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="625.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Шарнірний замок: Pitch θ = +90°</text>
+<text x="625.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Ніс вертикально вгору — осі Roll і Yaw збіглися!</text>
+<ellipse cx="625" cy="205" rx="80" ry="80" stroke="#2457d6" stroke-width="3" fill="none"/>
+<text x="625.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вісь Yaw (Z)</text>
+<ellipse cx="625" cy="205" rx="15" ry="60" stroke="#c0392b" stroke-width="3" fill="none"/>
+<text x="655.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Pitch повернуто на 90°</text>
+<ellipse cx="625" cy="205" rx="70" ry="70" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,4" fill="none"/>
+<text x="625.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вісь Roll (X) лягла у площину Yaw (Z)</text>
+<rect x="460.0" y="275.0" width="330.0" height="45.0" rx="4" fill="#feeef0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="625.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Втрата 1 ступеня вільності:</text>
+<text x="625.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Поворот за креном і рисканням виконує однаковий рух</text>
+</svg>

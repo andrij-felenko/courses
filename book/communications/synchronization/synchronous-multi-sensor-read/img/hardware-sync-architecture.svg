@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна архітектура координованого зчитування сенсорної матриці</text>
+<rect x="40.0" y="50.0" width="360.0" height="400.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="220.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер польотного контролера (MCU)</text>
+<rect x="55.2" y="107.3" width="149.6" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="130.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Головний таймер</tspan><tspan x="130.0" dy="14.3">(TIM1 TRGO @ 1 кГц)</tspan></text>
+<rect x="228.4" y="107.3" width="163.2" height="45.3" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="310.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">Блок захоплення</tspan><tspan x="310.0" dy="14.3">(TIM2 32-bit @ 1 МГц)</tspan></text>
+<rect x="81.7" y="216.8" width="276.7" height="46.5" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="220.0" y="236.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Контролер прямого доступу (DMA)</tspan><tspan x="220.0" dy="15.0">Багатоканальний асинхронний трансфер</tspan></text>
+<rect x="60.0" y="310.0" width="85.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="102.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI1</text>
+<rect x="175.0" y="310.0" width="85.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="217.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI2</text>
+<rect x="290.0" y="310.0" width="85.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="332.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">I2C1 / SPI3</text>
+<rect x="94.1" y="387.4" width="251.9" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="406.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Кільцевий буфер вибірок у SRAM</tspan><tspan x="220.0" dy="14.3">(Дані сенсорів + точні мітки часу)</tspan></text>
+<line x1="130.0" y1="160.0" x2="130.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="265.0" x2="102.0" y2="310.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="265.0" x2="217.0" y2="310.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="265.0" x2="332.0" y2="310.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="350.0" x2="220.0" y2="385.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="480.0" y="70.0" width="280.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="620.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Основний IMU (ICM-42688-P)</text>
+<text x="620.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Гіроскоп + Акселерометр (FIFO 2 кБ)</text>
+<text x="620.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Входи: FSYNC | Виходи: DRDY, SPI1</text>
+<rect x="480.0" y="170.0" width="280.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="620.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Резервний IMU (IIM-42652)</text>
+<text x="620.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Гіроскоп + Акселерометр (FIFO 2 кБ)</text>
+<text x="620.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Входи: FSYNC | Виходи: DRDY, SPI2</text>
+<rect x="480.0" y="270.0" width="280.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="620.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Магнітометр + Барометр</text>
+<text x="620.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">LIS3MDL / BMP390 (50–100 Гц)</text>
+<text x="620.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Виходи: DRDY / INT, I2C1</text>
+<rect x="480.0" y="370.0" width="280.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="620.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">GNSS приймач (u-blox F9P)</text>
+<text x="620.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Позиція 10 Гц + PPS фронт 1 Гц</text>
+<text x="620.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Виходи: PPS (TIMEPULSE), UART</text>
+<line x1="130.0" y1="105.0" x2="430.0" y2="105.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="430.0" y1="105.0" x2="480.0" y2="105.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="105.0" x2="430.0" y2="205.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="430.0" y1="205.0" x2="480.0" y2="205.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FSYNC</text>
+<line x1="480.0" y1="125.0" x2="440.0" y2="125.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="440.0" y1="125.0" x2="440.0" y2="140.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="440.0" y1="140.0" x2="380.0" y2="140.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="445.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">DRDY</text>
+<line x1="480.0" y1="410.0" x2="420.0" y2="410.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="420.0" y1="410.0" x2="420.0" y2="150.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="420.0" y1="150.0" x2="380.0" y2="150.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="435.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">PPS</text>
+<line x1="102.0" y1="350.0" x2="102.0" y2="360.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="102.0" y1="360.0" x2="450.0" y2="360.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="450.0" y1="360.0" x2="450.0" y2="115.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="450.0" y1="115.0" x2="480.0" y2="115.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="217.0" y1="350.0" x2="217.0" y2="370.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="217.0" y1="370.0" x2="460.0" y2="370.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="460.0" y1="370.0" x2="460.0" y2="215.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="460.0" y1="215.0" x2="480.0" y2="215.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="332.0" y1="350.0" x2="480.0" y2="320.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="332.0" y1="350.0" x2="480.0" y2="320.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

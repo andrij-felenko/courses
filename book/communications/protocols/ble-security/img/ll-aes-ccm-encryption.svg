@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура та конвеєр шифрування AES-128 CCM канального рівня BLE</text>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр автентифікованого шифрування AES-128 CCM на канальному рівні (Link Layer)</text>
+<rect x="40.0" y="55.0" width="220.0" height="80.0" rx="5" fill="#f0f4f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="150.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок PDU (16 біт)</text>
+<text x="150.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">LLID, NESN, SN, MD, Length</text>
+<text x="150.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Додаткові автентифіковані дані (AAD)</text>
+<rect x="290.0" y="55.0" width="260.0" height="80.0" rx="5" fill="#fdfaf3" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корисне навантаження PDU</text>
+<text x="420.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Дані L2CAP / ATT / SMP (Plaintext)</text>
+<text x="420.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Довжина: від 0 до 251 байта (DLE)</text>
+<rect x="580.0" y="55.0" width="220.0" height="80.0" rx="5" fill="#fbf2ea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="690.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">13-байтний Nonce</text>
+<text x="690.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Packet Counter (39 біт)</text>
+<text x="690.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Direction bit (1 біт) + IV (64 біти)</text>
+<line x1="150.0" y1="135.0" x2="280.0" y2="205.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="135.0" x2="420.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="135.0" x2="560.0" y2="205.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="240.0" y="205.0" width="360.0" height="110.0" rx="8" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="420.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратне ядро AES-128 CCM</text>
+<text x="420.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сесійний ключ шифрування: Session Key (SK = 128 біт)</text>
+<text x="420.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• CBC-MAC: обчислення цілісності за AAD + Plaintext</text>
+<text x="420.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• CTR Mode: потокове шифрування корисного навантаження</text>
+<line x1="340.0" y1="315.0" x2="260.0" y2="365.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="315.0" x2="580.0" y2="365.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="365.0" width="760.0" height="80.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="420.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Зашифрований канальний пакет в ефірі (Encrypted Data Physical Channel PDU)</text>
+<rect x="60.0" y="400.0" width="160.0" height="32.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="140.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Заголовок PDU (16 біт)</text>
+<rect x="230.0" y="400.0" width="360.0" height="32.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="410.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Зашифроване навантаження (Encrypted Payload)</text>
+<rect x="600.0" y="400.0" width="180.0" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">MIC: Код автентичності (4 байти)</text>
+</svg>
