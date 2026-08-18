@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Аварія процесу (SIGKILL / Segfault): автоматичне очищення ядра проти завислого стану</text>
+<rect x="30.0" y="55.0" width="430.0" height="335.0" rx="8" fill="#f8fafc" stroke="#16a34a" stroke-width="1.2"/>
+<rect x="93.6" y="69.0" width="302.7" height="32.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="245.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Дескрипторні IPC (Pipes, Unix Sockets)</tspan></text>
+<rect x="50.0" y="120.0" width="390.0" height="85.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="245.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">1. Процес падає → Ядро закриває всі відкриті дескриптори</text>
+<text x="245.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Лічильник посилань struct file падає до нуля</text>
+<text x="245.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Стан каналу/сокету переходить у статус закритого кінця</text>
+<line x1="245.0" y1="205.0" x2="245.0" y2="235.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="235.0" width="390.0" height="135.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="245.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Детерміноване сповіщення іншої сторони</text>
+<text x="65.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Читач: epoll видає EPOLLHUP / EPOLLRDHUP, read() повертає 0 (EOF)</text>
+<text x="65.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Записувач: спроба write() викликає сигнал SIGPIPE та помилку EPIPE</text>
+<text x="65.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Ресурси ядра звільняються автоматично без витоків у системі</text>
+<text x="65.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Відновлення: супервізор просто перезапускає дочірній процес</text>
+<rect x="500.0" y="55.0" width="430.0" height="335.0" rx="8" fill="#f8fafc" stroke="#dc2626" stroke-width="1.2"/>
+<rect x="589.7" y="69.0" width="250.6" height="32.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="715.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="715.0" dy="0.0">Спільна пам'ять (Shared Memory)</tspan></text>
+<rect x="520.0" y="120.0" width="390.0" height="85.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="715.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">1. Процес падає посеред критичної секції запису</text>
+<text x="715.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• М'ютекс залишається захопленим у пам'яті RAM</text>
+<text x="715.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Структури даних (голови/хвости буферів) частково оновлені</text>
+<line x1="715.0" y1="205.0" x2="715.0" y2="235.0" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="520.0" y="235.0" width="390.0" height="135.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="715.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Небезпека мертвого блокування (Deadlock) та сміття</text>
+<text x="535.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Стандартний mutex: сусідні процеси засинають назавжди</text>
+<text x="535.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Порятунок: PTHREAD_MUTEX_ROBUST повертає EOWNERDEAD</text>
+<text x="535.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• shm_open: файли в /dev/shm виживають і засмічують пам'ять RAM</text>
+<text x="535.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• memfd_create: анонімна пам'ять зникає автоматично з останнім FD</text>
+</svg>

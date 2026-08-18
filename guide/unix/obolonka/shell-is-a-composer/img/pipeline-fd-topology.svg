@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Топологія дескрипторів конвеєра: виділення в ядрі та успадкування</text>
+<rect x="40.0" y="65.0" width="420.0" height="200.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="65.2" y="76.0" width="369.7" height="32.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="250.0" y="96.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Батьківський процес: Оболонка (Shell, PID 1000)</tspan></text>
+<text x="65.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start" font-weight="700">1. pipe(p1)  → дескриптори [3: read, 4: write]</text>
+<text x="65.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start" font-weight="700">2. pipe(p2)  → дескриптори [5: read, 6: write]</text>
+<text x="65.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start">Таблиця файлових дескрипторів оболонки містить FD 0..6.</text>
+<text x="65.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start">Оболонка робить fork() для кожного елемента конвеєра.</text>
+<text x="65.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">УСІ діти спочатку успадковують ПОВНИЙ набір FD 0..6!</text>
+<text x="65.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">3. Оболонка закриває FD 3, 4, 5, 6 одразу після запуску дітей.</text>
+<rect x="500.0" y="65.0" width="460.0" height="200.0" rx="8" fill="#fdfbf7" stroke="#e08a1e" stroke-width="1.2"/>
+<rect x="539.3" y="76.5" width="381.5" height="31.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="730.0" y="95.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="730.0" dy="0.0">Простір ядра: Відкриті файли (Open File Descriptions)</tspan></text>
+<rect x="520.0" y="120.0" width="420.0" height="60.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.1"/>
+<text x="730.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Кільцевий буфер Каналу 1 (pipe 1, 64 КіБ у RAM)</text>
+<text x="540.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="start">struct pipe_inode_info: wr_wait / rd_wait, refcount</text>
+<rect x="520.0" y="190.0" width="420.0" height="60.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.1"/>
+<text x="730.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Кільцевий буфер Каналу 2 (pipe 2, 64 КіБ у RAM)</text>
+<text x="540.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="start">struct pipe_inode_info: wr_wait / rd_wait, refcount</text>
+<rect x="40.0" y="295.0" width="280.0" height="200.0" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+<rect x="98.4" y="304.5" width="163.2" height="31.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="180.0" y="323.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">Дитина 1: cmd1 (grep)</tspan></text>
+<text x="60.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">FD 0 (stdin): термінал / файл</text>
+<text x="60.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">dup2(4, 1) → FD 1 = Pipe 1 Write</text>
+<text x="60.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(3) — закрити read кінця</text>
+<text x="60.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(4) — закрити старий FD</text>
+<text x="60.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(5, 6) — закрити Pipe 2</text>
+<text x="60.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="start" font-weight="700">execve(&quot;grep&quot;, ...)</text>
+<rect x="360.0" y="295.0" width="280.0" height="200.0" rx="8" fill="#ffffff" stroke="#0d9488" stroke-width="1.2"/>
+<rect x="421.8" y="304.5" width="156.4" height="31.0" rx="6" fill="#e6fffa" stroke="#0d9488" stroke-width="1.5"/><text x="500.0" y="323.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Дитина 2: cmd2 (cut)</tspan></text>
+<text x="380.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">dup2(3, 0) → FD 0 = Pipe 1 Read</text>
+<text x="380.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">dup2(6, 1) → FD 1 = Pipe 2 Write</text>
+<text x="380.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(3, 4) — очистити Pipe 1</text>
+<text x="380.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(5, 6) — очистити Pipe 2</text>
+<text x="380.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="start">Потоки: [P1 Read] → [P2 Write]</text>
+<text x="380.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="start" font-weight="700">execve(&quot;cut&quot;, ...)</text>
+<rect x="680.0" y="295.0" width="280.0" height="200.0" rx="8" fill="#ffffff" stroke="#7e22ce" stroke-width="1.2"/>
+<rect x="745.2" y="304.5" width="149.6" height="31.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="820.0" y="323.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">Дитина 3: cmd3 (wc)</tspan></text>
+<text x="700.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">dup2(5, 0) → FD 0 = Pipe 2 Read</text>
+<text x="700.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">FD 1 (stdout): термінал / файл</text>
+<text x="700.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(3, 4) — закрити Pipe 1</text>
+<text x="700.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(5) — закрити старий FD</text>
+<text x="700.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">close(6) — закрити write кінця</text>
+<text x="700.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="start" font-weight="700">execve(&quot;wc&quot;, ...)</text>
+</svg>

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовний протокол обстеження дистрибутива</text>
+<rect x="20.0" y="16.0" width="900.0" height="34.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="45.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Послідовний протокол обстеження невідомого оточення</tspan></text>
+<rect x="40.0" y="70.0" width="410.0" height="68.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="48.0" y="76.0" width="394.0" height="22.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="245.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Крок 1. Метадані та версія ядра</tspan></text>
+<rect x="48.0" y="100.0" width="394.0" height="32.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="245.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">cat /etc/os-release  ||  uname -mrs  ||  cat /proc/version</tspan><tspan x="245.0" dy="13.0">-&gt; Визначає назву дистрибутива, версію ядра та архітектуру ЦП</tspan></text>
+<rect x="490.0" y="70.0" width="410.0" height="68.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="498.0" y="76.0" width="394.0" height="22.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="695.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Крок 2. Хто керує системою (PID 1)</tspan></text>
+<rect x="498.0" y="100.0" width="394.0" height="32.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="695.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">readlink -f /proc/1/exe  ||  cat /proc/1/comm</tspan><tspan x="695.0" dy="13.0">-&gt; systemd (systemctl) / OpenRC (rc-service) / runit / контейнер</tspan></text>
+<rect x="40.0" y="165.0" width="410.0" height="68.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="48.0" y="171.0" width="394.0" height="22.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="245.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Крок 3. Системна бібліотека C (libc)</tspan></text>
+<rect x="48.0" y="195.0" width="394.0" height="32.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="245.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">readelf -l /bin/sh | grep interpreter  ||  ldd /bin/sh</tspan><tspan x="245.0" dy="13.0">-&gt; glibc (ld-linux.so) чи musl (ld-musl.so) чи статичний BusyBox</tspan></text>
+<rect x="490.0" y="165.0" width="410.0" height="68.0" rx="6" fill="#ffffff" stroke="#e08a1e" stroke-width="1.5"/>
+<rect x="498.0" y="171.0" width="394.0" height="22.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.5"/><text x="695.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Крок 4. Файлова система та монтування</tspan></text>
+<rect x="498.0" y="195.0" width="394.0" height="32.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="695.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">mount | grep ' on / '  &amp;&amp;  ls -ld /bin /sbin /lib</tspan><tspan x="695.0" dy="13.0">-&gt; Виявляє UsrMerge (/usr/bin), read-only корінь та OverlayFS</tspan></text>
+<rect x="40.0" y="260.0" width="410.0" height="68.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+<rect x="48.0" y="266.0" width="394.0" height="22.0" rx="6" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.5"/><text x="245.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Крок 5. Пакетний менеджер і сховища</tspan></text>
+<rect x="48.0" y="290.0" width="394.0" height="32.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="245.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">ls /var/lib/dpkg /var/lib/rpm /lib/apk /var/lib/pacman /nix</tspan><tspan x="245.0" dy="13.0">-&gt; dpkg (apt) / rpm (dnf) / apk / pacman / nix / відсутній</tspan></text>
+<rect x="490.0" y="260.0" width="410.0" height="68.0" rx="6" fill="#ffffff" stroke="#16a085" stroke-width="1.5"/>
+<rect x="498.0" y="266.0" width="394.0" height="22.0" rx="6" fill="#e8f8f5" stroke="#16a085" stroke-width="1.5"/><text x="695.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Крок 6. Базові утиліти та оболонка</tspan></text>
+<rect x="498.0" y="290.0" width="394.0" height="32.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="695.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">ls --version 2&gt;&amp;1 | head -n 1  &amp;&amp;  ls -l /bin/sh</tspan><tspan x="695.0" dy="13.0">-&gt; GNU coreutils vs BusyBox, оболонка bash vs dash vs ash</tspan></text>
+<line x1="450.0" y1="104.0" x2="490.0" y2="104.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="695.0" y1="138.0" x2="245.0" y2="165.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="199.0" x2="490.0" y2="199.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="695.0" y1="233.0" x2="245.0" y2="260.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="294.0" x2="490.0" y2="294.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="350.0" width="860.0" height="210.0" rx="8" fill="#fbfdff" stroke="#aab4c0" stroke-width="1.5"/>
+<rect x="55.0" y="360.0" width="830.0" height="26.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="377.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Шпаргалка архетипів сучасних Unix/Linux систем</tspan></text>
+<rect x="55.0" y="395.0" width="180.0" height="24.0" rx="0" fill="#eaf0fd" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="145.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Архетип</text>
+<rect x="235.0" y="395.0" width="120.0" height="24.0" rx="0" fill="#eaf0fd" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="295.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ядро / ABI</text>
+<rect x="355.0" y="395.0" width="110.0" height="24.0" rx="0" fill="#eaf0fd" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Бібліотека libc</text>
+<rect x="465.0" y="395.0" width="130.0" height="24.0" rx="0" fill="#eaf0fd" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="530.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Init / PID 1</text>
+<rect x="595.0" y="395.0" width="110.0" height="24.0" rx="0" fill="#eaf0fd" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="650.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Пакунки</text>
+<rect x="705.0" y="395.0" width="180.0" height="24.0" rx="0" fill="#eaf0fd" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="795.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ФС / Утиліти</text>
+<rect x="55.0" y="419.0" width="180.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="145.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Серверний (Debian/Ubuntu/RHEL)</text>
+<rect x="235.0" y="419.0" width="120.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="295.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Linux x86/arm64</text>
+<rect x="355.0" y="419.0" width="110.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">glibc</text>
+<rect x="465.0" y="419.0" width="130.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="530.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">systemd</text>
+<rect x="595.0" y="419.0" width="110.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="650.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">dpkg / rpm</text>
+<rect x="705.0" y="419.0" width="180.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="795.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">UsrMerge, GNU coreutils</text>
+<rect x="55.0" y="443.0" width="180.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="145.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Контейнерний (Alpine)</text>
+<rect x="235.0" y="443.0" width="120.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="295.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Linux x86/arm64</text>
+<rect x="355.0" y="443.0" width="110.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">musl</text>
+<rect x="465.0" y="443.0" width="130.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="530.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">OpenRC / dumb-init</text>
+<rect x="595.0" y="443.0" width="110.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="650.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">apk</text>
+<rect x="705.0" y="443.0" width="180.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="795.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">BusyBox, стандартний FHS</text>
+<rect x="55.0" y="467.0" width="180.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="145.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Декларативний (NixOS)</text>
+<rect x="235.0" y="467.0" width="120.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="295.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Linux</text>
+<rect x="355.0" y="467.0" width="110.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">glibc</text>
+<rect x="465.0" y="467.0" width="130.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="530.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">systemd</text>
+<rect x="595.0" y="467.0" width="110.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="650.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">nix store</text>
+<rect x="705.0" y="467.0" width="180.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="795.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">/nix/store, ізольовані бінарники</text>
+<rect x="55.0" y="491.0" width="180.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="145.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вбудований (OpenWrt/Yocto)</text>
+<rect x="235.0" y="491.0" width="120.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="295.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Linux MIPS/ARM</text>
+<rect x="355.0" y="491.0" width="110.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">musl / uClibc</text>
+<rect x="465.0" y="491.0" width="130.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="530.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">procd / busybox</text>
+<rect x="595.0" y="491.0" width="110.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="650.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">opkg / немає</text>
+<rect x="705.0" y="491.0" width="180.0" height="24.0" rx="0" fill="#f4f6f8" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="795.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SquashFS + Overlay, BusyBox</text>
+<rect x="55.0" y="515.0" width="180.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="145.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Мобільний (Android)</text>
+<rect x="235.0" y="515.0" width="120.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="295.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Linux (AOSP)</text>
+<rect x="355.0" y="515.0" width="110.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Bionic</text>
+<rect x="465.0" y="515.0" width="130.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="530.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Android init.rc</text>
+<rect x="595.0" y="515.0" width="110.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="650.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">APK (ART)</text>
+<rect x="705.0" y="515.0" width="180.0" height="24.0" rx="0" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="795.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">A/B read-only, Toybox</text>
+</svg>

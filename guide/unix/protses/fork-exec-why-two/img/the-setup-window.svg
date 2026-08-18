@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-26.4 -10 1038 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-26.4" y="-10" width="1038" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Хронологія життя дитини у вікні між fork() та execve()</text>
+<rect x="-16.4" y="64.5" width="292.8" height="31.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="130.0" y="83.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Батьківський процес (Shell / Supervisor)</tspan></text>
+<line x1="130.0" y1="105.0" x2="130.0" y2="150.0" stroke="#2563eb" stroke-width="2.0"/>
+<text x="138.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="start">fork() повертає child_pid</text>
+<line x1="130.0" y1="150.0" x2="130.0" y2="385.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="12.3" y="384.8" width="235.5" height="30.5" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="130.0" y="403.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">waitpid(child_pid) очікує завершення</tspan></text>
+<line x1="130.0" y1="150.0" x2="280.0" y2="150.0" stroke="#16a34a" stroke-width="2.0"/>
+<rect x="239.3" y="127.9" width="241.3" height="44.1" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="360.0" y="146.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">fork() == 0 (дитина)</tspan><tspan x="360.0" dy="13.7">Точна копія пам'яті й дескрипторів</tspan></text>
+<rect x="235.0" y="195.0" width="520.0" height="175.0" rx="8" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="495.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">ВІКНО ВИКОНАННЯ ДИТИНИ (налаштування ядра під себе)</text>
+<text x="250.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">1. Дескриптори</text>
+<text x="410.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="start">dup2(pipe_fd, STDOUT_FILENO); close(unused_fds);</text>
+<text x="250.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">2. Оточення й робочий стан</text>
+<text x="410.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="start">chdir(&quot;/var/run/app&quot;); umask(0027); setrlimit(RLIMIT_NOFILE, &amp;lim);</text>
+<text x="250.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">3. Сигнали та групи</text>
+<text x="410.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="start">setpgid(0, 0); sigprocmask(SIG_SETMASK, &amp;mask, NULL);</text>
+<text x="250.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">4. Безпека та ізоляція</text>
+<text x="410.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="start">unshare(CLONE_NEWPID); setgid(1000); setuid(1000); seccomp(...);</text>
+<line x1="360.0" y1="175.0" x2="360.0" y2="195.0" stroke="#16a34a" stroke-width="1.5"/>
+<line x1="755.0" y1="282.0" x2="785.0" y2="282.0" stroke="#7e22ce" stroke-width="2.0"/>
+<rect x="771.9" y="253.1" width="176.2" height="57.8" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="860.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="860.0" dy="0.0">execve(path, argv, envp)</tspan><tspan x="860.0" dy="13.7">ТОЧКА НЕПОВЕРНЕННЯ</tspan><tspan x="860.0" dy="13.7">Образ пам'яті замінено</tspan></text>
+<line x1="860.0" y1="325.0" x2="860.0" y2="375.0" stroke="#7e22ce" stroke-width="2.0"/>
+<rect x="718.3" y="379.8" width="283.3" height="30.5" rx="6" fill="#e6fffa" stroke="#0d9488" stroke-width="1.5"/><text x="860.0" y="398.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">Виконання нової програми: _start() -&gt; main()</tspan></text>
+</svg>

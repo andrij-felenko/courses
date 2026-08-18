@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шість опорних підсистем дистрибутива</text>
+<rect x="20.0" y="20.0" width="900.0" height="36.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="43.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Шість опорних підсистем будь-якого Unix/Linux дистрибутива</tspan></text>
+<rect x="40.0" y="80.0" width="260.0" height="200.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="50.0" y="90.0" width="240.0" height="28.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="170.0" y="108.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">1. Ядро (Kernel)</tspan></text>
+<text x="56.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Версія ядра та архітектура (ABI)</text>
+<text x="56.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Системні виклики (syscalls)</text>
+<text x="56.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Драйвери та пам'ять</text>
+<text x="56.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Псевдофайлові системи (/proc, /sys)</text>
+<text x="56.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Конфігурація під час завантаження</text>
+<rect x="340.0" y="80.0" width="260.0" height="200.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="350.0" y="90.0" width="240.0" height="28.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="108.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">2. Бібліотека C (libc)</tspan></text>
+<text x="356.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Шлюз до системних викликів</text>
+<text x="356.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• glibc vs musl vs uClibc vs Bionic</text>
+<text x="356.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Алокатор пам'яті (malloc)</text>
+<text x="356.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Реалізація потоків (pthreads)</text>
+<text x="356.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Розв'язання імен та NSS</text>
+<rect x="640.0" y="80.0" width="260.0" height="200.0" rx="8" fill="#ffffff" stroke="#e08a1e" stroke-width="1.8"/>
+<rect x="650.0" y="90.0" width="240.0" height="28.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.5"/><text x="770.0" y="108.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">3. Динамічний лінкер</tspan></text>
+<text x="656.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Шлях у заголовку ELF (PT_INTERP)</text>
+<text x="656.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• ld-linux.so vs ld-musl.so</text>
+<text x="656.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Пошук і завантаження .so бібліотек</text>
+<text x="656.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Таблиці GOT/PLT та символи</text>
+<text x="656.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Сумісність двійкового коду</text>
+<rect x="40.0" y="310.0" width="260.0" height="190.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="50.0" y="320.0" width="240.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="170.0" y="338.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">4. Процес 1 (Init / PID 1)</tspan></text>
+<text x="56.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Корінь дерева процесів</text>
+<text x="56.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• systemd, OpenRC, runit, SysV, s6</text>
+<text x="56.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Прибирання зомбі-процесів</text>
+<text x="56.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Життєвий цикл служб і демонів</text>
+<text x="56.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Збирання журналів (journald / syslog)</text>
+<rect x="340.0" y="310.0" width="260.0" height="190.0" rx="8" fill="#ffffff" stroke="#8e44ad" stroke-width="1.8"/>
+<rect x="350.0" y="320.0" width="240.0" height="28.0" rx="6" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.5"/><text x="470.0" y="338.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">5. Пакетний менеджер</tspan></text>
+<text x="356.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• База даних встановлених програм</text>
+<text x="356.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• deb, rpm, apk, pacman, xbps</text>
+<text x="356.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Декларативні сховища (Nix, Guix)</text>
+<text x="356.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Розв'язання залежностей</text>
+<text x="356.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Модель оновлення та цілісність</text>
+<rect x="640.0" y="310.0" width="260.0" height="190.0" rx="8" fill="#ffffff" stroke="#16a085" stroke-width="1.8"/>
+<rect x="650.0" y="320.0" width="240.0" height="28.0" rx="6" fill="#e8f8f5" stroke="#16a085" stroke-width="1.5"/><text x="770.0" y="338.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">6. Ієрархія ФС та Утиліти</tspan></text>
+<text x="656.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Стандарт FHS та UsrMerge (/usr/bin)</text>
+<text x="656.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Традиційні vs безстатусні (/etc vs /usr/etc)</text>
+<text x="656.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Набір утиліт: GNU coreutils vs BusyBox</text>
+<text x="656.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Типова оболонка (/bin/sh -&gt; bash/dash/ash)</text>
+<text x="656.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Змінні середовища та конфігурація</text>
+<rect x="20.0" y="514.0" width="900.0" height="32.0" rx="6" fill="#fff6e6" stroke="#e08a1e" stroke-width="1.5"/><text x="470.0" y="534.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Дистрибутив — це не одна назва, а контракт між шістьма конкретними підсистемами</tspan></text>
+</svg>

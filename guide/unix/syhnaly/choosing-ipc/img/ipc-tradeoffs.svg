@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Порівняння властивостей IPC: швидкість, складність, надійність та ізоляція</text>
+<rect x="20.0" y="65.0" width="920.0" height="36.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="105.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Критерій вибору</text>
+<text x="270.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Pipes / FIFO</text>
+<text x="455.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Unix Domain Sockets</text>
+<text x="650.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">POSIX Shared Memory</text>
+<text x="835.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">POSIX Message Queues</text>
+<rect x="20.0" y="101.0" width="920.0" height="38.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Пропускна здатність</text>
+<text x="270.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Середня (копіювання)</text>
+<text x="455.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Висока (буфер ядра)</text>
+<text x="650.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Максимальна (0 копій)</text>
+<text x="835.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Середня (копіювання)</text>
+<rect x="20.0" y="139.0" width="920.0" height="38.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Латентність (дрібні)</text>
+<text x="270.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Низька (~1-2 мкс)</text>
+<text x="455.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Низька (~1.5-2.5 мкс)</text>
+<text x="650.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Ультранизька (&lt;0.3 мкс)</text>
+<text x="835.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Середня (~3-5 мкс)</text>
+<rect x="20.0" y="177.0" width="920.0" height="38.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Складність коду</text>
+<text x="270.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Мінімальна (read/write)</text>
+<text x="455.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Середня (стандартний API)</text>
+<text x="650.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Висока (м'ютекси, futex)</text>
+<text x="835.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Середня (mq_open/send)</text>
+<rect x="20.0" y="215.0" width="920.0" height="38.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Інтеграція в epoll</text>
+<text x="270.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Рідна (файловий FD)</text>
+<text x="455.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Рідна (файловий FD)</text>
+<text x="650.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Через допоміжний eventfd</text>
+<text x="835.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Складна (через mq_notify)</text>
+<rect x="20.0" y="253.0" width="920.0" height="38.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Передача прав / FDs</text>
+<text x="270.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Неможливо</text>
+<text x="455.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Так (SCM_RIGHTS)</text>
+<text x="650.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Через дескриптор memfd</text>
+<text x="835.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Неможливо</text>
+<rect x="20.0" y="291.0" width="920.0" height="38.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Автентифікація</text>
+<text x="270.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Тільки біти прав FS</text>
+<text x="455.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Ядерна (SO_PEERCRED)</text>
+<text x="650.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Тільки біти прав FS</text>
+<text x="835.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Тільки біти прав FS</text>
+<rect x="20.0" y="329.0" width="920.0" height="38.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Збереження меж</text>
+<text x="270.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Ні (потік байтів)</text>
+<text x="455.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Так (SEQPACKET / DGRAM)</text>
+<text x="650.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Ні (структура у RAM)</text>
+<text x="835.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Так (за повідомленнями)</text>
+<rect x="20.0" y="367.0" width="920.0" height="38.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="105.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Поведінка при збої</text>
+<text x="270.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Автоматична (EOF/SIGPIPE)</text>
+<text x="455.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Автоматична (POLLHUP/EOF)</text>
+<text x="650.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Ризик зависання м'ютекса</text>
+<text x="835.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Повідомлення висять у черзі</text>
+<rect x="196.4" y="418.5" width="567.2" height="43.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="480.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Ключове правило: починайте з Unix Domain Sockets (SEQPACKET); якщо виміри показують вузьке місце</tspan><tspan x="480.0" dy="13.0">у копіюванні великих даних — переходьте на спільну пам'ять (memfd + eventfd) для тіла даних.</tspan></text>
+</svg>

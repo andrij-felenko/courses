@@ -21,14 +21,14 @@
         { ref: "unix-linux/foundations/unix-philosophy", title: "Філософія Unix" },
         { ref: "unix-linux/foundations/everything-is-a-file", title: "«Усе є файлом»" },
         { ref: "unix-linux/foundations/kernel-and-userspace", title: "Ядро й простір користувача" },
-        { slug: "why-unix-won", title: "Чому ця модель пережила все інше", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "why-unix-won", title: "Чому ця модель пережила все інше", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-competitors-graveyard.md", status: "recheck" }] , "proj": [{ file: "proj-mechanism-vs-policy.md", status: "recheck" }] },
       ] },
       { title: "Родовід і що з нього сьогодні", steps: [
         { ref: "unix-linux/foundations/unix-lineage", title: "Родовід Unix" },
         { ref: "unix-linux/foundations/posix-standard", title: "POSIX" },
         { ref: "unix-linux/foundations/kernel-vs-distribution", title: "Ядро й дистрибутив" },
         { ref: "unix-linux/foundations/gnu-userland", title: "Інструментарій GNU" },
-        { slug: "reading-a-distribution", title: "Як читати незнайомий дистрибутив", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "reading-a-distribution", title: "Як читати незнайомий дистрибутив", basic: { status: "empty" }, detailed: { status: "recheck" } },
       ] },
     ] },
 
@@ -37,7 +37,7 @@
         { ref: "unix-linux/foundations/syscall-mechanics", title: "Системний виклик" },
         { ref: "unix-linux/foundations/libc-as-gateway", title: "libc як шлюз" },
         { ref: "unix-linux/foundations/monolithic-with-modules", title: "Монолітне ядро з модулями" },
-        { slug: "tracing-one-call", title: "Один виклик наскрізь: від рядка коду до драйвера", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "tracing-one-call", title: "Один виклик наскрізь: від рядка коду до драйвера", basic: { status: "empty" }, detailed: { status: "recheck" } , "proj": [{ file: "proj-trace-write-live.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -47,13 +47,13 @@
         { ref: "unix-linux/processes/pid-and-hierarchy", title: "PID і дерево процесів" },
         { ref: "unix-linux/processes/fork-semantics", title: "fork" },
         { ref: "unix-linux/processes/exec-semantics", title: "exec" },
-        { slug: "fork-exec-why-two", title: "Чому саме два виклики, а не один", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "fork-exec-why-two", title: "Чому саме два виклики, а не один", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-posix-spawn.md", status: "recheck" }] , "proj": [{ file: "proj-process-launcher.md", status: "recheck" }] },
       ] },
       { title: "Завершення й прибирання", steps: [
         { ref: "unix-linux/processes/exit-wait-zombies", title: "Завершення, wait і зомбі" },
         { ref: "unix-linux/processes/orphan-reparenting", title: "Сироти й перепідпорядкування" },
         { ref: "unix-linux/processes/process-states", title: "Стани процесу" },
-        { slug: "process-lifecycle-walkthrough", title: "Життя процесу від запуску до прибирання", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "process-lifecycle-walkthrough", title: "Життя процесу від запуску до прибирання", basic: { status: "empty" }, detailed: { status: "recheck" } },
       ] },
     ] },
 
@@ -62,12 +62,12 @@
         { ref: "unix-linux/processes/scheduler-model", title: "Планувальник" },
         { ref: "unix-linux/processes/priority-nice-realtime", title: "Пріоритети й nice" },
         { ref: "unix-linux/processes/threads-as-tasks", title: "Потоки як задачі" },
-        { slug: "why-my-process-is-slow", title: "Чому процес «гальмує»: розбір за моделлю", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "why-my-process-is-slow", title: "Чому процес «гальмує»: розбір за моделлю", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-latency-metrics.md", status: "recheck" }] , "proj": [{ file: "proj-latency-breakdown.md", status: "recheck" }] },
       ] },
       { title: "Обмежити й ізолювати", steps: [
         { ref: "unix-linux/processes/cgroups", title: "cgroups" },
         { ref: "unix-linux/processes/namespaces", title: "Простори імен" },
-        { slug: "container-from-primitives", title: "Контейнер із примітивів: звідки береться ізоляція", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "container-from-primitives", title: "Контейнер із примітивів: звідки береться ізоляція", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-container-primitives.md", status: "recheck" }] , "hist": [{ file: "hist-chroot-to-containers.md", status: "recheck" }] , "proj": [{ file: "proj-mini-container.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -77,7 +77,7 @@
         { ref: "unix-linux/memory/paging-and-mmu", title: "Сторінки й MMU" },
         { ref: "unix-linux/memory/page-fault", title: "Сторінковий збій" },
         { ref: "unix-linux/memory/copy-on-write", title: "Копіювання при записі" },
-        { slug: "memory-illusion", title: "Ілюзія власної пам'яті: на чому вона тримається", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "memory-illusion", title: "Ілюзія власної пам'яті: на чому вона тримається", basic: { status: "empty" }, detailed: { status: "recheck" } , "proj": [{ file: "proj-fault-probe.md", status: "recheck" }] },
       ] },
       { title: "Коли пам'яті мало", steps: [
         { ref: "unix-linux/memory/mmap-model", title: "mmap" },
@@ -85,7 +85,7 @@
         { ref: "unix-linux/memory/overcommit-and-oom", title: "Overcommit і OOM-killer" },
         { ref: "unix-linux/memory/memory-accounting", title: "VSZ, RSS, PSS" },
         { ref: "unix-linux/memory/allocator-and-kernel", title: "Алокатор і ядро" },
-        { slug: "reading-memory-numbers", title: "Як читати цифри пам'яті й не обманутися", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "reading-memory-numbers", title: "Як читати цифри пам'яті й не обманутися", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-memory-metrics-map.md", status: "recheck" }] , "proj": [{ file: "proj-memory-diagnostics.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -94,14 +94,14 @@
         { ref: "unix-linux/files/file-descriptor", title: "Файловий дескриптор" },
         { ref: "unix-linux/files/open-file-description", title: "Опис відкритого файлу" },
         { ref: "unix-linux/io/socket-as-descriptor", title: "Сокет як дескриптор" },
-        { slug: "one-interface-many-things", title: "Один інтерфейс на файл, сокет і пристрій", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "one-interface-many-things", title: "Один інтерфейс на файл, сокет і пристрій", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-file-operations.md", status: "recheck" }] },
       ] },
       { title: "Ім'я і вміст — різні речі", steps: [
         { ref: "unix-linux/files/inode-model", title: "Inode" },
         { ref: "unix-linux/files/directory-as-mapping", title: "Каталог як відображення" },
         { ref: "unix-linux/files/hard-and-symbolic-links", title: "Жорсткі й символьні посилання" },
         { ref: "unix-linux/files/path-resolution", title: "Розбір шляху" },
-        { slug: "name-is-not-the-file", title: "Ім'я — не файл: наслідки для щоденної роботи", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "name-is-not-the-file", title: "Ім'я — не файл: наслідки для щоденної роботи", basic: { status: "empty" }, detailed: { status: "recheck" } , "proj": [{ file: "proj-atomic-replace.md", status: "recheck" }] },
       ] },
       { title: "Файлові системи й довговічність", steps: [
         { ref: "unix-linux/files/vfs-layer", title: "VFS" },
@@ -110,7 +110,7 @@
         { ref: "unix-linux/files/journaling-consistency", title: "Журналювання" },
         { ref: "unix-linux/files/page-cache-durability", title: "Кеш сторінок і fsync" },
         { ref: "unix-linux/files/pseudo-filesystems", title: "Псевдо-ФС" },
-        { slug: "when-write-is-really-written", title: "Коли запис справді записаний", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "when-write-is-really-written", title: "Коли запис справді записаний", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-durability-knobs.md", status: "recheck" }] , "proj": [{ file: "proj-wal-bench.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -122,13 +122,13 @@
         { ref: "unix-linux/shell/redirection-model", title: "Перенаправлення" },
         { ref: "unix-linux/shell/pipeline-composition", title: "Конвеєр" },
         { ref: "unix-linux/shell/exit-status", title: "Код виходу" },
-        { slug: "shell-is-a-composer", title: "Оболонка як композитор: один конвеєр наскрізь", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "shell-is-a-composer", title: "Оболонка як композитор: один конвеєр наскрізь", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-pipeline-primitives.md", status: "recheck" }] , "hist": [{ file: "hist-pipe-conception.md", status: "recheck" }] , "proj": [{ file: "proj-pipeline-composer.md", status: "recheck" }] },
       ] },
       { title: "Текст, що стає аргументами", steps: [
         { ref: "unix-linux/shell/expansion-and-quoting", title: "Розкриття й лапки" },
         { ref: "unix-linux/shell/job-control", title: "Керування завданнями" },
         { ref: "unix-linux/shell/session-environment", title: "Оточення сеансу" },
-        { slug: "why-quoting-bites", title: "Чому лапки кусаються: модель розкриття крок за кроком", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "why-quoting-bites", title: "Чому лапки кусаються: модель розкриття крок за кроком", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-quoting-rules.md", status: "recheck" }] , "proj": [{ file: "proj-argv-debugger.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -138,7 +138,7 @@
         { ref: "unix-linux/io/readiness-vs-completion", title: "Готовність проти завершення" },
         { ref: "unix-linux/io/select-poll-epoll", title: "select, poll, epoll" },
         { ref: "unix-linux/io/io-uring", title: "io_uring" },
-        { slug: "one-thread-many-connections", title: "Один потік на багато з'єднань", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "one-thread-many-connections", title: "Один потік на багато з'єднань", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-epoll-system-calls.md", status: "recheck" }] , "hist": [{ file: "hist-c10k-problem.md", status: "recheck" }] , "proj": [{ file: "proj-reactor-event-loop.md", status: "recheck" }] },
       ] },
       { title: "Канали, копії й переривання", steps: [
         { ref: "unix-linux/io/pipes-and-fifo", title: "Канали й FIFO" },
@@ -146,7 +146,7 @@
         { ref: "unix-linux/io/buffered-and-direct-io", title: "Буферизований і прямий ввід-вивід" },
         { ref: "unix-linux/io/zero-copy", title: "Передача без копіювання" },
         { ref: "unix-linux/io/eintr-and-restart", title: "EINTR" },
-        { slug: "io-cost-model", title: "Скільки коштує ввід-вивід", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "io-cost-model", title: "Скільки коштує ввід-вивід", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-io-cost-primitives.md", status: "recheck" }] , "math": [{ file: "math-io-cost-model.md", status: "recheck" }] , "proj": [{ file: "proj-zero-copy-pipeline.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -156,14 +156,14 @@
         { ref: "unix-linux/signals-ipc/signal-disposition", title: "Диспозиція сигналу" },
         { ref: "unix-linux/signals-ipc/async-signal-safety", title: "Безпека в обробнику" },
         { ref: "unix-linux/signals-ipc/signal-mask-signalfd", title: "Маскування і signalfd" },
-        { slug: "graceful-shutdown", title: "Коректне завершення програми", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "graceful-shutdown", title: "Коректне завершення програми", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-shutdown-protocol.md", status: "recheck" }] , "proj": [{ file: "proj-graceful-server.md", status: "recheck" }] },
       ] },
       { title: "Домовитися між процесами", steps: [
         { ref: "unix-linux/signals-ipc/ipc-landscape", title: "Огляд засобів взаємодії" },
         { ref: "unix-linux/signals-ipc/posix-shared-memory", title: "Спільна пам'ять" },
         { ref: "unix-linux/signals-ipc/message-queues", title: "Черги повідомлень" },
         { ref: "unix-linux/signals-ipc/eventfd-and-futex", title: "eventfd і futex" },
-        { slug: "choosing-ipc", title: "Як обрати спосіб взаємодії під задачу", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "choosing-ipc", title: "Як обрати спосіб взаємодії під задачу", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-ipc-matrix.md", status: "recheck" }] , "proj": [{ file: "proj-ipc-dispatcher.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -173,14 +173,14 @@
         { ref: "unix-linux/permissions/permission-bits", title: "Біти прав" },
         { ref: "unix-linux/permissions/umask-and-defaults", title: "umask" },
         { ref: "unix-linux/permissions/setuid-and-privilege", title: "setuid і підвищення прав" },
-        { slug: "permission-denied-walkthrough", title: "«Permission denied»: розбір за моделлю", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "permission-denied-walkthrough", title: "«Permission denied»: розбір за моделлю", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-dac-diagnostics.md", status: "recheck" }] , "proj": [{ file: "proj-permission-checker.md", status: "recheck" }] },
       ] },
       { title: "Тонший контроль", steps: [
         { ref: "unix-linux/permissions/capabilities", title: "Можливості (capabilities)" },
         { ref: "unix-linux/permissions/acl-and-xattr", title: "ACL і xattr" },
         { ref: "unix-linux/permissions/mac-selinux-apparmor", title: "SELinux і AppArmor" },
         { ref: "unix-linux/permissions/device-access-groups", title: "Групи доступу до пристроїв" },
-        { slug: "least-privilege-in-practice", title: "Найменші привілеї на практиці", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "least-privilege-in-practice", title: "Найменші привілеї на практиці", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-privilege-controls.md", status: "recheck" }] , "proj": [{ file: "proj-privilege-separation.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -195,7 +195,7 @@
         { ref: "unix-linux/devices/usb-in-linux", title: "USB у Linux" },
         { ref: "unix-linux/devices/interrupts-bottom-halves", title: "Переривання й softirq" },
         { ref: "unix-linux/devices/dma-and-buffers", title: "DMA і буфери" },
-        { slug: "device-appears-walkthrough", title: "Що відбувається, коли ти встромив пристрій", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "device-appears-walkthrough", title: "Що відбувається, коли ти встромив пристрій", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-uevent-and-modalias.md", status: "recheck" }] , "proj": [{ file: "proj-uevent-monitor.md", status: "recheck" }] },
       ] },
       { title: "Від живлення до працюючої системи", steps: [
         { ref: "unix-linux/boot-init/boot-chain", title: "Ланцюг завантаження" },
@@ -206,7 +206,7 @@
         { ref: "unix-linux/boot-init/service-lifecycle", title: "Життєвий цикл служби" },
         { ref: "unix-linux/boot-init/socket-activation", title: "Активація за сокетом" },
         { ref: "unix-linux/boot-init/journald-logging", title: "journald" },
-        { slug: "from-power-to-login", title: "Від живлення до запрошення входу", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "from-power-to-login", title: "Від живлення до запрошення входу", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-boot-diagnostics.md", status: "recheck" }] , "proj": [{ file: "proj-boot-trace.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -220,7 +220,7 @@
         { ref: "unix-linux/networking/name-resolution-path", title: "Розв'язання імені" },
         { ref: "unix-linux/networking/network-namespaces", title: "Мережеві простори імен" },
         { ref: "unix-linux/networking/tun-tap", title: "TUN/TAP" },
-        { slug: "packet-journey", title: "Шлях пакета крізь Linux", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "packet-journey", title: "Шлях пакета крізь Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-packet-flow-tracepoints.md", status: "recheck" }] , "hist": [{ file: "hist-napi-evolution.md", status: "recheck" }] , "proj": [{ file: "proj-packet-latency-probe.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -234,7 +234,7 @@
         { ref: "unix-linux/linking/symbol-resolution", title: "Розв'язання символів" },
         { ref: "unix-linux/linking/plt-and-got", title: "PLT і GOT" },
         { ref: "unix-linux/linking/library-abi-compat", title: "Сумісність ABI бібліотеки" },
-        { slug: "why-it-runs-here-not-there", title: "Чому запускається в тебе й не запускається в них", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "why-it-runs-here-not-there", title: "Чому запускається в тебе й не запускається в них", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-runtime-diagnostics.md", status: "recheck" }] , "proj": [{ file: "proj-portable-bundle.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -248,7 +248,7 @@
         { ref: "unix-linux/observability/ebpf", title: "eBPF" },
         { ref: "unix-linux/observability/core-dump", title: "Аварійний дамп" },
         { ref: "unix-linux/observability/load-and-pressure", title: "Навантаження й тиск на ресурси" },
-        { slug: "diagnosis-method", title: "Метод діагностики: від симптому до причини", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "diagnosis-method", title: "Метод діагностики: від симптому до причини", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-use-matrix.md", status: "recheck" }] , "proj": [{ file: "proj-proc-spy.md", status: "recheck" }] },
       ] },
     ] },
 
@@ -261,7 +261,7 @@
         { ref: "unix-linux/packaging/fhs-layout", title: "Ієрархія файлової системи" },
         { ref: "unix-linux/packaging/self-contained-bundles", title: "AppImage, Flatpak, Snap" },
         { ref: "unix-linux/packaging/containers-vs-packages", title: "Контейнер проти пакунка" },
-        { slug: "shipping-a-linux-app", title: "Доставити свою програму на чужий Linux", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "shipping-a-linux-app", title: "Доставити свою програму на чужий Linux", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-production-checklist.md", status: "recheck" }] , "proj": [{ file: "proj-graceful-service.md", status: "recheck" }] },
       ] },
     ] },
   ]

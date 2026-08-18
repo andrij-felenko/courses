@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="360.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="440.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм несумісності бінарників: пастка версій glibc</text>
+<rect x="30.0" y="70.0" width="370.0" height="240.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="215.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Машина розробника / CI (Ubuntu 24.04)</text>
+<text x="215.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Системна libc: glibc 2.38</text>
+<line x1="45.0" y1="128.0" x2="385.0" y2="128.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="50.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Компіляція бінарника myapp:</text>
+<text x="60.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="start">$ gcc -O2 main.c -o myapp</text>
+<text x="50.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Лінкер записує вимоги версій символів:</text>
+<rect x="50.0" y="212.0" width="330.0" height="80.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="60.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">ELF .gnu.version_r (VERNEED):</text>
+<text x="60.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• memcpy@GLIBC_2.14</text>
+<text x="60.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• fcntl@GLIBC_2.28, statx@GLIBC_2.38</text>
+<line x1="405.0" y1="190.0" x2="475.0" y2="190.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="460.0" y1="190.0" x2="475.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">SCP / scp</text>
+<text x="440.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">Перенесення</text>
+<rect x="480.0" y="70.0" width="370.0" height="240.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="665.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Цільовий сервер (Debian 11 / RHEL 8)</text>
+<text x="665.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Системна libc: glibc 2.31</text>
+<line x1="495.0" y1="128.0" x2="835.0" y2="128.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="500.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Спроба запуску ./myapp:</text>
+<text x="510.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ld-linux.so.2 відкриває libc.so.6 (2.31)</text>
+<text x="500.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Динамічний лінкер падає до main():</text>
+<rect x="500.0" y="212.0" width="330.0" height="80.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="510.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">./myapp: /lib/x86_64-linux-gnu/libc.so.6:</text>
+<text x="510.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">version `GLIBC_2.38' not found</text>
+<text x="510.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">(required by ./myapp) -&gt; АВАРІЙНИЙ ВИХІД</text>
+<rect x="30.0" y="325.0" width="820.0" height="35.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="440.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Висновок: glibc має зворотну сумісність, але НЕ пряму. Збирати треба на найстарішій підтримуваній системі.</text>
+</svg>

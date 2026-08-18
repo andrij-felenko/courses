@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Матриця закріплення та закриття файлових дескрипторів у конвеєрі</text>
+<rect x="30.0" y="55.0" width="450.0" height="400.0" rx="8" fill="#f8fafc" stroke="#16a34a" stroke-width="1.3"/>
+<rect x="73.9" y="66.2" width="362.2" height="31.5" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="255.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">Коректна схема: лічильники посилань падають до 1</tspan></text>
+<text x="45.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">1. Дитина A: dup2(p1[1], STDOUT) → close(p1[0]) + close(p1[1])</text>
+<text x="45.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   Єдиний записувач у Pipe 1 — FD 1 процесу A (refcount=1).</text>
+<text x="45.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">2. Дитина B: dup2(p1[0], STDIN)  → close(p1[0]) + close(p1[1])</text>
+<text x="45.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   Єдиний читач із Pipe 1 — FD 0 процесу B (refcount=1).</text>
+<text x="45.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">3. Батьківська оболонка: close(p1[0]) + close(p1[1])</text>
+<text x="45.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   Оболонка не тримає дескрипторів каналу у своїй таблиці.</text>
+<text x="45.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="start" font-weight="700">▶ РЕЗУЛЬТАТ ПРИ ЗАВЕРШЕННІ A:</text>
+<text x="45.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • A завершує роботу → ядро автоматично закриває FD 1.</text>
+<text x="45.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • Лічильник записувачів у Pipe 1 стає 0!</text>
+<text x="45.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • Наступний read() у процесі B миттєво отримує EOF (0 байтів).</text>
+<text x="45.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • Процес B коректно завершує свій цикл обробки.</text>
+<rect x="520.0" y="55.0" width="450.0" height="400.0" rx="8" fill="#fffafb" stroke="#dc2626" stroke-width="1.3"/>
+<rect x="563.9" y="66.2" width="362.2" height="31.5" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="745.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Помилка: оболонка забула закрити p1[1] (FD leak)</tspan></text>
+<text x="535.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">1. Оболонка зробила fork(), але НЕ викликала close(p1[1]).</text>
+<text x="535.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   У системі ДВА відкриті дескриптори запису: у дитини A і в Shell.</text>
+<text x="535.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">2. Дитина A завершила обробку даних і вийшла через exit(0).</text>
+<text x="535.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   Ядро закрило FD 1 дитини A. Лічильник записувачів: 2 → 1.</text>
+<text x="535.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">3. Процес B зчитує залишок буфера і викликає read(0, ...).</text>
+<text x="535.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   Буфер порожній. Чи закритий канал?</text>
+<text x="535.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start" font-weight="700">   НІ! Оболонка все ще тримає відкритий FD p1[1]!</text>
+<text x="535.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start" font-weight="700">▶ КАТАСТРОФА: ДЕДЛОК (Вічне зависання конвеєра)</text>
+<text x="535.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • Ядро НЕ повертає EOF, бо теоретично Shell може щось записати.</text>
+<text x="535.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • Процес B засинає в ядрі назавжди (TASK_INTERRUPTIBLE).</text>
+<text x="535.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">   • Конвеєр зависає, ресурси заблоковані, скрипт не завершується.</text>
+</svg>

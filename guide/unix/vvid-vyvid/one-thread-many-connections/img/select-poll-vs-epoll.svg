@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння механізмів: O(N) сканування у poll проти O(1) черги готових у epoll</text>
+<rect x="30.0" y="40.0" width="430.0" height="400.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="50.0" y="56.0" width="390.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">select(2) та poll(2) — складність O(N)</tspan></text>
+<rect x="50.0" y="105.0" width="390.0" height="62.0" rx="6" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="62.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Підготовка масиву FD</text>
+<text x="62.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Програма заповнює масив із N дескрипторів</text>
+<text x="62.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(наприклад, 10 000 елементів struct pollfd).</text>
+<rect x="50.0" y="177.0" width="390.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="62.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. Копіювання в ядро</text>
+<text x="62.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Системний виклик копіює весь масив 10 000 FD</text>
+<text x="62.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">із простору користувача в пам'ять ядра.</text>
+<rect x="50.0" y="249.0" width="390.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="62.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">3. Лінійне опитування ядром</text>
+<text x="62.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Ядро проходить циклом по всіх 10 000 FD,</text>
+<text x="62.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">реєструючи колбеки в чергах очікування сокетів.</text>
+<rect x="50.0" y="321.0" width="390.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="62.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">4. Сканування після пробудження</text>
+<text x="62.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Програма перебирає весь масив 10 000 FD,</text>
+<text x="62.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">щоб знайти 2 сокети, де revents != 0.</text>
+<rect x="500.0" y="40.0" width="430.0" height="400.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="520.0" y="56.0" width="390.0" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="715.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="715.0" dy="0.0">epoll(7) — складність O(активні)</tspan></text>
+<rect x="520.0" y="105.0" width="390.0" height="62.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="532.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">1. Реєстрація через epoll_ctl</text>
+<text x="532.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Дескриптор додається в ядро один раз у</text>
+<text x="532.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">червоно-чорне дерево інтересів (struct eventpoll.rbr).</text>
+<rect x="520.0" y="177.0" width="390.0" height="62.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="532.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. Асинхронний колбек ядра</text>
+<text x="532.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">При надходженні пакета драйвер викликає</text>
+<text x="532.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ep_poll_callback, що додає FD у список готових (rdllist).</text>
+<rect x="520.0" y="249.0" width="390.0" height="62.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="532.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. Виклик epoll_wait</text>
+<text x="532.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Ядро перевіряє тільки зв'язний список rdllist.</text>
+<text x="532.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Немає сканування неактивних дескрипторів!</text>
+<rect x="520.0" y="321.0" width="390.0" height="62.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="532.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">4. Повернення лише готових подій</text>
+<text x="532.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Ядро копіює користувачеві виключно готові</text>
+<text x="532.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">події (наприклад, 2 елементи замість 10 000).</text>
+<rect x="30.0" y="460.0" width="900.0" height="36.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="481.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">epoll замінює постійне копіювання і перебір N дескрипторів на постійне дерево реєстрації та пряме повернення списку готових подій.</tspan></text>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння архітектури: потік на з'єднання проти подієвого Reactor</text>
+<rect x="30.0" y="40.0" width="430.0" height="400.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="50.0" y="56.0" width="390.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Модель «потік на з'єднання» (Thread-per-Connection)</tspan></text>
+<text x="80.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">10 000 клієнтів</text>
+<rect x="55.0" y="139.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="92.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 1</text>
+<line x1="135.0" y1="155.0" x2="190.0" y2="155.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="55.0" y="194.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="92.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 2</text>
+<line x1="135.0" y1="210.0" x2="190.0" y2="210.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="55.0" y="249.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="92.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 3</text>
+<line x1="135.0" y1="265.0" x2="190.0" y2="265.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="55.0" y="304.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="92.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 4</text>
+<line x1="135.0" y1="320.0" x2="190.0" y2="320.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="255.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">10 000 системних потоків</text>
+<rect x="195.0" y="135.0" width="235.0" height="40.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.3"/>
+<text x="245.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1 (pthread)</text>
+<text x="245.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стек 8 МБ + task_struct</text>
+<rect x="340.0" y="141.0" width="80.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.1"/>
+<text x="380.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Спить у read()</text>
+<rect x="195.0" y="190.0" width="235.0" height="40.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.3"/>
+<text x="245.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2 (pthread)</text>
+<text x="245.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стек 8 МБ + task_struct</text>
+<rect x="340.0" y="196.0" width="80.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.1"/>
+<text x="380.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Спить у read()</text>
+<rect x="195.0" y="245.0" width="235.0" height="40.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.3"/>
+<text x="245.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 3 (pthread)</text>
+<text x="245.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стек 8 МБ + task_struct</text>
+<rect x="340.0" y="251.0" width="80.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.1"/>
+<text x="380.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Спить у read()</text>
+<rect x="195.0" y="300.0" width="235.0" height="40.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.3"/>
+<text x="245.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 4 (pthread)</text>
+<text x="245.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стек 8 МБ + task_struct</text>
+<rect x="340.0" y="306.0" width="80.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.1"/>
+<text x="380.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Спить у read()</text>
+<rect x="45.0" y="378.0" width="400.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="398.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Витрати: 10 000 × 8 МБ стеків ≈ 80 ГБ віртуальної пам'яті,</tspan><tspan x="245.0" dy="13.7">тисячі перемикань контексту на секунду, спустошення L1/L2 кешу.</tspan></text>
+<rect x="500.0" y="40.0" width="430.0" height="400.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="520.0" y="56.0" width="390.0" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="715.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="715.0" dy="0.0">Подієва модель: 1 потік на всі з'єднання (Reactor)</tspan></text>
+<text x="550.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">10 000 клієнтів</text>
+<rect x="525.0" y="139.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="562.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 1</text>
+<line x1="605.0" y1="155.0" x2="660.0" y2="155.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="525.0" y="194.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="562.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 2</text>
+<line x1="605.0" y1="210.0" x2="660.0" y2="210.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="525.0" y="249.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="562.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 3</text>
+<line x1="605.0" y1="265.0" x2="660.0" y2="265.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="525.0" y="304.0" width="75.0" height="32.0" rx="4" fill="#eef2f8" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="562.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сокет 4</text>
+<line x1="605.0" y1="320.0" x2="660.0" y2="320.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="665.0" y="135.0" width="240.0" height="220.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="785.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ЄДИНИЙ робочий потік</text>
+<rect x="680.0" y="178.0" width="210.0" height="48.0" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="785.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">epoll_wait(epfd, ...)</text>
+<text x="785.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спить, доки немає активності</text>
+<rect x="680.0" y="236.0" width="210.0" height="52.0" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="785.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неблокуючий ввід-вивід</text>
+<text x="785.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Обробка готових дескрипторів</text>
+<rect x="680.0" y="298.0" width="210.0" height="44.0" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="785.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Таблиця станів сесій</text>
+<text x="785.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Буфери користувача в heap</text>
+<rect x="515.0" y="378.0" width="400.0" height="48.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="715.0" y="398.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Витрати: 1 стек (8 МБ), 0 зайвих перемикань контексту CPU,</tspan><tspan x="715.0" dy="13.7">пам'ять витрачається лише на фактичні буфери активних сесій.</tspan></text>
+<rect x="30.0" y="460.0" width="900.0" height="36.0" rx="6" fill="#fff6e6" stroke="#e08a1e" stroke-width="1.5"/><text x="480.0" y="481.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Перехід від моделі «потік на клієнта» до єдиного подієвого циклу усуває паразитні накладні витрати ядра при масштабуванні до десятків тисяч з'єднань.</tspan></text>
+</svg>

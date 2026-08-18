@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поділ механізму й політики: чому ядро не знає правил застосування</text>
+<rect x="40.0" y="55.0" width="780.0" height="160.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="430.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ПРОСТІР КОРИСТУВАЧА — ПОЛІТИКА (ЩО і НАВІЩО робити)</text>
+<text x="430.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Політики легко змінюються, замінюються й пишуться під кожну задачу наново</text>
+<rect x="60.0" y="115.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="147.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оболонка (Shell)</text>
+<text x="147.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="147.0" dy="0.0">Вирішує, як з'єднати</tspan><tspan x="147.0" dy="12.3">програми в конвеєр</tspan><tspan x="147.0" dy="12.3">(|, &gt;, &lt;, pipefail)</tspan></text>
+<rect x="248.0" y="115.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="335.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">systemd / init</text>
+<text x="335.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">Вирішує, у якому</tspan><tspan x="335.0" dy="12.3">порядку й за якими</tspan><tspan x="335.0" dy="12.3">умовами запускати служби</tspan></text>
+<rect x="436.0" y="115.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="523.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Контейнерний рушій</text>
+<text x="523.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="523.0" dy="0.0">Вирішує, які ресурси</tspan><tspan x="523.0" dy="12.3">і простори імен виділити</tspan><tspan x="523.0" dy="12.3">під мікросервіс</tspan></text>
+<rect x="624.0" y="115.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="711.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Веб-сервер / База</text>
+<text x="711.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="711.0" dy="0.0">Вирішує, як розбирати</tspan><tspan x="711.0" dy="12.3">байти, кешувати дані</tspan><tspan x="711.0" dy="12.3">й формувати відповіді</tspan></text>
+<rect x="220.0" y="226.0" width="420.0" height="32.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+<text x="430.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">МЕЖА СИСТЕМНИХ ВИКЛИКІВ (Syscalls ABI)</text>
+<line x1="300.0" y1="215.0" x2="300.0" y2="226.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="215.0" x2="560.0" y2="226.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="258.0" x2="300.0" y2="270.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="258.0" x2="560.0" y2="270.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="272.0" width="780.0" height="160.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="430.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ЯДРО ОПЕРАЦІЙНОЇ СИСТЕМИ — МЕХАНІЗМ (ЯК технічно виконати дію)</text>
+<text x="430.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Нічого не знає про мету користувача; надає мінімальні примітиви</text>
+<rect x="60.0" y="332.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="147.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">fork() та execve()</text>
+<text x="147.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="147.0" dy="0.0">Клонувати процес та</tspan><tspan x="147.0" dy="12.3">замінити образ коду.</tspan><tspan x="147.0" dy="12.3">Не знає, ХТО запускається.</tspan></text>
+<rect x="248.0" y="332.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="335.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">pipe() та VFS</text>
+<text x="335.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">Передати байти між деск-</tspan><tspan x="335.0" dy="12.3">рипторами. Не знає,</tspan><tspan x="335.0" dy="12.3">ЯКИЙ формат у байтів.</tspan></text>
+<rect x="436.0" y="332.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="523.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">cgroups &amp; namespaces</text>
+<text x="523.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="523.0" dy="0.0">Ізолювати таблиці та</tspan><tspan x="523.0" dy="12.3">обмежити CPU/RAM.</tspan><tspan x="523.0" dy="12.3">Не знає про «контейнери».</tspan></text>
+<rect x="624.0" y="332.0" width="175.0" height="85.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="711.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Планувальник &amp; MMU</text>
+<text x="711.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="711.0" dy="0.0">Виділити сторінки пам'яті</tspan><tspan x="711.0" dy="12.3">й віддати квант часу.</tspan><tspan x="711.0" dy="12.3">Не знає логіки програми.</tspan></text>
+</svg>

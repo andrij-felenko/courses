@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура та фази виконання патерну Reactor</text>
+<rect x="20.0" y="20.0" width="920.0" height="490.0" rx="12" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="40.0" y="35.0" width="880.0" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="55.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Анатомія патерну Reactor: однопотоковий цикл подій (Event Loop)</tspan></text>
+<rect x="50.0" y="90.0" width="170.0" height="28.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="135.0" y="108.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">Джерела подій (FD)</tspan></text>
+<rect x="50.0" y="128.0" width="170.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="135.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слухаючий TCP сокет</text>
+<text x="135.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">accept() нових клієнтів</text>
+<line x1="225.0" y1="151.0" x2="285.0" y2="235.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="182.0" width="170.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="135.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнтські TCP сокети</text>
+<text x="135.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">read() запитів / write()</text>
+<line x1="225.0" y1="205.0" x2="285.0" y2="235.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="236.0" width="170.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="135.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">timerfd (Таймери)</text>
+<text x="135.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Таймаути та інтервали</text>
+<line x1="225.0" y1="259.0" x2="285.0" y2="235.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="290.0" width="170.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="135.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">signalfd (Сигнали)</text>
+<text x="135.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SIGINT, SIGTERM, SIGHUP</text>
+<line x1="225.0" y1="313.0" x2="285.0" y2="235.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="344.0" width="170.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="135.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">eventfd (Міжпотокові)</text>
+<text x="135.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Завдання з пулу потоків</text>
+<line x1="225.0" y1="367.0" x2="285.0" y2="235.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="245.0" y="110.0" width="250.0" height="260.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="260.0" y="125.0" width="220.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="370.0" y="144.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Синхронний демультиплексор</tspan></text>
+<rect x="260.0" y="165.0" width="220.0" height="65.0" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="370.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">epoll_wait(epfd, ...)</text>
+<text x="370.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Блокується до появи подій</text>
+<rect x="260.0" y="240.0" width="220.0" height="110.0" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="370.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Готові події (Ready List)</text>
+<text x="370.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• FD 4: EPOLLIN</text>
+<text x="370.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• FD 9: EPOLLOUT</text>
+<text x="370.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• FD 12 (timer): EPOLLIN</text>
+<line x1="500.0" y1="235.0" x2="550.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="90.0" width="350.0" height="28.0" rx="6" fill="#fdf0dc" stroke="#e08a1e" stroke-width="1.5"/><text x="735.0" y="108.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e08a1e" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">Диспетчер подій (Event Dispatcher)</tspan></text>
+<rect x="560.0" y="128.0" width="350.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="735.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Acceptor Handler (FD слухання)</text>
+<text x="735.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Викликає accept4(O_NONBLOCK), реєструє нового клієнта в epoll</text>
+<rect x="560.0" y="182.0" width="350.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="735.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Read Handler (Вхідні дані)</text>
+<text x="735.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вичитує байти в буфер сесії до EAGAIN, передає в парсер протоколу</text>
+<rect x="560.0" y="236.0" width="350.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="735.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Write Handler (Вихідні дані)</text>
+<text x="735.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Скидає вихідний буфер сесії в сокет; знімає EPOLLOUT, коли порожньо</text>
+<rect x="560.0" y="290.0" width="350.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="735.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Timer Handler (Таймери)</text>
+<text x="735.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Очищає неактивні з'єднання (Idle Timeout), надсилає Heartbeat</text>
+<rect x="560.0" y="344.0" width="350.0" height="46.0" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.1"/>
+<text x="735.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Signal Handler (Сигнали)</text>
+<text x="735.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вичитує signalfd, запускає коректну зупинку (Graceful Shutdown)</text>
+<rect x="40.0" y="390.0" width="880.0" height="80.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="419.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Фази одного такту Event Loop:</tspan><tspan x="480.0" dy="14.3">1. Опитування таймерів → 2. epoll_wait() з обчисленим таймаутом → 3. Послідовний виклик зареєстрованих обробників</tspan><tspan x="480.0" dy="14.3">→ 4. Скидання буферів неблокуючого запису → 5. Виконання відкладених завдань і повтор циклу.</tspan></text>
+<rect x="40.0" y="480.0" width="880.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="498.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Головне правило Reactor: обробники НЕ повинні блокуватися (жодного синхронного диску чи важких обчислень у головному потоці).</tspan></text>
+</svg>

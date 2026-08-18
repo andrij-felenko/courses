@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="920.0" height="480.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="470.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Ієрархія пошуку динамічних бібліотек завантажувачем ld.so</text>
+<rect x="40.0" y="68.0" width="860.0" height="62.0" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.6"/>
+<text x="130.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="700">1. DT_RPATH</text>
+<text x="130.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Зашитий у бінарник шлях (якщо відсутній DT_RUNPATH). Перекриває навіть LD_LIBRARY_PATH!</text>
+<rect x="702.6" y="87.5" width="134.8" height="23.0" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/><text x="770.0" y="102.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Найвищий пріоритет</tspan></text>
+<line x1="85.0" y1="130.0" x2="85.0" y2="143.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="144.0" width="860.0" height="62.0" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.6"/>
+<text x="130.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">2. LD_LIBRARY_PATH</text>
+<text x="130.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Змінна середовища зі списком каталогів через двокрапку. Ігнорується для setuid (AT_SECURE).</text>
+<rect x="675.3" y="163.5" width="189.3" height="23.0" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/><text x="770.0" y="178.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Перевизначення користувача</tspan></text>
+<line x1="85.0" y1="206.0" x2="85.0" y2="219.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="220.0" width="860.0" height="62.0" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.6"/>
+<text x="130.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6d28d9" text-anchor="start" font-weight="700">3. DT_RUNPATH</text>
+<text x="130.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Сучасний зашитий у бінарник шлях. Перевіряється після LD_LIBRARY_PATH, підтримує .</text>
+<rect x="682.2" y="239.5" width="175.7" height="23.0" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/><text x="770.0" y="254.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6d28d9" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Шлях поставки застосунку</tspan></text>
+<line x1="85.0" y1="282.0" x2="85.0" y2="295.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="296.0" width="860.0" height="62.0" rx="6" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.6"/>
+<text x="130.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0369a1" text-anchor="start" font-weight="700">4. /etc/ld.so.cache</text>
+<text x="130.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Бінарний кеш системного конфігуратора ldconfig (/etc/ld.so.conf). Швидкий пошук O(1).</text>
+<rect x="685.6" y="315.5" width="168.9" height="23.0" rx="6" fill="#ffffff" stroke="#0369a1" stroke-width="1.2"/><text x="770.0" y="330.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Системний кеш бібліотек</tspan></text>
+<line x1="85.0" y1="358.0" x2="85.0" y2="371.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="372.0" width="860.0" height="62.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="130.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#475569" text-anchor="start" font-weight="700">5. Типові системні шляхи</text>
+<text x="130.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Стандартні системні каталоги: /lib64, /usr/lib64, /lib, /usr/lib або /lib/x86_64-linux-gnu.</text>
+<rect x="695.8" y="391.5" width="148.4" height="23.0" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/><text x="770.0" y="406.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Остання лінія пошуку</tspan></text>
+<rect x="40.0" y="453.0" width="860.0" height="36.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="470.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Якщо бібліотеку не знайдено на жодному рівні: помилка cannot open shared object file (ENOENT) і аварійний вихід</text>
+</svg>

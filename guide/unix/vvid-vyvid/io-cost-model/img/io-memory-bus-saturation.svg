@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="20.0" width="900.0" height="400.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">НАСИЧЕННЯ ПРОПУСКНОЇ ЗДАТНОСТІ ШИНИ ПАМ'ЯТІ (DRAM BUS BANDWIDTH)</text>
+<text x="50.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="start" font-weight="700">Класичний read/write (4 проходи по RAM)</text>
+<rect x="50.0" y="105.0" width="840.0" height="32.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="50.0" y="105.0" width="210.0" height="32.0" rx="4" fill="#ef4444" stroke="#ef4444" stroke-width="1.0"/>
+<text x="165.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">12.5 ГБ/с</text>
+<text x="50.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start" font-style="italic">12.5 ГБ/с корисного I/O (75% смуги згорає на копіювання CPU ↔ RAM)</text>
+<text x="50.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="start" font-weight="700">sendfile / splice (2 проходи DMA)</text>
+<rect x="50.0" y="210.0" width="840.0" height="32.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="50.0" y="210.0" width="420.0" height="32.0" rx="4" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="270.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">25.0 ГБ/с</text>
+<text x="50.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start" font-style="italic">25.0 ГБ/с корисного I/O (50% смуги шини пам'яті звільнено)</text>
+<text x="50.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="start" font-weight="700">io_uring з Registered Buffers (0 копій)</text>
+<rect x="50.0" y="315.0" width="840.0" height="32.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="50.0" y="315.0" width="798.0" height="32.0" rx="4" fill="#10b981" stroke="#10b981" stroke-width="1.0"/>
+<text x="459.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">47.5 ГБ/с</text>
+<text x="50.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start" font-style="italic">47.5 ГБ/с корисного I/O (95% теоретичної межі контролера пам'яті)</text>
+</svg>

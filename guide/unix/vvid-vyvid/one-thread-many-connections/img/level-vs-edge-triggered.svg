@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Різниця тригерів epoll: рівневий (Level-Triggered) проти фронтового (Edge-Triggered)</text>
+<rect x="30.0" y="40.0" width="900.0" height="195.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="50.0" y="54.0" width="380.0" height="28.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="240.0" y="72.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">Level-Triggered (LT) — сповіщення за рівнем</tspan></text>
+<rect x="60.0" y="95.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="175.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Буфер сокета в ядрі</text>
+<text x="175.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Є 4096 байтів даних</text>
+<line x1="300.0" y1="125.0" x2="360.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="370.0" y="95.0" width="250.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="495.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">epoll_wait() повертає EPOLLIN</text>
+<text x="495.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Прочитано лише 1024 байти</text>
+<line x1="630.0" y1="125.0" x2="690.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="700.0" y="95.0" width="200.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="800.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наступний epoll_wait()</text>
+<text x="800.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Знову негайно будить!</text>
+<rect x="60.0" y="170.0" width="840.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="190.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Поки в буфері лишаються невичитані байти (рівень &gt; 0), epoll_wait продовжує повертати готовність дескриптора.</tspan><tspan x="480.0" dy="14.3">Безпечно до помилок у логіці читання, але може створювати зайві пробудження ядра.</tspan></text>
+<rect x="30.0" y="255.0" width="900.0" height="195.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<rect x="50.0" y="269.0" width="400.0" height="28.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="286.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Edge-Triggered (ET, EPOLLET) — сповіщення за фронтом</tspan></text>
+<rect x="60.0" y="310.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="175.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Прибув новий TCP-сегмент</text>
+<text x="175.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Фронт: перехід 0 → дані</text>
+<line x1="300.0" y1="340.0" x2="360.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="370.0" y="310.0" width="250.0" height="60.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.3"/>
+<text x="495.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">epoll_wait() будить 1 РАЗ</text>
+<text x="495.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Обов'язковий цикл до EAGAIN!</text>
+<line x1="630.0" y1="340.0" x2="690.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="700.0" y="310.0" width="200.0" height="60.0" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.2"/>
+<text x="800.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Якщо не дочитати все:</text>
+<text x="800.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Наступний виклик засне!</text>
+<rect x="60.0" y="385.0" width="840.0" height="48.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="405.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Сповіщення надходить виключно в момент зміни стану (прибуття нових байтів або звільнення буфера передачі).</tspan><tspan x="480.0" dy="14.3">Вимагає неблокуючого сокета та вичитування в циклі while ((n = read(...)) &gt; 0) до отримання помилки EAGAIN.</tspan></text>
+<rect x="30.0" y="465.0" width="900.0" height="36.0" rx="6" fill="#fff6e6" stroke="#e08a1e" stroke-width="1.5"/><text x="480.0" y="486.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">LT прощає часткове вичитування за рахунок повторних викликів; ET вимагає суворого циклу до EAGAIN, але мінімізує системні виклики.</tspan></text>
+</svg>
