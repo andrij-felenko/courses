@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм редукції REDC(T): обнулення молодших бітів та зсув</text>
+<text x="490.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Як додавання кратного m·N перетворює ділення на R = 2^k на звичайний правий бітовий зсув</text>
+<text x="80.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Добуток образів T = ā × b̄ (довжина 2k бітів):</text>
+<rect x="80.0" y="115.0" width="380.0" height="45.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="270.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Старші k бітів (T / R)</text>
+<rect x="460.0" y="115.0" width="380.0" height="45.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Молодші k бітів (T mod R = T₀ ≠ 0)</text>
+<text x="80.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Обчислення коефіцієнта обнулення m = ((T mod R) × N') mod R:</text>
+<rect x="190.0" y="214.0" width="600.0" height="32.0" rx="6" fill="#fff8e7" stroke="#d97706" stroke-width="1.5"/><text x="490.0" y="234.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Стала N' = -N⁻¹ mod R підібрана так, що (T₀ + m·N) ≡ 0 (mod R)</tspan></text>
+<text x="80.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Додавання m × N до числа T:</text>
+<rect x="80.0" y="305.0" width="380.0" height="45.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="270.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Старша частина суми (T + m·N)</text>
+<rect x="460.0" y="305.0" width="380.0" height="45.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="332.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">0 0 0 0 ... 0 0 0 (строго k нулів)</text>
+<text x="80.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Ділення на R = 2^k (побітовий зсув праворуч &gt;&gt; k, відкидання нулів):</text>
+<line x1="270.0" y1="355.0" x2="270.0" y2="405.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="80.0" y="410.0" width="380.0" height="45.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="270.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат зсуву t = (T + m·N) / R (довжина k бітів, t &lt; 2N)</text>
+<text x="80.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">5. Фінальне приведення:</text>
+<rect x="245.0" y="474.0" width="650.0" height="32.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="494.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">якщо t ≥ N, то повернути (t - N), інакше повернути t (результат строго &lt; N)</tspan></text>
+</svg>

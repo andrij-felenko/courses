@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+<rect width="100%" height="100%" fill="#ffffff" />
+<text x="400.0" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">Геометричний зміст числа обумовленості: деформація сфери в еліпсоїд</text>
+<rect x="30" y="55" width="340" height="370" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+<text x="200" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">Простір розв'язків x (прообраз)</text>
+<text x="200" y="105" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Одинична сфера ‖x‖₂ = 1</text>
+<line x1="70" y1="240" x2="330" y2="240" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4" />
+<line x1="200" y1="115" x2="200" y2="365" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4" />
+<circle cx="200" cy="240" r="110" fill="#e0f2fe" fill-opacity="0.5" stroke="#0284c7" stroke-width="2.5" />
+<line x1="200" y1="240" x2="299.6938565740315" y2="193.51199120852306" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)" />
+<text x="311.6938565740315" y="191.51199120852306" font-family="sans-serif" font-size="13" font-weight="bold" fill="#16a34a">v₁</text>
+<line x1="200" y1="240" x2="153.51199120852306" y2="140.30614342596851" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-red)" />
+<text x="135.51199120852306" y="134.30614342596851" font-family="sans-serif" font-size="13" font-weight="bold" fill="#dc2626">v₂</text>
+<line x1="225" y1="225" x2="197.52981298685455" y2="166.08999384261776" stroke="#b91c1c" stroke-width="2" stroke-dasharray="3,3" />
+<text x="150" y="285" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b91c1c">Похибка ‖δx‖</text>
+<path d="M 385 230 L 415 230" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow-dark)" />
+<text x="400" y="218" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">A · x</text>
+<path d="M 415 255 L 385 255" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-gray)" />
+<text x="400" y="275" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">A⁻¹ · b</text>
+<rect x="430" y="55" width="340" height="370" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+<text x="600" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">Простір образів b = Ax</text>
+<text x="600" y="105" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Еліпсоїд: півосі σ_max та σ_min</text>
+<line x1="450" y1="240" x2="750" y2="240" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4" />
+<line x1="600" y1="115" x2="600" y2="365" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4" />
+<ellipse cx="600" cy="240" rx="145" ry="22" transform="rotate(-25 600 240)" fill="#fef2f2" fill-opacity="0.6" stroke="#ef4444" stroke-width="2.5" />
+<line x1="600" y1="240" x2="731.4146291203142" y2="178.72035204759857" stroke="#16a34a" stroke-width="2.5" />
+<circle cx="731.4146291203142" cy="178.72035204759857" r="4" fill="#16a34a" />
+<line x1="600" y1="240" x2="590.7023982417046" y2="220.0612286851937" stroke="#dc2626" stroke-width="2.5" />
+<circle cx="590.7023982417046" cy="220.0612286851937" r="4" fill="#dc2626" />
+<line x1="663.4415450925655" y1="210.41672167815105" x2="650.7629972403446" y2="183.22748806705155" stroke="#2563eb" stroke-width="2.5" />
+<text x="660.7629972403446" y="187.22748806705155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2563eb">δb</text>
+<text x="700" y="195" font-family="sans-serif" font-size="12" font-weight="bold" fill="#16a34a">σ_max · u₁</text>
+<text x="520" y="210" font-family="sans-serif" font-size="12" font-weight="bold" fill="#dc2626">σ_min · u₂</text>
+<text x="600" y="325" font-family="sans-serif" font-size="13" font-weight="bold" fill="#7f1d1d" text-anchor="middle">cond₂(A) = σ_max / σ_min ≫ 1</text>
+<text x="600" y="345" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Мізерне збурення δb уздовж σ_min</text>
+<text x="600" y="360" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">породжує гігантське зміщення δx</text>
+<rect x="30" y="435" width="740" height="34" rx="6" fill="#f1f5f9" stroke="#e2e8f0" />
+<text x="400.0" y="457" font-family="sans-serif" font-size="12" fill="#334155" text-anchor="middle">Чим сильніше сплюснутий еліпсоїд (менше σ_min), тим більша чутливість розв'язку до похибок</text>
+<defs>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a" /></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626" /></marker>
+<marker id="arrow-dark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#334155" /></marker>
+<marker id="arrow-gray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" /></marker>
+</defs>
+</svg>

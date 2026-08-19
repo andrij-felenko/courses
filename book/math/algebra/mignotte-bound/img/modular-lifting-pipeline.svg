@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр модулярної факторизації та роль межі Міньотта</text>
+<text x="430.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Відновлення точних цілочисельних множників діленням f(x) mod pᵏ</text>
+<rect x="40.0" y="80.0" width="230.0" height="110.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="155.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Вхідний многочлен f(x) ∈ ℤ[x]</text>
+<text x="155.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">f(x) = aₙ xⁿ + … + a₁ x + a₀</text>
+<text x="155.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення евклідової норми ||f||₂</text>
+<text x="155.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">та висоти багаточлена ||f||_∞</text>
+<line x1="155.0" y1="190.0" x2="155.0" y2="225.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="163.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">редукція mod p</text>
+<rect x="40.0" y="225.0" width="230.0" height="110.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="155.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Факторизація в 𝔽ₚ[x]</text>
+<text x="155.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">f(x) ≡ g₁(x) … gᵣ(x)  (mod p)</text>
+<text x="155.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Алгоритм Берлекампа / Кантора</text>
+<text x="155.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Швидкий поліноміальний час</text>
+<line x1="270.0" y1="280.0" x2="320.0" y2="280.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="295.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">підйом</text>
+<rect x="320.0" y="210.0" width="230.0" height="140.0" rx="8" fill="#fdf4ff" stroke="#9333ea" stroke-width="2.0"/>
+<text x="435.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9333ea" text-anchor="middle" font-weight="700">Підйом Гензеля mod pᵏ</text>
+<text x="435.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">f(x) ≡ g(x) · h(x)  (mod pᵏ)</text>
+<text x="435.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Квадратична збіжність:</text>
+<text x="435.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9333ea" text-anchor="middle" font-weight="700">p → p² → p⁴ → p⁸ → … → pᵏ</text>
+<text x="435.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Подвоєння розрядів за крок</text>
+<rect x="320.0" y="80.0" width="230.0" height="95.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="435.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Межа Міньотта B(f)</text>
+<text x="435.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">B(f) = (n-1 над k-1)·||f||₂ + (n-1 над k)·|aₙ|</text>
+<text x="435.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Гарантія: |bⱼ| ≤ B(f) для всіх j</text>
+<text x="435.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Критерій: pᵏ &gt; 2 · |aₙ| · B(f)</text>
+<line x1="435.0" y1="175.0" x2="435.0" y2="210.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="443.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">поріг зупинки</text>
+<line x1="550.0" y1="280.0" x2="600.0" y2="280.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="575.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">pᵏ &gt; 2B</text>
+<rect x="600.0" y="210.0" width="220.0" height="140.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="710.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Симетричне відображення</text>
+<text x="710.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">bⱼ ≡ cⱼ (mod pᵏ)</text>
+<text x="710.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">bⱼ ∈ [-pᵏ/2, pᵏ/2]</text>
+<text x="710.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Однозначне відновлення</text>
+<text x="710.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">без модулярного шуму!</text>
+<rect x="160.0" y="385.0" width="540.0" height="70.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: точний розклад на незвідні множники в ℤ[x]</text>
+<text x="430.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">f(x) = g(x) · h(x)  (без перебору нескінченних цілих чисел)</text>
+</svg>
