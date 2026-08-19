@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення скаляра k·P на кривих Кобліца: Класичний метод vs Автоморфізм Фробеніуса</text>
+<text x="420.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Заміна дорогих подвоєнь точок 2·P на миттєве піднесення координат до квадрата τ(P) = (x², y²)</text>
+<rect x="40.0" y="80.0" width="760.0" height="140.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="40.0" y="80.0" width="760.0" height="28.0" rx="8" fill="#fdeeed" stroke="#c0392b" stroke-width="1.2"/>
+<text x="420.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Класичний алгоритм Double-and-Add (двійковий розклад скаляра k)</text>
+<rect x="40.0" y="125.0" width="140.0" height="75.0" rx="6" fill="#f8f9fa" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="110.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle" font-weight="700">Скаляр k</text>
+<text x="110.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">k = (kₘ...k₀)₂</tspan></text>
+<rect x="240.0" y="125.0" width="140.0" height="75.0" rx="6" fill="#fdeeed" stroke="#c0392b" stroke-width="1.2"/>
+<text x="310.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Подвоєння 2·Q</text>
+<text x="310.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Множення, ділення в GF(2ᵐ)</tspan><tspan x="310.0" dy="10.8">Ціна: 1I + 2M + 1S (~150 тактів)</tspan></text>
+<rect x="460.0" y="125.0" width="140.0" height="75.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.2"/>
+<text x="530.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Умовне додавання</text>
+<text x="530.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Q = Q + P (якщо kᵢ = 1)</tspan><tspan x="530.0" dy="10.8">Ціна: 1I + 2M (~130 тактів)</tspan></text>
+<rect x="650.0" y="125.0" width="140.0" height="75.0" rx="6" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.2"/>
+<text x="720.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">Результат k·P</text>
+<text x="720.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">m подвоєнь + m/2 додавань</tspan></text>
+<line x1="180.0" y1="162.0" x2="235.0" y2="162.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="235.0,158.0 243.0,162.0 235.0,166.0" fill="#333333" stroke="none" stroke-width="1.0"/>
+<line x1="380.0" y1="162.0" x2="455.0" y2="162.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="455.0,158.0 463.0,162.0 455.0,166.0" fill="#333333" stroke="none" stroke-width="1.0"/>
+<line x1="600.0" y1="162.0" x2="645.0" y2="162.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="645.0,158.0 653.0,162.0 645.0,166.0" fill="#333333" stroke="none" stroke-width="1.0"/>
+<rect x="40.0" y="245.0" width="760.0" height="150.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="40.0" y="245.0" width="760.0" height="28.0" rx="8" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.2"/>
+<text x="420.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e824c" text-anchor="middle" font-weight="700">Прискорення Кобліца через τ-NAF (тау-адичний розклад автоморфізму Фробеніуса)</text>
+<rect x="40.0" y="290.0" width="140.0" height="85.0" rx="6" fill="#eef4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="110.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">τ-NAF розклад</text>
+<text x="110.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">k = ∑ uᵢ·τⁱ, uᵢ ∈ {0, ±1}</tspan><tspan x="110.0" dy="10.8">Щільність ненульових: 1/3</tspan></text>
+<rect x="240.0" y="290.0" width="140.0" height="85.0" rx="6" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.2"/>
+<text x="310.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">Фробеніус τ(Q)</text>
+<text x="310.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">τ(x, y) = (x², y²)</tspan><tspan x="310.0" dy="10.8">У норм. базисі: 0–1 такт CPU!</tspan></text>
+<rect x="460.0" y="290.0" width="140.0" height="85.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.2"/>
+<text x="530.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Додавання / віднімання</text>
+<text x="530.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Q = Q ± P (якщо uᵢ = ±1)</tspan><tspan x="530.0" dy="10.8">Усього m/3 операцій</tspan></text>
+<rect x="650.0" y="290.0" width="140.0" height="85.0" rx="6" fill="#f5eeff" stroke="#7d3c98" stroke-width="1.2"/>
+<text x="720.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">Результат k·P</text>
+<text x="720.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">0 подвоєнь точок!</tspan><tspan x="720.0" dy="10.8">Прискорення у 3–5 разів</tspan></text>
+<line x1="180.0" y1="332.0" x2="235.0" y2="332.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="235.0,328.0 243.0,332.0 235.0,336.0" fill="#333333" stroke="none" stroke-width="1.0"/>
+<line x1="380.0" y1="332.0" x2="455.0" y2="332.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="455.0,328.0 463.0,332.0 455.0,336.0" fill="#333333" stroke="none" stroke-width="1.0"/>
+<line x1="600.0" y1="332.0" x2="645.0" y2="332.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="645.0,328.0 653.0,332.0 645.0,336.0" fill="#333333" stroke="none" stroke-width="1.0"/>
+</svg>

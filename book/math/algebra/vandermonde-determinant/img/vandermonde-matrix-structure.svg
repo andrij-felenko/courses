@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура матриці Вандермонда та система інтерполяції</text>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця Вандермонда та система поліноміальної інтерполяції</text>
+<rect x="40.0" y="60.0" width="360.0" height="390.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця Вандермонда V_n</text>
+<line x1="50.0" y1="102.0" x2="390.0" y2="102.0" stroke="#333333" stroke-width="1.0"/>
+<text x="100.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ступінь 0</text>
+<text x="180.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ступінь 1</text>
+<text x="260.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ступінь 2</text>
+<text x="340.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ступінь n-1</text>
+<rect x="55.0" y="147.0" width="330.0" height="34.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="100.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="180.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₀</text>
+<text x="260.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₀²</text>
+<text x="340.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₀ⁿ⁻¹</text>
+<rect x="55.0" y="207.0" width="330.0" height="34.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="100.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="180.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₁</text>
+<text x="260.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₁²</text>
+<text x="340.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₁ⁿ⁻¹</text>
+<rect x="55.0" y="267.0" width="330.0" height="34.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="100.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="180.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₂</text>
+<text x="260.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₂²</text>
+<text x="340.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x₂ⁿ⁻¹</text>
+<rect x="55.0" y="357.0" width="330.0" height="34.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="100.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="180.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">xₙ₋₁</text>
+<text x="260.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">xₙ₋₁²</text>
+<text x="340.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">xₙ₋₁ⁿ⁻¹</text>
+<text x="220.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<text x="220.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кожен рядок i — геометрична прогресія вузла x_i</text>
+<text x="420.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">×</text>
+<rect x="445.0" y="120.0" width="80.0" height="270.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="485.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ca8a04" text-anchor="middle" font-weight="700">Коефіцієнти c</text>
+<text x="485.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">c₀</text>
+<text x="485.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">c₁</text>
+<text x="485.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">c₂</text>
+<text x="485.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<text x="485.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">cₙ₋₁</text>
+<text x="545.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<rect x="570.0" y="120.0" width="80.0" height="270.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Значення y</text>
+<text x="610.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y₀</text>
+<text x="610.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y₁</text>
+<text x="610.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y₂</text>
+<text x="610.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<text x="610.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">yₙ₋₁</text>
+<rect x="657.7" y="200.0" width="204.7" height="110.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="760.0" y="220.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">Рівняння інтерполяції:</tspan><tspan x="760.0" dy="15.6">P(x_i) = ∑ c_j · x_iʲ = y_i</tspan><tspan x="760.0" dy="15.6"></tspan><tspan x="760.0" dy="15.6">Єдиність розв'язку:</tspan><tspan x="760.0" dy="15.6">det(V_n) ≠ 0</tspan><tspan x="760.0" dy="15.6">якщо всі вузли x_i різні</tspan></text>
+</svg>

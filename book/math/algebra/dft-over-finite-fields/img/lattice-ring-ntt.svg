@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Негациклічний NTT у постквантовій ґратковій криптографії</text>
+<rect x="10.0" y="10.0" width="820.0" height="370.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільцевий NTT (Negacyclic NTT) у схемах ML-KEM (Kyber) та ML-DSA (Dilithium)</text>
+<rect x="40.0" y="70.0" width="320.0" height="270.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільце многочленів R_q</text>
+<text x="200.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">R_q = Z_q[x] / (x^n + 1)</text>
+<line x1="60.0" y1="132.0" x2="340.0" y2="132.0" stroke="#333333" stroke-width="1.0"/>
+<text x="200.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Коефіцієнти многочлена a(x):</text>
+<text x="200.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">a_0 + a_1 x + ... + a_{n-1} x^{n-1}</text>
+<text x="200.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Множення містить редукцію:</text>
+<text x="200.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">x^n = -1 (негациклічна згортка)</text>
+<text x="200.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Параметри Kyber: n = 256, q = 3329</text>
+<text x="200.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">256-вимірний ґратковий простір</text>
+<text x="200.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Пряме множення: 65 536 операцій</text>
+<line x1="360.0" y1="205.0" x2="480.0" y2="205.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ізоморфізм CRT</text>
+<text x="420.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">через NTT</text>
+<rect x="480.0" y="70.0" width="320.0" height="270.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="640.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектральна база (NTT-образ)</text>
+<text x="640.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Прямий добуток полів GF(q)</text>
+<line x1="500.0" y1="132.0" x2="780.0" y2="132.0" stroke="#333333" stroke-width="1.0"/>
+<text x="640.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">n незалежних точок оцінки:</text>
+<text x="640.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(a_hat_0, a_hat_1, ..., a_hat_{n-1})</text>
+<text x="640.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Множення стає паралельним:</text>
+<text x="640.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">c_hat_i = a_hat_i * b_hat_i mod q</text>
+<text x="640.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">256 скалярних множень mod 3329</text>
+<text x="640.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повна відсутність залежностей даних</text>
+<text x="640.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ідеальна векторна оптимізація AVX2 / NEON</text>
+</svg>

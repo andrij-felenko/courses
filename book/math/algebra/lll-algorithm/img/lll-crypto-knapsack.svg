@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Криптоаналіз рюкзака: зведення задачі Subset Sum до редукції ґратки</text>
+<rect x="20.0" y="55.0" width="360.0" height="355.0" rx="8" fill="#fafafa" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Задача рюкзака (Subset Sum)</text>
+<text x="200.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Знайти біти xᵢ ∈ {0, 1} такі, що ∑ xᵢ aᵢ = S</text>
+<rect x="84.0" y="120.6" width="232.0" height="78.8" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.2"/><text x="200.0" y="140.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Відкритий ключ (ваги):</tspan><tspan x="200.0" dy="15.6">a = (a₁, a₂, ..., aₙ)</tspan><tspan x="200.0" dy="15.6">Шифротекст (сума):</tspan><tspan x="200.0" dy="15.6">S = x₁ a₁ + x₂ a₂ + ... + xₙ aₙ</tspan></text>
+<rect x="35.0" y="235.0" width="330.0" height="160.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="200.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому прямий перебір не працює:</text>
+<text x="200.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кількість комбінацій: 2ⁿ варіантів.</text>
+<text x="200.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Для n = 100 це 2¹⁰⁰ ≈ 1.26 · 10³⁰ дій.</text>
+<text x="200.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ідея Клоса — Одляжка — Шнорра:</text>
+<text x="200.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вектор розв'язку x = (x₁, ..., xₙ, 0) є</text>
+<text x="200.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">аномально коротким вектором у ґратці!</text>
+<line x1="385.0" y1="230.0" x2="425.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="405.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">зведення</text>
+<rect x="435.0" y="55.0" width="385.0" height="355.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="627.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Базисна матриця ґратки B (n+1) × (n+1)</text>
+<text x="627.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Кожен рядок — це вектор базису bᵢ</text>
+<rect x="455.0" y="125.0" width="345.0" height="175.0" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5"/>
+<text x="505.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1   0  ...  0</text>
+<text x="505.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0   1  ...  0</text>
+<text x="505.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">... ... ... ...</text>
+<text x="505.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0   0  ...  1</text>
+<text x="505.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">1/2 1/2 ... 1/2</text>
+<line x1="575.0" y1="135.0" x2="575.0" y2="290.0" stroke="#0284c7" stroke-width="1.5"/>
+<text x="675.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">N · a₁</text>
+<text x="675.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">N · a₂</text>
+<text x="675.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">...</text>
+<text x="675.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">N · aₙ</text>
+<text x="675.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">N · S</text>
+<rect x="455.0" y="315.0" width="345.0" height="80.0" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="627.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Результат роботи LLL-алгоритму:</text>
+<text x="627.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Короткий вектор: v = (±1/2, ±1/2, ..., ±1/2, 0)</text>
+<text x="627.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Координати v безпосередньо розкривають біти xᵢ!</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр множення многочленів за теоремою про згортку</text>
+<rect x="10.0" y="10.0" width="820.0" height="410.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр швидкого множення многочленів за теоремою про згортку</text>
+<rect x="35.0" y="75.0" width="175.0" height="95.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="122.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідні коефіцієнти</text>
+<text x="122.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">A(x) = [a_0, ..., a_d]</text>
+<text x="122.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">B(x) = [b_0, ..., b_d]</text>
+<line x1="210.0" y1="122.0" x2="245.0" y2="122.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="245.0" y="75.0" width="155.0" height="95.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="322.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Доповнення N &gt;= 2d+1</text>
+<text x="322.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Паддинг нулями</text>
+<text x="322.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">усуває циклічність</text>
+<line x1="400.0" y1="122.0" x2="435.0" y2="122.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="435.0" y="75.0" width="170.0" height="95.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="520.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Пряме перетворення</text>
+<text x="520.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">NTT(A) -&gt; A_hat</text>
+<text x="520.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">NTT(B) -&gt; B_hat</text>
+<line x1="605.0" y1="122.0" x2="640.0" y2="122.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="640.0" y="75.0" width="165.0" height="95.0" rx="6" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.5"/>
+<text x="722.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c026d3" text-anchor="middle" font-weight="700">Частотна область</text>
+<text x="722.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">C_hat[k] = A_hat[k] * B_hat[k]</text>
+<text x="722.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">O(N) множень у GF(p)</text>
+<line x1="722.0" y1="170.0" x2="722.0" y2="235.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="435.0" y="235.0" width="370.0" height="85.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="620.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Обернене перетворення INTT</text>
+<text x="620.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">c = INTT(C_hat) = [c_0, c_1, ..., c_{2d}] mod p</text>
+<text x="620.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Складова відновлення: ділення на N mod p</text>
+<line x1="435.0" y1="277.0" x2="260.0" y2="277.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="35.0" y="235.0" width="225.0" height="85.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.8"/>
+<text x="147.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Добуток многочленів</text>
+<text x="147.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">C(x) = A(x) * B(x) mod p</text>
+<text x="147.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Загальна складність O(N log N)</text>
+<rect x="35.0" y="345.0" width="770.0" height="55.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння: наївне множення O(N^2) проти NTT-множення O(N log N)</text>
+<text x="420.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Для N = 4096: ~16 700 000 операцій скорочуються до ~49 000 операцій (прискорення &gt; 340 разів)</text>
+</svg>
