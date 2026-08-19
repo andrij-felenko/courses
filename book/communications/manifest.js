@@ -9267,7 +9267,7 @@ window.__BOOKS__.push({
           "slug": "usb-device-basics",
           "title": "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи",
           "basic": {
-            "status": "pending"
+            "status": "recheck"
           },
           "detailed": {
             "status": "recheck"
@@ -9289,7 +9289,7 @@ window.__BOOKS__.push({
           "slug": "one-wire",
           "title": "1-Wire — шина на одному дроті",
           "basic": {
-            "status": "pending"
+            "status": "recheck"
           },
           "detailed": {
             "status": "recheck"
