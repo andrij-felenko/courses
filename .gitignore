@@ -65,6 +65,14 @@ audit_report.json
 /scripts/temp_*.js
 /scripts/check_verdicts.js
 /scripts/fix_all_verdicts.js
+# та сама порода в scripts/: збирачі на одну теку, base64-заготовки статей,
+# write_hex.py для обходу проблем з кодуванням. Справжні інструменти мають
+# осмислені імена й коментар угорі — ці не мають ні того, ні того.
+/scripts/build*.py
+/scripts/gen_all.py
+/scripts/make_all_md.py
+/scripts/write_hex.py
+/scripts/*_b64.txt
 # вивід перевірок, зронений у корінь замість екрана (svgcheck --json, звіти агентів)
 /svgcheck_out.txt
 /svg_res.txt
