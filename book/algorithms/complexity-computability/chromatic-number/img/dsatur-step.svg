@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 781.6 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="781.6" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір наступної вершини за ступенем насиченості (DSATUR)</text>
+<line x1="120.0" y1="110.0" x2="230.0" y2="100.0" stroke="#7f8c8d" stroke-width="1.8"/>
+<line x1="360.0" y1="180.0" x2="230.0" y2="100.0" stroke="#7f8c8d" stroke-width="1.8"/>
+<line x1="120.0" y1="110.0" x2="230.0" y2="260.0" stroke="#7f8c8d" stroke-width="1.8"/>
+<line x1="120.0" y1="250.0" x2="230.0" y2="260.0" stroke="#7f8c8d" stroke-width="1.8"/>
+<line x1="360.0" y1="180.0" x2="230.0" y2="260.0" stroke="#7f8c8d" stroke-width="1.8"/>
+<line x1="360.0" y1="180.0" x2="480.0" y2="180.0" stroke="#7f8c8d" stroke-width="1.8"/>
+<circle cx="120.0" cy="110.0" r="18.0" fill="#e74c3c" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="120.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<circle cx="120.0" cy="250.0" r="18.0" fill="#3498db" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="120.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<circle cx="360.0" cy="180.0" r="18.0" fill="#2ecc71" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="360.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<circle cx="230.0" cy="100.0" r="18.0" fill="#ecf0f1" stroke="#7f8c8d" stroke-width="2.0"/>
+<text x="230.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<text x="230.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">deg_sat = 2 {R, G}</text>
+<circle cx="230.0" cy="260.0" r="22.0" fill="#fef9e7" stroke="#e74c3c" stroke-width="3.0"/>
+<text x="230.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e74c3c" text-anchor="middle" font-weight="700">B</text>
+<text x="230.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e74c3c" text-anchor="middle" font-weight="700">deg_sat = 3 {R, G, B} (MAX)</text>
+<circle cx="480.0" cy="180.0" r="18.0" fill="#ecf0f1" stroke="#7f8c8d" stroke-width="2.0"/>
+<text x="480.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<text x="480.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">deg_sat = 1 {G}</text>
+<rect x="478.3" y="55.9" width="283.3" height="88.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="75.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">1. Обчислення насиченості:</tspan><tspan x="620.0" dy="14.3">deg_sat(v) = |{ кольори сусідів v }|</tspan><tspan x="620.0" dy="14.3">• Вершина A: сусіди {1(R), 3(G)} → 2</tspan><tspan x="620.0" dy="14.3">• Вершина B: сусіди {1(R), 2(B), 3(G)} → 3</tspan><tspan x="620.0" dy="14.3">• Вершина C: сусіди {3(G)} → 1</tspan></text>
+<rect x="481.5" y="181.6" width="277.1" height="116.8" rx="6" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"/><text x="620.0" y="200.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">2. Евристичне правило:</tspan><tspan x="620.0" dy="14.3">Обираємо вершину з MAX deg_sat (вузол B).</tspan><tspan x="620.0" dy="14.3">Вона має найменше доступних кольорів</tspan><tspan x="620.0" dy="14.3">і найбільше обмежує вибір.</tspan><tspan x="620.0" dy="14.3">Якщо deg_sat = k, це змушує або</tspan><tspan x="620.0" dy="14.3">створити новий (k+1)-й колір, або</tspan><tspan x="620.0" dy="14.3">відсікти тупикову гілку пошуку.</tspan></text>
+</svg>

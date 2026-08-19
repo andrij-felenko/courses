@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="440.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Порівняльний аналіз архітектур парного кодування ℕ₀² ↔ ℕ₀</text>
+<rect x="30.0" y="60.0" width="395.0" height="175.0" rx="8" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/>
+<text x="227.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">Спарювання Кантора (1877)</text>
+<text x="45.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Геометрія: трикутні діагоналі (x + y = const)</text>
+<text x="45.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Формула: π(x, y) = ((x+y)(x+y+1))/2 + y</text>
+<text x="45.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Властивість: компактна бієкція, плавне зростання</text>
+<text x="45.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Ціна: обчислення цілочисельного кореня isqrt</text>
+<rect x="455.0" y="60.0" width="395.0" height="175.0" rx="8" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="652.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">Спарювання Шудзіка (Елегантне)</text>
+<text x="470.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Геометрія: вкладені квадрати (max(x, y) = const)</text>
+<text x="470.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Формула: x &lt; y ? y² + x : x² + x + y</text>
+<text x="470.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Властивість: бієкція, відсутність ділення на 2</text>
+<text x="470.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Перевага: локальність у прямокутних областях</text>
+<rect x="30.0" y="255.0" width="395.0" height="175.0" rx="8" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="227.5" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7e22ce" text-anchor="middle" font-weight="700">Кодування Мортона (Z-крива)</text>
+<text x="45.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Геометрія: бітове чергування (Z-order curve)</text>
+<text x="45.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Формула: рознесення бітів x та y через маски</text>
+<text x="45.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Властивість: апаратна швидкість, квадродерева</text>
+<text x="45.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Обмеження: фіксована розрядність, нерівномірні стрибки</text>
+<rect x="455.0" y="255.0" width="395.0" height="175.0" rx="8" fill="#fff6e5" stroke="#d97706" stroke-width="1.5"/>
+<text x="652.5" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Кодування Ґеделя (Степені простих)</text>
+<text x="470.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Геометрія: мультиплікативне просте розкладання</text>
+<text x="470.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Формула: g(x, y) = 2ˣ · 3ʸ</text>
+<text x="470.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Властивість: ін'єктивне, але не сюр'єктивне (дірки)</text>
+<text x="470.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">Недолік: експоненційне зростання чисел, факторизація</text>
+</svg>

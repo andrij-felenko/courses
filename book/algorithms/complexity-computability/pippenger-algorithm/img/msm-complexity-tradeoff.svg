@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Складність та оптимальний вибір ширини вікна c</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асимптотична складність MSM: Наївний метод vs Штраус vs Піппенджер (λ = 256)</text>
+<rect x="50.0" y="75.0" width="420.0" height="310.0" rx="4" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="260.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кількість групових операцій vs Розмір n</text>
+<line x1="105.0" y1="340.0" x2="445.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="105.0" y1="340.0" x2="105.0" y2="130.0" stroke="#333333" stroke-width="1.5"/>
+<text x="445.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">n (точок)</text>
+<text x="95.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">Операції</text>
+<line x1="165.0" y1="340.0" x2="165.0" y2="344.0" stroke="#333333" stroke-width="1.0"/>
+<text x="165.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2¹⁰</text>
+<line x1="245.0" y1="340.0" x2="245.0" y2="344.0" stroke="#333333" stroke-width="1.0"/>
+<text x="245.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2¹⁴</text>
+<line x1="325.0" y1="340.0" x2="325.0" y2="344.0" stroke="#333333" stroke-width="1.0"/>
+<text x="325.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2¹⁸</text>
+<line x1="405.0" y1="340.0" x2="405.0" y2="344.0" stroke="#333333" stroke-width="1.0"/>
+<text x="405.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2²²</text>
+<line x1="125.0" y1="315.0" x2="405.0" y2="140.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="325.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наївний O(n·λ)</text>
+<line x1="125.0" y1="322.0" x2="405.0" y2="220.0" stroke="#d97706" stroke-width="2.0" stroke-dasharray="4,2"/>
+<text x="345.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Штраус O(λ·n/c)</text>
+<line x1="125.0" y1="328.0" x2="245.0" y2="302.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="245.0" y1="302.0" x2="405.0" y2="265.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="355.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Піппенджер O(n·λ/ln n)</text>
+<rect x="490.0" y="75.0" width="300.0" height="310.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="640.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимальне вікно c для λ = 256</text>
+<rect x="498.0" y="116.0" width="284.0" height="28.0" rx="2" fill="#f4f6f8" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2¹⁰ (1024)</text>
+<text x="650.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 8 бітів</text>
+<text x="770.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 32 вікна</text>
+<rect x="498.0" y="150.0" width="284.0" height="28.0" rx="2" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2¹⁴ (16 тис.)</text>
+<text x="650.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 11 бітів</text>
+<text x="770.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 24 вікна</text>
+<rect x="498.0" y="184.0" width="284.0" height="28.0" rx="2" fill="#f4f6f8" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2¹⁶ (65 тис.)</text>
+<text x="650.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 13 бітів</text>
+<text x="770.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 20 вікон</text>
+<rect x="498.0" y="218.0" width="284.0" height="28.0" rx="2" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2¹⁸ (262 тис.)</text>
+<text x="650.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 14 бітів</text>
+<text x="770.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 19 вікон</text>
+<rect x="498.0" y="252.0" width="284.0" height="28.0" rx="2" fill="#f4f6f8" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2²⁰ (1 млн)</text>
+<text x="650.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 16 бітів</text>
+<text x="770.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 16 вікон</text>
+<rect x="498.0" y="286.0" width="284.0" height="28.0" rx="2" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2²² (4 млн)</text>
+<text x="650.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 17 бітів</text>
+<text x="770.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 16 вікон</text>
+<rect x="498.0" y="320.0" width="284.0" height="28.0" rx="2" fill="#f4f6f8" stroke="none" stroke-width="1.5"/>
+<text x="510.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">n = 2²⁴ (16 млн)</text>
+<text x="650.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">c = 19 бітів</text>
+<text x="770.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">b = 14 вікон</text>
+</svg>

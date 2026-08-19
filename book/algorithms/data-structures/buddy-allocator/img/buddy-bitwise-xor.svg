@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Побітове обчислення адреси близнюка: buddy_addr = addr ⊕ (1 ≪ k)</text>
+<rect x="50.0" y="70.0" width="360.0" height="140.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="70.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Лівий близнюк (A): Порядок k = 3 (8 КБ)</text>
+<text x="70.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Шістнадцяткова адреса:</text>
+<text x="230.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">0x2000 (8192)</text>
+<text x="70.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Двійковий вигляд:</text>
+<text x="190.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">0010 0000 0000 0000</text>
+<text x="70.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Біт k = 13:</text>
+<text x="150.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">0 (ознака лівого близнюка)</text>
+<text x="70.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Вирівнювання:</text>
+<text x="165.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">addr &amp; (2³ − 1) == 0 (кратна 8192)</text>
+<circle cx="440.0" cy="140.0" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="440.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#2457d6" text-anchor="middle" font-weight="700">⊕</text>
+<text x="440.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">XOR 2¹³</text>
+<rect x="470.0" y="70.0" width="360.0" height="140.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="490.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Правий близнюк (B): Порядок k = 3 (8 КБ)</text>
+<text x="490.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Шістнадцяткова адреса:</text>
+<text x="650.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">0x0000 (0)</text>
+<text x="490.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Двійковий вигляд:</text>
+<text x="610.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">0000 0000 0000 0000</text>
+<text x="490.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Біт k = 13:</text>
+<text x="570.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">1 ↔ 0 (перемикається XOR-ом)</text>
+<text x="490.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Вирівнювання:</text>
+<text x="585.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">addr &amp; (2³ − 1) == 0 (кратна 8192)</text>
+<rect x="50.0" y="235.0" width="780.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="75.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Спільний батьківський блок при злитті (Порядок k + 1 = 4, 16 КБ):</text>
+<text x="75.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Батьківська адреса:</text>
+<text x="215.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">parent = addr &amp; ~(1 ≪ k) = min(A, B) = 0x0000</text>
+<text x="75.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Маска порядку k = 3:</text>
+<text x="215.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">1 ≪ 13 = 0x2000 = 0010 0000 0000 0000</text>
+<text x="75.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Інверсна маска ~(1 ≪ 13):</text>
+<text x="215.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">1101 1111 1111 1111 (обнуляє 13-й біт для обох близнюків)</text>
+<text x="75.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Властивість інволюції:</text>
+<text x="230.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">(addr ⊕ 2ᵏ) ⊕ 2ᵏ = addr  (двічі застосований XOR повертає вихідну адресу)</text>
+</svg>

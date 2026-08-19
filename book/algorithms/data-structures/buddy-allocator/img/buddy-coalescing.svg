@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскадне злиття (Coalescing) блоку 8 КБ [0x0000] до 32 КБ [0x0000]</text>
+<rect x="43.6" y="66.3" width="172.9" height="41.3" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="130.0" y="83.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Крок 1: Звільнення 8 КБ</tspan><tspan x="130.0" dy="14.3">addr = 0x0000, k = 3</tspan></text>
+<rect x="270.0" y="65.0" width="120.0" height="44.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="330.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">0x0000 (8 КБ)</text>
+<text x="330.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">щойно звільнено</text>
+<text x="410.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">⊕</text>
+<rect x="430.0" y="65.0" width="120.0" height="44.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">0x2000 (8 КБ)</text>
+<text x="490.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">вільний у free_list[3]</text>
+<line x1="565.0" y1="87.0" x2="605.0" y2="87.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="620.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Близнюк вільний! Видаляємо з free_list[3]</text>
+<line x1="330.0" y1="113.0" x2="330.0" y2="153.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="113.0" x2="410.0" y2="153.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="47.0" y="166.3" width="166.0" height="41.3" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="183.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Крок 2: Злиття в 16 КБ</tspan><tspan x="130.0" dy="14.3">addr = 0x0000, k = 4</tspan></text>
+<rect x="270.0" y="165.0" width="250.0" height="44.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="395.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Злитий блок 16 КБ [0x0000]</text>
+<text x="395.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">новий близнюк: 0x0000 ⊕ 16К = 0x4000</text>
+<text x="535.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">⊕</text>
+<rect x="555.0" y="165.0" width="120.0" height="44.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="615.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">0x4000 (16 КБ)</text>
+<text x="615.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">вільний у free_list[4]</text>
+<line x1="685.0" y1="187.0" x2="725.0" y2="187.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="740.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Близнюк вільний!</text>
+<line x1="395.0" y1="213.0" x2="395.0" y2="253.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="213.0" x2="510.0" y2="253.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="47.0" y="266.4" width="166.0" height="41.3" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="283.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Крок 3: Злиття в 32 КБ</tspan><tspan x="130.0" dy="14.3">addr = 0x0000, k = 5</tspan></text>
+<rect x="270.0" y="265.0" width="375.0" height="44.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="457.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Злитий блок 32 КБ [0x0000]</text>
+<text x="457.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">новий близнюк: 0x0000 ⊕ 32К = 0x8000</text>
+<text x="660.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">⊕</text>
+<rect x="680.0" y="265.0" width="120.0" height="44.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="740.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">0x8000 (32 КБ)</text>
+<text x="740.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">ЗАЙНЯТИЙ (Alloc)</text>
+<rect x="50.0" y="345.0" width="780.0" height="95.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="75.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Зупинка каскаду злиття:</text>
+<text x="250.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Близнюк 0x8000 зайнятий → подальше злиття неможливе.</text>
+<text x="75.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Фінальна дія:</text>
+<text x="175.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Вставляємо отриманий блок 32 КБ [0x0000] у голову списку free_list[5].</text>
+<text x="75.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Часова складність:</text>
+<text x="210.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">O(MAX_ORDER − k) кроків, кожен крок — вилучення з двозв'язного списку за O(1).</text>
+</svg>

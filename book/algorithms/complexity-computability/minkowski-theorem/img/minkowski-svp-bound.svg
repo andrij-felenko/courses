@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оцінка Мінковського для задачі найкоротшого вектора та алгоритмічний спектр</text>
+<rect x="30.0" y="45.0" width="475.0" height="415.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2.0"/>
+<text x="265.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перший мінімум λ₁(L) та куля B(R_M)</text>
+<circle cx="265.0" cy="280.0" r="114.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="265.0" y1="280.0" x2="345.6" y2="199.4" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="280.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">R_M ≤ √n · det(L)¹/ⁿ</text>
+<circle cx="95.0" cy="440.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="45.0" cy="340.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="205.0" cy="410.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="155.0" cy="310.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<circle cx="105.0" cy="210.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="55.0" cy="110.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="315.0" cy="380.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="265.0" cy="280.0" r="5.0" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="215.0" cy="180.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="425.0" cy="350.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="375.0" cy="250.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<circle cx="325.0" cy="150.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="485.0" cy="220.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<circle cx="435.0" cy="120.0" r="3.5" fill="#94a3b8" stroke="none" stroke-width="0.0"/>
+<line x1="265.0" y1="280.0" x2="375.0" y2="250.0" stroke="#27ae60" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="393.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">v₁ (||v₁|| = λ₁ ≤ R_M)</text>
+<text x="265.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Існування гарантоване: λ₁(L) ≤ 2·(det(L)/V_n)¹/ⁿ</text>
+<rect x="535.0" y="45.0" width="475.0" height="415.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2.0"/>
+<text x="770.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія складності та алгоритми SVP</text>
+<rect x="598.3" y="108.2" width="343.4" height="43.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="770.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Точний SVP (Експоненційний час 2^O(n))</tspan><tspan x="770.0" dy="15.6">Повний перебір у кулі Мінковського / Sieving</tspan></text>
+<rect x="598.3" y="193.2" width="343.4" height="43.6" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.8"/><text x="770.0" y="211.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Блокова редукція BKZ (Субекспоненційний час)</tspan><tspan x="770.0" dy="15.6">Фактор наближення k^(n/2k) для блоку k</tspan></text>
+<rect x="616.9" y="278.2" width="306.2" height="43.6" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/><text x="770.0" y="296.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Алгоритм LLL (Поліноміальний час O(n⁶))</tspan><tspan x="770.0" dy="15.6">Фактор наближення 2^((n-1)/2) від λ₁(L)</tspan></text>
+<rect x="561.1" y="363.2" width="417.8" height="43.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="770.0" y="381.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Гарантія Мінковського: λ₁ ≤ √n · det(L)¹/ⁿ</tspan><tspan x="770.0" dy="15.6">Невіддільна основа криптографічної стійкості (LWE/SIS)</tspan></text>
+<line x1="770.0" y1="160.0" x2="770.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="245.0" x2="770.0" y2="275.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="330.0" x2="770.0" y2="360.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 560">
+<rect x="15.0" y="15.0" width="810.0" height="530.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево порозрядного паралельного додавання (SWAR)</text>
+<text x="420.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">64 біти згортаються у 6 кроків порозрядного складання лічильників однакової ширини</text>
+<rect x="40.0" y="90.0" width="760.0" height="64.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="60.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Вхідне слово (8 біт)</text>
+<text x="380.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="start" font-weight="700">1  0  1  1  0  1  1  1</text>
+<text x="60.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">8 окремих 1-бітних розрядів</text>
+<rect x="40.0" y="164.0" width="760.0" height="64.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="60.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Крок 1: пари (маска 0x55)</text>
+<text x="380.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="start" font-weight="700">[0 1] [1 0] [0 1] [1 0]</text>
+<text x="60.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">4 двобітні поля: 1 + 2 + 1 + 2 = 6</text>
+<rect x="40.0" y="238.0" width="760.0" height="64.0" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="60.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Крок 2: четвірки (маска 0x33)</text>
+<text x="380.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="start" font-weight="700">[0 0 1 1]   [0 0 1 1]</text>
+<text x="60.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">2 чотирибітні поля: 3 + 3 = 6</text>
+<rect x="40.0" y="312.0" width="760.0" height="64.0" rx="6" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+<text x="60.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Крок 3: вісімка (маска 0x0F)</text>
+<text x="380.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="start" font-weight="700">[0 0 0 0 0 1 1 0]</text>
+<text x="60.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">1 восьмибітне поле: сума = 6</text>
+<rect x="40.0" y="386.0" width="760.0" height="64.0" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+<text x="60.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Множення на 0x01... &gt;&gt; 56</text>
+<text x="380.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="start" font-weight="700">Сума всіх 8 байтів у старшому байті слова = 6</text>
+<text x="60.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Згортка 64-бітного слова за 1 такт множення</text>
+<rect x="40.0" y="465.0" width="760.0" height="48.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="420.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глибина обчислення: log₂(W) кроків замість W ітерацій послідовного циклу</text>
+</svg>

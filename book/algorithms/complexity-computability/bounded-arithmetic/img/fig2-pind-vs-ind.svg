@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння схем індукції: IND, LIND та PIND</text>
+<rect x="30.0" y="65.0" width="255.0" height="385.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="157.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#dc2626" text-anchor="middle" font-weight="700">Класична індукція (IND)</text>
+<rect x="71.8" y="117.3" width="170.5" height="45.3" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/><text x="157.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="157.0" dy="0.0">φ(0) ∧ ∀x(φ(x) → φ(x+1))</tspan><tspan x="157.0" dy="14.3">⟹ ∀x φ(x)</tspan></text>
+<text x="157.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">Кількість кроків розгортання:</text>
+<text x="157.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="700">x кроків = 2^{|x|}</text>
+<text x="157.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Експоненційний пошук:</text>
+<text x="157.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">0 ➔ 1 ➔ 2 ➔ 3 ➔ ... ➔ x</text>
+<text x="157.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Дозволяє доводити тотальність</text>
+<text x="157.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">надшвидких функцій (суперекспонента,</text>
+<text x="157.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">функція Аккермана).</text>
+<text x="157.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Складність: Необмежена / EXP</text>
+<rect x="312.0" y="65.0" width="255.0" height="385.0" rx="8" fill="#fff6e5" stroke="#d97706" stroke-width="1.5"/>
+<text x="439.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Індукція за довжиною (LIND)</text>
+<rect x="353.8" y="117.3" width="170.5" height="45.3" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="439.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="439.0" dy="0.0">φ(0) ∧ ∀x(φ(x) → φ(x+1))</tspan><tspan x="439.0" dy="14.3">⟹ ∀x φ(|x|)</tspan></text>
+<text x="439.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">Кількість кроків розгортання:</text>
+<text x="439.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d97706" text-anchor="middle" font-weight="700">|x| кроків = ⌈log₂(x+1)⌉</text>
+<text x="439.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Логарифмічний прохід:</text>
+<text x="439.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">0 ➔ 1 ➔ 2 ➔ ... ➔ |x|</text>
+<text x="439.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Обмежує індуктивне доведення</text>
+<text x="439.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">довжиною бітового представлення.</text>
+<text x="439.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Поліноміальна кількість кроків.</text>
+<text x="439.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Складність: Поліноміальний час P</text>
+<rect x="595.0" y="65.0" width="255.0" height="385.0" rx="8" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="722.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">Префіксна індукція (PIND)</text>
+<rect x="630.5" y="117.3" width="183.0" height="45.3" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/><text x="722.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="722.0" dy="0.0">φ(0) ∧ ∀x(φ(⌊x/2⌋) → φ(x))</tspan><tspan x="722.0" dy="14.3">⟹ ∀x φ(x)</tspan></text>
+<text x="722.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">Кількість кроків розгортання:</text>
+<text x="722.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#16a34a" text-anchor="middle" font-weight="700">|x| бітових переходів</text>
+<text x="722.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Двійкове нарощування:</text>
+<text x="722.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">0 ➔ ⌊⌊x/2⌋/2⌋ ➔ ⌊x/2⌋ ➔ x</text>
+<text x="722.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Будує значення числового аргументу</text>
+<text x="722.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">побітово від старшого до молодшого.</text>
+<text x="722.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Еквівалентна LIND у присутності #.</text>
+<text x="722.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Складність: Клас FP (Поліном P)</text>
+</svg>

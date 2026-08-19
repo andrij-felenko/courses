@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відстеження стану близнюків: Однобітна оптимізація Кнута vs Дескриптори</text>
+<rect x="40.0" y="60.0" width="385.0" height="365.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="232.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Метод 1: 1 біт на пару близнюків (Кнут)</text>
+<text x="56.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Принцип інвертування біта пари:</text>
+<text x="56.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Біт = 0: Обидва близнюки вільні АБО обидва зайняті</text>
+<text x="56.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Біт = 1: Рівно один близнюк вільний, другий зайнятий</text>
+<rect x="60.0" y="175.0" width="345.0" height="65.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="70.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">При виділенні будь-якого з пари:</text>
+<text x="70.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">bitmap[pair_idx] ^= 1</text>
+<text x="70.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Якщо новий стан 0 → обидва стали зайняті</text>
+<rect x="60.0" y="250.0" width="345.0" height="75.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="70.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">При звільненні будь-якого з пари:</text>
+<text x="70.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">bitmap[pair_idx] ^= 1</text>
+<text x="70.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Якщо новий стан 0 → близнюк вільний (зливаємо!)</text>
+<text x="70.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Якщо новий стан 1 → близнюк зайнятий (стоп)</text>
+<text x="56.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Витрата пам'яті: 2^(MAX_ORDER − k − 1) бітів на порядок</text>
+<rect x="455.0" y="60.0" width="385.0" height="365.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="647.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Метод 2: Явні дескриптори блоків / сторінок</text>
+<text x="471.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Масив дескрипторів (напр. struct page):</text>
+<rect x="475.0" y="135.0" width="345.0" height="145.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="485.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">struct block_descriptor {</text>
+<text x="500.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">uint8_t  order;       // поточний порядок блоку</text>
+<text x="500.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">uint8_t  is_free;     // 1 = у списку вільних, 0 = зайнятий</text>
+<text x="500.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">node_t*  next;        // покажчик двозв'язного списку</text>
+<text x="500.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">node_t*  prev;        // для швидкого видалення O(1)</text>
+<text x="485.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">};</text>
+<rect x="475.0" y="295.0" width="345.0" height="85.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="485.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Умова безпечного злиття близнюка B:</text>
+<text x="485.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">1. desc[B].is_free == 1</text>
+<text x="485.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">2. desc[B].order == current_order</text>
+<text x="485.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(захист від злиття з підблоком або надблоком)</text>
+<text x="471.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Перевага: захист від пасток неоднозначності без колізій</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зведення 3-SAT ≤ₚ 3-Coloring: палітра істинності та гаджет диз'юнкта</text>
+<text x="170.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Палітра і змінна xᵢ</text>
+<line x1="170.0" y1="95.0" x2="100.0" y2="165.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="100.0" y1="165.0" x2="240.0" y2="165.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="240.0" y1="165.0" x2="170.0" y2="95.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="170.0" cy="95.0" r="15.0" fill="#7f8c8d" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="170.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">B</text>
+<circle cx="100.0" cy="165.0" r="15.0" fill="#2ecc71" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="100.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">T</text>
+<circle cx="240.0" cy="165.0" r="15.0" fill="#e74c3c" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="240.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">F</text>
+<line x1="100.0" y1="270.0" x2="240.0" y2="270.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="170.0" y1="95.0" x2="100.0" y2="270.0" stroke="#95a5a6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="170.0" y1="95.0" x2="240.0" y2="270.0" stroke="#95a5a6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle cx="100.0" cy="270.0" r="16.0" fill="#2ecc71" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="100.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">xᵢ</text>
+<circle cx="240.0" cy="270.0" r="16.0" fill="#e74c3c" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="240.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">¬xᵢ</text>
+<rect x="30.0" y="323.1" width="280.0" height="73.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="342.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Оскільки xᵢ та ¬xᵢ з'єднані з B,</tspan><tspan x="170.0" dy="14.3">вони отримують лише кольори {T, F}.</tspan><tspan x="170.0" dy="14.3">Ребро між ними змушує один бути T,</tspan><tspan x="170.0" dy="14.3">а інший — F (булевий інваріант).</tspan></text>
+<line x1="340.0" y1="50.0" x2="340.0" y2="400.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="550.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Гаджет диз'юнкта (l₁ ∨ l₂ ∨ l₃)</text>
+<line x1="410.0" y1="120.0" x2="490.0" y2="130.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="410.0" y1="200.0" x2="490.0" y2="190.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="490.0" y1="130.0" x2="490.0" y2="190.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="490.0" y1="130.0" x2="560.0" y2="160.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="490.0" y1="190.0" x2="560.0" y2="160.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="560.0" y1="160.0" x2="630.0" y2="210.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="410.0" y1="290.0" x2="630.0" y2="280.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="630.0" y1="210.0" x2="630.0" y2="280.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="630.0" y1="210.0" x2="700.0" y2="245.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="630.0" y1="280.0" x2="700.0" y2="245.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="410.0" cy="120.0" r="13.0" fill="#2ecc71" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="410.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">l₁</text>
+<circle cx="410.0" cy="200.0" r="13.0" fill="#e74c3c" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="410.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">l₂</text>
+<circle cx="410.0" cy="290.0" r="13.0" fill="#e74c3c" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="410.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">l₃</text>
+<circle cx="490.0" cy="130.0" r="10.0" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.2"/>
+<circle cx="490.0" cy="190.0" r="10.0" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.2"/>
+<circle cx="560.0" cy="160.0" r="10.0" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.2"/>
+<circle cx="630.0" cy="210.0" r="10.0" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.2"/>
+<circle cx="630.0" cy="280.0" r="10.0" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.2"/>
+<circle cx="700.0" cy="245.0" r="15.0" fill="#2ecc71" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="700.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">out</text>
+<rect x="358.2" y="323.1" width="383.7" height="73.9" rx="6" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"/><text x="550.0" y="342.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Вихідний вузол out з'єднаний з базовими {B, F}.</tspan><tspan x="550.0" dy="14.3">Він може отримати колір T тоді й лише тоді,</tspan><tspan x="550.0" dy="14.3">коли хоча б один із входів (l₁, l₂, l₃) має колір T.</tspan><tspan x="550.0" dy="14.3">Якщо всі хибні (F), гаджет не розфарбовується в 3 кольори.</tspan></text>
+</svg>
