@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовне керування (PC) проти графа потоку даних (Dataflow)</text>
+<rect x="30.0" y="50.0" width="360.0" height="310.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="210.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Модель фон Неймана (Control Flow)</text>
+<text x="210.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Виконання веде лічильник команд (PC)</text>
+<rect x="60.0" y="115.0" width="140.0" height="150.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="130.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Пам'ять команд</text>
+<text x="130.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x100: ADD R1, a, b</text>
+<text x="130.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x104: SUB R2, c, d</text>
+<text x="130.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x108: MUL R3, R1, R2</text>
+<text x="130.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x10C: STR [res], R3</text>
+<text x="130.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Послідовний потік</text>
+<rect x="238.8" y="112.3" width="122.3" height="45.3" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.5"/><text x="300.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">Program Counter</tspan><tspan x="300.0" dy="14.3">(PC = 0x100)</tspan></text>
+<line x1="240.0" y1="135.0" x2="202.0" y2="135.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="227.3" y="177.3" width="145.4" height="45.3" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="196.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">ALU / Регістри</tspan><tspan x="300.0" dy="14.3">(Виконання по черзі)</tspan></text>
+<line x1="200.0" y1="180.0" x2="240.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вузьке місце: незалежні ADD і SUB</text>
+<text x="210.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вимушено чекають черги в одному потоці PC</text>
+<rect x="430.0" y="50.0" width="360.0" height="310.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="610.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Модель потоку даних (Dataflow)</text>
+<text x="610.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Виконання веде готовність операндів-токенів</text>
+<rect x="455.8" y="110.0" width="88.4" height="30.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="128.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Токени: a, b</tspan></text>
+<rect x="675.8" y="110.0" width="88.4" height="30.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="128.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Токени: c, d</tspan></text>
+<rect x="455.0" y="167.3" width="90.0" height="45.3" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Вузол: ADD</tspan><tspan x="500.0" dy="14.3">(a + b)</tspan></text>
+<rect x="675.0" y="167.3" width="90.0" height="45.3" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Вузол: SUB</tspan><tspan x="720.0" dy="14.3">(c − d)</tspan></text>
+<line x1="500.0" y1="142.0" x2="500.0" y2="170.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="142.0" x2="720.0" y2="170.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Обидва стартують
+одночасно!</text>
+<rect x="535.2" y="237.3" width="149.6" height="45.3" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Вузол: MUL</tspan><tspan x="610.0" dy="14.3">((a + b) · (c − d))</tspan></text>
+<line x1="535.0" y1="210.0" x2="570.0" y2="242.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="210.0" x2="650.0" y2="242.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Немає PC і глобального стану: оператор спрацьовує,</text>
+<text x="610.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">щойно на його дуги прибули всі потрібні токени</text>
+</svg>

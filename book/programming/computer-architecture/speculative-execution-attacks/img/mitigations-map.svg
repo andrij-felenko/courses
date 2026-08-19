@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 925.5 481" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="925.5" height="481" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта захисних заходів проти спекулятивних атак</text>
+<rect x="40.0" y="65.0" width="780.0" height="90.0" rx="6" fill="#edf2fc" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="55.0" y="77.0" width="220.0" height="66.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="165.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Meltdown</text>
+<text x="165.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(CVE-2017-5754)</text>
+<text x="295.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Захист: KPTI (Kernel Page Table Isolation)</text>
+<text x="295.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Розділення CR3 користувача і ядра; пам'ять ядра взагалі не змаплена в Ring 3.</text>
+<text x="295.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Статус: Апаратний фікс у нових CPU (блокування читання до U/S перевірки).</text>
+<rect x="40.0" y="167.0" width="780.0" height="90.0" rx="6" fill="#edf8f1" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="55.0" y="179.0" width="220.0" height="66.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="165.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Spectre v1</text>
+<text x="165.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(CVE-2017-5753)</text>
+<text x="295.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Захист: LFENCE / Speculation Barriers</text>
+<text x="295.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Бар'єр зупиняє спекулятивне виконання до розв'язання гілки меж; або маскування індексу (SLH).</text>
+<text x="295.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Статус: Програмна вставка lfence у вразливі місця ядра та браузерів.</text>
+<rect x="40.0" y="269.0" width="780.0" height="90.0" rx="6" fill="#fdf0ed" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="55.0" y="281.0" width="220.0" height="66.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="165.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Spectre v2</text>
+<text x="165.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(CVE-2017-5715)</text>
+<text x="295.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Захист: Retpoline + IBRS / IBPB</text>
+<text x="295.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Retpoline замінює непрямі стрибки на стек RSB; IBRS/eIBRS забороняє вплив з Ring 3 на Ring 0; IBPB чистить BTB.</text>
+<text x="295.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Статус: Апаратний eIBRS у нових поколіннях із нульовим штрафом.</text>
+<rect x="40.0" y="371.0" width="780.0" height="90.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="55.0" y="383.0" width="220.0" height="66.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="165.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">MDS / L1TF / Cross-SMT</text>
+<text x="295.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Захист: STIBP + Core Scheduling</text>
+<text x="295.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">STIBP ізолює провісники між гіперпотоками (SMT); скидання L1D при перемиканні VM; вимкнення SMT у хмарах.</text>
+<text x="295.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Статус: Заборона спільного використання ядра різними доменами безпеки.</text>
+</svg>

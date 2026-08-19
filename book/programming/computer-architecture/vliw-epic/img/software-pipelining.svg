@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 493" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="493" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Програмна конвеєризація (Software Pipelining / Modulo Scheduling)</text>
+<text x="410.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Суміщення фаз різних ітерацій у компактне стабільне ядро (Kernel)</text>
+<text x="50.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Звичайний цикл:</text>
+<text x="50.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">3 такти на ітерацію</text>
+<rect x="220.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="245.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i1:Ч</text>
+<rect x="275.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="300.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i1:О</text>
+<rect x="330.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="355.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i1:З</text>
+<rect x="385.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="410.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i2:Ч</text>
+<rect x="440.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="465.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i2:О</text>
+<rect x="495.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i2:З</text>
+<rect x="550.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="575.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i3:Ч</text>
+<rect x="605.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="630.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i3:О</text>
+<rect x="660.0" y="85.0" width="50.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="685.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">i3:З</text>
+<line x1="50.0" y1="150.0" x2="770.0" y2="150.0" stroke="#e5e7eb" stroke-width="1.5"/>
+<text x="50.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Програмний конвеєр</text>
+<text x="50.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">(Інтервал ініціалізації II = 1):</text>
+<text x="257.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 1</text>
+<text x="332.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 2</text>
+<text x="407.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 3</text>
+<text x="482.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 4</text>
+<text x="557.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 5</text>
+<text x="632.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 6</text>
+<text x="707.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 7</text>
+<rect x="222.0" y="185.0" width="71.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="257.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i1: Ч</text>
+<rect x="297.0" y="185.0" width="71.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="332.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i1: О</text>
+<rect x="372.0" y="185.0" width="71.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="407.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i1: З</text>
+<rect x="297.0" y="217.0" width="71.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="332.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i2: Ч</text>
+<rect x="372.0" y="217.0" width="71.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="407.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i2: О</text>
+<rect x="447.0" y="217.0" width="71.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="482.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i2: З</text>
+<rect x="372.0" y="249.0" width="71.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="407.5" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i3: Ч</text>
+<rect x="447.0" y="249.0" width="71.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="482.5" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i3: О</text>
+<rect x="522.0" y="249.0" width="71.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="557.5" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i3: З</text>
+<rect x="447.0" y="281.0" width="71.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="482.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i4: Ч</text>
+<rect x="522.0" y="281.0" width="71.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="557.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i4: О</text>
+<rect x="597.0" y="281.0" width="71.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="632.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i4: З</text>
+<rect x="522.0" y="313.0" width="71.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="557.5" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i5: Ч</text>
+<rect x="597.0" y="313.0" width="71.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="632.5" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i5: О</text>
+<rect x="672.0" y="313.0" width="71.0" height="28.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="707.5" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">i5: З</text>
+<rect x="220.0" y="355.0" width="150.0" height="55.0" rx="6" fill="#fffaf0" stroke="#d35400" stroke-width="1.4"/>
+<text x="295.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Пролог (Prologue)</text>
+<text x="295.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Заповнення конвеєра</text>
+<rect x="370.0" y="355.0" width="225.0" height="55.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="464.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Стабільне ядро (Kernel) — 1 ітерація щотакту!</text>
+<text x="482.5" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Одночасно: Read(i+2) | Calc(i+1) | Write(i)</text>
+<rect x="595.0" y="355.0" width="150.0" height="55.0" rx="6" fill="#fffaf0" stroke="#d35400" stroke-width="1.4"/>
+<text x="670.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Епілог (Epilogue)</text>
+<text x="670.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Завершення останніх даних</text>
+<rect x="50.0" y="425.0" width="720.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ротаційні регістри IA-64 (r32..r127 та p16..p63):</text>
+<text x="410.0" y="461.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Автоматично зсувають індекси щоітерації за інструкцією br.ctop, усуваючи дублювання коду прологу й епілогу.</text>
+</svg>

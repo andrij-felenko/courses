@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура кадру збереження стану XSAVE у пам'яті</text>
+<text x="380.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Вирівнювання на 64 байти: застаріла область, заголовок стану та розширена зона</text>
+<rect x="60.0" y="65.0" width="640.0" height="105.0" rx="6" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="75.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Legacy Region (байти 0 .. 511, розмір 512 Б)</text>
+<text x="75.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Повна сумісність із форматом FXSAVE</text>
+<rect x="75.0" y="113.0" width="160.0" height="45.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="155.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">x87 FPU стан (160 Б)</text>
+<text x="155.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">FCW, FSW, FTW, ST0-ST7</text>
+<rect x="245.0" y="113.0" width="200.0" height="45.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="345.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SSE стан: XMM0-15 (256 Б)</text>
+<text x="345.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">16 регістрів по 128 бітів</text>
+<rect x="455.0" y="113.0" width="110.0" height="45.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="510.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MXCSR (32 Б)</text>
+<text x="510.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">керування SSE</text>
+<rect x="575.0" y="113.0" width="110.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="630.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Резерв (64 Б)</text>
+<text x="630.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">заповнено 0</text>
+<rect x="60.0" y="180.0" width="640.0" height="95.0" rx="6" fill="#fff8e8" stroke="#b8860b" stroke-width="1.8"/>
+<text x="75.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="start" font-weight="700">XSAVE Header (байти 512 .. 575, розмір 64 Б)</text>
+<text x="75.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Керує відновленням та форматом упаковки стану</text>
+<rect x="75.0" y="222.0" width="195.0" height="42.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="172.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">XSTATE_BV (8 байтів)</text>
+<text x="172.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">маска активних компонентів</text>
+<rect x="280.0" y="222.0" width="195.0" height="42.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="377.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">XCOMP_BV (8 байтів)</text>
+<text x="377.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 63=стиснений формат</text>
+<rect x="485.0" y="222.0" width="200.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="585.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Резерв (48 байтів)</text>
+<text x="585.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">мусить бути 0 (#GP)</text>
+<rect x="60.0" y="285.0" width="640.0" height="135.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="75.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Extended Region (байти 576 і далі, змінний розмір)</text>
+<text x="75.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Розміщення компонентів за зсувами з CPUID Leaf 0xD</text>
+<rect x="75.0" y="330.0" width="118.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="134.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">YMM_Hi128 (256 Б)</text>
+<text x="134.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">верхня половина YMM0-15</text>
+<rect x="199.0" y="330.0" width="118.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="258.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Opmask k0-k7 (64 Б)</text>
+<text x="258.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">маски вибірки AVX-512</text>
+<rect x="323.0" y="330.0" width="118.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="382.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ZMM_Hi256 (512 Б)</text>
+<text x="382.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">верхня чверть ZMM0-15</text>
+<rect x="447.0" y="330.0" width="118.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="506.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Hi16_ZMM (1024 Б)</text>
+<text x="506.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">повні регістри ZMM16-31</text>
+<rect x="571.0" y="330.0" width="118.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">AMX Tile / PKRU</text>
+<text x="630.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">конфігурація + 8 КБ даних</text>
+</svg>

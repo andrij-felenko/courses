@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Побітові операції в АЛП: булеві вентилі</text>
+<text x="440.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Побітові операції в АЛП: кожен розряд обчислюється незалежно</text>
+<rect x="30.0" y="65.0" width="195.0" height="290.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="127.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">AND  (&amp;)</text>
+<text x="127.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 лише якщо 1 і 1</text>
+<line x1="42.0" y1="130.0" x2="213.0" y2="130.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="65.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<text x="110.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<text x="175.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Вихід</text>
+<line x1="50.0" y1="161.0" x2="205.0" y2="161.0" stroke="#333333" stroke-width="1.0"/>
+<text x="65.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="110.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="175.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<text x="65.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="110.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="175.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<text x="65.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="110.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="175.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<text x="65.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="110.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="175.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<line x1="42.0" y1="260.0" x2="213.0" y2="260.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="127.5" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Приклад:</text>
+<text x="127.5" y="303.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0b1100 &amp; 0b1010</text>
+<text x="127.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">↓</text>
+<text x="127.5" y="341.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">= 0b1000</text>
+<rect x="240.0" y="65.0" width="195.0" height="290.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="337.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">OR   (|)</text>
+<text x="337.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 якщо хоч один 1</text>
+<line x1="252.0" y1="130.0" x2="423.0" y2="130.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="275.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<text x="320.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<text x="385.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Вихід</text>
+<line x1="260.0" y1="161.0" x2="415.0" y2="161.0" stroke="#333333" stroke-width="1.0"/>
+<text x="275.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="320.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="385.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<text x="275.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="320.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="385.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="275.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="320.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="385.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="275.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="320.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="385.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<line x1="252.0" y1="260.0" x2="423.0" y2="260.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="337.5" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Приклад:</text>
+<text x="337.5" y="303.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0b1100 | 0b1010</text>
+<text x="337.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">↓</text>
+<text x="337.5" y="341.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">= 0b1110</text>
+<rect x="450.0" y="65.0" width="195.0" height="290.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="547.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">XOR  (^)</text>
+<text x="547.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 якщо різні (1 і 0)</text>
+<line x1="462.0" y1="130.0" x2="633.0" y2="130.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="485.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<text x="530.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<text x="595.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вихід</text>
+<line x1="470.0" y1="161.0" x2="625.0" y2="161.0" stroke="#333333" stroke-width="1.0"/>
+<text x="485.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="530.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="595.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<text x="485.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="530.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="595.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="485.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="530.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<text x="595.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="485.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="530.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<text x="595.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<line x1="462.0" y1="260.0" x2="633.0" y2="260.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="547.5" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Приклад:</text>
+<text x="547.5" y="303.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0b1100 ^ 0b1010</text>
+<text x="547.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">↓</text>
+<text x="547.5" y="341.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">= 0b0110</text>
+<rect x="660.0" y="65.0" width="195.0" height="290.0" rx="8" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="757.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b8860b" text-anchor="middle" font-weight="700">NOT  (~)</text>
+<text x="757.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">інверсія всіх бітів</text>
+<line x1="672.0" y1="130.0" x2="843.0" y2="130.0" stroke="#b8860b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="695.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<text x="790.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">Вихід (~A)</text>
+<line x1="680.0" y1="161.0" x2="835.0" y2="161.0" stroke="#333333" stroke-width="1.0"/>
+<text x="695.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="790.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">1</text>
+<text x="695.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1</text>
+<text x="790.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">0</text>
+<line x1="672.0" y1="260.0" x2="843.0" y2="260.0" stroke="#b8860b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="757.5" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Приклад:</text>
+<text x="757.5" y="303.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">~0b1100 (4 біти)</text>
+<text x="757.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">↓</text>
+<text x="757.5" y="341.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">= 0b0011</text>
+<text x="440.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Жодна операція не переносить біти між розрядами — усі N розрядів обробляються одночасно за 1 такт.</text>
+</svg>

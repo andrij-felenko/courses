@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація спільної пам'яті (Shared Memory) у 32 банки по 4 байти</text>
+<text x="440.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Слова пам'яті чергуються між банками: Word 0 в Bank 0, Word 1 в Bank 1, ..., Word 32 знову в Bank 0</text>
+<rect x="30.0" y="70.0" width="260.0" height="330.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="160.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Випадок А: Безконфліктний доступ (1 такт)</text>
+<rect x="310.0" y="70.0" width="260.0" height="330.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="440.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Випадок Б: Трансляція (Broadcast, 1 такт)</text>
+<rect x="590.0" y="70.0" width="260.0" height="330.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="720.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Випадок В: 2-кратний конфлікт банків (2 такти)</text>
+<text x="160.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Потік i читає Банк i</text>
+<rect x="45.0" y="135.0" width="70.0" height="26.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="80.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 0</text>
+<line x1="115.0" y1="148.0" x2="170.0" y2="148.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="170.0" y="135.0" width="105.0" height="26.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="222.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 0 [Слово 0]</text>
+<rect x="45.0" y="171.0" width="70.0" height="26.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="80.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1</text>
+<line x1="115.0" y1="184.0" x2="170.0" y2="184.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="170.0" y="171.0" width="105.0" height="26.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="222.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 1 [Слово 1]</text>
+<rect x="45.0" y="207.0" width="70.0" height="26.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="80.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2</text>
+<line x1="115.0" y1="220.0" x2="170.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="170.0" y="207.0" width="105.0" height="26.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="222.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 2 [Слово 2]</text>
+<rect x="45.0" y="243.0" width="70.0" height="26.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="80.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 3</text>
+<line x1="115.0" y1="256.0" x2="170.0" y2="256.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="170.0" y="243.0" width="105.0" height="26.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="222.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 3 [Слово 3]</text>
+<text x="160.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">32 потоки звертаються</text>
+<text x="160.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">до 32 різних банків</text>
+<text x="160.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ККД = 100%, 1 такт</text>
+<text x="440.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Усі потоки читають те саме слово</text>
+<rect x="325.0" y="135.0" width="70.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 0</text>
+<line x1="395.0" y1="148.0" x2="455.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="325.0" y="171.0" width="70.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1</text>
+<line x1="395.0" y1="184.0" x2="455.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="325.0" y="207.0" width="70.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2</text>
+<line x1="395.0" y1="220.0" x2="455.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="325.0" y="243.0" width="70.0" height="26.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="360.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 3</text>
+<line x1="395.0" y1="256.0" x2="455.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="455.0" y="170.0" width="100.0" height="32.0" rx="3" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="505.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 0 [Слово 0]</text>
+<text x="440.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний Broadcast:</text>
+<text x="440.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">одне слово летить усім</text>
+<text x="440.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Конфлікту немає, 1 такт</text>
+<text x="720.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Потоки читають різні слова одного банку</text>
+<rect x="605.0" y="135.0" width="65.0" height="26.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="637.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 0</text>
+<line x1="670.0" y1="148.0" x2="725.0" y2="148.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="725.0" y="135.0" width="110.0" height="26.0" rx="3" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="780.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 0 [Слово 0]</text>
+<rect x="605.0" y="175.0" width="65.0" height="26.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="637.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 16</text>
+<line x1="670.0" y1="188.0" x2="725.0" y2="188.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="725.0" y="175.0" width="110.0" height="26.0" rx="3" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="780.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк 0 [Слово 32]</text>
+<text x="720.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Різні адреси в одному банку!</text>
+<text x="720.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна серіалізація:</text>
+<text x="720.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Такт 1: читання для Потоку 0</text>
+<text x="720.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Такт 2: читання для Потоку 16</text>
+<text x="720.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Швидкість падає вдвічі (2 такти)</text>
+</svg>

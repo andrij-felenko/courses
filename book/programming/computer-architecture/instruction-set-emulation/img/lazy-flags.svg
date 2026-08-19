@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ліниве обчислення прапорців стану процесора</text>
+<text x="460.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ліниве обчислення прапорців стану (Lazy Flags Evaluation)</text>
+<rect x="50.0" y="70.0" width="260.0" height="240.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="180.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Гостьова команда ADD R1, R2</text>
+<text x="180.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Традиційний підхід:</text>
+<text x="180.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Обчислення всіх 6 прапорців:</text>
+<text x="180.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">ZF, SF, CF, OF, PF, AF</text>
+<text x="180.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Витрати: 8–12 інструкцій хоста</text>
+<line x1="70.0" y1="200.0" x2="290.0" y2="200.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="180.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Лінивий підхід (Lazy):</text>
+<text x="180.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Зберегти лише 4 значення</text>
+<text x="180.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">в структуру CPUState</text>
+<text x="180.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Витрати: 1–2 інструкції хоста</text>
+<line x1="310.0" y1="190.0" x2="370.0" y2="190.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="370.0" y="70.0" width="210.0" height="240.0" rx="6" fill="#fff7e6" stroke="#c98a00" stroke-width="1.8"/>
+<text x="475.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c98a00" text-anchor="middle" font-weight="700">Структура CPUState</text>
+<text x="475.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">cc_op  = CC_OP_ADD</text>
+<text x="475.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">cc_src1 = 0x00000040</text>
+<text x="475.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">cc_src2 = 0x00000020</text>
+<text x="475.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">cc_dst  = 0x00000060</text>
+<text x="475.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Прапорці EFLAGS</text>
+<text x="475.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">НЕ обчислюються!</text>
+<text x="475.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[відкладено]</text>
+<line x1="580.0" y1="190.0" x2="640.0" y2="190.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="640.0" y="70.0" width="230.0" height="240.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="755.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Умовний перехід JE target</text>
+<text x="755.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Команда читає лише ZF</text>
+<text x="755.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Обчислення на вимогу:</text>
+<rect x="655.0" y="175.0" width="200.0" height="44.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="755.0" y="201.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="755.0" dy="0.0">ZF = (cc_dst == 0)</tspan></text>
+<text x="755.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Решта 5 прапорців</text>
+<text x="755.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">(CF, OF, SF, PF, AF)</text>
+<text x="755.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">так і не обчислюються!</text>
+<rect x="70.0" y="340.0" width="780.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="460.0" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Економія: 85–90% усіх виставлених прапорців ніколи не читаються наступним кодом.</tspan><tspan x="460.0" dy="15.6">Ліниве обчислення усуває непотрібну роботу й прискорює JIT-код на 30–40%.</tspan></text>
+</svg>

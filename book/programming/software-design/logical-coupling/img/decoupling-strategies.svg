@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 980 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="980" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії розв'язання логічного зачеплення</text>
+<rect x="0.0" y="0.0" width="960.0" height="470.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<rect x="30.0" y="30.0" width="280.0" height="410.0" rx="10" fill="#fffaf9" stroke="#fed7aa" stroke-width="1.5"/>
+<text x="170.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1. Стан проблеми</text>
+<text x="170.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Неявні дублікати логіки</text>
+<rect x="60.0" y="116.2" width="220.0" height="47.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="170.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Модуль A</tspan><tspan x="170.0" dy="15.6">(Валідація знижки)</tspan></text>
+<rect x="60.0" y="216.2" width="220.0" height="47.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="170.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Модуль B</tspan><tspan x="170.0" dy="15.6">(Дзеркальна валідація)</tspan></text>
+<line x1="170.0" y1="170.0" x2="170.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="225.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">co-change</text>
+<rect x="45.0" y="320.0" width="250.0" height="95.0" rx="6" fill="#ffffff" stroke="#fed7aa" stroke-width="1.2"/>
+<text x="170.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Симптом: Shotgun Surgery</text>
+<text x="170.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Зміна бізнес-правила</text>
+<text x="170.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">вимагає правок у 2+ місцях</text>
+<rect x="340.0" y="30.0" width="280.0" height="410.0" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="480.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">2. Єдине джерело правди</text>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Schema-First / Контракт</text>
+<rect x="360.0" y="116.2" width="240.0" height="47.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/><text x="480.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Схема / Спільна модель</tspan><tspan x="480.0" dy="15.6">(OpenAPI / Protobuf / DTO)</tspan></text>
+<rect x="360.0" y="234.0" width="100.0" height="32.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="410.0" y="254.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Клієнт A</tspan></text>
+<rect x="500.0" y="234.0" width="100.0" height="32.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="550.0" y="254.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Клієнт B</tspan></text>
+<line x1="450.0" y1="170.0" x2="410.0" y2="225.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="170.0" x2="550.0" y2="225.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="355.0" y="320.0" width="250.0" height="95.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="480.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: Кодогенерація</text>
+<text x="480.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Приховане зачеплення</text>
+<text x="480.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">стало явним типізованим контрактом</text>
+<rect x="650.0" y="30.0" width="280.0" height="410.0" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="790.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">3. Спільне закриття (CCP)</text>
+<text x="790.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Інкапсуляція в один модуль</text>
+<rect x="670.0" y="115.0" width="240.0" height="160.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="790.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Єдиний модуль домену</text>
+<rect x="690.0" y="181.2" width="200.0" height="47.6" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="790.0" y="201.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Інкапсульоване правило</tspan><tspan x="790.0" dy="15.6">(розрахунок + валідація)</tspan></text>
+<rect x="665.0" y="320.0" width="250.0" height="95.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="790.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Результат: Локальність змін</text>
+<text x="790.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Те, що змінюється разом,</text>
+<text x="790.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">живе в одному модулі</text>
+</svg>

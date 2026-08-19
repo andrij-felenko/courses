@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зшивання базових блоків у кеші трансляцій</text>
+<text x="470.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зшивання базових блоків (Block Chaining / Direct Linking)</text>
+<rect x="40.0" y="60.0" width="860.0" height="390.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">КЕШ ТРАНСЛЯЦІЙ (Code Cache)</text>
+<rect x="80.0" y="115.0" width="220.0" height="180.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="190.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Блок TB1 (гостьовий)</text>
+<text x="190.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">нативні інструкції хоста</text>
+<text x="190.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">обчислення результатів</text>
+<text x="190.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">перевірка умови переходу</text>
+<rect x="95.0" y="230.0" width="190.0" height="48.0" rx="6" fill="#fff7e6" stroke="#c98a00" stroke-width="1.5"/><text x="190.0" y="250.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">Хвіст: jmp [патч-зона]</tspan><tspan x="190.0" dy="15.0">TB2 (taken) / TB3 (else)</tspan></text>
+<rect x="400.0" y="100.0" width="210.0" height="110.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="505.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок TB2 (гілка Taken)</text>
+<text x="505.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">нативні коди цілі переходу</text>
+<text x="505.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">jmp наступний TB...</text>
+<rect x="400.0" y="240.0" width="210.0" height="110.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="505.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок TB3 (гілка Fallthrough)</text>
+<text x="505.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">нативні коди продовження</text>
+<text x="505.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">jmp наступний TB...</text>
+<rect x="690.0" y="160.0" width="180.0" height="130.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="780.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Диспетчер</text>
+<text x="780.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">пошук у хеш-таблиці</text>
+<text x="780.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">guest_pc → host_ptr</text>
+<text x="780.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">JIT-компіляція блоку</text>
+<line x1="285.0" y1="245.0" x2="690.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="485.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">1. До зшивання: вихід у диспетчер через трамплін</text>
+<line x1="285.0" y1="235.0" x2="400.0" y2="155.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="310.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Прямий jmp TB2</text>
+<line x1="285.0" y1="265.0" x2="400.0" y2="295.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="310.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Прямий jmp TB3</text>
+<rect x="70.0" y="385.0" width="800.0" height="50.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="406.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Емулятор замінює інструкцію виклику диспетчера на прямий нативний стрибок jmp у пам'яті.</tspan><tspan x="470.0" dy="15.6">Програма переходить між блоками на рівні заліза без виконання жодної інструкції емулятора.</tspan></text>
+</svg>

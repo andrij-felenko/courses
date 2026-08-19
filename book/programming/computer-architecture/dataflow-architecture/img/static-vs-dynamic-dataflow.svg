@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статичний Dataflow (Денніс) проти тегованого динамічного (Арвінд)</text>
+<rect x="25.0" y="50.0" width="380.0" height="350.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="215.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статичний Dataflow (Jack Dennis)</text>
+<text x="215.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Правило: не більше 1 токена на дузі</text>
+<rect x="125.0" y="119.5" width="180.0" height="31.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="215.0" y="138.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Оператор A (Обчислення)</tspan></text>
+<line x1="165.0" y1="155.0" x2="165.0" y2="245.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="165.0" cy="200.0" r="7.0" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="130.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">Токен</text>
+<line x1="265.0" y1="245.0" x2="265.0" y2="155.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="265.0" cy="200.0" r="6.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="277.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Ack (дозвіл)</text>
+<rect x="125.0" y="249.5" width="180.0" height="31.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="215.0" y="268.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Оператор B (Споживач)</tspan></text>
+<text x="215.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Проблема: дуги не мають буфера.</text>
+<text x="215.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">A не може випустити новий результат для ітерації k+1,</text>
+<text x="215.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">доки B не надішле сигнал Ack про споживання токена k.</text>
+<text x="215.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">Конвеєризація циклів та рекурсія заблоковані.</text>
+<rect x="435.0" y="50.0" width="380.0" height="350.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="625.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Динамічний Tagged-Token Dataflow</text>
+<text x="625.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Токени несуть тег: &lt;Контекст c, Ітерація i&gt;</text>
+<rect x="458.0" y="108.5" width="134.0" height="43.0" rx="6" fill="#fef6e7" stroke="#d97706" stroke-width="1.5"/><text x="525.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="525.0" dy="0.0">Токен: val=10</tspan><tspan x="525.0" dy="13.0">Тег: &lt;ctx=1, iter=3&gt;</tspan></text>
+<rect x="658.0" y="108.5" width="134.0" height="43.0" rx="6" fill="#fef6e7" stroke="#d97706" stroke-width="1.5"/><text x="725.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">Токен: val=25</tspan><tspan x="725.0" dy="13.0">Тег: &lt;ctx=1, iter=3&gt;</tspan></text>
+<rect x="468.4" y="182.3" width="313.3" height="45.3" rx="6" fill="#fef6e7" stroke="#d97706" stroke-width="1.5"/><text x="625.0" y="201.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="625.0" dy="0.0">Token Matching Unit (Асоціативна пам'ять)</tspan><tspan x="625.0" dy="14.3">Зіставлення за тегом &lt;ctx, iter, dest_node&gt;</tspan></text>
+<line x1="525.0" y1="155.0" x2="565.0" y2="185.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="155.0" x2="685.0" y2="185.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="230.0" x2="625.0" y2="260.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="635.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Збіг тегів!</text>
+<rect x="495.6" y="262.4" width="258.7" height="45.3" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="625.0" y="281.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="625.0" dy="0.0">Виконавчий блок ALU</tspan><tspan x="625.0" dy="14.3">Обчислення: ADD 10, 25 (для iter=3)</tspan></text>
+<text x="625.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Перевага: сотні ітерацій циклу та викликів</text>
+<text x="625.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">виконуються паралельно на одному графі.</text>
+<text x="625.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-style="italic">Ціна: складна асоціативна пам'ять Matching Store.</text>
+</svg>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив розрядності покажчиків на щільність кеш-лінії L1 (64 байти)</text>
+<rect x="50.0" y="55.0" width="800.0" height="160.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="190.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">32-бітний режим (ILP32 / x32 ABI): 4 байти на покажчик</text>
+<text x="720.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">16 покажчиків у 64B кеш-лінії</text>
+<rect x="65.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="88.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p0</text>
+<text x="88.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="113.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="136.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p1</text>
+<text x="136.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="161.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="184.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p2</text>
+<text x="184.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="209.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="232.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p3</text>
+<text x="232.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="257.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="280.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p4</text>
+<text x="280.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="305.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="328.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p5</text>
+<text x="328.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="353.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="376.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p6</text>
+<text x="376.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="401.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="424.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p7</text>
+<text x="424.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="449.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="472.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p8</text>
+<text x="472.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="497.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="520.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p9</text>
+<text x="520.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="545.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="568.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p10</text>
+<text x="568.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="593.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="616.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p11</text>
+<text x="616.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="641.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="664.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p12</text>
+<text x="664.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="689.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="712.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p13</text>
+<text x="712.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="737.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="760.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p14</text>
+<text x="760.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<rect x="785.0" y="100.0" width="46.0" height="50.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="808.0" y="122.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle">p15</text>
+<text x="808.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4B</text>
+<text x="450.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Висока просторова локальність: 16 вузлів списку / елементів дерева на один запит до DRAM</text>
+<rect x="50.0" y="240.0" width="800.0" height="160.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="190.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">64-бітний режим (LP64 / LLP64): 8 байтів на покажчик</text>
+<text x="720.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Лише 8 покажчиків у 64B кеш-лінії</text>
+<rect x="65.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="112.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_0</text>
+<text x="112.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="163.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="210.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_1</text>
+<text x="210.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="261.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="308.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_2</text>
+<text x="308.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="359.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="406.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_3</text>
+<text x="406.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="457.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="504.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_4</text>
+<text x="504.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="555.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="602.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_5</text>
+<text x="602.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="653.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="700.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_6</text>
+<text x="700.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<rect x="751.0" y="285.0" width="94.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="798.0" y="307.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle">ptr_7</text>
+<text x="798.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<text x="450.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Кеш-тиск зростає вдвічі: 50% падіння щільності, вдвічі більше L1/L2 miss на обхід структури</text>
+</svg>

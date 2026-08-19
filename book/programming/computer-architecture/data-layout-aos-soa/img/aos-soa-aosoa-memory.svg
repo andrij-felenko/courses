@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація пам'яті: AoS, SoA та гібридний AoSoA</text>
+<text x="520.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Використання 64-байтної кеш-лінії під час обробки лише координат X і Y</text>
+<text x="60.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1. AoS (Array of Structures)</text>
+<text x="60.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Об'єкти упереміж: x, y, z, mass, flags, id на кожну сутність</text>
+<rect x="60.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="84.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x0</text>
+<rect x="108.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="132.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y0</text>
+<rect x="156.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="180.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">z0</text>
+<rect x="204.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="228.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">m0</text>
+<rect x="252.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="276.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">id0</text>
+<rect x="300.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="324.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">fl0</text>
+<rect x="348.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="372.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x1</text>
+<rect x="396.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="420.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y1</text>
+<rect x="444.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="468.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">z1</text>
+<rect x="492.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="516.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">m1</text>
+<rect x="540.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="564.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">id1</text>
+<rect x="588.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="612.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">fl1</text>
+<rect x="636.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="660.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">x2</text>
+<rect x="684.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="708.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y2</text>
+<rect x="732.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="756.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">z2</text>
+<rect x="780.0" y="152.0" width="48.0" height="36.0" rx="4" fill="#f2f4f4" stroke="#7f8c8d" stroke-width="1.4"/>
+<text x="804.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">m2</text>
+<line x1="60.0" y1="196.0" x2="828.0" y2="196.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="60.0" y1="192.0" x2="60.0" y2="202.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="828.0" y1="192.0" x2="828.0" y2="202.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="444.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Кеш-лінія L1 (64 байти): лише 24 байти корисні (37% утилізація шини, 63% баласт)</text>
+<text x="60.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2. SoA (Structure of Arrays)</text>
+<text x="60.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Окремі однорідні масиви: 100% просторова локальність для циклів по полю</text>
+<text x="40.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end" font-weight="700">X[]</text>
+<rect x="60.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="84.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x0</text>
+<rect x="108.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="132.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x1</text>
+<rect x="156.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="180.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x2</text>
+<rect x="204.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="228.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x3</text>
+<rect x="252.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="276.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x4</text>
+<rect x="300.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="324.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x5</text>
+<rect x="348.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="372.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x6</text>
+<rect x="396.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="420.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x7</text>
+<rect x="444.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="468.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x8</text>
+<rect x="492.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="516.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x9</text>
+<rect x="540.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="564.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x10</text>
+<rect x="588.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="612.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x11</text>
+<rect x="636.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="660.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x12</text>
+<rect x="684.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="708.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x13</text>
+<rect x="732.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="756.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x14</text>
+<rect x="780.0" y="302.0" width="48.0" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="804.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x15</text>
+<line x1="60.0" y1="346.0" x2="828.0" y2="346.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="60.0" y1="342.0" x2="60.0" y2="352.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="828.0" y1="342.0" x2="828.0" y2="352.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="444.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Кеш-лінія X (64 байти): 16 елементів float32 поспіль — 100% корисних даних ідеально для Prefetcher</text>
+<text x="40.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">Y[]</text>
+<rect x="60.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="84.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y0</text>
+<rect x="108.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="132.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y1</text>
+<rect x="156.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="180.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y2</text>
+<rect x="204.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="228.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y3</text>
+<rect x="252.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="276.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y4</text>
+<rect x="300.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="324.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y5</text>
+<rect x="348.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="372.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y6</text>
+<rect x="396.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="420.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y7</text>
+<rect x="444.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="468.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y8</text>
+<rect x="492.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="516.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y9</text>
+<rect x="540.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="564.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y10</text>
+<rect x="588.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="612.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y11</text>
+<rect x="636.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="660.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y12</text>
+<rect x="684.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="708.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y13</text>
+<rect x="732.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="756.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y14</text>
+<rect x="780.0" y="382.0" width="48.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="804.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">y15</text>
+<text x="60.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">3. AoSoA / Tiled SoA (блок = 8 під AVX2 / 256-бітний SIMD)</text>
+<text x="60.0" y="481.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Масив тайлів: усередині кожного тайла поля лежать як SoA для SIMD-вектора</text>
+<rect x="60.0" y="502.0" width="384.0" height="88.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.6"/>
+<text x="252.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тайл 0 (частинки 0..7: 64 байти = 2×32B вектори)</text>
+<rect x="64.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="84.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x0</text>
+<rect x="64.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="84.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y0</text>
+<rect x="112.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="132.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x1</text>
+<rect x="112.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="132.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y1</text>
+<rect x="160.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="180.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x2</text>
+<rect x="160.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="180.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y2</text>
+<rect x="208.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="228.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x3</text>
+<rect x="208.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="228.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y3</text>
+<rect x="256.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="276.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x4</text>
+<rect x="256.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="276.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y4</text>
+<rect x="304.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="324.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x5</text>
+<rect x="304.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="324.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y5</text>
+<rect x="352.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="372.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x6</text>
+<rect x="352.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="372.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y6</text>
+<rect x="400.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="420.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x7</text>
+<rect x="400.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="420.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y7</text>
+<rect x="468.0" y="502.0" width="384.0" height="88.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.6"/>
+<text x="660.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тайл 1 (частинки 8..15)</text>
+<rect x="472.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="492.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x8</text>
+<rect x="472.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="492.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y8</text>
+<rect x="520.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="540.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x9</text>
+<rect x="520.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="540.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y9</text>
+<rect x="568.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="588.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x10</text>
+<rect x="568.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="588.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y10</text>
+<rect x="616.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="636.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x11</text>
+<rect x="616.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="636.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y11</text>
+<rect x="664.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="684.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x12</text>
+<rect x="664.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="684.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y12</text>
+<rect x="712.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="732.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x13</text>
+<rect x="712.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="732.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y13</text>
+<rect x="760.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="780.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x14</text>
+<rect x="760.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="780.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y14</text>
+<rect x="808.0" y="508.0" width="40.0" height="32.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="828.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x15</text>
+<rect x="808.0" y="546.0" width="40.0" height="32.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="828.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">y15</text>
+<text x="520.0" y="625.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">AoSoA поєднує пряме завантаження SIMD без перестановок і локальність полів однієї сутності</text>
+</svg>

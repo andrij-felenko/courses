@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція адресного простору залежно від розрядності адреси</text>
+<rect x="50.0" y="60.0" width="110.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="105.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">8-біт</text>
+<rect x="175.0" y="60.0" width="430.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="89.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">2⁸ = 256 Б (внутрішня) / 64 КБ (16-біт шина)</text>
+<rect x="620.0" y="60.0" width="230.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="735.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">64 КБ</text>
+<rect x="50.0" y="122.0" width="110.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="105.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">16-біт</text>
+<rect x="175.0" y="122.0" width="430.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="151.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">2¹⁶ = 64 КБ (лінійний сегмент) / 1 МБ (8086)</text>
+<rect x="620.0" y="122.0" width="230.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="735.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1 МБ</text>
+<rect x="50.0" y="184.0" width="110.0" height="48.0" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.5"/>
+<text x="105.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">32-біт</text>
+<rect x="175.0" y="184.0" width="430.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="213.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">2³² = 4 294 967 296 байтів = 4 ГБ</text>
+<rect x="620.0" y="184.0" width="230.0" height="48.0" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.2"/>
+<text x="735.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4 ГБ (фізична межа)</text>
+<rect x="50.0" y="246.0" width="110.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="105.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">48-біт</text>
+<rect x="175.0" y="246.0" width="430.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">2⁴⁸ = 281 474 976 710 656 байтів = 256 ТБ</text>
+<rect x="620.0" y="246.0" width="230.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="735.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">256 ТБ (канонічна x86-64)</text>
+<rect x="50.0" y="308.0" width="110.0" height="48.0" rx="6" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="105.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">57-біт</text>
+<rect x="175.0" y="308.0" width="430.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="337.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">2⁵⁷ = 144 115 188 075 855 872 байтів = 128 ПБ</text>
+<rect x="620.0" y="308.0" width="230.0" height="48.0" rx="6" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="735.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">128 ПБ (5-level paging)</text>
+<rect x="50.0" y="370.0" width="110.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">64-біт</text>
+<rect x="175.0" y="370.0" width="430.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="399.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">2⁶⁴ = 18 446 744 073 709 551 616 байтів = 16 ЕБ</text>
+<rect x="620.0" y="370.0" width="230.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="735.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">16 ЕБ (теоретичний максимум)</text>
+</svg>

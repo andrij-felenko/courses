@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розрядність внутрішнього тракту FMA для float64</text>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній тракт FMA для подвійної точності (float64)</text>
+<rect x="80.0" y="60.0" width="220.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="190.0" y="81.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Мантиса A: 53 біти (1 + 52)</tspan></text>
+<rect x="320.0" y="60.0" width="220.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="430.0" y="81.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Мантиса B: 53 біти (1 + 52)</tspan></text>
+<line x1="190.0" y1="96.0" x2="290.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="96.0" x2="330.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="130.0" width="460.0" height="38.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="310.0" y="153.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">Точний незрізаний добуток A × B: 106 бітів (53 × 53)</tspan></text>
+<rect x="570.0" y="60.0" width="200.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="670.0" y="81.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Мантиса C: 53 біти</tspan></text>
+<line x1="670.0" y1="96.0" x2="670.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="570.0" y="130.0" width="200.0" height="38.0" rx="6" fill="#f3e8fd" stroke="#7b2cbf" stroke-width="1.5"/><text x="670.0" y="145.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Вирівнювальний зсув</tspan><tspan x="670.0" dy="14.3">(−53 ... +106 розрядів)</tspan></text>
+<text x="410.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Повний внутрішній акумулятор (161+ бітів без втрати розрядів)</text>
+<rect x="70.0" y="205.0" width="160.0" height="48.0" rx="6" fill="#f3e8fd" stroke="#7b2cbf" stroke-width="1.5"/>
+<text x="150.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b2cbf" text-anchor="middle" font-weight="700">53 біти зліва</text>
+<text x="150.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">якщо порядок C &gt; A×B</text>
+<rect x="230.0" y="205.0" width="300.0" height="48.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="380.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">106 бітів точного добутку</text>
+<text x="380.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">основне поле множення A × B</text>
+<rect x="530.0" y="205.0" width="220.0" height="48.0" rx="6" fill="#fbf4e6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="640.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">Guard, Round, Sticky (3 біти)</text>
+<text x="640.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усі відкинуті молодші одиниці</text>
+<line x1="410.0" y1="253.0" x2="410.0" y2="273.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="180.0" y="273.0" width="460.0" height="42.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">LZA (передбачення нулів) → Зсув нормалізації → Округлення до 53 бітів</tspan><tspan x="410.0" dy="13.0">Результат float64: точний, ніби обчислено з нескінченною точністю</tspan></text>
+</svg>

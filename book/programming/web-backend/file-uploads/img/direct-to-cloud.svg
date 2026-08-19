@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура прямого завантаження в хмару (Direct-to-Cloud)</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">розвантаження бекенду: трафік важких файлів іде напряму в S3/GCS через підписаний URL</text>
+<rect x="40.0" y="75.0" width="200.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="140.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Браузер / Додаток)</text>
+<rect x="340.0" y="75.0" width="200.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="440.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бекенд (API Сервер)</text>
+<rect x="640.0" y="75.0" width="200.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="740.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хмарне сховище (S3 / GCS)</text>
+<line x1="140" y1="125" x2="140" y2="445" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="440" y1="125" x2="440" y2="445" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="740" y1="125" x2="740" y2="445" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="140.0" y1="150.0" x2="440.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="290.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. POST /api/uploads/ticket (розмір, MIME, метадані)</text>
+<rect x="360.0" y="168.0" width="160.0" height="32.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/><text x="440.0" y="187.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Перевірка прав + Pre-signed URL</tspan></text>
+<line x1="440.0" y1="220.0" x2="140.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="290.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. Відповідь: 200 OK { upload_url, file_id, ttl: 900s }</text>
+<line x1="140.0" y1="275.0" x2="740.0" y2="275.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">3. PUT https://s3.amazonaws.com/... (прямий потік байтів)</text>
+<line x1="740.0" y1="330.0" x2="140.0" y2="330.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="440.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4. HTTP 200 OK від S3 (ETag об'єкта)</text>
+<line x1="140.0" y1="380.0" x2="440.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="290.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">5. POST /api/uploads/complete { file_id, etag }</text>
+<line x1="440.0" y1="415.0" x2="640.0" y2="415.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">6. Подія в чергу задач (постобробка)</text>
+</svg>

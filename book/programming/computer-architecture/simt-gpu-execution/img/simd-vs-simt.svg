@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="220.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SIMD на CPU: явний векторний регістр</text>
+<text x="640.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SIMT на GPU: скалярні потоки у варпі</text>
+<rect x="30.0" y="48.0" width="380.0" height="322.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="220.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Один потік керування (1 PC, 1 потік ОС)</text>
+<rect x="50.0" y="95.0" width="340.0" height="52.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="220.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторний регістр (наприклад, 256-бітний YMM)</text>
+<rect x="55.0" y="124.0" width="78.0" height="18.0" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="94.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Lane 0 (f32)</text>
+<rect x="137.0" y="124.0" width="78.0" height="18.0" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="176.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Lane 1 (f32)</text>
+<rect x="219.0" y="124.0" width="78.0" height="18.0" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="258.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Lane 2 (f32)</text>
+<rect x="301.0" y="124.0" width="78.0" height="18.0" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="340.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Lane 3 (f32)</text>
+<line x1="220.0" y1="155.0" x2="220.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="220.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1 векторна інструкція (vaddps)</text>
+<rect x="50.0" y="195.0" width="340.0" height="60.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="220.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Векторне АЛП (4 паралельні доріжки)</text>
+<rect x="58.0" y="226.0" width="72.0" height="22.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="94.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALU 0</text>
+<rect x="140.0" y="226.0" width="72.0" height="22.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="176.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALU 1</text>
+<rect x="222.0" y="226.0" width="72.0" height="22.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="258.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALU 2</text>
+<rect x="304.0" y="226.0" width="72.0" height="22.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="340.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALU 3</text>
+<text x="220.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Програміст вручну упаковує вектори</text>
+<text x="220.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Векторизація жорстко зафіксована в ISA</text>
+<text x="220.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Розгалуження всередині регістра неможливе</text>
+<line x1="430.0" y1="48.0" x2="430.0" y2="370.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="450.0" y="48.0" width="380.0" height="322.0" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+<text x="640.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">32 незалежні потоки з власними регістрами</text>
+<rect x="465.0" y="95.0" width="64.0" height="52.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="497.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Потік 0</text>
+<text x="497.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">R0..R15</text>
+<rect x="535.0" y="95.0" width="64.0" height="52.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="567.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Потік 1</text>
+<text x="567.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">R0..R15</text>
+<rect x="605.0" y="95.0" width="64.0" height="52.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="637.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Потік 2</text>
+<text x="637.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">R0..R15</text>
+<rect x="675.0" y="95.0" width="64.0" height="52.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="707.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">...</text>
+<text x="707.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">R0..R15</text>
+<rect x="745.0" y="95.0" width="64.0" height="52.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="777.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Потік 31</text>
+<text x="777.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">R0..R15</text>
+<rect x="460.0" y="155.0" width="360.0" height="30.0" rx="4" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="640.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп (32 потоки): 1 спільний лічильник команд (PC)</text>
+<line x1="640.0" y1="190.0" x2="640.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="215.0" width="360.0" height="50.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="640.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">32 паралельні конвеєри (SIMT Execution Lanes)</text>
+<rect x="468.0" y="242.0" width="60.0" height="18.0" rx="2" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="498.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ALU 0</text>
+<rect x="538.0" y="242.0" width="60.0" height="18.0" rx="2" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="568.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ALU 1</text>
+<rect x="608.0" y="242.0" width="60.0" height="18.0" rx="2" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="638.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ALU 2</text>
+<rect x="678.0" y="242.0" width="60.0" height="18.0" rx="2" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="708.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">...</text>
+<rect x="748.0" y="242.0" width="60.0" height="18.0" rx="2" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="778.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ALU 31</text>
+<text x="640.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Програміст пише звичайний скалярний код</text>
+<text x="640.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Залізо саме об'єднує потоки у варпи по 32</text>
+<text x="640.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кожен потік має свій стек, адресу й дані</text>
+</svg>

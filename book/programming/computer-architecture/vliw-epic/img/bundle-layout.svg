@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">128-бітний кортеж команд IA-64 (Instruction Bundle)</text>
+<text x="410.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Три 41-бітні інструкції та 5-бітний шаблон розкладання й залежностей</text>
+<rect x="50.0" y="90.0" width="85.0" height="60.0" rx="6" fill="#f0f2f5" stroke="#6b7280" stroke-width="1.8"/>
+<text x="92.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шаблон</text>
+<text x="92.5" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5 бітів</text>
+<text x="92.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">[4:0]</text>
+<rect x="135.0" y="90.0" width="211.7" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="240.8" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот 0 (Slot 0)</text>
+<text x="240.8" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">41 біт (Слот пам'яті M)</text>
+<text x="240.8" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">[45:5]</text>
+<rect x="346.7" y="90.0" width="211.7" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="452.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот 1 (Slot 1)</text>
+<text x="452.5" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">41 біт (Цілочисловий I)</text>
+<text x="452.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">[86:46]</text>
+<rect x="558.3" y="90.0" width="211.7" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="664.2" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот 2 (Slot 2)</text>
+<text x="664.2" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">41 біт (Цілочисловий I)</text>
+<text x="664.2" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">[127:87]</text>
+<text x="410.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будова кожної 41-бітної інструкції всередині слота:</text>
+<rect x="50.0" y="200.0" width="100.0" height="44.0" rx="4" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="100.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">qp [5:0]</text>
+<text x="100.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">предикат p0..p63</text>
+<rect x="150.0" y="200.0" width="140.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Opcode [40:37, ...]</text>
+<text x="220.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">код операції</text>
+<rect x="290.0" y="200.0" width="480.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="530.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Операнди (r_dest, r_src1, r_src2 / константи)</text>
+<text x="530.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">по 7 бітів на архітектурний регістр r0..r127</text>
+<rect x="50.0" y="280.0" width="720.0" height="165.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="70.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Функції 5-бітного поля шаблону (Template):</text>
+<circle cx="75.0" cy="336.0" r="4.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.5"/>
+<text x="90.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">1. Призначення блоків: кодує тип виконавчого пристрою для кожного слота (M, I, F, B, L+X).</text>
+<text x="105.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Наприклад, шаблон M_MI призначає слот 0 → пам'ять, 1 → пам'ять, 2 → АЛП.</text>
+<circle cx="75.0" cy="385.0" r="4.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.5"/>
+<text x="90.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Явні біти зупинки (Stop Bits, позначка ';;'):</text>
+<text x="105.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Визначають межі груп інструкцій (Instruction Groups). Інструкції всередині групи незалежні</text>
+<text x="105.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">і виконуються паралельно. Біт ';;' вказує залізу: наступні інструкції залежать від попередніх.</text>
+</svg>

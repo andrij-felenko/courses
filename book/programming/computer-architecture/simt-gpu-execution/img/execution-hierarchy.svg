@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="840.0" height="400.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2.0"/>
+<text x="130.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сітка (Grid / NDRange)</text>
+<text x="500.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Мільйони потоків, розбиті на незалежні блоки</text>
+<rect x="40.0" y="70.0" width="390.0" height="335.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="235.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Мультипроцесор SM 0</text>
+<rect x="55.0" y="105.0" width="360.0" height="130.0" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="235.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок потоків (Thread Block / CTA)</text>
+<text x="235.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільна пам'ять (Shared Memory) + Бар'єри (__syncthreads)</text>
+<rect x="60.0" y="152.0" width="110.0" height="70.0" rx="3" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+<text x="115.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп 0 (0..31)</text>
+<text x="115.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 потоки</text>
+<text x="115.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">синхронно</text>
+<rect x="180.0" y="152.0" width="110.0" height="70.0" rx="3" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+<text x="235.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп 1 (32..63)</text>
+<text x="235.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 потоки</text>
+<text x="235.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">синхронно</text>
+<rect x="300.0" y="152.0" width="110.0" height="70.0" rx="3" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+<text x="355.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп N (...)</text>
+<text x="355.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 потоки</text>
+<text x="355.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">синхронно</text>
+<rect x="55.0" y="245.0" width="360.0" height="145.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="235.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратні ресурси SM</text>
+<rect x="65.0" y="278.0" width="165.0" height="48.0" rx="3" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="147.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Планувальники варпів</text>
+<text x="147.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Warp Schedulers (4 шт.)</text>
+<rect x="240.0" y="278.0" width="165.0" height="48.0" rx="3" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="322.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Регістровий файл</text>
+<text x="322.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">64K x 32-bit (нуль копіювань)</text>
+<rect x="65.0" y="336.0" width="340.0" height="44.0" rx="3" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="235.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Виконавчі блоки: 128 FP32 ALUs + 64 INT32</text>
+<text x="235.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виконують інструкції готових варпів щотакту</text>
+<rect x="450.0" y="70.0" width="390.0" height="335.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="645.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Мультипроцесор SM 1</text>
+<rect x="465.0" y="105.0" width="360.0" height="130.0" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="645.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок потоків (Thread Block / CTA)</text>
+<text x="645.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільна пам'ять (Shared Memory) + Бар'єри (__syncthreads)</text>
+<rect x="470.0" y="152.0" width="110.0" height="70.0" rx="3" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+<text x="525.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп 0 (0..31)</text>
+<text x="525.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 потоки</text>
+<text x="525.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">синхронно</text>
+<rect x="590.0" y="152.0" width="110.0" height="70.0" rx="3" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+<text x="645.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп 1 (32..63)</text>
+<text x="645.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 потоки</text>
+<text x="645.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">синхронно</text>
+<rect x="710.0" y="152.0" width="110.0" height="70.0" rx="3" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+<text x="765.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Варп N (...)</text>
+<text x="765.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 потоки</text>
+<text x="765.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">синхронно</text>
+<rect x="465.0" y="245.0" width="360.0" height="145.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="645.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратні ресурси SM</text>
+<rect x="475.0" y="278.0" width="165.0" height="48.0" rx="3" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="557.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Планувальники варпів</text>
+<text x="557.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Warp Schedulers (4 шт.)</text>
+<rect x="650.0" y="278.0" width="165.0" height="48.0" rx="3" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="732.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Регістровий файл</text>
+<text x="732.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">64K x 32-bit (нуль копіювань)</text>
+<rect x="475.0" y="336.0" width="340.0" height="44.0" rx="3" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Виконавчі блоки: 128 FP32 ALUs + 64 INT32</text>
+<text x="645.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виконують інструкції готових варпів щотакту</text>
+</svg>

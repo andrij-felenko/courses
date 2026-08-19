@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми спекуляції EPIC: Керування (NaT) та Дані (ALAT)</text>
+<text x="410.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Раннє підтягування пам'яті вище небезпечних розгалужень та записів</text>
+<rect x="30.0" y="75.0" width="370.0" height="360.0" rx="8" fill="#fdfdfd" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Спекуляція керування (Control Speculation)</text>
+<rect x="45.0" y="120.0" width="340.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="215.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ld.s r1 = [r_ptr]  ;;</text>
+<text x="215.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спекулятивне читання до перевірки покажчика</text>
+<line x1="215.0" y1="168.0" x2="215.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="45.0" y="190.0" width="340.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="215.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістр r1: [ 64-бітні дані ] + [ NaT біт ]</text>
+<text x="215.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Якщо помилка пам'яті (Page Fault) → NaT = 1</text>
+<text x="215.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Виняток не викликається, аварії ОС немає</text>
+<line x1="215.0" y1="250.0" x2="215.0" y2="275.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="45.0" y="275.0" width="340.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="215.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">chk.s r1, recovery_code</text>
+<text x="215.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перевірка в точці, де дані дійсно потрібні</text>
+<line x1="215.0" y1="317.0" x2="215.0" y2="340.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="45.0" y="340.0" width="340.0" height="75.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="215.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Відновлення (якщо NaT == 1):</text>
+<text x="215.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Перехід у recovery_code: повторний ld r1 = [r_ptr]</text>
+<text x="215.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Якщо помилка справжня — тепер процесор згенерує Trap.</text>
+<rect x="420.0" y="75.0" width="370.0" height="360.0" rx="8" fill="#fdfdfd" stroke="#333333" stroke-width="1.5"/>
+<text x="605.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Спекуляція даних (Data Speculation &amp; ALAT)</text>
+<rect x="435.0" y="120.0" width="340.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="605.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ld.a r1 = [r_src]  ;;</text>
+<text x="605.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Читання вище підозрілого запису st [r_dst]</text>
+<line x1="605.0" y1="168.0" x2="605.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="435.0" y="190.0" width="340.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="605.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратна таблиця ALAT (Advanced Load Table)</text>
+<text x="605.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис: [Регістр: r1 | Адреса: 0x1000 | Валідний: 1]</text>
+<text x="605.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Будь-який st [0x1000] скидає запис у Валідний = 0</text>
+<line x1="605.0" y1="265.0" x2="605.0" y2="290.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="435.0" y="290.0" width="340.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="605.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">chk.a.clr r1, recovery_code</text>
+<text x="605.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перевірка валідності запису в ALAT</text>
+<line x1="605.0" y1="334.0" x2="605.0" y2="355.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="435.0" y="355.0" width="340.0" height="65.0" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="605.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Результат ALAT:</text>
+<text x="605.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Якщо адреси перетнулися — повторне читання з пам'яті.</text>
+<text x="605.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Якщо ні (99% випадків) — нуль затримок пам'яті!</text>
+</svg>

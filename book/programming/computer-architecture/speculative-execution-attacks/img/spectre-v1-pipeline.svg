@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спекулятивний обхід перевірки меж (Spectre v1)</text>
+<rect x="40.0" y="65.0" width="235.0" height="360.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="157.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: Навчання PHT</text>
+<text x="157.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Код жертви:</text>
+<text x="157.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">if (x &lt; arr1_len)</text>
+<text x="157.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">  y = arr2[arr1[x]*4096];</text>
+<rect x="55.0" y="210.0" width="205.0" height="110.0" rx="6" fill="#edf8f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="157.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Тренування валідними x:</text>
+<text x="157.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">x = 0, 1, 2, 3 (&lt; len)</text>
+<text x="157.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Гілка завжди TAKEN (11)</text>
+<text x="157.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PHT впевнений у переході</text>
+<text x="157.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Провісник запам'ятовує:</text>
+<text x="157.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">«Умова if завжди істинна»</text>
+<rect x="310.0" y="65.0" width="250.0" height="360.0" rx="8" fill="#fdf0ed" stroke="#c0392b" stroke-width="2.0"/>
+<text x="435.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 2: Спекулятивний вихід</text>
+<text x="435.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. clflush(arr1_len)</text>
+<text x="435.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Довжина витіснена в DRAM</text>
+<text x="435.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Подаємо шкідливий x_bad</text>
+<text x="435.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(вказує на секрет у пам'яті)</text>
+<rect x="325.0" y="215.0" width="220.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="435.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Перевірка (x &lt; len) зависла</text>
+<text x="435.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">CPU спекулює: бере тіло if!</text>
+<text x="435.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Читає arr1[x_bad] = S</text>
+<text x="435.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Тягне arr2[S * 4096] в L1D</text>
+<text x="435.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Пам'ять за межами масиву</text>
+<text x="435.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">прочитано спекулятивно!</text>
+<rect x="595.0" y="65.0" width="225.0" height="360.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="707.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 3: Відкат і витік</text>
+<rect x="610.0" y="125.0" width="195.0" height="105.0" rx="6" fill="#edf2fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="707.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">arr1_len прибула з DRAM:</text>
+<text x="707.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x_bad &gt;= len → FALSE</text>
+<text x="707.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Конвеєр скидає тіло if</text>
+<text x="707.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Регістри y скасовано</text>
+<rect x="610.0" y="245.0" width="195.0" height="120.0" rx="6" fill="#edf8f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="707.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">АЛЕ рядок arr2[S * 4096]</text>
+<text x="707.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">лишився в кеші L1D!</text>
+<text x="707.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Reload-сканування arr2</text>
+<text x="707.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">знаходить гарячий індекс S</text>
+<line x1="280.0" y1="245.0" x2="305.0" y2="245.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="565.0" y1="245.0" x2="590.0" y2="245.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

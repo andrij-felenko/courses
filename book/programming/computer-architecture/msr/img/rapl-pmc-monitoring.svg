@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна телеметрія та керування енергією через MSR</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">лічильники продуктивності (PMC) та інтерфейс лімітів потужності (RAPL)</text>
+<rect x="40.0" y="72.0" width="360.0" height="260.0" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="1.8"/>
+<text x="220.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0e7490" text-anchor="middle" font-weight="700">Performance Monitoring Counters (PMC)</text>
+<text x="220.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">профілювання архітектурних подій ядра</text>
+<rect x="55.0" y="128.0" width="330.0" height="60.0" rx="6" fill="#ffffff" stroke="#0e7490" stroke-width="1.2"/>
+<text x="220.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фіксовані лічильники (Fixed Counters)</text>
+<text x="220.0" y="166.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">IA32_FIXED_CTR0..2 (Інструкції, Такти, Реф-такти)</text>
+<rect x="55.0" y="196.0" width="330.0" height="72.0" rx="6" fill="#ffffff" stroke="#0e7490" stroke-width="1.2"/>
+<text x="220.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Програмовані події (General PMC)</text>
+<text x="220.0" y="234.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#0e7490" text-anchor="middle" font-weight="700">IA32_PERFEVTSELx → IA32_PMCx</text>
+<text x="220.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Кеш-промахи (L1/L2/LLC), Branch Misses, TLB stalls</text>
+<rect x="55.0" y="276.0" width="330.0" height="44.0" rx="6" fill="#ffffff" stroke="#0e7490" stroke-width="1.2"/>
+<text x="220.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Використання: Linux perf, VTune, flamegraphs</text>
+<rect x="440.0" y="72.0" width="360.0" height="260.0" rx="8" fill="#fff8e8" stroke="#b8860b" stroke-width="1.8"/>
+<text x="620.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">Running Average Power Limit (RAPL)</text>
+<text x="620.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">апаратний моніторинг і лімітування енергії</text>
+<rect x="455.0" y="128.0" width="330.0" height="60.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="620.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одиниці вимірювання (Power Units)</text>
+<text x="620.0" y="166.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">MSR_RAPL_POWER_UNIT (0x606) → Джоулі / Вати</text>
+<rect x="455.0" y="196.0" width="330.0" height="72.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="620.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Накопичена енергія (Energy Status)</text>
+<text x="620.0" y="234.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#b8860b" text-anchor="middle" font-weight="700">MSR_PKG_ENERGY_STATUS (0x611) / PP0 / DRAM</text>
+<text x="620.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">32-бітні лічильники джоулів, що безперервно тікають</text>
+<rect x="455.0" y="276.0" width="330.0" height="44.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="620.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керування: MSR_PKG_POWER_LIMIT (PL1/PL2 TDP ліміти)</text>
+<rect x="40.0" y="348.0" width="760.0" height="94.0" rx="8" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="420.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доступ з простору користувача в Linux через драйвер msr:</text>
+<text x="420.0" y="392.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="700">pread(fd, &amp;val, 8, msr_offset)  ←  /dev/cpu/&lt;cpu_id&gt;/msr  (потребує root / CAP_SYS_RAWIO)</text>
+<text x="420.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Дозволяє системним демонам читати телеметрію температури, енергії та лічильників без модуля ядра.</text>
+<text x="420.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-style="italic">У режимі Kernel Lockdown запис у критичні MSR блокується для захисту пам'яті ядра.</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія бітових операцій CLZ, CTZ та Popcount</text>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія слова: пошук провідних (CLZ), кінцевих (CTZ) нулів та Popcount</text>
+<text x="38.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Слово:</text>
+<rect x="74.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.3"/><text x="93.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="93.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">15</text>
+<rect x="117.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.3"/><text x="136.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="136.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">14</text>
+<rect x="160.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.3"/><text x="179.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="179.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">13</text>
+<rect x="203.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="222.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="222.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">12</text>
+<rect x="246.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="265.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="265.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">11</text>
+<rect x="289.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="308.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="308.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">10</text>
+<rect x="332.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="351.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="351.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">9</text>
+<rect x="375.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="394.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="394.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">8</text>
+<rect x="418.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="437.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="437.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">7</text>
+<rect x="461.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="480.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="480.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">6</text>
+<rect x="504.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="523.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="523.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5</text>
+<rect x="547.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="566.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="566.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4</text>
+<rect x="590.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.3"/><text x="609.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="609.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3</text>
+<rect x="633.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.3"/><text x="652.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="652.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2</text>
+<rect x="676.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.3"/><text x="695.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="695.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="719.0" y="100.0" width="39.0" height="38.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.3"/><text x="738.5" y="123.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="738.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="74.0" y1="76.0" x2="199.0" y2="76.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="74.0" y1="72.0" x2="74.0" y2="80.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="199.0" y1="72.0" x2="199.0" y2="80.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="136.5" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">CLZ = 3 нулі</text>
+<line x1="566.5" y1="70.0" x2="566.5" y2="84.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="566.5" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Молодша 1 (LSB, біт 4)</text>
+<line x1="590.0" y1="158.0" x2="758.0" y2="158.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="590.0" y1="154.0" x2="590.0" y2="162.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="758.0" y1="154.0" x2="758.0" y2="162.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="674.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CTZ = 4 нулі</text>
+<line x1="222.5" y1="168.0" x2="222.5" y2="142.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="222.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Старша 1 (MSB, біт 12)</text>
+<rect x="40.0" y="210.0" width="360.0" height="105.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.4"/>
+<text x="220.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">CLZ та двійковий логарифм</text>
+<text x="56.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• Старший біт: MSB = (W - 1) - CLZ(x)</text>
+<text x="56.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• Цілий логарифм: ⌊log₂(x)⌋ = 15 - 3 = 12</text>
+<text x="56.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Застосування: класи пам'яті, стелі 2ⁿ</text>
+<rect x="440.0" y="210.0" width="360.0" height="105.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.4"/>
+<text x="620.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">CTZ та ізоляція бітів</text>
+<text x="456.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• Ізоляція молодшого біта: x &amp; (-x) = 1 &lt;&lt; 4</text>
+<text x="456.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• Скидання молодшого біта: x &amp; (x - 1)</text>
+<text x="456.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Застосування: черги задач, бітборди</text>
+<rect x="40.0" y="335.0" width="760.0" height="75.0" rx="6" fill="#fdfbf7" stroke="#c0392b" stroke-width="1.4"/>
+<text x="420.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Population Count (Popcount / Вага Геммінга)</text>
+<text x="60.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• Підрахунок усіх встановлених бітів: popcount(x) = 5 (сума ваг усіх розрядів дорівнює 5)</text>
+<text x="60.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Відмінність від CLZ/CTZ: сканує все слово, а не лише зупиняється на першій одиниці</text>
+<text x="420.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">CLZ рахує нулі від старшого краю (MSB), CTZ — від молодшого (LSB).</tspan><tspan x="420.0" dy="16.8">Апаратні інструкції виконують кожну з цих дій за константний час O(1) за 1 такт процесора.</tspan></text>
+</svg>

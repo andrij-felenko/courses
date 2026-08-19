@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація ретраїв (Thundering Herd) проти рандомізації з Jitter</text>
+<line x1="490.0" y1="55.0" x2="490.0" y2="435.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 6"/>
+<text x="245.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ЧИСТИЙ BACKOFF (БЕЗ JITTER)</text>
+<text x="245.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ретраї клієнтів синхронізуються у вузькі піки</text>
+<line x1="60.0" y1="360.0" x2="440.0" y2="360.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Час (t)</text>
+<line x1="60.0" y1="360.0" x2="60.0" y2="110.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="50.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">RPS</text>
+<rect x="88.0" y="130.0" width="24.0" height="230.0" rx="3" fill="#fdecea" stroke="#2457d6" stroke-width="1.5"/>
+<text x="100.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Пік!</text>
+<text x="100.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t = 1s</text>
+<rect x="158.0" y="150.0" width="24.0" height="210.0" rx="3" fill="#fdecea" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Пік!</text>
+<text x="170.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t = 2s</text>
+<rect x="238.0" y="180.0" width="24.0" height="180.0" rx="3" fill="#fdecea" stroke="#2457d6" stroke-width="1.5"/>
+<text x="250.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Пік!</text>
+<text x="250.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t = 4s</text>
+<rect x="338.0" y="220.0" width="24.0" height="140.0" rx="3" fill="#fdecea" stroke="#2457d6" stroke-width="1.5"/>
+<text x="350.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Пік!</text>
+<text x="350.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t = 8s</text>
+<text x="245.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">Усі воркери б'ють одночасно → новий колапс</text>
+<text x="735.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">BACKOFF + FULL JITTER</text>
+<text x="735.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Випадковий зсув t = rand(0, 2ⁿ · t₀) розмазує трафік</text>
+<line x1="550.0" y1="360.0" x2="930.0" y2="360.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="930.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Час (t)</text>
+<line x1="550.0" y1="360.0" x2="550.0" y2="110.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">RPS</text>
+<rect x="570.0" y="280.0" width="80.0" height="80.0" rx="4" fill="#eaf7ef" stroke="#c0392b" stroke-width="1.4"/>
+<text x="610.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">0–1s</text>
+<rect x="660.0" y="295.0" width="110.0" height="65.0" rx="4" fill="#eaf7ef" stroke="#c0392b" stroke-width="1.4"/>
+<text x="715.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">0–2s</text>
+<rect x="740.0" y="315.0" width="180.0" height="45.0" rx="4" fill="#eaf7ef" stroke="#c0392b" stroke-width="1.4"/>
+<text x="830.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">0–4s</text>
+<text x="735.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">Навантаження плавне → сервер встигає відновитися</text>
+</svg>

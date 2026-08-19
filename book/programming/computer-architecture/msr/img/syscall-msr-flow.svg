@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Швидкий перехід у ядро: MSR-регістри SYSCALL та SWAPGS</text>
+<text x="430.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">апаратна диспетчеризація системного виклику без звернення до таблиці IDT</text>
+<rect x="40.0" y="72.0" width="230.0" height="270.0" rx="8" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.6"/>
+<text x="155.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="700">1. Простір користувача</text>
+<text x="155.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPL = 3 (Ring 3)</text>
+<rect x="55.0" y="130.0" width="200.0" height="60.0" rx="6" fill="#ffffff" stroke="#c0271e" stroke-width="1.2"/>
+<text x="155.0" y="152.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">mov rax, 1  ; sys_write</text>
+<text x="155.0" y="172.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="700">syscall</text>
+<rect x="55.0" y="202.0" width="200.0" height="126.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="155.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне збереження:</text>
+<text x="65.0" y="240.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="start">RCX ← наступний RIP</text>
+<text x="65.0" y="258.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="start">R11 ← поточний RFLAGS</text>
+<text x="65.0" y="278.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#c0271e" text-anchor="start" font-weight="700">CPL ← 0 (Ring 0)</text>
+<text x="155.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Стек не чіпається залізом!</text>
+<line x1="270.0" y1="170.0" x2="310.0" y2="170.0" stroke="#c0271e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="310.0" y="72.0" width="260.0" height="270.0" rx="8" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="440.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="700">2. Апаратне читання MSR</text>
+<text x="440.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">миттєва ініціалізація стану CPU</text>
+<rect x="325.0" y="130.0" width="230.0" height="56.0" rx="6" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="440.0" y="150.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="700">IA32_LSTAR (0xC0000082)</text>
+<text x="440.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">RIP ← entry_SYSCALL_64</text>
+<rect x="325.0" y="196.0" width="230.0" height="56.0" rx="6" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="440.0" y="216.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="700">IA32_STAR (0xC0000081)</text>
+<text x="440.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CS/SS ← Селектори ядра</text>
+<rect x="325.0" y="262.0" width="230.0" height="66.0" rx="6" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="440.0" y="282.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="700">IA32_FMASK (0xC0000084)</text>
+<text x="440.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">RFLAGS &amp;= ~FMASK</text>
+<text x="440.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Маскує IF=0 (вимикає переривання)</text>
+<line x1="570.0" y1="170.0" x2="610.0" y2="170.0" stroke="#1f8a3b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="610.0" y="72.0" width="210.0" height="270.0" rx="8" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="715.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="700">3. Обробник ядра</text>
+<text x="715.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Точка входу entry_SYSCALL_64</text>
+<rect x="622.0" y="130.0" width="186.0" height="56.0" rx="6" fill="#ffffff" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="715.0" y="150.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="700">swapgs</text>
+<text x="715.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GS_BASE ↔ KERNEL_GS_BASE</text>
+<rect x="622.0" y="196.0" width="186.0" height="132.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="715.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доступ через %gs:</text>
+<text x="630.0" y="234.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="start">mov rsp, gs:[pda_stack]</text>
+<text x="715.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стек ядра для процесу</text>
+<text x="630.0" y="274.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1a1a1a" text-anchor="start">mov rbx, gs:[current]</text>
+<text x="715.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вказівник task_struct</text>
+<text x="715.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f47b5" text-anchor="middle" font-weight="700">Безпечний контекст ядра</text>
+<rect x="40.0" y="360.0" width="780.0" height="100.0" rx="8" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="430.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому інструкція SWAPGS незамінна на вході в ядро:</text>
+<text x="430.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">При вході через SYSCALL стек залишається стеком користувача (RSP не змінюється апаратно).</text>
+<text x="430.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро не може довіряти стеку користувача і не має вільних GPR-регістрів без затирання значень.</text>
+<text x="430.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="700">SWAPGS атомарно підставляє структуру per-CPU ядра в GS_BASE, відкриваючи доступ до валідного стека ядра.</text>
+</svg>

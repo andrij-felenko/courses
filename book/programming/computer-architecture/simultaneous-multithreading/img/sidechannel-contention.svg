@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атаки побічними каналами та конкуренція за спільні ресурси SMT</text>
+<rect x="40.0" y="55.0" width="355.0" height="315.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="217.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">PortSmash: витік через порти виконання</text>
+<text x="217.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Конкуренція за Порт 0 / Порт 1 в один такт</text>
+<rect x="55.0" y="115.0" width="150.0" height="65.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="130.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Жертва (Нитка 0)</text>
+<text x="130.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">OpenSSL ECDSA</text>
+<text x="130.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Множення точок кривої</text>
+<rect x="230.0" y="115.0" width="150.0" height="65.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="305.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Шпигун (Нитка 1)</text>
+<text x="305.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Безперервні операції</text>
+<text x="305.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимір затримки RDTSC</text>
+<line x1="130.0" y1="182.0" x2="195.0" y2="212.0" stroke="#333333" stroke-width="1.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="182.0" x2="240.0" y2="212.0" stroke="#333333" stroke-width="1.0" marker-end="url(#arrow)"/>
+<rect x="95.0" y="212.0" width="245.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="217.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний Порт 0 (ALU/Множення)</text>
+<text x="217.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Затримка шпигуна росте під час множення</text>
+<rect x="55.0" y="280.0" width="325.0" height="75.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="217.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідок для безпеки:</text>
+<text x="217.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Шпигун реконструює біти ключа</text>
+<text x="217.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">за коливаннями затримок виконання</text>
+<rect x="425.0" y="55.0" width="355.0" height="315.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="602.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">L1TF / Foreshadow: витік через L1D</text>
+<text x="602.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спекулятивне читання кешу іншої нитки</text>
+<rect x="440.0" y="115.0" width="150.0" height="65.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="515.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Гіпервізор / SGX (Н0)</text>
+<text x="515.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Конфіденційні дані</text>
+<text x="515.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Залишаються в L1D</text>
+<rect x="615.0" y="115.0" width="150.0" height="65.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="690.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Гість-атакувальник (Н1)</text>
+<text x="690.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Недійсна адреса PTE</text>
+<text x="690.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спекулятивне читання</text>
+<line x1="515.0" y1="182.0" x2="580.0" y2="212.0" stroke="#333333" stroke-width="1.0" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="182.0" x2="625.0" y2="212.0" stroke="#333333" stroke-width="1.0" marker-end="url(#arrow)"/>
+<rect x="480.0" y="212.0" width="245.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="602.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний кеш даних L1D</text>
+<text x="602.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Спекулятивне читання до виключення</text>
+<rect x="440.0" y="280.0" width="325.0" height="75.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="602.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідок для безпеки:</text>
+<text x="602.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Читання пам'яті хоста чи інших VM</text>
+<text x="602.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">через спільний фізичний кеш одного ядра</text>
+</svg>

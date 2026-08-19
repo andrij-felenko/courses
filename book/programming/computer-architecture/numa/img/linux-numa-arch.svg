@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структури пам'яті ядра Linux для NUMA: незалежний стан кожного вузла</text>
+<rect x="40.0" y="55.0" width="680.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="380.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальний масив ядра: struct pglist_data *node_data[MAX_NUMNODES]</text>
+<text x="380.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Макрос NODE_DATA(node_id) повертає дескриптор пам'яті відповідного вузла</text>
+<line x1="200.0" y1="100.0" x2="200.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="100.0" x2="560.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="130.0" width="320.0" height="230.0" rx="6" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="200.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">NODE_DATA(0) : pg_data_t</text>
+<text x="200.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фізичний простір пам'яті Вузла 0</text>
+<rect x="55.0" y="180.0" width="290.0" height="48.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="200.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зони пам'яті (node_zones[])</text>
+<text x="200.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ZONE_DMA32 · ZONE_NORMAL · ZONE_MOVABLE</text>
+<rect x="55.0" y="236.0" width="290.0" height="54.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="200.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Buddy Allocator (free_area[MAX_ORDER])</text>
+<text x="200.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Власні списки вільних сторінок 4 КБ..4 МБ</text>
+<text x="200.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Алокація не блокує сусідні вузли</text>
+<rect x="55.0" y="298.0" width="290.0" height="48.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="200.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">kswapd0 (фонове вивільнення)</text>
+<text x="200.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Слідкує за вотермарками (min/low/high) Вузла 0</text>
+<rect x="400.0" y="130.0" width="320.0" height="230.0" rx="6" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="560.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">NODE_DATA(1) : pg_data_t</text>
+<text x="560.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фізичний простір пам'яті Вузла 1</text>
+<rect x="415.0" y="180.0" width="290.0" height="48.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="560.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зони пам'яті (node_zones[])</text>
+<text x="560.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ZONE_NORMAL · ZONE_MOVABLE</text>
+<rect x="415.0" y="236.0" width="290.0" height="54.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="560.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Buddy Allocator (free_area[MAX_ORDER])</text>
+<text x="560.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Власні списки вільних сторінок 4 КБ..4 МБ</text>
+<text x="560.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Алокація не блокує сусідні вузли</text>
+<rect x="415.0" y="298.0" width="290.0" height="48.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="560.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">kswapd1 (фонове вивільнення)</text>
+<text x="560.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Слідкує за вотермарками (min/low/high) Вузла 1</text>
+</svg>

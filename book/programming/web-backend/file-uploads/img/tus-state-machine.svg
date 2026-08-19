@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл протоколу відновлюваного завантаження TUS</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">створення ресурсу, відправка частин через PATCH та узгодження зсуву після обриву</text>
+<rect x="60.0" y="70.0" width="200.0" height="38.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="160.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (TUS Client)</text>
+<rect x="620.0" y="70.0" width="200.0" height="38.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="720.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">TUS-сервер (Resumable Upload)</text>
+<line x1="160" y1="115" x2="160" y2="455" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="720" y1="115" x2="720" y2="455" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="160.0" y1="140.0" x2="720.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. POST /files (Upload-Length: 100000000, Tus-Resumable: 1.0.0)</text>
+<line x1="720.0" y1="175.0" x2="160.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. 201 Created (Location: /files/upload_987, Upload-Offset: 0)</text>
+<line x1="160.0" y1="215.0" x2="720.0" y2="215.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">3. PATCH /files/upload_987 (Upload-Offset: 0, 40 МБ даних)</text>
+<line x1="720.0" y1="250.0" x2="160.0" y2="250.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">4. 204 No Content (Upload-Offset: 41943040)</text>
+<rect x="220.0" y="268.0" width="440.0" height="32.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="440.0" y="287.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">МЕРЕЖЕВИЙ ЗБІЙ: Розрив TCP під час відправки наступного блоку</tspan></text>
+<line x1="160.0" y1="325.0" x2="720.0" y2="325.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">5. HEAD /files/upload_987 (Запит поточного зсуву)</text>
+<line x1="720.0" y1="360.0" x2="160.0" y2="360.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">6. 200 OK (Upload-Offset: 41943040, Upload-Length: 100000000)</text>
+<line x1="160.0" y1="400.0" x2="720.0" y2="400.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">7. PATCH /files/upload_987 (Upload-Offset: 41943040, залишок 60 МБ)</text>
+<line x1="720.0" y1="435.0" x2="160.0" y2="435.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">8. 204 No Content (Upload-Offset: 100000000 — Завантаження завершено)</text>
+</svg>

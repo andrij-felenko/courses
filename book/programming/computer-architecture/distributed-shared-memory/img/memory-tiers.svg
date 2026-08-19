@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія затримок доступу до пам'яті</text>
+<text x="420.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр затримок доступу до пам'яті: від кешу ЦП до мережного DSM</text>
+<rect x="60.0" y="68.0" width="110.0" height="200.0" rx="4" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.1"/>
+<rect x="70.0" y="238.0" width="90.0" height="30.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.3"/>
+<text x="115.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L1 / L2 Кеш</text>
+<text x="115.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1 – 4 нс</text>
+<text x="115.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="115.0" dy="0.0">Кремній ядра</tspan></text>
+<rect x="182.0" y="68.0" width="110.0" height="200.0" rx="4" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.1"/>
+<rect x="192.0" y="210.0" width="90.0" height="58.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.3"/>
+<text x="237.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L3 Кеш (LLC)</text>
+<text x="237.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">10 – 15 нс</text>
+<text x="237.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="237.0" dy="0.0">Спільний на кристалі</tspan></text>
+<rect x="304.0" y="68.0" width="110.0" height="200.0" rx="4" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.1"/>
+<rect x="314.0" y="182.0" width="90.0" height="86.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="359.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальна RAM</text>
+<text x="359.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">60 – 80 нс</text>
+<text x="359.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="359.0" dy="0.0">Контролер пам'яті DDR5</tspan></text>
+<rect x="426.0" y="68.0" width="110.0" height="200.0" rx="4" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.1"/>
+<rect x="436.0" y="154.0" width="90.0" height="114.0" rx="3" fill="#fff9db" stroke="#d35400" stroke-width="1.3"/>
+<text x="481.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CXL.mem Пул</text>
+<text x="481.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">200 – 250 нс</text>
+<text x="481.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="481.0" dy="0.0">PCIe 5.0/6.0 комутатор</tspan></text>
+<rect x="548.0" y="68.0" width="110.0" height="200.0" rx="4" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.1"/>
+<rect x="558.0" y="126.0" width="90.0" height="142.0" rx="3" fill="#f3eafa" stroke="#8e44ad" stroke-width="1.3"/>
+<text x="603.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">RDMA мережа</text>
+<text x="603.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">1 – 2 мкс</text>
+<text x="603.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="603.0" dy="0.0">InfiniBand / RoCE NIC</tspan></text>
+<rect x="670.0" y="68.0" width="110.0" height="200.0" rx="4" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.1"/>
+<rect x="680.0" y="98.0" width="90.0" height="170.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="725.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Software DSM</text>
+<text x="725.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">50 – 100 мкс</text>
+<text x="725.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="725.0" dy="0.0">TCP/IP стек + Page Fault</tspan></text>
+<line x1="70.0" y1="290.0" x2="770.0" y2="290.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зростання латентності у 100 000 разів (5 порядків величини)</text>
+<rect x="50.0" y="332.0" width="740.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">CXL та RDMA скорочують прірву між локальною RAM та віддаленими пулами пам'яті.</tspan></text>
+</svg>

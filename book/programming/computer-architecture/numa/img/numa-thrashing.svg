@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка First-Touch і механізм NUMA Thrashing у багатопотокових серверах</text>
+<rect x="20.0" y="50.0" width="345.0" height="315.0" rx="8" fill="#fdfefe" stroke="#c0392b" stroke-width="1.4"/>
+<text x="192.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. First-Touch без чергування (Помилка)</text>
+<text x="192.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Головний потік виділив спільний пул на Node 0</text>
+<rect x="35.0" y="105.0" width="150.0" height="80.0" rx="5" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="110.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Node 0 (Master)</text>
+<rect x="45.0" y="138.0" width="130.0" height="38.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="110.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вся пам'ять пулу</text>
+<text x="110.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">100% сторінок на Node 0</text>
+<rect x="200.0" y="105.0" width="150.0" height="80.0" rx="5" fill="#eef6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="275.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Node 1 (Workers)</text>
+<text x="275.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Потоки виконують</text>
+<text x="275.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">запити клієнтів</text>
+<line x1="235.0" y1="192.0" x2="145.0" y2="192.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="192.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Перевантаження шини UPI/IF</text>
+<text x="192.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Кожен доступ з Node 1 — віддалений!</text>
+<rect x="35.0" y="238.0" width="315.0" height="115.0" rx="5" fill="#fadbd6" stroke="#c0392b" stroke-width="1.0"/>
+<text x="192.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки: деградація продуктивності</text>
+<text x="192.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Штраф латентності пам'яті 2–3× на кожному кеш-промаху</text>
+<text x="192.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• AutoNUMA сканує сторінки й викликає шторм міграцій</text>
+<text x="192.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Вузол 0 вичерпує пам'ять -&gt; kswapd гальмує запити</text>
+<text x="192.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Вузол 1 має вільну пам'ять, яка не використовується</text>
+<rect x="395.0" y="50.0" width="345.0" height="315.0" rx="8" fill="#fdfefe" stroke="#27ae60" stroke-width="1.4"/>
+<text x="567.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. NUMA-Aware Архітектура (Рішення)</text>
+<text x="567.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Чергування сторінок або ізольовані процеси</text>
+<rect x="410.0" y="105.0" width="315.0" height="68.0" rx="5" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="567.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Варіант А: Чергування (MPOL_INTERLEAVE)</text>
+<text x="567.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">numactl --interleave=all ./postgres</text>
+<text x="567.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сторінки 4 КБ рівномірно діляться між вузлами</text>
+<rect x="410.0" y="180.0" width="315.0" height="68.0" rx="5" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="567.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Варіант Б: Ізольовані екземпляри (Instance Pinning)</text>
+<text x="567.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">numactl --cpunodebind=0 --membind=0 ./redis-server-0</text>
+<text x="567.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">numactl --cpunodebind=1 --membind=1 ./redis-server-1</text>
+<rect x="410.0" y="255.0" width="315.0" height="98.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="567.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Результат оптимізації:</text>
+<text x="567.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">✓ Передбачувана низька затримка запитів (p99)</text>
+<text x="567.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">✓ Повна утилізація пропускної здатності шин пам'яті</text>
+<text x="567.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">✓ Відсутність блокувань міжвузлових лінків</text>
+</svg>

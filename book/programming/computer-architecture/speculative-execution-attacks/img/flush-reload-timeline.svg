@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три фази сайд-каналу Flush+Reload</text>
+<rect x="45.0" y="65.0" width="230.0" height="335.0" rx="8" fill="#edf2fc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="160.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. FLUSH (Очищення)</text>
+<line x1="60.0" y1="107.0" x2="260.0" y2="107.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="160.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Атакуючий викликає clflush</text>
+<text x="160.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">для всіх 256 ліній масиву probe.</text>
+<text x="160.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Масив повністю витіснено</text>
+<text x="160.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">з L1/L2/L3 у повільну DRAM.</text>
+<text x="160.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Кеш-пам'ять «холодна».</text>
+<line x1="280.0" y1="230.0" x2="305.0" y2="230.0" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="295.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">далі</text>
+<rect x="310.0" y="65.0" width="230.0" height="335.0" rx="8" fill="#fdf0ed" stroke="#c0392b" stroke-width="2.0"/>
+<text x="425.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. SPECULATE (Спекуляція)</text>
+<line x1="325.0" y1="107.0" x2="525.0" y2="107.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="425.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Жертва або спекулятивний код</text>
+<text x="425.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">читає секрет S і робить доступ:</text>
+<text x="425.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">probe[S * 4096]</text>
+<text x="425.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінія з індексом S завантажується</text>
+<text x="425.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">в апаратний кеш L1D ядра.</text>
+<text x="425.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Решта 255 ліній лишаються в DRAM.</text>
+<line x1="545.0" y1="230.0" x2="570.0" y2="230.0" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="560.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">далі</text>
+<rect x="575.0" y="65.0" width="230.0" height="335.0" rx="8" fill="#edf8f1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="690.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. RELOAD (Вимірювання)</text>
+<line x1="590.0" y1="107.0" x2="790.0" y2="107.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="690.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Атакуючий проходить 0..255,</text>
+<text x="690.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">заміряючи rdtscp до probe[i * 4096]:</text>
+<text x="690.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">i != S → DRAM miss (~200 тактів)</text>
+<text x="690.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">i == S → L1 cache HIT (~10 тактів)</text>
+<text x="690.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Значення S відновлено за часом!</text>
+</svg>

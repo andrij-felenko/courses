@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роздільна Гарвардська ієрархія кешів L1: неузгодженість I-Cache та D-Cache</text>
+<rect x="20.0" y="20.0" width="780.0" height="290.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="40.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Процесорне ядро (CPU Core)</text>
+<rect x="45.0" y="75.0" width="330.0" height="95.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Тракт даних та виконання</text>
+<text x="210.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Виконавчі блоки (ALU) + Буфер запису (Store Buffer)</text>
+<text x="210.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Інструкція запису: STR / MOV [addr], data</text>
+<rect x="445.0" y="75.0" width="330.0" height="95.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="610.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Тракт вибірки інструкцій (Fetch)</text>
+<text x="610.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Лічильник (PC) + Передбачувач переходів (BTB)</text>
+<text x="610.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Черга вибірки + Декодери / μop-кеш (DSB)</text>
+<rect x="45.0" y="205.0" width="330.0" height="80.0" rx="6" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="210.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">L1 D-Cache (Кеш даних)</text>
+<text x="210.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Читання/Запис, лінія MODIFIED (брудна)</text>
+<text x="210.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Містить НОВИЙ опкод інструкції</text>
+<rect x="445.0" y="205.0" width="330.0" height="80.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="610.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">L1 I-Cache (Кеш інструкцій)</text>
+<text x="610.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Тільки читання конвеєром вибірки</text>
+<text x="610.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Містить ЗАСТАРІЛИЙ опкод інструкції</text>
+<line x1="210.0" y1="170.0" x2="210.0" y2="205.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="220.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">Запис байтів</text>
+<line x1="610.0" y1="205.0" x2="610.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="620.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Вибірка слів</text>
+<line x1="375.0" y1="245.0" x2="445.0" y2="245.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/>
+<text x="410.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">НЕМАЄ</text>
+<text x="410.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">зв'язку</text>
+<rect x="150.0" y="345.0" width="520.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єднаний L2 Кеш / L3 Кеш (Unified)</text>
+<text x="410.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Точка об'єднання когерентності (Point of Unification / PoU)</text>
+<rect x="150.0" y="440.0" width="520.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оперативна пам'ять (DRAM / Фізична пам'ять)</text>
+<text x="410.0" y="484.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Точка загальної когерентності (Point of Coherency / PoC)</text>
+<line x1="210.0" y1="285.0" x2="260.0" y2="345.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="190.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">Скидання (Evict/Clean)</text>
+<line x1="560.0" y1="345.0" x2="610.0" y2="285.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Заповнення промаху (Fill)</text>
+<line x1="410.0" y1="410.0" x2="410.0" y2="440.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="3 3"/>
+</svg>
