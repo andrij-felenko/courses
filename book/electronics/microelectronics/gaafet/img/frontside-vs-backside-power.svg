@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="82.6" y="10.2" width="294.7" height="39.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="26.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">Традиційне живлення (Frontside PDN)</tspan><tspan x="230.0" dy="15.6">Сигнали й шини живлення в одному стеку</tspan></text>
+<rect x="527.8" y="10.2" width="324.5" height="39.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="26.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Зворотна мережа (Backside PDN / PowerVia)</tspan><tspan x="690.0" dy="15.6">Розділення: сигнали зверху, живлення знизу</tspan></text>
+<rect x="50.0" y="70.0" width="360.0" height="160.0" rx="2" fill="#fff3cd" stroke="#d39e00" stroke-width="1.5"/>
+<text x="230.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#856404" text-anchor="middle" font-weight="700">Верхній стек металізації (M0–M15)</text>
+<rect x="70.0" y="110.0" width="75.0" height="25.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.2"/>
+<text x="107.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle" font-weight="700">Сигнал A</text>
+<rect x="155.0" y="110.0" width="70.0" height="25.0" rx="2" fill="#f8d7da" stroke="#c0392b" stroke-width="1.2"/>
+<text x="190.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">VDD (живл.)</text>
+<rect x="235.0" y="110.0" width="75.0" height="25.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.2"/>
+<text x="272.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle" font-weight="700">Сигнал B</text>
+<rect x="320.0" y="110.0" width="70.0" height="25.0" rx="2" fill="#cce5ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="355.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">VSS (земля)</text>
+<rect x="109.6" y="160.1" width="240.8" height="29.9" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="230.0" y="172.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="230.0" dy="0.0">Тиснява доріжок + високий опір тонких M0/M1</tspan><tspan x="230.0" dy="12.3">Падіння напруги IR-drop сягає 10–15% VDD</tspan></text>
+<rect x="50.0" y="240.0" width="360.0" height="60.0" rx="0" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="230.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7e34" text-anchor="middle" font-weight="700">Шар транзисторів GAAFET (кремній)</text>
+<rect x="50.0" y="310.0" width="360.0" height="50.0" rx="0" fill="#e8ecf1" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="230.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пасивна кремнієва підкладка (~700 мкм)</text>
+<rect x="105.3" y="378.5" width="249.4" height="33.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="230.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Втрати тактової частоти через шум живлення</tspan><tspan x="230.0" dy="13.0">і конкуренцію за простір трасування</tspan></text>
+<line x1="460.0" y1="20.0" x2="460.0" y2="420.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="510.0" y="70.0" width="360.0" height="110.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7e34" text-anchor="middle" font-weight="700">Верхній стек: 100% чисте трасування сигналів</text>
+<text x="690.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle">Немає шин VDD/VSS — вільні канали зв'язку</text>
+<text x="690.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#004085" text-anchor="middle" font-weight="700">Зменшення площі стандартної комірки на 15–20%</text>
+<rect x="510.0" y="190.0" width="360.0" height="60.0" rx="0" fill="#cce5ff" stroke="#004085" stroke-width="1.5"/>
+<text x="690.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#004085" text-anchor="middle" font-weight="700">Шар транзисторів GAAFET (надтонкий Si)</text>
+<rect x="580.0" y="250.0" width="36.0" height="50.0" rx="0" fill="#f8d7da" stroke="#c0392b" stroke-width="1.5"/>
+<text x="598.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">TSV</text>
+<rect x="770.0" y="250.0" width="36.0" height="50.0" rx="0" fill="#cce5ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="788.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">TSV</text>
+<rect x="510.0" y="300.0" width="360.0" height="60.0" rx="2" fill="#f4f6f8" stroke="#383d41" stroke-width="1.5"/>
+<rect x="530.0" y="315.0" width="140.0" height="30.0" rx="2" fill="#f8d7da" stroke="#c0392b" stroke-width="1.5"/>
+<text x="600.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Товста шина VDD (Backside)</text>
+<rect x="700.0" y="315.0" width="150.0" height="30.0" rx="2" fill="#cce5ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="775.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Товста шина VSS (Backside)</text>
+<rect x="542.5" y="378.5" width="295.0" height="33.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7e34" text-anchor="middle"><tspan x="690.0" dy="0.0">Зниження IR-drop на 30–50%; ліквідація шумів;</tspan><tspan x="690.0" dy="13.0">прямий контакт із джерелом живлення через Nano-TSV</tspan></text>
+</svg>

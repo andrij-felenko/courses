@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл та способи компенсації апаратних дефектів</text>
+<rect x="0.0" y="0.0" width="840.0" height="430.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл та способи компенсації апаратних дефектів (Silicon Errata)</text>
+<rect x="220.0" y="50.0" width="400.0" height="60.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="420.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Виявлення дефекту кристала (Silicon Bug)</text>
+<text x="420.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Документування в Errata Sheet: тригер, зачеплені ревізії, вплив</text>
+<line x1="420.0" y1="110.0" x2="420.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="100.0" y1="150.0" x2="740.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="112.5" y1="150.0" x2="112.5" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="20.0" y="175.0" width="185.0" height="215.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="112.5" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">1. Мікрокод CPU</text>
+<text x="112.5" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Patch RAM / ROM</text>
+<line x1="30.0" y1="222.0" x2="195.0" y2="222.0" stroke="#7c3aed" stroke-width="0.8" stroke-dasharray="2,2"/>
+<text x="32.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Патч інструкцій</text>
+<text x="32.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Заміна мікрокоду</text>
+<text x="32.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Прозоро для ОС</text>
+<text x="32.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Завантаження BIOS/UEFI</text>
+<rect x="28.0" y="350.0" width="169.0" height="28.0" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="112.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">Час: дні | Швидкість: 0–5%</text>
+<line x1="317.5" y1="150.0" x2="317.5" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="225.0" y="175.0" width="185.0" height="215.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="317.5" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">2. Chicken Bits</text>
+<text x="317.5" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">MSR / Control Flags</text>
+<line x1="235.0" y1="222.0" x2="400.0" y2="222.0" stroke="#d97706" stroke-width="0.8" stroke-dasharray="2,2"/>
+<text x="237.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Апаратний вимикач</text>
+<text x="237.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Блокування оптимізацій</text>
+<text x="237.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Вимикання спекуляцій</text>
+<text x="237.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Усуває збій схеми</text>
+<rect x="233.0" y="350.0" width="169.0" height="28.0" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="317.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Час: хвилини | Падіння: 5–20%</text>
+<line x1="522.5" y1="150.0" x2="522.5" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="430.0" y="175.0" width="185.0" height="215.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="522.5" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. Софтверний Workaround</text>
+<text x="522.5" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">OS Driver Quirk Table</text>
+<line x1="440.0" y1="222.0" x2="605.0" y2="222.0" stroke="#2457d6" stroke-width="0.8" stroke-dasharray="2,2"/>
+<text x="442.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Детекція за REVID</text>
+<text x="442.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Обхідна логіка в коді</text>
+<text x="442.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Програмне скидання FIFO</text>
+<text x="442.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Введення затримок</text>
+<rect x="438.0" y="350.0" width="169.0" height="28.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="522.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Час: тижні | Витрати CPU</text>
+<line x1="727.5" y1="150.0" x2="727.5" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="635.0" y="175.0" width="185.0" height="215.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="727.5" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Новий Tapeout</text>
+<text x="727.5" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Metal ECO / Base Stepping</text>
+<line x1="645.0" y1="222.0" x2="810.0" y2="222.0" stroke="#27ae60" stroke-width="0.8" stroke-dasharray="2,2"/>
+<text x="647.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Апаратне усунення</text>
+<text x="647.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Чистий фікс у кремнії</text>
+<text x="647.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Відновлення швидкості</text>
+<text x="647.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Для нових партій</text>
+<rect x="643.0" y="350.0" width="169.0" height="28.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="727.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Час: 1–6 міс | Кошти: високі</text>
+<text x="420.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Стратегія захисту: негайний програмний обхід для наявного кремнію + апаратний фікс у наступній ревізії.</text>
+</svg>

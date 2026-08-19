@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380">
+<rect width="900" height="380" fill="#ffffff"/>
+<text x="450.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схемотехнічні конфігурації підключення охоронного кільця</text>
+<rect x="25.0" y="50.0" width="270.0" height="300.0" rx="6" fill="#fafbfc" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="160.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">А. Інвертуючий ОП (TIA)</text>
+<text x="160.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Віртуальна земля: Guard → GND</text>
+<rect x="315.0" y="50.0" width="270.0" height="300.0" rx="6" fill="#fafbfc" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="450.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Б. Повторювач напруги</text>
+<text x="450.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Вхід плаває: Guard → Вихід / IN⁻</text>
+<rect x="605.0" y="50.0" width="270.0" height="300.0" rx="6" fill="#fafbfc" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="740.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">В. Підсилювач (G &gt; 1)</text>
+<text x="740.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Окремий Guard Driver буфер</text>
+<polygon points="180,165 180,235 240,200" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="192.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">−</text>
+<text x="192.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="50.0" y1="185.0" x2="180.0" y2="185.0" stroke="#333333" stroke-width="1.8"/>
+<text x="45.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">I_in</text>
+<circle cx="110.0" cy="185.0" r="3.0" fill="#f39c12" stroke="#b7950b" stroke-width="1.5"/>
+<text x="80.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7950b" text-anchor="middle" font-weight="700">High-Z (0 В)</text>
+<path d="M 110 185 L 110 140 L 200 140" fill="none" stroke="#333333" stroke-width="1.5"/>
+<rect x="200.0" y="132.0" width="35.0" height="16.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="217.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Rf</text>
+<path d="M 235 140 L 255 140 L 255 200" fill="none" stroke="#333333" stroke-width="1.5"/>
+<line x1="240.0" y1="200.0" x2="275.0" y2="200.0" stroke="#333333" stroke-width="1.8"/>
+<text x="278.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">V_out</text>
+<line x1="150.0" y1="218.0" x2="180.0" y2="218.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="150.0" y1="218.0" x2="150.0" y2="240.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="140.0" y1="240.0" x2="160.0" y2="240.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="144.0" y1="244.0" x2="156.0" y2="244.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="147.0" y1="248.0" x2="153.0" y2="248.0" stroke="#333333" stroke-width="1.2"/>
+<path d="M 150 218 L 60 218 L 60 195 L 140 195 L 140 162 L 60 162" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+<rect x="82.9" y="287.4" width="154.2" height="35.3" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.5"/><text x="160.0" y="301.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="160.0" dy="0.0">Guard з'єднано з GND</tspan><tspan x="160.0" dy="14.3">(V_guard = 0 В ≈ V_IN⁻)</tspan></text>
+<polygon points="455,165 455,235 515,200" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="467.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">−</text>
+<text x="467.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="345.0" y1="218.0" x2="455.0" y2="218.0" stroke="#333333" stroke-width="1.8"/>
+<text x="340.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">V_in</text>
+<circle cx="380.0" cy="218.0" r="3.0" fill="#f39c12" stroke="#b7950b" stroke-width="1.5"/>
+<text x="380.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7950b" text-anchor="middle" font-weight="700">High-Z</text>
+<line x1="515.0" y1="200.0" x2="540.0" y2="200.0" stroke="#333333" stroke-width="1.8"/>
+<path d="M 530 200 L 530 150 L 435 150 L 435 186 L 455 186" fill="none" stroke="#333333" stroke-width="1.5"/>
+<path d="M 435 150 L 355 150 L 355 204 L 410 204 L 410 248 L 355 248" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+<rect x="369.8" y="287.4" width="160.5" height="35.3" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="301.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="450.0" dy="0.0">Guard з'єднано з V_out</tspan><tspan x="450.0" dy="14.3">(V_guard = V_out = V_in)</tspan></text>
+<polygon points="735,135 735,195 785,165" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="745.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">−</text>
+<text x="745.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="630.0" y1="179.0" x2="735.0" y2="179.0" stroke="#333333" stroke-width="1.8"/>
+<text x="625.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">V_in</text>
+<circle cx="660.0" cy="179.0" r="3.0" fill="#f39c12" stroke="#b7950b" stroke-width="1.5"/>
+<polygon points="735,220 735,270 780,245" fill="#e8f8f5" stroke="#2457d6" stroke-width="1.5"/>
+<text x="743.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="743.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">+</text>
+<text x="759.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Buf</text>
+<path d="M 660 179 L 660 255 L 735 255" fill="none" stroke="#333333" stroke-width="1.3"/>
+<path d="M 780 245 L 793 245 L 793 227 L 725 227 L 725 235 L 735 235" fill="none" stroke="#2457d6" stroke-width="1.3"/>
+<path d="M 793 245 L 810 245 L 810 280 L 640 280 L 640 161 L 680 161 L 680 189 L 640 189" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+<rect x="647.2" y="302.4" width="185.6" height="35.3" rx="6" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.5"/><text x="740.0" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="740.0" dy="0.0">Guard живиться від буфера</tspan><tspan x="740.0" dy="14.3">(розвантажує вхід при G &gt; 1)</tspan></text>
+</svg>

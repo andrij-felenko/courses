@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="122.2" y="7.0" width="575.5" height="34.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="28.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Тепловий баланс саморозігріву та деградація ресурсу конденсатора</tspan></text>
+<rect x="95.8" y="49.0" width="228.3" height="32.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="69.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Ланцюг теплового розсіювання</tspan></text>
+<rect x="135.0" y="91.3" width="149.9" height="37.3" rx="6" fill="#eef2fd" stroke="#2457d6" stroke-width="1.5"/><text x="210.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Пульсуючий струм I_rms</tspan><tspan x="210.0" dy="14.3">крізь конденсатор</tspan></text>
+<rect x="139.2" y="156.3" width="141.6" height="37.3" rx="6" fill="#feebe8" stroke="#c0392b" stroke-width="1.5"/><text x="210.0" y="171.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Втрати потужності:</tspan><tspan x="210.0" dy="14.3">P = I_rms² · ESR(f)</tspan></text>
+<rect x="100.5" y="221.3" width="218.9" height="37.3" rx="6" fill="#fef3eb" stroke="#d35400" stroke-width="1.5"/><text x="210.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Перегрів корпусу над середовищем:</tspan><tspan x="210.0" dy="14.3">ΔT = P · R_th_канал-середовище</tspan></text>
+<line x1="210.0" y1="132.0" x2="210.0" y2="153.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="197.0" x2="210.0" y2="218.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="50.0" x2="410.0" y2="290.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="482.2" y="49.0" width="265.5" height="32.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/><text x="615.0" y="69.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="615.0" dy="0.0">Правило Арреніуса (термін служби)</tspan></text>
+<rect x="435.0" y="93.0" width="140.0" height="24.0" rx="4" fill="#f8fafc" stroke="#c0392b" stroke-width="1.2"/>
+<text x="505.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T = 105 °C (номінал)</text>
+<rect x="585.0" y="93.0" width="90.0" height="24.0" rx="4" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="630.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">2 000 годин</text>
+<text x="685.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">100% номінального ресурсу</text>
+<rect x="435.0" y="127.0" width="140.0" height="24.0" rx="4" fill="#f8fafc" stroke="#e67e22" stroke-width="1.2"/>
+<text x="505.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">T = 95 °C (−10 °C)</text>
+<rect x="585.0" y="127.0" width="90.0" height="24.0" rx="4" fill="#e67e22" stroke="none" stroke-width="1.5"/>
+<text x="630.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">4 000 годин</text>
+<text x="685.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ресурс подвоюється (×2)</text>
+<rect x="435.0" y="161.0" width="140.0" height="24.0" rx="4" fill="#f8fafc" stroke="#f39c12" stroke-width="1.2"/>
+<text x="505.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f39c12" text-anchor="middle" font-weight="700">T = 85 °C (−20 °C)</text>
+<rect x="585.0" y="161.0" width="90.0" height="24.0" rx="4" fill="#f39c12" stroke="none" stroke-width="1.5"/>
+<text x="630.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">8 000 годин</text>
+<text x="685.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ресурс зростає вчетверо (×4)</text>
+<rect x="435.0" y="195.0" width="140.0" height="24.0" rx="4" fill="#f8fafc" stroke="#27ae60" stroke-width="1.2"/>
+<text x="505.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">T = 75 °C (−30 °C)</text>
+<rect x="585.0" y="195.0" width="90.0" height="24.0" rx="4" fill="#27ae60" stroke="none" stroke-width="1.5"/>
+<text x="630.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">16 000 годин</text>
+<text x="685.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ресурс зростає у 8 разів (×8)</text>
+<rect x="435.0" y="229.0" width="140.0" height="24.0" rx="4" fill="#f8fafc" stroke="#2ecc71" stroke-width="1.2"/>
+<text x="505.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2ecc71" text-anchor="middle" font-weight="700">T = 65 °C (−40 °C)</text>
+<rect x="585.0" y="229.0" width="90.0" height="24.0" rx="4" fill="#2ecc71" stroke="none" stroke-width="1.5"/>
+<text x="630.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">32 000 годин</text>
+<text x="685.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ресурс зростає у 16 разів (×16)</text>
+<rect x="83.5" y="293.5" width="653.1" height="23.0" rx="6" fill="#fdfbf7" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="308.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Закон надійності: кожні +10 °C перегріву від струму I_rms скорочують життя електроліту вдвічі!</tspan></text>
+</svg>

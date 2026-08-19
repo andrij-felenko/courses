@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 895.36 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="895.36" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка зворотного відновлення: чому PN-діод не вимикається миттєво</text>
+<line x1="80.0" y1="240.0" x2="820.0" y2="240.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="120.0" y1="40.0" x2="120.0" y2="430.0" stroke="#333333" stroke-width="1.6"/>
+<text x="830.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">t (час)</text>
+<text x="115.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">i_D (струм)</text>
+<line x1="120.0" y1="120.0" x2="260.0" y2="120.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="105.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">+I_F</text>
+<path d="M 260.0,120.0 L 320.0,240.0 L 370.0,360.0 L 410.0,320.0 L 490.0,260.0 L 590.0,240.0" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<path d="M 260.0,120.0 L 320.0,240.0 L 350.0,295.0 L 385.0,250.0 L 430.0,240.0" fill="none" stroke="#7a4e8a" stroke-width="2.4" stroke-dasharray="6,3"/>
+<path d="M 260.0,120.0 L 320.0,240.0 L 332.0,256.0 L 345.0,240.0" fill="none" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="320.0" y1="240.0" x2="320.0" y2="380.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="370.0" y1="240.0" x2="370.0" y2="380.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="590.0" y1="240.0" x2="590.0" y2="380.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="320.0" y1="375.0" x2="370.0" y2="375.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="375.0" x2="320.0" y2="375.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="345.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t_s (фаза схову)</text>
+<line x1="370.0" y1="375.0" x2="590.0" y2="375.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="375.0" x2="370.0" y2="375.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="480.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t_f (спад струму)</text>
+<line x1="320.0" y1="415.0" x2="590.0" y2="415.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="415.0" x2="320.0" y2="415.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="455.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">t_rr = t_s + t_f (Standard: 1–5 мкс)</text>
+<line x1="120.0" y1="360.0" x2="370.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="105.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">-I_RRM</text>
+<text x="505.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Standard PN (1N4007): t_rr ≈ 2 мкс, великий Q_rr</text>
+<text x="395.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a4e8a" text-anchor="start" font-weight="700">Ultra-Fast (MUR460): t_rr ≈ 35 нс</text>
+<text x="350.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Schottky: t_rr ≈ 0 (лише заряд C_j)</text>
+<rect x="520.0" y="60.0" width="330.0" height="95.0" rx="6" fill="#fdf8e2" stroke="#d97706" stroke-width="1.5"/><text x="685.0" y="93.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Фізика t_rr:</tspan><tspan x="685.0" dy="11.7">1. При I_F база затоплена неосновними носіями.</tspan><tspan x="685.0" dy="11.7">2. При зміні напруги носії мають витекти або рекомбінувати.</tspan><tspan x="685.0" dy="11.7">3. Поки заряд Q_rr не зникне, діод проводить у ЗВОРОТНИЙ бік!</tspan></text>
+</svg>
