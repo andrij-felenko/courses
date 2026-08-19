@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняльний ландшафт структур даних для запитів на відрізках</text>
+<rect x="35.0" y="60.0" width="185.0" height="355.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="35.0" y="60.0" width="185.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="127.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Таблиця розрідження</text>
+<text x="127.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Sparse Table)</text>
+<rect x="230.0" y="60.0" width="185.0" height="355.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="230.0" y="60.0" width="185.0" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="322.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Відрізкове дерево</text>
+<text x="322.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Segment Tree)</text>
+<rect x="425.0" y="60.0" width="185.0" height="355.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="425.0" y="60.0" width="185.0" height="52.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="517.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Дерево Фенвіка</text>
+<text x="517.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Fenwick Tree)</text>
+<rect x="620.0" y="60.0" width="185.0" height="355.0" rx="6" fill="#f8fafc" stroke="#d4ac0d" stroke-width="1.8"/>
+<rect x="620.0" y="60.0" width="185.0" height="52.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="712.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d4ac0d" text-anchor="middle" font-weight="700">Декартове дерево</text>
+<text x="712.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(Treap)</text>
+<text x="45.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Побудова: O(N log N)</text>
+<text x="45.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">RMQ запит: O(1)</text>
+<text x="45.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Загальний запит: O(log N)</text>
+<text x="45.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Оновлення: O(N) (статична)</text>
+<text x="45.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пам'ять: O(N log N)</text>
+<line x1="45.0" y1="230.0" x2="210.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="45.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Головний фокус:</text>
+<text x="45.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Мільйони статичних RMQ,</text>
+<text x="45.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">LCA у деревах,</text>
+<text x="45.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ідемпотентні напівгрупи.</text>
+<text x="45.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Плюси: миттєвий O(1) RMQ,</text>
+<text x="45.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">компактний масив, кеш.</text>
+<text x="45.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Мінуси: незмінність даних.</text>
+<text x="240.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Побудова: O(N)</text>
+<text x="240.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">RMQ запит: O(log N)</text>
+<text x="240.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Загальний запит: O(log N)</text>
+<text x="240.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Оновлення: O(log N)</text>
+<text x="240.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пам'ять: O(N) (4N вузлів)</text>
+<line x1="240.0" y1="230.0" x2="405.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="240.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Головний фокус:</text>
+<text x="240.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Динамічні масиви,</text>
+<text x="240.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">групові модифікації</text>
+<text x="240.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(Lazy Propagation).</text>
+<text x="240.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Плюси: повна універсальність,</text>
+<text x="240.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">гнучкість операцій.</text>
+<text x="240.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Мінуси: O(log N) на RMQ.</text>
+<text x="435.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Побудова: O(N)</text>
+<text x="435.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Префіксний запит: O(log N)</text>
+<text x="435.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">RMQ запит: O(log² N) (обмеж.)</text>
+<text x="435.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Оновлення: O(log N)</text>
+<text x="435.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Пам'ять: O(N) (суворо N)</text>
+<line x1="435.0" y1="230.0" x2="600.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Головний фокус:</text>
+<text x="435.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Динамічні префіксні суми,</text>
+<text x="435.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">підрахунок інверсій,</text>
+<text x="435.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">мінімальний оверхед.</text>
+<text x="435.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Плюси: 1 масив розміру N,</text>
+<text x="435.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">побітові операції LSB.</text>
+<text x="435.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Мінуси: важкий RMQ.</text>
+<text x="630.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Побудова: O(N) / O(N log N)</text>
+<text x="630.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">RMQ запит: O(log N)</text>
+<text x="630.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7950b" text-anchor="start" font-weight="700">Вставка/Видалення: O(log N)</text>
+<text x="630.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Злиття/Розрізання: O(log N)</text>
+<text x="630.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">Пам'ять: O(N) (вказівники)</text>
+<line x1="630.0" y1="230.0" x2="795.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="630.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="start" font-weight="700">Головний фокус:</text>
+<text x="630.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Неявні ключі, динамічні</text>
+<text x="630.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">перестановки відрізків,</text>
+<text x="630.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">розрізання та склеювання.</text>
+<text x="630.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Плюси: довільні мутації масиву,</text>
+<text x="630.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">циклічні зсуви, реверси.</text>
+<text x="630.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Мінуси: оверхед вказівників.</text>
+</svg>

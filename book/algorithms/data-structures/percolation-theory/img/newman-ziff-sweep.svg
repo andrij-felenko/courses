@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм Ньюмана–Зіффа: швидке моделювання через DSU та згортку</text>
+<rect x="30.0" y="65.0" width="175.0" height="260.0" rx="8" fill="#e3f2fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="117.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Перестановка</text>
+<line x1="42.0" y1="103.0" x2="193.0" y2="103.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="117.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Випадковий порядок</text>
+<text x="117.5" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">відкриття сайтів:</text>
+<text x="117.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">π = (s₁, s₂, ..., sₙ)</text>
+<text x="117.5" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Рівномірний розподіл</text>
+<text x="117.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">без повторень</text>
+<line x1="208.0" y1="195.0" x2="222.0" y2="195.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="225.0" y="65.0" width="175.0" height="260.0" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.8"/>
+<text x="312.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7b1fa2" text-anchor="middle" font-weight="700">2. Інкремент DSU</text>
+<line x1="237.0" y1="103.0" x2="388.0" y2="103.0" stroke="#7b1fa2" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="312.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Додавання сайту sₙ</text>
+<text x="312.5" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Опитування сусідів</text>
+<text x="312.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Find(u), Find(v)</text>
+<text x="312.5" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Union-by-size: O(1)</text>
+<text x="312.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Стиснення шляхів</text>
+<line x1="403.0" y1="195.0" x2="417.0" y2="195.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="420.0" y="65.0" width="175.0" height="260.0" rx="8" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.8"/>
+<text x="507.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Мікроканоніка</text>
+<line x1="432.0" y1="103.0" x2="583.0" y2="103.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="507.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Облік для кожного n:</text>
+<text x="507.5" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">• макс. кластер Sₘₐₓ(n)</text>
+<text x="507.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">• стан протікання R(n)</text>
+<text x="507.5" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">• сума квадратів ∑sᵢ²</text>
+<text x="507.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один прохід O(N)!</text>
+<line x1="598.0" y1="195.0" x2="612.0" y2="195.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="615.0" y="65.0" width="175.0" height="260.0" rx="8" fill="#fff3e0" stroke="#e65100" stroke-width="1.8"/>
+<text x="702.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e65100" text-anchor="middle" font-weight="700">4. Згортка по p</text>
+<line x1="627.0" y1="103.0" x2="778.0" y2="103.0" stroke="#e65100" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="702.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Біноміальний перехід:</text>
+<text x="702.5" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">⟨A⟩(p) = ∑ Aₙ·B(N,n,p)</text>
+<text x="702.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Отримуємо криві</text>
+<text x="702.5" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">для ВСІХ значень p</text>
+<text x="702.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">миттєво за O(N)</text>
+<rect x="113.2" y="335.6" width="593.5" height="48.8" rx="6" fill="#f8f9fa" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="356.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Результат: замість M незалежних запусків Монте-Карло складності O(M · N)</tspan><tspan x="410.0" dy="16.2">алгоритм Ньюмана–Зіффа будує повний спектр перколяції за один прохід O(N).</tspan></text>
+</svg>

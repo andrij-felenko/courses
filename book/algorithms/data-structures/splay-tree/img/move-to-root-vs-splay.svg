@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Move-to-Root проти Splay</text>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Move-to-Root проти Splay: чому одинарні повороти неефективні</text>
+<rect x="20.0" y="50.0" width="390.0" height="395.0" rx="8" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="215.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Наївне підтягування (Move-to-Root)</text>
+<text x="215.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Одинарні повороти знизу вгору</text>
+<line x1="53.0" y1="234.0" x2="35.0" y2="272.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="71.0" y1="196.0" x2="53.0" y2="234.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="89.0" y1="158.0" x2="71.0" y2="196.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="107.0" y1="120.0" x2="89.0" y2="158.0" stroke="#94a3b8" stroke-width="1.8"/>
+<circle cx="35.0" cy="272.0" r="11.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="35.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<circle cx="53.0" cy="234.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="53.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<circle cx="71.0" cy="196.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="71.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<circle cx="89.0" cy="158.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="89.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<circle cx="107.0" cy="120.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="107.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="80.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">До: витягнутий ланцюг</text>
+<line x1="150.0" y1="220.0" x2="190.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="170.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">MTR(1)</text>
+<line x1="190.0" y1="120.0" x2="262.0" y2="158.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="226.0" y1="234.0" x2="208.0" y2="272.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="244.0" y1="196.0" x2="226.0" y2="234.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="262.0" y1="158.0" x2="244.0" y2="196.0" stroke="#94a3b8" stroke-width="1.8"/>
+<circle cx="190.0" cy="120.0" r="11.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="190.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<circle cx="208.0" cy="272.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="208.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<circle cx="226.0" cy="234.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="226.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<circle cx="244.0" cy="196.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="244.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<circle cx="262.0" cy="158.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="262.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="275.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Після: той самий ланцюг!</text>
+<text x="215.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Глибина решти вузлів майже не зменшилась: O(N) на запит</text>
+<rect x="430.0" y="50.0" width="390.0" height="395.0" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="625.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Splay-повороти (Zig-Zig сплющення)</text>
+<text x="625.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Обертання діда перед обертанням батька</text>
+<line x1="463.0" y1="234.0" x2="445.0" y2="272.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="481.0" y1="196.0" x2="463.0" y2="234.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="499.0" y1="158.0" x2="481.0" y2="196.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="517.0" y1="120.0" x2="499.0" y2="158.0" stroke="#94a3b8" stroke-width="1.8"/>
+<circle cx="445.0" cy="272.0" r="11.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="445.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<circle cx="463.0" cy="234.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="463.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<circle cx="481.0" cy="196.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="481.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<circle cx="499.0" cy="158.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="499.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<circle cx="517.0" cy="120.0" r="11.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="517.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="490.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">До: довжина шляху 4</text>
+<line x1="560.0" y1="220.0" x2="600.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="580.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">splay(1)</text>
+<line x1="595.0" y1="130.0" x2="645.0" y2="172.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="645.0" y1="172.0" x2="620.0" y2="214.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="645.0" y1="172.0" x2="695.0" y2="214.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="695.0" y1="214.0" x2="670.0" y2="256.0" stroke="#94a3b8" stroke-width="1.8"/>
+<circle cx="595.0" cy="130.0" r="12.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="595.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<circle cx="620.0" cy="214.0" r="12.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="620.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<circle cx="645.0" cy="172.0" r="12.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="645.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<circle cx="670.0" cy="256.0" r="12.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="670.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<circle cx="695.0" cy="214.0" r="12.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="695.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="685.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Після: висота зменшилась удвічі!</text>
+<text x="625.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Zig-Zig сплющує дерево вздовж усього шляху доступу</text>
+</svg>

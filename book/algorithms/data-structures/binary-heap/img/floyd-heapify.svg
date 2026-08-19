@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінійна побудова купи за алгоритмом Флойда (Bottom-Up Heapify)</text>
+<line x1="260.0" y1="73.0" x2="160.0" y2="107.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="260.0" y1="73.0" x2="360.0" y2="107.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="160.0" y1="133.0" x2="110.0" y2="167.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="160.0" y1="133.0" x2="210.0" y2="167.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="360.0" y1="133.0" x2="310.0" y2="167.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="360.0" y1="133.0" x2="410.0" y2="167.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="260.0" cy="60.0" r="15.0" fill="#eaf0fd" stroke="#333333" stroke-width="1.8"/><text x="260.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v0</text><text x="260.0" y="41.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=0</text>
+<circle cx="160.0" cy="120.0" r="15.0" fill="#e6f7ee" stroke="#333333" stroke-width="1.8"/><text x="160.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v1</text><text x="160.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=1</text>
+<circle cx="360.0" cy="120.0" r="15.0" fill="#e6f7ee" stroke="#333333" stroke-width="1.8"/><text x="360.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v2</text><text x="360.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=2</text>
+<circle cx="110.0" cy="180.0" r="15.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/><text x="110.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v3</text><text x="110.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=3</text>
+<circle cx="210.0" cy="180.0" r="15.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/><text x="210.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v4</text><text x="210.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=4</text>
+<circle cx="310.0" cy="180.0" r="15.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/><text x="310.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v5</text><text x="310.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=5</text>
+<circle cx="410.0" cy="180.0" r="15.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/><text x="410.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">v6</text><text x="410.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">i=6</text>
+<line x1="50.0" y1="60.0" x2="470.0" y2="60.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="50.0" y1="120.0" x2="470.0" y2="120.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="50.0" y1="180.0" x2="470.0" y2="180.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="45.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">h=2</text>
+<text x="45.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">h=1</text>
+<text x="45.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">h=0</text>
+<rect x="490.0" y="45.0" width="255.0" height="185.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="617.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл праці за висотою h</text>
+<text x="505.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• h=0 (Листки, 50% вузлів):</text>
+<text x="725.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">0 кроків</text>
+<text x="505.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• h=1 (Батьки листків, 25%):</text>
+<text x="725.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">≤ 1 спуск</text>
+<text x="505.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">• h=2 (Корінь, 1 вузол):</text>
+<text x="725.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">≤ 2 спуски</text>
+<line x1="505.0" y1="172.0" x2="730.0" y2="172.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="617.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сумарно: S = N ∑ (h / 2ʰ) ≤ 2N</text>
+<text x="617.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Складність побудови: O(N)</text>
+<text x="380.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм Флойда починає з індексу i = ⌊N/2⌋ − 1 і рухається до 0 (Bottom-Up).</text>
+<text x="380.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Маса вузлів зосереджена внизу, тому переважна більшість виконує 0 або 1 спуск!</text>
+</svg>

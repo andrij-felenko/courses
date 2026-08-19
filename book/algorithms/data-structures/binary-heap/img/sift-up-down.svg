@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="180.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просіювання вгору (Sift-Up / Push)</text>
+<text x="180.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Додаємо новий елемент «2» у хвіст масиву</text>
+<line x1="180.0" y1="75.0" x2="120.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="180.0" y1="75.0" x2="240.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="120.0" y1="120.0" x2="90.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="120.0" y1="120.0" x2="150.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="240.0" y1="120.0" x2="210.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="240.0" y1="120.0" x2="270.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="180.0" cy="75.0" r="14.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="180.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<circle cx="120.0" cy="120.0" r="14.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="120.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">10</text>
+<circle cx="240.0" cy="120.0" r="14.0" fill="#fdecea" stroke="#333333" stroke-width="1.8"/><text x="240.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">8</text>
+<circle cx="90.0" cy="165.0" r="13.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="90.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">15</text>
+<circle cx="150.0" cy="165.0" r="13.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="150.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">20</text>
+<circle cx="210.0" cy="165.0" r="13.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="210.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">18</text>
+<circle cx="270.0" cy="165.0" r="13.0" fill="#e6f7ee" stroke="#27ae60" stroke-width="2.0"/><text x="270.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<line x1="260.0" y1="152.0" x2="248.0" y2="134.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="108.0" x2="192.0" y2="85.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="180.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 1: 2 &lt; 8  → обмін з батьком</text>
+<text x="180.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 2: 2 &lt; 5  → обмін з коренем</text>
+<text x="180.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вартість: O(висота) = O(log N) порівнянь</text>
+<line x1="370.0" y1="20.0" x2="370.0" y2="270.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="560.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просіювання вниз (Sift-Down / Pop)</text>
+<text x="560.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вилучили корінь, поставили останній елемент «30»</text>
+<line x1="560.0" y1="75.0" x2="500.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="560.0" y1="75.0" x2="620.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="500.0" y1="120.0" x2="470.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="500.0" y1="120.0" x2="530.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="620.0" y1="120.0" x2="590.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="620.0" y1="120.0" x2="650.0" y2="165.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="560.0" cy="75.0" r="14.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="560.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">30</text>
+<circle cx="500.0" cy="120.0" r="14.0" fill="#e6f7ee" stroke="#27ae60" stroke-width="2.0"/><text x="500.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<circle cx="620.0" cy="120.0" r="14.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="620.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">9</text>
+<circle cx="470.0" cy="165.0" r="13.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="470.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">12</text>
+<circle cx="530.0" cy="165.0" r="13.0" fill="#e6f7ee" stroke="#27ae60" stroke-width="2.0"/><text x="530.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">7</text>
+<circle cx="590.0" cy="165.0" r="13.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="590.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">15</text>
+<circle cx="650.0" cy="165.0" r="13.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="650.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">25</text>
+<line x1="550.0" y1="88.0" x2="512.0" y2="110.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="508.0" y1="134.0" x2="522.0" y2="152.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="560.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Крок 1: min(4, 9) = 4;  30 &gt; 4 → обмін з 4</text>
+<text x="560.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Крок 2: min(12, 7) = 7; 30 &gt; 7 → обмін з 7</text>
+<text x="560.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Обов'язковий вибір МЕНШОЇ дитини! Разом: O(log N)</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Індексована купа (Indexed Heap): Decrease-Key та Delete за O(log N)</text>
+<text x="140.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Масив позицій: pos[id]</text>
+<text x="140.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(індекс вузла в купі за його дескриптором id)</text>
+<rect x="30.0" y="92.0" width="44.0" height="36.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="52.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text><text x="52.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">id=0</text>
+<rect x="74.0" y="92.0" width="44.0" height="36.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="96.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text><text x="96.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">id=1</text>
+<rect x="118.0" y="92.0" width="44.0" height="36.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text><text x="140.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">id=2</text>
+<rect x="162.0" y="92.0" width="44.0" height="36.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="184.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text><text x="184.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">id=3</text>
+<rect x="206.0" y="92.0" width="44.0" height="36.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="228.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text><text x="228.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">id=4</text>
+<text x="540.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Масив купи: h[i] = {id, key}</text>
+<text x="540.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(фізичний масив двійкової купи)</text>
+<rect x="380.0" y="92.0" width="64.0" height="36.0" rx="4" fill="#e6f7ee" stroke="#333333" stroke-width="1.5"/>
+<text x="412.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">[0]</text>
+<text x="412.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">id:1</text>
+<text x="412.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">k:10</text>
+<rect x="444.0" y="92.0" width="64.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="476.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">[1]</text>
+<text x="476.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">id:3</text>
+<text x="476.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">k:15</text>
+<rect x="508.0" y="92.0" width="64.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="540.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">[2]</text>
+<text x="540.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">id:0</text>
+<text x="540.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">k:25</text>
+<rect x="572.0" y="92.0" width="64.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="604.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">[3]</text>
+<text x="604.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">id:4</text>
+<text x="604.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">k:40</text>
+<rect x="636.0" y="92.0" width="64.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="668.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">[4]</text>
+<text x="668.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">id:2</text>
+<text x="668.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">k:50</text>
+<line x1="184.0" y1="136.0" x2="476.0" y2="136.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="330.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий доступ O(1): pos[id=3] → комірка h[1]</text>
+<rect x="40.0" y="180.0" width="680.0" height="65.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="380.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двосторонній інваріант: pos[h[i].id] == i та h[pos[id]].id == id</text>
+<text x="380.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кожен swap(h[i], h[j]) обов'язково оновлює pos[h[i].id] = i та pos[h[j].id] = j</text>
+</svg>

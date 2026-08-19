@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм насичення 4-бітного лічильника: запобігання хибнонегативним помилкам</text>
+<rect x="50.0" y="65.0" width="370.0" height="360.0" rx="8" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.5"/>
+<text x="235.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Звичайна арифметика за модулем 16 (Помилка)</text>
+<rect x="90.0" y="125.0" width="290.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="235.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Поточний стан: C[i] = 15 (1111₂)</text>
+<line x1="235.0" y1="165.0" x2="235.0" y2="205.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+1 вставка</text>
+<rect x="90.0" y="205.0" width="290.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="235.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Переповнення: C[i] = 0 (0000₂)</text>
+<line x1="235.0" y1="245.0" x2="235.0" y2="285.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="295.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Запит наявності</text>
+<rect x="75.0" y="285.0" width="320.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="235.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">КАТАСТРОФІЧНИЙ НАСЛІДОК:</text>
+<text x="235.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Комірка обнулилася → фільтр повертає false</text>
+<text x="235.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">для всіх 16 елементів, що туди хешувалися!</text>
+<text x="235.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Порушено інваріант: False Negative!</text>
+<rect x="460.0" y="65.0" width="370.0" height="360.0" rx="8" fill="#f2f8f4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Насичувана арифметика (Saturating Counter)</text>
+<rect x="500.0" y="125.0" width="290.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="645.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Поточний стан: C[i] = 15 (1111₂)</text>
+<line x1="645.0" y1="165.0" x2="645.0" y2="205.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="695.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">+1 вставка</text>
+<rect x="500.0" y="205.0" width="290.0" height="40.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Насичення: C[i] = 15 (Заморожено)</text>
+<line x1="645.0" y1="245.0" x2="645.0" y2="285.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="715.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Видалення елемента</text>
+<rect x="485.0" y="285.0" width="320.0" height="115.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗПЕЧНИЙ КОМПРОМІС:</text>
+<text x="645.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Лічильник C[i] = 15 НЕ зменшується.</text>
+<text x="645.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Комірка назавжди лишається активною (&gt; 0).</text>
+<text x="645.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Жодного False Negative: гарантія точності!</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Диз'юнктне двійкове розбиття для неідемпотентних операцій (Сума/Добуток)</text>
+<rect x="60.0" y="70.0" width="720.0" height="45.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.8"/>
+<text x="420.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загальний відрізок запиту: [L=1 .. R=13],  Довжина len = 13 = 8 + 4 + 1 = (1101)₂</text>
+<rect x="60.0" y="145.0" width="439.1" height="50.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="279.5" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Блок 1 (степінь 2³ = 8): [1 .. 8]</text>
+<text x="279.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ST[3][1] = Sum(A[1..8])</text>
+<rect x="503.1" y="145.0" width="217.5" height="50.0" rx="5" fill="#fef9e7" stroke="#b7950b" stroke-width="1.6"/>
+<text x="611.8" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7950b" text-anchor="middle" font-weight="700">Блок 2 (2² = 4): [9 .. 12]</text>
+<text x="611.8" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ST[2][9] = Sum(A[9..12])</text>
+<rect x="724.6" y="145.0" width="55.4" height="50.0" rx="5" fill="#eef6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="752.3" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2⁰=1</text>
+<text x="752.3" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">[13]</text>
+<rect x="30.0" y="225.0" width="780.0" height="80.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="420.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Алгоритм диз'юнктного накопичення: O(popcount(len)) ≤ O(log₂ N) кроків</text>
+<text x="420.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">res = ST[3][1] ⊕ ST[2][9] ⊕ ST[0][13]</text>
+<text x="420.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Відрізки не перетинаються (disjoint), тому операція не вимагає ідемпотентності</text>
+<rect x="30.0" y="325.0" width="780.0" height="75.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="420.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ідемпотентні оператори (min, max, gcd, AND, OR):  1 перекриття  →  O(1) час</text>
+<text x="420.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Неідемпотентні оператори (+, *, матриці, XOR):   розбиття на біти  →  O(log N) час</text>
+<text x="420.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(Для сум на статичному масиві краще застосовувати масив префіксних сум з O(1) запитом)</text>
+</svg>

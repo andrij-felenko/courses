@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="400.0" rx="6" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відстань Дамерау—Левенштейна: обробка транспозиції двох сусідніх символів</text>
+<rect x="30.0" y="60.0" width="360.0" height="310.0" rx="6" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="210.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння оцінки перестановки літер</text>
+<rect x="45.0" y="110.0" width="330.0" height="110.0" rx="4" fill="#ffffff" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="55.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Класичний Левенштейн:</text>
+<text x="55.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Слово «TEHS» -&gt; «THES» (перестановка E та H)</text>
+<text x="55.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Операції: Заміна E-&gt;H + Заміна H-&gt;E</text>
+<text x="55.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Вартість = 2 операції (або Видалення + Вставка)</text>
+<rect x="45.0" y="235.0" width="330.0" height="115.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="55.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Дамерау—Левенштейн (з транспозицією):</text>
+<text x="55.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Слово «TEHS» -&gt; «THES»</text>
+<text x="55.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Операція: Транспозиція (обмін місцями) EH &lt;-&gt; HE</text>
+<text x="55.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Вартість = 1 операція (природна друкарська помилка)</text>
+<rect x="420.0" y="60.0" width="390.0" height="310.0" rx="6" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="615.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Четвертий перехід у комірці D[i, j]</text>
+<rect x="450.0" y="115.0" width="56.0" height="46.0" rx="6" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.5"/>
+<text x="478.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D[i-2,j-2]</text>
+<rect x="506.0" y="115.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="562.0" y="115.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="450.0" y="161.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="506.0" y="161.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="562.0" y="161.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="450.0" y="207.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="506.0" y="207.0" width="56.0" height="46.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="562.0" y="207.0" width="56.0" height="46.0" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+<text x="590.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">D[i,j]</text>
+<line x1="516.0" y1="130.0" x2="572.0" y2="222.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="599.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Транспозиція (+1)</text>
+<rect x="435.0" y="265.0" width="360.0" height="85.0" rx="4" fill="#ffffff" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="615.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Умова застосування транспозиції:</text>
+<text x="615.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">s1[i - 1] == s2[j - 2]  та  s1[i - 2] == s2[j - 1]</text>
+<text x="615.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">D[i,j] = min(D[i,j], D[i-2, j-2] + 1)</text>
+</svg>

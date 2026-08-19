@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стиснення списків постингу: d-gaps (дельти) та побайтовий Varint (VByte)</text>
+<rect x="20.0" y="55.0" width="920.0" height="160.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 1: Перетворення абсолютних DocID у різниці (d-gaps)</text>
+<text x="120.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Абсолютні DocID:</text>
+<rect x="270.0" y="98.0" width="75.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="307.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">104</text>
+<rect x="355.0" y="98.0" width="75.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="392.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">107</text>
+<rect x="440.0" y="98.0" width="75.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="477.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">119</text>
+<rect x="525.0" y="98.0" width="75.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="562.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">120</text>
+<rect x="610.0" y="98.0" width="75.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="647.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">145</text>
+<rect x="695.0" y="98.0" width="75.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="732.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1000</text>
+<line x1="480.0" y1="134.0" x2="480.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="120.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Дельти (d-gaps):</text>
+<rect x="270.0" y="160.0" width="75.0" height="30.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="307.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">104</text>
+<rect x="355.0" y="160.0" width="75.0" height="30.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="392.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+3</text>
+<rect x="440.0" y="160.0" width="75.0" height="30.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="477.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+12</text>
+<rect x="525.0" y="160.0" width="75.0" height="30.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="562.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+1</text>
+<rect x="610.0" y="160.0" width="75.0" height="30.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="647.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+25</text>
+<rect x="695.0" y="160.0" width="75.0" height="30.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="732.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+855</text>
+<text x="800.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Малі числа = менше байтів</text>
+<rect x="20.0" y="230.0" width="920.0" height="220.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="480.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 2: Побайтове кодування змінної довжини VByte (Varint)</text>
+<rect x="40.0" y="275.0" width="415.0" height="160.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="247.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мале число: delta = 12 (двійкове 0001100)</text>
+<rect x="80.0" y="320.0" width="45.0" height="40.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="102.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<text x="102.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">MSB = 0</text>
+<text x="102.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(останній)</text>
+<rect x="130.0" y="320.0" width="280.0" height="40.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="270.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">0 0 0 1 1 0 0</text>
+<text x="270.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">7 біт корисного навантаження (значення = 12)</text>
+<text x="247.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: рівно 1 байт замість 4 байтів uint32 (економія 75%)</text>
+<rect x="495.0" y="275.0" width="425.0" height="160.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="707.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Більше число: delta = 855 (двійкове 1101010111)</text>
+<rect x="520.0" y="320.0" width="35.0" height="40.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="537.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="560.0" y="320.0" width="125.0" height="40.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="622.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0 1 0 1 1 1</text>
+<text x="600.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байт 1: MSB=1 (продовжити)</text>
+<rect x="710.0" y="320.0" width="35.0" height="40.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="727.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="750.0" y="320.0" width="150.0" height="40.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="825.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0 0 0 0 1 1 0</text>
+<text x="790.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байт 2: MSB=0 (кінець)</text>
+<text x="707.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: 2 байти замість 4 байтів uint32 (економія 50%)</text>
+</svg>

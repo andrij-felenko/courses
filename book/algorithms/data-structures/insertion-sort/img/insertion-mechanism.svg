@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія одного кроку сортування вставками</text>
+<text x="70.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Стан перед вставкою елемента A[4] = 3</text>
+<rect x="70.0" y="57.0" width="224.0" height="14.0" rx="2" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.0"/>
+<text x="182.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle" font-weight="700">Відсортований префікс A[0..3]</text>
+<rect x="294.0" y="57.0" width="56.0" height="14.0" rx="2" fill="#fff9c4" stroke="#f57f17" stroke-width="1.0"/>
+<text x="322.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f57f17" text-anchor="middle" font-weight="700">Ключ</text>
+<rect x="350.0" y="57.0" width="56.0" height="14.0" rx="2" fill="#f5f5f5" stroke="#757575" stroke-width="1.0"/>
+<text x="378.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#757575" text-anchor="middle">Суфікс</text>
+<rect x="70.0" y="75.0" width="56.0" height="44.0" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/><text x="98.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="98.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[0]</text>
+<rect x="126.0" y="75.0" width="56.0" height="44.0" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/><text x="154.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="154.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[1]</text>
+<rect x="182.0" y="75.0" width="56.0" height="44.0" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/><text x="210.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">7</text>
+<text x="210.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[2]</text>
+<rect x="238.0" y="75.0" width="56.0" height="44.0" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/><text x="266.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">9</text>
+<text x="266.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[3]</text>
+<rect x="294.0" y="75.0" width="56.0" height="44.0" rx="4" fill="#fff9c4" stroke="#f57f17" stroke-width="1.6"/><text x="322.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<text x="322.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[4]</text>
+<rect x="350.0" y="75.0" width="56.0" height="44.0" rx="4" fill="#f5f5f5" stroke="#757575" stroke-width="1.6"/><text x="378.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">8</text>
+<text x="378.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[5]</text>
+<line x1="322.0" y1="141.0" x2="322.0" y2="161.0" stroke="#f57f17" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="279.0" y="163.0" width="86.0" height="24.0" rx="3" fill="#fff9c4" stroke="#f57f17" stroke-width="1.2"/>
+<text x="322.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#f57f17" text-anchor="middle" font-weight="700">key = 3</text>
+<text x="70.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Зсув більших елементів праворуч та вставка key на позицію [1]</text>
+<rect x="70.0" y="230.0" width="56.0" height="44.0" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/><text x="98.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="98.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[0]</text>
+<rect x="126.0" y="230.0" width="56.0" height="44.0" rx="4" fill="#fff9c4" stroke="#f57f17" stroke-width="1.6"/><text x="154.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<text x="154.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[1]</text>
+<rect x="182.0" y="230.0" width="56.0" height="44.0" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1.6"/><text x="210.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="210.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[2]</text>
+<rect x="238.0" y="230.0" width="56.0" height="44.0" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1.6"/><text x="266.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">7</text>
+<text x="266.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[3]</text>
+<rect x="294.0" y="230.0" width="56.0" height="44.0" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1.6"/><text x="322.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">9</text>
+<text x="322.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[4]</text>
+<rect x="350.0" y="230.0" width="56.0" height="44.0" rx="4" fill="#f5f5f5" stroke="#757575" stroke-width="1.6"/><text x="378.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">8</text>
+<text x="378.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[5]</text>
+<line x1="266.0" y1="222.0" x2="322.0" y2="222.0" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="222.0" x2="266.0" y2="222.0" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="154.0" y1="222.0" x2="210.0" y2="222.0" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="431.0" y="75.0" width="280.0" height="64.0" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1.5"/><text x="571.0" y="103.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="571.0" dy="0.0">1. Копіюємо A[4] у змінну key = 3</tspan><tspan x="571.0" dy="14.3">2. Порівнюємо key з елементами зліва</tspan></text>
+<rect x="431.0" y="220.0" width="280.0" height="84.0" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1.5"/><text x="571.0" y="259.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="571.0" dy="0.0">3. Оскільки 9&gt;3, 7&gt;3, 5&gt;3 — зсуваємо їх праворуч</tspan><tspan x="571.0" dy="11.7">4. Оскільки 2&lt;=3 — зупинка, вставляємо key в A[1]</tspan></text>
+</svg>

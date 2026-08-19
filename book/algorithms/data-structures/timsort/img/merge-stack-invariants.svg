@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="150.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек активних серій</text>
+<rect x="50.0" y="60.0" width="200.0" height="45.0" rx="6" fill="#eef6fc" stroke="#2980b9" stroke-width="1.5"/>
+<text x="150.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="middle" font-weight="700">Серія C (stack[top-2])</text>
+<text x="150.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">довжина = len(C) = 120</text>
+<rect x="50.0" y="115.0" width="200.0" height="45.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<text x="150.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d4ac0d" text-anchor="middle" font-weight="700">Серія B (stack[top-1])</text>
+<text x="150.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">довжина = len(B) = 80</text>
+<rect x="50.0" y="170.0" width="200.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Серія A (stack[top])</text>
+<text x="150.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">довжина = len(A) = 50</text>
+<text x="540.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інваріанти збалансованого злиття</text>
+<rect x="310.0" y="65.0" width="480.0" height="70.0" rx="5" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/>
+<text x="325.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2980b9" text-anchor="start" font-weight="700">1. len(C) &gt; len(B) + len(A)</text>
+<text x="325.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Поточний стан: 120 ≤ (80 + 50 = 130)  →  ПОРУШЕНО!</text>
+<rect x="310.0" y="150.0" width="480.0" height="70.0" rx="5" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/>
+<text x="325.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2980b9" text-anchor="start" font-weight="700">2. len(B) &gt; len(A)</text>
+<text x="325.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Поточний стан: 80 &gt; 50  →  ВИКОНАНО</text>
+<rect x="310.0" y="235.0" width="480.0" height="65.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="325.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Дія алгоритму: злити B з меншою із (A, C)</text>
+<text x="325.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Оскільки len(A) &lt; len(C) (50 &lt; 120), зливаємо B та A у нову серію довжиною 130.</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія просторового розбиття: прямокутники kd-дерева проти сферичних оболонок Ball tree</text>
+<rect x="40.0" y="50.0" width="380.0" height="380.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="230.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">kd-дерево: прямокутні коробки (AABB)</text>
+<line x1="211.0" y1="85.0" x2="211.0" y2="430.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="40.0" y1="270.4" x2="211.0" y2="270.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="211.0" y1="194.4" x2="420.0" y2="194.4" stroke="#27ae60" stroke-width="1.8"/>
+<circle cx="258.0" cy="258.7" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="218.4" cy="339.8" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="203.8" cy="105.5" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="201.9" cy="349.7" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="268.2" cy="320.2" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="122.0" cy="257.6" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="251.1" cy="173.3" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="372.7" cy="129.9" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="283.8" cy="198.5" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="123.0" cy="306.4" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="372.4" cy="136.4" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="199.6" cy="362.5" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="199.3" cy="105.3" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="252.5" cy="348.3" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="110.4" cy="379.4" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="223.2" cy="237.1" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="299.6" cy="358.1" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="324.9" cy="291.8" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="136.3" cy="297.0" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="373.6" cy="172.7" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="90.5" cy="399.1" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="160.0" cy="124.8" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="378.6" cy="206.9" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="341.3" cy="177.5" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="145.9" cy="138.0" r="3.0" fill="#4b5563" stroke="#4b5563" stroke-width="0.5"/>
+<circle cx="173.0" cy="232.4" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="163.0" y="210.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end" font-weight="700">q</text>
+<circle cx="173.0" cy="232.4" r="65.0" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<line x1="173.0" y1="232.4" x2="211.0" y2="232.4" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<text x="192.0" y="224.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">|q_x - s_x| &lt; r_max</text>
+<rect x="72.7" y="382.4" width="314.7" height="45.3" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="230.0" y="401.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Коло пошуку перетинає площину:</tspan><tspan x="230.0" dy="14.3">відсікання не спрацьовує, шукаємо в обох гілках</tspan></text>
+<rect x="520.0" y="50.0" width="380.0" height="380.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="710.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ball tree: метричні сферичні оболонки</text>
+<circle cx="634.0" cy="297.0" r="75.0" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.8"/>
+<circle cx="786.0" cy="183.0" r="85.0" fill="#e8effb" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="634.0" cy="297.0" r="4.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<text x="642.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">C₁ (R₁)</text>
+<circle cx="786.0" cy="183.0" r="4.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<text x="794.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">C₂ (R₂)</text>
+<circle cx="686.7" cy="244.3" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="674.5" cy="337.5" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="632.0" cy="299.0" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="577.9" cy="353.1" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="576.9" cy="239.9" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="630.7" cy="293.7" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="676.6" cy="339.6" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="691.0" cy="240.0" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="666.3" cy="264.7" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="630.8" cy="293.8" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="667.3" cy="330.3" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="679.9" cy="251.1" r="2.8" fill="#1b4332" stroke="#1b4332" stroke-width="0.5"/>
+<circle cx="780.2" cy="188.8" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="721.9" cy="247.1" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="805.8" cy="163.2" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="751.4" cy="217.6" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="812.9" cy="209.9" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="787.9" cy="181.1" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="839.5" cy="129.5" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="721.1" cy="118.1" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="809.7" cy="206.7" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="836.5" cy="233.5" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="817.5" cy="214.5" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="723.1" cy="245.9" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="726.3" cy="242.7" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="802.4" cy="166.6" r="2.8" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="0.5"/>
+<circle cx="626.4" cy="164.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="616.4" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end" font-weight="700">q</text>
+<circle cx="626.4" cy="164.0" r="50.0" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<line x1="626.4" y1="164.0" x2="786.0" y2="183.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="711.2" y="165.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">d(q, C₂)</text>
+<rect x="550.0" y="382.4" width="320.1" height="45.3" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="710.0" y="401.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">Нерівність трикутника: d(q, C₂) - R₂ &gt; r_max</tspan><tspan x="710.0" dy="14.3">Гілка C₂ гарантовано відсікається цілком!</tspan></text>
+</svg>

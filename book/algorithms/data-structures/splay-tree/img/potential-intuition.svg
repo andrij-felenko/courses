@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метод потенціалів для Zig-Zig</text>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтуїція методу потенціалів для кроку Zig-Zig</text>
+<rect x="20.0" y="50.0" width="800.0" height="350.0" rx="8" fill="#fcfcfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="190.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Стан до повороту: r(x) &lt; r(p) &lt; r(g)</text>
+<line x1="78.0" y1="186.0" x2="50.0" y2="224.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="78.0" y1="186.0" x2="106.0" y2="224.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="134.0" y1="148.0" x2="78.0" y2="186.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="134.0" y1="148.0" x2="162.0" y2="186.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="190.0" y1="110.0" x2="134.0" y2="148.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="190.0" y1="110.0" x2="218.0" y2="148.0" stroke="#94a3b8" stroke-width="1.8"/>
+<rect x="35.0" y="214.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="50.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">A</text>
+<circle cx="78.0" cy="186.0" r="15.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="78.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">x</text>
+<rect x="91.0" y="214.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="106.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">B</text>
+<circle cx="134.0" cy="148.0" r="15.0" fill="#eef6ff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="134.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">p</text>
+<rect x="147.0" y="176.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="162.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">C</text>
+<circle cx="190.0" cy="110.0" r="15.0" fill="#fffbeb" stroke="#d97706" stroke-width="2.2"/>
+<text x="190.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">g</text>
+<rect x="203.0" y="138.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="218.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">D</text>
+<text x="190.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">r(g) = r'(x) [розмір всього піддерева]</text>
+<text x="190.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потенціал: Φ = r(x) + r(p) + r(g)</text>
+<line x1="345.0" y1="175.0" x2="455.0" y2="175.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Zig-Zig</text>
+<text x="400.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ΔΦ = Φ' - Φ</text>
+<text x="610.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Стан після повороту: r'(g) + r'(p) &lt; 2r'(x)</text>
+<line x1="498.0" y1="110.0" x2="470.0" y2="148.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="498.0" y1="110.0" x2="554.0" y2="148.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="554.0" y1="148.0" x2="526.0" y2="186.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="554.0" y1="148.0" x2="610.0" y2="186.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="610.0" y1="186.0" x2="582.0" y2="224.0" stroke="#94a3b8" stroke-width="1.8"/>
+<line x1="610.0" y1="186.0" x2="638.0" y2="224.0" stroke="#94a3b8" stroke-width="1.8"/>
+<rect x="455.0" y="138.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="470.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">A</text>
+<circle cx="498.0" cy="110.0" r="15.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="498.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">x</text>
+<rect x="511.0" y="176.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="526.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">B</text>
+<circle cx="554.0" cy="148.0" r="15.0" fill="#eef6ff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="554.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">p</text>
+<rect x="567.0" y="214.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="582.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">C</text>
+<circle cx="610.0" cy="186.0" r="15.0" fill="#fffbeb" stroke="#d97706" stroke-width="2.2"/>
+<text x="610.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">g</text>
+<rect x="623.0" y="214.0" width="30.0" height="20.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="638.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">D</text>
+<text x="610.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">r'(x) стає великим, але r'(g) та r'(p) суттєво менші</text>
+<text x="610.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потенціал: Φ' = r'(x) + r'(p) + r'(g)</text>
+<rect x="40.0" y="310.0" width="760.0" height="75.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="420.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключова нерівність через угнутість логарифма: log(a) + log(b) ≤ 2·log((a+b)/2) = 2·log(a+b) - 2</text>
+<text x="420.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Амортизована вартість кроку: â = 2 + ΔΦ ≤ 3·(r'(x) - r(x))</text>
+<text x="420.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Сума за всіма кроками підйому телескопічно скорочується до 3·(r(корінь) - r(x)) + 1 = O(log N)</text>
+</svg>

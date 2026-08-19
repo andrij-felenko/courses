@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка належності ключа (Query) за константний час O(1)</text>
+<rect x="40.0" y="65.0" width="200.0" height="100.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Запит ключа K_query</text>
+<text x="140.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Хешування 64-бітним хешем:</text>
+<text x="140.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">• Старт: p = Hash_start(K)</text>
+<text x="140.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">• Маска: c = Hash_mask(K)</text>
+<line x1="240.0" y1="115.0" x2="280.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="65.0" width="270.0" height="155.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="415.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Вибірка слотів B[p .. p+w-1]</text>
+<line x1="290.0" y1="100.0" x2="540.0" y2="100.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="415.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зчитування w послідовних слотів:</text>
+<rect x="300.0" y="135.0" width="52.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="326.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">B[p+0]</text>
+<rect x="358.0" y="135.0" width="52.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="384.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">B[p+1]</text>
+<rect x="416.0" y="135.0" width="52.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="442.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">B[p+2]</text>
+<rect x="474.0" y="135.0" width="52.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="500.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">B[p+3]</text>
+<text x="415.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">... разом w слотів (по r бітів кожен)</text>
+<text x="415.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">У Interleaved Ribbon — 1 звернення до L1/L2</text>
+<line x1="550.0" y1="115.0" x2="590.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="590.0" y="65.0" width="210.0" height="155.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="695.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Скалярний добуток ⊕</text>
+<line x1="600.0" y1="100.0" x2="790.0" y2="100.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="695.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Обчислення відбитка:</text>
+<rect x="605.0" y="135.0" width="180.0" height="36.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="695.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">res = ⊕_{j=0}^{w-1} (c[j] · B[p+j])</text>
+<text x="695.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Паралельно для всіх r біт</text>
+<text x="695.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">через SIMD або bit-parallel</text>
+<line x1="695.0" y1="220.0" x2="695.0" y2="255.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="260.0" width="600.0" height="80.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння обчисленого res з очікуваним відбитком f(K_query)</text>
+<rect x="230.0" y="298.0" width="250.0" height="30.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="355.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">res == f(K)  →  Можливо у множині (TRUE)</text>
+<rect x="520.0" y="298.0" width="250.0" height="30.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="645.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">res != f(K)  →  ТОЧНО немає (FALSE)</text>
+<rect x="40.0" y="360.0" width="760.0" height="58.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Якщо елемента немає у множині, ймовірність випадкового збігу res == f(K) становить рівно 2^(-r)</text>
+<text x="420.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">При r = 7 бітів FPR ≈ 0.78% при споживанні лише ~7.1 бітів пам'яті на один ключ</text>
+</svg>

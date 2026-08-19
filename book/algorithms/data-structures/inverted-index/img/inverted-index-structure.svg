@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прямий індекс (документ -&gt; слова) проти інвертованого індексу (терм -&gt; постинги)</text>
+<rect x="20.0" y="55.0" width="435.0" height="405.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="237.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прямий індекс (Forward Index)</text>
+<text x="237.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Документи містять послідовність слів</text>
+<rect x="40.0" y="125.0" width="395.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="50.0" y="137.0" width="70.0" height="38.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="85.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Doc 1</text>
+<text x="135.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">-&gt;</text>
+<text x="160.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">алгоритм пошук дерево</text>
+<rect x="40.0" y="205.0" width="395.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="50.0" y="217.0" width="70.0" height="38.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="85.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Doc 2</text>
+<text x="135.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">-&gt;</text>
+<text x="160.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">пошук граф дерево граф</text>
+<rect x="40.0" y="285.0" width="395.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="50.0" y="297.0" width="70.0" height="38.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="85.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Doc 3</text>
+<text x="135.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">-&gt;</text>
+<text x="160.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">алгоритм хеш граф</text>
+<rect x="40.0" y="365.0" width="395.0" height="80.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/><text x="237.5" y="394.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="237.5" dy="0.0">Пошук слова 'дерево': необхідно послідовно просканувати</tspan><tspan x="237.5" dy="14.3">кожен документ від початку до кінця -&gt; O(N · L).</tspan><tspan x="237.5" dy="14.3">При мільйонах документів повний перебір блокує систему.</tspan></text>
+<rect x="485.0" y="55.0" width="455.0" height="405.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="712.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інвертований індекс (Inverted Index)</text>
+<text x="712.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Словник термів вказує на списки постингу</text>
+<rect x="505.0" y="125.0" width="95.0" height="46.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="552.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">алгоритм</text>
+<line x1="605.0" y1="148.0" x2="630.0" y2="148.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="635.0" y="125.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 1 (tf:1)</text>
+<rect x="775.0" y="125.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="840.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 3 (tf:1)</text>
+<rect x="505.0" y="185.0" width="95.0" height="46.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="552.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">дерево</text>
+<line x1="605.0" y1="208.0" x2="630.0" y2="208.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="635.0" y="185.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 1 (tf:1)</text>
+<rect x="775.0" y="185.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="840.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 2 (tf:1)</text>
+<rect x="505.0" y="245.0" width="95.0" height="46.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="552.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">граф</text>
+<line x1="605.0" y1="268.0" x2="630.0" y2="268.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="635.0" y="245.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 2 (tf:2)</text>
+<rect x="775.0" y="245.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="840.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 3 (tf:1)</text>
+<rect x="505.0" y="305.0" width="95.0" height="46.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="552.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пошук</text>
+<line x1="605.0" y1="328.0" x2="630.0" y2="328.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="635.0" y="305.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 1 (tf:1)</text>
+<rect x="775.0" y="305.0" width="130.0" height="46.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="840.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Doc 2 (tf:1)</text>
+<rect x="505.0" y="365.0" width="415.0" height="80.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/><text x="712.5" y="395.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="712.5" dy="0.0">Пошук слова 'дерево': за O(1) або O(log |V|) знаходимо терм</tspan><tspan x="712.5" dy="13.0">у словнику та миттєво зчитуємо готовий список [Doc 1, Doc 2].</tspan><tspan x="712.5" dy="13.0">Швидкість відповіді залежить від довжини списку, а не розміру бази.</tspan></text>
+</svg>

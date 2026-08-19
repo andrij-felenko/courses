@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння фільтрів при цільовій ймовірності помилки 1% (FPR = 0.01)</text>
+<rect x="40.0" y="60.0" width="170.0" height="34.0" rx="0" fill="#1e293b" stroke="#0f172a" stroke-width="1.2"/>
+<text x="125.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Тип фільтра</text>
+<rect x="210.0" y="60.0" width="150.0" height="34.0" rx="0" fill="#1e293b" stroke="#0f172a" stroke-width="1.2"/>
+<text x="285.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Пам'ять (біт/ключ)</text>
+<rect x="360.0" y="60.0" width="150.0" height="34.0" rx="0" fill="#1e293b" stroke="#0f172a" stroke-width="1.2"/>
+<text x="435.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Оверхед над порогом</text>
+<rect x="510.0" y="60.0" width="140.0" height="34.0" rx="0" fill="#1e293b" stroke="#0f172a" stroke-width="1.2"/>
+<text x="580.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Звернень до кешу</text>
+<rect x="650.0" y="60.0" width="150.0" height="34.0" rx="0" fill="#1e293b" stroke="#0f172a" stroke-width="1.2"/>
+<text x="725.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Побудова / Вставка</text>
+<rect x="40.0" y="94.0" width="170.0" height="48.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="125.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Теоретична межа Шеннона</text>
+<rect x="210.0" y="94.0" width="150.0" height="48.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="285.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">6.64 біт</text>
+<rect x="360.0" y="94.0" width="150.0" height="48.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0% (база)</text>
+<rect x="510.0" y="94.0" width="140.0" height="48.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="580.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">—</text>
+<rect x="650.0" y="94.0" width="150.0" height="48.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="725.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">—</text>
+<rect x="40.0" y="142.0" width="170.0" height="48.0" rx="0" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="125.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Фільтр Блума (Bloom Filter)</text>
+<rect x="210.0" y="142.0" width="150.0" height="48.0" rx="0" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="285.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">9.60–10.0 біт</text>
+<rect x="360.0" y="142.0" width="150.0" height="48.0" rx="0" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">+44% оверхед</text>
+<rect x="510.0" y="142.0" width="140.0" height="48.0" rx="0" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="580.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2–7 звернень</text>
+<rect x="650.0" y="142.0" width="150.0" height="48.0" rx="0" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="725.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">O(1) потокова вставка</text>
+<rect x="40.0" y="190.0" width="170.0" height="48.0" rx="0" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="125.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Фільтр Кукушки (Cuckoo Filter)</text>
+<rect x="210.0" y="190.0" width="150.0" height="48.0" rx="0" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="285.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">8.40–9.0 біт</text>
+<rect x="360.0" y="190.0" width="150.0" height="48.0" rx="0" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle">+26% оверхед</text>
+<rect x="510.0" y="190.0" width="140.0" height="48.0" rx="0" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="580.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2 лінії кешу</text>
+<rect x="650.0" y="190.0" width="150.0" height="48.0" rx="0" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="725.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Витіснення (eviction loop)</text>
+<rect x="40.0" y="238.0" width="170.0" height="48.0" rx="0" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="125.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Xor Filter (Graf &amp; Lemire)</text>
+<rect x="210.0" y="238.0" width="150.0" height="48.0" rx="0" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="285.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">8.15–8.30 біт</text>
+<rect x="360.0" y="238.0" width="150.0" height="48.0" rx="0" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">+23% оверхед</text>
+<rect x="510.0" y="238.0" width="140.0" height="48.0" rx="0" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="580.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3 звернення</text>
+<rect x="650.0" y="238.0" width="150.0" height="48.0" rx="0" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="725.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">O(N) peeling 3-гіперграфа</text>
+<rect x="40.0" y="286.0" width="170.0" height="48.0" rx="0" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="125.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ribbon Filter (Meta / Dillinger)</text>
+<rect x="210.0" y="286.0" width="150.0" height="48.0" rx="0" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="285.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">7.00–7.30 біт</text>
+<rect x="360.0" y="286.0" width="150.0" height="48.0" rx="0" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+5% оверхед</text>
+<rect x="510.0" y="286.0" width="140.0" height="48.0" rx="0" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="580.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1 лінія (Interleaved)</text>
+<rect x="650.0" y="286.0" width="150.0" height="48.0" rx="0" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="725.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">O(N) Band Gaussian</text>
+<text x="420.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняльний обсяг пам'яті (менше — краще):</text>
+<text x="190.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Шеннон (log₂ 1/ε)</text>
+<rect x="200.0" y="360.0" width="185.9" height="16.0" rx="3" fill="#94a3b8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="395.9" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">6.64 біт/ключ</text>
+<text x="190.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Ribbon Filter</text>
+<rect x="200.0" y="382.0" width="197.4" height="16.0" rx="3" fill="#86efac" stroke="#27ae60" stroke-width="1.2"/>
+<text x="407.4" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">7.05 біт/ключ</text>
+<text x="190.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Xor Filter</text>
+<rect x="200.0" y="404.0" width="229.6" height="16.0" rx="3" fill="#93c5fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="439.6" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">8.2 біт/ключ</text>
+<text x="190.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Cuckoo Filter</text>
+<rect x="200.0" y="426.0" width="238.0" height="16.0" rx="3" fill="#fde047" stroke="#d97706" stroke-width="1.2"/>
+<text x="448.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">8.5 біт/ключ</text>
+<text x="190.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Bloom Filter</text>
+<rect x="200.0" y="448.0" width="274.4" height="16.0" rx="3" fill="#fca5a5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="484.4" y="461.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">9.8 біт/ключ</text>
+</svg>
