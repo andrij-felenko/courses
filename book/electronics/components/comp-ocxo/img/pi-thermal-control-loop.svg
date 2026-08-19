@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прецизійний аналоговий PI-терморегулятор камери</text>
+<text x="490.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">неперервне пропорційно-інтегральне керування струмом нагрівача без імпульсних завад (ШІМ заборонено)</text>
+<rect x="40.0" y="110.0" width="200.0" height="240.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+<text x="140.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимірювальний міст</text>
+<text x="140.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прецизійний міст Уїтстона</text>
+<rect x="65.0" y="180.0" width="65.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="97.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_ref1</text>
+<rect x="150.0" y="180.0" width="65.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="182.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_set</text>
+<rect x="65.0" y="250.0" width="65.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="97.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_ref2</text>
+<rect x="150.0" y="250.0" width="65.0" height="40.0" rx="4" fill="#fdf2f8" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="182.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">R_ntc (T)</text>
+<text x="140.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Баланс: V_err = 0 при 80.0 °C</text>
+<line x1="140.0" y1="90.0" x2="140.0" y2="110.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="140.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V_ref (+5.000 V)</text>
+<rect x="290.0" y="110.0" width="220.0" height="240.0" rx="8" fill="#eff6ff" stroke="#2980b9" stroke-width="2.0"/>
+<text x="400.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2980b9" text-anchor="middle" font-weight="700">PI-регулятор (ОУ)</text>
+<text x="400.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Low-Drift Chopper Op-Amp</text>
+<rect x="320.0" y="185.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/>
+<text x="400.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пропорційна ланка (P)</text>
+<text x="400.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">K_p · ΔV_err (швидкість)</text>
+<rect x="320.0" y="250.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#2980b9" stroke-width="1.5"/>
+<text x="400.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтегральна ланка (I)</text>
+<text x="400.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">K_i · ∫ ΔV_err dt (нуль стат. похибки)</text>
+<text x="400.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">u(t) = K_p·e(t) + K_i·∫e dt</text>
+<line x1="240.0" y1="200.0" x2="290.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="270.0" x2="290.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="265.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">V+</text>
+<text x="265.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">V−</text>
+<rect x="560.0" y="110.0" width="180.0" height="240.0" rx="8" fill="#fff7ed" stroke="#c0392b" stroke-width="2.0"/>
+<text x="650.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Лінійний драйвер</text>
+<text x="650.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Power BJT / MOSFET</text>
+<rect x="580.0" y="185.0" width="140.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_heater = f(u)</text>
+<rect x="580.0" y="245.0" width="140.0" height="70.0" rx="4" fill="#ffffff" stroke="#d35400" stroke-width="1.8"/>
+<text x="650.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Нагрівач R_h</text>
+<text x="650.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">P_h = I² · R_h</text>
+<text x="650.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">P = 1.0...8.0 Вт</text>
+<line x1="510.0" y1="230.0" x2="560.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="535.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">u_ctrl</text>
+<rect x="790.0" y="110.0" width="150.0" height="240.0" rx="8" fill="#fef3c7" stroke="#d35400" stroke-width="2.2"/>
+<text x="865.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Камера OCXO</text>
+<text x="865.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C_th · dT/dt = P_in − P_loss</text>
+<rect x="805.0" y="185.0" width="120.0" height="50.0" rx="4" fill="#eff6ff" stroke="#2980b9" stroke-width="1.5"/>
+<text x="865.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">Кварц SC</text>
+<text x="865.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T = 80.0 °C</text>
+<rect x="805.0" y="250.0" width="120.0" height="50.0" rx="4" fill="#fdf2f8" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="865.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">NTC сенсор</text>
+<text x="865.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R(T) зворотний зв'язок</text>
+<line x1="740.0" y1="280.0" x2="790.0" y2="280.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="765.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Тепло Q̇</text>
+<line x1="865.0" y1="350.0" x2="865.0" y2="390.0" stroke="#8e44ad" stroke-width="2.0"/>
+<line x1="865.0" y1="390.0" x2="182.0" y2="390.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="6 4"/>
+<line x1="182.0" y1="390.0" x2="182.0" y2="350.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Тепловий зворотний зв'язок: зміна температури змінює опір R_ntc, замикаючи петлю</text>
+<rect x="40.0" y="430.0" width="900.0" height="70.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="490.0" y="447.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Чому заборонено ШІМ (PWM) у прецизійних OCXO:</tspan><tspan x="490.0" dy="14.3">1. Електромагнітна наводка (EMI) від фронтів перемикання потрапляє на чутливий контур генератора</tspan><tspan x="490.0" dy="14.3">2. Пульсації температури камери викликають періодичну паразитну фазову модуляцію (spurs у спектрі)</tspan><tspan x="490.0" dy="14.3">3. Лише суто лінійний режим вихідного каскаду гарантує граничну чистоту спектра та низький фазовий шум</tspan></text>
+</svg>

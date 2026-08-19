@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 840 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="840" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="820.0" height="500.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Топологічні та механічні методи гасіння акустичного шуму на PCB</text>
+<rect x="20.0" y="45.0" width="380.0" height="210.0" rx="6" fill="none" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="210.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1. Симетричний монтаж (Top + Bottom)</text>
+<rect x="40.0" y="142.0" width="340.0" height="16.0" rx="2" fill="#047857" stroke="#065f46" stroke-width="1.0"/>
+<text x="80.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">FR4</text>
+<rect x="160.0" y="95.0" width="100.0" height="40.0" rx="3" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">C_top (X7R)</text>
+<line x1="150.0" y1="138.0" x2="140.0" y2="148.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="138.0" x2="280.0" y2="148.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="125.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">+M_b</text>
+<rect x="160.0" y="165.0" width="100.0" height="40.0" rx="3" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">C_bottom (X7R)</text>
+<line x1="150.0" y1="162.0" x2="140.0" y2="152.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="162.0" x2="280.0" y2="152.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="125.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">−M_b</text>
+<text x="210.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Згинальні моменти компенсуються: ΣM_b ≈ 0</text>
+<text x="210.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зниження шуму: на 15–20 дБА</text>
+<rect x="420.0" y="45.0" width="380.0" height="210.0" rx="6" fill="none" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="610.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Фрезерування пазів (Isolation Slots)</text>
+<rect x="440.0" y="90.0" width="340.0" height="120.0" rx="4" fill="#047857" stroke="#065f46" stroke-width="1.0"/>
+<rect x="510.0" y="105.0" width="12.0" height="90.0" rx="2" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="698.0" y="105.0" width="12.0" height="90.0" rx="2" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="510.0" y="95.0" width="200.0" height="10.0" rx="2" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="560.0" y="130.0" width="100.0" height="40.0" rx="3" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="610.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MLCC 1206</text>
+<text x="475.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Паз</text>
+<text x="745.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Паз</text>
+<text x="610.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Переривання механічного містка хвилі</text>
+<text x="610.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зниження шуму: на 10–18 дБА</text>
+<rect x="20.0" y="270.0" width="380.0" height="210.0" rx="6" fill="none" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="210.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Розміщення у вузлах та кут 45°</text>
+<rect x="40.0" y="310.0" width="340.0" height="110.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="130.0" y1="310.0" x2="130.0" y2="420.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4,2"/>
+<line x1="290.0" y1="310.0" x2="290.0" y2="420.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4,2"/>
+<text x="130.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол</text>
+<text x="290.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол</text>
+<rect x="115.0" y="345.0" width="30.0" height="50.0" rx="2" fill="#d1fae5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="123.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">C1</text>
+<rect x="195.0" y="345.0" width="30.0" height="50.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="210.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">C2</text>
+<text x="210.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пучність (макс. звук!)</text>
+<text x="210.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Монтаж біля гвинтів та вузлових ліній</text>
+<text x="210.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зниження шуму: на 8–15 дБА</text>
+<rect x="420.0" y="270.0" width="380.0" height="210.0" rx="6" fill="none" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="610.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">4. Спеціальні конструкції компонентів</text>
+<rect x="460.0" y="315.0" width="140.0" height="110.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="480.0" y="330.0" width="100.0" height="45.0" rx="3" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="530.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MLCC</text>
+<path d="M 480 340 L 465 340 L 465 395 L 485 395" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 580 340 L 595 340 L 595 395 L 575 395" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+<line x1="450.0" y1="400.0" x2="610.0" y2="400.0" stroke="#047857" stroke-width="3.0"/>
+<text x="530.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Metal Cap (зазор 1 мм)</text>
+<rect x="620.0" y="315.0" width="160.0" height="110.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="640.0" y="340.0" width="120.0" height="45.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="700.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">C0G або Полімер</text>
+<text x="700.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">(нульовий п'єзоефект)</text>
+<line x1="630.0" y1="400.0" x2="770.0" y2="400.0" stroke="#047857" stroke-width="3.0"/>
+<text x="610.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Metal Cap / C0G / Полімер</text>
+<text x="610.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зниження шуму: на 20–35 дБА (повна тиша)</text>
+</svg>

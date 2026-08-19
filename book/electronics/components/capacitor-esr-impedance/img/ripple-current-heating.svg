@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тепловий баланс та допустимий пульсуючий струм (Ripple Current)</text>
+<rect x="40.0" y="60.0" width="360.0" height="290.0" rx="8" fill="#fdfefe" stroke="#ccd1d9" stroke-width="1.5"/>
+<text x="220.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тепловий баланс конденсатора</text>
+<rect x="102.4" y="110.2" width="235.2" height="39.6" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Пульсуючий змінний струм I_rms</tspan><tspan x="220.0" dy="15.6">крізь внутрішній ESR</tspan></text>
+<line x1="220.0" y1="155.0" x2="220.0" y2="180.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="102.4" y="190.2" width="235.2" height="39.6" rx="6" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/><text x="220.0" y="206.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Внутрішній самонагрів:</tspan><tspan x="220.0" dy="15.6">P_loss = I_rms² · ESR(f)  (Вт)</tspan></text>
+<line x1="220.0" y1="235.0" x2="220.0" y2="260.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="82.0" y="277.4" width="276.0" height="35.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="220.0" y="291.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Перегрів корпусу:</tspan><tspan x="220.0" dy="14.3">ΔT = P_loss · θ_JA ≤ ΔT_max (+5…+10 °C)</tspan></text>
+<rect x="440.0" y="80.0" width="360.0" height="220.0" rx="4" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="620.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Частотний коефіцієнт струму I_ripple(f) / I_ripple(120 Гц)</text>
+<text x="440.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">120 Гц</text>
+<line x1="560.0" y1="80.0" x2="560.0" y2="300.0" stroke="#e1e4e8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="560.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 кГц</text>
+<line x1="680.0" y1="80.0" x2="680.0" y2="300.0" stroke="#e1e4e8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="680.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">10 кГц</text>
+<text x="800.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100 кГц</text>
+<text x="434.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">2.0×</text>
+<line x1="440.0" y1="153.3" x2="800.0" y2="153.3" stroke="#e1e4e8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="434.0" y="157.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">1.5×</text>
+<line x1="440.0" y1="226.7" x2="800.0" y2="226.7" stroke="#e1e4e8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="434.0" y="230.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">1.0×</text>
+<text x="434.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0.5×</text>
+<path d="M 440.0,226.7 Q 539.9,195.6 680.1,141.6 T 800.0,115.2" fill="none" stroke="#27ae60" stroke-width="3"/>
+<circle cx="440.0" cy="226.7" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="559.9" cy="185.6" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="680.1" cy="141.6" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="800.0" cy="115.2" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="507.7" y="251.5" width="224.6" height="31.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="620.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">На високих частотах ESR нижчий,</tspan><tspan x="620.0" dy="13.0">тому допустимий струм I_ripple зростає</tspan></text>
+</svg>

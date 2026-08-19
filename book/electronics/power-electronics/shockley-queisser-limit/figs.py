@@ -376,7 +376,7 @@ def fig_voltage_gap():
     while L <= ymax:
         s.append(line(x0, Y(L), x1, Y(L), color="#eef0f3", sw=1))
         s.append(text(x0-10, Y(L)+4, "10", size=11, color=MUTED, anchor="end"))
-        s.append(text(x0-10+2, Y(L)-4, "%d" % int(L), size=8, color=MUTED, anchor="start"))
+        s.append(text(x0-10+2, Y(L)-4, "%d" % int(L), size=9, color=MUTED, anchor="start"))
         L += 4
     for E in [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]:
         s.append(line(X(E), y1, X(E), y1+5, color=INK, sw=1.2))
@@ -490,8 +490,8 @@ def fig_jv_mpp():
     s.append(text(X(Vmp)+10, Y(Jmp)+4, "MPP (Vmp=%.2f, Jmp=%.1f)" % (Vmp, mAcm2(Jmp)),
                   size=12, color="#0d3b21", bold=True, anchor="start"))
 
-    # напис про fill factor
-    fb = fitbox(x0+14, y0+6, 214, 62,
+    # напис про fill factor у правому вільному полі
+    fb = fitbox(576, y0+30, 188, 64,
                 "m = площа MPP / (Jsc·Voc)\n= %.3f\n(коефіцієнт заповнення)" % (Pmax/(Jsc*Voc)),
                 size=12, fill="#eafaf0", stroke=GRN, color="#14532d")
     s.append(fb)

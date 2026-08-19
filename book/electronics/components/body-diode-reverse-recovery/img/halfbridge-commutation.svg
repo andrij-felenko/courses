@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="15.0" width="840.0" height="38.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="38.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Комутація напівмоста: зворотне відновлення body-діода нижнього ключа</tspan></text>
+<rect x="40.0" y="65.0" width="370.0" height="30.0" rx="6" fill="#e8eaf6" stroke="#333333" stroke-width="1.5"/><text x="225.0" y="84.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="225.0" dy="0.0">Фаза 1: Dead Time (струм через body-діод)</tspan></text>
+<line x1="80.0" y1="115.0" x2="360.0" y2="115.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="220.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">+V_bus (400 В)</text>
+<rect x="100.0" y="140.0" width="70.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="135.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Q_H
+(OFF)</text>
+<circle cx="135.0" cy="230.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="135.0" y1="115.0" x2="135.0" y2="140.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="135.0" y1="190.0" x2="135.0" y2="270.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="100.0" y="270.0" width="70.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="117.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Q_L (OFF)</text>
+<text x="117.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">D_body (ON)</text>
+<line x1="135.0" y1="320.0" x2="135.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="80.0" y1="350.0" x2="360.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="220.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND (0 В)</text>
+<line x1="135.0" y1="230.0" x2="240.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="240.0" y="210.0" width="80.0" height="40.0" rx="4" fill="#fff9c4" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="280.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L_load</text>
+<line x1="135.0" y1="340.0" x2="135.0" y2="240.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="135.0" y1="230.0" x2="235.0" y2="230.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="175.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I_load
+(дірки в n-)</text>
+<rect x="40.0" y="390.0" width="370.0" height="85.0" rx="6" fill="#f3e5f5" stroke="#ab47bc" stroke-width="1.5"/><text x="225.0" y="414.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Під час мертвого часу індуктивний струм</tspan><tspan x="225.0" dy="14.3">відкриває body-діод Q_L. У дрейфовій зоні</tspan><tspan x="225.0" dy="14.3">накопичується величезний заряд неосновних</tspan><tspan x="225.0" dy="14.3">носіїв (дірок) Q_rr.</tspan></text>
+<rect x="470.0" y="65.0" width="370.0" height="30.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="84.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">Фаза 2: Вмикання Q_H (наскрізний струм)</tspan></text>
+<line x1="510.0" y1="115.0" x2="790.0" y2="115.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="650.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">+V_bus (400 В)</text>
+<rect x="540.0" y="105.0" width="45.0" height="20.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="562.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">L_loop</text>
+<rect x="530.0" y="140.0" width="70.0" height="50.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.0"/>
+<text x="565.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Q_H
+(ВМИК)</text>
+<circle cx="565.0" cy="230.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="565.0" y1="115.0" x2="565.0" y2="140.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="565.0" y1="190.0" x2="565.0" y2="270.0" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="530.0" y="270.0" width="70.0" height="50.0" rx="4" fill="#ffebee" stroke="#c0392b" stroke-width="2.0"/>
+<text x="565.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Q_L (OFF)</text>
+<text x="565.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">D_body (Q_rr)</text>
+<line x1="565.0" y1="320.0" x2="565.0" y2="350.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="510.0" y1="350.0" x2="790.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="650.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND (0 В)</text>
+<line x1="565.0" y1="230.0" x2="670.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="670.0" y="210.0" width="80.0" height="40.0" rx="4" fill="#fff9c4" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="710.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L_load</text>
+<line x1="565.0" y1="125.0" x2="565.0" y2="340.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="633.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I_QH = I_load + I_rrm</text>
+<text x="627.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">−I_rrm крізь діод</text>
+<rect x="470.0" y="390.0" width="370.0" height="85.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="414.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Q_H вмикається на закорочену шину!</tspan><tspan x="655.0" dy="14.3">Через Q_H тече сумарний струм I_L + I_rrm.</tspan><tspan x="655.0" dy="14.3">Додаткові динамічні втрати: E_rr ≈ Q_rr · V_bus.</tspan><tspan x="655.0" dy="14.3">Спад I_rrm генерує перенапругу на Q_L.</tspan></text>
+</svg>

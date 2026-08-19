@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="405.0" height="420.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="217.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Згідний зв'язок (Direct Coupling, k &gt; 0)</text>
+<text x="217.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Потоки постійного струму DC ДОДАЮТЬСЯ в осерді</text>
+<path d="M 80,100 L 355,100 L 355,250 L 80,250 Z M 150,150 L 150,200 L 285,200 L 285,150 Z" fill="#374151" fill-rule="evenodd" stroke="#1f2937" stroke-width="1.5"/>
+<rect x="65.0" y="140.0" width="30.0" height="70.0" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="2.0"/>
+<rect x="340.0" y="140.0" width="30.0" height="70.0" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.0"/>
+<text x="80.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">● L₁</text>
+<text x="355.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">● L₂</text>
+<line x1="80.0" y1="175.0" x2="115.0" y2="175.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="355.0" y1="175.0" x2="320.0" y2="175.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="217.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Φ_dc = Φ₁ + Φ₂ (удвічі більший!)</text>
+<text x="217.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Осердя швидко
+насичується</text>
+<rect x="30.0" y="270.0" width="375.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="217.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="217.0" dy="0.0">✖ Сумарний постійний потік Φ_dc подвоюється</tspan><tspan x="217.0" dy="14.9">✖ Вимагає великого немагнітного зазору й габаритів</tspan><tspan x="217.0" dy="14.9">✖ Пульсації фазного струму ЗБІЛЬШУЮТЬСЯ</tspan><tspan x="217.0" dy="14.9">✖ Еквівалентна індуктивність для змінного струму:</tspan><tspan x="217.0" dy="14.9">    L_eq,ss = L · (1 − k²) / (1 + k · D/(1−D)) &lt; L</tspan><tspan x="217.0" dy="14.9">Висновок: у понижувальних DCDC НЕ застосовується.</tspan></text>
+<rect x="440.0" y="15.0" width="405.0" height="420.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="642.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Зустрічний зв'язок (Inverse Coupling, k &lt; 0)</text>
+<text x="642.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Потоки постійного струму DC ВЗАЄМОЗНИЩУЮТЬСЯ</text>
+<path d="M 505,100 L 780,100 L 780,250 L 505,250 Z M 575,150 L 575,200 L 710,200 L 710,150 Z" fill="#374151" fill-rule="evenodd" stroke="#1f2937" stroke-width="1.5"/>
+<rect x="490.0" y="140.0" width="30.0" height="70.0" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="2.0"/>
+<rect x="765.0" y="140.0" width="30.0" height="70.0" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.0"/>
+<text x="505.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">● L₁</text>
+<text x="768.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">● L₂</text>
+<line x1="505.0" y1="175.0" x2="540.0" y2="175.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="745.0" y1="175.0" x2="780.0" y2="175.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="642.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Φ_dc(осердя) = Φ₁ − Φ₂ ≈ 0 !</text>
+<text x="642.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Осердя розвантажене,
+габарити менші на 40%</text>
+<rect x="455.0" y="270.0" width="375.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="642.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="642.0" dy="0.0">✓ Постійні потоки від струмів навантаження гасяться</tspan><tspan x="642.0" dy="14.9">✓ Пульсації струму у фазах ЗМЕНШУЮТЬСЯ у 2..5 разів</tspan><tspan x="642.0" dy="14.9">✓ Ефективна індуктивність для пульсацій L_eq,ss &gt;&gt; L</tspan><tspan x="642.0" dy="14.9">✓ Динамічна індуктивність для стрибка струму мала:</tspan><tspan x="642.0" dy="14.9">    L_eq,tr = L · (1 − |k|)  →  блискавичний відгук</tspan><tspan x="642.0" dy="14.9">Стандарт де-факто для живлення CPU/GPU (VRM)!</tspan></text>
+</svg>

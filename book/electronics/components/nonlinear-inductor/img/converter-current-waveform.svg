@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка струму при насиченні силового дроселя</text>
+<line x1="70.0" y1="100.0" x2="520.0" y2="100.0" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">V_gate</text>
+<line x1="70.0" y1="100.0" x2="110.0" y2="100.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="110.0" y1="100.0" x2="110.0" y2="60.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="110.0" y1="60.0" x2="330.0" y2="60.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="330.0" y1="60.0" x2="330.0" y2="100.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="330.0" y1="100.0" x2="500.0" y2="100.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="220.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">t_on (MOSFET відкрито)</text>
+<text x="415.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t_off (закрито)</text>
+<line x1="70.0" y1="360.0" x2="520.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="519.0" y1="360.0" x2="530.0" y2="360.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="535.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t</text>
+<line x1="70.0" y1="360.0" x2="70.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="151.0" x2="70.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="70.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Струм котушки i_L(t) (А)</text>
+<line x1="70.0" y1="275.0" x2="520.0" y2="275.0" stroke="#e0a32e" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="525.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e0a32e" text-anchor="start" font-weight="700">I_sat</text>
+<line x1="110.0" y1="335.0" x2="330.0" y2="255.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4 4"/>
+<line x1="330.0" y1="255.0" x2="500.0" y2="335.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="338.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Нормальний хід</text>
+<line x1="110.0" y1="335.0" x2="231.0" y2="275.0" stroke="#c0392b" stroke-width="2.5"/>
+<path d="M 231.0 275.0 L 261.0 253.0 L 291.0 220.0 L 330.0 170.0" fill="none" stroke="#c0392b" stroke-width="3"/>
+<line x1="330.0" y1="170.0" x2="500.0" y2="335.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="330.0" cy="170.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="318.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">«Акулячий плавник» (Shark Fin)</text>
+<text x="318.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">di/dt → U / L_air</text>
+<rect x="580.3" y="194.1" width="149.4" height="71.8" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="209.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Наслідки для MOSFET:</tspan><tspan x="655.0" dy="11.7">• Струм перевищує I_max</tspan><tspan x="655.0" dy="11.7">• Вихід із насичення</tspan><tspan x="655.0" dy="11.7">• Сплеск P = V_ds · I_d</tspan><tspan x="655.0" dy="11.7">• Тепловий пробій кристала</tspan></text>
+<text x="390.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Форма струму в імпульсному перетворювачі: виникнення акулячого плавника при вході дроселя в насичення</text>
+</svg>

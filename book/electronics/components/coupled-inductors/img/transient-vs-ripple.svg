@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-77.75 -10 1015.5 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-77.75" y="-10" width="1015.5" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="830.0" height="390.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="430.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний компроміс: роздільні котушки проти зв'язаних дроселів</text>
+<text x="430.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Як зустрічний зв'язок (Inverse Coupling) одночасно дає малі пульсації та миттєвий відгук на стрибок навантаження</text>
+<rect x="35.0" y="90.0" width="245.0" height="230.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="157.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Роздільні великі (L=1.0 мкГн)</text>
+<line x1="55.0" y1="260.0" x2="260.0" y2="260.0" stroke="#9ca3af" stroke-width="1.0"/>
+<line x1="55.0" y1="130.0" x2="55.0" y2="260.0" stroke="#9ca3af" stroke-width="1.0"/>
+<path d="M 55,230 L 75,220 L 95,230 L 115,220 L 135,230 L 140,230 L 220,150 L 240,160 L 260,150" fill="none" stroke="#b45309" stroke-width="2.5"/>
+<text x="157.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Пульсації: МАЛІ (добре)
+Стрибок: ПОВІЛЬНИЙ (прогин Vout)</text>
+<rect x="305.0" y="90.0" width="245.0" height="230.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="427.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Роздільні малі (L=0.2 мкГн)</text>
+<line x1="325.0" y1="260.0" x2="530.0" y2="260.0" stroke="#9ca3af" stroke-width="1.0"/>
+<line x1="325.0" y1="130.0" x2="325.0" y2="260.0" stroke="#9ca3af" stroke-width="1.0"/>
+<path d="M 325,245 L 345,205 L 365,245 L 385,205 L 405,245 L 410,245 L 440,150 L 460,190 L 480,150 L 500,190 L 520,150" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="427.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пульсації: ВЕЛИЧЕЗНІ (втрати ESR)
+Стрибок: ШВИДКИЙ (без прогину)</text>
+<rect x="575.0" y="90.0" width="250.0" height="230.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Зв'язані дроселі (|k|=0.7)</text>
+<line x1="595.0" y1="260.0" x2="805.0" y2="260.0" stroke="#9ca3af" stroke-width="1.0"/>
+<line x1="595.0" y1="130.0" x2="595.0" y2="260.0" stroke="#9ca3af" stroke-width="1.0"/>
+<path d="M 595,230 L 615,222 L 635,230 L 655,222 L 675,230 L 680,230 L 710,150 L 730,142 L 750,150 L 770,142 L 790,150" fill="none" stroke="#27ae60" stroke-width="3"/>
+<text x="700.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пульсації: МАЛІ (L_eq,ss ≈ 0.8 мкГн)
+Стрибок: ШВИДКИЙ (L_eq,tr = 0.06 мкГн)</text>
+<rect x="35.0" y="335.0" width="790.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="430.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Зв'язаний дросель розриває суперечність: у стаціонарі діє як велика фільтрувальна індуктивність,
+а під час різкого навантаження — як надмала котушка для миттєвого наростання струму.</text>
+</svg>

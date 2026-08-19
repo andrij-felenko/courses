@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етапи відключення: плавлення (Melting) і горіння дуги (Arcing)</text>
+<rect x="10.0" y="10.0" width="740.0" height="400.0" rx="8" fill="#fafbfc" stroke="#e5e7eb" stroke-width="1.0"/>
+<rect x="30.0" y="35.0" width="700.0" height="220.0" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="380.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка струму та напруги запобіжника під час відключення КЗ</text>
+<line x1="80.0" y1="210.0" x2="690.0" y2="210.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="210.0" x2="80.0" y2="70.0" stroke="#333333" stroke-width="1.5"/>
+<text x="695.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-style="italic">t</text>
+<line x1="100.0" y1="210.0" x2="100.0" y2="70.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="300.0" y1="210.0" x2="300.0" y2="70.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="580.0" y1="210.0" x2="580.0" y2="70.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="100.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t_0 (початок КЗ)</text>
+<text x="300.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t_melt (розплавлення)</text>
+<text x="580.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">t_clear (згасання дуги)</text>
+<rect x="100.0" y="75.0" width="200.0" height="130.0" rx="0" fill="#fff8e7" stroke="none" stroke-width="1.5"/>
+<rect x="300.0" y="75.0" width="280.0" height="130.0" rx="0" fill="#fbecec" stroke="none" stroke-width="1.5"/>
+<path d="M 100 210 C 160 190, 230 100, 300 90 C 370 85, 470 140, 580 210" fill="none" stroke="#c0392b" stroke-width="3"/>
+<text x="250.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Струм КЗ i(t)</text>
+<path d="M 100 205 L 300 205 L 310 80 C 360 85, 480 120, 580 150 L 680 150" fill="none" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="4,2"/>
+<text x="460.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Напруга дуги U_arc &gt; U_мережі</text>
+<rect x="30.0" y="265.0" width="700.0" height="130.0" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<rect x="80.0" y="290.0" width="220.0" height="45.0" rx="4" fill="#fff8e7" stroke="#d97706" stroke-width="1.5"/>
+<text x="190.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Melting I²t (Pre-arcing)</text>
+<text x="190.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Нагрів до плавлення і випаровування</text>
+<rect x="305.0" y="290.0" width="300.0" height="45.0" rx="4" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="455.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Arcing I²t (Горіння дуги)</text>
+<text x="455.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Енергія дуги в кварцовому піску до повного розриву</text>
+<line x1="80.0" y1="355.0" x2="605.0" y2="355.0" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="80.0" cy="355.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="605.0" cy="355.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="342.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Clearing I²t (Total) = Melting I²t + Arcing I²t (Повна пропущена енергія)</text>
+</svg>
