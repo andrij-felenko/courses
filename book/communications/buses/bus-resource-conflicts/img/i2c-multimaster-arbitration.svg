@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Арбітраж доступу та синхронізація годинника у шині I2C</text>
+<text x="40.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">SCL (Master 1)</text>
+<text x="40.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">SCL (Master 2)</text>
+<text x="40.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">SCL (Шина AND)</text>
+<text x="40.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">SDA (Master 1)</text>
+<text x="40.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="start" font-weight="700">SDA (Master 2)</text>
+<text x="40.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">SDA (Шина AND)</text>
+<line x1="170.0" y1="45.0" x2="170.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="210.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">START</text>
+<line x1="260.0" y1="45.0" x2="260.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="300.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Bit 7 (1)</text>
+<line x1="350.0" y1="45.0" x2="350.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="390.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Bit 6 (1)</text>
+<line x1="440.0" y1="45.0" x2="440.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="480.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Bit 5 (0)</text>
+<line x1="530.0" y1="45.0" x2="530.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="570.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Bit 4 (Суперечка)</text>
+<line x1="620.0" y1="45.0" x2="620.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="660.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Bit 3</text>
+<line x1="710.0" y1="45.0" x2="710.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="750.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">ACK</text>
+<polyline points="170.0,215.0 260.0,215.0 350.0,215.0 400.0,230.0 440.0,230.0 480.0,215.0 530.0,215.0" fill="none" stroke="#27ae60" stroke-width="2.0"/>
+<text x="495.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">M1 шле '1'</text>
+<polyline points="170.0,260.0 260.0,260.0 350.0,260.0 400.0,275.0 440.0,275.0 480.0,275.0 530.0,275.0" fill="none" stroke="#d9534f" stroke-width="2.0"/>
+<text x="495.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">M2 шле '0'</text>
+<polyline points="170.0,305.0 260.0,305.0 350.0,305.0 400.0,320.0 440.0,320.0 480.0,320.0 530.0,320.0" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+<rect x="630" y="200" width="220" height="120" rx="6" fill="#fef2f2" stroke="#d9534f" stroke-width="1.8" stroke-dasharray="4 4"/>
+<text x="740.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="middle" font-weight="700">ВТРАТА АРБІТРАЖУ</text>
+<text x="747.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="747.0" dy="0.0">M1 виставив '1', але</tspan><tspan x="747.0" dy="12.3">на шині бачить '0' (від M2).</tspan><tspan x="747.0" dy="12.3">→ M1 вимикає передавач</tspan><tspan x="747.0" dy="12.3">→ M1 стає слухачем,</tspan><tspan x="747.0" dy="12.3">кадр M2 не пошкоджено!</tspan></text>
+<polyline points="170.0,65.0 200.0,65.0 220.0,80.0 250.0,80.0 260.0,65.0" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+<polyline points="170.0,110.0 190.0,110.0 210.0,125.0 255.0,125.0 260.0,110.0" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+<polyline points="170.0,155.0 190.0,155.0 210.0,170.0 255.0,170.0 260.0,155.0" fill="none" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="440.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Завдяки відкритому колектору передача переможця не спотворюється жодним бітом</text>
+</svg>

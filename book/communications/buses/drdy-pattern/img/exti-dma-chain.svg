@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний ланцюжок синхронізації EXTI → DMA → Подвійний буфер</text>
+<rect x="15.0" y="15.0" width="730.0" height="280.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="35.0" y="90.0" width="115.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="92.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Давач</text>
+<text x="92.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(IMU / АЦП)</text>
+<rect x="45.0" y="165.0" width="95.0" height="30.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="92.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">DRDY Pin</text>
+<line x1="150.0" y1="180.0" x2="190.0" y2="180.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="160.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">DRDY</text>
+<rect x="190.0" y="60.0" width="130.0" height="170.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="255.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MCU EXTI /</text>
+<text x="255.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Timer Trigger</text>
+<text x="255.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Детектор фронту</text>
+<text x="255.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Апаратний тригер</text>
+<rect x="200.0" y="180.0" width="110.0" height="32.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="255.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">DMA Request</text>
+<line x1="320.0" y1="195.0" x2="360.0" y2="195.0" stroke="#27ae60" stroke-width="2.2"/>
+<rect x="360.0" y="60.0" width="140.0" height="170.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="430.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Контролер DMA</text>
+<text x="430.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Direct Memory)</text>
+<text x="430.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Авто-генерація CS/SCK</text>
+<text x="430.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зчитування без CPU</text>
+<rect x="370.0" y="180.0" width="120.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="430.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Запис у пам'ять</text>
+<line x1="360.0" y1="100.0" x2="150.0" y2="100.0" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4 4"/>
+<text x="250.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратне читання SPI (CS, SCK, MISO)</text>
+<line x1="500.0" y1="195.0" x2="540.0" y2="195.0" stroke="#2457d6" stroke-width="2.2"/>
+<rect x="540.0" y="60.0" width="185.0" height="170.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<text x="632.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ОЗП (RAM)</text>
+<text x="632.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Подвійний буфер (Ping-Pong)</text>
+<rect x="555.0" y="125.0" width="155.0" height="36.0" rx="6" fill="#ffffff" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="632.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Буфер A (Заповнюється)</text>
+<rect x="555.0" y="175.0" width="155.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="632.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Буфер B (Обробляється DSP)</text>
+<text x="380.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Повний конвеєр збору даних виконується апаратно із нульовим джиттером</text>
+</svg>

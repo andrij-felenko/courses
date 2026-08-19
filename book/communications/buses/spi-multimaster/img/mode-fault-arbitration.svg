@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний захист Mode Fault та арбітраж шини SPI</text>
+<rect x="30.0" y="45.0" width="380.0" height="330.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="95.7" y="59.5" width="248.7" height="21.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="220.0" y="73.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Апаратний захист: Mode Fault (MODF)</tspan></text>
+<rect x="50.0" y="100.0" width="340.0" height="130.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="130.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">MCU SPI Controller (MSTR=1)</text>
+<rect x="65.0" y="140.0" width="90.0" height="40.0" rx="4" fill="#fdecea" stroke="#d9534f" stroke-width="1.2"/>
+<text x="110.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">NSS Pin (Вхід)</text>
+<text x="110.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зовнішній LOW (0V)</text>
+<rect x="170.0" y="140.0" width="100.0" height="40.0" rx="4" fill="#fef8ee" stroke="#d97706" stroke-width="1.2"/>
+<text x="220.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Логіка MODF</text>
+<text x="220.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Фіксація колізії</text>
+<rect x="285.0" y="140.0" width="95.0" height="40.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="332.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">MSTR = 0</text>
+<text x="332.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Виходи ──&gt; Hi-Z</text>
+<line x1="155.0" y1="160.0" x2="170.0" y2="160.0" stroke="#d9534f" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="160.0" x2="285.0" y2="160.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="245.0" width="340.0" height="115.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="220.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна послідовність при MODF:</text>
+<text x="220.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Інший Master опускає NSS цього контролера в 0</text>
+<text x="220.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">2. Апаратура автоматично скидає біт MSTR в 0</text>
+<text x="220.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">3. SCK/MOSI миттєво відключаються (Hi-Z) без КЗ</text>
+<text x="220.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">4. Генерується переривання SPI_IRQ (Mode Fault)</text>
+<text x="220.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">5. Контролер стає слухачем замість майстра</text>
+<rect x="430.0" y="45.0" width="400.0" height="330.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="495.4" y="59.5" width="269.2" height="21.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="630.0" y="73.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">Безпечна архітектура: Лінія BUSY / REQ</tspan></text>
+<line x1="450.0" y1="120.0" x2="810.0" y2="120.0" stroke="#d97706" stroke-width="2.5"/>
+<text x="630.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Спільна лінія BUS_BUSY (Open-Drain + Підтяжка 4.7 кОм)</text>
+<rect x="450.0" y="150.0" width="160.0" height="100.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="530.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Master A (MCU 1)</text>
+<text x="530.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Перевіряє BUSY==1</text>
+<text x="530.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">2. Опускає BUSY=0 (Lock)</text>
+<text x="530.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3. Проводить транзакцію</text>
+<line x1="530.0" y1="120.0" x2="530.0" y2="150.0" stroke="#d97706" stroke-width="1.5"/>
+<rect x="650.0" y="150.0" width="160.0" height="100.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="730.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Master B (MCU 2)</text>
+<text x="730.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">Бачить BUSY == 0</text>
+<text x="730.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">→ Чекає звільнення,</text>
+<text x="730.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">виходи тримає в Hi-Z</text>
+<line x1="730.0" y1="120.0" x2="730.0" y2="150.0" stroke="#d97706" stroke-width="1.5"/>
+<rect x="450.0" y="270.0" width="360.0" height="90.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Переваги Handshake арбітражу:</text>
+<text x="630.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Нульовий ризик електричного короткого замикання</text>
+<text x="630.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Повна сумісність зі стандартними SPI веденими</text>
+<text x="630.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Детермінований час очікування шини</text>
+<text x="430.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Апаратне скидання режиму при помилці MODF та схемотехніка арбітражу через спільну лінію BUSY</text>
+</svg>

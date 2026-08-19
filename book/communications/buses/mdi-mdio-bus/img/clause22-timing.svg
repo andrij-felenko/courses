@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура та часові діаграми кадрів IEEE 802.3 Clause 22 (Read / Write)</text>
+<text x="30.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Кадр запису (Write Frame, Opcode = 01):</text>
+<rect x="30.0" y="65.0" width="140.0" height="32.0" rx="3" fill="#eaeded" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRE (32 біти)</text>
+<text x="100.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхронізація (усі «1»)</text>
+<rect x="170.0" y="65.0" width="38.0" height="32.0" rx="3" fill="#d5dbdb" stroke="#333333" stroke-width="1.2"/>
+<text x="189.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ST</text>
+<text x="189.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">01</text>
+<rect x="208.0" y="65.0" width="38.0" height="32.0" rx="3" fill="#aed6f1" stroke="#333333" stroke-width="1.2"/>
+<text x="227.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OP</text>
+<text x="227.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">01</text>
+<rect x="246.0" y="65.0" width="65.0" height="32.0" rx="3" fill="#d4efdf" stroke="#333333" stroke-width="1.2"/>
+<text x="278.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PHYAD</text>
+<text x="278.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A4..A0</text>
+<rect x="311.0" y="65.0" width="65.0" height="32.0" rx="3" fill="#fdebd0" stroke="#333333" stroke-width="1.2"/>
+<text x="343.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">REGAD</text>
+<text x="343.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R4..R0</text>
+<rect x="376.0" y="65.0" width="40.0" height="32.0" rx="3" fill="#fadbd8" stroke="#333333" stroke-width="1.2"/>
+<text x="396.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">TA</text>
+<text x="396.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">10</text>
+<rect x="416.0" y="65.0" width="175.0" height="32.0" rx="3" fill="#ebdef0" stroke="#333333" stroke-width="1.2"/>
+<text x="503.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DATA (16 бітів)</text>
+<text x="503.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">D15 .. D0 (від MAC до PHY)</text>
+<rect x="591.0" y="65.0" width="45.0" height="32.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="613.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IDLE</text>
+<text x="613.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Hi-Z</text>
+<text x="30.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">MAC формує всі поля від PRE до DATA включно. TA = «10» утримується ведучим.</text>
+<line x1="30.0" y1="135.0" x2="730.0" y2="135.0" stroke="#e5e7e9" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="30.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Кадр читання (Read Frame, Opcode = 10):</text>
+<rect x="30.0" y="168.0" width="140.0" height="32.0" rx="3" fill="#eaeded" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRE (32 біти)</text>
+<text x="100.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхронізація (усі «1»)</text>
+<rect x="170.0" y="168.0" width="38.0" height="32.0" rx="3" fill="#d5dbdb" stroke="#333333" stroke-width="1.2"/>
+<text x="189.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ST</text>
+<text x="189.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">01</text>
+<rect x="208.0" y="168.0" width="38.0" height="32.0" rx="3" fill="#aed6f1" stroke="#333333" stroke-width="1.2"/>
+<text x="227.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OP</text>
+<text x="227.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">10</text>
+<rect x="246.0" y="168.0" width="65.0" height="32.0" rx="3" fill="#d4efdf" stroke="#333333" stroke-width="1.2"/>
+<text x="278.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PHYAD</text>
+<text x="278.5" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A4..A0</text>
+<rect x="311.0" y="168.0" width="65.0" height="32.0" rx="3" fill="#fdebd0" stroke="#333333" stroke-width="1.2"/>
+<text x="343.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">REGAD</text>
+<text x="343.5" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R4..R0</text>
+<rect x="376.0" y="168.0" width="40.0" height="32.0" rx="3" fill="#f9e79f" stroke="#333333" stroke-width="1.2"/>
+<text x="396.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">TA</text>
+<text x="396.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Z0</text>
+<rect x="416.0" y="168.0" width="175.0" height="32.0" rx="3" fill="#d5f5e3" stroke="#333333" stroke-width="1.2"/>
+<text x="503.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DATA (16 бітів)</text>
+<text x="503.5" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">D15 .. D0 (від PHY до MAC)</text>
+<rect x="591.0" y="168.0" width="45.0" height="32.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="613.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IDLE</text>
+<text x="613.5" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Hi-Z</text>
+<rect x="131.7" y="238.1" width="496.5" height="73.9" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="380.0" y="257.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Механізм перемикання лінії Turnaround (TA) під час читання:</tspan><tspan x="380.0" dy="14.3">• 1-й такт (Z): MAC відпускає лінію в Hi-Z; підтяжка тримає високий рівень</tspan><tspan x="380.0" dy="14.3">• 2-й такт (0): PHY перехоплює шину і притискає MDIO до нуля (підтвердження)</tspan><tspan x="380.0" dy="14.3">• Далі PHY передає 16 біт даних D15..D0, синхронізуючись за тактами MDC</tspan></text>
+<text x="200.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Керує MAC (Ведучий)</text>
+<line x1="200.0" y1="370.0" x2="350.0" y2="370.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="540.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Керує PHY (Ведений)</text>
+<line x1="430.0" y1="370.0" x2="580.0" y2="370.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

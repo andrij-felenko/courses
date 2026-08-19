@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відбиття хвилі в неузгодженій лінії: подвоєння напруги та дзвін (Ringing)</text>
+<text x="210.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема лінії передачі</text>
+<rect x="40.0" y="80.0" width="70.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="75.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">TX</text>
+<text x="75.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">R_S ≈ 20Ω</text>
+<line x1="110.0" y1="115.0" x2="300.0" y2="115.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="110.0" y1="140.0" x2="300.0" y2="140.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="205.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінія Z₀ ≈ 50Ω, час t_prop</text>
+<rect x="300.0" y="80.0" width="80.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="340.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">RX (Gate)</text>
+<text x="340.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">R_L ≈ ∞</text>
+<line x1="130.0" y1="125.0" x2="230.0" y2="125.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="180.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Пряма хвиля V_inc</text>
+<line x1="270.0" y1="133.0" x2="170.0" y2="133.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="220.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">← Відбита хвиля (Г_L = +1)</text>
+<rect x="40.0" y="165.0" width="340.0" height="80.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.5"/><text x="210.0" y="190.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Коефіцієнти відбиття (Г = (R - Z₀) / (R + Z₀)):</tspan><tspan x="210.0" dy="11.7">• На приймачі: R_L = ∞  →  Г_L = +1.0 (напруга подвоюється!)</tspan><tspan x="210.0" dy="11.7">• На передавачі: R_S = 20Ω, Z₀ = 50Ω  →  Г_S = -0.43 (фаза інвертується)</tspan><tspan x="210.0" dy="11.7">Хвиля багаторазово відбивається між кінцями за час 2·t_prop.</tspan></text>
+<text x="580.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Напруга на вході приймача V_RX(t)</text>
+<line x1="430.0" y1="210.0" x2="740.0" y2="210.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="430.0" y1="210.0" x2="430.0" y2="75.0" stroke="#333333" stroke-width="1.5"/>
+<text x="730.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle">Час t</text>
+<text x="422.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">Напруга V</text>
+<line x1="430.0" y1="130.0" x2="740.0" y2="130.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="424.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">V_DD (3.3В)</text>
+<line x1="430.0" y1="170.0" x2="740.0" y2="170.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="424.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="end">Поріг (1.65В)</text>
+<line x1="430.0" y1="210.0" x2="740.0" y2="210.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="424.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">GND (0В)</text>
+<path d="M 430.0,210.0 L 465.0,210.0 L 472.0,95.0 L 500.0,110.0 L 520.0,155.0 L 550.0,148.0 L 575.0,118.0 L 610.0,134.0 L 640.0,128.0 L 680.0,130.0 L 730.0,130.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="495.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Закид (Overshoot &gt; 4.7В)</text>
+<line x1="495.0" y1="92.0" x2="475.0" y2="96.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="545.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Провал (Undershoot)</text>
+<line x1="545.0" y1="178.0" x2="522.0" y2="157.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="625.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Дзвін (Ringing)</text>
+<line x1="470.0" y1="206.0" x2="470.0" y2="214.0" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t_prop</text>
+<line x1="520.0" y1="206.0" x2="520.0" y2="214.0" stroke="#333333" stroke-width="1.5"/>
+<text x="520.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3·t_prop</text>
+<line x1="575.0" y1="206.0" x2="575.0" y2="214.0" stroke="#333333" stroke-width="1.5"/>
+<text x="575.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">5·t_prop</text>
+<rect x="40.0" y="260.0" width="340.0" height="95.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/><text x="210.0" y="283.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Небезпеки перенапруг та дзвону:</tspan><tspan x="210.0" dy="13.7">1. Пробій затворів та спрацьовування ESD-діодів чіпа.</tspan><tspan x="210.0" dy="13.7">2. Ризик замикання живлення (CMOS Latch-up).</tspan><tspan x="210.0" dy="13.7">3. Хибне спрацьовування тригерів Шмітта при спаданні</tspan><tspan x="210.0" dy="13.7">   хвилі через логічний поріг (Double Clocking в SPI).</tspan></text>
+<rect x="40.0" y="370.0" width="700.0" height="85.0" rx="6" fill="#f4f6f8" stroke="#475569" stroke-width="1.5"/><text x="390.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Умова виникнення відбиттів: якщо час наростання фронту t_rise &lt; 2 · t_prop (де t_prop = довжина / швидкість),</tspan><tspan x="390.0" dy="13.0">лінія працює в режимі довгої лінії передачі. Навіть на низькій частоті обміну (100 кГц) крутий фронт мікроконтролера</tspan><tspan x="390.0" dy="13.0">(t_rise ≈ 1.5 нс) викликає сильний дзвін на доріжках довжиною понад 10–12 см.</tspan></text>
+</svg>

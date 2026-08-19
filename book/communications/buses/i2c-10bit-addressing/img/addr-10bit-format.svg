@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формат двох байтів 10-бітної адреси I2C</text>
+<text x="80.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1-й байт (префікс + старші біти + напрямок):</text>
+<rect x="80.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="118.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 7</text>
+<text x="118.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="162.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="200.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 6</text>
+<text x="200.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="244.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="282.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 5</text>
+<text x="282.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="326.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="364.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 4</text>
+<text x="364.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="408.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="446.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 3</text>
+<text x="446.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="490.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="528.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 2</text>
+<text x="528.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A9</text>
+<rect x="572.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="610.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 1</text>
+<text x="610.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A8</text>
+<rect x="654.0" y="74.0" width="76.0" height="50.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="692.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 0</text>
+<text x="692.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">R/W</text>
+<text x="282.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">зарезервований префікс 11110 (0x78..0x7B)</text>
+<text x="569.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">біти A9..A8</text>
+<text x="692.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">0=W, 1=R</text>
+<text x="80.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2-й байт (молодші вісім бітів адреси):</text>
+<rect x="80.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="118.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 7</text>
+<text x="118.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A7</text>
+<rect x="162.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="200.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 6</text>
+<text x="200.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A6</text>
+<rect x="244.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="282.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 5</text>
+<text x="282.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A5</text>
+<rect x="326.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="364.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 4</text>
+<text x="364.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A4</text>
+<rect x="408.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="446.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 3</text>
+<text x="446.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A3</text>
+<rect x="490.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="528.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 2</text>
+<text x="528.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A2</text>
+<rect x="572.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="610.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 1</text>
+<text x="610.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A1</text>
+<rect x="654.0" y="172.0" width="76.0" height="50.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="692.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">bit 0</text>
+<text x="692.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">A0</text>
+<text x="420.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">повна 10-бітна адреса: [A9 A8 A7 A6 A5 A4 A3 A2 A1 A0] — діапазон 0x000…0x3FF (1024 адреси)</text>
+<rect x="60.0" y="314.0" width="720.0" height="34.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Префікс 11110 виключає конфлікти з 7-бітними веденими: вони бачать зарезервовану адресу й не озиваються</tspan></text>
+</svg>

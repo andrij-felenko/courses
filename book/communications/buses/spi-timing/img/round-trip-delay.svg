@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Затримка круглого циклу SPI</text>
+<rect x="10.0" y="10.0" width="800.0" height="370.0" rx="8" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.5"/>
+<rect x="30.0" y="40.0" width="180.0" height="270.0" rx="6" fill="#f4f6f9" stroke="#2457d6" stroke-width="1.8"/>
+<text x="120.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Ведучий (Master)</text>
+<text x="120.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Генератор такту SCLK</text>
+<text x="120.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вхідний D-тригер MISO</text>
+<rect x="610.0" y="40.0" width="180.0" height="270.0" rx="6" fill="#fcf3cf" stroke="#b7950b" stroke-width="1.8"/>
+<text x="700.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7d6608" text-anchor="middle" font-weight="700">Ведений (Slave)</text>
+<text x="700.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Приймач такту SCLK</text>
+<text x="700.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вихідний драйвер t_V</text>
+<line x1="210.0" y1="140.0" x2="610.0" y2="140.0" stroke="#2457d6" stroke-width="2.6" marker-end="url(#arrow)"/>
+<rect x="265.2" y="113.5" width="289.6" height="21.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/><text x="410.0" y="127.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">SCLK: пряма затримка в кабелі t_prop(out)</tspan></text>
+<rect x="625.0" y="135.0" width="150.0" height="85.0" rx="4" fill="#fef9e7" stroke="#c0392b" stroke-width="1.4"/>
+<text x="700.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Затримка веденого:</text>
+<text x="700.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">t_V = t_CLK_to_Out</text>
+<text x="700.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(від 5 нс до 40 нс)</text>
+<line x1="610.0" y1="250.0" x2="210.0" y2="250.0" stroke="#8e44ad" stroke-width="2.6" marker-end="url(#arrow)"/>
+<rect x="258.4" y="223.5" width="303.3" height="21.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/><text x="410.0" y="237.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">MISO: зворотна затримка в кабелі t_prop(in)</tspan></text>
+<rect x="67.8" y="311.5" width="684.4" height="27.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="328.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Сумарний час відгуку: T_round_trip = t_prop(out) + t_V(slave) + t_prop(in) + t_SU(master) &lt;= T_CLK</tspan></text>
+<text x="410.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Затримка подвійного пробігу кабелю (2 · t_prop) разом із t_V обмежує максимальну частоту читання</text>
+</svg>

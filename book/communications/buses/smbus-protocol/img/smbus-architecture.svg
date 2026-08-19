@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+    </marker>
+  </defs>
+<rect x="0.0" y="0.0" width="880.0" height="360.0" rx="0" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<rect x="30.0" y="20.0" width="820.0" height="50.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина живлення VDD (+3.3 В / +5.0 В)</text>
+<line x1="270.0" y1="70.0" x2="270.0" y2="85.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="252.0" y="85.0" width="36.0" height="32.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="270.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">R_p</text>
+<line x1="270.0" y1="117.0" x2="270.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<text x="275.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">R_pullup (SCL)</text>
+<line x1="450.0" y1="70.0" x2="450.0" y2="85.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="432.0" y="85.0" width="36.0" height="32.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="450.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">R_p</text>
+<line x1="450.0" y1="117.0" x2="450.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<text x="455.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">R_pullup (SDA)</text>
+<line x1="630.0" y1="70.0" x2="630.0" y2="85.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="612.0" y="85.0" width="36.0" height="32.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="630.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">R_p</text>
+<line x1="630.0" y1="117.0" x2="630.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<text x="635.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">R_pullup (ALERT#)</text>
+<line x1="110.0" y1="145.0" x2="840.0" y2="145.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="100.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">SCL</text>
+<line x1="110.0" y1="175.0" x2="840.0" y2="175.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="100.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">SDA</text>
+<line x1="110.0" y1="205.0" x2="840.0" y2="205.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="100.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">SMBALERT#</text>
+<circle cx="270.0" cy="145.0" r="3.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="450.0" cy="175.0" r="3.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="630.0" cy="205.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="80.0" y="245.0" width="200.0" height="70.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="180.0" y="276.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">SMBus Host Controller</tspan><tspan x="180.0" dy="13.7">(Південний міст / PCH / MCU)</tspan></text>
+<circle cx="155.0" cy="145.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="155.0" y1="145.0" x2="155.0" y2="245.0" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="180.0" cy="175.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="180.0" y1="175.0" x2="180.0" y2="245.0" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="205.0" cy="205.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="205.0" y1="205.0" x2="205.0" y2="245.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="320.0" y="245.0" width="180.0" height="70.0" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/><text x="410.0" y="277.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Smart Battery</tspan><tspan x="410.0" dy="11.7">(SBS Газовий лічильник / BMS)</tspan></text>
+<circle cx="385.0" cy="145.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="385.0" y1="145.0" x2="385.0" y2="245.0" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="410.0" cy="175.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="410.0" y1="175.0" x2="410.0" y2="245.0" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="435.0" cy="205.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="435.0" y1="205.0" x2="435.0" y2="245.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="520.0" y="245.0" width="170.0" height="70.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/><text x="605.0" y="277.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="605.0" dy="0.0">Термодавач LM75</tspan><tspan x="605.0" dy="11.7">(Моніторинг температури CPU)</tspan></text>
+<circle cx="580.0" cy="145.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="580.0" y1="145.0" x2="580.0" y2="245.0" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="605.0" cy="175.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="605.0" y1="175.0" x2="605.0" y2="245.0" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="630.0" cy="205.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="630.0" y1="205.0" x2="630.0" y2="245.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="715.0" y="245.0" width="130.0" height="70.0" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/><text x="780.0" y="277.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">VRM / PMBus</tspan><tspan x="780.0" dy="12.3">(ШІМ живлення ядра)</tspan></text>
+<circle cx="755.0" cy="145.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="755.0" y1="145.0" x2="755.0" y2="245.0" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="780.0" cy="175.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="780.0" y1="175.0" x2="780.0" y2="245.0" stroke="#27ae60" stroke-width="1.5"/>
+</svg>

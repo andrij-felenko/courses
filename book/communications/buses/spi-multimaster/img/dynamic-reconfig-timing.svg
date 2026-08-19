@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічна реконфігурація регістрів SPI майстра</text>
+<rect x="40.0" y="45.0" width="160.0" height="330.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="120.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Транзакція 1 (Flash: Mode 0, 40 МГц)</text>
+<rect x="200.0" y="45.0" width="280.0" height="330.0" rx="4" fill="#fef2f2" stroke="#d9534f" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="340.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">ФАЗА РЕКОНФІГУРАЦІЇ (Усі CS = 1)</text>
+<rect x="480.0" y="45.0" width="340.0" height="330.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="650.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Транзакція 2 (Sensor: Mode 3, 5 МГц)</text>
+<text x="50.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">CS_Flash (Mode 0)</text>
+<text x="50.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">CS_Sensor (Mode 3)</text>
+<text x="50.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">SCK (Тактовий сигнал)</text>
+<text x="50.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">MOSI (Дані)</text>
+<polyline points="200.0,115.0 200.0,90.0 40.0,90.0" fill="none" stroke="#27ae60" stroke-width="2.0"/>
+<polyline points="200.0,90.0 820.0,90.0" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+<polyline points="40.0,150.0 520.0,150.0" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+<polyline points="520.0,150.0 520.0,175.0 800.0,175.0 800.0,150.0" fill="none" stroke="#27ae60" stroke-width="2.0"/>
+<polyline points="40.0,245.0 60.0,245.0 70.0,220.0 80.0,245.0 90.0,220.0 100.0,245.0 110.0,220.0 120.0,245.0 130.0,220.0 140.0,245.0 200.0,245.0" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<polyline points="200.0,245.0 330.0,245.0" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<polyline points="330.0,245.0 350.0,220.0 480.0,220.0" fill="none" stroke="#d9534f" stroke-width="2.5"/>
+<polyline points="480.0,220.0 540.0,220.0 560.0,245.0 580.0,220.0 600.0,245.0 620.0,220.0 640.0,245.0 660.0,220.0 680.0,245.0 700.0,220.0 720.0,245.0 740.0,220.0 820.0,220.0" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="215.0" y="115.0" width="250.0" height="85.0" rx="5" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="340.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">БЕЗПЕЧНА РЕКОНФІГУРАЦІЯ</text>
+<text x="340.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. CS_Flash піднято у 1 (OFF)</text>
+<text x="340.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. Зміна CPOL=0 → CPOL=1 генерує</text>
+<text x="340.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">перепад SCK при ВИМКНЕНИХ CS!</text>
+<line x1="350.0" y1="220.0" x2="350.0" y2="260.0" stroke="#d9534f" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="520.0" y1="150.0" x2="520.0" y2="260.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="540.0" y1="220.0" x2="540.0" y2="260.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="435.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">t_settle (стабілізація рівня)</text>
+<text x="530.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t_lead</text>
+<line x1="40.0" y1="305.0" x2="200.0" y2="305.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="200.0" y1="305.0" x2="520.0" y2="305.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="520.0" y1="305.0" x2="780.0" y2="305.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="430.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Часова послідовність безпечної динамічної зміни режимів CPOL/CPHA: перепад спокою ізольовано деактивацією CS</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокольний діалог SASL: етапи взаємодії та рушій станів</text>
+<rect x="40.0" y="55.0" width="230.0" height="485.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="155.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнт (Client Initiator)</text>
+<text x="155.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Застосунок + SASL Client Library</text>
+<rect x="690.0" y="55.0" width="230.0" height="485.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="805.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Сервер (Server Acceptor)</text>
+<text x="805.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Служба + SASL Server Library</text>
+<line x1="155.0" y1="110.0" x2="155.0" y2="270.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="155.0" y1="340.0" x2="155.0" y2="520.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="805.0" y1="110.0" x2="805.0" y2="185.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="805.0" y1="245.0" x2="805.0" y2="410.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="805.0" y1="475.0" x2="805.0" y2="520.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="805.0" y1="135.0" x2="160.0" y2="135.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="259.2" y="113.5" width="441.7" height="23.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="128.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">1. Capability / Mechanism List: AUTH=SCRAM-SHA-256 GSSAPI PLAIN</tspan></text>
+<text x="480.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сервер передає перелік дозволених механізмів у прикладній команді</text>
+<line x1="155.0" y1="195.0" x2="800.0" y2="195.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.1" y="173.5" width="359.8" height="23.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="188.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">2. AUTH SCRAM-SHA-256 [biwsbj1hbGljZSxyPW5vbmNl...]</tspan></text>
+<text x="480.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Клієнт обирає найстійкіший механізм і надсилає Initial Client Response (опційно)</text>
+<rect x="290.0" y="235.0" width="380.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Цикл обміну викликами (0..N ітерацій)</text>
+<line x1="805.0" y1="280.0" x2="160.0" y2="280.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="355.3" y="265.0" width="249.4" height="20.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="278.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">+ cj1ub25jZTExc2FsdD1zYWx0LGl0ZXI9NDAxNg==</tspan></text>
+<text x="480.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Серверний виклик (Challenge) у кодуванні Base64</text>
+<line x1="155.0" y1="335.0" x2="800.0" y2="335.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="372.4" y="320.0" width="215.2" height="20.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="333.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Yz1iaXdzLHI9bm9uY2UxMSxwPXByb29mNDI=</tspan></text>
+<text x="480.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Клієнтська відповідь (Response) із криптодоказом</text>
+<line x1="805.0" y1="430.0" x2="160.0" y2="430.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="306.9" y="408.5" width="346.2" height="23.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="423.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">4. OK [v=dj1zZXJ2ZXJzaWduYXR1cmU=] / SASL Success</tspan></text>
+<text x="480.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сервер підтверджує автентифікацію (з додатковими даними підпису або без)</text>
+<rect x="50.0" y="475.0" width="210.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="155.0" y="499.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">Встановлено контекст:</tspan><tspan x="155.0" dy="11.7">• Автентифікований суб'єкт</tspan><tspan x="155.0" dy="11.7">• Узгоджений рівень безпеки (QOP)</tspan></text>
+<rect x="700.0" y="475.0" width="210.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="805.0" y="499.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="805.0" dy="0.0">Готовність до команд:</tspan><tspan x="805.0" dy="11.7">• Перехід до прикладних запитів</tspan><tspan x="805.0" dy="11.7">• Увімкнення Security Layer або TLS</tspan></text>
+</svg>

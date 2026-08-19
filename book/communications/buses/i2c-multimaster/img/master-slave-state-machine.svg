@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів апаратного контролера I2C з обробкою арбітражу</text>
+<rect x="20.0" y="20.0" width="800.0" height="400.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<rect x="340.0" y="45.0" width="160.0" height="45.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="420.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">СТАН: IDLE (Спокій)</text>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SDA=1, SCL=1</text>
+<rect x="50.0" y="140.0" width="210.0" height="65.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="155.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MASTER: Передача кадру</text>
+<text x="155.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Генерація SCL + видача бітів</text>
+<text x="155.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Порівняння SDA_OUT з SDA_IN</text>
+<line x1="360.0" y1="90.0" x2="220.0" y2="140.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">START запит</text>
+<rect x="50.0" y="260.0" width="210.0" height="65.0" rx="6" fill="#fdecea" stroke="#d9534f" stroke-width="1.8"/>
+<text x="155.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d9534f" text-anchor="middle" font-weight="700">ARBITRATION LOST (ARLO)</text>
+<text x="155.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle">SDA_OUT=1, але SDA_IN=0</text>
+<text x="155.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Негайне вимкнення виходу SDA</text>
+<line x1="155.0" y1="205.0" x2="155.0" y2="260.0" stroke="#d9534f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="160.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="start" font-weight="700">Невідповідність біта</text>
+<rect x="340.0" y="260.0" width="200.0" height="65.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="440.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Перевірка адреси веденого</text>
+<text x="440.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Чи викликає переможець нас?</text>
+<text x="440.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">Порівняння з власною адресою</text>
+<line x1="260.0" y1="292.0" x2="340.0" y2="292.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Слухати шину</text>
+<rect x="600.0" y="260.0" width="190.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="695.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">SLAVE: Відповідь ведучому</text>
+<text x="695.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Видача ACK на 9 такті</text>
+<text x="695.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Прийом або віддача даних</text>
+<line x1="540.0" y1="292.0" x2="600.0" y2="292.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Співпало!</text>
+<rect x="340.0" y="355.0" width="200.0" height="50.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="440.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Очікування STOP + Backoff</text>
+<text x="440.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Псевдовипадкова пауза повтору</text>
+<line x1="440.0" y1="325.0" x2="440.0" y2="355.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="445.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Адреса чужа</text>
+<polyline points="340.0,380.0 300.0,380.0 300.0,67.0 340.0,67.0" fill="none" stroke="#333333" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="300.0" y1="67.0" x2="340.0" y2="67.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="278.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">STOP на шині + таймаут</text>
+<polyline points="695.0,260.0 695.0,67.0 500.0,67.0" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="540.0" y1="67.0" x2="500.0" y2="67.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="610.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">STOP завершення</text>
+<polyline points="155.0,140.0 155.0,67.0 340.0,67.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="260.0" y1="67.0" x2="340.0" y2="67.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Транзакція OK (STOP)</text>
+</svg>

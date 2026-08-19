@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 452" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="452" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режими роботи FIFO-буфера</text>
+<text x="460.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Bypass · FIFO (Stop-on-Full) · Stream (Continuous) · Continuous-to-FIFO (Trigger)</text>
+<rect x="42.0" y="75.0" width="195.0" height="310.0" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<rect x="42.0" y="75.0" width="195.0" height="38.0" rx="0" fill="#64748b" stroke="#64748b" stroke-width="1.0"/>
+<text x="139.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1. Bypass (Обхід)</text>
+<text x="139.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FIFO вимкнено</text>
+<text x="139.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дані йдуть прямо в</text>
+<text x="139.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">визначені вихідні регістри</text>
+<text x="139.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кожен новий відлік АЦП</text>
+<text x="139.5" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">перезаписує попередній</text>
+<text x="139.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="700">Використання: опитування</text>
+<text x="139.5" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">в реальному часі</text>
+<rect x="57.0" y="310.0" width="165.0" height="55.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="139.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">ADC -&gt; OUT_REG</text>
+<text x="139.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">FIFO байпас</text>
+<rect x="255.0" y="75.0" width="195.0" height="310.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="255.0" y="75.0" width="195.0" height="38.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="352.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2. FIFO (Stop-on-Full)</text>
+<text x="352.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис до заповнення</text>
+<text x="352.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Буфер заповнюється до 100%</text>
+<text x="352.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Нові відліки блокуються,</text>
+<text x="352.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">старі надійно збережено</text>
+<text x="352.5" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Прапорець: FIFO_FULL</text>
+<text x="352.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Використання: запис серії</text>
+<text x="352.5" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">фіксованої довжини</text>
+<rect x="270.0" y="310.0" width="165.0" height="55.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">[1][2][3][4] STOP</text>
+<text x="352.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">втрата нових даних</text>
+<rect x="468.0" y="75.0" width="195.0" height="310.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="468.0" y="75.0" width="195.0" height="38.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="565.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3. Stream (Кільцевий)</text>
+<text x="565.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Безперервний потік</text>
+<text x="565.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">При 100% заповненні нові</text>
+<text x="565.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">відліки витісняють найстаріші</text>
+<text x="565.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">У пам'яті завжди лишається</text>
+<text x="565.5" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">найсвіжіше вікно вимірів</text>
+<text x="565.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Використання: фоновий буфер</text>
+<text x="565.5" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">для системної телеметрії</text>
+<rect x="483.0" y="310.0" width="165.0" height="55.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="565.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">&lt;- [3][4][5][6] &lt;-</text>
+<text x="565.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">витіснення старих</text>
+<rect x="681.0" y="75.0" width="195.0" height="310.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="681.0" y="75.0" width="195.0" height="38.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="778.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4. Trigger (Подія)</text>
+<text x="778.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вікно навколо тригера</text>
+<text x="778.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Постійний Stream до події</text>
+<text x="778.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Після апаратного тригера</text>
+<text x="778.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">дописує N вибірок і зупиняє</text>
+<text x="778.5" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зберігає передісторію удару</text>
+<text x="778.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">та наслідок події (crash-log)</text>
+<text x="778.5" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Використання: аналіз ударів</text>
+<rect x="696.0" y="310.0" width="165.0" height="55.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="778.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">До удару | Подія | Після</text>
+<text x="778.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зафіксоване вікно</text>
+<rect x="40.0" y="398.0" width="840.0" height="34.0" rx="6" fill="#f2f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="460.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір режиму визначає долю даних: зберегти минуле (FIFO), мати завжди свіже сьогодення (Stream) чи зловити момент аварії (Trigger).</text>
+</svg>

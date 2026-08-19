@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зустрічне зіткнення виходів у небезпечній топології Multi-Master SPI</text>
+<rect x="40.0" y="60.0" width="190.0" height="280.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="75.4" y="74.5" width="119.1" height="21.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="135.0" y="88.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">Master 1 (MCU A)</tspan></text>
+<rect x="55.0" y="120.0" width="160.0" height="45.0" rx="4" fill="#fdecea" stroke="#d9534f" stroke-width="1.2"/>
+<text x="135.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">SCK Вихід: HIGH (+3.3V)</text>
+<text x="135.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Верхній P-MOS УВІМКНЕНО</text>
+<rect x="55.0" y="180.0" width="160.0" height="45.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="135.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">MOSI Вихід: LOW (0V)</text>
+<text x="135.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Нижній N-MOS УВІМКНЕНО</text>
+<text x="135.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Вважає себе єдиним</text>
+<text x="135.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">господарем шини!</text>
+<rect x="630.0" y="60.0" width="190.0" height="280.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="665.4" y="74.5" width="119.1" height="21.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="725.0" y="88.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="725.0" dy="0.0">Master 2 (MCU B)</tspan></text>
+<rect x="645.0" y="120.0" width="160.0" height="45.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="725.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SCK Вихід: LOW (0V)</text>
+<text x="725.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Нижній N-MOS УВІМКНЕНО</text>
+<rect x="645.0" y="180.0" width="160.0" height="45.0" rx="4" fill="#fdecea" stroke="#d9534f" stroke-width="1.2"/>
+<text x="725.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">MOSI Вихід: HIGH (+3.3V)</text>
+<text x="725.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Верхній P-MOS УВІМКНЕНО</text>
+<text x="725.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Одночасно почав передачу</text>
+<text x="725.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">без арбітражу!</text>
+<line x1="230.0" y1="142.0" x2="630.0" y2="142.0" stroke="#d9534f" stroke-width="3.0"/>
+<line x1="240.0" y1="142.0" x2="410.0" y2="142.0" stroke="#d9534f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="142.0" x2="450.0" y2="142.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="202.0" x2="630.0" y2="202.0" stroke="#d9534f" stroke-width="3.0"/>
+<line x1="620.0" y1="202.0" x2="450.0" y2="202.0" stroke="#d9534f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="202.0" x2="410.0" y2="202.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="265.0" y="95.0" width="300.0" height="205.0" rx="8" fill="#fee2e2" stroke="#d9534f" stroke-width="2.0"/>
+<text x="415.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="middle" font-weight="700">⚡ КАТАСТРОФІЧНИЙ КОНФЛІКТ ⚡</text>
+<text x="415.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зустрічне ввімкнення Push-Pull виходів</text>
+<text x="415.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Пряме КЗ: VCC ──&gt; P-MOS ──&gt; N-MOS ──&gt; GND</text>
+<text x="415.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">• Наскрізний струм: I_short &gt; 60..100 мА</text>
+<text x="415.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Напруга лінії: невизначені 1.4..1.8 В</text>
+<text x="415.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle">• Локальний перегрів та деградація виводів</text>
+<text x="415.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Руйнування стану всіх підключених ведених</text>
+<text x="415.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">• Відсутність арбітражу спалює ключі MCU</text>
+<text x="430.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Наслідки одночасної передачі двох ведучих на шині SPI без апаратного арбітражу</text>
+</svg>

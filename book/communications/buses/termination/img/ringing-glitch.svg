@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дзвін у неузгодженій лінії: викиди напруги та хибне тактування</text>
+<line x1="90.0" y1="320.0" x2="770.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="90.0" y1="80.0" x2="90.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<text x="785.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">t</text>
+<text x="80.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">V</text>
+<line x1="90.0" y1="140.0" x2="770.0" y2="140.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="82.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_DD (3.3 В)</text>
+<rect x="90.0" y="170.0" width="680.0" height="60.0" rx="6" fill="#fef3c7" stroke="none" stroke-width="1.5"/>
+<line x1="90.0" y1="200.0" x2="770.0" y2="200.0" stroke="#d97706" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="82.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="end" font-weight="700">Порог V_th</text>
+<text x="760.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="end" font-style="italic">Невизначена зона (V_IL .. V_IH)</text>
+<line x1="90.0" y1="280.0" x2="770.0" y2="280.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="82.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0 В (GND)</text>
+<path d="M 90.0 280.0 C 120.0 280.0, 120.0 280.0, 150.0 280.0 C 175.0 280.0, 175.0 90.0, 200.0 90.0 C 225.0 90.0, 225.0 250.0, 250.0 250.0 C 280.0 250.0, 280.0 115.0, 310.0 115.0 C 340.0 115.0, 340.0 185.0, 370.0 185.0 C 400.0 185.0, 400.0 132.0, 430.0 132.0 C 470.0 132.0, 470.0 140.0, 510.0 140.0 C 620.0 140.0, 620.0 140.0, 730.0 140.0" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<path d="M 90 280 L 150 280 L 200 140 L 730 140" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="490.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Узгоджена лінія (чистий фронт)</text>
+<line x1="200.0" y1="65.0" x2="200.0" y2="85.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="200.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Викид Overshoot (+5.2 В)</text>
+<text x="200.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Загроза пробою входу ESD</text>
+<circle cx="228.0" cy="200.0" r="6.0" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="275.0" cy="200.0" r="6.0" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="250.0" y1="335.0" x2="250.0" y2="255.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Провал нижче порогу V_th!</text>
+<text x="250.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">→ Хибне повторне спрацьовування</text>
+<rect x="50.0" y="390.0" width="720.0" height="75.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/><text x="410.0" y="416.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Небезпека неузгодженої довгої лінії: коли фронт швидший за час подвійного пробігу (t_rise &lt; 2 · t_prop),</tspan><tspan x="410.0" dy="15.0">багаторазові відбиття породжують дзвін (Ringing). Провал напруги перетинає поріг спрацьовування</tspan><tspan x="410.0" dy="15.0">компаратора вдруге — приймач фіксує фальшивий тактовий імпульс (Glitch), руйнуючи передачу даних.</tspan></text>
+</svg>

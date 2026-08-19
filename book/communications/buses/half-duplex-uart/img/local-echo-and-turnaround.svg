@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальне відлуння та захисний інтервал Turnaround</text>
+<rect x="30.0" y="30.0" width="405.0" height="355.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="45.0" y="42.0" width="375.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="232.5" y="59.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="232.5" dy="0.0">Локальне відлуння (Local Echo)</tspan></text>
+<rect x="50.0" y="85.0" width="115.0" height="135.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="107.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU Вузол</text>
+<text x="107.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">TX_OUT</text>
+<text x="107.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RX_IN</text>
+<line x1="165.0" y1="138.0" x2="240.0" y2="138.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="240.0" y1="138.0" x2="240.0" y2="190.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<line x1="240.0" y1="190.0" x2="165.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="240.0" y1="190.0" x2="170.0" y2="190.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="240.0" cy="164.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="260.0" y="105.0" width="160.0" height="105.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="340.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Власна передача</text>
+<text x="340.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">повертається в RX FIFO!</text>
+<text x="340.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Потрібно фільтрувати</text>
+<text x="340.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або вимикати /RE</text>
+<rect x="50.0" y="235.0" width="365.0" height="135.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="232.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Діагностика: виявлення колізій</text>
+<text x="65.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Передано байт 0x55 (01010101b)</text>
+<text x="65.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">2. Прийнято відлуння: 0x15 (00010101b)</text>
+<text x="65.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">3. Висновок: інший вузол притиснув лінію в 0!</text>
+<text x="65.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">   → Миттєва фіксація колізії на шині</text>
+<rect x="455.0" y="30.0" width="415.0" height="355.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="470.0" y="42.0" width="385.0" height="28.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="662.5" y="59.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="662.5" dy="0.0">Час перемикання (Turnaround Time)</tspan></text>
+<text x="475.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Ведучий (TX)</text>
+<text x="475.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Ведений (TX)</text>
+<text x="475.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Стан шини</text>
+<rect x="560.0" y="80.0" width="140.0" height="26.0" rx="3" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="630.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Запит ведучого</text>
+<rect x="700.0" y="80.0" width="60.0" height="100.0" rx="6" fill="#fef8ee" stroke="#d97706" stroke-width="1.2"/>
+<text x="730.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">T_turnaround</text>
+<text x="730.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Захисний час)</text>
+<rect x="760.0" y="140.0" width="100.0" height="26.0" rx="3" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="810.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Відповідь</text>
+<rect x="470.0" y="235.0" width="385.0" height="135.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="662.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Небезпека: замалий захисний інтервал</text>
+<text x="485.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Ведучий ще вимикає драйвер (t_disable ~ 150 нс)</text>
+<text x="485.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Ведений уже вмикає свій вихід на передачу</text>
+<text x="485.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">• Результат: зустрічний струм, провал напруги,</text>
+<text x="485.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">  спотворення Start-біта відповіді веденого!</text>
+</svg>

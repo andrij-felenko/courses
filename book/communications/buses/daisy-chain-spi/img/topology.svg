@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння зіркової топології SPI та послідовного каскаду Daisy-Chain</text>
+<rect x="10.0" y="10.0" width="820.0" height="460.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="20.0" y="20.0" width="390.0" height="440.0" rx="6" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="215.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зіркова топологія (Star SPI)</text>
+<text x="215.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">3 спільні лінії + N окремих ліній CS</text>
+<rect x="35.0" y="110.0" width="95.0" height="290.0" rx="6" fill="#eef4fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="82.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ВЕДУЧИЙ</text>
+<text x="82.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Master)</text>
+<text x="120.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">MOSI</text>
+<text x="120.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">MISO</text>
+<text x="120.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">SCLK</text>
+<text x="120.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07d00" text-anchor="end" font-weight="700">CS1</text>
+<text x="120.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07d00" text-anchor="end" font-weight="700">CS2</text>
+<text x="120.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07d00" text-anchor="end" font-weight="700">CS3</text>
+<line x1="130.0" y1="190.0" x2="390.0" y2="190.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="130.0" y1="230.0" x2="390.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="130.0" y1="270.0" x2="390.0" y2="270.0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="170.0" y="100.0" width="65.0" height="300.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="202.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IC 1</text>
+<line x1="202.0" y1="190.0" x2="202.0" y2="160.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="202.0" cy="190.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="218.0" y1="230.0" x2="218.0" y2="160.0" stroke="#27ae60" stroke-width="1.2"/>
+<circle cx="218.0" cy="230.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="186.0" y1="270.0" x2="186.0" y2="160.0" stroke="#2457d6" stroke-width="1.2"/>
+<circle cx="186.0" cy="270.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="130.0" y1="315.0" x2="202.0" y2="315.0" stroke="#b07d00" stroke-width="1.4"/>
+<line x1="202.0" y1="315.0" x2="202.0" y2="360.0" stroke="#b07d00" stroke-width="1.4"/>
+<text x="202.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d00" text-anchor="middle" font-weight="700">CS</text>
+<rect x="250.0" y="100.0" width="65.0" height="300.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="282.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IC 2</text>
+<line x1="282.0" y1="190.0" x2="282.0" y2="160.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="282.0" cy="190.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="298.0" y1="230.0" x2="298.0" y2="160.0" stroke="#27ae60" stroke-width="1.2"/>
+<circle cx="298.0" cy="230.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="266.0" y1="270.0" x2="266.0" y2="160.0" stroke="#2457d6" stroke-width="1.2"/>
+<circle cx="266.0" cy="270.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="130.0" y1="345.0" x2="282.0" y2="345.0" stroke="#b07d00" stroke-width="1.4"/>
+<line x1="282.0" y1="345.0" x2="282.0" y2="360.0" stroke="#b07d00" stroke-width="1.4"/>
+<text x="282.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d00" text-anchor="middle" font-weight="700">CS</text>
+<rect x="330.0" y="100.0" width="65.0" height="300.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="362.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IC 3</text>
+<line x1="362.0" y1="190.0" x2="362.0" y2="160.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="362.0" cy="190.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="378.0" y1="230.0" x2="378.0" y2="160.0" stroke="#27ae60" stroke-width="1.2"/>
+<circle cx="378.0" cy="230.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="346.0" y1="270.0" x2="346.0" y2="160.0" stroke="#2457d6" stroke-width="1.2"/>
+<circle cx="346.0" cy="270.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="130.0" y1="375.0" x2="362.0" y2="375.0" stroke="#b07d00" stroke-width="1.4"/>
+<line x1="362.0" y1="375.0" x2="362.0" y2="360.0" stroke="#b07d00" stroke-width="1.4"/>
+<text x="362.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d00" text-anchor="middle" font-weight="700">CS</text>
+<text x="215.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Потрібно 3 + N виводів мікроконтролера</text>
+<rect x="430.0" y="20.0" width="390.0" height="440.0" rx="6" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="625.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскадна топологія (Daisy-Chain SPI)</text>
+<text x="625.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Рівно 4 лінії незалежно від кількості N мікросхем</text>
+<rect x="445.0" y="110.0" width="85.0" height="290.0" rx="6" fill="#eef4fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="487.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ВЕДУЧИЙ</text>
+<text x="487.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Master)</text>
+<text x="522.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">MOSI</text>
+<text x="522.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">MISO</text>
+<text x="522.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">SCLK</text>
+<text x="522.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b07d00" text-anchor="end" font-weight="700">CS</text>
+<rect x="560.0" y="110.0" width="70.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="595.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IC 1</text>
+<text x="575.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">SDI</text>
+<text x="615.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">SDO</text>
+<text x="595.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зсувний</text>
+<text x="595.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">регістр</text>
+<rect x="650.0" y="110.0" width="70.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="685.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IC 2</text>
+<text x="665.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">SDI</text>
+<text x="705.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">SDO</text>
+<text x="685.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зсувний</text>
+<text x="685.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">регістр</text>
+<rect x="740.0" y="110.0" width="70.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="775.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IC 3</text>
+<text x="755.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">SDI</text>
+<text x="795.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">SDO</text>
+<text x="775.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зсувний</text>
+<text x="775.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">регістр</text>
+<line x1="530.0" y1="190.0" x2="560.0" y2="190.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="190.0" x2="650.0" y2="190.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="190.0" x2="740.0" y2="190.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="810.0" y1="190.0" x2="815.0" y2="190.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="815.0" y1="190.0" x2="815.0" y2="240.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="815.0" y1="240.0" x2="530.0" y2="240.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="540.0" y1="240.0" x2="530.0" y2="240.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="300.0" x2="775.0" y2="300.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="585.0" y1="300.0" x2="585.0" y2="270.0" stroke="#2457d6" stroke-width="1.2"/>
+<circle cx="585.0" cy="300.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="585.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CLK</text>
+<line x1="675.0" y1="300.0" x2="675.0" y2="270.0" stroke="#2457d6" stroke-width="1.2"/>
+<circle cx="675.0" cy="300.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="675.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CLK</text>
+<line x1="765.0" y1="300.0" x2="765.0" y2="270.0" stroke="#2457d6" stroke-width="1.2"/>
+<circle cx="765.0" cy="300.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="765.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CLK</text>
+<line x1="530.0" y1="355.0" x2="775.0" y2="355.0" stroke="#b07d00" stroke-width="1.6"/>
+<line x1="608.0" y1="355.0" x2="608.0" y2="270.0" stroke="#b07d00" stroke-width="1.2"/>
+<circle cx="608.0" cy="355.0" r="2.5" fill="#b07d00" stroke="#b07d00" stroke-width="1.5"/>
+<text x="608.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d00" text-anchor="middle" font-weight="700">CS</text>
+<line x1="698.0" y1="355.0" x2="698.0" y2="270.0" stroke="#b07d00" stroke-width="1.2"/>
+<circle cx="698.0" cy="355.0" r="2.5" fill="#b07d00" stroke="#b07d00" stroke-width="1.5"/>
+<text x="698.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d00" text-anchor="middle" font-weight="700">CS</text>
+<line x1="788.0" y1="355.0" x2="788.0" y2="270.0" stroke="#b07d00" stroke-width="1.2"/>
+<circle cx="788.0" cy="355.0" r="2.5" fill="#b07d00" stroke="#b07d00" stroke-width="1.5"/>
+<text x="788.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d00" text-anchor="middle" font-weight="700">CS</text>
+<text x="625.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Завжди 4 виводи GPIO на будь-яку довжину ланцюга</text>
+</svg>

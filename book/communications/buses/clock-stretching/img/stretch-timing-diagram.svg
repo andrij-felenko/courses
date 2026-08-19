@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="830.0" height="370.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="430.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">Часова діаграма: розтягування такту (Clock Stretching) після 8-го біта даних</text>
+<text x="40.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">SCL (Master
+Drive)</text>
+<text x="40.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="start" font-weight="700">SCL (Slave
+Stretch)</text>
+<text x="40.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">SCL (Bus
+Actual)</text>
+<text x="40.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0d9488" text-anchor="start" font-weight="700">SDA (Data
+&amp; ACK)</text>
+<line x1="250.0" y1="60.0" x2="250.0" y2="365.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="340.0" y1="60.0" x2="340.0" y2="365.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="60.0" x2="620.0" y2="365.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="710.0" y1="60.0" x2="710.0" y2="365.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="205.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Біт 7 (Data)</text>
+<text x="295.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Біт 8 (Data)</text>
+<text x="480.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Фаза ACK / Очікування веденого (Clock Stretch)</text>
+<text x="665.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Наступний біт</text>
+<path d="M 160 115 H 205 V 80 H 250 V 115 H 295 V 80 H 340 V 115 H 385 V 80 H 620 V 115 H 665 V 80 H 710 V 115 H 750" fill="none" stroke="#2563eb" stroke-width="2"/>
+<path d="M 160 160 H 340 V 195 H 560 V 160 H 750" fill="none" stroke="#7e22ce" stroke-width="2"/>
+<text x="450.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Ведений примусово тримає 0V (Processing / ADC)</text>
+<path d="M 160 275 H 205 V 240 H 250 V 275 H 295 V 240 H 340 V 275 H 560 Q 572 245 585 240 H 620 V 275 H 665 V 240 H 710 V 275 H 750" fill="none" stroke="#333333" stroke-width="2.5"/>
+<rect x="385.0" y="230.0" width="175.0" height="55.0" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.0"/>
+<text x="472.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">t_STRETCH (Пауза)</text>
+<path d="M 160 320 H 250 V 355 H 340 H 620 V 320 H 750" fill="none" stroke="#0d9488" stroke-width="2"/>
+<text x="480.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d9488" text-anchor="middle" font-weight="700">ACK від веденого (SDA = 0)</text>
+<line x1="585.0" y1="215.0" x2="585.0" y2="235.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="585.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">SCL досяг VIH: Майстер фіксує ACK</text>
+</svg>

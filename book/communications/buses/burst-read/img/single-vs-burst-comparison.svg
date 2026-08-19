@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння витрат шини: одиночні транзакції проти Burst-пакета</text>
+<text x="460.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">зчитування 6 байтів вимірів 3-осьового давача (X_L, X_H, Y_L, Y_H, Z_L, Z_H)</text>
+<rect x="40.0" y="75.0" width="840.0" height="175.0" rx="8" fill="#fff7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="55.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Одиночні транзакції (Single-Byte Read × 6)</text>
+<text x="55.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Кожен байт вимагає окремого циклу адресації, повторного старту й підтверджень</text>
+<rect x="55.0" y="127.0" width="122.0" height="54.0" rx="4" fill="#ffffff" stroke="#d98880" stroke-width="1.2"/>
+<rect x="57.0" y="129.0" width="22.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="68.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">S</text>
+<rect x="81.0" y="129.0" width="38.0" height="22.0" rx="2" fill="#f2d7d5" stroke="none" stroke-width="1.5"/>
+<text x="100.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Addr</text>
+<rect x="121.0" y="129.0" width="34.0" height="22.0" rx="2" fill="#f9e79f" stroke="none" stroke-width="1.5"/>
+<text x="138.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Reg</text>
+<rect x="157.0" y="129.0" width="18.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="166.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">P</text>
+<rect x="57.0" y="155.0" width="62.0" height="22.0" rx="2" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="88.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Data[0]</text>
+<rect x="121.0" y="155.0" width="54.0" height="22.0" rx="2" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="148.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sr+Stop</text>
+<rect x="185.0" y="127.0" width="122.0" height="54.0" rx="4" fill="#ffffff" stroke="#d98880" stroke-width="1.2"/>
+<rect x="187.0" y="129.0" width="22.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="198.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">S</text>
+<rect x="211.0" y="129.0" width="38.0" height="22.0" rx="2" fill="#f2d7d5" stroke="none" stroke-width="1.5"/>
+<text x="230.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Addr</text>
+<rect x="251.0" y="129.0" width="34.0" height="22.0" rx="2" fill="#f9e79f" stroke="none" stroke-width="1.5"/>
+<text x="268.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Reg</text>
+<rect x="287.0" y="129.0" width="18.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="296.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">P</text>
+<rect x="187.0" y="155.0" width="62.0" height="22.0" rx="2" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="218.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Data[1]</text>
+<rect x="251.0" y="155.0" width="54.0" height="22.0" rx="2" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="278.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sr+Stop</text>
+<rect x="315.0" y="127.0" width="122.0" height="54.0" rx="4" fill="#ffffff" stroke="#d98880" stroke-width="1.2"/>
+<rect x="317.0" y="129.0" width="22.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="328.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">S</text>
+<rect x="341.0" y="129.0" width="38.0" height="22.0" rx="2" fill="#f2d7d5" stroke="none" stroke-width="1.5"/>
+<text x="360.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Addr</text>
+<rect x="381.0" y="129.0" width="34.0" height="22.0" rx="2" fill="#f9e79f" stroke="none" stroke-width="1.5"/>
+<text x="398.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Reg</text>
+<rect x="417.0" y="129.0" width="18.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="426.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">P</text>
+<rect x="317.0" y="155.0" width="62.0" height="22.0" rx="2" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="348.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Data[2]</text>
+<rect x="381.0" y="155.0" width="54.0" height="22.0" rx="2" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="408.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sr+Stop</text>
+<rect x="445.0" y="127.0" width="122.0" height="54.0" rx="4" fill="#ffffff" stroke="#d98880" stroke-width="1.2"/>
+<rect x="447.0" y="129.0" width="22.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="458.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">S</text>
+<rect x="471.0" y="129.0" width="38.0" height="22.0" rx="2" fill="#f2d7d5" stroke="none" stroke-width="1.5"/>
+<text x="490.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Addr</text>
+<rect x="511.0" y="129.0" width="34.0" height="22.0" rx="2" fill="#f9e79f" stroke="none" stroke-width="1.5"/>
+<text x="528.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Reg</text>
+<rect x="547.0" y="129.0" width="18.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="556.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">P</text>
+<rect x="447.0" y="155.0" width="62.0" height="22.0" rx="2" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="478.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Data[3]</text>
+<rect x="511.0" y="155.0" width="54.0" height="22.0" rx="2" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="538.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sr+Stop</text>
+<rect x="575.0" y="127.0" width="122.0" height="54.0" rx="4" fill="#ffffff" stroke="#d98880" stroke-width="1.2"/>
+<rect x="577.0" y="129.0" width="22.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="588.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">S</text>
+<rect x="601.0" y="129.0" width="38.0" height="22.0" rx="2" fill="#f2d7d5" stroke="none" stroke-width="1.5"/>
+<text x="620.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Addr</text>
+<rect x="641.0" y="129.0" width="34.0" height="22.0" rx="2" fill="#f9e79f" stroke="none" stroke-width="1.5"/>
+<text x="658.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Reg</text>
+<rect x="677.0" y="129.0" width="18.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="686.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">P</text>
+<rect x="577.0" y="155.0" width="62.0" height="22.0" rx="2" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="608.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Data[4]</text>
+<rect x="641.0" y="155.0" width="54.0" height="22.0" rx="2" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="668.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sr+Stop</text>
+<rect x="705.0" y="127.0" width="122.0" height="54.0" rx="4" fill="#ffffff" stroke="#d98880" stroke-width="1.2"/>
+<rect x="707.0" y="129.0" width="22.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="718.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">S</text>
+<rect x="731.0" y="129.0" width="38.0" height="22.0" rx="2" fill="#f2d7d5" stroke="none" stroke-width="1.5"/>
+<text x="750.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Addr</text>
+<rect x="771.0" y="129.0" width="34.0" height="22.0" rx="2" fill="#f9e79f" stroke="none" stroke-width="1.5"/>
+<text x="788.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">Reg</text>
+<rect x="807.0" y="129.0" width="18.0" height="22.0" rx="2" fill="#e6b0aa" stroke="none" stroke-width="1.5"/>
+<text x="816.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">P</text>
+<rect x="707.0" y="155.0" width="62.0" height="22.0" rx="2" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="738.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Data[5]</text>
+<rect x="771.0" y="155.0" width="54.0" height="22.0" rx="2" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="798.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sr+Stop</text>
+<rect x="55.0" y="193.0" width="810.0" height="42.0" rx="4" fill="#fdedec" stroke="#c0392b" stroke-width="1.0"/>
+<text x="460.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">174 такти шини I2C + 6 програмних затримок переривань CPU · Корисна ефективність: 27.6%</text>
+<rect x="40.0" y="265.0" width="840.0" height="195.0" rx="8" fill="#f4faf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="55.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Пакетна транзакція (Burst Read: 1 Start + 1 Reg + 6 Data)</text>
+<text x="55.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Один префікс адресації; апаратний автоінкремент покажчика читає весь масив поспіль</text>
+<rect x="55.0" y="317.0" width="34.0" height="52.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="72.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">START</text>
+<rect x="93.0" y="317.0" width="82.0" height="52.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="134.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адреса (W)</text>
+<text x="134.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ ACK</text>
+<rect x="179.0" y="317.0" width="92.0" height="52.0" rx="4" fill="#fff2cc" stroke="#d6b656" stroke-width="1.2"/>
+<text x="225.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">Регістр 0x28</text>
+<text x="225.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">OUTX_L_A + ACK</text>
+<rect x="275.0" y="317.0" width="38.0" height="52.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="294.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">Sr</text>
+<rect x="317.0" y="317.0" width="82.0" height="52.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="358.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адреса (R)</text>
+<text x="358.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ ACK</text>
+<rect x="403.0" y="317.0" width="68.0" height="52.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="437.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#117864" text-anchor="middle" font-weight="700">X_L</text>
+<text x="437.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x28</text>
+<text x="437.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="475.0" y="317.0" width="68.0" height="52.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="509.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#117864" text-anchor="middle" font-weight="700">X_H</text>
+<text x="509.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x29</text>
+<text x="509.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="547.0" y="317.0" width="68.0" height="52.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="581.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#117864" text-anchor="middle" font-weight="700">Y_L</text>
+<text x="581.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x2A</text>
+<text x="581.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="619.0" y="317.0" width="68.0" height="52.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="653.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#117864" text-anchor="middle" font-weight="700">Y_H</text>
+<text x="653.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x2B</text>
+<text x="653.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="691.0" y="317.0" width="68.0" height="52.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="725.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#117864" text-anchor="middle" font-weight="700">Z_L</text>
+<text x="725.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x2C</text>
+<text x="725.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="763.0" y="317.0" width="68.0" height="52.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="797.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#117864" text-anchor="middle" font-weight="700">Z_H</text>
+<text x="797.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x2D</text>
+<text x="797.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">NACK</text>
+<rect x="839.0" y="317.0" width="36.0" height="52.0" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="857.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">STOP</text>
+<rect x="55.0" y="383.0" width="810.0" height="60.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="460.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">74 такти шини I2C (у 2.35 раза швидше) · Безперервний потік без простоїв процесора</text>
+<text x="460.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle">Гарантована часова узгодженість: усі осі X, Y, Z належать одному моменту вибірки ADC</text>
+</svg>

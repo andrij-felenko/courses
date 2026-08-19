@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив тактової частоти ядра та дільника BRR на швидкість 115 200 бод</text>
+<rect x="40.0" y="65.0" width="820.0" height="82.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="58.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">8 МГц, цілочисельний дільник (USART_BRR = 4)</text>
+<text x="58.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">8 000 000 / (16 × 4) = 125 000 бод</text>
+<text x="600.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Похибка:</text>
+<text x="670.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="end" font-weight="700">+8.51%</text>
+<text x="840.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">КРАХ ЗВ'ЯЗКУ (помилка обрамлення)</text>
+<rect x="40.0" y="163.0" width="820.0" height="82.0" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="1.8"/>
+<text x="58.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">8 МГц, дробовий дільник (USART_BRR = 4 + 5/16 = 4.3125)</text>
+<text x="58.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">8 000 000 / (16 × 4.3125) = 115 942 бод</text>
+<text x="600.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Похибка:</text>
+<text x="670.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#ea580c" text-anchor="end" font-weight="700">+0.64%</text>
+<text x="840.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="end" font-weight="700">ПРАЦЮЄ (в межах норми)</text>
+<rect x="40.0" y="261.0" width="820.0" height="82.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="58.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">11.0592 МГц, спеціальний «UART-кварц» (USART_BRR = 6.000)</text>
+<text x="58.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">11 059 200 / (16 × 6) = 115 200 бод</text>
+<text x="600.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Похибка:</text>
+<text x="670.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="end" font-weight="700">0.000%</text>
+<text x="840.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">ІДЕАЛЬНО (нульова похибка квантування)</text>
+<rect x="142.2" y="359.5" width="615.6" height="31.0" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/><text x="450.0" y="378.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">«Магічні» частоти кварців (11.0592, 7.3728, 14.7456 МГц) кратні всім стандартним швидкостям бод</tspan></text>
+</svg>

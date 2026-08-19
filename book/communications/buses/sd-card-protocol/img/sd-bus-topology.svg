@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="500.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<rect x="30.0" y="40.0" width="360.0" height="205.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режим SPI (1 біт, повний дуплекс)</text>
+<rect x="45.0" y="85.0" width="90.0" height="140.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="90.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU SPI</text>
+<rect x="285.0" y="85.0" width="90.0" height="140.0" rx="4" fill="#fdf8e2" stroke="#333333" stroke-width="1.2"/>
+<text x="330.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SD Card</text>
+<line x1="135.0" y1="105.0" x2="285.0" y2="105.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="210.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">CS# (Вибір карти / Pin 1)</text>
+<line x1="135.0" y1="135.0" x2="285.0" y2="135.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="210.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">SCK (Тактовий сигнал / Pin 5)</text>
+<line x1="135.0" y1="165.0" x2="285.0" y2="165.0" stroke="#7a5fb0" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="210.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7a5fb0" text-anchor="middle" font-weight="700">MOSI (Дані до карти / Pin 2)</text>
+<line x1="285.0" y1="195.0" x2="135.0" y2="195.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="210.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">MISO (Дані від карти / Pin 7)</text>
+<rect x="410.0" y="40.0" width="400.0" height="205.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="610.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рідний 4-бітний SD/SDIO режим</text>
+<rect x="425.0" y="85.0" width="90.0" height="140.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="470.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SD Host</text>
+<rect x="705.0" y="85.0" width="90.0" height="140.0" rx="4" fill="#fdf8e2" stroke="#333333" stroke-width="1.2"/>
+<text x="750.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SD/SDIO</text>
+<line x1="515.0" y1="100.0" x2="705.0" y2="100.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="610.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CLK (Тактування 25–50 МГц)</text>
+<line x1="515.0" y1="125.0" x2="705.0" y2="125.0" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="515.0" cy="125.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="705.0" cy="125.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="610.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">CMD (Команди/Відповіді)</text>
+<line x1="515.0" y1="150.0" x2="705.0" y2="150.0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="515.0" cy="150.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="705.0" cy="150.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<text x="610.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7a5fb0" text-anchor="middle" font-weight="700">DAT0 (Дані / Busy)</text>
+<line x1="515.0" y1="170.0" x2="705.0" y2="170.0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="515.0" cy="170.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="705.0" cy="170.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<text x="610.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7a5fb0" text-anchor="middle" font-weight="700">DAT1 (Дані / SDIO IRQ)</text>
+<line x1="515.0" y1="190.0" x2="705.0" y2="190.0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="515.0" cy="190.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="705.0" cy="190.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<text x="610.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7a5fb0" text-anchor="middle" font-weight="700">DAT2 (Дані)</text>
+<line x1="515.0" y1="210.0" x2="705.0" y2="210.0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="515.0" cy="210.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<circle cx="705.0" cy="210.0" r="2.5" fill="#7a5fb0" stroke="#7a5fb0" stroke-width="1.5"/>
+<text x="610.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7a5fb0" text-anchor="middle" font-weight="700">DAT3 (Дані / Card Detect)</text>
+<rect x="30.0" y="265.0" width="780.0" height="235.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння фізичного та канального рівнів інтерфейсу Secure Digital</text>
+<rect x="45.0" y="305.0" width="750.0" height="28.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Параметр</text>
+<text x="237.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI-режим</text>
+<text x="390.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1-бітний SD-режим</text>
+<text x="552.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">4-бітний SD-режим</text>
+<text x="715.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SDIO (Ввід-Вивід)</text>
+<rect x="45.0" y="337.0" width="750.0" height="26.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="0.5"/>
+<text x="105.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сигнальні лінії</text>
+<text x="237.5" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4 (CS, SCK, MOSI, MISO)</text>
+<text x="390.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3 (CLK, CMD, DAT0)</text>
+<text x="552.5" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">6 (CLK, CMD, DAT0..3)</text>
+<text x="715.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">6 (CLK, CMD, DAT0..3)</text>
+<rect x="45.0" y="365.0" width="750.0" height="26.0" rx="2" fill="#eef2ff" stroke="#333333" stroke-width="0.5"/>
+<text x="105.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ширина шини даних</text>
+<text x="237.5" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 біт</text>
+<text x="390.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 біт</text>
+<text x="552.5" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4 біти (нібл / такт)</text>
+<text x="715.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1 або 4 біти</text>
+<rect x="45.0" y="393.0" width="750.0" height="26.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="0.5"/>
+<text x="105.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Частота тактування</text>
+<text x="237.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">до 25 МГц</text>
+<text x="390.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">до 25 МГц (Default Speed)</text>
+<text x="552.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">25 / 50 / 208 МГц</text>
+<text x="715.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">25 / 50 МГц</text>
+<rect x="45.0" y="421.0" width="750.0" height="26.0" rx="2" fill="#eef2ff" stroke="#333333" stroke-width="0.5"/>
+<text x="105.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пропускна здатність</text>
+<text x="237.5" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3.1 МБ/с</text>
+<text x="390.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3.1 МБ/с</text>
+<text x="552.5" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">12.5 / 25 / 104 МБ/с</text>
+<text x="715.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">12.5 / 25 МБ/с</text>
+<rect x="45.0" y="449.0" width="750.0" height="26.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="0.5"/>
+<text x="105.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контроль помилок CRC</text>
+<text x="237.5" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Опціональний (крім CMD0/8)</text>
+<text x="390.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Обов'язковий (CRC7+CRC16)</text>
+<text x="552.5" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Обов'язковий (CRC7+4xCRC16)</text>
+<text x="715.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Обов'язковий (CRC7+CRC16)</text>
+</svg>

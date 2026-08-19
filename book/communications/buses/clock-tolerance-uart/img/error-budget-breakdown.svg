@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Складові практичного бюджету похибки тактування UART</text>
+<rect x="80.0" y="65.0" width="370.0" height="280.0" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2.0"/>
+<text x="265.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ea580c" text-anchor="middle" font-weight="700">Внутрішній RC-генератор (HSI)</text>
+<text x="96.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Початкове калібрування (25°C):</text>
+<text x="434.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±1.0%</text>
+<line x1="96.0" y1="139.0" x2="434.0" y2="139.0" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="96.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Температурний дрейф (-40..+105°C):</text>
+<text x="434.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±2.0% ... ±3.0%</text>
+<line x1="96.0" y1="175.0" x2="434.0" y2="175.0" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="96.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Дрейф від напруги живлення:</text>
+<text x="434.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±0.5%</text>
+<line x1="96.0" y1="211.0" x2="434.0" y2="211.0" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="96.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Квантування дільника BRR:</text>
+<text x="434.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±0.5% ... ±1.5%</text>
+<line x1="96.0" y1="247.0" x2="434.0" y2="247.0" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="96.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Сумарна похибка вузла:</text>
+<text x="434.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">±4.0% ... ±6.0%</text>
+<rect x="150.8" y="307.8" width="228.3" height="30.5" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="265.0" y="326.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="265.0" dy="0.0">НЕБЕЗПЕЧНО: перевищує поріг 4.5%</tspan></text>
+<rect x="480.0" y="65.0" width="370.0" height="280.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="665.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Кварцовий резонатор (XTAL / HSE)</text>
+<text x="496.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Початкова точність резонансу:</text>
+<text x="834.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±20 ppm (0.002%)</text>
+<line x1="496.0" y1="139.0" x2="834.0" y2="139.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="496.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Температурна нестабільність:</text>
+<text x="834.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±30 ppm (0.003%)</text>
+<line x1="496.0" y1="175.0" x2="834.0" y2="175.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="496.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Старіння кристала за рік:</text>
+<text x="834.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±5 ppm (0.0005%)</text>
+<line x1="496.0" y1="211.0" x2="834.0" y2="211.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="496.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Квантування дільника BRR:</text>
+<text x="834.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">±0.1% ... ±0.8%</text>
+<line x1="496.0" y1="247.0" x2="834.0" y2="247.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="496.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Сумарна похибка вузла:</text>
+<text x="834.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">&lt; 0.8% (визначається BRR)</text>
+<rect x="554.1" y="307.8" width="221.8" height="30.5" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="665.0" y="326.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="665.0" dy="0.0">НАДІЙНО: повний запас стійкості</tspan></text>
+<rect x="80.1" y="369.5" width="759.9" height="31.0" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/><text x="460.0" y="388.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Правило надійності: похибка генератора разом із квантуванням дільника BRR не повинна перевищувати ±1.5% на кожен вузол</tspan></text>
+</svg>

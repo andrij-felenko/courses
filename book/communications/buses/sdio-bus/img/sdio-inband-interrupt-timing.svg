@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний механізм внутрішньосмугового переривання (SDIO In-band Interrupt) на лінії DAT1</text>
+<text x="470.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Мультиплексування лінії даних DAT1 між передачею корисних бітів та сигналізацією запиту IRQ</text>
+<rect x="35.0" y="75.0" width="110.0" height="32.0" rx="4" fill="#f8f9f9" stroke="#2457d6" stroke-width="1.2"/>
+<text x="90.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">CLK</text>
+<line x1="155.0" y1="91.0" x2="905.0" y2="91.0" stroke="#eaeded" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="35.0" y="117.0" width="110.0" height="32.0" rx="4" fill="#f8f9f9" stroke="#2457d6" stroke-width="1.2"/>
+<text x="90.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">CMD</text>
+<line x1="155.0" y1="133.0" x2="905.0" y2="133.0" stroke="#eaeded" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="35.0" y="159.0" width="110.0" height="32.0" rx="4" fill="#f8f9f9" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="90.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DAT0</text>
+<line x1="155.0" y1="175.0" x2="905.0" y2="175.0" stroke="#eaeded" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="35.0" y="201.0" width="110.0" height="32.0" rx="4" fill="#f8f9f9" stroke="#c0392b" stroke-width="1.2"/>
+<text x="90.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">DAT1 / IRQ</text>
+<line x1="155.0" y1="217.0" x2="905.0" y2="217.0" stroke="#eaeded" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="35.0" y="243.0" width="110.0" height="32.0" rx="4" fill="#f8f9f9" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="90.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DAT2</text>
+<line x1="155.0" y1="259.0" x2="905.0" y2="259.0" stroke="#eaeded" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="35.0" y="285.0" width="110.0" height="32.0" rx="4" fill="#f8f9f9" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="90.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DAT3</text>
+<line x1="155.0" y1="301.0" x2="905.0" y2="301.0" stroke="#eaeded" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="155.0" y="68.0" width="225.0" height="260.0" rx="6" fill="#ebf5fb" stroke="none" stroke-width="1.5"/>
+<text x="267.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: Передача даних</text>
+<text x="267.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">DAT[0..3] несуть корисний блок</text>
+<rect x="380.0" y="68.0" width="160.0" height="260.0" rx="6" fill="#fef9e7" stroke="none" stroke-width="1.5"/>
+<text x="460.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d6608" text-anchor="middle" font-weight="700">Фаза 2: Інтервал спокою</text>
+<text x="460.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Лінії у високому Z через pull-up</text>
+<rect x="540.0" y="68.0" width="170.0" height="260.0" rx="6" fill="#fdedec" stroke="none" stroke-width="1.5"/>
+<text x="625.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 3: Запит IRQ</text>
+<text x="625.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Пристрій стягує DAT1 до GND</text>
+<rect x="710.0" y="68.0" width="195.0" height="260.0" rx="6" fill="#e8f8f5" stroke="none" stroke-width="1.5"/>
+<text x="807.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 4: Опитування хостом</text>
+<text x="807.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">CMD52 читає CCCR 0x04</text>
+<polyline points="160,81 170,81 170,101 180,101 180,81 190,81 190,101 200,101 200,81 210,81 210,101 220,101 220,81 230,81 230,101 240,101 240,81 250,81 250,101 260,101 260,81 270,81 270,101 280,101 280,81 290,81 290,101 300,101 300,81 310,81 310,101 320,101 320,81 330,81 330,101 340,101 340,81 350,81 350,101 360,101 360,81 370,81 370,101 380,101 380,81 390,81 390,101 400,101 400,81 410,81 410,101 420,101 420,81 430,81 430,101 440,101 440,81 450,81 450,101 460,101 460,81 470,81 470,101 480,101 480,81 490,81 490,101 500,101 500,81 510,81 510,101 520,101 520,81 530,81 530,101 540,101 540,81 550,81 550,101 560,101 560,81 570,81 570,101 580,101 580,81 590,81 590,101 600,101 600,81 610,81 610,101 620,101 620,81 630,81 630,101 640,101 640,81 650,81 650,101 660,101 660,81 670,81 670,101 680,101 680,81 690,81 690,101 700,101 700,81 710,81 710,101 720,101 720,81 730,81 730,101 740,101 740,81 750,81 750,101 760,101 760,81 770,81 770,101 780,101 780,81 790,81 790,101 800,101 800,81 810,81 810,101 820,101 820,81 830,81 830,101 840,101 840,81 850,81 850,101 860,101 860,81 870,81 870,101 880,101 880,81 890,81 890,101 900,101" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="155.0" y1="133.0" x2="715.0" y2="133.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="720.0" y="121.0" width="175.0" height="24.0" rx="3" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="807.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">CMD52: Читання INT_PENDING</text>
+<rect x="160.0" y="165.0" width="210.0" height="20.0" rx="2" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.2"/>
+<text x="265.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Data Bits DAT0</text>
+<line x1="370.0" y1="175.0" x2="905.0" y2="175.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="160.0" y="249.0" width="210.0" height="20.0" rx="2" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.2"/>
+<text x="265.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Data Bits DAT2</text>
+<line x1="370.0" y1="259.0" x2="905.0" y2="259.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="160.0" y="291.0" width="210.0" height="20.0" rx="2" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.2"/>
+<text x="265.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Data Bits DAT3</text>
+<line x1="370.0" y1="301.0" x2="905.0" y2="301.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="160.0" y="207.0" width="210.0" height="20.0" rx="2" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.2"/>
+<text x="265.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Data Bits DAT1</text>
+<line x1="370.0" y1="207.0" x2="540.0" y2="207.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="540.0" y1="207.0" x2="550.0" y2="227.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="550.0" y1="227.0" x2="780.0" y2="227.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="645.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">DAT1 = LOW (Запит переривання від Wi-Fi/BT)</text>
+<line x1="780.0" y1="227.0" x2="790.0" y2="207.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="790.0" y1="207.0" x2="905.0" y2="207.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="35.0" y="385.0" width="870.0" height="75.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="45.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Ключові аспекти внутрішньосмугової сигналізації переривань:</text>
+<text x="45.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">1. Не потребує окремого фізичного виводу IRQ на друкованій платі — заощаджує виводи хоста та площу модуля;</text>
+<text x="45.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">2. Переривання активне лише між передачею блоків (Interrupt Period). Під час пакетного обміну воно тимчасово блокується;</text>
+<text x="45.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">3. Асинхронний режим дозволяє пристрою розбудити хост при зупиненій тактовій частоті шини CLK (енергозбереження).</text>
+</svg>

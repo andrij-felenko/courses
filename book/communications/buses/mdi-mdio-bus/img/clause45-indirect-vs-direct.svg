@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розширення Clause 45: прямий доступ MMD проти непрямого мосту Clause 22</text>
+<text x="30.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Прямий протокол Clause 45 (ST = 00, 10G/40G/100G Ethernet):</text>
+<text x="40.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Кадр адреси (OP = 00, Address):</text>
+<rect x="40.0" y="80.0" width="45.0" height="24.0" rx="2" fill="#eaeded" stroke="#333333" stroke-width="1.1"/>
+<text x="62.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRE</text>
+<rect x="85.0" y="80.0" width="55.0" height="24.0" rx="2" fill="#fadbd8" stroke="#333333" stroke-width="1.1"/>
+<text x="112.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ST (00)</text>
+<rect x="140.0" y="80.0" width="55.0" height="24.0" rx="2" fill="#aed6f1" stroke="#333333" stroke-width="1.1"/>
+<text x="167.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">OP (00)</text>
+<rect x="195.0" y="80.0" width="75.0" height="24.0" rx="2" fill="#d4efdf" stroke="#333333" stroke-width="1.1"/>
+<text x="232.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRTAD (5б)</text>
+<rect x="270.0" y="80.0" width="75.0" height="24.0" rx="2" fill="#fdebd0" stroke="#333333" stroke-width="1.1"/>
+<text x="307.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">DEVAD (5б)</text>
+<rect x="345.0" y="80.0" width="50.0" height="24.0" rx="2" fill="#fadbd8" stroke="#333333" stroke-width="1.1"/>
+<text x="370.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">TA (10)</text>
+<rect x="395.0" y="80.0" width="260.0" height="24.0" rx="2" fill="#ebdef0" stroke="#333333" stroke-width="1.1"/>
+<text x="525.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">16-бітна адреса регістра (0x0000..0xFFFF)</text>
+<rect x="655.0" y="80.0" width="45.0" height="24.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.1"/>
+<text x="677.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">IDLE</text>
+<text x="40.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Кадр даних (OP = 01 Запис / 11 Читання / 10 Читання з автоінкрементом):</text>
+<rect x="40.0" y="128.0" width="45.0" height="24.0" rx="2" fill="#eaeded" stroke="#333333" stroke-width="1.1"/>
+<text x="62.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRE</text>
+<rect x="85.0" y="128.0" width="55.0" height="24.0" rx="2" fill="#fadbd8" stroke="#333333" stroke-width="1.1"/>
+<text x="112.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ST (00)</text>
+<rect x="140.0" y="128.0" width="75.0" height="24.0" rx="2" fill="#aed6f1" stroke="#333333" stroke-width="1.1"/>
+<text x="177.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">OP (01/11/10)</text>
+<rect x="215.0" y="128.0" width="70.0" height="24.0" rx="2" fill="#d4efdf" stroke="#333333" stroke-width="1.1"/>
+<text x="250.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRTAD (5б)</text>
+<rect x="285.0" y="128.0" width="70.0" height="24.0" rx="2" fill="#fdebd0" stroke="#333333" stroke-width="1.1"/>
+<text x="320.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">DEVAD (5б)</text>
+<rect x="355.0" y="128.0" width="60.0" height="24.0" rx="2" fill="#fadbd8" stroke="#333333" stroke-width="1.1"/>
+<text x="385.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">TA (10/Z0)</text>
+<rect x="415.0" y="128.0" width="240.0" height="24.0" rx="2" fill="#d5f5e3" stroke="#333333" stroke-width="1.1"/>
+<text x="535.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">16-бітні дані (DATA D15..D0)</text>
+<rect x="655.0" y="128.0" width="45.0" height="24.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.1"/>
+<text x="677.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">IDLE</text>
+<line x1="30.0" y1="168.0" x2="730.0" y2="168.0" stroke="#d5dbdb" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="30.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="start" font-weight="700">Непрямий доступ через регістри 13 і 14 Clause 22 (для старих MAC):</text>
+<rect x="68.3" y="206.3" width="243.4" height="67.4" rx="6" fill="#fdfefe" stroke="#8e44ad" stroke-width="1.5"/><text x="190.0" y="223.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Крок 1: Вибір MMD пристрою</tspan><tspan x="190.0" dy="13.7">Запис у Регістр 13 (MMD Control):</tspan><tspan x="190.0" dy="13.7">• Function = 00 (Address Mode)</tspan><tspan x="190.0" dy="13.7">• DEVAD = номер домену (напр. 3 = PCS)</tspan></text>
+<line x1="310.0" y1="240.0" x2="360.0" y2="240.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="358.3" y="206.3" width="243.4" height="67.4" rx="6" fill="#fdfefe" stroke="#8e44ad" stroke-width="1.5"/><text x="480.0" y="223.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Крок 2: Передача адреси</tspan><tspan x="480.0" dy="13.7">Запис у Регістр 14 (MMD Address/Data):</tspan><tspan x="480.0" dy="13.7">• Запис 16-бітної адреси цільового</tspan><tspan x="480.0" dy="13.7">  регістра Clause 45 у вибраному MMD</tspan></text>
+<rect x="83.2" y="301.3" width="213.5" height="67.4" rx="6" fill="#fdfefe" stroke="#8e44ad" stroke-width="1.5"/><text x="190.0" y="318.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Крок 3: Перемикання в режим даних</tspan><tspan x="190.0" dy="13.7">Запис у Регістр 13 (MMD Control):</tspan><tspan x="190.0" dy="13.7">• Function = 01 (Data Mode)</tspan><tspan x="190.0" dy="13.7">• DEVAD = той самий номер домену</tspan></text>
+<line x1="310.0" y1="335.0" x2="360.0" y2="335.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="367.3" y="301.3" width="225.5" height="67.4" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="318.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Крок 4: Операція з даними</tspan><tspan x="480.0" dy="13.7">Читання або Запис через Регістр 14:</tspan><tspan x="480.0" dy="13.7">• Зчитування/запис 16-бітних даних</tspan><tspan x="480.0" dy="13.7">  за раніше встановленою адресою</tspan></text>
+<text x="380.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">MMD домени: 1 (PMD/PMA), 2 (WIS), 3 (PCS), 4 (PHY XS), 5 (DTE XS), 7 (Auto-Negotiation)</text>
+</svg>

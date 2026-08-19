@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід у High-speed mode (3.4 Мбіт/с): Master Code та перемикання фільтрів</text>
+<rect x="30.0" y="58.0" width="380.0" height="110.0" rx="8" fill="none" stroke="#2457d6" stroke-width="1.4"/>
+<text x="220.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: Відкритий стік (Fm ≤ 400 кбіт/с, фільтр 50 нс)</text>
+<rect x="42.0" y="80.0" width="44.0" height="60.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="64.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">S</text>
+<text x="64.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">СТАРТ</text>
+<rect x="94.0" y="80.0" width="120.0" height="60.0" rx="5" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="154.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0000 1XXX</text>
+<text x="154.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Master Code (Fm)</text>
+<rect x="222.0" y="80.0" width="80.0" height="60.0" rx="5" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="262.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">NACK</text>
+<text x="262.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SDA високий</text>
+<rect x="310.0" y="80.0" width="96.0" height="60.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="358.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Sr</text>
+<text x="358.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повторний старт</text>
+<line x1="418.0" y1="110.0" x2="450.0" y2="110.0" stroke="#e67e22" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="434.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">Перемикання</text>
+<text x="434.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">50 нс → 10 нс</text>
+<rect x="450.0" y="58.0" width="396.0" height="110.0" rx="8" fill="none" stroke="#c0392b" stroke-width="1.4"/>
+<text x="648.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 2: Hs-mode (до 3.4 Мбіт/с, Push-Pull / Active Pull-up)</text>
+<rect x="458.0" y="80.0" width="96.0" height="60.0" rx="5" fill="#f4ecfb" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="506.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Slave Addr</text>
+<text x="506.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Адреса веденого</text>
+<rect x="562.0" y="80.0" width="64.0" height="60.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="594.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<text x="594.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відгук Hs</text>
+<rect x="634.0" y="80.0" width="96.0" height="60.0" rx="5" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="682.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Data Byte</text>
+<text x="682.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Hs-дані (3.4M)</text>
+<rect x="738.0" y="80.0" width="54.0" height="60.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="765.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="800.0" y="80.0" width="44.0" height="60.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="822.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">P</text>
+<text x="822.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">СТОП</text>
+<line x1="822.0" y1="174.0" x2="50.0" y2="174.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="440.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Сигнал СТОП (P) скидає всі пристрої назад у режим Fm/Sm</text>
+<rect x="40.0" y="304.0" width="800.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="322.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Ведучий транслює Master Code (0000 1XXX) на стандартній швидкості Fm. Hs-сумісні ведені</tspan><tspan x="440.0" dy="15.0">вимикають 50-нс фільтр завад (вмикають 10-нс) і переходять на 3.4 Мбіт/с після повторного старту (Sr).</tspan></text>
+</svg>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="900" height="360">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+    </marker>
+    <marker id="arrow-neg" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+<rect x="0.0" y="0.0" width="900.0" height="360.0" rx="0" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="450.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура взаємодії компонентів Smart Battery System (SBS)</text>
+<rect x="50.0" y="88.8" width="240.0" height="102.5" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="170.0" y="108.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Smart Battery Host</tspan><tspan x="170.0" dy="14.3">(Embedded Controller / ACPI OS)</tspan><tspan x="170.0" dy="14.3"></tspan><tspan x="170.0" dy="14.3">• Зчитує стан заряду</tspan><tspan x="170.0" dy="14.3">• Моніторить залишкову ємність</tspan><tspan x="170.0" dy="14.3">• Керує профілями споживання</tspan></text>
+<rect x="330.0" y="88.8" width="240.0" height="102.5" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/><text x="450.0" y="108.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Smart Battery</tspan><tspan x="450.0" dy="14.3">(bq40z50 / BQ78350 BMS)</tspan><tspan x="450.0" dy="14.3"></tspan><tspan x="450.0" dy="14.3">• Вимірює напругу, струм, темп.</tspan><tspan x="450.0" dy="14.3">• Обчислює State of Charge (SoC)</tspan><tspan x="450.0" dy="14.3">• Надсилає ChargingCurrent/Voltage</tspan></text>
+<rect x="610.0" y="88.8" width="240.0" height="102.5" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/><text x="730.0" y="108.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">Smart Battery Charger</tspan><tspan x="730.0" dy="14.3">(Керований перетворювач DC-DC)</tspan><tspan x="730.0" dy="14.3"></tspan><tspan x="730.0" dy="14.3">• Приймає параметри струму</tspan><tspan x="730.0" dy="14.3">• Формує профіль CC/CV</tspan><tspan x="730.0" dy="14.3">• Вимикає заряд при тривозі</tspan></text>
+<line x1="295.0" y1="120.0" x2="325.0" y2="120.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="325.0" y1="140.0" x2="295.0" y2="140.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="310.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">SMBus</text>
+<line x1="575.0" y1="120.0" x2="605.0" y2="120.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="140.0" x2="575.0" y2="140.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="590.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">SMBus</text>
+<rect x="60.0" y="245.0" width="780.0" height="90.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="80.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Ключовий принцип концепції SBS (Smart Battery System):</text>
+<text x="80.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Інтелект зосереджено в акумуляторі: хімічні властивості, алгоритми балансування та деградація відомі самій батареї.</text>
+<text x="80.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Зарядний пристрій є «виконавцем»: він не має жорстких прошитих профілів, а динамічно отримує цільові значення струму й напруги по SMBus.</text>
+</svg>

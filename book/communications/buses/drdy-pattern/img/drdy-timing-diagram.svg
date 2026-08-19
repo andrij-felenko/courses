@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма DRDY: Pulsed та Latched режими зчитування</text>
+<rect x="15.0" y="15.0" width="730.0" height="330.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="30.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Внутрішній АЦП</text>
+<line x1="170.0" y1="70.0" x2="710.0" y2="70.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="200.0" y="52.0" width="140.0" height="26.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="270.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Перетворення вибірки N</text>
+<rect x="480.0" y="52.0" width="140.0" height="26.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="550.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Перетворення вибірки N+1</text>
+<text x="30.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">DRDY (Pulsed)</text>
+<line x1="170.0" y1="150.0" x2="340.0" y2="150.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="340.0" y1="150.0" x2="340.0" y2="120.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="340.0" y1="120.0" x2="380.0" y2="120.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="380.0" y1="120.0" x2="380.0" y2="150.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="380.0" y1="150.0" x2="620.0" y2="150.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="620.0" y1="150.0" x2="620.0" y2="120.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="620.0" y1="120.0" x2="660.0" y2="120.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="660.0" y1="120.0" x2="660.0" y2="150.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="660.0" y1="150.0" x2="710.0" y2="150.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="360.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t_pulse</text>
+<text x="30.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">DRDY (Latched)</text>
+<line x1="170.0" y1="220.0" x2="340.0" y2="220.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="340.0" y1="220.0" x2="340.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="340.0" y1="190.0" x2="440.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="440.0" y1="190.0" x2="440.0" y2="220.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="440.0" y1="220.0" x2="620.0" y2="220.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="620.0" y1="220.0" x2="620.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="620.0" y1="190.0" x2="710.0" y2="190.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="390.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Скидання при зчитуванні (Clear on Read)</text>
+<text x="30.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Шина SPI / I2C</text>
+<line x1="170.0" y1="290.0" x2="360.0" y2="290.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="360.0" y="272.0" width="85.0" height="26.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="402.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Burst Read</text>
+<line x1="445.0" y1="290.0" x2="710.0" y2="290.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="340.0" y1="20.0" x2="340.0" y2="310.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="620.0" y1="20.0" x2="620.0" y2="310.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="340.0" y1="315.0" x2="620.0" y2="315.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="340.0" cy="315.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="620.0" cy="315.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="480.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Період вибірки T_ODR = 1 / ODR (наприклад 1 мс для 1000 Гц)</text>
+</svg>

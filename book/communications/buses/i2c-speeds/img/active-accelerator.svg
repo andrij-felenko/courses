@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип роботи активного прискорювача фронту (Rise Time Accelerator)</text>
+<rect x="60.0" y="65.0" width="340.0" height="215.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.4"/>
+<text x="230.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратний прискорювач (RTA)</text>
+<line x1="230.0" y1="105.0" x2="230.0" y2="130.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="230.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VDD</text>
+<rect x="200.0" y="130.0" width="60.0" height="36.0" rx="4" fill="#fbecec" stroke="#c0392b" stroke-width="1.4"/>
+<text x="230.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">PMOS</text>
+<rect x="100.0" y="185.0" width="110.0" height="50.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="155.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Детектор dV/dt</text>
+<text x="155.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">і порогу VIL</text>
+<line x1="155.0" y1="185.0" x2="155.0" y2="148.0" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="155.0" y1="148.0" x2="200.0" y2="148.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="166.0" x2="230.0" y2="245.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="230.0" y1="245.0" x2="380.0" y2="245.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="155.0" y1="245.0" x2="155.0" y2="235.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="155.0" cy="245.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="388.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SDA / SCL</text>
+<text x="295.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Імпульс струму</text>
+<text x="295.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">10–20 мА (30 нс)</text>
+<rect x="440.0" y="65.0" width="340.0" height="215.0" rx="6" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="610.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Форма сигналу з прискорювачем</text>
+<line x1="460.0" y1="135.0" x2="760.0" y2="135.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="765.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">VIH</text>
+<line x1="460.0" y1="205.0" x2="760.0" y2="205.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="765.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">VIL</text>
+<line x1="470.0" y1="245.0" x2="520.0" y2="245.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="520.0" y1="245.0" x2="555.0" y2="205.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="555.0" y1="205.0" x2="585.0" y2="135.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="585.0" y1="135.0" x2="620.0" y2="115.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="620.0" y1="115.0" x2="730.0" y2="115.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="525.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Пасивно</text>
+<text x="615.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Буст RTA!</text>
+<text x="670.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Утримання VDD</text>
+<rect x="40.0" y="304.0" width="760.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="322.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Детектор фіксує перетин порогу VIL і вмикає потужний PMOS-генератор струму на ~30 нс.</tspan><tspan x="420.0" dy="15.0">Лінія миттєво долає ємність до рівня VIH, після чого прискорювач вимикається без статичних втрат.</tspan></text>
+</svg>

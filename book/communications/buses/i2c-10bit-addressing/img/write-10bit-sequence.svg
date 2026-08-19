@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -10 864 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-12" y="-10" width="864" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність сигналів при 10-бітному записі (Master Write)</text>
+<rect x="-2.0" y="70.0" width="40.0" height="64.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="18.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">S</text>
+<text x="18.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">START</text>
+<rect x="44.0" y="70.0" width="150.0" height="64.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="119.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1-й байт адреси</text>
+<text x="119.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">11110 + A9..A8 + W(0)</text>
+<text x="119.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведучий</text>
+<rect x="200.0" y="70.0" width="45.0" height="64.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="222.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<text x="222.5" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведені A9..A8</text>
+<rect x="251.0" y="70.0" width="140.0" height="64.0" rx="5" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="321.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2-й байт адреси</text>
+<text x="321.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">A7..A0</text>
+<text x="321.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведучий</text>
+<rect x="397.0" y="70.0" width="45.0" height="64.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="419.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<text x="419.5" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведений чіп</text>
+<rect x="448.0" y="70.0" width="120.0" height="64.0" rx="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="508.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт даних 1</text>
+<text x="508.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">D7..D0</text>
+<text x="508.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведучий</text>
+<rect x="574.0" y="70.0" width="45.0" height="64.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="596.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<text x="596.5" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведений чіп</text>
+<rect x="625.0" y="70.0" width="120.0" height="64.0" rx="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="685.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт даних 2</text>
+<text x="685.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">D7..D0</text>
+<text x="685.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведучий</text>
+<rect x="751.0" y="70.0" width="45.0" height="64.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="773.5" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ACK</text>
+<text x="773.5" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ведений чіп</text>
+<rect x="802.0" y="70.0" width="40.0" height="64.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="822.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P</text>
+<text x="822.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">STOP</text>
+<rect x="-2.0" y="190.0" width="844.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="13.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. На 1-й байт відгукуються всі 10-бітні ведені з однаковими старшими бітами A9..A8</text>
+<text x="13.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. На 2-й байт відгукується лише один цільовий ведений (збіг A7..A0); решта відпадає</text>
+<rect x="60.0" y="276.0" width="720.0" height="32.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Запис виконується в один прохід: два байти адреси поспіль обирають чіп, після чого йдуть байти даних</tspan></text>
+</svg>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 370" width="820" height="370">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+    </marker>
+  </defs>
+<rect x="0.0" y="0.0" width="820.0" height="370.0" rx="0" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<rect x="40.0" y="20.0" width="350.0" height="40.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/><text x="215.0" y="44.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Стандарт I2C (Philips / NXP)</tspan></text>
+<rect x="430.0" y="20.0" width="350.0" height="40.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="605.0" y="44.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="605.0" dy="0.0">Специфікація SMBus 2.0 / 3.0 (Intel / SBS)</tspan></text>
+<rect x="40.0" y="75.0" width="350.0" height="275.0" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="215.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні та часові параметри I2C</text>
+<text x="55.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Рівні напруги:</text>
+<text x="180.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Відносні до VDD</text>
+<text x="55.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">  V_IL (логічний 0):</text>
+<text x="180.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">≤ 0.3 · VDD  (0.99 В при 3.3 В)</text>
+<text x="55.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">  V_IH (логічна 1):</text>
+<text x="180.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">≥ 0.7 · VDD  (2.31 В при 3.3 В)</text>
+<text x="55.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Тайм-аут SCL:</text>
+<text x="180.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Відсутній (дозволено DC / 0 Гц)</text>
+<text x="55.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Мін. частота f_MIN:</text>
+<text x="180.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0 кГц (необмежене утримання)</text>
+<text x="55.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Макс. частота f_MAX:</text>
+<text x="180.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">100 кГц / 400 кГц / 1 МГц / 3.4 МГц</text>
+<text x="55.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Струм підтяжки:</text>
+<text x="180.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">до 3.0 мА (V_OL = 0.4 В)</text>
+<text x="55.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Контроль помилок:</text>
+<text x="180.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Лише біт ACK/NACK (без CRC)</text>
+<text x="55.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Переривання:</text>
+<text x="180.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Немає окремої лінії в стандарті</text>
+<rect x="430.0" y="75.0" width="350.0" height="275.0" rx="8" fill="#f8fafc" stroke="#bfdbfe" stroke-width="1.5"/>
+<text x="605.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">Жорсткі обмеження SMBus</text>
+<text x="445.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Рівні напруги:</text>
+<text x="585.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Фіксовані пороги (SMBus 2.0)</text>
+<text x="445.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">  V_IL (логічний 0):</text>
+<text x="585.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">≤ 0.8 В (фіксовано для 3–5 В)</text>
+<text x="445.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">  V_IH (логічна 1):</text>
+<text x="585.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">≥ 2.1 В (фіксовано для 3–5 В)</text>
+<text x="445.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Тайм-аут t_TIMEOUT:</text>
+<text x="585.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">25–35 мс (апаратне скидання шини)</text>
+<text x="445.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Мін. частота f_MIN:</text>
+<text x="585.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">10 кГц (заборона зависань)</text>
+<text x="445.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Макс. частота f_MAX:</text>
+<text x="585.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">100 кГц (SMBus 2.0) / 1 МГц (3.0)</text>
+<text x="445.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Струм драйвера:</text>
+<text x="585.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">350 мкА – 4 мА (енергоощадність)</text>
+<text x="445.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Контроль помилок:</text>
+<text x="585.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Обов'язковий PEC (CRC-8 x⁸+x²+x+1)</text>
+<text x="445.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Переривання:</text>
+<text x="585.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Лінія SMBALERT# + опитування ARA</text>
+</svg>

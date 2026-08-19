@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три схемотехнічні підходи до однопровідного UART</text>
+<rect x="25.0" y="30.0" width="270.0" height="360.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="35.0" y="40.0" width="250.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="160.0" y="57.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">1. Відкритий стік (Open-Drain)</tspan></text>
+<rect x="315.0" y="30.0" width="270.0" height="360.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="325.0" y="40.0" width="250.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="57.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">2. Розв'язка діодом Шотткі</tspan></text>
+<rect x="605.0" y="30.0" width="270.0" height="360.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="615.0" y="40.0" width="250.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="740.0" y="57.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">3. Внутрішній комутатор (HDSEL)</tspan></text>
+<rect x="40.0" y="85.0" width="105.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="92.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU 1</text>
+<text x="92.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">TX (OD)</text>
+<text x="92.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">RX (Вхід)</text>
+<line x1="92.0" y1="178.0" x2="140.0" y2="178.0" stroke="#333333" stroke-width="1.2"/>
+<circle cx="140.0" cy="178.0" r="2.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<text x="92.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">NMOS стік</text>
+<rect x="175.0" y="85.0" width="105.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="228.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU 2</text>
+<text x="228.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">TX (OD)</text>
+<text x="228.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">RX (Вхід)</text>
+<line x1="180.0" y1="178.0" x2="228.0" y2="178.0" stroke="#333333" stroke-width="1.2"/>
+<circle cx="180.0" cy="178.0" r="2.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="140.0" y1="178.0" x2="180.0" y2="178.0" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="160.0" cy="178.0" r="3.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="160.0" y1="178.0" x2="160.0" y2="275.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="146.0" y="275.0" width="28.0" height="48.0" rx="6" fill="#fef8ee" stroke="#d97706" stroke-width="1.5"/>
+<text x="160.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R_pu</text>
+<line x1="160.0" y1="323.0" x2="160.0" y2="345.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="148.0" y1="345.0" x2="172.0" y2="345.0" stroke="#333333" stroke-width="2.0"/>
+<text x="160.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+3.3V</text>
+<text x="160.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Спільна лінія</text>
+<text x="160.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Монтажне «І», повільний спад RC</text>
+<rect x="330.0" y="85.0" width="100.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU</text>
+<text x="380.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">TX (Push-Pull)</text>
+<text x="380.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">RX (Вхід)</text>
+<line x1="430.0" y1="138.0" x2="455.0" y2="138.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="455.0" y1="138.0" x2="468.0" y2="138.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="482.0" y1="126.0" x2="482.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="468.0" y1="126.0" x2="468.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="482.0" y1="126.0" x2="468.0" y2="138.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="482.0" y1="150.0" x2="468.0" y2="138.0" stroke="#333333" stroke-width="1.5"/>
+<text x="475.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">BAT54</text>
+<line x1="430.0" y1="192.0" x2="510.0" y2="192.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="482.0" y1="138.0" x2="510.0" y2="138.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="510.0" y1="138.0" x2="510.0" y2="192.0" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="510.0" cy="165.0" r="3.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="510.0" y1="165.0" x2="565.0" y2="165.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="510.0" y1="165.0" x2="560.0" y2="165.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="538.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">До шини</text>
+<line x1="510.0" y1="165.0" x2="510.0" y2="275.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="496.0" y="275.0" width="28.0" height="48.0" rx="6" fill="#fef8ee" stroke="#d97706" stroke-width="1.5"/>
+<text x="510.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R_pu</text>
+<line x1="510.0" y1="323.0" x2="510.0" y2="345.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="498.0" y1="345.0" x2="522.0" y2="345.0" stroke="#333333" stroke-width="2.0"/>
+<text x="510.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+3.3V</text>
+<text x="450.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист виходу TX від зустрічного струму</text>
+<rect x="620.0" y="85.0" width="240.0" height="255.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="740.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">STM32 USART (HDSEL = 1)</text>
+<rect x="635.0" y="128.0" width="95.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="682.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">TX Драйвер</text>
+<text x="682.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Open-Drain)</text>
+<rect x="635.0" y="210.0" width="95.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="682.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX Приймач</text>
+<text x="682.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Вхідний буфер)</text>
+<line x1="730.0" y1="154.0" x2="775.0" y2="154.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="730.0" y1="236.0" x2="775.0" y2="236.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="775.0" y1="154.0" x2="775.0" y2="236.0" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="775.0" cy="195.0" r="3.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="775.0" y1="195.0" x2="835.0" y2="195.0" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="835.0" cy="195.0" r="4.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="815.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Пін TX</text>
+<rect x="640.0" y="282.0" width="200.0" height="42.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="740.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Пін RX вільний для GPIO</text>
+<text x="740.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Внутрішній зворотний зв'язок</text>
+<text x="740.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Один пін на платі, без зовнішніх діодів</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 940 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="940" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="360.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">Апаратний баг SoC Broadcom BCM2835: порушення зсуву фази при розтягуванні</text>
+<rect x="35.0" y="65.0" width="370.0" height="290.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="220.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Коректний I2C контролер</text>
+<text x="50.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">SCL:</text>
+<path d="M 90 135 H 130 V 115 H 170 V 135 H 260 V 115 H 320 V 135 H 370" fill="none" stroke="#16a34a" stroke-width="2"/>
+<text x="215.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">Розтягнуто веденим</text>
+<text x="50.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">SDA:</text>
+<path d="M 90 180 H 190 V 195 H 370" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="290.0" y1="220.0" x2="290.0" y2="195.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="290.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">Семпл після підйому SCL</text>
+<text x="220.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Внутрішній лічильник чекає
+реального наростаючого фронту SCL.
+Дані зчитуються коректно.</text>
+<rect x="435.0" y="65.0" width="370.0" height="290.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="620.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">SoC Broadcom BCM2835 (Raspberry Pi)</text>
+<text x="450.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">SCL:</text>
+<path d="M 490 135 H 530 V 115 H 570 V 135 H 670 V 115 H 720 V 135 H 770" fill="none" stroke="#dc2626" stroke-width="2"/>
+<text x="450.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">SDA:</text>
+<path d="M 490 180 H 590 V 195 H 770" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="610.0" y1="220.0" x2="610.0" y2="195.0" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="610.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">ПОМИЛКОВИЙ семпл під час 0V!</text>
+<text x="620.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Апаратний автомат пропускає такт,
+зсуває внутрішній стан без очікування SCL,
+що призводить до втрати бітів і спотворень.</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Основні топології термінування цифрових ліній</text>
+<text x="60.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">А. Послідовне термінування біля джерела (Series Termination, SPI / SDIO / UART)</text>
+<rect x="60.0" y="78.0" width="65.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="92.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">TX</text>
+<line x1="125.0" y1="100.0" x2="160.0" y2="100.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="160.0" y="90.0" width="45.0" height="20.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="182.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">R_S</text>
+<line x1="205.0" y1="100.0" x2="480.0" y2="100.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="340.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Лінія Z₀ (наприклад, 50 Ω)</text>
+<rect x="480.0" y="78.0" width="65.0" height="45.0" rx="6" fill="#fef6e7" stroke="#333333" stroke-width="1.5"/>
+<text x="512.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">RX</text>
+<text x="512.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вхід C_in (Z_L ≈ ∞)</text>
+<rect x="570.0" y="72.0" width="240.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="690.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">R_S = Z₀ − R_out (типово 22–33 Ω)</tspan><tspan x="690.0" dy="13.7">• Нуль статичного споживання DC</tspan><tspan x="690.0" dy="13.7">• Ідеально для ліній «точка–точка»</tspan></text>
+<text x="60.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Б. Просте паралельне на кінці (Parallel Termination до GND або V_TT)</text>
+<rect x="60.0" y="200.0" width="65.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="92.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">TX</text>
+<line x1="125.0" y1="222.0" x2="480.0" y2="222.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="300.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Лінія Z₀</text>
+<rect x="480.0" y="200.0" width="65.0" height="45.0" rx="6" fill="#fef6e7" stroke="#333333" stroke-width="1.5"/>
+<text x="512.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">RX</text>
+<line x1="450.0" y1="222.0" x2="450.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="440.0" y="240.0" width="20.0" height="35.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="450.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R_L</text>
+<line x1="450.0" y1="275.0" x2="450.0" y2="290.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="438.0" y1="290.0" x2="462.0" y2="290.0" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="570.0" y="195.0" width="240.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="690.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">R_L = Z₀ (типово 50 Ω)</tspan><tspan x="690.0" dy="13.7">• Поглинає хвилю без відбиття</tspan><tspan x="690.0" dy="13.7">• Високе споживання DC струму!</tspan></text>
+<text x="60.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">В. Термінування Тевеніна (Thevenin Split: подільник VDD / GND)</text>
+<rect x="60.0" y="325.0" width="65.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="92.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">TX</text>
+<line x1="125.0" y1="347.0" x2="480.0" y2="347.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="480.0" y="325.0" width="65.0" height="45.0" rx="6" fill="#fef6e7" stroke="#333333" stroke-width="1.5"/>
+<text x="512.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">RX</text>
+<line x1="450.0" y1="347.0" x2="450.0" y2="330.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="440.0" y="295.0" width="20.0" height="35.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="450.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R1</text>
+<line x1="450.0" y1="295.0" x2="450.0" y2="282.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="450.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">V_DD</text>
+<line x1="450.0" y1="347.0" x2="450.0" y2="365.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="440.0" y="365.0" width="20.0" height="35.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="450.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R2</text>
+<line x1="450.0" y1="400.0" x2="450.0" y2="412.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="438.0" y1="412.0" x2="462.0" y2="412.0" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="570.0" y="320.0" width="240.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="690.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">R1 || R2 = Z₀ ; V_th = V_DD · R2/(R1+R2)</tspan><tspan x="690.0" dy="12.3">• Задає напругу спокою шини</tspan><tspan x="690.0" dy="12.3">• Сталий струм через дільник</tspan></text>
+<text x="60.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Г. AC-термінування (RC-ланцюг: узгодження тільки на фронтах)</text>
+<rect x="60.0" y="450.0" width="65.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="92.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">TX</text>
+<line x1="125.0" y1="472.0" x2="480.0" y2="472.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="480.0" y="450.0" width="65.0" height="45.0" rx="6" fill="#fef6e7" stroke="#333333" stroke-width="1.5"/>
+<text x="512.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">RX</text>
+<line x1="450.0" y1="472.0" x2="450.0" y2="490.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="440.0" y="490.0" width="20.0" height="30.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="450.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R</text>
+<line x1="450.0" y1="520.0" x2="450.0" y2="528.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="438.0" y1="528.0" x2="462.0" y2="528.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="438.0" y1="533.0" x2="462.0" y2="533.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="475.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<line x1="450.0" y1="533.0" x2="450.0" y2="545.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="438.0" y1="545.0" x2="462.0" y2="545.0" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="570.0" y="445.0" width="240.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="690.0" y="465.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">R = Z₀ ; C &gt; 3 · t_prop / Z₀ (типово 50–100 пФ)</tspan><tspan x="690.0" dy="11.7">• Нуль постійного споживання DC!</tspan><tspan x="690.0" dy="11.7">• Невелике збільшення затримки фронту</tspan></text>
+</svg>

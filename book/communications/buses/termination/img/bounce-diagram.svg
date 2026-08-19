@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ґраткова діаграма відбиттів (Bounce Diagram) для неузгодженої лінії</text>
+<line x1="180.0" y1="80.0" x2="180.0" y2="440.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="540.0" y1="80.0" x2="540.0" y2="440.0" stroke="#333333" stroke-width="2.0"/>
+<text x="180.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Джерело x = 0 (TX)</text>
+<text x="180.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">R_S = 10 Ω (Γ_S = −0.67)</text>
+<text x="540.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Навантаження x = L (RX)</text>
+<text x="540.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Z_L = ∞ (Γ_L = +1.0)</text>
+<line x1="60.0" y1="80.0" x2="60.0" y2="440.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="45.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">Час t</text>
+<line x1="55.0" y1="80.0" x2="65.0" y2="80.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="75.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">t = 0</text>
+<text x="165.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">V_src = 2.75 В</text>
+<circle cx="180.0" cy="80.0" r="4.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="55.0" y1="140.0" x2="65.0" y2="140.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="75.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">t = t_d</text>
+<text x="555.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">V_load = 5.50 В (викид)</text>
+<circle cx="540.0" cy="140.0" r="4.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="55.0" y1="200.0" x2="65.0" y2="200.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="75.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">t = 2t_d</text>
+<text x="165.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">V_src = 0.92 В</text>
+<circle cx="180.0" cy="200.0" r="4.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="55.0" y1="260.0" x2="65.0" y2="260.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="75.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">t = 3t_d</text>
+<text x="555.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">V_load = 1.83 В (провал)</text>
+<circle cx="540.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="55.0" y1="320.0" x2="65.0" y2="320.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="75.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">t = 4t_d</text>
+<text x="165.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">V_src = 4.28 В</text>
+<circle cx="180.0" cy="320.0" r="4.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="55.0" y1="380.0" x2="65.0" y2="380.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="75.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">t = 5t_d</text>
+<text x="555.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">V_load = 3.67 В</text>
+<circle cx="540.0" cy="380.0" r="4.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="180.0" y1="80.0" x2="540.0" y2="140.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="360.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V₁⁺ = +2.75 В</text>
+<line x1="540.0" y1="140.0" x2="180.0" y2="200.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="360.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">V₁⁻ = +2.75 В (відбиття від розриву)</text>
+<line x1="180.0" y1="200.0" x2="540.0" y2="260.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="360.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V₂⁺ = −1.83 В (перевертання фази)</text>
+<line x1="540.0" y1="260.0" x2="180.0" y2="320.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="360.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">V₂⁻ = −1.83 В</text>
+<line x1="180.0" y1="320.0" x2="540.0" y2="380.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V₃⁺ = +1.22 В → асимптота до 3.3 В</text>
+<rect x="60.0" y="455.0" width="700.0" height="55.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/><text x="410.0" y="472.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Ґраткова діаграма унаочнює стрибки напруги: кожен промінь додає нову хвилю до поточної суми.</tspan><tspan x="410.0" dy="14.3">При Γ_L = +1 (розрив) та Γ_S = −0.67 (потужний драйвер) напруга на навантаженні коливається:</tspan><tspan x="410.0" dy="14.3">0 В  →  5.50 В (overshoot)  →  1.83 В (undershoot)  →  3.67 В  →  асимптотично до 3.30 В.</tspan></text>
+</svg>

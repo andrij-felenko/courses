@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура стека драйверів SDIO у ядрі Linux та диспетчеризація подій</text>
+<text x="470.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Ієрархія підсистем: від апаратного хост-контролера через ядро MMC до функціональних драйверів</text>
+<rect x="40.0" y="70.0" width="860.0" height="95.0" rx="8" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="55.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="start" font-weight="700">Рівень функціональних драйверів периферії (SDIO Function Drivers)</text>
+<rect x="55.0" y="105.0" width="260.0" height="50.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="185.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">brcmfmac / mwifiex_sdio</text>
+<text x="185.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Драйвер Wi-Fi (Функція 1, net_device)</text>
+<rect x="340.0" y="105.0" width="260.0" height="50.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="470.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">btmtksdio / btbcm</text>
+<text x="470.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Драйвер Bluetooth (Функція 2, hci_dev)</text>
+<rect x="625.0" y="105.0" width="260.0" height="50.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="755.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">sdio_uart / sdio_raw</text>
+<text x="755.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Послідовні порти та користувацькі модулі</text>
+<line x1="260.0" y1="165.0" x2="260.0" y2="195.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="620.0" y1="165.0" x2="620.0" y2="195.0" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">API ядра: sdio_claim_host(), sdio_claim_irq(), sdio_memcpy_fromio()</text>
+<rect x="40.0" y="195.0" width="860.0" height="155.0" rx="8" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="55.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Ядро підсистеми MMC/SDIO (drivers/mmc/core/)</text>
+<rect x="55.0" y="230.0" width="195.0" height="100.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="152.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">sdio.c &amp; sdio_bus.c</text>
+<text x="152.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ініціалізація шини</text>
+<text x="152.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зчитування CCCR/FBR</text>
+<text x="152.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Парсинг кортежів CIS</text>
+<text x="152.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle">Реєстрація struct sdio_func</text>
+<rect x="270.0" y="230.0" width="185.0" height="100.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="362.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">sdio_io.c &amp; sdio_ops.c</text>
+<text x="362.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Формування команд</text>
+<text x="362.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виконання CMD52/CMD53</text>
+<text x="362.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контроль байт/блок режимів</text>
+<text x="362.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle">Синхронізація блокувань</text>
+<rect x="475.0" y="230.0" width="205.0" height="100.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="577.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">sdio_irq.c (IRQ Thread)</text>
+<text x="577.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Потік обробки переривань</text>
+<text x="577.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опитування INT_PENDING</text>
+<text x="577.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Маршрутизація до функцій 1..7</text>
+<text x="577.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">sdio_irq_thread() квітування</text>
+<rect x="700.0" y="230.0" width="185.0" height="100.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="792.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">queue.c &amp; block.c</text>
+<text x="792.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Черги запитів ядра</text>
+<text x="792.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">DMA-дескриптори</text>
+<text x="792.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Scatter-Gather списки</text>
+<text x="792.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle">Управління чергою MMC</text>
+<line x1="470.0" y1="350.0" x2="470.0" y2="380.0" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct mmc_host_ops: request(), set_ios(), enable_sdio_irq()</text>
+<rect x="40.0" y="380.0" width="860.0" height="115.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="55.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Драйвер контролера хоста та фізичне залізо (Host Controller &amp; Hardware)</text>
+<rect x="55.0" y="415.0" width="260.0" height="65.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="185.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">sdhci / sdhci-pci / dw_mmc</text>
+<text x="185.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стандартизовані контролери SDHCI</text>
+<text x="185.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle">Апаратний ADMA2 / Auto-CMD</text>
+<rect x="340.0" y="415.0" width="260.0" height="65.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="470.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний блок SD Host</text>
+<text x="470.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тактовий генератор CLK (до 208 МГц)</text>
+<text x="470.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle">Апаратний детектер спаду DAT1</text>
+<rect x="625.0" y="415.0" width="260.0" height="65.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="755.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">SDIO Пристрій (Wi-Fi/BT SoC)</text>
+<text x="755.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фізичні лінії: CLK, CMD, DAT[0..3]</text>
+<text x="755.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle">BCM43438 / 88W8801 / ESP32</text>
+</svg>

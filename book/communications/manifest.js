@@ -7681,6 +7681,7 @@ window.__BOOKS__.push({
       "title": "Криптозв'язок",
       "scope": "Захист конфіденційності, цілісності й автентичності переданих повідомлень.",
       "topics": [
+        { slug: "sasl-framework", title: "Каркас автентифікації SASL (RFC 4422)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sasl-mechanisms.md", status: "recheck" }] , "hist": [{ file: "hist-sasl-evolution.md", status: "recheck" }] , "proj": [{ file: "proj-sasl-negotiation.md", status: "recheck" }] },
         {
           "slug": "mavlink-security",
           "title": "Безпека MAVLink",
@@ -8063,10 +8064,28 @@ window.__BOOKS__.push({
           "slug": "scram-authentication",
           "title": "SCRAM: солений виклик-відповідь замість дайджесту",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-scram-attributes.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-scram-standard.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-scram-crypto.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8101,20 +8120,56 @@ window.__BOOKS__.push({
           "slug": "authenticated-encryption",
           "title": "Автентифіковане шифрування (AEAD): тег, асоційовані дані й одна операція замість двох",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-composition-flaws.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-ghash-poly1305.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-aead-packet.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "pkcs7-signed-message",
           "title": "PKCS#7/CMS: підписане повідомлення як самоописовий контейнер",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cms-asn1.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-cms-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-pkcs7-sign-verify.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -8128,10 +8183,22 @@ window.__BOOKS__.push({
           "slug": "i2c-expander",
           "title": "I²C-розширювач",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-register-architecture.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-interrupt-driver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8337,7 +8404,7 @@ window.__BOOKS__.push({
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8380,10 +8447,22 @@ window.__BOOKS__.push({
           "slug": "can-frame-errors",
           "title": "Кадр CAN",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "math": [
+            {
+              "file": "math-can-bit-timing.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-socketcan-error-handling.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8416,140 +8495,338 @@ window.__BOOKS__.push({
           "slug": "bus-resource-conflicts",
           "title": "Конфлікти шин",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "proj": [
+            {
+              "file": "proj-i2c-bus-recovery.md",
+              "status": "recheck"
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "baud-vs-bitrate",
           "title": "Baud проти біт/с",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-baudot-and-hartley.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-nyquist-shannon-capacity.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-baud-bitrate-calc.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "clock-tolerance-uart",
           "title": "Допуск годинника UART",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "math": [
+            {
+              "file": "math-baud-error-budget.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-brr-error-calc.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "break-signal-uart",
           "title": "Break-сигнал UART",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-break-control.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-break-key.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-break-detection.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "half-duplex-uart",
           "title": "Напівдуплекс UART",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "comp": [
+            {
+              "file": "comp-rs485-transceiver.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-turnaround-timing.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-stm32-halfduplex-de.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "spi-cs-timing",
           "title": "Часові параметри CS у SPI",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-timing-params.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-stm32-dma-cs.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "spi-timing",
           "title": "Тайминг SPI: t_su, t_h, t_clk",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-spi-timings.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-timing-calculator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "spi-multimaster",
           "title": "SPI з кількома веденими і режимами",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "math": [
+            {
+              "file": "math-bus-capacitance.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-dynamic-reconfig.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "termination",
           "title": "Термінування ліній передачі",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-heaviside-reflections.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-reflection.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "i2c-multimaster",
           "title": "Кілька ведучих на I2C",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "proj": [
+            {
+              "file": "proj-multimaster-arbitration.md",
+              "status": "recheck"
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "i2c-10bit-addressing",
           "title": "10-бітна адресація I2C",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-10bit-protocol.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-10bit-transfer.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "i2c-speeds",
           "title": "Режими швидкості I2C",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "comp": [
+            {
+              "file": "comp-active-accelerator.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-rc-timing.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-timing-calc.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "smbus-protocol",
           "title": "Протокол SMBus",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-transactions.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-smbus.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-pec-crc8.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "burst-read",
           "title": "Пакетне зчитування регістрів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "math": [
+            {
+              "file": "math-bus-overhead.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-dma-burst.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8559,87 +8836,213 @@ window.__BOOKS__.push({
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "fifo-register",
           "title": "FIFO-регістри в давачах",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-fifo-registers.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-burst-dma-reader.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "rs-422",
           "title": "RS-422",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-pinout-and-signals.md",
+              "status": "recheck",
+          "comp": [
+            {
+              "file": "comp-differential-interfaces.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-v11-standardization.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-rs422-transceiver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "spi-modes",
           "title": "Режими SPI (CPOL/CPHA)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "proj": [
+            {
+              "file": "proj-spi-bitbang.md",
+              "status": "recheck"
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "daisy-chain-spi",
           "title": "Daisy-chain у SPI",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "comp": [
+            {
+              "file": "comp-daisy-architectures.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-shift-cascade.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-cascade-driver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "qspi-multi-lane",
           "title": "QSPI та багатолінійний SPI",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-qspi-protocol.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-jedec-sfdp.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-stm32-qspi-xip.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "clock-stretching",
           "title": "Clock stretching у I2C",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-clock-stretching.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-bitbang-stretching.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "i2c-clock-stretching",
           "title": "Розтягування такту I2C",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "comp": [
+            {
+              "file": "comp-bidirectional-isolators.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-timing-throughput.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-bitbang-master.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "smbus",
           "title": "SMBus",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-electrical-timing.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-sbs-if.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-smbalert-ara.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8668,70 +9071,196 @@ window.__BOOKS__.push({
           "slug": "mdi-mdio-bus",
           "title": "Шина MDC/MDIO",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-clause22-clause45-registers.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-mii-management.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-mdio-bitbang.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "sd-card-protocol",
           "title": "Протокол SD/SDIO",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-sd-commands.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-sd-card.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-sd-crc.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-sd-driver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "i2c-bus-timing",
           "title": "Часові діаграми I²C: START, STOP, ACK і clock stretching",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-um10204-timings.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-clock-sync.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-timing-margins.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-bitbang-timing.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "i2c-bus-capacity",
           "title": "Ємність шини I²C і вибір підтяжок",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "math": [
+            {
+              "file": "math-pullup-limits.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-pullup-calculator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "sdio-bus",
           "title": "Шина SDIO",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-sdio-linux.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-sdio-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-sdio-driver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "quad-spi",
           "title": "Quad-SPI (QSPI)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-controller-registers.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-xip-cache-integration.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "usb3-physical",
           "title": "USB 3.x фізично: SuperSpeed і вище",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-superspeed.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-receiver-detect.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-8b10b-disparity.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -8792,10 +9321,34 @@ window.__BOOKS__.push({
           "slug": "i3c",
           "title": "Шина I3C",
           "basic": {
-            "status": "pending"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-i3c-ccc.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-mipi-i3c.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-i3c-throughput.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-i3c-controller.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -8809,10 +9362,28 @@ window.__BOOKS__.push({
           "slug": "fpv-channels",
           "title": "Канали 5.8 ГГц для FPV (Raceband і смуги A/B/E/F)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-bands.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-imd.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-freq-planner.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -8826,10 +9397,28 @@ window.__BOOKS__.push({
           "slug": "arq",
           "title": "ARQ: автоматичний запит на повтор",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-harq-mac.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-throughput-efficiency.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-arq-simulator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]

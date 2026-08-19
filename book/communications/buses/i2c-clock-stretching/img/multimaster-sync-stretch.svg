@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="390.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація такту SCL між кількома ведучими та розтягуючим веденим</text>
+<text x="120.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">Master 1 (Швидкий)</text>
+<text x="120.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Master 2 (Повільніший)</text>
+<text x="120.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="end" font-weight="700">Slave (Розтягує такт)</text>
+<text x="120.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="end" font-weight="700">Спільна лінія SCL</text>
+<polyline points="130.0,70.0 160.0,70.0 160.0,100.0 190.0,100.0 190.0,70.0 220.0,70.0 220.0,100.0 250.0,100.0 250.0,70.0 280.0,70.0 280.0,100.0 310.0,100.0 310.0,70.0 340.0,70.0 340.0,100.0 370.0,100.0 370.0,70.0 400.0,70.0 400.0,100.0 430.0,100.0 430.0,70.0 460.0,70.0 460.0,100.0 490.0,100.0 490.0,70.0 520.0,70.0 520.0,100.0 550.0,100.0 550.0,70.0 580.0,70.0 580.0,100.0 610.0,100.0 610.0,70.0 640.0,70.0 640.0,100.0 670.0,100.0 670.0,70.0 700.0,70.0 700.0,100.0 730.0,100.0 730.0,70.0 760.0,70.0" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+<polyline points="130.0,140.0 180.0,140.0 180.0,170.0 230.0,170.0 230.0,140.0 280.0,140.0 280.0,170.0 330.0,170.0 330.0,140.0 380.0,140.0 380.0,170.0 430.0,170.0 430.0,140.0 480.0,140.0 480.0,170.0 530.0,170.0 530.0,140.0 580.0,140.0 580.0,170.0 630.0,170.0 630.0,140.0 680.0,140.0 680.0,170.0 730.0,170.0 730.0,140.0 760.0,140.0" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+<polyline points="130.0,210.0 330.0,210.0 330.0,240.0 560.0,240.0 560.0,210.0 760.0,210.0" fill="none" stroke="#d9534f" stroke-width="2.0"/>
+<polyline points="130.0,280.0 160.0,280.0 160.0,310.0 230.0,310.0 230.0,280.0 280.0,280.0 280.0,310.0 560.0,310.0 560.0,280.0 580.0,280.0 580.0,310.0 630.0,310.0 630.0,280.0 680.0,280.0 680.0,310.0 730.0,310.0 730.0,280.0 760.0,280.0" fill="none" stroke="#d97706" stroke-width="2.5"/>
+<rect x="40.0" y="340.0" width="230.0" height="50.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="155.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1. Синхронізація LOW</text>
+<text x="155.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">LOW триває, поки хоч ОДИН тримає 0</text>
+<rect x="295.0" y="340.0" width="240.0" height="50.0" rx="4" fill="#fdecea" stroke="#d9534f" stroke-width="1.2"/>
+<text x="415.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="middle" font-weight="700">2. Slave розтягує такт</text>
+<text x="415.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Обидва Master скидають свої лічильники</text>
+<rect x="560.0" y="340.0" width="240.0" height="50.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="680.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">3. Відлік HIGH</text>
+<text x="680.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">HIGH починається лише коли ВСІ відпустили</text>
+</svg>

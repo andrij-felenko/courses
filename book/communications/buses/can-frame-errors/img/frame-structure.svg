@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура кадру даних CAN (Standard 2.0A та Extended 2.0B)</text>
+<text x="40.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Стандартний кадр (CAN 2.0A — 11-бітний ідентифікатор):</text>
+<rect x="40.0" y="75.0" width="36.0" height="48.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="58.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">SOF</text>
+<text x="58.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б</text>
+<rect x="76.0" y="75.0" width="110.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="131.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Identifier</text>
+<text x="131.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11 б</text>
+<rect x="186.0" y="75.0" width="36.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="204.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">RTR</text>
+<text x="204.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б</text>
+<rect x="222.0" y="75.0" width="36.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="240.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">IDE</text>
+<text x="240.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б (0)</text>
+<rect x="258.0" y="75.0" width="30.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="273.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">r0</text>
+<text x="273.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б</text>
+<rect x="288.0" y="75.0" width="54.0" height="48.0" rx="4" fill="#fef9e7" stroke="#b7950b" stroke-width="1.5"/>
+<text x="315.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="middle" font-weight="700">DLC</text>
+<text x="315.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4 б</text>
+<rect x="342.0" y="75.0" width="170.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="427.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Data Field</text>
+<text x="427.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0..8 байтів (0..64 б)</text>
+<rect x="512.0" y="75.0" width="100.0" height="48.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="562.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">CRC Field</text>
+<text x="562.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">15 б + Del (1б)</text>
+<rect x="612.0" y="75.0" width="60.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="642.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ACK</text>
+<text x="642.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Slot + Del</text>
+<rect x="672.0" y="75.0" width="70.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="707.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">EOF</text>
+<text x="707.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7 б (рецес.)</text>
+<rect x="742.0" y="75.0" width="58.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="771.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">IFS</text>
+<text x="771.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ITM 3б</text>
+<line x1="40.0" y1="134.0" x2="596.0" y2="134.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="40.0" y1="130.0" x2="40.0" y2="138.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="596.0" y1="130.0" x2="596.0" y2="138.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="318.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Зона дії бітового заповнення (Bit Stuffing: SOF → CRC)</text>
+<line x1="596.0" y1="134.0" x2="800.0" y2="134.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="800.0" y1="130.0" x2="800.0" y2="138.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="698.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Фіксований формат (без стафінгу)</text>
+<line x1="40.0" y1="172.0" x2="800.0" y2="172.0" stroke="#e0e0e0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="40.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Розширений кадр (CAN 2.0B — 29-бітний ідентифікатор):</text>
+<rect x="40.0" y="217.0" width="34.0" height="48.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="57.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SOF</text>
+<text x="57.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б</text>
+<rect x="74.0" y="217.0" width="86.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="117.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Base ID</text>
+<text x="117.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11 б</text>
+<rect x="160.0" y="217.0" width="34.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="177.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SRR</text>
+<text x="177.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б (1)</text>
+<rect x="194.0" y="217.0" width="34.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="211.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">IDE</text>
+<text x="211.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б (1)</text>
+<rect x="228.0" y="217.0" width="112.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="284.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ext ID</text>
+<text x="284.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">18 б</text>
+<rect x="340.0" y="217.0" width="34.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="357.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RTR</text>
+<text x="357.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 б</text>
+<rect x="374.0" y="217.0" width="40.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="394.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">r1, r0</text>
+<text x="394.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 б</text>
+<rect x="414.0" y="217.0" width="46.0" height="48.0" rx="4" fill="#fef9e7" stroke="#b7950b" stroke-width="1.5"/>
+<text x="437.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7950b" text-anchor="middle" font-weight="700">DLC</text>
+<text x="437.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4 б</text>
+<rect x="460.0" y="217.0" width="140.0" height="48.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="530.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Data Field</text>
+<text x="530.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0..8 байтів</text>
+<rect x="600.0" y="217.0" width="88.0" height="48.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="644.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">CRC</text>
+<text x="644.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">15 б + Del</text>
+<rect x="688.0" y="217.0" width="56.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="716.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ACK</text>
+<text x="716.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Slot+Del</text>
+<rect x="744.0" y="217.0" width="56.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="772.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">EOF</text>
+<text x="772.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7 б</text>
+<rect x="800.0" y="217.0" width="40.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="820.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">IFS</text>
+<text x="820.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3 б</text>
+<rect x="91.3" y="306.1" width="277.4" height="57.8" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.5"/><text x="230.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Пріоритет арбітражу:</tspan><tspan x="230.0" dy="13.7">SRR = 1 (рецесивний) у 2.0B гарантує,</tspan><tspan x="230.0" dy="13.7">що 2.0A з тим самим Base ID виграє арбітраж</tspan></text>
+<rect x="453.4" y="306.1" width="313.3" height="57.8" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.5"/><text x="610.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Апаратне підтвердження (ACK):</tspan><tspan x="610.0" dy="13.7">Передавач шле '1' (рецесивний),</tspan><tspan x="610.0" dy="13.7">будь-який коректний приймач шле '0' (домінантний)</tspan></text>
+<rect x="112.2" y="404.5" width="615.6" height="31.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="420.0" y="423.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Разом: кадри CAN містять суворе чергування полів динамічного стафінгу та фіксованих делімітерів</tspan></text>
+</svg>

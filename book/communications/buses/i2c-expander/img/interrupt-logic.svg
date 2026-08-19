@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<circle cx="45.0" cy="150.0" r="7.0" fill="#c0392b" stroke="#333333" stroke-width="2.0"/>
+<text x="45.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="45.0" dy="0.0">Пін GPIO</tspan><tspan x="45.0" dy="15.6">Pin N</tspan></text>
+<line x1="52.0" y1="150.0" x2="130.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="130.0" y="95.0" width="175.0" height="110.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="217.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Детектор події</text>
+<text x="217.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Порівняння зі станом:</text>
+<text x="217.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">• Попередній стан (INTCON=0)</text>
+<text x="217.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">• Регістр DEFVAL (INTCON=1)</text>
+<line x1="305.0" y1="150.0" x2="370.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="337.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f766e" text-anchor="middle" font-weight="700">Зміна</text>
+<rect x="370.0" y="115.0" width="120.0" height="70.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="430.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Маска GPINTEN</tspan><tspan x="430.0" dy="15.6">Дозвіл по бітах</tspan></text>
+<line x1="490.0" y1="150.0" x2="555.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="555.0" y="80.0" width="160.0" height="140.0" rx="6" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="635.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3730a3" text-anchor="middle" font-weight="700">Фіксація переривання</text>
+<rect x="568.0" y="120.0" width="134.0" height="38.0" rx="4" fill="#ffffff" stroke="#818cf8" stroke-width="1.0"/>
+<text x="635.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle" font-weight="700"><tspan x="635.0" dy="0.0">Прапорець INTF</tspan><tspan x="635.0" dy="14.3">Хто викликав</tspan></text>
+<rect x="568.0" y="168.0" width="134.0" height="42.0" rx="4" fill="#ffffff" stroke="#818cf8" stroke-width="1.0"/>
+<text x="635.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#312e81" text-anchor="middle" font-weight="700"><tspan x="635.0" dy="0.0">Знімок INTCAP</tspan><tspan x="635.0" dy="14.3">Стан у момент збою</tspan></text>
+<line x1="715.0" y1="150.0" x2="775.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="775.0" y="115.0" width="100.0" height="70.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="825.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="825.0" dy="0.0">Open-Drain</tspan><tspan x="825.0" dy="15.6">Вихід /INT</tspan></text>
+<line x1="825.0" y1="115.0" x2="825.0" y2="60.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="810.0" y="30.0" width="30.0" height="30.0" rx="2" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="825.0" y="49.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">R_pu</text>
+<line x1="825.0" y1="30.0" x2="825.0" y2="15.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="825.0" y="10.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VDD</text>
+<rect x="220.0" y="275.0" width="460.0" height="65.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="450.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Скидання переривання (Clear Interrupt)</text>
+<text x="450.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle">Читання регістру INTCAP або GPIO через I2C деактивує лінію /INT</text>
+<line x1="450.0" y1="275.0" x2="450.0" y2="230.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="450.0" y1="230.0" x2="635.0" y2="230.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="635.0" y1="230.0" x2="635.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формати кадрів керування SDIO: команди прямого (CMD52) та розширеного (CMD53) доступу</text>
+<text x="470.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">48-бітні командні послідовності на лінії CMD та структура полів аргументу</text>
+<rect x="30.0" y="70.0" width="880.0" height="195.0" rx="8" fill="#fdfefe" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="30.0" y="70.0" width="880.0" height="32.0" rx="8" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="45.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">CMD52: Прямий доступ до регістру (IO_RW_DIRECT) — 1 байт за транзакцію</text>
+<text x="890.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">Не займає лінії даних DAT[0..3]</text>
+<rect x="45.0" y="115.0" width="24.0" height="50.0" rx="4" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="57.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<text x="57.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="72.0" y="115.0" width="24.0" height="50.0" rx="4" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="84.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T</text>
+<text x="84.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="99.0" y="115.0" width="85.0" height="50.0" rx="4" fill="#ebf5fb" stroke="#333333" stroke-width="1.0"/>
+<text x="141.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Index</text>
+<text x="141.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">110100 (52)</text>
+<rect x="187.0" y="115.0" width="42.0" height="50.0" rx="4" fill="#fdebd0" stroke="#333333" stroke-width="1.0"/>
+<text x="208.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">R/W</text>
+<text x="208.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1/0</text>
+<rect x="232.0" y="115.0" width="62.0" height="50.0" rx="4" fill="#e8f8f5" stroke="#333333" stroke-width="1.0"/>
+<text x="263.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Func</text>
+<text x="263.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0..7 (3б)</text>
+<rect x="297.0" y="115.0" width="44.0" height="50.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.0"/>
+<text x="319.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">RAW</text>
+<text x="319.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1/0</text>
+<rect x="344.0" y="115.0" width="38.0" height="50.0" rx="4" fill="#eaeded" stroke="#333333" stroke-width="1.0"/>
+<text x="363.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Stuff</text>
+<text x="363.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="385.0" y="115.0" width="255.0" height="50.0" rx="4" fill="#eaf2f8" stroke="#333333" stroke-width="1.0"/>
+<text x="512.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Register Address</text>
+<text x="512.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">17 бітів (0x00000 .. 0x1FFFF)</text>
+<rect x="643.0" y="115.0" width="150.0" height="50.0" rx="4" fill="#fdedec" stroke="#333333" stroke-width="1.0"/>
+<text x="718.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Write Data</text>
+<text x="718.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 бітів (байт запису)</text>
+<rect x="796.0" y="115.0" width="70.0" height="50.0" rx="4" fill="#f4ecf7" stroke="#333333" stroke-width="1.0"/>
+<text x="831.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">CRC7</text>
+<text x="831.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7 бітів</text>
+<rect x="869.0" y="115.0" width="24.0" height="50.0" rx="4" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="881.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">E</text>
+<text x="881.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="45.0" y="174.0" width="415.0" height="75.0" rx="4" fill="#fbfcfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="55.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Прапорець RAW (Read After Write, біт 27):</text>
+<text x="55.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• 0 = у відповіді повертається стан регістру ДО запису;</text>
+<text x="55.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• 1 = повертається оновлене значення ПІСЛЯ виконання запису.</text>
+<text x="55.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">Дозволяє атомарно записати керівний біт і перевірити результат.</text>
+<rect x="475.0" y="174.0" width="420.0" height="75.0" rx="4" fill="#fbfcfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="485.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Відповідь R5 (48 біт у зворотному напрямку):</text>
+<text x="485.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• 8 бітів прочитаних даних (Read Data) з адресованого регістру;</text>
+<text x="485.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• 8 бітів прапорців стану SDIO (COM_CRC_ERR, ILLEGAL_CMD, ERROR);</text>
+<text x="485.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">• Прапорці стану функції (IO_CURRENT_STATE) та апаратні біти помилок.</text>
+<rect x="30.0" y="280.0" width="880.0" height="205.0" rx="8" fill="#fdfefe" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="30.0" y="280.0" width="880.0" height="32.0" rx="8" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="45.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">CMD53: Розширений доступ (IO_RW_EXTENDED) — пакетний / блоковий обмін через DAT[0..3]</text>
+<text x="890.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">Потоки FIFO та блоки до 512 байтів</text>
+<rect x="45.0" y="325.0" width="24.0" height="50.0" rx="4" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="57.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<text x="57.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="72.0" y="325.0" width="24.0" height="50.0" rx="4" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="84.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T</text>
+<text x="84.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="99.0" y="325.0" width="85.0" height="50.0" rx="4" fill="#e8f8f5" stroke="#333333" stroke-width="1.0"/>
+<text x="141.5" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Index</text>
+<text x="141.5" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">110101 (53)</text>
+<rect x="187.0" y="325.0" width="42.0" height="50.0" rx="4" fill="#fdebd0" stroke="#333333" stroke-width="1.0"/>
+<text x="208.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">R/W</text>
+<text x="208.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1/0</text>
+<rect x="232.0" y="325.0" width="60.0" height="50.0" rx="4" fill="#ebf5fb" stroke="#333333" stroke-width="1.0"/>
+<text x="262.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Func</text>
+<text x="262.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0..7 (3б)</text>
+<rect x="295.0" y="325.0" width="74.0" height="50.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.0"/>
+<text x="332.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">Block</text>
+<text x="332.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0=Byte/1=Blk</text>
+<rect x="372.0" y="325.0" width="70.0" height="50.0" rx="4" fill="#fdedec" stroke="#333333" stroke-width="1.0"/>
+<text x="407.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">OpCode</text>
+<text x="407.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0=Fix/1=Inc</text>
+<rect x="445.0" y="325.0" width="200.0" height="50.0" rx="4" fill="#eaf2f8" stroke="#333333" stroke-width="1.0"/>
+<text x="545.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Register Address</text>
+<text x="545.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">17 бітів базової адреси</text>
+<rect x="648.0" y="325.0" width="165.0" height="50.0" rx="4" fill="#d5f5e3" stroke="#333333" stroke-width="1.0"/>
+<text x="730.5" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">Byte/Block Count</text>
+<text x="730.5" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">9 бітів (1..512 Б / 1..511 Блок)</text>
+<rect x="816.0" y="325.0" width="64.0" height="50.0" rx="4" fill="#f4ecf7" stroke="#333333" stroke-width="1.0"/>
+<text x="848.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">CRC7</text>
+<text x="848.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7 бітів</text>
+<rect x="883.0" y="325.0" width="24.0" height="50.0" rx="4" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="895.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">E</text>
+<text x="895.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="45.0" y="384.0" width="415.0" height="88.0" rx="4" fill="#fbfcfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="55.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Режим адреси (Op Code, біт 26):</text>
+<text x="55.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• OpCode = 0 (Fixed Address): передача у фіксований FIFO-регістр.</text>
+<text x="55.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  Весь масив байтів ллється в один порт черги без зміни вказівника;</text>
+<text x="55.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• OpCode = 1 (Incrementing Address): автоінкремент адреси.</text>
+<text x="55.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  Зчитування або запис масиву послідовних конфігураційних регістрів.</text>
+<rect x="475.0" y="384.0" width="420.0" height="88.0" rx="4" fill="#fbfcfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="485.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="start" font-weight="700">Одиниці виміру лічильника (Block Mode, біт 27):</text>
+<text x="485.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Block Mode = 0 (Byte Mode): Count = 1..512 байтів (0 = 512 Б);</text>
+<text x="485.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Block Mode = 1 (Block Mode): Count = 1..511 блоків;</text>
+<text x="485.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  Розмір блока (FBR Block Size) задається заздалегідь у CIA (наприклад, 512 Б);</text>
+<text x="485.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">  Передача кількох кілобайтів пакетів Wi-Fi за одну транзакцію шини.</text>
+</svg>

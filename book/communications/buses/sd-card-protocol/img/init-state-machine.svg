@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="600.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність ініціалізації та автомат станів карти SD (SD Physical Layer)</text>
+<rect x="40.0" y="55.0" width="510.0" height="54.0" rx="5" fill="#fdf8e2" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Подача живлення VDD</text>
+<text x="55.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">VDD &gt; 2.7В, пауза &gt;= 1мс, генерація &gt;= 74 тактів CLK з CMD/DAT=1</text>
+<rect x="565.0" y="55.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан: Inactive / Power-on</text>
+<line x1="295.0" y1="109.0" x2="295.0" y2="122.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="109.0" x2="682.0" y2="122.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="122.0" width="510.0" height="54.0" rx="5" fill="#eef2ff" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. CMD0 (GO_IDLE_STATE)</text>
+<text x="55.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Апаратне скидання внутрішньої логіки карти у вихідний стан</text>
+<rect x="565.0" y="122.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан: Idle State</text>
+<line x1="295.0" y1="176.0" x2="295.0" y2="189.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="176.0" x2="682.0" y2="189.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="189.0" width="510.0" height="54.0" rx="5" fill="#e0f2fe" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. CMD8 (SEND_IF_COND)</text>
+<text x="55.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">VHS=2.7–3.6В, Check Pattern = 0xAA. Відповідь R7 підтверджує SD v2.0+</text>
+<rect x="565.0" y="189.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка інтерфейсу</text>
+<line x1="295.0" y1="243.0" x2="295.0" y2="256.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="243.0" x2="682.0" y2="256.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="256.0" width="510.0" height="54.0" rx="5" fill="#fef3c7" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Цикл CMD55 + ACMD41</text>
+<text x="55.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">HCS=1 (Host Capacity Support). Опитування Busy (біт 31 OCR) та CCS (біт 30 OCR)</text>
+<rect x="565.0" y="256.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан: Ready (SDHC/SDXC)</text>
+<line x1="295.0" y1="310.0" x2="295.0" y2="323.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="310.0" x2="682.0" y2="323.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="323.0" width="510.0" height="54.0" rx="5" fill="#dcfce7" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">5. CMD2 (ALL_SEND_CID)</text>
+<text x="55.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Зчитування 128-бітного ідентифікатора карти (виробник, OEM, серійний номер)</text>
+<rect x="565.0" y="323.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан: Identification State</text>
+<line x1="295.0" y1="377.0" x2="295.0" y2="390.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="377.0" x2="682.0" y2="390.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="390.0" width="510.0" height="54.0" rx="5" fill="#e0e7ff" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">6. CMD3 (SEND_RELATIVE_ADDR)</text>
+<text x="55.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Карта публікує відносну адресу RCA (16 бітів) та повертає статус R6</text>
+<rect x="565.0" y="390.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан: Standby State</text>
+<line x1="295.0" y1="444.0" x2="295.0" y2="457.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="444.0" x2="682.0" y2="457.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="457.0" width="510.0" height="54.0" rx="5" fill="#fae8ff" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">7. CMD7 (SELECT_CARD з RCA)</text>
+<text x="55.0" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Вибір активної карти на спільній шині, перехід до передачі даних</text>
+<rect x="565.0" y="457.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="489.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Стан: Transfer (Data Mode)</text>
+<line x1="295.0" y1="511.0" x2="295.0" y2="524.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="511.0" x2="682.0" y2="524.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="524.0" width="510.0" height="54.0" rx="5" fill="#eef2ff" stroke="#333333" stroke-width="1.1"/>
+<text x="55.0" y="544.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">8. CMD55 + ACMD6 (SET_BUS_WIDTH)</text>
+<text x="55.0" y="564.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Аргумент 0x02: перемикання з 1-бітового на 4-бітовий паралельний режим шини</text>
+<rect x="565.0" y="524.0" width="235.0" height="54.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="682.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Готовність до читання/запису</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовне резистивне узгодження на передавачі (Source Series Termination)</text>
+<text x="120.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Джерело TX</text>
+<rect x="45.0" y="80.0" width="65.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="77.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">TX</text>
+<text x="77.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">R_S ≈ 20Ω</text>
+<rect x="135.0" y="105.0" width="55.0" height="30.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="162.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">R_term</text>
+<line x1="110.0" y1="120.0" x2="135.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="190.0" y1="120.0" x2="220.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="162.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">R_S + R_term = Z₀ (50Ω)</text>
+<line x1="220.0" y1="120.0" x2="520.0" y2="120.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="45.0" y1="150.0" x2="590.0" y2="150.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="370.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Довга лінія Z₀ = 50Ω, час затримки t_prop</text>
+<rect x="520.0" y="80.0" width="75.0" height="80.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="557.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">RX (Gate)</text>
+<text x="557.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">R_L ≈ ∞</text>
+<line x1="240.0" y1="132.0" x2="330.0" y2="132.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="285.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1. Пряма хвиля V = V_DD / 2 (1.65В)</text>
+<text x="605.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">2. На кінці RX:</text>
+<text x="605.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">Г_L = +1.0</text>
+<text x="605.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">V = 2 · (V_DD/2) = V_DD</text>
+<line x1="470.0" y1="138.0" x2="380.0" y2="138.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="425.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3. Відбита хвиля повертається ←</text>
+<text x="205.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">БЕЗ узгодження (R_term = 0)</text>
+<line x1="70.0" y1="290.0" x2="340.0" y2="290.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="70.0" y1="290.0" x2="70.0" y2="195.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="70.0" y1="230.0" x2="340.0" y2="230.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2,2"/>
+<text x="65.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">3.3В</text>
+<path d="M 70.0,290.0 L 100.0,290.0 L 106.0,200.0 L 135.0,250.0 L 165.0,215.0 L 200.0,235.0 L 240.0,228.0 L 280.0,230.0 L 335.0,230.0" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="190.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">Дзвін та перенапруга</text>
+<text x="575.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">З ПОСЛІДОВНИМ узгодженням (R_term = 30Ω)</text>
+<line x1="440.0" y1="290.0" x2="710.0" y2="290.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="440.0" y1="290.0" x2="440.0" y2="195.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="440.0" y1="230.0" x2="710.0" y2="230.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2,2"/>
+<text x="435.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">3.3В</text>
+<path d="M 440.0,290.0 L 470.0,290.0 L 482.0,230.0 L 705.0,230.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<text x="570.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">Чистий плаский фронт без коливань</text>
+<rect x="45.0" y="325.0" width="690.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#475569" stroke-width="1.5"/><text x="390.0" y="363.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Чому послідовне узгодження ідеальне для односторонніх ліній (SPI SCK, UART TX):</tspan><tspan x="390.0" dy="11.7">1. Нульове постійне споживання струму: на приймачі стоїть розімкнене коло (R_L ≈ ∞), тому струм тече лише під час перемикання.</tspan><tspan x="390.0" dy="11.7">2. Повне поглинання відбиття: на боці передавача загальний опір дорівнює Z₀, тож коефіцієнт відбиття Г_S = 0.</tspan><tspan x="390.0" dy="11.7">3. Правило розміщення: резистор R_term повинен стояти ЯКНАЙБЛИЖЧЕ до виводу мікроконтролера (TX/SCK), до початку довгої лінії.</tspan></text>
+</svg>

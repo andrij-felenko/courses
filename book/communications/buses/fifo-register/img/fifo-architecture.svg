@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна структура буфера FIFO всередині давача</text>
+<text x="450.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">тракт оцифрування · SRAM-пам'ять · вказівники · поріг заповнення · шинний порт</text>
+<rect x="40.0" y="75.0" width="200.0" height="310.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="140.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт вимірювання</text>
+<text x="140.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">домен такту ADC / DSP</text>
+<rect x="55.0" y="135.0" width="170.0" height="42.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MEMS Акселерометр</text>
+<rect x="55.0" y="190.0" width="170.0" height="42.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MEMS Гіроскоп</text>
+<rect x="55.0" y="245.0" width="170.0" height="42.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">АЦП та цифровий фільтр</text>
+<rect x="55.0" y="305.0" width="170.0" height="55.0" rx="5" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">FIFO_EN (маска)</text>
+<text x="140.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">селектор потоків осей</text>
+<line x1="240.0" y1="332.0" x2="290.0" y2="332.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="265.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">push</text>
+<rect x="290.0" y="75.0" width="300.0" height="310.0" rx="8" fill="#f0f9ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="440.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Кільцевий буфер SRAM (FIFO)</text>
+<text x="440.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">512–4096 байтів / апаратні комірки</text>
+<rect x="310.0" y="135.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="440.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Слот 0 (найстаріший)</text>
+<rect x="310.0" y="165.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="440.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Слот 1</text>
+<rect x="310.0" y="195.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="440.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Слот 2</text>
+<rect x="310.0" y="225.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="440.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">...</text>
+<rect x="310.0" y="255.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="440.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Слот N-1 (найновіший)</text>
+<rect x="310.0" y="295.0" width="125.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="372.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Write Pointer</text>
+<text x="372.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">автоінкремент</text>
+<text x="372.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">по запису АЦП</text>
+<rect x="445.0" y="295.0" width="125.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="507.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Read Pointer</text>
+<text x="507.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">автоінкремент</text>
+<text x="507.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">по вичитці SPI</text>
+<rect x="610.0" y="75.0" width="250.0" height="310.0" rx="8" fill="#fdfbf7" stroke="#b07a00" stroke-width="1.2"/>
+<text x="735.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b07a00" text-anchor="middle" font-weight="700">Регістри та логіка</text>
+<text x="735.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">домен SPI / I2C шини</text>
+<rect x="625.0" y="135.0" width="220.0" height="52.0" rx="5" fill="#ffffff" stroke="#b07a00" stroke-width="1.2"/>
+<text x="735.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b07a00" text-anchor="middle" font-weight="700">Порівнювач Watermark</text>
+<text x="735.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FIFO_COUNT &gt;= WTM_THS</text>
+<rect x="625.0" y="195.0" width="220.0" height="52.0" rx="5" fill="#ffffff" stroke="#b07a00" stroke-width="1.2"/>
+<text x="735.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b07a00" text-anchor="middle" font-weight="700">FIFO_STATUS / COUNT</text>
+<text x="735.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кількість незчитаних байтів</text>
+<rect x="625.0" y="255.0" width="220.0" height="52.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="735.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">FIFO_DATA_OUT (0x78)</text>
+<text x="735.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вікно пакетного читання</text>
+<rect x="625.0" y="318.0" width="105.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="677.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">INT Pin</text>
+<text x="677.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">WTM / OVR</text>
+<rect x="740.0" y="318.0" width="105.0" height="45.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="792.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SPI / I2C</text>
+<text x="792.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Burst DMA</text>
+<line x1="570.0" y1="281.0" x2="625.0" y2="281.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="597.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">pop</text>
+<rect x="40.0" y="400.0" width="820.0" height="42.0" rx="6" fill="#f2f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="450.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">FIFO розв'язує тактові домени: АЦП пише у пам'ять стабільно за власним таймером, а мікроконтролер вичитує пакетами коли зручно.</text>
+</svg>

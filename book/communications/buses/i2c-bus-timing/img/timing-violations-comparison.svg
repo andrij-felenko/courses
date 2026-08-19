@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="410.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="440.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порушення часових інтервалів: спотворення даних та помилкові умови START/STOP</text>
+<rect x="30.0" y="55.0" width="265.0" height="290.0" rx="6" fill="#fef2f2" stroke="#d9534f" stroke-width="1.2"/>
+<rect x="30.0" y="55.0" width="265.0" height="28.0" rx="6" fill="#fee2e2" stroke="#d9534f" stroke-width="1.0"/>
+<text x="162.5" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="middle" font-weight="700">1. Фальшивий START/STOP</text>
+<text x="45.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">SCL</text>
+<text x="45.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">SDA</text>
+<line x1="75.0" y1="120.0" x2="275.0" y2="120.0" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="75.0,155.0 140.0,155.0 160.0,195.0 200.0,195.0 220.0,155.0 275.0,155.0" fill="none" stroke="#d9534f" stroke-width="2.2"/>
+<circle cx="160.0" cy="175.0" r="12.0" fill="none" stroke="#d9534f" stroke-width="1.5"/>
+<text x="160.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">Фальш. START</text>
+<text x="220.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">Фальш. STOP</text>
+<rect x="40.0" y="240.0" width="245.0" height="95.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="162.5" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">Причина: перешкода на SDA</text>
+<text x="162.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">при високому рівні SCL.</text>
+<text x="162.5" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідок: апаратне скидання</text>
+<text x="162.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">скриньки станів кінцевого автомата.</text>
+<rect x="310.0" y="55.0" width="265.0" height="290.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<rect x="310.0" y="55.0" width="265.0" height="28.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.0"/>
+<text x="442.5" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">2. Порушення t_SU;DAT</text>
+<text x="325.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">SCL</text>
+<text x="325.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">SDA</text>
+<polyline points="355.0,140.0 450.0,140.0 470.0,100.0 555.0,100.0" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="355.0,195.0 455.0,195.0 475.0,155.0 555.0,155.0" fill="none" stroke="#d9534f" stroke-width="2.2"/>
+<line x1="470.0" y1="95.0" x2="470.0" y2="200.0" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="442.5" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">Δt &lt; t_SU;DAT(min)</text>
+<rect x="320.0" y="240.0" width="245.0" height="95.0" rx="4" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="442.5" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">Причина: запізніла зміна SDA</text>
+<text x="442.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">перед наростанням SCL.</text>
+<text x="442.5" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідок: метастабільність або</text>
+<text x="442.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">зчитування хибного значення біта.</text>
+<rect x="590.0" y="55.0" width="265.0" height="290.0" rx="6" fill="#f5f3ff" stroke="#8e44ad" stroke-width="1.2"/>
+<rect x="590.0" y="55.0" width="265.0" height="28.0" rx="6" fill="#ede9fe" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="722.5" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">3. Недостатній t_BUF</text>
+<text x="605.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">SCL</text>
+<text x="605.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">SDA</text>
+<line x1="635.0" y1="120.0" x2="835.0" y2="120.0" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="635.0,195.0 690.0,155.0 720.0,155.0 740.0,195.0 835.0,195.0" fill="none" stroke="#8e44ad" stroke-width="2.2"/>
+<text x="690.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">STOP</text>
+<text x="750.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">START</text>
+<line x1="690.0" y1="170.0" x2="690.0" y2="180.0" stroke="#8e44ad" stroke-width="1.2"/><line x1="740.0" y1="170.0" x2="740.0" y2="180.0" stroke="#8e44ad" stroke-width="1.2"/><line x1="690.0" y1="175.0" x2="740.0" y2="175.0" stroke="#8e44ad" stroke-width="1.2"/><polyline points="694.0,172.5 690.0,175.0 694.0,177.5" fill="none" stroke="#8e44ad" stroke-width="1.2"/><polyline points="736.0,172.5 740.0,175.0 736.0,177.5" fill="none" stroke="#8e44ad" stroke-width="1.2"/><text x="715.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">t_BUF закороткий</text>
+<rect x="600.0" y="240.0" width="245.0" height="95.0" rx="4" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.0"/>
+<text x="722.5" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">Причина: ведучий почав обмін</text>
+<text x="722.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">одразу після STOP без паузи.</text>
+<text x="722.5" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідок: ведені не встигли</text>
+<text x="722.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">скинути внутрішні логічні стани.</text>
+<rect x="30.0" y="360.0" width="820.0" height="55.0" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="440.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суворе дотримання параметрів NXP UM10204 виключає збої та десинхронізацію пристроїв на спільній шині.</text>
+<text x="440.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Апаратні фільтри придушення імпульсних завад (t_SP &lt;= 50 нс) відсікають випадкові шуми на фронтах сигналів.</text>
+</svg>

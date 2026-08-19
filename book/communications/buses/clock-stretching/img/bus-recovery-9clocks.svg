@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="360.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">Процедура розблокування шини (Bus Clear): генерація 9 імпульсів SCL</text>
+<text x="40.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">SCL (Master
+Recovery)</text>
+<text x="40.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="start" font-weight="700">SDA (Stuck
+Slave)</text>
+<text x="40.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Стан шини</text>
+<text x="182.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">1</text>
+<text x="224.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">2</text>
+<text x="266.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">3</text>
+<text x="308.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">4</text>
+<text x="350.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">5</text>
+<text x="392.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">6</text>
+<text x="434.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">7</text>
+<text x="476.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">8</text>
+<text x="518.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">9</text>
+<path d="M 160 115 H 175 V 85 H 190 V 115 H 217 V 85 H 232 V 115 H 259 V 85 H 274 V 115 H 301 V 85 H 316 V 115 H 343 V 85 H 358 V 115 H 385 V 85 H 400 V 115 H 427 V 85 H 442 V 115 H 469 V 85 H 484 V 115 H 511 V 85 H 526 V 115 H 558 V 85 H 648" fill="none" stroke="#2563eb" stroke-width="2"/>
+<path d="M 160 205 H 390 V 175 H 608 V 205 H 628 V 175 H 648" fill="none" stroke="#dc2626" stroke-width="2"/>
+<text x="265.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">Ведений тримав SDA=0</text>
+<text x="454.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">Ведений завершив байт і відпустив SDA (High-Z)</text>
+<rect x="588.0" y="65.0" width="75.0" height="160.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.0"/>
+<text x="625.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">STOP</text>
+<text x="625.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SDA: 0→1 при SCL=1</text>
+<rect x="93.7" y="303.5" width="652.7" height="43.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="420.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">1. Переведення пінів у режим GPIO (Bit-Banging)  →  2. Генерація до 9 тактів SCL (виштовхування бітів веденого)</tspan><tspan x="420.0" dy="13.0">3. Моніторинг SDA: якщо SDA став '1', ведений відпустив шину  →  4. Формування сигналу STOP для скидання стану</tspan></text>
+</svg>

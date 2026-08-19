@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конкуренція задач та архітектура захисту шин в RTOS</text>
+<rect x="30.0" y="55.0" width="370.0" height="270.0" rx="6" fill="#fdecea" stroke="#d9534f" stroke-width="1.8"/>
+<text x="215.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d9534f" text-anchor="middle" font-weight="700">Помилка: прямий доступ без захисту</text>
+<rect x="50.0" y="100.0" width="140.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="120.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача A (Telemetry)</text>
+<rect x="240.0" y="100.0" width="140.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="310.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача B (Display)</text>
+<rect x="145.0" y="155.0" width="140.0" height="42.0" rx="6" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="215.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="middle" font-weight="700">Переривання (ISR)</text>
+<line x1="120.0" y1="142.0" x2="180.0" y2="225.0" stroke="#d9534f" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="142.0" x2="250.0" y2="225.0" stroke="#d9534f" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="215.0" y1="197.0" x2="215.0" y2="225.0" stroke="#d9534f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="125.0" y="228.0" width="180.0" height="48.0" rx="6" fill="#fee2e2" stroke="#d9534f" stroke-width="2.0"/>
+<text x="215.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d9534f" text-anchor="middle" font-weight="700">Апаратний драйвер SPI/I2C</text>
+<text x="215.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">КОНФЛІКТ РЕЄСТРІВ / ДЕДЛОК</text>
+<text x="215.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d9534f" text-anchor="middle" font-weight="700">М'ютекс у ISR викликає паніку ядра!</text>
+<rect x="430.0" y="55.0" width="380.0" height="270.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="620.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Правильно: шлюз / менеджер шини</text>
+<rect x="450.0" y="100.0" width="130.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="515.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Задача A</text>
+<rect x="660.0" y="100.0" width="130.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="725.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Задача B</text>
+<rect x="500.0" y="155.0" width="240.0" height="48.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="620.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Черга повідомлень (Queue)</text>
+<text x="620.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">або Mutex + Priority Inheritance</text>
+<line x1="515.0" y1="142.0" x2="560.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="142.0" x2="680.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="203.0" x2="620.0" y2="228.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="520.0" y="228.0" width="200.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="620.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Єдиний потік-менеджер шини</text>
+<text x="620.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Bus Server / Arbiter)</text>
+<text x="620.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Транзакції атомарні, черги DMA захищені</text>
+<text x="420.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Централізований шлюз шини запобігає пошкодженню транзакцій та зависанню переривань</text>
+</svg>

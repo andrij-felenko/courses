@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+    </marker>
+    <marker id="arrow-neg" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+<rect x="0.0" y="0.0" width="900.0" height="320.0" rx="0" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="450.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура транзакції SMBus Write Word із контрольним байтом PEC</text>
+<rect x="55.0" y="70.0" width="30.0" height="38.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="70.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<rect x="95.0" y="70.0" width="110.0" height="38.0" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="150.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Slave Addr + Wr</text>
+<rect x="207.0" y="70.0" width="26.0" height="38.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="220.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="242.5" y="70.0" width="115.0" height="38.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="300.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Command Code</text>
+<rect x="357.0" y="70.0" width="26.0" height="38.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="370.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="395.0" y="70.0" width="130.0" height="38.0" rx="4" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="460.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Data Low (D0–D7)</text>
+<rect x="527.0" y="70.0" width="26.0" height="38.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="540.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="565.0" y="70.0" width="140.0" height="38.0" rx="4" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="635.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Data High (D8–D15)</text>
+<rect x="707.0" y="70.0" width="26.0" height="38.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="720.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="740.0" y="70.0" width="90.0" height="38.0" rx="4" fill="#fce7f3" stroke="#ec4899" stroke-width="1.5"/>
+<text x="785.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PEC (CRC-8)</text>
+<rect x="832.0" y="70.0" width="26.0" height="38.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="845.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="862.0" y="70.0" width="26.0" height="38.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="875.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P</text>
+<line x1="95.0" y1="130.0" x2="95.0" y2="145.0" stroke="#db2777" stroke-width="1.5"/>
+<line x1="95.0" y1="145.0" x2="740.0" y2="145.0" stroke="#db2777" stroke-width="1.5"/>
+<line x1="740.0" y1="145.0" x2="740.0" y2="130.0" stroke="#db2777" stroke-width="1.5"/>
+<line x1="740.0" y1="145.0" x2="785.0" y2="115.0" stroke="#db2777" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#db2777" text-anchor="middle" font-weight="700">Обчислення CRC-8 (поліном C(x) = x⁸ + x² + x + 1, ініціалізація 0x00)</text>
+<rect x="50.0" y="195.0" width="800.0" height="105.0" rx="6" fill="#fdf2f8" stroke="#f472b6" stroke-width="1.2"/>
+<text x="70.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9d174d" text-anchor="start" font-weight="700">Ключові правила функціонування PEC (Packet Error Checking):</text>
+<text x="70.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Поліном CRC-8: x⁸ + x² + x + 1 (позначення 0x07 або 0x107). Початковий залишок — 0x00.</text>
+<text x="70.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Охоплення: всі байти від стартового біта (адреса, біти R/W, код команди, лічильник кількості та дані).</text>
+<text x="70.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Обробка помилки: якщо ведений виявляє невідповідність PEC при записі, він генерує NACK і відкидає дані.</text>
+</svg>

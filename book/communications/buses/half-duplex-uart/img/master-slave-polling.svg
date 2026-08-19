@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл опитування Master-Slave Polling</text>
+<rect x="30.0" y="20.0" width="840.0" height="345.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="50.0" y="32.0" width="800.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="49.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Цикл опитування «Господар — Підлеглий» (Master-Slave Polling)</tspan></text>
+<line x1="60.0" y1="110.0" x2="840.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="60.0" y1="110.0" x2="835.0" y2="110.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="830.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Час t</text>
+<rect x="70.0" y="75.0" width="130.0" height="30.0" rx="4" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="135.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Запит [ID=1, CMD]</text>
+<rect x="200.0" y="85.0" width="35.0" height="20.0" rx="6" fill="#fef8ee" stroke="#d97706" stroke-width="1.0"/>
+<text x="217.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">T_grd</text>
+<rect x="235.0" y="75.0" width="135.0" height="30.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="302.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Відповідь [ID=1, DATA]</text>
+<rect x="370.0" y="85.0" width="45.0" height="20.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="392.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t_idle</text>
+<rect x="415.0" y="75.0" width="130.0" height="30.0" rx="4" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="480.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Запит [ID=2, CMD]</text>
+<rect x="545.0" y="68.0" width="150.0" height="42.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Вікно таймауту T_timeout</text>
+<text x="620.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">(Вузол 2 не відповідає)</text>
+<rect x="700.0" y="75.0" width="120.0" height="30.0" rx="4" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="760.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Запит [ID=3, CMD]</text>
+<rect x="60.0" y="145.0" width="365.0" height="195.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="242.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Дисципліна обміну «Запит — Відповідь»</text>
+<text x="75.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Ведений ніколи не передає без прямого запиту</text>
+<text x="75.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Широкомовні команди (Broadcast) виконуються</text>
+<text x="75.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  всіма вузлами БЕЗ підтвердження (ACK)</text>
+<text x="75.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">• Захисний інтервал T_grd унеможливлює колізію</text>
+<text x="75.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Сувора адресація: кожен кадр містить унікальний ID</text>
+<text x="75.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Контрольна сума (CRC16/CRC32) валідує цілісність</text>
+<rect x="455.0" y="145.0" width="385.0" height="195.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="647.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Обробка помилок та захист від зависання</text>
+<text x="470.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Якщо ведений відключений або пошкоджений,</text>
+<text x="470.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">  таймер T_timeout спрацьовує і звільняє шину</text>
+<text x="470.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• T_timeout = T_turnaround + T_frame + T_margin</text>
+<text x="470.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Лічильник повторних спроб (Retry Count, 1..3)</text>
+<text x="470.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">• Після вичерпання спроб — фіксація збою вузла</text>
+<text x="470.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  та перехід до опитування наступного ID</text>
+</svg>

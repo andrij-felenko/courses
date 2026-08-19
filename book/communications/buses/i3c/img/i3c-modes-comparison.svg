@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція швидкості: I2C Fast-Mode Plus, I3C SDR та I3C HDR-DDR</text>
+<text x="470.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Відкритий стік (1 Мбіт/с) → Однотактний Push-Pull (12.5 Мбіт/с) → Двоточковий такт DDR (25 Мбіт/с)</text>
+<rect x="50.0" y="75.0" width="840.0" height="105.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="65.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. I2C Fast-Mode Plus (Fm+): 1 МГц Open-Drain</text>
+<text x="65.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Повільні спади/фронти через підтяжку R_pullup; 9 тактів на байт (8 біт + ACK); максимум 0.89 Мбіт/с</text>
+<rect x="50.0" y="195.0" width="840.0" height="105.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="65.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. I3C SDR (Single Data Rate): 12.5 МГц Push-Pull</text>
+<text x="65.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Активне керування лініями; зчитування по спаду/фронту SCL; 9 тактів на байт (8 біт + T-біт); до 12.5 Мбіт/с</text>
+<rect x="50.0" y="315.0" width="840.0" height="105.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="65.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. I3C HDR-DDR (Double Data Rate): 12.5 МГц / 25 Мбіт/с</text>
+<text x="65.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Подвійна швидкість: дані передаються і на наростаючому, і на спадному фронті SCL; корисний потік до 25 Мбіт/с</text>
+<text x="75.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">SDA</text>
+<line x1="120.0" y1="155.0" x2="150.0" y2="155.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="150.0" y1="155.0" x2="170.0" y2="125.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="170.0" y1="125.0" x2="240.0" y2="125.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="240.0" y1="125.0" x2="245.0" y2="155.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="245.0" y1="155.0" x2="310.0" y2="155.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="310.0" y1="155.0" x2="335.0" y2="125.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="335.0" y1="125.0" x2="420.0" y2="125.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="500.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">1 біт = 1000 нс (RC затримка обмежує підйом сигналу)</text>
+<text x="75.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">SDA</text>
+<line x1="120.0" y1="273.0" x2="122.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="122.0" y1="243.0" x2="140.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="140.0" y1="243.0" x2="142.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="142.0" y1="273.0" x2="160.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="160.0" y1="273.0" x2="162.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="162.0" y1="243.0" x2="180.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="180.0" y1="243.0" x2="182.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="182.0" y1="273.0" x2="200.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="200.0" y1="273.0" x2="202.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="202.0" y1="243.0" x2="220.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="220.0" y1="243.0" x2="222.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="222.0" y1="273.0" x2="240.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="240.0" y1="273.0" x2="242.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="242.0" y1="243.0" x2="260.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="260.0" y1="243.0" x2="262.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="262.0" y1="273.0" x2="280.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="280.0" y1="273.0" x2="282.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="282.0" y1="243.0" x2="300.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="300.0" y1="243.0" x2="302.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="302.0" y1="273.0" x2="320.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="320.0" y1="273.0" x2="322.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="322.0" y1="243.0" x2="340.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="340.0" y1="243.0" x2="342.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="342.0" y1="273.0" x2="360.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="360.0" y1="273.0" x2="362.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="362.0" y1="243.0" x2="380.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="380.0" y1="243.0" x2="382.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="382.0" y1="273.0" x2="400.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="400.0" y1="273.0" x2="402.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="402.0" y1="243.0" x2="420.0" y2="243.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="420.0" y1="243.0" x2="422.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="422.0" y1="273.0" x2="440.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="500.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">1 біт = 80 нс (12.5 МГц активні фронти Push-Pull)</text>
+<text x="75.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">SDA</text>
+<line x1="120.0" y1="393.0" x2="121.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="121.0" y1="363.0" x2="130.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="130.0" y1="363.0" x2="131.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="131.0" y1="393.0" x2="140.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="140.0" y1="393.0" x2="141.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="141.0" y1="363.0" x2="150.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="150.0" y1="363.0" x2="151.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="151.0" y1="393.0" x2="160.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="160.0" y1="393.0" x2="161.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="161.0" y1="363.0" x2="170.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="170.0" y1="363.0" x2="171.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="171.0" y1="393.0" x2="180.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="180.0" y1="393.0" x2="181.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="181.0" y1="363.0" x2="190.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="190.0" y1="363.0" x2="191.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="191.0" y1="393.0" x2="200.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="200.0" y1="393.0" x2="201.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="201.0" y1="363.0" x2="210.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="210.0" y1="363.0" x2="211.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="211.0" y1="393.0" x2="220.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="220.0" y1="393.0" x2="221.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="221.0" y1="363.0" x2="230.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="230.0" y1="363.0" x2="231.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="231.0" y1="393.0" x2="240.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="240.0" y1="393.0" x2="241.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="241.0" y1="363.0" x2="250.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="250.0" y1="363.0" x2="251.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="251.0" y1="393.0" x2="260.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="260.0" y1="393.0" x2="261.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="261.0" y1="363.0" x2="270.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="270.0" y1="363.0" x2="271.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="271.0" y1="393.0" x2="280.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="280.0" y1="393.0" x2="281.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="281.0" y1="363.0" x2="290.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="290.0" y1="363.0" x2="291.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="291.0" y1="393.0" x2="300.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="300.0" y1="393.0" x2="301.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="301.0" y1="363.0" x2="310.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="310.0" y1="363.0" x2="311.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="311.0" y1="393.0" x2="320.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="320.0" y1="393.0" x2="321.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="321.0" y1="363.0" x2="330.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="330.0" y1="363.0" x2="331.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="331.0" y1="393.0" x2="340.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="340.0" y1="393.0" x2="341.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="341.0" y1="363.0" x2="350.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="350.0" y1="363.0" x2="351.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="351.0" y1="393.0" x2="360.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="360.0" y1="393.0" x2="361.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="361.0" y1="363.0" x2="370.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="370.0" y1="363.0" x2="371.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="371.0" y1="393.0" x2="380.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="380.0" y1="393.0" x2="381.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="381.0" y1="363.0" x2="390.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="390.0" y1="363.0" x2="391.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="391.0" y1="393.0" x2="400.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="400.0" y1="393.0" x2="401.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="401.0" y1="363.0" x2="410.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="410.0" y1="363.0" x2="411.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="411.0" y1="393.0" x2="420.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="420.0" y1="393.0" x2="421.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="421.0" y1="363.0" x2="430.0" y2="363.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="430.0" y1="363.0" x2="431.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="431.0" y1="393.0" x2="440.0" y2="393.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="500.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">1 біт = 40 нс (25 Мбіт/с подвійна передача на такт SCL)</text>
+</svg>

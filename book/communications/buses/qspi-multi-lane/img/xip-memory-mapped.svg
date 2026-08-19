@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="840.0" height="440.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="430.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура прямого виконання коду з Flash-пам'яті (Execute-in-Place / XIP)</text>
+<rect x="30.0" y="70.0" width="140.0" height="180.0" rx="6" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="100.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">CPU Ядро</text>
+<text x="100.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(ARM Cortex-M7</text>
+<text x="100.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">/ RISC-V)</text>
+<rect x="40.0" y="150.0" width="120.0" height="45.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="100.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">PC: 0x9000_1240</text>
+<text x="100.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Fetch 32-bit Inst</text>
+<line x1="170.0" y1="160.0" x2="220.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="195.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">AXI / AHB</text>
+<rect x="220.0" y="70.0" width="180.0" height="180.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+<text x="310.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Кеш / Prefetch Буфер</text>
+<text x="310.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(L1 I-Cache / ART)</text>
+<rect x="230.0" y="135.0" width="160.0" height="45.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="310.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Cache Hit → 0 тактів</text>
+<text x="310.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Cache Miss → Burst Read</text>
+<text x="310.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Line Fill (32 байти)</text>
+<line x1="400.0" y1="160.0" x2="450.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="425.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">32B Burst</text>
+<rect x="450.0" y="70.0" width="190.0" height="180.0" rx="6" fill="#f1f5f9" stroke="#7a5fb0" stroke-width="1.6"/>
+<text x="545.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7a5fb0" text-anchor="middle" font-weight="700">Апаратний QSPI Блок</text>
+<text x="545.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Memory-Mapped Engine</text>
+<rect x="460.0" y="130.0" width="170.0" height="50.0" rx="4" fill="#ffffff" stroke="#7a5fb0" stroke-width="1.0"/>
+<text x="545.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат транзакцій:</text>
+<text x="545.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Fast Read Quad I/O (0xEB)</text>
+<text x="545.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Режим Continuous Read</text>
+<text x="545.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(без повтору коду 0xEB)</text>
+<line x1="640.0" y1="160.0" x2="690.0" y2="160.0" stroke="#7a5fb0" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="665.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7a5fb0" text-anchor="middle" font-weight="700">6 ліній</text>
+<rect x="690.0" y="70.0" width="140.0" height="180.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="760.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">NOR Flash</text>
+<text x="760.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(W25Q / IS25LP)</text>
+<rect x="700.0" y="135.0" width="120.0" height="45.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="760.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Адресний простір:</text>
+<text x="760.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">0x9000_0000...</text>
+<text x="760.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7a5fb0" text-anchor="middle" font-weight="700">133 МГц Quad QIO</text>
+<rect x="30.0" y="275.0" width="800.0" height="165.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність подій при зверненні процесора до зовнішньої Flash-пам'яті</text>
+<text x="45.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">1. Fetch за адресою</text>
+<text x="210.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Ядро запитує інструкцію за адресою 0x90001240 через шину AHB/AXI.</text>
+<text x="45.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start" font-weight="700">2. Перевірка L1 Cache</text>
+<text x="210.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Якщо рядок кешу є (Cache Hit) — інструкція видається за 0 тактів очікування.</text>
+<text x="45.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7a5fb0" text-anchor="start" font-weight="700">3. Апаратний Burst</text>
+<text x="210.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">При Cache Miss контролер QSPI самостійно формує транзакцію 0xEB на шині.</text>
+<text x="45.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">4. Вибірка 32 байтів</text>
+<text x="210.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Flash передає 32 байти по 4 лініях IO0..IO3 за 64 такти тактового сигналу.</text>
+<text x="45.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">5. Заповнення рядка</text>
+<text x="210.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Рядок кешу заповнюється, конвеєр CPU продовжує виконання без участі ПЗ.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Співіснування 7-бітних та 10-бітних ведених на одній шині</text>
+<line x1="80.0" y1="110.0" x2="760.0" y2="110.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="80.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">SDA / SCL  (ведучий шле 1-й байт: 1111 001 0)</text>
+<line x1="190.0" y1="110.0" x2="190.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="110.0" y="150.0" width="160.0" height="120.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="190.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">7-бітний</text>
+<text x="190.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x48 (1001000b)</text>
+<text x="190.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11110xx ≠ 0x48</text>
+<text x="190.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ мовчить (NACK)</text>
+<line x1="390.0" y1="110.0" x2="390.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="310.0" y="150.0" width="160.0" height="120.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="390.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">7-бітний</text>
+<text x="390.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x68 (1101000b)</text>
+<text x="390.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11110xx ≠ 0x68</text>
+<text x="390.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ мовчить (NACK)</text>
+<line x1="610.0" y1="110.0" x2="610.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="520.0" y="150.0" width="180.0" height="120.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="610.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">10-бітний</text>
+<text x="610.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x248 (10 0100 1000b)</text>
+<text x="610.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">A9..A8 збіглися → ACK 1</text>
+<text x="610.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">A7..A0 збіглися → ACK 2</text>
+<text x="610.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">→ приймає дані</text>
+<rect x="60.0" y="304.0" width="720.0" height="34.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="324.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">7-бітні чіпи ігнорують префікс 11110 і другий байт адреси, тому обидва стандарти безпечно ділять спільну пару дротів</tspan></text>
+</svg>

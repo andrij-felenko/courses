@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовне просування байтів крізь зсувні регістри мікросхем</text>
+<rect x="10.0" y="10.0" width="800.0" height="440.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="410.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм просування даних у 3-ланковому каскаді (N=3)</text>
+<text x="410.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Порядок надсилання байтів ведучим: [ Байт для IC3 ] → [ Байт для IC2 ] → [ Байт для IC1 ]</text>
+<rect x="25.0" y="85.0" width="770.0" height="72.0" rx="4" fill="#fdfdfe" stroke="#d8dee4" stroke-width="1.2"/>
+<text x="35.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 1: Початок транзакції (CS переходить у 0)</text>
+<text x="35.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Ведучий надсилає Байт 3. Байт потрапляє у зсувний регістр IC1.</text>
+<rect x="450.0" y="115.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="495.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 1</text>
+<text x="495.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Байт 3</text>
+<line x1="543.0" y1="131.0" x2="562.0" y2="131.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="565.0" y="115.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="610.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 2</text>
+<text x="610.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">порожньо</text>
+<line x1="658.0" y1="131.0" x2="677.0" y2="131.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="680.0" y="115.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="725.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 3</text>
+<text x="725.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">порожньо</text>
+<rect x="25.0" y="167.0" width="770.0" height="72.0" rx="4" fill="#fdfdfe" stroke="#d8dee4" stroke-width="1.2"/>
+<text x="35.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 2: Зсув другого байта (після 16 тактів)</text>
+<text x="35.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Байт 3 витісняється через SDO1 в IC2; Байт 2 займає регістр IC1.</text>
+<rect x="450.0" y="197.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="495.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 1</text>
+<text x="495.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Байт 2</text>
+<line x1="543.0" y1="213.0" x2="562.0" y2="213.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="565.0" y="197.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="610.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 2</text>
+<text x="610.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Байт 3</text>
+<line x1="658.0" y1="213.0" x2="677.0" y2="213.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="680.0" y="197.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="725.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 3</text>
+<text x="725.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">порожньо</text>
+<rect x="25.0" y="249.0" width="770.0" height="72.0" rx="4" fill="#fdfdfe" stroke="#d8dee4" stroke-width="1.2"/>
+<text x="35.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Фаза 3: Зсув третього байта (після 24 тактів)</text>
+<text x="35.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Байт 3 досяг IC3, Байт 2 став у IC2, Байт 1 зайняв IC1.</text>
+<rect x="450.0" y="279.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="495.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 1</text>
+<text x="495.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Байт 1</text>
+<line x1="543.0" y1="295.0" x2="562.0" y2="295.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="565.0" y="279.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="610.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 2</text>
+<text x="610.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Байт 2</text>
+<line x1="658.0" y1="295.0" x2="677.0" y2="295.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="680.0" y="279.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="725.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 3</text>
+<text x="725.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Байт 3</text>
+<rect x="25.0" y="331.0" width="770.0" height="72.0" rx="4" fill="#f6fbf7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="35.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Фаза 4: Фіксація (Фронт CS 0 → 1)</text>
+<text x="35.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Одночасне замикання тіньових регістрів виводу (Latch) на всіх мікросхемах.</text>
+<rect x="450.0" y="361.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="495.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 1</text>
+<text x="495.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вихід 1</text>
+<rect x="565.0" y="361.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="610.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 2</text>
+<text x="610.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вихід 2</text>
+<rect x="680.0" y="361.0" width="90.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="725.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">IC 3</text>
+<text x="725.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вихід 3</text>
+<text x="595.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Засувка (CS = 1): виходи оновлено синхронно</text>
+<text x="410.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Завдяки двоступеневій структурі (Shift + Latch) виходи не блимають під час зсуву</text>
+</svg>

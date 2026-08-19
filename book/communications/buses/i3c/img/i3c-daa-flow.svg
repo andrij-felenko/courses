@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічне призначення адрес (ENTDAA) та арбітраж 48-бітного ID</text>
+<text x="470.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Порозрядне порівняння Provisional ID на відкритому стоці: нуль перемагає одиницю</text>
+<rect x="50.0" y="75.0" width="260.0" height="70.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="180.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Команда контролера</text>
+<rect x="58.0" y="103.0" width="244.0" height="38.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="180.0" y="119.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="180.0" dy="0.0">Широкомовна команда CCC 0x07 (ENTDAA)</tspan><tspan x="180.0" dy="11.7">Переводить усі неініціалізовані цілі в режим DAA</tspan></text>
+<rect x="340.0" y="75.0" width="260.0" height="70.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="470.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Передача 48-біт ID + BCR/DCR</text>
+<rect x="348.0" y="103.0" width="244.0" height="38.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="470.0" y="119.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="470.0" dy="0.0">Усі цілі одночасно видають свій PID біт-за-бітом</tspan><tspan x="470.0" dy="11.7">Домінантний нуль витісняє одиницю</tspan></text>
+<rect x="630.0" y="75.0" width="260.0" height="70.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="760.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Призначення адреси</text>
+<rect x="638.0" y="103.0" width="244.0" height="38.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="760.0" y="119.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="760.0" dy="0.0">Контролер шле унікальну 7-бітну Dynamic Address</tspan><tspan x="760.0" dy="11.7">Переможець вимикається з подальших раундів DAA</tspan></text>
+<line x1="310.0" y1="110.0" x2="335.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="110.0" x2="625.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="165.0" width="840.0" height="205.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="470.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приклад арбітражу на 5-му біті Provisional ID між двома давачами</text>
+<rect x="70.0" y="205.0" width="220.0" height="32.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="180.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поле / Біт</text>
+<text x="180.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">48-бітний Provisional ID</text>
+<rect x="290.0" y="205.0" width="160.0" height="32.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="370.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 1 (MSB)</text>
+<text x="370.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">MIPI Vendor ID</text>
+<rect x="450.0" y="205.0" width="160.0" height="32.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="530.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 2 .. 4</text>
+<text x="530.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Part ID</text>
+<rect x="610.0" y="205.0" width="130.0" height="32.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="675.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 5 (Конфлікт)</text>
+<text x="675.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Instance ID</text>
+<rect x="740.0" y="205.0" width="130.0" height="32.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="805.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат раунду</text>
+<text x="805.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус цілі</text>
+<rect x="70.0" y="245.0" width="220.0" height="38.0" rx="4" fill="#faf5ff" stroke="#a855f7" stroke-width="1.0"/>
+<text x="180.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b21a8" text-anchor="middle" font-weight="700">Давач A (IMU): ID = ...0...</text>
+<rect x="290.0" y="245.0" width="160.0" height="38.0" rx="4" fill="#faf5ff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="370.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0 (збіг)</text>
+<rect x="450.0" y="245.0" width="160.0" height="38.0" rx="4" fill="#faf5ff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="530.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1, 0, 1 (збіг)</text>
+<rect x="610.0" y="245.0" width="130.0" height="38.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="675.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">0 (тягне до 0)</text>
+<rect x="740.0" y="245.0" width="130.0" height="38.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="805.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">Виграв → Адреса 0x08</text>
+<rect x="70.0" y="291.0" width="220.0" height="38.0" rx="4" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.0"/>
+<text x="180.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9f1239" text-anchor="middle" font-weight="700">Давач B (ToF): ID = ...1...</text>
+<rect x="290.0" y="291.0" width="160.0" height="38.0" rx="4" fill="#fff1f2" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="370.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0 (збіг)</text>
+<rect x="450.0" y="291.0" width="160.0" height="38.0" rx="4" fill="#fff1f2" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="530.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1, 0, 1 (збіг)</text>
+<rect x="610.0" y="291.0" width="130.0" height="38.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="675.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">1 (бачить на SDA 0)</text>
+<rect x="740.0" y="291.0" width="130.0" height="38.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="805.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle" font-weight="700">Програв → чекає раунд 2</text>
+<rect x="70.0" y="337.0" width="800.0" height="24.0" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="470.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-style="italic">Спільний стан лінії SDA: на 5-му біті залишається '0'. Давач B миттєво глушить свій вихід.</text>
+<rect x="50.0" y="385.0" width="840.0" height="50.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.0"/>
+<text x="470.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Повний цикл DAA повторюється доти, доки на черговий запит ENTDAA жоден пристрій не притягне SDA до нуля.</text>
+<text x="470.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Це усуває всі апаратні конфлікти статичних адрес I2C раз і назавжди без жодних DIP-перемикачів.</text>
+</svg>
