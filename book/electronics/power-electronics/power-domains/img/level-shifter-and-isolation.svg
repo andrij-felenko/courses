@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="35.0" width="395.0" height="380.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="227.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="700">Трансляція рівнів (1.0 В → 3.3 В)</text>
+<rect x="50.0" y="95.0" width="120.0" height="100.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="110.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Домен 1.0 В</text>
+<text x="110.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Логічна «1»</text>
+<text x="110.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">= 1.0 В</text>
+<rect x="230.0" y="95.0" width="175.0" height="100.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="317.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Без транслятора (3.3 В)</text>
+<text x="317.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">PMOS не закривається:</text>
+<text x="317.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">V_GS = 1.0 - 3.3 = -2.3 В</text>
+<text x="317.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Наскрізний струм (Crowbar)!</text>
+<line x1="170.0" y1="145.0" x2="230.0" y2="145.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="230.0" width="355.0" height="165.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="227.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Диференційний транслятор рівнів (Level Shifter)</text>
+<rect x="70.0" y="275.0" width="110.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="125.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">Вхід:</tspan><tspan x="125.0" dy="13.0">0 В / 1.0 В</tspan></text>
+<line x1="180.0" y1="300.0" x2="220.0" y2="300.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="220.0" y="275.0" width="80.0" height="50.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><text x="260.0" y="297.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">Cross-coupled</tspan><tspan x="260.0" dy="11.7">PMOS пара</tspan></text>
+<line x1="300.0" y1="300.0" x2="335.0" y2="300.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="335.0" y="275.0" width="55.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="362.5" y="297.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="362.5" dy="0.0">Вихід:</tspan><tspan x="362.5" dy="11.7">0..3.3 В</tspan></text>
+<text x="227.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Повний розмах 0..3.3 В без наскрізних витоків</text>
+<rect x="455.0" y="35.0" width="395.0" height="380.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="652.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0d9488" text-anchor="middle" font-weight="700">Ізоляція вимкненого домену (Isolation Cell)</text>
+<rect x="475.0" y="95.0" width="140.0" height="120.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="545.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Вимкнений домен</text>
+<text x="545.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VDD_OFF = 0 В</text>
+<text x="545.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Плаваючий вихід</text>
+<text x="545.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Z-стан / шум)</text>
+<rect x="715.0" y="95.0" width="120.0" height="120.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="775.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Активний домен</text>
+<text x="775.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">VDD_ON = 3.3 В</text>
+<text x="775.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вхідний буфер</text>
+<text x="775.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">очікує 0 або 1</text>
+<rect x="515.0" y="245.0" width="275.0" height="150.0" rx="6" fill="#ecfeff" stroke="#0d9488" stroke-width="1.8"/>
+<text x="652.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0d9488" text-anchor="middle" font-weight="700">Ізоляційний вентиль AND (Clamp to 0)</text>
+<rect x="535.0" y="290.0" width="85.0" height="40.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/><text x="577.5" y="307.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="577.5" dy="0.0">Плаваючий</tspan><tspan x="577.5" dy="11.7">сигнал X</tspan></text>
+<line x1="620.0" y1="310.0" x2="645.0" y2="310.0" stroke="#0d9488" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="645.0" y="285.0" width="60.0" height="50.0" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/><text x="675.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d9488" text-anchor="middle" font-weight="700"><tspan x="675.0" dy="0.0">AND</tspan><tspan x="675.0" dy="13.0">вентиль</tspan></text>
+<line x1="705.0" y1="310.0" x2="735.0" y2="310.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="735.0" y="290.0" width="45.0" height="40.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="757.5" y="307.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="757.5" dy="0.0">Чистий</tspan><tspan x="757.5" dy="11.7">0 В</tspan></text>
+<line x1="675.0" y1="380.0" x2="675.0" y2="335.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="675.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ISO_ENABLE = 0 (блокування)</text>
+</svg>

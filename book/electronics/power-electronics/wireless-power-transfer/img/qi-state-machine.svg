@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність фаз протоколу WPC Qi</text>
+<rect x="25.0" y="80.0" width="195.0" height="130.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="122.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Фаза Ping</text>
+<text x="122.5" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Аналоговий + Цифровий</text>
+<line x1="35.0" y1="134.0" x2="210.0" y2="134.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="122.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• TX подає імпульс 65–100 мс</text>
+<text x="122.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Зарядка C_rect в приймачі</text>
+<text x="122.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">• RX шле Signal Strength (0x01)</text>
+<text x="122.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Перевірка добротності Q (FOD)</text>
+<line x1="220.0" y1="145.0" x2="255.0" y2="145.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="255.0" y="80.0" width="195.0" height="130.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.8"/>
+<text x="352.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b7950b" text-anchor="middle" font-weight="700">2. ID &amp; Конфігурація</text>
+<text x="352.5" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Переговори параметрів</text>
+<line x1="265.0" y1="134.0" x2="440.0" y2="134.0" stroke="#f9e79f" stroke-width="1.0"/>
+<text x="352.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• RX: Identification (0x71)</text>
+<text x="352.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• RX: Configuration (0x51)</text>
+<text x="352.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b7950b" text-anchor="middle" font-weight="700">• Узгодження потужності 5W/15W</text>
+<text x="352.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Калібрування порогів FOD</text>
+<line x1="450.0" y1="145.0" x2="485.0" y2="145.0" stroke="#f39c12" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="485.0" y="80.0" width="195.0" height="130.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="582.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Передача енергії</text>
+<text x="582.5" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Замкнена петля (CEP)</text>
+<line x1="495.0" y1="134.0" x2="670.0" y2="134.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="582.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• RX шле CEP (0x03) кожні 250 мс</text>
+<text x="582.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• TX підлаштовує частоту / ШІМ</text>
+<text x="582.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• RX шле Received Power (0x04)</text>
+<text x="582.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">• Контроль втрат P_loss (FOD)</text>
+<line x1="680.0" y1="145.0" x2="715.0" y2="145.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="715.0" y="80.0" width="195.0" height="130.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.8"/>
+<text x="812.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">4. Завершення (EPT)</text>
+<text x="812.5" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вимкнення / Захист</text>
+<line x1="725.0" y1="134.0" x2="900.0" y2="134.0" stroke="#f5cba7" stroke-width="1.0"/>
+<text x="812.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle" font-weight="700">• Пакет EPT (0x02)</text>
+<text x="812.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Батарея заряджена (100%)</text>
+<text x="812.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перегрів (Over-Temp)</text>
+<text x="812.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">• FOD аварія (сторонній метал)</text>
+<path d="M 660 210 A 30 30 0 1 1 505 210" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="582.5" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Безперервний цикл стабілізації CEP (PID)</text>
+<path d="M 812 210 L 812 420 L 122 420 L 122 210" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+<text x="470.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Скидання у фазу пошуку (Analog Ping) після зняття пристрою або аварії FOD</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-55.5 -10 1024.9 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-55.5" y="-10" width="1024.9" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр апаратного приймача MIPI CSI-2 в SoC або FPGA: від фізичних ліній до пам'яті</text>
+<rect x="90.0" y="114.0" width="110.0" height="72.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="145.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">D-PHY RX</tspan><tspan x="145.0" dy="14.3">(Фізичний шар)</tspan></text>
+<text x="145.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">Диф. компаратори,</tspan><tspan x="145.0" dy="11.7">детектор SoT,</tspan><tspan x="145.0" dy="11.7">десеріалізація</tspan></text>
+<line x1="200.0" y1="150.0" x2="220.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="220.0" y="114.0" width="110.0" height="72.0" rx="6" fill="#fdf4e8" stroke="#d48806" stroke-width="1.6"/>
+<text x="275.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d48806" text-anchor="middle" font-weight="700"><tspan x="275.0" dy="0.0">Lane Deskew</tspan><tspan x="275.0" dy="14.3">&amp; Alignment</tspan></text>
+<text x="275.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="275.0" dy="0.0">Вирівнювання ліній,</tspan><tspan x="275.0" dy="11.7">компенсація перекосу,</tspan><tspan x="275.0" dy="11.7">збирання слів</tspan></text>
+<line x1="330.0" y1="150.0" x2="350.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="350.0" y="114.0" width="110.0" height="72.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="405.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="405.0" dy="0.0">Packet Decoder</tspan><tspan x="405.0" dy="14.3">(Протокол)</tspan></text>
+<text x="405.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="405.0" dy="0.0">Перевірка ECC,</tspan><tspan x="405.0" dy="11.7">виділення VC та DT,</tspan><tspan x="405.0" dy="11.7">контроль CRC-16</tspan></text>
+<line x1="460.0" y1="150.0" x2="480.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="480.0" y="114.0" width="110.0" height="72.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="535.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="535.0" dy="0.0">Pixel Unpacker</tspan><tspan x="535.0" dy="14.3">(Розпакування)</tspan></text>
+<text x="535.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="535.0" dy="0.0">RAW10 → 16-біт,</tspan><tspan x="535.0" dy="11.7">RAW12 → 16-біт,</tspan><tspan x="535.0" dy="11.7">вилучення хвостів</tspan></text>
+<line x1="590.0" y1="150.0" x2="610.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="610.0" y="114.0" width="110.0" height="72.0" rx="6" fill="#f9f0ff" stroke="#722ed1" stroke-width="1.6"/>
+<text x="665.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#722ed1" text-anchor="middle" font-weight="700"><tspan x="665.0" dy="0.0">CDC FIFO</tspan><tspan x="665.0" dy="14.3">(Асинхр. черга)</tspan></text>
+<text x="665.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">Перехід Byte Clock</tspan><tspan x="665.0" dy="11.7">→ Pixel / AXI Clock</tspan><tspan x="665.0" dy="11.7">без збоїв</tspan></text>
+<line x1="720.0" y1="150.0" x2="740.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="740.0" y="114.0" width="110.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="795.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">DMA / ISP Bridge</tspan><tspan x="795.0" dy="14.3">(Інтерфейс)</tspan></text>
+<text x="795.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="795.0" dy="0.0">Запис у DDR RAM</tspan><tspan x="795.0" dy="11.7">(Frame Buffer) або</tspan><tspan x="795.0" dy="11.7">потік в ISP</tspan></text>
+<line x1="45.0" y1="150.0" x2="90.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="40.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700"><tspan x="40.0" dy="0.0">Диф. пари</tspan><tspan x="40.0" dy="13.0">MIPI D-PHY</tspan></text>
+<text x="40.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">(Clock + 1..4 Data)</text>
+<line x1="850.0" y1="150.0" x2="895.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="900.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700"><tspan x="900.0" dy="0.0">AXI4-Stream</tspan><tspan x="900.0" dy="13.0">відеопотік</tspan></text>
+<text x="900.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">у DDR / ISP</text>
+<rect x="85.0" y="226.0" width="510.0" height="45.0" rx="4" fill="#f0f5ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="340.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Тактовий домен MIPI (Byte Clock = D-PHY Bit Rate / 8)</text>
+<text x="340.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхронізований із тактовою парою передавача камери</text>
+<rect x="605.0" y="226.0" width="250.0" height="45.0" rx="4" fill="#fdf6ec" stroke="#d48806" stroke-width="1.2"/>
+<text x="730.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d48806" text-anchor="middle" font-weight="700">Тактовий домен SoC / AXI (System Clock)</text>
+<text x="730.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Незалежний локальний генератор SoC / FPGA</text>
+<text x="637.2" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#722ed1" text-anchor="middle" font-weight="700">Безпечний бар'єр тактових доменів</text>
+</svg>

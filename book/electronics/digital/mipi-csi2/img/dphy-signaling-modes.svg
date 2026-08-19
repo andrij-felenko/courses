@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичний рівень MIPI D-PHY: динамічний перехід Low-Power (LP) ↔ High-Speed (HS)</text>
+<line x1="75.0" y1="340.0" x2="75.0" y2="65.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="75.0" y1="75.0" x2="75.0" y2="60.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="65.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">U (В)</text>
+<line x1="71.0" y1="90.0" x2="880.0" y2="90.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,4"/>
+<text x="67.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">1.2 В</text>
+<text x="875.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Рівень LP (Low-Power)</text>
+<line x1="71.0" y1="285.0" x2="880.0" y2="285.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,4"/>
+<text x="67.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">200 мВ</text>
+<line x1="71.0" y1="330.0" x2="880.0" y2="330.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="67.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0 В</text>
+<text x="875.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Рівень HS (High-Speed SLVS, ΔV=200 мВ)</text>
+<rect x="95.0" y="70.0" width="110.0" height="275.0" rx="3" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="150.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">LP-11</tspan><tspan x="150.0" dy="12.3">(Stop)</tspan></text>
+<rect x="205.0" y="70.0" width="90.0" height="275.0" rx="3" fill="#fffbf0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="250.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">LP-01</tspan><tspan x="250.0" dy="12.3">(HS-Req)</tspan></text>
+<rect x="295.0" y="70.0" width="90.0" height="275.0" rx="3" fill="#fff5f5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="340.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">LP-00</tspan><tspan x="340.0" dy="12.3">(Prepare)</tspan></text>
+<rect x="385.0" y="70.0" width="90.0" height="275.0" rx="3" fill="#edf2fc" stroke="#2457d6" stroke-width="1.0"/>
+<text x="430.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">HS-Zero</tspan><tspan x="430.0" dy="12.3">(Драйвер ON)</tspan></text>
+<rect x="475.0" y="70.0" width="100.0" height="275.0" rx="3" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.0"/>
+<text x="525.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="525.0" dy="0.0">SoT Sync</tspan><tspan x="525.0" dy="12.3">(0xB8)</tspan></text>
+<rect x="575.0" y="70.0" width="160.0" height="275.0" rx="3" fill="#f0f4fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="655.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">HS Payload (Пакети пікселів)</tspan><tspan x="655.0" dy="12.3">1.5–2.5 Гбіт/с</tspan></text>
+<rect x="735.0" y="70.0" width="125.0" height="275.0" rx="3" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="797.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="797.5" dy="0.0">EoT → LP-11</tspan><tspan x="797.5" dy="12.3">(Stop State)</tspan></text>
+<polyline points="95.0,90.0 195.0,90.0 205.0,330.0 285.0,330.0 295.0,330.0 370.0,330.0 385.0,305.0 475.0,305.0 475.0,305.0 487.5,305.0 487.5,305.0 500.0,305.0 500.0,305.0 512.5,305.0 512.5,265.0 525.0,265.0 525.0,265.0 537.5,265.0 537.5,265.0 550.0,265.0 550.0,305.0 562.5,305.0 562.5,265.0 575.0,265.0 575.0,305.0 587.0,305.0 587.0,265.0 599.0,265.0 599.0,305.0 611.0,305.0 611.0,265.0 623.0,265.0 623.0,305.0 635.0,305.0 635.0,265.0 647.0,265.0 647.0,305.0 659.0,305.0 659.0,265.0 671.0,265.0 671.0,305.0 683.0,305.0 683.0,265.0 695.0,265.0 695.0,305.0 707.0,305.0 707.0,265.0 719.0,265.0 719.0,305.0 731.0,305.0 735.0,305.0 750.0,90.0 860.0,90.0" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<polyline points="95.0,90.0 195.0,90.0 205.0,90.0 285.0,90.0 295.0,330.0 370.0,330.0 385.0,265.0 475.0,265.0 475.0,265.0 487.5,265.0 487.5,265.0 500.0,265.0 500.0,265.0 512.5,265.0 512.5,305.0 525.0,305.0 525.0,305.0 537.5,305.0 537.5,305.0 550.0,305.0 550.0,265.0 562.5,265.0 562.5,305.0 575.0,305.0 575.0,265.0 587.0,265.0 587.0,305.0 599.0,305.0 599.0,265.0 611.0,265.0 611.0,305.0 623.0,305.0 623.0,265.0 635.0,265.0 635.0,305.0 647.0,305.0 647.0,265.0 659.0,265.0 659.0,305.0 671.0,305.0 671.0,265.0 683.0,265.0 683.0,305.0 695.0,305.0 695.0,265.0 707.0,265.0 707.0,305.0 719.0,305.0 719.0,265.0 731.0,265.0 735.0,265.0 750.0,90.0 860.0,90.0" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="390.0" x2="160.0" y2="390.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="170.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Data Positive (D_P / D+)</text>
+<line x1="360.0" y1="390.0" x2="400.0" y2="390.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="410.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Data Negative (D_N / D−)</text>
+<rect x="640.0" y="376.0" width="230.0" height="28.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="393.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Термінація 100 Ом увімкнена лише в HS</tspan></text>
+</svg>

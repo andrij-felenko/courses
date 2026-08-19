@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність опитування E-Marker через Structured VDM перед укладанням контракту</text>
+<rect x="90.0" y="45.0" width="140.0" height="35.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.0"/>
+<text x="160.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Джерело (DFP)</text>
+<line x1="160.0" y1="80.0" x2="160.0" y2="370.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="340.0" y="45.0" width="140.0" height="35.0" rx="4" fill="#faf5ff" stroke="#a855f7" stroke-width="2.0"/>
+<text x="410.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle" font-weight="700">E-Marker (SOP')</text>
+<line x1="410.0" y1="80.0" x2="410.0" y2="370.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="590.0" y="45.0" width="140.0" height="35.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="2.0"/>
+<text x="660.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Споживач (Sink)</text>
+<line x1="660.0" y1="80.0" x2="660.0" y2="370.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<circle cx="160.0" cy="110.0" r="4.0" fill="#2563eb" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="160.0" y1="110.0" x2="410.0" y2="110.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">1. Подача VCONN (5 В, детектовано Ra)</text>
+<circle cx="160.0" cy="150.0" r="4.0" fill="#2563eb" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="160.0" y1="150.0" x2="410.0" y2="150.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">2. SOP' Discover Identity (SVID: 0xFF00)</text>
+<circle cx="410.0" cy="200.0" r="4.0" fill="#a855f7" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="410.0" y1="200.0" x2="160.0" y2="200.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">3. SOP' Discover Identity ACK</text>
+<rect x="180.0" y="205.0" width="210.0" height="45.0" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1.0"/>
+<text x="285.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle">• ID Header VDO (Passive Cable)</text>
+<text x="285.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle">• Cert Stat VDO + Product VDO</text>
+<text x="285.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle" font-weight="700">• Cable VDO 1/2: 50 В, 5 А, USB4 Gen3</text>
+<circle cx="160.0" cy="285.0" r="4.0" fill="#2563eb" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="160.0" y1="285.0" x2="660.0" y2="285.0" stroke="#ea580c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="middle" font-weight="700">4. SOP Source_Capabilities (включено 5 А / 48 В PDO)</text>
+<circle cx="660.0" cy="330.0" r="4.0" fill="#16a34a" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="660.0" y1="330.0" x2="160.0" y2="330.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">5. SOP Request (48 В / 5 А — 240 Вт EPR контракт)</text>
+</svg>

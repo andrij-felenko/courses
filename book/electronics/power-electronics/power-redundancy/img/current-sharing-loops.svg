@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -10 960 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-20" y="-10" width="960" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння методів розподілу струму Droop та Active Share Bus</text>
+<line x1="470.0" y1="45.0" x2="470.0" y2="445.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 6"/>
+<text x="235.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метод нахилу характеристики (Droop)</text>
+<line x1="60.0" y1="240.0" x2="420.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="60.0" y1="240.0" x2="60.0" y2="80.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="415.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Струм I_out (А) →</text>
+<text x="55.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Напруга V (В)</text>
+<line x1="70.0" y1="110.0" x2="340.0" y2="190.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="350.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Блок #1</text>
+<line x1="70.0" y1="130.0" x2="340.0" y2="210.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="350.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Блок #2</text>
+<line x1="60.0" y1="170.0" x2="360.0" y2="170.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="75.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Спільна напруга V_bus</text>
+<line x1="220.0" y1="240.0" x2="220.0" y2="170.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="220.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">I₁</text>
+<line x1="280.0" y1="240.0" x2="240.0" y2="170.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="280.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">I₂</text>
+<rect x="93.1" y="327.5" width="283.9" height="65.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="235.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Принцип: штучний опір R_droop = ΔV / ΔI.</tspan><tspan x="235.0" dy="13.0">• Плюси: немає ліній зв'язку між блоками.</tspan><tspan x="235.0" dy="13.0">• Мінуси: напруга шини падає під навантаженням;</tspan><tspan x="235.0" dy="13.0">  похибка розподілу залежить від різниці V_ref.</tspan></text>
+<text x="705.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Активна шина Share Bus (Master-Slave)</text>
+<rect x="483.1" y="84.0" width="133.8" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="550.0" y="100.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="550.0" dy="0.0">Перетворювач #1</tspan><tspan x="550.0" dy="13.0">(Master за струмом)</tspan><tspan x="550.0" dy="13.0">I₁ = 20.2 A</tspan></text>
+<rect x="473.8" y="214.0" width="152.4" height="52.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="550.0" y="230.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="550.0" dy="0.0">Перетворювач #2</tspan><tspan x="550.0" dy="13.0">(Slave підтягує V_out)</tspan><tspan x="550.0" dy="13.0">I₂ = 19.8 A</tspan></text>
+<line x1="620.0" y1="110.0" x2="730.0" y2="110.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="620.0" y1="240.0" x2="730.0" y2="240.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="730.0" y1="80.0" x2="730.0" y2="270.0" stroke="#c0392b" stroke-width="4.0"/>
+<text x="740.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Силова шина 12.00 В (жорстка стабілізація)</text>
+<line x1="820.0" y1="80.0" x2="820.0" y2="270.0" stroke="#9c27b0" stroke-width="2.5" stroke-dasharray="6 3"/>
+<text x="828.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9c27b0" text-anchor="middle" font-weight="700">Share Bus
+(V_share ~ I_max)</text>
+<line x1="620.0" y1="125.0" x2="820.0" y2="125.0" stroke="#9c27b0" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="820.0" y1="225.0" x2="620.0" y2="225.0" stroke="#9c27b0" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="548.8" y="327.5" width="312.4" height="65.0" rx="6" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1.5"/><text x="705.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Принцип: провідний блок задає рівень V_share.</tspan><tspan x="705.0" dy="13.0">Підлеглі блоки коригують дільник зворотного зв'язку.</tspan><tspan x="705.0" dy="13.0">• Точність балансу: 1–3%</tspan><tspan x="705.0" dy="13.0">• Жорстка стабілізація напруги без просадки!</tspan></text>
+</svg>

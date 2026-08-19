@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння пасивного Diode-OR та активного Active ORing</text>
+<line x1="470.0" y1="45.0" x2="470.0" y2="445.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 6"/>
+<text x="235.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Пасивний Diode-OR (діод Шотткі)</text>
+<rect x="18.1" y="119.3" width="103.8" height="41.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="70.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="70.0" dy="0.0">Джерело 12 В</tspan><tspan x="70.0" dy="14.3">Струм I = 40 A</tspan></text>
+<line x1="135.0" y1="140.0" x2="175.0" y2="140.0" stroke="#333333" stroke-width="2.5"/>
+<path d="M182.0 122.0 L182.0 158.0 L214.0 140.0 z" fill="#fdecea" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="214.0" y1="122.0" x2="214.0" y2="158.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="214.0" y1="122.0" x2="208.0" y2="122.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="214.0" y1="158.0" x2="220.0" y2="158.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="214.0" y1="140.0" x2="320.0" y2="140.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="145.0" y1="125.0" x2="275.0" y2="125.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="210.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I = 40 A</text>
+<rect x="314.0" y="119.3" width="131.9" height="41.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="380.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Шина 11.55 В</tspan><tspan x="380.0" dy="14.3">(просадка 0.45 В)</tspan></text>
+<rect x="90.2" y="211.6" width="289.6" height="116.8" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="235.0" y="230.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Втрати потужності на діоді:</tspan><tspan x="235.0" dy="14.3">P_loss = I · V_F = 40 A · 0.45 В = 18.0 Вт</tspan><tspan x="235.0" dy="14.3"></tspan><tspan x="235.0" dy="14.3">Наслідки:</tspan><tspan x="235.0" dy="14.3">• Величезний масивний радіатор</tspan><tspan x="235.0" dy="14.3">• Ризик теплового розгону (струм витоку I_R</tspan><tspan x="235.0" dy="14.3">  експоненційно зростає з температурою)</tspan></text>
+<text x="705.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Активний Active ORing (N-MOSFET)</text>
+<rect x="488.1" y="119.3" width="103.8" height="41.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="540.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Джерело 12 В</tspan><tspan x="540.0" dy="14.3">Струм I = 40 A</tspan></text>
+<line x1="605.0" y1="140.0" x2="650.0" y2="140.0" stroke="#333333" stroke-width="2.5"/>
+<rect x="618.2" y="122.5" width="123.6" height="35.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="680.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">N-MOSFET</tspan><tspan x="680.0" dy="13.0">R_ds(on) = 1.5 мОм</tspan></text>
+<line x1="710.0" y1="140.0" x2="790.0" y2="140.0" stroke="#333333" stroke-width="2.5"/>
+<rect x="597.9" y="205.5" width="164.2" height="39.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="680.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Active ORing контролер</tspan><tspan x="680.0" dy="13.0">(компаратор + чардж-помпа)</tspan></text>
+<line x1="640.0" y1="140.0" x2="640.0" y2="200.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="640.0" y1="200.0" x2="660.0" y2="200.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="720.0" y1="140.0" x2="720.0" y2="200.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="720.0" y1="200.0" x2="700.0" y2="200.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="680.0" y1="195.0" x2="680.0" y2="165.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="698.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Gate</text>
+<rect x="789.0" y="119.3" width="131.9" height="41.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="855.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="855.0" dy="0.0">Шина 11.94 В</tspan><tspan x="855.0" dy="14.3">(просадка 0.06 В)</tspan></text>
+<rect x="547.7" y="246.6" width="314.7" height="116.8" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/><text x="705.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Втрати потужності на MOSFET:</tspan><tspan x="705.0" dy="14.3">P_loss = I² · R_ds(on) = 40² · 0.0015 = 2.4 Вт</tspan><tspan x="705.0" dy="14.3"></tspan><tspan x="705.0" dy="14.3">Переваги:</tspan><tspan x="705.0" dy="14.3">• Економія 15.6 Вт тепла на кожен канал!</tspan><tspan x="705.0" dy="14.3">• Падіння напруги всього 60 мВ проти 450 мВ</tspan><tspan x="705.0" dy="14.3">• Швидке блокування зворотного струму (&lt;200 нс)</tspan></text>
+</svg>

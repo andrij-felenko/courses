@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="820.0" height="455.0" rx="10" fill="#fafbfc" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="440.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура розділених силових доменів мікроконтролера</text>
+<rect x="45.0" y="100.0" width="115.0" height="42.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/>
+<text x="102.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">VDD (3.3 В)</text>
+<text x="102.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">головна шина</text>
+<rect x="45.0" y="230.0" width="115.0" height="42.0" rx="6" fill="#fdf4ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="102.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">VDDA (3.3 В)</text>
+<text x="102.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">аналогова шина</text>
+<rect x="45.0" y="335.0" width="115.0" height="42.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="102.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">VBAT (3.0 В)</text>
+<text x="102.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">батарейка CR2032</text>
+<rect x="45.0" y="425.0" width="115.0" height="42.0" rx="6" fill="#ecfeff" stroke="#0d9488" stroke-width="1.6"/>
+<text x="102.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0d9488" text-anchor="middle" font-weight="700">VDDIO2 (1.8 В)</text>
+<text x="102.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зовнішня шина</text>
+<rect x="190.0" y="95.0" width="135.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="257.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вбудований Buck / LDO</text>
+<text x="257.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ККД 85–92%</text>
+<text x="257.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">3.3 В → 1.0 В</text>
+<line x1="160.0" y1="121.0" x2="190.0" y2="121.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="365.0" y="85.0" width="230.0" height="145.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="480.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Домен ядра V_CORE (1.0 В)</text>
+<rect x="380.0" y="122.0" width="95.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="427.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="427.5" dy="0.0">CPU Core</tspan><tspan x="427.5" dy="13.0">Cortex-M</tspan></text>
+<rect x="485.0" y="122.0" width="95.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="532.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="532.5" dy="0.0">SRAM пам'ять</tspan><tspan x="532.5" dy="13.0">і кеш</tspan></text>
+<rect x="380.0" y="172.0" width="200.0" height="46.0" rx="6" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Швидкісна цифрова логіка</tspan><tspan x="480.0" dy="13.0">P_dyn = C · V² · f мінімальна</tspan></text>
+<line x1="325.0" y1="121.0" x2="365.0" y2="121.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="635.0" y="85.0" width="195.0" height="145.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="732.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Домен периферії VDD</text>
+<rect x="650.0" y="122.0" width="165.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="732.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="732.5" dy="0.0">GPIO Порти A–F</tspan><tspan x="732.5" dy="13.0">(буфери 3.3 В)</tspan></text>
+<rect x="650.0" y="168.0" width="165.0" height="50.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="732.5" y="190.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="732.5" dy="0.0">Таймери, SPI, I2C, UART</tspan><tspan x="732.5" dy="11.7">Сумісність із зовнішніми IC</tspan></text>
+<line x1="595.0" y1="157.0" x2="635.0" y2="157.0" stroke="#333333" stroke-width="1.6"/>
+<rect x="588.0" y="138.0" width="55.0" height="36.0" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/><text x="615.5" y="146.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="615.5" dy="0.0">LS / ISO</tspan><tspan x="615.5" dy="11.7">вентилі</tspan></text>
+<rect x="365.0" y="245.0" width="230.0" height="95.0" rx="8" fill="#fdf4ff" stroke="#7c3aed" stroke-width="2.0"/>
+<text x="480.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">Аналоговий домен VDDA / VSSA</text>
+<rect x="380.0" y="280.0" width="95.0" height="48.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/><text x="427.5" y="301.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="427.5" dy="0.0">16-біт SAR АЦП</tspan><tspan x="427.5" dy="11.7">і ЦАП</tspan></text>
+<rect x="485.0" y="280.0" width="95.0" height="48.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/><text x="532.5" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="532.5" dy="0.0">Опори VREF,</tspan><tspan x="532.5" dy="13.0">компаратори</tspan></text>
+<line x1="160.0" y1="251.0" x2="365.0" y2="251.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="260.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle">окремий LC-фільтр</text>
+<rect x="365.0" y="355.0" width="230.0" height="60.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="480.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Домен бекапу VBAT (3.0 В)</text>
+<rect x="380.0" y="385.0" width="200.0" height="24.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="480.0" y="400.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">RTC + LSE 32 кГц + Backup SRAM</tspan></text>
+<line x1="160.0" y1="356.0" x2="365.0" y2="375.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="140.0" y1="142.0" x2="365.0" y2="365.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="250.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">автоперемикач живлення (Power Switch)</text>
+<rect x="635.0" y="245.0" width="195.0" height="95.0" rx="8" fill="#ecfeff" stroke="#0d9488" stroke-width="2.0"/>
+<text x="732.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0d9488" text-anchor="middle" font-weight="700">Домен VDDIO2 (1.8 В)</text>
+<rect x="650.0" y="280.0" width="165.0" height="48.0" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="1.5"/><text x="732.5" y="301.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="732.5" dy="0.0">Порт G: швидкісні датчики,</tspan><tspan x="732.5" dy="11.7">LPDDR / MIPI інтерфейси</tspan></text>
+<line x1="160.0" y1="446.0" x2="635.0" y2="310.0" stroke="#0d9488" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

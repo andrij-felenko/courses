@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння рівнів відновлення: Soft_Reset проти Hard_Reset</text>
+<rect x="10.0" y="10.0" width="740.0" height="370.0" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="25.0" y="30.0" width="340.0" height="300.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="195.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Програмне скидання (Soft_Reset)</text>
+<rect x="35.0" y="85.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="45.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Рівень виконання:</text>
+<text x="45.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Рівень протоколу (Protocol Layer)</text>
+<rect x="35.0" y="125.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="45.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Сигналізація:</text>
+<text x="45.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Керівне повідомлення (Control Message)</text>
+<rect x="35.0" y="165.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="45.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Вплив на VBUS:</text>
+<text x="45.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">ЖОДНОГО: контракт і напруга зберігаються</text>
+<rect x="35.0" y="205.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="45.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Що скидається:</text>
+<text x="45.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">MessageID лічильники (в 0), стан автоматів</text>
+<rect x="35.0" y="245.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="45.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Відповідь партнера:</text>
+<text x="45.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Обов'язкове повідомлення Accept</text>
+<rect x="35.0" y="285.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="45.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Швидкість:</text>
+<text x="45.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Швидке відновлення (~десятків мс)</text>
+<rect x="395.0" y="30.0" width="340.0" height="300.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+<text x="565.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Апаратне скидання (Hard_Reset)</text>
+<rect x="405.0" y="85.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="415.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Рівень виконання:</text>
+<text x="415.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Фізичний рівень (PHY Layer K-коди)</text>
+<rect x="405.0" y="125.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="415.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Сигналізація:</text>
+<text x="415.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Спеціальна K-послідовність RST-1 / RST-2</text>
+<rect x="405.0" y="165.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="415.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Вплив на VBUS:</text>
+<text x="415.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">ПОВНЕ ЗНЯТТЯ: обвал до 0 В (vSafe0V)</text>
+<rect x="405.0" y="205.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="415.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Що скидається:</text>
+<text x="415.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Повний стан порту, повернення до 5 В</text>
+<rect x="405.0" y="245.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="415.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Відповідь партнера:</text>
+<text x="415.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Немає повідомлення, реакція залізом</text>
+<rect x="405.0" y="285.0" width="320.0" height="34.0" rx="3" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.1"/>
+<text x="415.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">Швидкість:</text>
+<text x="415.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Тривале перезавантаження (до 1000 мс)</text>
+<rect x="107.7" y="341.9" width="544.7" height="36.1" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/><text x="380.0" y="356.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Soft_Reset відновлює синхронізацію протоколу без знеструмлення пристрою.</tspan><tspan x="380.0" dy="13.7">Hard_Reset — аварійний важіль фізичного скидання живлення до vSafe0V при фатальних збоях.</tspan></text>
+</svg>

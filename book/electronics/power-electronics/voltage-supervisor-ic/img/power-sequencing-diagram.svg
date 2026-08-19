@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскадне секвенування шин живлення сучасного процесора / FPGA</text>
+<line x1="130.0" y1="420.0" x2="780.0" y2="420.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="780.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Час t →</text>
+<text x="120.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="end" font-weight="700">1. Core (1.1 В)</text>
+<line x1="130.0" y1="115.0" x2="780.0" y2="115.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3,3"/>
+<polyline points="130.0,115.0 170.0,115.0 230.0,75.0 760.0,75.0" fill="none" stroke="#2563eb" stroke-width="2.6"/>
+<text x="120.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="end" font-weight="700">PG1 (Core OK)</text>
+<line x1="130.0" y1="173.0" x2="780.0" y2="173.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3,3"/>
+<polyline points="130.0,173.0 280.0,173.0 280.0,145.0 760.0,145.0" fill="none" stroke="#059669" stroke-width="2.2"/>
+<line x1="280.0" y1="145.0" x2="310.0" y2="205.0" stroke="#059669" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="310.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">EN DDR</text>
+<text x="120.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="end" font-weight="700">2. DDR (1.8 В)</text>
+<line x1="130.0" y1="240.0" x2="780.0" y2="240.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3,3"/>
+<polyline points="130.0,240.0 310.0,240.0 370.0,200.0 760.0,200.0" fill="none" stroke="#d97706" stroke-width="2.6"/>
+<text x="120.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="end" font-weight="700">PG2 (DDR OK)</text>
+<line x1="130.0" y1="293.0" x2="780.0" y2="293.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3,3"/>
+<polyline points="130.0,293.0 420.0,293.0 420.0,265.0 760.0,265.0" fill="none" stroke="#059669" stroke-width="2.2"/>
+<line x1="420.0" y1="265.0" x2="450.0" y2="325.0" stroke="#059669" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">EN I/O</text>
+<text x="120.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="end" font-weight="700">3. I/O (3.3 В)</text>
+<line x1="130.0" y1="360.0" x2="780.0" y2="360.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3,3"/>
+<polyline points="130.0,360.0 450.0,360.0 510.0,320.0 760.0,320.0" fill="none" stroke="#7c3aed" stroke-width="2.6"/>
+<text x="120.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">System /RESET</text>
+<line x1="130.0" y1="408.0" x2="780.0" y2="408.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3,3"/>
+<polyline points="[(130, 408), (660, 408), (660, 378), (760, 378)]" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<rect x="510.0" y="60.0" width="150.0" height="350.0" rx="0" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.2"/>
+<line x1="510.0" y1="60.0" x2="510.0" y2="410.0" stroke="#22c55e" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="660.0" y1="60.0" x2="660.0" y2="410.0" stroke="#22c55e" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="510.0" y1="400.0" x2="660.0" y2="400.0" stroke="#15803d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="400.0" x2="510.0" y2="400.0" stroke="#15803d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="585.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">t_rst затримка (100–200 мс)</text>
+<text x="420.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Почергове ввімкнення (Core → DDR → I/O) усуває небезпеку тиристорного замикання (Latch-up).</text>
+</svg>

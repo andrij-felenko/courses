@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 840 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="840" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічне перемикання DC-DC та LDO при зміні режимів сну</text>
+<rect x="0.0" y="0.0" width="820.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="150.0" y="40.0" width="160.0" height="400.0" rx="6" fill="#fff7ed" stroke="none" stroke-width="1.5"/>
+<rect x="310.0" y="40.0" width="90.0" height="400.0" rx="6" fill="#fef3c7" stroke="none" stroke-width="1.5"/>
+<rect x="400.0" y="40.0" width="220.0" height="400.0" rx="6" fill="#f0fdf4" stroke="none" stroke-width="1.5"/>
+<rect x="620.0" y="40.0" width="90.0" height="400.0" rx="6" fill="#fef3c7" stroke="none" stroke-width="1.5"/>
+<rect x="710.0" y="40.0" width="70.0" height="400.0" rx="6" fill="#fff7ed" stroke="none" stroke-width="1.5"/>
+<text x="230.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c2410c" text-anchor="middle" font-weight="700">Активний (RUN)</text>
+<text x="355.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Перехід</text>
+<text x="510.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Глибокий сон (STOP / STANDBY)</text>
+<text x="665.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Пробудження</text>
+<text x="745.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c2410c" text-anchor="middle" font-weight="700">Активний (RUN)</text>
+<line x1="310.0" y1="70.0" x2="310.0" y2="440.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="400.0" y1="70.0" x2="400.0" y2="440.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="620.0" y1="70.0" x2="620.0" y2="440.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="710.0" y1="70.0" x2="710.0" y2="440.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="20.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Режим процесора</text>
+<rect x="155.0" y="110.0" width="150.0" height="20.0" rx="3" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+<text x="230.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обчислення / Радіо</text>
+<rect x="315.0" y="110.0" width="80.0" height="20.0" rx="3" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+<text x="355.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">WFI / Підготовка</text>
+<rect x="405.0" y="110.0" width="210.0" height="20.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ядро зупинене, тактування вимкнено</text>
+<rect x="625.0" y="110.0" width="80.0" height="20.0" rx="3" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+<text x="665.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Старт PLL</text>
+<rect x="715.0" y="110.0" width="60.0" height="20.0" rx="3" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+<text x="745.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обробка переривання</text>
+<text x="20.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Стан DC-DC</text>
+<line x1="150.0" y1="200.0" x2="310.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="160.0" y1="200.0" x2="160.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="164.0" y1="180.0" x2="164.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="168.0" y1="200.0" x2="168.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="172.0" y1="180.0" x2="172.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="176.0" y1="200.0" x2="176.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="180.0" y1="180.0" x2="180.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="184.0" y1="200.0" x2="184.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="188.0" y1="180.0" x2="188.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="192.0" y1="200.0" x2="192.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="196.0" y1="180.0" x2="196.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="200.0" y1="200.0" x2="200.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="204.0" y1="180.0" x2="204.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="208.0" y1="200.0" x2="208.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="212.0" y1="180.0" x2="212.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="216.0" y1="200.0" x2="216.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="220.0" y1="180.0" x2="220.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="224.0" y1="200.0" x2="224.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="228.0" y1="180.0" x2="228.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="232.0" y1="200.0" x2="232.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="236.0" y1="180.0" x2="236.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="240.0" y1="200.0" x2="240.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="244.0" y1="180.0" x2="244.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="248.0" y1="200.0" x2="248.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="252.0" y1="180.0" x2="252.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="256.0" y1="200.0" x2="256.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="260.0" y1="180.0" x2="260.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="264.0" y1="200.0" x2="264.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="268.0" y1="180.0" x2="268.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="272.0" y1="200.0" x2="272.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="276.0" y1="180.0" x2="276.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="280.0" y1="200.0" x2="280.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="284.0" y1="180.0" x2="284.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="288.0" y1="200.0" x2="288.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="292.0" y1="180.0" x2="292.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="296.0" y1="200.0" x2="296.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="300.0" y1="180.0" x2="300.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="230.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">ШІМ комутація 4 МГц</text>
+<line x1="310.0" y1="200.0" x2="400.0" y2="200.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="355.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Soft-Stop</text>
+<line x1="400.0" y1="200.0" x2="620.0" y2="200.0" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="510.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вимкнено (0 мА втрат)</text>
+<line x1="620.0" y1="200.0" x2="710.0" y2="200.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="665.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Soft-Start</text>
+<line x1="710.0" y1="200.0" x2="780.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="720.0" y1="200.0" x2="720.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="724.0" y1="180.0" x2="724.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="728.0" y1="200.0" x2="728.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="732.0" y1="180.0" x2="732.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="736.0" y1="200.0" x2="736.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="740.0" y1="180.0" x2="740.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="744.0" y1="200.0" x2="744.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="748.0" y1="180.0" x2="748.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="752.0" y1="200.0" x2="752.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="756.0" y1="180.0" x2="756.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="760.0" y1="200.0" x2="760.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="764.0" y1="180.0" x2="764.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="768.0" y1="200.0" x2="768.0" y2="180.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="772.0" y1="180.0" x2="772.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="20.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Стан LDO</text>
+<line x1="150.0" y1="270.0" x2="310.0" y2="270.0" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="230.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимкнено / Очікування</text>
+<line x1="310.0" y1="270.0" x2="340.0" y2="250.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="340.0" y1="250.0" x2="710.0" y2="250.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="510.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ULP-LDO активний (тримає пам'ять SRAM)</text>
+<line x1="710.0" y1="250.0" x2="740.0" y2="270.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="740.0" y1="270.0" x2="780.0" y2="270.0" stroke="#94a3b8" stroke-width="2.0"/>
+<text x="20.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Напруга ядра Vcore</text>
+<line x1="150.0" y1="325.0" x2="310.0" y2="325.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="310.0" y1="325.0" x2="350.0" y2="331.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="350.0" y1="331.0" x2="400.0" y2="325.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="400.0" y1="325.0" x2="620.0" y2="325.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="620.0" y1="325.0" x2="660.0" y2="321.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="660.0" y1="321.0" x2="710.0" y2="325.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="710.0" y1="325.0" x2="780.0" y2="325.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="190.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1.10 В</text>
+<text x="510.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">1.10 В (стабільно)</text>
+<line x1="150.0" y1="355.0" x2="780.0" y2="355.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="770.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ef4444" text-anchor="end">Поріг аварійного скидання (BOR ≈ 0.95 В)</text>
+<text x="20.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Струм від батареї</text>
+<line x1="150.0" y1="400.0" x2="310.0" y2="400.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="190.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">≈ 11.5 мА (активно)</text>
+<line x1="310.0" y1="400.0" x2="400.0" y2="425.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="400.0" y1="425.0" x2="620.0" y2="425.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="510.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">≈ 1.5 мкА (глибокий сон)</text>
+<line x1="620.0" y1="425.0" x2="710.0" y2="400.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="710.0" y1="400.0" x2="780.0" y2="400.0" stroke="#1a1a1a" stroke-width="2.2"/>
+</svg>

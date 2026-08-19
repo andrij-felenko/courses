@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Профіль споживання автономного пристрою (Duty Cycle)</text>
+<line x1="90.0" y1="240.0" x2="800.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="90.0" y1="240.0" x2="90.0" y2="60.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="435.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">час одного робочого циклу (T_період = 60 с)</text>
+<text x="28" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700" transform="rotate(-90 28 160.0)">струм споживання, мА</text>
+<polygon points="90.0,238.0 510.0,238.0 510.0,205.0 580.0,205.0 580.0,90.0 660.0,90.0 660.0,185.0 720.0,185.0 720.0,238.0 780.0,238.0 780.0,240.0 90.0,240.0" fill="#eaf0fd" stroke="none"/>
+<polyline points="90.0,238.0 510.0,238.0 510.0,205.0 580.0,205.0 580.0,90.0 660.0,90.0 660.0,185.0 720.0,185.0 720.0,238.0 780.0,238.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<rect x="580.0" y="90.0" width="80" height="150.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">TX Burst
+120 мА</text>
+<text x="300.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Глибокий сон (Deep Sleep): I_сон = 2 мкА (99.85% часу)</text>
+<text x="545.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сенсор
+15 мА</text>
+<text x="690.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">RX
+25 мА</text>
+<rect x="100.0" y="310.0" width="310.0" height="85.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="342.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Розподіл часу в циклі:</tspan><tspan x="255.0" dy="14.3">• Сон: 59.91 с (99.85% часу)</tspan><tspan x="255.0" dy="14.3">• Активні фази: 0.09 с (0.15% часу)</tspan></text>
+<rect x="450.0" y="310.0" width="330.0" height="85.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="615.0" y="342.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="615.0" dy="0.0">Розподіл витраченого заряду:</tspan><tspan x="615.0" dy="14.3">• Сон (2 мкА): 0.12 мкА·год (10% заряду)</tspan><tspan x="615.0" dy="14.3">• TX/RX/Сенсор: 1.10 мкА·год (90% заряду!)</tspan></text>
+</svg>

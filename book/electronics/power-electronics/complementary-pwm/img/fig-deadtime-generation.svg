@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формування комплементарної ШІМ та впровадження мертвого часу</text>
+<line x1="190.0" y1="90.0" x2="800.0" y2="90.0" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="175.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Базовий ШІМ (Ref)</text>
+<text x="175.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Опорний сигнал таймера</text>
+<line x1="190.0" y1="175.0" x2="800.0" y2="175.0" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="175.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Ідеальний PWM_L (NOT)</text>
+<text x="175.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Проста логічна інверсія</text>
+<line x1="190.0" y1="260.0" x2="800.0" y2="260.0" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="175.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Реальний PWM_H (з DT)</text>
+<text x="175.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Затримка відкриття t_dead</text>
+<line x1="190.0" y1="345.0" x2="800.0" y2="345.0" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="175.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Реальний PWM_L (з DT)</text>
+<text x="175.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Затримка відкриття t_dead</text>
+<line x1="260.0" y1="60.0" x2="260.0" y2="400.0" stroke="#eceff1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="305.0" y1="60.0" x2="305.0" y2="400.0" stroke="#eceff1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="500.0" y1="60.0" x2="500.0" y2="400.0" stroke="#eceff1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="545.0" y1="60.0" x2="545.0" y2="400.0" stroke="#eceff1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="740.0" y1="60.0" x2="740.0" y2="400.0" stroke="#eceff1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="785.0" y1="60.0" x2="785.0" y2="400.0" stroke="#eceff1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<rect x="260.0" y="60.0" width="45.0" height="340.0" rx="6" fill="#fff0f0" stroke="none" stroke-width="0.0"/>
+<rect x="500.0" y="60.0" width="45.0" height="340.0" rx="6" fill="#fff0f0" stroke="none" stroke-width="0.0"/>
+<rect x="740.0" y="60.0" width="45.0" height="340.0" rx="6" fill="#fff0f0" stroke="none" stroke-width="0.0"/>
+<text x="282.5" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t_dead</text>
+<text x="522.5" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t_dead</text>
+<text x="762.5" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t_dead</text>
+<path d="M 190,90 L 260,90 L 260,54 L 500,54 L 500,90 L 740,90 L 740,54 L 800,54" stroke="#1a1a1a" stroke-width="2.2" fill="none"/>
+<path d="M 190,139 L 260,139 L 260,175 L 500,175 L 500,139 L 740,139 L 740,175 L 800,175" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4,3" fill="none"/>
+<path d="M 190,260 L 305,260 L 305,224 L 500,224 L 500,260 L 785,260 L 785,224 L 800,224" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+<path d="M 190,309 L 260,309 L 260,345 L 545,345 L 545,309 L 740,309 L 740,345 L 800,345" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+<rect x="40.0" y="415.0" width="760.0" height="52.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="140.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Зона Q_L ON</text>
+<text x="140.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Нижній ключ замкнений</text>
+<text x="380.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зона Q_H ON</text>
+<text x="380.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Верхній ключ замкнений</text>
+<text x="620.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Зона Dead-Time: обидва OFF</text>
+<text x="620.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Break-before-make: наскрізний шлях розімкнено</text>
+</svg>

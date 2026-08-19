@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-17.69 -10 855.38 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-17.69" y="-10" width="855.38" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секвенування вимкнення: пасивний розряд проти реверсивного порядку LIFO з активним розрядом</text>
+<rect x="40.0" y="40.0" width="360.0" height="390.0" rx="6" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.5"/>
+<text x="220.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Пасивне вимкнення (Аварійний ризик)</text>
+<line x1="70.0" y1="340.0" x2="370.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="200.0" x2="70.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<text x="365.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">t</text>
+<line x1="110.0" y1="200.0" x2="110.0" y2="340.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="110.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Power Off</text>
+<line x1="70.0" y1="300.0" x2="110.0" y2="300.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="110.0" y1="300.0" x2="125.0" y2="340.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="125.0" y1="340.0" x2="370.0" y2="340.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="105.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Core 0.85 В</text>
+<line x1="70.0" y1="210.0" x2="110.0" y2="210.0" stroke="#c0392b" stroke-width="2.5"/>
+<polyline points="110.0,210.0 114.0,216.5 118.0,222.7 122.0,228.5 126.0,234.1 130.0,239.4 134.0,244.4 138.0,249.2 142.0,253.8 146.0,258.1 150.0,262.2 154.0,266.1 158.0,269.8 162.0,273.3 166.0,276.6 170.0,279.8 174.0,282.8 178.0,285.6 182.0,288.4 186.0,290.9 190.0,293.4 194.0,295.7 198.0,297.9 202.0,300.0 206.0,302.0 210.0,303.9 214.0,305.7 218.0,307.5 222.0,309.1 226.0,310.6 230.0,312.1 234.0,313.5 238.0,314.8 242.0,316.1 246.0,317.3 250.0,318.4 254.0,319.5 258.0,320.5 262.0,321.5 266.0,322.4 270.0,323.3 274.0,324.1 278.0,324.9 282.0,325.7 286.0,326.4 290.0,327.1 294.0,327.7 298.0,328.3 302.0,328.9 306.0,329.5" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="190.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I/O 3.3 В висить!</text>
+<rect x="125.0" y="220.0" width="160.0" height="115.0" fill="rgba(239, 68, 68, 0.15)" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3" rx="4"/>
+<text x="205.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Небезпечний перекіс: V_IO &gt; V_CORE</text>
+<rect x="65.0" y="88.0" width="310.0" height="73.9" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="107.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Без примусового розряду:</tspan><tspan x="220.0" dy="14.3">Core падає за мікросекунди,</tspan><tspan x="220.0" dy="14.3">а I/O тримає заряд секундами.</tspan><tspan x="220.0" dy="14.3">Ризик тиристорного защіпу при вимкненні!</tspan></text>
+<rect x="420.0" y="40.0" width="360.0" height="390.0" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+<text x="600.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Активне секвенування LIFO + Discharge</text>
+<line x1="450.0" y1="340.0" x2="750.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="450.0" y1="200.0" x2="450.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<text x="745.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">t</text>
+<line x1="480.0" y1="200.0" x2="480.0" y2="340.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="450.0" y1="210.0" x2="480.0" y2="210.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="480.0" y1="210.0" x2="525.0" y2="340.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="545.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1) Розряд I/O</text>
+<line x1="450.0" y1="260.0" x2="530.0" y2="260.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="530.0" y1="260.0" x2="580.0" y2="340.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="605.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2) Розряд Aux</text>
+<line x1="450.0" y1="300.0" x2="585.0" y2="300.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="585.0" y1="300.0" x2="625.0" y2="340.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="655.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3) Core вимикається останньою</text>
+<rect x="445.0" y="88.0" width="310.0" height="73.9" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.5"/><text x="600.0" y="107.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Керований LIFO-порядок:</tspan><tspan x="600.0" dy="14.3">Шина I/O гаситься першою через</tspan><tspan x="600.0" dy="14.3">активний ключ розряду R_dis (50 Ом).</tspan><tspan x="600.0" dy="14.3">Core підтримується до повного зняття I/O</tspan></text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перехідний процес при стрибку струму: звичайний стабілізатор проти AVP</text>
+<text x="80.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">1. Ідеальний стабілізатор (R_out = 0, без AVP): потрібен подвійний запас ємності</text>
+<rect x="80.0" y="95.0" width="680.0" height="110.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="80.0" y1="95.0" x2="760.0" y2="95.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="205.0" x2="760.0" y2="205.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="150.0" x2="760.0" y2="150.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="72.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_max</text>
+<text x="72.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_nom</text>
+<text x="72.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_min</text>
+<path d="M 80.0 150.0 L 240.0 150.0 L 242.0 200.0 L 280.0 210.0 L 340.0 150.0 L 520.0 150.0 L 522.0 100.0 L 560.0 90.0 L 620.0 150.0 L 760.0 150.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="260.0" y1="150.0" x2="260.0" y2="200.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="266.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">Просідання ΔV1</text>
+<line x1="540.0" y1="150.0" x2="540.0" y2="100.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="546.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">Викид ΔV2</text>
+<text x="80.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">2. Стабілізатор з AVP (R_out = R_LL): повне використання коридору напруги</text>
+<rect x="80.0" y="315.0" width="680.0" height="110.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="80.0" y1="315.0" x2="760.0" y2="315.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="425.0" x2="760.0" y2="425.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="72.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_max</text>
+<text x="72.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_min</text>
+<path d="M 80.0 315.0 L 240.0 315.0 L 244.0 425.0 L 520.0 425.0 L 524.0 315.0 L 760.0 315.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="210.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">I = 0 (холостий хід)</text>
+<text x="380.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">I = I_max (повне навантаження)</text>
+<line x1="80.0" y1="490.0" x2="760.0" y2="490.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="760.0" y1="490.0" x2="785.0" y2="490.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="790.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-style="italic">t</text>
+<path d="M 80.0 490.0 L 240.0 490.0 L 242.0 460.0 L 520.0 460.0 L 522.0 490.0 L 760.0 490.0" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="72.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0 А</text>
+<text x="72.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">I_max</text>
+<text x="380.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Струм навантаження I_load (наприклад, 0 → 150 А)</text>
+<line x1="240.0" y1="70.0" x2="240.0" y2="490.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="520.0" y1="70.0" x2="520.0" y2="490.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+</svg>

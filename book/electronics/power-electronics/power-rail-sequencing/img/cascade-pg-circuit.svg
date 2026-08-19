@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна реалізація каскадного секвенування: ланцюг Power Good -&gt; Enable</text>
+<line x1="40.0" y1="60.0" x2="780.0" y2="60.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="50.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">VIN (+12 В)</text>
+<rect x="70.0" y="110.0" width="180.0" height="180.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="160.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">DC-DC 1: Core</text>
+<text x="160.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0.85 В / 25 А</text>
+<line x1="160.0" y1="60.0" x2="160.0" y2="110.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="40.0" y1="200.0" x2="70.0" y2="200.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="55.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">EN_MAIN</text>
+<line x1="250.0" y1="200.0" x2="310.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PG1</text>
+<line x1="160.0" y1="290.0" x2="160.0" y2="350.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="160.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">VCCINT (0.85 В)</text>
+<circle cx="330.0" cy="200.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="330.0" y1="200.0" x2="330.0" y2="140.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="320.0" y="110.0" width="20.0" height="30.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="355.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">R_pu</text>
+<line x1="330.0" y1="110.0" x2="330.0" y2="80.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="330.0" cy="80.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="330.0" y1="200.0" x2="330.0" y2="240.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="320.0" y1="240.0" x2="340.0" y2="240.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="320.0" y1="245.0" x2="340.0" y2="245.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="330.0" y1="245.0" x2="330.0" y2="265.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="355.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">C_del</text>
+<rect x="370.0" y="110.0" width="180.0" height="180.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.8"/>
+<text x="460.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">DC-DC 2: Aux</text>
+<text x="460.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1.8 В / 4 А</text>
+<line x1="460.0" y1="60.0" x2="460.0" y2="110.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="330.0" y1="200.0" x2="370.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="385.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">EN2</text>
+<line x1="550.0" y1="200.0" x2="610.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="580.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">PG2</text>
+<line x1="460.0" y1="290.0" x2="460.0" y2="350.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="460.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">VCCAUX (1.8 В)</text>
+<rect x="630.0" y="110.0" width="160.0" height="180.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.8"/>
+<text x="710.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">DC-DC 3: I/O</text>
+<text x="710.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3.3 В / 6 А</text>
+<line x1="710.0" y1="60.0" x2="710.0" y2="110.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="610.0" y1="200.0" x2="630.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="645.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">EN3</text>
+<line x1="710.0" y1="290.0" x2="710.0" y2="350.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="710.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">VCCO (3.3 В)</text>
+</svg>

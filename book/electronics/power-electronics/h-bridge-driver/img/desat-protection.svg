@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип роботи захисту від десатурації та м'яке вимкнення</text>
+<rect x="40.0" y="50.0" width="420.0" height="380.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="250.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схемотехніка DESAT-детектора</text>
+<rect x="70.0" y="115.0" width="80.0" height="35.0" rx="4" fill="#f3e5f5" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="110.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">I_desat = 0.5 мА</text>
+<line x1="150.0" y1="132.0" x2="210.0" y2="132.0" stroke="#8e44ad" stroke-width="2.0"/>
+<circle cx="210.0" cy="132.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="210.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DESAT Pin</text>
+<line x1="210.0" y1="132.0" x2="210.0" y2="180.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="190.0" y="180.0" width="40.0" height="25.0" rx="4" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="210.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">C_blank</text>
+<line x1="210.0" y1="205.0" x2="210.0" y2="235.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="195.0" y1="235.0" x2="225.0" y2="235.0" stroke="#333333" stroke-width="2.5"/>
+<text x="210.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">GND</text>
+<line x1="210.0" y1="132.0" x2="280.0" y2="132.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="280.0" y="117.0" width="50.0" height="30.0" rx="4" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+<text x="305.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">D_desat</text>
+<line x1="330.0" y1="132.0" x2="380.0" y2="132.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="380.0" cy="132.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="410.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Стік / Колектор
+(V_ds / V_ce)</text>
+<line x1="210.0" y1="132.0" x2="210.0" y2="280.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="210.0" y1="280.0" x2="270.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="270.0" y="260.0" width="60.0" height="45.0" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.8"/>
+<text x="300.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle" font-weight="700">V_th = 7 В</text>
+<line x1="330.0" y1="282.0" x2="380.0" y2="282.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="415.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Fault / Soft
+Turn-Off</text>
+<rect x="62.6" y="363.1" width="374.8" height="33.9" rx="6" fill="#fcfcfc" stroke="#6b7280" stroke-width="1.2"/><text x="250.0" y="377.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Норма: V_ds &lt; 2 В -&gt; діод відкритий -&gt; C_blank розряджений</tspan><tspan x="250.0" dy="12.3">КЗ: V_ds підстрибує -&gt; діод закритий -&gt; C_blank заряджається до 7 В</tspan></text>
+<rect x="480.0" y="50.0" width="320.0" height="380.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="640.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">М'яке аварійне вимкнення</text>
+<text x="540.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">V_desat</text>
+<line x1="570.0" y1="150.0" x2="620.0" y2="150.0" stroke="#d35400" stroke-width="2.0"/>
+<line x1="620.0" y1="150.0" x2="670.0" y2="105.0" stroke="#d35400" stroke-width="2.5"/>
+<line x1="670.0" y1="105.0" x2="780.0" y2="105.0" stroke="#d35400" stroke-width="2.0"/>
+<line x1="570.0" y1="105.0" x2="780.0" y2="105.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+<text x="750.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">V_th (7 В)</text>
+<text x="540.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I_fault</text>
+<line x1="570.0" y1="230.0" x2="620.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="620.0" y1="230.0" x2="630.0" y2="180.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="630.0" y1="180.0" x2="680.0" y2="180.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="680.0" y1="180.0" x2="730.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="730.0" y1="230.0" x2="780.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<text x="655.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I_sc &gt; 500 А</text>
+<text x="540.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">V_gate</text>
+<line x1="570.0" y1="280.0" x2="670.0" y2="280.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="670.0" y1="280.0" x2="730.0" y2="330.0" stroke="#d35400" stroke-width="2.5"/>
+<line x1="730.0" y1="330.0" x2="780.0" y2="330.0" stroke="#333333" stroke-width="2.0"/>
+<text x="715.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle" font-weight="700">Soft Turn-Off
+(t_soft ≈ 2 мкс)</text>
+<rect x="528.5" y="367.5" width="222.9" height="35.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.2"/><text x="640.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">М'який розряд затвора гасить</tspan><tspan x="640.0" dy="13.0">індуктивний викид V = L_stray · di/dt</tspan></text>
+</svg>

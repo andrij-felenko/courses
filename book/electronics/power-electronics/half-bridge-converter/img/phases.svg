@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири фази циклу комутації напівмостового перетворювача</text>
+<rect x="116.0" y="48.0" width="158.0" height="36.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/><text x="195.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="195.0" dy="0.0">Фаза 1: Q1 ON, Q2 OFF</tspan><tspan x="195.0" dy="13.0">Vpri = +Vin/2</tspan></text>
+<line x1="110.0" y1="48.0" x2="110.0" y2="490.0" stroke="#e5e7eb" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="286.0" y="48.0" width="158.0" height="36.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="365.0" y="63.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="365.0" dy="0.0">Фаза 2: Dead-time</tspan><tspan x="365.0" dy="11.7">Діоди D1, D2 вільний хід</tspan></text>
+<line x1="280.0" y1="48.0" x2="280.0" y2="490.0" stroke="#e5e7eb" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="456.0" y="48.0" width="158.0" height="36.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.5"/><text x="535.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="535.0" dy="0.0">Фаза 3: Q1 OFF, Q2 ON</tspan><tspan x="535.0" dy="13.0">Vpri = -Vin/2</tspan></text>
+<line x1="450.0" y1="48.0" x2="450.0" y2="490.0" stroke="#e5e7eb" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="626.0" y="48.0" width="158.0" height="36.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="705.0" y="63.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="705.0" dy="0.0">Фаза 4: Dead-time</tspan><tspan x="705.0" dy="11.7">Діоди D1, D2 вільний хід</tspan></text>
+<line x1="620.0" y1="48.0" x2="620.0" y2="490.0" stroke="#e5e7eb" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="790.0" y1="48.0" x2="790.0" y2="490.0" stroke="#e5e7eb" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="98.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Vgs1, Vgs2</text>
+<line x1="110.0" y1="150.0" x2="790.0" y2="150.0" stroke="#6b7280" stroke-width="1.0"/>
+<polyline points="110,150 110,110 260.0,110 260.0,150 790,150" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="145.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Q1 ON</text>
+<polyline points="110,150 450.0,150 450.0,110 600.0,110 600.0,150 790,150" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<text x="485.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Q2 ON</text>
+<text x="270.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">t_dead</text>
+<text x="610.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">t_dead</text>
+<text x="98.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">V_primary</text>
+<line x1="110.0" y1="215.0" x2="790.0" y2="215.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="102.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">+Vin/2</text>
+<text x="102.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">−Vin/2</text>
+<polyline points="110,215 110,190 260.0,190 260.0,215 450.0,215 450.0,240 600.0,240 600.0,215 790,215" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="98.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">I_primary</text>
+<line x1="110.0" y1="310.0" x2="790.0" y2="310.0" stroke="#6b7280" stroke-width="1.0"/>
+<polyline points="110,300 260.0,280 280.0,310 280.0,310 450.0,320 600.0,340 620.0,310 790,300" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="98.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">I_Lout</text>
+<line x1="110.0" y1="445.0" x2="790.0" y2="445.0" stroke="#6b7280" stroke-width="1.0"/>
+<polyline points="110,435 260.0,405 280.0,430 450.0,435 600.0,405 620.0,430 790,435" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="450.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Частота пульсацій дроселя f_ripple = 2 · f_sw</text>
+</svg>

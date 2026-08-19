@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="20.0" width="445.0" height="390.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="237.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ФАЗА 1: Ключ Q1 ЗАМКНЕНО (Пряма передача)</text>
+<rect x="37.8" y="72.2" width="398.5" height="55.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="237.0" y="89.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="237.0" dy="0.0">1. Енергія з Vin миттєво тече крізь Np→Ns і D1 у навантаження</tspan><tspan x="237.0" dy="14.3">2. Дросель L НАКОПИЧУЄ енергію (струм iL лінійно зростає)</tspan><tspan x="237.0" dy="14.3">3. Осердя НАМАГНІЧУЄТЬСЯ струмом Im; діод Dr закритий</tspan></text>
+<line x1="50.0" y1="190.0" x2="160.0" y2="190.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="100.0" y1="190.0" x2="130.0" y2="190.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="105.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">струм Ip</text>
+<rect x="160.0" y="170.0" width="70.0" height="90.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="2.0"/>
+<text x="195.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Трансф.
+Np : Ns</text>
+<line x1="195.0" y1="260.0" x2="195.0" y2="310.0" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="157.7" y="316.4" width="74.7" height="37.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="195.0" y="331.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Q1 ВКЛ</tspan><tspan x="195.0" dy="14.3">(замкнено)</tspan></text>
+<line x1="230.0" y1="190.0" x2="310.0" y2="190.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="260.0" y1="190.0" x2="285.0" y2="190.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="275.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">D1 ВКЛ</text>
+<rect x="315.8" y="171.3" width="68.4" height="37.3" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.5"/><text x="350.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Дросель L</tspan><tspan x="350.0" dy="14.3">(заряд)</tspan></text>
+<line x1="390.0" y1="190.0" x2="430.0" y2="190.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="400.0" y1="190.0" x2="420.0" y2="190.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="312.6" y="281.4" width="74.7" height="37.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="350.0" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">D2 ВИКЛ</tspan><tspan x="350.0" dy="14.3">(закритий)</tspan></text>
+<rect x="480.0" y="20.0" width="445.0" height="390.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="702.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ФАЗА 2: Ключ Q1 РОЗІМКНЕНО (Розмагнічування)</text>
+<rect x="512.2" y="72.2" width="379.7" height="55.6" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="702.0" y="89.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="702.0" dy="0.0">1. Первинний струм розірвано; Ns знеструмлена, D1 закритий</tspan><tspan x="702.0" dy="14.3">2. Дросель L РОЗРЯДЖАЄТЬСЯ в навантаження крізь діод D2</tspan><tspan x="702.0" dy="14.3">3. Обмотка Nr скидає струм Im крізь Dr назад у джерело Vin</tspan></text>
+<rect x="515.0" y="170.0" width="70.0" height="90.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="2.0"/>
+<text x="550.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Трансф.
+Nr скидання</text>
+<line x1="550.0" y1="170.0" x2="550.0" y2="145.0" stroke="#d35400" stroke-width="2.0"/>
+<line x1="550.0" y1="145.0" x2="500.0" y2="145.0" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="525.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Dr скидає в Vin</text>
+<rect x="506.4" y="316.4" width="87.2" height="37.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="550.0" y="331.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Q1 ВИКЛ</tspan><tspan x="550.0" dy="14.3">(розімкнено)</tspan></text>
+<rect x="591.3" y="281.4" width="137.4" height="37.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="660.0" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">D2 ВКЛ</tspan><tspan x="660.0" dy="14.3">(струм самоіндукції)</tspan></text>
+<rect x="725.8" y="171.3" width="68.4" height="37.3" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.5"/><text x="760.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">Дросель L</tspan><tspan x="760.0" dy="14.3">(розряд)</tspan></text>
+<line x1="660.0" y1="270.0" x2="660.0" y2="190.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="660.0" y1="190.0" x2="720.0" y2="190.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="680.0" y1="190.0" x2="710.0" y2="190.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="190.0" x2="890.0" y2="190.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="820.0" y1="190.0" x2="860.0" y2="190.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="855.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">до Rн</text>
+</svg>

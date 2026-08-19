@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура драйвера повного H-моста та силових ключів</text>
+<rect x="40.0" y="50.0" width="410.0" height="440.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="2.0"/>
+<text x="245.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтегральний драйвер H-моста</text>
+<rect x="73.8" y="104.2" width="112.3" height="51.6" rx="6" fill="#f3e5f5" stroke="#8e44ad" stroke-width="1.5"/><text x="130.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Вхідна логіка</tspan><tspan x="130.0" dy="14.3">(IN_A, IN_B, EN)</tspan><tspan x="130.0" dy="14.3">3.3 В / 5 В</tspan></text>
+<rect x="61.3" y="194.2" width="137.4" height="51.6" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/><text x="130.0" y="209.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Генератор Dead-time</tspan><tspan x="130.0" dy="14.3">та Interlock-захист</tspan><tspan x="130.0" dy="14.3">(анти-shoot-through)</tspan></text>
+<rect x="67.6" y="284.2" width="124.9" height="51.6" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/><text x="130.0" y="299.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">UVLO-компаратори</tspan><tspan x="130.0" dy="14.3">живлення VCC / VBS</tspan><tspan x="130.0" dy="14.3">і логіка Fault</tspan></text>
+<line x1="130.0" y1="160.0" x2="130.0" y2="195.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="130.0" y1="255.0" x2="130.0" y2="285.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="271.3" y="104.2" width="137.4" height="51.6" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/><text x="340.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Драйвер Low-Side A</tspan><tspan x="340.0" dy="14.3">(вихід LO_A, до 2 А)</tspan><tspan x="340.0" dy="14.3">земля GND</tspan></text>
+<rect x="261.9" y="194.2" width="156.2" height="51.6" rx="6" fill="#fbeee6" stroke="#d35400" stroke-width="1.5"/><text x="340.0" y="209.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Level Shifter A +</tspan><tspan x="340.0" dy="14.3">Драйвер High-Side A</tspan><tspan x="340.0" dy="14.3">(плаваючий VB_A / VS_A)</tspan></text>
+<rect x="261.9" y="284.2" width="156.2" height="51.6" rx="6" fill="#fbeee6" stroke="#d35400" stroke-width="1.5"/><text x="340.0" y="299.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Level Shifter B +</tspan><tspan x="340.0" dy="14.3">Драйвер High-Side B</tspan><tspan x="340.0" dy="14.3">(плаваючий VB_B / VS_B)</tspan></text>
+<rect x="271.3" y="374.2" width="137.4" height="51.6" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/><text x="340.0" y="389.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Драйвер Low-Side B</tspan><tspan x="340.0" dy="14.3">(вихід LO_B, до 2 А)</tspan><tspan x="340.0" dy="14.3">земля GND</tspan></text>
+<line x1="195.0" y1="210.0" x2="260.0" y2="140.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="220.0" x2="260.0" y2="220.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="230.0" x2="260.0" y2="310.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="240.0" x2="260.0" y2="395.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="60.0" x2="800.0" y2="60.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="650.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+V_bus (Силова шина 24...400 В)</text>
+<line x1="500.0" y1="480.0" x2="800.0" y2="480.0" stroke="#333333" stroke-width="3.0"/>
+<text x="650.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">GND_power (Силова земля)</text>
+<rect x="521.2" y="118.2" width="77.6" height="43.6" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="2.0"/><text x="560.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Q1 (HS_A)</tspan><tspan x="560.0" dy="15.6">N-MOSFET</tspan></text>
+<rect x="521.2" y="378.2" width="77.6" height="43.6" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="2.0"/><text x="560.0" y="389.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Q2 (LS_A)</tspan><tspan x="560.0" dy="15.6">N-MOSFET</tspan></text>
+<rect x="701.2" y="118.2" width="77.6" height="43.6" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="2.0"/><text x="740.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">Q3 (HS_B)</tspan><tspan x="740.0" dy="15.6">N-MOSFET</tspan></text>
+<rect x="701.2" y="378.2" width="77.6" height="43.6" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="2.0"/><text x="740.0" y="396.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">Q4 (LS_B)</tspan><tspan x="740.0" dy="15.6">N-MOSFET</tspan></text>
+<line x1="560.0" y1="60.0" x2="560.0" y2="115.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="560.0" y1="165.0" x2="560.0" y2="375.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="560.0" y1="425.0" x2="560.0" y2="480.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="740.0" y1="60.0" x2="740.0" y2="115.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="740.0" y1="165.0" x2="740.0" y2="375.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="740.0" y1="425.0" x2="740.0" y2="480.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="560.0" cy="270.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="525.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">SW_A</text>
+<circle cx="740.0" cy="270.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="775.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">SW_B</text>
+<line x1="560.0" y1="270.0" x2="610.0" y2="270.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="690.0" y1="270.0" x2="740.0" y2="270.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="650.0" cy="270.0" r="30.0" fill="#fdfefe" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="650.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мотор</text>
+<line x1="415.0" y1="130.0" x2="515.0" y2="135.0" stroke="#d35400" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="465.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">HO_A</text>
+<line x1="415.0" y1="220.0" x2="515.0" y2="395.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="465.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle" font-weight="700">LO_A</text>
+<line x1="415.0" y1="310.0" x2="695.0" y2="140.0" stroke="#d35400" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">HO_B</text>
+<line x1="415.0" y1="400.0" x2="695.0" y2="405.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="545.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle" font-weight="700">LO_B</text>
+</svg>

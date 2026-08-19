@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура Hot-Swap та траєкторія заряду в зоні безпечної роботи SOA</text>
+<line x1="470.0" y1="45.0" x2="470.0" y2="445.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 6"/>
+<text x="235.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура Hot-Swap контролера</text>
+<rect x="8.4" y="92.5" width="103.2" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="60.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="60.0" dy="0.0">Гаряча шина</tspan><tspan x="60.0" dy="13.0">12 В (Backplane)</tspan></text>
+<line x1="115.0" y1="110.0" x2="145.0" y2="110.0" stroke="#333333" stroke-width="2.5"/>
+<rect x="144.1" y="92.5" width="51.9" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">R_sense</tspan><tspan x="170.0" dy="13.0">5 мОм</tspan></text>
+<line x1="195.0" y1="110.0" x2="235.0" y2="110.0" stroke="#333333" stroke-width="2.5"/>
+<rect x="233.0" y="92.5" width="74.0" height="35.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="270.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">N-MOSFET</tspan><tspan x="270.0" dy="13.0">Ключ dV/dt</tspan></text>
+<line x1="305.0" y1="110.0" x2="370.0" y2="110.0" stroke="#333333" stroke-width="2.5"/>
+<rect x="306.2" y="144.0" width="127.6" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="370.0" y="160.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Ємність плати</tspan><tspan x="370.0" dy="13.0">C_load = 2200 мкФ</tspan><tspan x="370.0" dy="13.0">(без заряду = КЗ!)</tspan></text>
+<line x1="370.0" y1="110.0" x2="370.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="118.8" y="199.0" width="202.4" height="82.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="220.0" y="217.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Hot-Swap контролер</tspan><tspan x="220.0" dy="13.0">• Драйвер затвора (I_gate струм)</tspan><tspan x="220.0" dy="13.0">• Обмеження струму (I_limit луп)</tspan><tspan x="220.0" dy="13.0">• Таймер аварії (SOA захист)</tspan><tspan x="220.0" dy="13.0">• Сигнал PGOOD для навантаження</tspan></text>
+<line x1="170.0" y1="130.0" x2="170.0" y2="195.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="270.0" y1="195.0" x2="270.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Gate</text>
+<text x="705.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крива SOA та тепловий стрес</text>
+<line x1="530.0" y1="360.0" x2="890.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="360.0" x2="530.0" y2="100.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="885.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Напруга V_DS (В) [логарифмічна]</text>
+<text x="520.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Струм I_D (А)</text>
+<line x1="550.0" y1="160.0" x2="620.0" y2="340.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="570.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R_ds(on) ліміт</text>
+<line x1="620.0" y1="160.0" x2="830.0" y2="230.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="790.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">10 мс пульс</text>
+<line x1="620.0" y1="200.0" x2="830.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="790.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">DC режим (статика)</text>
+<circle cx="780.0" cy="210.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="780.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Початок заряду: V_DS=12В, I=10А (P=120 Вт!)</text>
+<line x1="770.0" y1="215.0" x2="590.0" y2="330.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<circle cx="580.0" cy="335.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="615.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Кінець: V_DS≈0 В</text>
+<rect x="539.4" y="402.5" width="331.2" height="35.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="705.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Hot-Swap тримає заряд у межах імпульсної зони SOA.</tspan><tspan x="705.0" dy="13.0">Якщо час заряду перевищує таймер — аварійне відключення!</tspan></text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-52.86 -10 872.86 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-52.86" y="-10" width="872.86" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезисний контроль напруги та фази роботи в Burst Mode</text>
+<rect x="20.0" y="20.0" width="780.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="80.0" y1="95.0" x2="750.0" y2="95.0" stroke="#e74c3c" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="70.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e74c3c" text-anchor="end" font-weight="700">V_high (V_ном + ΔV)</text>
+<line x1="80.0" y1="135.0" x2="750.0" y2="135.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="70.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_ном</text>
+<line x1="80.0" y1="175.0" x2="750.0" y2="175.0" stroke="#2980b9" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="70.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="end" font-weight="700">V_low (V_ном − ΔV)</text>
+<polyline points="80.0,145.0 120.0,175.0 220.0,95.0 500.0,175.0 600.0,95.0 750.0,140.0" fill="none" stroke="#1a1a1a" stroke-width="3.0"/>
+<line x1="515.0" y1="95.0" x2="515.0" y2="175.0" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="525.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="start" font-weight="700">Пульсація ΔV_burst (20..100 мВ)</text>
+<line x1="80.0" y1="420.0" x2="750.0" y2="420.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="70.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Струм котушки I_L</text>
+<rect x="120.0" y="260.0" width="100.0" height="160.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.4"/>
+<text x="170.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА ПАЧКА</text>
+<text x="170.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">5..15 імпульсів</text>
+<polygon points="125.0,420.0 131.0,340.0 139.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="140.0,420.0 146.0,340.0 154.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="155.0,420.0 161.0,340.0 169.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="170.0,420.0 176.0,340.0 184.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="185.0,420.0 191.0,340.0 199.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="200.0,420.0 206.0,340.0 214.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="220.0" y="260.0" width="280.0" height="160.0" rx="4" fill="#fbf0ff" stroke="#8e44ad" stroke-width="1.4"/>
+<text x="360.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">РЕЖИМ ГЛИБОКОГО СНУ (SLEEP)</text>
+<text x="360.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Силові ключі повністю зачинені (Hi-Z)</text>
+<text x="360.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Генератор і підсилювач помилки вимкнені</text>
+<text x="360.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">• Струм спокою контролера: I_q ≈ 1..5 мкА</text>
+<text x="360.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Навантаження живиться від енергії C_out</text>
+<text x="360.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle" font-style="italic">t_сон = C_out · 2ΔV / I_вих (до десятків мс)</text>
+<rect x="500.0" y="260.0" width="100.0" height="160.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.4"/>
+<text x="550.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА ПАЧКА</text>
+<polygon points="505.0,420.0 511.0,340.0 519.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="520.0,420.0 526.0,340.0 534.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="535.0,420.0 541.0,340.0 549.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="550.0,420.0 556.0,340.0 564.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="565.0,420.0 571.0,340.0 579.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<polygon points="580.0,420.0 586.0,340.0 594.0,420.0" fill="#a3e4d7" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="600.0" y="260.0" width="140.0" height="160.0" rx="4" fill="#fbf0ff" stroke="#8e44ad" stroke-width="1.4"/>
+<text x="670.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Сон (I_q = 2 мкА)</text>
+</svg>

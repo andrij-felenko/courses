@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10.2 -10 890.2 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10.2" y="-10" width="890.2" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="35.0" width="420.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="240.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Правильне секвенування подачі живлення</text>
+<line x1="80.0" y1="370.0" x2="430.0" y2="370.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="430.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">час</text>
+<text x="70.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">VDD (3.3 В)</text>
+<line x1="80.0" y1="130.0" x2="120.0" y2="130.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="120.0" y1="130.0" x2="180.0" y2="105.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="180.0" y1="105.0" x2="410.0" y2="105.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="70.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="end" font-weight="700">VDDA (3.3 В)</text>
+<line x1="80.0" y1="190.0" x2="160.0" y2="190.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="160.0" y1="190.0" x2="220.0" y2="165.0" stroke="#7c3aed" stroke-width="2.2"/>
+<line x1="220.0" y1="165.0" x2="410.0" y2="165.0" stroke="#7c3aed" stroke-width="2.2"/>
+<text x="70.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">VCORE (1.0 В)</text>
+<line x1="80.0" y1="250.0" x2="220.0" y2="250.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="220.0" y1="250.0" x2="270.0" y2="225.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="270.0" y1="225.0" x2="410.0" y2="225.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="70.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">RESET_N</text>
+<line x1="80.0" y1="310.0" x2="320.0" y2="310.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="320.0" y1="310.0" x2="335.0" y2="285.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="335.0" y1="285.0" x2="410.0" y2="285.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="180.0" y1="105.0" x2="180.0" y2="370.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="270.0" y1="225.0" x2="270.0" y2="370.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="335.0" y1="285.0" x2="335.0" y2="370.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="180.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">1. VDD OK</text>
+<text x="270.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">2. VCORE OK</text>
+<text x="352.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3. Старт CPU</text>
+<rect x="50.0" y="385.0" width="380.0" height="35.0" rx="6" fill="#fff" stroke="#94a3b8" stroke-width="1.5"/><text x="240.0" y="405.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Правило: напруга на виводах I/O не повинна з'являтися раніше за живлення домену</tspan></text>
+<rect x="475.0" y="35.0" width="375.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="662.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Механізм тиристорної засувки (Latch-up)</text>
+<rect x="500.0" y="95.0" width="325.0" height="140.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="662.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Паразитна 4-шарова p-n-p-n структура (SCR)</text>
+<rect x="520.0" y="135.0" width="120.0" height="45.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="580.0" y="154.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">Паразитний PNP</tspan><tspan x="580.0" dy="11.7">(Q1 у N-Well)</tspan></text>
+<rect x="685.0" y="135.0" width="120.0" height="45.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="745.0" y="154.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="745.0" dy="0.0">Паразитний NPN</tspan><tspan x="745.0" dy="11.7">(Q2 у P-Substrate)</tspan></text>
+<line x1="640.0" y1="150.0" x2="685.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="165.0" x2="640.0" y2="165.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="662.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Регенеративний зв'язок: I_C1 годує I_B2, I_C2 годує I_B1</text>
+<text x="662.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Коротке замикання VDD → VSS через кристал!</text>
+<rect x="500.0" y="250.0" width="325.0" height="120.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="662.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Як виникає пусковий струм тригера:</text>
+<rect x="515.0" y="285.0" width="295.0" height="75.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="662.5" y="308.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="662.5" dy="0.0">1. На вхід I/O подано 3.3 В, коли VDD = 0 В</tspan><tspan x="662.5" dy="11.7">2. Пряме зміщення ESD-діода або p-n переходу</tspan><tspan x="662.5" dy="11.7">3. Інжекція дірок/електронів відкриває базу Q1/Q2</tspan><tspan x="662.5" dy="11.7">4. Струм зростає до амперів → тепловий пробій</tspan></text>
+<rect x="500.0" y="385.0" width="325.0" height="35.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.5"/><text x="662.5" y="405.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="662.5" dy="0.0">Захист: правильний порядок старту, захисні резистори та guard rings</tspan></text>
+</svg>
