@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="79.0" y="5.0" width="282.0" height="45.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="24.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Зворотне відновлення PIN-діода</tspan><tspan x="220.0" dy="16.9">Розсмоктування заряду плазми Q_rr</tspan></text>
+<rect x="515.0" y="5.0" width="290.0" height="45.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="660.0" y="24.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">Хвостовий струм IGBT при вимиканні</tspan><tspan x="660.0" dy="16.9">Екстракція залишкових дірок у базі</tspan></text>
+<rect x="40.0" y="60.0" width="375.0" height="360.0" rx="4" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+<line x1="60.0" y1="250.0" x2="400.0" y2="250.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="90.0" y1="75.0" x2="90.0" y2="400.0" stroke="#333333" stroke-width="1.5"/>
+<text x="95.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Струм i_D(t)</text>
+<text x="390.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">t</text>
+<line x1="90.0" y1="150.0" x2="140.0" y2="150.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="115.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+I_F (прямий)</text>
+<line x1="140.0" y1="150.0" x2="235.0" y2="345.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="200.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">-di/dt</text>
+<circle cx="235.0" cy="345.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="235.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">-I_rr,peak</text>
+<path d="M 235 345 Q 280 280 370 250" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="195.0" y1="250.0" x2="195.0" y2="305.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="235.0" y1="250.0" x2="235.0" y2="345.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="370.0" y1="250.0" x2="370.0" y2="290.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="195.0" y1="295.0" x2="235.0" y2="295.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="215.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">t_a</text>
+<line x1="235.0" y1="295.0" x2="370.0" y2="295.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="305.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">t_b (спад)</text>
+<rect x="217.4" y="318.5" width="175.3" height="33.0" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/><text x="305.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="305.0" dy="0.0">Заряд Q_rr = ∫ i_rr dt</tspan><tspan x="305.0" dy="13.0">Фактор м'якості S = t_b / t_a</tspan></text>
+<rect x="67.8" y="386.0" width="304.4" height="18.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="220.0" dy="0.0">Різкий спад (S &lt;&lt; 1) викликає L·(di/dt) перенапругу!</tspan></text>
+<line x1="440.0" y1="20.0" x2="440.0" y2="425.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="5,5"/>
+<rect x="480.0" y="60.0" width="375.0" height="360.0" rx="4" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+<line x1="500.0" y1="330.0" x2="840.0" y2="330.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="525.0" y1="75.0" x2="525.0" y2="330.0" stroke="#333333" stroke-width="1.5"/>
+<text x="530.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">i_C(t) та v_CE(t)</text>
+<text x="830.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">t</text>
+<path d="M 530 315 L 580 315 L 625 140 L 830 140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<text x="820.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">v_CE(t) → V_DC</text>
+<line x1="530.0" y1="120.0" x2="580.0" y2="120.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="580.0" y1="120.0" x2="625.0" y2="260.0" stroke="#c0392b" stroke-width="2.5"/>
+<path d="M 625 260 Q 690 295 820 325" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="602.1" y="196.0" width="245.7" height="48.0" rx="6" fill="#f8d7da" stroke="#dc3545" stroke-width="1.5"/><text x="725.0" y="210.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#721c24" text-anchor="middle"><tspan x="725.0" dy="0.0">Хвостовий струм I_tail(t)</tspan><tspan x="725.0" dy="13.0">Залишкові дірки у базі</tspan><tspan x="725.0" dy="13.0">P(t) = V_DC · I_tail(t)  →  Втрати E_off!</tspan></text>
+<rect x="465.1" y="386.0" width="389.9" height="18.0" rx="6" fill="#d1ecf1" stroke="#17a2b8" stroke-width="1.5"/><text x="660.0" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0c5460" text-anchor="middle"><tspan x="660.0" dy="0.0">Для скорочення хвоста застосовують радіаційне вбивство часу життя τ</tspan></text>
+</svg>

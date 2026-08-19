@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Монолітний кристал проти модульної чиплетної архітектури</text>
+<rect x="25.0" y="50.0" width="380.0" height="415.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<text x="215.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Монолітний кристал (Monolithic Die)</text>
+<text x="215.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Єдиний великий кристал на дорогому вузлі 3 нм</text>
+<rect x="45.0" y="115.0" width="340.0" height="240.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="215.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Площа кристала ~800 мм² (межа фотошаблона)</text>
+<rect x="60.0" y="150.0" width="145.0" height="80.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="132.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">CPU / GPU Ядра</text>
+<text x="132.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">(логіка 3 нм)</text>
+<rect x="225.0" y="150.0" width="145.0" height="80.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="297.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">NPU / Тензори</text>
+<text x="297.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">(логіка 3 нм)</text>
+<rect x="60.0" y="240.0" width="310.0" height="100.0" rx="4" fill="#fdf3e7" stroke="#d97706" stroke-width="1.2"/>
+<text x="215.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">I/O контролери, SerDes PHY, контролери пам'яті</text>
+<text x="215.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Аналогові блоки не масштабуються, займають площу 3 нм</text>
+<text x="215.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Площа I/O ~40% кристала за ціною передового вузла</text>
+<circle cx="115.0" cy="175.0" r="7.0" fill="#fce8e6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="115.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">×</text>
+<circle cx="275.0" cy="275.0" r="7.0" fill="#fce8e6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="275.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">×</text>
+<rect x="45.0" y="370.0" width="340.0" height="80.0" rx="6" fill="#fff1f0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="215.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Критичні недоліки моноліту:</text>
+<text x="215.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• 1 точковий дефект вбиває весь кристал 800 мм²</text>
+<text x="215.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Вихід придатних (Yield) низький: 30–45%</text>
+<text x="215.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Неможливо перевищити ліміт ретикули (858 мм²)</text>
+<rect x="435.0" y="50.0" width="380.0" height="415.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<text x="625.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модульна чиплетна збірка (Chiplets)</text>
+<text x="625.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Гетерогенна інтеграція на спільній підкладці</text>
+<rect x="455.0" y="115.0" width="340.0" height="240.0" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.8"/>
+<text x="625.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6d28d9" text-anchor="middle" font-weight="700">Кремнієвий інтерпозер / Пакувальний субстрат</text>
+<rect x="470.0" y="150.0" width="95.0" height="75.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="517.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Compute 1</text>
+<text x="517.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3 нм (75 мм²)</text>
+<text x="517.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle" font-weight="700">Yield &gt; 88%</text>
+<rect x="575.0" y="150.0" width="95.0" height="75.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="622.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Compute 2</text>
+<text x="622.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3 нм (75 мм²)</text>
+<text x="622.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle" font-weight="700">Yield &gt; 88%</text>
+<rect x="680.0" y="150.0" width="100.0" height="75.0" rx="4" fill="#e8f7ec" stroke="#1e7e34" stroke-width="1.4"/>
+<text x="730.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7e34" text-anchor="middle" font-weight="700">HBM3 Стек</text>
+<text x="730.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3D Пам'ять</text>
+<text x="730.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle" font-weight="700">819 ГБ/с</text>
+<rect x="470.0" y="240.0" width="310.0" height="100.0" rx="4" fill="#fdf3e7" stroke="#d97706" stroke-width="1.4"/>
+<text x="625.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Центральний I/O кристал (cIOD)</text>
+<text x="625.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Виготовлений на дешевому зрілому вузлі 12 нм або 28 нм</text>
+<text x="625.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PCIe 5.0/6.0, контролери DDR5/CXL, аналоговий SerDes PHY</text>
+<text x="625.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle" font-weight="700">Собівартість кремнію у 4–6 разів нижча, ніж на 3 нм</text>
+<line x1="517.0" y1="225.0" x2="517.0" y2="240.0" stroke="#6d28d9" stroke-width="2.5" stroke-dasharray="3,2"/>
+<line x1="622.0" y1="225.0" x2="622.0" y2="240.0" stroke="#6d28d9" stroke-width="2.5" stroke-dasharray="3,2"/>
+<line x1="730.0" y1="225.0" x2="730.0" y2="240.0" stroke="#6d28d9" stroke-width="2.5" stroke-dasharray="3,2"/>
+<rect x="455.0" y="370.0" width="340.0" height="80.0" rx="6" fill="#f6ffed" stroke="#1e7e34" stroke-width="1.2"/>
+<text x="625.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7e34" text-anchor="middle" font-weight="700">Переваги модульної архітектури:</text>
+<text x="625.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Тестування до збірки (KGD): дефектні чиплети відсіюються</text>
+<text x="625.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Сумарна площа системи може сягати 2000–4000+ мм²</text>
+<text x="625.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Оптимальний техпроцес для кожного функціонального блоку</text>
+</svg>

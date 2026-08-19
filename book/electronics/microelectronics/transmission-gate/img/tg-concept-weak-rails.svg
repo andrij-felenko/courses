@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="385.0" height="320.0" rx="8" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="212.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">Одиночний NMOS-ключ: передача логічної «1»</text>
+<line x1="35.0" y1="110.0" x2="85.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="12.0" y="69.5" width="125.9" height="21.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/><text x="75.0" y="83.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="75.0" dy="0.0">Vin = Vdd (3.3 В)</tspan></text>
+<line x1="85.0" y1="110.0" x2="125.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="125.0" y1="90.0" x2="125.0" y2="130.0" stroke="#333333" stroke-width="3.0"/>
+<line x1="117.0" y1="90.0" x2="117.0" y2="130.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="117.0" y1="110.0" x2="117.0" y2="65.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="117.0" y1="65.0" x2="140.0" y2="65.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="136.8" y="56.0" width="116.3" height="18.0" rx="6" fill="#f6f8fa" stroke="#6b7280" stroke-width="1.5"/><text x="195.0" y="68.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Vgate = Vdd (3.3 В)</tspan></text>
+<line x1="125.0" y1="110.0" x2="175.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="175.0" y1="110.0" x2="220.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="220.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="220.0" y1="110.0" x2="220.0" y2="145.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="205.0" y1="145.0" x2="235.0" y2="145.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="205.0" y1="152.0" x2="235.0" y2="152.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="220.0" y1="152.0" x2="220.0" y2="180.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="210.0" y1="180.0" x2="230.0" y2="180.0" stroke="#333333" stroke-width="2.0"/>
+<text x="250.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">C_load</text>
+<line x1="220.0" y1="110.0" x2="275.0" y2="110.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="271.1" y="93.5" width="127.8" height="33.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="335.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="335.0" dy="0.0">Vout = Vdd − Vth</tspan><tspan x="335.0" dy="13.0">(квола «1» ≈ 2.5 В)</tspan></text>
+<rect x="43.0" y="214.9" width="338.0" height="80.2" rx="6" fill="#fcfcfc" stroke="#e1e4e8" stroke-width="1.5"/><text x="212.0" y="230.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="212.0" dy="0.0">Коли Vout піднімається до (Vdd − Vth),</tspan><tspan x="212.0" dy="14.3">напруга Vgs падає точно до порогу Vth.</tspan><tspan x="212.0" dy="14.3">Канал NMOS самозакривається:</tspan><tspan x="212.0" dy="14.3">транзистор НЕ здатний дотягти вихід до Vdd.</tspan><tspan x="212.0" dy="14.3">Втрата амплітуди: ΔV = Vth (з урахуванням підкладки)</tspan></text>
+<rect x="435.0" y="20.0" width="385.0" height="320.0" rx="8" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="627.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">Одиночний PMOS-ключ: передача логічного «0»</text>
+<line x1="450.0" y1="110.0" x2="500.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="427.0" y="69.5" width="125.9" height="21.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/><text x="490.0" y="83.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Vin = 0 В (земля)</tspan></text>
+<line x1="500.0" y1="110.0" x2="540.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="540.0" y1="90.0" x2="540.0" y2="130.0" stroke="#333333" stroke-width="3.0"/>
+<line x1="532.0" y1="90.0" x2="532.0" y2="130.0" stroke="#333333" stroke-width="2.5"/>
+<circle cx="527.0" cy="110.0" r="3.5" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<line x1="523.0" y1="110.0" x2="523.0" y2="65.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="523.0" y1="65.0" x2="545.0" y2="65.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="541.9" y="56.0" width="116.3" height="18.0" rx="6" fill="#f6f8fa" stroke="#6b7280" stroke-width="1.5"/><text x="600.0" y="68.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Vgate = 0 В (земля)</tspan></text>
+<line x1="540.0" y1="110.0" x2="590.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="590.0" y1="110.0" x2="635.0" y2="110.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="635.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="635.0" y1="110.0" x2="635.0" y2="145.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="620.0" y1="145.0" x2="650.0" y2="145.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="620.0" y1="152.0" x2="650.0" y2="152.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="635.0" y1="152.0" x2="635.0" y2="180.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="625.0" y1="180.0" x2="645.0" y2="180.0" stroke="#333333" stroke-width="2.0"/>
+<text x="665.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">C_load</text>
+<line x1="635.0" y1="110.0" x2="690.0" y2="110.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="683.0" y="93.5" width="134.0" height="33.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="750.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">Vout = |Vthp|</tspan><tspan x="750.0" dy="13.0">(кволий «0» ≈ 0.7 В)</tspan></text>
+<rect x="467.4" y="214.9" width="319.2" height="80.2" rx="6" fill="#fcfcfc" stroke="#e1e4e8" stroke-width="1.5"/><text x="627.0" y="230.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="627.0" dy="0.0">Коли Vout спадає до |Vthp| відносно землі,</tspan><tspan x="627.0" dy="14.3">напруга |Vgs| падає точно до порогу |Vthp|.</tspan><tspan x="627.0" dy="14.3">Канал PMOS передчасно закривається:</tspan><tspan x="627.0" dy="14.3">транзистор НЕ здатний розрядити вихід у чистий 0.</tspan><tspan x="627.0" dy="14.3">Залишковий рівень: Vout,min = |Vthp|</tspan></text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівневий каскад захисту GDT + MOV + TVS з елементами координації</text>
+<line x1="60.0" y1="110.0" x2="760.0" y2="110.0" stroke="#333333" stroke-width="3.0"/>
+<line x1="60.0" y1="280.0" x2="760.0" y2="280.0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="55.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Лінія (Вхід від роз'єму)</text>
+<text x="55.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Земля (GND / PE)</text>
+<text x="765.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">До входу IC</text>
+<line x1="170.0" y1="110.0" x2="170.0" y2="280.0" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="170.0" cy="195.0" r="24.0" fill="#eaf2fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="170.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">GDT</text>
+<text x="170.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">1-й ступінь</text>
+<rect x="105.0" y="310.0" width="130.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="170.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Скидає 90-95% енергії</tspan><tspan x="170.0" dy="12.3">(кілоампери в дугу)</tspan><tspan x="170.0" dy="12.3">t_resp ≈ 50-100 нс</tspan></text>
+<rect x="260.0" y="96.0" width="50.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="285.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">L_коорд</text>
+<text x="285.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ΔV = L·(dI/dt)</text>
+<line x1="400.0" y1="110.0" x2="400.0" y2="280.0" stroke="#27ae60" stroke-width="2.5"/>
+<rect x="382.0" y="175.0" width="36.0" height="40.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="400.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MOV</text>
+<text x="400.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">2-й ступінь</text>
+<rect x="335.0" y="310.0" width="130.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="322.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Поглинає залишок сплеску</tspan><tspan x="400.0" dy="11.7">(джоулі, V_cl ≈ 100-300 В)</tspan><tspan x="400.0" dy="11.7">t_resp ≈ 1-5 нс</tspan></text>
+<rect x="493.0" y="98.0" width="44.0" height="24.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="515.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_розв</text>
+<text x="515.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1…5 Ом</text>
+<line x1="630.0" y1="110.0" x2="630.0" y2="280.0" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="612.0" y="175.0" width="36.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="630.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">TVS</text>
+<text x="630.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3-й ступінь</text>
+<rect x="565.0" y="310.0" width="130.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="630.0" y="322.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Точний жорсткий затиск</tspan><tspan x="630.0" dy="11.7">(V_cl &lt; V_max логіки)</tspan><tspan x="630.0" dy="11.7">t_resp &lt; 1 нс</tspan></text>
+<line x1="110.0" y1="82.0" x2="160.0" y2="82.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="135.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I_surge</text>
+<rect x="150.0" y="368.0" width="520.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="387.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Механізм взаємодії: TVS фіксує фронт наносекунд -&gt; L_коорд створює спад напруги -&gt; запалює GDT</tspan></text>
+</svg>

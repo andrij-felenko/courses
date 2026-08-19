@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гетерогенна система-на-кристалі: ключові підсистеми на єдиному кремнії</text>
+<rect x="30.0" y="45.0" width="700.0" height="395.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="2.2"/>
+<text x="46.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Кремнієвий кристал (Monolithic Die)</text>
+<rect x="50.0" y="205.0" width="660.0" height="52.0" rx="4" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.8"/>
+<text x="380.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6d28d9" text-anchor="middle" font-weight="700">Внутрішньокристальний інтерконект / Network-on-Chip (NoC)</text>
+<text x="380.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle">Когерентна шинна матриця AMBA AXI / NoC-маршрутизатори</text>
+<rect x="50.0" y="75.0" width="175.0" height="115.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="137.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">CPU Кластер</text>
+<rect x="60.0" y="106.0" width="72.0" height="36.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="96.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ядро 0 (Big)</text>
+<rect x="142.0" y="106.0" width="72.0" height="36.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="178.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ядро 1 (Big)</text>
+<rect x="60.0" y="146.0" width="154.0" height="34.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="137.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">L2 / L3 Кеш-пам'ять</text>
+<line x1="137.0" y1="190.0" x2="137.0" y2="205.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="235.0" y="75.0" width="155.0" height="115.0" rx="4" fill="#e8f7ec" stroke="#1e7e34" stroke-width="1.6"/>
+<text x="312.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7e34" text-anchor="middle" font-weight="700">GPU Підсистема</text>
+<rect x="245.0" y="106.0" width="135.0" height="45.0" rx="3" fill="#ffffff" stroke="#1e7e34" stroke-width="1.0"/>
+<text x="312.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шейдерні ядра (SIMD)</text>
+<text x="312.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Растеризація та текстури</text>
+<rect x="245.0" y="155.0" width="135.0" height="25.0" rx="3" fill="#ffffff" stroke="#1e7e34" stroke-width="1.0"/>
+<text x="312.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle">GPU L2 Кеш</text>
+<line x1="312.0" y1="190.0" x2="312.0" y2="205.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="400.0" y="75.0" width="155.0" height="115.0" rx="4" fill="#e8f7ec" stroke="#1e7e34" stroke-width="1.6"/>
+<text x="477.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7e34" text-anchor="middle" font-weight="700">Нейропроцесор (NPU)</text>
+<rect x="410.0" y="106.0" width="135.0" height="45.0" rx="3" fill="#ffffff" stroke="#1e7e34" stroke-width="1.0"/>
+<text x="477.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Тензорний систолічний масив</text>
+<text x="477.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">MAC-блоки (INT8/FP16)</text>
+<rect x="410.0" y="155.0" width="135.0" height="25.0" rx="3" fill="#ffffff" stroke="#1e7e34" stroke-width="1.0"/>
+<text x="477.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="middle">Локальна SRAM (TCM)</text>
+<line x1="477.0" y1="190.0" x2="477.0" y2="205.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="565.0" y="75.0" width="145.0" height="115.0" rx="4" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.6"/>
+<text x="637.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle" font-weight="700">Безпечний анклав</text>
+<rect x="575.0" y="106.0" width="125.0" height="36.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="637.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Secure CPU</text>
+<text x="637.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ Апаратний AES/SHA</text>
+<rect x="575.0" y="146.0" width="125.0" height="34.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="637.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Secure Boot ROM</text>
+<text x="637.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ eFuse ключі</text>
+<line x1="637.0" y1="190.0" x2="637.0" y2="205.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="50.0" y="270.0" width="200.0" height="155.0" rx="4" fill="#fdf3e7" stroke="#d97706" stroke-width="1.6"/>
+<text x="150.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Підсистема пам'яті</text>
+<rect x="60.0" y="300.0" width="180.0" height="34.0" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="150.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Системний кеш (SLC)</text>
+<text x="150.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Загальний буфер (16–64 МБ)</text>
+<rect x="60.0" y="340.0" width="180.0" height="38.0" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="150.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Контролер LPDDR5 / DDR5</text>
+<text x="150.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Планувальник запитів + черги</text>
+<rect x="60.0" y="384.0" width="180.0" height="32.0" rx="3" fill="#faead6" stroke="#d97706" stroke-width="1.2"/>
+<text x="150.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">DDR PHY (Аналогові лінії IO)</text>
+<line x1="150.0" y1="257.0" x2="150.0" y2="270.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="260.0" y="270.0" width="175.0" height="155.0" rx="4" fill="#fce8e6" stroke="#c0392b" stroke-width="1.6"/>
+<text x="347.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Аналог, PLL та живлення</text>
+<rect x="270.0" y="300.0" width="155.0" height="34.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="347.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Тактові генератори (PLL)</text>
+<text x="347.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синтез частот для ядер</text>
+<rect x="270.0" y="340.0" width="155.0" height="34.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="347.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">АЦП / ЦАП (ADC / DAC)</text>
+<text x="347.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сенсори температури й напруг</text>
+<rect x="270.0" y="380.0" width="155.0" height="36.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="347.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Керування живленням</text>
+<text x="347.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PMIC інтерфейс, LDO</text>
+<line x1="347.0" y1="257.0" x2="347.0" y2="270.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="445.0" y="270.0" width="130.0" height="155.0" rx="4" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.6"/>
+<text x="510.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle" font-weight="700">Швидкісні IO</text>
+<rect x="455.0" y="304.0" width="110.0" height="32.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="510.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">PCIe Gen4 / Gen5</text>
+<rect x="455.0" y="342.0" width="110.0" height="32.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="510.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">USB4 / Thunderbolt</text>
+<rect x="455.0" y="380.0" width="110.0" height="35.0" rx="3" fill="#e5e7eb" stroke="#4b5563" stroke-width="1.0"/>
+<text x="510.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle" font-weight="700">SerDes PHY</text>
+<text x="510.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Диференційні пари</text>
+<line x1="510.0" y1="257.0" x2="510.0" y2="270.0" stroke="#6d28d9" stroke-width="2.0"/>
+<rect x="585.0" y="270.0" width="125.0" height="155.0" rx="4" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.6"/>
+<text x="647.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle" font-weight="700">Периферія</text>
+<rect x="595.0" y="304.0" width="105.0" height="26.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="647.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">UART / SPI / I2C</text>
+<rect x="595.0" y="336.0" width="105.0" height="26.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="647.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GPIO / Таймери</text>
+<rect x="595.0" y="368.0" width="105.0" height="26.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="647.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SD / eMMC</text>
+<rect x="595.0" y="400.0" width="105.0" height="20.0" rx="3" fill="#ffffff" stroke="#4b5563" stroke-width="1.0"/>
+<text x="647.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">JTAG / DFT</text>
+<line x1="647.0" y1="257.0" x2="647.0" y2="270.0" stroke="#6d28d9" stroke-width="2.0"/>
+<text x="380.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Усі функціональні вузли інтегровано на єдиній кремнієвій підкладці та зв'язано швидкісною мережею NoC</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Техпроцесний розрив: чому аналогові та I/O блоки не масштабуються</text>
+<rect x="25.0" y="50.0" width="370.0" height="365.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відносна площа при переході 16 нм → 3 нм</text>
+<text x="45.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Цифрова логіка (ALU/FPU/Tensor)</text>
+<rect x="45.0" y="125.0" width="220.0" height="22.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="155.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">16 нм: 100% (база)</text>
+<rect x="45.0" y="150.0" width="35.0" height="22.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="62.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">15%</text>
+<text x="130.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7e34" text-anchor="start" font-weight="700">Зменшення площі у ~6.5 разів!</text>
+<text x="45.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Кеш-пам'ять SRAM (Bitcell)</text>
+<rect x="45.0" y="205.0" width="220.0" height="22.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="155.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">16 нм: 100% (база)</text>
+<rect x="45.0" y="230.0" width="120.0" height="22.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="105.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">55%</text>
+<text x="175.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Масштабування гальмує</text>
+<text x="45.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Аналогові блоки, SerDes PHY, I/O контакти</text>
+<rect x="45.0" y="285.0" width="220.0" height="22.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="155.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">16 нм: 100% (база)</text>
+<rect x="45.0" y="310.0" width="195.0" height="22.0" rx="3" fill="#fce8e6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="142.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">88% (майже не зменшується!)</text>
+<text x="45.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Причина: вимоги до напруги, резисторів, індуктивностей</text>
+<text x="45.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">та ESD-захисту, які не залежать від довжини затвора.</text>
+<rect x="425.0" y="50.0" width="370.0" height="365.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="610.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Економіка гетерогенного розщеплення</text>
+<rect x="445.0" y="100.0" width="330.0" height="48.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вартість 300-мм пластини 3 нм:</text>
+<text x="760.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">~$20 000+</text>
+<text x="460.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вартість 300-мм пластини 12/28 нм:</text>
+<text x="760.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7e34" text-anchor="end" font-weight="700">~$3 000–$4 500</text>
+<rect x="445.0" y="160.0" width="330.0" height="140.0" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.4"/>
+<text x="610.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6d28d9" text-anchor="middle" font-weight="700">Гетерогенна система за призначенням</text>
+<rect x="460.0" y="198.0" width="140.0" height="48.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="530.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Compute Die (3 нм)</text>
+<text x="530.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Максимальна щільність</text>
+<rect x="615.0" y="198.0" width="145.0" height="48.0" rx="3" fill="#fdf3e7" stroke="#d97706" stroke-width="1.2"/>
+<text x="687.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">I/O Die (12/28 нм)</text>
+<text x="687.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Дешева площа під SerDes</text>
+<text x="610.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6d28d9" text-anchor="middle" font-weight="700">Зв'язок через високощільний D2D інтерконект</text>
+<text x="610.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7e34" text-anchor="middle" font-weight="700">Економія сумарної собівартості системи: 40–60%</text>
+<text x="445.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Висновок: перенесення I/O та аналогових схем</text>
+<text x="445.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">з дорогого техпроцесу 3 нм на зрілий вузол 12 нм</text>
+<text x="445.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">вивільняє коштовний кремній під обчислювальні</text>
+<text x="445.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ядра без втрати загальної швидкодії системи.</text>
+</svg>

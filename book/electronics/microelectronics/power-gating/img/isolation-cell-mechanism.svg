@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комірка ізоляції на межі доменів: усунення наскрізного струму (Crowbar)</text>
+<rect x="30.0" y="48.0" width="270.0" height="225.0" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="165.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Вимкнений домен (Power-Gated)</text>
+<text x="165.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">VDD_SW = 0 В (живлення відключене)</text>
+<rect x="480.0" y="48.0" width="270.0" height="225.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="615.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Активний домен (Always-On)</text>
+<text x="615.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">VDD_AON = 0.9 В (постійне живлення)</text>
+<line x1="375.0" y1="45.0" x2="375.0" y2="275.0" stroke="#8b5cf6" stroke-width="2.0" stroke-dasharray="5,5"/>
+<text x="375.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b5cf6" text-anchor="middle" font-weight="700">Межа живлення</text>
+<rect x="60.0" y="110.0" width="195.0" height="110.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="157.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Останній логічний вентиль</text>
+<text x="157.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимкнений інвертор CMOS</text>
+<text x="157.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Вихідний плаваючий рівень</text>
+<text x="157.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Z (Floating: ~0.4–0.5 В)</text>
+<line x1="255.0" y1="160.0" x2="315.0" y2="160.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="285.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Плаваючий Z</text>
+<rect x="315.0" y="105.0" width="125.0" height="120.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="2.0"/>
+<rect x="315.0" y="105.0" width="125.0" height="22.0" rx="4" fill="#d97706" stroke="#d97706" stroke-width="1.0"/>
+<text x="377.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">Isolation Cell (AND)</text>
+<rect x="345.0" y="138.0" width="55.0" height="45.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="372.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#d97706" text-anchor="middle" font-weight="700">&amp;</text>
+<line x1="315.0" y1="150.0" x2="345.0" y2="150.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="372.0" y1="210.0" x2="372.0" y2="183.0" stroke="#8b5cf6" stroke-width="1.8"/>
+<text x="372.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b5cf6" text-anchor="middle" font-weight="700">ISO_EN (0 = Блок)</text>
+<line x1="372.0" y1="85.0" x2="372.0" y2="105.0" stroke="#d97706" stroke-width="2.0"/>
+<circle cx="372.0" cy="85.0" r="3.0" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="372.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">VDD_AON</text>
+<line x1="400.0" y1="160.0" x2="510.0" y2="160.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="455.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Фіксований 0 (Clamp-0)</text>
+<rect x="510.0" y="110.0" width="215.0" height="110.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="617.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вхідний приймач Always-On</text>
+<text x="617.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">pMOS = Закритий, nMOS = Відкритий</text>
+<text x="617.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Струм витоку = 0</text>
+<text x="617.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">✓ Чіткий логічний рівень '0'</text>
+<text x="617.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">✓ Немає хибних перемикань</text>
+<rect x="30.0" y="300.0" width="720.0" height="120.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="390.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Чому плаваючий сигнал неприпустимий (Аварія без Isolation Cell):</text>
+<text x="390.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Напруга ~0.5 В на затворі відкриває ОДНОЧАСНО pMOS та nMOS приймача активного домену.</text>
+<text x="390.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. Виникає прямий наскрізний струм короткого замикання (Crowbar Current: VDD → GND) у міліампери.</text>
+<text x="390.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">3. Наслідки: локальний перегрів, катастрофічний розряд батареї та спотворення станів логіки.</text>
+</svg>

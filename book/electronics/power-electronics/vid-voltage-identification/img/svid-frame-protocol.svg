@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура кадру протоколу Intel SVID (25 МГц послідовний пакет)</text>
+<text x="40.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Анатомія транзакції SVID (Master Command + Slave Acknowledge / Payload)</text>
+<rect x="40.0" y="73.0" width="45.0" height="40.0" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+<text x="62.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">START</text>
+<text x="62.5" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Start bit</text>
+<text x="62.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 біт = 0)</text>
+<rect x="89.0" y="73.0" width="95.0" height="40.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="136.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ADDR</text>
+<text x="136.5" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Slave Addr</text>
+<text x="136.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(4 біти: 0..F)</text>
+<rect x="188.0" y="73.0" width="150.0" height="40.0" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+<text x="263.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">CMD</text>
+<text x="263.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Command Code</text>
+<text x="263.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(5 бітів: SetVID/GetReg)</text>
+<rect x="342.0" y="73.0" width="210.0" height="40.0" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+<text x="447.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">DATA / PAYLOAD</text>
+<text x="447.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Master Data Payload</text>
+<text x="447.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(8 бітів: VID код або Reg Offset)</text>
+<rect x="556.0" y="73.0" width="65.0" height="40.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="588.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">PARITY</text>
+<text x="588.5" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Parity (P)</text>
+<text x="588.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Odd parity)</text>
+<rect x="625.0" y="73.0" width="50.0" height="40.0" rx="4" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.5"/>
+<text x="650.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">TURN</text>
+<text x="650.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Turn-around</text>
+<text x="650.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(TA, 1-2 такти)</text>
+<rect x="679.0" y="73.0" width="145.0" height="40.0" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="751.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">ACK / STATUS</text>
+<text x="751.5" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Slave Status / Data</text>
+<text x="751.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ACK + Telemetry byte)</text>
+<text x="40.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Осцилограма сигнальних ліній шини SVID</text>
+<text x="40.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">SCLK (25 МГц)</text>
+<text x="40.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">SDATA</text>
+<text x="40.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ALERT#</text>
+<path d="M 120.0 235.0 L 120.0 215.0 L 131.0 215.0 L 131.0 235.0 L 142.0 235.0 L 142.0 215.0 L 153.0 215.0 L 153.0 235.0 L 164.0 235.0 L 164.0 215.0 L 175.0 215.0 L 175.0 235.0 L 186.0 235.0 L 186.0 215.0 L 197.0 215.0 L 197.0 235.0 L 208.0 235.0 L 208.0 215.0 L 219.0 215.0 L 219.0 235.0 L 230.0 235.0 L 230.0 215.0 L 241.0 215.0 L 241.0 235.0 L 252.0 235.0 L 252.0 215.0 L 263.0 215.0 L 263.0 235.0 L 274.0 235.0 L 274.0 215.0 L 285.0 215.0 L 285.0 235.0 L 296.0 235.0 L 296.0 215.0 L 307.0 215.0 L 307.0 235.0 L 318.0 235.0 L 318.0 215.0 L 329.0 215.0 L 329.0 235.0 L 340.0 235.0 L 340.0 215.0 L 351.0 215.0 L 351.0 235.0 L 362.0 235.0 L 362.0 215.0 L 373.0 215.0 L 373.0 235.0 L 384.0 235.0 L 384.0 215.0 L 395.0 215.0 L 395.0 235.0 L 406.0 235.0 L 406.0 215.0 L 417.0 215.0 L 417.0 235.0 L 428.0 235.0 L 428.0 215.0 L 439.0 215.0 L 439.0 235.0 L 450.0 235.0 L 450.0 215.0 L 461.0 215.0 L 461.0 235.0 L 472.0 235.0 L 472.0 215.0 L 483.0 215.0 L 483.0 235.0 L 494.0 235.0 L 494.0 215.0 L 505.0 215.0 L 505.0 235.0 L 516.0 235.0 L 516.0 215.0 L 527.0 215.0 L 527.0 235.0 L 538.0 235.0 L 538.0 215.0 L 549.0 215.0 L 549.0 235.0 L 560.0 235.0 L 560.0 215.0 L 571.0 215.0 L 571.0 235.0 L 582.0 235.0 L 582.0 215.0 L 593.0 215.0 L 593.0 235.0 L 604.0 235.0 L 604.0 215.0 L 615.0 215.0 L 615.0 235.0 L 626.0 235.0 L 626.0 215.0 L 637.0 215.0 L 637.0 235.0 L 648.0 235.0 L 648.0 215.0 L 659.0 215.0 L 659.0 235.0 L 670.0 235.0 L 670.0 215.0 L 681.0 215.0 L 681.0 235.0 L 692.0 235.0 L 692.0 215.0 L 703.0 215.0 L 703.0 235.0 L 714.0 235.0 L 714.0 215.0 L 725.0 215.0 L 725.0 235.0 L 736.0 235.0 L 736.0 215.0 L 747.0 215.0 L 747.0 235.0 L 758.0 235.0 L 758.0 215.0 L 769.0 215.0 L 769.0 235.0 L 780.0 235.0" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+<path d="M 120.0 275.0 L 142.0 275.0 L 142.0 295.0 L 164.0 295.0 L 164.0 275.0 L 186.0 275.0 L 186.0 295.0 L 252.0 295.0 L 252.0 275.0 L 362.0 275.0 L 362.0 295.0 L 538.0 295.0 L 538.0 275.0 L 560.0 275.0 L 582.0 275.0 L 604.0 295.0 L 714.0 295.0 L 790.0 275.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="142.0" y1="205.0" x2="142.0" y2="315.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="252.0" y1="205.0" x2="252.0" y2="315.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="362.0" y1="205.0" x2="362.0" y2="315.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="538.0" y1="205.0" x2="538.0" y2="315.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="582.0" y1="205.0" x2="582.0" y2="315.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="153.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Start</text>
+<text x="197.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Addr</text>
+<text x="307.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Cmd (SetVID)</text>
+<text x="450.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">VID Data (8 bit)</text>
+<text x="648.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Slave Response</text>
+<path d="M 120.0 345.0 L 428.0 345.0 L 428.0 365.0 L 670.0 365.0 L 670.0 345.0 L 790.0 345.0" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="549.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратне переривання VR_HOT / OCP (VRM тягне лінію до GND)</text>
+</svg>

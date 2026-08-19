@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння методів демпфування індуктивного викиду</text>
+<rect x="20.0" y="45.0" width="225.0" height="295.0" rx="8" fill="#f8f9fa" stroke="#333333" stroke-width="1.5"/>
+<text x="132.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flyback-діод</text>
+<text x="132.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Найпростіший захист DC</text>
+<rect x="95.0" y="105.0" width="24.0" height="45.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="107.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<line x1="135.0" y1="105.0" x2="135.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="128.0,133.0 142.0,133.0 135.0,120.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="128.0" y1="120.0" x2="142.0" y2="120.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="95.0" y1="105.0" x2="135.0" y2="105.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="95.0" y1="150.0" x2="135.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="60.0" y="170.0" width="144.0" height="30.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="132.0" y="188.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="132.0" dy="0.0">V_max = V_CC + 0.7 В</tspan></text>
+<rect x="30.0" y="215.0" width="205.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/><text x="132.5" y="252.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="132.5" dy="0.0">• Плюси: надійний кламп,</tspan><tspan x="132.5" dy="11.7">  дешевий 1N4007/Schottky.</tspan><tspan x="132.5" dy="11.7">• Мінус: струм згасає повільно</tspan><tspan x="132.5" dy="11.7">  (τ = L/R ≈ 10..50 мс).</tspan><tspan x="132.5" dy="11.7">  Затягує відпускання реле!</tspan></text>
+<rect x="265.0" y="45.0" width="230.0" height="295.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="380.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Діод + TVS / Zener</text>
+<text x="380.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Швидке розсіювання енергії</text>
+<rect x="340.0" y="105.0" width="24.0" height="45.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="352.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<line x1="385.0" y1="105.0" x2="385.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<polygon points="378.0,124.0 392.0,124.0 385.0,114.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<polygon points="378.0,132.0 392.0,132.0 385.0,142.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="340.0" y1="105.0" x2="385.0" y2="105.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="340.0" y1="150.0" x2="385.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="314.2" y="170.0" width="131.6" height="30.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="188.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">V_max = V_CC + V_Z</tspan></text>
+<rect x="275.0" y="215.0" width="210.0" height="115.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/><text x="380.0" y="252.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">• Плюси: швидкий спад струму</tspan><tspan x="380.0" dy="11.7">  (t_off = L·I / V_Z ≈ 0.5 мс),</tspan><tspan x="380.0" dy="11.7">  зберігає контакти реле.</tspan><tspan x="380.0" dy="11.7">• Мінус: ключ має витримувати</tspan><tspan x="380.0" dy="11.7">  напругу V_CC + V_Z.</tspan></text>
+<rect x="515.0" y="45.0" width="225.0" height="295.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="627.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">RC / RCD Снубер</text>
+<text x="627.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Для AC та імпульсних SMPS</text>
+<rect x="590.0" y="105.0" width="24.0" height="45.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="602.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<line x1="635.0" y1="105.0" x2="635.0" y2="118.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="627.0" y="118.0" width="16.0" height="12.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="635.0" y1="130.0" x2="635.0" y2="136.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="627.0" y1="136.0" x2="643.0" y2="136.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="627.0" y1="140.0" x2="643.0" y2="140.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="635.0" y1="140.0" x2="635.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="590.0" y1="105.0" x2="635.0" y2="105.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="590.0" y1="150.0" x2="635.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="551.9" y="170.0" width="150.2" height="30.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="627.0" y="188.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="627.0" dy="0.0">Гасить dV/dt та дзвін</tspan></text>
+<rect x="525.0" y="215.0" width="205.0" height="115.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/><text x="627.5" y="258.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="627.5" dy="0.0">• Плюси: працює в AC колах,</tspan><tspan x="627.5" dy="11.7">  пригнічує EMI та дзвін LC.</tspan><tspan x="627.5" dy="11.7">• Мінус: розсіює потужність</tspan><tspan x="627.5" dy="11.7">  P = C·V²·f_sw на резисторі.</tspan></text>
+</svg>

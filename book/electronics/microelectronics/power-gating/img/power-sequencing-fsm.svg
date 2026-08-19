@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма послідовності керування живленням (Power-Down та Power-Up)</text>
+<rect x="30.0" y="48.0" width="720.0" height="395.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<rect x="45.0" y="60.0" width="200.0" height="30.0" rx="3" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="145.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: Активний стан</text>
+<rect x="250.0" y="60.0" width="180.0" height="30.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="340.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 2: Power-Down</text>
+<rect x="435.0" y="60.0" width="110.0" height="30.0" rx="3" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.0"/>
+<text x="490.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Фаза 3: Сон</text>
+<rect x="550.0" y="60.0" width="185.0" height="30.0" rx="3" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="642.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 4: Power-Up</text>
+<line x1="250.0" y1="100.0" x2="250.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="290.0" y1="100.0" x2="290.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="330.0" y1="100.0" x2="330.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="370.0" y1="100.0" x2="370.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="420.0" y1="100.0" x2="420.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="550.0" y1="100.0" x2="550.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="600.0" y1="100.0" x2="600.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="640.0" y1="100.0" x2="640.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="680.0" y1="100.0" x2="680.0" y2="395.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="155.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">1. GCLK</text>
+<line x1="170.0" y1="140.0" x2="170.0" y2="115.0" stroke="#2457d6" stroke-width="1.5"/>
+<path d="M 170,140 L 175,115 L 180,115 L 185,140 L 190,140 L 195,115 L 200,115 L 205,140 L 210,140 L 215,115 L 220,115 L 225,140 L 230,140 L 235,115 L 240,115 L 245,140 L 250,140 L 680,140 L 685,115 L 690,115 L 695,140 L 700,140 L 705,115 L 710,115 L 715,140 L 720,140 " fill="none" stroke="#2457d6" stroke-width="1.8"/>
+<text x="155.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8b5cf6" text-anchor="end" font-weight="700">2. SAVE/RESTORE</text>
+<path d="M 170,190 L 270,190 L 275,165 L 285,165 L 290,190 L 620,190 L 625,165 L 635,165 L 640,190 L 720,190" fill="none" stroke="#8b5cf6" stroke-width="1.8"/>
+<text x="280.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b5cf6" text-anchor="middle" font-weight="700">SAVE</text>
+<text x="630.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">RESTORE</text>
+<text x="155.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="end" font-weight="700">3. ISO_EN</text>
+<path d="M 170,240 L 310,240 L 315,215 L 660,215 L 665,240 L 720,240" fill="none" stroke="#d97706" stroke-width="1.8"/>
+<text x="340.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">ISO Увімкнено (Clamp)</text>
+<text x="155.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="end" font-weight="700">4. RESET_N</text>
+<path d="M 170,265 L 350,265 L 355,290 L 640,290 L 645,265 L 720,265" fill="none" stroke="#333333" stroke-width="1.8"/>
+<text x="390.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">Апаратний скид (Reset)</text>
+<text x="155.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">5. SLEEP_EN</text>
+<path d="M 170,340 L 390,340 L 395,315 L 550,315 L 555,340 L 720,340" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<text x="440.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">SLEEP Активний</text>
+<text x="155.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">6. VDD_VIRTUAL</text>
+<path d="M 170,365 L 400,365 Q 420,390 450,390 L 555,390 Q 575,365 600,365 L 720,365" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="490.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">0 В (Вимкнено)</text>
+<text x="620.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Стабілізація VDD</text>
+<rect x="45.0" y="400.0" width="690.0" height="35.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суворий порядок: Power-Down = CLK Off → Save → Iso On → Reset → Sleep On. Power-Up = Sleep Off → VDD Ack → Restore → Reset Release → Iso Off → CLK On.</text>
+</svg>

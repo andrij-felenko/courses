@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="800.0" height="450.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="105.3" y="38.2" width="209.4" height="43.6" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="210.0" y="56.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Початковий стан комірки:</tspan><tspan x="210.0" dy="15.6">Q = 1 (V_DD), QB = 0 (0 В)</tspan></text>
+<rect x="514.1" y="38.2" width="231.8" height="43.6" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="630.0" y="56.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">Цільовий запис логічного «0»:</tspan><tspan x="630.0" dy="15.6">Форсуємо BL = 0 В, BLB = V_DD</tspan></text>
+<line x1="340.0" y1="60.0" x2="470.0" y2="60.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="115.0" width="430.0" height="250.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="265.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Боротьба за вузол Q: тяга P1 проти водія через AX1</text>
+<line x1="200.0" y1="170.0" x2="330.0" y2="170.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="265.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">V_DD</text>
+<rect x="163.5" y="186.3" width="203.0" height="37.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="265.0" y="201.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="265.0" dy="0.0">P1 (PMOS Pull-Up)</tspan><tspan x="265.0" dy="14.3">Намагається тримати Q = V_DD</tspan></text>
+<line x1="265.0" y1="170.0" x2="265.0" y2="185.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="265.0" y1="225.0" x2="265.0" y2="280.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="265.0" cy="280.0" r="5.0" fill="#0f172a" stroke="#0f172a" stroke-width="1.5"/>
+<text x="290.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Вузол Q</text>
+<rect x="64.2" y="261.4" width="141.6" height="37.3" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="135.0" y="276.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">AX1 (NMOS Access)</tspan><tspan x="135.0" dy="14.3">Тягне вузол Q до BL</tspan></text>
+<line x1="205.0" y1="280.0" x2="265.0" y2="280.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="65.0" y1="280.0" x2="75.0" y2="280.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="65.0" y1="240.0" x2="65.0" y2="330.0" stroke="#2457d6" stroke-width="3.0"/>
+<text x="65.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">BL = 0 В</text>
+<line x1="260.0" y1="280.0" x2="195.0" y2="280.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="265.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">WL = V_DD (активна)</text>
+<rect x="500.0" y="115.0" width="300.0" height="250.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Умова успішного запису (Writeability)</text>
+<text x="650.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Водій запису має примусово опустити</tspan><tspan x="650.0" dy="14.9">напругу вузла Q нижче порога перемикання:</tspan><tspan x="650.0" dy="14.9">V_Q &lt; V_trip  (інвертора P2/N2)</tspan><tspan x="650.0" dy="14.9"></tspan><tspan x="650.0" dy="14.9">AX1 має подолати опір PMOS P1:</tspan><tspan x="650.0" dy="14.9">R_AX &lt; R_PU  →  β_AX &gt; β_PU</tspan><tspan x="650.0" dy="14.9"></tspan><tspan x="650.0" dy="14.9">Pull-up Ratio (PR):</tspan><tspan x="650.0" dy="14.9">PR = β_PU / β_AX = (W_PU/L_PU)/(W_AX/L_AX) ≤ 1.0</tspan><tspan x="650.0" dy="14.9"></tspan><tspan x="650.0" dy="14.9">Транзистор доступу AX сильніший за PMOS!</tspan></text>
+<rect x="80.0" y="385.0" width="680.0" height="50.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="420.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ГОЛОВНИЙ КОМПРОМІС РОЗМІРІВ 6T SRAM:</text>
+<text x="420.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">β_PD (N1/N2)  &gt;  β_AX (AX1/AX2)  &gt;  β_PU (P1/P2)     (Pull-Down &gt; Access &gt; Pull-Up)</text>
+</svg>

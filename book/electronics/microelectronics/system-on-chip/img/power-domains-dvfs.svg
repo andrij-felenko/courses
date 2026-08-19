@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мультидоменне живлення: ізоляція, перетворювачі рівнів та збереження стану</text>
+<rect x="40.0" y="60.0" width="320.0" height="290.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="200.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комутований домен живлення (CPU Domain)</text>
+<text x="200.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Напруга Vdd_cpu = 0.65 ... 1.05 В (DVFS)</text>
+<rect x="60.0" y="115.0" width="280.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="200.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ключі живлення (Power Gating Header PMOS)</text>
+<text x="200.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Послідовне ланцюжкове вмикання проти стрибка струму dI/dt</text>
+<rect x="60.0" y="170.0" width="130.0" height="90.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="125.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комбінаторна</text>
+<text x="125.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">логіка та АЛП</text>
+<text x="125.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Знеструмлюється</text>
+<text x="125.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">при сні</text>
+<rect x="205.0" y="170.0" width="135.0" height="90.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="272.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Retention Flip-Flops</text>
+<text x="272.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зберігають стан</text>
+<text x="272.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">регістрів ядра</text>
+<rect x="215.0" y="238.0" width="115.0" height="16.0" rx="2" fill="#dbeafe" stroke="#2457d6" stroke-width="0.8"/>
+<text x="272.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Резервна шина Vdd_ret</text>
+<rect x="60.0" y="275.0" width="135.0" height="60.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="127.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Isolation Cells</text>
+<text x="127.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Фіксація сигналів</text>
+<text x="127.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у «0» або «1» при сні</text>
+<rect x="205.0" y="275.0" width="135.0" height="60.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="272.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Level Shifters</text>
+<text x="272.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Узгодження напруг</text>
+<text x="272.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0.75 В ↔ 1.8 В / 0.9 В</text>
+<line x1="360.0" y1="205.0" x2="410.0" y2="205.0" stroke="#6d28d9" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="225.0" x2="360.0" y2="225.0" stroke="#6d28d9" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="410.0" y="60.0" width="310.0" height="290.0" rx="6" fill="#f0fdf4" stroke="#1e7e34" stroke-width="1.8"/>
+<text x="565.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7e34" text-anchor="middle" font-weight="700">Завжди увімкнений домен (Always-On / AON)</text>
+<text x="565.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Незмінна напруга Vdd_aon = 0.9 В / 1.8 В</text>
+<rect x="430.0" y="115.0" width="270.0" height="50.0" rx="4" fill="#ffffff" stroke="#1e7e34" stroke-width="1.2"/>
+<text x="565.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7e34" text-anchor="middle" font-weight="700">Power Management Controller (PMC / PPU)</text>
+<text x="565.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Скінченний автомат послідовності живлення</text>
+<rect x="430.0" y="175.0" width="270.0" height="48.0" rx="4" fill="#ffffff" stroke="#1e7e34" stroke-width="1.2"/>
+<text x="565.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Монітор подій пробудження (Wake-up Logic)</text>
+<text x="565.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обробка переривань таймера, RTC, переферії</text>
+<rect x="430.0" y="233.0" width="270.0" height="48.0" rx="4" fill="#ffffff" stroke="#1e7e34" stroke-width="1.2"/>
+<text x="565.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерфейс регулятора напруг (I2C/PMBus/SPMI)</text>
+<text x="565.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Команди на зовнішній або вбудований PMIC</text>
+<rect x="430.0" y="290.0" width="270.0" height="45.0" rx="4" fill="#ffffff" stroke="#1e7e34" stroke-width="1.2"/>
+<text x="565.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Годинник реального часу (RTC) + генератор (32 кГц)</text>
+<text x="380.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Без ізоляційних комірок знеструмлений блок залишив би входи AON у «підвішеному» стані,</text>
+<text x="380.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">що спричинило б наскрізні струми короткого замикання (shoot-through) і вихід мікросхеми з ладу.</text>
+</svg>

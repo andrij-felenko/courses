@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Індуктивна перехресна наводка на друкованій платі та мінімізація петель</text>
+<rect x="30.0" y="45.0" width="335.0" height="295.0" rx="8" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="197.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ПОГАНО: Велика площа петлі</text>
+<text x="197.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розрив землі / широкий контур</text>
+<line x1="60.0" y1="115.0" x2="320.0" y2="115.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="180.0" y1="115.0" x2="210.0" y2="115.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="70.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Сигнал (Top Layer)</text>
+<line x1="60.0" y1="215.0" x2="320.0" y2="215.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="210.0" y1="215.0" x2="180.0" y2="215.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="70.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Шлях повернення GND (далеко)</text>
+<rect x="90.0" y="125.0" width="200.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="190.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Величезна площа петлі A_loop</text>
+<text x="190.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Ловить весь потік: V_noise = −dΦ/dt</text>
+<circle cx="120.0" cy="150.0" r="8.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="120.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">×</text>
+<circle cx="260.0" cy="150.0" r="8.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="260.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">×</text>
+<rect x="78.0" y="290.2" width="237.9" height="29.5" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="197.0" y="308.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="197.0" dy="0.0">Високий Crosstalk, збої логіки та EMI</tspan></text>
+<rect x="395.0" y="45.0" width="335.0" height="295.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="562.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ДОБРЕ: Суцільний Ground Plane</text>
+<text x="562.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дзеркальний зворотний струм</text>
+<line x1="425.0" y1="135.0" x2="685.0" y2="135.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="545.0" y1="135.0" x2="575.0" y2="135.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="435.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Сигнал (Top Layer)</text>
+<rect x="425.0" y="150.0" width="260.0" height="16.0" rx="6" fill="#c8e6c9" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="575.0" y1="158.0" x2="545.0" y2="158.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="435.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">GND Plane (Layer 2) прямо під доріжкою</text>
+<rect x="410.0" y="205.0" width="305.0" height="80.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/><text x="562.5" y="229.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="562.5" dy="0.0">Зворотний струм тече прямо під доріжкою</tspan><tspan x="562.5" dy="12.3">(шлях мінімальної індуктивності).</tspan><tspan x="562.5" dy="12.3">Площа петлі A → 0, потік Φ → 0,</tspan><tspan x="562.5" dy="12.3">Індукована завада придушена на &gt;40 дБ!</tspan></text>
+<rect x="425.4" y="290.2" width="273.3" height="29.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="562.0" y="308.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="562.0" dy="0.0">Чистий сигнал, мінімальний EMI та Crosstalk</tspan></text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблична модель затримок NLDM (2D Lookup Table у Liberty .lib)</text>
+<rect x="50.0" y="60.0" width="360.0" height="370.0" rx="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="230.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Визначення затримки та крутості</text>
+<line x1="90.0" y1="385.0" x2="370.0" y2="385.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="90.0" y1="385.0" x2="90.0" y2="135.0" stroke="#333333" stroke-width="1.5"/>
+<text x="370.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+<text x="80.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Напруга (V)</text>
+<line x1="90.0" y1="165.0" x2="360.0" y2="165.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="82.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">VDD</text>
+<line x1="90.0" y1="275.0" x2="360.0" y2="275.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="82.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">50%</text>
+<line x1="110.0" y1="385.0" x2="150.0" y2="385.0" stroke="#2980b9" stroke-width="2.2"/>
+<line x1="150.0" y1="385.0" x2="200.0" y2="165.0" stroke="#2980b9" stroke-width="2.2"/>
+<line x1="200.0" y1="165.0" x2="250.0" y2="165.0" stroke="#2980b9" stroke-width="2.2"/>
+<text x="160.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="start" font-weight="700">Вхід (A)</text>
+<line x1="110.0" y1="165.0" x2="195.0" y2="165.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="195.0" y1="165.0" x2="285.0" y2="385.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="285.0" y1="385.0" x2="350.0" y2="385.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="280.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Вихід (Y)</text>
+<line x1="175.0" y1="275.0" x2="175.0" y2="335.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="240.0" y1="275.0" x2="240.0" y2="335.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="175.0" y1="330.0" x2="240.0" y2="330.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="207.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Затримка t_pd</text>
+<text x="230.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Крутість фронту Slew: час переходу 10% ↔ 90% (або 20% ↔ 80%)</text>
+<rect x="440.0" y="60.0" width="400.0" height="370.0" rx="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="640.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця затримки cell_fall(Slew, C_load)</text>
+<text x="670.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">Ємність навантаження C_load (fF) →</text>
+<text x="465.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вхідний
+Slew (пс)
+↓</text>
+<rect x="515.0" y="135.0" width="72.0" height="35.0" rx="0" fill="#ebf5fb" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="551.0" y="156.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">2 fF</text>
+<rect x="587.0" y="135.0" width="72.0" height="35.0" rx="0" fill="#ebf5fb" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="623.0" y="156.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">8 fF</text>
+<rect x="659.0" y="135.0" width="72.0" height="35.0" rx="0" fill="#ebf5fb" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="695.0" y="156.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">25 fF</text>
+<rect x="731.0" y="135.0" width="72.0" height="35.0" rx="0" fill="#ebf5fb" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="767.0" y="156.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">80 fF</text>
+<rect x="450.0" y="170.0" width="65.0" height="35.0" rx="0" fill="#fdedec" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="483.0" y="191.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">10 пс</text>
+<rect x="515.0" y="170.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="551.0" y="191.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">12 пс</text>
+<rect x="587.0" y="170.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="623.0" y="191.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">18 пс</text>
+<rect x="659.0" y="170.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="695.0" y="191.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">32 пс</text>
+<rect x="731.0" y="170.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="767.0" y="191.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">78 пс</text>
+<rect x="450.0" y="205.0" width="65.0" height="35.0" rx="0" fill="#fdedec" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="483.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">30 пс</text>
+<rect x="515.0" y="205.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="551.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">16 пс</text>
+<rect x="587.0" y="205.0" width="72.0" height="35.0" rx="0" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="623.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">23 пс</text>
+<rect x="659.0" y="205.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="695.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">38 пс</text>
+<rect x="731.0" y="205.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="767.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">85 пс</text>
+<rect x="450.0" y="240.0" width="65.0" height="35.0" rx="0" fill="#fdedec" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="483.0" y="261.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">90 пс</text>
+<rect x="515.0" y="240.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="551.0" y="261.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">24 пс</text>
+<rect x="587.0" y="240.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="623.0" y="261.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">31 пс</text>
+<rect x="659.0" y="240.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="695.0" y="261.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">49 пс</text>
+<rect x="731.0" y="240.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="767.0" y="261.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">98 пс</text>
+<rect x="450.0" y="275.0" width="65.0" height="35.0" rx="0" fill="#fdedec" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="483.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">250 пс</text>
+<rect x="515.0" y="275.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="551.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">42 пс</text>
+<rect x="587.0" y="275.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="623.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">51 пс</text>
+<rect x="659.0" y="275.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="695.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">72 пс</text>
+<rect x="731.0" y="275.0" width="72.0" height="35.0" rx="0" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.2"/>
+<text x="767.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">125 пс</text>
+<rect x="460.0" y="305.0" width="360.0" height="105.0" rx="6" fill="#fdfefe" stroke="#bdc3c7" stroke-width="1.5"/><text x="640.0" y="339.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Білінійна інтерполяція в Liberty:</tspan><tspan x="640.0" dy="14.3">Для довільної пари (S_in, C_L), що потрапляє</tspan><tspan x="640.0" dy="14.3">між вузлами сітки, STA-таймер обчислює затримку</tspan><tspan x="640.0" dy="14.3">через 4 сусідні точки зваженим усередненням.</tspan></text>
+</svg>

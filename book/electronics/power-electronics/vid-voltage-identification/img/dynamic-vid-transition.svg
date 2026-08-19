@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний перехід напруги (DVFS) та вплив швидкості наростання (Slew Rate)</text>
+<line x1="80.0" y1="70.0" x2="760.0" y2="70.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="190.0" x2="760.0" y2="190.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="70.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">1.25 В (P0)</text>
+<text x="70.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">0.75 В (P3)</text>
+<line x1="80.0" y1="220.0" x2="780.0" y2="220.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="760.0" y1="220.0" x2="780.0" y2="220.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="785.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">t</text>
+<path d="M 80.0 190.0 L 140.0 190.0 L 220.0 62.0 L 250.0 73.0 L 290.0 70.0 L 460.0 70.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="230.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">SetVID_Fast (напр. 30 мВ/мкс)</text>
+<path d="M 80.0 190.0 L 140.0 190.0 L 380.0 70.0 L 460.0 70.0" fill="none" stroke="#27ae60" stroke-width="2.2" stroke-dasharray="6,3"/>
+<text x="340.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">SetVID_Slow (напр. 5 мВ/мкс)</text>
+<path d="M 460.0 70.0 L 540.0 195.0 L 570.0 190.0 L 760.0 190.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="560.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Активне форсоване зниження</text>
+<path d="M 460.0 70.0 L 520.0 130.0 L 680.0 190.0 L 760.0 190.0" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4"/>
+<text x="660.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">SetVID_Decay (пасивне згасання)</text>
+<line x1="80.0" y1="360.0" x2="780.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="760.0" y1="360.0" x2="780.0" y2="360.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="785.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">t</text>
+<text x="70.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">I_cap = 0</text>
+<text x="80.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Ємнісний струм перехідного процесу: I_cap = C_out · (dV/dt)</text>
+<path d="M 80.0 360.0 L 140.0 360.0 L 145.0 295.0 L 215.0 295.0 L 220.0 360.0 L 460.0 360.0 L 465.0 415.0 L 535.0 415.0 L 540.0 360.0 L 760.0 360.0" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="185.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+30 А (додатковий струм заряду C_out)</text>
+<text x="500.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">-25 А (скидання енергії в індуктивності)</text>
+<path d="M 80.0 360.0 L 140.0 360.0 L 145.0 342.0 L 375.0 342.0 L 380.0 360.0 L 760.0 360.0" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="330.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+5 А (помірний струм)</text>
+</svg>

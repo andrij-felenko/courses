@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="800.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="43.9" y="48.2" width="172.2" height="43.6" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">1. Передзарядка</tspan><tspan x="130.0" dy="15.6">BL = V_DD, BLB = V_DD</tspan></text>
+<rect x="264.1" y="48.2" width="231.8" height="43.6" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">2. Активація слова</tspan><tspan x="380.0" dy="15.6">WL = V_DD (AX1/AX2 ввімкнені)</tspan></text>
+<rect x="562.7" y="48.2" width="194.6" height="43.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="660.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">3. Розряд лінії</tspan><tspan x="660.0" dy="15.6">BL повільно спадає на ΔV</tspan></text>
+<line x1="210.0" y1="70.0" x2="270.0" y2="70.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="70.0" x2="550.0" y2="70.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="130.0" width="430.0" height="230.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="275.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях струму розряду I_read (стан Q=0, QB=1)</text>
+<line x1="100.0" y1="200.0" x2="100.0" y2="330.0" stroke="#2457d6" stroke-width="3.0"/>
+<text x="100.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">BL (V_DD)</text>
+<line x1="100.0" y1="230.0" x2="160.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="130.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I_read</text>
+<rect x="163.1" y="210.2" width="93.8" height="39.6" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="210.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">AX1 (NMOS)</tspan><tspan x="210.0" dy="15.6">(опір R_AX)</tspan></text>
+<line x1="260.0" y1="230.0" x2="310.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="310.0" cy="230.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="310.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вузол Q (V_read)</text>
+<line x1="310.0" y1="230.0" x2="310.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="248.2" y="285.2" width="123.6" height="39.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="310.0" y="301.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">N1 / PD1 (NMOS)</tspan><tspan x="310.0" dy="15.6">(опір R_PD)</tspan></text>
+<line x1="310.0" y1="335.0" x2="310.0" y2="350.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="270.0" y1="350.0" x2="350.0" y2="350.0" stroke="#1e293b" stroke-width="2.5"/>
+<text x="310.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">GND (0 В)</text>
+<rect x="510.0" y="130.0" width="300.0" height="230.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="660.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Захист від збурення (Read Disturbance)</text>
+<text x="660.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">Струм I_read піднімає напругу вузла Q:</tspan><tspan x="660.0" dy="14.9">V_Q = V_read = V_DD · R_PD / (R_PD + R_AX)</tspan><tspan x="660.0" dy="14.9"></tspan><tspan x="660.0" dy="14.9">КРИТИЧНА УМОВА СТІЙКОСТІ ЧИТАННЯ:</tspan><tspan x="660.0" dy="14.9">V_read &lt; V_th,N2  (поріг відкриття N2)</tspan><tspan x="660.0" dy="14.9"></tspan><tspan x="660.0" dy="14.9">Вимога до розмірів (Cell Ratio):</tspan><tspan x="660.0" dy="14.9">CR = β_PD / β_AX = (W_PD/L_PD)/(W_AX/L_AX) ≥ 1.5…2.5</tspan><tspan x="660.0" dy="14.9">N1 має бути значно сильнішим за AX1!</tspan></text>
+<rect x="180.0" y="385.0" width="480.0" height="80.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="420.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Диференційний підсилювач зчитування (Sense Amplifier)</text>
+<text x="420.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Входи: BL (V_DD − ΔV) та BLB (V_DD). Поріг спрацьовування: ΔV ≈ 50–100 мВ</text>
+<text x="420.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Миттєве підсилення малого перепаду ΔV до повних рівнів логіки (0 В / V_DD)</text>
+</svg>
