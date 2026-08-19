@@ -94,6 +94,11 @@ grep.exe.stackdump
 /record_verdicts.js
 /runner.js
 /*.stackdump
+# разові збирачі агентів: build.py («# test»), make_build.js («console.log("ready")»),
+# generator.py на одну теку. Фігури генерує figs.py У ТЕЦІ ТЕМИ — у корені .py не буває.
+/*.py
+/make_*.js
+/build*.js
 # сирці, затягнуті для звірки фактів, і чужі проєкти — у корпусі їм не місце
 /*.c
 /*.h
