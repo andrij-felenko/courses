@@ -447,6 +447,7 @@
       ] },
     { slug: "languages", title: "Мови", scope: "Парадигми, дизайн і трансляція мов: імперативна/об'єктна/функційна/логічна/реактивна моделі, синтаксис, системи типів, метапрограмування, лексика, парсинг, IR, оптимізація, генерація коду, рантайми.",
       topics: [
+        { slug: "dynamic-sanitizers", title: "Динамічні санітайзери: ASan, TSan, MSan, UBSan", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "polymorphism", title: "Поліморфізм і динамічне зв'язування", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "compilation", title: "Компіляція", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-grace-hopper.md", status: "done" }] },
         { slug: "compiler-stages", title: "Стадії компілятора", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-gcc.md", status: "done" }], proj: [{ file: "proj-optimizer.md", status: "done" }] },
