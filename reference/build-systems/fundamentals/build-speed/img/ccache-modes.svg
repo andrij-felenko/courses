@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режими роботи ccache</text>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">ccache: як прямий режим обходить стадію препроцесингу</text>
+<rect x="49.4" y="115.0" width="181.2" height="49.9" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Запит на компіляцію:</tspan><tspan x="140.0" dy="16.9">foo.cpp + CFLAGS</tspan></text>
+<rect x="300.0" y="60.0" width="360.0" height="160.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="480.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Прямий режим (Direct mode)</text>
+<text x="480.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Звірити mtime/геші foo.cpp та</tspan><tspan x="480.0" dy="16.2">списку заголовків з маніфесту.</tspan><tspan x="480.0" dy="16.2">Препроцесор НЕ запускається!</tspan></text>
+<line x1="215.0" y1="140.0" x2="298.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="715.4" y="106.6" width="189.3" height="66.8" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="810.0" y="127.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">CACHE HIT (прямий):</tspan><tspan x="810.0" dy="16.9">Миттєва віддача foo.o</tspan><tspan x="810.0" dy="16.9">Час: ~1–3 мс</tspan></text>
+<line x1="662.0" y1="140.0" x2="715.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="300.0" y="250.0" width="360.0" height="160.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.6"/>
+<text x="480.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режим препроцесора (cpp mode)</text>
+<text x="480.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Запуск cpp/clang -E → повне читання .h,</tspan><tspan x="480.0" dy="15.6">гешування розгорнутого тексту.</tspan><tspan x="480.0" dy="15.6">Влучання: віддача foo.o (~30-100 мс)</tspan></text>
+<line x1="480.0" y1="222.0" x2="480.0" y2="248.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">промах direct</text>
+<rect x="703.3" y="296.6" width="213.4" height="66.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="810.0" y="317.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">CACHE MISS:</tspan><tspan x="810.0" dy="16.9">Повна компіляція</tspan><tspan x="810.0" dy="16.9">+ запис у кеш (~1000 мс)</tspan></text>
+<line x1="662.0" y1="330.0" x2="710.0" y2="330.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

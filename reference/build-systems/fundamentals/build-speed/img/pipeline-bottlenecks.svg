@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія часу збірки C/C++</text>
+<text x="530.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія часу збірки: де насправді зникають секунди</text>
+<rect x="40.0" y="70.0" width="220.0" height="160.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="150.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Препроцесинг та I/O</text>
+<text x="150.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Читання тисяч .h файлів,</tspan><tspan x="150.0" dy="16.2">розгортання макросів.</tspan><tspan x="150.0" dy="16.2">50 рядків .cpp → 500k рядків</tspan></text>
+<rect x="290.0" y="70.0" width="220.0" height="160.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="400.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. Парсинг та AST</text>
+<text x="400.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Лексичний/синтаксичний аналіз,</tspan><tspan x="400.0" dy="16.2">інстанціювання шаблонів.</tspan><tspan x="400.0" dy="16.2">Повторюється для кожного TU</tspan></text>
+<rect x="540.0" y="70.0" width="220.0" height="160.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="650.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">3. Оптимізація та Codegen</text>
+<text x="650.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">LLVM IR / GIMPLE проходи,</tspan><tspan x="650.0" dy="16.2">інлайнінг, векторизація,</tspan><tspan x="650.0" dy="16.2">генерація машинного коду</tspan></text>
+<rect x="790.0" y="70.0" width="220.0" height="160.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="900.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">4. Лінкування (Linker)</text>
+<text x="900.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">Злиття секцій, релокації,</tspan><tspan x="900.0" dy="16.2">дедуплікація COMDAT,</tspan><tspan x="900.0" dy="16.2">обробка гігабайтів DWARF</tspan></text>
+<line x1="263.0" y1="150.0" x2="286.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="513.0" y1="150.0" x2="536.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="763.0" y1="150.0" x2="786.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="260.0" width="980.0" height="140.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="530.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Які інструменти б'ють по кожному вузькому місцю</text>
+<rect x="68.4" y="335.8" width="163.2" height="28.5" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="150.0" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">PCH та Unity builds</tspan></text>
+<line x1="150.0" y1="325.0" x2="150.0" y2="235.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="330.0" y="335.8" width="140.0" height="28.5" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">ccache / sccache</tspan></text>
+<line x1="400.0" y1="325.0" x2="400.0" y2="235.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="556.8" y="335.8" width="186.5" height="28.5" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="650.0" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Розпаралелення (Ninja)</tspan></text>
+<line x1="650.0" y1="325.0" x2="650.0" y2="235.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="799.0" y="335.8" width="202.0" height="28.5" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="900.0" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="900.0" dy="0.0">mold / lld + Split DWARF</tspan></text>
+<line x1="900.0" y1="325.0" x2="900.0" y2="235.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>
