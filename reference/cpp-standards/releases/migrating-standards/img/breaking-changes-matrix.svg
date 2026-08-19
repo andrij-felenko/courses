@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта розривних змін семантики за поколіннями стандартів C++</text>
+<text x="500.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Ключові зміни семантики ядра мови та STL, що ламають наявний робочий код</text>
+<rect x="45.0" y="75.0" width="295.0" height="375.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="192.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">C++98/03 → C++11</text>
+<line x1="57.0" y1="117.0" x2="328.0" y2="117.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="55.0" y="129.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="192.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заборона CoW у std::string</text>
+<text x="192.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Dual ABI у GCC, O(1) для size/const ref</text>
+<rect x="55.0" y="187.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="192.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Деструктори типово noexcept</text>
+<text x="192.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">throw під час руйнування викликає terminate</text>
+<rect x="55.0" y="245.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="192.5" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звужувальні перетворення {}</text>
+<text x="192.5" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Заборонено double-&gt;int або int-&gt;char у {}</text>
+<rect x="55.0" y="303.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="192.5" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rule of 0/3/5 &amp; Move Semantics</text>
+<text x="192.5" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Користувацький деструктор блокує move</text>
+<rect x="55.0" y="361.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="192.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вилучено export template</text>
+<text x="192.5" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Поява ключового слова nullptr замість NULL</text>
+<rect x="365.0" y="75.0" width="295.0" height="375.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="512.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d97706" text-anchor="middle" font-weight="700">C++11/14 → C++17</text>
+<line x1="377.0" y1="117.0" x2="648.0" y2="117.0" stroke="#d97706" stroke-width="1.5"/>
+<rect x="375.0" y="129.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="512.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вилучено std::auto_ptr</text>
+<text x="512.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обов'язкова заміна на std::unique_ptr</text>
+<rect x="375.0" y="187.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="512.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вилучено старі функтори STL</text>
+<text x="512.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ptr_fun, bind1st, unary_function зникли</text>
+<rect x="375.0" y="245.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="512.5" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вилучено register і триграфи</text>
+<text x="512.5" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">register і послідовності ??= викликають error</text>
+<rect x="375.0" y="303.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="512.5" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">noexcept став частиною типу</text>
+<text x="512.5" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">void(*)() noexcept не приводиться до void(*)()</text>
+<rect x="375.0" y="361.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="512.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обов'язковий RVO для prvalue</text>
+<text x="512.5" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">prvalue не матеріалізується, новий життєвий цикл</text>
+<rect x="685.0" y="75.0" width="295.0" height="375.0" rx="8" fill="#fdf2f8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="832.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">C++17 → C++20</text>
+<line x1="697.0" y1="117.0" x2="968.0" y2="117.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="695.0" y="129.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="832.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Агрегати без конструкторів</text>
+<text x="832.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Будь-який T() = default блокує T{...}</text>
+<rect x="695.0" y="187.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="832.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реверсивне порівняння &lt;=&gt;</text>
+<text x="832.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Неоднозначність перевантажених == та !=</text>
+<rect x="695.0" y="245.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="832.5" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Новий тип char8_t</text>
+<text x="832.5" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">u8&quot;str&quot; тепер const char8_t*, а не char*</text>
+<rect x="695.0" y="303.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="832.5" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вилучено std::is_pod</text>
+<text x="832.5" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Заміна на std::is_standard_layout/trivial</text>
+<rect x="695.0" y="361.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="832.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зарезервовано нові слова</text>
+<text x="832.5" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">concept, requires, consteval ламають імена</text>
+</svg>

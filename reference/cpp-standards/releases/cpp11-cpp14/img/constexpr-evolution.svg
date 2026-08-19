@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція метапрограмування: від C++98 до C++14 constexpr</text>
+<text x="460.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Від рекурсивної шаблонізації до імперативного коду часу компіляції</text>
+<rect x="35.0" y="75.0" width="265.0" height="310.0" rx="8" fill="#fff5f5" stroke="#f87171" stroke-width="2.0"/>
+<text x="167.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">C++98: Template Meta</text>
+<line x1="45.0" y1="111.0" x2="290.0" y2="111.0" stroke="#f87171" stroke-width="1.0"/>
+<rect x="64.0" y="132.2" width="206.9" height="95.6" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/><text x="167.5" y="146.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="167.5" dy="0.0">template&lt;int N&gt;</tspan><tspan x="167.5" dy="12.3">struct Fact {</tspan><tspan x="167.5" dy="12.3">  enum { val = N * Fact&lt;N-1&gt;::val };</tspan><tspan x="167.5" dy="12.3">};</tspan><tspan x="167.5" dy="12.3">template&lt;&gt; struct Fact&lt;0&gt; {</tspan><tspan x="167.5" dy="12.3">  enum { val = 1 };</tspan><tspan x="167.5" dy="12.3">};</tspan></text>
+<text x="167.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Тільки рекурсивні структури</text>
+<text x="167.5" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• enum hack або static const</text>
+<text x="167.5" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Переповнення лімітів компілятора</text>
+<text x="167.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Повільна інстанціація AST</text>
+<rect x="325.0" y="75.0" width="265.0" height="310.0" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="2.0"/>
+<text x="457.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">C++11: Чистий constexpr</text>
+<line x1="335.0" y1="111.0" x2="580.0" y2="111.0" stroke="#f59e0b" stroke-width="1.0"/>
+<rect x="367.6" y="138.4" width="179.9" height="83.3" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/><text x="457.5" y="152.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="457.5" dy="0.0">constexpr int fact(int n) {</tspan><tspan x="457.5" dy="12.3">  return (n &lt;= 1)</tspan><tspan x="457.5" dy="12.3">    ? 1</tspan><tspan x="457.5" dy="12.3">    : n * fact(n - 1);</tspan><tspan x="457.5" dy="12.3">}</tspan><tspan x="457.5" dy="12.3">// Тільки один оператор return!</tspan></text>
+<text x="457.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Перші constexpr функції</text>
+<text x="457.5" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Строго один оператор return</text>
+<text x="457.5" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Тільки тернарний оператор ?:</text>
+<text x="457.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Без локальних змінних і циклів</text>
+<rect x="615.0" y="75.0" width="265.0" height="310.0" rx="8" fill="#f0fdf4" stroke="#4ade80" stroke-width="2.0"/>
+<text x="747.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">C++14: Імперативний constexpr</text>
+<line x1="625.0" y1="111.0" x2="870.0" y2="111.0" stroke="#4ade80" stroke-width="1.0"/>
+<rect x="660.3" y="138.4" width="174.4" height="83.3" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/><text x="747.5" y="152.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="747.5" dy="0.0">constexpr int fact(int n) {</tspan><tspan x="747.5" dy="12.3">  int res = 1;</tspan><tspan x="747.5" dy="12.3">  for (int i = 2; i &lt;= n; ++i)</tspan><tspan x="747.5" dy="12.3">    res *= i;</tspan><tspan x="747.5" dy="12.3">  return res;</tspan><tspan x="747.5" dy="12.3">}</tspan></text>
+<text x="747.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Повноцінні цикли for / while</text>
+<text x="747.5" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Мутабельні локальні змінні</text>
+<text x="747.5" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Розгалуження if / switch</text>
+<text x="747.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Шаблонні змінні template var</text>
+</svg>

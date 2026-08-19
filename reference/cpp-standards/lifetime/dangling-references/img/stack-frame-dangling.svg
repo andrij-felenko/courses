@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" width="820" height="360">
+<rect x="0.0" y="0.0" width="820.0" height="360.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="210.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: виклик make_widget()</text>
+<text x="610.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 2: повернення та виклик compute()</text>
+<line x1="410.0" y1="20.0" x2="410.0" y2="340.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="70.0" y="58.2" width="280.0" height="43.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Кадр main()</tspan><tspan x="210.0" dy="15.6">Widget* ptr;</tspan></text>
+<rect x="65.2" y="145.4" width="289.6" height="59.2" rx="6" fill="#e8f4fc" stroke="#2457d6" stroke-width="1.5"/><text x="210.0" y="163.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Кадр make_widget()</tspan><tspan x="210.0" dy="15.6">Widget local_w { .id = 42 };  [0x7ffd10]</tspan><tspan x="210.0" dy="15.6">(адреса активна, пам'ять валідна)</tspan></text>
+<line x1="120.0" y1="95.0" x2="120.0" y2="145.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="120.0" y1="145.0" x2="140.0" y2="145.0" stroke="#2457d6" stroke-width="2.0"/>
+<polygon points="140,140 150,145 140,150" fill="#2457d6"/>
+<text x="210.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ptr = &amp;local_w; return ptr; (поки що коректно)</text>
+<text x="210.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Вказівник стека RSP дивиться нижче [0x7ffd10]</text>
+<line x1="70.0" y1="310.0" x2="350.0" y2="310.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="210.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пам'ять кадру make_widget() гарантовано цілісна</text>
+<rect x="451.5" y="58.2" width="317.0" height="43.6" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="610.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Кадр main()</tspan><tspan x="610.0" dy="15.6">Widget* ptr = 0x7ffd10; (висячий вказівник!)</tspan></text>
+<rect x="470.0" y="145.4" width="280.0" height="59.2" rx="6" fill="#fdeeed" stroke="#c0392b" stroke-width="1.5"/><text x="610.0" y="163.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Новий кадр compute()</tspan><tspan x="610.0" dy="15.6">double buffer[64];  [0x7ffd10]</tspan><tspan x="610.0" dy="15.6">(перезаписав пам'ять local_w сміттям)</tspan></text>
+<line x1="500.0" y1="95.0" x2="500.0" y2="145.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="500.0" y1="145.0" x2="520.0" y2="145.0" stroke="#c0392b" stroke-width="2.0"/>
+<polygon points="520,140 530,145 520,150" fill="#c0392b"/>
+<text x="610.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Звернення ptr-&gt;id читає біти числа double (UB)</text>
+<text x="610.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">RSP змістився: старий кадр звільнено і перекрито</text>
+<line x1="470.0" y1="310.0" x2="750.0" y2="310.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="610.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Звернення до мертвого стека руйнує дані наступних викликів</text>
+</svg>

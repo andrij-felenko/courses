@@ -10,6 +10,7 @@ window.__BOOKS__.push(
       "title": "Механіка мови",
       "scope": "Правила, за якими компілятор розуміє код: категорії значень, посилання, винятки, зв'язування.",
       "topics": [
+        { slug: "contracts", title: "Контракти в C++: преумови, постумови та інваріанти", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-contracts.md", status: "recheck" }] , "hist": [{ file: "hist-contracts-evolution.md", status: "recheck" }] , "proj": [{ file: "proj-bounded-buffer.md", status: "recheck" }] },
         {
           "slug": "value-categories",
           "title": "Категорії значень: lvalue, prvalue, xvalue",
@@ -594,90 +595,240 @@ window.__BOOKS__.push(
           "slug": "name-mangling",
           "title": "Спотворення імен: як символ несе сигнатуру",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-demangle.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-mangling-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-symbol-demangler.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "cpp-modules",
           "title": "Модулі C++20: інтерфейс замість заголовка",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-module-declarations.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-modules-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-cmake-modular-library.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "using-and-name-hiding",
           "title": "Затуляння імен і using-оголошення",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-using-syntax-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-name-lookup-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-overload-set-builder.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "cast-operators",
           "title": "Оператори приведення: static_cast, reinterpret_cast, const_cast",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-casts-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-named-casts.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-type-punning.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "multiple-and-virtual-inheritance",
           "title": "Множинне й віртуальне спадкування: розкладка підобʼєктів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-abi-layout-rules.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-multiple-inheritance.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-layout-inspector.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "constinit",
           "title": "constinit: ініціалізація до запуску без обіцянки незмінності",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-constinit-rules.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-constinit-origin.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-safe-registry.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "empty-base-optimization",
           "title": "Оптимізація порожньої бази й [[no_unique_address]]",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-ebo-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-compressed-pair.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "three-way-comparison",
           "title": "Тричленне порівняння (operator<=>) і переписані кандидати",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-comparison-types.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-three-way-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-custom-comparisons.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "static-reflection",
           "title": "Статична рефлексія C++26: оператор ^^, splice і consteval-метафункції",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-meta-functions.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-json-serializer.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -791,80 +942,206 @@ window.__BOOKS__.push(
           "slug": "dangling-references",
           "title": "Висячі посилання й звернення після звільнення",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-lifetime-attributes.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-asan-shadow-memory.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "new-delete-allocation",
           "title": "new, delete й шляхи виділення пам'яті",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-allocation-functions.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-array-cookies-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-custom-tracking-allocator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "custom-allocators",
           "title": "Власні алокатори й пам'ять під контролем",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-allocator-traits.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-allocator-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-bump-pool-allocators.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "pimpl",
           "title": "PIMPL: сховати реалізацію за вказівником",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-cheshire-cat.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-fast-pimpl.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "alignment-placement-new",
           "title": "Вирівнювання й розміщувальний new",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-alignment-utilities.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-arena-allocator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "virtual-destructor",
           "title": "Віртуальний деструктор і поліморфне видалення",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-destruction-dispatch.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-virtual-destructor.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-polymorphic-destruction.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "scope-guard",
           "title": "Охоронець області: відкат через деструктор",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-scope-guards.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-scope-guard.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-transactional-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "std-launder",
           "title": "std::launder і повторне використання сховища",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-launder-contract.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-p0137-p0532.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-inplace-storage.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -878,70 +1155,196 @@ window.__BOOKS__.push(
           "slug": "templates-basics",
           "title": "Шаблони: параметризація типом",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-templates-syntax.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-templates-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-generic-ring-buffer.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "template-argument-deduction",
           "title": "Виведення аргументів шаблону",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-deduction-rules.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-ctad-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-custom-deduction-guide.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "specialization-overload",
           "title": "Спеціалізація й перевантаження шаблонів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-specialization-rules.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-specialization-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-customization-dispatch.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "variadic-and-folds",
           "title": "Шаблони змінної арності й вирази згортки",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-fold-operators.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-variadic-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-tuple-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "sfinae-and-enable-if",
           "title": "SFINAE й enable_if: відбір перевантажень",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-enable-if.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-sfinae-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-detection-idiom.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "concepts-constraints",
           "title": "Концепти й обмеження шаблонів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-concepts-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-concepts-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-custom-concepts.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "constexpr-if",
           "title": "if constexpr: гілка, якої не існує",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-constexpr-if-syntax.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-constexpr-if-origin.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-tuple-traversal-dispatch.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -1630,6 +2033,7 @@ window.__BOOKS__.push(
       "title": "Багатопотоковість у C++",
       "scope": "Стандартні засоби паралельності: потоки, синхронізація, асинхронний результат.",
       "topics": [
+        { slug: "p2300-senders-receivers", title: "Senders і Receivers: асинхронна модель P2300", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-p2300-senders-receivers.md", status: "recheck" }] , "hist": [{ file: "hist-p2300-senders-receivers.md", status: "recheck" }] , "proj": [{ file: "proj-custom-sender-receiver.md", status: "recheck" }] },
         {
           "slug": "std-thread-jthread",
           "title": "thread і jthread: запуск, приєднання, скасування",
@@ -1802,50 +2206,140 @@ window.__BOOKS__.push(
           "slug": "thread-local",
           "title": "thread_local: стан, приватний для потоку",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-tls-models.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-tls-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-per-thread-arena.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "latch-barrier-semaphore",
           "title": "latch, barrier і counting_semaphore",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-sync-primitives.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-sync-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-parallel-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "stop-token",
           "title": "stop_token: кооперативне скасування",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-stop-token.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-stop-token.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-cancellation-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "parallel-algorithms",
           "title": "Політики виконання й паралельні алгоритми",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-execution-policies.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-parallel-algorithms.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-parallel-filter-reduce.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "call-once-lazy-init",
           "title": "call_once і once_flag: одноразова ініціалізація",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-call-once.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-once-flag.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-lazy-registry.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -1855,74 +2349,177 @@ window.__BOOKS__.push(
       "title": "Випуски стандарту",
       "scope": "Що приніс кожен реліз мови й на що можна спиратися в конкретному проєкті.",
       "topics": [
+        { slug: "cpp26-features", title: "Що готує C++26: рефлексія, контракти, senders/receivers", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cpp26-core-library.md", status: "recheck" }] , "hist": [{ file: "hist-cpp26-evolution.md", status: "recheck" }] , "proj": [{ file: "proj-reflection-and-senders.md", status: "recheck" }] },
         {
           "slug": "standardization-process",
           "title": "Як робиться стандарт C++: комітет, папери, цикл",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-wg21-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-cxx0x-to-train-model.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "cpp11-cpp14",
           "title": "C++11 і C++14: перелом",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cxx11-cxx14-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-cxx11-cxx14-revolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-modernizing-cpp98-codebase.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "cpp17-features",
           "title": "Що приніс C++17",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cpp17-features.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-cpp17-standardization.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "cpp20-features",
           "title": "Що приніс C++20",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cpp20-features-matrix.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-cpp20-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-cpp20-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "cpp23-features",
           "title": "Що приніс C++23",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-cpp23-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-cpp23-covid-cycle.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "compiler-support",
           "title": "Підтримка стандартів компіляторами й прапорці",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-flags-reference.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-feature-detection.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "migrating-standards",
           "title": "Перехід проєкту на новіший стандарт",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-migration-tooling.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-breaking-changes-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-migration-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -1936,50 +2533,128 @@ window.__BOOKS__.push(
           "slug": "abi-stability-cpp",
           "title": "Стабільність ABI у C++ і що її ламає",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-abi-inspection.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-abi-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-abi-break-detect.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "header-hygiene",
           "title": "Гігієна заголовків і час перезбірки",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-build-profiling.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-include-model.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-iwyu-pch-setup.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "extern-c-interop",
           "title": "extern \"C\" і сумісність із C-інтерфейсами",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-linkage-specification.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-c-wrapper.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "core-guidelines",
           "title": "Core Guidelines: узгоджені правила стилю й безпеки",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-guidelines-origin.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-linter-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "gsl-support-library",
           "title": "GSL: not_null, owner і решта підпірок Core Guidelines",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-gsl-reference.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-gsl-evolution.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-gsl-refactoring.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]

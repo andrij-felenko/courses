@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1060.0" height="480.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="540.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оператор &lt;=&gt; і синтез 6 операторів порівняння у C++20</text>
+<rect x="40.0" y="70.0" width="380.0" height="400.0" rx="8" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="230.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Код користувача у C++20</text>
+<line x1="55.0" y1="108.0" x2="405.0" y2="108.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="55.0" y="120.0" width="350.0" height="190.0" rx="8" fill="#fff" stroke="#27ae60" stroke-width="1.0"/><text x="71.0" y="157.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">struct Record {</text><text x="71.0" y="172.7" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  int id;</text><text x="71.0" y="188.1" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  std::string name;</text><text x="71.0" y="203.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  double score;</text><text x="71.0" y="218.8" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start"></text><text x="71.0" y="234.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  // Єдиний рядок для всіх 6 операцій:</text><text x="71.0" y="249.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  auto operator&lt;=&gt;(const Record&amp;) const</text><text x="71.0" y="265.1" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">       = default;</text><text x="71.0" y="280.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">};</text>
+<text x="55.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Що виконує = default:</text>
+<text x="55.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Почленне лексикографічне порівняння</text>
+<text x="55.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Автоматичне виведення категорії порядку:</text>
+<text x="65.0" y="398.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#c0392b" text-anchor="start">double -&gt; std::partial_ordering</text>
+<text x="55.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Автоматичний синтез оператора operator==</text>
+<text x="55.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">  (для максимальної швидкодії O(1))</text>
+<line x1="430.0" y1="260.0" x2="480.0" y2="260.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="435.0" y="230.0" width="40.0" height="22.0" rx="4" fill="#fff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="455.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">синтез</text>
+<rect x="490.0" y="70.0" width="550.0" height="400.0" rx="8" fill="#f0f4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="765.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Набір переписаних кандидатів (Overload Resolution)</text>
+<line x1="505.0" y1="108.0" x2="1025.0" y2="108.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="505.0" y="120.0" width="520.0" height="48.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="148.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#27ae60" text-anchor="start" font-weight="700">a == b</text>
+<text x="610.0" y="148.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">→  Синтезований a.operator==(b) або перевернутий b.operator==(a)</text>
+<rect x="505.0" y="175.0" width="520.0" height="48.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="203.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#27ae60" text-anchor="start" font-weight="700">a != b</text>
+<text x="610.0" y="203.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">→  Переписаний вираз: !(a == b)</text>
+<rect x="505.0" y="230.0" width="520.0" height="48.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="520.0" y="258.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#c0392b" text-anchor="start" font-weight="700">a &lt; b</text>
+<text x="610.0" y="258.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">→  Переписаний вираз: (a &lt;=&gt; b) &lt; 0</text>
+<rect x="505.0" y="285.0" width="520.0" height="48.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="520.0" y="313.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#c0392b" text-anchor="start" font-weight="700">a &lt;= b</text>
+<text x="610.0" y="313.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">→  Переписаний вираз: (a &lt;=&gt; b) &lt;= 0</text>
+<rect x="505.0" y="340.0" width="520.0" height="48.0" rx="6" fill="#fff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="520.0" y="368.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#8e44ad" text-anchor="start" font-weight="700">a &gt; b</text>
+<text x="610.0" y="368.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">→  Переписаний вираз: (a &lt;=&gt; b) &gt; 0  або  0 &lt; (b &lt;=&gt; a)</text>
+<rect x="505.0" y="395.0" width="520.0" height="48.0" rx="6" fill="#fff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="520.0" y="423.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#8e44ad" text-anchor="start" font-weight="700">a &gt;= b</text>
+<text x="610.0" y="423.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">→  Переписаний вираз: (a &lt;=&gt; b) &gt;= 0 або  0 &lt;= (b &lt;=&gt; a)</text>
+<text x="765.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Підтримка гетерогенних порівнянь: (a == 5) автоматично працює для (5 == a)</text>
+</svg>

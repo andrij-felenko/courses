@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 933.4 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="933.4" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм dynamic_cast та навігація RTTI</text>
+<rect x="10.0" y="10.0" width="900.0" height="440.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="460.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм dynamic_cast: динамічна навігація поліморфною ієрархією</text>
+<text x="460.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Перевірка фактичного типу об'єкта під час виконання через RTTI</text>
+<rect x="40.0" y="95.0" width="230.0" height="160.0" rx="6" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="155.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єкт у пам'яті</text>
+<rect x="55.0" y="145.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="155.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">vptr (вказівник на vtable)</text>
+<rect x="55.0" y="190.0" width="200.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="155.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Поля об'єкта</text>
+<text x="155.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Derived)</text>
+<line x1="255.0" y1="163.0" x2="335.0" y2="163.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="340.0" y="95.0" width="260.0" height="200.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="470.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця vtable &amp; RTTI</text>
+<rect x="355.0" y="135.0" width="230.0" height="42.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="470.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RTTI Complete Object Locator</text>
+<text x="470.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зсуви та type_info для Derived</text>
+<rect x="355.0" y="185.0" width="230.0" height="32.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="470.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">slot 0: &amp;Derived::func1()</text>
+<rect x="355.0" y="225.0" width="230.0" height="32.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="470.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">slot 1: &amp;Derived::func2()</text>
+<line x1="585.0" y1="156.0" x2="645.0" y2="156.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="156.0" x2="645.0" y2="290.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="626.6" y="120.6" width="286.8" height="78.8" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="770.0" y="140.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Цільовий тип знайдено (Успіх)</tspan><tspan x="770.0" dy="15.6">• Обчислює правильну базову адресу</tspan><tspan x="770.0" dy="15.6">• Повертає Derived*</tspan><tspan x="770.0" dy="15.6">✓ Швидкість залежить від глибини дерева</tspan></text>
+<rect x="650.0" y="272.8" width="240.0" height="94.4" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="770.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Невідповідний тип (Невдача)</tspan><tspan x="770.0" dy="15.6">• Для вказівників (Target*):</tspan><tspan x="770.0" dy="15.6">  повертає nullptr</tspan><tspan x="770.0" dy="15.6">• Для посилань (Target&amp;):</tspan><tspan x="770.0" dy="15.6">  викидає виняток std::bad_cast</tspan></text>
+<line x1="645.0" y1="156.0" x2="665.0" y2="156.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="290.0" x2="665.0" y2="320.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">dynamic_cast вимагає поліморфного типу (хоча б одна віртуальна функція у базовому класі)</text>
+</svg>

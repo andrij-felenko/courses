@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння розкладки пам'яті: композиція проти оптимізації порожньої бази</text>
+<line x1="480.0" y1="50.0" x2="480.0" y2="390.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="240.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Композиція (без EBO)</text>
+<text x="240.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">struct Holder { int* ptr; Deleter d; };</text>
+<rect x="60.0" y="120.0" width="360.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="240.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">int* ptr (8 байтів, зсув +0)</text>
+<rect x="60.0" y="180.0" width="100.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="110.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Deleter d (1 б)</text>
+<rect x="170.0" y="180.0" width="250.0" height="50.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="295.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">padding (7 байтів)</text>
+<rect x="60.0" y="250.0" width="360.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">sizeof(Holder) = 16 байтів</tspan><tspan x="240.0" dy="15.6">Накладні витрати: +100% до розміру покажчика</tspan></text>
+<text x="720.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">Спадкування (EBO в дії)</text>
+<text x="720.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">struct Holder : private Deleter { int* ptr; };</text>
+<rect x="540.0" y="120.0" width="360.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="720.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Базовий підоб'єкт Deleter (зсув +0, розмір 0 байтів)</text>
+<text x="720.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">int* ptr (8 байтів, зсув +0)</text>
+<rect x="540.0" y="250.0" width="360.0" height="65.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="279.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">sizeof(Holder) = 8 байтів</tspan><tspan x="720.0" dy="13.0">Нульові накладні витрати: стиснуто в 1 машинне слово</tspan></text>
+<text x="480.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Базовий підоб'єкт ділить адресу 0x0 з першим полем;</tspan><tspan x="480.0" dy="16.9">правило sizeof &gt;= 1 не застосовується до базових підоб'єктів</tspan></text>
+</svg>

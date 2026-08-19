@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 452.52" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="452.52" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крайовий випадок: колізія адрес при збігу типів двох порожніх членів</text>
+<line x1="480.0" y1="50.0" x2="480.0" y2="400.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="240.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Випадок А: РІЗНІ порожні типи</text>
+<text x="240.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">[[no_unique_address]] EmptyA a;</text>
+<text x="240.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">[[no_unique_address]] EmptyB b; int x;</text>
+<rect x="60.0" y="135.0" width="360.0" height="80.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="240.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Зсув +0: EmptyA a (0 байтів) &amp; EmptyB b (0 байтів)</text>
+<text x="240.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Зсув +0: int x (4 байти)</text>
+<rect x="60.0" y="235.0" width="360.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="240.0" y="261.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">&amp;a == &amp;b дозволено (різні типи!)</tspan><tspan x="240.0" dy="16.9">Загальний розмір = 4 байти</tspan></text>
+<text x="720.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Випадок Б: ОДНАКОВИЙ порожній тип</text>
+<text x="720.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">[[no_unique_address]] Empty a;</text>
+<text x="720.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">[[no_unique_address]] Empty b; int x;</text>
+<rect x="540.0" y="135.0" width="100.0" height="45.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="590.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">a (зсув 0)</text>
+<rect x="650.0" y="135.0" width="100.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="700.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">b (зсув 1)</text>
+<rect x="760.0" y="135.0" width="140.0" height="45.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="830.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">padding (2 б)</text>
+<rect x="540.0" y="190.0" width="360.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="720.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">int x (4 байти, зсув +4 через вирівнювання)</text>
+<rect x="540.0" y="255.0" width="360.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="720.0" y="283.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Заборонено &amp;a == &amp;b для однакового типу!</tspan><tspan x="720.0" dy="15.6">b зміщується на +1 байт -&gt; padding -&gt;</tspan><tspan x="720.0" dy="15.6">Загальний розмір зростає до 8 байтів!</tspan></text>
+<text x="480.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Стандарт C++ забороняє двом підоб'єктам однакового типу мати однакову адресу;</tspan><tspan x="480.0" dy="15.6">тому оптимізатор змушений призначити другому члену унікальне ненульове зміщення</tspan></text>
+</svg>

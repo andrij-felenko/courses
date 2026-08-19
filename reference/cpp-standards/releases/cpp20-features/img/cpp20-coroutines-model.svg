@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1060.0" height="500.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="540.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель виконання корутин у C++20: взаємодія компонентів</text>
+<rect x="35.0" y="70.0" width="310.0" height="420.0" rx="8" fill="#fff" stroke="#333333" stroke-width="1.5"/>
+<text x="190.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корутина (Функція у коді)</text>
+<line x1="50.0" y1="108.0" x2="330.0" y2="108.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="47.0" y="120.0" width="286.0" height="250.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/><text x="63.0" y="171.8" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">Task&lt;int&gt; async_work() {</text><text x="63.0" y="187.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  // 1. initial_suspend()</text><text x="63.0" y="202.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  int a = fetch_local();</text><text x="63.0" y="218.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  co_await remote_io();</text><text x="63.0" y="233.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  // [точка призупинення 1]</text><text x="63.0" y="248.8" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  int b = 100;</text><text x="63.0" y="264.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  co_yield (a + b);</text><text x="63.0" y="279.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  // [точка призупинення 2]</text><text x="63.0" y="295.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  co_return 0;</text><text x="63.0" y="310.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">  // 2. final_suspend()</text><text x="63.0" y="325.9" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="start">}</text>
+<text x="50.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Маркери перетворення на корутину:</text>
+<text x="50.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Наявність co_await, co_yield або co_return</text>
+<text x="50.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Повертаний тип має trait promise_type</text>
+<text x="50.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Тіло розбивається на скінченний автомат</text>
+<rect x="380.0" y="70.0" width="340.0" height="420.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="550.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Фрейм корутини (Coroutine Frame)</text>
+<line x1="395.0" y1="108.0" x2="705.0" y2="108.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="395.0" y="120.0" width="310.0" height="65.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="550.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Об'єкт Promise (promise_type)</text>
+<text x="550.0" y="165.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">get_return_object(), unhandled_exception()</text>
+<rect x="395.0" y="195.0" width="310.0" height="65.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="550.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Копії / переміщення аргументів</text>
+<text x="550.0" y="240.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#6b7280" text-anchor="middle">Зберігають стан при виході зі стека</text>
+<rect x="395.0" y="270.0" width="310.0" height="65.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="550.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Локальні змінні через точки паузи</text>
+<text x="550.0" y="315.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="middle">int a, int b (збережені між resume)</text>
+<rect x="395.0" y="345.0" width="310.0" height="65.0" rx="6" fill="#fff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="550.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">Індекс точки призупинення</text>
+<text x="550.0" y="390.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="middle">Число для switch(suspend_point)</text>
+<rect x="395.0" y="420.0" width="310.0" height="52.0" rx="6" fill="#fff" stroke="#333333" stroke-width="1.0"/>
+<text x="550.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">HALO (Heap Allocation Elision)</text>
+<text x="550.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Оптимізація інлайнінгу: розміщення на стеку</text>
+<rect x="750.0" y="70.0" width="295.0" height="420.0" rx="8" fill="#f0f4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="897.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Зовнішній інтерфейс і чекач</text>
+<line x1="765.0" y1="108.0" x2="1030.0" y2="108.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="765.0" y="120.0" width="265.0" height="95.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="897.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">std::coroutine_handle&lt;P&gt;</text>
+<text x="897.5" y="160.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">handle.resume()</text>
+<text x="897.5" y="180.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">handle.destroy()</text>
+<text x="897.5" y="200.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle">handle.done()</text>
+<rect x="765.0" y="230.0" width="265.0" height="160.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="897.5" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Протокол Awaiter (co_await)</text>
+<line x1="780.0" y1="262.0" x2="1015.0" y2="262.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="775.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. await_ready() -&gt; bool</text>
+<text x="785.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Чи є результат готовим негайно?</text>
+<text x="775.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. await_suspend(handle)</text>
+<text x="785.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Куди передати керування?</text>
+<text x="775.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. await_resume() -&gt; T</text>
+<text x="785.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Отримати значення виразу</text>
+<text x="765.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Синхронізація:</text>
+<text x="765.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Керування повертається викликачу</text>
+<text x="765.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">у точці призупинення, а потім</text>
+<text x="765.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">відновлюється через resume().</text>
+<line x1="345.0" y1="200.0" x2="380.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="100.0" x2="750.0" y2="100.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

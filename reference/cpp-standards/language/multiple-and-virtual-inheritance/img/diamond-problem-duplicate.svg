@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ромбоподібне спадкування: дублювання базового класу</text>
+<text x="500.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Ромбоподібне спадкування без virtual: дублювання DeviceNode</text>
+<rect x="100.0" y="60.0" width="180.0" height="49.9" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.5"/><text x="190.0" y="81.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">DeviceNode (base)</tspan><tspan x="190.0" dy="16.9">int32_t node_id</tspan></text>
+<rect x="20.0" y="150.1" width="150.0" height="49.9" rx="6" fill="#e8f4fd" stroke="#2980b9" stroke-width="1.5"/><text x="95.0" y="171.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">AudioInput</tspan><tspan x="95.0" dy="16.9">int32_t rate</tspan></text>
+<rect x="210.0" y="150.1" width="150.0" height="49.9" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/><text x="285.0" y="171.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">AudioOutput</tspan><tspan x="285.0" dy="16.9">float vol</tspan></text>
+<rect x="100.0" y="240.1" width="180.0" height="49.9" rx="6" fill="#eaeded" stroke="#566573" stroke-width="1.5"/><text x="190.0" y="261.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">AudioDuplex</tspan><tspan x="190.0" dy="16.9">int64_t dev_id</tspan></text>
+<line x1="150.0" y1="115.0" x2="110.0" y2="145.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="115.0" x2="270.0" y2="145.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="110.0" y1="205.0" x2="160.0" y2="235.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="205.0" x2="220.0" y2="235.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="520.0" y="75.0" width="420.0" height="46.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="730.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">AudioInput :: DeviceNode :: node_id (4 B + pad)</text>
+<text x="500.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+0 B</text>
+<rect x="520.0" y="121.0" width="420.0" height="46.0" rx="6" fill="#e8f4fd" stroke="#2980b9" stroke-width="1.5"/>
+<text x="730.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">AudioInput :: sample_rate (4 B + pad)</text>
+<text x="500.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+8 B</text>
+<rect x="520.0" y="167.0" width="420.0" height="46.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="730.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">AudioOutput :: DeviceNode :: node_id (ДУБЛІКАТ, 4 B + pad)</text>
+<text x="500.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+16 B</text>
+<rect x="520.0" y="213.0" width="420.0" height="46.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="730.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">AudioOutput :: volume (4 B + pad)</text>
+<text x="500.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+24 B</text>
+<rect x="520.0" y="259.0" width="420.0" height="46.0" rx="6" fill="#eaeded" stroke="#566573" stroke-width="1.5"/>
+<text x="730.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700">AudioDuplex :: device_id (8 B)</text>
+<text x="500.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+32 B</text>
+<rect x="50.0" y="363.1" width="900.0" height="83.7" rx="6" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.5"/><text x="500.0" y="384.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Наслідки відсутності virtual:</tspan><tspan x="500.0" dy="16.9">1. Неоднозначність звернення: ptr-&gt;node_id — помилка компіляції (ambiguous base).</tspan><tspan x="500.0" dy="16.9">2. Розкол стану: ptr-&gt;AudioInput::node_id = 1 НЕ змінює ptr-&gt;AudioOutput::node_id.</tspan><tspan x="500.0" dy="16.9">3. Неможливий прямий upcast: static_cast&lt;DeviceNode*&gt;(ptr) не компілюється.</tspan></text>
+</svg>

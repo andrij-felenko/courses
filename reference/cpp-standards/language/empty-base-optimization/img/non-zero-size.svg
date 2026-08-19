@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому об'єкт C++ має ненульовий розмір і як композиція подвоює пам'ять</text>
+<text x="480.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Правило ненульового розміру: ідентичність і адресна арифметика</text>
+<text x="240.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Два окремі об'єкти (Empty a, b;)</text>
+<rect x="88.1" y="96.6" width="123.7" height="66.8" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="117.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">об'єкт a</tspan><tspan x="150.0" dy="16.9">адреса 0x1000</tspan><tspan x="150.0" dy="16.9">розмір: 1 байт</tspan></text>
+<rect x="268.1" y="96.6" width="123.7" height="66.8" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="330.0" y="117.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">об'єкт b</tspan><tspan x="330.0" dy="16.9">адреса 0x1001</tspan><tspan x="330.0" dy="16.9">розмір: 1 байт</tspan></text>
+<text x="240.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">&amp;a != &amp;b — різні об'єкти</tspan><tspan x="240.0" dy="15.6">мають гарантовано різні адреси</tspan></text>
+<text x="720.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Масив порожніх об'єктів (Empty arr[3];)</text>
+<rect x="537.8" y="105.0" width="64.5" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="570.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">arr[0]</tspan><tspan x="570.0" dy="16.9">0x2000</tspan></text>
+<rect x="687.8" y="105.0" width="64.5" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">arr[1]</tspan><tspan x="720.0" dy="16.9">0x2001</tspan></text>
+<rect x="837.8" y="105.0" width="64.5" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="870.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">arr[2]</tspan><tspan x="870.0" dy="16.9">0x2002</tspan></text>
+<text x="720.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">arr + 1 крокує на sizeof(Empty) байт вперед;</tspan><tspan x="720.0" dy="15.6">якби розмір був 0, покажчик стояв би на місці</tspan></text>
+<line x1="40.0" y1="240.0" x2="920.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6,6"/>
+<text x="480.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Ціна композиції: вирівнювання роздуває 1 байт до розміру слова</text>
+<rect x="100.0" y="320.0" width="380.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="290.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">int* ptr (8 байтів, зміщення 0..7)</text>
+<text x="290.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">вирівнювання: 8 байтів</text>
+<rect x="480.0" y="320.0" width="90.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="525.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Empty e</text>
+<text x="525.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">1 байт</text>
+<rect x="570.0" y="320.0" width="290.0" height="55.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="715.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">порожнє заповнення (padding, 7 байтів)</text>
+<text x="715.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">для вирівнювання загального розміру до кратного 8</text>
+<line x1="100.0" y1="395.0" x2="860.0" y2="395.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="100.0" y1="388.0" x2="100.0" y2="402.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="860.0" y1="388.0" x2="860.0" y2="402.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="480.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Загальний sizeof(Holder) = 16 байтів замість корисних 8!</text>
+</svg>

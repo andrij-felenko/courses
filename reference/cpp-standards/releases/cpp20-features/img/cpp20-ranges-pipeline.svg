@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1060.0" height="460.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="540.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінива композиція діапазонів std::ranges: виконання за запитом</text>
+<rect x="40.0" y="65.0" width="1000.0" height="56.0" rx="8" fill="#fff" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="540.0" y="98.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#8e44ad" text-anchor="middle" font-weight="700">auto pipeline = data | views::filter(is_even) | views::transform(square) | views::take(2);</text>
+<rect x="45.0" y="150.0" width="210.0" height="190.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контейнер даних</text>
+<text x="150.0" y="195.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="middle">std::vector&lt;int&gt;</text>
+<line x1="60.0" y1="208.0" x2="240.0" y2="208.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="150.0" y="235.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="700">[ 1,  2,  3,  4,  5 ]</text>
+<text x="60.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Виділена пам'ять:</text>
+<text x="60.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">5 елементів у heap.</text>
+<text x="60.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Володіє даними.</text>
+<rect x="295.0" y="150.0" width="210.0" height="190.0" rx="8" fill="#eef7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="400.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">views::filter</text>
+<text x="400.0" y="195.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#27ae60" text-anchor="middle">filter_view (O(1) mem)</text>
+<line x1="310.0" y1="208.0" x2="490.0" y2="208.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="400.0" y="235.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#27ae60" text-anchor="middle" font-weight="700">x % 2 == 0</text>
+<text x="310.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Лінивий предикат:</text>
+<text x="310.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пропускає 1, 3, 5.</text>
+<text x="310.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">Пропускає далі: 2, 4.</text>
+<rect x="545.0" y="150.0" width="210.0" height="190.0" rx="8" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="650.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">views::transform</text>
+<text x="650.0" y="195.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#2457d6" text-anchor="middle">transform_view (O(1) mem)</text>
+<line x1="560.0" y1="208.0" x2="740.0" y2="208.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="650.0" y="235.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#2457d6" text-anchor="middle" font-weight="700">x * x</text>
+<text x="560.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Трансформація:</text>
+<text x="560.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2 -&gt; 4</text>
+<text x="560.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">4 -&gt; 16</text>
+<rect x="795.0" y="150.0" width="210.0" height="190.0" rx="8" fill="#fbf5fd" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="900.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">views::take(2)</text>
+<text x="900.0" y="195.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#8e44ad" text-anchor="middle">take_view (O(1) mem)</text>
+<line x1="810.0" y1="208.0" x2="990.0" y2="208.0" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="900.0" y="235.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#8e44ad" text-anchor="middle" font-weight="700">limit = 2</text>
+<text x="810.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Зупинка за лічильником:</text>
+<text x="810.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Обмежує кількість.</text>
+<text x="810.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="start">Sentinel сигналізує кінець.</text>
+<line x1="255.0" y1="245.0" x2="295.0" y2="245.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="245.0" x2="545.0" y2="245.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="755.0" y1="245.0" x2="795.0" y2="245.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="360.0" width="1000.0" height="90.0" rx="8" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="540.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Споживання елементів у циклі: for (int x : pipeline)</text>
+<text x="540.0" y="410.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle">Крок 1: береться 1 (відкинуто), береться 2 -&gt; підноситься до квадрату -&gt; видає 4</text>
+<text x="540.0" y="432.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1a1a1a" text-anchor="middle">Крок 2: береться 3 (відкинуто), береться 4 -&gt; підноситься до квадрату -&gt; видає 16 -&gt; Sentinel завершує цикл</text>
+</svg>

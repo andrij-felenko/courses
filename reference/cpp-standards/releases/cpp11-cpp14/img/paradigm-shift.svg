@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парадигмальний перелом: від C++98 до Modern C++ (C++11/C++14)</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Чотири стовпи фундаментального переосмислення мови</text>
+<rect x="35.0" y="75.0" width="205.0" height="330.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="137.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Стовп 1</text>
+<text x="137.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Управління ресурсами</text>
+<line x1="45.0" y1="129.0" x2="230.0" y2="129.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="43.0" y="139.0" width="189.0" height="115.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.0"/>
+<text x="137.5" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">C++98: Ручне копіювання</text>
+<text x="137.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Глибоке копіювання буферів</text>
+<text x="137.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">auto_ptr із небезпечним transfer</text>
+<text x="137.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Вихідні параметри (T* out)</text>
+<line x1="137.5" y1="264.0" x2="137.5" y2="279.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="43.0" y="284.0" width="189.0" height="115.0" rx="5" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.0"/>
+<text x="137.5" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">C++11/14: Move &amp; RAII</text>
+<text x="137.5" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Семантика переміщення rvalue</text>
+<text x="137.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">std::unique_ptr / shared_ptr</text>
+<text x="137.5" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">std::make_unique, нуль витоків</text>
+<rect x="265.0" y="75.0" width="205.0" height="330.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="367.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Стовп 2</text>
+<text x="367.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатопотоковість</text>
+<line x1="275.0" y1="129.0" x2="460.0" y2="129.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="273.0" y="139.0" width="189.0" height="115.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.0"/>
+<text x="367.5" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">C++98: Поза стандартом</text>
+<text x="367.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Немає моделі пам'яті в ISO</text>
+<text x="367.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Платформні pthread / Win32</text>
+<text x="367.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Невизначена поведінка перегонів</text>
+<line x1="367.5" y1="264.0" x2="367.5" y2="279.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="273.0" y="284.0" width="189.0" height="115.0" rx="5" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.0"/>
+<text x="367.5" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">C++11/14: Нативна модель</text>
+<text x="367.5" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Формальний memory model</text>
+<text x="367.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">&lt;thread&gt;, &lt;atomic&gt;, &lt;mutex&gt;</text>
+<text x="367.5" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">happens-before гарантії</text>
+<rect x="495.0" y="75.0" width="205.0" height="330.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="597.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стовп 3</text>
+<text x="597.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виразність і типи</text>
+<line x1="505.0" y1="129.0" x2="690.0" y2="129.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="503.0" y="139.0" width="189.0" height="115.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.0"/>
+<text x="597.5" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">C++98: Громіздкий синтаксис</text>
+<text x="597.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Явні типи ітераторів</text>
+<text x="597.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">std::bind1st, функтори-класи</text>
+<text x="597.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Макрос NULL і слабкі enum</text>
+<line x1="597.5" y1="264.0" x2="597.5" y2="279.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="503.0" y="284.0" width="189.0" height="115.0" rx="5" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.0"/>
+<text x="597.5" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">C++11/14: Автовиведення</text>
+<text x="597.5" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">auto, decltype, decltype(auto)</text>
+<text x="597.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Лямбда-вирази й generic auto</text>
+<text x="597.5" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">nullptr, enum class, override</text>
+<rect x="725.0" y="75.0" width="205.0" height="330.0" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2.0"/>
+<text x="827.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Стовп 4</text>
+<text x="827.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час компіляції</text>
+<line x1="735.0" y1="129.0" x2="920.0" y2="129.0" stroke="#d97706" stroke-width="1.0"/>
+<rect x="733.0" y="139.0" width="189.0" height="115.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.0"/>
+<text x="827.5" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">C++98: Шаблонна магія</text>
+<text x="827.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Рекурсивні інстанціації</text>
+<text x="827.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Макроси препроцесора</text>
+<text x="827.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Повільна збірка коду</text>
+<line x1="827.5" y1="264.0" x2="827.5" y2="279.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="733.0" y="284.0" width="189.0" height="115.0" rx="5" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.0"/>
+<text x="827.5" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">C++11/14: constexpr метакод</text>
+<text x="827.5" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">constexpr функції та цикли</text>
+<text x="827.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шаблони зі змінною кількістю</text>
+<text x="827.5" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шаблонні змінні (C++14)</text>
+</svg>

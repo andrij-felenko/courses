@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-33.5 -10 1073.5 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-33.5" y="-10" width="1073.5" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка об'єкта при множинному невіртуальному спадкуванні</text>
+<text x="520.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка об'єкта AudioDuplex : public AudioInput, public AudioOutput</text>
+<rect x="210.0" y="75.0" width="340.0" height="52.0" rx="6" fill="#e8f4fd" stroke="#2980b9" stroke-width="1.5"/>
+<text x="380.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a5276" text-anchor="middle" font-weight="700">vptr для AudioInput / AudioDuplex (8 B)</text>
+<text x="195.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+0 B</text>
+<rect x="210.0" y="127.0" width="340.0" height="52.0" rx="6" fill="#f0f7fc" stroke="#2980b9" stroke-width="1.5"/>
+<text x="380.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">AudioInput::sample_rate (int32_t + pad, 8 B)</text>
+<text x="195.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+8 B</text>
+<rect x="210.0" y="179.0" width="340.0" height="52.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="380.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#935116" text-anchor="middle" font-weight="700">vptr для AudioOutput (8 B)</text>
+<text x="195.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+16 B</text>
+<rect x="210.0" y="231.0" width="340.0" height="52.0" rx="6" fill="#fdfaf6" stroke="#d35400" stroke-width="1.5"/>
+<text x="380.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">AudioOutput::volume (float + pad, 8 B)</text>
+<text x="195.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+24 B</text>
+<rect x="210.0" y="283.0" width="340.0" height="52.0" rx="6" fill="#eaeded" stroke="#566573" stroke-width="1.5"/>
+<text x="380.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">AudioDuplex::device_id (int64_t, 8 B)</text>
+<text x="195.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">+32 B</text>
+<line x1="100.0" y1="101.0" x2="206.0" y2="101.0" stroke="#2980b9" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="92.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">AudioDuplex* ptr</text>
+<text x="92.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="end">AudioInput* in (+0 B)</text>
+<line x1="100.0" y1="205.0" x2="206.0" y2="205.0" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="92.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="end" font-weight="700">AudioOutput* out</text>
+<text x="92.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="end">зсув +16 B</text>
+<rect x="595.0" y="93.2" width="390.0" height="83.7" rx="6" fill="#fdfaf6" stroke="#d35400" stroke-width="1.5"/><text x="790.0" y="114.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Статичний upcast:</tspan><tspan x="790.0" dy="16.9">static_cast&lt;AudioOutput*&gt;(ptr)</tspan><tspan x="790.0" dy="16.9">компілятор додає +16 байтів до адреси</tspan><tspan x="790.0" dy="16.9">без звернень до динамічних таблиць.</tspan></text>
+<rect x="587.3" y="233.2" width="405.3" height="83.7" rx="6" fill="#f4f6f8" stroke="#566573" stroke-width="1.5"/><text x="790.0" y="254.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Виклик через AudioOutput*:</tspan><tspan x="790.0" dy="16.9">out-&gt;write(...) очікує this = out (+16).</tspan><tspan x="790.0" dy="16.9">Реалізація AudioDuplex::write чекає this = ptr (+0).</tspan><tspan x="790.0" dy="16.9">Компілятор генерує thunk: sub rdi, 16.</tspan></text>
+<line x1="210.0" y1="355.0" x2="550.0" y2="355.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="380.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Загальний розмір об'єкта AudioDuplex: 40 байтів (без virtual)</text>
+</svg>

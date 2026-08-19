@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1060.0" height="480.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="540.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">«Велика четвірка» фундаментальних технологій C++20</text>
+<rect x="35.0" y="68.0" width="240.0" height="405.0" rx="8" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="155.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">1. Концепти</text>
+<text x="155.0" y="116.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">concept / requires</text>
+<line x1="50.0" y1="128.0" x2="260.0" y2="128.0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="50.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Сутність:</text>
+<text x="50.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Предикати перевірки типів</text>
+<text x="50.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">на етапі компіляції.</text>
+<text x="50.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Що замінює:</text>
+<text x="50.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Громіздкий SFINAE,</text>
+<text x="50.0" y="254.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#6b7280" text-anchor="start">std::enable_if_t</text>
+<text x="50.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Ключові переваги:</text>
+<text x="50.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Чіткі помилки збірки</text>
+<text x="50.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Перевантаження за</text>
+<text x="60.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ступенем обмеження</text>
+<text x="50.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Скорочені шаблони</text>
+<rect x="47.0" y="380.0" width="216.0" height="78.0" rx="8" fill="#fff" stroke="#27ae60" stroke-width="1.0"/><text x="63.0" y="415.3" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">template&lt;std::integral T&gt;</text><text x="63.0" y="430.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">void process(T val);</text>
+<rect x="295.0" y="68.0" width="240.0" height="405.0" rx="8" fill="#f0f4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="415.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">2. Модулі</text>
+<text x="415.0" y="116.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">import / export</text>
+<line x1="310.0" y1="128.0" x2="520.0" y2="128.0" stroke="#2457d6" stroke-width="1.2"/>
+<text x="310.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Сутність:</text>
+<text x="310.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Компіляція інтерфейсів</text>
+<text x="310.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">у бінарні блоки (BMI).</text>
+<text x="310.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Що замінює:</text>
+<text x="310.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Текстову підстановку</text>
+<text x="310.0" y="254.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#6b7280" text-anchor="start">#include та header guards</text>
+<text x="310.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Ключові переваги:</text>
+<text x="310.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ізоляція макросів</text>
+<text x="310.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Прискорення компіляції</text>
+<text x="310.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Чітке розмежування</text>
+<text x="320.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">експорту й деталей</text>
+<rect x="307.0" y="380.0" width="216.0" height="78.0" rx="8" fill="#fff" stroke="#2457d6" stroke-width="1.0"/><text x="323.0" y="415.3" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">export module math;</text><text x="323.0" y="430.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">export int add(int a, int b);</text>
+<rect x="555.0" y="68.0" width="240.0" height="405.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="675.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">3. Корутини</text>
+<text x="675.0" y="116.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">co_await / co_yield</text>
+<line x1="570.0" y1="128.0" x2="780.0" y2="128.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="570.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Сутність:</text>
+<text x="570.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Безстекові функції з можливістю</text>
+<text x="570.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">призупинення й відновлення.</text>
+<text x="570.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Що замінює:</text>
+<text x="570.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пекло зворотних викликів,</text>
+<text x="570.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ручні машини станів</text>
+<text x="570.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Ключові переваги:</text>
+<text x="570.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Лінійний асинхронний код</text>
+<text x="570.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ліниві генератори</text>
+<text x="570.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Мінімальний оверхед</text>
+<text x="580.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">(HALO оптимізація)</text>
+<rect x="567.0" y="380.0" width="216.0" height="78.0" rx="8" fill="#fff" stroke="#c0392b" stroke-width="1.0"/><text x="583.0" y="408.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">generator&lt;int&gt; seq() {</text><text x="583.0" y="422.7" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">  co_yield 42;</text><text x="583.0" y="437.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">}</text>
+<rect x="815.0" y="68.0" width="240.0" height="405.0" rx="8" fill="#fbf5fd" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="935.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#8e44ad" text-anchor="middle" font-weight="700">4. Діапазони</text>
+<text x="935.0" y="116.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">std::ranges / views</text>
+<line x1="830.0" y1="128.0" x2="1040.0" y2="128.0" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="830.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Сутність:</text>
+<text x="830.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Концепція діапазону як</text>
+<text x="830.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">цілісного об'єкта зі sentinel.</text>
+<text x="830.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Що замінює:</text>
+<text x="830.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пари ітераторів begin/end,</text>
+<text x="830.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">жадібні проміжні копії</text>
+<text x="830.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="start" font-weight="700">Ключові переваги:</text>
+<text x="830.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ліниві адаптери через |</text>
+<text x="830.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Проекції в алгоритмах</text>
+<text x="830.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпека висячих ітераторів</text>
+<text x="840.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">(std::ranges::dangling)</text>
+<rect x="827.0" y="380.0" width="216.0" height="78.0" rx="8" fill="#fff" stroke="#8e44ad" stroke-width="1.0"/><text x="843.0" y="408.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">auto v = data</text><text x="843.0" y="422.7" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">  | views::filter(even)</text><text x="843.0" y="437.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10.5" fill="#1a1a1a" text-anchor="start">  | views::take(5);</text>
+</svg>

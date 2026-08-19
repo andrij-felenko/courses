@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 512.16" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="512.16" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння специфікаторів: час ініціалізації проти мутабельності</text>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПРОСТІР МОДИФІКАТОРІВ СТАНУ В C++20</text>
+<rect x="240.0" y="60.0" width="340.0" height="40.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компіляція / Завантаження (Static)</text>
+<rect x="600.0" y="60.0" width="340.0" height="40.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<text x="770.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час виконання (Dynamic / Runtime)</text>
+<rect x="40.0" y="110.0" width="180.0" height="160.0" rx="6" fill="#fbf0f0" stroke="#333333" stroke-width="1.5"/>
+<text x="130.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Незмінний</tspan><tspan x="130.0" dy="15.6">(Read-Only / const)</tspan></text>
+<rect x="40.0" y="285.0" width="180.0" height="160.0" rx="6" fill="#eaf7ed" stroke="#333333" stroke-width="1.5"/>
+<text x="130.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Змінний</tspan><tspan x="130.0" dy="15.6">(Mutable / Read-Write)</tspan></text>
+<rect x="240.0" y="110.0" width="340.0" height="160.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.5"/>
+<text x="410.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">constexpr</text>
+<text x="410.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">• Обчислення під час компіляції</tspan><tspan x="410.0" dy="16.5">• Незмінне значення (неявний const)</tspan><tspan x="410.0" dy="16.5">• Може бути аргументом шаблону</tspan></text>
+<rect x="600.0" y="110.0" width="340.0" height="160.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.5"/>
+<text x="770.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">const</text>
+<text x="770.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">• Ініціалізація будь-коли (runtime)</tspan><tspan x="770.0" dy="16.5">• Заборона модифікації через це ім'я</tspan><tspan x="770.0" dy="16.5">• НЕ захищає від SIOF</tspan></text>
+<rect x="240.0" y="285.0" width="340.0" height="160.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.5"/>
+<text x="410.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">constinit</text>
+<text x="410.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">• Гарантована статична ініціалізація</tspan><tspan x="410.0" dy="16.5">• ПОВНІСТЮ МУТАБЕЛЬНИЙ під час роботи!</tspan><tspan x="410.0" dy="16.5">• Захист від SIOF для глобального стану</tspan></text>
+<rect x="600.0" y="285.0" width="340.0" height="160.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="770.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Звичайна змінна (без префіксів)</text>
+<text x="770.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">• Динамічна ініціалізація</tspan><tspan x="770.0" dy="16.5">• Змінне значення</tspan><tspan x="770.0" dy="16.5">• Вразлива до SIOF між файлами</tspan></text>
+<text x="500.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="500.0" dy="0.0">constinit заповнює відсутню ланку в мові:</tspan><tspan x="500.0" dy="15.4">ініціалізація до запуску для об'єктів, які продовжують змінюватися під час роботи.</tspan></text>
+</svg>

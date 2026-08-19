@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння Itanium ABI та MSVC ABI</text>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння кодування однієї функції: public: int MathHelper::calculate(int, double)</text>
+<rect x="40.0" y="80.0" width="880.0" height="120.0" rx="8" fill="#f8faff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">Itanium C++ ABI (GCC / Clang / Linux / macOS)</text>
+<text x="60.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Символ: _ZN10MathHelper9calculateEid</text>
+<text x="60.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">• _Z: префікс • N..E: вкладене • 10MathHelper • 9calculate • e: float / i: int / d: double (без повернення)</text>
+<rect x="40.0" y="225.0" width="880.0" height="135.0" rx="8" fill="#fffaf5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">MSVC ABI (Microsoft Visual C++ / Windows)</text>
+<text x="60.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Символ: ?calculate@MathHelper@@QEAAHHN@Z</text>
+<text x="60.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">• ?: префікс • @: розділювач • @@: кінець області • Q: public non-static • EAA: __cdecl • H: повертає int • H: int • N: double • @Z: кінець</text>
+<text x="480.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">MSVC на відміну від Itanium кодує тип повернення, конвенцію виклику та модифікатор доступу</text>
+</svg>

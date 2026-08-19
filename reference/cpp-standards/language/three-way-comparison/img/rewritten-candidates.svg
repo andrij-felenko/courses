@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1020.0" height="470.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генерація переписаних і перевернутих кандидатів у C++20</text>
+<text x="170.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вираз у коді</text>
+<rect x="35.0" y="95.0" width="270.0" height="52.0" rx="8" fill="#fff" stroke="#27ae60" stroke-width="2.0"/><text x="170.0" y="126.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">x == y</text>
+<rect x="35.0" y="190.0" width="270.0" height="52.0" rx="8" fill="#fff" stroke="#2457d6" stroke-width="2.0"/><text x="170.0" y="221.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">x != y</text>
+<rect x="35.0" y="285.0" width="270.0" height="52.0" rx="8" fill="#fff" stroke="#c0392b" stroke-width="2.0"/><text x="170.0" y="316.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">x &lt; y</text>
+<rect x="35.0" y="380.0" width="270.0" height="52.0" rx="8" fill="#fff" stroke="#8e44ad" stroke-width="2.0"/><text x="170.0" y="411.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#8e44ad" text-anchor="middle" font-weight="700">x &gt;= y</text>
+<line x1="305.0" y1="121.0" x2="370.0" y2="121.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="216.0" x2="370.0" y2="216.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="311.0" x2="370.0" y2="311.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="406.0" x2="370.0" y2="406.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="685.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кандидати для розв'язання перевантажень (у порядку пріоритету)</text>
+<rect x="370.0" y="90.0" width="630.0" height="64.0" rx="6" fill="#f4faf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="385.0" y="112.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Прямий виклик:  x.operator==(y)  або  operator==(x, y)</text>
+<text x="385.0" y="134.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#6b7280" text-anchor="start">2. Перевернутий:   y.operator==(x)  або  operator==(y, x)</text>
+<rect x="370.0" y="185.0" width="630.0" height="64.0" rx="6" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="385.0" y="207.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Прямий виклик:  x.operator!=(y)  або  operator!=(x, y)</text>
+<text x="385.0" y="229.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#2457d6" text-anchor="start">2. Переписаний:    !(x == y)   [шукає direct або reversed ==]</text>
+<rect x="370.0" y="280.0" width="630.0" height="64.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="385.0" y="302.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Прямий виклик:  x.operator&lt;(y)   або  operator&lt;(x, y)</text>
+<text x="385.0" y="324.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#c0392b" text-anchor="start">2. Переписаний:    (x &lt;=&gt; y) &lt; 0   або   0 &lt; (y &lt;=&gt; x)</text>
+<rect x="370.0" y="375.0" width="630.0" height="64.0" rx="6" fill="#fbf5fd" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="385.0" y="397.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Прямий виклик:  x.operator&gt;=(y)  або  operator&gt;=(x, y)</text>
+<text x="385.0" y="419.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#8e44ad" text-anchor="start">2. Переписаний:    (x &lt;=&gt; y) &gt;= 0  або   0 &gt;= (y &lt;=&gt; x)</text>
+<text x="520.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Правило відбору: точний прямий кандидат перемагає переписаного; неперевернутий перемагає перевернутого</text>
+</svg>
