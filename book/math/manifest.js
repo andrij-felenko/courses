@@ -10,6 +10,7 @@ window.__BOOKS__.push(
       "title": "Логіка",
       "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин.",
       "topics": [
+        { slug: "quine-mccluskey-algorithm", title: "Метод Квайна–Мак-Класкі для мінімізації логіки", basic: { status: "empty" }, detailed: { status: "recheck" } , "math": [{ file: "math-petrick-method.md", status: "recheck" }] , "proj": [{ file: "proj-qm-solver.md", status: "recheck" }] },
         { slug: "tarski-knaster-theorem", title: "Теорема Тарського — Кнастера про нерухому точку", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-tarski-knaster.md", status: "recheck" }] , "math": [{ file: "math-fixed-point-proof.md", status: "recheck" }] , "proj": [{ file: "proj-abstract-interpretation.md", status: "recheck" }] },
         { slug: "pigeonhole-principle", title: "Принцип Діріхле", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-dirichlet-box.md", status: "done" }] , "math": [{ file: "math-generalized-pigeonhole.md", status: "done" }] , "proj": [{ file: "proj-pigeonhole-apps.md", status: "done" }] },
         {
@@ -5121,6 +5122,7 @@ window.__BOOKS__.push(
       "title": "Геометрія",
       "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
       "topics": [
+        { slug: "helmert-transform", title: "Семипараметричне перетворення Гельмерта (Helmert Transformation)", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-friedrich-helmert.md", status: "recheck" }] , "math": [{ file: "math-helmert-least-squares.md", status: "recheck" }] , "proj": [{ file: "proj-helmert-transform.md", status: "recheck" }] },
         { slug: "sphere-packing", title: "Пакування сфер", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "picks-theorem", title: "Теорема Піка", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "algebraic-curves", title: "Алгебраїчні криві", basic: { status: "empty" }, detailed: { status: "pending" } },

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Циклічне ядро та розв'язання за методом Патріка</text>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Циклічна таблиця покриття (немає стовпців з одним «X») та метод Патріка</text>
+<rect x="30.0" y="55.0" width="380.0" height="310.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="220.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Циклічна матриця покриття (Core)</text>
+<rect x="80.0" y="95.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="107.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">m0</text>
+<rect x="134.0" y="95.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="161.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">m1</text>
+<rect x="188.0" y="95.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="215.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">m2</text>
+<rect x="242.0" y="95.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="269.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">m3</text>
+<rect x="296.0" y="95.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="323.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">m4</text>
+<rect x="350.0" y="95.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="377.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">m5</text>
+<rect x="40.0" y="129.0" width="40.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">P₁</text>
+<rect x="80.0" y="129.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="107.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="134.0" y="129.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="161.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="188.0" y="129.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="242.0" y="129.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="296.0" y="129.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="350.0" y="129.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="40.0" y="163.0" width="40.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">P₂</text>
+<rect x="80.0" y="163.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="134.0" y="163.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="161.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="188.0" y="163.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="215.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="242.0" y="163.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="296.0" y="163.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="350.0" y="163.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="40.0" y="197.0" width="40.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">P₃</text>
+<rect x="80.0" y="197.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="134.0" y="197.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="188.0" y="197.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="215.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="242.0" y="197.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="269.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="296.0" y="197.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="350.0" y="197.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="40.0" y="231.0" width="40.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">P₄</text>
+<rect x="80.0" y="231.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="134.0" y="231.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="188.0" y="231.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="242.0" y="231.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="269.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="296.0" y="231.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="323.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="350.0" y="231.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="40.0" y="265.0" width="40.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">P₅</text>
+<rect x="80.0" y="265.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="134.0" y="265.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="188.0" y="265.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="242.0" y="265.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="296.0" y="265.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="323.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="350.0" y="265.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="377.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="40.0" y="299.0" width="40.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">P₆</text>
+<rect x="80.0" y="299.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="107.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<rect x="134.0" y="299.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="188.0" y="299.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="242.0" y="299.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="296.0" y="299.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="350.0" y="299.0" width="54.0" height="34.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="377.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">✕</text>
+<text x="220.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Кожен стовпець має рівно 2 позначки «X» — немає EPI!</text>
+<rect x="430.0" y="55.0" width="380.0" height="310.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="620.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Алгебраїчне розкриття за Патріком</text>
+<rect x="445.0" y="95.0" width="350.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="455.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Умова покриття кожного стовпця (КНФ):</text>
+<text x="455.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">P = (P₁+P₆)(P₁+P₂)(P₂+P₃)(P₃+P₄)(P₄+P₅)(P₅+P₆)</text>
+<rect x="445.0" y="165.0" width="350.0" height="75.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="455.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Розкриття дужок і поглинання (X + XY = X):</text>
+<text x="455.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(P₁+P₆)(P₁+P₂) = P₁ + P₂·P₆</text>
+<text x="455.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(P₂+P₃)(P₃+P₄) = P₃ + P₂·P₄</text>
+<text x="455.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(P₄+P₅)(P₅+P₆) = P₅ + P₄·P₆</text>
+<rect x="445.0" y="250.0" width="350.0" height="95.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="455.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. ДНФ усіх можливих мінімальних покриттів:</text>
+<text x="455.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">P = P₁·P₃·P₅ + P₂·P₄·P₆ + (доданки з 4+ імплікантів)</text>
+<text x="455.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Два рівноцінні мінімуми по 3 доданки:</text>
+<text x="455.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">• Варіант A: P₁ + P₃ + P₅   • Варіант B: P₂ + P₄ + P₆</text>
+</svg>

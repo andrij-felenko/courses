@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 992 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="992" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">14-параметрична кінематична трансформація з урахуванням швидкостей дрейфу</text>
+<rect x="40.0" y="65.0" width="230.0" height="260.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="155.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Базова епоха t₀</text>
+<text x="155.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(наприклад, 2010.0)</text>
+<circle cx="155.0" cy="190.0" r="8.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="155.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">P(t₀)</text>
+<text x="155.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">7 параметрів на епоху t₀:
+Tx, Ty, Tz, Rx, Ry, Rz, s</text>
+<line x1="285.0" y1="190.0" x2="520.0" y2="190.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<rect x="272.2" y="126.2" width="265.5" height="47.6" rx="6" fill="#fff3cd" stroke="#d4b106" stroke-width="1.5"/><text x="405.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="405.0" dy="0.0">Часовий зсув: Δt = (t − t₀) років</tspan><tspan x="405.0" dy="15.6">+ 7 швидкостей зміни (Ṫ, Ṙ, ṡ)</tspan></text>
+<text x="405.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Тектонічний дрейф: ~2–5 см/рік</text>
+<rect x="535.0" y="65.0" width="265.0" height="260.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.5"/>
+<text x="667.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Поточна епоха t</text>
+<text x="667.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(наприклад, 2026.5)</text>
+<circle cx="667.0" cy="190.0" r="8.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="667.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P(t) = P(t₀) + V · (t − t₀)</text>
+<text x="667.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Миттєві параметри на епоху t:
+Tx(t) = Tx(t₀) + Ṫx · (t − t₀)
+Rx(t) = Rx(t₀) + Ṙx · (t − t₀)
+s(t)  = s(t₀)  + ṡ  · (t − t₀)</text>
+<rect x="40.0" y="345.0" width="760.0" height="85.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="384.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Кінематична модель Гельмерта (14 параметрів = 7 базових + 7 похідних за часом):</tspan><tspan x="420.0" dy="13.0">Зв'язує динамічні супутникові системи відліку (ITRF2014, ITRF2020) з фіксованими на тектонічних плитах (ETRF2000, NAD83).</tspan></text>
+</svg>
