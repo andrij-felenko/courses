@@ -152,7 +152,11 @@ Manifest (§2): each version has its own `status` — `basic:{status}`, `detaile
 
 **The length criterion: write only what is important or useful.** The ceilings above are LIMITS, not targets. What is merely true and relevant does NOT go in — only what the reader cannot understand or cannot act without. Every section must earn its place.
 
-**Orientation (a median, not a gate):** a typical **detailed article — 2100–2600 words**, a typical **insert — 1200–1400**. The ceiling (6500 / 5000) means "no more than this", not "aim for this": only topics that genuinely deserve it land between the orientation and the ceiling. If a book's MEDIAN drifts toward the ceiling, that is a sign the bar for admitting material has dropped — not that the topics got heavier.
+**An article's length is set by the difficulty of its subject and by nothing else.** A simple topic exhausted in 1400 words is written correctly; so is a hard one that needs 4000. Levelling every article to the middle of the band means padding simple topics with what they do not contain, and clipping hard ones.
+
+**The median 2100–2600 (insert 1200–1400) is a property of the BOOK, not a target for a file.** A median describes a distribution: half the articles are shorter, half are longer, and that is exactly how it should be. Demanding the median of every article is like demanding that every person be of average height. So an individual article is NOT judged against it: `06-size.js` checks only the band, while `wordcount.js` reports the median per book.
+
+What a median does tell you: if it drifts toward the ceiling, the **bar for admitting material** has dropped — things now get into articles that would not have before. That is a conversation about the book, and it is fixed by the bar, not by cutting what is written. The ceiling (6500 / 5000) means "no more than this", not "aim for this".
 
 ⚠️ This does **not** contradict §4 ("shorter does not add understanding"): we are not cutting finished text, we are **raising the bar for admitting material**. Smaller length is the consequence; density is the goal. The order of thought and the completeness of the thread stay untouched: if cutting makes the explanation holey, do not cut.
 
