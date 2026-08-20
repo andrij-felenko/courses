@@ -1590,11 +1590,11 @@ window.__BOOKS__.push(
       "title": "Теорія чисел",
       "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури.",
       "topics": [
-        { slug: "riemann-hypothesis", title: "Гіпотеза Рімана", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "pisano-period", title: "Період Пізано", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "nagell-ljunggren-bounds", title: "Межі Нагеля–Люнггрена", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "mersenne-numbers", title: "Числа Мерсенна", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "dirichlet-series", title: "Ряди Діріхле", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "riemann-hypothesis", title: "Гіпотеза Рімана", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-riemann-hypothesis.md", status: "recheck" }] , "math": [{ file: "math-explicit-formula.md", status: "recheck" }] , "proj": [{ file: "proj-riemann-zeros.md", status: "recheck" }] },
+        { slug: "pisano-period", title: "Період Пізано", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-pisano-period.md", status: "recheck" }] , "math": [{ file: "math-pisano-properties.md", status: "recheck" }] , "proj": [{ file: "proj-pisano-calculator.md", status: "recheck" }] },
+        { slug: "nagell-ljunggren-bounds", title: "Межі Нагеля–Люнггрена", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-nagell-ljunggren-history.md", status: "recheck" }] , "math": [{ file: "math-nagell-ljunggren-proofs.md", status: "recheck" }] , "proj": [{ file: "proj-nagell-ljunggren-search.md", status: "recheck" }] },
+        { slug: "mersenne-numbers", title: "Числа Мерсенна", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-mersenne-monk.md", status: "recheck" }] , "math": [{ file: "math-gcd-mersenne.md", status: "recheck" }] , "proj": [{ file: "proj-mersenne-arithmetic.md", status: "recheck" }] },
+        { slug: "dirichlet-series", title: "Ряди Діріхле", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-peter-dirichlet.md", status: "recheck" }] , "math": [{ file: "math-dirichlet-convolution.md", status: "recheck" }] , "proj": [{ file: "proj-dirichlet-series-sim.md", status: "recheck" }] },
         { slug: "r-tree", title: "R-дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "k-d-tree", title: "K-d дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "sparse-table", title: "Розріджена таблиця", basic: { status: "empty" }, detailed: { status: "pending" } },
@@ -1636,7 +1636,7 @@ window.__BOOKS__.push(
         { slug: "baker-method", title: "Метод логарифмічних форм Бейкера", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-baker-transcendence.md", status: "done" }] , "math": [{ file: "math-thue-equation-bound.md", status: "done" }] , "proj": [{ file: "proj-baker-reduction.md", status: "done" }] },
         { slug: "faltings-theorem", title: "Теорема Фальтінгса", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-mordell-conjecture.md", status: "done" }] , "math": [{ file: "math-parshin-construction.md", status: "done" }] , "proj": [{ file: "proj-chabauty-coleman.md", status: "done" }] },
         { slug: "catalan-conjecture", title: "Гіпотеза Каталана (теорема Міхайлеску)", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-catalan-conjecture.md", status: "done" }] , "math": [{ file: "math-mihailescu-machinery.md", status: "done" }] , "proj": [{ file: "proj-catalan-verifier.md", status: "done" }] },
-        { slug: "diophantine-equations", title: "Діофантові рівняння", basic: { status: "empty" }, detailed: { status: "recheck" } },
+        { slug: "diophantine-equations", title: "Діофантові рівняння", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-diophantus-arithmetica.md", status: "recheck" }] , "math": [{ file: "math-modular-obstructions.md", status: "recheck" }] , "proj": [{ file: "proj-diophantine-solver.md", status: "recheck" }] },
         {
           "slug": "why-binary",
           "title": "Чому двійкова",
@@ -2763,7 +2763,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-primitive-root-finder.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-primitive-root-birth.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-primitive-root-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-primitive-root-finder.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2825,7 +2843,31 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-fast-lucas-computation.md",
-              "status": "done"
+              "status": "done",
+          "api": [
+            {
+              "file": "api-lucas-sequence.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-lucas-sequences.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-pell-identity-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-fast-lucas-computation.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2855,7 +2897,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-pell-solver.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-pell-name.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-chakravala.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-pell-solver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2883,7 +2943,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-triangular-algorithms.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-tetraktys-to-eureka.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-square-triangular-pell.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-triangular-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2911,7 +2989,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-amicable-search.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-amicable-numbers.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-thabit-rule.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-amicable-search.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2939,7 +3035,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-abundance-analyzer.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-nicomachus-aliquot.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-density-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-abundance-analyzer.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2967,7 +3081,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-cornacchia-solver.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-fermat-euler-squares.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-descent-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-cornacchia-solver.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -2995,7 +3127,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-safe-prime-generator.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-germain-fermat.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-germain-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-safe-prime-generator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3023,7 +3173,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-golden-search.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-golden-ratio.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-noble-irrational.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-golden-search.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3051,7 +3219,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-ecc-point-arithmetic.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-elliptic-integrals.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-group-law-derivation.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-ecc-point-arithmetic.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3079,7 +3265,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-hecke-operators.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-modular-forms.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-valence-formula.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-hecke-operators.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3127,7 +3331,31 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-division-implementations.md",
-              "status": "done"
+              "status": "done",
+          "api": [
+            {
+              "file": "api-language-division-table.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-gauss-floor.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-hermite-legendre.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-division-implementations.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3177,7 +3405,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-rational-arithmetic.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-fraction-concept.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-field-construction.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-rational-arithmetic.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3223,7 +3469,25 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-twos-complement-ops.md",
-              "status": "done"
+              "status": "done",
+          "hist": [
+            {
+              "file": "hist-negative-numbers-genesis.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-formal-construction.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-twos-complement-ops.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3261,7 +3525,31 @@ window.__BOOKS__.push(
           "proj": [
             {
               "file": "proj-discrepancy-calculator.md",
-              "status": "done"
+              "status": "done",
+          "api": [
+            {
+              "file": "api-discrepancy-metrics.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-weyl-equidistribution.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-weyl-criterion.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-discrepancy-calculator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
             }
           ],
             }
@@ -3922,7 +4210,7 @@ window.__BOOKS__.push(
           "slug": "rearranging-formulas",
           "title": "Перестановка формул",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
             "status": "recheck"
@@ -6204,7 +6492,7 @@ window.__BOOKS__.push(
           "slug": "phasors",
           "title": "Фазори",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
             "status": "recheck"
@@ -7353,7 +7641,7 @@ window.__BOOKS__.push(
           "slug": "source-coding-theorem",
           "title": "Теорема Шеннона про кодування джерела",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
             "status": "recheck"
@@ -7368,7 +7656,7 @@ window.__BOOKS__.push(
           "slug": "kl-divergence",
           "title": "Розбіжність Кульбака–Лейблера",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
             "status": "recheck"
