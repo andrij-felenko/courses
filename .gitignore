@@ -53,6 +53,14 @@ audit_report.json
 /checks_out.txt
 /runner.js
 /run_*.js
+# вісім наступних збирачів у корені (append_helper.js, pack_topic.js, write_topic.js…)
+# з'явилися вже ПІСЛЯ writefile.js: правило доходить до конвеєра з наступним запуском
+/append_*.js
+/create_topic*.js
+/generate_*.js
+/pack_*.js
+/write_*.js
+/artifacts_list.txt
 /test.txt
 /scratch_*
 /test_*.txt
