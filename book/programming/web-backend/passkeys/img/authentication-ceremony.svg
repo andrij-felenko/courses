@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Церемонія автентифікації: криптографічний доказ володіння закритим ключем</text>
+<rect x="59.4" y="40.0" width="181.2" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="61.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Автентифікатор</tspan><tspan x="150.0" dy="16.9">(Пристрій із ключем)</tspan></text>
+<rect x="409.4" y="40.0" width="181.2" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="61.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Браузер (User Agent)</tspan><tspan x="500.0" dy="16.9">WebAuthn API</tspan></text>
+<rect x="751.3" y="40.0" width="197.3" height="49.9" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="850.0" y="61.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">Бекенд (Relying Party)</tspan><tspan x="850.0" dy="16.9">Сервер застосунку</tspan></text>
+<line x1="150.0" y1="96.0" x2="150.0" y2="245.2" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="150.0" y1="304.8" x2="150.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="500.0" y1="96.0" x2="500.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="850.0" y1="96.0" x2="850.0" y2="410.2" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="850.0" y1="469.8" x2="850.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="500.0" y1="135.0" x2="850.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="675.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. POST /login/start (або автозаповнення)</text>
+<line x1="850.0" y1="175.0" x2="500.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="675.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Свіжий challenge + rpId + [allowCredentials]</text>
+<line x1="500.0" y1="215.0" x2="150.0" y2="215.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="325.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. navigator.credentials.get()</text>
+<rect x="15.5" y="249.2" width="269.1" height="51.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="264.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Біометрія / PIN (UV)</tspan><tspan x="150.0" dy="14.3">Знаходить PrivKey за rpId</tspan><tspan x="150.0" dy="14.3">Підписує authData || hash(clientDataJSON)</tspan></text>
+<line x1="150.0" y1="335.0" x2="500.0" y2="335.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="325.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">5. authenticatorData + signature</text>
+<line x1="500.0" y1="385.0" x2="850.0" y2="385.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="675.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">6. POST /login/finish (credentialId, signature, authData, clientDataJSON)</text>
+<rect x="724.9" y="414.2" width="250.3" height="51.6" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="850.0" y="429.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Перевіряє origin, rpIdHash, challenge</tspan><tspan x="850.0" dy="14.3">Звіряє підпис збереженим PubKey</tspan><tspan x="850.0" dy="14.3">Перевіряє лічильник signCount -&gt; сесія</tspan></text>
+</svg>

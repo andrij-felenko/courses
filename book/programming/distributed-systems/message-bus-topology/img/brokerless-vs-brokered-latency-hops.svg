@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння затримки та черг: Брокер проти Безброкерної шини</text>
+<rect x="10.0" y="10.0" width="980.0" height="440.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння затримки та черг: Брокер проти Безброкерної шини</text>
+<rect x="25.0" y="55.0" width="460.0" height="380.0" rx="6" fill="#f8f9fa" stroke="#c0392b" stroke-width="1.2"/>
+<text x="255.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Централізований брокер: 2 хопи, черга в центрі</text>
+<rect x="45.0" y="105.0" width="115.0" height="140.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="102.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відправник</text>
+<rect x="55.0" y="145.0" width="95.0" height="24.0" rx="3" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="102.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">App Code</text>
+<rect x="55.0" y="185.0" width="95.0" height="48.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="102.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Socket TCP</text>
+<text x="102.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Egress Buffer</text>
+<rect x="190.0" y="105.0" width="130.0" height="205.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="255.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Брокер (Hub)</text>
+<rect x="200.0" y="140.0" width="110.0" height="38.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="255.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ingress Buffer</text>
+<text x="255.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(TCP In)</text>
+<rect x="200.0" y="185.0" width="110.0" height="48.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="255.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга на диску/RAM</text>
+<text x="255.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(PageCache/DB)</text>
+<rect x="200.0" y="240.0" width="110.0" height="38.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="255.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Маршрутизатор</text>
+<text x="255.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Egress Queues)</text>
+<rect x="350.0" y="105.0" width="115.0" height="140.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="407.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Отримувач</text>
+<rect x="360.0" y="145.0" width="95.0" height="48.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="407.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Socket TCP</text>
+<text x="407.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ingress Buffer</text>
+<rect x="360.0" y="205.0" width="95.0" height="24.0" rx="3" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="407.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">App Handler</text>
+<line x1="160.0" y1="200.0" x2="190.0" y2="155.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="175.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Хоп 1</text>
+<line x1="320.0" y1="255.0" x2="350.0" y2="165.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="328.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Хоп 2</text>
+<rect x="40.0" y="325.0" width="430.0" height="95.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="255.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метрики брокерної топології:</text>
+<text x="255.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Затримка: 1.5 – 15.0 мс (подвійний контекст-свіч ОС + диск)</text>
+<text x="255.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Пропускна здатність обмежена NIC і CPU брокера</text>
+<text x="255.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">• Протитиск ізольовано брокером (витримує сплески навантаження)</text>
+<rect x="515.0" y="55.0" width="460.0" height="380.0" rx="6" fill="#f8f9fa" stroke="#27ae60" stroke-width="1.2"/>
+<text x="745.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Безброкерна шина (ZeroMQ/DDS): 1 прямий хоп</text>
+<rect x="540.0" y="115.0" width="175.0" height="185.0" rx="4" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.3"/>
+<text x="627.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Відправник (Publisher)</text>
+<rect x="550.0" y="150.0" width="155.0" height="25.0" rx="3" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="627.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Бізнес-код (Zero-Copy)</text>
+<rect x="550.0" y="185.0" width="155.0" height="48.0" rx="3" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="627.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний Ring Buffer</text>
+<text x="627.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(High Water Mark: 10k msg)</text>
+<rect x="550.0" y="240.0" width="155.0" height="38.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="627.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">TCP/IPC Egress Engine</text>
+<rect x="775.0" y="115.0" width="175.0" height="185.0" rx="4" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.3"/>
+<text x="862.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Отримувач (Subscriber)</text>
+<rect x="785.0" y="150.0" width="155.0" height="38.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="862.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">TCP Ingress / Фільтр тем</text>
+<rect x="785.0" y="195.0" width="155.0" height="48.0" rx="3" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="862.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнтський буфер пам'яті</text>
+<text x="862.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Lock-Free / SPSC Queue)</text>
+<rect x="785.0" y="250.0" width="155.0" height="25.0" rx="3" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="862.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">App Handler Execution</text>
+<line x1="715.0" y1="260.0" x2="775.0" y2="170.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="733.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1 Прямий хоп</text>
+<rect x="530.0" y="325.0" width="430.0" height="95.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="745.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метрики безброкерної топології:</text>
+<text x="745.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">• Затримка: 15 – 120 мікросекунд (sub-microsecond на IPC)</text>
+<text x="745.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">• Пропускна здатність обмежена лише проводом мережі</text>
+<text x="745.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Буфери у пам'яті клієнта; ризик OOM або втрати за переповнення</text>
+</svg>

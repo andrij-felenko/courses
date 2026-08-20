@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка протитиску та управління буферами в каналах</text>
+<rect x="15.0" y="15.0" width="970.0" height="195.0" rx="8" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Обмежений канал (Bounded Buffer): стабільність через активний протитиск</text>
+<rect x="50.0" y="72.0" width="120.0" height="46.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="85.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Швидкий фільтр</tspan><tspan x="110.0" dy="13.0">(Виробник)</tspan><tspan x="110.0" dy="13.0">λ = 10 000 msg/s</tspan></text>
+<line x1="170.0" y1="95.0" x2="230.0" y2="95.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="240.0" y="60.0" width="220.0" height="70.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="350.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер каналу [Limit: 1000]</text>
+<rect x="255.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#d4edda" stroke="#333333" stroke-width="1.0"/>
+<rect x="282.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#d4edda" stroke="#333333" stroke-width="1.0"/>
+<rect x="309.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#d4edda" stroke="#333333" stroke-width="1.0"/>
+<rect x="336.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#d4edda" stroke="#333333" stroke-width="1.0"/>
+<rect x="363.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<rect x="390.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<rect x="417.0" y="92.0" width="22.0" height="26.0" rx="6" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<text x="350.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Заповнено: 85% (High Watermark)</text>
+<line x1="240.0" y1="145.0" x2="150.0" y2="145.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="195.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">← Сигнал призупинення (PAUSE / TCP Window = 0)</text>
+<line x1="460.0" y1="95.0" x2="520.0" y2="95.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="540.0" y="72.0" width="120.0" height="46.0" rx="6" fill="#fff3cd" stroke="#d35400" stroke-width="1.5"/><text x="600.0" y="85.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Повільний фільтр</tspan><tspan x="600.0" dy="13.0">(Споживач)</tspan><tspan x="600.0" dy="13.0">μ = 2 000 msg/s</tspan></text>
+<rect x="740.0" y="65.0" width="225.0" height="75.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="852.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Результат захисту:</text>
+<text x="852.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Фіксоване споживання RAM</text>
+<text x="852.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Прогнозована затримка</text>
+<rect x="15.0" y="225.0" width="970.0" height="195.0" rx="8" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Необмежений канал (Unbounded Buffer): ілюзія буферизації та колапс пам'яті</text>
+<rect x="50.0" y="287.0" width="120.0" height="46.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="300.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Швидкий фільтр</tspan><tspan x="110.0" dy="13.0">(Виробник)</tspan><tspan x="110.0" dy="13.0">λ = 10 000 msg/s</tspan></text>
+<line x1="170.0" y1="310.0" x2="230.0" y2="310.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="275.0" width="260.0" height="75.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="370.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Необмежена черга [Limit: ∞]</text>
+<text x="370.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">5 000 000 повідомлень у черзі...</text>
+<text x="370.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Затримка: &gt; 40 хвилин | RAM: 18 GB</text>
+<line x1="500.0" y1="310.0" x2="560.0" y2="310.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="580.0" y="287.0" width="120.0" height="46.0" rx="6" fill="#fff3cd" stroke="#d35400" stroke-width="1.5"/><text x="640.0" y="300.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Повільний фільтр</tspan><tspan x="640.0" dy="13.0">(Споживач)</tspan><tspan x="640.0" dy="13.0">μ = 2 000 msg/s</tspan></text>
+<rect x="770.0" y="280.0" width="195.0" height="85.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="867.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Катастрофічний фінал:</text>
+<text x="867.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Out Of Memory (OOM Killer)</text>
+<text x="867.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Деградація GC pauses</text>
+<text x="867.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Втрата актуальності даних</text>
+</svg>

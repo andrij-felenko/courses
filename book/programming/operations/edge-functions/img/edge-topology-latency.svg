@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Топологія мережевих затримок: централізований FaaS проти крайових функцій (Edge)</text>
+<rect x="22.0" y="55.0" width="445.0" height="395.0" rx="8" fill="#fdfaf6" stroke="#e8c49e" stroke-width="1.3"/>
+<text x="244.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Централізований FaaS (напр. AWS Lambda в us-east-1)</text>
+<rect x="47.0" y="115.0" width="125.0" height="65.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="109.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Користувач</text>
+<text x="109.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Токіо (Японія)</text>
+<line x1="172.0" y1="147.0" x2="312.0" y2="147.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="237.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">11 000 км (RTT ≈ 240 мс)</text>
+<text x="237.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Транзит через 15 хопів</text>
+<rect x="317.0" y="115.0" width="130.0" height="65.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="382.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хмарний регіон</text>
+<text x="382.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">us-east-1 (США)</text>
+<rect x="42.0" y="200.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#f0d5be" stroke-width="1.0"/>
+<text x="54.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">1. Запит користувача</text>
+<text x="54.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">HTTP GET /api/v1/profile з JWT-токеном у заголовку</text>
+<rect x="42.0" y="252.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#f0d5be" stroke-width="1.0"/>
+<text x="54.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. Мережевий транзит</text>
+<text x="54.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Затримка світла у волокні + маршрутизація: ~240 мс RTT</text>
+<rect x="42.0" y="304.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#f0d5be" stroke-width="1.0"/>
+<text x="54.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">3. Виконання функції</text>
+<text x="54.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Холодний/теплий запуск MicroVM у центральному ЦОД: 25 мс</text>
+<rect x="42.0" y="356.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#f0d5be" stroke-width="1.0"/>
+<text x="54.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">4. Зворотна відповідь</text>
+<text x="54.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Транзит через Тихий океан назад у Токіо: ~120 мс</text>
+<text x="244.5" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Сумарна затримка для користувача: 260–380 мс</text>
+<rect x="492.0" y="55.0" width="445.0" height="395.0" rx="8" fill="#f4faf6" stroke="#a3d9b8" stroke-width="1.3"/>
+<text x="714.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Крайові функції на PoP CDN (Edge Functions)</text>
+<rect x="517.0" y="115.0" width="125.0" height="65.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="579.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Користувач</text>
+<text x="579.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Токіо (Японія)</text>
+<line x1="642.0" y1="147.0" x2="782.0" y2="147.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="707.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Остання миля (RTT ≈ 8 мс)</text>
+<text x="707.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Anycast-маршрутизація</text>
+<rect x="787.0" y="115.0" width="130.0" height="65.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="852.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Edge PoP (Токіо)</text>
+<text x="852.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">V8 Isolate / Wasm</text>
+<rect x="512.0" y="200.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#c2edd3" stroke-width="1.0"/>
+<text x="524.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">1. Запит користувача</text>
+<text x="524.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Маршрутизація Anycast BGP на найближчий сервер PoP</text>
+<rect x="512.0" y="252.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#c2edd3" stroke-width="1.0"/>
+<text x="524.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. Локальна обробка</text>
+<text x="524.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Запуск V8 Isolate (&lt; 5 мс), валідація JWT та A/B спліт</text>
+<rect x="512.0" y="304.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#c2edd3" stroke-width="1.0"/>
+<text x="524.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. Edge Cache / KV</text>
+<text x="524.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Миттєва віддача з локального сховища PoP (1–2 мс)</text>
+<rect x="512.0" y="356.0" width="405.0" height="44.0" rx="5" fill="#ffffff" stroke="#c2edd3" stroke-width="1.0"/>
+<text x="524.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">4. Асинхронний бекенд</text>
+<text x="524.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Лише за потреби: стримінг у фоні через магістраль</text>
+<text x="714.5" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сумарна затримка для користувача: 12–25 мс</text>
+</svg>

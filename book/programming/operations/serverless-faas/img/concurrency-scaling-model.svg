@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель конкурентності: спільний процес проти ізольованих пісочниць FaaS</text>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель конкурентності: спільний процес проти ізольованих пісочниць FaaS</text>
+<rect x="24.0" y="58.0" width="436.0" height="345.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.3"/>
+<text x="242.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Традиційний сервер (1 процес = N запитів)</text>
+<rect x="44.0" y="106.0" width="396.0" height="215.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="242.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Процес застосунку (JVM / Node.js / Go / Python daemon)</text>
+<rect x="59.0" y="144.0" width="366.0" height="42.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.1"/>
+<text x="242.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Спільна пам'ять (Heap, Local Cache, DB Connection Pool)</text>
+<text x="242.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 пул на 20 з'єднань обслуговує 1000 паралельних запитів</text>
+<rect x="59.0" y="196.0" width="82.0" height="105.0" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.1"/>
+<text x="100.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік #1</text>
+<text x="100.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req A</text>
+<text x="100.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Socket FD</text>
+<text x="100.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Active</text>
+<rect x="153.0" y="196.0" width="82.0" height="105.0" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.1"/>
+<text x="194.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік #2</text>
+<text x="194.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req B</text>
+<text x="194.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Socket FD</text>
+<text x="194.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Active</text>
+<rect x="247.0" y="196.0" width="82.0" height="105.0" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.1"/>
+<text x="288.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік #3</text>
+<text x="288.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req C</text>
+<text x="288.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Socket FD</text>
+<text x="288.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Active</text>
+<rect x="341.0" y="196.0" width="82.0" height="105.0" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.1"/>
+<text x="382.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік #4</text>
+<text x="382.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req D</text>
+<text x="382.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Socket FD</text>
+<text x="382.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Active</text>
+<text x="242.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Стан у пам'яті спільний між запитами</text>
+<text x="242.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• CPU платиться за час роботи процесу (24/7), навіть при простої</text>
+<text x="242.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">• База даних захищена стабільним пулом з'єднань</text>
+<rect x="500.0" y="58.0" width="436.0" height="345.0" rx="8" fill="#fdfaf6" stroke="#e8c49e" stroke-width="1.3"/>
+<text x="718.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Безсерверна модель FaaS (1 пісочниця = 1 запит)</text>
+<rect x="525.0" y="106.0" width="180.0" height="98.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="615.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пісочниця #1 (MicroVM)</text>
+<text x="615.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req A (1 виклик)</text>
+<text x="615.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Окремий DB-клієнт!</text>
+<text x="615.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ізольована пам'ять</text>
+<rect x="720.0" y="106.0" width="180.0" height="98.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="810.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пісочниця #2 (MicroVM)</text>
+<text x="810.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req B (1 виклик)</text>
+<text x="810.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Окремий DB-клієнт!</text>
+<text x="810.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ізольована пам'ять</text>
+<rect x="525.0" y="216.0" width="180.0" height="98.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="615.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пісочниця #3 (MicroVM)</text>
+<text x="615.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req C (1 виклик)</text>
+<text x="615.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Окремий DB-клієнт!</text>
+<text x="615.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ізольована пам'ять</text>
+<rect x="720.0" y="216.0" width="180.0" height="98.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="810.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пісочниця #4 (MicroVM)</text>
+<text x="810.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Req D (1 виклик)</text>
+<text x="810.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Окремий DB-клієнт!</text>
+<text x="810.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ізольована пам'ять</text>
+<text x="718.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">• 1000 паралельних запитів = 1000 окремих пісочниць і процесів</text>
+<text x="718.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">• Оплата строго за фактичний час виклику (0 запитів = $0)</text>
+<text x="718.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">• Ризик перевантаження БД: потрібен RDS Proxy / PgBouncer</text>
+</svg>

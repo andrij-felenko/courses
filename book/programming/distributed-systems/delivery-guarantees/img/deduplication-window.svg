@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="60.0" width="220.0" height="110.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Вхідне повідомлення</tspan><tspan x="150.0" dy="15.6"></tspan><tspan x="150.0" dy="15.6">ID: msg_94821</tspan><tspan x="150.0" dy="15.6">Key: pay_order_441</tspan><tspan x="150.0" dy="15.6">Сума: 500 грн</tspan></text>
+<line x1="262.0" y1="115.0" x2="338.0" y2="115.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="340.0" y="30.0" width="520.0" height="430.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="600.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Єдина локальна транзакція бази даних (ACID)</text>
+<rect x="365.0" y="80.0" width="470.0" height="95.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="600.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. INSERT INTO inbox (msg_id) VALUES ('msg_94821')</text>
+<text x="600.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Унікальний індекс за msg_id (або idempotency_key)</text>
+<text x="600.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Конфлікт унікальності? → ДУБЛІКАТ, скасувати або повернути кеш</text>
+<rect x="365.0" y="195.0" width="470.0" height="95.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="600.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Бізнес-дія: UPDATE accounts SET balance = balance - 500</text>
+<text x="600.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Виконується ТІЛЬКИ якщо ключ унікальний</text>
+<text x="600.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зміна грошей і запис ключа нерозривні</text>
+<rect x="365.0" y="310.0" width="470.0" height="65.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="600.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. COMMIT TRANSACTION</text>
+<text x="600.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Або обидва записи на диску, або жоден</text>
+<line x1="862.0" y1="342.0" x2="938.0" y2="342.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="940.0" y="305.0" width="200.0" height="80.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="1040.0" y="327.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1040.0" dy="0.0">Підтвердження черзі</tspan><tspan x="1040.0" dy="14.3">(ACK msg_94821)</tspan><tspan x="1040.0" dy="14.3"></tspan><tspan x="1040.0" dy="14.3">Черга видаляє повідомлення</tspan></text>
+<line x1="1040.0" y1="390.0" x2="1040.0" y2="440.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="1040.0" y1="440.0" x2="150.0" y2="440.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="150.0" y1="440.0" x2="150.0" y2="175.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="595.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Якщо ACK загубився → повтор прийде знову, але крок 1 відсіче його через конфлікт ключа</text>
+</svg>

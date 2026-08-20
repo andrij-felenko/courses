@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння веб-транспортів: від опитування до постійного сокета</text>
+<rect x="20.0" y="54.0" width="960.0" height="114.0" rx="8" fill="#fbfbfb" stroke="#c0392b" stroke-width="1.8"/>
+<text x="36.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">КОРОТКЕ ОПИТУВАННЯ (Short Polling)</text>
+<text x="36.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Періодичні запити кожні N мс. Більшість відповідей порожні; затримка = інтервалу; високий оверхед заголовків.</text>
+<rect x="40.0" y="110.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">клієнт</tspan></text>
+<rect x="850.0" y="110.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">сервер</tspan></text>
+<line x1="160.0" y1="124.0" x2="365.0" y2="124.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="365.0" y1="140.0" x2="160.0" y2="140.0" stroke="#9aa0a6" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="262.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">GET (пусто)</text>
+<line x1="390.0" y1="124.0" x2="595.0" y2="124.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="595.0" y1="140.0" x2="390.0" y2="140.0" stroke="#9aa0a6" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="492.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">GET (пусто)</text>
+<line x1="620.0" y1="124.0" x2="825.0" y2="124.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="825.0" y1="140.0" x2="620.0" y2="140.0" stroke="#9aa0a6" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="722.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">GET (є дані!)</text>
+<rect x="20.0" y="180.0" width="960.0" height="114.0" rx="8" fill="#fbfbfb" stroke="#b08900" stroke-width="1.8"/>
+<text x="36.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b08900" text-anchor="start" font-weight="700">ДОВГЕ ОПИТУВАННЯ (Long Polling)</text>
+<text x="36.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Сервер тримає з'єднання до появи події або таймауту. Затримка низька, але на кожну подію — нове TCP/HTTP з'єднання.</text>
+<rect x="40.0" y="236.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">клієнт</tspan></text>
+<rect x="850.0" y="236.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">сервер</tspan></text>
+<line x1="170.0" y1="250.0" x2="465.0" y2="250.0" stroke="#b08900" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="465.0" y1="250.0" x2="760.0" y2="250.0" stroke="#b08900" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="495.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="middle">GET (сервер тримає відкритим до появи події)</text>
+<line x1="760.0" y1="266.0" x2="170.0" y2="266.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="495.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">200 OK + дані -&gt; з'єднання закривається -&gt; новий GET</text>
+<rect x="20.0" y="306.0" width="960.0" height="114.0" rx="8" fill="#fbfbfb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="36.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">SERVER-SENT EVENTS (SSE)</text>
+<text x="36.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Одне відкрите HTTP-з'єднання від сервера до клієнта. Текстовий потік, автоматичне перепідключення, Last-Event-ID.</text>
+<rect x="40.0" y="362.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">клієнт</tspan></text>
+<rect x="850.0" y="362.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">сервер</tspan></text>
+<line x1="170.0" y1="376.0" x2="820.0" y2="376.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="250.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">GET /events (text/event-stream)</text>
+<line x1="720.0" y1="394.0" x2="600.0" y2="394.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="660.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">event #1</text>
+<line x1="520.0" y1="394.0" x2="400.0" y2="394.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="460.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">event #2</text>
+<line x1="320.0" y1="394.0" x2="200.0" y2="394.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="260.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">event #3</text>
+<rect x="20.0" y="432.0" width="960.0" height="114.0" rx="8" fill="#fbfbfb" stroke="#27ae60" stroke-width="1.8"/>
+<text x="36.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">WEBSOCKET (RFC 6455)</text>
+<text x="36.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Повнодуплексний двосторонній бінарний протокол поверх одного TCP-сокета. Оверхед кадру від 2 байтів.</text>
+<rect x="40.0" y="488.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">клієнт</tspan></text>
+<rect x="850.0" y="488.0" width="100.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">сервер</tspan></text>
+<text x="495.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">101 Switching Protocols (Upgrade: websocket)</text>
+<line x1="180.0" y1="514.0" x2="810.0" y2="514.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="810.0" y1="526.0" x2="180.0" y2="526.0" stroke="#7b1fa2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="495.0" y="536.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">◄── Двосторонній обмін бінарними та текстовими кадрами ──►</text>
+</svg>

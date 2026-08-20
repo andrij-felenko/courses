@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Жива переіндексація без простою через псевдоніми (Aliases)</text>
+<text x="440.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">клієнт завжди звертається до псевдоніма, поки новий індекс наповнюється у фоні</text>
+<rect x="40.0" y="75.0" width="185.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.7"/>
+<text x="132.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">1. Створення v2</text>
+<line x1="55.0" y1="110.0" x2="210.0" y2="110.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="132.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Створення products_v2</text>
+<text x="132.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">з новою схемою й</text>
+<text x="132.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">новими аналізаторами</text>
+<rect x="245.0" y="75.0" width="185.0" height="140.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.7"/>
+<text x="337.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Бекфіл з БД</text>
+<line x1="260.0" y1="110.0" x2="415.0" y2="110.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="337.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вивантаження історії</text>
+<text x="337.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">з первинної БД батчами</text>
+<text x="337.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">в products_v2</text>
+<rect x="450.0" y="75.0" width="185.0" height="140.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.7"/>
+<text x="542.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Доганяння CDC</text>
+<line x1="465.0" y1="110.0" x2="620.0" y2="110.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="542.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вичитування черги змін,</text>
+<text x="542.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">що накопичилися за час</text>
+<text x="542.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">бекфілу (лаг → 0)</text>
+<rect x="655.0" y="75.0" width="185.0" height="140.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="747.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4. Атомарний світч</text>
+<line x1="670.0" y1="110.0" x2="825.0" y2="110.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="747.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">POST /_aliases</text>
+<text x="747.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">remove: products_v1</text>
+<text x="747.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">add: products_v2</text>
+<line x1="228.0" y1="145.0" x2="242.0" y2="145.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="433.0" y1="145.0" x2="447.0" y2="145.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="638.0" y1="145.0" x2="652.0" y2="145.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="240.0" width="385.0" height="155.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/>
+<text x="232.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">До перемикання (Фаза 1–3)</text>
+<rect x="60.0" y="280.0" width="345.0" height="34.0" rx="6" fill="#f0f4f8" stroke="#1a1a1a" stroke-width="1.3"/><text x="232.5" y="300.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="232.5" dy="0.0">Псевдонім: products_live  →  products_v1</tspan></text>
+<rect x="60.0" y="324.0" width="345.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.1"/><text x="232.5" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="232.5" dy="0.0">• Пошуковий трафік обслуговує v1</tspan><tspan x="232.5" dy="13.0">• У v2 у фоні йде наповнення та доганяння черги</tspan></text>
+<rect x="455.0" y="240.0" width="385.0" height="155.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="647.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Після перемикання (Фаза 4–5)</text>
+<rect x="475.0" y="280.0" width="345.0" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="647.5" y="300.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="647.5" dy="0.0">Псевдонім: products_live  →  products_v2</tspan></text>
+<rect x="475.0" y="324.0" width="345.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.1"/><text x="647.5" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="647.5" dy="0.0">• Пошуковий трафік миттєво переходить на v2</tspan><tspan x="647.5" dy="13.0">• Старий v1 переводиться в read-only і видаляється</tspan></text>
+</svg>

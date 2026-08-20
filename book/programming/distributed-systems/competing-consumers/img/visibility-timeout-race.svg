@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 502" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="502" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="65.0" width="1060.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="50.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Сценарій 1: Штатне завершення (Успішний ACK)</text>
+<line x1="70.0" y1="140.0" x2="1050.0" y2="140.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="1040.0" y1="140.0" x2="1060.0" y2="140.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="1070.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Час (t)</text>
+<rect x="30.0" y="195.0" width="1060.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="50.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Сценарій 2: Аварія воркера і повторна видача за таймаутом</text>
+<line x1="70.0" y1="270.0" x2="1050.0" y2="270.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="1040.0" y1="270.0" x2="1060.0" y2="270.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="1070.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Час (t)</text>
+<rect x="30.0" y="325.0" width="1060.0" height="115.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="50.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Сценарій 3: Задовга обробка без продовження лізи (Подвійна обробка!)</text>
+<line x1="70.0" y1="400.0" x2="1050.0" y2="400.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="1040.0" y1="400.0" x2="1060.0" y2="400.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="1070.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Час (t)</text>
+<rect x="50.0" y="110.0" width="140.0" height="24.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Отримано (t=0)</tspan></text>
+<rect x="200.0" y="105.0" width="260.0" height="14.0" rx="6" fill="#e0e7ff" stroke="#333333" stroke-width="1.0"/>
+<text x="330.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таймаут видимості (30 с)</text>
+<rect x="200.0" y="125.0" width="130.0" height="14.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="265.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Обробка (12 с)</text>
+<rect x="340.0" y="147.0" width="110.0" height="24.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.5"/><text x="395.0" y="162.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="395.0" dy="0.0">ACK (t=12 с)</tspan></text>
+<text x="650.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✔ Повідомлення видалено з черги. Безпечно й чисто.</text>
+<rect x="50.0" y="240.0" width="140.0" height="24.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="255.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Отримано Воркером 1</tspan></text>
+<rect x="200.0" y="235.0" width="260.0" height="14.0" rx="6" fill="#e0e7ff" stroke="#333333" stroke-width="1.0"/>
+<text x="330.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таймаут видимості (30 с)</text>
+<rect x="200.0" y="255.0" width="80.0" height="14.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="240.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Збій (t=8 с) ⚡</text>
+<line x1="460.0" y1="230.0" x2="460.0" y2="280.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="460.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">t=30 с: ліза минула</text>
+<rect x="480.0" y="240.0" width="160.0" height="24.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="255.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">Видача Воркеру 2 (t=30 с)</tspan></text>
+<rect x="650.0" y="255.0" width="110.0" height="14.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="705.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Обробка (10 с)</text>
+<rect x="770.0" y="240.0" width="100.0" height="24.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.5"/><text x="820.0" y="255.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">ACK (t=40 с)</tspan></text>
+<rect x="50.0" y="370.0" width="140.0" height="24.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="385.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Воркер 1: Старт</tspan></text>
+<rect x="200.0" y="365.0" width="260.0" height="14.0" rx="6" fill="#e0e7ff" stroke="#333333" stroke-width="1.0"/>
+<text x="330.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таймаут видимості (30 с)</text>
+<rect x="200.0" y="385.0" width="360.0" height="14.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.0"/>
+<text x="380.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Довга обробка Воркера 1 (триває 45 с)</text>
+<line x1="460.0" y1="355.0" x2="460.0" y2="410.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<text x="460.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут минув! Повідомлення знову видиме</text>
+<rect x="480.0" y="407.0" width="170.0" height="24.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="565.0" y="422.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="565.0" dy="0.0">Воркер 2: Забирає задачу!</tspan></text>
+<rect x="660.0" y="385.0" width="130.0" height="14.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="725.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Воркер 2 обробляє</text>
+<rect x="810.0" y="370.0" width="200.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="910.0" y="389.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="910.0" dy="0.0">ПОДВІЙНА ОБРОБКА!</tspan><tspan x="910.0" dy="11.7">(Потрібен Heartbeat / Lease Renew)</tspan></text>
+<rect x="30.0" y="450.0" width="1060.0" height="32.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/><text x="560.0" y="469.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Лізинг вимагає продовження оренди (Heartbeat / ChangeMessageVisibility) для довгих задач, інакше гарантія at-least-once створить паралельний дублікат.</tspan></text>
+</svg>

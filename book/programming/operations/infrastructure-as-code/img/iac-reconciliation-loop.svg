@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010.5 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010.5" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="540.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контур узгодження стану інфраструктури (Reconciliation Loop)</text>
+<rect x="40.0" y="75.0" width="220.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="150.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">1. Бажаний стан (Desired)</text>
+<text x="150.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Декларативний код у Git</tspan><tspan x="150.0" dy="14.9">HCL / YAML / TypeScript</tspan><tspan x="150.0" dy="14.9">Версійована схема ресурсів</tspan></text>
+<rect x="740.0" y="75.0" width="220.0" height="110.0" rx="6" fill="#fdf2f8" stroke="#db2777" stroke-width="1.6"/>
+<text x="850.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#db2777" text-anchor="middle" font-weight="700">2. Актуальний стан хмари</text>
+<text x="850.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Cloud API (AWS, GCP, Azure)</tspan><tspan x="850.0" dy="14.9">Фізичні ресурси (VPC, DB)</tspan><tspan x="850.0" dy="14.9">Опитування через Refresh</tspan></text>
+<rect x="360.0" y="195.0" width="280.0" height="125.0" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.8"/>
+<text x="500.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">3. Рушій планування (Plan)</text>
+<text x="500.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Звірка: Desired vs State vs Real</tspan><tspan x="500.0" dy="14.9">Обчислення дифу (Diff Engine)</tspan><tspan x="500.0" dy="14.9">Побудова графа залежностей (DAG)</tspan><tspan x="500.0" dy="14.9">План дій: Create, Update, Replace</tspan></text>
+<rect x="40.0" y="395.0" width="220.0" height="110.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="150.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">4. Блокування стану</text>
+<text x="150.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Distributed State Lock</tspan><tspan x="150.0" dy="14.9">Захист від гонитви (Race)</tspan><tspan x="150.0" dy="14.9">Блокування у DynamoDB / S3</tspan></text>
+<rect x="740.0" y="395.0" width="220.0" height="110.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<text x="850.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">5. Виконання (Apply)</text>
+<text x="850.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">CRUD-виклики до Cloud API</tspan><tspan x="850.0" dy="14.9">Паралелізм за рівнями DAG</tspan><tspan x="850.0" dy="14.9">Атомарний запис нового стану</tspan></text>
+<line x1="260.0" y1="130.0" x2="360.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="305.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Опис цілі</text>
+<line x1="740.0" y1="130.0" x2="640.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="695.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Телеметрія API</text>
+<line x1="390.0" y1="320.0" x2="150.0" y2="395.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="215.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Захоплення локу</text>
+<line x1="260.0" y1="450.0" x2="740.0" y2="450.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Дозвіл на мутацію за планом дій</text>
+<line x1="850.0" y1="395.0" x2="850.0" y2="185.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="930.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle">Мутація інфраструктури</text>
+</svg>

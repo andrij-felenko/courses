@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="24.0" width="1100.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="52.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">КАСКАДНЕ БЛОКУВАННЯ: як одне зависання глибинного вузла паралізує всю систему</tspan></text>
+<rect x="40.0" y="100.0" width="160.0" height="400.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнти / Браузери</text>
+<rect x="55.0" y="157.0" width="130.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит #1</text>
+<rect x="55.0" y="222.0" width="130.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит #2</text>
+<rect x="55.0" y="287.0" width="130.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит #3</text>
+<rect x="55.0" y="352.0" width="130.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит #4</text>
+<rect x="55.0" y="417.0" width="130.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит #5</text>
+<line x1="185.0" y1="175.0" x2="255.0" y2="175.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="240.0" x2="255.0" y2="240.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="305.0" x2="255.0" y2="305.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="370.0" x2="255.0" y2="370.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="435.0" x2="255.0" y2="435.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="260.0" y="100.0" width="160.0" height="400.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="340.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс A (Шлюз)</text>
+<text x="340.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пул: 100% заблоковано</text>
+<rect x="275.0" y="157.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="340.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #1 чекає B</text>
+<rect x="275.0" y="222.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="340.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #2 чекає B</text>
+<rect x="275.0" y="287.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="340.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #3 чекає B</text>
+<rect x="275.0" y="352.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="340.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #4 чекає B</text>
+<rect x="275.0" y="417.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="340.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #5 чекає B</text>
+<line x1="405.0" y1="175.0" x2="475.0" y2="175.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="240.0" x2="475.0" y2="240.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="305.0" x2="475.0" y2="305.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="370.0" x2="475.0" y2="370.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="435.0" x2="475.0" y2="435.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="480.0" y="100.0" width="160.0" height="400.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="560.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс B</text>
+<text x="560.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пул потоків вичерпано</text>
+<rect x="495.0" y="157.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="560.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #1 чекає C</text>
+<rect x="495.0" y="222.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="560.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #2 чекає C</text>
+<rect x="495.0" y="287.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="560.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #3 чекає C</text>
+<rect x="495.0" y="352.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="560.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #4 чекає C</text>
+<rect x="495.0" y="417.0" width="130.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="560.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік #5 чекає C</text>
+<line x1="625.0" y1="175.0" x2="695.0" y2="175.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="240.0" x2="695.0" y2="240.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="305.0" x2="695.0" y2="305.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="370.0" x2="695.0" y2="370.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="435.0" x2="695.0" y2="435.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="700.0" y="100.0" width="160.0" height="400.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="780.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Сервіс C / База</text>
+<text x="780.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАВИС / Lock stall</text>
+<rect x="715.0" y="175.0" width="130.0" height="290.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/><text x="780.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Блокування на диску</tspan><tspan x="780.0" dy="11.7">або дедлок у транзакції</tspan><tspan x="780.0" dy="11.7"></tspan><tspan x="780.0" dy="11.7">Не відповідає,</tspan><tspan x="780.0" dy="11.7">але з'єднання тримає</tspan><tspan x="780.0" dy="11.7"></tspan><tspan x="780.0" dy="11.7">Мовчання без обриву</tspan></text>
+<rect x="930.0" y="100.0" width="160.0" height="400.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="1010.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Сервіс D (Здоровий)</text>
+<text x="1010.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Готовий приймати</text>
+<rect x="945.0" y="175.0" width="130.0" height="290.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/><text x="1010.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="1010.0" dy="0.0">Працює ідеально,</tspan><tspan x="1010.0" dy="11.7">але запити до нього</tspan><tspan x="1010.0" dy="11.7">НЕ доходять:</tspan><tspan x="1010.0" dy="11.7"></tspan><tspan x="1010.0" dy="11.7">Сервіс A вичерпав усі</tspan><tspan x="1010.0" dy="11.7">потоки на очікуванні C</tspan><tspan x="1010.0" dy="11.7">й більше не приймає нічого</tspan></text>
+<rect x="40.0" y="524.0" width="1100.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="548.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Без жорстких таймаутів повільність одного компонента затягує в зависання всі вищі шари.</tspan><tspan x="590.0" dy="16.2">Потоки пулів блокуються на викликах, що мовчать, і сервіс втрачає здатність обслуговувати навіть ті гілки,</tspan><tspan x="590.0" dy="16.2">які не мають жодного стосунку до збійного вузла.</tspan></text>
+</svg>

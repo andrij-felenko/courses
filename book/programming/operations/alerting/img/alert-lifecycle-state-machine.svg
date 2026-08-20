@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 972.3 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="972.3" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат станів правила алертингу</text>
+<rect x="55.0" y="129.4" width="150.0" height="61.2" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="130.0" y="148.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">1. Inactive</tspan><tspan x="130.0" dy="15.6">(неактивний)</tspan><tspan x="130.0" dy="15.6">Умова = false</tspan></text>
+<rect x="310.0" y="129.4" width="160.0" height="61.2" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.5"/><text x="390.0" y="148.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">2. Pending</tspan><tspan x="390.0" dy="15.6">(очікування)</tspan><tspan x="390.0" dy="15.6">Таймер for: 5m</tspan></text>
+<rect x="585.0" y="129.4" width="170.0" height="61.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="670.0" y="148.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">3. Firing</tspan><tspan x="670.0" dy="15.6">(спрацьовування)</tspan><tspan x="670.0" dy="15.6">Сповіщення в AM</tspan></text>
+<rect x="807.8" y="129.4" width="144.5" height="61.2" rx="6" fill="#e8f0ff" stroke="#2457d6" stroke-width="1.5"/><text x="880.0" y="148.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">4. Resolved</tspan><tspan x="880.0" dy="15.6">(знято)</tspan><tspan x="880.0" dy="15.6">Відновлення норми</tspan></text>
+<line x1="210.0" y1="150.0" x2="305.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="257.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Умова = true</text>
+<line x1="475.0" y1="150.0" x2="580.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="527.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Час &gt;= 5 хв</text>
+<line x1="760.0" y1="150.0" x2="805.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="782.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Умова = false</text>
+<line x1="350.0" y1="202.0" x2="170.0" y2="202.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Сплеск минув до вичерпання 5 хв (без шуму)</text>
+<line x1="880.0" y1="202.0" x2="130.0" y2="290.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Автоматичне повернення до моніторингу за замовчуванням</text>
+<text x="480.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Інтервал затримки for захищає чергових від хибних сповіщень на короткочасних сплесках.</text>
+</svg>

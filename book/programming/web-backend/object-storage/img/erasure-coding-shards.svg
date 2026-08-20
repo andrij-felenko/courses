@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кодування стиранням (Erasure Coding) за схемою RS(4+2)</text>
+<text x="450.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">розбиття об'єкта на K=4 шарди даних та M=2 шарди парності з розподілом по зонах доступності</text>
+<rect x="200.0" y="70.0" width="500.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="450.0" y="94.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Вхідний об'єкт: video.mp4 (розмір 64 МБ, Payload)</tspan></text>
+<line x1="320.0" y1="110.0" x2="220.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="110.0" x2="450.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="110.0" x2="680.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="150.0" y="155.0" width="600.0" height="34.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/><text x="450.0" y="175.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Матриця генератора Вандермонда GF(2⁸): обчислення K=4 чанків даних і M=2 чанків парності</tspan></text>
+<rect x="35.0" y="230.0" width="130.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="100.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Шард D1 (16 МБ)</text>
+<text x="100.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зона AZ-1 / Вузол 1</text>
+<line x1="43.0" y1="288.0" x2="157.0" y2="288.0" stroke="#2563eb" stroke-width="0.8"/>
+<rect x="43.0" y="298.0" width="114.0" height="30.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/><text x="100.0" y="316.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">✓ Доступний</tspan></text>
+<rect x="175.0" y="230.0" width="130.0" height="110.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="240.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Шард D2 (16 МБ)</text>
+<text x="240.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зона AZ-1 / Вузол 2</text>
+<line x1="183.0" y1="288.0" x2="297.0" y2="288.0" stroke="#dc2626" stroke-width="0.8"/>
+<rect x="183.0" y="298.0" width="114.0" height="30.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/><text x="240.0" y="316.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">✗ ЗБІЙ ДИСКА</tspan></text>
+<rect x="315.0" y="230.0" width="130.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="380.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Шард D3 (16 МБ)</text>
+<text x="380.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зона AZ-2 / Вузол 3</text>
+<line x1="323.0" y1="288.0" x2="437.0" y2="288.0" stroke="#2563eb" stroke-width="0.8"/>
+<rect x="323.0" y="298.0" width="114.0" height="30.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/><text x="380.0" y="316.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">✓ Доступний</tspan></text>
+<rect x="455.0" y="230.0" width="130.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="520.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Шард D4 (16 МБ)</text>
+<text x="520.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зона AZ-2 / Вузол 4</text>
+<line x1="463.0" y1="288.0" x2="577.0" y2="288.0" stroke="#2563eb" stroke-width="0.8"/>
+<rect x="463.0" y="298.0" width="114.0" height="30.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/><text x="520.0" y="316.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">✓ Доступний</tspan></text>
+<rect x="595.0" y="230.0" width="130.0" height="110.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="660.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Парність P1 (16 МБ)</text>
+<text x="660.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зона AZ-3 / Вузол 5</text>
+<line x1="603.0" y1="288.0" x2="717.0" y2="288.0" stroke="#dc2626" stroke-width="0.8"/>
+<rect x="603.0" y="298.0" width="114.0" height="30.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/><text x="660.0" y="316.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">✗ МЕРЕЖЕВИЙ РОЗРИВ</tspan></text>
+<rect x="735.0" y="230.0" width="130.0" height="110.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+<text x="800.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Парність P2 (16 МБ)</text>
+<text x="800.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зона AZ-3 / Вузол 6</text>
+<line x1="743.0" y1="288.0" x2="857.0" y2="288.0" stroke="#059669" stroke-width="0.8"/>
+<rect x="743.0" y="298.0" width="114.0" height="30.0" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.2"/><text x="800.0" y="316.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">✓ Доступний</tspan></text>
+<line x1="100.0" y1="340.0" x2="450.0" y2="395.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="340.0" x2="450.0" y2="395.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="340.0" x2="450.0" y2="395.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="340.0" x2="450.0" y2="395.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="150.0" y="395.0" width="600.0" height="68.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.6"/><text x="450.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#065f46" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Відновлення: вичитано 4 будь-які шарди (D1, D3, D4, P2) з 6</tspan><tspan x="450.0" dy="12.3">Інверсія матриці підпростору повністю відновлює втрачені D2 та P1 без втрати даних.</tspan><tspan x="450.0" dy="12.3">Накладні витрати пам'яті: лише 50% (коефіцієнт 1.5× замість 3.0× при 3-кратній реплікації).</tspan></text>
+</svg>

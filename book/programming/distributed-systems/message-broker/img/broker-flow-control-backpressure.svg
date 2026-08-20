@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керування зворотним тиском: водні позначки пам'яті, дисковий пейджинг та блокування сокетів</text>
+<rect x="15.0" y="15.0" width="970.0" height="350.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми зворотного тиску (Backpressure) та скидання на диск</text>
+<rect x="40.0" y="75.0" width="280.0" height="265.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.2"/>
+<text x="180.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Сплеск вхідного трафіку</text>
+<text x="180.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Продюсер: 50 000 msg/s</tspan><tspan x="180.0" dy="13.0">Споживач: 5 000 msg/s</tspan><tspan x="180.0" dy="13.0">Буфер RAM стрімко росте</tspan></text>
+<rect x="80.0" y="175.0" width="200.0" height="140.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="80.0" y="215.0" width="200.0" height="100.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="180.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RAM: 85% (Переповнення)</text>
+<line x1="75.0" y1="215.0" x2="285.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="180.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Watermark Ліміт (40%)</text>
+<rect x="360.0" y="75.0" width="280.0" height="265.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.2"/>
+<text x="500.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#856404" text-anchor="middle" font-weight="700">2. Скидання на диск (Paging)</text>
+<text x="500.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Брокер активує дисковий скид</tspan><tspan x="500.0" dy="13.0">RAM звільняється для заголовків</tspan><tspan x="500.0" dy="13.0">Тіла повідомлень ідуть у файл</tspan></text>
+<rect x="420.0" y="177.5" width="160.0" height="35.0" rx="6" fill="#fff3cd" stroke="#d39e00" stroke-width="1.5"/><text x="500.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Очищення RAM</tspan><tspan x="500.0" dy="13.0">Витіснення пейджів</tspan></text>
+<rect x="415.0" y="257.5" width="170.0" height="35.0" rx="6" fill="#f1f3f5" stroke="#495057" stroke-width="1.5"/><text x="500.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Дисковий сегментний пул</tspan><tspan x="500.0" dy="13.0">(Асинхронний запис)</tspan></text>
+<line x1="500.0" y1="222.0" x2="500.0" y2="250.0" stroke="#495057" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="680.0" y="75.0" width="280.0" height="265.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.2"/>
+<text x="820.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Блокування TCP і Prefetch</text>
+<text x="820.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">TCP Zero-Window продюсерам</tspan><tspan x="820.0" dy="13.0">Prefetch лімітує воркери</tspan><tspan x="820.0" dy="13.0">Баланс відновлюється</tspan></text>
+<rect x="730.0" y="177.5" width="180.0" height="35.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="820.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">TCP Socket Read: PAUSED</tspan><tspan x="820.0" dy="13.0">(Продюсер блокується)</tspan></text>
+<rect x="730.0" y="257.5" width="180.0" height="35.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="820.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">Consumer basic.qos = 20</tspan><tspan x="820.0" dy="13.0">(Видача лише під ACK)</tspan></text>
+<line x1="820.0" y1="222.0" x2="820.0" y2="250.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="205.0" x2="360.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="205.0" x2="680.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

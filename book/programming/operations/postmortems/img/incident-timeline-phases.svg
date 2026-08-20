@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія життєвого циклу інциденту: ключові інтервали та метрики SRE</text>
+<line x1="40.0" y1="190.0" x2="920.0" y2="190.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="890.0" y1="190.0" x2="930.0" y2="190.0" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="920.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end" font-style="italic">Час (t)</text>
+<line x1="70.0" y1="140.0" x2="70.0" y2="240.0" stroke="#9aa0a6" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="70.0" cy="190.0" r="6.0" fill="#9aa0a6" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="15.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="70.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="70.0" dy="0.0">T_inject</tspan><tspan x="70.0" dy="13.0">Дефект внесено</tspan></text>
+<rect x="15.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="70.0" y="279.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="70.0" dy="0.0">Мердж коду / зміна конфігу</tspan></text>
+<line x1="200.0" y1="140.0" x2="200.0" y2="240.0" stroke="#b08900" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="200.0" cy="190.0" r="6.0" fill="#b08900" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="145.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#b08900" stroke-width="1.5"/><text x="200.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">T_trigger</tspan><tspan x="200.0" dy="13.0">Тригер збою</tspan></text>
+<rect x="145.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="200.0" y="267.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Сплеск трафіку / cron-завдання</tspan></text>
+<line x1="330.0" y1="140.0" x2="330.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="330.0" cy="190.0" r="6.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="275.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="330.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">T_impact</tspan><tspan x="330.0" dy="13.0">Початок впливу</tspan></text>
+<rect x="275.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="330.0" y="279.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Перші 5xx помилки у клієнтів</tspan></text>
+<line x1="460.0" y1="140.0" x2="460.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="460.0" cy="190.0" r="6.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="405.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="460.0" y="112.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">T_detect</tspan><tspan x="460.0" dy="11.7">Виявлення (алерт)</tspan></text>
+<rect x="405.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="460.0" y="279.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Спрацював SLI burn-rate алерт</tspan></text>
+<line x1="590.0" y1="140.0" x2="590.0" y2="240.0" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="590.0" cy="190.0" r="6.0" fill="#2457d6" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="535.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="590.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">T_ack</tspan><tspan x="590.0" dy="13.0">Прийом черговим</tspan></text>
+<rect x="535.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="590.0" y="279.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Формування командного каналу</tspan></text>
+<line x1="730.0" y1="140.0" x2="730.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="730.0" cy="190.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="675.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="730.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="730.0" dy="0.0">T_mitigate</tspan><tspan x="730.0" dy="13.0">Пом'якшення</tspan></text>
+<rect x="675.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="730.0" y="279.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">Трафік перемкнуто / відкат</tspan></text>
+<line x1="870.0" y1="140.0" x2="870.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="870.0" cy="190.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="815.0" y="96.0" width="110.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="870.0" y="112.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="870.0" dy="0.0">T_resolve</tspan><tspan x="870.0" dy="11.7">Повне відновлення</tspan></text>
+<rect x="815.0" y="248.0" width="110.0" height="56.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="870.0" y="279.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">База оновлена, стан у нормі</tspan></text>
+<line x1="334.0" y1="54.0" x2="456.0" y2="54.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="334.0" y1="50.0" x2="334.0" y2="58.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="456.0" y1="50.0" x2="456.0" y2="58.0" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="335.0" y="30.0" width="120.0" height="22.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="395.0" y="44.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="395.0" dy="0.0">MTTD</tspan></text>
+<line x1="464.0" y1="54.0" x2="586.0" y2="54.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="464.0" y1="50.0" x2="464.0" y2="58.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="586.0" y1="50.0" x2="586.0" y2="58.0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="465.0" y="30.0" width="120.0" height="22.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="525.0" y="44.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="525.0" dy="0.0">MTTA</tspan></text>
+<line x1="594.0" y1="54.0" x2="726.0" y2="54.0" stroke="#b08900" stroke-width="1.6"/>
+<line x1="594.0" y1="50.0" x2="594.0" y2="58.0" stroke="#b08900" stroke-width="1.6"/>
+<line x1="726.0" y1="50.0" x2="726.0" y2="58.0" stroke="#b08900" stroke-width="1.6"/>
+<rect x="600.0" y="30.0" width="120.0" height="22.0" rx="6" fill="#ffffff" stroke="#b08900" stroke-width="1.5"/><text x="660.0" y="44.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">MTTM</tspan></text>
+<line x1="330.0" y1="330.0" x2="870.0" y2="330.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="330.0" y1="324.0" x2="330.0" y2="336.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="870.0" y1="324.0" x2="870.0" y2="336.0" stroke="#c0392b" stroke-width="2.2"/>
+<rect x="400.0" y="340.0" width="400.0" height="44.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="600.0" y="359.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">MTTR (Mean Time to Resolve) — повний час відновлення (68 хв)</tspan><tspan x="600.0" dy="12.3">Спалено 38% місячного бюджету помилок (Error Budget)</tspan></text>
+<rect x="24.0" y="410.0" width="912.0" height="92.0" rx="8" fill="#fbfbfb" stroke="#333333" stroke-width="1.4"/>
+<text x="44.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Цінність точного таймлайну для постмортему:</text>
+<rect x="40.0" y="444.0" width="876.0" height="44.0" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.5"/><text x="478.0" y="469.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="478.0" dy="0.0">Таймлайн дає змогу розділити інцидент на незалежні фази: оптимізація MTTD вимагає покращення алертів, MTTA — налаштування чергувань, а MTTM — автоматизації відкату та розгортання захисних контурів.</tspan></text>
+</svg>

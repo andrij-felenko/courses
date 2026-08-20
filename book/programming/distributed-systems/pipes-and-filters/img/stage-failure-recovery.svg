@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізоляція збоїв та маршрутизація відмов у конвеєрі</text>
+<rect x="10.0" y="10.0" width="980.0" height="400.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізоляція збоїв та обробка отруйних повідомлень у розподіленому конвеєрі</text>
+<rect x="45.0" y="111.9" width="110.0" height="36.1" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="100.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">Фільтр 1</tspan><tspan x="100.0" dy="13.7">(Десеріалізатор)</tspan></text>
+<text x="100.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">✓ ACK у вхідний канал</text>
+<line x1="155.0" y1="130.0" x2="240.0" y2="130.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="242.5" y="113.5" width="75.0" height="33.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="280.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">Канал 1</tspan><tspan x="280.0" dy="13.0">(Черга 1)</tspan></text>
+<line x1="318.0" y1="130.0" x2="405.0" y2="130.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="412.5" y="111.9" width="115.0" height="36.1" rx="6" fill="#fff3cd" stroke="#d35400" stroke-width="1.8"/><text x="470.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Фільтр 2</tspan><tspan x="470.0" dy="13.7">(Валідатор схеми)</tspan></text>
+<text x="470.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">⚠ Отруйне повідомлення (Poison Pill)</text>
+<line x1="528.0" y1="130.0" x2="645.0" y2="130.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="585.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Валідно</text>
+<rect x="647.5" y="113.5" width="75.0" height="33.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="685.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Канал 2</tspan><tspan x="685.0" dy="13.0">(Черга 2)</tspan></text>
+<line x1="723.0" y1="130.0" x2="805.0" y2="130.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="815.0" y="111.9" width="110.0" height="36.1" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="870.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Фільтр 3</tspan><tspan x="870.0" dy="13.7">(Персистенція)</tspan></text>
+<rect x="390.0" y="220.0" width="160.0" height="65.0" rx="4" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="470.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний повтор (Retry)</text>
+<text x="470.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Експоненційне уповільнення
+(3 спроби)</text>
+<line x1="440.0" y1="165.0" x2="440.0" y2="220.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="220.0" x2="500.0" y2="165.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="285.0" x2="470.0" y2="330.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="370.0" y="342.5" width="200.0" height="35.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">МЕРТВА ЧЕРГА (DLQ)</tspan><tspan x="470.0" dy="13.0">Ізоляція для ручного аналізу</tspan></text>
+<line x1="370.0" y1="360.0" x2="280.0" y2="165.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="285.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ACK з Каналу 1 після запису в DLQ
+(конвеєр не блокується)</text>
+<text x="500.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">Конвеєр продовжує обробляти здоровий потік, тоді як збійні пакети ізолюються в DLQ.</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="440.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="480.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Точки збору SLI в архітектурі: від клієнтського пристрою до сховища</text>
+<rect x="40.0" y="75.0" width="130.0" height="95.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text x="105.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Клієнт (App/JS)</text>
+<text x="105.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="105.0" dy="0.0">Браузер</tspan><tspan x="105.0" dy="12.3">Мобільний</tspan></text>
+<line x1="174.0" y1="122.5" x2="226.0" y2="122.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="230.0" y="75.0" width="130.0" height="95.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="295.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">CDN / Edge</text>
+<text x="295.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="295.0" dy="0.0">Cloudflare</tspan><tspan x="295.0" dy="12.3">Edge</tspan></text>
+<line x1="364.0" y1="122.5" x2="416.0" y2="122.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="420.0" y="75.0" width="130.0" height="95.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<text x="485.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Ingress / API GW</text>
+<text x="485.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">Envoy</tspan><tspan x="485.0" dy="12.3">Nginx GW</tspan></text>
+<line x1="554.0" y1="122.5" x2="606.0" y2="122.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="610.0" y="75.0" width="130.0" height="95.0" rx="6" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.6"/>
+<text x="675.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c026d3" text-anchor="middle" font-weight="700">Мікросервіс</text>
+<text x="675.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">Бекенд</tspan><tspan x="675.0" dy="12.3">Бізнес-код</tspan></text>
+<line x1="744.0" y1="122.5" x2="796.0" y2="122.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="800.0" y="75.0" width="130.0" height="95.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="865.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">База даних</text>
+<text x="865.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="865.0" dy="0.0">PostgreSQL</tspan><tspan x="865.0" dy="12.3">Redis</tspan></text>
+<rect x="40.0" y="210.0" width="280.0" height="220.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.4"/>
+<text x="180.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Клієнт (Real User Monitoring)</text>
+<text x="55.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="55.0" dy="0.0">+ Справжнє сприйняття користувачем</tspan><tspan x="55.0" dy="14.5">+ Враховує DNS, рендеринг і мережу</tspan><tspan x="55.0" dy="14.5">− Шум від поганого Wi-Fi/мобільного зв'язку</tspan><tspan x="55.0" dy="14.5">− Недоставка логів при повному збої мережі</tspan><tspan x="55.0" dy="14.5">− Неможливо гарантувати SLA інфраструктури</tspan></text>
+<rect x="340.0" y="210.0" width="280.0" height="220.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+<text x="480.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">Ingress / API Gateway (Стандарт)</text>
+<text x="355.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="355.0" dy="0.0">+ Золотий стандарт для SLI доступності</tspan><tspan x="355.0" dy="14.5">+ Бачить усі вхідні запити та відмови бекенду</tspan><tspan x="355.0" dy="14.5">+ Фіксує 5xx, таймаути проксі та затримки</tspan><tspan x="355.0" dy="14.5">+ Ізольовано від шуму останньої милі клієнта</tspan><tspan x="355.0" dy="14.5">+ Ідеальна основа для SLO та алертів вигорання</tspan></text>
+<rect x="640.0" y="210.0" width="280.0" height="220.0" rx="6" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.4"/>
+<text x="780.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c026d3" text-anchor="middle" font-weight="700">Внутрішній сервіс / База даних</text>
+<text x="655.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="655.0" dy="0.0">+ Точна діагностика конкретного компонента</tspan><tspan x="655.0" dy="14.5">+ Вимірює чистий час обробки процесором</tspan><tspan x="655.0" dy="14.5">− Сліпий до падінь балансувальника та шлюзу</tspan><tspan x="655.0" dy="14.5">− Не враховує мережеві черги та Envoy timeouts</tspan><tspan x="655.0" dy="14.5">− Застосовується як компонентний, а не бізнес-SLI</tspan></text>
+</svg>

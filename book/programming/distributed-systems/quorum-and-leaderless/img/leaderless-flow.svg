@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потоки повідомлень запису та читання з відновленням під час читання</text>
+<text x="490.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безлідерна реплікація: запис (W = 2) та читання з Read-Repair (R = 2) при N = 3</text>
+<rect x="40.0" y="65.0" width="430.0" height="330.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="255.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Операція запису (W = 2)</text>
+<rect x="60.0" y="120.0" width="90.0" height="40.0" rx="5" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="105.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="180.0" y="120.0" width="100.0" height="40.0" rx="5" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="230.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Координатор</text>
+<rect x="310.0" y="115.0" width="140.0" height="25.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="380.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Репліка A (v2 OK)</text>
+<rect x="310.0" y="150.0" width="140.0" height="25.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="380.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Репліка B (v2 OK)</text>
+<rect x="310.0" y="185.0" width="140.0" height="25.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="380.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Репліка C (повільна/збій)</text>
+<line x1="150.0" y1="140.0" x2="180.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="130.0" x2="310.0" y2="127.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="140.0" x2="310.0" y2="162.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="150.0" x2="310.0" y2="197.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="255.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Координатор надсилає v2 усім 3 реплікам</text>
+<text x="255.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Отримує 2 успішні відповіді (W = 2)</text>
+<text x="255.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Відповідає клієнту «Успіх»</text>
+<text x="255.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Репліка C відстає, маючи старий стан v1</text>
+<text x="255.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис завершено успішно без очікування репліки C</text>
+<rect x="510.0" y="65.0" width="430.0" height="330.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="725.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Читання та Read-Repair (R = 2)</text>
+<rect x="530.0" y="120.0" width="90.0" height="40.0" rx="5" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="575.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="650.0" y="120.0" width="100.0" height="40.0" rx="5" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="700.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Координатор</text>
+<rect x="780.0" y="115.0" width="140.0" height="25.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="850.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Репліка B (віддає v2)</text>
+<rect x="780.0" y="150.0" width="140.0" height="25.0" rx="4" fill="#fef9e7" stroke="#d35400" stroke-width="1.0"/>
+<text x="850.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Репліка C (віддає v1)</text>
+<line x1="620.0" y1="140.0" x2="650.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="130.0" x2="780.0" y2="127.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="145.0" x2="780.0" y2="162.0" stroke="#d35400" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="725.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Координатор опитує репліки B і C (R = 2)</text>
+<text x="725.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2. B повертає v2, C повертає застарілу v1</text>
+<text x="725.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. Клієнту повертається v2 (max версія)</text>
+<rect x="540.0" y="310.0" width="370.0" height="65.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="725.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Асинхронний Read-Repair:</text>
+<text x="725.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Координатор надсилає v2 на відсталу репліку C</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="25.0" y="20.0" width="290.0" height="440.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="67.3" y="28.5" width="205.4" height="33.0" rx="6" fill="#fee2e2" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="49.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">Лавина кешу (Avalanche)</tspan></text>
+<text x="170.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Проблема: Одночасний TTL</text>
+<rect x="45.0" y="100.0" width="250.0" height="70.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="170.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">100 000 ключів вичерпують</text>
+<text x="170.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TTL в одну й ту ж секунду</text>
+<text x="170.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">➔ Масовий промах ➔ Краш СУБД</text>
+<line x1="170.0" y1="180.0" x2="170.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="215.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Захист</text>
+<rect x="45.0" y="230.0" width="250.0" height="100.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="170.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TTL Jitter (Рандомізація)</text>
+<text x="170.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TTL_fact = TTL + rand(0, Δ)</text>
+<text x="170.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розмиття піку в часі</text>
+<text x="170.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ Дворівневий прогрів кешу</text>
+<rect x="40.0" y="350.0" width="260.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="50.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Девіація TTL: 10-20%</text>
+<text x="50.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Плавне вимивання ключів</text>
+<text x="50.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Захист пулу коннектів БД</text>
+<text x="50.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Плавний рестарт кластера</text>
+<rect x="340.0" y="20.0" width="290.0" height="440.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="374.2" y="28.5" width="221.5" height="33.0" rx="6" fill="#fee2e2" stroke="#333333" stroke-width="1.5"/><text x="485.0" y="49.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700"><tspan x="485.0" dy="0.0">Навала запитів (Stampede)</tspan></text>
+<text x="485.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Проблема: Гарячий промах</text>
+<rect x="360.0" y="100.0" width="250.0" height="70.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="485.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1 суперпопулярний ключ щез</text>
+<text x="485.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">50 000 паралельних воркерів</text>
+<text x="485.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">одночасно роблять важкий SQL</text>
+<line x1="485.0" y1="180.0" x2="485.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="530.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Захист</text>
+<rect x="360.0" y="230.0" width="250.0" height="100.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="485.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Singleflight / XFetch</text>
+<text x="485.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">М'ютекс злиття запитів</text>
+<text x="485.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Лише 1 запит іде в СУБД,</text>
+<text x="485.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">інші 49 999 чекають на результат</text>
+<rect x="355.0" y="350.0" width="260.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="365.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Блокування на рівні клієнта</text>
+<text x="365.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Ймовірнісне раннє оновлення</text>
+<text x="365.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Алгоритм XFetch (Vattani)</text>
+<text x="365.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• 0 дублюючих запитів у БД</text>
+<rect x="655.0" y="20.0" width="290.0" height="440.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="701.3" y="28.5" width="197.3" height="33.0" rx="6" fill="#fee2e2" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="49.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Пробиття (Penetration)</tspan></text>
+<text x="800.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Проблема: Неіснуючі ключі</text>
+<rect x="675.0" y="100.0" width="250.0" height="70.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="800.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запити ID = -9999 / UUID_rnd</text>
+<text x="800.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Даних нема ні в кеші, ні в БД</text>
+<text x="800.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">➔ 100% запитів б'ють у диск</text>
+<line x1="800.0" y1="180.0" x2="800.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="845.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Захист</text>
+<rect x="675.0" y="230.0" width="250.0" height="100.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="800.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фільтр Блума / Null-кеш</text>
+<text x="800.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відсікання на вході</text>
+<text x="800.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кешування NULL на 30-60 с</text>
+<text x="800.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Швидкий відбій без звернення в БД</text>
+<rect x="670.0" y="350.0" width="260.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="680.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Bloom Filter у RAM процесу</text>
+<text x="680.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• O(1) перевірка існування ID</text>
+<text x="680.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Захист від сканувань і атак</text>
+<text x="680.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Нульове навантаження на СУБД</text>
+</svg>

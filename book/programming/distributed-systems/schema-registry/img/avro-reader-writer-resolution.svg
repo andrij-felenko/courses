@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механіка резолюції схем Avro</text>
+<rect x="15.0" y="15.0" width="970.0" height="390.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм резолюції схем Avro: зіставлення схеми писаря та схеми читача</text>
+<rect x="40.0" y="70.0" width="270.0" height="310.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="175.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">СХЕМА ПИСАРЯ (Writer v1)</text>
+<text x="175.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Отримана з реєстру (Schema ID: 42)</text>
+<line x1="55.0" y1="122.0" x2="295.0" y2="122.0" stroke="#6b7280" stroke-width="0.8"/>
+<rect x="55.0" y="132.0" width="240.0" height="46.0" rx="4" fill="#e8f0fe" stroke="#6b7280" stroke-width="0.8"/>
+<text x="70.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">order_id: long</text>
+<text x="70.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Ідентифікатор замовлення</text>
+<rect x="55.0" y="192.0" width="240.0" height="46.0" rx="4" fill="#fff3cd" stroke="#6b7280" stroke-width="0.8"/>
+<text x="70.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">amount: int</text>
+<text x="70.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Сума у центах (int 32-bit)</text>
+<rect x="55.0" y="252.0" width="240.0" height="46.0" rx="4" fill="#fdecea" stroke="#6b7280" stroke-width="0.8"/>
+<text x="70.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">legacy_note: string</text>
+<text x="70.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Старий коментар (видалено у v2)</text>
+<rect x="55.0" y="312.0" width="240.0" height="46.0" rx="4" fill="#e8f0fe" stroke="#6b7280" stroke-width="0.8"/>
+<text x="70.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">user_id: string</text>
+<text x="70.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ID покупця</text>
+<rect x="690.0" y="70.0" width="270.0" height="310.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="825.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">СХЕМА ЧИТАЧА (Reader v2)</text>
+<text x="825.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вбудована в код споживача</text>
+<line x1="705.0" y1="122.0" x2="945.0" y2="122.0" stroke="#6b7280" stroke-width="0.8"/>
+<rect x="705.0" y="132.0" width="240.0" height="46.0" rx="4" fill="#e8f0fe" stroke="#6b7280" stroke-width="0.8"/>
+<text x="720.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">order_id: long</text>
+<text x="720.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Прямий збіг типу й імені</text>
+<rect x="705.0" y="192.0" width="240.0" height="46.0" rx="4" fill="#fff3cd" stroke="#6b7280" stroke-width="0.8"/>
+<text x="720.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">amount: long</text>
+<text x="720.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Розширення типу: int ➔ long</text>
+<rect x="705.0" y="252.0" width="240.0" height="46.0" rx="4" fill="#d4edda" stroke="#6b7280" stroke-width="0.8"/>
+<text x="720.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">currency: string = &quot;USD&quot;</text>
+<text x="720.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Нове поле з дефолтним значенням</text>
+<rect x="705.0" y="312.0" width="240.0" height="46.0" rx="4" fill="#e8f0fe" stroke="#6b7280" stroke-width="0.8"/>
+<text x="720.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">user_id: string</text>
+<text x="720.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Прямий збіг типу й імені</text>
+<rect x="340.0" y="70.0" width="320.0" height="310.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="500.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">РЕЗОЛЮЦІЯ В ПАМ'ЯТІ</text>
+<line x1="360.0" y1="108.0" x2="640.0" y2="108.0" stroke="#6b7280" stroke-width="0.8"/>
+<line x1="295.0" y1="150.0" x2="705.0" y2="150.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">1. Точний збіг: читається без змін</text>
+<line x1="295.0" y1="210.0" x2="705.0" y2="210.0" stroke="#d39e00" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#856404" text-anchor="middle" font-weight="700">2. Type promotion: 32-bit int ➔ 64-bit long</text>
+<line x1="295.0" y1="270.0" x2="430.0" y2="270.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="460.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Пропуск</text>
+<text x="500.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3. legacy_note відкидається (немає у читача)</text>
+<line x1="570.0" y1="270.0" x2="705.0" y2="270.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">4. currency підставляється як &quot;USD&quot; (дефолт)</text>
+<line x1="295.0" y1="330.0" x2="705.0" y2="330.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">5. Точний збіг: читається без змін</text>
+</svg>

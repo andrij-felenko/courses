@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="25.0" y="25.0" width="440.0" height="430.0" rx="6" fill="#fff5f5" stroke="#ef4444" stroke-width="1.5"/>
+<text x="245.0" y="51.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">Сценарій А: Незабіжність (Швидкість запису &gt; Мережа)</text>
+<line x1="75.0" y1="325.0" x2="435.0" y2="325.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="75.0" y1="85.0" x2="75.0" y2="325.0" stroke="#333333" stroke-width="1.5"/>
+<text x="435.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Ітерації міграції →</text>
+<text x="65.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">RAM (ГБ)</text>
+<line x1="75.0" y1="125.0" x2="435.0" y2="125.0" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="67.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">64 ГБ</text>
+<line x1="75.0" y1="295.0" x2="435.0" y2="295.0" stroke="#16a34a" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="425.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="end" font-weight="700">Поріг Stop-and-Copy (500 МБ)</text>
+<line x1="75.0" y1="125.0" x2="135.0" y2="195.0" stroke="#dc2626" stroke-width="2.2"/>
+<circle cx="75.0" cy="125.0" r="3.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="135.0" y1="195.0" x2="195.0" y2="210.0" stroke="#dc2626" stroke-width="2.2"/>
+<circle cx="135.0" cy="195.0" r="3.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="195.0" y1="210.0" x2="255.0" y2="205.0" stroke="#dc2626" stroke-width="2.2"/>
+<circle cx="195.0" cy="210.0" r="3.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="255.0" y1="205.0" x2="315.0" y2="215.0" stroke="#dc2626" stroke-width="2.2"/>
+<circle cx="255.0" cy="205.0" r="3.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="315.0" y1="215.0" x2="415.0" y2="210.0" stroke="#dc2626" stroke-width="2.2"/>
+<circle cx="315.0" cy="215.0" r="3.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.0"/>
+<circle cx="415.0" cy="210.0" r="3.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.0"/>
+<rect x="45.0" y="345.0" width="400.0" height="85.0" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="245.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Нескінченний цикл міграції:</text>
+<text x="245.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Брудна пам'ять генерується швидше, ніж надсилається</tspan><tspan x="245.0" dy="13.5">Мережа 10 Гбіт/с (1.1 ГБ/с) проти Запису 1.8 ГБ/с</tspan><tspan x="245.0" dy="13.5">Міграція зависає, споживаючи ресурси мережі</tspan></text>
+<rect x="495.0" y="25.0" width="440.0" height="430.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="715.0" y="51.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Сценарій Б: Auto-Converge (vCPU Throttling)</text>
+<line x1="545.0" y1="325.0" x2="905.0" y2="325.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="545.0" y1="85.0" x2="545.0" y2="325.0" stroke="#333333" stroke-width="1.5"/>
+<text x="905.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Ітерації міграції →</text>
+<text x="535.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">RAM (ГБ)</text>
+<line x1="545.0" y1="125.0" x2="905.0" y2="125.0" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="537.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">64 ГБ</text>
+<line x1="545.0" y1="295.0" x2="905.0" y2="295.0" stroke="#16a34a" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="895.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="end" font-weight="700">Поріг Stop-and-Copy (500 МБ)</text>
+<line x1="545.0" y1="125.0" x2="605.0" y2="195.0" stroke="#16a34a" stroke-width="2.2"/>
+<circle cx="545.0" cy="125.0" r="3.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="605.0" y1="195.0" x2="665.0" y2="225.0" stroke="#16a34a" stroke-width="2.2"/>
+<circle cx="605.0" cy="195.0" r="3.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="665.0" y1="225.0" x2="725.0" y2="265.0" stroke="#16a34a" stroke-width="2.2"/>
+<circle cx="665.0" cy="225.0" r="3.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="725.0" y1="265.0" x2="785.0" y2="310.0" stroke="#16a34a" stroke-width="2.2"/>
+<circle cx="725.0" cy="265.0" r="3.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="785.0" y1="310.0" x2="835.0" y2="300.0" stroke="#16a34a" stroke-width="2.2"/>
+<circle cx="785.0" cy="310.0" r="3.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.0"/>
+<circle cx="835.0" cy="300.0" r="4.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="635.0" y="165.0" width="140.0" height="36.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.0"/>
+<text x="705.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">vCPU Throttle +20%..70%</text>
+<line x1="705.0" y1="201.0" x2="695.0" y2="240.0" stroke="#d97706" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="515.0" y="345.0" width="400.0" height="85.0" rx="5" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="715.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Примусова штучна збіжність:</text>
+<text x="715.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Гіпервізор штучно уповільнює виконання інструкцій гостя</tspan><tspan x="715.0" dy="13.5">Швидкість модифікації пам'яті падає нижче пропускної здатності</tspan><tspan x="715.0" dy="13.5">Обсяг залишку падає нижче порогу → безпечний Stop-and-Copy</tspan></text>
+</svg>

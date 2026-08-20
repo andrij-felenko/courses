@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="440.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Анатомія розщеплення мозку (Split-Brain) та ізоляція вузла через Fencing / STONITH</text>
+<rect x="30.0" y="60.0" width="435.0" height="380.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="247.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">Аварійний сценарій: Відсутність Fencing (Split-Brain)</text>
+<rect x="50.0" y="110.0" width="175.0" height="120.0" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/>
+<text x="137.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Старий Primary</text>
+<text x="137.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="137.0" dy="0.0">Завис / втратив зв'язок</tspan><tspan x="137.0" dy="12.3">Вважає себе лідером</tspan><tspan x="137.0" dy="12.3">Приймає записи клієнтів</tspan><tspan x="137.0" dy="12.3">Генерує Timeline 1 (LSN 100)</tspan></text>
+<rect x="270.0" y="110.0" width="175.0" height="120.0" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/>
+<text x="357.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Новий Primary</text>
+<text x="357.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="357.0" dy="0.0">Оголосив себе лідером</tspan><tspan x="357.0" dy="12.3">Приймає записи клієнтів</tspan><tspan x="357.0" dy="12.3">Генерує Timeline 2 (LSN 100)</tspan><tspan x="357.0" dy="12.3">Несумісні зміни даних!</tspan></text>
+<line x1="230.0" y1="150.0" x2="265.0" y2="150.0" stroke="#ef4444" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="247.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#dc2626" text-anchor="middle">⚡</text>
+<text x="247.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">Мережевий
+розрив</text>
+<rect x="50.0" y="250.0" width="395.0" height="175.0" rx="4" fill="#ffffff" stroke="#f87171" stroke-width="1.0"/>
+<text x="247.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Катастрофічні наслідки для бізнесу:</text>
+<text x="247.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="247.0" dy="0.0">1. Подвійний запис (Dual-Write) у різні вузли за однаковими PK</tspan><tspan x="247.0" dy="14.0">2. Розходження журналів WAL/binlog: неможливість автоматичного злиття</tspan><tspan x="247.0" dy="14.0">3. Втрата фінансових транзакцій при спробі примирення вузлів</tspan><tspan x="247.0" dy="14.0">4. Ручне відновлення через hex-дампи та години простою</tspan></text>
+<rect x="495.0" y="60.0" width="435.0" height="380.0" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="712.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Коректний сценарій: Захист через STONITH / Fencing</text>
+<rect x="515.0" y="110.0" width="175.0" height="120.0" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+<text x="602.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Старий Primary</text>
+<text x="602.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle"><tspan x="602.0" dy="0.0">ІЗОЛЬОВАНО (FENCED)</tspan><tspan x="602.0" dy="12.3">Живлення вимкнено через IPMI</tspan><tspan x="602.0" dy="12.3">АБО процес вбито через watchdog</tspan><tspan x="602.0" dy="12.3">Запис повністю заблоковано</tspan></text>
+<rect x="735.0" y="110.0" width="175.0" height="120.0" rx="5" fill="#ffffff" stroke="#16a34a" stroke-width="1.4"/>
+<text x="822.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Новий Primary</text>
+<text x="822.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="822.0" dy="0.0">Легітимний єдиний лідер</tspan><tspan x="822.0" dy="12.3">Отримав кворум у DCS</tspan><tspan x="822.0" dy="12.3">Безпечно приймає записи</tspan><tspan x="822.0" dy="12.3">Єдине джерело правди</tspan></text>
+<circle cx="602.0" cy="205.0" r="14.0" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text x="602.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">✕</text>
+<rect x="515.0" y="250.0" width="395.0" height="175.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="712.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Гарантії цілісності та безперервності:</text>
+<text x="712.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="712.0" dy="0.0">1. Гарантія строго одного активного лідера в будь-який момент</tspan><tspan x="712.0" dy="14.0">2. Нульовий ризик суперечливих транзакцій і колізій ідентифікаторів</tspan><tspan x="712.0" dy="14.0">3. Детермінована зміна гілки журналу (нова часова шкала Timeline 2)</tspan><tspan x="712.0" dy="14.0">4. Старий вузол після відновлення повертається як репліка через pg_rewind</tspan></text>
+</svg>

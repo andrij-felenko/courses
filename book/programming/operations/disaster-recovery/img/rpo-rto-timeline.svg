@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="440.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Часова шкала аварійного відновлення: метрики RPO, RTO, WRT та MTD</text>
+<line x1="40.0" y1="220.0" x2="920.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="890.0" y1="220.0" x2="930.0" y2="220.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="920.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">Час (t) →</text>
+<rect x="130.0" y="60.0" width="230.0" height="135.0" rx="4" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+<text x="245.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Вікно втрати даних (RPO)</text>
+<text x="245.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Транзакції, не зафіксовані</tspan><tspan x="245.0" dy="14.9">у віддаленому сховищі</tspan></text>
+<rect x="360.0" y="60.0" width="310.0" height="135.0" rx="4" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="515.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Час відновлення (RTO)</text>
+<text x="515.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="515.0" dy="0.0">Діагностика, failover,</tspan><tspan x="515.0" dy="14.9">підйом вузлів, реплікація</tspan></text>
+<rect x="670.0" y="60.0" width="200.0" height="135.0" rx="4" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="770.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Вивірка даних (WRT)</text>
+<text x="770.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Перевірка цілісності,</tspan><tspan x="770.0" dy="14.9">прогін пропущених черг</tspan></text>
+<line x1="130.0" y1="60.0" x2="130.0" y2="255.0" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="2 2"/>
+<circle cx="130.0" cy="220.0" r="4.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="130.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Остання точка бекапу</text>
+<text x="130.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Синхронізація / знімок</text>
+<line x1="360.0" y1="60.0" x2="360.0" y2="255.0" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="2 2"/>
+<circle cx="360.0" cy="220.0" r="4.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text x="360.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Катастрофа</text>
+<text x="360.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Падіння ЦОД / аварія</text>
+<line x1="470.0" y1="60.0" x2="470.0" y2="255.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="2 2"/>
+<circle cx="470.0" cy="220.0" r="4.5" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<text x="470.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Оголошення DR</text>
+<text x="470.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Рішення про перемикання</text>
+<line x1="670.0" y1="60.0" x2="670.0" y2="255.0" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="2 2"/>
+<circle cx="670.0" cy="220.0" r="4.5" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<text x="670.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Сервіс відновлено</text>
+<text x="670.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Підйом серверів і БД</text>
+<line x1="870.0" y1="60.0" x2="870.0" y2="255.0" stroke="#059669" stroke-width="1.5" stroke-dasharray="2 2"/>
+<circle cx="870.0" cy="220.0" r="4.5" fill="#059669" stroke="#ffffff" stroke-width="1.5"/>
+<text x="870.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">Повний робочий стан</text>
+<text x="870.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Завершення вивірки</text>
+<line x1="130.0" y1="310.0" x2="360.0" y2="310.0" stroke="#dc2626" stroke-width="1.8"/>
+<circle cx="130.0" cy="310.0" r="3.0" fill="#dc2626" stroke="#333333" stroke-width="1.5"/>
+<circle cx="360.0" cy="310.0" r="3.0" fill="#dc2626" stroke="#333333" stroke-width="1.5"/>
+<text x="245.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">RPO (Recovery Point Objective)</text>
+<line x1="360.0" y1="310.0" x2="670.0" y2="310.0" stroke="#d97706" stroke-width="1.8"/>
+<circle cx="670.0" cy="310.0" r="3.0" fill="#d97706" stroke="#333333" stroke-width="1.5"/>
+<text x="515.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">RTO (Recovery Time Objective)</text>
+<line x1="360.0" y1="355.0" x2="870.0" y2="355.0" stroke="#059669" stroke-width="2.0"/>
+<circle cx="360.0" cy="355.0" r="3.5" fill="#059669" stroke="#333333" stroke-width="1.5"/>
+<circle cx="870.0" cy="355.0" r="3.5" fill="#059669" stroke="#333333" stroke-width="1.5"/>
+<text x="615.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">MTD = RTO + WRT (Maximum Tolerable Downtime)</text>
+</svg>

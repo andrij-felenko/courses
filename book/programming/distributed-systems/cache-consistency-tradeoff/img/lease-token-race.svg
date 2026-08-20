@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870.1 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870.1" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гонка інвалідації кешу та захист від отруєння через Lease Token</text>
+<rect x="44.5" y="48.0" width="131.0" height="24.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="64.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Клієнт 1 (Читач)</tspan></text>
+<line x1="110.0" y1="72.0" x2="110.0" y2="430.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="245.9" y="48.0" width="168.2" height="24.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="330.0" y="64.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">Клієнт 2 (Письменник)</tspan></text>
+<line x1="330.0" y1="72.0" x2="330.0" y2="430.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="462.2" y="48.0" width="175.7" height="24.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="64.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="550.0" dy="0.0">Кеш (Redis / Memcache)</tspan></text>
+<line x1="550.0" y1="72.0" x2="550.0" y2="430.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="629.8" y="48.0" width="220.3" height="24.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="740.0" y="64.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">База даних (Source of Truth)</tspan></text>
+<line x1="740.0" y1="72.0" x2="740.0" y2="430.0" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="110.0" y1="110.0" x2="550.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="330.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. Get(key) → Cache MISS</text>
+<line x1="550.0" y1="135.0" x2="110.0" y2="135.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="330.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Відповідь: NULL + Lease Token (0x8F4A)</text>
+<line x1="110.0" y1="170.0" x2="740.0" y2="170.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="425.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3. Query DB (значення V1 = 100) — повільне читання...</text>
+<line x1="330.0" y1="215.0" x2="740.0" y2="215.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="535.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Update DB (V2 = 80)</text>
+<line x1="330.0" y1="245.0" x2="550.0" y2="245.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5. Invalidate(key) → скасування лізи 0x8F4A!</text>
+<rect x="480.4" y="264.5" width="139.1" height="31.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="550.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Ключ вилучено</tspan><tspan x="550.0" dy="13.0">Токен 0x8F4A анульовано</tspan></text>
+<line x1="110.0" y1="330.0" x2="550.0" y2="330.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="330.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">6. Set(key, V1=100, Lease=0x8F4A)</text>
+<line x1="550.0" y1="370.0" x2="110.0" y2="370.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="330.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">7. REJECTED: токен 0x8F4A недійсний! Кеш захищено.</text>
+<rect x="193.9" y="396.4" width="462.1" height="37.3" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="425.0" y="418.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="425.0" dy="0.0">Без токена лізи старе значення V1=100 перезаписало б кеш назавжди!</tspan><tspan x="425.0" dy="14.3">Завдяки Lease Token застарілий запис відкинуто.</tspan></text>
+</svg>

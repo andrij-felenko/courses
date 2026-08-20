@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1068 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1068" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл довгого опитування: затримка та вікно між запитами</text>
+<rect x="20.0" y="48.0" width="900.0" height="380.0" rx="8" fill="#fbfbfb" stroke="#333333" stroke-width="1.2"/>
+<rect x="80.0" y="64.0" width="120.0" height="38.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="87.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Клієнт</tspan></text>
+<rect x="740.0" y="64.0" width="120.0" height="38.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="87.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Сервер</tspan></text>
+<line x1="140.0" y1="104.0" x2="140.0" y2="408.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="800.0" y1="104.0" x2="800.0" y2="408.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="140.0" y1="124.0" x2="800.0" y2="138.0" stroke="#b08900" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="470.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="middle">1. GET /poll (клієнт надсилає запит)</text>
+<rect x="794.0" y="144.0" width="12.0" height="60.0" rx="6" fill="#fff8e1" stroke="#b08900" stroke-width="1.5"/>
+<text x="818.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Сервер тримає запит відкритим
+(події ще немає)</text>
+<text x="818.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">⚡ Подія з'явилася!</text>
+<line x1="800.0" y1="204.0" x2="140.0" y2="218.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="470.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. 200 OK [дані події] (з'єднання завершується)</text>
+<rect x="160.0" y="228.0" width="620.0" height="44.0" rx="4" fill="#ffebee" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">⚠️ ВІКНО МІЖ ЗАПИТАМИ (Reconnection Gap, 20–100 мс)</text>
+<text x="470.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Клієнт парсить JSON і відкриває новий fetch. Якщо подія виникне зараз — потрібен буфер на сервері!</text>
+<line x1="140.0" y1="284.0" x2="800.0" y2="298.0" stroke="#b08900" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="470.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="middle">3. GET /poll?since_id=42 (новий запит із курсором)</text>
+<rect x="794.0" y="304.0" width="12.0" height="50.0" rx="6" fill="#e8edf3" stroke="#9aa0a6" stroke-width="1.5"/>
+<text x="818.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Таймаут (наприклад, 30 с) без подій</text>
+<line x1="800.0" y1="354.0" x2="140.0" y2="366.0" stroke="#9aa0a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="470.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4. 204 No Content (сервер скидає таймаут -&gt; клієнт знову перезапитує)</text>
+</svg>

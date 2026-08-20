@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1160.0" height="520.0" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="600.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція концепції: Глобальна EDM vs Федеративна CDM</text>
+<text x="600.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Чому єдина мегасхема підприємства зазнала краху і як DDD Bounded Contexts врятували інтеграцію</text>
+<rect x="35.0" y="95.0" width="545.0" height="430.0" rx="8" fill="#f8fafc" stroke="#c0392b" stroke-width="1.3"/>
+<text x="307.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Глобальна корпоративна модель (ESB 2000-х)</text>
+<text x="307.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Антипатерн: «Одна універсальна схема для всієї корпорації»</text>
+<rect x="195.0" y="168.0" width="225.0" height="95.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="307.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Enterprise Mega-Schema</text>
+<text x="307.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(800+ полів, 50 рівнів XML)</text>
+<text x="307.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">«Customer», «Order», «Invoice»</text>
+<text x="307.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Комітет стандартизації (місяці)</text>
+<rect x="45.0" y="287.0" width="100.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="95.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Продажі (CRM)</text>
+<line x1="95.0" y1="287.0" x2="307.0" y2="263.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="185.0" y="287.0" width="100.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="235.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бухгалтерія (ERP)</text>
+<line x1="235.0" y1="287.0" x2="307.0" y2="263.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="325.0" y="287.0" width="100.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="375.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Логістика (WMS)</text>
+<line x1="375.0" y1="287.0" x2="307.0" y2="263.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="465.0" y="287.0" width="100.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="515.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підтримка</text>
+<line x1="515.0" y1="287.0" x2="307.0" y2="263.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="355.0" width="515.0" height="155.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.1"/><text x="307.5" y="411.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="307.5" dy="0.0">НАСЛІДКИ МОНОЛІТНОЇ CDM:</tspan><tspan x="307.5" dy="12.3">1. Організаційне блокування: будь-яка зміна узгоджується місяцями всіма відділами.</tspan><tspan x="307.5" dy="12.3">2. Семантичний розрив: сутність «Клієнт» означає діаметрально різні речі в CRM і WMS.</tspan><tspan x="307.5" dy="12.3">3. Найменший спільний знаменник або монстр: 90% полів схеми є порожніми (null).</tspan><tspan x="307.5" dy="12.3">4. Крихкість: зміна версії ламає десятки інтегрованих систем одночасно.</tspan></text>
+<rect x="615.0" y="95.0" width="550.0" height="430.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="1.3"/>
+<text x="890.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Федеративна CDM (DDD Bounded Contexts)</text>
+<text x="890.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сучасний підхід: Published Language на межах контекстів</text>
+<rect x="635.0" y="165.0" width="170.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.4"/>
+<text x="720.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Sales Context</text>
+<text x="720.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Canonical Lead / Quote</text>
+<rect x="935.0" y="165.0" width="170.0" height="52.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="1020.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Billing Context</text>
+<text x="1020.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Canonical Invoice / Payer</text>
+<rect x="635.0" y="255.0" width="170.0" height="52.0" rx="6" fill="#fef9e7" stroke="#27ae60" stroke-width="1.4"/>
+<text x="720.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Shipping Context</text>
+<text x="720.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Canonical Waybill / Cargo</text>
+<rect x="935.0" y="255.0" width="170.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.4"/>
+<text x="1020.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Analytics Context</text>
+<text x="1020.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Canonical Fact Event</text>
+<line x1="720.0" y1="216.0" x2="720.0" y2="255.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="1020.0" y1="216.0" x2="1020.0" y2="255.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="805.0" y1="190.0" x2="935.0" y2="190.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="805.0" y1="280.0" x2="935.0" y2="280.0" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="820.0" y="222.0" width="100.0" height="28.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="870.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ACL / OHS</text>
+<rect x="630.0" y="355.0" width="520.0" height="155.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.1"/><text x="890.0" y="408.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">ПЕРЕВАГИ ФЕДЕРАТИВНОЇ CDM:</tspan><tspan x="890.0" dy="13.7">1. Автономність команд: кожен Bounded Context володіє власною моделлю та схемою.</tspan><tspan x="890.0" dy="13.7">2. Точна семантика: чиста єдина мова (Ubiquitous Language) всередині контексту.</tspan><tspan x="890.0" dy="13.7">3. Антикорупційний шар (ACL): захищає ядро домену від брудних зовнішніх контрактів.</tspan><tspan x="890.0" dy="13.7">4. Published Language: публічний канонічний API/події для взаємодії між доменами.</tspan></text>
+</svg>

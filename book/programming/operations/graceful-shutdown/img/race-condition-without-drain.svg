@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="470.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="24.0" y="35.0" width="912.0" height="195.0" rx="6" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.4"/>
+<text x="40.0" y="59.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="700">Аварійне / некоректне вимкнення (раптовий exit або SIGKILL):</text>
+<rect x="45.0" y="80.0" width="180.0" height="120.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="135.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Процес падає</text>
+<text x="135.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Негайний exit(0)</tspan><tspan x="135.0" dy="14.9">Сокети рвуться</tspan><tspan x="135.0" dy="14.9">Пул БД руйнується</tspan></text>
+<line x1="230.0" y1="140.0" x2="270.0" y2="140.0" stroke="#dc2626" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="275.0" y="80.0" width="290.0" height="120.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="420.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Мережеві перегони</text>
+<text x="420.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Ingress не встиг оновити таблицю</tspan><tspan x="420.0" dy="14.9">Нові клієнти отримують ECONNREFUSED</tspan><tspan x="420.0" dy="14.9">Активні запити обриваються: 502 Bad Gateway</tspan></text>
+<line x1="570.0" y1="140.0" x2="610.0" y2="140.0" stroke="#dc2626" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="615.0" y="80.0" width="295.0" height="120.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="762.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Втрата даних і повтори</text>
+<text x="762.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="762.0" dy="0.0">Транзакція обірвана наполовину</tspan><tspan x="762.0" dy="14.9">Черга перечитує задачу → подвійне списання</tspan><tspan x="762.0" dy="14.9">Буферизовані логи втрачено назавжди</tspan></text>
+<rect x="24.0" y="250.0" width="912.0" height="205.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.4"/>
+<text x="40.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="start" font-weight="700">Штатне вимкнення з координатором (Drain &amp; Graceful Shutdown):</text>
+<rect x="45.0" y="295.0" width="180.0" height="130.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.4"/>
+<text x="135.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Unreadiness + пауза</text>
+<text x="135.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Readiness → 503</tspan><tspan x="135.0" dy="14.9">Пауза на поширення IP</tspan><tspan x="135.0" dy="14.9">Listen закривається плавно</tspan></text>
+<line x1="230.0" y1="360.0" x2="270.0" y2="360.0" stroke="#16a34a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="275.0" y="295.0" width="290.0" height="130.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.4"/>
+<text x="420.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Дренаж і протокольні сигнали</text>
+<text x="420.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Ingress скеровує нові на сусідів</tspan><tspan x="420.0" dy="14.9">Connection: close / GOAWAY надіслано</tspan><tspan x="420.0" dy="14.9">Всі активні запити отримують 200 OK</tspan></text>
+<line x1="570.0" y1="360.0" x2="610.0" y2="360.0" stroke="#16a34a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="615.0" y="295.0" width="295.0" height="130.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.4"/>
+<text x="762.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Послідовне звільнення</text>
+<text x="762.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="762.0" dy="0.0">Черги зупинені, задачі зафіксовані (ACK)</tspan><tspan x="762.0" dy="14.9">Пули БД закриваються після inflight-робіт</tspan><tspan x="762.0" dy="14.9">Логи змито на диск, чистий вихід 0</tspan></text>
+</svg>

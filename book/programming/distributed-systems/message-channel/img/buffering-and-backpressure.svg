@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Моделі місткості каналу та зворотний тиск</text>
+<rect x="10.0" y="10.0" width="980.0" height="440.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Моделі місткості каналу: синхронна передача, обмежений буфер та загроза переповнення</text>
+<rect x="25.0" y="60.0" width="295.0" height="370.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="172.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">А. Нульова місткість (Rendezvous)</text>
+<rect x="92.0" y="122.5" width="160.0" height="35.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="172.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="172.0" dy="0.0">Продюсер</tspan><tspan x="172.0" dy="13.0">(Блокується під час send)</tspan></text>
+<rect x="82.3" y="206.0" width="179.4" height="48.0" rx="6" fill="#fff3cd" stroke="#333333" stroke-width="1.5"/><text x="172.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="172.0" dy="0.0">Канал без буфера</tspan><tspan x="172.0" dy="13.0">(Capacity = 0)</tspan><tspan x="172.0" dy="13.0">Пряма передача з рук у руки</tspan></text>
+<rect x="92.0" y="302.5" width="160.0" height="35.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="172.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="172.0" dy="0.0">Споживач</tspan><tspan x="172.0" dy="13.0">(Блокується під час recv)</tspan></text>
+<line x1="172.0" y1="175.0" x2="172.0" y2="195.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="172.0" y1="265.0" x2="172.0" y2="285.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="172.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">✓ Нульова латентність у буфері
+✗ Жорстке часове зчеплення</text>
+<rect x="350.0" y="60.0" width="295.0" height="370.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="497.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Б. Обмежений буфер (Bounded)</text>
+<rect x="417.0" y="122.5" width="160.0" height="35.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="497.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="497.0" dy="0.0">Продюсер</tspan><tspan x="497.0" dy="13.0">(Кредитне вікно / Пауза)</tspan></text>
+<rect x="391.8" y="206.0" width="210.4" height="48.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="497.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="497.0" dy="0.0">Кільцевий буфер (N = 1000)</tspan><tspan x="497.0" dy="13.0">[Елемент 1] [Елемент 2] [Вільне]</tspan><tspan x="497.0" dy="13.0">Сигнал зворотного тиску (Pause)</tspan></text>
+<rect x="417.0" y="302.5" width="160.0" height="35.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="497.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="497.0" dy="0.0">Споживач</tspan><tspan x="497.0" dy="13.0">(Видача кредитів / ACK)</tspan></text>
+<line x1="497.0" y1="175.0" x2="497.0" y2="195.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="497.0" y1="265.0" x2="497.0" y2="285.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="497.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">✓ Захист від OOM і згладжування піків
+✓ Контрольована затримка</text>
+<rect x="675.0" y="60.0" width="300.0" height="370.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="825.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">В. Необмежений буфер (Unbounded)</text>
+<rect x="745.0" y="122.5" width="160.0" height="35.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="825.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Продюсер</tspan><tspan x="825.0" dy="13.0">(λ = 50 000 msg/s)</tspan></text>
+<rect x="729.1" y="206.0" width="191.8" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="825.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="825.0" dy="0.0">Буфер без ліміту (N → ∞)</tspan><tspan x="825.0" dy="13.0">[10 млн накопичених msg]</tspan><tspan x="825.0" dy="13.0">Латентність зростає до хвилин</tspan></text>
+<rect x="739.2" y="302.5" width="171.6" height="35.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="825.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Споживач</tspan><tspan x="825.0" dy="13.0">(μ = 10 000 msg/s — відстає)</tspan></text>
+<line x1="825.0" y1="175.0" x2="825.0" y2="195.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="825.0" y1="265.0" x2="825.0" y2="285.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="825.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">✗ Ризик аварії OOM Killer у пам'яті
+✗ Некерована затримка (Lag)</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сімейство патернів маршрутизації повідомлень</text>
+<rect x="10.0" y="10.0" width="980.0" height="500.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сімейство патернів маршрутизації повідомлень (Enterprise Integration Patterns)</text>
+<rect x="35.0" y="65.0" width="290.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="180.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Content-Based Router</text>
+<text x="180.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Маршрутизація за вмістом</text>
+<line x1="50.0" y1="115.0" x2="310.0" y2="115.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="180.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Аналізує тіло чи тип повідомлення.</tspan><tspan x="180.0" dy="14.2">Спрямовує в один цільовий канал</tspan><tspan x="180.0" dy="14.2">за значенням поля (напр. валюта чи регіон).</tspan></text>
+<rect x="355.0" y="65.0" width="290.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="500.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Message Filter</text>
+<text x="500.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Фільтр повідомлень</text>
+<line x1="370.0" y1="115.0" x2="630.0" y2="115.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="500.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Перевіряє булевий предикат.</tspan><tspan x="500.0" dy="14.2">Пропускає валідні повідомлення далі;</tspan><tspan x="500.0" dy="14.2">невідповідні відкидає або пише в аудит.</tspan></text>
+<rect x="675.0" y="65.0" width="290.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="820.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. Recipient List</text>
+<text x="820.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Список отримувачів</text>
+<line x1="690.0" y1="115.0" x2="950.0" y2="115.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="820.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">Динамічно обчислює список N каналів.</tspan><tspan x="820.0" dy="14.2">Одне вхідне повідомлення тиражується</tspan><tspan x="820.0" dy="14.2">лише адресатам із розрахованого списку.</tspan></text>
+<rect x="35.0" y="275.0" width="290.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="180.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">4. Dynamic Router</text>
+<text x="180.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Динамічний маршрутизатор</text>
+<line x1="50.0" y1="325.0" x2="310.0" y2="325.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="180.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Відокремлює логіку від правил.</tspan><tspan x="180.0" dy="14.2">Таблиця маршрутів лежить у базі/Redis</tspan><tspan x="180.0" dy="14.2">і оновлюється на льоту без перезапуску.</tspan></text>
+<rect x="355.0" y="275.0" width="290.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="500.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">5. Routing Slip</text>
+<text x="500.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Маршрутний лист</text>
+<line x1="370.0" y1="325.0" x2="630.0" y2="325.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="500.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Список наступних кроків прикріплено</tspan><tspan x="500.0" dy="14.2">до метаданих самого повідомлення.</tspan><tspan x="500.0" dy="14.2">Кожен сервіс викреслює себе й шле далі.</tspan></text>
+<rect x="675.0" y="275.0" width="290.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="820.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">6. Wire Tap</text>
+<text x="820.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Відвід потоку (прослуховувач)</text>
+<line x1="690.0" y1="325.0" x2="950.0" y2="325.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="820.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">Прозоро копіює потік повідомлень</tspan><tspan x="820.0" dy="14.2">у допоміжний канал (аудит, метрики, ML)</tspan><tspan x="820.0" dy="14.2">без затримки та впливу на основну гілку.</tspan></text>
+</svg>

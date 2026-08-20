@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Високодоступний кластер: клієнтський шар, консенсус (etcd) та агенти Patroni</text>
+<rect x="40.0" y="70.0" width="200.0" height="60.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="140.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнтські застосунки</text>
+<text x="140.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">JDBC / libpq / пул з'єднань</text>
+<rect x="340.0" y="70.0" width="260.0" height="60.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="470.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">HAProxy / PgBouncer</text>
+<text x="470.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Маршрутизація за HTTP health-check</text>
+<line x1="240.0" y1="100.0" x2="335.0" y2="100.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="287.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SQL-запити</text>
+<rect x="680.0" y="60.0" width="240.0" height="170.0" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+<text x="800.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7e22ce" text-anchor="middle" font-weight="700">DCS Кластер (etcd / Raft)</text>
+<text x="800.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">3 або 5 вузлів (Строгий кворум)</text>
+<circle cx="730.0" cy="145.0" r="22.0" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="730.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">etcd-1</text>
+<circle cx="800.0" cy="145.0" r="22.0" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="800.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">etcd-2</text>
+<circle cx="870.0" cy="145.0" r="22.0" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="870.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">etcd-3</text>
+<text x="800.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="middle" font-weight="700">Ключ: /service/batman/leader (TTL=10s)</text>
+<rect x="60.0" y="240.0" width="380.0" height="250.0" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.8"/>
+<text x="250.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">Вузол 1: Primary (Лідер кластера)</text>
+<rect x="80.0" y="290.0" width="160.0" height="100.0" rx="5" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="160.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">PostgreSQL</text>
+<text x="160.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Read-Write режим</tspan><tspan x="160.0" dy="13.0">Генерація WAL (LSN: 0/1A00)</tspan><tspan x="160.0" dy="13.0">Порт: 5432</tspan></text>
+<rect x="260.0" y="290.0" width="160.0" height="100.0" rx="5" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="340.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">Агент Patroni</text>
+<text x="340.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Heartbeat у DCS</tspan><tspan x="340.0" dy="13.0">HTTP /primary → 200 OK</tspan><tspan x="340.0" dy="13.0">HTTP /replica → 503</tspan></text>
+<rect x="80.0" y="410.0" width="340.0" height="65.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="250.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Стан: Утримує ліз у etcd (оновлення кожні 2с)</tspan><tspan x="250.0" dy="13.5">Приймає з'єднання від балансувальника</tspan></text>
+<rect x="520.0" y="240.0" width="380.0" height="250.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="703.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Вузол 2: Standby (Синхронна/Асинхронна репліка)</text>
+<rect x="540.0" y="290.0" width="160.0" height="100.0" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="620.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">PostgreSQL</text>
+<text x="620.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Read-Only режим</tspan><tspan x="620.0" dy="13.0">Програвання WAL-потоку</tspan><tspan x="620.0" dy="13.0">Порт: 5432</tspan></text>
+<rect x="720.0" y="290.0" width="160.0" height="100.0" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text x="800.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">Агент Patroni</text>
+<text x="800.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">Моніторинг лідера в DCS</tspan><tspan x="800.0" dy="13.0">HTTP /primary → 503</tspan><tspan x="800.0" dy="13.0">HTTP /replica → 200 OK</tspan></text>
+<rect x="540.0" y="410.0" width="340.0" height="65.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="710.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Стан: Очікує звільнення лізу в etcd</tspan><tspan x="710.0" dy="13.5">Готовий до промоушену в разі аварії лідера</tspan></text>
+<line x1="240.0" y1="350.0" x2="535.0" y2="350.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="383.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Потокова реплікація WAL</text>
+<line x1="420.0" y1="130.0" x2="250.0" y2="235.0" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="310.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Трафік запису</text>
+<line x1="520.0" y1="130.0" x2="680.0" y2="235.0" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="620.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Трафік читання (опція)</text>
+<line x1="340.0" y1="290.0" x2="340.0" y2="200.0" stroke="#9333ea" stroke-width="1.4" stroke-dasharray="2 2"/>
+<line x1="340.0" y1="200.0" x2="675.0" y2="170.0" stroke="#9333ea" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="290.0" x2="800.0" y2="235.0" stroke="#9333ea" stroke-width="1.4" marker-end="url(#arrow)"/>
+</svg>

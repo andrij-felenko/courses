@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="1100.0" height="270.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="55.0" y="52.0" width="1070.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="590.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">СТАТИЧНІ ТАЙМАУТИ НА ВИКЛИК: роздуття сумарного часу та «зомбі-робота»</tspan></text>
+<rect x="70.0" y="105.0" width="180.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="160.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (таймаут 3 с)</text>
+<text x="160.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">здається о T = 3.0 c</text>
+<line x1="250.0" y1="130.0" x2="320.0" y2="130.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="320.0" y="105.0" width="200.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="420.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс A (таймаут 2 с)</text>
+<text x="420.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">чекає B до 2 секунд</text>
+<line x1="520.0" y1="130.0" x2="590.0" y2="130.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="590.0" y="105.0" width="200.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="690.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс B (таймаут 2 с)</text>
+<text x="690.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">чекає C до 2 секунд</text>
+<line x1="790.0" y1="130.0" x2="860.0" y2="130.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="860.0" y="105.0" width="220.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="970.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Сервіс C (зависання)</text>
+<text x="970.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">палить CPU і транзакцію</text>
+<line x1="70.0" y1="180.0" x2="1080.0" y2="180.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="70.0" y1="174.0" x2="70.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="70.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0 c</text>
+<line x1="230.0" y1="174.0" x2="230.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="230.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 c</text>
+<line x1="390.0" y1="174.0" x2="390.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="390.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2 c</text>
+<line x1="550.0" y1="174.0" x2="550.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="550.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3 c</text>
+<line x1="710.0" y1="174.0" x2="710.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="710.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4 c</text>
+<line x1="870.0" y1="174.0" x2="870.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="870.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5 c</text>
+<line x1="1030.0" y1="174.0" x2="1030.0" y2="186.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="1030.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">6 c</text>
+<rect x="70.0" y="212.0" width="480.0" height="24.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="310.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнт чекає (0 .. 3 с) → ОБРИВАЄ ЗАПИТ</text>
+<rect x="550.0" y="212.0" width="480.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="790.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">«ЗОМБІ-ОБЧИСЛЕННЯ»: Сервіси B і C рахують ще 3 с, але відповідь ніхто не чекає!</text>
+<rect x="70.0" y="246.0" width="1010.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="575.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">Сумарний гірший час: 2с + 2с + 2с = 6с. Клієнт пішов на 3-й секунді, а сервери спалили ресурси даремно.</tspan></text>
+<rect x="40.0" y="330.0" width="1100.0" height="320.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="55.0" y="342.0" width="1070.0" height="36.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/><text x="590.0" y="364.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">НАСКРІЗНЕ ПРОКИДАННЯ ДЕДЛАЙНУ (DEADLINE PROPAGATION): спільний бюджет часу</tspan></text>
+<rect x="70.0" y="395.0" width="200.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="170.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (бюджет 500 мс)</text>
+<text x="170.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">заголовок grpc-timeout: 500m</text>
+<line x1="270.0" y1="420.0" x2="340.0" y2="420.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="340.0" y="395.0" width="210.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="445.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс A (витратив 80 мс)</text>
+<text x="445.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">прокидає залишок: 420 мс</text>
+<line x1="550.0" y1="420.0" x2="620.0" y2="420.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="620.0" y="395.0" width="210.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="725.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс B (витратив 220 мс)</text>
+<text x="725.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">прокидає залишок: 200 мс</text>
+<line x1="830.0" y1="420.0" x2="900.0" y2="420.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="900.0" y="395.0" width="210.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="1005.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Сервіс C (залишок 0 мс)</text>
+<text x="1005.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">СКАСУВАННЯ / ABORT</text>
+<line x1="70.0" y1="470.0" x2="1080.0" y2="470.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="70.0" y1="464.0" x2="70.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="70.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0 мс</text>
+<line x1="230.0" y1="464.0" x2="230.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="230.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100 мс</text>
+<line x1="390.0" y1="464.0" x2="390.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="390.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">200 мс</text>
+<line x1="550.0" y1="464.0" x2="550.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="550.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">300 мс</text>
+<line x1="710.0" y1="464.0" x2="710.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="710.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">400 мс</text>
+<line x1="870.0" y1="464.0" x2="870.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="870.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">500 мс</text>
+<line x1="1030.0" y1="464.0" x2="1030.0" y2="476.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="1030.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">600 мс</text>
+<rect x="70.0" y="502.0" width="800.0" height="24.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="470.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Корисна робота в межах бюджету (0 .. 500 мс)</text>
+<rect x="870.0" y="502.0" width="160.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="950.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Відсічено: 0 витрат</text>
+<rect x="70.0" y="536.0" width="1010.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="575.0" y="552.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">Щойно бюджет вичерпано на рівні T = 500 мс, усі нижчі виклики скасовуються негайно (context cancellation),</tspan><tspan x="575.0" dy="15.6">звільняючи потоки, з'єднання і блокування для інших корисних запитів.</tspan></text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="960.0" height="510.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="25.0" y="30.0" width="930.0" height="220.0" rx="6" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.4"/>
+<text x="45.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="700">1. Наївний поріг без гістерезису: постійний «флапінг» (thrashing)</text>
+<rect x="50.0" y="72.0" width="520.0" height="155.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="50.0" y1="137.1" x2="570.0" y2="137.1" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="558.0" y="129.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="end" font-weight="700">Жорсткий поріг (70% CPU)</text>
+<path d="M 60.0 187.0 L 110.0 157.0 L 150.0 112.0 L 190.0 197.0 L 230.0 202.0 L 270.0 107.0 L 310.0 197.0 L 350.0 102.0 L 390.0 192.0 L 440.0 107.0 L 490.0 197.0 L 550.0 122.0" fill="none" stroke="#2563eb" stroke-width="2.2"/>
+<text x="120.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Метрика CPU</text>
+<rect x="600.0" y="72.0" width="335.0" height="155.0" rx="4" fill="#ffffff" stroke="#f87171" stroke-width="1.2"/>
+<text x="615.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="start" font-weight="700">Наслідки для продакшну:</text>
+<text x="615.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Репліки створюються і вбиваються щохвилини</text>
+<text x="615.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Процесор витрачається на старт контейнерів і JVM</text>
+<text x="615.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Розриви з'єднань і сплески 502/504 помилок</text>
+<text x="615.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Перевантаження реєстру образів та API-сервера</text>
+<text x="615.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start" font-weight="700">• Цілковита нестабільність розподілу трафіку</text>
+<rect x="25.0" y="270.0" width="930.0" height="235.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.4"/>
+<text x="45.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="start" font-weight="700">2. Стійкий регулятор: зона нечутливості (Deadband) + асиметричний Cooldown</text>
+<rect x="50.0" y="312.0" width="520.0" height="168.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="50.0" y="359.0" width="520.0" height="62.2" rx="6" fill="#ecfdf5" stroke="#86efac" stroke-width="0.8"/>
+<line x1="50.0" y1="359.0" x2="570.0" y2="359.0" stroke="#d97706" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="50.0" y1="421.2" x2="570.0" y2="421.2" stroke="#059669" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="558.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="end" font-weight="700">Верхня межа: Scale-up (&gt; 80%)</text>
+<text x="558.0" y="435.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="end" font-weight="700">Нижня межа: Scale-down (&lt; 60%)</text>
+<path d="M 60.0 427.0 L 110.0 387.0 L 160.0 347.0 L 210.0 400.0 L 270.0 410.0 L 330.0 394.0 L 390.0 404.0 L 450.0 452.0 L 510.0 457.0 L 560.0 407.0" fill="none" stroke="#2563eb" stroke-width="2.2"/>
+<text x="62.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">Метрика CPU</text>
+<text x="200.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">Зона спокою: коливання 60–80% не чіпають пул</text>
+<rect x="600.0" y="312.0" width="335.0" height="168.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="615.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="start" font-weight="700">Механізм захисту регулятора:</text>
+<text x="615.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Deadband: коливання всередині зони не чіпають пул</text>
+<text x="615.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start" font-weight="700">• Scale-up: миттєвий крок (cooldown = 0-15 с)</text>
+<text x="615.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">• Scale-down window: чекає 300 с стабільно низької метрики</text>
+<text x="615.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Обмеження кроку: не більше ніж -10% реплік за хвилину</text>
+<text x="615.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Плавний дренаж: активні запити добігають штатно</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура сервісної сітки: Площина даних і Площина управління</text>
+<rect x="40.0" y="55.0" width="920.0" height="150.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="65.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">CONTROL PLANE (Площина управління: Istiod / Linkerd-controller)</text>
+<rect x="122.6" y="113.3" width="174.9" height="43.3" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="210.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">API Server (K8s)</tspan><tspan x="210.0" dy="14.3">CRD: VirtualService, DR</tspan></text>
+<rect x="402.3" y="113.3" width="195.3" height="43.3" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="500.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Контролер (Pilot)</tspan><tspan x="500.0" dy="14.3">Генерація xDS-конфігурацій</tspan></text>
+<rect x="692.3" y="113.3" width="195.3" height="43.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="790.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">Центр сертифікації (CA)</tspan><tspan x="790.0" dy="14.3">Видача X.509 (SPIFFE SVID)</tspan></text>
+<line x1="300.0" y1="135.0" x2="395.0" y2="135.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="135.0" x2="685.0" y2="135.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="245.0" width="920.0" height="290.0" rx="8" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.5"/>
+<text x="65.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">DATA PLANE (Площина даних)</text>
+<rect x="70.0" y="295.0" width="390.0" height="215.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="90.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Pod: Order Service (Вузол 1)</text>
+<rect x="110.0" y="366.2" width="120.0" height="57.6" rx="6" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/><text x="170.0" y="384.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">Застосунок</tspan><tspan x="170.0" dy="14.3">(Go / Node.js)</tspan><tspan x="170.0" dy="14.3">Порт: 8080</tspan></text>
+<rect x="282.8" y="366.2" width="154.4" height="57.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="360.0" y="384.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Sidecar Proxy</tspan><tspan x="360.0" dy="14.3">(Envoy)</tspan><tspan x="360.0" dy="14.3">Порти: 15001 / 15006</tspan></text>
+<line x1="235.0" y1="395.0" x2="280.0" y2="395.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="258.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">lo</text>
+<rect x="540.0" y="295.0" width="390.0" height="215.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="560.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Pod: Payment Service (Вузол 2)</text>
+<rect x="562.8" y="366.2" width="154.4" height="57.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="640.0" y="384.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Sidecar Proxy</tspan><tspan x="640.0" dy="14.3">(Envoy)</tspan><tspan x="640.0" dy="14.3">Порти: 15001 / 15006</tspan></text>
+<rect x="770.0" y="366.2" width="120.0" height="57.6" rx="6" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/><text x="830.0" y="384.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="830.0" dy="0.0">Застосунок</tspan><tspan x="830.0" dy="14.3">(Java / Rust)</tspan><tspan x="830.0" dy="14.3">Порт: 9090</tspan></text>
+<line x1="720.0" y1="395.0" x2="765.0" y2="395.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="742.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">lo</text>
+<line x1="435.0" y1="395.0" x2="565.0" y2="395.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">mTLS Тунель (Шифрування + SPIFFE)</text>
+<text x="500.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Повтори / Таймаути / Трейсинг</text>
+<line x1="460.0" y1="205.0" x2="360.0" y2="295.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="540.0" y1="205.0" x2="640.0" y2="295.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="370.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">xDS (LDS/RDS/CDS/EDS)</text>
+<text x="640.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">xDS (LDS/RDS/CDS/EDS)</text>
+<line x1="760.0" y1="205.0" x2="410.0" y2="295.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="810.0" y1="205.0" x2="690.0" y2="295.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+</svg>

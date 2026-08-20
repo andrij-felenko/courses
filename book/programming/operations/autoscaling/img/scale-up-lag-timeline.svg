@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="960.0" height="490.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="490.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія затримки масштабування: чому новий сервер з'являється лише через 2-5 хвилин</text>
+<line x1="30.0" y1="265.0" x2="940.0" y2="265.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="910.0" y1="265.0" x2="950.0" y2="265.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="945.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Час після стрибка →</text>
+<rect x="24.0" y="70.0" width="172.0" height="135.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="110.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">1. Збір метрик</text>
+<rect x="72.0" y="106.0" width="76.0" height="20.0" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.0"/>
+<text x="110.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">0–30 с</text>
+<text x="110.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Scrape interval метрик</tspan><tspan x="110.0" dy="14.2">Затримка TSDB-буфера</tspan></text>
+<line x1="110.0" y1="205.0" x2="110.0" y2="265.0" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="110.0" cy="265.0" r="4.5" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="198.0" y1="137.5" x2="210.0" y2="137.5" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="212.0" y="70.0" width="172.0" height="135.0" rx="6" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.6"/>
+<text x="298.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c026d3" text-anchor="middle" font-weight="700">2. Рішення HPA</text>
+<rect x="260.0" y="106.0" width="76.0" height="20.0" rx="4" fill="#ffffff" stroke="#c026d3" stroke-width="1.0"/>
+<text x="298.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c026d3" text-anchor="middle" font-weight="700">30–45 с</text>
+<text x="298.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="298.0" dy="0.0">Період sync-period</tspan><tspan x="298.0" dy="14.2">Обчислення цілі за формулою</tspan></text>
+<line x1="298.0" y1="205.0" x2="298.0" y2="265.0" stroke="#c026d3" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="298.0" cy="265.0" r="4.5" fill="#c026d3" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="386.0" y1="137.5" x2="398.0" y2="137.5" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="400.0" y="70.0" width="172.0" height="135.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="486.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">3. Планування й ВМ</text>
+<rect x="448.0" y="106.0" width="76.0" height="20.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="486.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">45–135 с</text>
+<text x="486.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="486.0" dy="0.0">Пошук / замовлення ВМ</tspan><tspan x="486.0" dy="14.2">Cluster Autoscaler / Karpenter</tspan></text>
+<line x1="486.0" y1="205.0" x2="486.0" y2="265.0" stroke="#d97706" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="486.0" cy="265.0" r="4.5" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="574.0" y1="137.5" x2="586.0" y2="137.5" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="588.0" y="70.0" width="172.0" height="135.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<text x="674.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">4. Старт і прогрів</text>
+<rect x="636.0" y="106.0" width="76.0" height="20.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.0"/>
+<text x="674.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">135–210 с</text>
+<text x="674.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="674.0" dy="0.0">Image pull, запуск контейнера</tspan><tspan x="674.0" dy="14.2">Прогрів JIT і пулів з'єднань</tspan></text>
+<line x1="674.0" y1="205.0" x2="674.0" y2="265.0" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="674.0" cy="265.0" r="4.5" fill="#16a34a" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="762.0" y1="137.5" x2="774.0" y2="137.5" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="776.0" y="70.0" width="172.0" height="135.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.6"/>
+<text x="862.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">5. Реєстрація в LB</text>
+<rect x="824.0" y="106.0" width="76.0" height="20.0" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.0"/>
+<text x="862.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">210–240 с</text>
+<text x="862.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="862.0" dy="0.0">Readiness probe = OK</tspan><tspan x="862.0" dy="14.2">Підключення до Ingress</tspan></text>
+<line x1="862.0" y1="205.0" x2="862.0" y2="265.0" stroke="#059669" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="862.0" cy="265.0" r="4.5" fill="#059669" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="24.0" y="300.0" width="932.0" height="185.0" rx="6" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.4"/>
+<text x="42.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="700">Критична «сліпа зона» затримки (0–240 секунд) і способи виживання:</text>
+<circle cx="48.0" cy="356.0" r="4.0" fill="#b91c1c" stroke="#b91c1c" stroke-width="1.0"/>
+<text x="64.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Проблема: Стрибок трафіку навантажує існуючі екземпляри на 100% ДО того, як новий сервер прийме запит.</text>
+<circle cx="48.0" cy="390.0" r="4.0" fill="#15803d" stroke="#15803d" stroke-width="1.0"/>
+<text x="64.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Захист 1 (Headroom): Тримати постійний резерв (ціль CPU 60-70%, а не 90%), щоб поглинути сплеск перших 2 хвилин.</text>
+<circle cx="48.0" cy="424.0" r="4.0" fill="#15803d" stroke="#15803d" stroke-width="1.0"/>
+<text x="64.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Захист 2 (Rate Limiting): Швидке відсікання надлишку (HTTP 429), що рятує живі репліки від деградації та відмов.</text>
+<circle cx="48.0" cy="458.0" r="4.0" fill="#15803d" stroke="#15803d" stroke-width="1.0"/>
+<text x="64.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Захист 3 (Предиктивність): Розкладний автоскейл перед відомими подіями та попередній прогрів контейнерів.</text>
+</svg>

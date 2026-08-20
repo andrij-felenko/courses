@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="26.0" y="26.0" width="440.0" height="470.0" rx="6" fill="#fff8f8" stroke="#fca5a5" stroke-width="1.4"/>
+<text x="246.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b91c1c" text-anchor="middle" font-weight="700">Традиційний URL / Prefix Purge</text>
+<text x="246.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Очищення за точними адресами запитів</text>
+<rect x="146.0" y="94.0" width="200.0" height="52.0" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.3"/>
+<text x="246.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Бекенд (Origin)</text>
+<text x="246.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зміна товару id=42</text>
+<line x1="246.0" y1="146.0" x2="246.0" y2="166.0" stroke="#dc2626" stroke-width="1.3"/>
+<line x1="96.0" y1="166.0" x2="396.0" y2="166.0" stroke="#dc2626" stroke-width="1.3"/>
+<line x1="106.0" y1="166.0" x2="106.0" y2="191.0" stroke="#dc2626" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="46.0" y="191.0" width="120.0" height="52.0" rx="4" fill="#ffffff" stroke="#991b1b" stroke-width="1.2"/>
+<text x="106.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">HTML сторінка</text>
+<text x="106.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">/p/42-phone</text>
+<line x1="106.0" y1="243.0" x2="106.0" y2="274.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="246.0" y1="166.0" x2="246.0" y2="191.0" stroke="#dc2626" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="186.0" y="191.0" width="120.0" height="52.0" rx="4" fill="#ffffff" stroke="#991b1b" stroke-width="1.2"/>
+<text x="246.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">JSON API</text>
+<text x="246.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">/api/v1/p/42</text>
+<line x1="246.0" y1="243.0" x2="246.0" y2="274.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="386.0" y1="166.0" x2="386.0" y2="191.0" stroke="#dc2626" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="326.0" y="191.0" width="120.0" height="52.0" rx="4" fill="#ffffff" stroke="#991b1b" stroke-width="1.2"/>
+<text x="386.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Мобільний віджет</text>
+<text x="386.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">/widget/p/42</text>
+<line x1="386.0" y1="243.0" x2="386.0" y2="274.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="46.0" y="276.0" width="400.0" height="100.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="246.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподілені крайові вузли (Edge PoPs)</text>
+<text x="246.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">Потрібно N окремих викликів PURGE на кожен URL</text>
+<text x="246.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Або ресурсомісткий wildcard-перебір префіксів</text>
+<text x="246.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Ризик: пропущений URL віддає застарілу ціну</text>
+<rect x="46.0" y="391.0" width="400.0" height="85.0" rx="5" fill="#fee2e2" stroke="#f87171" stroke-width="1.1"/>
+<text x="58.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="start" font-weight="700">Властивості URL-інвалідації:</text>
+<text x="58.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Складність росте як O(Кількість представлень)</text>
+<text x="58.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Бекенд повинен знати всі згенеровані URL-маршрути</text>
+<text x="58.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Масовий Purge створює навантаження на API CDN</text>
+<rect x="494.0" y="26.0" width="440.0" height="470.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.4"/>
+<text x="714.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#15803d" text-anchor="middle" font-weight="700">Сурогатні ключі (Surrogate-Key / Cache-Tag)</text>
+<text x="714.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Семантична інвалідація за спільним тегом сутності</text>
+<rect x="594.0" y="94.0" width="240.0" height="52.0" rx="5" fill="#ffffff" stroke="#16a34a" stroke-width="1.3"/>
+<text x="714.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Бекенд (Origin)</text>
+<text x="714.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Surrogate-Key: prod-42 cat-phones</text>
+<line x1="714.0" y1="146.0" x2="714.0" y2="191.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="564.0" y="191.0" width="300.0" height="52.0" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="1.3"/>
+<text x="714.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Єдиний виклик: PURGE /key/prod-42</text>
+<text x="714.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Один виклик атомарно інвалідує всі пов'язані URL</text>
+<line x1="714.0" y1="243.0" x2="714.0" y2="274.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="514.0" y="276.0" width="400.0" height="100.0" rx="5" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="714.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крайовий індекс тегів (Edge Tag Inverted Index)</text>
+<text x="714.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ключ «prod-42» зіставляється з адресами в пам'яті:</text>
+<text x="714.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">['/p/42-phone', '/api/v1/p/42', '/widget/p/42']</text>
+<text x="714.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Миттєве скидання за O(1) або O(k) без перебору диску</text>
+<rect x="514.0" y="391.0" width="400.0" height="85.0" rx="5" fill="#ecfdf5" stroke="#86efac" stroke-width="1.1"/>
+<text x="526.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="start" font-weight="700">Властивості сурогатних ключів:</text>
+<text x="526.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Складність інвалідації: O(1) за єдиним тегом сутності</text>
+<text x="526.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Повна декомпозиція: бекенду байдуже до структури URL</text>
+<text x="526.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Підтримка ієрархій (за товаром, за брендом, за категорією)</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="960.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="490.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контур зворотного зв'язку автоматичного масштабування (Autoscaling Control Loop)</text>
+<rect x="40.0" y="70.0" width="210.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="145.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">1. Збір показників</text>
+<text x="145.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">CPU / Memory (cgroups)</tspan><tspan x="145.0" dy="14.9">RPS / In-flight (Ingress)</tspan><tspan x="145.0" dy="14.9">Довжина черги (Kafka/SQS)</tspan></text>
+<rect x="380.0" y="70.0" width="210.0" height="110.0" rx="6" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.6"/>
+<text x="485.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c026d3" text-anchor="middle" font-weight="700">2. Оцінка формули</text>
+<text x="485.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">Експоненційне згладжування</tspan><tspan x="485.0" dy="14.9">Ціль: ceil[N · (M_curr / M_target)]</tspan><tspan x="485.0" dy="14.9">Зона нечутливості (±10%)</tspan></text>
+<rect x="720.0" y="70.0" width="210.0" height="110.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="825.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">3. Захисні бар'єри</text>
+<text x="825.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Межі: [MinReplicas, MaxReplicas]</tspan><tspan x="825.0" dy="14.9">Вікно стабілізації (Cooldown)</tspan><tspan x="825.0" dy="14.9">Ліміт швидкості зміни (Rate limit)</tspan></text>
+<line x1="255.0" y1="125.0" x2="375.0" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="315.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Телеметрія</text>
+<line x1="595.0" y1="125.0" x2="715.0" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="655.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бажаний N</text>
+<rect x="720.0" y="270.0" width="210.0" height="110.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.6"/>
+<text x="825.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#059669" text-anchor="middle" font-weight="700">4. Оркестрація змін</text>
+<text x="825.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">API Server (Scale deployment)</tspan><tspan x="825.0" dy="14.9">Provisioning / Deprovisioning</tspan><tspan x="825.0" dy="14.9">Graceful drain старих подів</tspan></text>
+<line x1="825.0" y1="185.0" x2="825.0" y2="265.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="890.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Затверджений N</text>
+<rect x="380.0" y="270.0" width="210.0" height="110.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text x="485.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#475569" text-anchor="middle" font-weight="700">5. Пул обчислень</text>
+<text x="485.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">Нові екземпляри прогріваються</tspan><tspan x="485.0" dy="14.9">Балансувальник додає IP в пул</tspan><tspan x="485.0" dy="14.9">Навантаження на вузол падає</tspan></text>
+<line x1="715.0" y1="325.0" x2="595.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="655.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Запуск / Стоп</text>
+<rect x="40.0" y="270.0" width="210.0" height="110.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+<text x="145.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#dc2626" text-anchor="middle" font-weight="700">6. Вхідний трафік</text>
+<text x="145.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">Динамічний потік клієнтів</tspan><tspan x="145.0" dy="14.9">Розподіл по здорових репліках</tspan><tspan x="145.0" dy="14.9">Зміна навантаження на ядро</tspan></text>
+<line x1="375.0" y1="325.0" x2="255.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="315.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розподіл запитів</text>
+<line x1="145.0" y1="265.0" x2="145.0" y2="185.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="70.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Новий стан</text>
+<rect x="30.0" y="415.0" width="920.0" height="80.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="48.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Ключові інваріанти надійного контуру:</text>
+<text x="48.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Період зняття метрик (15-30 с) задає мінімальну затримку виявлення сплеску</text>
+<text x="48.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Згладжування та гістерезис захищають від флапінгу при коротких імпульсах навантаження</text>
+</svg>

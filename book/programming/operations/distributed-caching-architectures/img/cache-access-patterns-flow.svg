@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="25.0" y="20.0" width="290.0" height="450.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="51.5" y="28.0" width="237.0" height="34.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="49.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">1. Cache-Aside (Осторонь)</tspan></text>
+<rect x="45.0" y="80.0" width="250.0" height="45.0" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="170.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосунок (Клієнт)</text>
+<rect x="45.0" y="185.0" width="250.0" height="45.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="170.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Розподілений Кеш</text>
+<rect x="45.0" y="290.0" width="250.0" height="45.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">База даних (СУБД)</text>
+<line x1="95.0" y1="125.0" x2="95.0" y2="185.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="80.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1. Get</text>
+<line x1="245.0" y1="125.0" x2="245.0" y2="290.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="265.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2. Miss: SQL</text>
+<line x1="225.0" y1="125.0" x2="225.0" y2="185.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="200.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">3. Set</text>
+<rect x="40.0" y="355.0" width="260.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="50.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Кешуються лише запитані дані</text>
+<text x="50.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• При записі: оновлення БД</text>
+<text x="50.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">  і видалення (Delete) з кешу</text>
+<text x="50.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Стійкість до падіння кешу</text>
+<rect x="340.0" y="20.0" width="290.0" height="450.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="349.1" y="28.0" width="271.7" height="34.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="485.0" y="49.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700"><tspan x="485.0" dy="0.0">2. Write-Through (Наскрізний)</tspan></text>
+<rect x="360.0" y="80.0" width="250.0" height="45.0" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="485.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосунок (Клієнт)</text>
+<rect x="360.0" y="185.0" width="250.0" height="45.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="485.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Кеш-Шлюз (Inline)</text>
+<rect x="360.0" y="290.0" width="250.0" height="45.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="485.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">База даних (СУБД)</text>
+<line x1="485.0" y1="125.0" x2="485.0" y2="185.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="520.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1. Write(K,V)</text>
+<line x1="485.0" y1="230.0" x2="485.0" y2="290.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="535.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2. Синхронний Save</text>
+<rect x="355.0" y="355.0" width="260.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="365.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Дані в кеші завжди свіжі</text>
+<text x="365.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Кеш сам пише у СУБД</text>
+<text x="365.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• Висока затримка запису (RTT)</text>
+<text x="365.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Засмічення рідкісними даними</text>
+<rect x="655.0" y="20.0" width="290.0" height="450.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="664.1" y="28.0" width="271.7" height="34.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="49.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">3. Write-Behind (Асинхронний)</tspan></text>
+<rect x="675.0" y="80.0" width="250.0" height="45.0" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="800.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосунок (Клієнт)</text>
+<rect x="675.0" y="185.0" width="250.0" height="45.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="800.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Кеш + Черга змін</text>
+<text x="800.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">[Dirty Queue]</text>
+<rect x="675.0" y="290.0" width="250.0" height="45.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="800.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">База даних (СУБД)</text>
+<line x1="715.0" y1="125.0" x2="715.0" y2="185.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="700.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1. Write</text>
+<line x1="775.0" y1="185.0" x2="775.0" y2="125.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="800.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. Ack (швидко)</text>
+<line x1="800.0" y1="230.0" x2="800.0" y2="290.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="855.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">3. Асинхронний батч</text>
+<rect x="670.0" y="355.0" width="260.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="680.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Максимальна швидкість запису</text>
+<text x="680.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Злиття частих оновлень (Batch)</text>
+<text x="680.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Ризик втрати даних при збої</text>
+<text x="680.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Складність відновлення черги</text>
+</svg>

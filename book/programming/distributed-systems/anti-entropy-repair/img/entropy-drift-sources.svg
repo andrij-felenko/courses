@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерела накопичення ентропії у безлідерному кластері</text>
+<rect x="20.0" y="50.0" width="245.0" height="305.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="142.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Запис при W=2 (N=3)</text>
+<rect x="35.0" y="95.0" width="215.0" height="45.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="142.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнт: Set(k, v2)</text>
+<text x="142.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Координатор надсилає 3 запити</text>
+<rect x="35.0" y="155.0" width="215.0" height="36.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="142.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Репліка 1: ОК (v2 записано)</text>
+<rect x="35.0" y="198.0" width="215.0" height="36.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="142.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Репліка 2: ОК (v2 записано)</text>
+<rect x="35.0" y="241.0" width="215.0" height="42.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="142.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Репліка 3: ЗБІЙ МЕРЕЖІ</text>
+<text x="142.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Оновлення v2 пропущено</text>
+<rect x="35.0" y="295.0" width="215.0" height="48.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="142.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кворум W=2 досягнуто:</text>
+<text x="142.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Клієнт отримав успіх 200 OK</text>
+<line x1="268.0" y1="202.0" x2="295.0" y2="202.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="298.0" y="50.0" width="245.0" height="305.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Відкладена передача</text>
+<rect x="313.0" y="95.0" width="215.0" height="60.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="420.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер натяків (Hints)</text>
+<text x="420.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зберігає пропущені мутації</text>
+<text x="420.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">для Репліки 3 локально</text>
+<line x1="420.0" y1="160.0" x2="420.0" y2="185.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="313.0" y="190.0" width="215.0" height="65.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="420.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ліміт часу / пам'яті:</text>
+<text x="420.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">max_hint_window (3 год)</text>
+<text x="420.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Натяки скинуто на диск/стерто</text>
+<rect x="313.0" y="270.0" width="215.0" height="73.0" rx="5" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+<text x="420.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c2410c" text-anchor="middle" font-weight="700">Наслідок вичерпання:</text>
+<text x="420.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Репліка 3 оживає, але</text>
+<text x="420.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">не отримує пропущених оновлень</text>
+<line x1="546.0" y1="202.0" x2="573.0" y2="202.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="576.0" y="50.0" width="224.0" height="305.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="688.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Сліпа зона читання</text>
+<rect x="588.0" y="95.0" width="200.0" height="75.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="688.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Гарячі дані (~5%)</text>
+<text x="688.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Часто читаються клієнтами</text>
+<text x="688.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Лагодяться через Read Repair</text>
+<rect x="588.0" y="185.0" width="200.0" height="158.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="688.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Холодні дані (~95%)</text>
+<text x="688.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Рідко або ніколи не читаються</text>
+<text x="688.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ентропія лишається!</text>
+<text x="688.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">При падінні Репліки 1 чи 2</text>
+<text x="688.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">кворум R=2 прочитає стару v1</text>
+<text x="688.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">із Репліки 3 (мовчазний збій)</text>
+</svg>

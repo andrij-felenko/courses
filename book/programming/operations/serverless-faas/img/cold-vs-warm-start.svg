@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія затримки: холодний запуск проти теплого повторного виклику</text>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія затримки: холодний запуск проти теплого повторного виклику</text>
+<rect x="24.0" y="60.0" width="912.0" height="185.0" rx="8" fill="#fdfaf6" stroke="#e8c49e" stroke-width="1.3"/>
+<text x="42.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Холодний старт (Cold Start) — перше звертання або масштабування вгору (загалом ≈ 350–1500 мс)</text>
+<rect x="42.0" y="105.0" width="195.0" height="62.0" rx="5" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="139.5" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Виділення пісочниці</text>
+<text x="139.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">MicroVM / cgroup (30–80 мс)</text>
+<line x1="237.0" y1="136.0" x2="257.0" y2="136.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="261.0" y="105.0" width="205.0" height="62.0" rx="5" fill="#fff3e0" stroke="#e67e22" stroke-width="1.2"/>
+<text x="363.5" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Завантаження коду</text>
+<text x="363.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Fetch zip / image (50–250 мс)</text>
+<line x1="466.0" y1="136.0" x2="486.0" y2="136.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="490.0" y="105.0" width="220.0" height="62.0" rx="5" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="600.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Ініціалізація середовища</text>
+<text x="600.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">JVM/V8, імпорти, DB-клієнт</text>
+<line x1="710.0" y1="136.0" x2="730.0" y2="136.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="734.0" y="105.0" width="170.0" height="62.0" rx="5" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="819.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Обробник (Invoke)</text>
+<text x="819.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">handler(event, ctx)</text>
+<text x="44.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Платформа виконує повний ланцюг: виділення пісочниці, розгортання артефакту, запуск VM і статичні імпорти.</text>
+<text x="44.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Оптимізації: знімки пам'яті (SnapStart/Firecracker), мінімальний розмір артефакту, скомпільовані мови (Go/Rust/C++).</text>
+<rect x="24.0" y="265.0" width="912.0" height="190.0" rx="8" fill="#f4faf6" stroke="#a3d9b8" stroke-width="1.3"/>
+<text x="42.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Теплий старт (Warm Start) — повторний виклик у живій прогрітій пісочниці (загалом ≈ 5–25 мс)</text>
+<rect x="42.0" y="310.0" width="428.0" height="62.0" rx="5" fill="#eef2f5" stroke="#cbd5e1" stroke-width="1.1"/>
+<text x="256.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Пропущено: пісочниця вже створена, образ змонтовано</text>
+<text x="256.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Фази 1 і 2 не виконуються повторно</text>
+<line x1="470.0" y1="341.0" x2="490.0" y2="341.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="494.0" y="310.0" width="220.0" height="62.0" rx="5" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="604.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збережений глобальний стан</text>
+<text x="604.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Пул з'єднань, кеші в пам'яті (0 мс)</text>
+<line x1="714.0" y1="341.0" x2="734.0" y2="341.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="738.0" y="310.0" width="170.0" height="62.0" rx="5" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="823.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обробник (Invoke)</text>
+<text x="823.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">handler(event, ctx) (5–20 мс)</text>
+<text x="44.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Пісочниця залишається «теплою» протягом 5–30 хв бездіяльності. Повторні запити йдуть безпосередньо в обробник.</text>
+<text x="44.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">Увага: будь-який збережений стан (з'єднання, локальний кеш) зникає при масштабуванні в 0 або заміні пісочниці.</text>
+</svg>

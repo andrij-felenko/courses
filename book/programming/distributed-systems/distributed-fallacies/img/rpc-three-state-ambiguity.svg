@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три стани невизначеності мережевого виклику</text>
+<rect x="10.0" y="10.0" width="980.0" height="360.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три стани невизначеності при мережевому таймауті</text>
+<rect x="35.0" y="60.0" width="290.0" height="255.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="45.0" y="72.0" width="270.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="180.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сценарій А: Запит втрачено</text>
+<text x="180.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Мережа скинула пакет до сервера</text>
+<text x="55.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="55.0" dy="0.0">1. Запит відправлено клієнтом</tspan><tspan x="55.0" dy="15.8">2. Пакет дропнуто в комутаторі</tspan><tspan x="55.0" dy="15.8">3. Сервер НЕ отримав запит</tspan><tspan x="55.0" dy="15.8">4. Стан сервера: НЕ змінено</tspan><tspan x="55.0" dy="15.8">5. Клієнт фіксує: Timeout Error</tspan></text>
+<rect x="355.0" y="60.0" width="290.0" height="255.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="365.0" y="72.0" width="270.0" height="48.0" rx="4" fill="#fff3cd" stroke="#27ae60" stroke-width="1.2"/>
+<text x="500.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Сценарій Б: Збій під час обробки</text>
+<text x="500.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Сервер упав під час виконання</text>
+<text x="375.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="375.0" dy="0.0">1. Запит успішно доставлено</tspan><tspan x="375.0" dy="15.8">2. Сервер почав транзакцію</tspan><tspan x="375.0" dy="15.8">3. Сервер упав / OOM / паніка</tspan><tspan x="375.0" dy="15.8">4. Стан сервера: частково змінено</tspan><tspan x="375.0" dy="15.8">5. Клієнт фіксує: Timeout Error</tspan></text>
+<rect x="675.0" y="60.0" width="290.0" height="255.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="685.0" y="72.0" width="270.0" height="48.0" rx="4" fill="#d4edda" stroke="#c0392b" stroke-width="1.2"/>
+<text x="820.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сценарій В: Відповідь втрачено</text>
+<text x="820.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Мережа скинула ACK/Response</text>
+<text x="695.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="695.0" dy="0.0">1. Запит успішно виконано</tspan><tspan x="695.0" dy="15.8">2. Сервер закомітив стан</tspan><tspan x="695.0" dy="15.8">3. Відповідь втрачено на звороті</tspan><tspan x="695.0" dy="15.8">4. Стан сервера: ПОВНІСТЮ змінено</tspan><tspan x="695.0" dy="15.8">5. Клієнт фіксує: Timeout Error</tspan></text>
+<rect x="30.0" y="328.0" width="940.0" height="32.0" rx="4" fill="#f8d7da" stroke="#c0392b" stroke-width="1.0"/>
+<text x="500.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Висновок клієнта однаковий («Timeout»), але стан бази даних діаметрально протилежний!</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезис та захист від брязкання (flapping)</text>
+<rect x="101.0" y="150.0" width="778.0" height="120.0" rx="6" fill="#fdfbf7" stroke="none" stroke-width="1.5"/>
+<text x="860.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">Зона гістерезису: стан не змінюється</text>
+<line x1="100.0" y1="360.0" x2="880.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="878.0" y1="360.0" x2="882.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="870.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Час (t) →</text>
+<line x1="100.0" y1="360.0" x2="100.0" y2="80.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="100.0" y1="82.0" x2="100.0" y2="78.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="90.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Метрика</text>
+<line x1="100.0" y1="150.0" x2="880.0" y2="150.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="105.7" y="124.5" width="208.6" height="15.0" rx="6" fill="#fff" stroke="none" stroke-width="1.5"/><text x="210.0" y="135.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Порог активації (T_fire = 85%)</tspan></text>
+<line x1="100.0" y1="270.0" x2="880.0" y2="270.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="95.5" y="280.5" width="229.1" height="15.0" rx="6" fill="#fff" stroke="none" stroke-width="1.5"/><text x="210.0" y="291.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Порог деактивації (T_clear = 75%)</tspan></text>
+<path d="M 100.0 310.0 L 160.0 290.0 L 220.0 200.0 L 280.0 130.0 L 340.0 175.0 L 400.0 140.0 L 460.0 210.0 L 520.0 165.0 L 580.0 225.0 L 640.0 285.0 L 700.0 295.0 L 760.0 320.0 L 820.0 310.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="280.0" cy="130.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="266.4" y="89.5" width="107.2" height="31.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="320.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="320.0" dy="0.0">Алерт FIRING</tspan><tspan x="320.0" dy="13.0">(перетин T_fire)</tspan></text>
+<circle cx="640.0" cy="285.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="574.0" y="319.5" width="132.0" height="31.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Алерт RESOLVED</tspan><tspan x="640.0" dy="13.0">(спад нижче T_clear)</tspan></text>
+<text x="480.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Гістерезис вимагає падіння нижче T_clear для зняття алерту, запобігаючи нескінченному спаму.</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перетин кворумів запису та читання за формулою R + W &gt; N</text>
+<text x="480.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гарантований перетин множин: R + W &gt; N (N = 5, W = 3, R = 3)</text>
+<rect x="60.0" y="140.0" width="140.0" height="90.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="130.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 1</text>
+<text x="130.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">v2 (новий)</text>
+<rect x="235.0" y="140.0" width="140.0" height="90.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="305.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 2</text>
+<text x="305.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">v2 (новий)</text>
+<rect x="410.0" y="140.0" width="140.0" height="90.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="480.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 3</text>
+<text x="480.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">v2 (новий)</text>
+<rect x="585.0" y="140.0" width="140.0" height="90.0" rx="8" fill="#fef9e7" stroke="#d35400" stroke-width="2.0"/>
+<text x="655.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 4</text>
+<text x="655.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">v1 (старий)</text>
+<rect x="760.0" y="140.0" width="140.0" height="90.0" rx="8" fill="#fef9e7" stroke="#d35400" stroke-width="2.0"/>
+<text x="830.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 5</text>
+<text x="830.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">v1 (старий)</text>
+<rect x="50.0" y="95.0" width="510.0" height="28.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="305.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Кворум запису W = 3 (вузли 1, 2, 3 отримали v2)</text>
+<rect x="400.0" y="248.0" width="510.0" height="28.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="655.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Кворум читання R = 3 (вузли 3, 4, 5 опитано)</text>
+<rect x="406.0" y="136.0" width="148.0" height="98.0" rx="10" fill="none" stroke="#27ae60" stroke-width="3.0"/>
+<text x="480.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол 3 належить обом кворумам (|W ∩ R| ≥ 1)</text>
+<text x="480.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Читач бачить версії {v2, v1, v1} і обирає найсвіжішу v2</text>
+</svg>

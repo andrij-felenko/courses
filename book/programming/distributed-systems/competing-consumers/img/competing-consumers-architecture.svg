@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 495" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="495" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="310.0" y="30.0" width="440.0" height="420.0" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="530.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#334155" text-anchor="middle" font-weight="700">Брокер повідомлень (Message Broker)</text>
+<rect x="30.0" y="110.0" width="190.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="125.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">Продюсер A</tspan><tspan x="125.0" dy="15.6">(HTTP API / Web)</tspan></text>
+<rect x="30.0" y="240.0" width="190.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="125.0" y="266.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">Продюсер B</tspan><tspan x="125.0" dy="15.6">(Background Job)</tspan></text>
+<line x1="220.0" y1="140.0" x2="340.0" y2="180.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="280.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Publish</text>
+<line x1="220.0" y1="270.0" x2="340.0" y2="220.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="280.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Publish</text>
+<rect x="340.0" y="110.0" width="380.0" height="160.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="530.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільна черга (Shared Queue / Channel)</text>
+<rect x="360.0" y="155.0" width="50.0" height="40.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.3"/>
+<text x="385.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">M5</text>
+<rect x="420.0" y="155.0" width="50.0" height="40.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.3"/>
+<text x="445.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">M4</text>
+<rect x="480.0" y="155.0" width="50.0" height="40.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.3"/>
+<text x="505.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">M3</text>
+<rect x="540.0" y="155.0" width="50.0" height="40.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.3"/>
+<text x="565.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">M2</text>
+<rect x="600.0" y="155.0" width="50.0" height="40.0" rx="4" fill="#fef9e7" stroke="#333333" stroke-width="1.3"/>
+<text x="625.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">M1</text>
+<line x1="660.0" y1="175.0" x2="700.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="530.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">← Буфер FIFO (готова до видачі черга) ←</text>
+<text x="530.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Диспетчер брокера: роздає повідомлення рівно одному воркеру</text>
+<rect x="340.0" y="320.0" width="380.0" height="105.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="530.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Мертва черга (Dead Letter Queue — DLQ)</text>
+<rect x="360.0" y="360.0" width="340.0" height="48.0" rx="6" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/><text x="530.0" y="380.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Отруйні повідомлення (перевищено ліміт спроб)</tspan><tspan x="530.0" dy="14.3">Збереження для ручного аудиту й виправлення</tspan></text>
+<rect x="830.0" y="70.0" width="240.0" height="60.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="950.0" y="96.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="950.0" dy="0.0">Воркер 1 (Інстанс A)</tspan><tspan x="950.0" dy="15.6">[Обробка M1] ⚡</tspan></text>
+<rect x="830.0" y="180.0" width="240.0" height="60.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="950.0" y="206.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="950.0" dy="0.0">Воркер 2 (Інстанс B)</tspan><tspan x="950.0" dy="15.6">[Обробка M2] ⚡</tspan></text>
+<rect x="830.0" y="290.0" width="240.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="950.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="950.0" dy="0.0">Воркер 3 (Інстанс C)</tspan><tspan x="950.0" dy="15.6">[Вільний / Очікує]</tspan></text>
+<line x1="720.0" y1="160.0" x2="830.0" y2="100.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="780.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">M1</text>
+<line x1="720.0" y1="180.0" x2="830.0" y2="210.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="780.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">M2</text>
+<line x1="830.0" y1="120.0" x2="720.0" y2="140.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="775.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ACK (успіх)</text>
+<line x1="830.0" y1="230.0" x2="720.0" y2="350.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="790.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">NACK → DLQ</text>
+<rect x="30.0" y="440.0" width="1060.0" height="35.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/><text x="560.0" y="461.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Патерн Competing Consumers: спільна черга дозволяє горизонтально масштабувати пул воркерів без зміни продюсерів.</tspan></text>
+</svg>

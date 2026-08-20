@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секціонування топіка та паралелізм груп споживачів</text>
+<rect x="15.0" y="15.0" width="970.0" height="410.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секціонування топіка (Partitioning) та паралелізм груп споживачів (Consumer Groups)</text>
+<rect x="30.0" y="70.0" width="180.0" height="335.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="120.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Продюсери</text>
+<rect x="45.0" y="120.0" width="150.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="120.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключ: user_42</text>
+<text x="120.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">hash(key) % 4 = 0</text>
+<rect x="45.0" y="200.0" width="150.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="120.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключ: user_99</text>
+<text x="120.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">hash(key) % 4 = 2</text>
+<rect x="45.0" y="280.0" width="150.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="120.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Без ключа (null)</text>
+<text x="120.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Round-Robin / Sticky</text>
+<rect x="240.0" y="70.0" width="340.0" height="335.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Топік: orders (4 секції / партиції)</text>
+<rect x="255.0" y="130.0" width="310.0" height="50.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.2"/>
+<text x="315.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція 0 (Partition 0)</text>
+<rect x="390.0" y="142.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="404.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="422.0" y="142.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="436.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="454.0" y="142.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="468.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="486.0" y="142.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="500.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="518.0" y="142.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="532.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="255.0" y="195.0" width="310.0" height="50.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="315.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція 1 (Partition 1)</text>
+<rect x="390.0" y="207.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="404.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="422.0" y="207.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="436.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="454.0" y="207.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="468.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="486.0" y="207.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="500.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="518.0" y="207.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="532.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="255.0" y="260.0" width="310.0" height="50.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="315.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція 2 (Partition 2)</text>
+<rect x="390.0" y="272.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="404.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="422.0" y="272.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="436.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="454.0" y="272.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="468.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="486.0" y="272.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="500.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="518.0" y="272.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="532.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="255.0" y="325.0" width="310.0" height="50.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="315.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція 3 (Partition 3)</text>
+<rect x="390.0" y="337.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="404.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="422.0" y="337.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="436.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="454.0" y="337.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="468.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="486.0" y="337.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="500.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="518.0" y="337.0" width="28.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="532.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4</text>
+<line x1="195.0" y1="150.0" x2="255.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="230.0" x2="255.0" y2="285.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="310.0" x2="255.0" y2="220.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="610.0" y="70.0" width="360.0" height="160.0" rx="6" fill="#f0f9ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="790.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Група споживачів: order-processing-group</text>
+<text x="790.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 воркери ділять по 2 секції між собою</text>
+<rect x="625.0" y="125.0" width="160.0" height="90.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="705.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Воркер 1 (Інстанс A)</text>
+<text x="705.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Обслуговує: Секція 0, 1</text>
+<text x="705.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Гарантія порядку в межах ключа</text>
+<rect x="795.0" y="125.0" width="160.0" height="90.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="875.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Воркер 2 (Інстанс B)</text>
+<text x="875.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Обслуговує: Секція 2, 3</text>
+<text x="875.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Гарантія порядку в межах ключа</text>
+<line x1="565.0" y1="155.0" x2="625.0" y2="170.0" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="565.0" y1="285.0" x2="795.0" y2="170.0" stroke="#2457d6" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="610.0" y="245.0" width="360.0" height="160.0" rx="6" fill="#fdf4ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="790.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="middle" font-weight="700">Група споживачів: audit-and-archive-group</text>
+<text x="790.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 воркер вичитує всі 4 секції незалежно</text>
+<rect x="680.0" y="300.0" width="220.0" height="90.0" rx="4" fill="#ffffff" stroke="#9333ea" stroke-width="1.0"/>
+<text x="790.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Воркер аудиту (DWH / Data Lake)</text>
+<text x="790.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9333ea" text-anchor="middle">Читає Секції 0, 1, 2, 3 одночасно</text>
+<text x="790.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Власні незалежні зсуви (offsets)</text>
+<line x1="565.0" y1="350.0" x2="680.0" y2="350.0" stroke="#9333ea" stroke-width="1.3" marker-end="url(#arrow)"/>
+</svg>

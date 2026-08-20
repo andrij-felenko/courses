@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="15.0" width="1100.0" height="495.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="570.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній конвеєр транслятора повідомлень (Pipeline Stages)</text>
+<text x="570.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Послідовна обробка вхідного пакету від сирих байтів до канонічного контракту та DLQ</text>
+<rect x="45.0" y="100.0" width="190.0" height="190.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="140.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Ingress &amp; Unwrap</text>
+<text x="140.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розпакування</text>
+<text x="140.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">конверта</text>
+<line x1="60.0" y1="180.0" x2="220.0" y2="180.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="140.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Заголовки, трасування,</text>
+<text x="140.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">витяг тіла payload</text>
+<rect x="255.0" y="100.0" width="190.0" height="190.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="350.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Syntax Parse</text>
+<text x="350.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парсинг синтаксису</text>
+<text x="350.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">й типів</text>
+<line x1="270.0" y1="180.0" x2="430.0" y2="180.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="350.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">JSON/XML десеріалізація,</text>
+<text x="350.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">перевірка формату</text>
+<rect x="465.0" y="100.0" width="190.0" height="190.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.4"/>
+<text x="560.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Semantic Map</text>
+<text x="560.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Семантичний мапінг</text>
+<text x="560.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">і збагачення</text>
+<line x1="480.0" y1="180.0" x2="640.0" y2="180.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="560.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Конверсія одиниць, мапінг enum,</text>
+<text x="560.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">нормалізація ID</text>
+<rect x="675.0" y="100.0" width="190.0" height="190.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.4"/>
+<text x="770.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Canonical DTO</text>
+<text x="770.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канонічна валідація</text>
+<text x="770.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">й DTO</text>
+<line x1="690.0" y1="180.0" x2="850.0" y2="180.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="770.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Контроль інваріантів,</text>
+<text x="770.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">побудова чистого об'єкта</text>
+<rect x="885.0" y="100.0" width="190.0" height="190.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.4"/>
+<text x="980.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Egress Serialize</text>
+<text x="980.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Серіалізація у цільовий</text>
+<text x="980.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">формат</text>
+<line x1="900.0" y1="180.0" x2="1060.0" y2="180.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="980.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Упаковка в Protobuf/Avro,</text>
+<text x="980.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">відправка в чергу/топік</text>
+<line x1="235.0" y1="195.0" x2="255.0" y2="195.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="445.0" y1="195.0" x2="465.0" y2="195.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="655.0" y1="195.0" x2="675.0" y2="195.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="865.0" y1="195.0" x2="885.0" y2="195.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Вхідний пакет (JSON/XML)</text>
+<text x="980.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Цільова черга (Protobuf)</text>
+<rect x="255.0" y="330.0" width="610.0" height="95.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="560.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Карантин помилок: Мертва черга (Dead Letter Queue, DLQ)</text>
+<text x="560.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Фіксація причини збою: пошкоджений синтаксис, невідомий enum, відсутні обов'язкові поля</text>
+<text x="560.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Оригінальні байти збережено + контекст помилки + трасування (Traceparent)</text>
+<line x1="350.0" y1="290.0" x2="350.0" y2="330.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="395.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка парсингу</text>
+<line x1="560.0" y1="290.0" x2="560.0" y2="330.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="620.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Семантичний збій</text>
+<line x1="770.0" y1="290.0" x2="770.0" y2="330.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="825.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Порушення інваріанту</text>
+<rect x="45.0" y="445.0" width="1050.0" height="50.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/><text x="570.0" y="473.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Ключове правило надійності: транслятор ніколи не ковтає помилки мовчки та не запускає нескінченні повтори для невалідних даних — пошкоджений пакет ізолюється в DLQ із діагностичним контекстом.</tspan></text>
+</svg>

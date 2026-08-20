@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Аномалії реплікаційного лагу: Read-Your-Own-Writes та Monotonic Reads</text>
+<rect x="75.0" y="60.0" width="130.0" height="32.0" rx="4" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="140.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Клієнт (Браузер)</text>
+<line x1="140.0" y1="95.0" x2="140.0" y2="480.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="355.0" y="60.0" width="130.0" height="32.0" rx="4" fill="#ef4444" stroke="#ef4444" stroke-width="1.0"/>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Primary (Лідер)</text>
+<line x1="420.0" y1="95.0" x2="420.0" y2="480.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="615.0" y="60.0" width="130.0" height="32.0" rx="4" fill="#22c55e" stroke="#22c55e" stroke-width="1.0"/>
+<text x="680.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Репліка 1 (Лаг 50мс)</text>
+<line x1="680.0" y1="95.0" x2="680.0" y2="480.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="805.0" y="60.0" width="130.0" height="32.0" rx="4" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="870.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Репліка 2 (Лаг 800мс)</text>
+<line x1="870.0" y1="95.0" x2="870.0" y2="480.0" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="30.0" y="110.0" width="900.0" height="175.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="50.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="start" font-weight="700">Аномалія 1: Порушення читання власних записів (Read-Your-Own-Writes)</text>
+<line x1="140.0" y1="150.0" x2="420.0" y2="165.0" stroke="#b91c1c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">1. UPDATE users SET name='Олена'</text>
+<rect x="416.0" y="170.0" width="8.0" height="20.0" rx="6" fill="#ef4444" stroke="#333333" stroke-width="1.5"/>
+<line x1="420.0" y1="190.0" x2="140.0" y2="200.0" stroke="#15803d" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">2. Commit OK (200 OK)</text>
+<line x1="140.0" y1="215.0" x2="680.0" y2="235.0" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">3. Редирект на профіль: SELECT name</text>
+<line x1="680.0" y1="250.0" x2="140.0" y2="265.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">4. Результат: name='Марія' (Застарілі дані! Лаг WAL)</text>
+<rect x="30.0" y="305.0" width="900.0" height="185.0" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="1.2"/>
+<text x="50.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="start" font-weight="700">Аномалія 2: Порушення монотонного читання (Ефект «подорожі назад у часі»)</text>
+<line x1="140.0" y1="345.0" x2="680.0" y2="360.0" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">1. Запит 1: SELECT comment_count</text>
+<line x1="680.0" y1="375.0" x2="140.0" y2="390.0" stroke="#15803d" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">2. Відповідь: 5 коментарів (Репліка 1 наздогнала стан)</text>
+<line x1="140.0" y1="410.0" x2="870.0" y2="435.0" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="425.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">3. Оновлення сторінки (F5) → Запит потрапляє на Репліку 2</text>
+<line x1="870.0" y1="450.0" x2="140.0" y2="470.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="425.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">4. Відповідь: 3 коментарі (Коментарі «зникли» через вищий лаг)</text>
+</svg>

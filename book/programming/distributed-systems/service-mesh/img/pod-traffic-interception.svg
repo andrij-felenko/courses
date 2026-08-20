@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях мережевого пакета у Pod: перехоплення правилами iptables</text>
+<rect x="40.0" y="55.0" width="920.0" height="440.0" rx="8" fill="#fcfdfe" stroke="#333333" stroke-width="1.5"/>
+<text x="70.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Мережевий простір імен Pod (Network Namespace)</text>
+<rect x="70.0" y="231.2" width="100.0" height="57.6" rx="6" fill="#e8f0ff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="249.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Мережевий</tspan><tspan x="120.0" dy="14.3">інтерфейс</tspan><tspan x="120.0" dy="14.3">eth0</tspan></text>
+<rect x="215.0" y="131.2" width="170.0" height="57.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="149.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">iptables PREROUTING</tspan><tspan x="300.0" dy="14.3">(PREROUTING chain)</tspan><tspan x="300.0" dy="14.3">REDIRECT → 15006</tspan></text>
+<rect x="215.0" y="331.2" width="170.0" height="57.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="349.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">iptables OUTPUT</tspan><tspan x="300.0" dy="14.3">(OUTPUT chain)</tspan><tspan x="300.0" dy="14.3">REDIRECT → 15001</tspan></text>
+<rect x="440.0" y="110.0" width="240.0" height="330.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="560.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Envoy Sidecar Proxy</text>
+<rect x="465.0" y="163.0" width="190.0" height="54.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="560.0" y="180.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Ingress Listener</tspan><tspan x="560.0" dy="13.0">(Порт 15006)</tspan><tspan x="560.0" dy="13.0">mTLS термінація, AuthZ</tspan></text>
+<rect x="465.0" y="254.5" width="190.0" height="41.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="560.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Фільтри L7 (HTTP/gRPC)</tspan><tspan x="560.0" dy="13.0">Трейсинг, Метрики, RBAC</tspan></text>
+<rect x="465.0" y="343.0" width="190.0" height="54.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="560.0" y="360.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Egress Listener</tspan><tspan x="560.0" dy="13.0">(Порт 15001)</tspan><tspan x="560.0" dy="13.0">Маршрутизація, Ретраї, CB</tspan></text>
+<rect x="740.0" y="150.0" width="190.0" height="240.0" rx="6" fill="#fff8e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="835.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">App Container</text>
+<rect x="753.9" y="238.3" width="162.2" height="43.3" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="835.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">Бізнес-логіка</tspan><tspan x="835.0" dy="14.3">(Слухає 127.0.0.1:8080)</tspan></text>
+<text x="835.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Не знає про мережу,
+mTLS чи сертифікати</text>
+<line x1="175.0" y1="230.0" x2="215.0" y2="175.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="175.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1. Вхідний TCP</text>
+<line x1="385.0" y1="160.0" x2="460.0" y2="180.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="415.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">2. Порт 15006</text>
+<line x1="660.0" y1="190.0" x2="750.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="710.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">3. Чистий HTTP (lo:8080)</text>
+<line x1="750.0" y1="280.0" x2="390.0" y2="360.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="580.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">4. Вихідний виклик на віддалений IP</text>
+<line x1="385.0" y1="370.0" x2="460.0" y2="370.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="415.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">5. Порт 15001</text>
+<line x1="460.0" y1="400.0" x2="180.0" y2="280.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">6. mTLS назовні (eth0)</text>
+</svg>

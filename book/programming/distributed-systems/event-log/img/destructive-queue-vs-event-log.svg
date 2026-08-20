@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння черги повідомлень та незмінного журналу подій</text>
+<rect x="15.0" y="15.0" width="470.0" height="390.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="250.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Традиційна черга: руйнівне вичитування</text>
+<rect x="42.5" y="91.3" width="95.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Продюсер</tspan><tspan x="90.0" dy="14.3">(Producer)</tspan></text>
+<rect x="170.0" y="80.0" width="160.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга (Queue)</text>
+<rect x="180.0" y="108.0" width="30.0" height="24.0" rx="6" fill="#e8f0fe" stroke="#333333" stroke-width="1.0"/>
+<text x="195.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">M3</text>
+<rect x="215.0" y="108.0" width="30.0" height="24.0" rx="6" fill="#e8f0fe" stroke="#333333" stroke-width="1.0"/>
+<text x="230.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">M2</text>
+<rect x="250.0" y="108.0" width="30.0" height="24.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="265.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">M1</text>
+<text x="250.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">Вичитане M1 видаляється (ACK)</text>
+<line x1="140.0" y1="110.0" x2="165.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="335.0" y1="110.0" x2="365.0" y2="110.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="370.0" y="91.3" width="90.0" height="37.3" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="415.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="415.0" dy="0.0">Консюмер A</tspan><tspan x="415.0" dy="14.3">(Billing)</tspan></text>
+<rect x="170.0" y="200.0" width="160.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дубльована черга</text>
+<rect x="180.0" y="228.0" width="30.0" height="24.0" rx="6" fill="#e8f0fe" stroke="#333333" stroke-width="1.0"/>
+<text x="195.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">M3</text>
+<rect x="215.0" y="228.0" width="30.0" height="24.0" rx="6" fill="#e8f0fe" stroke="#333333" stroke-width="1.0"/>
+<text x="230.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">M2</text>
+<rect x="250.0" y="228.0" width="30.0" height="24.0" rx="6" fill="#e8f0fe" stroke="#333333" stroke-width="1.0"/>
+<text x="265.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">M1</text>
+<line x1="90.0" y1="140.0" x2="165.0" y2="230.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="335.0" y1="230.0" x2="365.0" y2="230.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="370.0" y="211.3" width="90.0" height="37.3" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="415.0" y="226.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="415.0" dy="0.0">Консюмер B</tspan><tspan x="415.0" dy="14.3">(Analytics)</tspan></text>
+<line x1="30.0" y1="290.0" x2="470.0" y2="290.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="250.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Дані зникають після обробки (немає replay)</text>
+<text x="250.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✗ Новий сервіс потребує дублювання черг (Fan-out)</text>
+<text x="250.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✗ Накопичення мільйонів повідомлень сповільнює брокер</text>
+<text x="250.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✗ Конкурентні споживачі ламають порядок повідомлень</text>
+<rect x="515.0" y="15.0" width="470.0" height="390.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="750.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Журнал подій: незмінний персистентний лог</text>
+<rect x="527.5" y="91.3" width="85.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">Продюсер</tspan><tspan x="570.0" dy="14.3">(Producer)</tspan></text>
+<rect x="630.0" y="80.0" width="260.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="760.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Append-Only Log (Послідовний запис)</text>
+<rect x="638.0" y="106.0" width="38.0" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="657.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">off:0</text>
+<rect x="680.0" y="106.0" width="38.0" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="699.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">off:1</text>
+<rect x="722.0" y="106.0" width="38.0" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="741.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">off:2</text>
+<rect x="764.0" y="106.0" width="38.0" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="783.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">off:3</text>
+<rect x="806.0" y="106.0" width="38.0" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="825.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">off:4</text>
+<rect x="848.0" y="106.0" width="38.0" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="867.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">off:5</text>
+<line x1="615.0" y1="110.0" x2="635.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="785.0" y="160.0" width="140.0" height="45.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="855.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Консюмер A (Billing)</text>
+<text x="855.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Поточний offset: 4</text>
+<line x1="855.0" y1="160.0" x2="825.0" y2="135.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="640.0" y="220.0" width="150.0" height="45.0" rx="4" fill="#fff3cd" stroke="#c0392b" stroke-width="1.2"/>
+<text x="715.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Консюмер B (Analytics / ML)</text>
+<text x="715.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Читає історію: offset 1</text>
+<line x1="715.0" y1="220.0" x2="700.0" y2="135.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="290.0" x2="970.0" y2="290.0" stroke="#6b7280" stroke-width="0.8"/>
+<text x="750.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Дані не видаляються при читанні (Non-destructive)</text>
+<text x="750.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✓ Незалежні вказівники зсуву (Offset) для кожного сервісу</text>
+<text x="750.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✓ Можливість перемотування часу назад (Time travel / Replay)</text>
+<text x="750.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✓ Послідовний I/O на диску: швидкість 100+ MB/s на HDD / GB/s на SSD</text>
+</svg>

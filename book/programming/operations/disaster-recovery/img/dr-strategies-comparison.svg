@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Класифікація стратегій аварійного відновлення за ціною та швидкістю</text>
+<rect x="28.0" y="65.0" width="214.0" height="320.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<rect x="28.0" y="65.0" width="214.0" height="42.0" rx="6" fill="#475569" stroke="#475569" stroke-width="1.5"/>
+<text x="135.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">1. Backup &amp; Restore</text>
+<text x="135.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f8fafc" text-anchor="middle">Холодний старт</text>
+<rect x="38.0" y="117.0" width="194.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="135.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">RPO: 12-24 год</tspan><tspan x="135.0" dy="14.9">RTO: 8-24+ год</tspan><tspan x="135.0" dy="14.9">Вартість: $</tspan></text>
+<text x="135.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Бекапи у хмарне сховище (S3).</tspan><tspan x="135.0" dy="14.7">Інфраструктура створюється з нуля</tspan><tspan x="135.0" dy="14.7">через IaC лише після аварії.</tspan></text>
+<line x1="43.0" y1="305.0" x2="227.0" y2="305.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="135.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">Сховище: пасивне</text>
+<rect x="256.0" y="65.0" width="214.0" height="320.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="256.0" y="65.0" width="214.0" height="42.0" rx="6" fill="#2563eb" stroke="#2563eb" stroke-width="1.5"/>
+<text x="363.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">2. Pilot Light</text>
+<text x="363.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f8fafc" text-anchor="middle">Запальник</text>
+<rect x="266.0" y="117.0" width="194.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="363.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="363.0" dy="0.0">RPO: секунди / хвилини</tspan><tspan x="363.0" dy="14.9">RTO: 30-60 хв</tspan><tspan x="363.0" dy="14.9">Вартість: $$</tspan></text>
+<text x="363.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="363.0" dy="0.0">БД реплікується асинхронно у DR.</tspan><tspan x="363.0" dy="14.7">Сервери застосунків вимкнені.</tspan><tspan x="363.0" dy="14.7">Підйом обчислень за шаблоном.</tspan></text>
+<line x1="271.0" y1="305.0" x2="455.0" y2="305.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="363.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">БД: гаряча, CPU: 0%</text>
+<rect x="484.0" y="65.0" width="214.0" height="320.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<rect x="484.0" y="65.0" width="214.0" height="42.0" rx="6" fill="#16a34a" stroke="#16a34a" stroke-width="1.5"/>
+<text x="591.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">3. Warm Standby</text>
+<text x="591.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f8fafc" text-anchor="middle">Теплий резерв</text>
+<rect x="494.0" y="117.0" width="194.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="591.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="591.0" dy="0.0">RPO: мілісекунди</tspan><tspan x="591.0" dy="14.9">RTO: 5-15 хв</tspan><tspan x="591.0" dy="14.9">Вартість: $$$</tspan></text>
+<text x="591.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="591.0" dy="0.0">Зменшений дубль системи постійно</tspan><tspan x="591.0" dy="14.7">працює у DR. Обробляє мінімум трафіку.</tspan><tspan x="591.0" dy="14.7">Автоскейл до 100% за хвилини.</tspan></text>
+<line x1="499.0" y1="305.0" x2="683.0" y2="305.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="591.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">БД: гаряча, CPU: 20%</text>
+<rect x="712.0" y="65.0" width="214.0" height="320.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+<rect x="712.0" y="65.0" width="214.0" height="42.0" rx="6" fill="#dc2626" stroke="#dc2626" stroke-width="1.5"/>
+<text x="819.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">4. Active-Active</text>
+<text x="819.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f8fafc" text-anchor="middle">Гарячий кластер</text>
+<rect x="722.0" y="117.0" width="194.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="819.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="819.0" dy="0.0">RPO: ≈ 0 (синхронно)</tspan><tspan x="819.0" dy="14.9">RTO: ≈ 0 (миттєво)</tspan><tspan x="819.0" dy="14.9">Вартість: $$$$$</tspan></text>
+<text x="819.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="819.0" dy="0.0">Обидва регіони обслуговують трафік.</tspan><tspan x="819.0" dy="14.7">Глобальне балансування (GSLB).</tspan><tspan x="819.0" dy="14.7">Складне розв'язання конфліктів.</tspan></text>
+<line x1="727.0" y1="305.0" x2="911.0" y2="305.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="819.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">БД: Master-Master</text>
+<rect x="28.0" y="405.0" width="904.0" height="50.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<line x1="50.0" y1="430.0" x2="900.0" y2="430.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="870.0" y1="430.0" x2="910.0" y2="430.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="50.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">Низька вартість інфраструктури, довгий простій</text>
+<text x="905.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="end" font-weight="700">Висока вартість, нульовий простій (Zero-RPO/RTO)</text>
+</svg>

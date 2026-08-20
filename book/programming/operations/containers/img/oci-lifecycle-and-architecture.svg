@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="32.0" y="50.0" width="195.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.8"/>
+<text x="129.5" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">1. OCI Image Spec</text>
+<text x="129.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="129.5" dy="0.0">Реєстр образів</tspan><tspan x="129.5" dy="14.2">Manifest + Config JSON</tspan><tspan x="129.5" dy="14.2">Tar-архіви шарів (blobs)</tspan></text>
+<line x1="230.0" y1="137.5" x2="259.0" y2="137.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="262.0" y="50.0" width="195.0" height="175.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="359.5" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">2. High-Level Runtime</text>
+<text x="359.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="359.5" dy="0.0">containerd / CRI-O</tspan><tspan x="359.5" dy="14.2">Завантаження tar-шарів</tspan><tspan x="359.5" dy="14.2">Монтування rootfs</tspan><tspan x="359.5" dy="14.2">Генерація config.json</tspan></text>
+<line x1="460.0" y1="137.5" x2="489.0" y2="137.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="492.0" y="50.0" width="195.0" height="175.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="589.5" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">3. Low-Level Runtime</text>
+<text x="589.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="589.5" dy="0.0">runc / crun (OCI Runtime)</tspan><tspan x="589.5" dy="14.2">Створення cgroups v2</tspan><tspan x="589.5" dy="14.2">Виклик clone() з CLONE_NEW*</tspan><tspan x="589.5" dy="14.2">pivot_root() + seccomp</tspan></text>
+<line x1="690.0" y1="137.5" x2="719.0" y2="137.5" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="722.0" y="50.0" width="195.0" height="175.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.8"/>
+<text x="819.5" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9333ea" text-anchor="middle" font-weight="700">4. Виконання процесу</text>
+<text x="819.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="819.5" dy="0.0">Контейнерний процес</tspan><tspan x="819.5" dy="14.2">PID 1 у власному NS</tspan><tspan x="819.5" dy="14.2">Знижені Capabilities</tspan><tspan x="819.5" dy="14.2">Виклик execve(binary)</tspan></text>
+<rect x="30.0" y="255.0" width="900.0" height="145.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="480.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Стандартизовані контракти Відкритої ініціативи контейнерів (Open Container Initiative)</text>
+<rect x="48.0" y="295.0" width="270.0" height="90.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="183.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">OCI Image Format Specification</text>
+<text x="183.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="183.0" dy="0.0">Визначає формат тарболів шарів,</tspan><tspan x="183.0" dy="12.3">схему маніфесту (schema2/oci),</tspan><tspan x="183.0" dy="12.3">геші SHA256 та дескриптори.</tspan></text>
+<rect x="343.0" y="295.0" width="270.0" height="90.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="478.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">OCI Runtime Specification</text>
+<text x="478.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="478.0" dy="0.0">Визначає структуру OCI Bundle:</tspan><tspan x="478.0" dy="12.3">кореневий каталог rootfs та</tspan><tspan x="478.0" dy="12.3">декларативний файл config.json.</tspan></text>
+<rect x="638.0" y="295.0" width="270.0" height="90.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.2"/>
+<text x="773.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">OCI Distribution Specification</text>
+<text x="773.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="773.0" dy="0.0">HTTP API для пушу, пулу,</tspan><tspan x="773.0" dy="12.3">перевірки автентичності та</tspan><tspan x="773.0" dy="12.3">вивантаження blob-об'єктів.</tspan></text>
+</svg>

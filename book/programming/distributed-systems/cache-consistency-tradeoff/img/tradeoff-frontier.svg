@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компроміс між свіжістю даних та навантаженням на джерело правди</text>
+<line x1="90.0" y1="450.0" x2="830.0" y2="450.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="450.0" x2="90.0" y2="70.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="810.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вікно застарілості даних (Δt / толерантність до stale reads) →</text>
+<text x="105.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Навантаження на БД / Латентність мутацій ↑</text>
+<path d="M 130 120 Q 210 355, 770 435" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+<circle cx="140.0" cy="160.0" r="6.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="171.7" y="114.2" width="256.5" height="51.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="129.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Сувора узгодженість (2PC / Synchronous)</tspan><tspan x="300.0" dy="14.3">Δt = 0 · Максимальне навантаження БД</tspan><tspan x="300.0" dy="14.3">Висока латентність запису, блокування</tspan></text>
+<line x1="146.0" y1="157.0" x2="171.7" y2="145.0" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="245.0" cy="310.0" r="6.0" fill="#d97706" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="233.6" y="209.2" width="262.8" height="51.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="365.0" y="224.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">Event-driven інвалідація (CDC / Pub-Sub)</tspan><tspan x="365.0" dy="14.3">Δt ≈ 10-100 мс · Середнє навантаження</tspan><tspan x="365.0" dy="14.3">Ризик гонок оновлення та stampede</tspan></text>
+<line x1="249.0" y1="304.0" x2="233.6" y2="255.0" stroke="#d97706" stroke-width="1.5"/>
+<circle cx="450.0" cy="390.0" r="7.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="431.2" y="284.2" width="257.5" height="51.6" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="299.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">Оптимальний фронтир (XFetch / SWR)</tspan><tspan x="560.0" dy="14.3">Керована застарілість (Δt = секунди)</tspan><tspan x="560.0" dy="14.3">Нуль лавин (0 stampede), захист БД</tspan></text>
+<line x1="454.0" y1="384.0" x2="431.2" y2="330.0" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="700.0" cy="428.0" r="6.0" fill="#2457d6" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="584.9" y="332.2" width="250.3" height="51.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="710.0" y="347.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Довгий пасивний TTL</tspan><tspan x="710.0" dy="14.3">Δt = хвилини або години</tspan><tspan x="710.0" dy="14.3">Мінімальний тиск на БД, застарілий кеш</tspan></text>
+<line x1="696.0" y1="422.0" x2="584.9" y2="378.0" stroke="#2457d6" stroke-width="1.5"/>
+</svg>

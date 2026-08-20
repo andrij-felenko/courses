@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нестрогий кворум зберігає доступність запису, а передача натяків відновлює дім</text>
+<text x="480.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нестрогий кворум (Sloppy Quorum) та передача натяків (Hinted Handoff)</text>
+<rect x="40.0" y="65.0" width="420.0" height="290.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="250.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 1: Домашній вузол C недоступний</text>
+<rect x="60.0" y="130.0" width="110.0" height="45.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="115.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A (v2)</text>
+<rect x="60.0" y="190.0" width="110.0" height="45.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="115.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B (v2)</text>
+<rect x="60.0" y="250.0" width="110.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="115.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вузол C (Дім)</text>
+<text x="115.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ВІДМОВА</text>
+<rect x="240.0" y="250.0" width="200.0" height="50.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="2.0"/>
+<text x="340.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Вузол D (Сусід / Handoff)</text>
+<text x="340.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Зберігає v2 з натяком «для C»</text>
+<line x1="170.0" y1="272.0" x2="240.0" y2="272.0" stroke="#d35400" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Запис прийнято: W=3 зібрано з {A, B, D}</text>
+<rect x="500.0" y="65.0" width="420.0" height="290.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="710.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 2: Вузол C ожив, передача натяку</text>
+<rect x="520.0" y="130.0" width="180.0" height="50.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="610.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол D (тримав натяк)</text>
+<text x="610.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Знаходить v2 з міткою C</text>
+<rect x="730.0" y="130.0" width="170.0" height="50.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="815.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол C (Ожив)</text>
+<text x="815.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Приймає v2 у рідне місце</text>
+<line x1="700.0" y1="155.0" x2="730.0" y2="155.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="715.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Передача</text>
+<rect x="520.0" y="210.0" width="380.0" height="75.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="710.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Після успішної передачі:</text>
+<text x="710.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Вузол C повністю наздогнав актуальний стан</text>
+<text x="710.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Вузол D видаляє локальну копію-натяк</text>
+<text x="710.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Відновлено строгий кворум домашніх реплік {A, B, C}</text>
+</svg>

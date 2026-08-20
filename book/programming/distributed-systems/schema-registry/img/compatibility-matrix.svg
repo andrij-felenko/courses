@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця режимів сумісності схем</text>
+<rect x="15.0" y="15.0" width="970.0" height="350.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режими сумісності схем та правила оновлення сервісів</text>
+<rect x="20.0" y="70.0" width="300.0" height="270.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">BACKWARD (Зворотна)</text>
+<line x1="35.0" y1="107.0" x2="305.0" y2="107.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="35.0" y="118.0" width="270.0" height="38.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="170.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">Reader(нова) читає Writer(стара)</tspan></text>
+<text x="170.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Хто оновлюється першим:</text>
+<text x="170.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Споживачі (Consumers)</text>
+<line x1="35.0" y1="210.0" x2="305.0" y2="210.0" stroke="#6b7280" stroke-width="0.6"/>
+<text x="170.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дозволені операції над схемою:</text>
+<text x="45.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="45.0" dy="0.0">• Видалення полів</tspan><tspan x="45.0" dy="12.3">• Додавання необов'язкових</tspan><tspan x="45.0" dy="12.3">  полів зі значенням за замовчуванням</tspan><tspan x="45.0" dy="12.3">• Заборонено: нові обов'язкові поля</tspan></text>
+<rect x="350.0" y="70.0" width="300.0" height="270.0" rx="6" fill="#fff3cd" stroke="#856404" stroke-width="1.5"/>
+<text x="500.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">FORWARD (Пряма)</text>
+<line x1="365.0" y1="107.0" x2="635.0" y2="107.0" stroke="#856404" stroke-width="1.0"/>
+<rect x="365.0" y="118.0" width="270.0" height="38.0" rx="4" fill="#ffffff" stroke="#856404" stroke-width="0.8"/>
+<text x="500.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#856404" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Reader(стара) читає Writer(нова)</tspan></text>
+<text x="500.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Хто оновлюється першим:</text>
+<text x="500.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Продюсери (Producers)</text>
+<line x1="365.0" y1="210.0" x2="635.0" y2="210.0" stroke="#6b7280" stroke-width="0.6"/>
+<text x="500.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дозволені операції над схемою:</text>
+<text x="375.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="375.0" dy="0.0">• Додавання нових полів</tspan><tspan x="375.0" dy="12.3">• Видалення необов'язкових</tspan><tspan x="375.0" dy="12.3">  полів (зі старим дефолтом)</tspan><tspan x="375.0" dy="12.3">• Заборонено: видаляти обов'язкові</tspan></text>
+<rect x="680.0" y="70.0" width="300.0" height="270.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="830.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">FULL (Повна двостороння)</text>
+<line x1="695.0" y1="107.0" x2="965.0" y2="107.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="695.0" y="118.0" width="270.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="830.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="830.0" dy="0.0">Reader(нова) ↔ Writer(стара)</tspan><tspan x="830.0" dy="12.0">і Reader(стара) ↔ Writer(нова)</tspan></text>
+<text x="830.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Хто оновлюється першим:</text>
+<text x="830.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будь-який (незалежно)</text>
+<line x1="695.0" y1="210.0" x2="965.0" y2="210.0" stroke="#6b7280" stroke-width="0.6"/>
+<text x="830.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дозволені операції над схемою:</text>
+<text x="705.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="705.0" dy="0.0">• Додавання лише полів із дефолтом</tspan><tspan x="705.0" dy="12.3">• Видалення лише полів із дефолтом</tspan><tspan x="705.0" dy="12.3">• Найвища безпека для мікросервісів</tspan><tspan x="705.0" dy="12.3">• Canary / Blue-Green релізи</tspan></text>
+</svg>

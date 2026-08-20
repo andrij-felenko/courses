@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="15.0" width="1100.0" height="490.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="570.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Транзакційні межі Message Endpoint: Outbox і Inbox патерни</text>
+<rect x="40.0" y="75.0" width="430.0" height="405.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="255.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Відправник: Transactional Outbox Endpoint</text>
+<rect x="60.0" y="130.0" width="390.0" height="120.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="255.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Єдина локальна транзакція БД (ACID Commit)</text>
+<rect x="75.0" y="168.0" width="165.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="157.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бізнес-таблиця</text>
+<text x="157.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">INSERT INTO orders ...</text>
+<rect x="270.0" y="168.0" width="165.0" height="65.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="352.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Таблиця Outbox</text>
+<text x="352.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">INSERT INTO outbox_msg ...</text>
+<rect x="60.0" y="270.0" width="390.0" height="80.0" rx="5" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="255.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фоновий релей (CDC / Outbox Poller)</text>
+<text x="255.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Вичитує нові повідомлення з таблиці outbox_msg</text>
+<text x="255.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. Публікує в брокер → 3. Видаляє/позначає як відправлені</text>
+<line x1="255.0" y1="250.0" x2="255.0" y2="270.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="365.0" width="390.0" height="100.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.1"/><text x="255.0" y="400.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Подолання проблеми Dual-Write:</tspan><tspan x="255.0" dy="11.7">Неможливо атомарно зберегти запис у БД і зробити `channel.publish()` у мережу.</tspan><tspan x="255.0" dy="11.7">Outbox Endpoint гарантує: якщо замовлення збережено в БД, повідомлення</tspan><tspan x="255.0" dy="11.7">ГАРАНТОВАНО потрапить у чергу (At-least-once delivery).</tspan></text>
+<rect x="490.0" y="190.0" width="160.0" height="140.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/>
+<text x="570.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Брокер черг</text>
+<text x="570.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Kafka / RabbitMQ</text>
+<text x="570.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">At-least-once</text>
+<text x="570.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">(Можливі дублікати)</text>
+<line x1="450.0" y1="305.0" x2="485.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="280.0" x2="685.0" y2="305.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="670.0" y="75.0" width="430.0" height="405.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="885.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Отримувач: Idempotent Inbox Endpoint</text>
+<rect x="690.0" y="130.0" width="390.0" height="120.0" rx="5" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="885.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Вхідний фільтр дедуплікації (Inbox Table)</text>
+<text x="885.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Перевірка: SELECT 1 FROM inbox WHERE msg_id = ?</text>
+<text x="885.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2. Якщо існує → миттєвий ACK без виклику бізнес-домену (Дубль!)</text>
+<text x="885.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">3. Якщо нове → відкриття транзакції та виклик OrderService</text>
+<rect x="690.0" y="270.0" width="390.0" height="80.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="885.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Атомарне виконання та фіксація</text>
+<text x="885.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">INSERT INTO inbox (msg_id, processed_at) VALUES (?, NOW())</text>
+<text x="885.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">UPDATE accounts SET balance = balance - amount ...</text>
+<line x1="885.0" y1="250.0" x2="885.0" y2="270.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="690.0" y="365.0" width="390.0" height="100.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.1"/><text x="885.0" y="400.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="885.0" dy="0.0">Ефективна семантика Exactly-Once на рівні бізнесу:</tspan><tspan x="885.0" dy="11.7">Комбінація Outbox на стороні відправника та Idempotent Inbox на стороні отримувача</tspan><tspan x="885.0" dy="11.7">нівелює недоліки ненадійних мереж та повторних доставок.</tspan><tspan x="885.0" dy="11.7">Доменне ядро отримує кожну бізнес-подію рівно один раз.</tspan></text>
+</svg>

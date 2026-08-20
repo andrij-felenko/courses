@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр обробки SOAP-запиту: перевірка заголовків, схеми та генерація Fault</text>
+<rect x="40.0" y="65.0" width="145.0" height="60.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="112.5" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. HTTP POST</text>
+<text x="112.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка Content-Type</text>
+<text x="112.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та SOAPAction</text>
+<rect x="205.0" y="65.0" width="145.0" height="60.0" rx="6" fill="#ffffff" stroke="#b08900" stroke-width="1.6"/>
+<text x="277.5" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b08900" text-anchor="middle" font-weight="700">2. Заголовки</text>
+<text x="277.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Аналіз mustUnderstand</text>
+<text x="277.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усіх блоків Header</text>
+<rect x="370.0" y="65.0" width="145.0" height="60.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="442.5" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. Валідація</text>
+<text x="442.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка Body за</text>
+<text x="442.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">XSD-схемою WSDL</text>
+<rect x="535.0" y="65.0" width="145.0" height="60.0" rx="6" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="607.5" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b1fa2" text-anchor="middle" font-weight="700">4. Виконання</text>
+<text x="607.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виклик сервісу та</text>
+<text x="607.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">бізнес-правил</text>
+<rect x="700.0" y="65.0" width="145.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="772.5" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">5. Результат</text>
+<text x="772.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">200 OK з успішним</text>
+<text x="772.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">&lt;soap:Body&gt;</text>
+<line x1="185.0" y1="95.0" x2="205.0" y2="95.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="95.0" x2="370.0" y2="95.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="515.0" y1="95.0" x2="535.0" y2="95.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="95.0" x2="700.0" y2="95.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="190.0" y="195.0" width="175.0" height="130.0" rx="6" fill="#fffaf9" stroke="#c0392b" stroke-width="1.4"/>
+<text x="277.5" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">soap:MustUnderstand</text>
+<text x="200.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Невідомий заголовок з</text>
+<text x="200.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">mustUnderstand=&quot;1&quot;</text>
+<text x="200.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Сервер зобов'язаний</text>
+<text x="200.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">перервати обробку</text>
+<text x="200.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">HTTP 500 (1.1) / 500 (1.2)</text>
+<rect x="380.0" y="195.0" width="175.0" height="130.0" rx="6" fill="#fffaf9" stroke="#c0392b" stroke-width="1.4"/>
+<text x="467.5" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">soap:Client / Sender</text>
+<text x="390.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Помилка XSD-схеми або</text>
+<text x="390.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">некоректні аргументи</text>
+<text x="390.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Клієнт надіслав хибні</text>
+<text x="390.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">дані запиту</text>
+<text x="390.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">HTTP 500 (1.1) / 400 (1.2)</text>
+<rect x="570.0" y="195.0" width="175.0" height="130.0" rx="6" fill="#fffaf9" stroke="#c0392b" stroke-width="1.4"/>
+<text x="657.5" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">soap:Server / Receiver</text>
+<text x="580.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Внутрішній збій сервісу,</text>
+<text x="580.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">бази даних чи мережі</text>
+<text x="580.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Помилка на стороні</text>
+<text x="580.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">сервера обробки</text>
+<text x="580.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">HTTP 500 (1.1) / 500 (1.2)</text>
+<line x1="277.5" y1="125.0" x2="277.5" y2="193.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="442.5" y1="125.0" x2="467.5" y2="193.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="607.5" y1="125.0" x2="657.5" y2="193.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="190.0" y="345.0" width="555.0" height="40.0" rx="5" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="467.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Формування уніфікованого XML &lt;soap:Fault&gt; з кодом, причиною та блоком &lt;detail&gt;</text>
+<line x1="277.5" y1="325.0" x2="277.5" y2="343.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="467.5" y1="325.0" x2="467.5" y2="343.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="657.5" y1="325.0" x2="657.5" y2="343.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="430.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Будь-який збій на шляху обробки формує суворий стандартизований конверт Fault із деталями помилки</text>
+</svg>

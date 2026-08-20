@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="340.0" y="30.0" width="280.0" height="65.0" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2.0"/>
+<text x="480.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#065f46" text-anchor="middle" font-weight="700">Контейнеризований процес</text>
+<text x="480.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle">Звичайний процес ядра (task_struct)</text>
+<rect x="30.0" y="120.0" width="280.0" height="280.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="170.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">1. Простори назв (Namespaces)</text>
+<text x="170.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle">Ізоляція глобальних таблиць ядра</text>
+<rect x="45.0" y="180.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">PID — власне дерево процесів (PID 1)</text>
+<rect x="45.0" y="206.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">NET — свій IP, порти, veth, iptables</text>
+<rect x="45.0" y="232.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">MNT — власна таблиця монтувань VFS</text>
+<rect x="45.0" y="258.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">IPC — черги POSIX/SysV, семафори</text>
+<rect x="45.0" y="284.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">UTS — власні hostname та domainname</text>
+<rect x="45.0" y="310.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">USER — мапінг UID/GID (rootless)</text>
+<rect x="45.0" y="336.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">CGROUP — корінь дерева cgroups</text>
+<rect x="45.0" y="362.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="52.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start">TIME — зсув монотонного годинника</text>
+<rect x="340.0" y="120.0" width="280.0" height="280.0" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="480.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">2. Контрольні групи (cgroups v2)</text>
+<text x="480.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">Облік і жорсткі ліміти ресурсів</text>
+<rect x="355.0" y="180.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">cpu.max — квота часу CFS / період (тротлінг)</text>
+<rect x="355.0" y="206.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">cpu.weight — пропорційна частка (1–10000)</text>
+<rect x="355.0" y="232.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">memory.max — стеля RAM (виклик OOM killer)</text>
+<rect x="355.0" y="258.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">memory.high — поріг тротлінгу алокацій</text>
+<rect x="355.0" y="284.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">io.max — ліміти IOPS та байтів/с для дисків</text>
+<rect x="355.0" y="310.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">pids.max — захист від fork-бомб у контейнері</text>
+<rect x="355.0" y="336.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">cpu.pressure / memory.pressure — метрики PSI</text>
+<rect x="355.0" y="362.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="362.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="start">cgroup.freeze / cgroup.kill — групові операції</text>
+<rect x="650.0" y="120.0" width="280.0" height="280.0" rx="6" fill="#fdf2f8" stroke="#ec4899" stroke-width="1.5"/>
+<text x="790.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#be185d" text-anchor="middle" font-weight="700">3. Межі безпеки (Sandboxing)</text>
+<text x="790.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#db2777" text-anchor="middle">Зниження привілеїв і фільтрація</text>
+<rect x="665.0" y="180.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">Capabilities — дроп CAP_SYS_ADMIN, RAW_IO</text>
+<rect x="665.0" y="206.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">Seccomp-BPF — блокування небезпечних syscalls</text>
+<rect x="665.0" y="232.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">no_new_privs — заборона SUID-ескалації</text>
+<rect x="665.0" y="258.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">AppArmor / SELinux — обов'язковий контроль (MAC)</text>
+<rect x="665.0" y="284.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">Masked Paths — приховування /proc/kcore, /sys/firmware</text>
+<rect x="665.0" y="310.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">Read-Only Paths — захист /proc/sys, /proc/sysrq-trigger</text>
+<rect x="665.0" y="336.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">pivot_root — відсікання хостового VFS-кореня</text>
+<rect x="665.0" y="362.0" width="250.0" height="22.0" rx="3" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.0"/>
+<text x="672.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#831843" text-anchor="start">User Namespaces — root у контейнері = ніхто на хості</text>
+<line x1="400.0" y1="95.0" x2="170.0" y2="118.0" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="95.0" x2="480.0" y2="118.0" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="95.0" x2="790.0" y2="118.0" stroke="#ec4899" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

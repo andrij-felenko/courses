@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-97.5 -95.7 1037.5 575.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-97.5" y="-95.7" width="1037.5" height="575.7" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерполяція квантилів за кумулятивними кошиками гістограми</text>
+<text x="470.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кумулятивна гістограма та інтерполяція квантилів (p95)</text>
+<text x="470.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Кожен кошик рахує кількість спостережень &lt;= le (less or equal)</text>
+<line x1="60.0" y1="380.0" x2="900.0" y2="380.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="60.0" y1="380.0" x2="60.0" y2="90.0" stroke="#333333" stroke-width="2.0"/>
+<text x="50.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Кількість запитів (Count)</text>
+<line x1="55.0" y1="280.0" x2="60.0" y2="280.0" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">250</text>
+<line x1="60.0" y1="280.0" x2="900.0" y2="280.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="2 4"/>
+<line x1="55.0" y1="180.0" x2="60.0" y2="180.0" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">500</text>
+<line x1="60.0" y1="180.0" x2="900.0" y2="180.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="2 4"/>
+<line x1="55.0" y1="80.0" x2="60.0" y2="80.0" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">750</text>
+<line x1="60.0" y1="80.0" x2="900.0" y2="80.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="2 4"/>
+<line x1="55.0" y1="-20.0" x2="60.0" y2="-20.0" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="-16.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">1000</text>
+<line x1="60.0" y1="-20.0" x2="900.0" y2="-20.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="2 4"/>
+<rect x="105.0" y="310.0" width="70.0" height="70.0" rx="3" fill="#e0edff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">120</text>
+<text x="140.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">le=0.05</text>
+<text x="140.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(50ms)</text>
+<rect x="175.0" y="240.0" width="70.0" height="140.0" rx="3" fill="#e0edff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">250</text>
+<text x="210.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">le=0.1</text>
+<text x="210.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(100ms)</text>
+<rect x="275.0" y="140.0" width="70.0" height="240.0" rx="3" fill="#e0edff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="310.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">520</text>
+<text x="310.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">le=0.25</text>
+<text x="310.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(250ms)</text>
+<rect x="445.0" y="50.0" width="70.0" height="330.0" rx="3" fill="#e0edff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">840</text>
+<text x="480.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">le=0.5</text>
+<text x="480.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(500ms)</text>
+<rect x="615.0" y="0.0" width="70.0" height="380.0" rx="3" fill="#ffeedb" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="-8.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">960</text>
+<text x="650.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">le=1.0</text>
+<text x="650.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(1s)</text>
+<rect x="785.0" y="-20.0" width="70.0" height="400.0" rx="3" fill="#ffeedb" stroke="#c0392b" stroke-width="1.5"/>
+<text x="820.0" y="-28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1000</text>
+<text x="820.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">le=+Inf</text>
+<text x="820.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(+Inf)</text>
+<line x1="60.0" y1="0.0" x2="750.0" y2="0.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="760.0" y="4.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Ціль 95% = 950-й запит</text>
+<line x1="700.0" y1="-35.0" x2="650.0" y2="2.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="517.6" y="-85.7" width="404.7" height="41.3" rx="6" fill="#fffaf0" stroke="#c0392b" stroke-width="1.4"/><text x="720.0" y="-68.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Інтерполяція всередині кошика [0.5s .. 1.0s]:</tspan><tspan x="720.0" dy="14.3">Значення p95 ≈ 0.5s + (950-840)/(960-840) × 0.5s ≈ 0.958s</tspan></text>
+</svg>

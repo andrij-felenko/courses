@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="480.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="480.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Горизонти планування місткості: лаг постачання ресурсів проти темпу реакції</text>
+<rect x="40.0" y="70.0" width="265.0" height="390.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<rect x="40.0" y="70.0" width="265.0" height="42.0" rx="0" fill="#2563eb" stroke="none" stroke-width="1.5"/>
+<text x="172.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Швидкий контур (Секунди — Хвилини)</text>
+<text x="54.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Механізм:</text>
+<text x="54.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">HPA, KEDA, Serverless FaaS</text>
+<text x="54.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Одиниця ресурсу:</text>
+<text x="54.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Контейнери, процеси, поди</text>
+<text x="54.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Час надання (Lag):</text>
+<text x="54.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">500 мс — 3 хвилини</text>
+<text x="54.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Ціль планування:</text>
+<text x="54.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Поглинання добових піків</text>
+<text x="54.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">Головний ризик:</text>
+<text x="54.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Холодний старт (Cold Start),</text>
+<text x="54.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">тротлінг до розігріву пулу,</text>
+<text x="54.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">вичерпання пулу з'єднань БД.</text>
+<rect x="345.0" y="70.0" width="265.0" height="390.0" rx="8" fill="#fdf4ff" stroke="#c026d3" stroke-width="1.6"/>
+<rect x="345.0" y="70.0" width="265.0" height="42.0" rx="0" fill="#c026d3" stroke="none" stroke-width="1.5"/>
+<text x="477.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Тактичний контур (Години — Дні)</text>
+<text x="359.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#86198f" text-anchor="start" font-weight="700">Механізм:</text>
+<text x="359.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Cluster Autoscaler, Karpenter, Spot/On-demand VM</text>
+<text x="359.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#86198f" text-anchor="start" font-weight="700">Одиниця ресурсу:</text>
+<text x="359.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Віртуальні машини, дискові масиви</text>
+<text x="359.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#86198f" text-anchor="start" font-weight="700">Час надання (Lag):</text>
+<text x="359.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2 хвилини — 48 годин</text>
+<text x="359.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#86198f" text-anchor="start" font-weight="700">Ціль планування:</text>
+<text x="359.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Підготовка до промо-акцій</text>
+<text x="359.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#86198f" text-anchor="start" font-weight="700">Головний ризик:</text>
+<text x="359.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вичерпання хмарних квот</text>
+<text x="359.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(Cloud Service Quotas), нестача</text>
+<text x="359.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">інстансів потрібного типу в регіоні.</text>
+<rect x="655.0" y="70.0" width="265.0" height="390.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<rect x="655.0" y="70.0" width="265.0" height="42.0" rx="0" fill="#d97706" stroke="none" stroke-width="1.5"/>
+<text x="787.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Стратегічний контур (Тижні — Місяці)</text>
+<text x="669.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="start" font-weight="700">Механізм:</text>
+<text x="669.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Закупівлі заліза, оренда стійок, оптичні лінки</text>
+<text x="669.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="start" font-weight="700">Одиниця ресурсу:</text>
+<text x="669.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Серверні шафи, SAN, мережевий транзит</text>
+<text x="669.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="start" font-weight="700">Час надання (Lag):</text>
+<text x="669.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4 тижні — 6 місяців</text>
+<text x="669.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="start" font-weight="700">Ціль планування:</text>
+<text x="669.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Річний бюджетний прогноз росту</text>
+<text x="669.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="start" font-weight="700">Головний ризик:</text>
+<text x="669.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Затримки в ланцюгах постачання,</text>
+<text x="669.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">заморожування капіталу (CAPEX),</text>
+<text x="669.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">недовантаження або дефіцит заліза.</text>
+</svg>

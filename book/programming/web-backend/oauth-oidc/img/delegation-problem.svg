@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парольний антипатерн проти делегованого доступу</text>
+<rect x="24.0" y="50.0" width="430.0" height="360.0" rx="12" fill="#fffdfa" stroke="#c0392b" stroke-width="1.8"/>
+<text x="239.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Парольний антипатерн: довіра пароля клієнту</text>
+<rect x="44.0" y="110.0" width="110.0" height="64.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="99.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сторонній</text>
+<text x="99.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">застосунок</text>
+<rect x="184.0" y="110.0" width="110.0" height="64.0" rx="8" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.6"/>
+<text x="239.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Користувач</text>
+<text x="239.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">віддає логін+пароль</text>
+<rect x="324.0" y="110.0" width="110.0" height="64.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="379.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервер</text>
+<text x="379.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">з даними</text>
+<line x1="239.0" y1="174.0" x2="99.0" y2="174.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="99.0" y1="186.0" x2="379.0" y2="186.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="239.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">клієнт входить під іменем користувача</text>
+<rect x="44.0" y="226.0" width="390.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="239.0" y="248.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="239.0" dy="0.0">− Необмежені права: клієнт має доступ до ВСІХ даних акаунта</tspan></text>
+<rect x="44.0" y="270.0" width="390.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="239.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="239.0" dy="0.0">− Неможливо відкликати доступ без повної зміни пароля</tspan></text>
+<rect x="44.0" y="314.0" width="390.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="239.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="239.0" dy="0.0">− Злам стороннього застосунку розкриває головний пароль</tspan></text>
+<rect x="44.0" y="358.0" width="390.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="239.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="239.0" dy="0.0">− Клієнт мусить зберігати пароль у відкритому вигляді</tspan></text>
+<rect x="486.0" y="50.0" width="430.0" height="360.0" rx="12" fill="#f6fbf7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="701.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">OAuth 2.0: делегований доступ за токеном</text>
+<rect x="506.0" y="110.0" width="104.0" height="64.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="558.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сторонній</text>
+<text x="558.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">застосунок</text>
+<rect x="640.0" y="110.0" width="122.0" height="64.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="701.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сервер</text>
+<text x="701.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">авторизації</text>
+<rect x="792.0" y="110.0" width="104.0" height="64.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="844.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервер</text>
+<text x="844.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ресурсів (API)</text>
+<line x1="558.0" y1="174.0" x2="701.0" y2="174.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="558.0" y1="186.0" x2="844.0" y2="186.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="701.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">клієнт пред'являє лише обмежений токен</text>
+<rect x="506.0" y="226.0" width="390.0" height="38.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.3"/><text x="701.0" y="248.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="701.0" dy="0.0">+ Принцип найменших привілеїв: доступ лише до дозволених scopes</tspan></text>
+<rect x="506.0" y="270.0" width="390.0" height="38.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.3"/><text x="701.0" y="292.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="701.0" dy="0.0">+ Миттєве відкликання окремого токена без шкоди для пароля</tspan></text>
+<rect x="506.0" y="314.0" width="390.0" height="38.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.3"/><text x="701.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="701.0" dy="0.0">+ Пароль вводиться виключно на домені сервера авторизації</tspan></text>
+<rect x="506.0" y="358.0" width="390.0" height="38.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.3"/><text x="701.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="701.0" dy="0.0">+ Токен має короткий строк дії (TTL) та чітку аудиторію</tspan></text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будова сегментів та розрідженого індексу журналу</text>
+<rect x="15.0" y="15.0" width="970.0" height="350.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня будова секції: сегментні файли даних (.log) та розріджений індекс (.index)</text>
+<rect x="40.0" y="70.0" width="270.0" height="275.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.2"/>
+<text x="175.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сегмент 00000000000000000000</text>
+<text x="175.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус: Закритий (Read-Only)</text>
+<rect x="55.0" y="125.0" width="240.0" height="80.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="175.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">00000000000000000000.log</text>
+<text x="175.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Записи: offset 0 ... 9999</text>
+<text x="175.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Розмір: 1 ГБ (заповнено)</text>
+<text x="175.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Фізичний послідовний файл</text>
+<rect x="55.0" y="220.0" width="240.0" height="105.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="175.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">00000000000000000000.index</text>
+<text x="175.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розріджений індекс (Sparse Index)</text>
+<text x="175.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">off: 0 → byte: 0</text>
+<text x="175.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">off: 240 → byte: 4096</text>
+<text x="175.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">off: 512 → byte: 8192 ...</text>
+<rect x="340.0" y="70.0" width="620.0" height="275.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Активний сегмент 00000000000000010000 (Приймає нові записи)</text>
+<rect x="360.0" y="120.0" width="260.0" height="205.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="490.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Розріджений індекс: .index</text>
+<text x="490.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис кожні 4 КБ (index.interval.bytes)</text>
+<text x="430.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зсув (Offset)</text>
+<text x="545.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізична позиція (Pos)</text>
+<text x="430.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">10000</text>
+<text x="545.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0 B</text>
+<line x1="375.0" y1="204.0" x2="605.0" y2="204.0" stroke="#cbd5e1" stroke-width="0.5"/>
+<text x="430.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">10045</text>
+<text x="545.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4096 B  (4 KB)</text>
+<line x1="375.0" y1="224.0" x2="605.0" y2="224.0" stroke="#cbd5e1" stroke-width="0.5"/>
+<text x="430.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">10092</text>
+<text x="545.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">8192 B  (8 KB)</text>
+<line x1="375.0" y1="244.0" x2="605.0" y2="244.0" stroke="#cbd5e1" stroke-width="0.5"/>
+<text x="430.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">10140</text>
+<text x="545.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">12288 B (12 KB)</text>
+<line x1="375.0" y1="264.0" x2="605.0" y2="264.0" stroke="#cbd5e1" stroke-width="0.5"/>
+<text x="490.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Двійковий пошук у пам'яті (mmap) O(log N)</text>
+<rect x="650.0" y="120.0" width="290.0" height="205.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.2"/>
+<text x="795.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Файл даних: .log</text>
+<text x="795.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Послідовні бінарні фрейми повідомлень</text>
+<rect x="665.0" y="173.0" width="60.0" height="22.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="695.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 B</text>
+<rect x="730.0" y="173.0" width="195.0" height="22.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="827.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Offset 10000..10044 [4096 байт]</text>
+<rect x="665.0" y="201.0" width="60.0" height="22.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="695.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">4096 B</text>
+<rect x="730.0" y="201.0" width="195.0" height="22.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="827.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Offset 10045..10091 [4096 байт]</text>
+<rect x="665.0" y="229.0" width="60.0" height="22.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="695.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">8192 B</text>
+<rect x="730.0" y="229.0" width="195.0" height="22.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="827.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Offset 10092..10139 [4096 байт]</text>
+<rect x="665.0" y="257.0" width="60.0" height="22.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="695.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">12288 B</text>
+<rect x="730.0" y="257.0" width="195.0" height="22.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="827.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Offset 10140..10185 [Новий запис →]</text>
+<line x1="605.0" y1="220.0" x2="660.0" y2="213.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="632.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Прямий стрибок</text>
+</svg>

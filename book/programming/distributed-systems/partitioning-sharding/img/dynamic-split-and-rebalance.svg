@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми ребалансування: фіксовані слоти проти динамічного спліту</text>
+<rect x="40.0" y="55.0" width="425.0" height="375.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="40.0" y="55.0" width="425.0" height="40.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="252.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">А. Фіксовані слоти (Static Partitions)</text>
+<text x="252.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан 1: 2 вузли ділять 1024 фіксовані партиції</text>
+<rect x="60.0" y="130.0" width="185.0" height="60.0" rx="5" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="152.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол 1</text>
+<text x="152.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Слоти 0 .. 511 (512 шт)</text>
+<rect x="260.0" y="130.0" width="185.0" height="60.0" rx="5" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="352.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол 2</text>
+<text x="352.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Слоти 512 .. 1023 (512 шт)</text>
+<line x1="252.0" y1="198.0" x2="252.0" y2="228.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="335.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+ Додано Вузол 3</text>
+<text x="252.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан 2: Цілі слоти переїжджають без рехешування ключів</text>
+<rect x="55.0" y="260.0" width="120.0" height="60.0" rx="4" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="115.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол 1</text>
+<text x="115.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">341 слот</text>
+<rect x="190.0" y="260.0" width="120.0" height="60.0" rx="4" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="250.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол 2</text>
+<text x="250.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">341 слот</text>
+<rect x="325.0" y="260.0" width="120.0" height="60.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="385.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол 3 (Новий)</text>
+<text x="385.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">342 слоти</text>
+<rect x="55.0" y="335.0" width="395.0" height="80.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="252.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переваги фіксованих слотів:</text>
+<text x="252.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Кількість слотів незмінна (наприклад, 16 384 у Redis)</text>
+<text x="252.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Переміщуються готові директорії даних</text>
+<rect x="495.0" y="55.0" width="425.0" height="375.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="495.0" y="55.0" width="425.0" height="40.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="707.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Б. Динамічний поділ (Dynamic Range Split)</text>
+<text x="707.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан 1: Діапазон [A .. M] переростає ліміт 64 MB</text>
+<rect x="535.0" y="130.0" width="345.0" height="60.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="707.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Партиція 1: [A .. M] — 98 MB (Переповнення!)</text>
+<text x="707.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 1 автоматично знаходить медіанний ключ 'G'</text>
+<line x1="707.0" y1="198.0" x2="707.0" y2="228.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="795.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Автоматичний Split</text>
+<text x="707.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан 2: Розщеплення на дві рівні партиції по 49 MB</text>
+<rect x="515.0" y="260.0" width="180.0" height="60.0" rx="4" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="605.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Партиція 1a: [A .. G)</text>
+<text x="605.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Лишається на Вузлі 1</text>
+<rect x="720.0" y="260.0" width="180.0" height="60.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="810.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Партиція 1b: [G .. M]</text>
+<text x="810.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Мігрує на Вузол 2</text>
+<rect x="515.0" y="335.0" width="385.0" height="80.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="707.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переваги динамічного спліту:</text>
+<text x="707.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Розмір кожної партиції завжди під контролем</text>
+<text x="707.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• При зменшенні даних сусідні партиції зливаються (Merge)</text>
+</svg>

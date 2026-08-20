@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="320.0" y="35.0" width="320.0" height="105.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text x="480.0" y="59.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">L2 Комутатор (ToR Switch / OVS)</text>
+<text x="480.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Таблиця комутації (Forwarding Database - FDB):</text>
+<rect x="340.0" y="95.0" width="280.0" height="32.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="480.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">MAC AA:BB:CC:DD:EE:FF  ➔  Порт 2 (Оновлено)</text>
+<rect x="30.0" y="45.0" width="220.0" height="85.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.4"/>
+<text x="140.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">Клієнтський застосунок</text>
+<text x="140.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Активна TCP-сесія до 10.0.0.50</tspan><tspan x="140.0" dy="14.2">Seq: 420910, Ack: 88120</tspan></text>
+<line x1="250.0" y1="87.5" x2="320.0" y2="87.5" stroke="#3b82f6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="285.0" y="77.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">TCP-пакети</text>
+<rect x="60.0" y="220.0" width="380.0" height="220.0" rx="6" fill="#fff5f5" stroke="#dc2626" stroke-width="1.5"/>
+<text x="250.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">Хост A (Джерело) — Порт 1 комутатора</text>
+<rect x="80.0" y="265.0" width="340.0" height="110.0" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="250.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">ВМ зупинено (vCPU Paused)</text>
+<text x="250.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Пам'ять заморожена / звільняється</tspan><tspan x="250.0" dy="14.2">virtio-net дескриптори закриті</tspan><tspan x="250.0" dy="14.2">Старі пакети більше не приймаються</tspan></text>
+<line x1="380.0" y1="140.0" x2="250.0" y2="220.0" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="260.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Старий маршрут (відключено)</text>
+<rect x="520.0" y="220.0" width="380.0" height="220.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="710.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Хост B (Ціль) — Порт 2 комутатора</text>
+<rect x="540.0" y="265.0" width="340.0" height="110.0" rx="5" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="710.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">ВМ відновлено (vCPU Running)</text>
+<text x="710.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">IP: 10.0.0.50, MAC: AA:BB:CC:DD:EE:FF</tspan><tspan x="710.0" dy="14.2">TCP стек збережено в ядрі гостя</tspan><tspan x="710.0" dy="14.2">Обробка вхідних пакетів без рестарту</tspan></text>
+<line x1="610.0" y1="220.0" x2="600.0" y2="140.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="480.0" y="155.0" width="180.0" height="36.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="558.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">1. Gratuitous ARP (Broadcast)</text>
+<text x="570.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">«MAC AA:BB:.. на Порту 2»</text>
+<line x1="630.0" y1="140.0" x2="780.0" y2="220.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="730.0" y="160.0" width="150.0" height="34.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="805.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">2. Новий потік TCP</text>
+<text x="805.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle">Пакет скеровано на Порт 2</text>
+<rect x="30.0" y="420.0" width="900.0" height="40.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="480.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Клієнт не розриває TCP: затримка switchover (30-80 мс) менша за таймаут повтору TCP RTO (200 мс)</text>
+</svg>

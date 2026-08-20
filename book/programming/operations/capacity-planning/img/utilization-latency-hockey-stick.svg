@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="480.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="480.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нелінійна деградація затримки: фізика насичення ресурсів і коліно черги</text>
+<rect x="100.0" y="80.0" width="364.0" height="340.0" rx="0" fill="#f0fdf4" stroke="none" stroke-width="1.5"/>
+<text x="282.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Безпечна зона (0–70%)</text>
+<text x="282.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Затримка стабільна, черги мізерні</text>
+<rect x="464.0" y="80.0" width="78.0" height="340.0" rx="0" fill="#fffbeb" stroke="none" stroke-width="1.5"/>
+<text x="503.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Зона Headroom (70–85%)</text>
+<text x="503.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">Початок росту черг</text>
+<rect x="542.0" y="80.0" width="78.0" height="340.0" rx="0" fill="#fef2f2" stroke="none" stroke-width="1.5"/>
+<text x="581.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Колапс (85–100%)</text>
+<text x="581.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">Експоненційний стрибок</text>
+<line x1="204.0" y1="80.0" x2="204.0" y2="420.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="204.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">20%</text>
+<line x1="308.0" y1="80.0" x2="308.0" y2="420.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="308.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">40%</text>
+<line x1="412.0" y1="80.0" x2="412.0" y2="420.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="412.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">60%</text>
+<line x1="516.0" y1="80.0" x2="516.0" y2="420.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="516.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">80%</text>
+<line x1="620.0" y1="80.0" x2="620.0" y2="420.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="620.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100%</text>
+<line x1="100.0" y1="335.0" x2="620.0" y2="335.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="88.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">100 мс</text>
+<line x1="100.0" y1="250.0" x2="620.0" y2="250.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="88.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">500 мс</text>
+<line x1="100.0" y1="165.0" x2="620.0" y2="165.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="88.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">2 с</text>
+<line x1="100.0" y1="80.0" x2="620.0" y2="80.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="88.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">10 с+</text>
+<line x1="100.0" y1="420.0" x2="635.0" y2="420.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="100.0" y1="420.0" x2="100.0" y2="65.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="360.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Утилізація ресурсів вузла або кластера (U = λ / C)</text>
+<text x="55.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Затримка відповіді (Latency / RT)</text>
+<path d="M 100.0,406.4 L 105.2,406.2 L 110.4,406.1 L 115.6,405.9 L 120.8,405.7 L 126.0,405.6 L 131.2,405.4 L 136.4,405.2 L 141.6,405.0 L 146.8,404.9 L 152.0,404.7 L 157.2,404.5 L 162.4,404.3 L 167.6,404.1 L 172.8,403.9 L 178.0,403.7 L 183.2,403.4 L 188.4,403.2 L 193.6,403.0 L 198.8,402.8 L 204.0,402.5 L 209.2,402.3 L 214.4,402.1 L 219.6,401.8 L 224.8,401.5 L 230.0,401.3 L 235.2,401.0 L 240.4,400.7 L 245.6,400.4 L 250.8,400.1 L 256.0,399.8 L 261.2,399.5 L 266.4,399.2 L 271.6,398.9 L 276.8,398.5 L 282.0,398.2 L 287.2,397.8 L 292.4,397.5 L 297.6,397.1 L 302.8,396.7 L 308.0,396.3 L 313.2,395.9 L 318.4,395.5 L 323.6,395.0 L 328.8,394.6 L 334.0,394.1 L 339.2,393.6 L 344.4,393.1 L 349.6,392.6 L 354.8,392.1 L 360.0,391.5 L 365.2,390.9 L 370.4,390.3 L 375.6,389.7 L 380.8,389.1 L 386.0,388.4 L 391.2,387.7 L 396.4,387.0 L 401.6,386.2 L 406.8,385.4 L 412.0,384.6 L 417.2,383.7 L 422.4,382.8 L 427.6,381.9 L 432.8,380.9 L 438.0,379.8 L 443.2,378.7 L 448.4,377.6 L 453.6,376.4 L 458.8,375.1 L 464.0,373.7 L 469.2,372.3 L 474.4,370.8 L 479.6,369.1 L 484.8,367.4 L 490.0,365.6 L 495.2,363.6 L 500.4,361.5 L 505.6,359.3 L 510.8,356.9 L 516.0,354.3 L 521.2,351.4 L 526.4,348.4 L 531.6,345.0 L 536.8,341.4 L 542.0,337.3 L 547.2,332.9 L 552.4,328.0 L 557.6,322.5 L 562.8,316.3 L 568.0,309.3 L 573.2,301.4 L 578.4,292.2 L 583.6,281.5 L 588.8,269.0 L 594.0,254.0" fill="none" stroke="#dc2626" stroke-width="3.2"/>
+<circle cx="490.0" cy="345.2" r="5.0" fill="#dc2626" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="660.0" y="80.0" width="270.0" height="340.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="795.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Висновки для планування</text>
+<text x="676.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="676.0" dy="0.0">1. Коліно затримки (Knee):</tspan><tspan x="676.0" dy="14.2">При U &gt; 70–75% швидкість</tspan><tspan x="676.0" dy="14.2">росту черги вибухає.</tspan><tspan x="676.0" dy="14.2"></tspan><tspan x="676.0" dy="14.2">2. Нелінійний ефект:</tspan><tspan x="676.0" dy="14.2">Навантаження +20% при U=80%</tspan><tspan x="676.0" dy="14.2">збільшує затримку на 400–800%,</tspan><tspan x="676.0" dy="14.2">а не на 20%.</tspan><tspan x="676.0" dy="14.2"></tspan><tspan x="676.0" dy="14.2">3. Цільовий Headroom:</tspan><tspan x="676.0" dy="14.2">Тримати середнє U ≤ 65–70%,</tspan><tspan x="676.0" dy="14.2">щоб сплески не перетинали</tspan><tspan x="676.0" dy="14.2">критичну точку насичення.</tspan><tspan x="676.0" dy="14.2"></tspan><tspan x="676.0" dy="14.2">4. Формула Кінгмана:</tspan><tspan x="676.0" dy="14.2">Коли U → 100%, час черги</tspan><tspan x="676.0" dy="14.2">прямує до нескінченності.</tspan></text>
+</svg>

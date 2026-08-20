@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1040 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1040" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія дренажу з'єднань і перемикання Blue-Green</text>
+<text x="500.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія дренажу з'єднань при перемиканні трафіку Blue -&gt; Green</text>
+<line x1="80.0" y1="80.0" x2="930.0" y2="80.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="940.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Час (t)</text>
+<line x1="140.0" y1="70.0" x2="140.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="140.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t0: Старт Green</text>
+<rect x="82.7" y="107.5" width="114.6" height="35.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/><text x="140.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Green (v2) піднято</tspan><tspan x="140.0" dy="13.0">Синтетичні тести</tspan></text>
+<line x1="380.0" y1="70.0" x2="380.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="380.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t1: Світч L7</text>
+<rect x="317.0" y="107.5" width="126.0" height="35.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/><text x="380.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Роутер направляє</tspan><tspan x="380.0" dy="13.0">нові запити на Green</tspan></text>
+<line x1="620.0" y1="70.0" x2="620.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="620.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t2: Вікно Drain</text>
+<rect x="551.3" y="107.5" width="137.4" height="35.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/><text x="620.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Blue дообробляє</tspan><tspan x="620.0" dy="13.0">активні TCP/HTTP-сесії</tspan></text>
+<line x1="860.0" y1="70.0" x2="860.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="860.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t3: Soak / Standby</text>
+<rect x="788.5" y="107.5" width="143.1" height="35.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/><text x="860.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">Blue спить без трафіку</tspan><tspan x="860.0" dy="13.0">Готовий до відкоту O(1)</tspan></text>
+<rect x="66.0" y="176.3" width="127.9" height="37.3" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="1.4"/><text x="130.0" y="191.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">L7 Балансувальник</tspan><tspan x="130.0" dy="14.3">(Envoy / Ingress)</tspan></text>
+<rect x="180.0" y="170.0" width="300.0" height="50.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="330.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">10.5</text>
+<rect x="480.0" y="170.0" width="540.0" height="50.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.4"/>
+<text x="750.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">10.5</text>
+<rect x="62.6" y="266.4" width="134.8" height="37.3" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="1.4"/><text x="130.0" y="281.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Синє середовище</tspan><tspan x="130.0" dy="14.3">(Blue v1 - Legacy)</tspan></text>
+<rect x="180.0" y="260.0" width="300.0" height="50.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="330.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">10.5</text>
+<rect x="480.0" y="260.0" width="240.0" height="50.0" rx="6" fill="#fff9e6" stroke="#d97706" stroke-width="1.4"/>
+<text x="600.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">9</text>
+<rect x="720.0" y="260.0" width="300.0" height="50.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.4"/>
+<text x="870.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">9</text>
+<rect x="59.2" y="366.4" width="141.6" height="37.3" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="1.4"/><text x="130.0" y="381.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Зелене середовище</tspan><tspan x="130.0" dy="14.3">(Green v2 - Target)</tspan></text>
+<rect x="180.0" y="360.0" width="300.0" height="50.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.4"/>
+<text x="330.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">9</text>
+<rect x="480.0" y="360.0" width="540.0" height="50.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.4"/>
+<text x="750.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">10.5</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова шкала розходження канонічної БД та похідного кешу</text>
+<rect x="11.3" y="68.2" width="157.4" height="43.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Клієнти</tspan><tspan x="90.0" dy="15.6">(Читач / Записувач)</tspan></text>
+<rect x="20.0" y="168.2" width="140.0" height="43.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="90.0" y="186.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Кеш</tspan><tspan x="90.0" dy="15.6">(Похідний стан)</tspan></text>
+<rect x="15.0" y="268.2" width="149.9" height="43.6" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="90.0" y="286.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">База даних</tspan><tspan x="90.0" dy="15.6">(Канонічна правда)</tspan></text>
+<line x1="180.0" y1="90.0" x2="940.0" y2="90.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="190.0" x2="940.0" y2="190.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="290.0" x2="940.0" y2="290.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="960.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Час</text>
+<line x1="280.0" y1="106.0" x2="280.0" y2="274.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="216.0" y="311.4" width="127.9" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="280.0" y="326.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">t₀: Запис v₂</tspan><tspan x="280.0" dy="14.3">(успішний commit)</tspan></text>
+<rect x="221.7" y="49.5" width="116.6" height="21.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="280.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">Записувач: PUT v₂</tspan></text>
+<rect x="280.0" y="166.0" width="470.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="515.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Кеш містить старе v₁ (неузгодженість)</text>
+<line x1="510.0" y1="106.0" x2="510.0" y2="166.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="461.1" y="49.5" width="97.8" height="21.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Читач: GET key</tspan></text>
+<line x1="520.0" y1="166.0" x2="520.0" y2="106.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="469.4" y="121.3" width="121.1" height="37.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="548.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="548.0" dy="0.0">Відповідь: v₁ ✗</tspan><tspan x="548.0" dy="14.3">(застарілі дані)</tspan></text>
+<line x1="750.0" y1="106.0" x2="750.0" y2="166.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="682.3" y="49.5" width="135.4" height="21.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">Інвалідація: DEL key</tspan></text>
+<rect x="686.0" y="211.3" width="127.9" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="226.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">t₂: Ключ видалено</tspan><tspan x="750.0" dy="14.3">(кеш очищено)</tspan></text>
+<line x1="280.0" y1="370.0" x2="750.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="280.0" y1="362.0" x2="280.0" y2="378.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="750.0" y1="362.0" x2="750.0" y2="378.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="515.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вікно застарілості Δt = t₂ − t₀ (два джерела правди розійшлися)</text>
+</svg>

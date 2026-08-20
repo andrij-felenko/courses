@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="20.0" width="525.0" height="420.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="292.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Пряма інтеграція: Point-to-Point (O(N²))</text>
+<text x="292.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5 систем = 20 адаптерів; додавання 6-ї вимагає 10 нових конвертерів</text>
+<line x1="292.0" y1="115.0" x2="415.6" y2="204.8" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="292.0" y1="115.0" x2="368.4" y2="350.2" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="292.0" y1="115.0" x2="215.6" y2="350.2" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="292.0" y1="115.0" x2="168.4" y2="204.8" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="415.6" y1="204.8" x2="368.4" y2="350.2" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="415.6" y1="204.8" x2="215.6" y2="350.2" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="415.6" y1="204.8" x2="168.4" y2="204.8" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="368.4" y1="350.2" x2="215.6" y2="350.2" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="368.4" y1="350.2" x2="168.4" y2="204.8" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="215.6" y1="350.2" x2="168.4" y2="204.8" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<rect x="237.0" y="99.0" width="110.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="292.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Checkout (JSON)</text>
+<rect x="360.6" y="188.8" width="110.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="415.6" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ERP (XML)</text>
+<rect x="313.4" y="334.2" width="110.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="368.4" y="354.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Logistics (EDI)</text>
+<rect x="160.6" y="334.2" width="110.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="215.6" y="354.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Billing (Proto)</text>
+<rect x="113.4" y="188.8" width="110.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="168.4" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Analytics (Avro)</text>
+<rect x="45.0" y="385.0" width="495.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.1"/><text x="292.5" y="411.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="292.5" dy="0.0">Жорстке зачеплення: зміна формату в одній системі ламає всі 4 зв'язані адаптери.</tspan></text>
+<rect x="585.0" y="20.0" width="525.0" height="420.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="847.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Канонічна модель: Message Translator (O(N))</text>
+<text x="847.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5 систем = 10 трансляторів (2N); додавання 6-ї вимагає лише 2</text>
+<rect x="777.0" y="210.0" width="140.0" height="70.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="847.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Канонічна модель</text>
+<text x="847.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(CDM / Шина)</text>
+<text x="847.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Єдиний формат</text>
+<line x1="847.0" y1="110.0" x2="847.0" y2="245.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="792.0" y="94.0" width="110.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.3"/>
+<text x="847.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Checkout (JSON)</text>
+<line x1="975.4" y1="203.3" x2="847.0" y2="245.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="920.4" y="187.3" width="110.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.3"/>
+<text x="975.4" y="207.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ERP (XML)</text>
+<line x1="926.4" y1="354.2" x2="847.0" y2="245.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="871.4" y="338.2" width="110.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.3"/>
+<text x="926.4" y="358.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Logistics (EDI)</text>
+<line x1="767.6" y1="354.2" x2="847.0" y2="245.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="712.6" y="338.2" width="110.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.3"/>
+<text x="767.6" y="358.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Billing (Proto)</text>
+<line x1="718.6" y1="203.3" x2="847.0" y2="245.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="663.6" y="187.3" width="110.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.3"/>
+<text x="718.6" y="207.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Analytics (Avro)</text>
+<rect x="600.0" y="385.0" width="495.0" height="45.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.1"/><text x="847.5" y="411.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="847.5" dy="0.0">Повне розчеплення: кожна система знає лише власний формат і канонічний контракт.</tspan></text>
+<rect x="30.0" y="455.0" width="1080.0" height="50.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.3"/><text x="570.0" y="483.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Математичний ефект: перехід від прямого спагеті пар N·(N−1) до централізованої канонічної моделі 2N зменшує кількість трансляторів у рази та ізолює схеми систем одна від одної.</tspan></text>
+</svg>

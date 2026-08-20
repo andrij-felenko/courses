@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="940.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="30.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Життєвий цикл хаос-експерименту: скінченний автомат переходів</text>
+<rect x="60.0" y="80.0" width="200.0" height="110.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="160.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">1. Гіпотеза і базовий стан</text>
+<text x="160.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Вимірювання стійкого стану</tspan><tspan x="160.0" dy="13.5">Формулювання очікувань SLI</tspan><tspan x="160.0" dy="13.5">Обмеження радіуса ураження</tspan></text>
+<rect x="300.0" y="80.0" width="200.0" height="110.0" rx="6" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.6"/>
+<text x="400.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4f46e5" text-anchor="middle" font-weight="700">2. Активація і підготовка</text>
+<text x="400.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Перевірка здоров'я системи</tspan><tspan x="400.0" dy="13.5">Запуск сторожового таймера</tspan><tspan x="400.0" dy="13.5">Встановлення перехоплювачів</tspan></text>
+<rect x="540.0" y="80.0" width="200.0" height="110.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+<text x="640.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">3. Активна ін'єкція збою</text>
+<text x="640.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Внесення затримки / помилок</tspan><tspan x="640.0" dy="13.5">Знищення вузла чи каналу</tspan><tspan x="640.0" dy="13.5">Спостереження реакції метрик</tspan></text>
+<rect x="700.0" y="240.0" width="200.0" height="110.0" rx="6" fill="#fff8e6" stroke="#d97706" stroke-width="1.6"/>
+<text x="800.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">4. Валідація стійкого стану</text>
+<text x="800.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">Порівняння метрик із порогом</tspan><tspan x="800.0" dy="13.5">Перевірка спрацювання fallback</tspan><tspan x="800.0" dy="13.5">Тест збереження цілісності</tspan></text>
+<rect x="420.0" y="330.0" width="220.0" height="100.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<text x="530.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">5. Відкат і згортання (Rollback)</text>
+<text x="530.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Зняття мережевих правил tc</tspan><tspan x="530.0" dy="13.5">Відновлення контейнерів</tspan><tspan x="530.0" dy="13.5">Звільнення дескрипторів</tspan></text>
+<rect x="100.0" y="260.0" width="220.0" height="100.0" rx="6" fill="#fef2f2" stroke="#991b1b" stroke-width="1.6"/>
+<text x="210.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Аварійний Stop (Kill Switch)</text>
+<text x="210.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">SLO порушено або panic</tspan><tspan x="210.0" dy="13.5">Екстрене скидання правил</tspan><tspan x="210.0" dy="13.5">Захист продуктивного трафіку</tspan></text>
+<line x1="262.0" y1="135.0" x2="298.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="502.0" y1="135.0" x2="538.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="742.0" y1="135.0" x2="800.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="135.0" x2="800.0" y2="238.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="800.0" y1="238.0" x2="800.0" y2="238.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="295.0" x2="642.0" y2="350.0" stroke="#16a34a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="685.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Гіпотеза підтверджена</text>
+<line x1="580.0" y1="192.0" x2="280.0" y2="260.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">SLI &lt; Поріг (Автоматичний Abort)</text>
+<line x1="322.0" y1="310.0" x2="418.0" y2="360.0" stroke="#991b1b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="345.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle" font-weight="700">Очищення</text>
+<line x1="420.0" y1="380.0" x2="160.0" y2="380.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="160.0" y1="380.0" x2="160.0" y2="192.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="160.0" y1="200.0" x2="160.0" y2="192.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="280.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ретроспектива та усунення слабкостей → повторний тест</text>
+</svg>

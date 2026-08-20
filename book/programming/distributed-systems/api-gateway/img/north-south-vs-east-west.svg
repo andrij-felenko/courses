@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл трафіку: Північ-Південь (API-шлюз) проти Схід-Захід (Service Mesh)</text>
+<rect x="20.0" y="20.0" width="920.0" height="80.0" rx="8" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.2"/>
+<text x="50.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="start" font-weight="700">ПУБЛІЧНИЙ ІНТЕРНЕТ (Недовірена зона, глобальний WAN)</text>
+<rect x="143.8" y="58.5" width="112.3" height="23.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="200.0" y="73.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Мобільний клієнт</tspan></text>
+<rect x="420.7" y="58.5" width="118.6" height="23.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="73.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Веб-браузер (SPA)</tspan></text>
+<rect x="688.2" y="58.5" width="143.7" height="23.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="760.0" y="73.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">Сторонній API-партнер</tspan></text>
+<line x1="480.0" y1="100.0" x2="480.0" y2="135.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Північ-Південь (North-South): публічний TLS, автентифікація, ліміти</text>
+<rect x="160.0" y="140.0" width="640.0" height="50.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="480.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">API-ШЛЮЗ (Периметр кластера / Ingress Edge)</text>
+<line x1="480.0" y1="190.0" x2="480.0" y2="225.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="20.0" y="230.0" width="920.0" height="135.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="50.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">ПРИВАТНИЙ КЛАСТЕР / СЕРВІСНА СІТКА (Trusted Mesh / VPC)</text>
+<rect x="125.0" y="274.4" width="110.0" height="41.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="291.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Сервіс Auth</tspan><tspan x="180.0" dy="14.3">(Pod + Sidecar)</tspan></text>
+<rect x="421.8" y="274.4" width="116.3" height="41.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="291.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Сервіс Замовлень</tspan><tspan x="480.0" dy="14.3">(Pod + Sidecar)</tspan></text>
+<rect x="725.0" y="274.4" width="110.0" height="41.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="291.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Сервіс Платежів</tspan><tspan x="780.0" dy="14.3">(Pod + Sidecar)</tspan></text>
+<line x1="260.0" y1="295.0" x2="390.0" y2="295.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="305.0" x2="260.0" y2="305.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="295.0" x2="690.0" y2="295.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="305.0" x2="570.0" y2="305.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Схід-Захід (East-West): взаємний mTLS, внутрішній RBAC, балансування через Service Mesh (Envoy sidecars)</text>
+</svg>

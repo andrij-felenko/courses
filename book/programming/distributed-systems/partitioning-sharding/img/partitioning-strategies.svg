@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння трьох фундаментальних стратегій партиціонування</text>
+<rect x="40.0" y="55.0" width="280.0" height="395.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="40.0" y="55.0" width="280.0" height="40.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. За діапазонами ключів (Range)</text>
+<rect x="340.0" y="55.0" width="280.0" height="395.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="340.0" y="55.0" width="280.0" height="40.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. За хешем ключа (Hash)</text>
+<rect x="640.0" y="55.0" width="280.0" height="395.0" rx="8" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+<rect x="640.0" y="55.0" width="280.0" height="40.0" rx="8" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="780.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">3. Складений ключ (Compound)</text>
+<rect x="55.0" y="108.0" width="250.0" height="70.0" rx="5" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="180.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Впорядковані діапазони:</text>
+<text x="180.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шард 1: [A .. K]</text>
+<text x="180.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шард 2: [L .. Z]</text>
+<rect x="55.0" y="190.0" width="250.0" height="95.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="180.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Переваги:</text>
+<text x="180.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Ідеально для діапазонних вибірок</text>
+<text x="180.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">• SCAN(key &gt;= 'A' AND key &lt;= 'C')</text>
+<text x="180.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Локальність у межах одного вузла</text>
+<rect x="55.0" y="298.0" width="250.0" height="95.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="180.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Ризики та вади:</text>
+<text x="180.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Гарячі точки (Hotspots)</text>
+<text x="180.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Послідовні ключі (auto-inc, час)</text>
+<text x="180.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">перевантажують останній шард</text>
+<text x="180.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Приклади: HBase, CockroachDB, Spanner</text>
+<rect x="355.0" y="108.0" width="250.0" height="70.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="480.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розсіювання через хеш:</text>
+<text x="480.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">shard = Murmur3(key) % N</text>
+<text x="480.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">або токени на кільці хешів</text>
+<rect x="355.0" y="190.0" width="250.0" height="95.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="480.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Переваги:</text>
+<text x="480.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Рівномірний розподіл записів</text>
+<text x="480.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Руйнує монотонні черги запису</text>
+<text x="480.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Немає перекосів за часом</text>
+<rect x="355.0" y="298.0" width="250.0" height="95.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="480.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Ризики та вади:</text>
+<text x="480.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Діапазонні запити неможливі</text>
+<text x="480.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• SCAN вимагає Scatter-Gather</text>
+<text x="480.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">опитування всіх вузлів кластера</text>
+<text x="480.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Приклади: DynamoDB, Redis Cluster, Riak</text>
+<rect x="655.0" y="108.0" width="250.0" height="70.0" rx="5" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="780.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дворівневий ключ:</text>
+<text x="780.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">((Partition_Key), Cluster_Key)</text>
+<text x="780.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Хеш для вузла + сортування всередині</text>
+<rect x="655.0" y="190.0" width="250.0" height="95.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="780.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Переваги:</text>
+<text x="780.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Хеш партиції розсіює сутності</text>
+<text x="780.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Кластерний ключ дає швидкий SCAN</text>
+<text x="780.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">для конкретного user_id</text>
+<rect x="655.0" y="298.0" width="250.0" height="95.0" rx="5" fill="#fef9e7" stroke="#d35400" stroke-width="1.0"/>
+<text x="780.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">⚠ Обмеження:</text>
+<text x="780.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Діапазон лише в межах партиції</text>
+<text x="780.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Запит між різними user_id</text>
+<text x="780.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">все одно є віяловим (Scatter-Gather)</text>
+<text x="780.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Приклади: Apache Cassandra, ScyllaDB</text>
+</svg>

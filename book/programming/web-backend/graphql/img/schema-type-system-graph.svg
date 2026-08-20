@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Типізована схема GraphQL: граф сутностей, інтерфейсів і скалярів</text>
+<rect x="40.0" y="160.0" width="140.0" height="70.0" rx="8" fill="#8e44ad" stroke="#333333" stroke-width="1.5"/>
+<text x="110.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Query</text>
+<text x="110.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">user(id: ID!): User
+feed: [Post!]!</text>
+<rect x="230.0" y="48.0" width="160.0" height="56.0" rx="6" fill="#f0f3f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="310.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700" font-style="italic">interface Node</text>
+<text x="310.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">id: ID!</text>
+<rect x="230.0" y="135.0" width="170.0" height="125.0" rx="8" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="315.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">type User implements Node</text>
+<text x="245.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">id: ID!</text>
+<text x="245.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">name: String!</text>
+<text x="245.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">email: String</text>
+<text x="245.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">posts: [Post!]!</text>
+<rect x="470.0" y="135.0" width="170.0" height="125.0" rx="8" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="555.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">type Post implements Node</text>
+<text x="485.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">id: ID!</text>
+<text x="485.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">title: String!</text>
+<text x="485.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">author: User!</text>
+<text x="485.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">comments: [Comment!]!</text>
+<rect x="700.0" y="150.0" width="150.0" height="95.0" rx="8" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="775.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">type Comment</text>
+<text x="715.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">id: ID!</text>
+<text x="715.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">body: String!</text>
+<text x="715.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">author: User!</text>
+<rect x="230.0" y="310.0" width="620.0" height="50.0" rx="6" fill="#fbfbfb" stroke="#333333" stroke-width="1.1"/>
+<text x="540.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Базові скаляри (листки графа): String · Int · Float · Boolean · ID</text>
+<text x="540.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Модифікатори: ! (non-null), [ ] (масив), [Type!]! (непорожній масив обов'язкових елементів)</text>
+<line x1="180.0" y1="185.0" x2="226.0" y2="185.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="220.0" x2="466.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="190.0" x2="404.0" y2="190.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="200.0" x2="696.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="135.0" x2="315.0" y2="106.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="555.0" y1="135.0" x2="360.0" y2="106.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+</svg>

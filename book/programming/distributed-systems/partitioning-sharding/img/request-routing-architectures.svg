@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три архітектурні моделі маршрутизації запитів до партицій</text>
+<rect x="40.0" y="55.0" width="280.0" height="365.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="40.0" y="55.0" width="280.0" height="40.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Розумний клієнт (Smart Client)</text>
+<rect x="340.0" y="55.0" width="280.0" height="365.0" rx="8" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+<rect x="340.0" y="55.0" width="280.0" height="40.0" rx="8" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">2. Маршрутний проксі (Proxy Tier)</text>
+<rect x="640.0" y="55.0" width="280.0" height="365.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="640.0" y="55.0" width="280.0" height="40.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="780.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Рівноправна P2P координація</text>
+<rect x="60.0" y="110.0" width="240.0" height="50.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнтський застосунок</text>
+<text x="180.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кеш топології партицій у RAM</text>
+<line x1="180.0" y1="160.0" x2="180.0" y2="205.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="225.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прямий TCP</text>
+<rect x="60.0" y="210.0" width="240.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="180.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цільовий вузол (Шард 3)</text>
+<text x="180.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Обробляє запит без посередників</text>
+<rect x="60.0" y="295.0" width="240.0" height="110.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="180.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Особливості моделі:</text>
+<text x="180.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✓ Мінімальна латентність (0 hop)</text>
+<text x="180.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✗ Товстий клієнт (fat SDK)</text>
+<text x="180.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✗ Шторм з'єднань при N клієнтах</text>
+<text x="180.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Приклади: Kafka Producer, MongoDB Driver</text>
+<rect x="360.0" y="110.0" width="240.0" height="45.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="480.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тонкий клієнт (REST / SQL)</text>
+<line x1="480.0" y1="155.0" x2="480.0" y2="185.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="360.0" y="185.0" width="240.0" height="50.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="480.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Шар маршрутизації (Proxy)</text>
+<text x="480.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пул з'єднань, парсинг SQL, Scatter</text>
+<line x1="480.0" y1="235.0" x2="480.0" y2="265.0" stroke="#d35400" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="360.0" y="265.0" width="240.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="480.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер сховищ (Шарди 1..N)</text>
+<rect x="360.0" y="320.0" width="240.0" height="85.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="480.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Особливості моделі:</text>
+<text x="480.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✓ Простий клієнт, пулінг з'єднань</text>
+<text x="480.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✗ Додатковий мережевий стрибок (+1 hop)</text>
+<text x="480.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Приклади: Vitess VTGate, Twemproxy</text>
+<rect x="660.0" y="110.0" width="240.0" height="45.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="780.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт звертається до БУДЬ-ЯКОГО вузла</text>
+<line x1="780.0" y1="155.0" x2="780.0" y2="185.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="660.0" y="185.0" width="240.0" height="50.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="780.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол-координатор (Node 1)</text>
+<text x="780.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пересилає запит через Gossip-мапу</text>
+<line x1="780.0" y1="235.0" x2="780.0" y2="265.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="660.0" y="265.0" width="240.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="780.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол-власник партиції (Node 4)</text>
+<rect x="660.0" y="320.0" width="240.0" height="85.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="780.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Особливості моделі:</text>
+<text x="780.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✓ Симетрична архітектура без SPOF</text>
+<text x="780.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle">✗ Внутрішній проксі-трафік між вузлами</text>
+<text x="780.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Приклади: Apache Cassandra, Amazon Dynamo</text>
+</svg>

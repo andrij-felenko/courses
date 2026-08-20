@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="500.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Імперативний скриптинг проти Декларативного контуру</text>
+<rect x="40.0" y="70.0" width="440.0" height="420.0" rx="8" fill="#fff5f5" stroke="#e03131" stroke-width="1.6"/>
+<text x="260.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c92a2a" text-anchor="middle" font-weight="700">ІМПЕРАТИВНИЙ ПІДХІД (Як робити)</text>
+<rect x="60.0" y="125.0" width="400.0" height="48.0" rx="4" fill="#ffffff" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="75.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. aws ec2 create-vpc --cidr 10.0.0.0/16</text>
+<rect x="60.0" y="183.0" width="400.0" height="48.0" rx="4" fill="#ffffff" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="75.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. aws ec2 create-subnet --vpc-id $VPC_ID</text>
+<rect x="60.0" y="241.0" width="400.0" height="48.0" rx="4" fill="#ffe3e3" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="75.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. [АВАРІЯ МЕРЕЖІ: таймаут на кроці 3]</text>
+<rect x="60.0" y="299.0" width="400.0" height="48.0" rx="4" fill="#ffe3e3" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="75.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. Повторний запуск: помилка «VpcAlreadyExists»</text>
+<rect x="60.0" y="357.0" width="400.0" height="48.0" rx="4" fill="#ffe3e3" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="75.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5. Підсумок: завислі ресурси, напівробочий стан</text>
+<text x="260.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c92a2a" text-anchor="middle" font-weight="700">• Порядок жорстко зафіксований у коді</text>
+<text x="260.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c92a2a" text-anchor="middle" font-weight="700">• Немає ідемпотентності та авто-відкату</text>
+<rect x="520.0" y="70.0" width="440.0" height="420.0" rx="8" fill="#f0fdf4" stroke="#2f9e44" stroke-width="1.6"/>
+<text x="740.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2b8a3e" text-anchor="middle" font-weight="700">ДЕКЛАРАТИВНИЙ ПІДХІД (Що отримати)</text>
+<rect x="540.0" y="125.0" width="400.0" height="48.0" rx="4" fill="#ffffff" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="555.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. resource &quot;vpc&quot; { cidr = &quot;10.0.0.0/16&quot; }</text>
+<rect x="540.0" y="183.0" width="400.0" height="48.0" rx="4" fill="#ffffff" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="555.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. resource &quot;subnet&quot; { vpc_id = vpc.id }</text>
+<rect x="540.0" y="241.0" width="400.0" height="48.0" rx="4" fill="#ffffff" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="555.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Рушій будує DAG та вираховує мінімальний Diff</text>
+<rect x="540.0" y="299.0" width="400.0" height="48.0" rx="4" fill="#dcfce7" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="555.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. Аварія? Повторний запуск просто доробляє Diff</text>
+<rect x="540.0" y="357.0" width="400.0" height="48.0" rx="4" fill="#dcfce7" stroke="#adb5bd" stroke-width="1.0"/>
+<text x="555.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5. Підсумок: гарантована збіжність до цілі (Idempotency)</text>
+<text x="740.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b8a3e" text-anchor="middle" font-weight="700">• Рушій сам визначає правильний порядок дій</text>
+<text x="740.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b8a3e" text-anchor="middle" font-weight="700">• Повний контроль за станом та безпечне злиття</text>
+</svg>

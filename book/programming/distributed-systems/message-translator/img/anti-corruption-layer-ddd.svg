@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="25.0" y="15.0" width="1090.0" height="445.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="570.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Anti-Corruption Layer (ACL): ізоляція доменної моделі від чужої спадщини</text>
+<text x="570.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Транслятор повідомлень як бар'єр між архаїчною спадщиною (Legacy) та чистою бізнес-моделлю (DDD)</text>
+<rect x="50.0" y="105.0" width="290.0" height="245.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="195.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Зовнішній світ / Legacy ERP</text>
+<text x="195.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(Upstream Context)</text>
+<line x1="70.0" y1="170.0" x2="320.0" y2="170.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="75.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Хаотичні назви полів (CUST_ADDR_LN1)</text>
+<text x="75.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Числові магічні статуси (104, 999, -1)</text>
+<text x="75.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Змішання транспорту й бізнес-даних</text>
+<text x="75.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Відсутність типізації дат (строки YYYYMMDD)</text>
+<text x="75.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Нестабільні неоголошені схеми</text>
+<rect x="390.0" y="95.0" width="340.0" height="265.0" rx="8" fill="#fef9e7" stroke="#333333" stroke-width="1.8"/>
+<text x="560.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Anti-Corruption Layer (ACL)</text>
+<text x="560.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фасад + Адаптер + Транслятор</text>
+<line x1="410.0" y1="160.0" x2="710.0" y2="160.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="2,2"/>
+<rect x="410.0" y="175.0" width="300.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+<text x="420.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Channel Adapter</text>
+<text x="700.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Прийом протоколу (HTTP/AMQP)</text>
+<rect x="410.0" y="217.0" width="300.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+<text x="420.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Translator Service</text>
+<text x="700.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Мапінг форматів і валідація схем</text>
+<rect x="410.0" y="259.0" width="300.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+<text x="413.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Domain Factory</text>
+<text x="700.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Побудова чистих Value Objects / Entities</text>
+<rect x="410.0" y="301.0" width="300.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+<text x="420.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Context Boundary</text>
+<text x="700.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Фільтрація чужих артефактів</text>
+<rect x="780.0" y="105.0" width="310.0" height="245.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="935.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Чистий доменний контекст</text>
+<text x="935.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(Downstream Bounded Context)</text>
+<line x1="800.0" y1="170.0" x2="1070.0" y2="170.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="800.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Чиста загальноприйнята мова (Ubiquitous Lang)</text>
+<text x="800.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Строгі незмінні Value Objects (Money, Email)</text>
+<text x="800.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Доменні події: OrderPlaced, PaymentReceived</text>
+<text x="800.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Повна ізоляція від формату зберігання Legacy</text>
+<text x="800.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Незалежна еволюція внутрішнього коду</text>
+<line x1="340.0" y1="227.0" x2="390.0" y2="227.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="227.0" x2="780.0" y2="227.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="385.0" width="1040.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.2"/><text x="570.0" y="415.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Призначення ACL: не дозволити чужим концепціям і технічним компромісам зовнішніх систем проникнути в серцевину вашої доменної моделі. Транслятор бере на себе всю брудну роботу з очищення та конверсії.</tspan></text>
+</svg>

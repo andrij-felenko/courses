@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурна топологія шардованої СКБД (Shared-Nothing)</text>
+<rect x="103.6" y="58.2" width="152.8" height="43.6" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.5"/><text x="180.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Застосунок A</tspan><tspan x="180.0" dy="15.6">(Булкові замовлення)</tspan></text>
+<rect x="373.6" y="58.2" width="152.8" height="43.6" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Застосунок B</tspan><tspan x="450.0" dy="15.6">(Користувацький API)</tspan></text>
+<rect x="640.2" y="58.2" width="159.6" height="43.6" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.5"/><text x="720.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Застосунок C</tspan><tspan x="720.0" dy="15.6">(Платіжний процесинг)</tspan></text>
+<line x1="180.0" y1="110.0" x2="220.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="110.0" x2="390.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="110.0" x2="560.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="165.0" width="590.0" height="95.0" rx="8" fill="#fdfefe" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="375.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700">Рівень маршрутизації (Stateless Routing Tier: Vitess / ProxySQL)</text>
+<rect x="142.7" y="203.3" width="74.7" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="218.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Router 1</tspan><tspan x="180.0" dy="14.3">(кеш мапи)</tspan></text>
+<rect x="337.6" y="203.3" width="74.7" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="375.0" y="218.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="375.0" dy="0.0">Router 2</tspan><tspan x="375.0" dy="14.3">(кеш мапи)</tspan></text>
+<rect x="532.6" y="203.3" width="74.7" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="218.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Router 3</tspan><tspan x="570.0" dy="14.3">(кеш мапи)</tspan></text>
+<rect x="731.8" y="184.2" width="166.5" height="55.6" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="815.0" y="201.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">Каталог метаданих</tspan><tspan x="815.0" dy="14.3">(Shard Directory / etcd)</tspan><tspan x="815.0" dy="14.3">Версія топології: v14</tspan></text>
+<line x1="720.0" y1="212.0" x2="672.0" y2="212.0" stroke="#f39c12" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="260.0" x2="130.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="260.0" x2="360.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="260.0" x2="590.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="260.0" x2="820.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="330.0" width="200.0" height="140.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="130.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Шард 0 (Shard-0)</text>
+<text x="130.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Діапазон: 0000..3FFF</tspan><tspan x="130.0" dy="12.5">CPU: 64 core | RAM: 512GB</tspan><tspan x="130.0" dy="12.5">Disk: 8TB NVMe (WAL-0)</tspan></text>
+<rect x="40.0" y="417.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#95a5a6" stroke-width="1.0"/>
+<text x="130.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Primary ⇄ Replica A, B (HA)</text>
+<rect x="260.0" y="330.0" width="200.0" height="140.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="360.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Шард 1 (Shard-1)</text>
+<text x="360.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Діапазон: 4000..7FFF</tspan><tspan x="360.0" dy="12.5">CPU: 64 core | RAM: 512GB</tspan><tspan x="360.0" dy="12.5">Disk: 8TB NVMe (WAL-1)</tspan></text>
+<rect x="270.0" y="417.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#95a5a6" stroke-width="1.0"/>
+<text x="360.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Primary ⇄ Replica A, B (HA)</text>
+<rect x="490.0" y="330.0" width="200.0" height="140.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="590.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Шард 2 (Shard-2)</text>
+<text x="590.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Діапазон: 8000..BFFF</tspan><tspan x="590.0" dy="12.5">CPU: 64 core | RAM: 512GB</tspan><tspan x="590.0" dy="12.5">Disk: 8TB NVMe (WAL-2)</tspan></text>
+<rect x="500.0" y="417.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#95a5a6" stroke-width="1.0"/>
+<text x="590.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Primary ⇄ Replica A, B (HA)</text>
+<rect x="720.0" y="330.0" width="200.0" height="140.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="820.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Шард 3 (Shard-3)</text>
+<text x="820.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">Діапазон: C000..FFFF</tspan><tspan x="820.0" dy="12.5">CPU: 64 core | RAM: 512GB</tspan><tspan x="820.0" dy="12.5">Disk: 8TB NVMe (WAL-3)</tspan></text>
+<rect x="730.0" y="417.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#95a5a6" stroke-width="1.0"/>
+<text x="820.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Primary ⇄ Replica A, B (HA)</text>
+<text x="480.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Кожен шард є повністю автономною СКБД із власним пулом пам'яті, диском та чергою блокувань</text>
+</svg>

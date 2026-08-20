@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маршрутизація сесійних запитів за допомогою LSN-маркерів (Causal Tokens)</text>
+<rect x="30.0" y="80.0" width="180.0" height="390.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">КЛІЄНТСЬКА СЕСІЯ</text>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Браузер / Мобільний додаток)</text>
+<rect x="45.0" y="160.0" width="150.0" height="80.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="120.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Сесійний стан:</tspan><tspan x="120.0" dy="14.3">min_lsn = 5042</tspan><tspan x="120.0" dy="14.3">last_write = t_0</tspan></text>
+<rect x="45.0" y="270.0" width="150.0" height="90.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.2"/>
+<text x="120.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Запити несуть токен:</tspan><tspan x="120.0" dy="13.7">Cookie: min_lsn=5042</tspan><tspan x="120.0" dy="13.7">або X-Session-LSN</tspan></text>
+<rect x="360.0" y="80.0" width="200.0" height="390.0" rx="8" fill="#eaf0fd" stroke="#333333" stroke-width="1.8"/>
+<text x="460.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">API-ШЛЮЗ / МАРШРУТИЗАТОР</text>
+<text x="460.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сесійний диспетчер</text>
+<rect x="375.0" y="160.0" width="170.0" height="120.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="460.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">1. Запис (POST/PUT):</tspan><tspan x="460.0" dy="14.3">   -&gt; Завжди на Primary</tspan><tspan x="460.0" dy="14.3">   -&gt; Отримує commit LSN</tspan><tspan x="460.0" dy="14.3">   -&gt; Оновлює токен клієнта</tspan></text>
+<rect x="375.0" y="300.0" width="170.0" height="150.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="460.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">2. Читання (GET):</tspan><tspan x="460.0" dy="14.3">   -&gt; Перевіряє min_lsn</tspan><tspan x="460.0" dy="14.3">   -&gt; Фільтрує репліки:</tspan><tspan x="460.0" dy="14.3">      applied_lsn &gt;= min_lsn</tspan><tspan x="460.0" dy="14.3">   -&gt; Якщо відстають:</tspan><tspan x="460.0" dy="14.3">      чекає або на Primary</tspan></text>
+<rect x="780.0" y="90.0" width="320.0" height="90.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="940.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">PRIMARY ВУЗОЛ (Лідер)</text>
+<text x="940.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">Поточний стан: LSN = 5042</tspan><tspan x="940.0" dy="14.3">Приймає записи та генерує WAL</tspan></text>
+<rect x="780.0" y="230.0" width="320.0" height="90.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="940.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">REPLICA 1 (Актуальна)</text>
+<text x="940.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="940.0" dy="0.0">applied_lsn = 5042 (&gt;= min_lsn 5042)</tspan><tspan x="940.0" dy="14.3">✓ ДОЗВОЛЕНО для читання RYW</tspan></text>
+<rect x="780.0" y="370.0" width="320.0" height="90.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="940.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">REPLICA 2 (Відстає на 450 мс)</text>
+<text x="940.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="940.0" dy="0.0">applied_lsn = 5038 (&lt; min_lsn 5042)</tspan><tspan x="940.0" dy="14.3">✗ ВІДХИЛЕНО або пауза WAIT_FOR_LSN</tspan></text>
+<line x1="210.0" y1="180.0" x2="360.0" y2="180.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. POST (write)</text>
+<line x1="560.0" y1="150.0" x2="780.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Commit</text>
+<line x1="780.0" y1="180.0" x2="560.0" y2="180.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="670.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. LSN = 5042</text>
+<line x1="360.0" y1="220.0" x2="210.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Token min_lsn=5042</text>
+<line x1="210.0" y1="350.0" x2="360.0" y2="350.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">5. GET (min_lsn=5042)</text>
+<line x1="560.0" y1="320.0" x2="780.0" y2="275.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6a. Маршрутизація на R1</text>
+<line x1="560.0" y1="370.0" x2="780.0" y2="415.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="670.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">6b. Блокування читання R2</text>
+<rect x="130.0" y="505.0" width="920.0" height="48.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="590.0" y="532.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Токен прив'язує читання до монотонного номеру журналу (LSN/GTID), гарантуючи сесійні властивості без необхідності направляти всі запити на Primary.</tspan></text>
+</svg>

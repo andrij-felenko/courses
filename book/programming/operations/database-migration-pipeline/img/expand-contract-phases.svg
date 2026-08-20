@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Патерн паралельних змін (Expand / Contract) для безпечної еволюції схеми</text>
+<rect x="30.0" y="65.0" width="230.0" height="440.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="145.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: РОЗШИРЕННЯ (Expand)</text>
+<line x1="40.0" y1="105.0" x2="250.0" y2="105.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="42.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">DDL: Додавання нової структури</text>
+<text x="46.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Додавання колонки (NULL/DEFAULT)</text>
+<text x="46.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Створення нової таблиці / індексу</text>
+<text x="42.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Код додатку: v1 (старий)</text>
+<text x="46.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Читання: Стара колонка</text>
+<text x="46.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Запис: Стара колонка</text>
+<rect x="45.0" y="259.0" width="200.0" height="22.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/><text x="145.0" y="273.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">Стан: Схема готова, v1 працює</tspan></text>
+<line x1="262.0" y1="285.0" x2="278.0" y2="285.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="65.0" width="230.0" height="440.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/>
+<text x="395.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 2: ПОДВІЙНИЙ ЗАПИС (Dual Write)</text>
+<line x1="290.0" y1="105.0" x2="500.0" y2="105.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="292.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Реліз коду v1.1</text>
+<text x="296.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Запис: Стара ТА Нова колонки</text>
+<text x="296.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Читання: Стара колонка</text>
+<text x="292.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Асинхронний бекфіл:</text>
+<text x="296.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Фоновий перенос старих записів</text>
+<text x="296.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Синхронізація історичних даних</text>
+<rect x="295.0" y="259.0" width="200.0" height="22.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="395.0" y="273.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="395.0" dy="0.0">Стан: Дані в обох форматах</tspan></text>
+<line x1="512.0" y1="285.0" x2="528.0" y2="285.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="530.0" y="65.0" width="230.0" height="440.0" rx="8" fill="#fff9e6" stroke="#d97706" stroke-width="1.6"/>
+<text x="645.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Фаза 3: ПЕРЕМИКАННЯ ЧИТАННЯ (Switch)</text>
+<line x1="540.0" y1="105.0" x2="750.0" y2="105.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="542.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Реліз коду v1.2</text>
+<text x="546.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Читання: НОВА колонка</text>
+<text x="546.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Запис: Нова ТА Стара колонки</text>
+<text x="542.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Верифікація стабільності:</text>
+<text x="546.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Контроль валідності читання</text>
+<text x="546.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Миттєвий відкат на старе</text>
+<rect x="545.0" y="259.0" width="200.0" height="22.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/><text x="645.0" y="273.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">Стан: Нова структура основна</tspan></text>
+<line x1="762.0" y1="285.0" x2="778.0" y2="285.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="780.0" y="65.0" width="230.0" height="440.0" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="895.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Фаза 4: ЗВУЖЕННЯ (Contract)</text>
+<line x1="790.0" y1="105.0" x2="1000.0" y2="105.0" stroke="#7c3aed" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="792.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Реліз коду v2.0 &amp; Cleanup</text>
+<text x="796.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Код v2.0: Тільки нова колонка</text>
+<text x="796.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Видалення подвійного запису</text>
+<text x="792.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">DDL очищення:</text>
+<text x="796.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• DROP старого стовпця / таблиці</text>
+<text x="796.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зняття тимчасових тригерів</text>
+<rect x="795.0" y="259.0" width="200.0" height="22.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/><text x="895.0" y="273.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="895.0" dy="0.0">Стан: Міграцію завершено</tspan></text>
+</svg>
