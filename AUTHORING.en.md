@@ -150,7 +150,7 @@ Manifest (§2): each version has its own `status` — `basic:{status}`, `detaile
 
 **An insert extends ITS OWN topic; it does not explain someone else's.** This already stood for `math-`, but it is general and applies to every type. The boundary test is simple and countable: if the material about the *other* concept fits in a **paragraph**, write it into the article as a sentence or two (with a `book:` link where it helps); if it does not fit, it is a **new topic**, not an insert. The symptom: the insert's heading names something the topic's title does not, and inside it answers "what this is" rather than "how it works in my topic".
 
-The worst form is the same named concept getting an insert in several topics. On 2026-08-19 the Scuttlebutt protocol turned out to be spread across three folders — 2386 words in `gossip-dissemination`, `gossip-in-action` and `gossip-pull-vs-push` — and not one of them is about Scuttlebutt. A reader searching for it by name finds nothing; a reader of all three reads the same thing three times. So: **explaining a named concept in an insert a second time makes it a topic** — queue it and link to it.
+**Explaining a named concept in an insert a second time, in another topic, makes it a topic.** Two accounts of one mechanism in different folders mean the reader either never finds it by name or reads the same thing twice. Queue the topic and link to it from both.
 
 **Insert length — 400–5000 words** by density; rarely — **up to 9000**, and only when the insert is by nature a **large enumeration** (a set of commands, a table of fields, an API reference) that is harmful to split. If there is a lot of material and it splits — **split into several**. The registry in the manifest — **separate by type**.
 
@@ -161,10 +161,8 @@ The worst form is the same named concept getting an insert in several topics. On
 **A median is a property of the BOOK, not a target for a file, and its figures are deliberately not printed here.** A median describes a distribution: half the articles are shorter, half are longer, and that is exactly how it should be. Demanding the median of every article is like demanding that every person be of average height. So an individual article is NOT judged against it: `06-size.js` checks only the band, while `wordcount.js` reports the median per book.
 
 `wordcount.js` reports the figures per book; a writer does not need them and is harmed by them.
-While the rules printed an orientation figure, 727 articles written in three days landed
-at a median of 2974 with a range of 1552–4073 — two thirds of them within five hundred words of
-each other. Explaining that it was not a target did not stop it: the number itself is the
-instruction, whatever is written beside it.
+A number in front of the author becomes a target whatever is written beside it, and articles
+then level with each other instead of differing by subject.
 
 What a median does tell you: if it drifts toward the ceiling, the **bar for admitting material** has dropped — things now get into articles that would not have before. That is a conversation about the book, and it is fixed by the bar, not by cutting what is written. The ceiling (6500 / 5000) means "no more than this", not "aim for this".
 
