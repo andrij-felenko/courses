@@ -837,6 +837,7 @@
       ] },
     { slug: "optoelectronics", title: "Оптоелектроніка", scope: "Прилади перетворення між світлом і електричним сигналом.",
       topics: [
+        { slug: "charlieplexing", title: "Чарліплексинг (Charlieplexing)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-charlieplex-driver.md", status: "recheck" }] , "hist": [{ file: "hist-charlie-allen.md", status: "recheck" }] , "math": [{ file: "math-charlieplexing.md", status: "recheck" }] , "proj": [{ file: "proj-charlieplex-driver.md", status: "recheck" }] },
         { slug: "led", title: "LED", basic: { status: "empty" }, detailed: { status: "done" } },
         { slug: "oled", title: "OLED-дисплей", basic: { status: "empty" }, detailed: { status: "done" }, comp: [{ file: "comp-ssd1306.md", status: "done" }] },
         { slug: "tft", title: "TFT-дисплей", basic: { status: "done" }, detailed: { status: "done" } },
