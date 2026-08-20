@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="260.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістровий файл eBPF (11 x 64-бітних регістрів)</text>
+<rect x="50.0" y="70.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="80.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">R0</text>
+<rect x="120.0" y="70.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Результат виконання / Код повернення</text>
+<rect x="390.0" y="70.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rax / x0</text>
+<rect x="50.0" y="102.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="80.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">R1</text>
+<rect x="120.0" y="102.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1-й аргумент / Контекст виконання (ctx)</text>
+<rect x="390.0" y="102.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rdi / x0</text>
+<rect x="50.0" y="134.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="80.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">R2</text>
+<rect x="120.0" y="134.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2-й аргумент функції-хелпера</text>
+<rect x="390.0" y="134.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rsi / x1</text>
+<rect x="50.0" y="166.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="80.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">R3</text>
+<rect x="120.0" y="166.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3-й аргумент функції-хелпера</text>
+<rect x="390.0" y="166.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rdx / x2</text>
+<rect x="50.0" y="198.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="80.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">R4</text>
+<rect x="120.0" y="198.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">4-й аргумент функції-хелпера</text>
+<rect x="390.0" y="198.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rcx / x3</text>
+<rect x="50.0" y="230.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="80.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">R5</text>
+<rect x="120.0" y="230.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">5-й аргумент функції-хелпера</text>
+<rect x="390.0" y="230.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">r8 / x4</text>
+<rect x="50.0" y="262.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">R6</text>
+<rect x="120.0" y="262.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Збережений регістр (Callee-saved)</text>
+<rect x="390.0" y="262.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rbx / x19</text>
+<rect x="50.0" y="294.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">R7</text>
+<rect x="120.0" y="294.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Збережений регістр (Callee-saved)</text>
+<rect x="390.0" y="294.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">r13 / x20</text>
+<rect x="50.0" y="326.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">R8</text>
+<rect x="120.0" y="326.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Збережений регістр (Callee-saved)</text>
+<rect x="390.0" y="326.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">r14 / x21</text>
+<rect x="50.0" y="358.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">R9</text>
+<rect x="120.0" y="358.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Збережений регістр (Callee-saved)</text>
+<rect x="390.0" y="358.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">r15 / x22</text>
+<rect x="50.0" y="390.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="80.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">R10</text>
+<rect x="120.0" y="390.0" width="260.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="250.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вказівник стеку (Frame Pointer, Read-Only)</text>
+<rect x="390.0" y="390.0" width="90.0" height="26.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="435.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">rbp / x29</text>
+<text x="670.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр стеку програми eBPF (512 B)</text>
+<rect x="540.0" y="70.0" width="270.0" height="345.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<rect x="555.0" y="85.0" width="240.0" height="40.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="675.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">R10: Верхня межа кадру (0B)</text>
+<text x="675.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фіксований Read-Only вказівник</text>
+<line x1="530.0" y1="110.0" x2="530.0" y2="390.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="505.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зростання стеку вниз (-offset)</text>
+<rect x="555.0" y="145.0" width="240.0" height="60.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="675.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальні змінні та структури</text>
+<text x="675.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[R10 - 8] ... [R10 - 64]</text>
+<rect x="555.0" y="225.0" width="240.0" height="70.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="675.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфери для ключів / значень мап</text>
+<text x="675.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Передача адреси в R2 / R3 для helper</text>
+<rect x="555.0" y="315.0" width="240.0" height="40.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="675.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Нижня межа стеку (-512 B)</text>
+</svg>

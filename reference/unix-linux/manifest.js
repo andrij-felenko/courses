@@ -88,6 +88,7 @@ window.__BOOKS__ = [
         "title": "Ідея та родовід",
         "scope": "Звідки Unix узявся, які рішення в ньому засадничі й що з них випливає для всього іншого.",
         "topics": [
+          { slug: "kernel-notifier-chains", title: "Ланцюжки сповіщень ядра (notifier chains)", basic: { status: "empty" }, detailed: { status: "pending" } },
           {
             "slug": "unix-philosophy",
             "title": "Філософія Unix: малі програми, що складаються",
@@ -1907,6 +1908,10 @@ window.__BOOKS__ = [
         "title": "Пам'ять процесу",
         "scope": "Віртуальна пам'ять як механізм: чому адреси брешуть і що з цього виходить.",
         "topics": [
+          { slug: "numa-memory-policy", title: "NUMA: вузли, політики розміщення й багаторівнева пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "memory-tiering-and-demotion", title: "Ярусування пам'яті: NUMA balancing, demotion і memory-tiers", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "memory-types-and-page-attributes", title: "Тип пам'яті в записі таблиці сторінок: кешованість, PAT і MAIR", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "memory-tiering", title: "Яруси пам'яті: демоція сторінок у повільний вузол", basic: { status: "empty" }, detailed: { status: "pending" } },
           {
             "slug": "virtual-address-space",
             "title": "Віртуальний адресний простір процесу",
@@ -2756,6 +2761,8 @@ window.__BOOKS__ = [
         "title": "Файли й файлові системи",
         "scope": "Що таке файл у Unix, як імена відв'язані від вмісту й на чому тримається узгодженість.",
         "topics": [
+          { slug: "cluster-filesystems-gfs2-ocfs2", title: "Кластерні файлові системи: GFS2 і OCFS2", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "dentry-cache", title: "Кеш каталогових записів (dcache): dentry, негативні записи, RCU-walk", basic: { status: "empty" }, detailed: { status: "pending" } },
           { slug: "file-descriptors-and-open-file-table", title: "file-descriptors-and-open-file-table", basic: { status: "empty" }, detailed: { status: "recheck" } },
           {
             "slug": "file-descriptor",
@@ -4415,6 +4422,7 @@ window.__BOOKS__ = [
         "title": "Ввід-вивід і очікування",
         "scope": "Як програма чекає на дані й чому саме тут вирішується, скільки з'єднань вона потягне.",
         "topics": [
+          { slug: "pipes-and-fifo", title: "Канали й FIFO: кільцеві буфери ядра та зв'язування процесів", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-pipe-fifo-surface.md", status: "recheck" }] , "hist": [{ file: "hist-pipe-origins.md", status: "recheck" }] , "proj": [{ file: "proj-multiprocess-pipeline.md", status: "recheck" }] },
           { slug: "readdir-getdents64-directory-traversal", title: "Обхід каталогів: readdir, getdents64 та внутрішня структура", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-getdents64-structs.md", status: "done" }] , "hist": [{ file: "hist-readdir-r-deprecation.md", status: "done" }] , "proj": [{ file: "proj-fast-directory-walker.md", status: "done" }] },
           { slug: "fsync-fdatasync-sync-file-range", title: "Гарантії скидання кешу: fsync, fdatasync та sync_file_range", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-sync-contracts.md", status: "done" }] , "hist": [{ file: "hist-fsyncgate-and-cache.md", status: "done" }] , "proj": [{ file: "proj-sync-bench.md", status: "done" }] },
           { slug: "copy-file-range-cross-fs-reflink", title: "copy_file_range, reflink та копіювання на рівні ФС", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-cross-fs-matrix.md", status: "done" }] , "hist": [{ file: "hist-cross-fs-evolution.md", status: "done" }] , "proj": [{ file: "proj-cross-fs-cloner.md", status: "done" }] },
@@ -5216,6 +5224,7 @@ window.__BOOKS__ = [
         "title": "Сигнали й взаємодія процесів",
         "scope": "Асинхронні сповіщення та способи, якими процеси домовляються між собою.",
         "topics": [
+          { slug: "close-on-exec", title: "Закриття при exec: FD_CLOEXEC", basic: { status: "empty" }, detailed: { status: "pending" } },
           { slug: "signal-architecture-and-delivery", title: "Архітектура та доставка сигналів", basic: { status: "empty" }, detailed: { status: "done" } },
           {
             "slug": "signal-model",
@@ -5624,6 +5633,7 @@ window.__BOOKS__ = [
         "title": "Права й ідентичність",
         "scope": "Хто такий процес з погляду системи і як вирішується, що йому дозволено.",
         "topics": [
+          { slug: "netlabel-cipso-packet-labeling", title: "NetLabel і CIPSO: мітки безпеки на мережевих пакетах", basic: { status: "empty" }, detailed: { status: "pending" } },
           { slug: "seccomp-syscall-filtering", title: "Գ�������� ��������� ������� (seccomp)", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           { slug: "capabilities-in-practice", title: "Можливості на практиці: файли, процеси та systemd", basic: { status: "done" }, detailed: { status: "done" } },
           {
@@ -6864,6 +6874,41 @@ window.__BOOKS__ = [
         "title": "Пристрої та ядро",
         "scope": "Як залізо стає файлом і як ядро керує тим, що під'єднали.",
         "topics": [
+          { slug: "iommufd-subsystem", title: "IOMMUFD: керування таблицями IOMMU з простору користувача", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "kvm-irq-virtualization-apicv", title: "Віртуалізація переривань у KVM: vAPIC, APICv і posted interrupts", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "kvm-mmu-ept-npt", title: "Пам'ять гостя в KVM: EPT/NPT і тіньові таблиці сторінок", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "powercap-and-rapl", title: "Підсистема powercap та ліміти потужності RAPL", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "msi-x-interrupts", title: "Переривання MSI та MSI-X: від лінії INTx до запису в пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "msi-and-msix-interrupts", title: "Переривання MSI та MSI-X: повідомлення замість дроту", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "devfreq-framework", title: "devfreq: DVFS для не-CPU пристроїв", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "tty-layer-and-virtual-consoles", title: "Шар TTY та віртуальні консолі: лінійна дисципліна й режими клавіатури", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "libinput-input-stack", title: "libinput: спільний шар обробки вводу для Wayland і X", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "devm-managed-resources", title: "Managed-ресурси драйвера: devres і сімейство devm_*", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "system-suspend-resume", title: "Призупинення й пробудження системи: suspend to RAM у ядрі", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "wcwidth-and-cell-width", title: "Ширина символу в комірках: wcwidth, подвійні знаки й комбінаційні", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "vhost-user-protocol", title: "vhost-user: дата-плейн virtio в чужому процесі простору користувача", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "kobject-kref-lifetime", title: "kobject, kref і час життя об'єктів ядра", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "notifier-chains", title: "Ланцюжки сповіщень у ядрі: notifier chains", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "scsi-alua", title: "ALUA: асиметричний доступ і стани портів цілі", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "i2c-and-smbus-subsystem", title: "Шина I²C і SMBus у ядрі: адаптери, клієнти й збіг за таблицею", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "smart-self-monitoring", title: "SMART: що носій знає про власне здоров'я і як це прочитати", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "md-reshape", title: "Перебудова масиву md наживо: --grow, reshape_position і резервний файл", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "luks-format", title: "LUKS2: формат заголовка шифрованого тому", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "v4l2-mem2mem-devices", title: "Пристрої «пам'ять у пам'ять» у V4L2: дві черги на одному вузлі", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "usb-device-quirks", title: "Хиби пристроїв USB: чорні списки й прапорці відхилень", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "kernel-fips-mode", title: "Режим FIPS у ядрі: fips_enabled, самоперевірки й звужений набір алгоритмів", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "mfd-multifunction-devices", title: "Багатофункційні мікросхеми: підсистема MFD і діти на platform", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "dm-persistent-data", title: "persistent-data: транзакційні метадані device mapper", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "gem-buffer-objects", title: "GEM: об'єкти пам'яті графічного чипа", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "scsi-transport-timeouts", title: "Таймери транспорту SCSI: dev_loss_tmo, fast_io_fail_tmo і шлях помилки вгору", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "irq-chip-and-domain", title: "Контролер переривань: irqchip, irq_domain і шлях від hwirq до номера Linux", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "drm-format-modifiers", title: "Формати й модифікатори буфера: fourcc і розкладка пам'яті", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "swiotlb-bounce-buffers", title: "swiotlb: підмінні буфери, коли пристрій не дотягується", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "predictable-network-interface-names", title: "Передбачувані імена мережевих інтерфейсів: enp3s0 замість eth0", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "nvme-native-multipath-ana", title: "Нативний мультипасинг NVMe та стани ANA у ядрі Linux", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "virtio-balloon", title: "virtio-balloon: надування балона й повернення сторінок господарю", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "seq-file-iterator", title: "Інтерфейс seq_file: ітератор текстового виводу ядра", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "libcamera-stack", title: "libcamera: користувацький стек камери над V4L2 та Media Controller", basic: { status: "empty" }, detailed: { status: "pending" } },
           { slug: "nvme-over-fabrics-nvme-of", title: "Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-nvmeof-pdu-structures.md", status: "done" }] , "hist": [{ file: "hist-iscsi-to-nvmeof.md", status: "done" }] , "math": [{ file: "math-nvmeof-latency-throughput.md", status: "done" }] , "proj": [{ file: "proj-nvmeof-c-cpp-client.md", status: "done" }] },
           { slug: "gpio-descriptor-based-gpiod-api", title: "Ядерний дескрипторний API gpiod (gpiod_get, gpiod_set_value)", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-kernel-gpiod-functions.md", status: "done" }] , "hist": [{ file: "hist-legacy-gpio-to-gpiod.md", status: "done" }] , "proj": [{ file: "proj-kernel-gpio-driver.md", status: "done" }] },
           { slug: "devicetree-overlays-and-dtbo", title: "devicetree-overlays-and-dtbo", basic: { status: "empty" }, detailed: { status: "done" } , "api": [{ file: "api-dtbo-kernel-interfaces.md", status: "done" }] , "hist": [{ file: "hist-dtbo-evolution.md", status: "done" }] , "proj": [{ file: "proj-dtbo-configfs-loader.md", status: "done" }] },
@@ -10928,6 +10973,7 @@ window.__BOOKS__ = [
         "title": "Мережа в ядрі",
         "scope": "Як Linux бачить мережу зсередини: від інтерфейсу до маршруту й фільтра.",
         "topics": [
+          { slug: "linux-bridge", title: "Linux Bridge: програмний L2-комутатор у ядрі", basic: { status: "empty" }, detailed: { status: "pending" } },
           { slug: "network-stack-architecture", title: "Мережевий стек ядра Linux: архітектура та шлях пакета", basic: { status: "recheck" }, detailed: { status: "recheck" } },
           {
             "slug": "network-stack",
@@ -12199,6 +12245,9 @@ window.__BOOKS__ = [
         "title": "Побачити, що відбувається",
         "scope": "Механізми, якими система показує себе зсередини — і що з них можна дізнатися.",
         "topics": [
+          { slug: "lockup-detectors", title: "Детектори зависань ядра: soft lockup, hard lockup і NMI-watchdog", basic: { status: "empty" }, detailed: { status: "pending" } },
+          { slug: "ebpf", title: "eBPF: розширюваність ядра Linux, BPF Maps та верифікатор", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-bpf-maps.md", status: "recheck" }] , "hist": [{ file: "hist-ebpf-vm-evolution.md", status: "recheck" }] , "proj": [{ file: "proj-ebpf-latency-tracker.md", status: "recheck" }] },
+          { slug: "ftrace-tracepoints", title: "ftrace і трасувальні точки ядра Linux (Linux Kernel Tracepoints)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-tracefs-events.md", status: "recheck" }] , "hist": [{ file: "hist-tracepoints-origins.md", status: "recheck" }] , "proj": [{ file: "proj-custom-tracepoint.md", status: "recheck" }] },
           { slug: "systemtap-scripting", title: "Інструментарій SystemTap", basic: { status: "empty" }, detailed: { status: "recheck" } },
           { slug: "bpftrace-dynamic-tracing", title: "Високорівневе трасування через bpftrace", basic: { status: "empty" }, detailed: { status: "recheck" } },
           { slug: "audit-framework", title: "Підсистема аудиту ядра: правила, події й auditd", basic: { status: "recheck" }, detailed: { status: "recheck" } },
