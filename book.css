@@ -361,7 +361,6 @@ body {
 .ch-header.ch-header-book .ch-label { color: var(--book-accent, var(--accent)); margin-bottom: 0.1rem; }
 .ch-header.ch-header-book h1 { font-size: 1.4rem; color: var(--text); margin-bottom: 0; line-height: 1.2; }
 @media (max-width: 680px) {
-  .ch-header.ch-header-book { padding-left: 6.4rem; }   /* зліва — ☰ і ←; менше = назва залазить під кнопку */
   .ch-header.ch-header-book h1 { font-size: 1.18rem; }
 }
 /* Перемикач версій (коротка ↔ повна) — сегментований, у ВЕРХНІЙ ПАНЕЛІ праворуч
@@ -701,15 +700,15 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .cover-stats .stat .num { font-size: 1.8rem; font-weight: 900; color: #fff; }
 .cover-stats .stat .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: #5f93b5; }
 
-.toc { max-width: 1040px; margin: 0 auto; padding: 3rem 4rem 5rem; }
+.toc { max-width: 1040px; margin: 0 auto; padding: 1.5rem 4rem 3rem; }
 
-.module-block { margin-bottom: 2.6rem; }
-.module-head { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 1.1rem; padding-bottom: 0.55rem; border-bottom: 2px solid var(--border); }
+.module-block { margin-bottom: 1.4rem; }
+.module-head { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 0.6rem; padding-bottom: 0.35rem; border-bottom: 2px solid var(--border); }
 .module-head .m-num {
   flex-shrink: 0; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
   color: #fff; background: var(--accent); border-radius: 999px; padding: 0.25rem 0.7rem;
 }
-.module-head .m-ttl { font-size: 1.25rem; font-weight: 800; color: var(--h2-color); }
+.module-head .m-ttl { font-size: 1.05rem; font-weight: 800; color: var(--h2-color); }
 .module-head .m-prog { margin-left: auto; font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
 
 .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; }
@@ -740,18 +739,18 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .ch-card.done .c-meta { color: var(--accent); }
 
 /* ─── Зміст: список розділів із клікабельними темами, що розгортаються ───── */
-.ch-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.ch-list { display: flex; flex-direction: column; gap: 0.3rem; }
 .ch-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
 .ch-item.done:hover { border-color: var(--accent); }
 .ch-item.pending { background: var(--bg-alt); border-style: dashed; }
-.ch-row { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0.85rem; }
+.ch-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.32rem 0.6rem; }
 .ch-item .c-num {
   flex-shrink: 0; min-width: 2.7rem; height: 1.7rem; padding: 0 0.45rem; border-radius: 7px;
   display: inline-flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 0.8rem; background: var(--accent-light); color: var(--accent);
 }
 .ch-open { display: flex; align-items: center; gap: 0.7rem; flex: 1; min-width: 0; text-decoration: none; color: inherit; }
-.ch-open .c-ttl { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+.ch-open .c-ttl { font-size: 0.85rem; font-weight: 600; color: var(--text); line-height: 1.3; }
 .ch-open .c-go { margin-left: auto; flex-shrink: 0; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; opacity: 0.7; transition: color 0.12s, opacity 0.12s; }
 .ch-open:hover .c-ttl { color: var(--accent); }
 .ch-open:hover .c-go { color: var(--accent); opacity: 1; }
@@ -792,10 +791,11 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .module-block.collapsed .module-head { margin-bottom: 0; border-bottom-color: transparent; }
 
 /* Плитка (grid): теми як картки, назва в 1–2 рядки */
-.toc.map-grid .ch-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.6rem; align-items: stretch; }
-.toc.map-grid .ch-row { height: 100%; align-items: stretch; padding: 0.7rem 0.8rem; }
-.toc.map-grid .ch-open { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-.toc.map-grid .ch-open .c-ttl { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.toc.map-grid .ch-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.35rem; align-items: stretch; }
+.toc.map-grid .ch-row { height: 100%; align-items: stretch; padding: 0.4rem 0.6rem; }
+.toc.map-grid .ch-open { flex-direction: column; align-items: flex-start; gap: 0; }
+.toc.map-grid .ch-open .c-go { display: none; }   /* «→» у плитці лише додавав рядок висоти */
+.toc.map-grid .ch-open .c-ttl { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }   /* 2 рядки різали 258 назв із 534, 3 рядки — 45; ціна 2300px на 14000 */
 .toc.map-grid .ch-open .c-go { margin-left: 0; margin-top: auto; }
 .toc.map-grid .ch-item.pending .ch-row { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
 .toc.map-grid .module-block.collapsed .ch-list { display: none; }   /* згорнуте ховаємо й у плитці */
@@ -859,14 +859,26 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 
 /* ── Кнопка «на рівень вище» (зліва зверху; нема лише в бібліотеці):
    стаття → зміст книги / лендинг курсу; зміст/лендинг → бібліотека ── */
+/* Кнопка живе ВСЕРЕДИНІ .ch-header — absolute у її межах, а не fixed над лейаутом.
+   Наслідок: позицію кнопки й лівий відступ шапки задають ОДНІ Й ТІ САМІ змінні, тож
+   розійтися вони не можуть (саме на цьому був наїзд на заголовок: кнопці треба було
+   52px, а шапка на ≤980px лишала 40px). Прив'язки до --sidebar-w більше немає — тому
+   сховане меню, мобільна шухляда й вузькі екрани не потребують власних чисел. */
+.ch-header { --up-left: 0.75rem; --up-w: 2.4rem; --up-gap: 0.8rem; }
 #up-btn {
-  position: fixed; top: 0.6rem; left: calc(var(--sidebar-w) + 0.85rem); z-index: 300;
-  width: 2.4rem; height: 2.4rem; display: flex; align-items: center; justify-content: center;
+  width: var(--up-w, 2.4rem); height: 2.4rem; display: flex; align-items: center; justify-content: center;
   background: var(--sidebar-bg); color: #fff; border-radius: 8px; text-decoration: none;
-  font-size: 1.15rem; line-height: 1; box-shadow: var(--shadow);
-  transition: filter 0.15s, transform 0.2s ease, opacity 0.16s ease, left 0.22s ease;
+  font-size: 1.15rem; line-height: 1; box-shadow: var(--shadow); overflow: hidden;
+  transition: filter 0.15s, transform 0.2s ease, opacity 0.16s ease, width 0.2s ease;
 }
-#up-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
+#up-btn:not(.in-head) {          /* запасний шлях: сторінка, де шапки немає */
+  position: fixed; top: 0.6rem; left: calc(var(--sidebar-w) + 0.85rem); z-index: 300; width: 2.4rem;
+}
+#up-btn.in-head { position: absolute; left: var(--up-left); top: 50%; transform: translateY(-50%); z-index: 2; }
+.ch-header:has(> #up-btn.in-head) { padding-left: calc(var(--up-left) + var(--up-w) + var(--up-gap)); }
+#up-btn:hover { filter: brightness(1.18); }
+#up-btn:not(.in-head):hover { transform: translateY(-1px); }
+#up-btn.in-head:hover { transform: translateY(-50%) scale(1.07); }
 
 /* ── «Сховати меню» — кнопка на самому сайдбарі (широкий екран; на вузькому це робить ✕) ── */
 #sb-hide {
@@ -880,8 +892,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   html:not(.sb-hidden) #sb-hide { display: flex; }
   #sidebar .sb-home { padding-right: 3.4rem; }        /* місце під кнопку «сховати» */
   html.sb-hidden #menu-btn { display: flex; }         /* меню сховане → ☰ повертає його */
-  html.sb-hidden #up-btn { left: 3.6rem; }            /* стаємо праворуч від ☰ */
-  html.sb-hidden .ch-header { padding-left: 6.4rem; } /* шапка не залазить під ☰ і ← */
+  html.sb-hidden .ch-header { --up-left: 3.6rem; }    /* меню сховане → ☰ ліворуч, ← стає за ним */
 }
 
 /* ── Попап «прочитано/непрочитано» (затиснути або правий клік на лінку статті) ── */
@@ -918,14 +929,14 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   body:has(#sidebar.open) #menu-btn { display: none; }
   body:has(#sidebar.open) #sidebar-close { display: flex; }
   #sidebar .sb-home { padding-right: 3rem; }   /* лишити місце під ✕ */
-  #up-btn { left: 3.6rem; }                    /* праворуч від ☰ */
+  .ch-header { --up-left: 3.6rem; }                    /* ліворуч фіксоване ☰ — ← стає за ним */
   body:has(#sidebar.open) #up-btn { display: none; }   /* шухляду відкрито — не плутати з ✕ */
+  body:has(#sidebar.open) .ch-header { --up-w: 0rem; --up-gap: 0rem; }
   /* ← ховається, поки читач гортає вниз (кнопка потрібна не під час читання, а коли збираєшся вийти):
      повертається на гортанні вгору й біля самого верху сторінки. Клас вішає topchrome.js.
      Разом із кнопкою зменшується лівий відступ шапки — назві статті дістається більше рядка. */
-  body.up-hidden #up-btn { transform: translateY(-4rem); opacity: 0; pointer-events: none; }
-  .ch-header { padding-left: 6.4rem; }   /* зліва — кнопки меню і «вище»; правий відступ — за співвідношенням сторін (нижче) */
-  body.up-hidden .ch-header, body.up-hidden .ch-header.ch-header-book { padding-left: 3.6rem; }   /* лишається місце лише під ☰ */
+  body.up-hidden #up-btn { opacity: 0; pointer-events: none; }
+  body.up-hidden .ch-header { --up-w: 0rem; --up-gap: 0rem; }   /* кнопка поїхала — відступ стискається САМ */
   .ch-header h1 { font-size: 1.15rem; }
   .cover-hero { padding: 4rem 1.4rem 2.5rem; }
   .cover-hero h1 { font-size: 1.95rem; }

@@ -71,7 +71,7 @@
 
   /* ── Вигляд списку тем: список/плитка + згорнуті галузі (зберігається) ── */
   var NAV = {
-    view: (function () { try { return localStorage.getItem("courses-map-view") === "grid" ? "grid" : "list"; } catch (e) { return "list"; } })(),
+    view: (function () { try { return localStorage.getItem("courses-map-view") === "list" ? "list" : "grid"; } catch (e) { return "grid"; } })(),   // книги на 500–1000 тем списком дають ~30 000px прокрутки
     collapsed: (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-collapsed") || "[]")); } catch (e) { return new Set(); } })()
   };
   function saveNav() { try { localStorage.setItem("courses-map-view", NAV.view); localStorage.setItem("courses-collapsed", JSON.stringify(Array.from(NAV.collapsed))); } catch (e) {} }
@@ -1277,12 +1277,32 @@
 
   var appliedAt = null;     // який якір уже застосовано (щоб не стрибати догори при закритті попапа)
 
-  // Кнопка «на рівень вище» (зліва зверху): стаття → зміст книги / лендинг курсу; зміст → бібліотека
-  function updateUpBtn(view) {
+  /* Кнопка «на рівень вище» (зліва зверху): стаття → зміст книги / лендинг курсу; зміст → бібліотека.
+     Вузол ПЕРЕЇЖДЖАЄ всередину .ch-header і позиціюється відносно НЕЇ (book.css): просвіт під
+     кнопку й сама кнопка читають одну змінну, тож наїхати на заголовок нічим. Єдина точка, де
+     це може зламатись, — innerHTML у setContent; там кнопку виносимо перед записом і вертаємо
+     одразу після, тож жодний майбутній шлях рендера про неї не забуде. */
+  var upHref = "index.html";
+  function ensureUpBtn() {
     var up = document.getElementById("up-btn");
-    if (!up) return;
-    if (view === "chapter") up.setAttribute("href", BOOK.course ? courseHome() : "#");
-    else up.setAttribute("href", BOOK.libraryHref || "index.html");
+    if (!up) {                                   // хтось таки зітер — відбудовуємо, а не лишаємось без кнопки
+      up = document.createElement("a");
+      up.id = "up-btn"; up.textContent = "←";
+      up.setAttribute("aria-label", "На рівень вище"); up.setAttribute("title", "На рівень вище");
+      document.body.appendChild(up);
+    }
+    up.setAttribute("href", upHref);
+    return up;
+  }
+  function placeUpBtn() {
+    var up = ensureUpBtn();
+    var head = $content.querySelector(".ch-header");
+    if (head) { if (up.parentNode !== head) head.appendChild(up); up.classList.add("in-head"); }
+    else { if (up.parentNode !== document.body) document.body.appendChild(up); up.classList.remove("in-head"); }
+  }
+  function updateUpBtn(view) {
+    upHref = (view === "chapter") ? (BOOK.course ? courseHome() : "#") : (BOOK.libraryHref || "index.html");
+    placeUpBtn();
   }
 
   function route() {
@@ -1547,7 +1567,12 @@
     anchors.forEach(function (a) { spy.observe(a); });
   }
 
-  function setContent(html) { $content.innerHTML = html; syncCodeTabs(); }
+  function setContent(html) {
+    var up = document.getElementById("up-btn");                        // innerHTML зітер би вузол разом зі старою шапкою
+    if (up && up.parentNode !== document.body) document.body.appendChild(up);
+    $content.innerHTML = html; syncCodeTabs();
+    placeUpBtn();                                                      // …і одразу назад у свіжу шапку — без блимання
+  }
   function setSidebar(html) {
     $sidebar.innerHTML = html;
     var a = $sidebar.querySelector(".sb-link.active");   // автоскрол до активного рядка (курс на 600+ рядків)
