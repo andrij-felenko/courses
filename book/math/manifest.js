@@ -1596,9 +1596,9 @@ window.__BOOKS__.push(
         { slug: "nagell-ljunggren-bounds", title: "Межі Нагеля–Люнггрена", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-nagell-ljunggren-history.md", status: "recheck" }] , "math": [{ file: "math-nagell-ljunggren-proofs.md", status: "recheck" }] , "proj": [{ file: "proj-nagell-ljunggren-search.md", status: "recheck" }] },
         { slug: "mersenne-numbers", title: "Числа Мерсенна", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-mersenne-monk.md", status: "recheck" }] , "math": [{ file: "math-gcd-mersenne.md", status: "recheck" }] , "proj": [{ file: "proj-mersenne-arithmetic.md", status: "recheck" }] },
         { slug: "dirichlet-series", title: "Ряди Діріхле", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-peter-dirichlet.md", status: "recheck" }] , "math": [{ file: "math-dirichlet-convolution.md", status: "recheck" }] , "proj": [{ file: "proj-dirichlet-series-sim.md", status: "recheck" }] },
-        { slug: "r-tree", title: "R-дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "k-d-tree", title: "K-d дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "sparse-table", title: "Розріджена таблиця", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "r-tree", title: "R-дерево", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-r-tree.md", status: "recheck" }] , "math": [{ file: "math-r-tree-mbr.md", status: "recheck" }] , "proj": [{ file: "proj-r-tree-search-split.md", status: "recheck" }] },
+        { slug: "k-d-tree", title: "K-d дерево", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-kd-tree-bentley.md", status: "recheck" }] , "math": [{ file: "math-kd-tree-complexity.md", status: "recheck" }] , "proj": [{ file: "proj-kd-tree-impl.md", status: "recheck" }] },
+        { slug: "sparse-table", title: "Розріджена таблиця", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-sparse-table.md", status: "recheck" }] , "math": [{ file: "math-sparse-table-idempotence.md", status: "recheck" }] , "proj": [{ file: "proj-sparse-table-impl.md", status: "recheck" }] },
         { slug: "segment-tree", title: "Дерево відрізків", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-segment-tree.md", status: "done" }] , "hist": [{ file: "hist-segment-tree.md", status: "done" }] , "math": [{ file: "math-segment-tree-monoids.md", status: "done" }] , "proj": [{ file: "proj-segment-tree-impl.md", status: "done" }] },
         { slug: "fenwick-tree", title: "Дерево Фенвіка", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-fenwick-interface.md", status: "done" }] , "hist": [{ file: "hist-fenwick-origin.md", status: "done" }] , "math": [{ file: "math-fenwick-algebra.md", status: "done" }] , "proj": [{ file: "proj-fenwick-implementation.md", status: "done" }] },
         { slug: "mobius-inversion", title: "Обернення Мьобіуса", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-mobius-properties.md", status: "done" }] , "hist": [{ file: "hist-mobius-inversion.md", status: "done" }] , "math": [{ file: "math-mobius-algebra.md", status: "done" }] , "proj": [{ file: "proj-mobius-inversion.md", status: "done" }] },
@@ -4205,8 +4205,8 @@ window.__BOOKS__.push(
         { slug: "galois-group", title: "Група Ґалуа", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-galois-duel.md", status: "recheck" }] , "math": [{ file: "math-fundamental-galois-theorem.md", status: "recheck" }] , "proj": [{ file: "proj-galois-computation.md", status: "recheck" }] },
         { slug: "cyclotomic-fields", title: "Кругові поля", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-gauss-heptadecagon.md", status: "recheck" }] , "math": [{ file: "math-cyclotomic-polynomials.md", status: "recheck" }] , "proj": [{ file: "proj-cyclotomic-arithmetic.md", status: "recheck" }] },
         { slug: "frobenius-automorphism", title: "Автоморфізм Фробеніуса", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-frobenius-origins.md", status: "recheck" }] , "math": [{ file: "math-frobenius-properties.md", status: "recheck" }] , "proj": [{ file: "proj-frobenius-acceleration.md", status: "recheck" }] },
-        { slug: "finite-field-extensions", title: "Розширення скінченних полів", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "galois-representations", title: "Зображення Галуа", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "finite-field-extensions", title: "Розширення скінченних полів", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-galois-finite-fields.md", status: "recheck" }] , "math": [{ file: "math-galois-trace-norm.md", status: "recheck" }] , "proj": [{ file: "proj-gf28-arithmetic.md", status: "recheck" }] },
+        { slug: "galois-representations", title: "Зображення Галуа", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-modularity-flt.md", status: "recheck" }] , "math": [{ file: "math-tate-module-properties.md", status: "recheck" }] , "proj": [{ file: "proj-frobenius-trace.md", status: "recheck" }] },
         {
           "slug": "rearranging-formulas",
           "title": "Перестановка формул",
@@ -4261,30 +4261,84 @@ window.__BOOKS__.push(
           "slug": "finite-fields",
           "title": "Скінченні поля",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-galois-fields.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-finite-field-proofs.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-galois-field-arithmetic.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "polynomial-rings",
           "title": "Кільця многочленів",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-polynomial-algebra.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-eisenstein-gauss.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-poly-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "lie-group-so3",
           "title": "Група SO(3) і її подвійне покриття SU(2)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-so3-su2.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-rodrigues-exponential.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-slerp-interpolation.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -4365,20 +4419,56 @@ window.__BOOKS__.push(
           "slug": "monoid",
           "title": "Моноїд",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-monoid-origins.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-free-monoid-universal.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-parallel-fold.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "semilattice",
           "title": "Напіврешітка",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-semilattice-origins.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-semilattice-poset-equivalence.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-crdt-semilattice.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -6876,10 +6966,28 @@ window.__BOOKS__.push(
           "slug": "littles-law",
           "title": "Закон Літтла",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-littles-law.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-sample-path-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-queue-simulator.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -7343,10 +7451,28 @@ window.__BOOKS__.push(
           "slug": "percentiles-quantiles",
           "title": "Перцентилі й хвости",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-percentiles.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-estimation.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-streaming-quantile.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {

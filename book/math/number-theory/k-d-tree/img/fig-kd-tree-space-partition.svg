@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двовимірне розбиття площини та структура K-d дерева</text>
+<text x="520.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Чергування осей розбиття (X на парних рівнях, Y на непарних) розсікає простір на прямокутні комірки</text>
+<rect x="40.0" y="80.0" width="390.0" height="390.0" rx="4" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<line x1="118.0" y1="80.0" x2="118.0" y2="470.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="40.0" y1="158.0" x2="430.0" y2="158.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="196.0" y1="80.0" x2="196.0" y2="470.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="40.0" y1="236.0" x2="430.0" y2="236.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="274.0" y1="80.0" x2="274.0" y2="470.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="40.0" y1="314.0" x2="430.0" y2="314.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="352.0" y1="80.0" x2="352.0" y2="470.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="40.0" y1="392.0" x2="430.0" y2="392.0" stroke="#edf2f7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="58.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">(0, 0)</text>
+<text x="419.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">X (100)</text>
+<text x="58.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Y (100)</text>
+<line x1="235.0" y1="470.0" x2="235.0" y2="80.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="241.0" y="95.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">X = 50</text>
+<line x1="40.0" y1="216.5" x2="235.0" y2="216.5" stroke="#2457d6" stroke-width="2.2"/>
+<text x="63.4" y="210.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Y = 65</text>
+<line x1="235.0" y1="372.5" x2="430.0" y2="372.5" stroke="#2457d6" stroke-width="2.2"/>
+<text x="406.6" y="366.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Y = 25</text>
+<line x1="86.8" y1="470.0" x2="86.8" y2="216.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="90.8" y="446.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">X=12</text>
+<line x1="188.2" y1="216.5" x2="188.2" y2="80.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="192.2" y="95.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">X=38</text>
+<line x1="281.8" y1="372.5" x2="281.8" y2="80.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="285.8" y="95.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">X=62</text>
+<line x1="383.2" y1="470.0" x2="383.2" y2="372.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="379.2" y="446.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">X=88</text>
+<circle cx="235.0" cy="294.5" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="235.0" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P1 (50, 45)</text>
+<circle cx="137.5" cy="216.5" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="137.5" y="202.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P2 (25, 65)</text>
+<circle cx="332.5" cy="372.5" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="332.5" y="358.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P3 (75, 25)</text>
+<circle cx="86.8" cy="353.0" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="112.8" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P4 (12, 30)</text>
+<circle cx="188.2" cy="138.5" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="162.2" y="150.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P5 (38, 85)</text>
+<circle cx="281.8" cy="177.5" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="307.8" y="165.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P6 (62, 75)</text>
+<circle cx="383.2" cy="423.2" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="357.2" y="437.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P7 (88, 12)</text>
+<text x="235.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометричний простір: почерговий поділ площини</text>
+<rect x="470.0" y="80.0" width="530.0" height="390.0" rx="6" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<text x="735.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархічне бінарне дерево</text>
+<line x1="735.0" y1="168.0" x2="605.0" y2="222.0" stroke="#333333" stroke-width="1.4"/>
+<text x="670.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">X ≤ 50</text>
+<line x1="735.0" y1="168.0" x2="865.0" y2="222.0" stroke="#333333" stroke-width="1.4"/>
+<text x="800.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">X &gt; 50</text>
+<line x1="605.0" y1="258.0" x2="540.0" y2="327.0" stroke="#333333" stroke-width="1.4"/>
+<text x="572.5" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Y ≤ 65</text>
+<line x1="605.0" y1="258.0" x2="670.0" y2="327.0" stroke="#333333" stroke-width="1.4"/>
+<text x="637.5" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Y &gt; 65</text>
+<line x1="865.0" y1="258.0" x2="800.0" y2="327.0" stroke="#333333" stroke-width="1.4"/>
+<text x="832.5" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Y &gt; 25</text>
+<line x1="865.0" y1="258.0" x2="930.0" y2="327.0" stroke="#333333" stroke-width="1.4"/>
+<text x="897.5" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Y ≤ 25</text>
+<rect x="687.0" y="132.0" width="96.0" height="36.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="735.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P1: (50, 45)</text>
+<text x="735.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Розбиття X=50</text>
+<rect x="557.0" y="222.0" width="96.0" height="36.0" rx="5" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="605.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P2: (25, 65)</text>
+<text x="605.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Розбиття Y=65</text>
+<rect x="817.0" y="222.0" width="96.0" height="36.0" rx="5" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="865.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P3: (75, 25)</text>
+<text x="865.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Розбиття Y=25</text>
+<rect x="492.0" y="327.0" width="96.0" height="36.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="540.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P4: (12, 30)</text>
+<text x="540.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Розбиття X=12</text>
+<rect x="622.0" y="327.0" width="96.0" height="36.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="670.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P5: (38, 85)</text>
+<text x="670.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Розбиття X=38</text>
+<rect x="752.0" y="327.0" width="96.0" height="36.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="800.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P6: (62, 75)</text>
+<text x="800.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Розбиття X=62</text>
+<rect x="882.0" y="327.0" width="96.0" height="36.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="930.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P7: (88, 12)</text>
+<text x="930.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Розбиття X=88</text>
+<rect x="510.0" y="415.0" width="450.0" height="40.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<circle cx="540.0" cy="435.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<text x="555.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вертикальний спліт (X)</text>
+<circle cx="750.0" cy="435.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.0"/>
+<text x="765.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Горизонтальний спліт (Y)</text>
+</svg>

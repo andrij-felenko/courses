@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Закон Амдала для мультиядерних систем: симетричний (SMP) vs асиметричний (AMP) чіп</text>
+<rect x="35.0" y="65.0" width="420.0" height="380.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="245.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Симетричний мультипроцесор (SMP)</text>
+<text x="245.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">16 однакових базових ядер (16 BCE бюджету)</text>
+<rect x="90.0" y="135.0" width="65.0" height="65.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="122.5" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро 0</text>
+<text x="122.5" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">послідовно</text>
+<rect x="169.0" y="135.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="201.5" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 1</text>
+<text x="201.5" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="248.0" y="135.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="280.5" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 2</text>
+<text x="280.5" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="327.0" y="135.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="359.5" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 3</text>
+<text x="359.5" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="90.0" y="214.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="122.5" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 4</text>
+<text x="122.5" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="169.0" y="214.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="201.5" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 5</text>
+<text x="201.5" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="248.0" y="214.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="280.5" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 6</text>
+<text x="280.5" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="327.0" y="214.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="359.5" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 7</text>
+<text x="359.5" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="90.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="122.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 8</text>
+<text x="122.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="169.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="201.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 9</text>
+<text x="201.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="248.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="280.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 10</text>
+<text x="280.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="327.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="359.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 11</text>
+<text x="359.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="90.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="122.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 12</text>
+<text x="122.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="169.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="201.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 13</text>
+<text x="201.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="248.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="280.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 14</text>
+<text x="280.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<rect x="327.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="359.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро 15</text>
+<text x="359.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">простій (IDLE)</text>
+<text x="245.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">⚠️ У послідовній фазі 15 ядер із 16 гріють повітря!</text>
+<rect x="485.0" y="65.0" width="420.0" height="380.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="695.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асиметричний чіп (AMP / big.LITTLE)</text>
+<text x="695.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 велике ядро (4 BCE) + 12 малих ядер (12 BCE)</text>
+<rect x="540.0" y="135.0" width="144.0" height="144.0" rx="8" fill="#dcfce7" stroke="#27ae60" stroke-width="2.2"/>
+<text x="612.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ВЕЛИКЕ ЯДРО (4 BCE)</text>
+<text x="612.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Глибокий Out-of-Order, великий L2</text>
+<text x="612.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2.5× швидкість Ts у послідовній фазі</text>
+<rect x="698.0" y="135.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="730.5" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 1</text>
+<text x="730.5" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="777.0" y="135.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="809.5" y="161.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 2</text>
+<text x="809.5" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="698.0" y="214.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="730.5" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 3</text>
+<text x="730.5" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="777.0" y="214.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="809.5" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 4</text>
+<text x="809.5" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="540.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="572.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 5</text>
+<text x="572.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="619.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="651.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 6</text>
+<text x="651.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="698.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="730.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 7</text>
+<text x="730.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="777.0" y="293.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="809.5" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 8</text>
+<text x="809.5" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="540.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="572.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 9</text>
+<text x="572.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="619.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="651.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 10</text>
+<text x="651.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="698.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="730.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 11</text>
+<text x="730.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<rect x="777.0" y="372.0" width="65.0" height="65.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="809.5" y="398.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Мале 12</text>
+<text x="809.5" y="414.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 BCE</text>
+<text x="695.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Послідовна фаза прискорена в 2.5×, паралельна — на всіх 13 ядрах</text>
+</svg>

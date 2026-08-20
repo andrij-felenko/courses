@@ -6974,60 +6974,198 @@ window.__BOOKS__.push(
           "slug": "amdahls-law",
           "title": "Закон Амдала",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-profiling-metrics.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-gene-amdahl.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-scaling-laws.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-parallel-bench.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "lamport-clocks",
           "title": "Чому wall-clock бреше (дрейф, NTP-стрибки) і **годинник Лампорта**",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-logical-clock.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-lamport-paper.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-causal-order.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-lamport-simulation.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "vector-clocks",
           "title": "Векторні годинники й обходи розбіжності",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-version-vector.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-vector-clocks.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-causal-order.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-vector-clocks.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "consensus-problem",
           "title": "Задача консенсусу і чому вона важка (FLP оглядово); коли потрібен консенсус, а коли ні (дорого)",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "hist": [
+            {
+              "file": "hist-flp.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-flp-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-consensus-sim.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "raft",
           "title": "Raft",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-raft-rpc.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-ongaro-ousterhout.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-safety-proof.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-raft-node.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "two-phase-commit",
           "title": "Двофазний коміт і його страх",
           "basic": {
-            "status": "empty"
+            "status": "empty",
+          "api": [
+            {
+              "file": "api-xa-protocol.md",
+              "status": "recheck",
+          "hist": [
+            {
+              "file": "hist-two-phase-commit.md",
+              "status": "recheck",
+          "math": [
+            {
+              "file": "math-atomic-commit.md",
+              "status": "recheck",
+          "proj": [
+            {
+              "file": "proj-two-phase-commit.md",
+              "status": "recheck"
+            }
+          ],
+            }
+          ],
+            }
+          ],
+            }
+          ],
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {

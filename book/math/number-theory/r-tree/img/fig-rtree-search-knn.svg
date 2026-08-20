@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просторовий пошук: віконний запит та k найближчих сусідів (k-NN)</text>
+<text x="480.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Геометричне відсікання гілок дерева за допомогою прямокутника запиту та метрик відстані</text>
+<rect x="40.0" y="75.0" width="425.0" height="375.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="40.0" y="75.0" width="425.0" height="34.0" rx="6" fill="#eaf2f8" stroke="#333333" stroke-width="1.5"/>
+<text x="252.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Віконний запит (Range / Intersection Query)</text>
+<rect x="70.0" y="135.0" width="190.0" height="160.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="85.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">MBR Node 1 (Перетин)</text>
+<rect x="85.0" y="170.0" width="60.0" height="45.0" rx="2" fill="#d5f5e3" stroke="#333333" stroke-width="1.2"/>
+<text x="115.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Об'єкт 1</text>
+<rect x="170.0" y="215.0" width="70.0" height="60.0" rx="2" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="205.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Об'єкт 2 ✓</text>
+<rect x="280.0" y="135.0" width="160.0" height="130.0" rx="4" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.5"/>
+<text x="295.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">MBR Node 2 (Поза вікном)</text>
+<rect x="300.0" y="175.0" width="60.0" height="45.0" rx="2" fill="#f2f3f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="330.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Об'єкт 3 ✗</text>
+<text x="360.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Гілка ВІДСІКАЄТЬСЯ</text>
+<rect x="140.0" y="195.0" width="180.0" height="190.0" rx="4" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="310.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">Вікно запиту Q</text>
+<text x="252.5" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Правило відсікання: якщо MBR ∩ Q == ∅ → не спускатися.</text>
+<text x="252.5" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Якщо MBR ∩ Q ≠ ∅ → рекурсивно перевірити дочірні вузли.</text>
+<rect x="495.0" y="75.0" width="425.0" height="375.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="495.0" y="75.0" width="425.0" height="34.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/>
+<text x="707.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Пошук найближчих сусідів (k-NN з чергою)</text>
+<circle cx="570.0" cy="275.0" r="6.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="558.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">Точка P</text>
+<rect x="675.0" y="150.0" width="120.0" height="85.0" rx="4" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="735.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">MBR Вузла A</text>
+<line x1="570.0" y1="275.0" x2="675.0" y2="205.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="600.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">MINDIST(P, A)</text>
+<rect x="725.0" y="295.0" width="160.0" height="95.0" rx="4" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.5"/>
+<text x="805.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">MBR Вузла B</text>
+<line x1="570.0" y1="275.0" x2="725.0" y2="320.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="630.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">MINDIST(P, B)</text>
+<text x="685.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Радіус відсікання r_k</text>
+<rect x="515.0" y="405.0" width="385.0" height="35.0" rx="4" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="707.5" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Min-Купа: [ (MINDIST(A), Node A), (MINDIST(B), Node B) ]</text>
+</svg>

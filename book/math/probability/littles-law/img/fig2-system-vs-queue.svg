@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="400.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Декомпозиція системи: застосування закону Літтла до підсистем</text>
+<rect x="100.0" y="60.0" width="680.0" height="240.0" rx="8" fill="#f8fafc" stroke="#2563eb" stroke-width="2.0"/>
+<text x="440.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="700">Загальна система: L = λ · W</text>
+<line x1="15.0" y1="180.0" x2="95.0" y2="180.0" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="55.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Вхід λ</text>
+<rect x="130.0" y="110.0" width="260.0" height="140.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="260.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e08a1e" text-anchor="middle" font-weight="700">Буфер очікування (Черга)</text>
+<rect x="155.9" y="150.9" width="208.1" height="88.2" rx="6" fill="#ffffff" stroke="#e08a1e" stroke-width="1.5"/><text x="260.0" y="170.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">• Середня довжина: L_q</tspan><tspan x="260.0" dy="14.3">• Середній час очікування: W_q</tspan><tspan x="260.0" dy="14.3"></tspan><tspan x="260.0" dy="14.3">Закон Літтла для черги:</tspan><tspan x="260.0" dy="14.3">L_q = λ · W_q</tspan></text>
+<line x1="395.0" y1="180.0" x2="485.0" y2="180.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="490.0" y="110.0" width="260.0" height="140.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.8"/>
+<text x="620.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">Обслуговуючий вузол (Сервер)</text>
+<rect x="512.8" y="150.9" width="214.4" height="88.2" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/><text x="620.0" y="170.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">• Середня зайнятість: L_s = ρ</tspan><tspan x="620.0" dy="14.3">• Час обслуговування: W_s = 1/μ</tspan><tspan x="620.0" dy="14.3"></tspan><tspan x="620.0" dy="14.3">Закон Літтла для сервера:</tspan><tspan x="620.0" dy="14.3">L_s = λ · W_s = λ / μ = ρ</tspan></text>
+<line x1="785.0" y1="180.0" x2="865.0" y2="180.0" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="825.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Вихід λ</text>
+<rect x="58.3" y="332.4" width="763.4" height="45.3" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/><text x="440.0" y="351.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Адитивність часу та заявок:  Час перебування W = W_q + W_s  |  Кількість у системі L = L_q + L_s</tspan><tspan x="440.0" dy="14.3">L = L_q + L_s = λ · W_q + λ · W_s = λ · (W_q + W_s) = λ · W  (справджується для довільної кількості каскадів)</tspan></text>
+</svg>

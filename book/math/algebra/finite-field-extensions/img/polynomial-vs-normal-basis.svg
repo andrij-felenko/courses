@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння базисів розширення: Поліноміальний проти Нормального</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Вибір базису визначає обчислювальну складність множення, додавання та піднесення до степеня</text>
+<rect x="40.0" y="75.0" width="365.0" height="320.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="40.0" y="75.0" width="365.0" height="32.0" rx="8" fill="#eef4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="222.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Поліноміальний (канонічний) базис</text>
+<text x="222.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B_poly = { 1, α, α^2, ..., α^{n-1} }</text>
+<text x="222.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вектор: v = a_0 + a_1 α + ... + a_{n-1} α^{n-1}</text>
+<rect x="52.0" y="180.0" width="341.0" height="44.0" rx="5" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.0"/>
+<text x="62.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="start" font-weight="700">Додавання:</text>
+<text x="62.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Покомпонентне XOR (для p=2)</text>
+<text x="385.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">O(n) бітових операцій</text>
+<rect x="52.0" y="230.0" width="341.0" height="44.0" rx="5" fill="#fef5e7" stroke="#d35400" stroke-width="1.0"/>
+<text x="62.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">Множення:</text>
+<text x="62.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Многочленне множення + редукція mod f(x)</text>
+<text x="385.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">Шкільне O(n^2) або Карацуба O(n^{1.58})</text>
+<rect x="52.0" y="280.0" width="341.0" height="44.0" rx="5" fill="#f5eeff" stroke="#7d3c98" stroke-width="1.0"/>
+<text x="62.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="start" font-weight="700">Піднесення до квадрата:</text>
+<text x="62.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вставляння нулів між бітами + редукція</text>
+<text x="385.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">O(n) з лінійною матрицею</text>
+<rect x="52.0" y="330.0" width="341.0" height="44.0" rx="5" fill="#eef4fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="62.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Перевага:</text>
+<text x="62.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Проста реалізація в софті (AES xtime, таблиці)</text>
+<text x="385.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">Універсальний стандарт для криптографії</text>
+<rect x="435.0" y="75.0" width="365.0" height="320.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="435.0" y="75.0" width="365.0" height="32.0" rx="8" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.2"/>
+<text x="617.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e824c" text-anchor="middle" font-weight="700">Нормальний базис (степені Фробеніуса)</text>
+<text x="617.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B_norm = { β, β^p, β^{p^2}, ..., β^{p^{n-1}} }</text>
+<text x="617.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вектор: v = b_0 β + b_1 β^p + ... + b_{n-1} β^{p^{n-1}}</text>
+<rect x="447.0" y="180.0" width="341.0" height="44.0" rx="5" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.0"/>
+<text x="457.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="start" font-weight="700">Додавання:</text>
+<text x="457.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Покомпонентне XOR (для p=2)</text>
+<text x="780.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">O(n) бітових операцій</text>
+<rect x="447.0" y="230.0" width="341.0" height="44.0" rx="5" fill="#fdeeed" stroke="#c0392b" stroke-width="1.0"/>
+<text x="457.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Піднесення до p (квадрат):</text>
+<text x="457.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Циклічний бітовий зсув регістра!</text>
+<text x="780.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">O(1) в апаратурі — без логіки!</text>
+<rect x="447.0" y="280.0" width="341.0" height="44.0" rx="5" fill="#fef5e7" stroke="#d35400" stroke-width="1.0"/>
+<text x="457.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">Множення:</text>
+<text x="457.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Множник Мессі–Омури через матрицю множення</text>
+<text x="780.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">Апаратна матриця AND-XOR вентилів</text>
+<rect x="447.0" y="330.0" width="341.0" height="44.0" rx="5" fill="#ebfaf0" stroke="#1e824c" stroke-width="1.0"/>
+<text x="457.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="start" font-weight="700">Перевага:</text>
+<text x="457.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Ідеально для FPGA/ASIC (алгоритм Іто–Цудзі)</text>
+<text x="780.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">Швидке піднесення до степеня та інверсія</text>
+</svg>

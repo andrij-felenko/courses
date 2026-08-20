@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 980 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="980" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер причинної доставки усуває порушення порядку</text>
+<rect x="0.0" y="0.0" width="960.0" height="440.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм буфера причинної доставки повідомлень</text>
+<text x="50.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 1</text>
+<text x="50.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 2</text>
+<text x="50.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 3</text>
+<line x1="100.0" y1="80.0" x2="560.0" y2="80.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="560.0" y1="80.0" x2="580.0" y2="80.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="100.0" y1="200.0" x2="560.0" y2="200.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="560.0" y1="200.0" x2="580.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="100.0" y1="320.0" x2="560.0" y2="320.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="560.0" y1="320.0" x2="580.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="140.0" cy="80.0" r="5.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="140.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">m₁ [1, 0, 0]</text>
+<line x1="140.0" y1="80.0" x2="240.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="240.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="300.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="300.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">m₂ [1, 1, 0]</text>
+<line x1="300.0" y1="200.0" x2="380.0" y2="320.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="380.0" cy="320.0" r="6.0" fill="#ffebee" stroke="#c0392b" stroke-width="2.5"/>
+<text x="380.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">m₂ прибуло</text>
+<line x1="140.0" y1="80.0" x2="480.0" y2="320.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="480.0" y1="310.0" x2="500.0" y2="320.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="500.0" cy="320.0" r="6.0" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.5"/>
+<text x="500.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">m₁ прибуло</text>
+<rect x="610.0" y="70.0" width="320.0" height="330.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.4"/>
+<text x="770.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан Вузла 3</text>
+<rect x="625.0" y="120.0" width="290.0" height="74.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="770.0" y="141.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">1. Отримано m₂ [1, 1, 0]:</tspan><tspan x="770.0" dy="12.3">Локальний вектор: [0, 0, 0]</tspan><tspan x="770.0" dy="12.3">Умова: V_msg[1] &lt;= V_loc[1] (1 &lt;= 0 — ХИБА!)</tspan><tspan x="770.0" dy="12.3">Рішення: Затримати m₂ у черзі!</tspan></text>
+<rect x="625.0" y="206.0" width="290.0" height="74.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/><text x="770.0" y="226.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">2. Нарешті прибуло m₁ [1, 0, 0]:</tspan><tspan x="770.0" dy="13.7">Умова: 1 == 0 + 1 (ІСТИНА!)</tspan><tspan x="770.0" dy="13.7">Рішення: Доставити m₁ застосунку.</tspan><tspan x="770.0" dy="13.7">Локальний вектор стає: [1, 0, 0]</tspan></text>
+<rect x="625.0" y="292.0" width="290.0" height="84.0" rx="6" fill="#edf2ff" stroke="#2457d6" stroke-width="1.5"/><text x="770.0" y="312.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">3. Перевірка черги буфера:</tspan><tspan x="770.0" dy="12.3">Для m₂ тепер: V_msg[1] &lt;= V_loc[1] (1 &lt;= 1) і</tspan><tspan x="770.0" dy="12.3">V_msg[2] == V_loc[2]+1 (1 == 0+1) — ІСТИНА!</tspan><tspan x="770.0" dy="12.3">m₂ доставлено слідом за m₁.</tspan><tspan x="770.0" dy="12.3">Локальний вектор стає: [1, 1, 0]</tspan></text>
+</svg>

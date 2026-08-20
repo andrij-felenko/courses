@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритми розщеплення переповненого вузла (Node Split)</text>
+<text x="480.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Вибір стратегії розподілу M+1 елементів на два нові вузли з мінімальним перекриттям</text>
+<rect x="40.0" y="80.0" width="270.0" height="375.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="40.0" y="80.0" width="270.0" height="36.0" rx="6" fill="#eaf2f8" stroke="#333333" stroke-width="1.5"/>
+<text x="175.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Квадратичний поділ Гутмана</text>
+<rect x="60.0" y="135.0" width="230.0" height="160.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="70.0" y="145.0" width="50.0" height="40.0" rx="3" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.5"/>
+<text x="95.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">E1</text>
+<rect x="225.0" y="240.0" width="55.0" height="45.0" rx="3" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/>
+<text x="252.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">E2</text>
+<rect x="135.0" y="160.0" width="45.0" height="35.0" rx="2" fill="#f2f3f4" stroke="#333333" stroke-width="1.2"/>
+<text x="157.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">E3</text>
+<rect x="180.0" y="210.0" width="40.0" height="35.0" rx="2" fill="#f2f3f4" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">E4</text>
+<text x="175.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. PickSeeds: пара з max мертвою</text>
+<text x="175.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">площею: Area(E1∪E2) - Area(E1) - Area(E2)</text>
+<text x="175.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. PickNext: черговий об'єкт із max</text>
+<text x="175.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">різницею переваги |ΔA1 - ΔA2|</text>
+<text x="175.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Складність: O(M²)</text>
+<text x="175.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Якісний розподіл простору</text>
+<rect x="345.0" y="80.0" width="270.0" height="375.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="345.0" y="80.0" width="270.0" height="36.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b7950b" text-anchor="middle" font-weight="700">Лінійний поділ Гутмана</text>
+<rect x="365.0" y="135.0" width="230.0" height="160.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="375.0" y1="275.0" x2="580.0" y2="275.0" stroke="#b7950b" stroke-width="1.5"/>
+<line x1="375.0" y1="270.0" x2="375.0" y2="280.0" stroke="#b7950b" stroke-width="1.5"/>
+<line x1="580.0" y1="270.0" x2="580.0" y2="280.0" stroke="#b7950b" stroke-width="1.5"/>
+<text x="477.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">вісь X (max розрив)</text>
+<rect x="375.0" y="150.0" width="45.0" height="50.0" rx="3" fill="#fef5e7" stroke="#b7950b" stroke-width="1.5"/>
+<text x="397.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="middle" font-weight="700">S1</text>
+<rect x="535.0" y="190.0" width="45.0" height="55.0" rx="3" fill="#fef5e7" stroke="#b7950b" stroke-width="1.5"/>
+<text x="557.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="middle" font-weight="700">S2</text>
+<text x="480.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Знаходження крайнощів на осях:</text>
+<text x="480.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">найбільша відстань між гранями MBR</text>
+<text x="480.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Нормалізація за шириною осі та</text>
+<text x="480.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">жадібний розподіл решти записів</text>
+<text x="480.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7950b" text-anchor="middle" font-weight="700">Складність: O(M)</text>
+<text x="480.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Швидкий, але MBR можуть перекриватись</text>
+<rect x="650.0" y="80.0" width="270.0" height="375.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="650.0" y="80.0" width="270.0" height="36.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/>
+<text x="785.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">R*-дерево: Reinsert + Split</text>
+<rect x="670.0" y="135.0" width="230.0" height="160.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="785.0" y1="205.0" x2="785.0" y2="225.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="775.0" y1="215.0" x2="795.0" y2="215.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="785.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">центр MBR</text>
+<rect x="755.0" y="215.0" width="60.0" height="35.0" rx="3" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/>
+<text x="785.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Зберегти</text>
+<rect x="680.0" y="145.0" width="55.0" height="35.0" rx="3" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="707.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Reinsert</text>
+<rect x="835.0" y="245.0" width="55.0" height="35.0" rx="3" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="862.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Reinsert</text>
+<text x="785.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Forced Reinsert (30% записів):</text>
+<text x="785.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вилучення найвіддаленіших і вставка з кореня</text>
+<text x="785.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Split за віссю з min периметром</text>
+<text x="785.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">та точкою з min перекриттям (Overlap)</text>
+<text x="785.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Складність: O(M · log M)</text>
+<text x="785.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Мінімальне перекриття, найкращий пошук</text>
+</svg>

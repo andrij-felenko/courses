@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 509.92" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="509.92" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Декомпозиція часу виконання при зростанні кількості ядер (s = 20%, p = 80%)</text>
+<line x1="130.0" y1="447.0" x2="650.0" y2="447.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="130.0" y1="70.0" x2="130.0" y2="447.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="130.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0%</text>
+<line x1="234.0" y1="70.0" x2="234.0" y2="447.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="234.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">20%</text>
+<line x1="338.0" y1="70.0" x2="338.0" y2="447.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="338.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">40%</text>
+<line x1="442.0" y1="70.0" x2="442.0" y2="447.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="442.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">60%</text>
+<line x1="546.0" y1="70.0" x2="546.0" y2="447.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="546.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">80%</text>
+<line x1="650.0" y1="70.0" x2="650.0" y2="447.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="650.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100%</text>
+<text x="390.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">загальний час виконання (від початкового T₁) →</text>
+<text x="116.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">N = 1 ядро</text>
+<rect x="130.0" y="80.0" width="104.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ts (20%)</text>
+<rect x="234.0" y="80.0" width="416.0" height="42.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="442.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">паралельна (80%)</text>
+<text x="664.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">100.0%  (1.00×)</text>
+<text x="116.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">N = 2 ядра</text>
+<rect x="130.0" y="142.0" width="104.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ts (20%)</text>
+<rect x="234.0" y="142.0" width="208.0" height="42.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="338.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">паралельна (40%)</text>
+<text x="456.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">60.0%   (1.67×)</text>
+<text x="116.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">N = 4 ядра</text>
+<rect x="130.0" y="204.0" width="104.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ts (20%)</text>
+<rect x="234.0" y="204.0" width="104.0" height="42.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="286.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">паралельна (20%)</text>
+<text x="352.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">40.0%   (2.50×)</text>
+<text x="116.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">N = 8 ядер</text>
+<rect x="130.0" y="266.0" width="104.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ts (20%)</text>
+<rect x="234.0" y="266.0" width="52.0" height="42.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="260.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">10%</text>
+<text x="300.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">30.0%   (3.33×)</text>
+<text x="116.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">N = 16 ядер</text>
+<rect x="130.0" y="328.0" width="104.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ts (20%)</text>
+<rect x="234.0" y="328.0" width="26.0" height="42.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="274.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">25.0%   (4.00×)</text>
+<text x="116.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">N → ∞ ядер</text>
+<rect x="130.0" y="390.0" width="104.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="182.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ts (20%)</text>
+<text x="248.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">20.0%   (5.00× стеля)</text>
+<line x1="234.0" y1="72.0" x2="234.0" y2="444.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="234.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">послідовний поріг Ts = 20%</text>
+<rect x="705.0" y="75.0" width="220.0" height="350.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.3"/>
+<text x="815.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключовий висновок</text>
+<text x="717.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Послідовна частка s</text>
+<text x="717.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">не зменшується</text>
+<text x="717.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зі збільшенням ядер.</text>
+<text x="717.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="717.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Навіть якщо паралельна</text>
+<text x="717.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">частина стискається до 0,</text>
+<text x="717.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">час виконання ніколи</text>
+<text x="717.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">не впаде нижче Ts.</text>
+<text x="717.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="717.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. При 20% послідовного коду</text>
+<text x="717.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">максимальне прискорення</text>
+<text x="717.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">дорівнює рівно 5×.</text>
+</svg>

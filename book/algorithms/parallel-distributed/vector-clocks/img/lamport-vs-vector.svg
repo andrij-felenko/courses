@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 980 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="980" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння скалярного годинника Лампорта та векторного годинника</text>
+<rect x="0.0" y="0.0" width="960.0" height="420.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="30.0" y="30.0" width="440.0" height="360.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.4"/>
+<text x="250.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скалярний годинник Лампорта</text>
+<text x="250.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Створює лінійний штучний порядок</text>
+<text x="70.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="70.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B</text>
+<line x1="110.0" y1="150.0" x2="430.0" y2="150.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="430.0" y1="150.0" x2="450.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="110.0" y1="250.0" x2="430.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="430.0" y1="250.0" x2="450.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="190.0" cy="150.0" r="6.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="190.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">подія a</text>
+<circle cx="330.0" cy="250.0" r="6.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+<text x="330.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">подія b</text>
+<rect x="155.2" y="167.0" width="69.5" height="22.0" rx="6" fill="#fff2f0" stroke="#c0392b" stroke-width="1.5"/><text x="190.0" y="182.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">L(a) = 1</tspan></text>
+<rect x="295.2" y="267.0" width="69.5" height="22.0" rx="6" fill="#edf2ff" stroke="#2457d6" stroke-width="1.5"/><text x="330.0" y="282.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">L(b) = 2</tspan></text>
+<rect x="50.0" y="310.0" width="400.0" height="60.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="336.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">L(a) &lt; L(b) створює хибну ілюзію порядку:</tspan><tspan x="250.0" dy="13.7">система вважає a → b, хоча події насправді паралельні!</tspan></text>
+<rect x="490.0" y="30.0" width="440.0" height="360.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.4"/>
+<text x="710.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторний годинник</text>
+<text x="710.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Зберігає істинний частковий порядок</text>
+<text x="530.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="530.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B</text>
+<line x1="570.0" y1="150.0" x2="890.0" y2="150.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="890.0" y1="150.0" x2="910.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="250.0" x2="890.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="890.0" y1="250.0" x2="910.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="650.0" cy="150.0" r="6.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="650.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">подія a</text>
+<circle cx="790.0" cy="250.0" r="6.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+<text x="790.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">подія b</text>
+<rect x="596.6" y="167.0" width="106.7" height="22.0" rx="6" fill="#fff2f0" stroke="#c0392b" stroke-width="1.5"/><text x="650.0" y="182.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">V(a) = [1, 0]</tspan></text>
+<rect x="736.6" y="267.0" width="106.7" height="22.0" rx="6" fill="#edf2ff" stroke="#2457d6" stroke-width="1.5"/><text x="790.0" y="282.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">V(b) = [0, 1]</tspan></text>
+<rect x="510.0" y="310.0" width="400.0" height="60.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/><text x="710.0" y="336.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">V(a) ≰ V(b) і V(b) ≰ V(a) — вектори непорівнянні.</tspan><tspan x="710.0" dy="15.0">Система строго фіксує паралельність: a ∥ b.</tspan></text>
+</svg>

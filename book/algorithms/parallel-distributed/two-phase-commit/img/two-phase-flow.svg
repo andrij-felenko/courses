@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність повідомлень протоколу двофазного коміту</text>
+<rect x="20.0" y="20.0" width="460.0" height="480.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.4"/>
+<text x="250.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Успішна транзакція (Усі проголосували «Так»)</text>
+<rect x="40.0" y="66.0" width="100.0" height="32.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="86.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Координатор</tspan></text>
+<rect x="205.0" y="66.0" width="90.0" height="32.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="86.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Вузол A</tspan></text>
+<rect x="365.0" y="66.0" width="90.0" height="32.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="86.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Вузол B</tspan></text>
+<line x1="90.0" y1="106.0" x2="90.0" y2="475.0" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="250.0" y1="106.0" x2="250.0" y2="475.0" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="410.0" y1="106.0" x2="410.0" y2="475.0" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="32.0" y="123.0" width="436.0" height="20.0" rx="4" fill="#f0f4f8" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="250.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Фаза 1: Голосування (Prepare)</text>
+<line x1="90.0" y1="163.0" x2="250.0" y2="178.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="168.0" x2="410.0" y2="193.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="140.1" y="155.8" width="49.9" height="18.5" rx="6" fill="#ffffff" stroke="#8c9ba5" stroke-width="1.5"/><text x="165.0" y="168.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">PREPARE</tspan></text>
+<line x1="250.0" y1="221.0" x2="90.0" y2="236.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="231.0" x2="90.0" y2="246.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="113.3" y="214.0" width="113.4" height="18.0" rx="6" fill="#eef8f0" stroke="#27ae60" stroke-width="1.5"/><text x="170.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">VOTE_COMMIT (так)</tspan></text>
+<rect x="258.3" y="226.0" width="113.4" height="18.0" rx="6" fill="#eef8f0" stroke="#27ae60" stroke-width="1.5"/><text x="315.0" y="231.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">VOTE_COMMIT (так)</tspan></text>
+<rect x="32.0" y="277.0" width="436.0" height="20.0" rx="4" fill="#f0f4f8" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="250.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Фаза 2: Рішення (Decision)</text>
+<rect x="49.2" y="306.8" width="81.6" height="20.5" rx="6" fill="#eef8f0" stroke="#27ae60" stroke-width="1.5"/><text x="90.0" y="320.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">WAL: COMMIT</tspan></text>
+<line x1="90.0" y1="351.0" x2="250.0" y2="366.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="356.0" x2="410.0" y2="381.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="120.7" y="344.0" width="88.6" height="18.0" rx="6" fill="#eef8f0" stroke="#27ae60" stroke-width="1.5"/><text x="165.0" y="356.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">GLOBAL_COMMIT</tspan></text>
+<line x1="250.0" y1="406.0" x2="90.0" y2="421.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="416.0" x2="90.0" y2="431.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="186.8" y="403.0" width="116.3" height="18.0" rx="6" fill="#ffffff" stroke="#8c9ba5" stroke-width="1.5"/><text x="245.0" y="415.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">ACK (підтвердження)</tspan></text>
+<rect x="63.2" y="439.0" width="53.6" height="18.0" rx="6" fill="#f4f6f8" stroke="#8c9ba5" stroke-width="1.5"/><text x="90.0" y="451.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="90.0" dy="0.0">WAL: END</tspan></text>
+<rect x="500.0" y="20.0" width="460.0" height="480.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.4"/>
+<text x="730.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Відкат транзакції (Хоч один відповів «Ні»)</text>
+<rect x="520.0" y="66.0" width="100.0" height="32.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="86.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">Координатор</tspan></text>
+<rect x="685.0" y="66.0" width="90.0" height="32.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="730.0" y="86.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="730.0" dy="0.0">Вузол A</tspan></text>
+<rect x="845.0" y="66.0" width="90.0" height="32.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="890.0" y="86.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="890.0" dy="0.0">Вузол B</tspan></text>
+<line x1="570.0" y1="106.0" x2="570.0" y2="475.0" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="730.0" y1="106.0" x2="730.0" y2="475.0" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="890.0" y1="106.0" x2="890.0" y2="475.0" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="512.0" y="123.0" width="436.0" height="20.0" rx="4" fill="#f0f4f8" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="730.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Фаза 1: Голосування (Prepare)</text>
+<line x1="570.0" y1="163.0" x2="730.0" y2="178.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="168.0" x2="890.0" y2="193.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="620.1" y="155.8" width="49.9" height="18.5" rx="6" fill="#ffffff" stroke="#8c9ba5" stroke-width="1.5"/><text x="645.0" y="168.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">PREPARE</tspan></text>
+<line x1="730.0" y1="221.0" x2="570.0" y2="236.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="890.0" y1="231.0" x2="570.0" y2="246.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="593.3" y="214.0" width="113.4" height="18.0" rx="6" fill="#eef8f0" stroke="#27ae60" stroke-width="1.5"/><text x="650.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">VOTE_COMMIT (так)</tspan></text>
+<rect x="722.8" y="226.0" width="144.4" height="18.0" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/><text x="795.0" y="231.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">VOTE_ABORT (ні / збій)</tspan></text>
+<rect x="512.0" y="277.0" width="436.0" height="20.0" rx="4" fill="#f0f4f8" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="730.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Фаза 2: Рішення (Decision)</text>
+<rect x="532.5" y="306.8" width="75.1" height="20.5" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/><text x="570.0" y="320.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">WAL: ABORT</tspan></text>
+<line x1="570.0" y1="351.0" x2="730.0" y2="366.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="356.0" x2="890.0" y2="381.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="603.8" y="344.0" width="82.4" height="18.0" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/><text x="645.0" y="356.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">GLOBAL_ABORT</tspan></text>
+<line x1="730.0" y1="406.0" x2="570.0" y2="421.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="890.0" y1="416.0" x2="570.0" y2="431.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="666.9" y="403.0" width="116.3" height="18.0" rx="6" fill="#ffffff" stroke="#8c9ba5" stroke-width="1.5"/><text x="725.0" y="415.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">ACK (підтвердження)</tspan></text>
+<rect x="543.2" y="439.0" width="53.6" height="18.0" rx="6" fill="#f4f6f8" stroke="#8c9ba5" stroke-width="1.5"/><text x="570.0" y="451.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">WAL: END</tspan></text>
+</svg>

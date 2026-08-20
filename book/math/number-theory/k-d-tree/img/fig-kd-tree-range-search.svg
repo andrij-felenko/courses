@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ортогональний діапазонний пошук та перетин паралелепіпедів</text>
+<text x="490.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Три стани вузла: повне входження піддерева, частковий перетин межі або повна неперетинність</text>
+<rect x="40.0" y="75.0" width="430.0" height="370.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<line x1="255.0" y1="445.0" x2="255.0" y2="75.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="40.0" y1="260.0" x2="255.0" y2="260.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="255.0" y1="260.0" x2="470.0" y2="260.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="126.0" y="167.5" width="215.0" height="185.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="136.0" y="187.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="start" font-weight="700">Вікно запиту [X_min, X_max] × [Y_min, Y_max]</text>
+<circle cx="169.0" cy="297.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="177.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">(30,40) ∈ W</text>
+<circle cx="233.5" cy="223.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="241.5" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">(45,60) ∈ W</text>
+<circle cx="298.0" cy="204.5" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="306.0" y="196.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">(60,65) ∈ W</text>
+<circle cx="83.0" cy="389.5" r="4.0" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<text x="91.0" y="383.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(10,15)</text>
+<circle cx="104.5" cy="130.5" r="4.0" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<text x="112.5" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(15,85)</text>
+<circle cx="405.5" cy="371.0" r="4.0" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<text x="413.5" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(85,20)</text>
+<circle cx="427.0" cy="149.0" r="4.0" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<text x="435.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(90,80)</text>
+<text x="255.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просторове вікно запиту перетинає комірки дерева</text>
+<rect x="500.0" y="75.0" width="440.0" height="370.0" rx="6" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<text x="720.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікація вузлів та дії</text>
+<rect x="520.0" y="125.0" width="400.0" height="80.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="535.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">1. Комірка ПОВНІСТЮ всередині вікна</text>
+<text x="535.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Усі точки піддерева додаються до відповіді</text>
+<text x="535.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Немає потреби у поодиноких перевірках координат</text>
+<rect x="520.0" y="220.0" width="400.0" height="95.0" rx="5" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="535.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="start" font-weight="700">2. Комірка ЧАСТКОВО перетинає вікно</text>
+<text x="535.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Перевіряється точка поточного вузла</text>
+<text x="535.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Рекурсивний спуск в обох дочірніх напрямках</text>
+<text x="535.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="start" font-weight="700">• Складність для 2D: O(√N + M)</text>
+<rect x="520.0" y="330.0" width="400.0" height="85.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="535.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">3. Комірка НЕ ПЕРЕТИНАЄ вікно (Поза межами)</text>
+<text x="535.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Піддерево негайно відсікається (Pruning)</text>
+<text x="535.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Жоден нащадок не відвідується — O(1)</text>
+</svg>
