@@ -32,7 +32,7 @@
 ## Як запустити батч
 
 У чат головному агентові: **`/write-batch unix-linux reference 5`** — книга, вид, скільки тем.
-Або словами: «зроби батч на 5 тем у `reference/unix-linux`». Далі агент іде за
+Або словами: «зроби батч на 5 тем у `<вид>/<книга>`». Далі агент іде за
 [`.agents/workflows/write-batch.md`](.agents/workflows/write-batch.md) сам: черга з маніфесту →
 `write-topic` на кожну тему → `gate.js` → судді на все, що не пройшло → `repair-topic` → знову
 гейт → і лише в кінці `finish-batch.js --apply`.
