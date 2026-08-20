@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній скінченний автомат універсального дебаунсу / тротлінгу</text>
+<rect x="93.6" y="101.0" width="132.8" height="57.9" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/><text x="160.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">IDLE</tspan><tspan x="160.0" dy="16.9">(Стан спокою)</tspan></text>
+<rect x="397.2" y="101.0" width="245.6" height="57.9" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/><text x="520.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">SCHEDULED</tspan><tspan x="520.0" dy="16.9">(Очікування delay / кванта)</tspan></text>
+<rect x="417.3" y="311.1" width="205.3" height="57.9" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="520.0" y="336.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">MAX_WAIT_ACTIVE</tspan><tspan x="520.0" dy="16.9">(Контроль голодування)</tspan></text>
+<rect x="759.4" y="201.1" width="181.1" height="57.9" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="850.0" y="226.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">INVOKING</tspan><tspan x="850.0" dy="16.9">(Виконання fn(...))</tspan></text>
+<rect x="77.3" y="314.2" width="165.4" height="51.6" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="160.0" y="336.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">CANCELLED / FLUSHED</tspan><tspan x="160.0" dy="15.6">(Скидання стану)</tspan></text>
+<line x1="240.0" y1="130.0" x2="400.0" y2="130.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="320.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">call(args)</text>
+<text x="320.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">leading=true → fn()</text>
+<rect x="460.0" y="40.0" width="120.0" height="36.0" rx="4" fill="#f8fafc" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="520.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">call(args) [ще раз]</text>
+<text x="520.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">delay таймер перезапуск</text>
+<line x1="480.0" y1="95.0" x2="480.0" y2="77.0" stroke="#2563eb" stroke-width="1.2"/>
+<line x1="560.0" y1="77.0" x2="560.0" y2="95.0" stroke="#2563eb" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="175.0" x2="520.0" y2="295.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="565.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">maxWait таймер</text>
+<line x1="645.0" y1="130.0" x2="770.0" y2="200.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="725.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">delay вийшов</text>
+<text x="725.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">trailing=true</text>
+<line x1="645.0" y1="340.0" x2="770.0" y2="260.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="730.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">maxWait вийшов!</text>
+<line x1="850.0" y1="190.0" x2="850.0" y2="75.0" stroke="#16a34a" stroke-width="1.5"/>
+<line x1="850.0" y1="75.0" x2="160.0" y2="75.0" stroke="#16a34a" stroke-width="1.5"/>
+<line x1="160.0" y1="75.0" x2="160.0" y2="95.0" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="520.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">очищення таймерів → повернення до спокою</text>
+<line x1="430.0" y1="165.0" x2="235.0" y2="305.0" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="310.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">.cancel() / .flush()</text>
+<line x1="160.0" y1="300.0" x2="160.0" y2="175.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="110.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">скинуто</text>
+</svg>

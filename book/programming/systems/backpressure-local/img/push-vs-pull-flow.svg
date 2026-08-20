@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 497.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="497.7" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння моделей передачі: «Штовхай» (Push), «Тягни» (Pull) та Кредити</text>
+<text x="460.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Розподіл контролю за швидкістю передачі між джерелом та приймачем даних</text>
+<rect x="35.0" y="70.0" width="265.0" height="345.0" rx="8" fill="#fffaf9" stroke="#c0392b" stroke-width="1.6"/>
+<text x="167.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Модель «Штовхай» (Push)</text>
+<text x="167.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ініціатор — Виробник</text>
+<rect x="50.0" y="125.0" width="235.0" height="34.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="167.5" y="145.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виробник: emit(data)</text>
+<line x1="167.5" y1="162.0" x2="167.5" y2="185.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="50.0" y="188.0" width="235.0" height="34.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="167.5" y="201.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга / Буфер пам'яті</text>
+<line x1="167.5" y1="225.0" x2="167.5" y2="248.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="50.0" y="250.0" width="235.0" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="167.5" y="270.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Споживач: onData(data)</text>
+<line x1="65.0" y1="288.0" x2="65.0" y2="155.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="65.0" y1="155.0" x2="65.0" y2="130.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="80.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Сигнал паузи</text>
+<rect x="47.0" y="305.0" width="241.0" height="90.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="167.5" y="328.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="167.5" dy="0.0">Властивості:</tspan><tspan x="167.5" dy="12.3">• Потребує великих буферів</tspan><tspan x="167.5" dy="12.3">• Ризик переповнення OOM</tspan><tspan x="167.5" dy="12.3">• Складні канали сигналізації</tspan><tspan x="167.5" dy="12.3">• Висока пропускна здатність</tspan></text>
+<rect x="325.0" y="70.0" width="265.0" height="345.0" rx="8" fill="#fafefb" stroke="#27ae60" stroke-width="1.6"/>
+<text x="457.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Модель «Тягни» (Pull)</text>
+<text x="457.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ініціатор — Споживач (Ітератор)</text>
+<rect x="340.0" y="125.0" width="235.0" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="457.5" y="145.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Споживач: next() / read()</text>
+<line x1="457.5" y1="162.0" x2="457.5" y2="185.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="340.0" y="188.0" width="235.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="457.5" y="208.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронний генератор</text>
+<line x1="457.5" y1="225.0" x2="457.5" y2="248.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="340.0" y="250.0" width="235.0" height="34.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="457.5" y="270.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виробник: return value</text>
+<rect x="337.0" y="305.0" width="241.0" height="90.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="457.5" y="322.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="457.5" dy="0.0">Властивості:</tspan><tspan x="457.5" dy="12.3">• Буфери непотрібні (0 байтів)</tspan><tspan x="457.5" dy="12.3">• Фізична неможливість OOM</tspan><tspan x="457.5" dy="12.3">• Простій виробника під час</tspan><tspan x="457.5" dy="12.3">  обчислень споживача</tspan><tspan x="457.5" dy="12.3">• Нижча пропускна здатність</tspan></text>
+<rect x="615.0" y="70.0" width="265.0" height="345.0" rx="8" fill="#f8faff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="747.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Гібрид: Кредити (Demand)</text>
+<text x="747.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Динамічний баланс (Reactive)</text>
+<rect x="630.0" y="125.0" width="235.0" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="747.5" y="145.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Споживач: request(N)</text>
+<line x1="747.5" y1="162.0" x2="747.5" y2="185.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="630.0" y="188.0" width="235.0" height="34.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/>
+<text x="747.5" y="208.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кредитний лічильник: N</text>
+<line x1="747.5" y1="225.0" x2="747.5" y2="248.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="630.0" y="250.0" width="235.0" height="34.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="747.5" y="270.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виробник: emit N елементів</text>
+<rect x="627.0" y="305.0" width="241.0" height="90.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="747.5" y="328.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="747.5" dy="0.0">Властивості:</tspan><tspan x="747.5" dy="12.3">• Пакетизація передачі (batch)</tspan><tspan x="747.5" dy="12.3">• Максимальна швидкість CPU</tspan><tspan x="747.5" dy="12.3">• Гарантований ліміт пам'яті</tspan><tspan x="747.5" dy="12.3">• Спільний стандарт реактивності</tspan></text>
+<rect x="35.0" y="430.0" width="850.0" height="47.7" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="460.0" y="450.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Модель «Тягни» ідеальна для послідовних локальних ітераторів, але втрачає продуктивність у конкурентних пайплайнах.</tspan><tspan x="460.0" dy="14.3">Кредитна модель (Reactive Streams / Demand) поєднує безпеку Pull з високою швидкістю пакетного Push.</tspan></text>
+</svg>

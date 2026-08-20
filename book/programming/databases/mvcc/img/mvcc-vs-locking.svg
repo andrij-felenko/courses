@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" width="100%" height="100%">
+<style>
+  .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+</style>
+<rect width="800" height="260" fill="#0b0f19" rx="12" />
+<text x="30" y="35" class="txt-bold" font-size="16">Порівняння конкуренції: Песимістичні замки (2PL) проти MVCC</text>
+<g transform="translate(40, 70)">
+  <rect width="335" height="160" class="card" stroke="#ef4444" stroke-width="2" />
+  <text x="20" y="30" class="txt-bold" fill="#f87171" font-size="15">Традиційне блокування (2PL)</text>
+  <text x="20" y="60" class="txt">⛔ Читач бере Shared Lock → Блокує Запис</text>
+  <text x="20" y="85" class="txt">⛔ Письменник бере Exclusive Lock → Блокує Читання</text>
+  <text x="20" y="110" class="txt">⚠️ Довгі аналітичні SELECT паралізують OLTP</text>
+  <text x="20" y="135" class="txt-muted">Результат: Простій ядер, дедлоки під навантаженням</text>
+</g>
+<g transform="translate(425, 70)">
+  <rect width="335" height="160" class="card" stroke="#10b981" stroke-width="2" />
+  <text x="20" y="30" class="txt-bold" fill="#34d399" font-size="15">Багатоверсійність (MVCC)</text>
+  <text x="20" y="60" class="txt">✓ Читачі бачать свій історичний знімок</text>
+  <text x="20" y="85" class="txt">✓ Письменники створюють нові версії рядків</text>
+  <text x="20" y="110" class="txt">⚡ Читачі НІКОЛИ не блокують Письменників</text>
+  <text x="20" y="135" class="txt-bold" fill="#38bdf8">Письменники НІКОЛИ не блокують Читачів</text>
+</g>
+</svg>

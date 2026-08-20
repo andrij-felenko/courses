@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 475" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="475" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція покажчика vptr під час життєвого циклу об'єкта</text>
+<text x="460.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">--- Фаза конструювання (знизу вгору по ієрархії) ---</text>
+<rect x="30.0" y="85.0" width="270.0" height="160.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="165.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Виділення пам'яті</text>
+<text x="165.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Сирий буфер пам'яті</tspan><tspan x="165.0" dy="14.9">sizeof(Derived) байтів</tspan><tspan x="165.0" dy="14.9">(vptr ще не ініціалізовано)</tspan></text>
+<line x1="304.0" y1="165.0" x2="331.0" y2="165.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="335.0" y="85.0" width="270.0" height="160.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="470.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. Конструктор Base()</text>
+<text x="470.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Виконується Base::Base()</tspan><tspan x="470.0" dy="14.9">vptr -&gt; vtable for Base</tspan><tspan x="470.0" dy="14.9">[Виклик pure virtual -&gt; КРАХ!]</tspan></text>
+<line x1="609.0" y1="165.0" x2="636.0" y2="165.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="640.0" y="85.0" width="270.0" height="160.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="775.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Конструктор Derived()</text>
+<text x="775.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">Виконується Derived::Derived()</tspan><tspan x="775.0" dy="14.9">vptr переписується на</tspan><tspan x="775.0" dy="14.9">vtable for Derived</tspan></text>
+<text x="460.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">--- Фаза роботи та деструкції (згори вниз по ієрархії) ---</text>
+<rect x="30.0" y="295.0" width="270.0" height="160.0" rx="6" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.8"/>
+<text x="165.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Зрілий об'єкт</text>
+<text x="165.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Об'єкт повністю готовий</tspan><tspan x="165.0" dy="14.9">vptr -&gt; vtable for Derived</tspan><tspan x="165.0" dy="14.9">Всі віртуальні виклики безпечні</tspan></text>
+<line x1="304.0" y1="375.0" x2="331.0" y2="375.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="335.0" y="295.0" width="270.0" height="160.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="470.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Деструктор Derived()</text>
+<text x="470.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Виконується ~Derived()</tspan><tspan x="470.0" dy="14.9">Очищення ресурсів нащадка</tspan><tspan x="470.0" dy="14.9">vptr ще vtable for Derived</tspan></text>
+<line x1="609.0" y1="375.0" x2="636.0" y2="375.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="640.0" y="295.0" width="270.0" height="160.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="775.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">6. Деструктор Base()</text>
+<text x="775.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">Виконується ~Base()</tspan><tspan x="775.0" dy="14.9">vptr відкочується до</tspan><tspan x="775.0" dy="14.9">vtable for Base [Знову небезпека!]</tspan></text>
+</svg>

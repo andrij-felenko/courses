@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="310" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атака «заплутаний заступник» на межі привілеїв</text>
+<rect x="30.0" y="50.0" width="190.0" height="110.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="125.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Недовірений клієнт</text>
+<text x="125.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UID: 1000 (User)</text>
+<text x="125.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Не має доступу до /etc/shadow</text>
+<text x="125.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запит: «Запиши в /etc/shadow»</text>
+<line x1="250.0" y1="30.0" x2="250.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="250.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Межа довіри</text>
+<rect x="280.0" y="50.0" width="200.0" height="110.0" rx="8" fill="#fffaf0" stroke="#d97706" stroke-width="1.8"/>
+<text x="380.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Привілейований демон</text>
+<text x="380.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UID: 0 (root)</text>
+<text x="380.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Виконує запис від СВОГО імені</text>
+<text x="380.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Втрата контексту клієнта!</text>
+<rect x="530.0" y="50.0" width="190.0" height="110.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="625.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Системний файл</text>
+<text x="625.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Шлях: /etc/shadow</text>
+<text x="625.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дозвіл: тільки root (rw-)</text>
+<text x="625.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Перезаписано нелегітимно!</text>
+<line x1="220.0" y1="105.0" x2="275.0" y2="105.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="105.0" x2="525.0" y2="105.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="190.0" width="660.0" height="85.0" rx="8" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="380.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контрзаходи проти заплутаного заступника на межі:</text>
+<text x="380.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">1. Передача дескриптора (Capability) замість шляху: клієнт відкриває сам і передає fd через SCM_RIGHTS</text>
+<text x="380.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">2. Зниження привілеїв під час відкриття (seteuid/faccessat2) або перевірка SO_PEERCRED</text>
+</svg>

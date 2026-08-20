@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відповідність категорій STRIDE елементам DFD</text>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відповідність категорій загроз STRIDE типам елементів діаграми потоків даних (DFD)</text>
+<rect x="30.0" y="50.0" width="230.0" height="140.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="145.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зовнішня сутність</text>
+<text x="145.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(External Entity: користувач, API)</text>
+<line x1="45.0" y1="105.0" x2="245.0" y2="105.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="145.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">[S] Spoofing (Підробка)</text>
+<text x="145.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">[R] Repudiation (Відмова)</text>
+<text x="145.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Вхід за межі контролю системи</text>
+<rect x="295.0" y="50.0" width="250.0" height="140.0" rx="24" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="420.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Процес (Process)</text>
+<text x="420.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Веб-сервер, сервіс, воркер)</text>
+<line x1="310.0" y1="105.0" x2="530.0" y2="105.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="420.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Всі 6 категорій STRIDE:</text>
+<text x="420.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Spoofing · Tampering · Repudiation</text>
+<text x="420.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Info Disclosure · DoS · Elev. Privilege</text>
+<rect x="580.0" y="50.0" width="230.0" height="140.0" rx="0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="580.0" y1="58.0" x2="810.0" y2="58.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="580.0" y1="182.0" x2="810.0" y2="182.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="695.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сховище даних</text>
+<text x="695.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Data Store: БД, файл, S3)</text>
+<line x1="595.0" y1="107.0" x2="795.0" y2="107.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="695.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">[T] Tampering (Зміна)</text>
+<text x="695.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">[I] Info Disclosure (Витік)</text>
+<text x="695.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">[D] DoS · [R] Repudiation</text>
+<line x1="260.0" y1="110.0" x2="290.0" y2="110.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="545.0" y1="110.0" x2="575.0" y2="110.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="30.0" y="220.0" width="360.0" height="135.0" rx="8" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="210.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Потік даних (Data Flow)</text>
+<text x="210.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">HTTP, gRPC, TCP-сокет, IPC-канал</text>
+<line x1="45.0" y1="277.0" x2="375.0" y2="277.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="210.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">[T] Tampering (Модифікація пакетів на льоту)</text>
+<text x="210.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">[I] Info Disclosure (Перехоплення, sniffing)</text>
+<text x="210.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">[D] Denial of Service (Глушіння, флуд)</text>
+<rect x="450.0" y="220.0" width="360.0" height="135.0" rx="8" fill="#fdf8ed" stroke="#d97706" stroke-width="1.8"/>
+<text x="630.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Межа довіри (Trust Boundary)</text>
+<text x="630.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розділяє зони з різними рівнями прав</text>
+<line x1="465.0" y1="277.0" x2="795.0" y2="277.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="630.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перетин вимагає суворої автентифікації</text>
+<text x="630.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обов'язкова валідація та санітизація входу</text>
+<text x="630.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Тут концентрується максимальний ризик</text>
+</svg>

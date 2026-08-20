@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1060 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1060" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка меж буфера та захист від циклічних покажчиків</text>
+<rect x="30.0" y="40.0" width="920.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="490.0" y="61.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Безпека форматів без копіювання: перевірка меж (Bounds Checking) запобігає виходу за межі буфера,</tspan><tspan x="490.0" dy="15.6">а лічильник глибини обходу (Depth / Budget Limit) захищає від шкідливих циклічних покажчиків.</tspan></text>
+<rect x="35.0" y="120.0" width="910.0" height="150.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Буфер у пам'яті: [ buffer_start ... buffer_end ], загальний розмір Size</text>
+<rect x="65.0" y="162.0" width="90.0" height="40.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="110.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0x00 (Start)</text>
+<rect x="175.0" y="162.0" width="340.0" height="40.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="345.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Поле: offset + sizeof(T) ✓ (Валідно)</text>
+<rect x="535.0" y="162.0" width="140.0" height="40.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="605.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">... Дані ...</text>
+<rect x="695.0" y="162.0" width="220.0" height="40.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="805.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Шкідливий зсув &gt; Size ✗</text>
+<rect x="65.0" y="215.0" width="850.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.1"/><text x="490.0" y="229.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Правило безпечної перевірки без переповнення цілих чисел (No Integer Overflow):</tspan><tspan x="490.0" dy="14.3">Неправильно: `offset + size &lt;= total_size` (може переповнитися при зсувах біля 0xFFFFFFFF).</tspan><tspan x="490.0" dy="14.3">Правильно: `offset &lt;= total_size &amp;&amp; size &lt;= total_size - offset`.</tspan></text>
+<rect x="35.0" y="290.0" width="440.0" height="230.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="50.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Атака: Циклічні покажчики та глибина</text>
+<circle cx="120.0" cy="370.0" r="25.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="120.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A</text>
+<circle cx="300.0" cy="370.0" r="25.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="300.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B</text>
+<line x1="145.0" y1="365.0" x2="275.0" y2="365.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="275.0" y1="378.0" x2="145.0" y2="378.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">offset_to_B</text>
+<text x="210.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">offset_to_A</text>
+<rect x="50.0" y="420.0" width="410.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="255.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="255.0" dy="0.0">Загроза: замкнене кільце зсувів викликає нескінченну рекурсію,</tspan><tspan x="255.0" dy="13.0">переповнення стека (Stack Overflow) або вичерпання пам'яті (DoS).</tspan></text>
+<rect x="505.0" y="290.0" width="440.0" height="230.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="520.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Захист: Бюджет обходу (Traversal Limit)</text>
+<rect x="520.0" y="335.0" width="410.0" height="165.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/><text x="725.0" y="397.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">Механізми валідації:</tspan><tspan x="725.0" dy="11.7"></tspan><tspan x="725.0" dy="11.7">1. Глибина рекурсії (Max Depth): обмеження вкладеності (наприклад, не більше 64 рівнів).</tspan><tspan x="725.0" dy="11.7">2. Бюджет байтів (Step Budget): лічильник сумарно переглянутих байтів зменшується при кожному переході. Якщо лічильник &lt; 0 — скидання сесії.</tspan><tspan x="725.0" dy="11.7">3. Однопрохідний валідатор (Fast Verifier): перевірка структури перед доступом.</tspan></text>
+</svg>

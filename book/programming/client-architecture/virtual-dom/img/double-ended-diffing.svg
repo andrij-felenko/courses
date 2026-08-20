@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двосторонній алгоритм узгодження (Double-Ended Diffing у Snabbdom та Vue 2)</text>
+<rect x="50.0" y="60.0" width="900.0" height="55.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="500.0" y="84.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Алгоритм підтримує 4 покажчики та рухається назустріч від країв до центру масивів:</tspan><tspan x="500.0" dy="15.0">1. oldStart == newStart  |  2. oldEnd == newEnd  |  3. oldStart == newEnd (зсув вправо)  |  4. oldEnd == newStart (зсув вліво)</tspan></text>
+<text x="120.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Старі діти (Old):</text>
+<rect x="120.0" y="160.0" width="100.0" height="55.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'A'</text>
+<text x="170.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 1</text>
+<rect x="260.0" y="160.0" width="100.0" height="55.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="310.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'B'</text>
+<text x="310.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 2</text>
+<rect x="400.0" y="160.0" width="100.0" height="55.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="450.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'C'</text>
+<text x="450.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 3</text>
+<rect x="540.0" y="160.0" width="100.0" height="55.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="590.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'D'</text>
+<text x="590.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 4</text>
+<text x="170.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">▲ oldStartIdx (0)</text>
+<text x="590.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">▲ oldEndIdx (3)</text>
+<rect x="60.0" y="270.0" width="880.0" height="120.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="500.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПОСЛІДОВНІСТЬ 4 ЕВРИСТИЧНИХ ПОРІВНЯНЬ НА КОЖНОМУ КРОЦІ ЦИКЛУ:</text>
+<rect x="80.0" y="310.0" width="195.0" height="65.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="177.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. oldStart == newStart</text>
+<text x="177.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Патч + StartIdx++</text>
+<rect x="295.0" y="310.0" width="195.0" height="65.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="392.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. oldEnd == newEnd</text>
+<text x="392.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Патч + EndIdx--</text>
+<rect x="510.0" y="310.0" width="195.0" height="65.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="607.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. oldStart == newEnd</text>
+<text x="607.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">DOM: insertBefore(end.next)</text>
+<rect x="725.0" y="310.0" width="195.0" height="65.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="822.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. oldEnd == newStart</text>
+<text x="822.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">DOM: insertBefore(start.el)</text>
+<text x="120.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Нові діти (New):</text>
+<rect x="120.0" y="445.0" width="100.0" height="55.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'D'</text>
+<text x="170.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 4</text>
+<rect x="260.0" y="445.0" width="100.0" height="55.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="310.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'A'</text>
+<text x="310.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 1</text>
+<rect x="400.0" y="445.0" width="100.0" height="55.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="450.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'C'</text>
+<text x="450.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 3</text>
+<rect x="540.0" y="445.0" width="100.0" height="55.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="590.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">VNode 'B'</text>
+<text x="590.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">key: 2</text>
+<text x="170.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">▼ newStartIdx (0)</text>
+<text x="590.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">▼ newEndIdx (3)</text>
+</svg>

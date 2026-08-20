@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="30.0" width="900.0" height="510.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Єдиний COM-об'єкт (COM Component Instance)</text>
+<rect x="340.0" y="90.0" width="320.0" height="110.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.5"/>
+<text x="500.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Канонічний IUnknown</text>
+<text x="500.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Вказівник адреси об'єкта (0x1000)</text>
+<text x="500.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Закон ідентичності: QI(IID_IUnknown) завжди повертає 0x1000</text>
+<rect x="100.0" y="260.0" width="240.0" height="110.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="220.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Інтерфейс ICalculator</text>
+<text x="220.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вказівник: 0x1000 (vptr #1)</text>
+<text x="220.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Методи: Add, Multiply</text>
+<rect x="660.0" y="260.0" width="240.0" height="110.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="780.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Інтерфейс IPersist</text>
+<text x="780.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вказівник: 0x1008 (vptr #2)</text>
+<text x="780.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Методи: GetClassID</text>
+<rect x="380.0" y="390.0" width="240.0" height="95.0" rx="8" fill="#fbf4db" stroke="#333333" stroke-width="1.8"/>
+<text x="500.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерфейс ISupportErrorInfo</text>
+<text x="500.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вказівник: 0x1010 (vptr #3)</text>
+<text x="500.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Методи: InterfaceSupportsErrorInfo</text>
+<line x1="220.0" y1="260.0" x2="400.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="260.0" x2="600.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="390.0" x2="500.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="315.0" x2="660.0" y2="315.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="335.0" x2="340.0" y2="335.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Симетрія: QI(IPersist) ⇄ QI(ICalculator)</text>
+<line x1="300.0" y1="370.0" x2="400.0" y2="400.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="370.0" x2="600.0" y2="400.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="70.0" y="490.0" width="260.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="200.0" y="506.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Рефлексивність:</tspan><tspan x="200.0" dy="13.7">pA-&gt;QI(IID_A) завжди успішний</tspan></text>
+<rect x="370.0" y="490.0" width="260.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="506.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Транзитивність:</tspan><tspan x="500.0" dy="13.7">якщо A-&gt;B і B-&gt;C, то A-&gt;C гарантовано</tspan></text>
+<rect x="670.0" y="490.0" width="260.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="800.0" y="506.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">Сталість у часі:</tspan><tspan x="800.0" dy="13.7">успішний запит завжди лишається успішним</tspan></text>
+</svg>

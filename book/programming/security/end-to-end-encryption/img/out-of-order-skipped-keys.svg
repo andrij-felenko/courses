@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обробка повідомлень з порушенням порядку</text>
+<rect x="30.0" y="20.0" width="700.0" height="230.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доставка з порушенням порядку (Out-of-Order) та збереження пропущених ключів</text>
+<rect x="50.0" y="65.0" width="200.0" height="135.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність у мережі</text>
+<text x="150.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">1. Повідомлення #0 (отримано)</text>
+<text x="150.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">2. Повідомлення #1 (затримано)</text>
+<text x="150.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3. Повідомлення #2 (затримано)</text>
+<text x="150.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">4. Повідомлення #3 (надійшло зараз)</text>
+<line x1="255.0" y1="130.0" x2="305.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="310.0" y="65.0" width="190.0" height="135.0" rx="6" fill="#edf4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="405.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Перемотування KDF</text>
+<text x="405.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розрахунок MK_1 → зберегти</text>
+<text x="405.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розрахунок MK_2 → зберегти</text>
+<text x="405.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Розрахунок MK_3 → розшифрувати #3</text>
+<text x="405.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">CK оновлено до CK_4</text>
+<line x1="505.0" y1="130.0" x2="555.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="560.0" y="65.0" width="150.0" height="135.0" rx="6" fill="#fffaf0" stroke="#d97706" stroke-width="1.5"/>
+<text x="635.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Skipped Keys Table</text>
+<text x="635.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Key: (DH, 1) → MK_1</text>
+<text x="635.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Key: (DH, 2) → MK_2</text>
+<text x="635.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ліміт розміру (M)</text>
+<text x="635.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Таймаут життя ключів</text>
+<text x="380.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Коли повідомлення #1 та #2 надійдуть пізніше, вони розшифруються збереженими MK без відкочування ланцюга</text>
+</svg>

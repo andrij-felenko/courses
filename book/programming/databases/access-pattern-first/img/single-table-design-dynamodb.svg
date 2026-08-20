@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 14px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    .text-pk { fill: #58a6ff; font-family: "Courier New", monospace; font-weight: bold; font-size: 11px; }
+    .text-sk { fill: #3fb950; font-family: "Courier New", monospace; font-weight: bold; font-size: 11px; }
+    .text-val { fill: #d29922; font-family: "Courier New", monospace; font-size: 11px; }
+    .header-row { fill: #1f2937; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="30" text-anchor="middle" class="text-title">DynamoDB Single Table Design: Перевантаження ключів (Key Overloading)</text>
+
+  <!-- Table View -->
+  <g transform="translate(50, 60)">
+    <!-- Header -->
+    <rect width="700" height="35" class="header-row"/>
+    <rect width="700" height="230" fill="none" stroke="#30363d" stroke-width="1.5" rx="4"/>
+    
+    <text x="70" y="22" text-anchor="middle" class="text-title" fill="#58a6ff">Partition Key (PK)</text>
+    <text x="230" y="22" text-anchor="middle" class="text-title" fill="#3fb950">Sort Key (SK)</text>
+    <text x="390" y="22" text-anchor="middle" class="text-body" font-weight="bold">Type</text>
+    <text x="560" y="22" text-anchor="middle" class="text-body" font-weight="bold">Attributes (Payload)</text>
+    
+    <!-- Row 1: User metadata -->
+    <line x1="0" y1="35" x2="700" y2="35" stroke="#30363d"/>
+    <text x="70" y="60" text-anchor="middle" class="text-pk">USER#1001</text>
+    <text x="230" y="60" text-anchor="middle" class="text-sk">#METADATA</text>
+    <text x="390" y="60" text-anchor="middle" class="text-body">User</text>
+    <text x="560" y="60" text-anchor="middle" class="text-val">{"name": "Alex", "email": "a@ex.com"}</text>
+
+    <!-- Row 2: User order 1 -->
+    <line x1="0" y1="80" x2="700" y2="80" stroke="#30363d"/>
+    <text x="70" y="105" text-anchor="middle" class="text-pk">USER#1001</text>
+    <text x="230" y="105" text-anchor="middle" class="text-sk">ORDER#2024#001</text>
+    <text x="390" y="105" text-anchor="middle" class="text-body">Order</text>
+    <text x="560" y="105" text-anchor="middle" class="text-val">{"total": 149.50, "status": "PAID"}</text>
+
+    <!-- Row 3: User order 2 -->
+    <line x1="0" y1="125" x2="700" y2="125" stroke="#30363d"/>
+    <text x="70" y="150" text-anchor="middle" class="text-pk">USER#1001</text>
+    <text x="230" y="150" text-anchor="middle" class="text-sk">ORDER#2024#002</text>
+    <text x="390" y="150" text-anchor="middle" class="text-body">Order</text>
+    <text x="560" y="150" text-anchor="middle" class="text-val">{"total": 89.00, "status": "PENDING"}</text>
+
+    <!-- Row 4: User address -->
+    <line x1="0" y1="170" x2="700" y2="170" stroke="#30363d"/>
+    <text x="70" y="195" text-anchor="middle" class="text-pk">USER#1001</text>
+    <text x="230" y="195" text-anchor="middle" class="text-sk">ADDR#HOME</text>
+    <text x="390" y="195" text-anchor="middle" class="text-body">Address</text>
+    <text x="560" y="195" text-anchor="middle" class="text-val">{"city": "Kyiv", "street": "Khreshchatyk"}</text>
+  </g>
+
+  <text x="400" y="325" text-anchor="middle" class="text-body" fill="#3fb950">1 запит Query(PK="USER#1001") повертає профіль, усі замовлення та адреси без жодного JOIN!</text>
+</svg>

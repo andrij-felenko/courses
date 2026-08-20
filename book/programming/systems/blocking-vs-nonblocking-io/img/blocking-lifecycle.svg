@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл блокуючого системного виклику в ядрі</text>
+<rect x="15.0" y="15.0" width="810.0" height="390.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія блокуючого виклику read() у ядрі ОС</text>
+<text x="420.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Взаємодія простору користувача, планувальника ядра та апаратних переривань</text>
+<rect x="35.0" y="75.0" width="240.0" height="310.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="155.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Простір користувача (User)</text>
+<rect x="300.0" y="75.0" width="240.0" height="310.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="420.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ядро / Планувальник (Kernel)</text>
+<rect x="565.0" y="75.0" width="240.0" height="310.0" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.2"/>
+<text x="685.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратура / Мережа (NIC / DMA)</text>
+<rect x="50.0" y="115.0" width="210.0" height="32.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="155.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. read(fd, buf, size)</text>
+<rect x="315.0" y="115.0" width="210.0" height="32.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="420.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">2. Перевірка буфера: порожній</text>
+<rect x="315.0" y="160.0" width="210.0" height="38.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="420.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3. Стан: TASK_INTERRUPTIBLE</text>
+<text x="420.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Потік додано у wait_queue</text>
+<rect x="315.0" y="210.0" width="210.0" height="34.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.0"/>
+<text x="420.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">4. schedule(): перемикання CPU</text>
+<text x="420.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">на інший потік процесу</text>
+<rect x="580.0" y="210.0" width="210.0" height="34.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="685.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">5. Пакет прибув з мережі →</text>
+<text x="685.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">DMA запис у sk_buff RAM</text>
+<rect x="580.0" y="256.0" width="210.0" height="32.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="685.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">6. Апаратне переривання IRQ</text>
+<rect x="315.0" y="298.0" width="210.0" height="34.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="420.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">7. wake_up(): стан TASK_RUNNING</text>
+<text x="420.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Потік повертається в чергу CPU</text>
+<rect x="50.0" y="342.0" width="210.0" height="32.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="155.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">8. Копіювання в buf, read() &gt; 0</text>
+<line x1="260.0" y1="131.0" x2="315.0" y2="131.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="272.0" x2="525.0" y2="305.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="315.0" y1="358.0" x2="260.0" y2="358.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Потік спить у черзі очікування сокета без витрати процесорного часу до появи сигналу від DMA/IRQ</text>
+</svg>

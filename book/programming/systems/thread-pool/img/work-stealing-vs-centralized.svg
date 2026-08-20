@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Централізована черга проти Work-Stealing</text>
+<rect x="40.0" y="50.0" width="370.0" height="325.0" rx="10" fill="#fcfdfe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="225.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Централізована черга (Central Queue)</text>
+<text x="225.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Єдиний замок (Mutex) на всі потоки</text>
+<rect x="80.0" y="120.0" width="290.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="225.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Спільна черга завдань (Mutex)</text>
+<rect x="100.0" y="180.0" width="250.0" height="28.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="225.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Конкуренція за замок (Lock Contention)</text>
+<line x1="225.0" y1="180.0" x2="225.0" y2="164.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="95.0" y1="235.0" x2="160.0" y2="208.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="175.0" y1="235.0" x2="200.0" y2="208.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="255.0" y1="235.0" x2="250.0" y2="208.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="335.0" y1="235.0" x2="290.0" y2="208.0" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="65.0" y="235.0" width="70.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="100.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1</text>
+<text x="100.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ядро 0</text>
+<rect x="147.0" y="235.0" width="70.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="182.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2</text>
+<text x="182.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ядро 1</text>
+<rect x="229.0" y="235.0" width="70.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="264.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 3</text>
+<text x="264.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ядро 2</text>
+<rect x="311.0" y="235.0" width="70.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="346.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 4</text>
+<text x="346.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ядро 3</text>
+<text x="225.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вузьке місце: при N &gt; 8–16 потоків</text>
+<text x="225.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">час блокування перевищує корисну роботу</text>
+<rect x="450.0" y="50.0" width="370.0" height="325.0" rx="10" fill="#f8fcf9" stroke="#27ae60" stroke-width="1.8"/>
+<text x="635.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Крадіжка роботи (Work-Stealing)</text>
+<text x="635.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Окремий Deque для кожного потоку</text>
+<rect x="475.0" y="120.0" width="95.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="522.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Deque 1</text>
+<rect x="485.0" y="155.0" width="75.0" height="20.0" rx="3" fill="#e8f8f5" stroke="#a3e4d7" stroke-width="1.0"/>
+<text x="522.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача A</text>
+<rect x="485.0" y="180.0" width="75.0" height="20.0" rx="3" fill="#e8f8f5" stroke="#a3e4d7" stroke-width="1.0"/>
+<text x="522.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача B</text>
+<text x="522.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Хвіст: LIFO</text>
+<line x1="522.0" y1="235.0" x2="522.0" y2="255.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="475.0" y="260.0" width="95.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="522.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1</text>
+<text x="522.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Працює локально</text>
+<rect x="590.0" y="120.0" width="95.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="637.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Deque 2</text>
+<rect x="600.0" y="155.0" width="75.0" height="20.0" rx="3" fill="#e8f8f5" stroke="#a3e4d7" stroke-width="1.0"/>
+<text x="637.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача A</text>
+<rect x="600.0" y="180.0" width="75.0" height="20.0" rx="3" fill="#e8f8f5" stroke="#a3e4d7" stroke-width="1.0"/>
+<text x="637.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача B</text>
+<text x="637.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Хвіст: LIFO</text>
+<line x1="637.0" y1="235.0" x2="637.0" y2="255.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="590.0" y="260.0" width="95.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="637.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2</text>
+<text x="637.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Працює локально</text>
+<rect x="705.0" y="120.0" width="95.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="752.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Deque 3</text>
+<rect x="715.0" y="155.0" width="75.0" height="20.0" rx="3" fill="#e8f8f5" stroke="#a3e4d7" stroke-width="1.0"/>
+<text x="752.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача A</text>
+<rect x="715.0" y="180.0" width="75.0" height="20.0" rx="3" fill="#e8f8f5" stroke="#a3e4d7" stroke-width="1.0"/>
+<text x="752.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Задача B</text>
+<text x="752.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Хвіст: LIFO</text>
+<line x1="752.0" y1="235.0" x2="752.0" y2="255.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="705.0" y="260.0" width="95.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="752.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 3</text>
+<text x="752.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Працює локально</text>
+<line x1="705.0" y1="260.0" x2="580.0" y2="135.0" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Steal (Голова: FIFO)</text>
+<text x="635.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Немає єдиного замка: потоки не блокують</text>
+<text x="635.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">один одного і масштабуються на сотні ядер</text>
+<text x="430.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Централізована черга страждає від конкуренції за замок; Work-Stealing ізолює черги й краде лише коли потік спорожнів</text>
+</svg>

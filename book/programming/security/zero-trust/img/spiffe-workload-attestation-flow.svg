@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність атестації та видачі SVID у SPIFFE/SPIRE</text>
+<rect x="30.0" y="40.0" width="210.0" height="290.0" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+<text x="135.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робоче навантаження</text>
+<text x="135.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Процес у контейнері / Pod</text>
+<rect x="45.0" y="110.0" width="180.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="135.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнтська бібліотека</text>
+<text x="135.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SPIFFE Workload API Client</text>
+<rect x="45.0" y="180.0" width="180.0" height="65.0" rx="6" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2"/>
+<text x="135.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Отриманий X.509-SVID</text>
+<text x="135.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">spiffe://prod/ns/app/sa/web</text>
+<text x="135.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Термін дії: 1 година</text>
+<rect x="45.0" y="260.0" width="180.0" height="55.0" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="135.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">mTLS з'єднання</text>
+<text x="135.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">криптографічний тунель L4/L7</text>
+<rect x="310.0" y="40.0" width="230.0" height="290.0" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="425.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">SPIRE Agent (Вузол)</text>
+<text x="425.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Працює як демонізований процес</text>
+<rect x="325.0" y="110.0" width="200.0" height="60.0" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="425.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">Workload Attestation</text>
+<text x="425.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка cgroup, PID, UID,</text>
+<text x="425.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">K8s ServiceAccount токена</text>
+<rect x="325.0" y="185.0" width="200.0" height="60.0" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="425.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний кеш SVID</text>
+<text x="425.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">автоматична ротація ключів</text>
+<text x="425.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-style="italic">без звернення до сервера</text>
+<rect x="325.0" y="260.0" width="200.0" height="55.0" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="425.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Node Attestation</text>
+<text x="425.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">TPM / AWS IID / GCP Token</text>
+<rect x="610.0" y="40.0" width="200.0" height="290.0" rx="10" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.8"/>
+<text x="710.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e22ce" text-anchor="middle" font-weight="700">SPIRE Server</text>
+<text x="710.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Центр довіри організації</text>
+<rect x="625.0" y="110.0" width="170.0" height="60.0" rx="6" fill="#ffffff" stroke="#c084fc" stroke-width="1.2"/>
+<text x="710.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реєстр правил селекторів</text>
+<text x="710.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7e22ce" text-anchor="middle">k8s:ns=app -&gt; spiffe ID</text>
+<text x="710.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">docker:image_id=sha256</text>
+<rect x="625.0" y="190.0" width="170.0" height="60.0" rx="6" fill="#ffffff" stroke="#c084fc" stroke-width="1.2"/>
+<text x="710.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">SPIFFE CA (Root / Interm)</text>
+<text x="710.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Підпис X.509 сертифікатів</text>
+<text x="710.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та JWT токенів</text>
+<rect x="625.0" y="265.0" width="170.0" height="50.0" rx="6" fill="#ffffff" stroke="#c084fc" stroke-width="1.2"/>
+<text x="710.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація Bundle</text>
+<text x="710.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">довірені кореневі ключі</text>
+<line x1="240.0" y1="135.0" x2="305.0" y2="135.0" stroke="#1d4ed8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">UNIX сокет</text>
+<line x1="310.0" y1="200.0" x2="245.0" y2="200.0" stroke="#15803d" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">SVID + Key</text>
+<line x1="540.0" y1="140.0" x2="605.0" y2="140.0" stroke="#7e22ce" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="215.0" x2="545.0" y2="215.0" stroke="#7e22ce" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="575.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7e22ce" text-anchor="middle" font-weight="700">gRPC CSR</text>
+<text x="575.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7e22ce" text-anchor="middle" font-weight="700">SVID Bundle</text>
+</svg>

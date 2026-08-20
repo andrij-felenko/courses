@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 380" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box-bad { fill: #1f1618; stroke: #f85149; stroke-width: 1.5; rx: 6px; }
+    .box-good { fill: #122118; stroke: #3fb950; stroke-width: 1.5; rx: 6px; }
+    .box-inner { fill: #161b22; stroke: #30363d; stroke-width: 1.2; rx: 4px; }
+    .title-bad { fill: #f85149; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 15px; }
+    .title-good { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 15px; }
+    .text-head { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 13px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; }
+    .text-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    .text-warn { fill: #d29922; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .text-ok { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .arrow { stroke: #8b949e; stroke-width: 1.5; fill: none; marker-end: url(#arr); }
+    .arrow-bad { stroke: #f85149; stroke-width: 1.5; fill: none; marker-end: url(#arr-bad); }
+    .arrow-good { stroke: #3fb950; stroke-width: 1.5; fill: none; marker-end: url(#arr-good); }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b949e"/>
+    </marker>
+    <marker id="arr-bad" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f85149"/>
+    </marker>
+    <marker id="arr-good" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <!-- Left: Naive Append -->
+  <g transform="translate(30, 25)">
+    <rect width="380" height="330" class="box-bad"/>
+    <text x="190" y="28" text-anchor="middle" class="title-bad">Наївний долив (INSERT / Append)</text>
+
+    <!-- Run 1 -->
+    <rect x="20" y="45" width="340" height="60" class="box-inner"/>
+    <text x="35" y="68" class="text-head">Перший прогін (день 1):</text>
+    <text x="35" y="88" class="text-body">INSERT 100 рядків за 2026-08-20 → Сума = 10 000 ₴</text>
+
+    <!-- Run 2 -->
+    <rect x="20" y="120" width="340" height="75" class="box-inner"/>
+    <text x="35" y="142" class="text-head">Повторний прогін (Backfill після збою):</text>
+    <text x="35" y="162" class="text-body">Повторний INSERT тих самих 100 рядків</text>
+    <text x="35" y="180" class="text-warn">Рядки дублюються: у таблиці 200 записів!</text>
+
+    <!-- Impact -->
+    <rect x="20" y="210" width="340" height="95" class="box-inner"/>
+    <text x="35" y="235" class="title-bad">Наслідки неідемпотентності:</text>
+    <text x="35" y="257" class="text-body">• Звіти спотворені: Сума = 20 000 ₴ (подвоєння)</text>
+    <text x="35" y="277" class="text-body">• Часткове падіння залишає розламаний стан</text>
+    <text x="35" y="297" class="text-sub">• Відновлення вимагає складної ручної чистки</text>
+  </g>
+
+  <!-- Right: Partition Overwrite / Upsert -->
+  <g transform="translate(440, 25)">
+    <rect width="380" height="330" class="box-good"/>
+    <text x="190" y="28" text-anchor="middle" class="title-good">Ідемпотентна заміна (Atomic Overwrite)</text>
+
+    <!-- Run 1 -->
+    <rect x="20" y="45" width="340" height="60" class="box-inner"/>
+    <text x="35" y="68" class="text-head">Перший прогін (день 1):</text>
+    <text x="35" y="88" class="text-body">OVERWRITE партиції dt='2026-08-20' → 10 000 ₴</text>
+
+    <!-- Run 2 -->
+    <rect x="20" y="120" width="340" height="75" class="box-inner"/>
+    <text x="35" y="142" class="text-head">Повторний прогін (Backfill / Перерахунок):</text>
+    <text x="35" y="162" class="text-body">Атомарна заміна тієї самої партиції</text>
+    <text x="35" y="180" class="text-ok">Результат ідентичний: рівно 100 рядків</text>
+
+    <!-- Impact -->
+    <rect x="20" y="210" width="340" height="95" class="box-inner"/>
+    <text x="35" y="235" class="title-good">Гарантії ідемпотентності:</text>
+    <text x="35" y="257" class="text-body">• Результат n прогонів = результату 1 прогону</text>
+    <text x="35" y="277" class="text-body">• Падіння не руйнує дані (атомарний commit)</text>
+    <text x="35" y="297" class="text-sub">• Безпечний перерахунок у будь-який момент</text>
+  </g>
+</svg>

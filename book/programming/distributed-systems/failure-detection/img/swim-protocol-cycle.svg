@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол SWIM: прямий пінг, непряме зондування (Ping-Req) та спростування</text>
+<rect x="20.0" y="55.0" width="305.0" height="420.0" rx="6" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="172.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: Прямий Ping</text>
+<circle cx="80.0" cy="150.0" r="18.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="80.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mi</text>
+<circle cx="260.0" cy="150.0" r="18.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="260.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mj</text>
+<line x1="105.0" y1="140.0" x2="235.0" y2="140.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="170.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">1. Ping</text>
+<line x1="235.0" y1="160.0" x2="105.0" y2="160.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="170.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут T_ping сплив!</text>
+<rect x="32.0" y="228.7" width="280.0" height="62.6" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="172.0" y="244.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="172.0" dy="0.0">Вузол Mi випадковим чином</tspan><tspan x="172.0" dy="12.3">обирає Mj зі списку членів.</tspan><tspan x="172.0" dy="12.3">Надсилає прямий UDP-пакет Ping.</tspan><tspan x="172.0" dy="12.3">Відповідь Ack не надійшла за T_ping.</tspan></text>
+<rect x="30.0" y="345.0" width="285.0" height="115.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="172.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="172.0" dy="0.0">Mi НЕ оголошує Mj мертвим негайно!</tspan><tspan x="172.0" dy="11.7">Причиною мовчання може бути локальний</tspan><tspan x="172.0" dy="11.7">дроп пакетів або короткочасний джиттер</tspan><tspan x="172.0" dy="11.7">на конкретному маршруті Mi &lt;-&gt; Mj.</tspan></text>
+<rect x="345.0" y="55.0" width="335.0" height="420.0" rx="6" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="512.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Фаза 2: Непрямий Ping-Req</text>
+<circle cx="390.0" cy="140.0" r="18.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="390.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mi</text>
+<circle cx="512.0" cy="110.0" r="16.0" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="512.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">H1</text>
+<circle cx="512.0" cy="170.0" r="16.0" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="512.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">H2</text>
+<circle cx="635.0" cy="140.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="635.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mj</text>
+<line x1="410.0" y1="130.0" x2="492.0" y2="115.0" stroke="#d97706" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="150.0" x2="492.0" y2="165.0" stroke="#d97706" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="450.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">Ping-Req(Mj)</text>
+<line x1="532.0" y1="115.0" x2="615.0" y2="130.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="532.0" y1="165.0" x2="615.0" y2="150.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="575.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ping</text>
+<rect x="359.5" y="228.7" width="305.0" height="62.6" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="512.0" y="244.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="512.0" dy="0.0">Mi обирає k випадкових помічників</tspan><tspan x="512.0" dy="12.3">(H1..Hk, зазвичай k = 3..5) та просить</tspan><tspan x="512.0" dy="12.3">їх перевірити зв'язність із Mj.</tspan><tspan x="512.0" dy="12.3">Помічники пінгують Mj паралельно.</tspan></text>
+<rect x="355.0" y="345.0" width="315.0" height="115.0" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.0"/>
+<text x="512.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="512.0" dy="0.0">Якщо хоч один посередник отримає Ack,</tspan><tspan x="512.0" dy="11.7">він пересилає його до Mi -&gt; Mj живий!</tspan><tspan x="512.0" dy="11.7">Це повністю нейтралізує локальні збої</tspan><tspan x="512.0" dy="11.7">маршрутизації між парою (Mi, Mj).</tspan></text>
+<rect x="700.0" y="55.0" width="320.0" height="420.0" rx="6" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="860.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 3: Підозра та спростування</text>
+<rect x="715.0" y="109.9" width="290.0" height="50.2" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="860.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">Жоден помічник не відповів:</tspan><tspan x="860.0" dy="12.3">Статус Mj стає Suspect(Incarnation I)</tspan><tspan x="860.0" dy="12.3">Розповсюдження пліткою (Gossip)</tspan></text>
+<line x1="810.0" y1="175.0" x2="775.0" y2="215.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="760.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Mj живий</text>
+<rect x="707.5" y="229.9" width="135.0" height="60.1" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="775.0" y="245.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">Спростування:</tspan><tspan x="775.0" dy="11.7">Mj чує підозру</tspan><tspan x="775.0" dy="11.7">та оголошує:</tspan><tspan x="775.0" dy="11.7">Alive(Incarnation I+1)</tspan></text>
+<line x1="910.0" y1="175.0" x2="945.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="960.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Таймер сплив</text>
+<rect x="877.5" y="229.9" width="135.0" height="60.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="945.0" y="245.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="945.0" dy="0.0">Підтвердження:</tspan><tspan x="945.0" dy="11.7">Таймер сплив</tspan><tspan x="945.0" dy="11.7">без спростувань -&gt;</tspan><tspan x="945.0" dy="11.7">Статус DEAD (Evict)</tspan></text>
+<rect x="710.0" y="345.0" width="300.0" height="115.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="860.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">Інкарнаційні числа захищають від</tspan><tspan x="860.0" dy="11.7">застарілих повідомлень.</tspan><tspan x="860.0" dy="11.7">Мерехтливі вузли самі спростовують</tspan><tspan x="860.0" dy="11.7">хибні підозри, не ламаючи кластер.</tspan></text>
+</svg>

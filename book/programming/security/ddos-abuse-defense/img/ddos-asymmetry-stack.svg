@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асиметрія ресурсів та вектори вичерпання системи при DDoS</text>
+<rect x="30.0" y="35.0" width="330.0" height="260.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="195.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Атакувальник (Мінімальні витрати)</text>
+<rect x="45.0" y="85.0" width="300.0" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="195.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L3/L4: Спуфінг IP та ампліфікація</text>
+<text x="195.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Генерація сирих пакетів, 0 байт стану</text>
+<rect x="45.0" y="145.0" width="300.0" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="195.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L4: SYN / UDP / ICMP флуд</text>
+<text x="195.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 відправлений пакет = 0 RAM у клієнта</text>
+<rect x="45.0" y="205.0" width="300.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="195.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L7: Асиметричні запити (Slowloris / SQL)</text>
+<text x="195.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 повільний HTTP-запит (100 байт)</text>
+<text x="195.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ботнет із тисяч IoT-пристроїв</text>
+<line x1="370.0" y1="165.0" x2="395.0" y2="165.0" stroke="#333333" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="405.0" y="35.0" width="325.0" height="260.0" rx="8" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="567.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Сервер-жертва (Колосальні витрати)</text>
+<rect x="420.0" y="85.0" width="295.0" height="48.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="567.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L3/L4: Аллокація sk_buff та conntrack</text>
+<text x="567.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Переривання ksoftirqd, забиття каналу</text>
+<rect x="420.0" y="145.0" width="295.0" height="48.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="567.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L4: Черга SYN-беклого (struct sock)</text>
+<text x="567.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вичерпання пам'яті таблиці з'єднань</text>
+<rect x="420.0" y="205.0" width="295.0" height="75.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="567.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L7: Вичерпання пулу потоків та CPU</text>
+<text x="567.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Блокування воркерів (Apache, DB Locks)</text>
+<text x="567.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TLS-рукостискання: 1-2 мс CPU на сесію</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-step { fill: #1a2332; stroke: #58a6ff; stroke-width: 1.5; rx: 6px; }
+    .box-db { fill: #13271f; stroke: #3fb950; stroke-width: 1.5; rx: 6px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 14px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    .text-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; }
+    .text-green { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="30" text-anchor="middle" class="text-title">Архітектурний потік Schema-on-write (Класичні СУБД)</text>
+
+  <!-- Step 1: Ingestion -->
+  <g transform="translate(40, 70)">
+    <rect width="180" height="180" class="box-step"/>
+    <text x="90" y="30" text-anchor="middle" class="text-title">1. Вхідні дані</text>
+    <text x="90" y="60" text-anchor="middle" class="text-body">Клієнтський запит</text>
+    <text x="90" y="85" text-anchor="middle" class="text-body">JSON / DTO об'єкт</text>
+    <text x="90" y="125" text-anchor="middle" class="text-sub">Дані неструктуровані</text>
+    <text x="90" y="145" text-anchor="middle" class="text-sub">або напівструктуровані</text>
+  </g>
+
+  <!-- Step 2: Strict Validation -->
+  <g transform="translate(310, 70)">
+    <rect width="180" height="180" class="box" stroke="#d29922"/>
+    <text x="90" y="30" text-anchor="middle" class="text-title" fill="#d29922">2. Валідація схеми</text>
+    <text x="90" y="60" text-anchor="middle" class="text-body">Перевірка типів</text>
+    <text x="90" y="85" text-anchor="middle" class="text-body">Перевірка NOT NULL</text>
+    <text x="90" y="110" text-anchor="middle" class="text-body">Foreign Key інваріанти</text>
+    <text x="90" y="145" text-anchor="middle" class="text-sub">Невідповідність -> Відхилення</text>
+  </g>
+
+  <!-- Step 3: Structured Storage -->
+  <g transform="translate(580, 70)">
+    <rect width="180" height="180" class="box-db"/>
+    <text x="90" y="30" text-anchor="middle" class="text-green">3. Табличний диск</text>
+    <text x="90" y="60" text-anchor="middle" class="text-body">Фіксовані зміщення</text>
+    <text x="90" y="85" text-anchor="middle" class="text-body">Компактні бінарні кортежі</text>
+    <text x="90" y="110" text-anchor="middle" class="text-body">B-Tree індексація</text>
+    <text x="90" y="145" text-anchor="middle" class="text-sub">Миттєве читання O(1)</text>
+  </g>
+
+  <path d="M 220 160 L 310 160" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 490 160 L 580 160" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <text x="400" y="290" text-anchor="middle" class="text-sub">Ціна валідації сплачується ОДИН раз під час запису (Write-heavy validation, Read-fast)</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево Меркла для журналу аудиту та доказ включення</text>
+<rect x="320.0" y="25.0" width="140.0" height="42.0" rx="6" fill="#f0faf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="390.0" y="43.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Корінь Меркла</text>
+<text x="390.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Root = H(H_01 || H_23)</text>
+<line x1="355.0" y1="68.0" x2="235.0" y2="105.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="425.0" y1="68.0" x2="545.0" y2="105.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="165.0" y="105.0" width="140.0" height="40.0" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="235.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол H_01 (Аудит-шлях)</text>
+<text x="235.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">H(0x01 || H_0 || H_1)</text>
+<rect x="475.0" y="105.0" width="140.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="545.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол H_23</text>
+<text x="545.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">H(0x01 || H_2 || H_3)</text>
+<line x1="205.0" y1="146.0" x2="120.0" y2="180.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="265.0" y1="146.0" x2="235.0" y2="180.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="515.0" y1="146.0" x2="485.0" y2="180.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="575.0" y1="146.0" x2="660.0" y2="180.0" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="65.0" y="180.0" width="110.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="120.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геш H_0</text>
+<text x="120.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">H(0x00 || L_0)</text>
+<rect x="180.0" y="180.0" width="110.0" height="36.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="235.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геш H_1</text>
+<text x="235.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">H(0x00 || L_1)</text>
+<rect x="430.0" y="180.0" width="110.0" height="36.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="485.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Геш H_2 (Ціль)</text>
+<text x="485.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">H(0x00 || L_2)</text>
+<rect x="605.0" y="180.0" width="110.0" height="36.0" rx="5" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="660.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Геш H_3 (Шлях)</text>
+<text x="660.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">H(0x00 || L_3)</text>
+<line x1="485.0" y1="245.0" x2="485.0" y2="220.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="415.0" y="245.0" width="140.0" height="32.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="485.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сирий Запис №2 (L_2)</text>
+<rect x="40.0" y="235.0" width="330.0" height="60.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="205.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доказ включення (Audit Proof) для Запису №2:</text>
+<text x="205.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Потрібно лише: { H_3, H_01 } та Корінь Root</text>
+<text x="205.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Складність перевірки: O(log N)</text>
+</svg>

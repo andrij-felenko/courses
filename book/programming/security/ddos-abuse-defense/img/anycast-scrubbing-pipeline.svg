@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура центру очищення та конвеєр фільтрації трафіку</text>
+<rect x="20.0" y="110.0" width="100.0" height="75.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="70.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вхідний</text>
+<text x="70.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">трафік</text>
+<text x="70.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DDoS + Легіт)</text>
+<line x1="120.0" y1="147.0" x2="150.0" y2="147.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="150.0" y="85.0" width="125.0" height="125.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="212.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 1: Anycast</text>
+<text x="212.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Гео-розсіювання</text>
+<text x="212.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">BGP Flowspec</text>
+<text x="212.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратний ACL</text>
+<text x="212.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">RTBH блокування</text>
+<line x1="275.0" y1="147.0" x2="305.0" y2="147.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="305.0" y="85.0" width="130.0" height="125.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="370.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 2: XDP eBPF</text>
+<text x="370.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Безстанковий шар</text>
+<text x="370.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">XDP_DROP (25Mpps)</text>
+<text x="370.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SYN Proxy / Cookies</text>
+<text x="370.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">DNS / TCP челендж</text>
+<line x1="435.0" y1="147.0" x2="465.0" y2="147.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="465.0" y="85.0" width="130.0" height="125.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="530.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 3: L7 WAF</text>
+<text x="530.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Семантичний шар</text>
+<text x="530.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">TLS термінація</text>
+<text x="530.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">JS / PoW челенджі</text>
+<text x="530.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Rate Limiting / JA4</text>
+<line x1="595.0" y1="147.0" x2="630.0" y2="147.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="612.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">GRE / MPLS</text>
+<rect x="630.0" y="110.0" width="110.0" height="75.0" rx="6" fill="#eaf8f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="685.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оригінальний</text>
+<text x="685.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">сервер</text>
+<text x="685.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(Очищений трафік)</text>
+<rect x="150.0" y="225.0" width="445.0" height="55.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="372.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатоешелонована фільтрація: відсікання 99.9% сміття на ранніх рівнях</text>
+<text x="372.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">L3/L4 скидається без залучення CPU бекенда; важкий L7 інспектується вибірково</text>
+</svg>

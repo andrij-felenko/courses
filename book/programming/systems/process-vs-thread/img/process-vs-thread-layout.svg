@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія процесу та потоків у пам'яті</text>
+<rect x="40.0" y="45.0" width="760.0" height="325.0" rx="12" fill="#f8fafc" stroke="#333333" stroke-width="2.0"/>
+<text x="60.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Процес (одиниця володіння ресурсами та ізоляції пам'яті)</text>
+<text x="780.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">Власний кореневий регістр CR3 / таблиця сторінок</text>
+<rect x="60.0" y="90.0" width="300.0" height="260.0" rx="8" fill="#edf2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="210.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний простір і ресурси процесу</text>
+<rect x="70.0" y="128.0" width="280.0" height="38.0" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="78.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Сегмент коду (.text)</text>
+<text x="78.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">спільні машинні інструкції програми</text>
+<rect x="70.0" y="171.0" width="280.0" height="38.0" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="78.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Глобальні дані й BSS</text>
+<text x="78.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">статичні та глобальні змінні</text>
+<rect x="70.0" y="214.0" width="280.0" height="38.0" rx="5" fill="#dbeafe" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="78.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Динамічна пам'ять (купа / heap)</text>
+<text x="78.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">malloc / new, спільні структури</text>
+<rect x="70.0" y="257.0" width="280.0" height="38.0" rx="5" fill="#fef3c7" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="78.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Таблиця дескрипторів файлів</text>
+<text x="78.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">відкриті файли, сокети, канали</text>
+<rect x="70.0" y="300.0" width="280.0" height="38.0" rx="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="78.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Обробники сигналів та оточення</text>
+<text x="78.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">сигнальні диспозиції, PID, UID, CWD</text>
+<rect x="380.0" y="90.0" width="400.0" height="260.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="580.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потоки виконання (одиниці планування процесора)</text>
+<rect x="390.0" y="126.0" width="185.0" height="212.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="482.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік 1 (Main Thread)</text>
+<text x="482.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TID: 1040</text>
+<rect x="398.0" y="168.0" width="169.0" height="36.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="482.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle"><tspan x="482.5" dy="0.0">Регістри ядра</tspan><tspan x="482.5" dy="12.3">PC, SP, R0..R15</tspan></text>
+<rect x="398.0" y="210.0" width="169.0" height="36.0" rx="4" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="482.5" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="482.5" dy="0.0">Власний стек (локальні змінні)</tspan><tspan x="482.5" dy="12.3"></tspan></text>
+<rect x="398.0" y="252.0" width="169.0" height="36.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="482.5" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="482.5" dy="0.0">TLS (локальна пам'ять потоку)</tspan><tspan x="482.5" dy="12.3"></tspan></text>
+<rect x="585.0" y="126.0" width="185.0" height="212.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="677.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Потік 2 (Worker Thread)</text>
+<text x="677.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TID: 1041</text>
+<rect x="593.0" y="168.0" width="169.0" height="36.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="677.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle"><tspan x="677.5" dy="0.0">Регістри ядра</tspan><tspan x="677.5" dy="12.3">PC, SP, R0..R15</tspan></text>
+<rect x="593.0" y="210.0" width="169.0" height="36.0" rx="4" fill="#f0fdf4" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="677.5" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="677.5" dy="0.0">Власний стек (локальні змінні)</tspan><tspan x="677.5" dy="12.3"></tspan></text>
+<rect x="593.0" y="252.0" width="169.0" height="36.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="677.5" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="677.5" dy="0.0">TLS (локальна пам'ять потоку)</tspan><tspan x="677.5" dy="12.3"></tspan></text>
+<line x1="390.0" y1="220.0" x2="360.0" y2="220.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="370.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">прямий доступ</text>
+<text x="420.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Усі потоки ділять єдиний адресний простір, але кожен має незалежний стек і регістри</text>
+</svg>

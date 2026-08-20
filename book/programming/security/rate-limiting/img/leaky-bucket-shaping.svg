@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діряве відро (Leaky Bucket) для згладжування трафіку</text>
+<rect x="30.0" y="45.0" width="170.0" height="75.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="115.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нерівномірний трафік</text>
+<text x="115.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пакети надходять пачками</text>
+<text x="115.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Піки (Bursts) &gt; r</text>
+<line x1="200.0" y1="82.0" x2="265.0" y2="82.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="270.0" y="30.0" width="220.0" height="180.0" rx="8" fill="#f0f4f8" stroke="#333333" stroke-width="2.0"/>
+<text x="380.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга / Буфер (Queue)</text>
+<text x="380.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Максимальний розмір: B пакетів</text>
+<rect x="295.0" y="95.0" width="170.0" height="22.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="380.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запит #3 у черзі</text>
+<rect x="295.0" y="123.0" width="170.0" height="22.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="380.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запит #2 у черзі</text>
+<rect x="295.0" y="151.0" width="170.0" height="22.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="380.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запит #1 у черзі</text>
+<line x1="490.0" y1="80.0" x2="580.0" y2="80.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="585.0" y="55.0" width="145.0" height="50.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="657.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Черга повна (Q &gt; B)</text>
+<text x="657.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Скидання запиту (Drop)</text>
+<line x1="380.0" y1="210.0" x2="380.0" y2="255.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="395.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Витік</text>
+<rect x="200.0" y="255.0" width="360.0" height="45.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="380.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Згладжений стабільний вихідний потік</text>
+<text x="380.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Постійна швидкість витоку: r_out запитів/сек</text>
+</svg>

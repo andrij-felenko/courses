@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура географічного шардування та ізоляції кворумів</text>
+<rect x="40.0" y="45.0" width="920.0" height="65.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="500.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальний рівень маршрутизації (GeoDNS + Anycast L4 / L7 Global API Gateway)</text>
+<text x="500.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Визначення регіону користувача за JWT / Session Claim або IP GeoIP -&gt; скеровування запиту у відповідний юрисдикційний шлюз</text>
+<rect x="40.0" y="140.0" width="290.0" height="360.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="40.0" y="140.0" width="290.0" height="36.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="185.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Юрисдикція ЄС (GDPR / BDSG)</text>
+<rect x="55.0" y="190.0" width="260.0" height="80.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="185.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шард P_EU (eu-central-1)</text>
+<text x="185.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ключ: (country='DE', tenant_id)</text>
+<text x="185.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Дані PII та фінанси резидентів ЄС</text>
+<rect x="55.0" y="285.0" width="260.0" height="95.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="185.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Консенсусна група Raft (EU)</text>
+<text x="185.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 1 (Лідер) - Франкфурт</text>
+<text x="185.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 2 (Фоловер) - Париж</text>
+<text x="185.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 3 (Фоловер) - Дублін</text>
+<rect x="55.0" y="395.0" width="260.0" height="85.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="185.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний KMS / HSM (FIPS 140-2)</text>
+<text x="185.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ключі шифрування не залишають ЄС</text>
+<text x="185.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Захист від дії US CLOUD Act</text>
+<rect x="355.0" y="140.0" width="290.0" height="360.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="355.0" y="140.0" width="290.0" height="36.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="500.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Юрисдикція США (CCPA / HIPAA)</text>
+<rect x="370.0" y="190.0" width="260.0" height="80.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="500.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шард P_US (us-east-1)</text>
+<text x="500.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ключ: (country='US', tenant_id)</text>
+<text x="500.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Дані резидентів Північної Америки</text>
+<rect x="370.0" y="285.0" width="260.0" height="95.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="500.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Консенсусна група Raft (US)</text>
+<text x="500.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 1 (Лідер) - Вірджинія</text>
+<text x="500.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 2 (Фоловер) - Огайо</text>
+<text x="500.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 3 (Фоловер) - Орегон</text>
+<rect x="370.0" y="395.0" width="260.0" height="85.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний KMS (US Region)</text>
+<text x="500.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Керування доступом за IAM ролями</text>
+<text x="500.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сумісність із SOC2 / HIPAA</text>
+<rect x="670.0" y="140.0" width="290.0" height="360.0" rx="8" fill="#f8fafc" stroke="#d35400" stroke-width="2.0"/>
+<rect x="670.0" y="140.0" width="290.0" height="36.0" rx="8" fill="#fef9e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="815.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Юрисдикція APAC (Сінгапур / Токіо)</text>
+<rect x="685.0" y="190.0" width="260.0" height="80.0" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="1.2"/>
+<text x="815.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шард P_APAC (ap-southeast-1)</text>
+<text x="815.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ключ: (country='SG', tenant_id)</text>
+<text x="815.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle">Дані резидентів APAC регіону</text>
+<rect x="685.0" y="285.0" width="260.0" height="95.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.2"/>
+<text x="815.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Консенсусна група Raft (APAC)</text>
+<text x="815.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 1 (Лідер) - Сінгапур</text>
+<text x="815.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 2 (Фоловер) - Токіо</text>
+<text x="815.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол 3 (Фоловер) - Сідней</text>
+<rect x="685.0" y="395.0" width="260.0" height="85.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="815.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний KMS (APAC)</text>
+<text x="815.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сумісність із PDPA / APPI</text>
+<text x="815.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ізоляція ключів у регіоні</text>
+<line x1="185.0" y1="110.0" x2="185.0" y2="138.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="110.0" x2="500.0" y2="138.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="815.0" y1="110.0" x2="815.0" y2="138.0" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

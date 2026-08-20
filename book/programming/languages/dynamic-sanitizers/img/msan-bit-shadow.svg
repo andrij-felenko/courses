@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">MemorySanitizer: побітова тінь та момент виявлення неініціалізованого читання</text>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">MemorySanitizer: Побайтове/побітове відстеження неініціалізованої пам'яті</text>
+<rect x="40.0" y="60.0" width="360.0" height="160.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Значення змінної x (32-bit int)</text>
+<rect x="60.0" y="100.0" width="320.0" height="40.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="220.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Реальні дані: 0x?? 0x?? 0x?? 0x?? (сміття зі стеку)</text>
+<rect x="60.0" y="150.0" width="320.0" height="40.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="220.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Тінь (Shadow): 0xFF 0xFF 0xFF 0xFF (неініціалізовано)</text>
+<rect x="440.0" y="60.0" width="360.0" height="160.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="620.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Поширення тіні в операціях (ALU)</text>
+<text x="460.0" y="115.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.0" fill="#1e293b" text-anchor="start" font-weight="700">int y = x + 10;  // Обчислення</text>
+<text x="460.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Дані: y обчислюється як сміття + 10</text>
+<text x="460.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Тінь: Shadow_y = Shadow_x (0xFFFFFFFF)</text>
+<text x="620.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ОБЧИСЛЕННЯ НЕ ВИКЛИКАЄ ПОМИЛКИ!</text>
+<rect x="40.0" y="240.0" width="760.0" height="155.0" rx="8" fill="#fff1f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="420.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Момент перевірки: Розгалуження або Системний виклик (Check on Use)</text>
+<rect x="60.0" y="285.0" width="340.0" height="90.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="80.0" y="315.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14.0" fill="#b91c1c" text-anchor="start" font-weight="700">if (y &gt; 0) {</text>
+<text x="80.0" y="340.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14.0" fill="#1e293b" text-anchor="start" font-weight="700">    do_something();</text>
+<text x="80.0" y="365.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14.0" fill="#b91c1c" text-anchor="start" font-weight="700">}</text>
+<rect x="420.0" y="285.0" width="360.0" height="90.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="600.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Компілятор вставив інструментацію:</text>
+<text x="440.0" y="335.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#7f1d1d" text-anchor="start" font-weight="700">if (__msan_test_shadow(&amp;y))</text>
+<text x="440.0" y="358.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#7f1d1d" text-anchor="start" font-weight="700">    __msan_warning();</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="100%" height="100%">
+<style>
+  .box { fill: #1e293b; stroke: #3b82f6; stroke-width: 2; rx: 8px; }
+  .box-dead { fill: #1e293b; stroke: #ef4444; stroke-width: 2; rx: 8px; }
+  .box-live { fill: #1e293b; stroke: #10b981; stroke-width: 2; rx: 8px; }
+  .hdr { fill: #0f172a; stroke: #64748b; stroke-width: 1; rx: 8px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .arrow { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" />
+  </marker>
+</defs>
+<rect width="800" height="280" fill="#0b0f19" rx="12" />
+<text x="30" y="35" class="txt-bold" font-size="16">Ланцюжок версій рядка (Tuple Version Chain / Undo Chain)</text>
+<text x="30" y="55" class="txt-muted">Зв'язок між версіями через покажчики t_ctid / roll_ptr та межі видимості xmin / xmax</text>
+<g transform="translate(40, 80)">
+  <rect width="210" height="150" class="box-dead" />
+  <rect width="210" height="30" class="hdr" />
+  <text x="15" y="20" class="txt-bold" fill="#ef4444">Версія 1 (Застаріла)</text>
+  <text x="15" y="50" class="txt">xmin: 100 (Створена T100)</text>
+  <text x="15" y="72" class="txt">xmax: 105 (Змінена T105)</text>
+  <text x="15" y="94" class="txt">t_ctid: (0, 2) → V2</text>
+  <text x="15" y="125" class="txt-bold" fill="#38bdf8">Дані: balance = $100</text>
+</g>
+<path d="M 250 155 L 290 155" class="arrow" />
+<g transform="translate(295, 80)">
+  <rect width="210" height="150" class="box-dead" />
+  <rect width="210" height="30" class="hdr" />
+  <text x="15" y="20" class="txt-bold" fill="#ef4444">Версія 2 (Застаріла)</text>
+  <text x="15" y="50" class="txt">xmin: 105 (Створена T105)</text>
+  <text x="15" y="72" class="txt">xmax: 110 (Змінена T110)</text>
+  <text x="15" y="94" class="txt">t_ctid: (0, 3) → V3</text>
+  <text x="15" y="125" class="txt-bold" fill="#38bdf8">Дані: balance = $150</text>
+</g>
+<path d="M 505 155 L 545 155" class="arrow" />
+<g transform="translate(550, 80)">
+  <rect width="210" height="150" class="box-live" />
+  <rect width="210" height="30" class="hdr" />
+  <text x="15" y="20" class="txt-bold" fill="#10b981">Версія 3 (Поточна/Жива)</text>
+  <text x="15" y="50" class="txt">xmin: 110 (Створена T110)</text>
+  <text x="15" y="72" class="txt">xmax: 0 (Не видалена)</text>
+  <text x="15" y="94" class="txt">t_ctid: (0, 3) [Self]</text>
+  <text x="15" y="125" class="txt-bold" fill="#38bdf8">Дані: balance = $220</text>
+</g>
+</svg>

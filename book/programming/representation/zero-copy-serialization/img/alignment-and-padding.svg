@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вирівнювання пам'яті, паддінг та штраф перетину кеш-ліній</text>
+<rect x="30.0" y="40.0" width="920.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="490.0" y="61.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Природне вирівнювання (Natural Alignment): n-байтний тип має починатися з адреси, кратної n.</tspan><tspan x="490.0" dy="15.6">Порушення веде до штрафів шини, розщеплення кеш-ліній (Split Cache Line) або апаратних виключень.</tspan></text>
+<text x="35.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Вирівняна розкладка: кожне поле на кратній межі (8, 4, 2, 1 байти)</text>
+<rect x="35.0" y="145.0" width="227.5" height="46.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="37.0" y="147.0" width="223.5" height="42.0" rx="6" fill="#eaf7ef" stroke="#eaf7ef" stroke-width="1.5"/><text x="148.8" y="171.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="148.8" dy="0.0">uint64_t a (8 байти)</tspan></text>
+<rect x="262.5" y="145.0" width="113.8" height="46.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="264.5" y="147.0" width="109.8" height="42.0" rx="6" fill="#eaf7ef" stroke="#eaf7ef" stroke-width="1.5"/><text x="319.4" y="171.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="319.4" dy="0.0">uint32_t b (4B)</tspan></text>
+<rect x="376.2" y="145.0" width="56.9" height="46.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="378.2" y="147.0" width="52.9" height="42.0" rx="6" fill="#eaf7ef" stroke="#eaf7ef" stroke-width="1.5"/><text x="404.7" y="171.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="404.7" dy="0.0">uint16 c</tspan></text>
+<rect x="433.1" y="145.0" width="28.4" height="46.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="435.1" y="147.0" width="24.4" height="42.0" rx="6" fill="#eaf7ef" stroke="#eaf7ef" stroke-width="1.5"/><text x="447.3" y="171.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="447.3" dy="0.0">u8 d</tspan></text>
+<rect x="461.6" y="145.0" width="28.4" height="46.0" rx="3" fill="#fef9e7" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="463.6" y="147.0" width="24.4" height="42.0" rx="6" fill="#fef9e7" stroke="#fef9e7" stroke-width="1.5"/><text x="475.8" y="171.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="475.8" dy="0.0">pad</tspan></text>
+<rect x="490.0" y="145.0" width="113.8" height="46.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="492.0" y="147.0" width="109.8" height="42.0" rx="6" fill="#eaf7ef" stroke="#eaf7ef" stroke-width="1.5"/><text x="546.9" y="171.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="546.9" dy="0.0">uint32_t e (4B)</tspan></text>
+<rect x="603.8" y="145.0" width="113.8" height="46.0" rx="3" fill="#fef9e7" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="605.8" y="147.0" width="109.8" height="42.0" rx="6" fill="#fef9e7" stroke="#fef9e7" stroke-width="1.5"/><text x="660.6" y="171.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.6" dy="0.0">паддінг (4 байти)</tspan></text>
+<rect x="717.5" y="145.0" width="227.5" height="46.0" rx="3" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="719.5" y="147.0" width="223.5" height="42.0" rx="6" fill="#eaf7ef" stroke="#eaf7ef" stroke-width="1.5"/><text x="831.2" y="171.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="831.2" dy="0.0">double f (8 байтів)</tspan></text>
+<line x1="35.0" y1="193.0" x2="35.0" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="35.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+0 B</text>
+<line x1="148.8" y1="193.0" x2="148.8" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="148.8" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+4 B</text>
+<line x1="262.5" y1="193.0" x2="262.5" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="262.5" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+8 B</text>
+<line x1="376.2" y1="193.0" x2="376.2" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="376.2" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+12 B</text>
+<line x1="490.0" y1="193.0" x2="490.0" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="490.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+16 B</text>
+<line x1="603.8" y1="193.0" x2="603.8" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="603.8" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+20 B</text>
+<line x1="717.5" y1="193.0" x2="717.5" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="717.5" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+24 B</text>
+<line x1="831.2" y1="193.0" x2="831.2" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="831.2" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+28 B</text>
+<line x1="945.0" y1="193.0" x2="945.0" y2="199.0" stroke="#333333" stroke-width="1.2"/>
+<text x="945.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+32 B</text>
+<text x="35.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">Розщеплення кеш-лінії: невирівняне 64-бітне число сидить на межі двох ліній</text>
+<rect x="35.0" y="293.0" width="425.0" height="125.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="247.5" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кеш-лінія 0 (адреси 0x00 .. 0x3F)</text>
+<rect x="50.0" y="330.0" width="230.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="165.0" y="355.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Попередні поля</tspan><tspan x="165.0" dy="14.3">байти 0x00..0x3B (60 Б)</tspan><tspan x="165.0" dy="14.3">знаходяться в лінії 0</tspan></text>
+<rect x="290.0" y="330.0" width="155.0" height="72.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="367.5" y="355.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="367.5" dy="0.0">Байти 60..63</tspan><tspan x="367.5" dy="14.3">молодші 4B</tspan><tspan x="367.5" dy="14.3">(у лінії 0)</tspan></text>
+<rect x="520.0" y="293.0" width="425.0" height="125.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="732.5" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кеш-лінія 1 (адреси 0x40 .. 0x7F)</text>
+<rect x="535.0" y="330.0" width="155.0" height="72.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="612.5" y="355.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="612.5" dy="0.0">Байти 64..67</tspan><tspan x="612.5" dy="14.3">старші 4B</tspan><tspan x="612.5" dy="14.3">(у лінії 1)</tspan></text>
+<rect x="700.0" y="330.0" width="230.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="815.0" y="355.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">Наступні поля</tspan><tspan x="815.0" dy="14.3">байти 0x44..0x7F (60 Б)</tspan><tspan x="815.0" dy="14.3">знаходяться в лінії 1</tspan></text>
+<line x1="472.0" y1="290.0" x2="472.0" y2="420.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="472.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Межа 64 байтів</text>
+<rect x="180.0" y="450.0" width="620.0" height="48.0" rx="5" fill="#fef9e7" stroke="#c0392b" stroke-width="1.6"/>
+<text x="490.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Цільовий uint64 = [байти 60..63] + [байти 64..67] → 2 транзакції шини L1D Cache</text>
+<rect x="30.0" y="490.0" width="920.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="490.0" y="519.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="490.0" dy="0.0">Наслідок: замість 1 такту процесор виконує 2 звернення до кешу, склеює байти в регістрах зсувами та масками, або зазнає зупинки конвеєра.</tspan></text>
+</svg>

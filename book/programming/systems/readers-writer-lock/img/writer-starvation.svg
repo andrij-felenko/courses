@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Голодування письменника за пріоритету читачів (Reader Preference)</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Поки хоч один читач утримує замок, нові читачі заходять без черги — письменник чекає нескінченно</text>
+<line x1="160.0" y1="310.0" x2="840.0" y2="310.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="830.0" y1="310.0" x2="845.0" y2="310.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="840.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+<text x="40.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Читач 1</text>
+<rect x="170.0" y="70.0" width="200.0" height="30.0" rx="6" fill="#d4edda" stroke="#1b7340" stroke-width="1.5"/>
+<text x="270.0" y="88.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b7340" text-anchor="middle" font-weight="700">Читає</text>
+<text x="40.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Читач 2</text>
+<rect x="300.0" y="115.0" width="220.0" height="30.0" rx="6" fill="#d4edda" stroke="#1b7340" stroke-width="1.5"/>
+<text x="410.0" y="133.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b7340" text-anchor="middle" font-weight="700">Читає (перекриває Читача 1)</text>
+<text x="40.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Читач 3</text>
+<rect x="460.0" y="160.0" width="220.0" height="30.0" rx="6" fill="#d4edda" stroke="#1b7340" stroke-width="1.5"/>
+<text x="570.0" y="178.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b7340" text-anchor="middle" font-weight="700">Читає (перекриває Читача 2)</text>
+<text x="40.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Читач 4</text>
+<rect x="620.0" y="205.0" width="200.0" height="30.0" rx="6" fill="#d4edda" stroke="#1b7340" stroke-width="1.5"/>
+<text x="720.0" y="223.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b7340" text-anchor="middle" font-weight="700">Читає (ланцюг триває)</text>
+<text x="40.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Письменник W</text>
+<line x1="240.0" y1="60.0" x2="240.0" y2="290.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="245.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Запит на запис</text>
+<rect x="240.0" y="260.0" width="580.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="530.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ГОЛОДУВАННЯ: лічильник активних читачів ніколи не падає до 0</text>
+<rect x="30.0" y="345.0" width="820.0" height="44.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="440.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Небезпека: за неперервного потоку читачів сума активних читачів завжди більша за нуль.</tspan><tspan x="440.0" dy="13.0">Письменник не отримує доступу, доки не зміниться політика на користь черги або письменників.</tspan></text>
+</svg>

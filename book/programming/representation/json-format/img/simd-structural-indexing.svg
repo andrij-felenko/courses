@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="340.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="30.0" y="25.0" width="400.0" height="310.0" rx="6" fill="#ffffff" stroke="#c8d1dc" stroke-width="1.2"/>
+<text x="230.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 1: Структурна індексація (SIMD)</text>
+<rect x="45.0" y="68.0" width="370.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">1. Завантаження блоку 64 байти</text>
+<text x="60.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Регістри AVX-512 / 2×AVX2 (64 символи за раз)</text>
+<rect x="45.0" y="118.0" width="370.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">2. Паралельна класифікація</text>
+<text x="60.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Векторне порівняння: лапки '&quot;', слеші '\', '{', '}', '[', ']', ':', ','</text>
+<rect x="45.0" y="168.0" width="370.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">3. Відстеження лапок (CLMUL)</text>
+<text x="60.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Префіксний XOR для маски лапок: знаходження меж рядків</text>
+<rect x="45.0" y="218.0" width="370.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">4. Фільтрація структури</text>
+<text x="60.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">structural_mask = candidate_mask &amp; ~in_string</text>
+<rect x="45.0" y="268.0" width="370.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">5. Запис індексів токенів (tzcnt)</text>
+<text x="60.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Видобування бітів без умовних переходів у буфер зміщень</text>
+<line x1="435.0" y1="180.0" x2="465.0" y2="180.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Tape</text>
+<rect x="470.0" y="25.0" width="380.0" height="310.0" rx="6" fill="#ffffff" stroke="#c8d1dc" stroke-width="1.2"/>
+<text x="660.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етап 2: Синтаксичний обхід за індексами</text>
+<rect x="485.0" y="68.0" width="350.0" height="120.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="500.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Парсинг без перегляду проміжних байтів:</text>
+<text x="500.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Парсер перестрибує від індексу до індексу</text>
+<text x="500.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Пропускає пробіли та символи всередині рядків</text>
+<text x="500.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Нуль branch mispredictions на скануванні</text>
+<text x="500.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">• Швидкість: 2.5 – 5.0 ГБ/с на одне ядро CPU</text>
+<rect x="485.0" y="200.0" width="350.0" height="120.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="500.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Компактне дерево Tape (64-бітні дескриптори):</text>
+<text x="500.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">[0] ROOT: OBJECT (перехід на кінець: індекс 12)</text>
+<text x="500.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">[1] STRING: &quot;user_id&quot;  →  [2] UINT64: 1048576</text>
+<text x="500.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">[3] STRING: &quot;roles&quot;    →  [4] ARRAY (довжина 3)</text>
+<text x="500.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Дерево лежить у суцільному буфері без malloc/free на кожен вузол</text>
+</svg>

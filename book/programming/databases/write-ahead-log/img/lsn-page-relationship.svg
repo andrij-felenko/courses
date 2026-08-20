@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" width="100%" height="100%">
+<style>
+  .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+</style>
+<rect width="800" height="260" fill="#0b0f19" rx="12" />
+<text x="30" y="35" class="txt-bold" font-size="16">Ієрархія номерів LSN (Log Sequence Number)</text>
+<g transform="translate(40, 70)"><rect width="340" height="150" class="card" stroke="#3b82f6" stroke-width="2" /><text x="20" y="30" class="txt-bold" fill="#60a5fa">PageLSN (у заголовку сторінки)</text><text x="20" y="60" class="txt">Останній LSN, що змінив цю сторінку</text><text x="20" y="85" class="txt">Дозволяє уникати повторного Redo</text><text x="20" y="115" class="txt-bold" fill="#38bdf8">Якщо RecordLSN ≤ PageLSN → Пропуск</text></g>
+<g transform="translate(420, 70)"><rect width="340" height="150" class="card" stroke="#10b981" stroke-width="2" /><text x="20" y="30" class="txt-bold" fill="#34d399">FlushedLSN (на дисковому накопичувачі)</text><text x="20" y="60" class="txt">Максимальний LSN, синхронізований на диск</text><text x="20" y="85" class="txt">Контролює скидання брудних сторінок</text><text x="20" y="115" class="txt-bold" fill="#34d399">Сторінка скидається лише якщо PageLSN ≤ FlushedLSN</text></g>
+</svg>

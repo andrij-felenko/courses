@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 380" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .layer { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-step { fill: #1f2937; stroke: #58a6ff; stroke-width: 1.2; rx: 4px; }
+    .box-swap { fill: #1c3224; stroke: #3fb950; stroke-width: 1.5; rx: 4px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 15px; }
+    .text-head { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11.5px; }
+    .text-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    .text-accent { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .arrow { stroke: #58a6ff; stroke-width: 1.5; fill: none; marker-end: url(#arr-pipe); }
+    .arrow-swap { stroke: #3fb950; stroke-width: 2; fill: none; marker-end: url(#arr-swap); }
+  </style>
+  <defs>
+    <marker id="arr-pipe" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#58a6ff"/>
+    </marker>
+    <marker id="arr-swap" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <g transform="translate(25, 20)">
+    <rect width="800" height="340" class="layer"/>
+    <text x="400" y="28" text-anchor="middle" class="text-title">Архітектура ідемпотентного конвеєра: Ізольована генерація та атомарний Swap</text>
+
+    <!-- Stage 1: Immutable Source -->
+    <rect x="25" y="60" width="165" height="150" class="box-step"/>
+    <text x="107" y="85" text-anchor="middle" class="text-head">1. Нерухоме сире</text>
+    <text x="107" y="105" text-anchor="middle" class="text-sub">(Raw Events / Bronze)</text>
+    <text x="35" y="135" class="text-body">• Append-only лог</text>
+    <text x="35" y="155" class="text-body">• Незмінні факти</text>
+    <text x="35" y="175" class="text-body">• Первинне джерело</text>
+    <text x="35" y="195" class="text-sub">Partition: dt=YYYY-MM-DD</text>
+
+    <line x1="195" y1="135" x2="225" y2="135" class="arrow"/>
+
+    <!-- Stage 2: Pure Transform Engine -->
+    <rect x="230" y="60" width="175" height="150" class="box-step"/>
+    <text x="317" y="85" text-anchor="middle" class="text-head">2. Чиста трансформація</text>
+    <text x="317" y="105" text-anchor="middle" class="text-sub">(Spark / DuckDB / dbt)</text>
+    <text x="240" y="135" class="text-body">• Детермінований код</text>
+    <text x="240" y="155" class="text-body">• AS-OF розмітка</text>
+    <text x="240" y="175" class="text-body">• Без побічних дій</text>
+    <text x="240" y="195" class="text-sub">F(Raw[t1, t2]) = Derived</text>
+
+    <line x1="410" y1="135" x2="440" y2="135" class="arrow"/>
+
+    <!-- Stage 3: Staging Area -->
+    <rect x="445" y="60" width="165" height="150" class="box-step"/>
+    <text x="527" y="85" text-anchor="middle" class="text-head">3. Тіньовий запис</text>
+    <text x="527" y="105" text-anchor="middle" class="text-sub">(Staging Partition)</text>
+    <text x="455" y="135" class="text-body">• _staging_part_0820</text>
+    <text x="455" y="155" class="text-body">• Повна ізоляція</text>
+    <text x="455" y="175" class="text-body">• Перевірка тестів</text>
+    <text x="455" y="195" class="text-sub">Fail → DROP staging</text>
+
+    <line x1="615" y1="135" x2="645" y2="135" class="arrow-swap"/>
+
+    <!-- Stage 4: Production Gold Table -->
+    <rect x="650" y="60" width="125" height="150" class="box-swap"/>
+    <text x="712" y="85" text-anchor="middle" class="text-head" fill="#3fb950">4. Продакшн</text>
+    <text x="712" y="105" text-anchor="middle" class="text-sub">(Gold Layer)</text>
+    <text x="660" y="135" class="text-body">• Атомарний</text>
+    <text x="660" y="155" class="text-body">  SWAP /</text>
+    <text x="660" y="175" class="text-body">  OVERWRITE</text>
+    <text x="660" y="195" class="text-accent">&lt; 5 мс затримка</text>
+
+    <!-- Bottom summary bar -->
+    <rect x="25" y="235" width="750" height="80" class="layer" style="fill: #0d1117; stroke: #21262d;"/>
+    <text x="45" y="260" class="text-head">Чому ця схема невразлива до аварій під час перерахунку:</text>
+    <text x="45" y="282" class="text-body">Якщо генератор падає на кроці 2 чи 3, жива продакшн-таблиця не містить жодного сміття чи напівзаписаних рядків.</text>
+    <text x="45" y="302" class="text-body">Атомарна зміна метаданих на кроці 4 перемикає покажчик партиції миттєво, усуваючи стан гонитви з читачами.</text>
+  </g>
+</svg>

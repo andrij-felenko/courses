@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="45.0" width="385.0" height="300.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="207.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Модель «Один потік на з’єднання»</text>
+<text x="207.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10 000 клієнтів → 10 000 потоків у ядрі ОС</text>
+<rect x="30.0" y="115.0" width="95.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="77.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт 1</text>
+<rect x="30.0" y="165.0" width="95.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="77.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт 2</text>
+<text x="77.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<rect x="30.0" y="240.0" width="95.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="77.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт N</text>
+<line x1="125.0" y1="133.0" x2="165.0" y2="133.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="165.0" y="115.0" width="215.0" height="36.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="272.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік 1: Стек 4 МБ (Спить у read)</text>
+<text x="272.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">очікує пакет байтів</text>
+<line x1="125.0" y1="183.0" x2="165.0" y2="183.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="165.0" y="165.0" width="215.0" height="36.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="272.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік 2: Стек 4 МБ (Спить у read)</text>
+<text x="272.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">очікує пакет байтів</text>
+<text x="272.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<line x1="125.0" y1="258.0" x2="165.0" y2="258.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="165.0" y="240.0" width="215.0" height="36.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="272.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Потік N: Стек 4 МБ (Спить у read)</text>
+<text x="272.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">очікує пакет байтів</text>
+<rect x="30.0" y="290.0" width="350.0" height="42.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="205.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пам’ять під стеки: ~40 ГБ RAM</text>
+<text x="205.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Перемикання контексту спалює процесорні такти</text>
+<rect x="420.0" y="45.0" width="385.0" height="300.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="612.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Модель «Цикл подій (Event Loop)»</text>
+<text x="612.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10 000 неблокуючих сокетів → 1 потік виконання</text>
+<rect x="435.0" y="115.0" width="85.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="477.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сокет 1</text>
+<rect x="435.0" y="165.0" width="85.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="477.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сокет 2</text>
+<text x="477.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">⋮</text>
+<rect x="435.0" y="240.0" width="85.0" height="36.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="477.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сокет N</text>
+<line x1="520.0" y1="133.0" x2="550.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="183.0" x2="550.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="258.0" x2="550.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="550.0" y="135.0" width="105.0" height="95.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="602.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">epoll / kqueue</text>
+<text x="602.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Події ядра</text>
+<text x="602.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">готово: [1, N]</text>
+<line x1="655.0" y1="182.0" x2="680.0" y2="182.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="680.0" y="115.0" width="110.0" height="135.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="735.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Event Loop</text>
+<text x="735.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">1 потік</text>
+<line x1="690.0" y1="168.0" x2="780.0" y2="168.0" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="735.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Черга подій</text>
+<text x="735.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обробник 1</text>
+<text x="735.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обробник N</text>
+<text x="735.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Run-to-end</text>
+<rect x="435.0" y="290.0" width="355.0" height="42.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="612.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пам’ять під стек: 1 стек (~2-4 МБ разом)</text>
+<text x="612.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Нуль перемикань контексту, чудове кешування</text>
+</svg>

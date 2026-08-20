@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="280.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повна віртуальна висота списку (H_total = 100 000 px)</text>
+<rect x="60.0" y="70.0" width="440.0" height="500.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="75.0" y="85.0" width="410.0" height="110.0" rx="4" fill="#edf2f7" stroke="#cbd5e0" stroke-width="1.0"/>
+<text x="280.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Невіртуалізовані елементи зверху (не існують у DOM)</text>
+<rect x="75.0" y="205.0" width="410.0" height="65.0" rx="4" fill="#e6f0fa" stroke="#2457d6" stroke-width="1.5"/>
+<text x="280.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Верхній буфер (overscan): рендериться про запас</text>
+<rect x="70.0" y="275.0" width="420.0" height="150.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.5"/>
+<text x="280.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ВИДИМЕ ВІКНО (VIEWPORT)</text>
+<text x="280.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Рендериться у DOM (10–20 вузлів)</text>
+<text x="280.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Користувач бачить лише цю область</text>
+<text x="280.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Зсув: transform: translateY(scrollTop)</text>
+<rect x="75.0" y="430.0" width="410.0" height="65.0" rx="4" fill="#e6f0fa" stroke="#2457d6" stroke-width="1.5"/>
+<text x="280.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Нижній буфер (overscan): готові до появи вузли</text>
+<rect x="75.0" y="505.0" width="410.0" height="50.0" rx="4" fill="#edf2f7" stroke="#cbd5e0" stroke-width="1.0"/>
+<text x="280.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Невіртуалізовані елементи знизу (не існують у DOM)</text>
+<rect x="508.0" y="70.0" width="16.0" height="500.0" rx="4" fill="#f1f5f9" stroke="#cbd5e0" stroke-width="1.0"/>
+<rect x="510.0" y="220.0" width="12.0" height="120.0" rx="3" fill="#94a3b8" stroke="#64748b" stroke-width="1.0"/>
+<rect x="560.0" y="85.0" width="390.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="119.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Фантомний розпірник (Phantom Spacer):</tspan><tspan x="755.0" dy="16.9">• Висота: H_total = ∑ h_i</tspan><tspan x="755.0" dy="16.9">• Створює природний повзунок скролбару</tspan><tspan x="755.0" dy="16.9">• Не містить дочірніх DOM-вузлів</tspan></text>
+<rect x="560.0" y="215.0" width="390.0" height="165.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="755.0" y="270.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Змонтоване вікно (Mounted Window):</tspan><tspan x="755.0" dy="15.6">• Кількість вузлів = N_vis + 2 · N_overscan</tspan><tspan x="755.0" dy="15.6">• Фіксована кількість (~20–40 замість 100 000)</tspan><tspan x="755.0" dy="15.6">• Позиція через transform: translateY(offset_start)</tspan><tspan x="755.0" dy="15.6">• Поточна позиція скролу: scrollTop</tspan></text>
+<rect x="560.0" y="400.0" width="390.0" height="155.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="755.0" y="448.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Чому потрібен буфер (Overscan):</tspan><tspan x="755.0" dy="16.9">• Швидке гортання пальцем (інерційний скрол)</tspan><tspan x="755.0" dy="16.9">• Рендеринг за межами екрана випереджає око</tspan><tspan x="755.0" dy="16.9">• Запобігає білим спалахам порожнечі</tspan><tspan x="755.0" dy="16.9">• Оптимальний розмір: 3–5 елементів</tspan></text>
+<line x1="550.0" y1="140.0" x2="526.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="550.0" y1="300.0" x2="492.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="550.0" y1="460.0" x2="490.0" y2="460.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

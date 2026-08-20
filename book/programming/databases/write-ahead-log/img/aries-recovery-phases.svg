@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="100%" height="100%">
+<style>
+  .phase { fill: #1e293b; stroke: #64748b; stroke-width: 1.5; rx: 8px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+</style>
+<rect width="800" height="280" fill="#0b0f19" rx="12" />
+<text x="30" y="35" class="txt-bold" font-size="16">Три фази відновлення за алгоритмом ARIES</text>
+<g transform="translate(40, 75)"><rect width="225" height="165" class="phase" stroke="#3b82f6" stroke-width="2" /><text x="15" y="30" class="txt-bold" fill="#60a5fa">Фаза 1: Analysis</text><text x="15" y="60" class="txt">Сканування вперед від чекпойнта</text><text x="15" y="85" class="txt">Відновлення Dirty Page Table</text><text x="15" y="110" class="txt">Виявлення активних транзакцій</text><text x="15" y="140" class="txt-muted">Визначає точку старту RedoLSN</text></g>
+<g transform="translate(285, 75)"><rect width="225" height="165" class="phase" stroke="#10b981" stroke-width="2" /><text x="15" y="30" class="txt-bold" fill="#34d399">Фаза 2: Redo</text><text x="15" y="60" class="txt">Повторення всієї історії</text><text x="15" y="85" class="txt">Відтворення committed + aborted</text><text x="15" y="110" class="txt">Ідемпотентне накатування змін</text><text x="15" y="140" class="txt-muted">Повертає стан на момент краху</text></g>
+<g transform="translate(530, 75)"><rect width="230" height="165" class="phase" stroke="#ef4444" stroke-width="2" /><text x="15" y="30" class="txt-bold" fill="#f87171">Фаза 3: Undo</text><text x="15" y="60" class="txt">Зворотне сканування журналу</text><text x="15" y="85" class="txt">Відкат незавершених транзакцій</text><text x="15" y="110" class="txt">Запис CLR (Compensation Logs)</text><text x="15" y="140" class="txt-muted">Гарантує завершення відкату</text></g>
+</svg>

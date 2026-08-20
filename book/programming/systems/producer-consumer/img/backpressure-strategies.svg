@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії поведінки при переповненні буфера (λ &gt; μ)</text>
+<text x="450.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Вибір інженерної політики при тривалому перевищенні швидкості виробництва над споживанням</text>
+<rect x="35.0" y="80.0" width="195.0" height="250.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="35.0" y="80.0" width="195.0" height="42.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="132.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Блокуючий тиск</text>
+<text x="132.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Backpressure</text>
+<text x="132.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Виробник засинає на</text>
+<text x="132.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">умовній змінній</text>
+<text x="132.5" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">not_full до звільнення</text>
+<text x="132.5" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">слота споживачем.</text>
+<text x="132.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="132.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гарантія: 0% втрат</text>
+<text x="132.5" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ціна: уповільнення</text>
+<rect x="250.0" y="80.0" width="195.0" height="250.0" rx="8" fill="#ffffff" stroke="#d35400" stroke-width="1.8"/>
+<rect x="250.0" y="80.0" width="195.0" height="42.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="347.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">2. Відкидання старих</text>
+<text x="347.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Drop Oldest</text>
+<text x="347.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Новий запис стирає</text>
+<text x="347.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">найстаріший елемент,</text>
+<text x="347.5" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">зсуваючи head вперед.</text>
+<text x="347.5" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="347.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосування: відео,</text>
+<text x="347.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">датчики, телеметрія</text>
+<text x="347.5" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевага: актуальність</text>
+<rect x="465.0" y="80.0" width="195.0" height="250.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="465.0" y="80.0" width="195.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="562.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Відкидання нових</text>
+<text x="562.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Drop Newest / Tail Drop</text>
+<text x="562.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Новий пакет відкидається</text>
+<text x="562.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">негайно, буфер лишається</text>
+<text x="562.5" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">незмінним.</text>
+<text x="562.5" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="562.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосування: мережеві</text>
+<text x="562.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">маршрутизатори,</text>
+<text x="562.5" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">захист від перевантажень</text>
+<rect x="680.0" y="80.0" width="195.0" height="250.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="680.0" y="80.0" width="195.0" height="42.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="777.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Еластичний пул</text>
+<text x="777.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Work Stealing / Scale</text>
+<text x="777.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Динамічне породження</text>
+<text x="777.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">нових потоків-воркерів</text>
+<text x="777.5" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">або передача задач у</text>
+<text x="777.5" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">пул сусідніх ядер.</text>
+<text x="777.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="777.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомасштабування</text>
+<text x="777.5" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ціна: витрати пам'яті</text>
+<rect x="30.0" y="355.0" width="840.0" height="47.7" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="375.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Нескінченних буферів не існує: будь-яка черга без протитиску завершується аварійним збоєм OOM.</tspan><tspan x="450.0" dy="14.3">Для надійних транзакцій обирають блокування; для потокового медіа та датчиків — відкидання найстаріших даних.</tspan></text>
+</svg>

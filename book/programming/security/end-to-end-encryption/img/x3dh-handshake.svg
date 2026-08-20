@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асинхронний протокол узгодження ключів X3DH</text>
+<rect x="30.0" y="20.0" width="210.0" height="110.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="135.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аліса (ініціатор онлайн)</text>
+<text x="135.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IK_A (довгостроковий)</text>
+<text x="135.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">EK_A (ефемерний X25519)</text>
+<text x="135.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Генерує сесію асинхронно</text>
+<rect x="275.0" y="20.0" width="210.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервер (Prekey Bundle)</text>
+<text x="380.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">IK_B (ідентифікатор)</text>
+<text x="380.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">SPK_B + Sig(SPK_B)</text>
+<text x="380.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">OPK_B (одноразовий)</text>
+<text x="380.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Боб офлайн у сховищі</text>
+<rect x="520.0" y="20.0" width="210.0" height="110.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="625.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Боб (отримувач офлайн)</text>
+<text x="625.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IK_B (приватний ключ)</text>
+<text x="625.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SPK_B (приватний прекей)</text>
+<text x="625.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">OPK_B (одноразовий приватний)</text>
+<line x1="240.0" y1="60.0" x2="275.0" y2="60.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="257.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">GET</text>
+<rect x="30.0" y="145.0" width="700.0" height="145.0" rx="8" fill="#f7f9fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="380.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Комбінація чотирьох обмінів Діффі — Геллмана (Extended Triple Diffie-Hellman)</text>
+<rect x="45.0" y="185.0" width="155.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="122.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DH1 = DH(IK_A, SPK_B)</text>
+<text x="122.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Автентифікація Аліси</text>
+<rect x="210.0" y="185.0" width="155.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="287.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DH2 = DH(EK_A, IK_B)</text>
+<text x="287.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пряма секретність (PFS)</text>
+<rect x="375.0" y="185.0" width="155.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="452.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DH3 = DH(EK_A, SPK_B)</text>
+<text x="452.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сесійна пряма секретність</text>
+<rect x="540.0" y="185.0" width="175.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="627.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DH4 = DH(EK_A, OPK_B)</text>
+<text x="627.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від повтору (Replay)</text>
+<text x="380.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Майстер-ключ:  SK = KDF(DH1 || DH2 || DH3 || DH4)</text>
+<rect x="30.0" y="305.0" width="700.0" height="48.0" rx="8" fill="#eef8f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="380.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: взаємна автентифікація та спільний секрет без одночасного перебування в мережі</text>
+</svg>

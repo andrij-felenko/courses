@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура розділення привілеїв: ізольований воркер і контролюючий монітор</text>
+<rect x="20.0" y="115.0" width="120.0" height="85.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="80.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Недовірена</text>
+<text x="80.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">мережа</text>
+<text x="80.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">сирі байти</text>
+<line x1="140.0" y1="155.0" x2="210.0" y2="155.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="175.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TCP</text>
+<rect x="210.0" y="45.0" width="260.0" height="240.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="340.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Непривілейований воркер</text>
+<text x="340.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UID=65534 (nobody), GID=65534</text>
+<rect x="225.0" y="115.0" width="230.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="340.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парсер протоколу / Декодер</text>
+<text x="340.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обробка вхідних даних</text>
+<rect x="225.0" y="175.0" width="230.0" height="95.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="340.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Обмеження середовища:</text>
+<text x="340.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• seccomp: read, write, exit</text>
+<text x="340.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• chroot: порожня тека (/var/empty)</text>
+<text x="340.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• caps: 0 (повна відсутність)</text>
+<rect x="485.0" y="120.0" width="95.0" height="80.0" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+<text x="532.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">IPC</text>
+<text x="532.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">socketpair</text>
+<text x="532.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SCM_RIGHTS</text>
+<line x1="470.0" y1="148.0" x2="490.0" y2="148.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="172.0" x2="470.0" y2="172.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="148.0" x2="595.0" y2="148.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="595.0" y1="172.0" x2="575.0" y2="172.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="595.0" y="45.0" width="225.0" height="240.0" rx="10" fill="#fdf6e2" stroke="#b58900" stroke-width="1.8"/>
+<text x="707.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b58900" text-anchor="middle" font-weight="700">Привілейований монітор</text>
+<text x="707.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UID=0 (root) або виділений сервіс</text>
+<rect x="610.0" y="115.0" width="195.0" height="48.0" rx="6" fill="#ffffff" stroke="#b58900" stroke-width="1.2"/>
+<text x="707.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Валідація запитів IPC</text>
+<text x="707.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сувора схема повідомлень</text>
+<rect x="610.0" y="175.0" width="195.0" height="95.0" rx="6" fill="#ffffff" stroke="#b58900" stroke-width="1.2"/>
+<text x="707.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b58900" text-anchor="middle" font-weight="700">Привілейовані операції:</text>
+<text x="707.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Автентифікація PAM / Shadow</text>
+<text x="707.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Відкриття файлів / ключів</text>
+<text x="707.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Запис у захищений аудит-лог</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зіставлення графа компонентів SBOM та аналіз експлуатованості через VEX</text>
+<rect x="20.0" y="50.0" width="270.0" height="280.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="155.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Граф компонентів SBOM</text>
+<rect x="80.0" y="95.0" width="150.0" height="35.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="155.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Додаток: service-core:v2.1</text>
+<rect x="35.0" y="155.0" width="110.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="90.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">lib-crypto v1.4</text>
+<rect x="165.0" y="155.0" width="110.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="220.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">lib-parser v3.0</text>
+<rect x="35.0" y="215.0" width="110.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="90.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">transitive-util v0.8</text>
+<rect x="165.0" y="215.0" width="110.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="220.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">transitive-net v2.2</text>
+<text x="155.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повний перелік залежностей,</text>
+<text x="155.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">хешів SHA-256 та ліцензій</text>
+<text x="155.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Разом: 120 компонентів</text>
+<line x1="130.0" y1="130.0" x2="90.0" y2="155.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="180.0" y1="130.0" x2="220.0" y2="155.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="90.0" y1="190.0" x2="90.0" y2="215.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="220.0" y1="190.0" x2="220.0" y2="215.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="290.0" y1="170.0" x2="330.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="330.0" y="55.0" width="210.0" height="275.0" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+<text x="435.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ea580c" text-anchor="middle" font-weight="700">Сирий сканер CVE</text>
+<text x="435.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пошук за базами NVD/OSV</text>
+<rect x="345.0" y="115.0" width="180.0" height="50.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="435.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Знайдено 42 вразливості</text>
+<text x="435.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">12 Critical, 30 High</text>
+<rect x="345.0" y="175.0" width="180.0" height="135.0" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="1.0"/>
+<text x="435.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ea580c" text-anchor="middle" font-weight="700">Проблема «Шуму сповіщень»:</text>
+<text x="435.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• 85% коду не викликається</text>
+<text x="435.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Вразливі функції не активні</text>
+<text x="435.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Конвеєр блокує реліз даремно</text>
+<text x="435.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Втома інженерів безпеки</text>
+<text x="435.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">(Хибнопозитивні зупинки)</text>
+<line x1="540.0" y1="170.0" x2="580.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="580.0" y="50.0" width="280.0" height="280.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="720.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фільтрація VEX (OpenVEX / CSAF)</text>
+<rect x="595.0" y="95.0" width="250.0" height="52.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="720.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">CVE-2023-44487 (lib-parser)</text>
+<text x="720.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Статус: not_affected (код недосяжний)</text>
+<text x="720.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обґрунтування: code_not_reachable</text>
+<rect x="595.0" y="155.0" width="250.0" height="52.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="720.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">CVE-2024-3094 (transitive-util)</text>
+<text x="720.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Статус: not_affected (вимкнено прапорець)</text>
+<text x="720.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обґрунтування: vulnerable_code_not_used</text>
+<rect x="595.0" y="215.0" width="250.0" height="52.0" rx="4" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="720.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">CVE-2024-21626 (lib-crypto)</text>
+<text x="720.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Статус: affected (вимагає виправлення!)</text>
+<text x="720.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дія: Термінове оновлення до v1.4.2</text>
+<rect x="595.0" y="275.0" width="250.0" height="48.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="720.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Підсумок: 1 реальна загроза замість 42</text>
+<text x="720.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Фокус інженерів на критичному шляху</text>
+</svg>

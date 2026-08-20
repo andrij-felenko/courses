@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Федеративне виконання запитів та захист від транскордонного витоку даних</text>
+<rect x="30.0" y="45.0" width="920.0" height="195.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="490.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">НАЇВНИЙ ПІДХІД: Транскордонний запит рядків (Порушення GDPR + Латентність)</text>
+<rect x="50.0" y="85.0" width="260.0" height="65.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="180.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Центральний клієнт (США)</text>
+<text x="180.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SELECT * FROM users WHERE active=1</text>
+<rect x="670.0" y="85.0" width="260.0" height="65.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="800.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шард банку ЄС (Франкфурт)</text>
+<text x="800.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">500 000 сирих рядків із PII</text>
+<line x1="315.0" y1="110.0" x2="665.0" y2="110.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. Запит через океан (120 мс)</text>
+<line x1="665.0" y1="130.0" x2="315.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Передача 500 000 незашифрованих записів PII у США (НЕЗАКОННО)</text>
+<rect x="50.0" y="160.0" width="880.0" height="65.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="490.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки: Пряме порушення Розділу V GDPR (Штраф до 20 млн євро або 4% річного обороту),</text>
+<text x="490.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">перевантаження WAN-каналів, латентність запиту понад 15-30 секунд.</text>
+<rect x="30.0" y="255.0" width="920.0" height="220.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНИЙ ПІДХІД: Федеративна Push-Down агрегація та диференційна приватність</text>
+<rect x="50.0" y="295.0" width="250.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="175.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальний координатор</text>
+<text x="175.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SELECT tier, COUNT(*), SUM(rev)</text>
+<text x="175.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Розсилка агрегаційного запиту</text>
+<rect x="370.0" y="295.0" width="260.0" height="75.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="500.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний двигун Шарда ЄС</text>
+<text x="500.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Локальний Map: COUNT(*), SUM()</text>
+<text x="500.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">2. Фільтр k-анонімності (k &gt;= 5)</text>
+<rect x="690.0" y="295.0" width="240.0" height="75.0" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="1.2"/>
+<text x="810.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний двигун Шарда США</text>
+<text x="810.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Локальний Map: COUNT(*), SUM()</text>
+<text x="810.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle">2. Фільтр k-анонімності (k &gt;= 5)</text>
+<line x1="305.0" y1="325.0" x2="365.0" y2="325.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="350.0" x2="685.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="385.0" width="880.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="490.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фінальний Reduce на координаторі: Злиття числових агрегатів без жодного байта PII.</text>
+<text x="490.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Переваги: 100% відповідність GDPR Art. 44-49, мінімальний трафік (кілька кілобайтів замість гігабайтів),</text>
+<text x="490.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">час відповіді запиту p99 &lt; 300 мс замість десятків секунд.</text>
+</svg>

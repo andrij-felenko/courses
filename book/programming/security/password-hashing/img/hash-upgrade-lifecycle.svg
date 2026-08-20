@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл прозорого лінивого оновлення гешів під час автентифікації</text>
+<rect x="30.0" y="80.0" width="140.0" height="90.0" rx="8" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="100.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Вхід)</text>
+<text x="100.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">user + password</text>
+<text x="100.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">відкритий TLS</text>
+<line x1="170.0" y1="125.0" x2="230.0" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="200.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1. POST</text>
+<rect x="230.0" y="50.0" width="180.0" height="150.0" rx="8" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="320.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Сервер автентифікації</text>
+<text x="320.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зчитує геш із БД</text>
+<text x="320.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Перевірка пароля:</text>
+<text x="320.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">verify(pass, stored_hash)</text>
+<text x="320.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пароль правильний?</text>
+<line x1="410.0" y1="125.0" x2="470.0" y2="125.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Так</text>
+<rect x="470.0" y="50.0" width="170.0" height="150.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="555.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">needs_rehash()</text>
+<text x="555.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Чи застарів алгоритм?</text>
+<text x="555.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(напр. bcrypt -&gt; Argon2id)</text>
+<text x="555.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Чи зросли ліміти?</text>
+<text x="555.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(m: 32MB -&gt; 64MB)</text>
+<line x1="640.0" y1="125.0" x2="700.0" y2="125.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Застарів</text>
+<rect x="700.0" y="50.0" width="115.0" height="150.0" rx="8" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="757.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оновлення</text>
+<text x="757.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Новий геш</text>
+<text x="757.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Argon2id</text>
+<text x="757.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">UPDATE db</text>
+<text x="757.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у фоні транзакції</text>
+<line x1="320.0" y1="200.0" x2="320.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="757.0" y1="200.0" x2="757.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="230.0" y="250.0" width="585.0" height="55.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="522.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Випуск сесійного токена (JWT / Session Cookie) для користувача</text>
+<text x="522.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Користувач не помічає оновлення; база даних поступово мігрує на актуальний алгоритм</text>
+</svg>

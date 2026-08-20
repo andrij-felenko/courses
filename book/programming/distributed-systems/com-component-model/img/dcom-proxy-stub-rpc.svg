@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="420.0" height="440.0" rx="10" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="240.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнтський процес (Client Process)</text>
+<rect x="55.0" y="95.0" width="370.0" height="95.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="240.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнтський застосунок</text>
+<text x="240.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виклик: pCalc-&gt;Add(10.0, 20.0, &amp;res)</text>
+<text x="240.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Прозорість: думає, що об'єкт поруч у пам'яті</text>
+<rect x="55.0" y="210.0" width="370.0" height="120.0" rx="6" fill="#fbf4db" stroke="#333333" stroke-width="1.5"/>
+<text x="240.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">In-Process Proxy (Proxy DLL / ole32.dll)</text>
+<text x="240.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Реалізує vtable інтерфейсу ICalculator</text>
+<text x="240.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Серіалізація параметрів у буфер NDR</text>
+<text x="240.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Канал передачі: IRpcChannelBuffer</text>
+<rect x="55.0" y="350.0" width="370.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="240.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RPC Клієнтський рантайм</text>
+<text x="240.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Передача через ALPC (між процесами) або</text>
+<text x="240.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">DCOM TCP/IP Порт 135 + динамічний порт</text>
+<rect x="590.0" y="40.0" width="420.0" height="440.0" rx="10" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<text x="800.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Серверний процес (Server Process / DCOM)</text>
+<rect x="615.0" y="95.0" width="370.0" height="95.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="800.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Справжній COM-об'єкт (Real Object)</text>
+<text x="800.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виконує обчислення в локальній пам'яті</text>
+<text x="800.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Повертає обчислений результат та HRESULT</text>
+<rect x="615.0" y="210.0" width="370.0" height="120.0" rx="6" fill="#fbf4db" stroke="#333333" stroke-width="1.5"/>
+<text x="800.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">In-Process Stub (Stub DLL / ole32.dll)</text>
+<text x="800.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Десеріалізація аргументів з NDR-буфера</text>
+<text x="800.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Виклик цільового методу через vtable</text>
+<text x="800.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пакування результату в буфер відповіді</text>
+<rect x="615.0" y="350.0" width="370.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="800.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RPC Серверний рантайм</text>
+<text x="800.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Слухає сокет / ALPC порт повідомлень</text>
+<text x="800.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Прийом запиту та повернення пакета відповіді</text>
+<line x1="240.0" y1="190.0" x2="240.0" y2="210.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="330.0" x2="240.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="425.0" y1="385.0" x2="615.0" y2="385.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="415.0" x2="425.0" y2="415.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="350.0" x2="800.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="210.0" x2="800.0" y2="190.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="450.0" y="170.0" width="140.0" height="95.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="520.0" y="199.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Межа процесу</tspan><tspan x="520.0" dy="14.3">або мережі</tspan><tspan x="520.0" dy="14.3">(IPC / RPC / DCOM)</tspan><tspan x="520.0" dy="14.3">NDR Protocol</tspan></text>
+<rect x="30.0" y="495.0" width="980.0" height="48.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="520.0" y="522.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Прозорість розташування (Location Transparency): клієнт викликає той самий vtable-інтерфейс, а вся складна мережева та міжпроцесна комунікація прихована парою Proxy/Stub.</tspan></text>
+</svg>

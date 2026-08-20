@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця прийняття рішень: Вартість простою проти Ризику порушення цілісності</text>
+<rect x="120.0" y="70.0" width="410.0" height="195.0" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.0"/>
+<rect x="530.0" y="70.0" width="410.0" height="195.0" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="1.0"/>
+<rect x="120.0" y="265.0" width="410.0" height="195.0" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="530.0" y="265.0" width="410.0" height="195.0" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.0"/>
+<line x1="120.0" y1="460.0" x2="970.0" y2="460.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="120.0" y1="460.0" x2="120.0" y2="40.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="910.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вартість простою / Втрата доступності →</text>
+<text x="105.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Ризик порушення безпеки та фінансових втрат →</text>
+<text x="325.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">СУВОРИЙ FAIL-CLOSED</text>
+<text x="325.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Повна зупинка при збої валідатора</text>
+<rect x="150.0" y="140.0" width="350.0" height="95.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="165.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• Фінансові транзакції та кліринг (double-spend)</text>
+<text x="165.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Криптографічні підписи та валідація mTLS</text>
+<text x="165.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Регуляторний аудит-лог (не можна втратити)</text>
+<text x="165.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• Дозування в медичних та промислових АСУТП</text>
+<text x="735.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">ГІБРИД / АДАПТИВНИЙ / ЕСКРОУ</text>
+<text x="735.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Fail-Open з обмеженням ризику (ліміти, скоринг)</text>
+<rect x="560.0" y="140.0" width="350.0" height="95.0" rx="5" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="575.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• Офлайн-авторизація дрібних оплат (транспорт, літаки)</text>
+<text x="575.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• WAF: пропуск перевірених сесій при перевантаженні</text>
+<text x="575.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Токенізація з кешуванням відкликаних ключів</text>
+<text x="575.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start">• Білінговий овердрафт із кредитним лімітом</text>
+<text x="325.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">СТАНДАРТНИЙ FAIL-CLOSED</text>
+<text x="325.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Просте відхилення (не критично для виручки)</text>
+<rect x="150.0" y="335.0" width="350.0" height="95.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="165.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Адміністративні панелі та бек-офіс</text>
+<text x="165.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Нічні пакетні генератори звітів</text>
+<text x="165.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Допоміжні синхронізатори внутрішніх схем</text>
+<text x="165.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Деплой та конфігураційні пайплайни</text>
+<text x="735.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ЧИСТИЙ FAIL-OPEN</text>
+<text x="735.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Максимальна доступність, фонове відновлення</text>
+<rect x="560.0" y="335.0" width="350.0" height="95.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="575.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• Збір розподілених метрик і трейсів (OpenTelemetry)</text>
+<text x="575.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Рекомендаційні блоки та персоналізація</text>
+<text x="575.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Пошукові підказки (autocomplete)</text>
+<text x="575.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Кеш рекламних банерів та публічний контент</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-ar { fill: #1a2332; stroke: #58a6ff; stroke-width: 1.5; rx: 6px; }
+    .box-dm { fill: #13271f; stroke: #3fb950; stroke-width: 1.5; rx: 6px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 14px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; }
+    .text-accent { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .arrow { stroke: #8b949e; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="30" text-anchor="middle" class="text-title">Архітектурні патерни ORM: Active Record проти Data Mapper</text>
+
+  <!-- Left: Active Record -->
+  <g transform="translate(50, 60)">
+    <rect width="320" height="260" class="box-ar"/>
+    <text x="160" y="30" text-anchor="middle" class="text-title" fill="#58a6ff">Active Record (Rails, Django)</text>
+    
+    <rect x="20" y="55" width="280" height="70" class="box"/>
+    <text x="160" y="80" text-anchor="middle" class="text-body" font-weight="bold">Об'єкт = Рядок таблиці + SQL логіка</text>
+    <text x="160" y="105" text-anchor="middle" class="text-body" fill="#8b949e">user.name = 'Bob'; user.save();</text>
+
+    <text x="30" y="160" class="text-body">• Простота та швидкий старт (CRUD)</text>
+    <text x="30" y="190" class="text-body">• Зв'язок бізнес-домену з таблицею 1:1</text>
+    <text x="30" y="220" class="text-body">• Складно тестувати без живий бази даних</text>
+    <text x="160" y="250" text-anchor="middle" class="text-accent">Підходить для простих CRUD систем</text>
+  </g>
+
+  <!-- Right: Data Mapper -->
+  <g transform="translate(430, 60)">
+    <rect width="320" height="260" class="box-dm"/>
+    <text x="160" y="30" text-anchor="middle" class="text-title" fill="#3fb950">Data Mapper (Hibernate, SQLAlchemy)</text>
+    
+    <rect x="20" y="55" width="130" height="70" class="box"/>
+    <text x="85" y="85" text-anchor="middle" class="text-body" font-weight="bold">Чистий Домен</text>
+    <text x="85" y="105" text-anchor="middle" class="text-body" fill="#8b949e">POCO / POJO</text>
+
+    <rect x="170" y="55" width="130" height="70" class="box"/>
+    <text x="235" y="85" text-anchor="middle" class="text-accent" font-weight="bold">Data Mapper</text>
+    <text x="235" y="105" text-anchor="middle" class="text-body" fill="#8b949e">Unit of Work</text>
+
+    <text x="30" y="160" class="text-body">• Повна ізоляція бізнес-моделі від БД</text>
+    <text x="30" y="190" class="text-body">• Identity Map + Dirty Checking</text>
+    <text x="30" y="220" class="text-body">• Легке юніт-тестування домену в пам'яті</text>
+    <text x="160" y="250" text-anchor="middle" class="text-accent">Підходить для складного домену (DDD)</text>
+  </g>
+</svg>

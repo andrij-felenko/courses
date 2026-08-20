@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автоматична безперервна ротація ключів: вікно перекриття версій</text>
+<rect x="30.0" y="50.0" width="230.0" height="230.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="145.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: Робочий стан</text>
+<text x="145.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Один активний ключ</text>
+<rect x="45.0" y="120.0" width="200.0" height="60.0" rx="6" fill="#eaf6ec" stroke="#27ae60" stroke-width="1.5"/>
+<text x="145.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ключ v1 (Primary)</text>
+<text x="145.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шифрування + Розшифрування</text>
+<rect x="45.0" y="195.0" width="200.0" height="65.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="145.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">База даних / Записи</text>
+<text x="145.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усі записи зашифровані v1</text>
+<line x1="260.0" y1="160.0" x2="300.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="50.0" width="250.0" height="230.0" rx="8" fill="#fdf6e2" stroke="#b58900" stroke-width="2.0"/>
+<text x="425.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b58900" text-anchor="middle" font-weight="700">Фаза 2: Вікно ротації</text>
+<text x="425.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Плавна зміна версій</text>
+<rect x="315.0" y="115.0" width="220.0" height="55.0" rx="6" fill="#eaf6ec" stroke="#27ae60" stroke-width="1.5"/>
+<text x="425.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ключ v2 (Primary / New)</text>
+<text x="425.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Шифрування нових записів</text>
+<rect x="315.0" y="175.0" width="220.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="425.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ключ v1 (Secondary / Old)</text>
+<text x="425.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Тільки розшифрування старих</text>
+<text x="425.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Фоновий ре-енкрипт (Rewrap)</text>
+<line x1="550.0" y1="160.0" x2="590.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="590.0" y="50.0" width="230.0" height="230.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="705.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 3: Ротація завершена</text>
+<text x="705.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Старий ключ відкликано</text>
+<rect x="605.0" y="120.0" width="200.0" height="60.0" rx="6" fill="#eaf6ec" stroke="#27ae60" stroke-width="1.5"/>
+<text x="705.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ключ v2 (Primary)</text>
+<text x="705.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шифрування + Розшифрування</text>
+<rect x="605.0" y="195.0" width="200.0" height="65.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="705.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ключ v1 (Retired / Revoked)</text>
+<text x="705.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">видалено з активної пам'яті</text>
+</svg>

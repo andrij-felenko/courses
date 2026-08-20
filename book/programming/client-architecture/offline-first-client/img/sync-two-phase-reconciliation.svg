@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двофазне узгодження: Push локальних мутацій і Pull віддалених дельт</text>
+<rect x="130.0" y="48.0" width="180.0" height="42.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/><text x="220.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Клієнт (Client Sync Engine)</tspan><tspan x="220.0" dy="13.0">Локальна БД + Outbox</tspan></text>
+<rect x="530.0" y="48.0" width="180.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="620.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Сервер (Replication Gateway)</tspan><tspan x="620.0" dy="13.0">Серверний журнал подій</tspan></text>
+<line x1="220.0" y1="90.0" x2="220.0" y2="380.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="90.0" x2="620.0" y2="380.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="30.0" y="105.0" width="780.0" height="120.0" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="45.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Фаза 1: Вивантаження черги мутацій (Push Local Changes)</text>
+<line x1="220.0" y1="155.0" x2="620.0" y2="155.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">POST /sync/push { client_id, mutations: [M1, M2], base_seq: 140 }</text>
+<line x1="620.0" y1="205.0" x2="220.0" y2="205.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">200 OK { acknowledged: [M1_id, M2_id], server_seq: 142 }</text>
+<rect x="30.0" y="240.0" width="780.0" height="130.0" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="45.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Фаза 2: Затягування чужих змін (Pull Remote Changes)</text>
+<line x1="220.0" y1="290.0" x2="620.0" y2="290.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GET /sync/pull?since_seq=140&amp;client_id=C1</text>
+<line x1="620.0" y1="340.0" x2="220.0" y2="340.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">200 OK { deltas: [Δ_User2, Δ_User3], new_seq: 145, has_more: false }</text>
+<text x="420.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Результат: локальний стан узгоджено з сервером, черга очищена від підтверджених операцій</text>
+</svg>

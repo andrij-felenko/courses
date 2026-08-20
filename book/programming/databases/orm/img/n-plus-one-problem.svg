@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-danger { fill: #2d1215; stroke: #f85149; stroke-width: 1.5; rx: 6px; }
+    .box-safe { fill: #0e2a18; stroke: #3fb950; stroke-width: 1.5; rx: 6px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 14px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; }
+    .text-danger { fill: #f85149; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .text-safe { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .text-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="30" text-anchor="middle" class="text-title">Анатомія проблеми N+1 запитів: Lazy Loading проти Eager Fetching</text>
+
+  <!-- Left: N+1 Problem -->
+  <g transform="translate(40, 60)">
+    <rect width="340" height="260" class="box-danger"/>
+    <text x="170" y="30" text-anchor="middle" class="text-danger">ПРОБЛЕМА N+1: Lazy Loading</text>
+    
+    <rect x="20" y="55" width="300" height="40" class="box"/>
+    <text x="30" y="80" class="text-body">1. SELECT * FROM users; (1 запит)</text>
+    
+    <rect x="20" y="105" width="300" height="85" class="box-danger"/>
+    <text x="30" y="125" class="text-danger">for (user in users) {</text>
+    <text x="50" y="145" class="text-danger">  SELECT * FROM orders WHERE uid = ?;</text>
+    <text x="30" y="165" class="text-danger">} -> N окремих запитів до мережі!</text>
+
+    <text x="170" y="225" text-anchor="middle" class="text-danger">Загалом: 1 + 1000 = 1001 мережевий RTT</text>
+    <text x="170" y="245" text-anchor="middle" class="text-sub">Катастрофічне зростання Latency</text>
+  </g>
+
+  <!-- Right: Eager Solution -->
+  <g transform="translate(420, 60)">
+    <rect width="340" height="260" class="box-safe"/>
+    <text x="170" y="30" text-anchor="middle" class="text-safe">РІШЕННЯ: Eager Loading / JOIN</text>
+    
+    <rect x="20" y="55" width="300" height="60" class="box-safe"/>
+    <text x="30" y="80" class="text-safe">SELECT * FROM users u</text>
+    <text x="30" y="100" class="text-safe">LEFT JOIN orders o ON o.uid = u.id;</text>
+    
+    <rect x="20" y="130" width="300" height="60" class="box"/>
+    <text x="30" y="155" class="text-body">Або Batch Fetching (2 запити):</text>
+    <text x="30" y="175" class="text-body" fill="#3fb950">SELECT * FROM orders WHERE uid IN (...);</text>
+
+    <text x="170" y="225" text-anchor="middle" class="text-safe">Загалом: 1 або 2 запити до бази</text>
+    <text x="170" y="245" text-anchor="middle" class="text-sub">Мінімальне навантаження на мережу</text>
+  </g>
+</svg>

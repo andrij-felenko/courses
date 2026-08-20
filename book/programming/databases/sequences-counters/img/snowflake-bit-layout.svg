@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .bit-box { stroke-width: 1.5; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-mono { fill: #f8fafc; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 12px; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+</style>
+<rect width="880" height="340" class="bg" />
+<text x="30" y="32" class="txt-bold" font-size="16">Анатомія 64-бітного ідентифікатора Twitter Snowflake та 128-бітного UUIDv7</text>
+<text x="30" y="52" class="txt-muted">Розподіл бітових полів забезпечує монотонне сортування за часом та децентралізовану унікальність</text>
+
+<!-- 64-bit Snowflake -->
+<g transform="translate(30, 75)">
+  <text x="0" y="16" class="txt-bold" fill="#60a5fa">Twitter Snowflake (64 біти / 8 байтів — Int64 / BIGINT)</text>
+  
+  <!-- 1-bit unused -->
+  <rect x="0" y="28" width="30" height="50" class="bit-box" fill="#1e293b" stroke="#64748b" />
+  <text x="8" y="58" class="txt-mono" fill="#94a3b8">0</text>
+  <text x="4" y="94" class="txt-muted">1 б.</text>
+
+  <!-- 41-bit timestamp -->
+  <rect x="35" y="28" width="460" height="50" class="bit-box" fill="#1e3a5f" stroke="#3b82f6" />
+  <text x="130" y="52" class="txt-bold" fill="#93c5fd">Часова мітка (Timestamp)</text>
+  <text x="145" y="68" class="txt-mono" fill="#bfdbfe">41 біт (мілісекунди від епохи)</text>
+  <text x="210" y="94" class="txt-muted">41 біт ≈ 69.7 року</text>
+
+  <!-- 10-bit node ID -->
+  <rect x="500" y="28" width="160" height="50" class="bit-box" fill="#134e4a" stroke="#14b8a6" />
+  <text x="530" y="52" class="txt-bold" fill="#5eead4">Вузол / Node ID</text>
+  <text x="545" y="68" class="txt-mono" fill="#99f6e4">10 бітів (0..1023)</text>
+  <text x="540" y="94" class="txt-muted">1024 машини/потоки</text>
+
+  <!-- 12-bit sequence -->
+  <rect x="665" y="28" width="155" height="50" class="bit-box" fill="#701a75" stroke="#d946ef" />
+  <text x="690" y="52" class="txt-bold" fill="#f0abfc">Лічильник</text>
+  <text x="695" y="68" class="txt-mono" fill="#fae8ff">12 бітів (0..4095)</text>
+  <text x="680" y="94" class="txt-muted">4096 ID / мс / вузол</text>
+</g>
+
+<!-- 128-bit UUIDv7 -->
+<g transform="translate(30, 205)">
+  <text x="0" y="16" class="txt-bold" fill="#34d399">UUIDv7 за RFC 9562 (128 бітів / 16 байтів — Binary(16) / UUID)</text>
+  
+  <!-- 48-bit unix_ts_ms -->
+  <rect x="0" y="28" width="310" height="50" class="bit-box" fill="#1e3a5f" stroke="#3b82f6" />
+  <text x="70" y="52" class="txt-bold" fill="#93c5fd">unix_ts_ms (Unix час)</text>
+  <text x="85" y="68" class="txt-mono" fill="#bfdbfe">48 бітів (мілісекунди)</text>
+  <text x="100" y="94" class="txt-muted">До 10889 року н.е.</text>
+
+  <!-- 4-bit ver -->
+  <rect x="315" y="28" width="45" height="50" class="bit-box" fill="#312e81" stroke="#6366f1" />
+  <text x="323" y="52" class="txt-bold" fill="#a5b4fc">0111</text>
+  <text x="320" y="68" class="txt-mono" fill="#c7d2fe">ver 7</text>
+  <text x="320" y="94" class="txt-muted">4 біти</text>
+
+  <!-- 12-bit rand_a / sub-ms seq -->
+  <rect x="365" y="28" width="160" height="50" class="bit-box" fill="#701a75" stroke="#d946ef" />
+  <text x="390" y="52" class="txt-bold" fill="#f0abfc">rand_a / seq</text>
+  <text x="400" y="68" class="txt-mono" fill="#fae8ff">12 бітів ентропії</text>
+  <text x="395" y="94" class="txt-muted">Субмілісекундний лічильник</text>
+
+  <!-- 2-bit var -->
+  <rect x="530" y="28" width="45" height="50" class="bit-box" fill="#312e81" stroke="#6366f1" />
+  <text x="540" y="52" class="txt-bold" fill="#a5b4fc">10</text>
+  <text x="535" y="68" class="txt-mono" fill="#c7d2fe">var 2</text>
+  <text x="535" y="94" class="txt-muted">2 біти</text>
+
+  <!-- 62-bit rand_b -->
+  <rect x="580" y="28" width="240" height="50" class="bit-box" fill="#064e3b" stroke="#10b981" />
+  <text x="635" y="52" class="txt-bold" fill="#6ee7b7">rand_b (Крипто-ентропія)</text>
+  <text x="640" y="68" class="txt-mono" fill="#a7f3d0">62 біти випадкових чисел</text>
+  <text x="625" y="94" class="txt-muted">Захист від колізій без координації</text>
+</g>
+</svg>

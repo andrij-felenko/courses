@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Моделі інтерфейсної диспетчеризації: vptr проти itable та fat pointers</text>
+<rect x="20.0" y="50.0" width="245.0" height="290.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="142.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Вбудований vptr</text>
+<text x="142.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">C++, Java invokevirtual</text>
+<rect x="35.0" y="108.0" width="215.0" height="66.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="142.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Об'єкт у купі (Heap Object)</text>
+<rect x="45.0" y="134.0" width="195.0" height="30.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/>
+<text x="142.0" y="154.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">vptr -&gt; Class VTable</text>
+<line x1="142.0" y1="174.0" x2="142.0" y2="204.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="35.0" y="206.0" width="215.0" height="60.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="142.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Фіксований індекс у таблиці</text>
+<text x="142.0" y="248.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">call *(vptr + SLOT_OFFSET)</text>
+<text x="142.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Швидко: 1 непрямий перехід</text>
+<text x="142.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Жорсткий макет класів</text>
+<rect x="285.0" y="50.0" width="250.0" height="290.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Інтерфейсна таблиця (itable)</text>
+<text x="410.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">JVM invokeinterface, Go iface</text>
+<rect x="298.0" y="108.0" width="224.0" height="66.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="410.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Go iface: [ *itab | *data ]</text>
+<rect x="306.0" y="134.0" width="100.0" height="30.0" rx="4" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="356.0" y="154.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">*itab</text>
+<rect x="414.0" y="134.0" width="100.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="464.0" y="154.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">*data</text>
+<line x1="356.0" y1="174.0" x2="356.0" y2="204.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="298.0" y="206.0" width="224.0" height="60.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="410.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Таблиця (Interface, Type)</text>
+<text x="410.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Пошук методу / кешоване зміщення</text>
+<text x="410.0" y="258.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">itab.fun[method_idx]</text>
+<text x="410.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Гнучко: без єдиного предка</text>
+<text x="410.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Накладні на генерацію/пошук itab</text>
+<rect x="555.0" y="50.0" width="245.0" height="290.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="677.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Жирний покажчик (Fat Pointer)</text>
+<text x="677.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Rust &amp;dyn Trait, Box&lt;dyn Trait&gt;</text>
+<rect x="568.0" y="108.0" width="219.0" height="66.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="677.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">&amp;dyn Trait (16 байтів на стеку)</text>
+<rect x="576.0" y="134.0" width="98.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="625.0" y="154.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">data_ptr (8B)</text>
+<rect x="680.0" y="134.0" width="98.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="729.0" y="154.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">vtable_ptr (8B)</text>
+<line x1="729.0" y1="174.0" x2="729.0" y2="204.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="568.0" y="206.0" width="219.0" height="60.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="677.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Трейт-таблиця конкретного типу</text>
+<text x="677.0" y="248.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">call *vtable_ptr-&gt;method(data_ptr)</text>
+<text x="677.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Об'єкт чистий: нуль байтів vptr!</text>
+<text x="677.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Покажчик займає 16 байтів</text>
+</svg>

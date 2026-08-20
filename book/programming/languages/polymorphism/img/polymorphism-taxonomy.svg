@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таксономія поліморфізму (Карделлі і Вегнер, 1985)</text>
+<rect x="290.0" y="16.0" width="240.0" height="46.0" rx="8" fill="#0f1115" stroke="#333333" stroke-width="2.0"/>
+<text x="410.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="700">Поліморфізм</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle" font-style="italic">один інтерфейс — багато форм</text>
+<line x1="360.0" y1="62.0" x2="210.0" y2="100.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="62.0" x2="610.0" y2="100.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="104.0" width="340.0" height="54.0" rx="8" fill="#eaf4fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="210.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Універсальний (Universal)</text>
+<text x="210.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">однакова семантика для необмеженої множини типів</text>
+<rect x="440.0" y="104.0" width="340.0" height="54.0" rx="8" fill="#fdf2e9" stroke="#c0392b" stroke-width="2.0"/>
+<text x="610.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Спеціальний (Ad-hoc)</text>
+<text x="610.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">різна поведінка для скінченного набору окремих типів</text>
+<line x1="130.0" y1="158.0" x2="115.0" y2="196.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="158.0" x2="305.0" y2="196.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="158.0" x2="515.0" y2="196.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="158.0" x2="705.0" y2="196.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="25.0" y="200.0" width="180.0" height="160.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/>
+<text x="115.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Параметричний</text>
+<text x="115.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Parametric</text>
+<line x1="35.0" y1="246.0" x2="195.0" y2="246.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="115.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Один код для всіх типів</text>
+<text x="115.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тип передається як аргумент</text>
+<text x="115.0" y="304.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">template&lt;typename T&gt;</text>
+<text x="115.0" y="320.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">fn sort&lt;T&gt;(list: &amp;[T])</text>
+<text x="115.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Generics, Шаблони C++</text>
+<rect x="215.0" y="200.0" width="180.0" height="160.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/>
+<text x="305.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Підтиповий</text>
+<text x="305.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Inclusion / Subtyping</text>
+<line x1="225.0" y1="246.0" x2="385.0" y2="246.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="305.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Підстановка нащадка S &lt;: T</text>
+<text x="305.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спільний інтерфейс об'єктів</text>
+<text x="305.0" y="304.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">shape.draw()</text>
+<text x="305.0" y="320.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">Derived is-a Base</text>
+<text x="305.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">vtable, динамічні методи</text>
+<rect x="425.0" y="200.0" width="180.0" height="160.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="515.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Перевантаження</text>
+<text x="515.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Overloading</text>
+<line x1="435.0" y1="246.0" x2="595.0" y2="246.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="515.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Однакова назва функції</text>
+<text x="515.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Різні тіла під типи</text>
+<text x="515.0" y="304.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">print(int x)</text>
+<text x="515.0" y="320.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">print(string s)</text>
+<text x="515.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Статичний вибір виклику</text>
+<rect x="615.0" y="200.0" width="180.0" height="160.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="705.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Коерсивний</text>
+<text x="705.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Coercion</text>
+<line x1="625.0" y1="246.0" x2="785.0" y2="246.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="705.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Неявне приведення типів</text>
+<text x="705.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Автоматична конверсія</text>
+<text x="705.0" y="304.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">double + int -&gt; double</text>
+<text x="705.0" y="320.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">&amp;String -&gt; &amp;str</text>
+<text x="705.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Widening, deref coercion</text>
+</svg>

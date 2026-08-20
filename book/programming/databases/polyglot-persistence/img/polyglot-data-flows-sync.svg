@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-main { fill: #1a2332; stroke: #58a6ff; stroke-width: 1.5; rx: 6px; }
+    .box-cdc { fill: #2c1a1d; stroke: #f85149; stroke-width: 1.5; rx: 6px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 14px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    .text-code { fill: #d29922; font-family: "Courier New", monospace; font-size: 11px; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="30" text-anchor="middle" class="text-title">Синхронізація поліглотних сховищ через CDC та шину подій</text>
+
+  <!-- Client & Primary DB -->
+  <g transform="translate(40, 70)">
+    <rect width="140" height="70" class="box-main"/>
+    <text x="70" y="30" text-anchor="middle" class="text-title">Клієнт / API</text>
+    <text x="70" y="50" text-anchor="middle" class="text-body">POST /orders</text>
+
+    <!-- Arrow down -->
+    <path d="M 70 70 L 70 120" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)"/>
+
+    <rect y="120" width="140" height="90" class="box-main"/>
+    <text x="70" y="145" text-anchor="middle" class="text-title">Primary OLTP</text>
+    <text x="70" y="165" text-anchor="middle" class="text-body">PostgreSQL</text>
+    <text x="70" y="185" text-anchor="middle" class="text-code">WAL / Outbox</text>
+  </g>
+
+  <!-- CDC Engine & Kafka -->
+  <g transform="translate(250, 140)">
+    <rect width="130" height="140" class="box-cdc"/>
+    <text x="65" y="30" text-anchor="middle" class="text-title" fill="#f85149">CDC Engine</text>
+    <text x="65" y="55" text-anchor="middle" class="text-body">Debezium</text>
+    <text x="65" y="75" text-anchor="middle" class="text-body">Читання WAL</text>
+    <text x="65" y="105" text-anchor="middle" class="text-code">Event Bus</text>
+    <text x="65" y="125" text-anchor="middle" class="text-code">Apache Kafka</text>
+  </g>
+
+  <!-- Polyglot Read Models -->
+  <g transform="translate(450, 60)">
+    <!-- Redis -->
+    <rect width="300" height="50" class="box" stroke="#f85149"/>
+    <text x="150" y="25" text-anchor="middle" class="text-body" font-weight="bold">1. Redis Cache (L1 Read)</text>
+    <text x="150" y="42" text-anchor="middle" class="text-sub">Миттєве отримання замовлення за 1 мс</text>
+
+    <!-- Elasticsearch -->
+    <rect y="70" width="300" height="50" class="box" stroke="#d29922"/>
+    <text x="150" y="95" text-anchor="middle" class="text-body" font-weight="bold">2. Elasticsearch (Search Engine)</text>
+    <text x="150" y="112" text-anchor="middle" class="text-sub">Фільтри товарів за назвою, брендом, ціною</text>
+
+    <!-- Neo4j -->
+    <rect y="140" width="300" height="50" class="box" stroke="#a371f7"/>
+    <text x="150" y="165" text-anchor="middle" class="text-body" font-weight="bold">3. Neo4j (Graph Engine)</text>
+    <text x="150" y="182" text-anchor="middle" class="text-sub">«З цим товаром також купують...»</text>
+
+    <!-- ClickHouse -->
+    <rect y="210" width="300" height="50" class="box" stroke="#3fb950"/>
+    <text x="150" y="235" text-anchor="middle" class="text-body" font-weight="bold">4. ClickHouse (OLAP)</text>
+    <text x="150" y="252" text-anchor="middle" class="text-sub">Агрегація продажів за квартал за 50 мс</text>
+  </g>
+</svg>

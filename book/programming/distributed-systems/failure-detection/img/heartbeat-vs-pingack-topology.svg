@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Топології виявлення: Push (Heartbeat), Pull (Ping-Ack) та асиметричний обрив</text>
+<rect x="25.0" y="55.0" width="300.0" height="400.0" rx="6" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="175.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Push-модель (Heartbeat)</text>
+<circle cx="100.0" cy="140.0" r="20.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="100.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="250.0" cy="140.0" r="20.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<line x1="125.0" y1="140.0" x2="225.0" y2="140.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="175.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Heartbeat</text>
+<rect x="40.0" y="198.7" width="270.0" height="62.6" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="175.0" y="214.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Вузол періодично випромінює</tspan><tspan x="175.0" dy="12.3">сигнали пульсу (beacons).</tspan><tspan x="175.0" dy="12.3">Спостерігач очікує прибуття:</tspan><tspan x="175.0" dy="12.3">t_diff = t_now - t_last &gt; T_timeout</tspan></text>
+<rect x="35.0" y="320.0" width="280.0" height="120.0" rx="4" fill="#fff5f5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="175.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Складність All-to-All: O(N²) повідомлень</tspan><tspan x="175.0" dy="12.3">При N = 1000: 1 000 000 пакетів/с.</tspan><tspan x="175.0" dy="12.3">Не перевіряє зворотний канал зв'язку.</tspan><tspan x="175.0" dy="12.3">Застосування: Cassandra, Akka (з Gossip).</tspan></text>
+<rect x="350.0" y="55.0" width="300.0" height="400.0" rx="6" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="500.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Pull-модель (Ping-Ack)</text>
+<circle cx="425.0" cy="130.0" r="20.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="425.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="575.0" cy="130.0" r="20.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="575.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<line x1="450.0" y1="122.0" x2="550.0" y2="122.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Ping (Запит)</text>
+<line x1="550.0" y1="138.0" x2="450.0" y2="138.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Ack (Відповідь)</text>
+<rect x="365.0" y="198.7" width="270.0" height="62.6" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="500.0" y="214.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Спостерігач A активно пінгує B</tspan><tspan x="500.0" dy="12.3">та очікує підтвердження Ack.</tspan><tspan x="500.0" dy="12.3">Перевіряє двосторонню зв'язність</tspan><tspan x="500.0" dy="12.3">(Forward + Reverse RTT).</tspan></text>
+<rect x="360.0" y="320.0" width="280.0" height="120.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="500.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Складність опитування: O(N) або O(1)</tspan><tspan x="500.0" dy="12.3">Двосторонній контроль сокета.</tspan><tspan x="500.0" dy="12.3">Ризик: навантаження на ціль (Fan-in),</tspan><tspan x="500.0" dy="12.3">якщо 100 вузлів одночасно пінгують B.</tspan><tspan x="500.0" dy="12.3">Застосування: HTTP health-checks, SWIM.</tspan></text>
+<rect x="675.0" y="55.0" width="300.0" height="400.0" rx="6" fill="#fcfdfe" stroke="#6b7280" stroke-width="1.2"/>
+<text x="825.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">3. Асиметричний обрив зв'язку</text>
+<circle cx="750.0" cy="130.0" r="20.0" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="750.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="900.0" cy="130.0" r="20.0" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="900.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<line x1="775.0" y1="122.0" x2="875.0" y2="122.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="825.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">A -&gt; B: ПРАЦЮЄ</text>
+<line x1="875.0" y1="138.0" x2="775.0" y2="138.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="825.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">B -&gt; A: ОБІРВАНО ✕</text>
+<rect x="690.0" y="198.7" width="270.0" height="62.6" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="825.0" y="214.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Односторонній збій комутатора / firewall:</tspan><tspan x="825.0" dy="12.3">B отримує пакети від A, але його</tspan><tspan x="825.0" dy="12.3">відповіді Ack не доходять до A.</tspan><tspan x="825.0" dy="12.3">Вузол A помилково вважає B мертвим!</tspan></text>
+<rect x="685.0" y="320.0" width="280.0" height="120.0" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.0"/>
+<text x="825.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">Небезпека: розкол кластера (Split-Brain).</tspan><tspan x="825.0" dy="12.3">A вважає B мертвим -&gt; перевибори лідера.</tspan><tspan x="825.0" dy="12.3">B вважає A мертвим -&gt; власний лідер.</tspan><tspan x="825.0" dy="12.3">Потрібне непряме зондування (Indirect Ping)</tspan><tspan x="825.0" dy="12.3">через посередників (як у SWIM).</tspan></text>
+</svg>

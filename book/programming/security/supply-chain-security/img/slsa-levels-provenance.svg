@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура SLSA Provenance та безключовий підпис артефактів через Sigstore</text>
+<rect x="20.0" y="70.0" width="160.0" height="95.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="100.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Git Repository</text>
+<text x="100.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фіксований комміт</text>
+<text x="100.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">SHA: a8f93b2...</text>
+<line x1="180.0" y1="115.0" x2="230.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="205.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">trigger</text>
+<rect x="230.0" y="50.0" width="210.0" height="135.0" rx="10" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="335.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Ізольований збирач</text>
+<text x="335.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">(SLSA Build Level 3)</text>
+<text x="335.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Герметичне середовище</text>
+<text x="335.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Одноразовий раннер CI</text>
+<text x="335.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Захист від підміни параметрів</text>
+<line x1="440.0" y1="90.0" x2="490.0" y2="90.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="145.0" x2="490.0" y2="145.0" stroke="#b45309" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="490.0" y="60.0" width="170.0" height="60.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="575.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Бінарний артефакт</text>
+<text x="575.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Digest: sha256:4c10...</text>
+<rect x="490.0" y="130.0" width="170.0" height="65.0" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+<text x="575.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">SLSA Provenance</text>
+<text x="575.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">in-toto JSON Envelope</text>
+<text x="575.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">builder.id + commit + flags</text>
+<rect x="230.0" y="215.0" width="430.0" height="135.0" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2.0"/>
+<text x="445.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6d28d9" text-anchor="middle" font-weight="700">Інфраструктура безключового підпису (Sigstore)</text>
+<rect x="245.0" y="255.0" width="120.0" height="80.0" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="305.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OIDC (GitHub)</text>
+<text x="305.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Identity Token</text>
+<text x="305.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6d28d9" text-anchor="middle">workflow identity</text>
+<line x1="365.0" y1="295.0" x2="395.0" y2="295.0" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="395.0" y="255.0" width="120.0" height="80.0" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="455.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Fulcio CA</text>
+<text x="455.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Короткоживучий</text>
+<text x="455.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">X.509 сертифікат</text>
+<line x1="515.0" y1="295.0" x2="545.0" y2="295.0" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="545.0" y="255.0" width="105.0" height="80.0" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+<text x="597.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rekor Log</text>
+<text x="597.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Незмінний лог</text>
+<text x="597.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Merkle Tree</text>
+<line x1="575.0" y1="195.0" x2="575.0" y2="215.0" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="690.0" y="60.0" width="175.0" height="290.0" rx="10" fill="#faf5ff" stroke="#7e22ce" stroke-width="2.0"/>
+<text x="777.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e22ce" text-anchor="middle" font-weight="700">Admission Webhook</text>
+<text x="777.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Kyverno / Gatekeeper</text>
+<rect x="702.0" y="120.0" width="150.0" height="52.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="777.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1. Валідація підпису</text>
+<text x="777.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Fulcio Root + Rekor Log</text>
+<rect x="702.0" y="180.0" width="150.0" height="62.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="777.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2. Перевірка SLSA L3</text>
+<text x="777.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Власний builder.id</text>
+<text x="777.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Збіг хешу репозиторію</text>
+<rect x="702.0" y="250.0" width="150.0" height="52.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="777.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">3. Вердикт допуску</text>
+<text x="777.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Allow Pod / Block Run</text>
+<line x1="660.0" y1="90.0" x2="690.0" y2="90.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="295.0" x2="690.0" y2="295.0" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

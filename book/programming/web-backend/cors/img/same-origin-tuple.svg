@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія походження (Origin) за RFC 6454 та правила ізоляції</text>
+<rect x="40.0" y="55.0" width="860.0" height="95.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еталонне походження: https://example.com:443/app/index.html</text>
+<rect x="60.0" y="95.0" width="230.0" height="42.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="175.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Схема (Протокол)</text>
+<text x="175.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">https://</text>
+<rect x="320.0" y="95.0" width="300.0" height="42.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="470.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Хост (FQDN або IP)</text>
+<text x="470.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">example.com</text>
+<rect x="650.0" y="95.0" width="230.0" height="42.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="765.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Порт (явний або неявний)</text>
+<text x="765.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">443 (стандартний для https)</text>
+<rect x="40.0" y="165.0" width="860.0" height="260.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння цільових адрес із еталонним https://example.com:443</text>
+<rect x="55.0" y="205.0" width="340.0" height="28.0" rx="4" fill="#e5e7eb" stroke="#333333" stroke-width="1.0"/>
+<text x="225.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цільова адреса запиту</text>
+<rect x="405.0" y="205.0" width="180.0" height="28.0" rx="4" fill="#e5e7eb" stroke="#333333" stroke-width="1.0"/>
+<text x="495.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статус SOP</text>
+<rect x="595.0" y="205.0" width="290.0" height="28.0" rx="4" fill="#e5e7eb" stroke="#333333" stroke-width="1.0"/>
+<text x="740.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Причина та вердикт браузера</text>
+<rect x="55.0" y="240.0" width="340.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="65.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">https://example.com/api/v1/users</text>
+<rect x="405.0" y="240.0" width="180.0" height="32.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="495.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Однакове (Same Origin)</text>
+<rect x="595.0" y="240.0" width="290.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="605.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Шлях (/api/v1) не входить до складу походження</text>
+<rect x="55.0" y="276.0" width="340.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="65.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">https://example.com:8443/data</text>
+<rect x="405.0" y="276.0" width="180.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="495.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Різне (Cross-Origin)</text>
+<rect x="595.0" y="276.0" width="290.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="605.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Порт не збігається (8443 != 443)</text>
+<rect x="55.0" y="312.0" width="340.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="65.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">http://example.com/login</text>
+<rect x="405.0" y="312.0" width="180.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="495.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Різне (Cross-Origin)</text>
+<rect x="595.0" y="312.0" width="290.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="605.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Схема не збігається (http != https)</text>
+<rect x="55.0" y="348.0" width="340.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="65.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">https://api.example.com/users</text>
+<rect x="405.0" y="348.0" width="180.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="495.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Різне (Cross-Origin)</text>
+<rect x="595.0" y="348.0" width="290.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="605.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Піддомен є окремим самостійним хостом</text>
+<rect x="55.0" y="384.0" width="340.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="65.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">https://v2.example.com:443/auth</text>
+<rect x="405.0" y="384.0" width="180.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="495.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✗ Різне (Cross-Origin)</text>
+<rect x="595.0" y="384.0" width="290.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="605.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Хост v2.example.com відрізняється від example.com</text>
+<text x="470.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Будь-яка розбіжність у схемі, хості або порті робить запит міжсайтовим і вимагає узгодження через CORS</text>
+</svg>

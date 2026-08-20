@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безпечне звільнення пам'яті: механізм Hazard Pointers</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Потік оголошує захищений покажчик перед читанням; звільнення видалених вузлів відкладається</text>
+<text x="180.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Глобальний масив Hazard Pointers:</text>
+<rect x="80.0" y="110.0" width="200.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="130.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Thread 1 HP: [ Node X ]</text>
+<rect x="80.0" y="155.0" width="200.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="180.0" y="175.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Thread 2 HP: [ nullptr ]</text>
+<text x="180.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Потік 1 наразі читає Node X!</text>
+<text x="620.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Список відкладеного звільнення (Retire List):</text>
+<rect x="500.0" y="110.0" width="240.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="130.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Retire: [ Node X ] (вилучений зі стека)</text>
+<rect x="500.0" y="155.0" width="240.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="175.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Retire: [ Node Y ] (вилучений зі стека)</text>
+<line x1="50.0" y1="240.0" x2="830.0" y2="240.0" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="440.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза очищення (Reclamation Scan):</text>
+<rect x="100.0" y="290.0" width="310.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="255.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">Node X: є в масиві HP (Thread 1 HP == Node X)</tspan><tspan x="255.0" dy="13.0">-&gt; ЗАБОРОНЕНО звільняти (чекаємо)</tspan></text>
+<rect x="470.0" y="290.0" width="310.0" height="44.0" rx="6" fill="#eaf7ed" stroke="#27ae60" stroke-width="1.5"/><text x="625.0" y="308.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="625.0" dy="0.0">Node Y: відсутній у всіх HP слотах</tspan><tspan x="625.0" dy="14.3">-&gt; БЕЗПЕЧНО: free(Node Y)!</tspan></text>
+<rect x="50.0" y="360.0" width="780.0" height="46.6" rx="6" fill="#fff8e6" stroke="#caa24a" stroke-width="1.5"/><text x="440.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Hazard Pointers виключають помилки Use-After-Free без блокування читачів.</tspan><tspan x="440.0" dy="14.3">Читач лише публікує адресу, а письменник перевіряє її перед викликом free().</tspan></text>
+</svg>

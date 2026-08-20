@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Non-Zero Optimization: заповнення невикористаної бітової ніші</text>
+<line x1="380.0" y1="40.0" x2="380.0" y2="310.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="190.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Option&lt;u32&gt; (без оптимізації)</text>
+<text x="190.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Розмір: 8 байтів (через вирівнювання)</text>
+<rect x="50.0" y="85.0" width="60.0" height="50.0" rx="4" fill="#ebfbee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="80.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Тег</text>
+<text x="80.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 байт</text>
+<rect x="110.0" y="85.0" width="80.0" height="50.0" rx="4" fill="#fdf0ed" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Паддінг</text>
+<text x="150.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3 байти (дарма)</text>
+<rect x="190.0" y="85.0" width="140.0" height="50.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="260.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Значення u32</text>
+<text x="260.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4 байти (0..4 294 967 295)</text>
+<rect x="50.0" y="160.0" width="280.0" height="130.0" rx="6" fill="#fffaf9" stroke="#c0392b" stroke-width="1.4"/><text x="190.0" y="200.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Чому розмір 8 байтів:</tspan><tspan x="190.0" dy="14.3">Тип u32 вимагає вирівнювання за 4 байти.</tspan><tspan x="190.0" dy="14.3">Тег займає 1 байт, тому компілятор</tspan><tspan x="190.0" dy="14.3">додає 3 байти порожнечі.</tspan><tspan x="190.0" dy="14.3">Оверхед пам'яті = 100%!</tspan></text>
+<text x="570.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Option&lt;NonZeroU32&gt; / Option&lt;&amp;T&gt;</text>
+<text x="570.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Розмір: 4 байти (Niche filling, 0 байтів оверхеду)</text>
+<rect x="430.0" y="85.0" width="280.0" height="50.0" rx="4" fill="#eaf0fd" stroke="#27ae60" stroke-width="2.0"/>
+<text x="570.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівно 4 байти (NonZeroU32)</text>
+<text x="570.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Значення 1..4 294 967 295 = Some(x)  |  0x00000000 = None</text>
+<rect x="430.0" y="160.0" width="280.0" height="130.0" rx="6" fill="#f6fcf8" stroke="#27ae60" stroke-width="1.4"/><text x="570.0" y="200.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Як працює оптимізація ніші:</tspan><tspan x="570.0" dy="14.3">Тип NonZeroU32 гарантує, що 0 заборонено.</tspan><tspan x="570.0" dy="14.3">Компілятор використовує бітовий патерн 0</tspan><tspan x="570.0" dy="14.3">як вартове значення для стану None.</tspan><tspan x="570.0" dy="14.3">Типова безпека + нульовий оверхед!</tspan></text>
+<text x="380.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700" font-style="italic">Non-Zero Optimization поєднує строгість типів Option із нульовими витратами пам'яті вартових значень!</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="33.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурне розділення PEP та PDP</text>
+<rect x="30.0" y="110.0" width="130.0" height="80.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="95.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суб'єкт</text>
+<text x="95.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">клієнт / сервіс</text>
+<line x1="160.0" y1="150.0" x2="240.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="200.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит</text>
+<rect x="240.0" y="70.0" width="200.0" height="160.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="340.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">PEP</text>
+<text x="340.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Точка застосування</text>
+<text x="340.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">API Gateway / K8s / Proxy</text>
+<text x="340.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">зупиняє запит і чекає вердикт</text>
+<text x="340.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">сам логіки правил НЕ знає</text>
+<line x1="440.0" y1="120.0" x2="560.0" y2="120.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. JSON payload</text>
+<line x1="560.0" y1="180.0" x2="440.0" y2="180.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. allow / deny</text>
+<rect x="560.0" y="50.0" width="230.0" height="200.0" rx="10" fill="#eaf6ec" stroke="#27ae60" stroke-width="2.0"/>
+<text x="675.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">PDP</text>
+<text x="675.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Точка ухвалення рішення</text>
+<text x="675.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Рушій політик (напр. OPA)</text>
+<rect x="575.0" y="149.5" width="200.0" height="31.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="675.0" y="168.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">Декларативні правила (Rego)</tspan></text>
+<rect x="575.0" y="189.5" width="200.0" height="31.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="675.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">Контекстні дані (data JSON)</tspan></text>
+<line x1="340.0" y1="230.0" x2="340.0" y2="280.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="340.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">403 Forbidden (якщо deny)</text>
+<line x1="340.0" y1="70.0" x2="340.0" y2="25.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="15.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пропуск до захищеного сервісу (allow)</text>
+</svg>

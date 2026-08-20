@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="20.0" width="360.0" height="310.0" rx="8" fill="none" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихідний код (High-level)</text>
+<rect x="50.0" y="115.9" width="320.0" height="88.2" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="135.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">async function fetchUser(id) {</tspan><tspan x="210.0" dy="14.3">  const u = await httpGet('/u/' + id);</tspan><tspan x="210.0" dy="14.3">  const p = await dbLoad(u.profileId);</tspan><tspan x="210.0" dy="14.3">  return { u, p };</tspan><tspan x="210.0" dy="14.3">}</tspan></text>
+<text x="210.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Погляд програміста: послідовне виконання
+з паузами на операціях вводу-виводу</text>
+<line x1="400.0" y1="170.0" x2="450.0" y2="170.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="425.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Компілятор
+/ Рушій</text>
+<rect x="460.0" y="20.0" width="410.0" height="310.0" rx="8" fill="none" stroke="#333333" stroke-width="1.5"/>
+<text x="665.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат корутини (Низький рівень)</text>
+<rect x="480.0" y="75.0" width="370.0" height="30.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="665.0" y="93.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">Стан 0: Початок → запуск httpGet → зберегти стан → yield</tspan></text>
+<rect x="480.0" y="135.0" width="370.0" height="30.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="665.0" y="153.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">Стан 1: Відновлення → u = res0 → запуск dbLoad → yield</tspan></text>
+<rect x="480.0" y="195.0" width="370.0" height="30.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="665.0" y="213.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">Стан 2: Відновлення → p = res1 → resolve Promise({ u, p })</tspan></text>
+<line x1="665.0" y1="115.0" x2="665.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="175.0" x2="665.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="665.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр корутини у купі зберігає:
+{ state: 0|1|2, id, u, p, promise }</text>
+</svg>

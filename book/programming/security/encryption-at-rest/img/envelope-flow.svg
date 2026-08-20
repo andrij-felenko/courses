@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двофазний потік конвертного шифрування та розшифрування</text>
+<rect x="40.0" y="40.0" width="355.0" height="270.0" rx="10" fill="#f9fbf9" stroke="#27ae60" stroke-width="1.8"/>
+<text x="217.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1. Процес шифрування (Запис)</text>
+<rect x="55.0" y="95.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="65.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Додаток шле GenerateDataKey(KEK, AAD)</text>
+<rect x="55.0" y="133.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="65.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. KMS генерує DEK і повертає {Plain, Wrapped}</text>
+<rect x="55.0" y="171.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="65.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Додаток шифрує payload ключем Plain DEK</text>
+<rect x="55.0" y="209.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="65.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4. Plain DEK негайно затирається в RAM (zeroize)</text>
+<rect x="55.0" y="247.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="65.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">5. Збереження {Wrapped DEK + Ciphertext + Tag}</text>
+<rect x="425.0" y="40.0" width="355.0" height="270.0" rx="10" fill="#f0f4fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="602.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">2. Процес розшифрування (Читання)</text>
+<rect x="440.0" y="95.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="450.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Додаток зчитує {Wrapped DEK, Ciphertext, Tag}</text>
+<rect x="440.0" y="133.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="450.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Додаток шле Decrypt(Wrapped DEK, AAD) до KMS</text>
+<rect x="440.0" y="171.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="450.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. KMS перевіряє права та повертає Plain DEK</text>
+<rect x="440.0" y="209.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="450.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4. Додаток розшифровує та верифікує Tag</text>
+<rect x="440.0" y="247.0" width="325.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="450.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">5. Plain DEK негайно затирається в RAM (zeroize)</text>
+<text x="410.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відкритий ключ DEK живе в пам'яті лише мілісекунди під час операції AES-GCM.</text>
+</svg>

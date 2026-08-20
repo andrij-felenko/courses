@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-active { fill: #1f2937; stroke: #58a6ff; stroke-width: 1.5; rx: 6px; }
+    .box-shadow { fill: #1a2332; stroke: #3fb950; stroke-width: 2; rx: 6px; stroke-dasharray: 4,4; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 14px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; }
+    .text-accent { fill: #3fb950; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 12px; }
+    .arrow { stroke: #8b949e; stroke-width: 1.5; fill: none; marker-end: url(#arrow-grey); }
+    .arrow-sync { stroke: #3fb950; stroke-width: 2; fill: none; marker-end: url(#arrow-green); }
+  </style>
+  <defs>
+    <marker id="arrow-grey" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8b949e"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="400" y="30" text-anchor="middle" class="text-title">Онлайн-міграція великих таблиць через тіньову таблицю (gh-ost / pt-osc)</text>
+
+  <!-- Original Table -->
+  <g transform="translate(60, 70)">
+    <rect width="200" height="200" class="box-active"/>
+    <text x="100" y="30" text-anchor="middle" class="text-title">Оригінальна таблиця</text>
+    <text x="100" y="55" text-anchor="middle" class="text-body" fill="#8b949e">`users` (100 млн рядків)</text>
+    
+    <rect x="20" y="80" width="160" height="40" class="box"/>
+    <text x="100" y="105" text-anchor="middle" class="text-body">Live Traffic (OLTP)</text>
+
+    <text x="100" y="150" text-anchor="middle" class="text-body">Стара схема</text>
+    <text x="100" y="170" text-anchor="middle" class="text-body" fill="#8b949e">Читання й Запис</text>
+  </g>
+
+  <!-- Middle Component: Replication Stream / Chunker -->
+  <g transform="translate(300, 70)">
+    <rect width="200" height="90" class="box"/>
+    <text x="100" y="30" text-anchor="middle" class="text-title">Порядковий бекфіл</text>
+    <text x="100" y="55" text-anchor="middle" class="text-body">Батчі по 1000 рядків</text>
+    <text x="100" y="75" text-anchor="middle" class="text-body" fill="#8b949e">WHERE id BETWEEN x AND y</text>
+
+    <rect y="110" width="200" height="90" class="box"/>
+    <text x="100" y="140" text-anchor="middle" class="text-accent">CDC / Binlog Stream</text>
+    <text x="100" y="165" text-anchor="middle" class="text-body">Синхронізація дельт</text>
+    <text x="100" y="185" text-anchor="middle" class="text-body" fill="#8b949e">(INSERT/UPDATE/DELETE)</text>
+  </g>
+
+  <!-- Shadow Table -->
+  <g transform="translate(540, 70)">
+    <rect width="200" height="200" class="box-shadow"/>
+    <text x="100" y="30" text-anchor="middle" class="text-accent">Тіньова таблиця</text>
+    <text x="100" y="55" text-anchor="middle" class="text-body" fill="#8b949e">`_users_gho`</text>
+    
+    <rect x="20" y="80" width="160" height="40" class="box"/>
+    <text x="100" y="105" text-anchor="middle" class="text-accent">Нова схема</text>
+
+    <text x="100" y="150" text-anchor="middle" class="text-body">Атомарне перейменування</text>
+    <text x="100" y="170" text-anchor="middle" class="text-accent">RENAME TABLE (1 мс)</text>
+  </g>
+
+  <!-- Flow Arrows -->
+  <line x1="260" y1="115" x2="300" y2="115" class="arrow"/>
+  <line x1="260" y1="210" x2="300" y2="210" class="arrow-sync"/>
+  <line x1="500" y1="115" x2="540" y2="115" class="arrow"/>
+  <line x1="500" y1="210" x2="540" y2="210" class="arrow-sync"/>
+
+  <text x="400" y="320" text-anchor="middle" class="text-body" fill="#8b949e">Атомарне перемикання (Cutover) через RENAME TABLE tbl TO tbl_old, _tbl_gho TO tbl без простою</text>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .box { fill: #1e293b; stroke: #3b82f6; stroke-width: 1.5; rx: 8px; }
+  .box-err { fill: #1e293b; stroke: #ef4444; stroke-width: 1.5; rx: 8px; }
+  .box-hilo { fill: #0f172a; stroke: #10b981; stroke-width: 1.5; rx: 8px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .txt-red { fill: #f87171; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .txt-green { fill: #34d399; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .arrow { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#ah); }
+  .seq-cell { fill: #334155; stroke: #64748b; stroke-width: 1; rx: 4px; }
+  .seq-gap { fill: #7f1d1d; stroke: #ef4444; stroke-width: 1.5; stroke-dasharray: 3 3; rx: 4px; }
+</style>
+<defs>
+  <marker id="ah" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" />
+  </marker>
+</defs>
+<rect width="880" height="320" class="bg" />
+<text x="30" y="32" class="txt-bold" font-size="16">Механіка утворення дірок у централізованих послідовностях та оптимізація Hi/Lo</text>
+<text x="30" y="52" class="txt-muted">Відкат транзакції (ROLLBACK) вивільняє блокування, але не повертає стан лічильника SEQUENCE</text>
+
+<!-- Секція 1: Транзакційний відкат -->
+<g transform="translate(30, 75)">
+  <rect width="400" height="225" class="box-err" />
+  <text x="20" y="28" class="txt-bold" fill="#f87171">Централізований SEQUENCE + ROLLBACK</text>
+  
+  <rect x="20" y="45" width="60" height="35" class="seq-cell" />
+  <text x="35" y="67" class="txt-bold">#101</text>
+  
+  <rect x="90" y="45" width="60" height="35" class="seq-cell" />
+  <text x="105" y="67" class="txt-bold">#102</text>
+  
+  <rect x="160" y="45" width="60" height="35" class="seq-gap" />
+  <text x="175" y="67" class="txt-red">#103</text>
+  
+  <rect x="230" y="45" width="60" height="35" class="seq-cell" />
+  <text x="245" y="67" class="txt-bold">#104</text>
+  
+  <rect x="300" y="45" width="60" height="35" class="seq-cell" />
+  <text x="315" y="67" class="txt-bold">#105</text>
+
+  <text x="20" y="110" class="txt">Транзакція A: nextval() = 101 → COMMIT</text>
+  <text x="20" y="132" class="txt">Транзакція B: nextval() = 102 → COMMIT</text>
+  <text x="20" y="154" class="txt-red">Транзакція C: nextval() = 103 → ПОМИЛКА / ROLLBACK</text>
+  <text x="20" y="176" class="txt">Транзакція D: nextval() = 104 → COMMIT</text>
+  <text x="20" y="206" class="txt-muted">Дірка #103 залишається назавжди: лічильник не відкочується</text>
+</g>
+
+<!-- Секція 2: Алгоритм Hi/Lo -->
+<g transform="translate(450, 75)">
+  <rect width="400" height="225" class="box-hilo" />
+  <text x="20" y="28" class="txt-bold" fill="#34d399">Блокова алокація діапазонів (Алгоритм Hi/Lo)</text>
+  
+  <rect x="20" y="48" width="170" height="55" class="box" stroke="#10b981" />
+  <text x="30" y="70" class="txt-bold" fill="#6ee7b7">БД: Hi = 42</text>
+  <text x="30" y="90" class="txt-muted">next_hi = nextval()</text>
+
+  <path d="M 200 75 L 230 75" class="arrow" />
+
+  <rect x="240" y="48" width="140" height="55" class="box" stroke="#38bdf8" />
+  <text x="250" y="70" class="txt-bold" fill="#38bdf8">Вузол 1 (RAM)</text>
+  <text x="250" y="90" class="txt-muted">Lo: 0..999</text>
+
+  <text x="20" y="130" class="txt">Діапазон ID: [42 × 1000] .. [42 × 1000 + 999]</text>
+  <text x="20" y="152" class="txt">Генерація в RAM: atomic_inc(Lo) без дискового I/O</text>
+  <text x="20" y="174" class="txt-green">1 звернення до бази на 1000 виданих ID</text>
+  <text x="20" y="206" class="txt-muted">При краху вузла втрачається лише нерозданий хвіст Lo</text>
+</g>
+</svg>

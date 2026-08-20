@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння фізичних операторів доступу до даних</text>
+<rect x="35.0" y="60.0" width="215.0" height="450.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="35.0" y="60.0" width="215.0" height="65.0" rx="8" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="142.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">Seq Scan</text>
+<text x="142.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Послідовне читання</text>
+<rect x="45.0" y="140.0" width="195.0" height="160.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="60.0" y="180.0" width="36.0" height="55.0" rx="3" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="78.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P1</text>
+<rect x="102.0" y="180.0" width="36.0" height="55.0" rx="3" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P2</text>
+<rect x="144.0" y="180.0" width="36.0" height="55.0" rx="3" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="162.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P3</text>
+<rect x="186.0" y="180.0" width="36.0" height="55.0" rx="3" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="204.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P4</text>
+<line x1="55.0" y1="255.0" x2="230.0" y2="255.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="142.5" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">послідовний I/O</text>
+<rect x="45.0" y="315.0" width="195.0" height="195.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="142.5" y="392.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">Читає всі сторінки таблиці</tspan><tspan x="142.5" dy="11.7">підряд. Ефективно при вибірці</tspan><tspan x="142.5" dy="11.7">понад 15-20% рядків завдяки</tspan><tspan x="142.5" dy="11.7">послідовному I/O та випереджальному</tspan><tspan x="142.5" dy="11.7">читанню (read-ahead).</tspan></text>
+<rect x="270.0" y="60.0" width="215.0" height="450.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="270.0" y="60.0" width="215.0" height="65.0" rx="8" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="377.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">Index Scan</text>
+<text x="377.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Індексний пошук</text>
+<rect x="280.0" y="140.0" width="195.0" height="160.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="345.0" y="155.0" width="45.0" height="26.0" rx="2" fill="#eef9f1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="367.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Корінь</text>
+<rect x="300.0" y="195.0" width="50.0" height="24.0" rx="2" fill="#eef9f1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="325.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Листок</text>
+<line x1="355.0" y1="181.0" x2="335.0" y2="195.0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="390.0" y="210.0" width="60.0" height="65.0" rx="3" fill="#fdfaf3" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Таблиця</text>
+<text x="420.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">TID (3,8)</text>
+<line x1="350.0" y1="207.0" x2="388.0" y2="245.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="377.5" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">випадковий доступ до купи</text>
+<rect x="280.0" y="315.0" width="195.0" height="195.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="377.5" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="377.5" dy="0.0">Спуск по B-дереву до листків,</tspan><tspan x="377.5" dy="13.0">звідки за покажчиками (TID)</tspan><tspan x="377.5" dy="13.0">читаються сторінки таблиці.</tspan><tspan x="377.5" dy="13.0">Швидко для кількох рядків,</tspan><tspan x="377.5" dy="13.0">але створює випадковий I/O.</tspan></text>
+<rect x="505.0" y="60.0" width="215.0" height="450.0" rx="8" fill="#f4f6f8" stroke="#8e44ad" stroke-width="2.0"/>
+<rect x="505.0" y="60.0" width="215.0" height="65.0" rx="8" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="612.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">Index Only Scan</text>
+<text x="612.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Виключно за індексом</text>
+<rect x="515.0" y="140.0" width="195.0" height="160.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="530.0" y="170.0" width="70.0" height="50.0" rx="3" fill="#f5eefb" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="565.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Листок</text>
+<text x="565.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle">Ключ + Поля</text>
+<rect x="620.0" y="170.0" width="70.0" height="50.0" rx="3" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="655.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Карта VM</text>
+<text x="655.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">all-visible: 1</text>
+<text x="612.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">Читання з купи = 0</text>
+<text x="612.5" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">дані зібрано з індексу</text>
+<rect x="515.0" y="315.0" width="195.0" height="195.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="612.5" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="612.5" dy="0.0">Усі потрібні поля є в індексі.</tspan><tspan x="612.5" dy="13.0">Дані таблиці не читаються,</tspan><tspan x="612.5" dy="13.0">якщо карта видимості (VM)</tspan><tspan x="612.5" dy="13.0">підтверджує актуальність</tspan><tspan x="612.5" dy="13.0">сторінки для всіх транзакцій.</tspan></text>
+<rect x="740.0" y="60.0" width="215.0" height="450.0" rx="8" fill="#f4f6f8" stroke="#d97706" stroke-width="2.0"/>
+<rect x="740.0" y="60.0" width="215.0" height="65.0" rx="8" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="847.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">Bitmap Scan</text>
+<text x="847.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Двоетапна вибірка</text>
+<rect x="750.0" y="140.0" width="195.0" height="160.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="760.0" y="158.0" width="155.0" height="38.0" rx="3" fill="#fef5e7" stroke="#d97706" stroke-width="1.2"/>
+<text x="837.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Bitmap у RAM</text>
+<text x="837.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Page 2: [..] | Page 7: [..]</text>
+<line x1="837.0" y1="198.0" x2="837.0" y2="220.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="765.0" y="225.0" width="42.0" height="40.0" rx="2" fill="#fdfaf3" stroke="#333333" stroke-width="1.0"/>
+<text x="786.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P 2</text>
+<rect x="865.0" y="225.0" width="42.0" height="40.0" rx="2" fill="#fdfaf3" stroke="#333333" stroke-width="1.0"/>
+<text x="886.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P 7</text>
+<text x="847.5" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-style="italic">сортований I/O по сторінках</text>
+<rect x="750.0" y="315.0" width="195.0" height="195.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="847.5" y="392.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="847.5" dy="0.0">Етап 1: BitmapIndexScan збирає</tspan><tspan x="847.5" dy="11.7">номери сторінок у бітову мапу.</tspan><tspan x="847.5" dy="11.7">Етап 2: BitmapHeapScan сортує</tspan><tspan x="847.5" dy="11.7">номери сторінок і читає таблицю</tspan><tspan x="847.5" dy="11.7">впорядковано без зайвих повернень.</tspan></text>
+</svg>

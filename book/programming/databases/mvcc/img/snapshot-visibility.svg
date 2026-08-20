@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+<style>
+  .bar { fill: #1e293b; stroke: #64748b; stroke-width: 1.5; rx: 6px; }
+  .zone-past { fill: #064e3b; opacity: 0.7; rx: 6px; }
+  .zone-active { fill: #78350f; opacity: 0.7; }
+  .zone-future { fill: #7f1d1d; opacity: 0.7; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .marker { stroke: #38bdf8; stroke-dasharray: 4; stroke-width: 2; }
+</style>
+<rect width="800" height="300" fill="#0b0f19" rx="12" />
+<text x="30" y="35" class="txt-bold" font-size="16">Правило видимості знімка: Snapshot(xmin=100, xmax=120, active=[105, 115])</text>
+<text x="30" y="55" class="txt-muted">Вісь транзакційних ідентифікаторів (XID) та класифікація видимості кортежів</text>
+<rect x="50" y="100" width="700" height="50" class="bar" />
+<rect x="50" y="100" width="230" height="50" class="zone-past" />
+<rect x="280" y="100" width="240" height="50" class="zone-active" />
+<rect x="520" y="100" width="230" height="50" class="zone-future" />
+<line x1="280" y1="80" x2="280" y2="180" class="marker" />
+<text x="250" y="75" class="txt-bold" fill="#38bdf8">xmin = 100</text>
+<line x1="520" y1="80" x2="520" y2="180" class="marker" />
+<text x="490" y="75" class="txt-bold" fill="#38bdf8">xmax = 120</text>
+<text x="80" y="130" class="txt-bold" fill="#34d399">XID &lt; 100: Зафіксовані</text>
+<text x="80" y="145" class="txt-muted">Повністю ВИДИМІ</text>
+<text x="320" y="125" class="txt-bold" fill="#fbbf24">100 ≤ XID &lt; 120</text>
+<text x="295" y="142" class="txt-muted">Активні [105, 115]: НЕВИДИМІ</text>
+<text x="560" y="130" class="txt-bold" fill="#f87171">XID ≥ 120: Майбутні</text>
+<text x="560" y="145" class="txt-muted">Повністю НЕВИДИМІ</text>
+<g transform="translate(50, 190)">
+  <rect width="210" height="80" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6" />
+  <text x="15" y="25" class="txt-bold" fill="#34d399">✓ T95 (XID=95)</text>
+  <text x="15" y="45" class="txt">Зафіксована до xmin</text>
+  <text x="15" y="65" class="txt-muted">Результат: ВИДИМО</text>
+</g>
+<g transform="translate(295, 190)">
+  <rect width="210" height="80" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" rx="6" />
+  <text x="15" y="25" class="txt-bold" fill="#f87171">✗ T105 (В активних)</text>
+  <text x="15" y="45" class="txt">Виконується паралельно</text>
+  <text x="15" y="65" class="txt-muted">Результат: НЕВИДИМО</text>
+</g>
+<g transform="translate(540, 190)">
+  <rect width="210" height="80" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" rx="6" />
+  <text x="15" y="25" class="txt-bold" fill="#f87171">✗ T125 (XID ≥ xmax)</text>
+  <text x="15" y="45" class="txt">Почалася після знімка</text>
+  <text x="15" y="65" class="txt-muted">Результат: НЕВИДИМО</text>
+</g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запобігання стрибкам прокрутки при зміні розміру елементів над вікном</text>
+<rect x="50.0" y="70.0" width="430.0" height="490.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="265.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">БЕЗ ЯКІРНОЇ ФІКСАЦІЇ (Стрибок)</text>
+<rect x="80.0" y="125.0" width="370.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="265.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Item 0 (над екраном): було h = 50 px</text>
+<rect x="80.0" y="185.0" width="370.0" height="90.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="265.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Item 0 заміряно: h = 150 px (+100 px)</text>
+<text x="265.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Завантажилась картинка / розкрився текст</text>
+<text x="265.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Зсув усіх наступних елементів зріс на +100 px!</text>
+<rect x="80.0" y="290.0" width="370.0" height="120.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="265.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">scrollTop залишається старим (наприклад 300 px)</text>
+<text x="265.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вміст вікна різко зсунувся вниз на 100 px</text>
+<text x="265.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">Користувач втратив місце читання! (Стрибок)</text>
+<rect x="80.0" y="430.0" width="370.0" height="110.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="265.0" y="465.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Наслідок:</tspan><tspan x="265.0" dy="15.6">• Текст тікає з-під очей читача</tspan><tspan x="265.0" dy="15.6">• Клік потрапляє по іншій кнопці</tspan><tspan x="265.0" dy="15.6">• Неможливо читати при підвантаженні контенту</tspan></text>
+<rect x="540.0" y="70.0" width="430.0" height="490.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="755.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ЗІ SCROLL ANCHORING (Стабільність)</text>
+<rect x="570.0" y="125.0" width="370.0" height="60.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="755.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1. Фіксація якоря перед рендером:</text>
+<text x="755.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Якір = перший видимий елемент (Item 2)</text>
+<rect x="570.0" y="195.0" width="370.0" height="80.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="755.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Замір нових висот (ResizeObserver):</text>
+<text x="755.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Item 0 виріс: Δh = +100 px</text>
+<text x="755.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Нове зміщення якоря = old_offset + 100 px</text>
+<rect x="570.0" y="285.0" width="370.0" height="125.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="755.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Миттєва компенсація прокрутки:</text>
+<text x="755.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">scrollTop_new = scrollTop_old + Δh</text>
+<text x="755.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">300 px + 100 px = 400 px</text>
+<text x="755.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Виконується синхронно до показу кадру</text>
+<rect x="570.0" y="430.0" width="370.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="755.0" y="465.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Результат компенсації:</tspan><tspan x="755.0" dy="15.6">• Відносне положення якоря у вікні не змінилося</tspan><tspan x="755.0" dy="15.6">• Око користувача не помічає перебудови зверху</tspan><tspan x="755.0" dy="15.6">• Ідеально стабільний скрол у чатах і стрічках</tspan></text>
+</svg>

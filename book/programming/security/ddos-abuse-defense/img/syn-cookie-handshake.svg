@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безстанкове встановлення TCP-з'єднання за допомогою SYN Cookies</text>
+<rect x="40.0" y="30.0" width="160.0" height="45.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="120.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (або Ботнет)</text>
+<rect x="560.0" y="30.0" width="160.0" height="45.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="640.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервер із SYN Cookies</text>
+<line x1="120.0" y1="75.0" x2="120.0" y2="340.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="640.0" y1="75.0" x2="640.0" y2="340.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="120.0" y1="105.0" x2="640.0" y2="105.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. TCP SYN (seq = client_isn, mss = 1460)</text>
+<rect x="480.0" y="125.0" width="250.0" height="70.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="605.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">СТАН НЕ ЗБЕРІГАЄТЬСЯ В RAM!</text>
+<text x="605.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cookie = [ t (3b) | m (3b) | MAC (26b) ]</text>
+<text x="605.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">MAC = Hash(src, dst, port, t, secret)</text>
+<line x1="640.0" y1="215.0" x2="120.0" y2="215.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. TCP SYN-ACK (seq = Cookie, ack = client_isn + 1)</text>
+<text x="210.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Спуфінг: ACK ніколи не надійде → нуль витоку пам'яті сервера</text>
+<line x1="120.0" y1="275.0" x2="640.0" y2="275.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. TCP ACK (seq = client_isn + 1, ack = Cookie + 1)</text>
+<rect x="480.0" y="290.0" width="250.0" height="50.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="605.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Звірка MAC над (ack - 1) та часом t</text>
+<text x="605.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Створення struct sock лише зараз!</text>
+</svg>

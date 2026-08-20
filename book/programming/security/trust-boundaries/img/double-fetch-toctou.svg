@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атака подвійної вибірки (Double-Fetch) через межу спільної пам'яті</text>
+<rect x="30.0" y="45.0" width="310.0" height="235.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="185.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Простір користувача (Ring 3)</text>
+<text x="185.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільна пам'ять або буфер виклику</text>
+<rect x="50.0" y="110.0" width="270.0" height="70.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="185.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct Request { uint32_t size; void* ptr; }</text>
+<text x="185.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Початково: size = 64  (Перевірка пройшла)</text>
+<text x="185.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Атака: потік мутує size = 0xFFFFFFFF!</text>
+<text x="185.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Паралельний ворожий потік</text>
+<text x="185.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Мутує пам'ять у шпарині між</text>
+<text x="185.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">перевіркою та використанням</text>
+<line x1="370.0" y1="30.0" x2="370.0" y2="290.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="370.0" y="20.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Межа User / Kernel</text>
+<rect x="400.0" y="45.0" width="330.0" height="235.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="565.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Простір ядра (Ring 0)</text>
+<rect x="420.0" y="95.0" width="290.0" height="45.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="565.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Перша вибірка (Check):</text>
+<text x="565.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Зчитує size (64). Перевірка: 64 &lt;= MAX_BUF (OK)</text>
+<text x="565.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">⏱ Шпарина гонки TOCTOU (Race Window)</text>
+<rect x="420.0" y="175.0" width="290.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="565.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2. Друга вибірка (Use):</text>
+<text x="565.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Зчитує size вдруге (0xFFFFFFFF) → переповнення!</text>
+<rect x="420.0" y="230.0" width="290.0" height="40.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="565.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Захист: копіювання в локальний стек якраз 1 раз</text>
+<text x="565.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">copy_from_user() перед будь-якою валідацією!</text>
+<line x1="320.0" y1="130.0" x2="415.0" y2="115.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="155.0" x2="415.0" y2="195.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

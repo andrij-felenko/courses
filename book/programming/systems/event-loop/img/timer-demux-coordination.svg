@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як черга таймерів керує сном у epoll_wait</text>
+<rect x="20.0" y="50.0" width="250.0" height="210.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="145.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Мін-купа таймерів (Min-Heap)</text>
+<line x1="35.0" y1="85.0" x2="255.0" y2="85.0" stroke="#c5d8fb" stroke-width="1.5"/>
+<rect x="35.0" y="98.0" width="220.0" height="36.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="145.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Найближчий: t = 1000.045 s</text>
+<text x="145.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">через 45 мс (вершина купи)</text>
+<rect x="35.0" y="142.0" width="220.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="145.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">t = 1000.120 s (+120 ms)</text>
+<rect x="35.0" y="180.0" width="220.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="145.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">t = 1001.500 s (+1500 ms)</text>
+<text x="145.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поточний час: now = 1000.000 s</text>
+<line x1="270.0" y1="116.0" x2="320.0" y2="116.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="320.0" y="75.0" width="190.0" height="85.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="415.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Обчислення таймауту:</text>
+<text x="415.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">timeout = 1000.045 - now</text>
+<text x="415.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">timeout = 45 мс</text>
+<line x1="510.0" y1="116.0" x2="560.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="50.0" width="240.0" height="210.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="680.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Системний виклик ядра</text>
+<text x="680.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">epoll_wait(epfd, evs, max, 45)</text>
+<line x1="575.0" y1="108.0" x2="785.0" y2="108.0" stroke="#c8ebd8" stroke-width="1.5"/>
+<rect x="575.0" y="120.0" width="210.0" height="55.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="680.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Сценарій А: Прийшов пакет сокета</text>
+<text x="680.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пробудження за 12 мс</text>
+<text x="680.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обробляємо сокет, таймер чекає</text>
+<rect x="575.0" y="185.0" width="210.0" height="55.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="680.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Сценарій Б: Немає подій I/O</text>
+<text x="680.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пробудження рівно через 45 мс</text>
+<text x="680.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виконуємо колбек таймера</text>
+</svg>

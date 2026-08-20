@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння багатопроцесної та багатопотокової архітектури</text>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурний компроміс: ізоляція надійності проти ефективності спільного доступу</text>
+<rect x="50.0" y="50.0" width="355.0" height="280.0" rx="10" fill="#faf5ff" stroke="#9333ea" stroke-width="1.8"/>
+<text x="227.5" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9333ea" text-anchor="middle" font-weight="700">Багатопроцесна модель (Multi-Process)</text>
+<text x="227.5" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Chrome, PostgreSQL, Nginx, мікросервіси</text>
+<rect x="62.0" y="104.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.0"/>
+<text x="70.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Ізоляція збоїв (Fault Isolation)</text>
+<text x="70.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">падіння однієї вкладки не вбиває весь браузер</text>
+<rect x="62.0" y="147.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.0"/>
+<text x="70.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Безпека та пісочниця (Sandboxing)</text>
+<text x="70.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">обмеження прав через seccomp, namespaces</text>
+<rect x="62.0" y="190.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.0"/>
+<text x="70.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Простота очищення пам'яті</text>
+<text x="70.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ядро гарантовано звільняє ресурси при exit()</text>
+<rect x="62.0" y="233.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.0"/>
+<text x="70.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Висока ціна комунікації (IPC)</text>
+<text x="70.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">потрібні сокети, канали або спільна пам'ять</text>
+<rect x="62.0" y="276.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.0"/>
+<text x="70.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Більший розхід RAM</text>
+<text x="70.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">кожен процес має власні таблиці сторінок</text>
+<rect x="435.0" y="50.0" width="355.0" height="280.0" rx="10" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="612.5" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Багатопотокова модель (Multi-Threaded)</text>
+<text x="612.5" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Ігрові рушії, СУБД (MySQL), обчислювальні пули</text>
+<rect x="447.0" y="104.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="455.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Нульова ціна спільного доступу</text>
+<text x="455.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">читання/запис за прямими покажчиками</text>
+<rect x="447.0" y="147.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="455.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Швидке створення та перемикання</text>
+<text x="455.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">пул потоків працює з мікросекундними затримками</text>
+<rect x="447.0" y="190.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="455.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Мінімальний оверхед пам'яті</text>
+<text x="455.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">лише стек (кілька КБ/МБ) без дублювання структур</text>
+<rect x="447.0" y="233.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="455.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Спільна зона ураження (No blast radius)</text>
+<text x="455.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Segmentation fault в одному потоці вбиває процес</text>
+<rect x="447.0" y="276.0" width="331.0" height="38.0" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="455.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Складність синхронізації</text>
+<text x="455.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">перегони даних, дедлоки, потреба в замках</text>
+<text x="420.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Вибір між процесами й потоками — це баланс між захистом від збоїв та швидкістю обміну даними</text>
+</svg>

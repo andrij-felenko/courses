@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння периметрової моделі та Zero Trust</text>
+<rect x="20.0" y="20.0" width="385.0" height="320.0" rx="10" fill="#fdf2f2" stroke="#e05252" stroke-width="1.8"/>
+<text x="212.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">Периметрова модель («Замок і рів»)</text>
+<text x="212.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Довіра за мережевим розташуванням (L3/VPN)</text>
+<rect x="35.0" y="85.0" width="355.0" height="36.0" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="212.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Корпоративний периметр (VPN / Firewall / DMZ)</text>
+<rect x="35.0" y="135.0" width="355.0" height="190.0" rx="6" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="212.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня «довірена» мережа (Flat LAN)</text>
+<rect x="50.0" y="175.0" width="130.0" height="60.0" rx="6" fill="#fecaca" stroke="#dc2626" stroke-width="1.5"/>
+<text x="115.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Скомпрометований</text>
+<text x="115.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">вузол / ноутбук</text>
+<rect x="240.0" y="175.0" width="135.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="307.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній сервіс A</text>
+<text x="307.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">без автентифікації</text>
+<rect x="145.0" y="255.0" width="145.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="217.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">База даних / Секрети</text>
+<text x="217.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">статичні паролі</text>
+<line x1="180.0" y1="205.0" x2="235.0" y2="205.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="115.0" y1="235.0" x2="150.0" y2="255.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="195.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">Вільний рух (Lateral Movement)</text>
+<rect x="435.0" y="20.0" width="385.0" height="320.0" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.8"/>
+<text x="627.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Архітектура нульової довіри (Zero Trust)</text>
+<text x="627.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Жодної неявної довіри: перевірка кожного виклику</text>
+<rect x="450.0" y="90.0" width="160.0" height="105.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+<text x="530.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт / Ворклоад</text>
+<rect x="460.0" y="125.0" width="140.0" height="30.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="530.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">SVID / mTLS Client</text>
+<text x="530.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Постійна атестація</text>
+<rect x="645.0" y="90.0" width="160.0" height="105.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+<text x="725.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс API</text>
+<rect x="655.0" y="125.0" width="140.0" height="30.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="725.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">L7 PEP / Envoy Proxy</text>
+<text x="725.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка токена й прав</text>
+<line x1="610.0" y1="140.0" x2="640.0" y2="140.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="627.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">mTLS</text>
+<rect x="450.0" y="220.0" width="355.0" height="105.0" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="627.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">Контрольна площина: PDP / Identity Provider</text>
+<text x="627.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Динамічна оцінка контексту: стан пристрою, роль, ризик</text>
+<line x1="530.0" y1="195.0" x2="530.0" y2="215.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="195.0" x2="725.0" y2="215.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="627.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0369a1" text-anchor="middle" font-style="italic">Короткоживучі сертифікати й правила Just-In-Time</text>
+</svg>

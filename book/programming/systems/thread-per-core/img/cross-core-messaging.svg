@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Між'ядерна комунікація: асинхронні черги SPSC та маршрутизація запитів</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Мережева карта розподіляє трафік через RSS; взаємодія між шардами виконується без замків</text>
+<rect x="40.0" y="80.0" width="800.0" height="48.0" rx="6" fill="#f0f4f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="100.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Мережева карта (NIC) із підтримкою Receive Side Scaling (RSS) / Flow Director</tspan><tspan x="440.0" dy="13.7">Апаратне хешування TCP кортежу (IP:Port) -&gt; розкидання пакетів по апаратних чергах RX</tspan></text>
+<line x1="220.0" y1="130.0" x2="220.0" y2="160.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="130.0" x2="660.0" y2="160.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="175.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">RX Queue 0</text>
+<text x="615.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">RX Queue 1</text>
+<rect x="40.0" y="165.0" width="360.0" height="165.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="220.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Ядро 0 (Потік 0 / Шард 0)</text>
+<rect x="55.0" y="195.0" width="330.0" height="36.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="220.0" y="216.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Event Loop (io_uring / epoll): отримано запит</text>
+<rect x="55.0" y="238.0" width="330.0" height="45.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="220.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#caa24a" text-anchor="middle"><tspan x="220.0" dy="0.0">Ключ запиту належить Шарду 1 (hash(K) % N == 1)</tspan><tspan x="220.0" dy="11.7">Прямий доступ до чужої пам'яті ЗАБОРОНЕНО!</tspan><tspan x="220.0" dy="11.7">Формування асинхронного повідомлення Msg</tspan></text>
+<rect x="55.0" y="290.0" width="330.0" height="30.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="220.0" y="308.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Швидкий запис у SPSC кільцевий буфер (Push)</text>
+<rect x="415.0" y="200.0" width="50.0" height="100.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="440.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SPSC</text>
+<text x="440.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Ring</text>
+<text x="440.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Buffer</text>
+<line x1="387.0" y1="240.0" x2="413.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="467.0" y1="240.0" x2="493.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="480.0" y="165.0" width="360.0" height="165.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="660.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Ядро 1 (Потік 1 / Шард 1)</text>
+<rect x="495.0" y="195.0" width="330.0" height="36.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="660.0" y="216.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Event Loop: пакетоване вилучення (Pop Batch)</text>
+<rect x="495.0" y="238.0" width="330.0" height="45.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="660.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle"><tspan x="660.0" dy="0.0">Виконання операції над локальним Шардом 1</tspan><tspan x="660.0" dy="11.7">Локальний L1/L2 кеш, нуль блокувань</tspan><tspan x="660.0" dy="11.7">Формування результату (Response)</tspan></text>
+<rect x="495.0" y="290.0" width="330.0" height="30.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="660.0" y="308.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асинхронне повернення результату через ф'ючерс</text>
+<rect x="40.0" y="350.0" width="800.0" height="47.7" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="440.0" y="370.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Кожне ядро обробляє лише свої дані (no-sharing). Повідомлення передаються через SPSC кільце.</tspan><tspan x="440.0" dy="14.3">Пакетування блоків та вирівнювання кеш-ліній усувають накладні витрати на бар'єри.</tspan></text>
+</svg>

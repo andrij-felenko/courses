@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вектори атак на фазах ланцюга постачання програмного забезпечення</text>
+<rect x="20.0" y="45.0" width="190.0" height="290.0" rx="8" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="115.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Джерела та залежності</text>
+<rect x="240.0" y="45.0" width="190.0" height="290.0" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+<text x="335.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">2. Збирання та CI/CD</text>
+<rect x="460.0" y="45.0" width="190.0" height="290.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="555.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Реєстр і збереження</text>
+<rect x="670.0" y="45.0" width="190.0" height="290.0" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="1.5"/>
+<text x="765.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#be185d" text-anchor="middle" font-weight="700">4. Розгортання й запуск</text>
+<line x1="210.0" y1="100.0" x2="240.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="100.0" x2="460.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="100.0" x2="680.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="77.3" width="170.0" height="45.3" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/><text x="115.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">Вихідний код + Git</tspan><tspan x="115.0" dy="14.3">Сторонні пакунки</tspan></text>
+<rect x="30.0" y="150.0" width="170.0" height="170.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="115.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вектори загроз:</text>
+<text x="115.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Typosquatting у пакунках</text>
+<text x="115.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Dependency Confusion</text>
+<text x="115.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Злам акаунта автора</text>
+<text x="115.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Прихований бекдор у Git</text>
+<text x="115.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Нефіксовані версії</text>
+<text x="115.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">(SolarWinds, Event-Stream)</text>
+<rect x="250.0" y="77.3" width="170.0" height="45.3" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/><text x="335.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">Конвеєр CI / Runner</tspan><tspan x="335.0" dy="14.3">Компілятор і лінкер</tspan></text>
+<rect x="250.0" y="150.0" width="170.0" height="170.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="335.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вектори загроз:</text>
+<text x="335.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Злам середовища збирання</text>
+<text x="335.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Ін'єкція в процеси білду</text>
+<text x="335.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Викрадення секретів CI</text>
+<text x="335.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Недетерміністичний білд</text>
+<text x="335.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Отруєння кешу залежностей</text>
+<text x="335.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">(Codecov, XZ Utils)</text>
+<rect x="470.0" y="77.3" width="170.0" height="45.3" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="555.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="555.0" dy="0.0">Реєстр артефактів</tspan><tspan x="555.0" dy="14.3">OCI Image / Helm / Deb</tspan></text>
+<rect x="470.0" y="150.0" width="170.0" height="170.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="555.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вектори загроз:</text>
+<text x="555.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Підміна бінарного образу</text>
+<text x="555.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Зміна тегу (tag mutability)</text>
+<text x="555.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Фальсифікація метаданих</text>
+<text x="555.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Перехоплення трафіку MitM</text>
+<text x="555.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Витік приватного ключа</text>
+<text x="555.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">(Підпис без прозорості)</text>
+<rect x="680.0" y="77.3" width="170.0" height="45.3" rx="6" fill="#ffffff" stroke="#be185d" stroke-width="1.2"/><text x="765.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="765.0" dy="0.0">Kubernetes / Вузол</tspan><tspan x="765.0" dy="14.3">Контролер допуску</tspan></text>
+<rect x="680.0" y="150.0" width="170.0" height="170.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="765.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вектори загроз:</text>
+<text x="765.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Запуск неперевіреного образу</text>
+<text x="765.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Обхід політик контролера</text>
+<text x="765.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• TOCTOU між перевіркою й пулом</text>
+<text x="765.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Невідомий склад компонентів</text>
+<text x="765.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Сліпа довіра без атестації</text>
+<text x="765.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">(Експлуатація CVE в рантаймі)</text>
+</svg>

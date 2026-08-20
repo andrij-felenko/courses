@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будова FlatBuffers: зв'язок таблиці екземпляра з таблицею віртуальних зсувів</text>
+<rect x="30.0" y="40.0" width="920.0" height="52.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="490.0" y="62.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">FlatBuffers: таблиця звертається до полів через від'ємний зсув до таблиці віртуальних зсувів (Vtable).</tspan><tspan x="490.0" dy="15.6">Відсутні поля мають зсув 0 (рантайм повертає дефолт), нові поля дописуються у Vtable без зсуву старих.</tspan></text>
+<rect x="35.0" y="150.0" width="420.0" height="340.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="245.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Таблиця віртуальних зсувів (Vtable)</text>
+<text x="245.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">значення у 16-бітних словах (uint16_t)</text>
+<rect x="50.0" y="215.0" width="180.0" height="36.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="140.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">vtable_size = 12 B</text>
+<text x="240.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">довжина vtable у байтах</text>
+<rect x="50.0" y="257.0" width="180.0" height="36.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="140.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">table_size = 16 B</text>
+<text x="240.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">розмір даних таблиці</text>
+<rect x="50.0" y="299.0" width="180.0" height="36.0" rx="4" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="140.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">offset_field_0 = 4</text>
+<text x="240.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув поля #0: hp (+4 B)</text>
+<rect x="50.0" y="341.0" width="180.0" height="36.0" rx="4" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="140.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">offset_field_1 = 8</text>
+<text x="240.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув поля #1: mana (+8 B)</text>
+<rect x="50.0" y="383.0" width="180.0" height="36.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.3"/>
+<text x="140.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">offset_field_2 = 0</text>
+<text x="240.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">поле #2 відсутнє (дефолт)</text>
+<rect x="50.0" y="425.0" width="180.0" height="36.0" rx="4" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="140.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">offset_field_3 = 12</text>
+<text x="240.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув поля #3: name (+12 B)</text>
+<rect x="515.0" y="150.0" width="430.0" height="340.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="730.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Дані таблиці (Table Data Instance)</text>
+<text x="730.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">покажчик `root` вказує на початок цієї таблиці</text>
+<rect x="530.0" y="215.0" width="210.0" height="46.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="635.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">soffset_to_vtable = −28</text>
+<text x="750.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув назад до vtable (int32)</text>
+<rect x="530.0" y="270.0" width="210.0" height="46.0" rx="4" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="635.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">hp = 100 (uint32_t)</text>
+<text x="750.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">поле #0 за зсувом +4 B</text>
+<rect x="530.0" y="325.0" width="210.0" height="46.0" rx="4" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="635.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">mana = 50 (uint32_t)</text>
+<text x="750.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">поле #1 за зсувом +8 B</text>
+<rect x="530.0" y="380.0" width="210.0" height="46.0" rx="4" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="635.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">uoffset_to_name = +24</text>
+<text x="750.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">поле #3: зсув до рядка (+12 B)</text>
+<line x1="530.0" y1="238.0" x2="445.0" y2="225.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="485.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">soffset</text>
+<line x1="440.0" y1="322.0" x2="530.0" y2="295.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="505.0" width="920.0" height="56.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.4"/><text x="490.0" y="536.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Еволюція схеми: старий код читає нові повідомлення (ігнорує нові поля у vtable), новий код читає старі (бачить зсув 0 або vtable_size &lt; потрібного зсуву і бере константу за замовчуванням).</tspan></text>
+</svg>

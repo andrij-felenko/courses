@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол коректної зупинки (Graceful Shutdown &amp; Queue Drain)</text>
+<text x="450.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Як зупинити пул заблокованих споживачів без дедлоків, витоків ресурсів та втрати залишкових даних</text>
+<rect x="35.0" y="80.0" width="185.0" height="245.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="35.0" y="80.0" width="185.0" height="42.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="127.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Крок 1: Сигнал</text>
+<text x="127.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Ініціація завершення</text>
+<text x="127.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Виробник завершує</text>
+<text x="127.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">роботу й виставляє</text>
+<text x="127.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">прапорець:</text>
+<text x="127.5" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">is_shutdown = true</text>
+<text x="127.5" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(або надсилає</text>
+<text x="127.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">маркер Poison Pill).</text>
+<line x1="223.0" y1="202.5" x2="242.0" y2="202.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="245.0" y="80.0" width="185.0" height="245.0" rx="8" fill="#ffffff" stroke="#e67e22" stroke-width="1.8"/>
+<rect x="245.0" y="80.0" width="185.0" height="42.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.5"/>
+<text x="337.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">Крок 2: Сповіщення</text>
+<text x="337.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Широкомовний сигнал</text>
+<text x="337.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e67e22" text-anchor="middle" font-weight="700">Виклик notify_all()</text>
+<text x="337.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">на cv not_empty.</text>
+<text x="337.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Усі сплячі споживачі</text>
+<text x="337.5" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">одночасно виходять</text>
+<text x="337.5" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">зі стану сну на</text>
+<text x="337.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">умовній змінній.</text>
+<line x1="433.0" y1="202.5" x2="452.0" y2="202.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="455.0" y="80.0" width="185.0" height="245.0" rx="8" fill="#ffffff" stroke="#d35400" stroke-width="1.8"/>
+<rect x="455.0" y="80.0" width="185.0" height="42.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="547.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Крок 3: Вичитка</text>
+<text x="547.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Вичерпання (Drain)</text>
+<text x="547.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Споживачі НЕ виходять</text>
+<text x="547.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">одразу: у циклі</text>
+<text x="547.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle" font-weight="700">доки !queue.empty()</text>
+<text x="547.5" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">вони опрацьовують усі</text>
+<text x="547.5" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">залишкові задачі</text>
+<text x="547.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">в буфері.</text>
+<line x1="643.0" y1="202.5" x2="662.0" y2="202.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="665.0" y="80.0" width="185.0" height="245.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="665.0" y="80.0" width="185.0" height="42.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="757.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 4: Фінал</text>
+<text x="757.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Безпечний join()</text>
+<text x="757.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Коли черга порожня й</text>
+<text x="757.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">is_shutdown == true,</text>
+<text x="757.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">потоки завершують</text>
+<text x="757.5" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">функцію потоку.</text>
+<text x="757.5" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Головний потік робить</text>
+<text x="757.5" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">thread.join().</text>
+<rect x="30.0" y="355.0" width="840.0" height="47.7" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="375.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Грубе переривання (pthread_cancel/terminate) призводить до розірваних інваріантів та витоків дескрипторів.</tspan><tspan x="450.0" dy="14.3">Коректний протокол гарантує 100% обробку накопичених у черзі повідомлень перед зупиненням процесу.</tspan></text>
+</svg>

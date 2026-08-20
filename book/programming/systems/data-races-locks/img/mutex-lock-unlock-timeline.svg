@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 802.4 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="802.4" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Взаємне виключення та зв'язок «happens-before» через замок</text>
+<line x1="60.0" y1="300.0" x2="740.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="750.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t</text>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">Потік A</text>
+<line x1="130.0" y1="85.0" x2="720.0" y2="85.0" stroke="#e2e8f0" stroke-width="2.0"/>
+<text x="120.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end" font-weight="700">Потік B</text>
+<line x1="130.0" y1="195.0" x2="720.0" y2="195.0" stroke="#e2e8f0" stroke-width="2.0"/>
+<rect x="150.0" y="69.0" width="230.0" height="32.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="2.0"/>
+<text x="265.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">Критична секція A (замок захоплено)</text>
+<rect x="240.0" y="179.0" width="150.0" height="32.0" rx="4" fill="#fef3c7" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="315.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Блокований (спить в ОС)</text>
+<rect x="390.0" y="179.0" width="260.0" height="32.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="520.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="middle" font-weight="700">Критична секція B (замок захоплено)</text>
+<line x1="240.0" y1="173.0" x2="240.0" y2="179.0" stroke="#e08a1e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="240.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">mutex.lock()</text>
+<line x1="380.0" y1="101.0" x2="390.0" y2="179.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="150.0" y="125.0" width="215.0" height="44.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="257.5" y="144.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700"><tspan x="257.5" dy="0.0">Синхронізація (happens-before)</tspan><tspan x="257.5" dy="11.7">Усі записи A стають видимими для B</tspan></text>
+<text x="150.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">mutex.lock()</text>
+<text x="380.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">mutex.unlock()</text>
+<text x="650.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">mutex.unlock()</text>
+</svg>

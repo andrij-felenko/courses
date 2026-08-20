@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -10 852 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-12" y="-10" width="852" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залежність затримки та вартості від розміру батчу</text>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компроміс розміру порції (Batch Size): затримка доставки проти накладних витрат</text>
+<line x1="110.0" y1="360.0" x2="770.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="110.0" y1="360.0" x2="110.0" y2="80.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="770.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">Розмір порції / Інтервал запуску (W) →</text>
+<text x="94.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end"><tspan x="94.0" dy="0.0">Питомі витрати /</tspan><tspan x="94.0" dy="15.6">Затримка даних</tspan></text>
+<path d="M130 330 L 730 120" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="720.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">Затримка доступності даних (Latency ~ W)</text>
+<path d="M130 110 Q 210 300 730 325" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<text x="290.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Накладні витрати I/O на 1 запис (~ 1/W)</text>
+<path d="M130 100 Q 310 330 730 130" fill="none" stroke="#27ae60" stroke-width="2.8" stroke-dasharray="5 3"/>
+<text x="720.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">Сумарна ціна обробки й затримки</text>
+<circle cx="325.0" cy="262.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="325.0" y1="262.0" x2="325.0" y2="360.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="325.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="325.0" dy="0.0">Оптимум</tspan><tspan x="325.0" dy="14.3">мікробатчу</tspan></text>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <style>
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 6px; }
+    .box-kv { fill: #1a2332; stroke: #58a6ff; stroke-width: 1.5; rx: 6px; }
+    .box-doc { fill: #13271f; stroke: #3fb950; stroke-width: 1.5; rx: 6px; }
+    .box-col { fill: #2b2216; stroke: #d29922; stroke-width: 1.5; rx: 6px; }
+    .box-graph { fill: #261b2d; stroke: #bc8cff; stroke-width: 1.5; rx: 6px; }
+    .text-title { fill: #58a6ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: bold; font-size: 13px; }
+    .text-body { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    .text-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="25" text-anchor="middle" class="text-title" font-size="15">Чотири базові моделі даних NoSQL</text>
+
+  <!-- 1. Key-Value -->
+  <g transform="translate(30, 45)">
+    <rect width="170" height="290" class="box-kv"/>
+    <text x="85" y="25" text-anchor="middle" class="text-title" fill="#58a6ff">1. Key-Value</text>
+    <text x="85" y="45" text-anchor="middle" class="text-sub">Redis, DynamoDB</text>
+    
+    <rect x="15" y="65" width="140" height="70" class="box"/>
+    <text x="85" y="90" text-anchor="middle" class="text-body" fill="#58a6ff">"user:101"</text>
+    <text x="85" y="115" text-anchor="middle" class="text-body">-> "0xAF312..."</text>
+
+    <text x="20" y="160" class="text-body">• Прямий доступ O(1)</text>
+    <text x="20" y="185" class="text-body">• Простий CRUD за ключем</text>
+    <text x="20" y="210" class="text-body">• Кешування, сесії</text>
+    <text x="85" y="260" text-anchor="middle" class="text-body" fill="#3fb950">Максимальний RPS</text>
+  </g>
+
+  <!-- 2. Document -->
+  <g transform="translate(220, 45)">
+    <rect width="170" height="290" class="box-doc"/>
+    <text x="85" y="25" text-anchor="middle" class="text-title" fill="#3fb950">2. Document</text>
+    <text x="85" y="45" text-anchor="middle" class="text-sub">MongoDB, Couchbase</text>
+    
+    <rect x="15" y="65" width="140" height="70" class="box"/>
+    <text x="85" y="85" text-anchor="middle" class="text-body" fill="#3fb950">{ id: 101,</text>
+    <text x="85" y="105" text-anchor="middle" class="text-body">  name: "Alex",</text>
+    <text x="85" y="125" text-anchor="middle" class="text-body">  tags: [...] }</text>
+
+    <text x="20" y="160" class="text-body">• Вкладені JSON/BSON</text>
+    <text x="20" y="185" class="text-body">• Гнучка динамічна схема</text>
+    <text x="20" y="210" class="text-body">• Вторинні індекси</text>
+    <text x="85" y="260" text-anchor="middle" class="text-body" fill="#3fb950">Ієрархічні дані</text>
+  </g>
+
+  <!-- 3. Wide-Column -->
+  <g transform="translate(410, 45)">
+    <rect width="170" height="290" class="box-col"/>
+    <text x="85" y="25" text-anchor="middle" class="text-title" fill="#d29922">3. Wide-Column</text>
+    <text x="85" y="45" text-anchor="middle" class="text-sub">Cassandra, ScyllaDB</text>
+    
+    <rect x="15" y="65" width="140" height="70" class="box"/>
+    <text x="85" y="85" text-anchor="middle" class="text-body" fill="#d29922">Row: "sensor_42"</text>
+    <text x="85" y="105" text-anchor="middle" class="text-body">t1: 22.4 | t2: 22.5</text>
+    <text x="85" y="125" text-anchor="middle" class="text-body">t3: 22.8 | ...</text>
+
+    <text x="20" y="160" class="text-body">• Мільярди колонок</text>
+    <text x="20" y="185" class="text-body">• Розподілене сортування</text>
+    <text x="20" y="210" class="text-body">• Часові ряди, IoT</text>
+    <text x="85" y="260" text-anchor="middle" class="text-body" fill="#3fb950">Високий Write Rate</text>
+  </g>
+
+  <!-- 4. Graph -->
+  <g transform="translate(600, 45)">
+    <rect width="170" height="290" class="box-graph"/>
+    <text x="85" y="25" text-anchor="middle" class="text-title" fill="#bc8cff">4. Graph</text>
+    <text x="85" y="45" text-anchor="middle" class="text-sub">Neo4j, Amazon Neptune</text>
+    
+    <rect x="15" y="65" width="140" height="70" class="box"/>
+    <circle cx="45" cy="100" r="14" fill="#1f2937" stroke="#bc8cff"/>
+    <text x="45" y="104" text-anchor="middle" class="text-body">A</text>
+    <line x1="59" y1="100" x2="111" y2="100" stroke="#bc8cff" stroke-width="1.5"/>
+    <circle cx="125" cy="100" r="14" fill="#1f2937" stroke="#bc8cff"/>
+    <text x="125" y="104" text-anchor="middle" class="text-body">B</text>
+
+    <text x="20" y="160" class="text-body">• Вершини та ребра</text>
+    <text x="20" y="185" class="text-body">• Безблокувальний обхід</text>
+    <text x="20" y="210" class="text-body">• Соцмережі, антифрод</text>
+    <text x="85" y="260" text-anchor="middle" class="text-body" fill="#3fb950">Складні зв'язки</text>
+  </g>
+</svg>

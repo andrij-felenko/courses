@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура пулу потоків</text>
+<rect x="40.0" y="60.0" width="160.0" height="310.0" rx="10" fill="#f4f7fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Потоки-клієнти</text>
+<text x="120.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Producers / Виробники)</text>
+<rect x="55.0" y="135.0" width="130.0" height="34.0" rx="6" fill="#ffffff" stroke="#c8d6e5" stroke-width="1.2"/>
+<text x="120.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запит від мережі</text>
+<rect x="55.0" y="181.0" width="130.0" height="34.0" rx="6" fill="#ffffff" stroke="#c8d6e5" stroke-width="1.2"/>
+<text x="120.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Таймерна подія</text>
+<rect x="55.0" y="227.0" width="130.0" height="34.0" rx="6" fill="#ffffff" stroke="#c8d6e5" stroke-width="1.2"/>
+<text x="120.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Фоновий розрахунок</text>
+<rect x="55.0" y="273.0" width="130.0" height="34.0" rx="6" fill="#ffffff" stroke="#c8d6e5" stroke-width="1.2"/>
+<text x="120.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Подія інтерфейсу</text>
+<line x1="200.0" y1="215.0" x2="270.0" y2="215.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="235.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">submit()</text>
+<rect x="275.0" y="60.0" width="260.0" height="310.0" rx="10" fill="#fdfbf7" stroke="#d35400" stroke-width="1.8"/>
+<text x="405.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Обмежена черга завдань</text>
+<text x="405.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Mutex + Condition Variables</text>
+<rect x="295.0" y="135.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#e0b88f" stroke-width="1.4"/>
+<text x="405.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Завдання #4</text>
+<rect x="295.0" y="181.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#e0b88f" stroke-width="1.4"/>
+<text x="405.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Завдання #3</text>
+<rect x="295.0" y="227.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#e0b88f" stroke-width="1.4"/>
+<text x="405.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Завдання #2</text>
+<rect x="295.0" y="273.0" width="220.0" height="34.0" rx="6" fill="#fdeed9" stroke="#d35400" stroke-width="1.4"/>
+<text x="405.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Завдання #1 (голова)</text>
+<rect x="295.0" y="320.0" width="220.0" height="36.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="405.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Переповнення: Backpressure / Reject</text>
+<line x1="535.0" y1="215.0" x2="605.0" y2="215.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="570.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">pop()</text>
+<rect x="610.0" y="60.0" width="230.0" height="310.0" rx="10" fill="#f2faf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="725.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Потоки-робітники (Pool)</text>
+<text x="725.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Фіксована кількість N_threads</text>
+<rect x="625.0" y="135.0" width="200.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="675.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робітник #1</text>
+<text x="775.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Обчислення</text>
+<rect x="625.0" y="181.0" width="200.0" height="34.0" rx="6" fill="#ffffff" stroke="#00838f" stroke-width="1.4"/>
+<text x="675.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робітник #2</text>
+<text x="775.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#00838f" text-anchor="middle" font-weight="700">Очікування</text>
+<rect x="625.0" y="227.0" width="200.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="675.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робітник #3</text>
+<text x="775.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Обчислення</text>
+<rect x="625.0" y="273.0" width="200.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="675.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робітник #4</text>
+<text x="775.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Спить</text>
+<rect x="625.0" y="320.0" width="200.0" height="36.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="725.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Завершення: Drain / Graceful Stop</text>
+<text x="440.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Клієнти ставлять задачі в синхронізовану чергу; постійні потоки витягують і виконують їх без створення нових потоків ОС</text>
+</svg>

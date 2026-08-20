@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="430.0" height="440.0" rx="10" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="255.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">STA: Однопотоковий апартамент (Single-Threaded)</text>
+<rect x="65.0" y="95.0" width="380.0" height="80.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="255.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Виділений потік користувацького інтерфейсу (UI Thread)</text>
+<text x="255.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Цикл обробки повідомлень: GetMessage / DispatchMessage</text>
+<rect x="65.0" y="190.0" width="380.0" height="90.0" rx="6" fill="#fbf4db" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приховане системне вікно (Hidden HWND)</text>
+<text x="255.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вхідні виклики з інших потоків чергуються як</text>
+<text x="255.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">повідомлення WM_USER у черзі потоку</text>
+<rect x="65.0" y="295.0" width="380.0" height="165.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="255.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">COM-об'єкт в STA</text>
+<text x="255.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виконується СТРОГО в одному потоці</text>
+<text x="255.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Потокобезпека без внутрішніх м'ютексів</text>
+<text x="255.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Небезпека: блокування потоку зупиняє весь UI</text>
+<text x="255.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Вхідний виклик викликає реентрабельність повідомлень</text>
+<rect x="570.0" y="40.0" width="430.0" height="440.0" rx="10" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<text x="785.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">MTA: Багатопотоковий апартамент (Multi-Threaded)</text>
+<rect x="595.0" y="95.0" width="380.0" height="80.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="785.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Пул робочих потоків (Worker Threads)</text>
+<text x="785.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Потік 1, Потік 2, Потік N заходять паралельно</text>
+<rect x="595.0" y="190.0" width="380.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="785.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прямий паралельний виклик методів</text>
+<text x="785.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Немає циклу Windows Messages</text>
+<text x="785.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Виклики не серіалізуються чергою</text>
+<rect x="595.0" y="295.0" width="380.0" height="165.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="785.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">COM-об'єкт в MTA</text>
+<text x="785.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одночасний доступ з багатьох ядер</text>
+<text x="785.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ОБОВ'ЯЗКОВА синхронізація:</text>
+<text x="785.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">CRITICAL_SECTION, SRWLock, Interlocked</text>
+<text x="785.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Висока пропускна здатність на серверах</text>
+<line x1="470.0" y1="230.0" x2="570.0" y2="230.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="260.0" x2="470.0" y2="260.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="450.0" y="120.0" width="140.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="520.0" y="140.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Міжпотоковий</tspan><tspan x="520.0" dy="13.7">маршалінг</tspan><tspan x="520.0" dy="13.7">(Proxy / Stub)</tspan><tspan x="520.0" dy="13.7">CoMarshal...</tspan></text>
+<rect x="40.0" y="495.0" width="960.0" height="48.0" rx="6" fill="#fbf4db" stroke="#333333" stroke-width="1.5"/><text x="520.0" y="523.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Пряма передача сирого вказівника між апартаментами ЗАБОРОНЕНА. COM створює проксі для безпечного перемикання контексту потоків.</tspan></text>
+</svg>

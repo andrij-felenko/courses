@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .panel-bad { fill: #1e293b; stroke: #ef4444; stroke-width: 1.8; rx: 8px; }
+  .panel-good { fill: #1e293b; stroke: #10b981; stroke-width: 1.8; rx: 8px; }
+  .hdr-bad { fill: #450a0a; stroke: #ef4444; stroke-width: 1; rx: 6px; }
+  .hdr-good { fill: #064e3b; stroke: #10b981; stroke-width: 1; rx: 6px; }
+  .node { fill: #334155; stroke: #64748b; stroke-width: 1.2; rx: 4px; }
+  .node-bad { fill: #7f1d1d; stroke: #ef4444; stroke-width: 1.5; rx: 4px; }
+  .node-good { fill: #065f46; stroke: #34d399; stroke-width: 1.5; rx: 4px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-title { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; }
+  .txt-danger { fill: #f87171; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .txt-success { fill: #34d399; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+</style>
+<rect width="920" height="360" class="bg" />
+<text x="30" y="32" class="txt-title">Пастка унікальних індексів (Unique Constraint Trap) та рішення через часткові індекси</text>
+<text x="30" y="52" class="txt-muted">Конфлікт повторної реєстрації видаленого користувача з тим самим email у B-Tree</text>
+
+<!-- Ліва колонка: Проблема зі звичайним UNIQUE -->
+<g transform="translate(30, 75)">
+  <rect width="415" height="260" class="panel-bad" />
+  <rect x="10" y="10" width="395" height="32" class="hdr-bad" />
+  <text x="20" y="31" class="txt-bold" fill="#f87171">Звичайний індекс: CREATE UNIQUE INDEX (email)</text>
+  
+  <text x="20" y="65" class="txt-bold">Вміст B-Tree індексу:</text>
+  <rect x="20" y="75" width="375" height="32" class="node" />
+  <text x="30" y="96" class="txt">Key: 'alice@ex.com' → Ptr: Row #1 (Живий)</text>
+  
+  <rect x="20" y="115" width="375" height="32" class="node-bad" />
+  <text x="30" y="136" class="txt-danger">Key: 'bob@ex.com' → Ptr: Row #2 (М'яко видалений!)</text>
+  
+  <text x="20" y="170" class="txt-bold">Нова операція:</text>
+  <text x="20" y="190" class="txt">INSERT INTO users (email) VALUES ('bob@ex.com')</text>
+  
+  <rect x="20" y="202" width="375" height="42" fill="#450a0a" stroke="#ef4444" stroke-width="1" rx="4" />
+  <text x="30" y="220" class="txt-danger">💥 ERROR: duplicate key value violates unique constraint</text>
+  <text x="30" y="236" class="txt-muted">Індекс не знає, що Row #2 позначено як deleted_at!</text>
+</g>
+
+<!-- Права колонка: Рішення через Partial Index -->
+<g transform="translate(475, 75)">
+  <rect width="415" height="260" class="panel-good" />
+  <rect x="10" y="10" width="395" height="32" class="hdr-good" />
+  <text x="20" y="31" class="txt-bold" fill="#34d399">Частковий індекс: ... WHERE deleted_at IS NULL</text>
+  
+  <text x="20" y="65" class="txt-bold">Вміст B-Tree індексу (Тільки активні!):</text>
+  <rect x="20" y="75" width="375" height="32" class="node" />
+  <text x="30" y="96" class="txt">Key: 'alice@ex.com' → Ptr: Row #1 (Живий)</text>
+  
+  <rect x="20" y="115" width="375" height="32" class="node-good" />
+  <text x="30" y="136" class="txt-success">М'яко видалений Row #2 взагалі НЕ потрапляє в індекс!</text>
+  
+  <text x="20" y="170" class="txt-bold">Нова операція:</text>
+  <text x="20" y="190" class="txt">INSERT INTO users (email) VALUES ('bob@ex.com')</text>
+  
+  <rect x="20" y="202" width="375" height="42" fill="#064e3b" stroke="#10b981" stroke-width="1" rx="4" />
+  <text x="30" y="220" class="txt-success">✓ SUCCESS: Новий запис успішно додано до B-Tree</text>
+  <text x="30" y="236" class="txt-muted">Індекс менший на 30-70% і не блокує повторні реєстрації</text>
+</g>
+</svg>

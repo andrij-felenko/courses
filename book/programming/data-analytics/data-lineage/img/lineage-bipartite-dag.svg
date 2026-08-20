@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 894.2 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="894.2" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двочастковий граф Data Lineage (Dataset ↔ Job)</text>
+<rect x="40.0" y="50.0" width="24.0" height="16.0" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="72.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Набір даних (Dataset)</text>
+<rect x="240.0" y="50.0" width="24.0" height="16.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="272.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Завдання / Запит (Job / Process)</text>
+<rect x="460.0" y="45.0" width="180.0" height="30.0" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="620.0" y1="60.0" x2="480.0" y2="60.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="550.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Upstream (Root Cause)</text>
+<rect x="660.0" y="45.0" width="180.0" height="30.0" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="680.0" y1="60.0" x2="820.0" y2="60.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="750.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Downstream (Impact)</text>
+<rect x="62.4" y="127.3" width="95.2" height="45.3" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="110.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">raw_orders</tspan><tspan x="110.0" dy="14.3">(PostgreSQL)</tspan></text>
+<rect x="56.1" y="237.3" width="107.8" height="45.3" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="110.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">fx_rates</tspan><tspan x="110.0" dy="14.3">(External API)</tspan></text>
+<rect x="59.2" y="347.4" width="101.5" height="45.3" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="110.0" y="366.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">crm_users</tspan><tspan x="110.0" dy="14.3">(Kafka Topic)</tspan></text>
+<rect x="238.7" y="178.5" width="122.6" height="43.0" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="300.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">dbt: stg_orders</tspan><tspan x="300.0" dy="13.0">(SQL Clean &amp; Join)</tspan></text>
+<rect x="238.7" y="348.5" width="122.6" height="43.0" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="300.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Spark: user_enrich</tspan><tspan x="300.0" dy="13.0">(Streaming job)</tspan></text>
+<line x1="180.0" y1="150.0" x2="230.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="260.0" x2="230.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="370.0" x2="220.0" y2="370.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="429.8" y="177.3" width="120.3" height="45.3" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="490.0" y="196.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">stg_orders_clean</tspan><tspan x="490.0" dy="14.3">(Parquet / Lake)</tspan></text>
+<rect x="433.0" y="347.4" width="114.0" height="45.3" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="490.0" y="366.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">dim_customers</tspan><tspan x="490.0" dy="14.3">(Iceberg Table)</tspan></text>
+<line x1="370.0" y1="200.0" x2="420.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="375.0" y1="370.0" x2="420.0" y2="370.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="581.6" y="258.5" width="156.8" height="43.0" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="660.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">dbt: fct_revenue_monthly</tspan><tspan x="660.0" dy="13.0">(Aggregation &amp; Grouping)</tspan></text>
+<line x1="560.0" y1="215.0" x2="595.0" y2="265.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="355.0" x2="595.0" y2="295.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="745.9" y="198.5" width="128.3" height="43.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="810.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">fct_monthly_revenue</tspan><tspan x="810.0" dy="13.0">(Datamart Table)</tspan></text>
+<rect x="745.9" y="318.5" width="128.3" height="43.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/><text x="810.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">Executive Dashboard</tspan><tspan x="810.0" dy="13.0">(BI Metrics Sheet)</tspan></text>
+<line x1="725.0" y1="265.0" x2="755.0" y2="235.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="295.0" x2="755.0" y2="330.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">In-band проти Out-of-band сигналізації відсутності значення</text>
+<line x1="380.0" y1="40.0" x2="380.0" y2="330.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="190.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">In-band (внутрішньосмугова)</text>
+<text x="190.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Одне спільне поле: дані + сигнал відсутності</text>
+<rect x="50.0" y="85.0" width="280.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="50.0" y="85.0" width="200.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="250.0" y="85.0" width="80.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="150.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Дійсні значення (0..254)</text>
+<text x="290.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">−1 / 0xFF</text>
+<text x="290.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">вартовий краде 1 стан</text>
+<rect x="50.0" y="170.0" width="280.0" height="140.0" rx="6" fill="#fffaf9" stroke="#c0392b" stroke-width="1.4"/><text x="190.0" y="189.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Плюси:</tspan><tspan x="190.0" dy="15.6">• 0 байтів оверхеду пам'яті</tspan><tspan x="190.0" dy="15.6">• Працює у примітивних типах</tspan><tspan x="190.0" dy="15.6"></tspan><tspan x="190.0" dy="15.6">Мінуси:</tspan><tspan x="190.0" dy="15.6">• Втрата валідного значення</tspan><tspan x="190.0" dy="15.6">• Можна забути перевірити (баг)</tspan><tspan x="190.0" dy="15.6">• Плутанина між даними й помилкою</tspan></text>
+<text x="570.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Out-of-band (позасмугова)</text>
+<text x="570.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Окремий канал: статус існує окремо від даних</text>
+<rect x="430.0" y="85.0" width="90.0" height="48.0" rx="6" fill="#ebfbee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="475.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Тег статусу</text>
+<text x="475.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Some / None</text>
+<rect x="530.0" y="85.0" width="180.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="620.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Повний діапазон типу T</text>
+<text x="620.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">усі 256/4G станів доступні</text>
+<rect x="430.0" y="170.0" width="280.0" height="140.0" rx="6" fill="#f6fcf8" stroke="#27ae60" stroke-width="1.4"/><text x="570.0" y="189.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">Плюси:</tspan><tspan x="570.0" dy="15.6">• Безпека на рівні типів</tspan><tspan x="570.0" dy="15.6">• Жодне число не втрачається</tspan><tspan x="570.0" dy="15.6">• Компілятор змушує перевіряти</tspan><tspan x="570.0" dy="15.6"></tspan><tspan x="570.0" dy="15.6">Мінуси:</tspan><tspan x="570.0" dy="15.6">• Додаткова пам'ять (+паддінг)</tspan><tspan x="570.0" dy="15.6">• Потрібна підтримка мови / Option</tspan></text>
+</svg>

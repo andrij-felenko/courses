@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура розділення привілеїв (Privilege Separation)</text>
+<rect x="30.0" y="45.0" width="140.0" height="120.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="100.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Мережевий трафік</text>
+<text x="100.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сирі байти від</text>
+<text x="100.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">віддаленого клієнта</text>
+<text x="100.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">(Потенційний експлойт)</text>
+<line x1="170.0" y1="105.0" x2="215.0" y2="105.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="220.0" y="45.0" width="230.0" height="120.0" rx="8" fill="#f0f9ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="335.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ізольований парсер (Worker)</text>
+<text x="335.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">UID: nobody, chroot(/var/empty)</text>
+<text x="335.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Seccomp: read, write, exit_group</text>
+<text x="335.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Заборонено: open, exec, socket</text>
+<text x="335.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Злам тут НЕ дає доступу до ОС!</text>
+<line x1="470.0" y1="30.0" x2="470.0" y2="185.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="470.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Межа IPC</text>
+<line x1="450.0" y1="105.0" x2="485.0" y2="105.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="470.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">IPC</text>
+<rect x="490.0" y="45.0" width="240.0" height="120.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="610.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Привілейований брокер (Master)</text>
+<text x="610.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">UID: root (керує ключами)</text>
+<text x="610.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Валідує десеріалізований DTO</text>
+<text x="610.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Відкриває ресурси на замовлення</text>
+<text x="610.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">НЕ парсить сирий мережевий потік</text>
+<rect x="30.0" y="195.0" width="700.0" height="95.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="380.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип двоконтурного розділення привілеїв (OpenSSH / Chromium Model):</text>
+<text x="380.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Складний парсинг і обробка вхідних даних замкнені у безпривілейованому Seccomp-фільтрі.</text>
+<text x="380.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Привілейований процес виконує лише тривіальну перевірку суворо типізованих повідомлень через сокет.</text>
+<text x="380.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">• Компрометація воркера через переповнення буфера стримується ядром і не виходить за межі пісочниці.</text>
+</svg>

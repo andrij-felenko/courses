@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл запиту: від тексту SQL до виконання</text>
+<rect x="40.0" y="110.0" width="140.0" height="170.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="110.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">SQL-запит</text>
+<line x1="52.0" y1="154.0" x2="168.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="48.0" y="165.0" width="124.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Декларативний опис:</tspan><tspan x="110.0" dy="11.7">що саме вибрати,</tspan><tspan x="110.0" dy="11.7">без вказівки як</tspan></text>
+<line x1="184.0" y1="195.0" x2="226.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="110.0" width="140.0" height="170.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="300.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Парсер та аналіз</text>
+<line x1="242.0" y1="154.0" x2="358.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="238.0" y="165.0" width="124.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Синтаксичний аналіз,</tspan><tspan x="300.0" dy="11.7">перевірка типів і назв,</tspan><tspan x="300.0" dy="11.7">побудова дерева AST</tspan></text>
+<line x1="374.0" y1="195.0" x2="416.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="420.0" y="110.0" width="140.0" height="170.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="490.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Переписувач</text>
+<line x1="432.0" y1="154.0" x2="548.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="428.0" y="165.0" width="124.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Розгортання в'ю,</tspan><tspan x="490.0" dy="11.7">спрощення виразів,</tspan><tspan x="490.0" dy="11.7">проштовхування фільтрів</tspan></text>
+<line x1="564.0" y1="195.0" x2="606.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="610.0" y="110.0" width="140.0" height="170.0" rx="8" fill="#eef9f1" stroke="#27ae60" stroke-width="2.5"/>
+<text x="680.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Оптимізатор (CBO)</text>
+<line x1="622.0" y1="154.0" x2="738.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="618.0" y="165.0" width="124.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="680.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Простір планів,</tspan><tspan x="680.0" dy="11.7">оцінка селективності,</tspan><tspan x="680.0" dy="11.7">розрахунок вартості</tspan></text>
+<line x1="754.0" y1="195.0" x2="796.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="800.0" y="110.0" width="140.0" height="170.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="870.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Рушій виконання</text>
+<line x1="812.0" y1="154.0" x2="928.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="808.0" y="165.0" width="124.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="870.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Ітератор Volcano:</tspan><tspan x="870.0" dy="11.7">вузли викликають next(),</tspan><tspan x="870.0" dy="11.7">повертаючи кортежі</tspan></text>
+<rect x="590.0" y="340.0" width="180.0" height="95.0" rx="6" fill="#fdfaf3" stroke="#d97706" stroke-width="1.5"/>
+<text x="680.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Системний каталог</text>
+<rect x="596.0" y="374.0" width="168.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="680.0" y="392.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Гістограми розподілу,</tspan><tspan x="680.0" dy="11.7">списки частих значень (MCV),</tspan><tspan x="680.0" dy="11.7">кількість сторінок і кортежів</tspan></text>
+<line x1="680.0" y1="336.0" x2="680.0" y2="284.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="735.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-style="italic">статистика</text>
+<text x="135.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">текст</text>
+<text x="325.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">AST</text>
+<text x="515.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">логічний план</text>
+<text x="705.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">фізичний план</text>
+</svg>

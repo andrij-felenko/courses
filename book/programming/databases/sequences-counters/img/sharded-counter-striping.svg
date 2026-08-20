@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+  .slot { fill: #0f172a; stroke: #3b82f6; stroke-width: 1.5; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-mono { fill: #f8fafc; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 12px; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .arrow { stroke: #38bdf8; stroke-width: 1.5; fill: none; marker-end: url(#ah); }
+  .arrow-sum { stroke: #10b981; stroke-width: 2; fill: none; marker-end: url(#ag); }
+</style>
+<defs>
+  <marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#38bdf8" /></marker>
+  <marker id="ag" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#10b981" /></marker>
+</defs>
+<rect width="880" height="320" class="bg" />
+<text x="30" y="32" class="txt-bold" font-size="16">Архітектура шардованого лічильника (Striped Counter)</text>
+<text x="30" y="52" class="txt-muted">Розподіл інкрементів по N незалежних комірках усуває блокування ексклюзивного рядка</text>
+
+<!-- Клієнтські потоки запису -->
+<g transform="translate(30, 80)">
+  <rect width="140" height="40" class="panel" stroke="#38bdf8" />
+  <text x="15" y="25" class="txt-bold" fill="#38bdf8">Клієнт 1 (+1)</text>
+
+  <rect y="60" width="140" height="40" class="panel" stroke="#38bdf8" />
+  <text x="15" y="85" class="txt-bold" fill="#38bdf8">Клієнт 2 (+1)</text>
+
+  <rect y="120" width="140" height="40" class="panel" stroke="#38bdf8" />
+  <text x="15" y="145" class="txt-bold" fill="#38bdf8">Клієнт 3 (+1)</text>
+
+  <rect y="180" width="140" height="40" class="panel" stroke="#38bdf8" />
+  <text x="15" y="205" class="txt-bold" fill="#38bdf8">Клієнт K (+1)</text>
+</g>
+
+<!-- Стрілки вибору слота -->
+<path d="M 170 100 L 250 100" class="arrow" />
+<path d="M 170 160 L 250 140" class="arrow" />
+<path d="M 170 220 L 250 180" class="arrow" />
+<path d="M 170 280 L 250 220" class="arrow" />
+
+<text x="180" y="85" class="txt-muted">hash(tid) % N</text>
+
+<!-- Шарди лічильника в таблиці / пам'яті -->
+<g transform="translate(255, 75)">
+  <rect width="320" height="225" class="panel" stroke="#3b82f6" />
+  <text x="15" y="25" class="txt-bold" fill="#60a5fa">Шарди лічильника (N слотів без спільних блокувань)</text>
+
+  <rect x="15" y="38" width="290" height="38" class="slot" />
+  <text x="25" y="62" class="txt-mono">Слот #0: val = 14,208  [Рядок / Шард 0]</text>
+
+  <rect x="15" y="82" width="290" height="38" class="slot" />
+  <text x="25" y="106" class="txt-mono">Слот #1: val = 14,195  [Рядок / Шард 1]</text>
+
+  <rect x="15" y="126" width="290" height="38" class="slot" />
+  <text x="25" y="150" class="txt-mono">Слот #2: val = 14,212  [Рядок / Шард 2]</text>
+
+  <rect x="15" y="170" width="290" height="38" class="slot" />
+  <text x="25" y="194" class="txt-mono">Слот #3: val = 14,201  [Рядок / Шард 3]</text>
+</g>
+
+<!-- Стрілка об'єднання -->
+<path d="M 575 185 L 635 185" class="arrow-sum" />
+<text x="582" y="175" class="txt-bold" fill="#34d399">SUM()</text>
+
+<!-- Фінальне читання -->
+<g transform="translate(640, 130)">
+  <rect width="210" height="110" class="panel" stroke="#10b981" />
+  <text x="15" y="28" class="txt-bold" fill="#34d399">Операція читання</text>
+  <text x="15" y="55" class="txt-mono">SELECT SUM(val)</text>
+  <text x="15" y="75" class="txt-mono">FROM counter_shards</text>
+  <text x="15" y="98" class="txt-bold" fill="#f8fafc">Разом: 56,816</text>
+</g>
+</svg>

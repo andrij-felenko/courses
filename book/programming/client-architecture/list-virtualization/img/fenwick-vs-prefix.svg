@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння структур для підтримки динамічних висот елементів</text>
+<rect x="50.0" y="70.0" width="430.0" height="460.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="265.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПЛОСКИЙ МАСИВ ПРЕФІКСІВ</text>
+<rect x="75.0" y="120.0" width="380.0" height="80.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="265.0" y="147.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Запит зміщення (Offset Query):</tspan><tspan x="265.0" dy="16.9">• offset[i] читається за O(1)</tspan><tspan x="265.0" dy="16.9">• Двійковий пошук діапазону: O(log N)</tspan></text>
+<rect x="75.0" y="215.0" width="380.0" height="140.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="265.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Оновлення висоти (Height Update):</tspan><tspan x="265.0" dy="15.6">• Зміна h[k] на Δh вимагає зсуву ВСІХ наступних сум:</tspan><tspan x="265.0" dy="15.6">  for i = k+1 to N-1: offset[i] += Δh</tspan><tspan x="265.0" dy="15.6">• Складність оновлення: O(N)</tspan><tspan x="265.0" dy="15.6">• Для N = 100 000 це 100 000 операцій запису!</tspan></text>
+<rect x="75.0" y="375.0" width="380.0" height="130.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="265.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскадне оновлення (Ripple Effect):</text>
+<rect x="95.0" y="430.0" width="60.0" height="40.0" rx="3" fill="#fecaca" stroke="#c0392b" stroke-width="1.0"/>
+<text x="125.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">h[k]</text>
+<line x1="160.0" y1="450.0" x2="185.0" y2="450.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="190.0" y="430.0" width="70.0" height="40.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="225.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">+Δ</text>
+<line x1="265.0" y1="450.0" x2="290.0" y2="450.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="295.0" y="430.0" width="70.0" height="40.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="330.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">+Δ</text>
+<line x1="370.0" y1="450.0" x2="395.0" y2="450.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">… O(N)</text>
+<rect x="520.0" y="70.0" width="430.0" height="460.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="735.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">ДЕРЕВО ФЕНВІКА (FENWICK TREE)</text>
+<rect x="545.0" y="120.0" width="380.0" height="80.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="735.0" y="147.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Запит префіксної суми (Prefix Query):</tspan><tspan x="735.0" dy="16.9">• Спуск по бітовому розкладу (i -= i &amp; -i)</tspan><tspan x="735.0" dy="16.9">• Складність запиту: O(log N)</tspan></text>
+<rect x="545.0" y="215.0" width="380.0" height="140.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="735.0" y="255.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Оновлення висоти (Height Update):</tspan><tspan x="735.0" dy="16.9">• Оновлюються лише предки у дереві (i += i &amp; -i)</tspan><tspan x="735.0" dy="16.9">• Складність оновлення: O(log N)</tspan><tspan x="735.0" dy="16.9">• Для N = 100 000 це щонайбільше ~17 операцій!</tspan><tspan x="735.0" dy="16.9">• Пам'ять: рівно N чисел (O(N) без вказівників)</tspan></text>
+<rect x="545.0" y="375.0" width="380.0" height="130.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="735.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двійкове розповсюдження оновлення:</text>
+<rect x="565.0" y="430.0" width="60.0" height="40.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="595.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Node</text>
+<line x1="630.0" y1="450.0" x2="665.0" y2="450.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="670.0" y="430.0" width="70.0" height="40.0" rx="3" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="705.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">+LSB</text>
+<line x1="745.0" y1="450.0" x2="780.0" y2="450.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="785.0" y="430.0" width="70.0" height="40.0" rx="3" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="820.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">+LSB</text>
+<text x="885.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">≤ 17 кроків</text>
+</svg>

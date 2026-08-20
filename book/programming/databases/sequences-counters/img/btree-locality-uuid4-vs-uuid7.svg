@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .card-err { fill: #1e293b; stroke: #ef4444; stroke-width: 1.5; rx: 8px; }
+  .card-ok { fill: #1e293b; stroke: #10b981; stroke-width: 1.5; rx: 8px; }
+  .page { fill: #334155; stroke: #64748b; stroke-width: 1; rx: 4px; }
+  .page-split { fill: #7f1d1d; stroke: #ef4444; stroke-width: 1.5; rx: 4px; }
+  .page-tail { fill: #064e3b; stroke: #10b981; stroke-width: 1.5; rx: 4px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .txt-red { fill: #f87171; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .txt-green { fill: #34d399; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .arrow-red { stroke: #ef4444; stroke-width: 1.5; fill: none; marker-end: url(#ar); }
+  .arrow-green { stroke: #10b981; stroke-width: 1.5; fill: none; marker-end: url(#ag); }
+</style>
+<defs>
+  <marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#ef4444" /></marker>
+  <marker id="ag" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#10b981" /></marker>
+</defs>
+<rect width="880" height="320" class="bg" />
+<text x="30" y="32" class="txt-bold" font-size="16">Поведінка B-Tree індексу: випадковий UUIDv4 проти час-сортованого UUIDv7 / Snowflake</text>
+<text x="30" y="52" class="txt-muted">Випадкові вставки призводять до лавиноподібного розщеплення сторінок та деградації буферного пулу</text>
+
+<!-- UUIDv4 -->
+<g transform="translate(30, 75)">
+  <rect width="400" height="225" class="card-err" />
+  <text x="20" y="28" class="txt-bold" fill="#f87171">UUIDv4 (Повністю випадковий розподіл)</text>
+  
+  <rect x="20" y="45" width="70" height="45" class="page-split" />
+  <text x="30" y="65" class="txt">Сторінка 1</text>
+  <text x="30" y="80" class="txt-muted">50% fill</text>
+
+  <rect x="100" y="45" width="70" height="45" class="page-split" />
+  <text x="110" y="65" class="txt">Сторінка 2</text>
+  <text x="110" y="80" class="txt-muted">50% fill</text>
+
+  <rect x="180" y="45" width="70" height="45" class="page-split" />
+  <text x="190" y="65" class="txt">Сторінка 3</text>
+  <text x="190" y="80" class="txt-muted">Page Split!</text>
+
+  <rect x="260" y="45" width="70" height="45" class="page-split" />
+  <text x="270" y="65" class="txt">Сторінка 4</text>
+  <text x="270" y="80" class="txt-muted">50% fill</text>
+
+  <path d="M 135 100 L 135 118" class="arrow-red" />
+  <path d="M 215 100 L 215 118" class="arrow-red" />
+
+  <text x="20" y="135" class="txt-red">Випадкова адресація = постійний Random I/O</text>
+  <text x="20" y="157" class="txt">• Лавинне розщеплення B-Tree сторінок (Page Splits)</text>
+  <text x="20" y="177" class="txt">• Ефективність заповнення сторінок падає до ~50%</text>
+  <text x="20" y="197" class="txt">• Вимивання гарячого кешу в Buffer Pool RAM</text>
+</g>
+
+<!-- UUIDv7 / Snowflake -->
+<g transform="translate(450, 75)">
+  <rect width="400" height="225" class="card-ok" />
+  <text x="20" y="28" class="txt-bold" fill="#34d399">UUIDv7 / Snowflake (Час-сортований ID)</text>
+  
+  <rect x="20" y="45" width="70" height="45" class="page" />
+  <text x="30" y="65" class="txt">Сторінка 1</text>
+  <text x="30" y="80" class="txt-green">95% fill</text>
+
+  <rect x="100" y="45" width="70" height="45" class="page" />
+  <text x="110" y="65" class="txt">Сторінка 2</text>
+  <text x="110" y="80" class="txt-green">95% fill</text>
+
+  <rect x="180" y="45" width="70" height="45" class="page" />
+  <text x="190" y="65" class="txt">Сторінка 3</text>
+  <text x="190" y="80" class="txt-green">95% fill</text>
+
+  <rect x="260" y="45" width="90" height="45" class="page-tail" />
+  <text x="270" y="65" class="txt">Хвіст дерева</text>
+  <text x="270" y="80" class="txt-green">Right-Append</text>
+
+  <path d="M 305 100 L 305 118" class="arrow-green" />
+
+  <text x="20" y="135" class="txt-green">Строго монотонна дозапис у правий край (Append-Only)</text>
+  <text x="20" y="157" class="txt">• Нуль розщеплень проміжних вузлів</text>
+  <text x="20" y="177" class="txt">• Максимальна щільність заповнення сторінок (~95–99%)</text>
+  <text x="20" y="197" class="txt">• Всі вставки потрапляють у єдину гарячу сторінку в RAM</text>
+</g>
+</svg>

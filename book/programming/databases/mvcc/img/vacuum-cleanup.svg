@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="100%" height="100%">
+<style>
+  .box { fill: #1e293b; stroke: #64748b; stroke-width: 1.5; rx: 6px; }
+  .box-purge { fill: #3b0764; stroke: #a855f7; stroke-width: 2; stroke-dasharray: 4; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .line-threshold { stroke: #ef4444; stroke-width: 2; stroke-dasharray: 6; }
+</style>
+<rect width="800" height="280" fill="#0b0f19" rx="12" />
+<text x="30" y="35" class="txt-bold" font-size="16">Очищення застарілих версій (Vacuum / Purge) та поріг OldestXmin</text>
+<text x="30" y="55" class="txt-muted">Версії з xmax &lt; OldestXmin стають мертвими для всіх активних транзакцій та видаляються</text>
+<line x1="420" y1="80" x2="420" y2="240" class="line-threshold" />
+<text x="430" y="100" class="txt-bold" fill="#ef4444">OldestXmin = 200</text>
+<text x="430" y="118" class="txt-muted">Найстарша активна транзакція</text>
+<g transform="translate(40, 120)">
+  <rect width="160" height="110" class="box-purge" />
+  <text x="12" y="25" class="txt-bold" fill="#c084fc">Мертва версія 1</text>
+  <text x="12" y="50" class="txt">xmin: 120, xmax: 150</text>
+  <text x="12" y="70" class="txt-muted">xmax (150) &lt; 200</text>
+  <text x="12" y="95" class="txt-bold" fill="#ef4444">🗑️ ПРИБИРАЄТЬСЯ</text>
+</g>
+<g transform="translate(220, 120)">
+  <rect width="160" height="110" class="box-purge" />
+  <text x="12" y="25" class="txt-bold" fill="#c084fc">Мертва версія 2</text>
+  <text x="12" y="50" class="txt">xmin: 150, xmax: 180</text>
+  <text x="12" y="70" class="txt-muted">xmax (180) &lt; 200</text>
+  <text x="12" y="95" class="txt-bold" fill="#ef4444">🗑️ ПРИБИРАЄТЬСЯ</text>
+</g>
+<g transform="translate(440, 120)">
+  <rect width="160" height="110" class="box" stroke="#3b82f6" stroke-width="2" />
+  <text x="12" y="25" class="txt-bold" fill="#60a5fa">Потрібна версія</text>
+  <text x="12" y="50" class="txt">xmin: 180, xmax: 220</text>
+  <text x="12" y="70" class="txt-muted">xmax (220) ≥ 200</text>
+  <text x="12" y="95" class="txt-bold" fill="#38bdf8">🔒 ЗБЕРІГАЄТЬСЯ</text>
+</g>
+<g transform="translate(615, 120)">
+  <rect width="150" height="110" class="box" stroke="#10b981" stroke-width="2" />
+  <text x="12" y="25" class="txt-bold" fill="#34d399">Поточна жива</text>
+  <text x="12" y="50" class="txt">xmin: 220, xmax: 0</text>
+  <text x="12" y="70" class="txt-muted">xmax = 0 (Активна)</text>
+  <text x="12" y="95" class="txt-bold" fill="#34d399">✓ АКТИВНА</text>
+</g>
+</svg>

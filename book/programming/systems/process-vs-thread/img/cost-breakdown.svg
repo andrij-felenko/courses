@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння вартості перемикання контексту</text>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія витрат: перемикання контексту процесу проти потоку</text>
+<rect x="50.0" y="50.0" width="340.0" height="260.0" rx="10" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="220.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Перемикання між ПОТОКАМИ</text>
+<text x="220.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(в межах одного процесу)</text>
+<rect x="62.0" y="110.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="70.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Зберегти регістри CPU (PC, SP, R0..R15)</text>
+<text x="70.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">кілька десятків наносекунд</text>
+<rect x="62.0" y="148.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="70.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Залишити таблицю сторінок (CR3 без змін)</text>
+<text x="70.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 нс (той самий адресний простір)</text>
+<rect x="62.0" y="186.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="70.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Зберегти кеш трансляцій (TLB валідний)</text>
+<text x="70.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">немає скидання або промахів</text>
+<rect x="62.0" y="224.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="70.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4. Кеш інструкцій та даних L1/L2 лишається теплим</text>
+<text x="70.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">дані й код спільні</text>
+<rect x="62.0" y="262.0" width="316.0" height="34.0" rx="5" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="70.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Підсумок: дешева операція ~100–300 нс</text>
+<text x="70.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">мінімальні непрямі втрати</text>
+<rect x="430.0" y="50.0" width="340.0" height="260.0" rx="10" fill="#fff1f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="600.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Перемикання між ПРОЦЕСАМИ</text>
+<text x="600.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(різні адресні простори)</text>
+<rect x="442.0" y="110.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#fecdd3" stroke-width="1.2"/>
+<text x="450.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Зберегти регістри CPU (PC, SP, R0..R15)</text>
+<text x="450.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">кілька десятків наносекунд</text>
+<rect x="442.0" y="148.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#fecdd3" stroke-width="1.2"/>
+<text x="450.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Завантажити новий CR3 / таблицю сторінок</text>
+<text x="450.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">зміна кореня трансляції MMU</text>
+<rect x="442.0" y="186.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#fecdd3" stroke-width="1.2"/>
+<text x="450.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Інвалідація TLB (або фільтрація за PCID)</text>
+<text x="450.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">промахи на кожному звертанні до RAM</text>
+<rect x="442.0" y="224.0" width="316.0" height="34.0" rx="5" fill="#ffffff" stroke="#fecdd3" stroke-width="1.2"/>
+<text x="450.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4. Охолодження L1/L2 кешів (cache pollution)</text>
+<text x="450.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">нова програма витісняє старі рядки</text>
+<rect x="442.0" y="262.0" width="316.0" height="34.0" rx="5" fill="#ffe4e6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="450.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Підсумок: дорога операція ~1000–3000 нс + штраф кешу</text>
+<text x="450.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">значні непрямі накладні витрати</text>
+<text x="410.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Головна ціна зміни процесу — не збереження регістрів, а перемикання MMU й спустошення кешів</text>
+</svg>

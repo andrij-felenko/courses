@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блокування: коли потік зупиняється під замком, уся черга замерзає</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Потік A захопив м'ютекс і був витіснений ОС (context switch) — Потік B і C безпорадно блокуються</text>
+<text x="80.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Потік A (Low Pri)</text>
+<rect x="220.0" y="110.0" width="130.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="285.0" y="129.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Lock(mutex) OK</text>
+<rect x="370.0" y="110.0" width="240.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="490.0" y="129.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">⚡ ВИТІСНЕННЯ ОС (сон 10 мс)</text>
+<rect x="630.0" y="110.0" width="140.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="700.0" y="129.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Unlock(mutex)</text>
+<line x1="350.0" y1="126.0" x2="370.0" y2="126.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="126.0" x2="630.0" y2="126.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="80.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Потік B (Audio RT)</text>
+<rect x="290.0" y="200.0" width="110.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="345.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення</text>
+<rect x="420.0" y="200.0" width="220.0" height="32.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="530.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">❌ Блокується на м'ютексі...</text>
+<rect x="660.0" y="200.0" width="140.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="730.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пропуск дедлайну!</text>
+<line x1="400.0" y1="216.0" x2="420.0" y2="216.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="216.0" x2="660.0" y2="216.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="80.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Потік C (Core 2)</text>
+<rect x="320.0" y="280.0" width="110.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="375.0" y="299.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення</text>
+<rect x="450.0" y="280.0" width="190.0" height="32.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="545.0" y="299.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">❌ Чекає у черзі futex</text>
+<line x1="430.0" y1="296.0" x2="450.0" y2="296.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="142.0" x2="370.0" y2="315.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="630.0" y1="142.0" x2="630.0" y2="315.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<rect x="50.0" y="350.0" width="780.0" height="46.6" rx="6" fill="#fff8e6" stroke="#caa24a" stroke-width="1.5"/><text x="440.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Замки передають контроль над прогресом усієї системи ОДНОМУ потоку.</tspan><tspan x="440.0" dy="14.3">Якщо потік засинає, зазнає page fault або гине — усі залежні потоки зависають разом із ним.</tspan></text>
+</svg>

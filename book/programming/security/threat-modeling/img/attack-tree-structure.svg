@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура та обчислення дерева атак</text>
+<rect x="270.0" y="15.0" width="300.0" height="65.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">[OR] Несанкціоноване списання коштів</text>
+<text x="420.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Цільова вигода нападника: 1 000 000 грн</text>
+<line x1="420.0" y1="80.0" x2="420.0" y2="110.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="190.0" y1="110.0" x2="650.0" y2="110.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="190.0" y1="110.0" x2="190.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="110.0" x2="650.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="140.0" width="280.0" height="70.0" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="190.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">[AND] Пряма підробка API-запиту</text>
+<text x="190.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Потрібне одночасне виконання гілок</text>
+<text x="190.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Вартість: C1 + C2 | Ймовірність: P1 · P2</text>
+<rect x="510.0" y="140.0" width="280.0" height="70.0" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="650.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">[AND] Ін'єкція та обхід WAF</text>
+<text x="650.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Потрібне одночасне виконання гілок</text>
+<text x="650.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Вартість: C3 + C4 | Ймовірність: P3 · P4</text>
+<line x1="190.0" y1="210.0" x2="190.0" y2="235.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="95.0" y1="235.0" x2="285.0" y2="235.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="95.0" y1="235.0" x2="95.0" y2="255.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="285.0" y1="235.0" x2="285.0" y2="255.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="15.0" y="260.0" width="160.0" height="95.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="95.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1.1. Викрасти API-ключ</text>
+<text x="95.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фішинг розробника</text>
+<text x="95.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Вартість: 20 000 грн</text>
+<text x="95.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ймовірність: 0.15</text>
+<rect x="205.0" y="260.0" width="160.0" height="95.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="285.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1.2. Обійти IP-фільтр</text>
+<text x="285.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">BGP-spoofing / VPN</text>
+<text x="285.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Вартість: 15 000 грн</text>
+<text x="285.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ймовірність: 0.30</text>
+<line x1="650.0" y1="210.0" x2="650.0" y2="235.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="555.0" y1="235.0" x2="745.0" y2="235.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="555.0" y1="235.0" x2="555.0" y2="255.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="745.0" y1="235.0" x2="745.0" y2="255.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="475.0" y="260.0" width="160.0" height="95.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="555.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2.1. Знайти SQLi</text>
+<text x="555.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаззинг ендпоінтів</text>
+<text x="555.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Вартість: 5 000 грн</text>
+<text x="555.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ймовірність: 0.05</text>
+<rect x="665.0" y="260.0" width="160.0" height="95.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="745.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2.2. Обійти WAF-правила</text>
+<text x="745.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обфускація payload</text>
+<text x="745.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Вартість: 10 000 грн</text>
+<text x="745.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ймовірність: 0.20</text>
+<rect x="120.0" y="375.0" width="600.0" height="35.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Агрегація: для OR обирається шлях із найменшою вартістю / найвищою ймовірністю</text>
+</svg>

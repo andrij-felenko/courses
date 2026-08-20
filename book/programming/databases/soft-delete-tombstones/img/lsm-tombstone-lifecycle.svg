@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .box-mem { fill: #1e1b4b; stroke: #6366f1; stroke-width: 1.8; rx: 8px; }
+  .box-l0 { fill: #172554; stroke: #3b82f6; stroke-width: 1.8; rx: 8px; }
+  .box-l1 { fill: #0f172a; stroke: #64748b; stroke-width: 1.5; rx: 8px; }
+  .box-tomb { fill: #450a0a; stroke: #ef4444; stroke-width: 1.5; rx: 6px; }
+  .box-data { fill: #064e3b; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; }
+  .txt-title { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; }
+  .txt-danger { fill: #f87171; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .txt-success { fill: #34d399; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .txt-info { fill: #818cf8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  .arrow-flow { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#arrow-flow-head); }
+  .arrow-compact { stroke: #f59e0b; stroke-width: 2; stroke-dasharray: 4; fill: none; marker-end: url(#arrow-compact-head); }
+</style>
+<defs>
+  <marker id="arrow-flow-head" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" />
+  </marker>
+  <marker id="arrow-compact-head" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#f59e0b" />
+  </marker>
+</defs>
+<rect width="940" height="420" class="bg" />
+<text x="30" y="32" class="txt-title">Життєвий цикл надгробка (Tombstone) у деревах LSM (Log-Structured Merge)</text>
+<text x="30" y="52" class="txt-muted">Від запису в оперативну пам'ять (MemTable) до злиття SSTable (Compaction) та фізичного видалення</text>
+
+<!-- 1. Операція DELETE -->
+<g transform="translate(30, 75)">
+  <rect width="260" height="135" class="box-mem" />
+  <text x="15" y="25" class="txt-bold" fill="#818cf8">1. Клієнт: DELETE("user:42")</text>
+  <text x="15" y="45" class="txt">Запис у MemTable (RAM):</text>
+  <rect x="15" y="55" width="230" height="32" class="box-tomb" />
+  <text x="25" y="76" class="txt-danger">Key: "user:42" | TOMBSTONE (t=20)</text>
+  <text x="15" y="105" class="txt-muted">Видалення — це звичайний append!</text>
+  <text x="15" y="122" class="txt-muted">Старі дані на диску не чіпаються.</text>
+</g>
+
+<!-- Стрілка Flush -->
+<path d="M 290 140 L 340 140" class="arrow-flow" />
+<text x="295" y="130" class="txt-muted">Flush</text>
+
+<!-- 2. Flush у SSTable L0 -->
+<g transform="translate(345, 75)">
+  <rect width="260" height="135" class="box-l0" />
+  <text x="15" y="25" class="txt-bold" fill="#60a5fa">2. SSTable на диску (Level 0)</text>
+  <text x="15" y="45" class="txt">Незмінний файл SSTable #105:</text>
+  <rect x="15" y="55" width="230" height="32" class="box-tomb" />
+  <text x="25" y="76" class="txt-danger">"user:42" → [TOMBSTONE, t=20]</text>
+  <text x="15" y="105" class="txt">Читання: надгробок маскує старі дані.</text>
+  <text x="15" y="122" class="txt-muted">Запит повертає NotFound.</text>
+</g>
+
+<!-- Стрілка Compaction -->
+<path d="M 605 140 L 655 140" class="arrow-compact" />
+<text x="610" y="130" class="txt-muted">Merge</text>
+
+<!-- 3. Старий рівень Level 1/2 -->
+<g transform="translate(660, 75)">
+  <rect width="250" height="135" class="box-l1" />
+  <text x="15" y="25" class="txt-bold" fill="#94a3b8">3. SSTable на диску (Level 1)</text>
+  <text x="15" y="45" class="txt">Старий файл SSTable #88:</text>
+  <rect x="15" y="55" width="220" height="32" class="box-data" />
+  <text x="25" y="76" class="txt-success">"user:42" → {"name": "Bob"} (t=10)</text>
+  <text x="15" y="105" class="txt-danger">Стара версія все ще на диску!</text>
+  <text x="15" y="122" class="txt-muted">Чекає на фонове злиття.</text>
+</g>
+
+<!-- Нижня панель: Ущільнення та очищення -->
+<g transform="translate(30, 235)">
+  <rect width="880" height="165" class="panel" fill="#0f172a" stroke="#f59e0b" stroke-width="1.8" />
+  <text x="20" y="30" class="txt-bold" fill="#fbbf24">4. Процес злиття (Compaction) та остаточне знищення надгробка (GC)</text>
+  
+  <rect x="20" y="45" width="380" height="105" class="panel" />
+  <text x="35" y="70" class="txt-bold">Ущільнення (Compaction Phase):</text>
+  <text x="35" y="90" class="txt">Рушій читає паралельно SSTable #105 та #88.</text>
+  <text x="35" y="110" class="txt">Оскільки t=20 &gt; t=10, надгробок поглинає дані.</text>
+  <text x="35" y="130" class="txt-success">Старий запис Bob (t=10) фізично відкидається.</text>
+  
+  <rect x="420" y="45" width="440" height="105" class="panel" />
+  <text x="435" y="70" class="txt-bold">Коли можна видалити сам надгробок?</text>
+  <text x="435" y="90" class="txt-danger">Тільки коли надгробок досяг найглибшого рівня (L_max),</text>
+  <text x="435" y="108" class="txt-danger">АБО коли вичерпано gc_grace_seconds (Cassandra)!</text>
+  <text x="435" y="132" class="txt-muted">Передчасне видалення надгробка призведе до "воскресіння" старих даних.</text>
+</g>
+</svg>

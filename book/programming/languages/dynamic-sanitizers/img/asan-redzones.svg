@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Червоні зони ASan, отруєння тіні та карантин купи</text>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Червоні зони (Redzones) та карантин у купі (Heap)</text>
+<text x="120.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Фізична пам'ять (Купа / Стек):</text>
+<rect x="40.0" y="80.0" width="200.0" height="60.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="140.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ліва червона зона (32 B)</text>
+<text x="140.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Отруєна пам'ять</text>
+<rect x="245.0" y="80.0" width="260.0" height="60.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="2.0"/>
+<text x="375.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Корисні дані (Payload 24 B)</text>
+<text x="375.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Доступ дозволено (malloc)</text>
+<rect x="510.0" y="80.0" width="290.0" height="60.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="655.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Права червона зона (40 B)</text>
+<text x="655.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Отруєна пам'ять</text>
+<line x1="140.0" y1="145.0" x2="140.0" y2="185.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="375.0" y1="145.0" x2="375.0" y2="185.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="655.0" y1="145.0" x2="655.0" y2="185.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="120.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Тіньова пам'ять (Shadow Bytes):</text>
+<rect x="40.0" y="195.0" width="200.0" height="50.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f1d1d" text-anchor="middle" font-weight="700">0xFA 0xFA 0xFA 0xFA</text>
+<text x="140.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">heap-left-redzone</text>
+<rect x="245.0" y="195.0" width="260.0" height="50.0" rx="4" fill="#86efac" stroke="#27ae60" stroke-width="1.5"/>
+<text x="375.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="middle" font-weight="700">0x00 0x00 0x00</text>
+<text x="375.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle">усі байти валідні</text>
+<rect x="510.0" y="195.0" width="290.0" height="50.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="655.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f1d1d" text-anchor="middle" font-weight="700">0xFB 0xFB 0xFB 0xFB 0xFB</text>
+<text x="655.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">heap-right-redzone</text>
+<rect x="40.0" y="275.0" width="760.0" height="115.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Після free(ptr) — Карантинна черга (FIFO Quarantine Queue):</text>
+<rect x="60.0" y="312.0" width="380.0" height="62.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Весь блок отруюється значенням 0xFD</text>
+<text x="250.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Shadow: 0xFD 0xFD 0xFD 0xFD ... (heap-freed)</text>
+<rect x="460.0" y="312.0" width="320.0" height="62.0" rx="4" fill="#f1f5f9" stroke="#333333" stroke-width="1.2"/>
+<text x="620.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять затримується в карантині</text>
+<text x="620.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Будь-який доступ негайно генерує Use-After-Free</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="840.0" height="480.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="430.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Спектр індексних структур у реляційних та документоорієнтованих СУБД</text>
+<rect x="30.0" y="55.0" width="800.0" height="32.0" rx="4" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+<text x="85.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Тип індексу</text>
+<text x="225.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Структура даних</text>
+<text x="405.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Оператори</text>
+<text x="610.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Сценарій використання</text>
+<text x="775.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Розмір</text>
+<rect x="30.0" y="98.0" width="800.0" height="62.0" rx="4" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.2"/>
+<text x="85.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">B-Tree</text>
+<text x="225.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Збалансоване дерево зі зв'язаними листами</text>
+<text x="405.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">=, &lt;, &lt;=, &gt;, &gt;=, BETWEEN, ORDER BY</text>
+<text x="610.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Універсальний: первинні ключі, скаляри, сортування</text>
+<text x="775.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">Середній (10-30%)</text>
+<rect x="30.0" y="166.0" width="800.0" height="62.0" rx="4" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.2"/>
+<text x="85.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">Hash</text>
+<text x="225.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Масив бакетів із хеш-функцією</text>
+<text x="405.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">= (виключно точна рівність)</text>
+<text x="610.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Швидкий пошук унікальних ключів, UUID, точних слів</text>
+<text x="775.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">Компактний</text>
+<rect x="30.0" y="234.0" width="800.0" height="62.0" rx="4" fill="#e6fffa" stroke="#0d9488" stroke-width="1.2"/>
+<text x="85.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">GiST</text>
+<text x="218.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Узагальнене дерево просторових предикатів</text>
+<text x="405.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">&amp;&amp; (перетин), @&gt; (вміщення), &lt;-&gt; (kNN)</text>
+<text x="610.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Геодані (PostGIS), геометрія, часові діапазони</text>
+<text x="775.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">Середній/Великий</text>
+<rect x="30.0" y="302.0" width="800.0" height="62.0" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="85.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">GIN</text>
+<text x="218.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Інвертований індекс (терм ➔ список TID)</text>
+<text x="405.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">@@ (повнотекст), @&gt; (JSONB), &amp;&amp; (масиви)</text>
+<text x="610.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Повнотекстовий пошук, JSONB-документи, теги</text>
+<text x="775.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">Великий (дорогий запис)</text>
+<rect x="30.0" y="370.0" width="800.0" height="62.0" rx="4" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="85.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">BRIN</text>
+<text x="225.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Блоковий діапазонний індекс (Min/Max)</text>
+<text x="398.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">=, &lt;, &lt;=, &gt;, &gt;=, BETWEEN (за фізичним порядком)</text>
+<text x="610.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">Гігантські часові ряди, append-only журнали</text>
+<text x="775.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="700">Мікроскопічний (&lt;0.1%)</text>
+<text x="430.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-style="italic">Вибір типу індексу визначається формою оператора у виразі WHERE та фізичним розподілом даних на диску.</text>
+</svg>
