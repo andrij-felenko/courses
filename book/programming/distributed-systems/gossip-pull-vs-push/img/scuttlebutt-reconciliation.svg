@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двофазне рукостискання Scuttlebutt: симетричний обмін дайджестами та дельтами</text>
+<rect x="30.0" y="55.0" width="230.0" height="365.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="145.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол A (Ініціатор)</text>
+<rect x="45.0" y="100.0" width="200.0" height="110.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="145.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний стан вузла A:</text>
+<text x="145.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол 1 (A): версія 12 (нове)</text>
+<text x="145.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Вузол 2 (B): версія 4 (старе)</text>
+<text x="145.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вузол 3 (C): версія 8 (рівно)</text>
+<text x="145.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Вузол 4 (D): версія 1 (старе)</text>
+<rect x="45.0" y="225.0" width="200.0" height="75.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="145.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Дайджест A:</text>
+<text x="145.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">{1:12, 2:4, 3:8, 4:1}</text>
+<text x="145.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(компактний вектор версій)</text>
+<rect x="45.0" y="315.0" width="200.0" height="90.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="145.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оновлення стану A:</text>
+<text x="145.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Приймає дельту від B:</text>
+<text x="145.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">• Вузол 2: версії 5..7</text>
+<text x="145.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">• Вузол 4: версії 2..3</text>
+<rect x="600.0" y="55.0" width="230.0" height="365.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="715.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол B (Одержувач)</text>
+<rect x="615.0" y="100.0" width="200.0" height="110.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="715.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний стан вузла B:</text>
+<text x="715.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Вузол 1 (A): версія 9 (старе)</text>
+<text x="715.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол 2 (B): версія 7 (нове)</text>
+<text x="715.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вузол 3 (C): версія 8 (рівно)</text>
+<text x="715.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол 4 (D): версія 3 (нове)</text>
+<rect x="615.0" y="225.0" width="200.0" height="75.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="715.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Порівняння дайджестів:</text>
+<text x="715.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">A випереджає по Вузлу 1</text>
+<text x="715.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">B випереджає по Вузлах 2, 4</text>
+<rect x="615.0" y="315.0" width="200.0" height="90.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="715.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оновлення стану B:</text>
+<text x="715.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Приймає дельту від A:</text>
+<text x="715.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">• Вузол 1: версії 10..12</text>
+<text x="715.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стани повністю збіглися!</text>
+<line x1="265.0" y1="130.0" x2="595.0" y2="130.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="310.0" y="105.0" width="240.0" height="42.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="430.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. DIGEST_SYN</text>
+<text x="430.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дайджест: {1:12, 2:4, 3:8, 4:1}</text>
+<line x1="595.0" y1="230.0" x2="265.0" y2="230.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="290.0" y="200.0" width="280.0" height="52.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="430.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. DIGEST_ACK + DELTA (Pull/Push)</text>
+<text x="430.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Дельта для A: {2:[v5..v7], 4:[v2..v3]}</text>
+<text x="430.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Запит для B: {1: потрібні версії &gt; 9}</text>
+<line x1="265.0" y1="340.0" x2="595.0" y2="340.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="300.0" y="315.0" width="260.0" height="48.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="430.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. DIGEST_ACK2 + DELTA</text>
+<text x="430.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Дельта для B: {1:[v10..v12]}</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покроковий цикл алгоритму Deficit Round Robin (DRR): кванти та лічильники дефіциту</text>
+<rect x="30.0" y="55.0" width="450.0" height="460.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Раунд R: Нарахування кванта (Quantum) і вибірка</text>
+<text x="255.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кожен активний потік отримує Quantum = 500 байт (ваги однакові)</text>
+<rect x="45.0" y="125.0" width="420.0" height="105.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="120.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1 (Q1)</text>
+<text x="120.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Початковий Deficit = 0</text>
+<text x="120.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+ Quantum = 500</text>
+<text x="120.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Новий Deficit = 500</text>
+<rect x="235.0" y="140.0" width="110.0" height="75.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="290.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пакет P1_1</text>
+<text x="290.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Розмір = 600 B</text>
+<text x="290.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">600 &gt; 500 Deficit!</text>
+<rect x="355.0" y="140.0" width="95.0" height="75.0" rx="4" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="402.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рішення:</text>
+<text x="402.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Пакет чекає.</text>
+<text x="402.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Deficit = 500</text>
+<rect x="45.0" y="245.0" width="420.0" height="125.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="120.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2 (Q2)</text>
+<text x="120.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Початковий Deficit = 0</text>
+<text x="120.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+ Quantum = 500</text>
+<text x="120.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Новий Deficit = 500</text>
+<text x="120.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Обробка: 500 - 200 = 300</text>
+<rect x="235.0" y="260.0" width="100.0" height="95.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="285.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пакет P2_1</text>
+<text x="285.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Розмір = 200 B</text>
+<text x="285.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">200 ≤ 500: ГОТОВО</text>
+<text x="285.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залишок: 300 B</text>
+<rect x="345.0" y="260.0" width="110.0" height="95.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="400.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Пакет P2_2 (400 B)</text>
+<text x="400.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">400 &gt; 300 (Deficit)</text>
+<text x="400.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">P2_2 чекає раунд R+1</text>
+<text x="400.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Deficit = 300</text>
+<rect x="45.0" y="385.0" width="420.0" height="115.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="120.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 3 (Q3)</text>
+<text x="120.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Черга порожня</text>
+<text x="120.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Правило обнулення:</text>
+<text x="120.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Deficit скидається в 0!</text>
+<rect x="235.0" y="400.0" width="220.0" height="85.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="345.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Захист від накопичення боргу:</text>
+<text x="345.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Потік не має права збирати дефіцит,</text>
+<text x="345.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">коли він не має роботи (No Free Lunch)</text>
+<rect x="515.0" y="55.0" width="455.0" height="460.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="742.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Раунд R+1: Використання збереженого дефіциту</text>
+<text x="742.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Збережений дефіцит компенсує великі пакети без затримок</text>
+<rect x="530.0" y="125.0" width="425.0" height="155.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="615.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 1 (Q1)</text>
+<text x="615.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Було з раунду R: 500</text>
+<text x="615.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+ Quantum = 500</text>
+<text x="615.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Сумарний Deficit = 1000</text>
+<text x="615.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відправка P1_1 (600 B):</text>
+<text x="615.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Залишок: 1000 - 600 = 400 B</text>
+<rect x="735.0" y="140.0" width="205.0" height="125.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="837.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пакет P1_1 (600 B)</text>
+<text x="837.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">УСПІШНО ВІДПРАВЛЕНО!</text>
+<text x="837.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">600 ≤ 1000 (Deficit)</text>
+<text x="837.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Великий пакет пройшов</text>
+<text x="837.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">без шкоди іншим потокам</text>
+<rect x="530.0" y="295.0" width="425.0" height="145.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="615.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік 2 (Q2)</text>
+<text x="615.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Було з раунду R: 300</text>
+<text x="615.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+ Quantum = 500</text>
+<text x="615.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Сумарний Deficit = 800</text>
+<text x="615.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відправка P2_2 (400 B):</text>
+<text x="615.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Залишок: 800 - 400 = 400 B</text>
+<rect x="735.0" y="305.0" width="205.0" height="120.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="837.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пакет P2_2 (400 B)</text>
+<text x="837.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">УСПІШНО ВІДПРАВЛЕНО!</text>
+<text x="837.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">400 ≤ 800 (Deficit)</text>
+<text x="837.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Швидкість виконання: O(1)</text>
+<rect x="530.0" y="450.0" width="425.0" height="55.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="742.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">Властивості DRR: складність O(1) на пакет, ідеальна асимптотична чесність,</text>
+<text x="742.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">підтримка пакетів довільної довжини без сортування подій.</text>
+</svg>

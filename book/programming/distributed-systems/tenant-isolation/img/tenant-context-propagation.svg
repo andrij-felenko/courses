@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний життєвий цикл контексту орендаря (Tenant Context Lifecycle)</text>
+<rect x="20.0" y="55.0" width="185.0" height="340.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="112.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Вхідний запит</text>
+<rect x="30.0" y="98.0" width="165.0" height="80.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="112.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерела Tenant ID:</text>
+<text x="112.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Субдомен: acme.app.io</text>
+<text x="112.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">• JWT Claim: tid=t-901</text>
+<text x="112.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Заголовок: X-Tenant-ID</text>
+<rect x="30.0" y="190.0" width="165.0" height="190.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="112.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Перевірка автентичності</text>
+<text x="112.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шлюз перевіряє підпис</text>
+<text x="112.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">JWT відкритою парою</text>
+<text x="112.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ключів (JWKS).</text>
+<text x="112.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Захист від підміни:</text>
+<text x="112.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Заголовок клієнта</text>
+<text x="112.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">перезаписується</text>
+<text x="112.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">значенням із токена!</text>
+<text x="112.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">tenant_id = 't-901'</text>
+<line x1="207.0" y1="225.0" x2="233.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="235.0" y="55.0" width="185.0" height="340.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="327.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. API Gateway</text>
+<rect x="245.0" y="98.0" width="165.0" height="120.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="327.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Квоти та ліміти</text>
+<text x="327.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Token Bucket у Redis</text>
+<text x="327.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Ключ: ratelimit:t-901</text>
+<text x="327.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Поточний залишок: 450</text>
+<text x="327.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ліміт: 1000 req/min</text>
+<text x="327.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Статус: Дозволено (200)</text>
+<rect x="245.0" y="230.0" width="165.0" height="150.0" rx="5" fill="#fff7ed" stroke="#f97316" stroke-width="1.2"/>
+<text x="327.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2410c" text-anchor="middle" font-weight="700">Ін'єкція контексту</text>
+<text x="327.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Додавання метаданих:</text>
+<text x="327.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">• X-Tenant-Id: t-901</text>
+<text x="327.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Baggage: tid=t-901</text>
+<text x="327.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• traceparent (W3C)</text>
+<text x="327.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маршрутизація у комірку</text>
+<text x="327.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Cell #2 (Sharded Pool)</text>
+<line x1="422.0" y1="225.0" x2="448.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="450.0" y="55.0" width="185.0" height="340.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="542.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Мікросервіси</text>
+<rect x="460.0" y="98.0" width="165.0" height="130.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="542.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Middleware перехоплювач</text>
+<text x="542.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вичитує X-Tenant-Id</text>
+<text x="542.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Зберігає в ThreadLocal</text>
+<text x="542.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">або Go context.Context</text>
+<text x="542.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">При фонових задачах:</text>
+<text x="542.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Передається в payload!</text>
+<rect x="460.0" y="240.0" width="165.0" height="140.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="542.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Кешування з ізоляцією</text>
+<text x="542.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Префікс ключів Redis:</text>
+<text x="542.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t:t-901:orders:1044</text>
+<text x="542.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Запобігає витоку між</text>
+<text x="542.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">орендарями при однакових</text>
+<text x="542.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">внутрішніх ID сутностей</text>
+<text x="542.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у спільній пам'яті кешу</text>
+<line x1="637.0" y1="225.0" x2="663.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="665.0" y="55.0" width="175.0" height="340.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="752.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. База даних (RLS)</text>
+<rect x="675.0" y="98.0" width="155.0" height="115.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="752.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Встановлення сесії</text>
+<text x="752.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перед SQL-запитом:</text>
+<text x="752.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">SET LOCAL</text>
+<text x="752.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">app.current_tenant</text>
+<text x="752.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">= 't-901';</text>
+<text x="752.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Діє лише в транзакції)</text>
+<rect x="675.0" y="225.0" width="155.0" height="155.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="752.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Row-Level Security</text>
+<text x="752.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Двигун СУБД автоматично</text>
+<text x="752.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">додає предикат:</text>
+<text x="752.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">WHERE tenant_id =</text>
+<text x="752.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">current_setting(...)</text>
+<text x="752.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Неможливо обійти</text>
+<text x="752.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">через баги в ORM</text>
+<text x="752.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">чи сирі SQL-запити!</text>
+</svg>

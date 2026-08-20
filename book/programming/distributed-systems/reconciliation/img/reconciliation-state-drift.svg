@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 391" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="391" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка дрейфу та монотонне зведення розбіжностей у часі</text>
+<line x1="70.0" y1="320.0" x2="70.0" y2="60.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="70.0" x2="70.0" y2="55.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="65.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Стан S(t)</text>
+<line x1="65.0" y1="100.0" x2="75.0" y2="100.0" stroke="#333333" stroke-width="1.0"/>
+<text x="55.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">5</text>
+<line x1="65.0" y1="150.0" x2="75.0" y2="150.0" stroke="#333333" stroke-width="1.0"/>
+<text x="55.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">4</text>
+<line x1="65.0" y1="200.0" x2="75.0" y2="200.0" stroke="#333333" stroke-width="1.0"/>
+<text x="55.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">3</text>
+<line x1="65.0" y1="250.0" x2="75.0" y2="250.0" stroke="#333333" stroke-width="1.0"/>
+<text x="55.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">2</text>
+<line x1="65.0" y1="320.0" x2="75.0" y2="320.0" stroke="#333333" stroke-width="1.0"/>
+<text x="55.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<line x1="70.0" y1="320.0" x2="800.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="785.0" y1="320.0" x2="805.0" y2="320.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="805.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Час (t)</text>
+<line x1="70.0" y1="150.0" x2="780.0" y2="150.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="630.0" y="125.0" width="145.0" height="22.0" rx="3" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="702.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Бажаний стан S* = 4</text>
+<path d="M 70 150 L 160 150 L 160 200 L 230 200 L 230 250 L 330 250 L 330 200 L 430 200 L 430 150 L 550 150 L 550 100 L 640 100 L 640 150 L 780 150" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<rect x="140.0" y="265.0" width="125.0" height="45.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="202.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">t1, t2: Аварії вузлів</text>
+<text x="202.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Дрейф Δ = +2 (брак)</text>
+<line x1="202.0" y1="265.0" x2="202.0" y2="215.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="350.0" y="65.0" width="140.0" height="45.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="420.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t3, t4: Цикл звірки</text>
+<text x="420.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Монотонне відновлення</text>
+<line x1="420.0" y1="110.0" x2="420.0" y2="185.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="540.0" y="265.0" width="135.0" height="45.0" rx="4" fill="#fff7ed" stroke="#f97316" stroke-width="1.0"/>
+<text x="607.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c2410c" text-anchor="middle" font-weight="700">t5: Ручне втручання</text>
+<text x="607.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c2410c" text-anchor="middle">Дрейф Δ = -1 (надлишок)</text>
+<line x1="607.0" y1="265.0" x2="607.0" y2="120.0" stroke="#f97316" stroke-width="1.0"/>
+<rect x="675.0" y="65.0" width="115.0" height="45.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="732.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t6: Prune / Drain</text>
+<text x="732.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Видалення зайвого</text>
+<line x1="732.0" y1="110.0" x2="732.0" y2="135.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="180.0" y="345.0" width="480.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="195.0" y1="358.0" x2="220.0" y2="358.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="275.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бажаний стан S*</text>
+<line x1="375.0" y1="358.0" x2="400.0" y2="358.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="465.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фактичний стан S(t)</text>
+<text x="585.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Відстань D(t) = |S(t) - S*|</text>
+</svg>

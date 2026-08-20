@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1140.0" height="440.0" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="590.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#334155" text-anchor="middle" font-weight="700">Архітектура безпечного відновлення повідомлень з DLQ (Safe Redrive Pipeline)</text>
+<rect x="40.0" y="80.0" width="210.0" height="350.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.6"/>
+<text x="145.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Сховище DLQ</text>
+<text x="145.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Накопичені помилки</text>
+<rect x="50.0" y="155.0" width="190.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="145.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Err #1042: Schema Mismatch</text>
+<rect x="50.0" y="215.0" width="190.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="145.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Err #1043: Timeout Downstream</text>
+<rect x="50.0" y="275.0" width="190.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="145.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Err #1044: Divide by Zero</text>
+<rect x="50.0" y="335.0" width="190.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="145.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Err #1045: DB Deadlock</text>
+<line x1="250.0" y1="255.0" x2="300.0" y2="255.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="275.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Read</text>
+<rect x="300.0" y="80.0" width="550.0" height="350.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="575.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контролер відновлення (Redrive Engine &amp; Safety Guards)</text>
+<rect x="320.0" y="125.0" width="510.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="575.0" y="149.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">1. Патчинг та валідація схеми даних</tspan><tspan x="575.0" dy="13.0">Виправлення дефектних полів або міграція версії схеми</tspan></text>
+<rect x="320.0" y="190.0" width="510.0" height="55.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="575.0" y="214.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">2. Обмежувач швидкості (Rate Limiter / Token Bucket)</tspan><tspan x="575.0" dy="13.0">Дозована подача повідомлень для захисту первинної системи</tspan></text>
+<rect x="320.0" y="255.0" width="510.0" height="55.0" rx="6" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/><text x="575.0" y="279.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">3. Захист від зациклення (Redrive Loop Breaker)</tspan><tspan x="575.0" dy="13.0">Контроль x-redrive-count та скидання безнадійних у Parking Lot</tspan></text>
+<rect x="320.0" y="320.0" width="510.0" height="55.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="575.0" y="344.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">4. Перевірка ідемпотентності (Idempotency Guard)</tspan><tspan x="575.0" dy="13.0">Запобігання повторному списанню для частково виконаних операцій</tspan></text>
+<text x="575.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Оператор / Автоматична політика відновлення</text>
+<rect x="890.0" y="80.0" width="250.0" height="160.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="1015.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Основна черга (Primary Queue)</text>
+<rect x="905.0" y="125.0" width="220.0" height="100.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="1015.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">Успішно відновлені задачі</tspan><tspan x="1015.0" dy="13.0">надходять до воркерів</tspan><tspan x="1015.0" dy="13.0">без лавинного ефекту</tspan><tspan x="1015.0" dy="13.0">та блокування черги.</tspan></text>
+<rect x="890.0" y="270.0" width="250.0" height="160.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="1015.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Холодний архів (Parking Lot)</text>
+<rect x="905.0" y="315.0" width="220.0" height="100.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="1015.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">Безнадійно пошкоджені</tspan><tspan x="1015.0" dy="13.0">записи зберігаються в S3</tspan><tspan x="1015.0" dy="13.0">для аудиту без переповнення</tspan><tspan x="1015.0" dy="13.0">сховища брокера.</tspan></text>
+<line x1="850.0" y1="160.0" x2="890.0" y2="160.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="870.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Re-inject</text>
+<line x1="850.0" y1="350.0" x2="890.0" y2="350.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="870.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Discard</text>
+</svg>

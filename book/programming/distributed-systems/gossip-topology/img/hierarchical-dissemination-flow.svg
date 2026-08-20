@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархічне поширення стану: локальні пули та міжрегіональні мости</text>
+<rect x="25.0" y="55.0" width="395.0" height="345.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="222.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">РЕГІОН 1: DC-East (Затримка RTT &amp;lt; 0.5 мс)</text>
+<rect x="40.0" y="95.0" width="175.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="127.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стійка Rack 1-A (ToR)</text>
+<circle cx="80.0" cy="160.0" r="20.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="80.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Джерело</text>
+<text x="80.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Оновлення v2</text>
+<circle cx="170.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="170.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N1</text>
+<circle cx="127.0" cy="230.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="127.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N2</text>
+<line x1="100.0" y1="160.0" x2="154.0" y2="160.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="127.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">p=0.90</text>
+<line x1="93.0" y1="176.0" x2="116.0" y2="216.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="95.0" width="175.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="317.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стійка Rack 1-B (ToR)</text>
+<circle cx="270.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="270.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N3</text>
+<circle cx="360.0" cy="160.0" r="18.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="360.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Міст 1</text>
+<circle cx="317.0" cy="230.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="317.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N4</text>
+<line x1="186.0" y1="160.0" x2="254.0" y2="160.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="220.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">p=0.40</text>
+<line x1="286.0" y1="160.0" x2="342.0" y2="160.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="285.0" width="365.0" height="100.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="222.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Локальна конвергенція LAN</text>
+<text x="222.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Внутрішньостійковий RTT: 0.05–0.1 мс (100 Gbps ToR)</text>
+<text x="222.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Висока ймовірність (p=0.9) насичує 99% вузлів за 3–4 раунди</text>
+<text x="222.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Безкоштовний необмежений локальний трафік</text>
+<rect x="460.0" y="55.0" width="395.0" height="345.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="657.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">РЕГІОН 2: DC-West (Затримка RTT &amp;lt; 0.5 мс)</text>
+<rect x="475.0" y="95.0" width="175.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="562.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стійка Rack 2-A (ToR)</text>
+<circle cx="520.0" cy="160.0" r="18.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="520.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Міст 2</text>
+<circle cx="610.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N5</text>
+<circle cx="562.0" cy="230.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="562.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N6</text>
+<line x1="538.0" y1="160.0" x2="594.0" y2="160.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="532.0" y1="174.0" x2="550.0" y2="216.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="665.0" y="95.0" width="175.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="752.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стійка Rack 2-B (ToR)</text>
+<circle cx="710.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="710.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N7</text>
+<circle cx="800.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="800.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N8</text>
+<circle cx="752.0" cy="230.0" r="16.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="752.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N9</text>
+<line x1="626.0" y1="160.0" x2="694.0" y2="160.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="726.0" y1="160.0" x2="784.0" y2="160.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="475.0" y="285.0" width="365.0" height="100.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="657.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Трансатлантичний WAN-тунель</text>
+<text x="657.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Міжрегіональний RTT: 75–110 мс (платний транзитний трафік)</text>
+<text x="657.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Дроселювання пліток (p=0.05) через делегати / мости</text>
+<text x="657.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Захист оптоволоконних каналів від широкомовних штормів</text>
+<line x1="378.0" y1="160.0" x2="502.0" y2="160.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="415.0" y="135.0" width="50.0" height="24.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="440.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">WAN</text>
+</svg>

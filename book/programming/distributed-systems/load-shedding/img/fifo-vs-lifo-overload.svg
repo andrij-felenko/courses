@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння обробки черги під час перевантаження: FIFO проти LIFO / CoDel</text>
+<rect x="30.0" y="55.0" width="940.0" height="190.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="50.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">FIFO (First-In, First-Out) — Каскадна спіраль смерті</text>
+<text x="50.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Черга заповнена. Воркери беруть найстаріші запити з голови, дедлайн яких уже вичерпано клієнтом.</text>
+<rect x="50.0" y="125.0" width="140.0" height="95.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="120.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Воркер CPU</text>
+<text x="120.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обробляє Req #1</text>
+<text x="120.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T_wait = 4.8s &gt; 2.0s</text>
+<text x="120.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">(Клієнт уже відпав)</text>
+<line x1="245.0" y1="172.0" x2="195.0" y2="172.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="250.0" y="135.0" width="125.0" height="75.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="312.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Req #2 (Голова)</text>
+<text x="312.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">В черзі: 4.2 с</text>
+<text x="312.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Статус: ПРОТУХ</text>
+<rect x="385.0" y="135.0" width="125.0" height="75.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="447.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Req #3</text>
+<text x="447.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">В черзі: 3.5 с</text>
+<text x="447.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Статус: ПРОТУХ</text>
+<rect x="520.0" y="135.0" width="125.0" height="75.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="582.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Req #4</text>
+<text x="582.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">В черзі: 2.1 с</text>
+<text x="582.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">На межі таймауту</text>
+<rect x="655.0" y="135.0" width="125.0" height="75.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="717.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Req #5 (Хвіст)</text>
+<text x="717.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">В черзі: 0.1 с</text>
+<text x="717.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Свіжий, але чекає!</text>
+<line x1="830.0" y1="172.0" x2="785.0" y2="172.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="890.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний потік</text>
+<text x="890.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(додається в хвіст)</text>
+<rect x="30.0" y="265.0" width="940.0" height="205.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="50.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">LIFO / CoDel / Deadline Shedding — Порятунок корисної пропускної здатності</text>
+<text x="50.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Воркер бере найсвіжіший запит із хвоста; протухлі запити з голови негайно відсікаються без обробки.</text>
+<rect x="50.0" y="335.0" width="140.0" height="105.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="120.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Воркер CPU</text>
+<text x="120.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бере Req #5 (хвіст)</text>
+<text x="120.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">T_wait = 15ms &lt; 2s</text>
+<text x="120.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Успіх для клієнта!</text>
+<line x1="655.0" y1="385.0" x2="195.0" y2="385.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="655.0" y="345.0" width="125.0" height="80.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="717.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Req #5 (Свіжий)</text>
+<text x="717.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">В черзі: 15 мс</text>
+<text x="717.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Одразу в роботу</text>
+<rect x="250.0" y="345.0" width="375.0" height="80.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="437.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Req #1, #2, #3, #4 (Застарілі запити в черзі)</text>
+<text x="437.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">T_sojourn &gt; поріг або дедлайн минув</text>
+<text x="437.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ДІЯ: Миттєве скидання (Shed / Drop) без витрат CPU</text>
+<line x1="830.0" y1="385.0" x2="785.0" y2="385.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="890.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Нові запити</text>
+<text x="890.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Швидкий успіх</text>
+</svg>

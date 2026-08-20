@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ешелонований захист від метастабільних відмов</text>
+<rect x="50.0" y="65.0" width="205.0" height="410.0" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+<rect x="50.0" y="65.0" width="205.0" height="40.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="152.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1. КЛІЄНТСЬКИЙ РІВЕНЬ</text>
+<text x="62.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="62.0" dy="0.0">• Бюджет повторів (Retry Budget):</tspan><tspan x="62.0" dy="14.0">  максимум 10% повторів від трафіку</tspan><tspan x="62.0" dy="14.0">• Експоненційний відступ + Full Jitter</tspan><tspan x="62.0" dy="14.0">• Запобіжник (Circuit Breaker)</tspan><tspan x="62.0" dy="14.0">• Передача заголовка дедлайну</tspan></text>
+<rect x="270.0" y="65.0" width="205.0" height="410.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="270.0" y="65.0" width="205.0" height="40.0" rx="8" fill="#27ae60" stroke="#27ae60" stroke-width="1.8"/>
+<text x="372.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2. ВХІДНИЙ ШЛЮЗ (GATEWAY)</text>
+<text x="282.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="282.0" dy="0.0">• Відсікання запитів з простроченим</tspan><tspan x="282.0" dy="14.0">  дедлайном (T_remain &lt; T_exec)</tspan><tspan x="282.0" dy="14.0">• CoDel / LIFO черги замість FIFO</tspan><tspan x="282.0" dy="14.0">• Адаптивне скидання трафіку</tspan><tspan x="282.0" dy="14.0">• Відхилення за HTTP 429 / 503</tspan></text>
+<rect x="490.0" y="65.0" width="205.0" height="410.0" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="1.8"/>
+<rect x="490.0" y="65.0" width="205.0" height="40.0" rx="8" fill="#ca8a04" stroke="#ca8a04" stroke-width="1.8"/>
+<text x="592.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3. СЕРВЕР ТА КЕШ-ШАР</text>
+<text x="502.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="502.0" dy="0.0">• Singleflight / Request Coalescing:</tspan><tspan x="502.0" dy="14.0">  1 запит до БД на N однакових ключів</tspan><tspan x="502.0" dy="14.0">• XFetch (раннє ймовірнісне оновлення)</tspan><tspan x="502.0" dy="14.0">• Скасування виконання при закритті</tspan><tspan x="502.0" dy="14.0">  клієнтського сокета (EPOLLRDHUP)</tspan></text>
+<rect x="710.0" y="65.0" width="205.0" height="410.0" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="1.8"/>
+<rect x="710.0" y="65.0" width="205.0" height="40.0" rx="8" fill="#9333ea" stroke="#9333ea" stroke-width="1.8"/>
+<text x="812.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4. ПРОТОКОЛ ВІДНОВЛЕННЯ</text>
+<text x="722.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="722.0" dy="0.0">• Жорсткий карантин трафіку (Throttle)</tspan><tspan x="722.0" dy="14.0">• Прогрів кешу перед пуском клієнтів</tspan><tspan x="722.0" dy="14.0">• Плавне ступеневе відкриття шлюзів</tspan><tspan x="722.0" dy="14.0">  (Slow-Start Ramp-Up)</tspan><tspan x="722.0" dy="14.0">• Ізоляція критичних тенантів</tspan></text>
+<line x1="255.0" y1="260.0" x2="270.0" y2="260.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="475.0" y1="260.0" x2="490.0" y2="260.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="695.0" y1="260.0" x2="710.0" y2="260.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="490.0" width="865.0" height="50.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Головний принцип: Не починати обчислення, якщо результат не буде доставлено вчасно.</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія марної роботи (Wasted Work) та розсинхронізація дедлайнів</text>
+<rect x="40.0" y="55.0" width="880.0" height="160.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="60.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Штатний режим (Черги порожні, обробка швидка)</text>
+<line x1="80.0" y1="170.0" x2="880.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="170.0" x2="890.0" y2="170.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="890.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Час (t)</text>
+<circle cx="140.0" cy="170.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="133.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 0 мс: Запит #1</text>
+<rect x="140.0" y="115.0" width="120.0" height="35.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="200.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Обробка (40 мс)</text>
+<circle cx="260.0" cy="170.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="260.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">t = 40 мс: Відповідь 200 OK</text>
+<line x1="600.0" y1="105.0" x2="600.0" y2="170.0" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="600.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Дедлайн клієнта (500 мс)</text>
+<text x="400.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Запит виконано в межах бюджету часу (Goodput = 100%)</text>
+<rect x="40.0" y="235.0" width="880.0" height="260.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Метастабільний колапс (Переповнена черга FIFO + клієнтські повтори)</text>
+<line x1="80.0" y1="440.0" x2="880.0" y2="440.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="440.0" x2="890.0" y2="440.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="890.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Час (t)</text>
+<circle cx="120.0" cy="440.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="120.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 0 с: Запит #1</text>
+<rect x="120.0" y="340.0" width="220.0" height="30.0" rx="4" fill="#fee2e2" stroke="#f87171" stroke-width="1.2"/>
+<text x="223.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Очікування в черзі FIFO (2.2 с)</text>
+<line x1="270.0" y1="310.0" x2="270.0" y2="440.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="270.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t = 1.5 с: ТАЙМАУТ КЛІЄНТА</text>
+<text x="270.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Клієнт рве TCP-сокет і шле Повтор #2</text>
+<rect x="340.0" y="340.0" width="160.0" height="30.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="420.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">МАРНА ОБРОБКА #1</tspan><tspan x="420.0" dy="11.7">(клієнт уже відключився)</tspan></text>
+<circle cx="500.0" cy="440.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="500.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">t = 2.6 с: Відповідь у мертвий сокет</text>
+<rect x="270.0" y="385.0" width="300.0" height="25.0" rx="4" fill="#fee2e2" stroke="#f87171" stroke-width="1.2"/>
+<text x="420.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Повтор #2 стоїть у черзі за мертвим Запитом #1</text>
+<line x1="570.0" y1="310.0" x2="570.0" y2="440.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="570.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t = 3.0 с: ТАЙМАУТ ПОВТОРУ #2</text>
+<text x="720.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">100% CPU витрачено на запити,</text>
+<text x="720.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">результат яких нікому не потрібен!</text>
+</svg>

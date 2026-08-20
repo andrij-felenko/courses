@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-122.9 -10 1389.56 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-122.9" y="-10" width="1389.56" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1080.0" height="500.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="560.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700">Залежність часу очікування від утилізації ρ (Формула Кінгмана)</text>
+<line x1="100.0" y1="400.0" x2="1020.0" y2="400.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="100.0" y1="400.0" x2="100.0" y2="70.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="95.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">Середній час очікування в черзі W_q</text>
+<text x="1025.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Коефіцієнт утилізації ресурсу ρ = λ / μ</text>
+<text x="380.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Зона стабільної роботи (Safe Zone: ρ ≤ 0.75)</text>
+<text x="380.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">Передбачувана затримка, лінійний відгук бекенду</text>
+<text x="820.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зона колапсу (Danger Zone)</text>
+<text x="820.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Експоненційний вибух затримки</text>
+<line x1="100.0" y1="400.0" x2="100.0" y2="406.0" stroke="#333333" stroke-width="1.5"/>
+<text x="100.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0.0</text>
+<line x1="260.0" y1="400.0" x2="260.0" y2="406.0" stroke="#333333" stroke-width="1.5"/>
+<text x="260.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0.2</text>
+<line x1="420.0" y1="400.0" x2="420.0" y2="406.0" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0.4</text>
+<line x1="580.0" y1="400.0" x2="580.0" y2="406.0" stroke="#333333" stroke-width="1.5"/>
+<text x="580.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0.6</text>
+<line x1="700.0" y1="400.0" x2="700.0" y2="406.0" stroke="#333333" stroke-width="1.5"/>
+<text x="700.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0.75</text>
+<line x1="940.0" y1="400.0" x2="940.0" y2="406.0" stroke="#333333" stroke-width="1.5"/>
+<text x="940.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1.0</text>
+<line x1="940.0" y1="400.0" x2="940.0" y2="75.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<text x="945.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Асимптота ρ = 1.0 (W_q → ∞)</text>
+<line x1="700.0" y1="400.0" x2="700.0" y2="75.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="700.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Межа ρ_safe = 0.75</text>
+<polyline points="100,400 180,398 260,392 340,384 420,372 500,355 580,330 660,290 700,250 760,195 820,130 870,80" fill="none" stroke="#2563eb" stroke-width="3"/>
+<circle cx="700.0" cy="250.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="440.0" y="215.0" width="240.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="231.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">Робоча точка бекенду:</tspan><tspan x="560.0" dy="13.0">ρ = 0.75 (μ = 400 RPS)</tspan><tspan x="560.0" dy="13.0">W_q бекенду суворо обмежений</tspan></text>
+<circle cx="870.0" cy="80.0" r="6.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="730.0" y="150.0" width="250.0" height="60.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="855.0" y="170.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="855.0" dy="0.0">Прямий сплеск без черги:</tspan><tspan x="855.0" dy="13.0">ρ &gt; 1.0 → Переповнення пам'яті,</tspan><tspan x="855.0" dy="13.0">падіння сокетів, тайм-аути 504</tspan></text>
+<rect x="100.0" y="445.0" width="920.0" height="45.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/><text x="560.0" y="470.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Формула Кінгмана: W_q ≈ [ρ / (1 − ρ)] · [(c_a² + c_s²) / 2] · (1 / μ). Демпфер черги ізолює бекенд, утримуючи ρ в безпечній зоні, та переносить очікування в еластичний буфер.</tspan></text>
+</svg>

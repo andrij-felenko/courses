@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="1100.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="46.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">ІЄРАРХІЯ ПЕРЕБІРОК: 4 РІВНІ ІЗОЛЯЦІЇ РЕСУРСІВ У РОЗПОДІЛЕНІЙ СИСТЕМІ</tspan></text>
+<rect x="40.0" y="80.0" width="1100.0" height="105.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="70.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">РІВЕНЬ 1: Внутрішньопроцесна конкурентність</text>
+<text x="70.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізми: Семафори, окремі пули потоків (Thread Pools), обмежені черги (Bounded Queues)</text>
+<text x="70.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Захищає процесорні потоки програми, пам'ять викликів та черги завдань від захоплення одним повільним клієнтом чи ендпоінтом.</text>
+<rect x="950.0" y="100.0" width="165.0" height="65.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="1032.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ізоляція L1</text>
+<text x="1032.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бар'єр відмов</text>
+<rect x="40.0" y="200.0" width="1100.0" height="105.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="70.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">РІВЕНЬ 2: Пули спільних ресурсів</text>
+<text x="70.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізми: Окремі пули з'єднань до БД (Read-only vs Read-Write vs Batch), клієнтські пули HTTP/gRPC сокетів</text>
+<text x="70.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Запобігає ситуації, коли важкий аналітичний звіт вичерпує всі доступні з'єднання з Postgres, блокуючи транзакції клієнтів.</text>
+<rect x="950.0" y="220.0" width="165.0" height="65.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="1032.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Ізоляція L2</text>
+<text x="1032.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бар'єр відмов</text>
+<rect x="40.0" y="320.0" width="1100.0" height="105.0" rx="8" fill="#fef6e7" stroke="#d97706" stroke-width="1.8"/>
+<text x="70.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="start" font-weight="700">РІВЕНЬ 3: Процеси операційної системи та контейнери</text>
+<text x="70.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізми: Linux cgroups v2 (cpu.max, memory.max, io.max), обмеження пам'яті контейнерів (K8s limits)</text>
+<text x="70.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ізолює ресурси ОС: витік пам'яті (OOM) або нескінченний цикл в одному сервісі не вбиває сусідні процеси на тому ж фізичному вузлі.</text>
+<rect x="950.0" y="340.0" width="165.0" height="65.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+<text x="1032.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Ізоляція L3</text>
+<text x="1032.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бар'єр відмов</text>
+<rect x="40.0" y="440.0" width="1100.0" height="105.0" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="70.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7c3aed" text-anchor="start" font-weight="700">РІВЕНЬ 4: Інфраструктурні комірки та фізичні зони</text>
+<text x="70.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізми: Cell-based Architecture, Swimlanes, відмовостійкі зони (Multi-AZ / Multi-Region), шардинг орендарів</text>
+<text x="70.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Повний фізичний та мережевий поділ клієнтів на ізольовані інстанси: масштабний збій у комірці А фізично не торкається комірки Б.</text>
+<rect x="950.0" y="460.0" width="165.0" height="65.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="1032.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">Ізоляція L4</text>
+<text x="1032.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бар'єр відмов</text>
+</svg>

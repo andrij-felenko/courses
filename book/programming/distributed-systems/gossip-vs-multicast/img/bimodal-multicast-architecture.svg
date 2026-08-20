@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двофазна модель Bimodal Multicast: швидкість апаратури + надійність пліток</text>
+<rect x="30.0" y="55.0" width="820.0" height="130.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="45.0" y="65.0" width="190.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="140.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: Швидкий Multicast</text>
+<circle cx="100.0" cy="135.0" r="20.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="100.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Sender</text>
+<line x1="125.0" y1="135.0" x2="265.0" y2="135.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="195.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">IP Multicast (UDP)</text>
+<circle cx="310.0" cy="135.0" r="18.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="310.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">N1</text>
+<text x="310.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">отримано 99%</text>
+<circle cx="440.0" cy="135.0" r="18.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="440.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">N2</text>
+<text x="440.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">отримано 99%</text>
+<circle cx="570.0" cy="135.0" r="18.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="570.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">N3</text>
+<text x="570.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">пакет дропнуто</text>
+<circle cx="700.0" cy="135.0" r="18.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="700.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">N4</text>
+<text x="700.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">отримано 99%</text>
+<rect x="30.0" y="205.0" width="820.0" height="150.0" rx="8" fill="#f9fdfa" stroke="#86efac" stroke-width="1.5"/>
+<rect x="45.0" y="215.0" width="220.0" height="26.0" rx="4" fill="#eaf8ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="155.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 2: Gossip Anti-Entropy</text>
+<circle cx="310.0" cy="280.0" r="18.0" fill="#eaf8ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="310.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N1</text>
+<circle cx="440.0" cy="280.0" r="18.0" fill="#eaf8ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="440.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N2</text>
+<circle cx="570.0" cy="280.0" r="18.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="570.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">N3</text>
+<circle cx="700.0" cy="280.0" r="18.0" fill="#eaf8ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="700.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">N4</text>
+<line x1="460.0" y1="275.0" x2="548.0" y2="275.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="505.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1. Gossip Digest</text>
+<line x1="550.0" y1="288.0" x2="462.0" y2="288.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="505.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">2. Repair Request (Unicast)</text>
+<line x1="680.0" y1="280.0" x2="592.0" y2="280.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="636.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">3. Retransmit</text>
+<rect x="45.0" y="318.0" width="240.0" height="28.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="165.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Гарантія: 100% збіжність за log(N) раундів</text>
+<rect x="730.0" y="280.0" width="105.0" height="58.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="782.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий стан:</text>
+<text x="782.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Усі вузли</text>
+<text x="782.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">узгоджені</text>
+</svg>

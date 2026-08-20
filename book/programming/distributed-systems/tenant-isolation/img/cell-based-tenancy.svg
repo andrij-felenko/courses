@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коміркова архітектура (Cell-Based Architecture) для ізоляції збоїв</text>
+<rect x="220.0" y="50.0" width="420.0" height="50.0" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+<text x="430.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c2410c" text-anchor="middle" font-weight="700">Глобальний маршрутизатор орендарів (Cell Router / Gateway)</text>
+<text x="430.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Таблиця відображення: Tenant ID -&gt; Номер автономної комірки (Cell)</text>
+<line x1="310.0" y1="102.0" x2="160.0" y2="138.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="102.0" x2="430.0" y2="138.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="550.0" y1="102.0" x2="700.0" y2="138.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="20.0" y="140.0" width="255.0" height="235.0" rx="8" fill="#fafbfc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="147.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Комірка 1 (Cell #1)</text>
+<text x="147.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендарі: #1 .. #500</text>
+<rect x="35.0" y="195.0" width="225.0" height="42.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="147.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Stateless Compute Cluster</text>
+<text x="147.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Власні Pods, Ingress, HPA</text>
+<rect x="35.0" y="245.0" width="225.0" height="42.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="147.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Автономний шар даних</text>
+<text x="147.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Окремий PostgreSQL + Redis</text>
+<rect x="35.0" y="298.0" width="225.0" height="62.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="147.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стан: СТАБІЛЬНИЙ</text>
+<text x="147.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Навантаження: 42% CPU</text>
+<text x="147.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Повна незалежність від інших комірок</text>
+<rect x="300.0" y="140.0" width="260.0" height="235.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="430.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Комірка 2 (Cell #2) — ЗБІЙ!</text>
+<text x="430.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Орендарі: #501 .. #1000</text>
+<rect x="315.0" y="195.0" width="230.0" height="42.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="430.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Перевантаження пулу воркерів</text>
+<text x="430.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Атака / сплеск орендаря #742</text>
+<rect x="315.0" y="245.0" width="230.0" height="42.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="430.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">БД вичерпала ліміт з'єднань</text>
+<text x="430.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Локалізовано в межах комірки</text>
+<rect x="315.0" y="298.0" width="230.0" height="62.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="430.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Радіус ураження: ОБМЕЖЕНИЙ</text>
+<text x="430.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Постраждало: лише 25% клієнтів</text>
+<text x="430.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Решта 75% клієнтів працюють без лагів!</text>
+<rect x="585.0" y="140.0" width="255.0" height="235.0" rx="8" fill="#fafbfc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="712.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Комірка 3 (Cell #3)</text>
+<text x="712.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендарі: #1001 .. #1500</text>
+<rect x="600.0" y="195.0" width="225.0" height="42.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="712.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Stateless Compute Cluster</text>
+<text x="712.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Власні Pods, Ingress, HPA</text>
+<rect x="600.0" y="245.0" width="225.0" height="42.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="712.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Автономний шар даних</text>
+<text x="712.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Окремий PostgreSQL + Redis</text>
+<rect x="600.0" y="298.0" width="225.0" height="62.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="712.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стан: СТАБІЛЬНИЙ</text>
+<text x="712.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Навантаження: 38% CPU</text>
+<text x="712.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Повна незалежність від інших комірок</text>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="15.0" width="1100.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="39.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">ТОПОЛОГІЯ КОМІРКОВОЇ АРХІТЕКТУРИ: Тонкий маршрутизатор і автономні штампи</tspan></text>
+<rect x="430.0" y="68.0" width="320.0" height="42.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="590.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний Інтернет-трафік (Anycast / DNS / Edge CDN)</text>
+<line x1="590.0" y1="110.0" x2="590.0" y2="135.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="140.0" y="135.0" width="900.0" height="90.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="590.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ШАР МАРШРУТИЗАЦІЇ КОМІРОК (CELL ROUTING LAYER)</text>
+<text x="590.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Безстатусний проксі (Envoy / eBPF / Nginx): вилучає Tenant ID та обирає цільову комірку</text>
+<text x="590.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Джерела правил: детерміноване хешування або кешований реєстр мапінгу (In-Memory Directory)</text>
+<line x1="300.0" y1="225.0" x2="230.0" y2="275.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="225.0" x2="590.0" y2="275.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="225.0" x2="950.0" y2="275.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="275.0" width="340.0" height="320.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="50.0" y="285.0" width="320.0" height="45.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="210.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">КОМІРКА 1 (ШТАМП A)</text>
+<text x="210.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Орендарі 1..10 000</text>
+<rect x="60.0" y="340.0" width="300.0" height="38.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній API Gateway комірки</text>
+<rect x="60.0" y="388.0" width="300.0" height="50.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Флот мікросервісів комірки</text>
+<text x="210.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оплата · Каталог · Замовлення · Користувачі</text>
+<rect x="60.0" y="448.0" width="145.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="132.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виділена БД</text>
+<text x="132.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PostgreSQL / DB</text>
+<rect x="215.0" y="448.0" width="145.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="287.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальні черги</text>
+<text x="287.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Kafka / RabbitMQ</text>
+<rect x="60.0" y="518.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фонові обробники (In-Cell Workers)</text>
+<text x="210.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Нуль спільних синхронних залежностей</text>
+<rect x="420.0" y="275.0" width="340.0" height="320.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="430.0" y="285.0" width="320.0" height="45.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="590.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">КОМІРКА 2 (ШТАМП B)</text>
+<text x="590.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Орендарі 10 001..20 000</text>
+<rect x="440.0" y="340.0" width="300.0" height="38.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="590.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній API Gateway комірки</text>
+<rect x="440.0" y="388.0" width="300.0" height="50.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="590.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Флот мікросервісів комірки</text>
+<text x="590.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оплата · Каталог · Замовлення · Користувачі</text>
+<rect x="440.0" y="448.0" width="145.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="512.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виділена БД</text>
+<text x="512.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PostgreSQL / DB</text>
+<rect x="595.0" y="448.0" width="145.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="667.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальні черги</text>
+<text x="667.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Kafka / RabbitMQ</text>
+<rect x="440.0" y="518.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="590.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фонові обробники (In-Cell Workers)</text>
+<text x="590.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Нуль спільних синхронних залежностей</text>
+<rect x="800.0" y="275.0" width="340.0" height="320.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="810.0" y="285.0" width="320.0" height="45.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="970.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">КОМІРКА N (ШТАМП N)</text>
+<text x="970.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Орендарі (N-1)·K..N·K</text>
+<rect x="820.0" y="340.0" width="300.0" height="38.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="970.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній API Gateway комірки</text>
+<rect x="820.0" y="388.0" width="300.0" height="50.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="970.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Флот мікросервісів комірки</text>
+<text x="970.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оплата · Каталог · Замовлення · Користувачі</text>
+<rect x="820.0" y="448.0" width="145.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="892.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виділена БД</text>
+<text x="892.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PostgreSQL / DB</text>
+<rect x="975.0" y="448.0" width="145.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="1047.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальні черги</text>
+<text x="1047.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Kafka / RabbitMQ</text>
+<rect x="820.0" y="518.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="970.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фонові обробники (In-Cell Workers)</text>
+<text x="970.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Нуль спільних синхронних залежностей</text>
+</svg>

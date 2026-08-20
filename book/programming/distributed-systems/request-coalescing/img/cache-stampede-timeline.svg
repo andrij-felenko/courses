@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="1100.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="46.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">?????? ????????: ????? ??????? ???? ?? ?????????? ??????? ???????? ????? Single-Flight</tspan></text>
+<line x1="80.0" y1="90.0" x2="1100.0" y2="90.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="1080.0" y1="90.0" x2="1110.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1115.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">t (???)</text>
+<circle cx="120.0" cy="90.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="120.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">t0: ??? ???????</text>
+<circle cx="380.0" cy="90.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="380.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">t_exp: TTL ?????????</text>
+<circle cx="780.0" cy="90.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="780.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">t_done: ????????? ??</text>
+<circle cx="1020.0" cy="90.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="1020.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">t_hit: ????? ???</text>
+<rect x="60.0" y="110.0" width="1060.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="70.0" y="120.0" width="160.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">???? ???? ? RAM</tspan><tspan x="150.0" dy="13.0">(Redis / Memcached)</tspan></text>
+<rect x="240.0" y="125.0" width="140.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="310.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">CACHE HIT (0.5 ??)</text>
+<rect x="380.0" y="125.0" width="400.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="580.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">????? ??????? (TTL Expired: Cache Miss ?? 40 ??)</text>
+<rect x="780.0" y="125.0" width="320.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="940.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">??? ????????: CACHE HIT (0.5 ??)</text>
+<rect x="60.0" y="195.0" width="1060.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="70.0" y="205.0" width="160.0" height="120.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">????? ???????????</tspan><tspan x="150.0" dy="13.0">??????? (R1 .. R5)</tspan><tspan x="150.0" dy="13.0"></tspan><tspan x="150.0" dy="13.0">?????? = 200 ???????/?</tspan></text>
+<circle cx="380.0" cy="215.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="342.0" y="225.0" width="76.0" height="34.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="245.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">R1 (?????)</tspan></text>
+<line x1="380.0" y1="265.0" x2="380.0" y2="305.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="460.0" cy="215.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="422.0" y="225.0" width="76.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="460.0" y="245.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">R2 (????????)</tspan></text>
+<line x1="460.0" y1="265.0" x2="460.0" y2="305.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="540.0" cy="215.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="502.0" y="225.0" width="76.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="540.0" y="245.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">R3 (????????)</tspan></text>
+<line x1="540.0" y1="265.0" x2="540.0" y2="305.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="620.0" cy="215.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="582.0" y="225.0" width="76.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="245.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">R4 (????????)</tspan></text>
+<line x1="620.0" y1="265.0" x2="620.0" y2="305.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="700.0" cy="215.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="662.0" y="225.0" width="76.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="245.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">R5 (????????)</tspan></text>
+<line x1="700.0" y1="265.0" x2="700.0" y2="305.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="770.0" y="215.0" width="335.0" height="105.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="937.5" y="252.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="937.5" dy="0.0">????????????? ? ?????? t_done:</tspan><tspan x="937.5" dy="12.3">? ???? ????? ???????? ????????? ?? 40 ??;</tspan><tspan x="937.5" dy="12.3">? ????? ? ???: Set(key, val, TTL=60?);</tspan><tspan x="937.5" dy="12.3">? ??? R1 .. R5 ????????? ????????? ????!</tspan></text>
+<rect x="60.0" y="350.0" width="1060.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="70.0" y="365.0" width="160.0" height="120.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="150.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">???????????? ??</tspan><tspan x="150.0" dy="13.0">???? ????? (SQL)</tspan></text>
+<rect x="240.0" y="365.0" width="400.0" height="120.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="440.0" y="409.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">??? Single-Flight:</tspan><tspan x="440.0" dy="12.3">? ????? R1..R5 ???????? ??????? ?????? SQL;</tspan><tspan x="440.0" dy="12.3">? 200 ???????/? ? 0.04 ? = 8 ??????????? ?????? SQL;</tspan><tspan x="440.0" dy="12.3">? ?????? ???????????? ?? ???? ?? ??? ?'?????? ??.</tspan></text>
+<rect x="660.0" y="365.0" width="440.0" height="120.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="880.0" y="409.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">?? Single-Flight:</tspan><tspan x="880.0" dy="12.3">? ????? 1 SQL-????? ???????????? ? ?????? t_exp;</tspan><tspan x="880.0" dy="12.3">? ??? R2..R5 ??????? ?????????? ??????? ?????? ? RAM;</tspan><tspan x="880.0" dy="12.3">? ???????????? ?? ?? ?????????: ????? 1 ????? ????????? ??? ??????!</tspan></text>
+</svg>

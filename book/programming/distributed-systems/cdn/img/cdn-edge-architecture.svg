@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="45.0" width="230.0" height="415.0" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="130.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Клієнтський рівень</text>
+<rect x="260.0" y="45.0" width="270.0" height="415.0" rx="8" fill="#f0f7ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="395.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Периферійні вузли (Edge L1)</text>
+<rect x="545.0" y="45.0" width="175.0" height="415.0" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="632.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Origin Shield (L2)</text>
+<rect x="735.0" y="45.0" width="170.0" height="415.0" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1.0"/>
+<text x="820.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Центральний Origin</text>
+<rect x="63.9" y="108.2" width="132.3" height="43.6" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/><text x="130.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Клієнт A (Київ)</tspan><tspan x="130.0" dy="15.6">RTT до Edge: 4 мс</tspan></text>
+<rect x="60.4" y="228.2" width="139.1" height="43.6" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/><text x="130.0" y="246.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Клієнт B (Варшава)</tspan><tspan x="130.0" dy="15.6">RTT до Edge: 6 мс</tspan></text>
+<rect x="63.9" y="348.2" width="132.3" height="43.6" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/><text x="130.0" y="366.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Клієнт C (Токіо)</tspan><tspan x="130.0" dy="15.6">RTT до Edge: 5 мс</tspan></text>
+<rect x="294.7" y="108.2" width="200.7" height="43.6" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="395.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">Edge PoP (Київ)</tspan><tspan x="395.0" dy="15.6">TLS Termination + RAM Cache</tspan></text>
+<rect x="294.7" y="228.2" width="200.7" height="43.6" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="395.0" y="246.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">Edge PoP (Франкфурт)</tspan><tspan x="395.0" dy="15.6">TLS Termination + RAM Cache</tspan></text>
+<rect x="294.7" y="348.2" width="200.7" height="43.6" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="395.0" y="366.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">Edge PoP (Токіо)</tspan><tspan x="395.0" dy="15.6">TLS Termination + RAM Cache</tspan></text>
+<rect x="552.2" y="220.4" width="159.6" height="59.2" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="632.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="632.0" dy="0.0">Регіональний Shield</tspan><tspan x="632.0" dy="15.6">Франкфурт (L2)</tspan><tspan x="632.0" dy="15.6">NVMe кеш + Coalescing</tspan></text>
+<rect x="743.6" y="220.4" width="152.8" height="59.2" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="820.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">Центральний сервер</tspan><tspan x="820.0" dy="15.6">(US-East, Вірджинія)</tspan><tspan x="820.0" dy="15.6">База даних + Storage</tspan></text>
+<line x1="195.0" y1="130.0" x2="305.0" y2="130.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="250.0" x2="305.0" y2="250.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="370.0" x2="305.0" y2="370.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="130.0" x2="560.0" y2="220.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="250.0" x2="555.0" y2="250.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="370.0" x2="560.0" y2="280.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="250.0" x2="745.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="250.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">RTT ~4мс</text>
+<text x="250.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">RTT ~6мс</text>
+<text x="250.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">RTT ~5мс</text>
+<text x="515.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Cache Miss</text>
+<text x="515.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Cache Miss</text>
+<text x="728.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1 запит</text>
+</svg>

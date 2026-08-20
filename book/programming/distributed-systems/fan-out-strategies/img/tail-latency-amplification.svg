@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ампліфікація затримки хвоста (Tail Latency Amplification) у Scatter-Gather RPC</text>
+<rect x="15.0" y="50.0" width="420.0" height="415.0" rx="8" fill="#f8f9fa" stroke="#333333" stroke-width="1.2"/>
+<text x="225.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паралельне віяло до N мікросервісів / шардів</text>
+<rect x="35.0" y="221.1" width="120.0" height="57.8" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="95.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">Клієнтський</tspan><tspan x="95.0" dy="13.7">Координатор</tspan><tspan x="95.0" dy="13.7">(Aggregator)</tspan></text>
+<rect x="215.0" y="115.2" width="150.0" height="29.5" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="290.0" y="133.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">Вузол 1: 12 мс (Швидко)</tspan></text>
+<rect x="215.0" y="180.2" width="150.0" height="29.5" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="290.0" y="198.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">Вузол 2: 15 мс (Швидко)</tspan></text>
+<rect x="209.6" y="245.2" width="160.8" height="29.5" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="290.0" y="263.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">Вузол ... : 14 мс (Швидко)</tspan></text>
+<rect x="194.6" y="314.1" width="190.8" height="41.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="290.0" y="332.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">Вузол N (Хвіст p99):</tspan><tspan x="290.0" dy="12.3">350 мс (GC Pause / I/O Spike)</tspan></text>
+<line x1="160.0" y1="235.0" x2="205.0" y2="135.0" stroke="#333333" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="245.0" x2="205.0" y2="195.0" stroke="#333333" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="255.0" x2="205.0" y2="260.0" stroke="#333333" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="265.0" x2="200.0" y2="335.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="387.9" width="390.0" height="54.2" rx="6" fill="#fff3cd" stroke="#c0392b" stroke-width="1.5"/><text x="225.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="225.0" dy="0.0">Підсумок для клієнта:</tspan><tspan x="225.0" dy="12.3">Латентність запиту = max(T_1, T_2, ..., T_N) = 350 мс!</tspan><tspan x="225.0" dy="12.3">Клієнт чекає на НАЙПОВІЛЬНІШИЙ вузол</tspan></text>
+<rect x="455.0" y="50.0" width="470.0" height="415.0" rx="8" fill="#f8f9fa" stroke="#c0392b" stroke-width="1.2"/>
+<text x="690.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ймовірність зіткнення з затримкою p99: P = 1 − (1 − 0.01)ⁿ</text>
+<rect x="480.0" y="110.0" width="80.0" height="240.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="480.0" y="340.0" width="80.0" height="10.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="520.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1%</text>
+<text x="520.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N = 1</text>
+<text x="520.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 запит</text>
+<rect x="570.0" y="110.0" width="80.0" height="240.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="570.0" y="327.0" width="80.0" height="23.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">9.6%</text>
+<text x="610.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N = 10</text>
+<text x="610.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">10 шардів</text>
+<rect x="660.0" y="110.0" width="80.0" height="240.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="660.0" y="255.0" width="80.0" height="95.0" rx="2" fill="#fff3cd" stroke="#d35400" stroke-width="1.5"/>
+<text x="700.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">39.5%</text>
+<text x="700.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N = 50</text>
+<text x="700.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">50 шардів</text>
+<rect x="750.0" y="110.0" width="80.0" height="240.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="750.0" y="198.0" width="80.0" height="152.0" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="790.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">63.4%</text>
+<text x="790.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N = 100</text>
+<text x="790.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">100 шардів</text>
+<rect x="840.0" y="110.0" width="75.0" height="240.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="840.0" y="142.0" width="75.0" height="208.0" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="877.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">86.6%</text>
+<text x="877.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N = 200</text>
+<text x="877.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">200 шардів</text>
+<rect x="470.0" y="404.1" width="440.0" height="41.9" rx="6" fill="#fff3cd" stroke="#c0392b" stroke-width="1.5"/><text x="690.0" y="422.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Висновок: при широкому віялі (N ≥ 100) більшість запитів (&gt;63%)</tspan><tspan x="690.0" dy="12.3">гарантовано зазнають затримки найгіршого 99-го перцентиля!</tspan></text>
+</svg>

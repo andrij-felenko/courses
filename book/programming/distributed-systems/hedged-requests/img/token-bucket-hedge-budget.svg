@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1222.5 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1222.5" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="1100.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="46.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">ЗАХИСНИЙ МЕХАНІЗМ: бюджет токенів (Token Bucket) обмежує частку геджування до 10%</tspan></text>
+<rect x="40.0" y="90.0" width="260.0" height="410.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="170.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний потік запитів</text>
+<text x="170.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100 запитів / сек</text>
+<rect x="55.0" y="175.0" width="230.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="170.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Запит #1 (Основний)</text>
+<rect x="55.0" y="250.0" width="230.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="170.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Запит #2 (Основний)</text>
+<rect x="55.0" y="325.0" width="230.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="170.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Запит #3 (Основний)</text>
+<rect x="55.0" y="400.0" width="230.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="170.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Запит #4 (Основний)</text>
+<line x1="300.0" y1="200.0" x2="420.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">+0.1 токена за кожен
+основний успішний запит</text>
+<rect x="430.0" y="90.0" width="320.0" height="410.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="590.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Бюджет токенів (Token Bucket)</text>
+<text x="590.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Максимум токенів: 10 (квота 10%)</text>
+<rect x="470.0" y="170.0" width="240.0" height="240.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="590.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вміст відра:</text>
+<circle cx="520.0" cy="240.0" r="20.0" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 Т</text>
+<circle cx="590.0" cy="240.0" r="20.0" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="590.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 Т</text>
+<circle cx="660.0" cy="240.0" r="20.0" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="660.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 Т</text>
+<circle cx="555.0" cy="300.0" r="20.0" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="555.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 Т</text>
+<circle cx="625.0" cy="300.0" r="20.0" fill="#fef9e7" stroke="#333333" stroke-width="1.2"/>
+<text x="625.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 Т</text>
+<text x="590.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Наявні токени дозволяють
+запустити гедж негайно</text>
+<rect x="790.0" y="90.0" width="350.0" height="410.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="965.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка перед геджем</text>
+<text x="965.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Минуло t_h = 25 мс без відповіді</text>
+<rect x="810.0" y="175.0" width="310.0" height="130.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="965.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Сценарій А: Токен є в наявності</text>
+<text x="965.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Списуємо 1 токен з відра
+2. Відправляємо Репліку 2 (гедж)
+3. Хвіст затримки успішно зрізано!</text>
+<rect x="810.0" y="335.0" width="310.0" height="140.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="965.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сценарій Б: Відро порожнє (ліміт)</text>
+<text x="965.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">1. Гедж ЗАБЛОКОВАНО
+2. Чекаємо відповіді Репліки 1
+3. Захист кластера від перевантаження!</text>
+<line x1="750.0" y1="240.0" x2="810.0" y2="240.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="750.0" y1="400.0" x2="810.0" y2="400.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

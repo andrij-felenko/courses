@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат станів запобіжника (Circuit Breaker State Machine)</text>
+<rect x="50.0" y="70.0" width="260.0" height="170.0" rx="10" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="180.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">CLOSED (Замкнений)</text>
+<text x="180.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запити проходять нормально</text>
+<text x="180.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ковзне вікно збирає метрики</text>
+<text x="180.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Помилки / Затримки &lt; Поріг</text>
+<text x="180.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Потік: 100% до бекенда</text>
+<rect x="690.0" y="70.0" width="260.0" height="170.0" rx="10" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="820.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">OPEN (Розімкнений)</text>
+<text x="820.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Миттєве відхилення (Fail-Fast)</text>
+<text x="820.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запити блокуються без I/O</text>
+<text x="820.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Виклик Fallback-стратегій</text>
+<text x="820.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Таймер: очікування відновлення</text>
+<rect x="370.0" y="310.0" width="260.0" height="170.0" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="500.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d97706" text-anchor="middle" font-weight="700">HALF-OPEN (Пробний)</text>
+<text x="500.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Пробний пакет запитів</text>
+<text x="500.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Обмежена квота (напр. 10 викликів)</text>
+<text x="500.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Решта запитів: Fail-Fast</text>
+<text x="500.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Оцінка здоров'я сервісу</text>
+<line x1="310.0" y1="130.0" x2="680.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="410.0" y="105.0" width="180.0" height="24.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="500.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Помилки &gt; 50% у вікні</text>
+<line x1="780.0" y1="240.0" x2="635.0" y2="330.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="695.0" y="275.0" width="170.0" height="24.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="780.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Таймаут сплив (waitDuration)</text>
+<line x1="370.0" y1="340.0" x2="230.0" y2="245.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="145.0" y="275.0" width="170.0" height="24.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="230.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пробні виклики успішні</text>
+<line x1="580.0" y1="310.0" x2="720.0" y2="245.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="240.0" width="150.0" height="24.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="635.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Збій пробного виклику</text>
+</svg>

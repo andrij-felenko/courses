@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виконання контракту Read-Your-Own-Writes через версійний токен</text>
+<rect x="34.2" y="54.0" width="131.6" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="100.0" y="74.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">Клієнт (UI/App)</tspan></text>
+<line x1="100.0" y1="96.0" x2="100.0" y2="540.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="319.1" y="54.0" width="101.8" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="74.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Command API</tspan></text>
+<line x1="370.0" y1="96.0" x2="370.0" y2="540.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="581.6" y="54.0" width="116.7" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="74.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Query Gateway</tspan></text>
+<line x1="640.0" y1="96.0" x2="640.0" y2="540.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="847.9" y="54.0" width="124.2" height="32.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="910.0" y="74.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="910.0" dy="0.0">Read Projector</tspan></text>
+<line x1="910.0" y1="96.0" x2="910.0" y2="540.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="100.0" y1="130.0" x2="370.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="235.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. POST /order/create</text>
+<rect x="270.0" y="154.0" width="200.0" height="32.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="370.0" y="173.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Фіксація в DB: v = 1042</tspan></text>
+<line x1="370.0" y1="210.0" x2="100.0" y2="210.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="235.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. 200 OK + Token: v=1042</text>
+<line x1="370.0" y1="180.0" x2="890.0" y2="238.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3"/>
+<line x1="890.0" y1="238.0" x2="910.0" y2="242.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="640.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Подія в Kafka (offset=1042)</text>
+<line x1="100.0" y1="270.0" x2="640.0" y2="270.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="370.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. GET /order (X-Required-Version: 1042)</text>
+<rect x="520.0" y="298.0" width="240.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="640.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Перевірка водяного знака:</tspan><tspan x="640.0" dy="13.0">watermark (1040) &lt; v_req (1042)</tspan></text>
+<rect x="520.0" y="362.0" width="240.0" height="36.0" rx="6" fill="#fff9db" stroke="#d97706" stroke-width="1.5"/><text x="640.0" y="383.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Блокування / Await (бюджет 50 мс)</tspan></text>
+<rect x="800.0" y="400.0" width="220.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="910.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="910.0" dy="0.0">Застосування події 1042</tspan><tspan x="910.0" dy="13.0">Оновлення watermark = 1042</tspan></text>
+<line x1="910.0" y1="440.0" x2="640.0" y2="460.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="775.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">signal(watermark_reached)</text>
+<line x1="640.0" y1="490.0" x2="100.0" y2="490.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="370.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. 200 OK + Свіжі дані (X-Lag-Ms: 14ms)</text>
+</svg>

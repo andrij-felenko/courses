@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняльний спектр підходів до вимірювання часу в розподілених системах</text>
+<rect x="15.0" y="55.0" width="1010.0" height="35.0" rx="4" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Властивість / Модель</text>
+<text x="275.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">NTP / Wall Clock</text>
+<text x="435.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Годинник Лампорта</text>
+<text x="600.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторний годинник</text>
+<text x="770.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TrueTime (Spanner)</text>
+<text x="940.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">HLC (Гібридний)</text>
+<rect x="15.0" y="95.0" width="1010.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.0"/>
+<rect x="855.0" y="95.0" width="170.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розмір мітки часу</text>
+<text x="275.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">8 байтів (O(1))</text>
+<text x="435.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">8 байтів (O(1))</text>
+<text x="600.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">O(N) (росте з вузлами)</text>
+<text x="770.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">16-24 байти (O(1))</text>
+<text x="940.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">8-12 байтів (O(1))</text>
+<rect x="15.0" y="145.0" width="1010.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="855.0" y="145.0" width="170.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збереження причинності</text>
+<text x="105.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">(e -&gt; f =&gt; T(e) &lt; T(f))</text>
+<text x="275.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">НІ</text>
+<text x="275.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(через skew порушується)</text>
+<text x="435.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ТАК</text>
+<text x="435.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(гарантовано)</text>
+<text x="600.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ТАК</text>
+<text x="600.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(гарантовано)</text>
+<text x="770.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ТАК</text>
+<text x="770.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(через commit-wait)</text>
+<text x="940.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК</text>
+<text x="940.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">(гарантовано)</text>
+<rect x="15.0" y="215.0" width="1010.0" height="70.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.0"/>
+<rect x="855.0" y="215.0" width="170.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виявлення конкурентності</text>
+<text x="105.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">(e || f)</text>
+<text x="275.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">НІ</text>
+<text x="435.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">НІ</text>
+<text x="600.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">ТАК</text>
+<text x="600.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(істинне причинне порівняння)</text>
+<text x="770.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">НІ</text>
+<text x="770.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(лише через порядок)</text>
+<text x="940.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">НІ</text>
+<text x="940.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">(дає довільний повний порядок)</text>
+<rect x="15.0" y="285.0" width="1010.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="855.0" y="285.0" width="170.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прив'язка до фізичного часу</text>
+<text x="275.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Пряма (але нестійка)</text>
+<text x="435.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">ВІДСУТНЯ</text>
+<text x="435.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(абстрактне число)</text>
+<text x="600.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">ВІДСУТНЯ</text>
+<text x="600.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(вектор лічильників)</text>
+<text x="770.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">СТРОГА</text>
+<text x="770.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[t.earliest, t.latest]</text>
+<text x="940.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ОБМЕЖЕНА</text>
+<text x="940.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">|l - pt| &lt;= ε</text>
+<rect x="15.0" y="355.0" width="1010.0" height="70.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.0"/>
+<rect x="855.0" y="355.0" width="170.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимоги до заліза / мережі</text>
+<text x="275.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Стандартний NTP</text>
+<text x="435.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Звичайне залізо</text>
+<text x="600.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Звичайне залізо</text>
+<text x="770.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GPS + Атомні годинники</text>
+<text x="770.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у кожному ДЦ</text>
+<text x="940.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стандартний NTP</text>
+<text x="940.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">(програмне рішення)</text>
+<rect x="15.0" y="425.0" width="1010.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<rect x="855.0" y="425.0" width="170.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.0"/>
+<text x="105.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запити знімків стану (MVCC)</text>
+<text x="105.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">та Time-Travel queries</text>
+<text x="275.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Схильні до аномалій</text>
+<text x="275.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">втрати оновлень</text>
+<text x="435.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Неможливо співставити</text>
+<text x="435.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">з астрономічним часом</text>
+<text x="600.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Високий оверхед</text>
+<text x="600.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зберігання векторів</text>
+<text x="770.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ідеально</text>
+<text x="770.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(без блокувань читання)</text>
+<text x="940.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Ефективно</text>
+<text x="940.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">(з вікном невизначеності ε)</text>
+<rect x="15.0" y="505.0" width="1010.0" height="65.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.2"/><text x="520.0" y="534.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Висновок: HLC поєднує компактність і масштабованість годинників Лампорта (O(1)) із прив'язкою до реального часу TrueTime,</tspan><tspan x="520.0" dy="13.7">не вимагаючи спеціалізованого апаратного обладнання (атомних годинників чи супутникових GPS-приймачів).</tspan></text>
+</svg>

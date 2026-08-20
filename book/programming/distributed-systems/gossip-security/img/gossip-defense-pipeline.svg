@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівневий конвеєр валідації та фільтрації gossip-повідомлень</text>
+<rect x="25.0" y="55.0" width="150.0" height="190.0" rx="6" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="30.0" y="60.0" width="140.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="100.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. Ingress &amp; Rate-limit</text>
+<text x="100.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Token Bucket per IP</text>
+<text x="100.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відсікання flood/DoS</text>
+<rect x="35.0" y="160.0" width="130.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Перевищено ліміт?</text>
+<text x="100.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">DROP (без парсингу)</text>
+<text x="100.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Нуль витрат CPU</text>
+<line x1="177.0" y1="150.0" x2="195.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="197.0" y="55.0" width="150.0" height="190.0" rx="6" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="202.0" y="60.0" width="140.0" height="34.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="272.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. Envelope &amp; Ed25519</text>
+<text x="272.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Криптографічний підпис</text>
+<text x="272.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка автентичності</text>
+<rect x="207.0" y="160.0" width="130.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="272.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Підпис невірний?</text>
+<text x="272.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">DROP + Peer Ban</text>
+<text x="272.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Штраф у скоринг</text>
+<line x1="349.0" y1="150.0" x2="367.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="369.0" y="55.0" width="150.0" height="190.0" rx="6" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="374.0" y="60.0" width="140.0" height="34.0" rx="4" fill="#fff7ed" stroke="#c2410c" stroke-width="1.2"/>
+<text x="444.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2410c" text-anchor="middle" font-weight="700">3. Seq &amp; Replay Window</text>
+<text x="444.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Монотонні лічильники</text>
+<text x="444.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від повторів</text>
+<rect x="379.0" y="160.0" width="130.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="444.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">seq &lt;= local_seq?</text>
+<text x="444.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">DROP (дублікат)</text>
+<text x="444.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Без ретрансляції</text>
+<line x1="521.0" y1="150.0" x2="539.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="541.0" y="55.0" width="150.0" height="190.0" rx="6" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="546.0" y="60.0" width="140.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="616.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">4. Equivocation Check</text>
+<text x="616.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Детектор подвійних пліток</text>
+<text x="616.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Генерація Fraud Proof</text>
+<rect x="551.0" y="160.0" width="130.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="616.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Різні хеші на 1 seq?</text>
+<text x="616.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">SLASH ORIGIN</text>
+<text x="616.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Розсилка доказу</text>
+<line x1="693.0" y1="150.0" x2="711.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="713.0" y="55.0" width="150.0" height="190.0" rx="6" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="718.0" y="60.0" width="140.0" height="34.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="788.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5. Peer Score &amp; Mesh</text>
+<text x="788.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Gossipsub v1.1 скоринг</text>
+<text x="788.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Штрафи та ретрансляція</text>
+<rect x="723.0" y="160.0" width="130.0" height="68.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="788.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Score &gt;= Publish?</text>
+<text x="788.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">FORWARD k PEERS</text>
+<text x="788.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Оновлення стану</text>
+<rect x="25.0" y="260.0" width="830.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="440.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Результат конвеєра: стійкість до візантійських збоїв f &lt; N / 3</text>
+<text x="440.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Негайне відсікання DoS на стадії 1 захищає криптографічний рушій від перевантаження.</text>
+<text x="440.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Підписи Ed25519 (стадія 2) унеможливлюють підробку чужого стану проміжними вузлами-ретрансляторами.</text>
+<text x="440.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Скоринг поведінки (стадія 5) ізолює повільні та шкідливі вузли, підтримуючи здорову топологію розповсюдження.</text>
+<text x="440.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Еквівокація (стадія 4) миттєво карається довічним баном і розсилкою криптографічного доказу зради.</text>
+</svg>

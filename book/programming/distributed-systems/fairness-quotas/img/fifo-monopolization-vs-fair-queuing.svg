@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Монополізація черги FIFO галасливим сусідом проти справедливого розподілу (Fair Queuing)</text>
+<rect x="30.0" y="55.0" width="940.0" height="205.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="50.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Спільна черга FIFO: проблема «галасливого сусіда» (Noisy Neighbor)</text>
+<text x="50.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Клієнт A генерує шторм важких запитів; критичний клієнт B блокується в хвості й падає за таймаутом.</text>
+<rect x="45.0" y="125.0" width="160.0" height="115.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="125.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний потік:</text>
+<text x="125.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• Клієнт A: 50 000 RPS</text>
+<text x="125.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">• Клієнт B: 10 RPS</text>
+<text x="125.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Клієнт C: 50 RPS</text>
+<text x="125.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Спільний сокет / буфер)</text>
+<line x1="210.0" y1="180.0" x2="245.0" y2="180.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="250.0" y="125.0" width="520.0" height="115.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="510.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Спільна буферизована черга FIFO (10 000 слотів)</text>
+<rect x="265.0" y="160.0" width="65.0" height="65.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="297.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Req A</text>
+<text x="297.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Голова</text>
+<rect x="335.0" y="160.0" width="65.0" height="65.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="367.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Req A</text>
+<text x="367.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">№ 2</text>
+<rect x="405.0" y="160.0" width="65.0" height="65.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="437.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Req A</text>
+<text x="437.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">№ 3</text>
+<rect x="475.0" y="160.0" width="75.0" height="65.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="512.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">... 99.8% A ...</text>
+<text x="512.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">9 980 шт.</text>
+<rect x="555.0" y="160.0" width="65.0" height="65.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="587.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Req A</text>
+<text x="587.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">№ 9998</text>
+<rect x="625.0" y="160.0" width="65.0" height="65.0" rx="4" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="657.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Req B</text>
+<text x="657.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Застряг!</text>
+<rect x="695.0" y="160.0" width="65.0" height="65.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="727.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Req A</text>
+<text x="727.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Хвіст</text>
+<line x1="775.0" y1="180.0" x2="810.0" y2="180.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="815.0" y="125.0" width="140.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="885.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки FIFO:</text>
+<text x="885.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">• Затримка B &gt; 4.5 с</text>
+<text x="885.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• Клієнт B падає (504)</text>
+<text x="885.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">• Порушення SLA B</text>
+<text x="885.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">• Голодування (Starvation)</text>
+<rect x="30.0" y="275.0" width="940.0" height="225.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="50.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Справедливе планування (Fair Queuing / DRR): повна ізоляція та чесні кванти</text>
+<text x="50.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Кожен клієнт має незалежну чергу. Планувальник чергує обробку, гарантуючи мікросекундну затримку для легких клієнтів.</text>
+<rect x="45.0" y="340.0" width="160.0" height="145.0" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="125.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікатор потоків</text>
+<text x="125.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Tenant ID / API Key)</text>
+<text x="125.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Потік A → Черга Q_A</text>
+<text x="125.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Потік B → Черга Q_B</text>
+<text x="125.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4338ca" text-anchor="middle" font-weight="700">Потік C → Черга Q_C</text>
+<text x="125.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Хешування / Селектор</text>
+<line x1="210.0" y1="375.0" x2="245.0" y2="365.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="412.0" x2="245.0" y2="412.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="450.0" x2="245.0" y2="460.0" stroke="#4338ca" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="250.0" y="340.0" width="280.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="285.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Q_A:</text>
+<rect x="310.0" y="345.0" width="30.0" height="32.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="325.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">A1</text>
+<rect x="345.0" y="345.0" width="30.0" height="32.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="360.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">A2</text>
+<rect x="380.0" y="345.0" width="30.0" height="32.0" rx="2" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="395.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">A3</text>
+<text x="460.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">(Хвіст A скидається)</text>
+<rect x="250.0" y="392.0" width="280.0" height="42.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="285.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Q_B:</text>
+<rect x="310.0" y="397.0" width="30.0" height="32.0" rx="2" fill="#86efac" stroke="#27ae60" stroke-width="1.0"/>
+<text x="325.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">B1</text>
+<text x="420.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">(Порожня: час у черзі &lt; 1 мс)</text>
+<rect x="250.0" y="444.0" width="280.0" height="42.0" rx="4" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.2"/>
+<text x="285.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4338ca" text-anchor="middle" font-weight="700">Q_C:</text>
+<rect x="310.0" y="449.0" width="30.0" height="32.0" rx="2" fill="#c7d2fe" stroke="#4338ca" stroke-width="1.0"/>
+<text x="325.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">C1</text>
+<rect x="345.0" y="449.0" width="30.0" height="32.0" rx="2" fill="#c7d2fe" stroke="#4338ca" stroke-width="1.0"/>
+<text x="360.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">C2</text>
+<text x="420.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4338ca" text-anchor="middle">(Штатна затримка 2 мс)</text>
+<rect x="560.0" y="340.0" width="210.0" height="145.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="665.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Справедливий арбітр</text>
+<text x="665.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(DRR / WFQ Scheduler)</text>
+<text x="665.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Кванти пропорційні вазі</text>
+<text x="665.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Раунд-робін вибірка</text>
+<text x="665.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• A не витісняє B і C</text>
+<text x="665.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихід: [B1] → [A1] → [C1] ...</text>
+<line x1="535.0" y1="412.0" x2="555.0" y2="412.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="775.0" y1="412.0" x2="810.0" y2="412.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="815.0" y="340.0" width="140.0" height="145.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="885.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат:</text>
+<text x="885.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">• Затримка B: 2 мс</text>
+<text x="885.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">• SLA B збережено</text>
+<text x="885.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Шторм A локалізовано</text>
+<text x="885.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Справедливий поділ CPU</text>
+<text x="885.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• 100% захист сусідів</text>
+</svg>

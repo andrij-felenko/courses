@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двофазний цикл виявлення збоїв у протоколі SWIM</text>
+<rect x="20.0" y="50.0" width="405.0" height="345.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="222.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: Пряме зондування (Direct Ping)</text>
+<circle cx="90.0" cy="160.0" r="26.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="90.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол A</text>
+<text x="90.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ініціатор)</text>
+<circle cx="340.0" cy="160.0" r="26.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="340.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вузол B</text>
+<text x="340.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ціль)</text>
+<line x1="120.0" y1="145.0" x2="308.0" y2="145.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="215.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. Прямий Ping (UDP)</text>
+<line x1="308.0" y1="175.0" x2="120.0" y2="175.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="215.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Ack втрачено або B перевантажений</text>
+<line x1="205.0" y1="168.0" x2="225.0" y2="182.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="225.0" y1="168.0" x2="205.0" y2="182.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="35.0" y="245.0" width="375.0" height="135.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="222.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут прямого зонду T_ack сплив</text>
+<text x="222.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Відсутність Ack не означає смерть B</text>
+<text x="222.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Причина: локальна втрата пакетів на маршруті A-B</text>
+<text x="222.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Вузол B може бути повністю здоровим</text>
+<text x="222.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">• Рішення: непряма перевірка через посередників</text>
+<rect x="445.0" y="50.0" width="415.0" height="345.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="652.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 2: Непрямий запит (Indirect Ping-Req)</text>
+<circle cx="495.0" cy="200.0" r="24.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="495.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол A</text>
+<circle cx="650.0" cy="125.0" r="22.0" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Посер. C₁</text>
+<circle cx="650.0" cy="275.0" r="22.0" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Посер. C₂</text>
+<circle cx="805.0" cy="200.0" r="24.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="805.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вузол B</text>
+<line x1="517.0" y1="185.0" x2="628.0" y2="137.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="555.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ping-req(B)</text>
+<line x1="672.0" y1="135.0" x2="783.0" y2="187.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="745.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ping</text>
+<line x1="783.0" y1="195.0" x2="672.0" y2="145.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="628.0" y1="145.0" x2="517.0" y2="195.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="595.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ack (успіх)</text>
+<line x1="517.0" y1="215.0" x2="628.0" y2="263.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="555.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ping-req(B)</text>
+<line x1="672.0" y1="265.0" x2="783.0" y2="213.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="460.0" y="315.0" width="385.0" height="65.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="652.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Якщо бодай один посередник C отримав Ack від B:</text>
+<text x="652.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Вузол B вважається здоровим (Alive)</text>
+<text x="652.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• Якщо жоден не відповів за T_ping → перехід у Suspect</text>
+</svg>

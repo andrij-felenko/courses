@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="1140.0" height="215.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.6"/>
+<text x="590.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. БЕЗ мертвої черги: блокування початку черги (Head-of-Line Blocking) та виснаження воркерів</text>
+<rect x="50.0" y="70.0" width="420.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="260.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга повідомлень (Queue)</text>
+<rect x="70.0" y="100.0" width="70.0" height="35.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="105.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M4: OK</text>
+<rect x="150.0" y="100.0" width="70.0" height="35.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="185.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M3: OK</text>
+<rect x="230.0" y="100.0" width="70.0" height="35.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="265.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M2: OK</text>
+<rect x="310.0" y="100.0" width="145.0" height="35.0" rx="4" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/>
+<text x="382.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">M1: Отруйний (Panic)</text>
+<rect x="530.0" y="65.0" width="230.0" height="45.0" rx="6" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/><text x="645.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">Воркер 1: Crash → Перезапуск</tspan></text>
+<rect x="530.0" y="115.0" width="230.0" height="45.0" rx="6" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/><text x="645.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">Воркер 2: Отримав M1 → Crash</tspan></text>
+<rect x="530.0" y="165.0" width="230.0" height="45.0" rx="6" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.5"/><text x="645.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">Воркер 3: Отримав M1 → 100% CPU</tspan></text>
+<line x1="455.0" y1="115.0" x2="530.0" y2="85.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="455.0" y1="120.0" x2="530.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="455.0" y1="125.0" x2="530.0" y2="185.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="790.0" y="70.0" width="350.0" height="140.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="965.0" y="119.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="965.0" dy="0.0">Наслідки нескінченних повторів (Requeue Loop):</tspan><tspan x="965.0" dy="11.7">• 100% процесорного часу витрачається на одне бите повідомлення M1</tspan><tspan x="965.0" dy="11.7">• Корисні задачі M2, M3, M4 заблоковані й голодують</tspan><tspan x="965.0" dy="11.7">• Затримка обробки (End-to-End Latency) зростає до нескінченності</tspan><tspan x="965.0" dy="11.7">• Каскадне падіння всього пулу воркерів через OOM / CrashLoop</tspan></text>
+<rect x="20.0" y="255.0" width="1140.0" height="215.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.6"/>
+<text x="590.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. З мертвою чергою (DLQ): ліміт спроб, миттєва ізоляція та плавна обробка черги</text>
+<rect x="50.0" y="305.0" width="340.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="220.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Основна черга (Primary Queue)</text>
+<rect x="70.0" y="335.0" width="75.0" height="35.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="107.5" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M4: OK</text>
+<rect x="155.0" y="335.0" width="75.0" height="35.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="192.5" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M3: OK</text>
+<rect x="240.0" y="335.0" width="75.0" height="35.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="277.5" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M2: OK</text>
+<line x1="315.0" y1="352.0" x2="420.0" y2="352.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="420.0" y="305.0" width="250.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="545.0" y="333.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">Воркер 1: Виконує M2 → ACK ✓</tspan></text>
+<rect x="420.0" y="365.0" width="250.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="545.0" y="393.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">Воркер 2: Виконує M3 → ACK ✓</tspan></text>
+<rect x="50.0" y="395.0" width="340.0" height="65.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="220.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Мертва черга (Dead Letter Queue)</text>
+<rect x="110.0" y="425.0" width="220.0" height="26.0" rx="4" fill="#ffe3e3" stroke="#c0392b" stroke-width="1.2"/>
+<text x="220.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">M1 (3 невдалі спроби) + Метадані</text>
+<line x1="390.0" y1="320.0" x2="220.0" y2="395.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="340.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">NACK (max retries) → DLQ</text>
+<rect x="710.0" y="305.0" width="430.0" height="150.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="925.0" y="359.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="925.0" dy="0.0">Переваги архітектури з DLQ:</tspan><tspan x="925.0" dy="11.7">• Отруйне повідомлення M1 ізольоване після N спроб без зупинки системи</tspan><tspan x="925.0" dy="11.7">• Задачі M2, M3, M4 виконуються паралельно без затримок і черги</tspan><tspan x="925.0" dy="11.7">• Повні діагностичні дані про збій M1 збережено для аудиту та виправлення</tspan><tspan x="925.0" dy="11.7">• Пропускна здатність системи (Throughput) залишається стабільною</tspan></text>
+</svg>

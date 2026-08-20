@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="1100.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="46.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">ПЕРЕМІШАНЕ ШАРДУВАННЯ (SHUFFLE SHARDING): Комбінаторна ізоляція орендарів</tspan></text>
+<rect x="40.0" y="75.0" width="1100.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="590.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загальний пул з N = 8 комірок. Кожен орендар отримує унікальну комбінацію з K = 2 комірок.</text>
+<text x="590.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кількість унікальних віртуальних штампів: C(8, 2) = 8! / (2! · 6!) = 28 ізольованих комбінацій.</text>
+<rect x="90.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="147.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 0</text>
+<text x="147.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="216.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="273.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 1</text>
+<text x="273.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="342.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="399.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Комірка 2</text>
+<text x="399.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">АВАРІЯ (OOM)</text>
+<rect x="468.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="525.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 3</text>
+<text x="525.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="594.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="651.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 4</text>
+<text x="651.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="720.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="777.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 5</text>
+<text x="777.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="846.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="903.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 6</text>
+<text x="903.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="972.0" y="145.0" width="115.0" height="45.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="1029.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Комірка 7</text>
+<text x="1029.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Норма</text>
+<rect x="40.0" y="210.0" width="1100.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="55.0" y="222.0" width="140.0" height="46.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.0"/>
+<text x="125.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендар A</text>
+<text x="125.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Комбінація {0, 2}</text>
+<rect x="100.0" y="222.0" width="95.0" height="46.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="147.5" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА</text>
+<circle cx="273.5" cy="245.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="352.0" y="222.0" width="95.0" height="46.0" rx="4" fill="#f8d7da" stroke="#c0392b" stroke-width="1.5"/>
+<text x="399.5" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ЗБІЙ</text>
+<circle cx="525.5" cy="245.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="651.5" cy="245.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="777.5" cy="245.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="903.5" cy="245.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="1029.5" cy="245.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="40.0" y="290.0" width="1100.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="55.0" y="302.0" width="140.0" height="46.0" rx="4" fill="#e8f6ee" stroke="#333333" stroke-width="1.0"/>
+<text x="125.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендар Б</text>
+<text x="125.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Комбінація {1, 5}</text>
+<circle cx="147.5" cy="325.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="226.0" y="302.0" width="95.0" height="46.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="273.5" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА</text>
+<circle cx="399.5" cy="325.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="525.5" cy="325.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="651.5" cy="325.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="730.0" y="302.0" width="95.0" height="46.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="777.5" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА</text>
+<circle cx="903.5" cy="325.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="1029.5" cy="325.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="40.0" y="370.0" width="1100.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="55.0" y="382.0" width="140.0" height="46.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.0"/>
+<text x="125.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендар В</text>
+<text x="125.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Комбінація {2, 6}</text>
+<circle cx="147.5" cy="405.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="273.5" cy="405.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="352.0" y="382.0" width="95.0" height="46.0" rx="4" fill="#f8d7da" stroke="#c0392b" stroke-width="1.5"/>
+<text x="399.5" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ЗБІЙ</text>
+<circle cx="525.5" cy="405.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="651.5" cy="405.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="777.5" cy="405.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="856.0" y="382.0" width="95.0" height="46.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="903.5" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА</text>
+<circle cx="1029.5" cy="405.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="40.0" y="450.0" width="1100.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="55.0" y="462.0" width="140.0" height="46.0" rx="4" fill="#e8f6ee" stroke="#333333" stroke-width="1.0"/>
+<text x="125.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендар Г</text>
+<text x="125.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Комбінація {3, 7}</text>
+<circle cx="147.5" cy="485.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="273.5" cy="485.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="399.5" cy="485.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="478.0" y="462.0" width="95.0" height="46.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="525.5" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА</text>
+<circle cx="651.5" cy="485.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="777.5" cy="485.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<circle cx="903.5" cy="485.0" r="4.0" fill="#e0e0e0" stroke="#cccccc" stroke-width="1.0"/>
+<rect x="982.0" y="462.0" width="95.0" height="46.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/>
+<text x="1029.5" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">АКТИВНА</text>
+<rect x="40.0" y="535.0" width="1100.0" height="35.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="590.0" y="557.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Комбінаторний захист: навіть при повному краху Комірки 2 ЖОДЕН клієнт не втрачає зв'язок повністю!</text>
+</svg>

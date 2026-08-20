@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівневий конвеєр скидання навантаження (Multi-Stage Load Shedding Pipeline)</text>
+<rect x="20.0" y="60.0" width="150.0" height="460.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="95.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний трафік</text>
+<text x="95.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(HTTP / gRPC)</text>
+<rect x="30.0" y="135.0" width="130.0" height="55.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="95.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Критичні T0/T1</text>
+<text x="95.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Health, Оплата</text>
+<rect x="30.0" y="205.0" width="130.0" height="55.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.0"/>
+<text x="95.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Звичайні T2</text>
+<text x="95.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пошук, Каталог</text>
+<rect x="30.0" y="275.0" width="130.0" height="55.0" rx="4" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.0"/>
+<text x="95.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4338ca" text-anchor="middle" font-weight="700">Фонові T3</text>
+<text x="95.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Аналітика, Логи</text>
+<rect x="30.0" y="360.0" width="130.0" height="85.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="95.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Дедлайни в заголовках:</text>
+<text x="95.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">grpc-timeout</text>
+<text x="95.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">X-Request-Deadline</text>
+<line x1="170.0" y1="280.0" x2="200.0" y2="280.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="200.0" y="60.0" width="185.0" height="460.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="292.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Класифікатор</text>
+<text x="292.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">і перевірка дедлайну</text>
+<rect x="210.0" y="135.0" width="165.0" height="80.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="292.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка дедлайну:</text>
+<text x="292.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">T_remain &lt; T_min_exec?</text>
+<text x="292.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">→ Скинути одразу</text>
+<rect x="210.0" y="230.0" width="165.0" height="105.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="292.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пріоритизація:</text>
+<text x="292.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">При навантаженні &gt; 80%:</text>
+<text x="292.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4338ca" text-anchor="middle">• Скинути Tier 3 (100%)</text>
+<text x="292.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">• Скинути Tier 2 (50%)</text>
+<rect x="210.0" y="350.0" width="165.0" height="85.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="292.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Квоти токенів:</text>
+<text x="292.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Token Bucket per Tier</text>
+<text x="292.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Резерв під Tier 0/1</text>
+<line x1="385.0" y1="280.0" x2="415.0" y2="280.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="415.0" y="60.0" width="195.0" height="460.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="512.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Черга завдань</text>
+<text x="512.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">і монітор затримки</text>
+<rect x="425.0" y="135.0" width="175.0" height="95.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="512.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контроль черги (CoDel):</text>
+<text x="512.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вимір t_sojourn у вікні</text>
+<text x="512.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Якщо min(t_wait) &gt; 20ms</text>
+<text x="512.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">→ Відсікання нових</text>
+<rect x="425.0" y="245.0" width="175.0" height="95.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="512.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адаптивна місткість:</text>
+<text x="512.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TCP Vegas / Gradient limit</text>
+<text x="512.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Динамічний ліміт воркерів</text>
+<text x="512.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Limit_curr = f(RTT_min/RTT)</text>
+<rect x="425.0" y="355.0" width="175.0" height="80.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="512.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Політика вибірки:</text>
+<text x="512.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">LIFO під час сплеску</text>
+<text x="512.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FIFO у спокійному стані</text>
+<line x1="610.0" y1="280.0" x2="640.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="640.0" y="60.0" width="190.0" height="460.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="735.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Пул воркерів</text>
+<text x="735.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">і деградація (Fallback)</text>
+<rect x="650.0" y="135.0" width="170.0" height="85.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="735.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пул виконання CPU/IO:</text>
+<text x="735.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обмежене число воркерів</text>
+<text x="735.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">CPU &lt; 90%, без блокувань</text>
+<rect x="650.0" y="235.0" width="170.0" height="105.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="735.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сходинки деградації:</text>
+<text x="735.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1. Вимкнути персоналізацію</text>
+<text x="735.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2. Відповідь зі старого кешу</text>
+<text x="735.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3. Знизити якість медіа</text>
+<rect x="650.0" y="355.0" width="170.0" height="80.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.0"/>
+<text x="735.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Успішна відповідь:</text>
+<text x="735.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HTTP 200 OK / gRPC OK</text>
+<text x="735.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Високий Goodput!</text>
+<rect x="860.0" y="60.0" width="160.0" height="460.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="940.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Fail-Fast</text>
+<text x="940.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Відхилення</text>
+<rect x="870.0" y="145.0" width="140.0" height="75.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="940.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">HTTP 503 / 429</text>
+<text x="940.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">gRPC UNAVAILABLE</text>
+<text x="940.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">RESOURCE_EXHAUSTED</text>
+<rect x="870.0" y="245.0" width="140.0" height="75.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="940.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Retry-After:</text>
+<text x="940.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Затримка клієнта</text>
+<text x="940.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Захист від шторму</text>
+<rect x="870.0" y="345.0" width="140.0" height="75.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="940.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Телеметрія:</text>
+<text x="940.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Метрики Prometheus</text>
+<text x="940.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">requests_shed_total</text>
+<line x1="375.0" y1="175.0" x2="870.0" y2="175.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="600.0" y1="182.0" x2="870.0" y2="182.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+</svg>

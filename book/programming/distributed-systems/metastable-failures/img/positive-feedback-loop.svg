@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Петлі самопідсилення навантаження (Positive Feedback Loops)</text>
+<rect x="360.0" y="220.0" width="240.0" height="90.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.5"/><text x="480.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">ДЕГРАДАЦІЯ СЕРВІСУ</tspan><tspan x="480.0" dy="15.6">Час у черзі &gt; Дедлайн клієнта</tspan><tspan x="480.0" dy="15.6">CPU 100%, Пам'ять вичерпано</tspan></text>
+<rect x="40.0" y="225.0" width="200.0" height="80.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/><text x="140.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle"><tspan x="140.0" dy="0.0">КОРОТКОЧАСНИЙ ТРИГЕР</tspan><tspan x="140.0" dy="13.0">• Сплеск трафіку ΔL</tspan><tspan x="140.0" dy="13.0">• Рестарт кешу / GC пауза</tspan><tspan x="140.0" dy="13.0">• Тимчасовий збій БД (2 с)</tspan></text>
+<line x1="240.0" y1="265.0" x2="355.0" y2="265.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="298.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Ініціація</text>
+<rect x="360.0" y="60.0" width="240.0" height="85.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">1. ШТОРМ ПОВТОРІВ (RETRIES)</tspan><tspan x="480.0" dy="14.3">Клієнт рве з'єднання за таймаутом</tspan><tspan x="480.0" dy="14.3">та шле 2-3 повторні запити</tspan></text>
+<path d="M 530 220 C 560 180 560 160 530 145" stroke="#c0392b" stroke-width="2" fill="none"/>
+<line x1="535.0" y1="155.0" x2="500.0" y2="145.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="585.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Таймаут</text>
+<path d="M 430 145 C 400 160 400 180 430 220" stroke="#c0392b" stroke-width="2" fill="none"/>
+<line x1="425.0" y1="195.0" x2="440.0" y2="218.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="375.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Вхідний потік ×3</text>
+<rect x="680.0" y="220.0" width="240.0" height="90.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">2. ВИМИВАННЯ КЕШУ</tspan><tspan x="800.0" dy="13.0">Запити вилітають за таймаутом,</tspan><tspan x="800.0" dy="13.0">кеш не наповнюється, HitRate → 0,</tspan><tspan x="800.0" dy="13.0">БД отримує 50× навантаження</tspan></text>
+<path d="M 600 245 L 675 245" stroke="#c0392b" stroke-width="2" fill="none"/>
+<line x1="600.0" y1="245.0" x2="675.0" y2="245.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="640.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Miss-шторм</text>
+<path d="M 680 285 L 605 285" stroke="#c0392b" stroke-width="2" fill="none"/>
+<line x1="680.0" y1="285.0" x2="605.0" y2="285.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="640.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">БД лежить</text>
+<rect x="360.0" y="395.0" width="240.0" height="85.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">3. СПІРАЛЬ GC ТА ПАМ'ЯТІ</tspan><tspan x="480.0" dy="13.0">Черги ростуть → об'єкти виживають</tspan><tspan x="480.0" dy="13.0">у старші покоління (Tenured Heap) →</tspan><tspan x="480.0" dy="13.0">паузи GC 500-1000 мс</tspan></text>
+<path d="M 440 310 C 410 340 410 370 440 395" stroke="#c0392b" stroke-width="2" fill="none"/>
+<line x1="430.0" y1="365.0" x2="445.0" y2="390.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="390.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Купа росте</text>
+<path d="M 520 395 C 550 370 550 340 520 310" stroke="#c0392b" stroke-width="2" fill="none"/>
+<line x1="530.0" y1="340.0" x2="515.0" y2="315.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="570.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">GC паузи</text>
+<rect x="140.0" y="505.0" width="680.0" height="50.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.0"/><text x="480.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">РЕЗУЛЬТАТ: Навіть коли тригер зникає, петлі 1, 2 і 3 живлять одна одну самостійно.</text>
+</svg>

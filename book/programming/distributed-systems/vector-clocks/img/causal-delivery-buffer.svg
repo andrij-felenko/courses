@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="50.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вузол 1</text>
+<text x="50.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вузол 2</text>
+<text x="50.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вузол 3</text>
+<line x1="60.0" y1="70.0" x2="780.0" y2="70.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="60.0" y1="170.0" x2="780.0" y2="170.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="60.0" y1="270.0" x2="780.0" y2="270.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="120.0" cy="70.0" r="6.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">M1: [1,0,0]</text>
+<line x1="120.0" y1="70.0" x2="230.0" y2="170.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="230.0" cy="170.0" r="6.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<text x="230.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Прийом M1 -&gt; M2: [1,1,0]</text>
+<line x1="230.0" y1="170.0" x2="380.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="120.0" y1="70.0" x2="190.0" y2="120.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="190.0" y1="120.0" x2="560.0" y2="255.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="560.0" y1="255.0" x2="580.0" y2="270.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="380.0" cy="270.0" r="6.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<rect x="280.0" y="298.5" width="200.0" height="33.0" rx="6" fill="#fff2f2" stroke="#c0392b" stroke-width="1.5"/><text x="380.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">M2 [1,1,0] прибуло раніше M1!</tspan><tspan x="380.0" dy="13.0">V3=[0,0,0] -&gt; блокування в буфері</tspan></text>
+<circle cx="580.0" cy="270.0" r="6.0" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<rect x="555.0" y="206.0" width="190.0" height="48.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="650.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">M1 [1,0,0] доставлено -&gt;</tspan><tspan x="650.0" dy="13.0">розблокування M2 з буфера!</tspan><tspan x="650.0" dy="13.0">V3 = [1,1,0]</tspan></text>
+</svg>

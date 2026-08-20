@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="1100.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="590.0" y="46.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">МЕХАНІЗМИ ІЗОЛЯЦІЇ: ПУЛ ПОТОКІВ (THREAD POOL) ПРОТИ СЕМАФОРА (SEMAPHORE)</tspan></text>
+<rect x="40.0" y="80.0" width="530.0" height="450.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="305.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ІЗОЛЯЦІЯ ПУЛОМ ПОТОКІВ (THREAD POOL)</text>
+<text x="305.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повна асинхронна ізоляція виконання в окремому пулі</text>
+<rect x="60.0" y="150.0" width="490.0" height="160.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="150.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідна черга (Queue)</text>
+<rect x="80.0" y="195.0" width="32.0" height="45.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="96.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Q1</text>
+<rect x="120.0" y="195.0" width="32.0" height="45.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="136.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Q2</text>
+<rect x="160.0" y="195.0" width="32.0" height="45.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="176.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Q3</text>
+<rect x="200.0" y="195.0" width="32.0" height="45.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="216.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Q4</text>
+<line x1="250.0" y1="217.0" x2="300.0" y2="217.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="410.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виділені потоки (Workers)</text>
+<rect x="340.0" y="195.0" width="48.0" height="45.0" rx="3" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="364.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T1</text>
+<rect x="395.0" y="195.0" width="48.0" height="45.0" rx="3" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="419.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T2</text>
+<rect x="450.0" y="195.0" width="48.0" height="45.0" rx="3" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="474.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T3</text>
+<text x="305.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Запит віддається воркеру; викликаючий потік вільний</text>
+<rect x="60.0" y="325.0" width="490.0" height="185.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="80.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">+ Можливість жорсткого таймауту (переривання потоку)</text>
+<text x="80.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">+ Асинхронне виконання (non-blocking для клієнта)</text>
+<text x="80.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">+ Захист від блокування процесорного стека</text>
+<text x="80.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">− Високі накладні витрати пам'яті (стек ~1 МБ на потік)</text>
+<text x="80.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">− Перемикання контексту ОС (Context Switch Overhead)</text>
+<text x="80.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">− Втрата локальності потоку (ThreadLocal втрачається)</text>
+<rect x="610.0" y="80.0" width="530.0" height="450.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="875.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">СЕМАФОРНИЙ ЛІМІТЕР (SEMAPHORE BULKHEAD)</text>
+<text x="875.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Синхронне обмеження паралельних запитів на поточному потоці</text>
+<rect x="630.0" y="150.0" width="490.0" height="160.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="730.0" y="180.0" width="290.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="875.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атомарний лічильник (Permits)</text>
+<text x="875.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Активні запити: N ≤ MaxPermits (напр. 20/20)</text>
+<text x="875.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Виконується прямо на вході без черги і перемикання контексту</text>
+<rect x="630.0" y="325.0" width="490.0" height="185.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="650.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">+ Нульові накладні витрати пам'яті (лише 1 atomic int)</text>
+<text x="650.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">+ Нуль перемикань контексту (максимальна швидкість)</text>
+<text x="650.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">+ Ідеально для неблокуючих async/event-loop систем</text>
+<text x="650.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">− Виконується на викликаючому потоці (блокує його)</text>
+<text x="650.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">− Неможливо примусово вбити завислий сокет без ОС</text>
+<text x="650.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">− Немає черги очікування (лише tryAcquire або миттєва відмова)</text>
+</svg>
