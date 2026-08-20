@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Серіалізація виконання гілок під час дивергенції варпу</text>
+<rect x="60.0" y="60.0" width="940.0" height="70.0" rx="8" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="160.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Спільний шлях (PC: 0x010)</text>
+<text x="160.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Маска активності: 0xFFFFFFFF</text>
+<rect x="360.0" y="74.0" width="620.0" height="42.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/><text x="670.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Усі 32 доріжки (Lane 0 .. 31) виконують спільні команди паралельно (100% темп)</tspan></text>
+<line x1="530.0" y1="130.0" x2="530.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="530.0" cy="172.0" r="14.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="530.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">?</text>
+<text x="530.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Умова: if (threadIdx.x &lt; 16)</text>
+<line x1="530.0" y1="186.0" x2="280.0" y2="230.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="280.0" y1="230.0" x2="280.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="250.0" width="440.0" height="150.0" rx="8" fill="#fbfbfc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="280.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 1: Гілка THEN (PC: 0x020)</text>
+<rect x="80.0" y="290.0" width="190.0" height="44.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/><text x="175.0" y="308.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Lanes 0 .. 15:</tspan><tspan x="175.0" dy="15.6">АКТИВНІ (обчислюють)</tspan></text>
+<rect x="290.0" y="290.0" width="190.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="385.0" y="308.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="385.0" dy="0.0">Lanes 16 .. 31:</tspan><tspan x="385.0" dy="15.6">ЗАМАСКОВАНІ (чекають)</tspan></text>
+<text x="280.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Маска: 0x0000FFFF (активні 16 з 32 потоків)</text>
+<text x="280.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Корисна пропускна здатність = 50%</text>
+<line x1="530.0" y1="186.0" x2="780.0" y2="230.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="780.0" y1="230.0" x2="780.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="250.0" width="440.0" height="150.0" rx="8" fill="#fbfbfc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="780.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 2: Гілка ELSE (PC: 0x080)</text>
+<rect x="580.0" y="290.0" width="190.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="675.0" y="308.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">Lanes 0 .. 15:</tspan><tspan x="675.0" dy="15.6">ЗАМАСКОВАНІ (чекають)</tspan></text>
+<rect x="790.0" y="290.0" width="190.0" height="44.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/><text x="885.0" y="308.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="885.0" dy="0.0">Lanes 16 .. 31:</tspan><tspan x="885.0" dy="15.6">АКТИВНІ (обчислюють)</tspan></text>
+<text x="780.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Маска: 0xFFFF0000 (активні 16 з 32 потоків)</text>
+<text x="780.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Корисна пропускна здатність = 50%</text>
+<line x1="280.0" y1="400.0" x2="280.0" y2="440.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="280.0" y1="440.0" x2="530.0" y2="465.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="780.0" y1="400.0" x2="780.0" y2="440.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="780.0" y1="440.0" x2="530.0" y2="465.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="530.0" y1="465.0" x2="530.0" y2="485.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="485.0" width="940.0" height="70.0" rx="8" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="180.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Точка реконвергенції (PC: 0x100)</text>
+<text x="180.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Маска активності: 0xFFFFFFFF</text>
+<rect x="380.0" y="499.0" width="600.0" height="42.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/><text x="680.0" y="524.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Варп знову об'єднаний: сумарний час виконання = Час(THEN) + Час(ELSE)</tspan></text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Планування в Linux: топологія ядер та ізоляція Core Scheduling</text>
+<rect x="40.0" y="50.0" width="365.0" height="330.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="222.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Звичайне планування (SMT-aware)</text>
+<text x="222.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пріоритет: спершу вільні фізичні ядра</text>
+<rect x="55.0" y="108.0" width="335.0" height="110.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="222.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичне ядро 0 (Core 0)</text>
+<rect x="65.0" y="140.0" width="150.0" height="66.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="140.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">CPU 0 (Нитка 0)</text>
+<text x="140.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Процес A (зайнято)</text>
+<rect x="230.0" y="140.0" width="150.0" height="66.0" rx="3" fill="#f8f9fa" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="305.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">CPU 1 (Нитка 1)</text>
+<text x="305.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вільний (idle)</text>
+<rect x="55.0" y="235.0" width="335.0" height="110.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="222.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичне ядро 1 (Core 1)</text>
+<rect x="65.0" y="267.0" width="150.0" height="66.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="140.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">CPU 2 (Нитка 0)</text>
+<text x="140.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Процес B (надіслано сюди)</text>
+<rect x="230.0" y="267.0" width="150.0" height="66.0" rx="3" fill="#f8f9fa" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="305.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">CPU 3 (Нитка 1)</text>
+<text x="305.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вільний (idle)</text>
+<rect x="435.0" y="50.0" width="365.0" height="330.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="617.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Core Scheduling (PR_SCHED_CORE)</text>
+<text x="617.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ізоляція за доменами довіри (Cookie)</text>
+<rect x="450.0" y="108.0" width="335.0" height="110.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="617.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Фізичне ядро 0: Домен довіри Cookie = X</text>
+<rect x="460.0" y="140.0" width="150.0" height="66.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="535.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">CPU 0 (Нитка 0)</text>
+<text x="535.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">VM 1 (Cookie X)</text>
+<rect x="625.0" y="140.0" width="150.0" height="66.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="700.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">CPU 1 (Нитка 1)</text>
+<text x="700.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">VM 1 (Cookie X)</text>
+<rect x="450.0" y="235.0" width="335.0" height="110.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="617.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Фізичне ядро 1: Конфлікт доменів довіри</text>
+<rect x="460.0" y="267.0" width="150.0" height="66.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="535.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CPU 2 (Нитка 0)</text>
+<text x="535.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">VM 2 (Cookie Y)</text>
+<rect x="625.0" y="267.0" width="150.0" height="66.0" rx="3" fill="#fff5f5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="700.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CPU 3 (Нитка 1)</text>
+<text x="700.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Примусовий простій (idle)</text>
+</svg>

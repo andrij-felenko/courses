@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 905.2 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="905.2" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="840.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="430.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл частки вузлів (z), які отримали повідомлення</text>
+<line x1="90.0" y1="390.0" x2="810.0" y2="390.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="390.0" x2="90.0" y2="80.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="815.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">z (частка)</text>
+<text x="90.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Густина f(z)</text>
+<line x1="90.0" y1="390.0" x2="90.0" y2="396.0" stroke="#333333" stroke-width="1.5"/>
+<text x="90.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">0.0</text>
+<line x1="430.0" y1="390.0" x2="430.0" y2="396.0" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="430.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0.5 (50%)</text>
+<line x1="770.0" y1="390.0" x2="770.0" y2="396.0" stroke="#333333" stroke-width="1.5"/>
+<text x="770.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1.0 (100%)</text>
+<path d="M 170 390 C 290 370, 390 260, 530 250 C 610 250, 680 330, 730 390" fill="#fee2e2" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="6,4" fill-opacity="0.45"/>
+<rect x="337.8" y="198.2" width="344.3" height="43.6" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.2"/><text x="510.0" y="216.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="510.0" dy="0.0">Класичний ненадійний Multicast під навантаженням</tspan><tspan x="510.0" dy="15.6">(непередбачувана частка втрат: 30–80%)</tspan></text>
+<rect x="82.0" y="130.0" width="20.0" height="260.0" rx="3" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<rect x="92.2" y="89.2" width="175.7" height="51.6" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/><text x="180.0" y="104.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">Мода 0 (z = 0):</tspan><tspan x="180.0" dy="14.3">Джерело впало на початку</tspan><tspan x="180.0" dy="14.3">Імовірність: ε</tspan></text>
+<line x1="140.0" y1="115.0" x2="105.0" y2="160.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="758.0" y="110.0" width="20.0" height="280.0" rx="3" fill="#27ae60" stroke="#333333" stroke-width="1.5"/>
+<rect x="545.1" y="69.2" width="209.8" height="51.6" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/><text x="650.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#065f46" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Мода 1 (z ≈ 1.0):</tspan><tspan x="650.0" dy="14.3">Майже ВСІ вузли отримали</tspan><tspan x="650.0" dy="14.3">Імовірність: 1 − ε (&gt;99.999%)</tspan></text>
+<line x1="700.0" y1="95.0" x2="765.0" y2="140.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="125.0" y1="375.0" x2="735.0" y2="375.0" stroke="#0284c7" stroke-width="2.0"/>
+<rect x="176.5" y="318.2" width="507.0" height="43.6" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.2"/><text x="430.0" y="336.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Проміжні стани зникаюче малоймовірні: P(0 &lt; z &lt; 1) → 0 при рості N</tspan><tspan x="430.0" dy="15.6">Система бінарна: або отримали ВСІ, або повідомлення не існує</tspan></text>
+</svg>

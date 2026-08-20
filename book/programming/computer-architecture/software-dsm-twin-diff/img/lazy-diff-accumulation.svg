@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтервальні часові мітки та накопичення Diff у Lazy RC (TreadMarks)</text>
+<rect x="50.0" y="60.0" width="220.0" height="180.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="160.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A (Власник замка L)</text>
+<rect x="65.0" y="98.0" width="190.0" height="35.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="160.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Інтервал 1: Запис у P₁ → Diff_A1</text>
+<rect x="65.0" y="140.0" width="190.0" height="35.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="160.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Інтервал 2: Запис у P₂ → Diff_A2</text>
+<rect x="65.0" y="182.0" width="190.0" height="45.0" rx="4" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="160.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторний час: [2, 0, 0]</text>
+<text x="160.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Виклик: lock_release(L)</text>
+<line x1="275.0" y1="205.0" x2="560.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мережне повідомлення: Захоплення замка L</text>
+<text x="420.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Передається лише векторний годинник [2, 0, 0] (без самих даних сторінок!)</text>
+<rect x="570.0" y="60.0" width="220.0" height="180.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="680.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B (Отримувач замка L)</text>
+<rect x="585.0" y="98.0" width="190.0" height="45.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="680.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний час: [0, 1, 0]</text>
+<text x="680.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Виклик: lock_acquire(L)</text>
+<rect x="585.0" y="150.0" width="190.0" height="75.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.0"/>
+<text x="680.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">Знеправлення сторінок:</text>
+<text x="680.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">P₁ → PROT_NONE</text>
+<text x="680.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">P₂ → PROT_NONE</text>
+<text x="680.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Diff запитуються лише при Fault)</text>
+<rect x="50.0" y="260.0" width="740.0" height="100.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/>
+<text x="420.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ліниве підтягування різниці (Lazy Diff Fetch on Demand)</text>
+<text x="420.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">1. Вузол B звертається до P₁ → спрацьовує Read Fault на сторінці PROT_NONE.</tspan><tspan x="420.0" dy="13.5">2. Вузол B виявляє за вектором брак інтервалу 1 від Вузла A → надсилає запит лише на Diff_A1.</tspan><tspan x="420.0" dy="13.5">3. Вузол A надсилає компактний Diff_A1 → Вузол B накладає його й відновлює PROT_READ.</tspan><tspan x="420.0" dy="13.5">4. Якщо Вузол B ніколи не звертається до P₂, сторінка P₂ взагалі не передається мережею!</tspan></text>
+</svg>

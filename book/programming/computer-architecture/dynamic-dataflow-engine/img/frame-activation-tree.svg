@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічні кадри активації (Activation Frames) у просторі пам'яті ETS</text>
+<rect x="30.0" y="60.0" width="210.0" height="110.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="135.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Frame Allocator</text>
+<text x="135.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Виділення бази FP</text>
+<text x="135.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FP_0 = 0x1000 (Головна)</text>
+<text x="135.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FP_1 = 0x1040 (Ітерація 1)</text>
+<text x="135.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FP_2 = 0x1080 (Ітерація 2)</text>
+<line x1="240.0" y1="115.0" x2="290.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="265.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">База FP</text>
+<rect x="290.0" y="60.0" width="240.0" height="150.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="410.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Кадр FP_0 (Головний контекст)</text>
+<line x1="290.0" y1="90.0" x2="530.0" y2="90.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="410.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FP_0 + 0: Slot A [Bit=1, Val=42]</text>
+<text x="410.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FP_0 + 1: Slot B [Bit=0, Empty]</text>
+<text x="410.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FP_0 + 2: Slot C [Bit=1, Val=10]</text>
+<text x="410.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Локальні операнди інструкцій</text>
+<rect x="560.0" y="60.0" width="250.0" height="150.0" rx="6" fill="#fff" stroke="#d97706" stroke-width="1.4"/>
+<text x="685.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Кадр FP_1 (Ітерація k=1)</text>
+<line x1="560.0" y1="90.0" x2="810.0" y2="90.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="685.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FP_1 + 0: Slot A [Bit=1, Val=100]</text>
+<text x="685.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FP_1 + 1: Slot B [Bit=1, Val=200]</text>
+<text x="685.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FP_1 + 2: Slot C [Bit=0, Empty]</text>
+<text x="685.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Обидва операнди є → Спрацьовування!</text>
+<rect x="290.0" y="235.0" width="520.0" height="140.0" rx="8" fill="#fef6e7" stroke="#d97706" stroke-width="1.2"/>
+<text x="550.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Паралельне розгортання вкладених викликів / ітерацій</text>
+<text x="550.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кожен екземпляр функції або тіла циклу отримує власний ізольований кадр у пам'яті ETS.</text>
+<text x="550.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Токен несе покажчик кадру: ⟨FP, offset, value⟩. Зіставлення відбувається без асоціативних пошуків.</text>
+<text x="550.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Після завершення обчислення кадру вся пам'ять миттєво повертається пулу (deallocate FP).</text>
+<text x="550.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Повна відсутність взаємних блокувань і конфліктів за спільні регістри</text>
+</svg>

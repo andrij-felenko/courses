@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 690 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="690" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф залежностей (DDG) та рекурентний контур (RecMII)</text>
+<circle cx="140.0" cy="90.0" r="28.0" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="140.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Load A</text>
+<circle cx="300.0" cy="90.0" r="28.0" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="300.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Load B</text>
+<circle cx="220.0" cy="180.0" r="28.0" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<text x="220.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Mul</text>
+<circle cx="220.0" cy="280.0" r="32.0" fill="#fef2f2" stroke="#c0392b" stroke-width="2.5"/>
+<text x="220.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Acc (+)</text>
+<line x1="155.0" y1="110.0" x2="205.0" y2="160.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="165.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">d=2, δ=0</text>
+<line x1="285.0" y1="110.0" x2="235.0" y2="160.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="275.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">d=2, δ=0</text>
+<line x1="220.0" y1="208.0" x2="220.0" y2="248.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="245.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">d=2, δ=0</text>
+<path d="M 190 290 C 100 310, 90 230, 190 270" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="23.0" y="225.5" width="134.0" height="59.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/><text x="90.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Рекурентний зв'язок:</tspan><tspan x="90.0" dy="13.0">Acc[i] → Acc[i+1]</tspan><tspan x="90.0" dy="13.0">Затримка d = 1</tspan><tspan x="90.0" dy="13.0">Дистанція δ = 1</tspan></text>
+<rect x="400.0" y="70.0" width="250.0" height="240.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="525.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розрахунок бар'єрів MII</text>
+<text x="415.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Ресурсний бар'єр (ResMII):</text>
+<text x="425.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• 2 порти пам'яті: ⌈2 / 2⌉ = 1</text>
+<text x="425.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• 1 блок множення: ⌈1 / 1⌉ = 1</text>
+<text x="425.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• 1 блок АЛП: ⌈1 / 1⌉ = 1</text>
+<text x="425.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">→ ResMII = 1 такт</text>
+<text x="415.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Рекурентний бар'єр (RecMII):</text>
+<text x="425.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Контур Acc → Acc:</text>
+<text x="425.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RecMII = ⌈∑d / ∑δ⌉ = ⌈1 / 1⌉ = 1</text>
+<text x="425.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">→ MII = max(ResMII, RecMII) = 1</text>
+<text x="340.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Рекурентний контур визначає мінімально можливу відстань між ітераціями за даними</text>
+</svg>

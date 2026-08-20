@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конфлікт гранулярності в розподіленій пам'яті</text>
+<rect x="60.0" y="60.0" width="700.0" height="70.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="410.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Віртуальна сторінка пам'яті (4096 байтів / 4 КБ)</text>
+<rect x="90.0" y="95.0" width="140.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="160.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Змінна A (8 байтів)</text>
+<rect x="590.0" y="95.0" width="140.0" height="26.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="660.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Змінна B (8 байтів)</text>
+<text x="410.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Незаймані байти сторінки (4080 байтів)</text>
+<rect x="60.0" y="160.0" width="335.0" height="175.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="227.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Протокол одного записувача (Single-Writer)</text>
+<line x1="75.0" y1="195.0" x2="380.0" y2="195.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="227.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="227.0" dy="0.0">• Вузол 1 змінює A → відбирає виключні права</tspan><tspan x="227.0" dy="15.4">• Сторінка на Вузлі 2 знеправлюється (PROT_NONE)</tspan><tspan x="227.0" dy="15.4">• Вузол 2 змінює B → вимагає сторінку назад</tspan><tspan x="227.0" dy="15.4">• Наслідок: пінг-понг усієї 4 КБ сторінки</tspan><tspan x="227.0" dy="15.4">• Мережа перевантажена передачею 4096 Б</tspan></text>
+<rect x="425.0" y="160.0" width="335.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="592.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Протокол Twin-and-Diff (Multiple-Writer)</text>
+<line x1="440.0" y1="195.0" x2="745.0" y2="195.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="592.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="592.0" dy="0.0">• Вузли 1 і 2 пишуть одночасно у власні копії</tspan><tspan x="592.0" dy="15.4">• Перший запис створює тіньовий двійник (Twin)</tspan><tspan x="592.0" dy="15.4">• Під час синхронізації рахується різниця (Diff)</tspan><tspan x="592.0" dy="15.4">• Мережею передаються лише байти змін (16 Б)</tspan><tspan x="592.0" dy="15.4">• Дві зміни безконфліктно зливаються</tspan></text>
+<line x1="160.0" y1="125.0" x2="160.0" y2="155.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="125.0" x2="660.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

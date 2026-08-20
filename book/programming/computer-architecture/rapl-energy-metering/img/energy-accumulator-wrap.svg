@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">32-бітний лічильник енергії: квантування та переповнення</text>
+<text x="430.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Розрахунок спожитих Джоулів та обробка переходу через 2³² беззнаковою арифметикою</text>
+<circle cx="160.0" cy="210.0" r="85.0" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2.0"/>
+<circle cx="160.0" cy="210.0" r="55.0" fill="#ffffff" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="160.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="700">32 біти</text>
+<text x="160.0" y="220.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1a1a1a" text-anchor="middle">0 .. 2³²-1</text>
+<text x="160.0" y="236.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#6b7280" text-anchor="middle">≈ 65 536 Дж</text>
+<line x1="160.0" y1="117.0" x2="160.0" y2="133.0" stroke="#c0271e" stroke-width="2.5"/>
+<text x="160.0" y="113.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="700">0 / 2³²</text>
+<circle cx="215.0" cy="155.0" r="5.0" fill="#b8860b" stroke="#333333" stroke-width="1.0"/>
+<text x="225.0" y="145.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#b8860b" text-anchor="start" font-weight="700">E1 = 0xE0000000</text>
+<text x="225.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">t1 = 10.0 c</text>
+<circle cx="215.0" cy="265.0" r="5.0" fill="#1f8a3b" stroke="#333333" stroke-width="1.0"/>
+<text x="225.0" y="265.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="9" fill="#1f8a3b" text-anchor="start" font-weight="700">E2 = 0x10000000</text>
+<text x="225.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">t2 = 12.0 c</text>
+<text x="170.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="700">Приріст ΔE через нуль</text>
+<rect x="390.0" y="75.0" width="430.0" height="265.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="605.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">Математика беззнакової дельти uint32_t</text>
+<rect x="405.0" y="114.0" width="400.0" height="48.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.0"/>
+<text x="415.0" y="134.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="700">uint32_t delta = (uint32_t)(E2 - E1);</text>
+<text x="415.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">За модулем 2³² віднімання дає точний приріст без if-розгалужень</text>
+<text x="405.0" y="180.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1a1a1a" text-anchor="start">1. Квант ESU = 16  -&gt;  Unit = 1 / 2¹⁶ = 15.258789 мкДж</text>
+<text x="405.0" y="200.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1a1a1a" text-anchor="start">2. ΔE_raw = 0x10000000 - 0xE0000000 = 0x30000000</text>
+<text x="405.0" y="218.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#6b7280" text-anchor="start">          = 805 306 368 квантів лічильника</text>
+<text x="405.0" y="240.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="700">3. Енергія = 805 306 368 * 15.26 мкДж = 12 288.0 Дж</text>
+<text x="405.0" y="262.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1a1a1a" text-anchor="start">4. Час Δt  = 12.0 c - 10.0 c = 2.0 секунди</text>
+<text x="405.0" y="286.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#c0271e" text-anchor="start" font-weight="700">5. Потужність P = 12288.0 Дж / 2.0 с = 6 144.0 Вт</text>
+<text x="415.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">(Приклад для серверного вузла або прискореного тесту)</text>
+<rect x="30.0" y="355.0" width="790.0" height="58.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="430.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Період повного переповнення 32-бітного лічильника при TDP 150 Вт становить ≈ 436 секунд (7.2 хвилини).</text>
+<text x="430.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Опитування частіше одного разу на 5 хвилин гарантує відсутність втрати кратних обертів лічильника.</text>
+</svg>

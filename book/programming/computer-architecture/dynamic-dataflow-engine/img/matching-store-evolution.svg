@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція блоку зіставлення: CAM проти хешування та Explicit Token Store (ETS)</text>
+<rect x="30.0" y="55.0" width="245.0" height="300.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="152.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Асоціативна CAM (TTDA)</text>
+<text x="152.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Пошук за збігом тегів</text>
+<rect x="50.0" y="115.0" width="205.0" height="95.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="152.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Масив компараторів</text>
+<text x="152.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Тег ⟨c, i, ip⟩ порівнюється</text>
+<text x="152.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">з УСІМА слотами пам'яті</text>
+<text x="152.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Складність: O(N) апаратури</text>
+<text x="152.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖ Гігантські витрати енергії</text>
+<text x="152.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖ Повільне масштабування</text>
+<text x="152.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖ Переповнення веде до дедлоку</text>
+<text x="152.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Ранні MIT TTDA (1978–1984)</text>
+<rect x="295.0" y="55.0" width="245.0" height="300.0" rx="8" fill="#fef6e7" stroke="#d97706" stroke-width="1.4"/>
+<text x="417.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">2. Хеш-таблиця (Manchester)</text>
+<text x="417.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Апаратне обчислення h(Tag)</text>
+<rect x="315.0" y="115.0" width="205.0" height="95.0" rx="6" fill="#fff" stroke="#d97706" stroke-width="1.0"/>
+<text x="417.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хеш-генератор + SRAM</text>
+<text x="417.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Індекс = h(Context, IP)</text>
+<text x="417.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Ланцюжки переповнення</text>
+<text x="417.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Середній час: O(1) за такт</text>
+<text x="417.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✔ Звичайна SRAM замість CAM</text>
+<text x="417.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖ Колізії погіршують затримку</text>
+<text x="417.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">✖ Складний контролер пам'яті</text>
+<text x="417.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Manchester Machine (1981–1985)</text>
+<rect x="560.0" y="55.0" width="250.0" height="300.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="685.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Explicit Token Store (ETS)</text>
+<text x="685.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Пряма адресація через FP + r</text>
+<rect x="580.0" y="115.0" width="210.0" height="95.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="685.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр активації (Frame)</text>
+<text x="685.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Адреса = FP + зміщення</text>
+<text x="685.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Біт присутності (Presence Bit)</text>
+<text x="685.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Гарантовано 1 такт, 0 колізій</text>
+<text x="685.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✔ Жодного асоціативного пошуку</text>
+<text x="685.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✔ Прямий запис у звичайну SRAM</text>
+<text x="685.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">✔ Кадри виділяються динамічно</text>
+<text x="685.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">MIT Monsoon / EM-4 (1988–1991)</text>
+</svg>

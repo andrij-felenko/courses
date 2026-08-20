@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синтез ризиків: перехід від конкретних дефектів до стратегічних тем ризиків</text>
+<text x="180.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Сирі ризики (рівень сценаріїв)</text>
+<rect x="40.0" y="78.0" width="300.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="52.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">R1: Відсутній таймаут на виклику платіжного шлюзу</tspan></text>
+<rect x="40.0" y="140.0" width="300.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="52.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">R2: Пул з'єднань БД спільний для читання й запису</tspan></text>
+<rect x="40.0" y="202.0" width="300.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="52.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">R3: Немає обмеження швидкості на публічному API</tspan></text>
+<rect x="40.0" y="264.0" width="300.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="52.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">R4: Каскадні повторні спроби (retry storm) при збоях</tspan></text>
+<rect x="40.0" y="326.0" width="300.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="52.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">R5: Реплікація без детектора розколу (split-brain)</tspan></text>
+<rect x="40.0" y="388.0" width="300.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="52.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">R6: Синхронний ланцюжок 6 мікросервісів при замовленні</tspan></text>
+<text x="720.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7a4ea8" text-anchor="middle" font-weight="700">Теми ризиків (Risk Themes — рівень бізнесу)</text>
+<rect x="520.0" y="88.0" width="380.0" height="92.0" rx="8" fill="#f3edfb" stroke="#7a4ea8" stroke-width="1.8"/>
+<text x="536.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a4ea8" text-anchor="start" font-weight="700">Тема 1: Відсутність ізоляції відмов (Bulkhead)</text>
+<text x="536.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="536.0" dy="0.0">Поодинокий повільний сервіс чи запит монополізує</tspan><tspan x="536.0" dy="12.3">спільні ресурси та паралізує всю систему.</tspan></text>
+<rect x="520.0" y="214.0" width="380.0" height="92.0" rx="8" fill="#f3edfb" stroke="#7a4ea8" stroke-width="1.8"/>
+<text x="536.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a4ea8" text-anchor="start" font-weight="700">Тема 2: Ілюзія надійності синхронних ланцюжків</text>
+<text x="536.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="536.0" dy="0.0">Складна синхронна взаємодія експоненційно</tspan><tspan x="536.0" dy="12.3">множить імовірність повної відмови системи.</tspan></text>
+<rect x="520.0" y="340.0" width="380.0" height="92.0" rx="8" fill="#f3edfb" stroke="#7a4ea8" stroke-width="1.8"/>
+<text x="536.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a4ea8" text-anchor="start" font-weight="700">Тема 3: Некерована поведінка під час перевантаження</text>
+<text x="536.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="536.0" dy="0.0">Відсутність узгодженої стратегії скидання навантаження</tspan><tspan x="536.0" dy="12.3">(load shedding) перетворює піковий трафік на колапс.</tspan></text>
+<line x1="342.0" y1="102.0" x2="514.0" y2="114.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="342.0" y1="164.0" x2="514.0" y2="134.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="342.0" y1="350.0" x2="514.0" y2="240.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="342.0" y1="412.0" x2="514.0" y2="260.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="342.0" y1="226.0" x2="514.0" y2="366.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="342.0" y1="288.0" x2="514.0" y2="386.0" stroke="#6b7280" stroke-width="1.3"/>
+<rect x="108.9" y="455.8" width="722.2" height="32.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="470.0" y="475.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Теми ризиків показують системні прогалини в архітектурному баченні, які неможливо вирішити латанням окремих сервісів.</tspan></text>
+</svg>

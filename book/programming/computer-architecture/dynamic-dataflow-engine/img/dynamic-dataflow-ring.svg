@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільце виконання динамічного dataflow-рушія (Processing Ring)</text>
+<rect x="40.0" y="70.0" width="190.0" height="100.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="135.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Вхідна черга токенів</text>
+<text x="135.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">FIFO токенів</text>
+<text x="135.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">⟨Tag, IP, Port, Val⟩</text>
+<text x="135.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Буферизація пакетів</text>
+<line x1="230.0" y1="120.0" x2="290.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Токен</text>
+<rect x="290.0" y="70.0" width="240.0" height="100.0" rx="8" fill="#fef6e7" stroke="#d97706" stroke-width="1.5"/>
+<text x="410.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Блок зіставлення (Matching)</text>
+<text x="410.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Explicit Token Store / CAM</text>
+<text x="410.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1-й операнд: запис у слот</text>
+<text x="410.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">2-й операнд: пара готова → пуск</text>
+<line x1="530.0" y1="120.0" x2="590.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="560.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пара</text>
+<rect x="590.0" y="70.0" width="210.0" height="100.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Пам'ять вузлів (Node Store)</text>
+<text x="695.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вибірка коду операції (Opcode)</text>
+<text x="695.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Список дуг-наступників</text>
+<text x="695.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Цільові ⟨IP_dest, Port⟩</text>
+<line x1="695.0" y1="170.0" x2="695.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="570.0" y="230.0" width="250.0" height="100.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="695.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Арифметичний блок (ALU/FPU)</text>
+<text x="695.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Виконання операції (чиста функція)</text>
+<text x="695.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Генерація значення результату</text>
+<text x="695.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Без спільних регістрів і блокувань</text>
+<line x1="570.0" y1="280.0" x2="500.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="535.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Результат</text>
+<rect x="240.0" y="230.0" width="260.0" height="100.0" rx="8" fill="#f3f4f6" stroke="#333333" stroke-width="1.5"/>
+<text x="370.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формувач токенів / Маршрутизатор</text>
+<text x="370.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Оновлення тегів ⟨Context, Iter⟩</text>
+<text x="370.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розмноження токенів для дуг графа</text>
+<text x="370.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Маршрутизація: локально / мережа NoC</text>
+<line x1="240.0" y1="280.0" x2="135.0" y2="280.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="135.0" y1="280.0" x2="135.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="135.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Локальне замикання кільця (новий токен)</text>
+<rect x="40.0" y="335.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="130.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Мережа NoC / Інші вузли</text>
+<text x="130.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Міжядерний обмін токенами</text>
+<line x1="260.0" y1="330.0" x2="220.0" y2="350.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="335.0" x2="180.0" y2="170.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+</svg>

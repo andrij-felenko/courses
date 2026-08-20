@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формат подвійної точності Double-Double: пара (hi, lo)</text>
+<rect x="50.0" y="60.0" width="740.0" height="110.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="120.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Старше число: x.hi</text>
+<text x="480.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Стандартне число IEEE 754 binary64 (53 біти значущості)</text>
+<rect x="70.0" y="105.0" width="45.0" height="45.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="92.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">s</text>
+<rect x="120.0" y="105.0" width="130.0" height="45.0" rx="4" fill="#fbf4e6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="185.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">Порядок (11 бітів)</text>
+<rect x="255.0" y="105.0" width="510.0" height="45.0" rx="4" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Старша мантиса hi: 53 біти точності (включно з неявною 1)</text>
+<line x1="420.0" y1="180.0" x2="420.0" y2="220.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="270.0" y="190.0" width="300.0" height="26.0" rx="4" fill="#fbf4e6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="420.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Умова неперекриття: |x.lo| ≤ 0.5 × ULP(x.hi)</text>
+<rect x="50.0" y="230.0" width="740.0" height="110.0" rx="8" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+<text x="120.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0288d1" text-anchor="middle" font-weight="700">Молодше число: x.lo</text>
+<text x="480.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зміщене за порядком коригувальне число IEEE 754 binary64</text>
+<rect x="70.0" y="275.0" width="45.0" height="45.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="92.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">s</text>
+<rect x="120.0" y="275.0" width="130.0" height="45.0" rx="4" fill="#fbf4e6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="185.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">Порядок (≤ exp_hi − 53)</text>
+<rect x="255.0" y="275.0" width="510.0" height="45.0" rx="4" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Молодша мантиса lo: додаткові 53 біти точності</text>
+<rect x="50.0" y="355.0" width="740.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сумарна ефективна мантиса: 106 бітів (~31-32 десяткові знаки) при апаратному динамічному діапазоні double</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 460" width="1040" height="460">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+  </marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#27ae60"/>
+  </marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c0392b"/>
+  </marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="250.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Додавання ключів у фільтр</text>
+<text x="780.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Перевірка наявності ключів</text>
+<line x1="510.0" y1="15.0" x2="510.0" y2="445.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="59.3" y="49.0" width="161.4" height="32.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="69.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Ключ X (&quot;user_102&quot;)</tspan></text>
+<rect x="275.6" y="49.0" width="168.8" height="32.0" rx="6" fill="#fcedec" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="69.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Ключ Y (&quot;order_841&quot;)</tspan></text>
+<rect x="98.7" y="95.2" width="82.7" height="59.6" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">h₁(X) = 1</tspan><tspan x="140.0" dy="14.3">h₂(X) = 5</tspan><tspan x="140.0" dy="14.3">h₃(X) = 11</tspan></text>
+<rect x="318.6" y="95.2" width="82.7" height="59.6" rx="6" fill="#fcedec" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">h₁(Y) = 5</tspan><tspan x="360.0" dy="14.3">h₂(Y) = 8</tspan><tspan x="360.0" dy="14.3">h₃(Y) = 14</tspan></text>
+<line x1="140.0" y1="82.0" x2="140.0" y2="98.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="82.0" x2="360.0" y2="98.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="42.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="55.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="55.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="68.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/>
+<text x="81.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="81.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="94.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="107.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="107.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2</text>
+<rect x="120.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="133.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="133.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">3</text>
+<rect x="146.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="159.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="159.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4</text>
+<rect x="172.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/>
+<text x="185.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="185.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">5</text>
+<rect x="198.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="211.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="211.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">6</text>
+<rect x="224.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="237.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="237.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">7</text>
+<rect x="250.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/>
+<text x="263.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="263.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">8</text>
+<rect x="276.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="289.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="289.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">9</text>
+<rect x="302.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="315.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="315.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">10</text>
+<rect x="328.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/>
+<text x="341.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="341.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">11</text>
+<rect x="354.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="367.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="367.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">12</text>
+<rect x="380.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="393.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="393.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">13</text>
+<rect x="406.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/>
+<text x="419.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="419.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">14</text>
+<rect x="432.0" y="220.0" width="26.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="445.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="445.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">15</text>
+<text x="250.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бітовий масив m=16 розрядів (усі біти спочатку 0)</text>
+<line x1="105.0" y1="155.0" x2="81.0" y2="216.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="140.0" y1="155.0" x2="180.0" y2="216.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="155.0" x2="336.0" y2="216.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="325.0" y1="155.0" x2="190.0" y2="216.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="155.0" x2="263.0" y2="216.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="395.0" y1="155.0" x2="419.0" y2="216.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="105.2" y="328.1" width="289.6" height="73.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="347.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Результат запису:</tspan><tspan x="250.0" dy="14.3">• Ключ X встановив біти: 1, 5, 11</tspan><tspan x="250.0" dy="14.3">• Ключ Y встановив біти: 5, 8, 14</tspan><tspan x="250.0" dy="14.3">(Біт 5 став спільним внаслідок геш-колізії)</tspan></text>
+<rect x="551.9" y="49.0" width="176.2" height="32.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="69.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Запит Z₁ (&quot;guest_99&quot;)</tspan></text>
+<rect x="532.8" y="100.2" width="214.4" height="59.6" rx="6" fill="#fff8f8" stroke="#c0392b" stroke-width="1.5"/><text x="640.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">h₁(Z₁) = 1  → біт 1 = 1</tspan><tspan x="640.0" dy="14.3">h₂(Z₁) = 3  → біт 3 = 0 (СТОП!)</tspan><tspan x="640.0" dy="14.3">h₃(Z₁) = 8  → біт 8 = 1</tspan></text>
+<line x1="640.0" y1="82.0" x2="640.0" y2="102.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="517.5" y="205.2" width="245.1" height="59.6" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="224.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Біт 3 = 0 ⇒ ГАРАНТОВАНО ВІДСУТНІЙ</tspan><tspan x="640.0" dy="14.3">100% точний True Negative</tspan><tspan x="640.0" dy="14.3">0 звернень до повільної пам'яті!</tspan></text>
+<line x1="640.0" y1="160.0" x2="640.0" y2="202.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="801.9" y="49.0" width="176.2" height="32.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="890.0" y="69.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="890.0" dy="0.0">Запит Z₂ (&quot;item_404&quot;)</tspan></text>
+<rect x="804.8" y="100.2" width="170.5" height="59.6" rx="6" fill="#fff8e1" stroke="#333333" stroke-width="1.5"/><text x="890.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">h₁(Z₂) = 1  → біт 1 = 1</tspan><tspan x="890.0" dy="14.3">h₂(Z₂) = 5  → біт 5 = 1</tspan><tspan x="890.0" dy="14.3">h₃(Z₂) = 14 → біт 14 = 1</tspan></text>
+<line x1="890.0" y1="82.0" x2="890.0" y2="102.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="774.3" y="205.2" width="231.4" height="59.6" rx="6" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5"/><text x="890.0" y="224.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="890.0" dy="0.0">Усі біти = 1 (хибний збіг)</tspan><tspan x="890.0" dy="14.3">Хибнопозитивне (False Positive)</tspan><tspan x="890.0" dy="14.3">Потрібна перевірка у сховищі</tspan></text>
+<line x1="890.0" y1="160.0" x2="890.0" y2="202.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="566.9" y="335.2" width="396.2" height="59.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="765.0" y="354.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="765.0" dy="0.0">Асиметрія відповідей:</tspan><tspan x="765.0" dy="14.3">• Відповідь «Ні» — абсолютно точна (відсутній 100%)</tspan><tspan x="765.0" dy="14.3">• Відповідь «Так» — ймовірна (потребує звернення до пам'яті)</tspan></text>
+</svg>

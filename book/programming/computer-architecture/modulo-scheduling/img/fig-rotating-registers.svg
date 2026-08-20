@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний механізм ротації регістрів і предикатів у конвеєрі</text>
+<rect x="40.0" y="55.0" width="350.0" height="130.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="215.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Логічні регістри інструкції (IA-64)</text>
+<rect x="63.9" y="107.3" width="112.3" height="35.3" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="121.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Стадія 0 (Read)</tspan><tspan x="120.0" dy="14.3">Пише в r32</tspan></text>
+<rect x="158.8" y="107.3" width="112.3" height="35.3" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="215.0" y="121.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Стадія 1 (Calc)</tspan><tspan x="215.0" dy="14.3">Читає з r33</tspan></text>
+<rect x="250.4" y="107.3" width="119.1" height="35.3" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="310.0" y="121.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">Стадія 2 (Write)</tspan><tspan x="310.0" dy="14.3">Читає з r34</tspan></text>
+<rect x="62.2" y="159.0" width="305.6" height="18.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="215.0" y="171.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Базовий покажчик ротації: RRB = (RRB - 1) mod 96</tspan></text>
+<line x1="395.0" y1="120.0" x2="445.0" y2="120.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">br.ctop</text>
+<rect x="450.0" y="55.0" width="330.0" height="130.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="615.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Фізичний регістровий файл (Кільце)</text>
+<rect x="475.0" y="105.0" width="64.0" height="45.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="507.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R100</text>
+<text x="507.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Iter i+2</text>
+<rect x="547.0" y="105.0" width="64.0" height="45.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="579.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R101</text>
+<text x="579.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Iter i+1</text>
+<rect x="619.0" y="105.0" width="64.0" height="45.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="651.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R102</text>
+<text x="651.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Iter i</text>
+<rect x="691.0" y="105.0" width="64.0" height="45.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="723.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R103</text>
+<text x="723.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Iter i-1</text>
+<text x="615.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Автоматичне перейменування без інструкцій mov!</text>
+<rect x="40.0" y="205.0" width="740.0" height="120.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керування фазами через предикати стадій (p16 = Пролог, p17 = Ядро, p18 = Епілог)</text>
+<rect x="55.0" y="245.0" width="138.0" height="68.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="124.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 0 (Пролог)</text>
+<text x="124.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">p16 = 1 | p17 = 0 | p18 = 0</text>
+<text x="124.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стартує Iter 0 (Load)</text>
+<rect x="199.0" y="245.0" width="138.0" height="68.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="268.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 1 (Пролог)</text>
+<text x="268.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">p16 = 1 | p17 = 1 | p18 = 0</text>
+<text x="268.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Iter 1 (Load) + Iter 0 (Calc)</text>
+<rect x="343.0" y="245.0" width="138.0" height="68.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="412.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 2..N (Ядро)</text>
+<text x="412.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">p16 = 1 | p17 = 1 | p18 = 1</text>
+<text x="394.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Iter i+2 (L) + Iter i+1 (C) + Iter i (S)</text>
+<rect x="487.0" y="245.0" width="138.0" height="68.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="556.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт N+1 (Епілог)</text>
+<text x="556.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">p16 = 0 | p17 = 1 | p18 = 1</text>
+<text x="556.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Нових ітерацій немає, злив даних</text>
+<rect x="631.0" y="245.0" width="138.0" height="68.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="700.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт N+2 (Епілог)</text>
+<text x="700.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">p16 = 0 | p17 = 0 | p18 = 1</text>
+<text x="700.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фінал останньої ітерації N-1 (Store)</text>
+<text x="410.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Єдине тіло циклу виконує пролог, ядро та епілог завдяки вмиканню/вимиканню предикатів</text>
+</svg>

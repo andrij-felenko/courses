@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 460" width="980" height="460">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+  </marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c0392b"/>
+  </marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#27ae60"/>
+  </marker>
+</defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="490.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Класичний фільтр: k випадкових звернень по всьому простору RAM</text>
+<rect x="52.5" y="72.3" width="95.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="100.0" y="91.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">CPU Ядро</tspan><tspan x="100.0" dy="14.3">Запит ключа</tspan></text>
+<line x1="160.0" y1="95.0" x2="210.0" y2="95.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="220.0" y="50.0" width="730.0" height="90.0" rx="5" fill="#fff8f8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="585.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оперативна пам'ять (DRAM) — фільтр Блума на 64 МБ (мільйони кеш-ліній)</text>
+<rect x="248.7" y="86.5" width="82.7" height="43.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="290.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">Лінія #1204</tspan><tspan x="290.0" dy="13.0">(промах L3)</tspan></text>
+<rect x="435.8" y="86.5" width="88.4" height="43.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Лінія #89021</tspan><tspan x="480.0" dy="13.0">(промах L3)</tspan></text>
+<rect x="628.6" y="86.5" width="82.7" height="43.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="670.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Лінія #3412</tspan><tspan x="670.0" dy="13.0">(промах L3)</tspan></text>
+<rect x="815.8" y="86.5" width="88.4" height="43.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="860.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">Лінія #55018</tspan><tspan x="860.0" dy="13.0">(промах L3)</tspan></text>
+<rect x="197.0" y="149.5" width="586.1" height="31.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="490.0" y="168.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Ціна 1 запиту: k = 4–8 незалежних промахів кешу L3 → ~200–400 нс затримки конвеєра!</tspan></text>
+<line x1="40.0" y1="200.0" x2="940.0" y2="200.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6,6"/>
+<text x="490.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Блочний фільтр (Blocked Bloom): локалізація всередині 1 кеш-лінії 64 байти</text>
+<rect x="38.9" y="287.4" width="122.3" height="45.3" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="100.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">CPU Ядро</tspan><tspan x="100.0" dy="14.3">SIMD (AVX2/512)</tspan></text>
+<rect x="205.5" y="287.4" width="89.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Геш h₀(x)</tspan><tspan x="250.0" dy="14.3">Вибір блоку</tspan></text>
+<line x1="160.0" y1="310.0" x2="200.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="340.0" y="260.0" width="600.0" height="100.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="640.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Єдина кеш-лінія CPU (64 байти = 512 бітів)</text>
+<line x1="300.0" y1="310.0" x2="335.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="407.7" y="300.5" width="464.6" height="43.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Локальні геші h₁..h_k(x) встановлюють і тестують біти ВИКЛЮЧНО в цих 512 бітах</tspan><tspan x="640.0" dy="13.0">Обробка через побітове AND + AVX2 за 1–3 процесорні такти!</tspan></text>
+<rect x="166.3" y="399.5" width="647.4" height="31.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="490.0" y="418.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Ціна 1 запиту: рівно 1 звернення до кешу (64 байти) → 5–10 разів швидше за класичний фільтр!</tspan></text>
+</svg>

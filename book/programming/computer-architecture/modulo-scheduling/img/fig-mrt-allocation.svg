@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модульна таблиця резервування (MRT) для інтервалу II = 2</text>
+<text x="140.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальний час (t)</text>
+<rect x="30.0" y="80.0" width="65.0" height="34.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 0</text>
+<rect x="105.0" y="80.0" width="145.0" height="34.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="177.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Load x[i] (Mem0)</text>
+<line x1="255.0" y1="97.0" x2="340.0" y2="110.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="30.0" y="124.0" width="65.0" height="34.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 1</text>
+<rect x="105.0" y="124.0" width="145.0" height="34.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="177.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Load y[i] (Mem1)</text>
+<line x1="255.0" y1="141.0" x2="340.0" y2="175.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="30.0" y="168.0" width="65.0" height="34.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 2</text>
+<rect x="105.0" y="168.0" width="145.0" height="34.0" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<text x="177.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Mul r1, r2 (ALU0)</text>
+<line x1="255.0" y1="185.0" x2="340.0" y2="110.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="30.0" y="212.0" width="65.0" height="34.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 3</text>
+<rect x="105.0" y="212.0" width="145.0" height="34.0" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<text x="177.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Add r3, r4 (ALU1)</text>
+<line x1="255.0" y1="229.0" x2="340.0" y2="175.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="30.0" y="256.0" width="65.0" height="34.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 4</text>
+<rect x="105.0" y="256.0" width="145.0" height="34.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="177.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Store z[i] (Mem0)</text>
+<line x1="255.0" y1="273.0" x2="340.0" y2="110.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="238.8" y="42.3" width="112.3" height="35.3" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/><text x="295.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="295.0" dy="0.0">Відображення:</tspan><tspan x="295.0" dy="14.3">слот = t mod II</tspan></text>
+<text x="570.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця MRT (II = 2 рядки)</text>
+<rect x="425.0" y="85.0" width="85.0" height="25.0" rx="2" fill="#e2e8f0" stroke="#333333" stroke-width="1.2"/>
+<text x="467.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mem0</text>
+<rect x="510.0" y="85.0" width="85.0" height="25.0" rx="2" fill="#e2e8f0" stroke="#333333" stroke-width="1.2"/>
+<text x="552.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mem1</text>
+<rect x="595.0" y="85.0" width="85.0" height="25.0" rx="2" fill="#e2e8f0" stroke="#333333" stroke-width="1.2"/>
+<text x="637.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALU0</text>
+<rect x="680.0" y="85.0" width="85.0" height="25.0" rx="2" fill="#e2e8f0" stroke="#333333" stroke-width="1.2"/>
+<text x="722.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALU1</text>
+<rect x="345.0" y="115.0" width="75.0" height="55.0" rx="3" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="383.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот 0</text>
+<text x="383.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(t mod 2=0)</text>
+<rect x="425.0" y="115.0" width="85.0" height="55.0" rx="3" fill="#f0fdf4" stroke="#333333" stroke-width="1.2"/>
+<text x="467.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Load / Store</text>
+<rect x="510.0" y="115.0" width="85.0" height="55.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="552.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вільний</text>
+<rect x="595.0" y="115.0" width="85.0" height="55.0" rx="3" fill="#fef3c7" stroke="#333333" stroke-width="1.2"/>
+<text x="637.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Mul</text>
+<rect x="680.0" y="115.0" width="85.0" height="55.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="722.5" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вільний</text>
+<rect x="345.0" y="180.0" width="75.0" height="55.0" rx="3" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="383.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот 1</text>
+<text x="383.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(t mod 2=1)</text>
+<rect x="425.0" y="180.0" width="85.0" height="55.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="467.5" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вільний</text>
+<rect x="510.0" y="180.0" width="85.0" height="55.0" rx="3" fill="#eff6ff" stroke="#333333" stroke-width="1.2"/>
+<text x="552.5" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Load y</text>
+<rect x="595.0" y="180.0" width="85.0" height="55.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="637.5" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вільний</text>
+<rect x="680.0" y="180.0" width="85.0" height="55.0" rx="3" fill="#fef3c7" stroke="#333333" stroke-width="1.2"/>
+<text x="722.5" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Add</text>
+<text x="400.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Жоден ресурс не містить колізій (не більше однієї операції на комірку в такті mod II)</text>
+</svg>
