@@ -10,6 +10,7 @@ window.__BOOKS__.push(
       "title": "Складність",
       "scope": "Теорія обчислюваності та складності: межі обчислюваного, класи задач, нижні оцінки.",
       "topics": [
+        { slug: "cyk-algorithm", title: "Алгоритм Кока–Янгера–Касамі (CYK)", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cnf-grammar.md", status: "recheck" }] , "hist": [{ file: "hist-cocke-younger-kasami.md", status: "recheck" }] , "math": [{ file: "math-cnf-and-complexity.md", status: "recheck" }] , "proj": [{ file: "proj-cyk-parser.md", status: "recheck" }] },
         { slug: "cantor-pairing-function", title: "Парна функція Кантора", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-cantor-pairing.md", status: "recheck" }] , "hist": [{ file: "hist-cantor-set-theory.md", status: "recheck" }] , "math": [{ file: "math-cantor-bijection-proof.md", status: "recheck" }] , "proj": [{ file: "proj-pairing-engine.md", status: "recheck" }] },
         { slug: "chomsky-hierarchy", title: "Ієрархія Хомського", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-chomsky-hierarchy.md", status: "recheck" }] , "math": [{ file: "math-lba-decidability.md", status: "recheck" }] , "proj": [{ file: "proj-cyk-parser.md", status: "recheck" }] },
         { slug: "diophantine-sets-dprm", title: "Діофантові множини та теорема ДПРМ", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-diophantine-builder.md", status: "recheck" }] , "hist": [{ file: "hist-dprm-chronology.md", status: "recheck" }] , "math": [{ file: "math-pell-exponential.md", status: "recheck" }] , "proj": [{ file: "proj-diophantine-solver.md", status: "recheck" }] },
@@ -2894,6 +2895,7 @@ window.__BOOKS__.push(
       "title": "Графові",
       "scope": "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       "topics": [
+        { slug: "pagerank-algorithm", title: "Алгоритм ранжування графів PageRank", basic: { status: "empty" }, detailed: { status: "recheck" } , "hist": [{ file: "hist-pagerank-origins.md", status: "recheck" }] , "math": [{ file: "math-perron-frobenius.md", status: "recheck" }] , "proj": [{ file: "proj-pagerank-engine.md", status: "recheck" }] },
         { slug: "minimum-spanning-tree", title: "Мінімальне кістякове дерево", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "dominator-tree", title: "Дерево домінування (Dominator Tree)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "single-static-assignment", title: "Форма єдиного статичного присвоєння (SSA)", basic: { status: "empty" }, detailed: { status: "pending" } },
@@ -4971,6 +4973,7 @@ window.__BOOKS__.push(
       "title": "Зір",
       "scope": "Аналіз зображень і відео: фільтрація, ознаки, сегментація, відновлення геометрії сцени.",
       "topics": [
+        { slug: "sort-tracking-algorithm", title: "Алгоритм трекінгу об'єктів SORT", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-sort-interface.md", status: "recheck" }] , "hist": [{ file: "hist-sort-origin.md", status: "recheck" }] , "math": [{ file: "math-sort-kalman-iou.md", status: "recheck" }] , "proj": [{ file: "proj-sort-tracker.md", status: "recheck" }] },
         {
           "slug": "bayer-demosaic",
           "title": "Демозаїка",
@@ -5824,6 +5827,10 @@ window.__BOOKS__.push(
       "title": "Сигнали",
       "scope": "Цифрова обробка сигналів (спектр, фільтрація, дискретизація) разом із плануванням руху, локалізацією та керуванням автономних агентів.",
       "topics": [
+        { slug: "wsola-algorithm", title: "Алгоритм масштабування аудіо в часі WSOLA", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-wsola-parameters.md", status: "recheck" }] , "hist": [{ file: "hist-wsola.md", status: "recheck" }] , "math": [{ file: "math-cross-correlation.md", status: "recheck" }] , "proj": [{ file: "proj-wsola-engine.md", status: "recheck" }] },
+        { slug: "boustrophedon-coverage", title: "Бустрофедонний клітинний розклад та покриття площ", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-bcd-planner.md", status: "recheck" }] , "math": [{ file: "math-morse-decomposition.md", status: "recheck" }] , "proj": [{ file: "proj-boustrophedon-c.md", status: "recheck" }] },
+        { slug: "lambda-method-rtk", title: "Метод LAMBDA для розв'язання цілочислової неоднозначності RTK", basic: { status: "empty" }, detailed: { status: "recheck" } , "math": [{ file: "math-z-transform.md", status: "recheck" }] , "proj": [{ file: "proj-lambda-search.md", status: "recheck" }] },
+        { slug: "msckf-odometry", title: "Візуально-інерціальна одометрія MSCKF", basic: { status: "empty" }, detailed: { status: "recheck" } , "api": [{ file: "api-msckf.md", status: "recheck" }] , "math": [{ file: "math-nullspace-projection.md", status: "recheck" }] , "proj": [{ file: "proj-msckf-pipeline.md", status: "recheck" }] },
         {
           "slug": "signal-noise",
           "title": "Шум у сигналі",

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="60.0" width="180.0" height="70.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="81.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">1. Створення (New)</tspan><tspan x="130.0" dy="18.2">Незв'язана детекція</tspan><tspan x="130.0" dy="18.2">hits = 1, age = 0</tspan></text>
+<rect x="320.0" y="60.0" width="200.0" height="70.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="82.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">2. Підтверджено (Active)</tspan><tspan x="420.0" dy="16.9">hits ≥ min_hits (3)</tspan><tspan x="420.0" dy="16.9">Видається назовні</tspan></text>
+<rect x="600.0" y="60.0" width="220.0" height="70.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/><text x="710.0" y="81.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">3. Пропуск (Coasting)</tspan><tspan x="710.0" dy="18.2">Немає детекції кадру t</tspan><tspan x="710.0" dy="18.2">age += 1 (Калман predict)</tspan></text>
+<rect x="600.0" y="200.0" width="220.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="710.0" y="217.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">4. Знищено (Deleted)</tspan><tspan x="710.0" dy="16.9">age &gt; max_age (зазвичай 1)</tspan><tspan x="710.0" dy="16.9">Пам'ять звільняється</tspan></text>
+<line x1="220.0" y1="95.0" x2="320.0" y2="95.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">hits++</text>
+<line x1="520.0" y1="85.0" x2="600.0" y2="85.0" stroke="#d4ac0d" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="560.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d4ac0d" text-anchor="middle">пропуск</text>
+<line x1="600.0" y1="110.0" x2="520.0" y2="110.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="560.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">детекція</text>
+<line x1="710.0" y1="130.0" x2="710.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">age &gt; 1</text>
+<rect x="40.0" y="280.0" width="780.0" height="100.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="60.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Вразливість SORT: Втрата ідентифікатора при оклюзії &gt; max_age кадрів</text>
+<text x="60.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Кадр t (ID 1)</text>
+<line x1="140.0" y1="332.0" x2="200.0" y2="332.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d4ac0d" text-anchor="start">Кадри t+1, t+2 (Об'єкт сховався)</text>
+<line x1="430.0" y1="332.0" x2="490.0" y2="332.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Кадр t+3 (Об'єкт знову видно)</text>
+<text x="60.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Оскільки max_age = 1, трек ID 1 знищено на кадрі t+2. На кадрі t+3 створюється новий трек ID 2 (ID Switch)!</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="380.0" height="320.0" rx="4" fill="#fcfcfc" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="60.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Кадр зображення (W × H)</text>
+<line x1="50.0" y1="50.0" x2="130.0" y2="50.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="140.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7f8c8d" text-anchor="start">x</text>
+<line x1="50.0" y1="50.0" x2="50.0" y2="130.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="50.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7f8c8d" text-anchor="middle">y</text>
+<rect x="140.0" y="110.0" width="160.0" height="200.0" rx="2" fill="#ebf5fb" stroke="#2980b9" stroke-width="2.5"/>
+<circle cx="220.0" cy="210.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="228.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Центр (u, v)</text>
+<line x1="140.0" y1="98.0" x2="300.0" y2="98.0" stroke="#2980b9" stroke-width="1.5"/>
+<line x1="140.0" y1="92.0" x2="140.0" y2="104.0" stroke="#2980b9" stroke-width="1.5"/>
+<line x1="300.0" y1="92.0" x2="300.0" y2="104.0" stroke="#2980b9" stroke-width="1.5"/>
+<text x="220.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="middle">w (ширина)</text>
+<line x1="312.0" y1="110.0" x2="312.0" y2="310.0" stroke="#2980b9" stroke-width="1.5"/>
+<line x1="306.0" y1="110.0" x2="318.0" y2="110.0" stroke="#2980b9" stroke-width="1.5"/>
+<line x1="306.0" y1="310.0" x2="318.0" y2="310.0" stroke="#2980b9" stroke-width="1.5"/>
+<text x="318.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="start">h (висота)</text>
+<line x1="220.0" y1="210.0" x2="275.0" y2="250.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="280.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Вектор швидкості (u̇, v̇)</text>
+<rect x="460.0" y="40.0" width="350.0" height="160.0" rx="6" fill="#f8f9fa" stroke="#7f8c8d" stroke-width="1.5"/><text x="635.0" y="65.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="635.0" dy="0.0">Вектор стану Калмана (7D):</tspan><tspan x="635.0" dy="16.9">x = [ u,  v,  s,  r,  u̇,  v̇,  ṡ ]ᵀ</tspan><tspan x="635.0" dy="16.9"></tspan><tspan x="635.0" dy="16.9">• u, v — координати центра рамки</tspan><tspan x="635.0" dy="16.9">• s = w · h — площа (масштаб / scale)</tspan><tspan x="635.0" dy="16.9">• r = w / h — співвідношення сторін</tspan><tspan x="635.0" dy="16.9">• u̇, v̇, ṡ — лінійні швидкості (похідні)</tspan><tspan x="635.0" dy="16.9">• ṙ — вважається постійним (ṙ = 0)</tspan></text>
+<rect x="460.0" y="220.0" width="350.0" height="140.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="635.0" y="243.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="635.0" dy="0.0">Вектор вимірів детектора (4D):</tspan><tspan x="635.0" dy="16.9">z = [ u,  v,  s,  r ]ᵀ</tspan><tspan x="635.0" dy="16.9"></tspan><tspan x="635.0" dy="16.9">Зворотне відновлення рамки:</tspan><tspan x="635.0" dy="16.9">w = √(s · r),    h = √(s / r)</tspan><tspan x="635.0" dy="16.9">x₁ = u − w/2,    y₁ = v − h/2</tspan><tspan x="635.0" dy="16.9">x₂ = u + w/2,    y₂ = v + h/2</tspan></text>
+</svg>

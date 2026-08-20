@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 230" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="230" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр синтаксичного аналізу CYK</text>
+<rect x="20.0" y="55.0" width="160.0" height="130.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="100.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">1. Конвертація в CNF</text>
+<line x1="30.0" y1="95.0" x2="170.0" y2="95.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Усунення eps, UNIT,</text>
+<text x="100.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">довгих та змішаних правил</text>
+<rect x="180.0" y="55.0" width="160.0" height="130.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="260.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">2. Базовий шар (l = 1)</text>
+<line x1="190.0" y1="95.0" x2="330.0" y2="95.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="260.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Заповнення P[1, i] за</text>
+<text x="260.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">термінальними A -&gt; w[i]</text>
+<rect x="370.0" y="55.0" width="160.0" height="130.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="450.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">3. Ітеративне ДП (l = 2..n)</text>
+<line x1="380.0" y1="95.0" x2="520.0" y2="95.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="450.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єднання P[k,i] x P[l-k,i+k]</text>
+<text x="450.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">для правил A -&gt; BC</text>
+<rect x="585.0" y="55.0" width="170.0" height="130.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="670.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">4. Перевірка та AST</text>
+<line x1="595.0" y1="95.0" x2="745.0" y2="95.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="670.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">S in P[n, 1] ? Відновлення</text>
+<text x="670.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">дерева за вказівниками</text>
+<line x1="180.0" y1="120.0" x2="215.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="120.0" x2="375.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="120.0" x2="585.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>
