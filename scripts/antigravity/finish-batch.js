@@ -196,6 +196,42 @@ for (const f of fs.existsSync(path.join("scripts", "_finish")) ? fs.readdirSync(
       .forEach((t) => elsewhere.push(`${m[1]}/${t.slug}`));
   } catch { }
 }
+/* ── Одне поняття, пояснене у вставках кількох тем ───────────────────────────
+   §6: вставка розширює свою тему, а не пояснює чужу; назване поняття, пояснене
+   вставкою вдруге, — це тема. Але автор виконати це правило сам не може: під час
+   письма маніфест не чіпається, у чужу теку заходити не можна, і сестринські теми
+   того самого батчу для нього невидимі. Крос-темовий погляд є рівно тут — у батчі,
+   що бачить усі теки одразу.
+
+   Судимо за заголовком H1 вставки: власне ім'я, якого немає в назві теми. Скрипт
+   лише ПОКАЗУЄ — відрізнити «протокол, що заслуговує теми» від «діяча в історії»
+   машина не вміє, і мовчки заводити теми за неї не можна. */
+const insName = {};
+for (const dir of dirs) {
+  const topic = path.basename(dir);
+  const words = topic.replace(/-/g, " ").toLowerCase();
+  let files = [];
+  try { files = fs.readdirSync(dir); } catch { continue; }
+  for (const f of files) {
+    if (!/^(hist|comp|math|proj|api)-.*\.md$/.test(f)) continue;
+    let h1 = "";
+    try { h1 = (fs.readFileSync(path.join(dir, f), "utf8").match(/^#\s+(.+)$/m) || [, ""])[1]; } catch { continue; }
+    const names = [...new Set(h1.replace(/[^\p{L}\p{N}\s+.-]/gu, " ").match(/[A-Z][A-Za-z0-9+.-]{3,}/g) || [])];
+    for (const n of names) {
+      if (words.includes(n.toLowerCase())) continue;
+      (insName[n] = insName[n] || []).push({ topic, f });
+    }
+  }
+}
+const doubled = Object.entries(insName).filter(([, v]) => new Set(v.map((x) => x.topic)).size >= 2);
+if (doubled.length) {
+  console.log(`
+  ⚠ ОДНЕ ПОНЯТТЯ — ВСТАВКИ В КІЛЬКОХ ТЕМАХ БАТЧУ (§6):`);
+  doubled.forEach(([n, v]) => console.log(`     «${n}» у ${new Set(v.map((x) => x.topic)).size} темах: ${v.map((x) => x.topic + "/" + x.f).join(", ")}`));
+  console.log(`     Якщо це поняття, а не діяч в історії, — воно має бути ТЕМОЮ, а не поясненим двічі.`);
+  console.log(`     Заведи через newtopic.js і лиши у вставках по реченню з лінком.`);
+}
+
 console.log(`  важіль newtopic: заведено ${fresh.length} · відмовлено ${mine.length}${mine.length ? " (" + Object.entries(byWhy).map(([k, v]) => `${k}: ${v}`).join(", ") + ")" : ""}`);
 if (elsewhere.length) console.log(`  теми, віддані ІНШИМ книгам: ${elsewhere.join(", ")}`);
 
