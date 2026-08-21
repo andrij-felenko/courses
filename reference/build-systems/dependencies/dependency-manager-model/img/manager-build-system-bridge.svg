@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурний міст: від маніфесту залежностей до моделі цілей CMake</text>
+<text x="460.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Як менеджер пакетів транслює розв'язаний граф у нативні структури системи збірки</text>
+<rect x="51.9" y="110.6" width="176.2" height="78.8" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/><text x="140.0" y="130.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Маніфест проєкту</tspan><tspan x="140.0" dy="15.6">conanfile.py / txt</tspan><tspan x="140.0" dy="15.6">vcpkg.json</tspan><tspan x="140.0" dy="15.6">[requires] fmt/10.1.1</tspan></text>
+<rect x="40.7" y="292.8" width="198.6" height="94.4" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="140.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Менеджер пакетів</tspan><tspan x="140.0" dy="15.6">(Conan / vcpkg)</tspan><tspan x="140.0" dy="15.6">1. Розв'язання графа</tspan><tspan x="140.0" dy="15.6">2. Збірка / Завантаження</tspan><tspan x="140.0" dy="15.6">3. Розгортання файлів</tspan></text>
+<line x1="140.0" y1="205.0" x2="140.0" y2="275.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="320.0" y="95.0" width="270.0" height="335.0" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="455.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#854d0e" text-anchor="middle" font-weight="700">ГЕНЕРАТОРИ (GENERATORS)</text>
+<rect x="335.0" y="158.0" width="240.0" height="60.0" rx="5" fill="#ffffff" stroke="#fde047" stroke-width="1.2"/>
+<text x="455.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMakeDeps / CMakeToolchain</text>
+<text x="455.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="455.0" dy="0.0">Створює fmt-config.cmake,</tspan><tspan x="455.0" dy="13.0">conan_toolchain.cmake</tspan></text>
+<rect x="335.0" y="243.0" width="240.0" height="60.0" rx="5" fill="#ffffff" stroke="#fde047" stroke-width="1.2"/>
+<text x="455.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PkgConfigDeps</text>
+<text x="455.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="455.0" dy="0.0">Створює fmt.pc для</tspan><tspan x="455.0" dy="13.0">систем без CMake</tspan></text>
+<rect x="335.0" y="328.0" width="240.0" height="60.0" rx="5" fill="#ffffff" stroke="#fde047" stroke-width="1.2"/>
+<text x="455.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMake Imported Targets</text>
+<text x="455.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="455.0" dy="0.0">Експортує ціль</tspan><tspan x="455.0" dy="13.0">fmt::fmt з властивостями</tspan></text>
+<line x1="240.0" y1="340.0" x2="318.0" y2="340.0" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="640.0" y="95.0" width="250.0" height="335.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="765.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">СИСТЕМА ЗБІРКИ (CMake)</text>
+<rect x="655.0" y="160.0" width="220.0" height="160.0" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="668.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="668.0" dy="0.0">find_package(fmt CONFIG REQUIRED)</tspan><tspan x="668.0" dy="14.3"></tspan><tspan x="668.0" dy="14.3">add_executable(my_app main.cpp)</tspan><tspan x="668.0" dy="14.3"></tspan><tspan x="668.0" dy="14.3">target_link_libraries(my_app</tspan><tspan x="668.0" dy="14.3">  PRIVATE</tspan><tspan x="668.0" dy="14.3">    fmt::fmt</tspan><tspan x="668.0" dy="14.3">)</tspan></text>
+<text x="765.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автоматичне прокидання:</text>
+<text x="765.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• -I/path/to/fmt/include</text>
+<text x="765.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• -L/path/to/fmt/lib -lfmt</text>
+<text x="765.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Потрібні прапорці компілятора</text>
+<line x1="590.0" y1="240.0" x2="638.0" y2="240.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

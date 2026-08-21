@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Моделі постачання: Збірка з вихідного коду проти Бінарного кешу</text>
+<text x="460.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Гарантія повної сумісності ціною часу збірки проти миттєвого завантаження за детермінованим хешем</text>
+<rect x="30.0" y="75.0" width="415.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="237.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700">Source-Based (vcpkg / FetchContent)</text>
+<rect x="50.0" y="125.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Завантаження коду</text>
+<text x="65.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Клонування Git-репозиторію або tar.gz архіву</text>
+<line x1="237.0" y1="177.0" x2="237.0" y2="193.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="195.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Локальна конфігурація</text>
+<text x="65.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Запуск CMake/Autotools/Meson із локальним тулчейном</text>
+<line x1="237.0" y1="247.0" x2="237.0" y2="263.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="265.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Повна збірка з сирців</text>
+<text x="65.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Компіляція всіх C/C++ файлів на машині розробника</text>
+<line x1="237.0" y1="317.0" x2="237.0" y2="333.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="50.0" y="335.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Інсталяція в sysroot</text>
+<text x="65.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Копіювання згенерованих .a / .so та заголовків у префікс</text>
+<text x="237.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">✓ 100% узгодженість прапорців  |  ✗ Тривалий час компіляції</text>
+<rect x="475.0" y="75.0" width="415.0" height="395.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="682.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Binary Caching (Conan Package ID)</text>
+<rect x="495.0" y="125.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="510.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Розрахунок Package ID</text>
+<text x="510.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Хеш: SHA1(OS + Arch + Compiler + Std + Options + Deps)</text>
+<line x1="682.0" y1="177.0" x2="682.0" y2="193.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="495.0" y="195.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="510.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Запит до бінарного сховища</text>
+<text x="510.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Перевірка наявності артефакту з цим Package ID на сервері</text>
+<line x1="682.0" y1="247.0" x2="682.0" y2="263.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="495.0" y="265.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="510.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Завантаження готового бінарника</text>
+<text x="510.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Миттєве отримання сумісного архіву (Cache Hit)</text>
+<line x1="682.0" y1="317.0" x2="682.0" y2="333.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="495.0" y="335.0" width="375.0" height="52.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="510.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Fallback: локальна збірка</text>
+<text x="510.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Збірка з сирців лише якщо в кеші немає точного збігу</text>
+<text x="682.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Миттєве завантаження (секунди)  |  ✓ Захист від несумісності</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатовимірний простір бінарної сумісності (ABI) у C++</text>
+<text x="460.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Один вихідний код C++ породжує тисячі взаємно несумісних бінарних артефактів</text>
+<rect x="69.6" y="226.2" width="120.7" height="87.7" rx="6" fill="#eef2f7" stroke="#4b5563" stroke-width="1.5"/><text x="130.0" y="249.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">Вихідний код</tspan><tspan x="130.0" dy="16.9">бібліотеки</tspan><tspan x="130.0" dy="16.9">libdemo.cpp</tspan><tspan x="130.0" dy="16.9">libdemo.h</tspan></text>
+<rect x="300.0" y="88.0" width="320.0" height="44.0" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="312.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Компілятор та версія</text>
+<text x="312.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">GCC 11/12/13/14, Clang 14..18, MSVC 19.x</text>
+<line x1="210.0" y1="270.0" x2="298.0" y2="110.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="110.0" x2="695.0" y2="110.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="153.0" width="320.0" height="44.0" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="312.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Стандарт мови C++</text>
+<text x="312.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">-std=c++14, c++17, c++20, c++23</text>
+<line x1="210.0" y1="270.0" x2="298.0" y2="175.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="175.0" x2="695.0" y2="175.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="218.0" width="320.0" height="44.0" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="312.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">C++ Runtime / Стандартна б-ка</text>
+<text x="312.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">libstdc++ (old/dual ABI), libc++, MSVC CRT (/MD, /MT, /MDd)</text>
+<line x1="210.0" y1="270.0" x2="298.0" y2="240.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="240.0" x2="695.0" y2="240.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="283.0" width="320.0" height="44.0" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="312.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Тип компонування та PIC</text>
+<text x="312.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Static (.a/.lib) vs Shared (.so/.dll), -fPIC / -fPIE</text>
+<line x1="210.0" y1="270.0" x2="298.0" y2="305.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="305.0" x2="695.0" y2="305.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="348.0" width="320.0" height="44.0" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="312.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Конфігурація оптимізації</text>
+<text x="312.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Debug, Release, RelWithDebInfo, MinSizeRel, ASan/TSan</text>
+<line x1="210.0" y1="270.0" x2="298.0" y2="370.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="370.0" x2="695.0" y2="370.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="413.0" width="320.0" height="44.0" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="312.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Цільова архітектура й SIMD</text>
+<text x="312.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">x86_64 (AVX2, AVX512), AArch64, ARMv7 (NEON)</text>
+<line x1="210.0" y1="270.0" x2="298.0" y2="435.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="435.0" x2="695.0" y2="435.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="700.0" y="90.0" width="205.0" height="385.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="802.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Матриця артефактів</text>
+<text x="802.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Комбінаторний вибух</text>
+<rect x="712.0" y="158.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_gcc13_cxx20_libstdc++_rel</text>
+<rect x="712.0" y="194.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_gcc13_cxx17_libstdc++_dbg</text>
+<rect x="712.0" y="230.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_clang17_cxx20_libc++_rel</text>
+<rect x="712.0" y="266.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_msvc19_cxx20_MD_rel</text>
+<rect x="712.0" y="302.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_msvc19_cxx20_MDd_dbg</text>
+<rect x="712.0" y="338.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_msvc19_cxx20_MT_rel</text>
+<rect x="712.0" y="374.0" width="181.0" height="26.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="802.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pkg_arm64_gcc12_cxx17_pic</text>
+<rect x="712.0" y="410.0" width="181.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="802.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">... (понад 1000 комбінацій)</text>
+</svg>
