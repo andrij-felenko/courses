@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="30.0" width="250.0" height="250.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="155.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Гостьова віртуальна машина (VM)</text>
+<rect x="45.0" y="75.0" width="220.0" height="50.0" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="155.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle"><tspan x="155.0" dy="0.0">Гостьовий застосунок</tspan><tspan x="155.0" dy="14.3">Користувацький простір VM</tspan></text>
+<rect x="45.0" y="140.0" width="220.0" height="125.0" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="155.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700">Гостьове ядро (Linux)</text>
+<rect x="55.0" y="175.0" width="200.0" height="34.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.0"/>
+<text x="155.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Драйвер virtio-net / virtio-blk</text>
+<rect x="55.0" y="220.0" width="200.0" height="34.0" rx="4" fill="#bae6fd" stroke="#0284c7" stroke-width="1.0"/>
+<text x="155.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle">Кільця virtqueue (vring)</text>
+<rect x="310.0" y="30.0" width="220.0" height="130.0" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="420.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">Ядро хоста / Модуль KVM</text>
+<rect x="325.0" y="75.0" width="190.0" height="70.0" rx="5" fill="#fee2e2" stroke="#f87171" stroke-width="1.0"/>
+<text x="420.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f1d1d" text-anchor="middle"><tspan x="420.0" dy="0.0">Перехоплення MMIO / PIO</tspan><tspan x="420.0" dy="14.3">ioeventfd (kick)</tspan><tspan x="420.0" dy="14.3">irqfd (call / vIRQ)</tspan></text>
+<rect x="560.0" y="30.0" width="270.0" height="250.0" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+<text x="695.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#713f12" text-anchor="middle" font-weight="700">Процес QEMU / VMM (Master)</text>
+<rect x="575.0" y="75.0" width="240.0" height="50.0" rx="5" fill="#fef9c3" stroke="#facc15" stroke-width="1.0"/>
+<text x="695.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle"><tspan x="695.0" dy="0.0">Control Plane: PCI конфігурація,</tspan><tspan x="695.0" dy="14.3">узгодження Virtio Features</tspan></text>
+<rect x="575.0" y="135.0" width="240.0" height="50.0" rx="5" fill="#ffffff" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="695.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#713f12" text-anchor="middle"><tspan x="695.0" dy="0.0">Виділення RAM (memfd/HugeTLB)</tspan><tspan x="695.0" dy="14.3">ініціалізація vhost-user сокета</tspan></text>
+<rect x="575.0" y="195.0" width="240.0" height="70.0" rx="5" fill="#fef08a" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="695.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#713f12" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Передача дескрипторів пам'яті</tspan><tspan x="695.0" dy="14.3">та сигнальних fd (SCM_RIGHTS)</tspan></text>
+<rect x="140.0" y="315.0" width="400.0" height="100.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.0"/>
+<text x="340.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="middle" font-weight="700">Розділювана пам'ять: memfd / hugetlbfs (Shared RAM)</text>
+<rect x="155.0" y="355.0" width="175.0" height="48.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="242.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle"><tspan x="242.0" dy="0.0">Дескриптори virtio</tspan><tspan x="242.0" dy="14.3">кільця Avail / Used</tspan></text>
+<rect x="345.0" y="355.0" width="180.0" height="48.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="435.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle"><tspan x="435.0" dy="0.0">Буфери даних</tspan><tspan x="435.0" dy="14.3">(пакети / блоки)</tspan></text>
+<rect x="580.0" y="315.0" width="250.0" height="100.0" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="2.0"/>
+<text x="705.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">UNIX Domain Socket</text>
+<text x="705.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle"><tspan x="705.0" dy="0.0">vhost-user protocol messages</tspan><tspan x="705.0" dy="14.3">Передача дескрипторів SCM_RIGHTS</tspan></text>
+<rect x="30.0" y="450.0" width="800.0" height="180.0" rx="8" fill="#f3e8ff" stroke="#9333ea" stroke-width="2.0"/>
+<text x="430.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#581c87" text-anchor="middle" font-weight="700">Зовнішній сервер у просторі користувача: Slave / Backend (OVS-DPDK / SPDK / virtiofsd)</text>
+<rect x="50.0" y="495.0" width="230.0" height="115.0" rx="5" fill="#ffffff" stroke="#a855f7" stroke-width="1.0"/>
+<text x="165.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle" font-weight="700">Обробник сокета vhost-user</text>
+<text x="165.0" y="545.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b0764" text-anchor="middle"><tspan x="165.0" dy="0.0">Прийом керуючих команд</tspan><tspan x="165.0" dy="14.3">Отримання fd через SCM_RIGHTS</tspan><tspan x="165.0" dy="14.3">mmap() розділюваної пам'яті</tspan></text>
+<rect x="300.0" y="495.0" width="255.0" height="115.0" rx="5" fill="#ede9fe" stroke="#a855f7" stroke-width="1.5"/>
+<text x="427.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle" font-weight="700">Data Plane Worker (PMD)</text>
+<text x="427.0" y="545.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="700"><tspan x="427.0" dy="0.0">Прямий доступ до vring у RAM</tspan><tspan x="427.0" dy="14.3">Опитування кілець без syscall</tspan><tspan x="427.0" dy="14.3">Zero-copy обробка дескрипторів</tspan></text>
+<rect x="575.0" y="495.0" width="235.0" height="115.0" rx="5" fill="#ffffff" stroke="#a855f7" stroke-width="1.0"/>
+<text x="692.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle" font-weight="700">Цільовий рушій I/O</text>
+<text x="692.0" y="545.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b0764" text-anchor="middle"><tspan x="692.0" dy="0.0">Мережевий комутатор (OVS/DPDK)</tspan><tspan x="692.0" dy="14.3">Контролер NVMe (SPDK bdev)</tspan><tspan x="692.0" dy="14.3">Файловий демон (virtiofsd)</tspan></text>
+<line x1="245.0" y1="145.0" x2="310.0" y2="95.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="120.0" x2="245.0" y2="165.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="280.0" x2="705.0" y2="315.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="415.0" x2="705.0" y2="450.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="155.0" y1="280.0" x2="210.0" y2="315.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="427.0" y1="450.0" x2="427.0" y2="415.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="160.0" x2="165.0" y2="450.0" stroke="#9333ea" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

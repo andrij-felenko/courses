@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми TTY у ядрі Linux</text>
+<rect x="40.0" y="30.0" width="960.0" height="70.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.8"/>
+<text x="520.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Простір користувача: процеси, термінальні емулятори, системні виклики</text>
+<text x="520.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">read(fd, buf, n)  ·  write(fd, buf, n)  ·  ioctl(fd, TCSETS / TIOCSWINSZ / TIOCSETD, …)</text>
+<line x1="520.0" y1="100.0" x2="520.0" y2="136.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="140.0" width="960.0" height="90.0" rx="6" fill="#fdfaf3" stroke="#6b7280" stroke-width="1.6"/>
+<text x="520.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шар ядра TTY (drivers/tty/tty_io.c · struct tty_struct)</text>
+<rect x="60.0" y="185.0" width="430.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="275.0" y="207.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="275.0" dy="0.0">Маршрутизація за major/minor · Таблиця відкритих tty</tspan></text>
+<rect x="510.0" y="185.0" width="470.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="745.0" y="207.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">Сесії та групи процесів: pgrp, session, керування завданнями</tspan></text>
+<line x1="520.0" y1="230.0" x2="520.0" y2="266.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="270.0" width="960.0" height="120.0" rx="6" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="520.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Шар лінійної дисципліни (struct tty_ldisc · tty_ldisc_ops)</text>
+<rect x="60.0" y="312.0" width="440.0" height="66.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="280.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">N_TTY (ldisc 0 — типова дисципліна термінала)</text>
+<text x="280.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ICANON (буфер рядка) · ISIG (Ctrl+C, Ctrl+Z) · ECHO · OPOST</text>
+<rect x="520.0" y="312.0" width="460.0" height="66.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="750.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спеціалізовані дисципліни (перемикання через TIOCSETD)</text>
+<text x="750.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">N_PPP (мережеві пакети) · N_GSM0710 (модем) · N_SLCAN (CAN-шина)</text>
+<line x1="520.0" y1="390.0" x2="520.0" y2="426.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="430.0" width="960.0" height="58.0" rx="6" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="520.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Кільцевий буфер tty_buffer (Flip Buffers) і робоча черга flush_to_ldisc</text>
+<text x="520.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Асинхронний міст: драйвер/переривання кладе байти в atomic-контексті → воркер передає їх у ldisc</text>
+<line x1="200.0" y1="488.0" x2="200.0" y2="524.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="488.0" x2="520.0" y2="524.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="840.0" y1="488.0" x2="840.0" y2="524.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="528.0" width="300.0" height="84.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="190.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовні порти (UART)</text>
+<text x="190.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">/dev/ttyS*, /dev/ttyUSB*</text>
+<text x="190.0" y="596.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">8250, serial_core, USB CDC-ACM</text>
+<rect x="360.0" y="528.0" width="320.0" height="84.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="520.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Псевдотермінали (PTY)</text>
+<text x="520.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">/dev/ptmx ⇄ /dev/pts/N</text>
+<text x="520.0" y="596.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">SSH-сервери, tmux, емулятори (pty.c)</text>
+<rect x="700.0" y="528.0" width="300.0" height="84.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="850.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Віртуальні консолі (VT)</text>
+<text x="850.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">/dev/tty1..63, /dev/tty0</text>
+<text x="850.0" y="596.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">vt.c, keyboard.c, fbcon / vgacon</text>
+</svg>

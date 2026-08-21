@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="430.0" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="30.0" y="30.0" width="220.0" height="380.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="140.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Джерела опису пристроїв</text>
+<rect x="45.0" y="75.0" width="190.0" height="65.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="140.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">Device Tree (.dts)</text>
+<text x="140.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle">compatible = &quot;ti,tmp102&quot;</text>
+<text x="140.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle">reg = &lt;0x48&gt;;</text>
+<rect x="45.0" y="150.0" width="190.0" height="65.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="140.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">ACPI (DSDT / SSDT)</text>
+<text x="140.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">_HID: &quot;TMP0102&quot; / &quot;INT3432&quot;</text>
+<text x="140.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">I2cSerialBusV2(0x48, ...)</text>
+<rect x="45.0" y="225.0" width="190.0" height="65.0" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="140.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Таблиця i2c_device_id</text>
+<text x="140.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="middle">{&quot;tmp102&quot;, 0}</text>
+<text x="140.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="middle">Legacy / Board info</text>
+<rect x="45.0" y="300.0" width="190.0" height="65.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="140.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">sysfs new_device</text>
+<text x="140.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">echo tmp102 0x48 &gt;</text>
+<text x="140.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">.../i2c-1/new_device</text>
+<rect x="290.0" y="75.0" width="230.0" height="290.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="405.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Створення i2c_client</text>
+<text x="405.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">i2c_new_client_device()</text>
+<rect x="305.0" y="145.0" width="200.0" height="75.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="405.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">struct i2c_client</text>
+<text x="405.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">.addr = 0x48</text>
+<text x="405.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">.adapter = i2c_adapter</text>
+<rect x="305.0" y="235.0" width="200.0" height="110.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="405.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Зіставлення (Matching)</text>
+<text x="405.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">1. of_match_table (DT)</text>
+<text x="405.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">2. acpi_match_table (ACPI)</text>
+<text x="405.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">3. id_table (i2c_device_id)</text>
+<text x="405.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">4. driver.name == client.name</text>
+<rect x="560.0" y="110.0" width="210.0" height="220.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="665.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">struct i2c_driver</text>
+<text x="665.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle">Драйвер сенсора (tmp102.c)</text>
+<rect x="575.0" y="175.0" width="180.0" height="135.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+<text x="665.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">.probe(client)</text>
+<text x="665.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Ініціалізація чипа,</text>
+<text x="665.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">реєстрація в hwmon / iio,</text>
+<text x="665.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">налаштування переривань IRQ</text>
+<text x="665.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">.remove(client)</text>
+<text x="665.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Звільнення ресурсів</text>
+<line x1="235.0" y1="107.0" x2="290.0" y2="140.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="182.0" x2="290.0" y2="180.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="257.0" x2="290.0" y2="230.0" stroke="#9333ea" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="332.0" x2="290.0" y2="270.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="220.0" x2="560.0" y2="220.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

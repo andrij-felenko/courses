@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="1000.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="40.0" y="24.0" width="920.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="51.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Анатомія 64-бітного модифікатора формату DRM (uint64_t modifier)</tspan></text>
+<rect x="50.0" y="90.0" width="220.0" height="54.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="160.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Vendor ID (8 бітів)</text>
+<text x="160.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">біти [63 .. 56]</text>
+<rect x="280.0" y="90.0" width="670.0" height="54.0" rx="4" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="615.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Специфічний для виробника код розкладки пам'яті (56 бітів)</text>
+<text x="615.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">біти [55 .. 0]: тайлінг, геометрія блоків, стиснення, aux-площини</text>
+<rect x="50.0" y="160.0" width="900.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="181.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Формування: #define fourcc_mod_code(vendor, val) ((((uint64_t)DRM_FORMAT_MOD_VENDOR_##vendor) &lt;&lt; 56) | ((val) &amp; 0x00ffffffffffffffULL))</tspan></text>
+<text x="50.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Ідентифікатори виробників (Vendor ID):</text>
+<rect x="50.0" y="250.0" width="180.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="140.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">NONE (0x00)</text>
+<text x="245.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">DRM_FORMAT_MOD_LINEAR (суцільний растровий порядок)</text>
+<rect x="50.0" y="284.0" width="180.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#0066cc" stroke-width="1.5"/>
+<text x="140.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0066cc" text-anchor="middle" font-weight="700">INTEL (0x01)</text>
+<text x="245.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">I915_FORMAT_MOD_X_TILED, Y_TILED, 4_TILED, 4_TILED_DG2_RC_CCS</text>
+<rect x="50.0" y="318.0" width="180.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#cc0000" stroke-width="1.5"/>
+<text x="140.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="700">AMD (0x02)</text>
+<text x="245.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">AMD_FMT_MOD_TILE_GFX9_64K_S, AMD_FMT_MOD_DCC, DCC_RETILE</text>
+<rect x="50.0" y="352.0" width="180.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#76b900" stroke-width="1.5"/>
+<text x="140.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#76b900" text-anchor="middle" font-weight="700">NVIDIA (0x03)</text>
+<text x="245.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">DRM_FORMAT_MOD_NVIDIA_BLOCK_LINEAR_2D(h, kind, gen)</text>
+<rect x="50.0" y="386.0" width="180.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#009999" stroke-width="1.5"/>
+<text x="140.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#009999" text-anchor="middle" font-weight="700">ARM (0x08)</text>
+<text x="245.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">AFBC_FORMAT_MOD_BLOCK_SIZE_16x16, AFBC_FORMAT_MOD_SPARSE</text>
+<rect x="50.0" y="420.0" width="180.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#d97706" stroke-width="1.5"/>
+<text x="140.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">BROADCOM (0x07)</text>
+<text x="245.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">DRM_FORMAT_MOD_BROADCOM_VC4_T_TILED, SAND128</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="60.0" width="180.0" height="110.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="110.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">1. Request Created</text>
+<text x="110.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle"><tspan x="110.0" dy="0.0">• Camera::createRequest()</tspan><tspan x="110.0" dy="13.0">• Прив'язка FrameBuffer</tspan><tspan x="110.0" dy="13.0">• Заповнення ControlList</tspan><tspan x="110.0" dy="13.0">(Exposure, Gain, Focus)</tspan></text>
+<rect x="240.0" y="60.0" width="180.0" height="110.0" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="330.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">2. Queued in Camera</text>
+<text x="330.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle"><tspan x="330.0" dy="0.0">• Camera::queueRequest()</tspan><tspan x="330.0" dy="13.0">• Pipeline Handler обробка</tspan><tspan x="330.0" dy="13.0">• Виділення request_fd</tspan><tspan x="330.0" dy="13.0">(MEDIA_IOC_REQUEST_ALLOC)</tspan></text>
+<rect x="460.0" y="60.0" width="180.0" height="110.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="550.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">3. Processing &amp; 3A</text>
+<text x="550.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle"><tspan x="550.0" dy="0.0">• DMA запис сенсора/ISP</tspan><tspan x="550.0" dy="13.0">• Статистика до IPA 3A</tspan><tspan x="550.0" dy="13.0">• Розрахунок наступного кадру</tspan><tspan x="550.0" dy="13.0">• V4L2 DQBUF переривання</tspan></text>
+<rect x="680.0" y="60.0" width="180.0" height="110.0" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="770.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="middle" font-weight="700">4. Request Completed</text>
+<text x="770.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle"><tspan x="770.0" dy="0.0">• Сигнал requestCompleted</tspan><tspan x="770.0" dy="13.0">• Зчитування FrameMetadata</tspan><tspan x="770.0" dy="13.0">• Передача dma-buf до GPU</tspan><tspan x="770.0" dy="13.0">• Request::reuse()</tspan></text>
+<line x1="200.0" y1="115.0" x2="240.0" y2="115.0" stroke="#3b82f6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="115.0" x2="460.0" y2="115.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="115.0" x2="680.0" y2="115.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="170.0" x2="770.0" y2="220.0" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="770.0" y1="220.0" x2="110.0" y2="220.0" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="110.0" y1="220.0" x2="110.0" y2="170.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Цикл перевикористання буферів та запитів без повторного виділення пам'яті (Request::reuse)</text>
+</svg>

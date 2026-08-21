@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="400.0" height="400.0" rx="8" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="240.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct dma_resv (у GEM-об'єкті)</text>
+<rect x="60.0" y="95.0" width="360.0" height="65.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="240.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Блокування: ww_mutex (Wound-Wait)</tspan><tspan x="240.0" dy="14.3">Запобігає взаємному блокуванню (Deadlock)</tspan><tspan x="240.0" dy="14.3">при захопленні багатьох буферів одночасно</tspan></text>
+<rect x="60.0" y="175.0" width="360.0" height="110.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="212.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Слот запису (DMA_RESV_USAGE_WRITE):</tspan><tspan x="240.0" dy="14.3">dma_fence_write (Огородження GPU-рендерингу)</tspan><tspan x="240.0" dy="14.3">- Стан: Очікує завершення шейдерів кадру N</tspan><tspan x="240.0" dy="14.3">- Гарантує: Буфер не читатиметься до готовності</tspan></text>
+<rect x="60.0" y="300.0" width="360.0" height="120.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="240.0" y="335.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Слоти читання (DMA_RESV_USAGE_READ):</tspan><tspan x="240.0" dy="14.3">1. dma_fence_scanout (Контролер дисплея KMS)</tspan><tspan x="240.0" dy="14.3">2. dma_fence_video (Апаратний енкодер NVENC)</tspan><tspan x="240.0" dy="14.3">- Дозволяє паралельне читання багатьма клієнтами</tspan><tspan x="240.0" dy="14.3">- Блокує новий запис до завершення читання</tspan></text>
+<rect x="480.0" y="40.0" width="560.0" height="400.0" rx="8" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="760.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова лінія асинхронного виконання</text>
+<line x1="510.0" y1="400.0" x2="1010.0" y2="400.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="980.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час (t)</text>
+<rect x="520.0" y="110.0" width="200.0" height="60.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="620.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">GPU Рендеринг</text>
+<text x="620.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Запис у буфер</text>
+<line x1="720.0" y1="110.0" x2="720.0" y2="395.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="720.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Огорожа сигналізує: Готово!</text>
+<rect x="730.0" y="185.0" width="230.0" height="50.0" rx="4" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="845.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">KMS Display Scanout (Читання)</text>
+<text x="845.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Виведення на панель екрана</text>
+<rect x="730.0" y="245.0" width="230.0" height="50.0" rx="4" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="845.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Video Encoder (Читання)</text>
+<text x="845.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кодування стріму H.264/AV1</text>
+<line x1="960.0" y1="185.0" x2="960.0" y2="395.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="960.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Читачі завершили</text>
+<rect x="970.0" y="110.0" width="50.0" height="60.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="995.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">N+1</text>
+<text x="760.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CPU подає роботу без затримок (Non-blocking submit)</text>
+<text x="760.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Апаратні черги GPU/KMS самі чекають на сигнали огорож</text>
+<line x1="420.0" y1="230.0" x2="520.0" y2="140.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="360.0" x2="730.0" y2="210.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

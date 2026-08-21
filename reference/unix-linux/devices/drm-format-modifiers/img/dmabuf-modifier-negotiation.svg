@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50.25 -10 1080.25 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-50.25" y="-10" width="1080.25" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="1020.0" height="540.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="40.0" y="16.0" width="940.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="41.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Узгодження модифікаторів через wp_linux_dmabuf_feedback_v1 і Zero-Copy Scanout</tspan></text>
+<rect x="40.0" y="70.0" width="240.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="160.0" y="94.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Клієнт (Vulkan / EGL / GBM)</tspan></text>
+<rect x="380.0" y="70.0" width="260.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="94.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Wayland Compositor (Weston/Sway)</tspan></text>
+<rect x="740.0" y="70.0" width="240.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="94.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="860.0" dy="0.0">Драйвер KMS / Дисплейний блок</tspan></text>
+<line x1="160.0" y1="110.0" x2="160.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="510.0" y1="110.0" x2="510.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="860.0" y1="110.0" x2="860.0" y2="490.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="860.0" y1="150.0" x2="510.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="860.0" y1="150.0" x2="510.0" y2="150.0" stroke="#ffffff" stroke-width="3.0"/>
+<line x1="860.0" y1="150.0" x2="510.0" y2="150.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+<line x1="522.0" y1="150.0" x2="510.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="685.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1. IN_FORMATS blob: площина підтримує [Tile4, Y-Tile, Linear]</text>
+<line x1="510.0" y1="200.0" x2="160.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="335.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">2. feedback.tranche: Scanout tranche = {ARGB8888: Tile4, Linear}</text>
+<line x1="160.0" y1="250.0" x2="161.0" y2="250.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="160.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">3. gbm_bo_create_with_modifiers(ARGB8888, [Tile4, Linear]) → обирає Tile4</text>
+<line x1="160.0" y1="300.0" x2="510.0" y2="300.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="335.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">4. wl_surface.attach(dma-buf FD, modifier=Tile4)</text>
+<line x1="510.0" y1="360.0" x2="860.0" y2="360.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="685.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">5. Атомарний тест: drmModeAtomicCommit(TEST_ONLY, FB(Tile4)) → УСПІХ</text>
+<line x1="510.0" y1="420.0" x2="860.0" y2="420.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="685.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">6. Direct Scanout: FB виводиться напряму на дисплейну площину без копій!</text>
+<rect x="50.0" y="460.0" width="920.0" height="60.0" rx="5" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Zero-Copy Direct Scanout: 0% навантаження на GPU композитора, мінімальна затримка кадру (input lag),</text>
+<text x="510.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">якщо клієнт обрав модифікатор, з яким апаратно сумісний контролер сканування дисплея KMS.</text>
+</svg>

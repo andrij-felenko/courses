@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм періодичного сканування демона khungtaskd</text>
+<text x="440.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм періодичного сканування демона khungtaskd</text>
+<rect x="300.0" y="50.0" width="280.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="440.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Сон khungtaskd</text>
+<text x="440.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Інтервал: timeout_secs / 2 (типово 60 с)</text>
+<line x1="440.0" y1="105.0" x2="440.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="280.0" y="135.0" width="320.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обхід for_each_process_thread(g, t)</text>
+<text x="440.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сканування списку задач ядра під rcu_read_lock()</text>
+<line x1="440.0" y1="190.0" x2="440.0" y2="220.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="270.0" y="220.0" width="340.0" height="60.0" rx="6" fill="#fff6e5" stroke="#d97706" stroke-width="1.5"/>
+<text x="440.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Перевірка стану: t-&gt;state == TASK_UNINTERRUPTIBLE?</text>
+<text x="440.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Чи перебуває потік у непереривному сні (D-state)?</text>
+<line x1="270.0" y1="250.0" x2="120.0" y2="250.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="120.0" y1="250.0" x2="120.0" y2="162.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="120.0" y1="162.0" x2="280.0" y2="162.0" stroke="#333333" stroke-width="1.5"/>
+<text x="190.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Ні (R / S / Z)</text>
+<line x1="440.0" y1="280.0" x2="440.0" y2="310.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="450.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Так (D-state)</text>
+<rect x="260.0" y="310.0" width="360.0" height="65.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка лічильника перемикань контексту</text>
+<text x="440.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="440.0" dy="0.0">switch_count = t-&gt;nvcsw + t-&gt;nivcsw</tspan><tspan x="440.0" dy="13.7">Якщо switch_count == t-&gt;last_switch_count -&gt; завис!</tspan></text>
+<line x1="440.0" y1="375.0" x2="440.0" y2="400.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="230.0" y="400.0" width="420.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="440.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">INFO: task [PID] blocked for more than 120 seconds</text>
+<text x="440.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вивід sched_show_task(t) -&gt; Call Trace; якщо hung_task_panic=1 -&gt; panic()</text>
+</svg>

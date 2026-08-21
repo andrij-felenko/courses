@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня архітектура Soft Lockup та Hard Lockup детекторів</text>
+<text x="440.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня архітектура Soft Lockup та Hard Lockup детекторів</text>
+<rect x="30.0" y="45.0" width="395.0" height="455.0" rx="8" fill="#fff6e5" stroke="#d97706" stroke-width="1.5"/>
+<text x="227.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Soft Lockup Detector (hrtimer + kthread)</text>
+<rect x="50.0" y="95.0" width="355.0" height="75.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="227.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядерний потік [watchdog/K]</text>
+<text x="227.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="227.0" dy="0.0">Пріоритет: SCHED_FIFO 99 (найвищий)</tspan><tspan x="227.0" dy="13.7">Дія: touch_softlockup_watchdog()</tspan><tspan x="227.0" dy="13.7">Оновлює: watchdog_touch_ts = now()</tspan></text>
+<line x1="227.0" y1="170.0" x2="227.0" y2="205.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="240.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">кожні sample_period (4 с)</text>
+<rect x="50.0" y="205.0" width="355.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="227.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Високоточний таймер watchdog_hrtimer</text>
+<text x="227.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="227.0" dy="0.0">Спрацьовує в контексті апаратного таймера</tspan><tspan x="227.0" dy="13.7">Обчислює: delta = now() - watchdog_touch_ts</tspan><tspan x="227.0" dy="13.7">Збільшує лічильник: hrtimer_interrupts++</tspan></text>
+<line x1="227.0" y1="285.0" x2="227.0" y2="320.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="320.0" width="355.0" height="60.0" rx="6" fill="#fff6e5" stroke="#d97706" stroke-width="1.2"/>
+<text x="227.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Перевірка: delta &gt; 2 * watchdog_thresh (20 с)?</text>
+<text x="227.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Потік watchdog/K не отримував CPU через цикл у ядрі</text>
+<line x1="227.0" y1="380.0" x2="227.0" y2="415.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="235.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Так (Зависання)</text>
+<rect x="50.0" y="415.0" width="355.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="227.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">BUG: soft lockup - CPU#K stuck for Ns!</text>
+<text x="227.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="227.0" dy="0.0">Дамп стека поточного коду через printk</tspan><tspan x="227.0" dy="13.0">Якщо softlockup_panic=1 -&gt; panic()</tspan></text>
+<rect x="455.0" y="45.0" width="395.0" height="455.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="652.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Hard Lockup Detector (NMI + perf_event)</text>
+<rect x="475.0" y="95.0" width="355.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="652.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро виконує local_irq_disable()</text>
+<text x="652.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="652.0" dy="0.0">Звичайні IRQ заблоковано на рівні CPU</tspan><tspan x="652.0" dy="13.7">hrtimer НЕ МОЖЕ спрацювати</tspan><tspan x="652.0" dy="13.7">hrtimer_interrupts НЕ збільшується</tspan></text>
+<line x1="652.0" y1="170.0" x2="652.0" y2="205.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="665.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Апаратний таймер заблоковано</text>
+<rect x="475.0" y="205.0" width="355.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="652.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне переривання NMI (perf_event)</text>
+<text x="652.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="652.0" dy="0.0">Генерується лічильником CPU (Local APIC)</tspan><tspan x="652.0" dy="13.7">NMI ігнорує прапорець IF (пробиває cli)</tspan><tspan x="652.0" dy="13.7">Викликає обробник watchdog_overflow_callback()</tspan></text>
+<line x1="652.0" y1="285.0" x2="652.0" y2="320.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="475.0" y="320.0" width="355.0" height="60.0" rx="6" fill="#fff6e5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="652.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Перевірка: hrtimer_interrupts змінився?</text>
+<text x="652.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Чи збільшувався лічильник за останні 10 с?</text>
+<line x1="652.0" y1="380.0" x2="652.0" y2="415.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="660.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Ні (IRQ вимкнено задовго)</text>
+<rect x="475.0" y="415.0" width="355.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="652.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Watchdog detected hard LOCKUP on cpu K</text>
+<text x="652.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="652.0" dy="0.0">Дамп регістрів процесора через NMI context</tspan><tspan x="652.0" dy="13.0">Якщо hardlockup_panic=1 -&gt; panic()</tspan></text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1590 970" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1590" height="970" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="790.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність повідомлень під час аварійного перемикання (Failover) в ALUA</text>
+<line x1="220.0" y1="110.0" x2="220.0" y2="880.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="123.4" y="61.5" width="193.3" height="37.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Хост: Застосунок / FS</tspan></text>
+<line x1="580.0" y1="110.0" x2="580.0" y2="880.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="435.0" y="61.5" width="290.0" height="37.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="580.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">Хост: dm-multipath / scsi_dh_alua</tspan></text>
+<line x1="1000.0" y1="110.0" x2="1000.0" y2="880.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="911.4" y="61.5" width="177.1" height="37.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="1000.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">Контролер A (TPG 1)</tspan></text>
+<line x1="1380.0" y1="110.0" x2="1380.0" y2="880.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="1291.4" y="61.5" width="177.1" height="37.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="1380.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1380.0" dy="0.0">Контролер B (TPG 2)</tspan></text>
+<line x1="220.0" y1="160.0" x2="580.0" y2="160.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">Запис блоку даних (I/O)</text>
+<line x1="580.0" y1="180.0" x2="1000.0" y2="180.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="790.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">SCSI WRITE (Шлях sdb · AO)</text>
+<line x1="1000.0" y1="210.0" x2="580.0" y2="210.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="790.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">STATUS: GOOD</text>
+<line x1="580.0" y1="230.0" x2="220.0" y2="230.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">I/O Успішний</text>
+<rect x="889.6" y="266.2" width="220.9" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="1000.0" y="286.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">АВАРІЯ Контролера A</tspan><tspan x="1000.0" dy="15.6">Втрата лінку / Паніка вузла</tspan></text>
+<line x1="220.0" y1="350.0" x2="580.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Наступний I/O</text>
+<line x1="580.0" y1="370.0" x2="1000.0" y2="370.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="790.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">SCSI WRITE (sdb) → ТАЙМ-АУТ / FAIL</text>
+<rect x="417.5" y="406.4" width="325.0" height="67.2" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="580.0" y="428.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">dm-multipath: Шляхи sdb, sdd мертві</tspan><tspan x="580.0" dy="15.6">Група 1 переходить у стан FAILED</tspan><tspan x="580.0" dy="15.6">Запити ставляться в чергу (queue_if_no_path)</tspan></text>
+<line x1="580.0" y1="530.0" x2="1380.0" y2="530.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="980.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">SET TARGET PORT GROUPS (STPG) або перший I/O</text>
+<line x1="1380.0" y1="590.0" x2="580.0" y2="590.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="980.0" y="575.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">CHECK CONDITION: Sense 02h/04h/0Ah (Transitioning)</text>
+<rect x="412.7" y="636.2" width="334.6" height="47.6" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="580.0" y="656.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">scsi_dh_alua: перехоплює 02/04/0A,</tspan><tspan x="580.0" dy="15.6">затримує запит на 200 мс і повторює опитування</tspan></text>
+<rect x="1221.2" y="696.2" width="317.6" height="47.6" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="1380.0" y="716.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1380.0" dy="0.0">Контролер B: імпорт блокувань LUN,</tspan><tspan x="1380.0" dy="15.6">TPG 2 переходить у стан Active/Optimized</tspan></text>
+<line x1="580.0" y1="780.0" x2="1380.0" y2="780.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="980.0" y="765.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Повторний SCSI WRITE (Шлях sdc · тепер AO)</text>
+<line x1="1380.0" y1="830.0" x2="580.0" y2="830.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="980.0" y="815.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">STATUS: GOOD (LUN активовано на вузлі B)</text>
+<line x1="580.0" y1="860.0" x2="220.0" y2="860.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="845.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">I/O Завершено без втрати даних</text>
+</svg>

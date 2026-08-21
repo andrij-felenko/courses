@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="480.0" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#111827" text-anchor="middle" font-weight="700">Порівняння кадрових протоколів: сирий I2C проти SMBus</text>
+<rect x="25.0" y="55.0" width="770.0" height="115.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="45.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="left" font-weight="700">1. Сира I2C транзакція (i2c_transfer): запис адреси регістра + читання N байтів</text>
+<rect x="45.0" y="95.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="58.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">S</text>
+<rect x="74.0" y="95.0" width="100.0" height="38.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="124.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Addr 7-bit + W (0)</text>
+<rect x="177.0" y="95.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="189.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="204.0" y="95.0" width="95.0" height="38.0" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="251.5" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">Reg Addr (0x00)</text>
+<rect x="302.0" y="95.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="314.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="329.0" y="95.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="342.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Sr</text>
+<rect x="358.0" y="95.0" width="100.0" height="38.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="408.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Addr 7-bit + R (1)</text>
+<rect x="461.0" y="95.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="473.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="488.0" y="95.0" width="85.0" height="38.0" rx="3" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="530.5" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3730a3" text-anchor="middle" font-weight="700">Data Byte 0</text>
+<rect x="576.0" y="95.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="588.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="603.0" y="95.0" width="35.0" height="38.0" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="620.5" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4b5563" text-anchor="middle" font-weight="700">...</text>
+<rect x="641.0" y="95.0" width="95.0" height="38.0" rx="3" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="688.5" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3730a3" text-anchor="middle" font-weight="700">Data Byte N-1</text>
+<rect x="739.0" y="95.0" width="28.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="753.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">NA</text>
+<rect x="770.0" y="95.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="783.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">P</text>
+<text x="45.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="left" font-style="italic">Немає фіксованого ліміту довжини; немає примусового таймауту тактування; довільний формат даних</text>
+<rect x="25.0" y="185.0" width="770.0" height="115.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="45.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="left" font-weight="700">2. SMBus Read Byte Protocol (i2c_smbus_read_byte_data)</text>
+<rect x="45.0" y="225.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="58.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">S</text>
+<rect x="74.0" y="225.0" width="95.0" height="38.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="121.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Slave Addr + W</text>
+<rect x="172.0" y="225.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="184.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="199.0" y="225.0" width="95.0" height="38.0" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="246.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">Command Code</text>
+<rect x="297.0" y="225.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="309.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="324.0" y="225.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="337.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Sr</text>
+<rect x="353.0" y="225.0" width="95.0" height="38.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="400.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Slave Addr + R</text>
+<rect x="451.0" y="225.0" width="24.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="463.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="478.0" y="225.0" width="85.0" height="38.0" rx="3" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="520.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3730a3" text-anchor="middle" font-weight="700">Data Byte</text>
+<rect x="566.0" y="225.0" width="28.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="580.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">NA</text>
+<rect x="597.0" y="225.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="610.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">P</text>
+<text x="45.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="left" font-style="italic">Чітко визначений протокол: команда (регістр) + 1 байт відповіді; таймаут шини tTIMEOUT = 25-35 ms</text>
+<rect x="25.0" y="315.0" width="770.0" height="145.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="45.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="left" font-weight="700">3. SMBus Block Read з обов'язковим лічильником байтів та PEC (CRC-8)</text>
+<rect x="45.0" y="355.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="58.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">S</text>
+<rect x="74.0" y="355.0" width="80.0" height="38.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="114.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Slave Addr+W</text>
+<rect x="157.0" y="355.0" width="22.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="168.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="182.0" y="355.0" width="70.0" height="38.0" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="217.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">Command</text>
+<rect x="255.0" y="355.0" width="22.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="266.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="280.0" y="355.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="293.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Sr</text>
+<rect x="309.0" y="355.0" width="80.0" height="38.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="349.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Slave Addr+R</text>
+<rect x="392.0" y="355.0" width="22.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="403.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="417.0" y="355.0" width="95.0" height="38.0" rx="3" fill="#fbcfe8" stroke="#db2777" stroke-width="1.5"/>
+<text x="464.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9d174d" text-anchor="middle" font-weight="700">Byte Count (N)</text>
+<rect x="515.0" y="355.0" width="22.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="526.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="540.0" y="355.0" width="75.0" height="38.0" rx="3" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="577.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3730a3" text-anchor="middle" font-weight="700">Data 1..N</text>
+<rect x="618.0" y="355.0" width="22.0" height="38.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="629.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<rect x="643.0" y="355.0" width="85.0" height="38.0" rx="3" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+<text x="685.5" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2410c" text-anchor="middle" font-weight="700">PEC (CRC-8)</text>
+<rect x="731.0" y="355.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="744.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">NA</text>
+<rect x="760.0" y="355.0" width="26.0" height="38.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="773.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">P</text>
+<text x="45.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="left" font-style="italic">Byte Count визначає розмір блоку (&lt;=32 байтів у SMBus 2.0); PEC (CRC-8, поліном x^8+x^2+x+1) захищає від спотворень</text>
+<text x="45.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="left" font-weight="700">Легенда: S/Sr = Start/Repeated Start, P = Stop, A = ACK (0), NA = NACK (1), W = 0, R = 1</text>
+</svg>

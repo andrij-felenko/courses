@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="435.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія зон powercap у sysfs</text>
+<rect x="15.0" y="15.0" width="840.0" height="450.0" rx="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="435.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="700">Ієрархія зон powercap sysfs та відповідність апаратним доменам CPU</text>
+<rect x="254.5" y="64.5" width="361.0" height="31.0" rx="6" fill="#eaeded" stroke="#7f8c8d" stroke-width="1.5"/><text x="435.0" y="83.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="435.0" dy="0.0">Корінь підсистеми: /sys/class/powercap/intel-rapl/</tspan></text>
+<rect x="35.0" y="125.0" width="800.0" height="320.0" rx="8" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.8"/>
+<text x="55.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="start" font-weight="700">Зона сокета: intel-rapl:0 (Package / SoC)</text>
+<text x="55.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="start">Файли: name (&quot;package-0&quot;), enabled, energy_uj, max_energy_range_uj</text>
+<text x="55.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="start" font-weight="700">Обмеження: constraint_0 (PL1 / long_term), constraint_1 (PL2 / short_term)</text>
+<rect x="48.0" y="210.0" width="185.0" height="36.0" rx="5" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="140.5" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">intel-rapl:0:0</text>
+<text x="140.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#f4f6f7" text-anchor="middle">Домен ядер (Core / PP0)</text>
+<rect x="48.0" y="250.0" width="185.0" height="180.0" rx="5" fill="#e8f8f5" stroke="#16a085" stroke-width="1.5"/>
+<text x="140.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">name: &quot;core&quot;</text>
+<text x="140.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">energy_uj</text>
+<text x="140.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">constraint_0_power_limit_uw</text>
+<text x="140.5" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">constraint_0_time_window_us</text>
+<rect x="247.0" y="210.0" width="185.0" height="36.0" rx="5" fill="#f39c12" stroke="#f39c12" stroke-width="1.5"/>
+<text x="339.5" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">intel-rapl:0:1</text>
+<text x="339.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#f4f6f7" text-anchor="middle">Домен пам'яті (DRAM)</text>
+<rect x="247.0" y="250.0" width="185.0" height="180.0" rx="5" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+<text x="339.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">name: &quot;dram&quot;</text>
+<text x="339.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">energy_uj</text>
+<text x="339.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">constraint_0_power_limit_uw</text>
+<text x="339.5" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">constraint_0_time_window_us</text>
+<rect x="446.0" y="210.0" width="185.0" height="36.0" rx="5" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="538.5" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">intel-rapl:0:2</text>
+<text x="538.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#f4f6f7" text-anchor="middle">Незв'язані блоки (Uncore/PP1)</text>
+<rect x="446.0" y="250.0" width="185.0" height="180.0" rx="5" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="538.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">name: &quot;uncore&quot;</text>
+<text x="538.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">energy_uj</text>
+<text x="538.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">(вбудована графіка iGPU / L3)</text>
+<rect x="645.0" y="210.0" width="185.0" height="36.0" rx="5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="737.5" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">intel-rapl:0:3</text>
+<text x="737.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#f4f6f7" text-anchor="middle">Платформа (Psys / SoC)</text>
+<rect x="645.0" y="250.0" width="185.0" height="180.0" rx="5" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="737.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">name: &quot;psys&quot;</text>
+<text x="737.5" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">energy_uj</text>
+<text x="737.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">(повне живлення материнки)</text>
+<line x1="435.0" y1="96.0" x2="435.0" y2="125.0" stroke="#2980b9" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

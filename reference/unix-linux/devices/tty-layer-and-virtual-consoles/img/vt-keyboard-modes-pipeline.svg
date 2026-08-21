@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр обробки подій клавіатури у віртуальній консолі та режими KDSKBMODE</text>
+<rect x="40.0" y="24.0" width="960.0" height="50.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="520.0" y="54.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Фізична клавіатура (USB HID / PS/2) → Підсистема evdev (/dev/input/event*)</tspan></text>
+<line x1="520.0" y1="76.0" x2="520.0" y2="114.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="116.0" width="960.0" height="70.0" rx="6" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="520.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обробник драйвера віртуальної консолі (drivers/tty/vt/keyboard.c · kbd_event)</text>
+<text x="520.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Отримує EV_KEY (код клавіші, натиск/відпускання) · Перевіряє поточний режим клавіатури KDSKBMODE</text>
+<line x1="520.0" y1="188.0" x2="130.0" y2="224.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40.0" y="230.0" width="180.0" height="180.0" rx="6" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="130.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">K_RAW (0x00)</text>
+<text x="130.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сирі сканкоди XT (Set 1)</text>
+<text x="130.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="130.0" dy="0.0">байт на натиск (1..127);</tspan><tspan x="130.0" dy="14.2">байт | 0x80 на відпускання;</tspan><tspan x="130.0" dy="14.2">префікс 0xE0 для розширених;</tspan><tspan x="130.0" dy="14.2">(X11 без evdev)</tspan></text>
+<line x1="520.0" y1="188.0" x2="325.0" y2="224.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="235.0" y="230.0" width="180.0" height="180.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="325.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">K_XLATE (0x01)</text>
+<text x="325.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця розкладки ядра</text>
+<text x="325.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="325.0" dy="0.0">Обробка Shift/Ctrl/Alt;</tspan><tspan x="325.0" dy="14.2">генерація 8-біт символів</tspan><tspan x="325.0" dy="14.2">(ISO-8859-1 / Latin-1)</tspan><tspan x="325.0" dy="14.2">або ESC-послідовностей</tspan></text>
+<line x1="520.0" y1="188.0" x2="520.0" y2="224.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="430.0" y="230.0" width="180.0" height="180.0" rx="6" fill="#fdfaf3" stroke="#6b7280" stroke-width="1.6"/>
+<text x="520.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">K_MEDIUMRAW (0x02)</text>
+<text x="520.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Медіум-сканкоди</text>
+<text x="520.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="520.0" dy="0.0">1 байт для кодів 0..127;</tspan><tspan x="520.0" dy="14.2">2-3 байти для кодів &gt;= 128;</tspan><tspan x="520.0" dy="14.2">(уніфікований сканкод</tspan><tspan x="520.0" dy="14.2">без прив'язки до порту)</tspan></text>
+<line x1="520.0" y1="188.0" x2="715.0" y2="224.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="625.0" y="230.0" width="180.0" height="180.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="715.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">K_UNICODE (0x03)</text>
+<text x="715.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний UTF-8 ввід</text>
+<text x="715.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="715.0" dy="0.0">Таблиця розкладки видає</tspan><tspan x="715.0" dy="14.2">16-біт Unicode (UCS-2);</tspan><tspan x="715.0" dy="14.2">keyboard.c кодує їх</tspan><tspan x="715.0" dy="14.2">у 1..4 байти UTF-8</tspan></text>
+<line x1="520.0" y1="188.0" x2="910.0" y2="224.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="820.0" y="230.0" width="180.0" height="180.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.6"/>
+<text x="910.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">K_OFF (0x04)</text>
+<text x="910.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимкнено у VT</text>
+<text x="910.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="910.0" dy="0.0">keyboard.c повністю ігнорує</tspan><tspan x="910.0" dy="14.2">усі натиски клавіш;</tspan><tspan x="910.0" dy="14.2">Wayland/Xorg читають</tspan><tspan x="910.0" dy="14.2">/dev/input/event* напряму</tspan></text>
+<line x1="130.0" y1="414.0" x2="130.0" y2="464.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="325.0" y1="414.0" x2="325.0" y2="464.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="414.0" x2="520.0" y2="464.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="715.0" y1="414.0" x2="715.0" y2="464.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="910.0" y1="414.0" x2="910.0" y2="464.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="480.0" width="765.0" height="100.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="422.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Потік байтів у кільцевий буфер tty_buffer активної консолі (/dev/ttyN)</text>
+<text x="422.0" y="534.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Далі проходить крізь лінійну дисципліну N_TTY до командної оболонки (bash / zsh)</text>
+<text x="422.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Гарячі клавіші Alt+Fn перехоплюються keyboard.c до запису в буфер tty</text>
+<rect x="820.0" y="480.0" width="180.0" height="100.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.8"/>
+<text x="910.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Прямий ввід</text>
+<text x="910.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">libinput</text>
+<text x="910.0" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">у композиторі</text>
+<text x="910.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Wayland / Xorg</text>
+</svg>

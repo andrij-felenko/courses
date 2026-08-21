@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="1000.0" height="500.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="40.0" y="20.0" width="920.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="46.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Багатоплощинна структура буфера: основні пікселі та площини метаданих стиснення</tspan></text>
+<rect x="250.0" y="80.0" width="500.0" height="46.0" rx="6" fill="#dceffe" stroke="#2457d6" stroke-width="1.5"/><text x="500.0" y="106.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Логічний Framebuffer (3840×2160, DRM_FORMAT_ARGB8888, Modifier: Tile4 + CCS)</tspan></text>
+<line x1="380.0" y1="126.0" x2="200.0" y2="180.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="126.0" x2="500.0" y2="180.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="126.0" x2="800.0" y2="180.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="180.0" width="300.0" height="170.0" rx="6" fill="#f4f8fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="200.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Площина 0 (Plane 0): Колір</text>
+<text x="200.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dma-buf FD: handles[0]</text>
+<text x="200.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Розкладка: Tile4 (4 КБ тайли)</text>
+<text x="200.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Pitch: pitches[0] = 15360 байтів</text>
+<text x="200.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Offset: offsets[0] = 0</text>
+<text x="200.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Розмір: ~33.17 МБ стиснених пікселів</text>
+<rect x="360.0" y="180.0" width="300.0" height="170.0" rx="6" fill="#f4fbf6" stroke="#27ae60" stroke-width="1.8"/>
+<text x="510.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Площина 1 (Plane 1): Метадані CCS</text>
+<text x="510.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dma-buf FD: handles[1] (або той самий)</text>
+<text x="510.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Призначення: теги стиснення блоків</text>
+<text x="510.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Співвідношення: 1 байт на 256 Б даних</text>
+<text x="510.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Offset: offsets[1] = +33.17 МБ</text>
+<text x="510.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Розмір: ~130 КБ бітових масок RLE</text>
+<rect x="670.0" y="180.0" width="280.0" height="170.0" rx="6" fill="#fef6f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="810.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Площина 2 (Plane 2): Clear Color</text>
+<text x="810.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dma-buf FD: handles[2]</text>
+<text x="810.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Призначення: колір фону (RGBA)</text>
+<text x="810.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Дозволяє glClear() без запису</text>
+<text x="810.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">всього 33 МБ буфера у VRAM</text>
+<text x="810.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Розмір: 64 байти (1 кеш-лінія)</text>
+<rect x="50.0" y="380.0" width="900.0" height="95.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Системний виклик: ioctl(drm_fd, DRM_IOCTL_MODE_ADDFB2, &amp;cmd2)</text>
+<text x="500.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">cmd2.flags = DRM_MODE_FB_MODIFIERS;  cmd2.modifier[0..2] = I915_FORMAT_MOD_4_TILED_DG2_RC_CCS;</text>
+<text x="500.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Контролер дисплея KMS апаратно розпаковує потік пікселів «на льоту» під час сканування рядків</text>
+</svg>

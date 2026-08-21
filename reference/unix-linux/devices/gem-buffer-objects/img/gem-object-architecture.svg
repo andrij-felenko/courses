@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="310.0" height="480.0" rx="8" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="195.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Простір користувача</text>
+<rect x="60.0" y="95.0" width="270.0" height="185.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="195.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес A (3D рушій)</text>
+<text x="195.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Відкритий /dev/dri/renderD128</text>
+<rect x="80.0" y="160.0" width="230.0" height="48.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="195.0" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Хендл #1 (Текстура)</tspan><tspan x="195.0" dy="15.6">локальний id: 1</tspan></text>
+<rect x="80.0" y="218.0" width="230.0" height="48.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="195.0" y="238.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Хендл #2 (Ціль рендеру)</tspan><tspan x="195.0" dy="15.6">локальний id: 2</tspan></text>
+<rect x="60.0" y="310.0" width="270.0" height="185.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="195.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес B (Композитор Wayland)</text>
+<text x="195.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Відкритий /dev/dri/card0</text>
+<rect x="80.0" y="375.0" width="230.0" height="48.0" rx="6" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.5"/><text x="195.0" y="395.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Хендл #1 (Фреймбуфер екрана)</tspan><tspan x="195.0" dy="15.6">локальний id: 1</tspan></text>
+<rect x="80.0" y="433.0" width="230.0" height="48.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="195.0" y="453.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Хендл #7 (Імпортований буфер)</tspan><tspan x="195.0" dy="15.6">локальний id: 7</tspan></text>
+<rect x="380.0" y="40.0" width="340.0" height="480.0" rx="8" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="550.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро DRM: struct drm_gem_object</text>
+<rect x="400.0" y="95.0" width="300.0" height="110.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="550.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">GEM Object A (Текстура)</text>
+<text x="550.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">kref = 1 · size = 16 MiB</text>
+<text x="550.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dma_resv · vma_node (fake offset)</text>
+<text x="550.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">funcs -&gt; drm_gem_shmem_funcs</text>
+<rect x="400.0" y="230.0" width="300.0" height="135.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="550.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">GEM Object B (Спільний буфер кадру)</text>
+<text x="550.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">kref = 2 (Хендл #2 у Процесі A + #7 у B)</text>
+<text x="550.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dma_resv (огорожі рендеру й показу)</text>
+<text x="550.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dma_buf прив'язка для PRIME</text>
+<text x="550.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">funcs -&gt; amdgpu_gem_object_funcs</text>
+<rect x="400.0" y="390.0" width="300.0" height="105.0" rx="6" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="550.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">GEM Object C (Курсор/Екран)</text>
+<text x="550.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">kref = 1 · size = 32 KiB</text>
+<text x="550.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">dumb_buffer / scanout plane</text>
+<text x="550.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">funcs -&gt; drm_gem_dma_funcs</text>
+<line x1="310.0" y1="184.0" x2="400.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="242.0" x2="400.0" y2="280.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="399.0" x2="400.0" y2="435.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="457.0" x2="400.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="750.0" y="40.0" width="290.0" height="480.0" rx="8" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="895.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бекенди пам'яті</text>
+<rect x="770.0" y="95.0" width="250.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="895.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">shmem (Системна RAM)</text>
+<text x="895.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Анонімні сторінки ядра</text>
+<text x="895.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">swapcache · sg_table</text>
+<rect x="770.0" y="230.0" width="250.0" height="135.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="895.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">TTM (Пам'ять дискретної GPU)</text>
+<text x="895.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TTM_PL_VRAM (GDDR/HBM)</text>
+<text x="895.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">TTM_PL_TT (GTT / IOMMU)</text>
+<text x="895.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Витіснення та міграція</text>
+<rect x="770.0" y="390.0" width="250.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="895.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMA / DMA Coherent</text>
+<text x="895.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Неперервний блок RAM</text>
+<text x="895.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Для простих дисплеїв SoC</text>
+<line x1="700.0" y1="150.0" x2="770.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="297.0" x2="770.0" y2="297.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="442.0" x2="770.0" y2="442.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

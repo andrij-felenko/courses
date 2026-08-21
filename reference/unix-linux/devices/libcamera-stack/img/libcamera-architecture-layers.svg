@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="15.0" width="840.0" height="65.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="75.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Application Layer:</text>
+<rect x="140.0" y="25.0" width="150.0" height="45.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="215.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700"><tspan x="215.0" dy="0.0">Власні C++ Програми</tspan><tspan x="215.0" dy="13.0">(libcamera API)</tspan></text>
+<rect x="310.0" y="25.0" width="160.0" height="45.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="390.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">GStreamer Елемент</tspan><tspan x="390.0" dy="13.0">(libcamerasrc)</tspan></text>
+<rect x="490.0" y="25.0" width="170.0" height="45.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="575.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700"><tspan x="575.0" dy="0.0">PipeWire Мультимедіа</tspan><tspan x="575.0" dy="13.0">(SPA Camera Plugin)</tspan></text>
+<rect x="680.0" y="25.0" width="165.0" height="45.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="762.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700"><tspan x="762.0" dy="0.0">v4l2-compat Wrapper</tspan><tspan x="762.0" dy="13.0">(LD_PRELOAD /dev/video)</tspan></text>
+<line x1="440.0" y1="80.0" x2="440.0" y2="105.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="20.0" y="105.0" width="840.0" height="75.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">libcamera Core C++ API</text>
+<rect x="190.0" y="115.0" width="140.0" height="55.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="260.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">CameraManager</tspan><tspan x="260.0" dy="13.0">&amp; Camera Object</tspan></text>
+<rect x="350.0" y="115.0" width="150.0" height="55.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="425.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle" font-weight="700"><tspan x="425.0" dy="0.0">CameraConfiguration</tspan><tspan x="425.0" dy="13.0">&amp; StreamConfig</tspan></text>
+<rect x="520.0" y="115.0" width="150.0" height="55.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="595.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle" font-weight="700"><tspan x="595.0" dy="0.0">Request &amp; FrameBuffer</tspan><tspan x="595.0" dy="13.0">(dma-buf wrapper)</tspan></text>
+<rect x="690.0" y="115.0" width="155.0" height="55.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="767.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle" font-weight="700"><tspan x="767.0" dy="0.0">ControlList &amp; Properties</tspan><tspan x="767.0" dy="13.0">(Exposure, Gain, AF)</tspan></text>
+<line x1="340.0" y1="180.0" x2="340.0" y2="205.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="20.0" y="205.0" width="540.0" height="95.0" rx="8" fill="#fdf4ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="140.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b21a8" text-anchor="middle" font-weight="700">Pipeline Handlers (Драйвери SoC)</text>
+<rect x="35.0" y="237.0" width="115.0" height="50.0" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="92.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#581c87" text-anchor="middle" font-weight="700"><tspan x="92.0" dy="0.0">RPi Handler</tspan><tspan x="92.0" dy="11.7">(Broadcom / Pi 5)</tspan></text>
+<rect x="160.0" y="237.0" width="115.0" height="50.0" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="217.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#581c87" text-anchor="middle" font-weight="700"><tspan x="217.0" dy="0.0">IPU3 Handler</tspan><tspan x="217.0" dy="11.7">(Intel Surface)</tspan></text>
+<rect x="285.0" y="237.0" width="125.0" height="50.0" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="347.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#581c87" text-anchor="middle" font-weight="700"><tspan x="347.0" dy="0.0">RkISP1 / i.MX8</tspan><tspan x="347.0" dy="11.7">(Rockchip / NXP)</tspan></text>
+<rect x="420.0" y="237.0" width="125.0" height="50.0" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="482.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#581c87" text-anchor="middle" font-weight="700"><tspan x="482.0" dy="0.0">Simple &amp; UVC</tspan><tspan x="482.0" dy="11.7">(Generic Video)</tspan></text>
+<rect x="580.0" y="205.0" width="280.0" height="95.0" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+<text x="720.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a3412" text-anchor="middle" font-weight="700">IPA Sandbox (Ізольований процес 3A)</text>
+<rect x="595.0" y="237.0" width="250.0" height="50.0" rx="6" fill="#ffffff" stroke="#ea580c" stroke-width="1.2"/>
+<text x="720.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c2d12" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">3A Алгоритми: AE / AWB / AF / LSC</tspan><tspan x="720.0" dy="11.7">(IPC через Unix Socket + memfd + seccomp)</tspan></text>
+<line x1="560.0" y1="252.0" x2="580.0" y2="252.0" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="267.0" x2="560.0" y2="267.0" stroke="#ea580c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="300.0" x2="340.0" y2="325.0" stroke="#9333ea" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="20.0" y="325.0" width="840.0" height="60.0" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="100.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Linux Kernel Subsystems:</text>
+<rect x="190.0" y="335.0" width="150.0" height="42.0" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<text x="265.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700"><tspan x="265.0" dy="0.0">Media Controller</tspan><tspan x="265.0" dy="13.0">(/dev/mediaX)</tspan></text>
+<rect x="360.0" y="335.0" width="150.0" height="42.0" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<text x="435.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700"><tspan x="435.0" dy="0.0">V4L2 Subdevices</tspan><tspan x="435.0" dy="13.0">(/dev/v4l-subdevX)</tspan></text>
+<rect x="530.0" y="335.0" width="150.0" height="42.0" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<text x="605.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700"><tspan x="605.0" dy="0.0">V4L2 Video Nodes</tspan><tspan x="605.0" dy="13.0">(/dev/videoX vb2)</tspan></text>
+<rect x="700.0" y="335.0" width="145.0" height="42.0" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<text x="772.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700"><tspan x="772.0" dy="0.0">Media Request API</tspan><tspan x="772.0" dy="13.0">&amp; dma-buf Framework</tspan></text>
+</svg>

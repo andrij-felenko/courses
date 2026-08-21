@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 911.9 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="911.9" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a252f" text-anchor="middle" font-weight="700">Когерентність Розподіленого Кешу: Протокол BAST/CAST та Інвалідація</text>
+<rect x="9.1" y="44.8" width="221.8" height="30.5" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/><text x="120.0" y="63.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Вузол A (Утримує EX-блокування)</tspan></text>
+<rect x="262.4" y="44.8" width="215.3" height="30.5" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="370.0" y="63.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">DLM (Distributed Lock Manager)</tspan></text>
+<rect x="518.9" y="44.8" width="202.3" height="30.5" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/><text x="620.0" y="63.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Вузол B (Запитує читання SH)</tspan></text>
+<rect x="748.2" y="44.8" width="143.7" height="30.5" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="820.0" y="63.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">Спільний LUN (Диск)</tspan></text>
+<line x1="120.0" y1="75.0" x2="120.0" y2="180.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="230.0" x2="120.0" y2="440.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="370.0" y1="75.0" x2="370.0" y2="440.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="75.0" x2="620.0" y2="350.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="400.0" x2="620.0" y2="440.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="820.0" y1="75.0" x2="820.0" y2="440.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="110.0" x2="370.0" y2="110.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="495.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">1. Запит блокування: lock(inode_42, mode=SH)</text>
+<line x1="370.0" y1="150.0" x2="120.0" y2="150.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="245.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">2. BAST: Потрібно понизити EX → SH</text>
+<rect x="48.4" y="178.8" width="143.1" height="52.4" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="120.0" y="196.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Скидання кешу:</tspan><tspan x="120.0" dy="11.7">filemap_write_and_wait()</tspan><tspan x="120.0" dy="11.7">(Dirty Pages → Disk)</tspan></text>
+<line x1="120.0" y1="240.0" x2="820.0" y2="240.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle">3. Запис брудних сторінок та оновлення метаданих на диск</text>
+<line x1="120.0" y1="280.0" x2="370.0" y2="280.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="245.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">4. Підтвердження пониження (EX → SH)</text>
+<line x1="370.0" y1="320.0" x2="620.0" y2="320.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="495.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">5. CAST: Блокування SH успішно надано</text>
+<rect x="527.9" y="348.8" width="184.2" height="52.4" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="620.0" y="366.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Інвалідація локального кешу:</tspan><tspan x="620.0" dy="11.7">invalidate_inode_pages2()</tspan><tspan x="620.0" dy="11.7">(Очищення старих сторінок у RAM)</tspan></text>
+<line x1="620.0" y1="415.0" x2="820.0" y2="415.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">6. Читання свіжих блоків із LUN</text>
+</svg>

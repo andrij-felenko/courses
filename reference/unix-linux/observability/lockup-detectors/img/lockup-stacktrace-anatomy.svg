@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія повідомлення та дампу стека при виявленні Soft Lockup</text>
+<text x="440.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія повідомлення та дампу стека при виявленні Soft Lockup</text>
+<rect x="40.0" y="50.0" width="800.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="60.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">BUG: soft lockup - CPU#2 stuck for 23s! [kworker/u8:2:1842]</text>
+<text x="60.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="60.0" dy="0.0">Пояснення: Ядро CPU#2 безперервно виконувало задачу kworker/u8:2 (PID 1842) протягом 23 секунд</tspan><tspan x="60.0" dy="13.7">без передачі керування планувальнику (перевищено поріг 2 * watchdog_thresh = 20 с)</tspan></text>
+<rect x="40.0" y="125.0" width="800.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="60.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Modules linked in: nf_conntrack iptable_nat ip_tables x_tables bonding [last unloaded: dummy]</text>
+<text x="60.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">CPU: 2 PID: 1842 Comm: kworker/u8:2 Tainted: G        W  O      5.15.0-89-generic #99-Ubuntu</text>
+<rect x="40.0" y="190.0" width="800.0" height="85.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="60.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Апаратний стан процесора на момент виклику hrtimer interrupt:</text>
+<text x="60.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">RIP: 0010:queued_spin_lock_slowpath+0x4b/0x2a0</text>
+<text x="60.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">RSP: 0018:ffffa4c241973cb0 EFLAGS: 00000202 ORIG_RAX: ffffffffffffff13</text>
+<text x="60.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">RAX: 0000000000000101 RBX: ffff92840c5e8000 RCX: 0000000000000000 RDX: 0000000000000001</text>
+<rect x="40.0" y="285.0" width="800.0" height="195.0" rx="6" fill="#fff6e5" stroke="#d97706" stroke-width="1.2"/>
+<text x="60.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="start" font-weight="700">Call Trace (Ланцюжок викликів ядра / ORC Unwinder):</text>
+<text x="75.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">&lt;IRQ&gt;</text>
+<text x="460.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Переривання hrtimer спрацювало під час очікування spinlock */</text>
+<text x="75.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">queued_spin_lock_slowpath+0x4b/0x2a0</text>
+<text x="460.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Зависання в активному очікуванні qspinlock */</text>
+<text x="75.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">_raw_spin_lock_irqsave+0x32/0x40</text>
+<text x="460.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Спроба захоплення блокування з маскуванням локальних IRQ */</text>
+<text x="75.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">nf_conntrack_find_get+0x8a/0x140 [nf_conntrack]</text>
+<text x="460.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Пошук запису в таблиці conntrack (висока конкуренція за замок) */</text>
+<text x="75.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">nf_conntrack_in+0x215/0x560 [nf_conntrack]</text>
+<text x="460.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Обробка вхідного мережевого пакета підсистемою Netfilter */</text>
+<text x="75.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">process_one_work+0x1ee/0x3f0</text>
+<text x="460.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Виконання елемента черги воркерів workqueue */</text>
+<text x="75.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">worker_thread+0x53/0x3e0</text>
+<text x="460.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Головний цикл потоку kworker */</text>
+<text x="75.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">kthread+0x124/0x150</text>
+<text x="460.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">/* Базова функція ядерного потоку */</text>
+</svg>

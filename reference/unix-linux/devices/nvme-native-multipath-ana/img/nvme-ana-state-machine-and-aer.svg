@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#34495e" text-anchor="middle" font-weight="700">Автомат станів ANA (Asymmetric Namespace Access) та події AER</text>
+<rect x="40.0" y="70.0" width="250.0" height="110.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="165.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Optimized (AO: 0x01)</text>
+<text x="165.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Прямий найкоротший шлях</text>
+<text x="165.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Мінімальна затримка I/O</text>
+<text x="165.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Основний робочий стан</text>
+<rect x="650.0" y="70.0" width="250.0" height="110.0" rx="6" fill="#fef9e7" stroke="#e67e22" stroke-width="2.0"/>
+<text x="775.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67e22" text-anchor="middle" font-weight="700">Non-Optimized (ANO: 0x02)</text>
+<text x="775.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Непрямий шлях (проксі)</text>
+<text x="775.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Робочий, але вища затримка</text>
+<text x="775.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">Резервний / Standby канал</text>
+<rect x="345.0" y="200.0" width="250.0" height="100.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="470.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">Change State (0x0F)</text>
+<text x="470.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Перехідний стан аварії/міграції</text>
+<text x="470.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Повертає NVME_SC_ANA_TRANSITION</text>
+<text x="470.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Драйвер тимчасово призупиняє I/O</text>
+<rect x="40.0" y="330.0" width="250.0" height="110.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="165.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Inaccessible (AI: 0x03)</text>
+<text x="165.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шлях апаратно недоступний</text>
+<text x="165.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка NVME_SC_ANA_INACCESSIBLE</text>
+<text x="165.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Запити перенаправляються в обхід</text>
+<rect x="650.0" y="330.0" width="250.0" height="110.0" rx="6" fill="#eaecee" stroke="#7f8c8d" stroke-width="2.0"/>
+<text x="775.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">Persistent Loss (PL: 0x04)</text>
+<text x="775.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шлях втрачено безповоротно</text>
+<text x="775.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">NVME_SC_ANA_PERSISTENT_LOSS</text>
+<text x="775.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Драйвер видаляє вузол шляху</text>
+<line x1="290.0" y1="115.0" x2="650.0" y2="115.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="135.0" x2="290.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Міграція / Зміна пріоритету</text>
+<line x1="200.0" y1="180.0" x2="350.0" y2="220.0" stroke="#8e44ad" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="740.0" y1="180.0" x2="590.0" y2="220.0" stroke="#8e44ad" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="300.0" x2="240.0" y2="340.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="300.0" x2="700.0" y2="340.0" stroke="#7f8c8d" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="320.0" y="370.0" width="300.0" height="80.0" rx="6" fill="#fcf3cf" stroke="#f39c12" stroke-width="1.5"/>
+<text x="470.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="middle" font-weight="700">Оповіщення хоста: AER Notice (0x02)</text>
+<text x="470.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Event Info: 0x03 (ANA Change Notice)</text>
+<text x="470.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">nvme_mpath_ana_work -&gt; Get Log Page (0x0c)</text>
+</svg>

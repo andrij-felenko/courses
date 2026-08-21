@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="520.0" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="30.0" y="30.0" width="760.0" height="60.0" rx="6" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#3730a3" text-anchor="middle" font-weight="700">Простір користувача (Userspace)</text>
+<text x="410.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4338ca" text-anchor="middle">i2c-tools (i2cdetect, i2cget, i2cset, i2ctransfer)  |  демони сенсорів і прикладні сервіси</text>
+<rect x="30.0" y="105.0" width="760.0" height="55.0" rx="6" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="410.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#5b21b6" text-anchor="middle" font-weight="700">Символьний інтерфейс та системні дерева (VFS / sysfs)</text>
+<text x="410.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6d28d9" text-anchor="middle">/dev/i2c-N (драйвер i2c-dev.ko, ioctl I2C_RDWR / I2C_SMBUS)  |  /sys/bus/i2c/devices/*</text>
+<rect x="30.0" y="175.0" width="760.0" height="120.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="410.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" font-weight="700">Ядро підсистеми I2C / SMBus (i2c-core)</text>
+<rect x="45.0" y="212.0" width="340.0" height="70.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="215.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">Клієнти та драйвери пристроїв</text>
+<text x="215.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">struct i2c_driver (lm75, bmp280, at24)</text>
+<text x="215.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">struct i2c_client (екземпляри на адресах 0x48, 0x76)</text>
+<rect x="405.0" y="212.0" width="370.0" height="70.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="590.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">Маршрутизація та емуляція SMBus</text>
+<text x="590.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">i2c_transfer()  &lt;===&gt;  i2c_smbus_xfer()</text>
+<text x="590.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">трансляція команд SMBus у послідовності i2c_msg</text>
+<rect x="30.0" y="310.0" width="760.0" height="105.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="410.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">Шинні адаптери та драйвери контролерів (struct i2c_adapter / struct i2c_algorithm)</text>
+<rect x="45.0" y="345.0" width="235.0" height="60.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="162.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">I2C SoC контролери</text>
+<text x="162.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">i2c-designware, i2c-imx</text>
+<text x="162.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">master_xfer (сирі i2c_msg)</text>
+<rect x="292.0" y="345.0" width="235.0" height="60.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="409.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Хост-контролери SMBus</text>
+<text x="409.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">i2c-i801, i2c-piix4 (x86)</text>
+<text x="409.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">smbus_xfer (команди SMBus)</text>
+<rect x="540.0" y="345.0" width="235.0" height="60.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="657.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Програмний Bit-Banging</text>
+<text x="657.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">i2c-gpio, i2c-algo-bit</text>
+<text x="657.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">генерація тактування GPIO</text>
+<rect x="30.0" y="430.0" width="760.0" height="80.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+<text x="410.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="700">Фізична шина та периферійні мікросхеми (SDA / SCL з підтяжкою Rp до Vdd)</text>
+<text x="410.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="middle">Двопровідна відкритий стік топологія  |  Датчики температури, тиску, RTC, EEPROM, PMIC</text>
+<text x="410.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4b5563" text-anchor="middle">Режими: Standard (100 kHz), Fast (400 kHz), Fast+ (1 MHz), SMBus (10-100 kHz з таймаутом)</text>
+<line x1="410.0" y1="90.0" x2="410.0" y2="105.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="160.0" x2="410.0" y2="175.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="295.0" x2="410.0" y2="310.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="415.0" x2="410.0" y2="430.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація груп керованих ресурсів (devres groups)</text>
+<rect x="20.0" y="50.0" width="820.0" height="305.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Список devres_head з активною групою ресурсів</text>
+<rect x="40.0" y="100.0" width="160.0" height="80.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Базовий стан</text>
+<text x="120.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">devm_kzalloc(priv)</text>
+<line x1="200.0" y1="140.0" x2="230.0" y2="140.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="230.0" y="95.0" width="390.0" height="175.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="425.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Група ресурсів: devres_open_group(dev, id, GFP_KERNEL)</text>
+<rect x="250.0" y="140.0" width="160.0" height="60.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="330.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ресурс групи A</text>
+<text x="330.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">devm_ioremap(...)</text>
+<line x1="410.0" y1="170.0" x2="440.0" y2="170.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="440.0" y="140.0" width="160.0" height="60.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ресурс групи B</text>
+<text x="520.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">devm_clk_get(...)</text>
+<text x="425.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Закриття групи: devres_close_group(dev, id)</text>
+<text x="425.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">При збої динамічної фази: devres_release_group(dev, id)</text>
+<line x1="620.0" y1="140.0" x2="650.0" y2="140.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="650.0" y="100.0" width="170.0" height="80.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="735.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Пізніший ресурс</text>
+<text x="735.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">devm_request_irq()</text>
+<rect x="40.0" y="285.0" width="780.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="430.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Групи дозволяють відкочувати окремі підсистеми або багатофазну ініціалізацію</text>
+<text x="430.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вивільнення групи знищує лише вузли всередині неї, зберігаючи базові ресурси драйвера</text>
+</svg>

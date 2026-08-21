@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1110 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1110" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність виконання апаратного завдання v4l2-mem2mem</text>
+<rect x="125.0" y="51.2" width="850.0" height="47.6" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="71.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">1. Подання буферів (Userspace)</tspan><tspan x="550.0" dy="15.6">Програма викликає VIDIOC_QBUF для OUTPUT (вхідні дані)
+та VIDIOC_QBUF для CAPTURE (пам'ять під вихід).</tspan></text>
+<line x1="550.0" y1="99.8" x2="550.0" y2="142.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="125.0" y="143.2" width="850.0" height="47.6" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="163.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">2. Реєстрація в контексті (Kernel M2M)</tspan><tspan x="550.0" dy="15.6">vb2_qbuf() ставить буфери в черги ctx-&gt;q_data[SRC/DST].
+v4l2_m2m_buf_queue() додає контекст у чергу готових робіт.</tspan></text>
+<line x1="550.0" y1="191.8" x2="550.0" y2="234.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="115.9" y="235.2" width="868.2" height="47.6" rx="6" fill="#f3e5f5" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="255.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">3. Запуск обробки: ops-&gt;device_run()</tspan><tspan x="550.0" dy="15.6">Коли апаратура вільна, планувальник вибирає контекст і викликає
+device_run(). Драйвер програмує DMA-регістри і запускає чип.</tspan></text>
+<line x1="550.0" y1="283.8" x2="550.0" y2="326.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="125.0" y="327.2" width="850.0" height="47.6" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="347.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">4. Асинхронне виконання в кремнії</tspan><tspan x="550.0" dy="15.6">Прискорювач виконує DMA зчитування/запис автономно.
+Ядро не блокується, процес може виконувати іншу роботу.</tspan></text>
+<line x1="550.0" y1="375.8" x2="550.0" y2="418.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="125.0" y="419.2" width="850.0" height="47.6" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="439.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">5. Переривання та завершення (IRQ Bottom-Half)</tspan><tspan x="550.0" dy="15.6">Апаратура генерує IRQ. Драйвер викликає v4l2_m2m_buf_done()
+та v4l2_m2m_job_finish(), плануючи наступне завдання.</tspan></text>
+<line x1="550.0" y1="467.8" x2="550.0" y2="510.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="125.0" y="511.2" width="850.0" height="47.6" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="531.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">6. Отримання результату (Userspace)</tspan><tspan x="550.0" dy="15.6">Дескриптор сигналізує POLLIN. Програма викликає VIDIOC_DQBUF
+і забирає оброблений кадр або стиснений пакет.</tspan></text>
+</svg>
