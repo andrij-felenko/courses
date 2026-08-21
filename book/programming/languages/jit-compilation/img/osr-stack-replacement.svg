@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">On-Stack Replacement та деоптимізація стека</text>
+<rect x="30.0" y="80.0" width="220.0" height="220.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="140.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр інтерпретатора</text>
+<text x="140.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">байткод і віртуальний стек</text>
+<rect x="40.0" y="138.0" width="200.0" height="30.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="140.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Локальна змінна [0]: i = 5000</text>
+<rect x="40.0" y="174.0" width="200.0" height="30.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="140.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Локальна змінна [1]: sum = 12502500</text>
+<rect x="40.0" y="210.0" width="200.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="140.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Стек операндів: [пусто / проміжне]</text>
+<rect x="40.0" y="246.0" width="200.0" height="30.0" rx="4" fill="#fee2e2" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="140.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Покажчик байткоду (PC): 0x004A</text>
+<rect x="570.0" y="80.0" width="220.0" height="220.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="680.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Машинний кадр JIT (x86-64)</text>
+<text x="680.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">апаратні регістри процесора</text>
+<rect x="580.0" y="138.0" width="200.0" height="30.0" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="680.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Регістр RAX: i = 5000</text>
+<rect x="580.0" y="174.0" width="200.0" height="30.0" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="680.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Регістр RDX: sum = 12502500</text>
+<rect x="580.0" y="210.0" width="200.0" height="30.0" rx="4" fill="#e0e7ff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="680.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Стек [RSP+8]: збережений RBP</text>
+<rect x="580.0" y="246.0" width="200.0" height="30.0" rx="4" fill="#fee2e2" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="680.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Лічильник RIP: 0x7FFF1004A020</text>
+<rect x="275.0" y="95.0" width="270.0" height="190.0" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="1.8"/>
+<text x="410.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="middle" font-weight="700">Карта станів (Deopt Map)</text>
+<text x="410.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">відповідність змінних і регістрів</text>
+<rect x="283.0" y="151.0" width="254.0" height="24.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="410.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">v0 (локальна i)    &lt;---&gt;  RAX</text>
+<rect x="283.0" y="179.0" width="254.0" height="24.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="410.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">v1 (локальна sum)  &lt;---&gt;  RDX</text>
+<rect x="283.0" y="207.0" width="254.0" height="24.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="410.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">байткод PC=0x4A   &lt;---&gt;  RIP=0x...020</text>
+<rect x="283.0" y="235.0" width="254.0" height="24.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="410.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">стан стека         &lt;---&gt;  RSP / RBP</text>
+<line x1="252.0" y1="130.0" x2="271.0" y2="130.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="549.0" y1="130.0" x2="566.0" y2="130.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">OSR: підміна кадру на льоту в гарячому циклі →</text>
+<line x1="566.0" y1="250.0" x2="549.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="271.0" y1="250.0" x2="252.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">← Деоптимізація: реконструкція кадру інтерпретатора</text>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Взаємна трансляція стеків: заміна кадру (OSR) та реконструкція (Деоптимізація)</text>
+</svg>

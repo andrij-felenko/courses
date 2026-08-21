@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл динамічної пам'яті під захистом W^X</text>
+<rect x="22.0" y="70.0" width="175.0" height="190.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="109.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Виділення буфера</text>
+<text x="109.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">mmap() / VirtualAlloc</text>
+<rect x="30.0" y="124.0" width="159.0" height="26.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="109.5" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">PROT_READ | PROT_WRITE</text>
+<text x="32.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Анонімна сторінка</text>
+<text x="32.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• W = 1, X = 0 (запис)</text>
+<text x="32.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Виконання заборонено</text>
+<line x1="199.0" y1="165.0" x2="217.0" y2="165.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="219.0" y="70.0" width="175.0" height="190.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="306.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Генерація коду</text>
+<text x="306.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">JIT Emitter (Асемблер)</text>
+<rect x="227.0" y="124.0" width="159.0" height="26.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+<text x="306.5" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Запис машинних байтів</text>
+<text x="229.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Запис x86-64 інструкцій</text>
+<text x="229.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Пролог та епілог</text>
+<text x="229.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Резолв адрес і зміщень</text>
+<line x1="396.0" y1="165.0" x2="414.0" y2="165.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="416.0" y="70.0" width="175.0" height="190.0" rx="8" fill="#dbeafe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="503.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Перемикання W^X</text>
+<text x="503.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">mprotect() / APRR</text>
+<rect x="424.0" y="124.0" width="159.0" height="26.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="503.5" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PROT_READ | PROT_EXEC</text>
+<text x="426.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• W = 0, X = 1 (виконання)</text>
+<text x="426.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Запис заблоковано</text>
+<text x="426.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Очищення I-Cache</text>
+<line x1="593.0" y1="165.0" x2="611.0" y2="165.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="613.0" y="70.0" width="175.0" height="190.0" rx="8" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="700.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Виконання коду</text>
+<text x="700.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Виклик покажчика на fn</text>
+<rect x="621.0" y="124.0" width="159.0" height="26.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.5" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Регістри CPU -&gt; fn()</text>
+<text x="623.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Стрибок CPU в код</text>
+<text x="623.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Повна швидкість заліза</text>
+<text x="623.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Звільнення: munmap()</text>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл виконуваної пам'яті за правилом W^X (Write XOR Execute)</text>
+<text x="410.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Сучасні ОС ніколи не дозволяють сторінці мати одночасно права запису й виконання</text>
+</svg>

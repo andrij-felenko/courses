@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія представлення значень у динамічних мовах</text>
+<rect x="0.0" y="0.0" width="840.0" height="450.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три моделі представлення динамічних значень у пам'яті</text>
+<rect x="20.0" y="50.0" width="250.0" height="380.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="145.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Класичне пакування</text>
+<text x="145.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Boxed Object (Python, Java)</text>
+<line x1="35.0" y1="103.0" x2="255.0" y2="103.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="40.0" y="115.0" width="210.0" height="45.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="145.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Стек: Покажчик (8 байтів)</text>
+<text x="145.0" y="150.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#1a1a1a" text-anchor="middle">0x7FFF_DEAD_BEE0</text>
+<line x1="145.0" y1="160.0" x2="145.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="185.0" width="210.0" height="175.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="45.0" y="192.0" width="200.0" height="38.0" rx="4" fill="#eaf4fd" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="145.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Refcount (8 байтів)</text>
+<text x="145.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">лічильник посилань GC</text>
+<rect x="45.0" y="236.0" width="200.0" height="38.0" rx="4" fill="#eaf4fd" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="145.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Type Pointer (8 байтів)</text>
+<text x="145.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">покажчик на PyTypeObject</text>
+<rect x="45.0" y="280.0" width="200.0" height="38.0" rx="4" fill="#fdf2e9" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="145.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Payload (8–24 байти)</text>
+<text x="145.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">саме корисне значення</text>
+<rect x="45.0" y="324.0" width="200.0" height="28.0" rx="3" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="145.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Разом: 24–32 байти на число!</text>
+<text x="145.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Витрати: алокація в купі,</text>
+<text x="145.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">розіменування, промахи L1</text>
+<text x="145.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Ціна числа: 400% пам'яті</text>
+<rect x="295.0" y="50.0" width="250.0" height="380.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="420.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Теговані покажчики</text>
+<text x="420.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Tagged Pointer (OCaml, Ruby)</text>
+<line x1="310.0" y1="103.0" x2="530.0" y2="103.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="310.0" y="115.0" width="220.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">64-бітне машинне слово (8B)</text>
+<rect x="316.0" y="145.0" width="155.0" height="24.0" rx="3" fill="#eaf4fd" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="393.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">61-63 біти: Payload</text>
+<rect x="474.0" y="145.0" width="50.0" height="24.0" rx="3" fill="#fef2f2" stroke="#fecaca" stroke-width="1.0"/>
+<text x="499.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Tag</text>
+<rect x="310.0" y="185.0" width="220.0" height="135.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="420.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тег у молодших бітах (вирівнювання 8B):</text>
+<text x="320.0" y="225.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#2457d6" text-anchor="start">...000 : Heap Pointer</text>
+<text x="320.0" y="245.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#27ae60" text-anchor="start">...001 : Fixnum (Int)</text>
+<text x="320.0" y="265.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#1a1a1a" text-anchor="start">...010 : Boolean (true/false)</text>
+<text x="320.0" y="285.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="9" fill="#6b7280" text-anchor="start">...011 : Symbol / Nil</text>
+<text x="420.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">Int розпаковується через: val &gt;&gt; 1</text>
+<text x="420.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Переваги: без купи для цілих,</text>
+<text x="420.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">розмір рівно 8 байтів.</text>
+<text x="420.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обмеження: цілі втрачають</text>
+<text x="420.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1–3 біти діапазону (61-біт)</text>
+<rect x="570.0" y="50.0" width="250.0" height="380.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="695.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. NaN-Boxing</text>
+<text x="695.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IEEE 754 (JS V8/JSC, LuaJIT)</text>
+<line x1="585.0" y1="103.0" x2="805.0" y2="103.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="585.0" y="115.0" width="220.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="695.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">64-бітний Double / Tagged Value</text>
+<rect x="590.0" y="145.0" width="75.0" height="24.0" rx="3" fill="#fef2f2" stroke="#fecaca" stroke-width="1.0"/>
+<text x="627.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">0x7FF8 (NaN)</text>
+<rect x="668.0" y="145.0" width="42.0" height="24.0" rx="3" fill="#fef3c7" stroke="#fde68a" stroke-width="1.0"/>
+<text x="689.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">Tag</text>
+<rect x="713.0" y="145.0" width="87.0" height="24.0" rx="3" fill="#eaf4fd" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="756.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">48-bit Ptr/Int</text>
+<rect x="585.0" y="185.0" width="220.0" height="135.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="695.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Семантика бітів NaN:</text>
+<text x="695.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">• Якщо НЕ NaN -&gt; число double</text>
+<text x="695.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">• Якщо Quiet NaN + Tag 0 -&gt; Покажчик</text>
+<text x="695.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Якщо Quiet NaN + Tag 1 -&gt; 32-bit Int</text>
+<text x="695.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Якщо Quiet NaN + Tag 2 -&gt; Boolean</text>
+<text x="695.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-style="italic">48 бітів вміщують покажчик x86-64</text>
+<text x="695.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Переваги: арифметика double</text>
+<text x="695.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">без розпакування, 8 байтів,</text>
+<text x="695.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">найшвидший динамічний рушій</text>
+<text x="695.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Ідеал для JS та Lua VM</text>
+</svg>

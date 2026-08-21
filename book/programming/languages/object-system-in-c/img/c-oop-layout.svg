@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100.8 -10 920.8 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-100.8" y="-10" width="920.8" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двійкова розкладка примірника та vtable у C (префіксне вкладення)</text>
+<rect x="40.0" y="70.0" width="340.0" height="240.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="210.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Примірник: struct Button (у купі)</text>
+<rect x="55.0" y="106.0" width="310.0" height="110.0" rx="4" fill="#e8f4fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Базовий під-об'єкт: struct Widget base (зсув 0)</text>
+<rect x="65.0" y="134.0" width="290.0" height="36.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="210.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">WidgetClass *klass (зсув 0, 8 байтів)</text>
+<text x="210.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вказівник на спільну таблицю класу</text>
+<rect x="65.0" y="176.0" width="290.0" height="32.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="210.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">int x, y, w, h (зсув 8..24, 16 байтів)</text>
+<rect x="55.0" y="224.0" width="310.0" height="50.0" rx="4" fill="#fdf2e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="210.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Власні поля Button: (зсув 24..40)</text>
+<text x="210.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">char *label · bool is_pressed · int state</text>
+<text x="55.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Button* == Widget* == klass* == 0x2000 (нульовий зсув)</text>
+<rect x="440.0" y="70.0" width="340.0" height="240.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="610.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клас / vtable: struct ButtonClass (синглтон)</text>
+<rect x="455.0" y="106.0" width="310.0" height="110.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">struct WidgetClass base_class (зсув 0)</text>
+<rect x="465.0" y="134.0" width="290.0" height="34.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="610.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">void (*draw)(Widget *self) → button_draw</text>
+<rect x="465.0" y="174.0" width="290.0" height="34.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="610.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">void (*event)(Widget *self, Event *e)</text>
+<rect x="455.0" y="224.0" width="310.0" height="50.0" rx="4" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="610.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Власні методи ButtonClass: (зсув 16..24)</text>
+<text x="610.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">void (*clicked)(Button *self)</text>
+<text x="455.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Таблиця методів створюється один раз у пам'яті</text>
+<line x1="355.0" y1="152.0" x2="455.0" y2="152.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">klass</text>
+<rect x="99.9" y="323.5" width="620.2" height="23.0" rx="6" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="338.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Динамічний виклик: ((Widget*)btn)-&gt;klass-&gt;draw((Widget*)btn)  [розв'язання через вказівник klass]</tspan></text>
+</svg>

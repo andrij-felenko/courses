@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Представлення зв'язаних списків у пам'яті (cons-комірки)</text>
+<text x="120.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Анатомія комірки cons</text>
+<rect x="40.0" y="80.0" width="80.0" height="50.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<rect x="120.0" y="80.0" width="80.0" height="50.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<text x="80.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">CAR</text>
+<text x="160.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">CDR</text>
+<text x="80.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Значення / елемент</text>
+<text x="160.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Хвіст / наступна пара</text>
+<text x="540.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Список (A (B C) D) у вигляді зв'язаного графа cons-пар</text>
+<rect x="300.0" y="90.0" width="50.0" height="40.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<rect x="350.0" y="90.0" width="50.0" height="40.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<circle cx="325.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="375.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="305.0" y="170.0" width="40.0" height="30.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="325.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">A</text>
+<line x1="325.0" y1="114.0" x2="325.0" y2="166.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="379.0" y1="110.0" x2="446.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="450.0" y="90.0" width="50.0" height="40.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<rect x="500.0" y="90.0" width="50.0" height="40.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<circle cx="475.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="525.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="529.0" y1="110.0" x2="596.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="600.0" y="90.0" width="50.0" height="40.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<rect x="650.0" y="90.0" width="50.0" height="40.0" rx="3" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<circle cx="625.0" cy="110.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="650.0" y1="130.0" x2="700.0" y2="90.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="730.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">NIL ( / )</text>
+<rect x="605.0" y="170.0" width="40.0" height="30.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="625.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">D</text>
+<line x1="625.0" y1="114.0" x2="625.0" y2="166.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="475.0" y1="114.0" x2="475.0" y2="226.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="450.0" y="230.0" width="50.0" height="40.0" rx="3" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<rect x="500.0" y="230.0" width="50.0" height="40.0" rx="3" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<circle cx="475.0" cy="250.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="525.0" cy="250.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="455.0" y="300.0" width="40.0" height="30.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="475.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">B</text>
+<line x1="475.0" y1="254.0" x2="475.0" y2="296.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="529.0" y1="250.0" x2="576.0" y2="250.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="580.0" y="230.0" width="50.0" height="40.0" rx="3" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<rect x="630.0" y="230.0" width="50.0" height="40.0" rx="3" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<circle cx="605.0" cy="250.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="630.0" y1="270.0" x2="680.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="710.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">NIL</text>
+<rect x="585.0" y="300.0" width="40.0" height="30.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="605.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">C</text>
+<line x1="605.0" y1="254.0" x2="605.0" y2="296.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

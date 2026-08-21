@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ортогональна матриця типізації</text>
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця класифікації систем типів: час перевірки проти строгості</text>
+<rect x="80.0" y="50.0" width="350.0" height="30.0" rx="6" fill="#eaf4fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="255.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Статична (перевірка під час компіляції)</text>
+<rect x="450.0" y="50.0" width="350.0" height="30.0" rx="6" fill="#fffbf5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="625.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Динамічна (перевірка під час виконання)</text>
+<rect x="15.0" y="90.0" width="55.0" height="175.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="42.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">СИЛЬНА</text>
+<text x="42.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Strict / Safe</text>
+<rect x="15.0" y="280.0" width="55.0" height="175.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="42.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ef4444" text-anchor="middle" font-weight="700">СЛАБКА</text>
+<text x="42.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Coercive</text>
+<rect x="80.0" y="90.0" width="350.0" height="175.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="255.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Статична + Сильна (Strong Static)</text>
+<text x="255.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повна безпека типів ще до запуску бінарника</text>
+<line x1="95.0" y1="136.0" x2="415.0" y2="136.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="255.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мови: Rust, Haskell, Swift, Ada, Scala, Java, Go</text>
+<text x="255.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Заборона неявних коерсій («&quot;5&quot; + 2» — помилка компілятора)</text>
+<text x="255.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перевірка безпеки пам'яті (Soundness / Memory Safety)</text>
+<text x="255.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">• Нульові накладні витрати під час виконання (Zero Overhead)</text>
+<text x="255.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• Максимальний захист від багів у продакшені</text>
+<rect x="450.0" y="90.0" width="350.0" height="175.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="625.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Динамічна + Сильна (Strong Dynamic)</text>
+<text x="625.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Суворі типи, але зв'язані зі значеннями в купі</text>
+<line x1="465.0" y1="136.0" x2="785.0" y2="136.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="625.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мови: Python, Ruby, Erlang, Elixir, Clojure, Smalltalk</text>
+<text x="625.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Неявні перетворення заборонені («&quot;5&quot; + 2» кидає TypeError)</text>
+<text x="625.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Змінна може змінювати тип під час виконання: x = 1; x = &quot;abc&quot;</text>
+<text x="625.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Помилка типизації виявляється лише на активній гілці коду</text>
+<text x="625.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">• Потребує суцільного покриття модульними тестами</text>
+<rect x="80.0" y="280.0" width="350.0" height="175.0" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.8"/>
+<text x="255.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Статична + Слабка (Weak Static)</text>
+<text x="255.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Типи відомі компілятору, але їх можна обійти</text>
+<line x1="95.0" y1="326.0" x2="415.0" y2="326.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="255.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мови: C, C++ (низькорівневі зрізи), Assembler</text>
+<text x="255.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Дозволені небезпечні приведення: (void*), reinterpret_cast</text>
+<text x="255.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Пряма арифметика покажчиків і підміна бітів у пам'яті</text>
+<text x="255.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Неявні зрізання та просування цілих: int + double, signed/unsigned</text>
+<text x="255.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">• Ризик невизначеної поведінки (UB) та дірок у безпеці</text>
+<rect x="450.0" y="280.0" width="350.0" height="175.0" rx="8" fill="#ffffff" stroke="#ef4444" stroke-width="1.8"/>
+<text x="625.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">Динамічна + Слабка (Weak Dynamic)</text>
+<text x="625.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Неявне агресивне приведення типів під час виконання</text>
+<line x1="465.0" y1="326.0" x2="785.0" y2="326.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="625.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мови: JavaScript, PHP (класичний), Perl, Bash</text>
+<text x="625.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Агресивна коерсія: «&quot;5&quot; - 2 == 3», але «&quot;5&quot; + 2 == &quot;52&quot;»</text>
+<text x="625.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Складання об'єктів: «[] + {} == &quot;[object Object]&quot;»</text>
+<text x="625.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">• Рідко падає з TypeError — замість цього тихо спотворює стан</text>
+<text x="625.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">• Найбільш підступні логічні дефекти на продакшені</text>
+</svg>

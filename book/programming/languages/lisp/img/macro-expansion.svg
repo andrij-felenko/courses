@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-21.99 -10 861.99 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-21.99" y="-10" width="861.99" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм макросів: синтаксична трансформація AST у Lisp проти тексту в C</text>
+<rect x="30.0" y="55.0" width="780.0" height="130.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="140.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">C Preprocessor: текстова заміна</text>
+<rect x="50.0" y="95.0" width="180.0" height="70.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="140.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сирий текст коду</text>
+<text x="140.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">#define SQR(x) x*x</text>
+<line x1="230.0" y1="130.0" x2="285.0" y2="130.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="258.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Підстановка</text>
+<rect x="290.0" y="95.0" width="230.0" height="70.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="405.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Текстовий результат</text>
+<text x="405.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">SQR(1 + 2)  →  1 + 2 * 1 + 2</text>
+<line x1="520.0" y1="130.0" x2="575.0" y2="130.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="548.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Парсинг</text>
+<rect x="580.0" y="95.0" width="210.0" height="70.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="685.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Помилкове обчислення</text>
+<text x="685.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">Результат: 5 замість 9</text>
+<rect x="30.0" y="205.0" width="780.0" height="145.0" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="160.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Lisp Defmacro: трансформація синтаксичного дерева</text>
+<rect x="50.0" y="245.0" width="180.0" height="85.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="140.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вхідне AST (S-вираз)</text>
+<text x="140.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">(sqr (+ 1 2))</text>
+<text x="140.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">список: (sqr (+ 1 2))</text>
+<line x1="230.0" y1="287.0" x2="285.0" y2="287.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="258.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Macro-fn</text>
+<rect x="290.0" y="245.0" width="230.0" height="85.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="405.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Трансформація кодом Lisp</text>
+<text x="405.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">(let ((g (+ 1 2)))</text>
+<text x="405.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">  (* g g))</text>
+<line x1="520.0" y1="287.0" x2="575.0" y2="287.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="548.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Компіляція</text>
+<rect x="580.0" y="245.0" width="210.0" height="85.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="685.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Коректне AST</text>
+<text x="685.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">Один раз: g = 3</text>
+<text x="685.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: 9 (безпечно)</text>
+</svg>

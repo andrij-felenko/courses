@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири фази інлайн-кешування</text>
+<rect x="30.0" y="75.0" width="160.0" height="170.0" rx="8" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="110.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неініціалізований</text>
+<text x="110.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Uninitialized)</text>
+<line x1="40.0" y1="125.0" x2="180.0" y2="125.0" stroke="#333333" stroke-width="1.0"/>
+<text x="42.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Виклик уперше</text>
+<text x="42.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Кеш порожній</text>
+<text x="42.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Звернення до рантайму</text>
+<text x="42.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Пошук типу об'єкта</text>
+<line x1="193.0" y1="160.0" x2="222.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="207.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">+тип</text>
+<rect x="225.0" y="75.0" width="160.0" height="170.0" rx="8" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="305.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мономорфний</text>
+<text x="305.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Monomorphic)</text>
+<line x1="235.0" y1="125.0" x2="375.0" y2="125.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="237.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 1 форма (Shape / Map)</text>
+<text x="237.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Пряме зміщення поля</text>
+<text x="237.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перевірка форми: 1 cmp</text>
+<text x="237.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Швидкість прямого C</text>
+<line x1="388.0" y1="160.0" x2="417.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="402.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">+тип</text>
+<rect x="420.0" y="75.0" width="160.0" height="170.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="500.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поліморфний</text>
+<text x="500.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Polymorphic)</text>
+<line x1="430.0" y1="125.0" x2="570.0" y2="125.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="432.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 2–4 форми в кеші</text>
+<text x="432.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Коротка таблиця / switch</text>
+<text x="432.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Швидкий перебір форм</text>
+<text x="432.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Окреме зміщення кожній</text>
+<line x1="583.0" y1="160.0" x2="612.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="597.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">+тип</text>
+<rect x="615.0" y="75.0" width="160.0" height="170.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="695.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мегаморфний</text>
+<text x="695.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Megamorphic)</text>
+<line x1="625.0" y1="125.0" x2="765.0" y2="125.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="627.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• ≥ 5 різних форм</text>
+<text x="627.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Інлайн-кеш здається</text>
+<text x="627.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Глобальна хеш-таблиця</text>
+<text x="627.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Найповільніший шлях</text>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція станів інлайн-кешу (Inline Cache) на місці динамічного виклику</text>
+<text x="410.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">90%+ викликів у реальному коді лишаються мономорфними, що дає машинну швидкість читання</text>
+</svg>

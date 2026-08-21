@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двійковий стандарт COM (Component Object Model): vtable у C та C++</text>
+<rect x="40.0" y="70.0" width="320.0" height="240.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="200.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Примірник COM-об'єкта (вказівник pUnk)</text>
+<rect x="55.0" y="110.0" width="290.0" height="48.0" rx="4" fill="#e8f4fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="200.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">IMyInterfaceVtbl *lpVtbl (зсув 0)</text>
+<text x="200.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вказівник на таблицю методів</text>
+<rect x="55.0" y="168.0" width="290.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="200.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">LONG m_refCount (лічильник посилань)</text>
+<text x="200.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Керується AddRef() та Release()</text>
+<rect x="55.0" y="218.0" width="290.0" height="70.0" rx="4" fill="#fdf2e9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="200.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Внутрішні дані компонента</text>
+<text x="200.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">int m_data · HANDLE m_mutex</text>
+<text x="200.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Інкапсульовані приватні змінні</text>
+<rect x="420.0" y="70.0" width="380.0" height="240.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">IMyInterfaceVtbl (Таблиця функцій у пам'яті)</text>
+<rect x="430.0" y="108.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="436.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">IUnknown: [0] HRESULT QueryInterface(REFIID riid, void **ppv)</text>
+<rect x="430.0" y="146.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="436.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">IUnknown: [1] ULONG AddRef(void)</text>
+<rect x="430.0" y="184.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="436.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">IUnknown: [2] ULONG Release(void)</text>
+<rect x="430.0" y="222.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="436.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Custom: [3] HRESULT GetData(LONG *pVal)</text>
+<rect x="430.0" y="260.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="436.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Custom: [4] HRESULT SetData(LONG val)</text>
+<line x1="345.0" y1="134.0" x2="430.0" y2="124.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="120.5" y="327.0" width="599.1" height="22.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="420.0" y="341.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Виклик у C: p-&gt;lpVtbl-&gt;QueryInterface(p, ...)  ↔  Виклик у C++: p-&gt;QueryInterface(...)  [однаковий ABI]</tspan></text>
+</svg>

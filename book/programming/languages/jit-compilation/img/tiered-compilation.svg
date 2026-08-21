@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівневий JIT і зворотна деоптимізація</text>
+<rect x="30.0" y="80.0" width="190.0" height="180.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="125.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Tier 0: Інтерпретатор</text>
+<text x="125.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">миттєвий старт програми</text>
+<rect x="45.0" y="144.0" width="160.0" height="48.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="125.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Побайтне виконання</text>
+<text x="125.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">+ збір профілю типів</text>
+<rect x="45.0" y="200.0" width="160.0" height="42.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+<text x="125.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Лічильники викликів</text>
+<text x="125.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">гарячі методи й цикли</text>
+<rect x="285.0" y="80.0" width="210.0" height="180.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="390.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Tier 1: Базовий JIT</text>
+<text x="390.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">швидка трансляція коду</text>
+<rect x="300.0" y="144.0" width="180.0" height="48.0" rx="5" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="390.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Простий машинний код</text>
+<text x="390.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">без дорогих оптимізацій</text>
+<rect x="300.0" y="200.0" width="180.0" height="42.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+<text x="390.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Поглиблений профіль</text>
+<text x="390.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">типи полів, гілки, виклики</text>
+<rect x="560.0" y="80.0" width="230.0" height="180.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="675.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Tier 2: Оптимізуючий JIT</text>
+<text x="675.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пікова швидкодія процесора</text>
+<rect x="575.0" y="144.0" width="200.0" height="98.0" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="675.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">Спекулятивні оптимізації:</text>
+<text x="675.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Агресивний інлайнінг</text>
+<text x="675.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Спеціалізація типів</text>
+<text x="675.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Усунення меж (BCE), SSA</text>
+<line x1="220.0" y1="140.0" x2="285.0" y2="140.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="252.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">поріг 1</text>
+<line x1="495.0" y1="140.0" x2="560.0" y2="140.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="527.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">поріг 2</text>
+<line x1="675.0" y1="260.0" x2="675.0" y2="310.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,4"/>
+<line x1="675.0" y1="310.0" x2="125.0" y2="310.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,4"/>
+<line x1="125.0" y1="310.0" x2="125.0" y2="264.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="300.0" y="290.0" width="220.0" height="40.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="410.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Деоптимізація (Bailout)</text>
+<text x="410.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">припущення про тип порушено</text>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівнева адаптивна компіляція та відкат на безпечний рівень</text>
+</svg>

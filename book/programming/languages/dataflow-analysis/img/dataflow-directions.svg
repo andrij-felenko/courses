@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-95.53 -10 935.53 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-95.53" y="-10" width="935.53" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікація задач потоку даних: напрямок × квантор шляхів</text>
+<text x="310.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1b4f72" text-anchor="middle" font-weight="700">Прямий аналіз (Forward, →)</text>
+<text x="630.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1b4f72" text-anchor="middle" font-weight="700">Зворотний аналіз (Backward, ←)</text>
+<text x="60.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#784212" text-anchor="middle" font-weight="700">May (Чи можливо?)
+Об'єднання ∪
+«Існує шлях»</text>
+<text x="60.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">Must (Чи гарантовано?)
+Перетин ∩
+«На всіх шляхах»</text>
+<rect x="180.0" y="80.0" width="260.0" height="115.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/>
+<text x="310.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="middle" font-weight="700">Reaching Definitions</text>
+<text x="310.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Які визначення змінних доходять сюди?</text>
+<text x="310.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT[B] = GEN[B] ∪ (IN[B] \ KILL[B])</text>
+<text x="310.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IN[B] = ∪ OUT[P],  ініціалізація: ∅</text>
+<rect x="500.0" y="80.0" width="260.0" height="115.0" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="630.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Live Variables</text>
+<text x="630.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Чи буде значення змінної прочитане далі?</text>
+<text x="630.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IN[B] = USE[B] ∪ (OUT[B] \ DEF[B])</text>
+<text x="630.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">OUT[B] = ∪ IN[S],  ініціалізація: ∅</text>
+<rect x="180.0" y="205.0" width="260.0" height="115.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="310.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Available Expressions</text>
+<text x="310.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Які вирази вже гарантовано обчислені?</text>
+<text x="310.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT[B] = GEN[B] ∪ (IN[B] \ KILL[B])</text>
+<text x="310.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IN[B] = ∩ OUT[P],  ініціалізація: ALL</text>
+<rect x="500.0" y="205.0" width="260.0" height="115.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="630.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">Very Busy Expressions</text>
+<text x="630.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Які вирази обов'язково виконаються далі?</text>
+<text x="630.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IN[B] = USE[B] ∪ (OUT[B] \ KILL[B])</text>
+<text x="630.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">OUT[B] = ∩ IN[S],  ініціалізація: ALL</text>
+<text x="420.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Квантор May стартує з ∅ (песимістично), квантор Must стартує з ALL (оптимістично)</text>
+</svg>
