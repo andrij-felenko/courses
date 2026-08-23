@@ -101,23 +101,13 @@
           }
         },
         {
-          "slug": "power-fail-safety",
-          "title": "Захист від зникнення живлення: brown-out і рятування стану",
+          "slug": "input-protection-chain",
+          "title": "Захист входу: полярність, перенапруга, кидок",
           "basic": {
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
-        },
-        {
-          "slug": "reverse-polarity",
-          "title": "Захист входу: полярність, перенапруга, кидок",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "done"
+            "status": "pending"
           }
         },
         {
@@ -351,16 +341,6 @@
           "title": "Захисне покриття плати: лак, залив, ущільнення",
           "todo": "нова тема",
           "hint": "electronics/pcb"
-        },
-        {
-          "slug": "enclosure-ip-rating",
-          "title": "Корпус, IP-захист, роз'єми",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "done"
-          }
         },
         {
           "slug": "hermetychno-vs-okholodyty",
@@ -621,16 +601,6 @@
           }
         },
         {
-          "slug": "tls-embedded",
-          "title": "TLS на мікроконтролері",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "done"
-          }
-        },
-        {
           "ref": "communications/mavlink-v2-signing",
           "title": "Захист бездротового каналу: шифрування й автентифікація кадру"
         },
@@ -827,16 +797,6 @@
           }
         },
         {
-          "slug": "sensor-fault-detection",
-          "title": "Виявлення відмови давача",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "done"
-          }
-        },
-        {
           "slug": "perevirka-pravdopodibnosti",
           "title": "Перевірка правдоподібності",
           "basic": {
@@ -899,16 +859,6 @@
       "title": "Пошук несправностей",
       "topics": [
         {
-          "slug": "troubleshooting-methodology",
-          "title": "Систематичний пошук несправності",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "done"
-          }
-        },
-        {
           "slug": "vidmova-iaku-ne-vdaietsia-vidtvoryty",
           "title": "Відмова, яку не вдається відтворити",
           "basic": {
@@ -945,26 +895,6 @@
         {
           "ref": "programming/monotonic-vs-wall-time",
           "title": "Мітка часу, якій можна вірити"
-        },
-        {
-          "slug": "core-dump",
-          "title": "Посмертний аналіз",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "done"
-          }
-        },
-        {
-          "slug": "flight-log-analysis",
-          "title": "Аналіз логів польоту/поїздки",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "done"
-          }
         },
         {
           "slug": "fault-injection-testing",
@@ -1005,6 +935,16 @@
         {
           "slug": "rozbir-spravzhnoho-padinnia",
           "title": "Розбір справжнього падіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "log-signal-correlation",
+          "title": "Кореляція сигналів у журналі: як відрізнити причину від наслідку",
           "basic": {
             "status": "empty"
           },

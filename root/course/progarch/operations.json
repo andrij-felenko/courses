@@ -237,16 +237,6 @@
           "hint": "programming/operations"
         },
         {
-          "slug": "config-secrets-boundary",
-          "title": "Конфіг проти секретів",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "done"
-          }
-        },
-        {
           "ref": "programming/feature-flags",
           "title": "Прапорці функцій"
         },
@@ -275,6 +265,16 @@
         {
           "slug": "dh-environments",
           "title": "DH: середовища, у яких немає справжніх домів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "live-system-secrets",
+          "title": "Секрети живої системи: сховище, доступ і ротація",
           "basic": {
             "status": "empty"
           },
@@ -337,22 +337,22 @@
           "title": "Штатне вимкнення і drain"
         },
         {
-          "slug": "rollback-as-plan",
-          "title": "Rollback міграції як план, не надія",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          }
-        },
-        {
           "ref": "programming/ota-update",
           "title": "OTA-оновлення"
         },
         {
           "slug": "dh-firmware-rollout",
           "title": "DH: прошивка на сорок тисяч хабів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "release-rollback-limits",
+          "title": "Відкат релізу: коли назад іще можна — і що робити, коли вже ні",
           "basic": {
             "status": "empty"
           },
