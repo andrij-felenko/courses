@@ -3,8 +3,8 @@
 <preknowlist>
 * [Асимптотичний аналіз складності алгоритмів](book:algorithms/asymptotic-complexity)
 * [Універсальне хешування](book:algorithms/universal-hashing)
-* [Скінченні поля та модульна арифметика](book:algorithms/finite-fields)
-* [Дискретне логарифмування](book:algorithms/discrete-logarithm)
+* [Скінченні поля та модульна арифметика](book:algorithms/finite-field-arithmetic)
+* [Дискретне логарифмування](book:algorithms/discrete-log-problem)
 * [Криптографічні зобов'язання](book:algorithms/cryptographic-commitment)
 </preknowlist>
 

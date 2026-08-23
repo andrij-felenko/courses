@@ -121,7 +121,7 @@
       { title: "Фаза, реактивність, імпеданс", steps: [
         { ref: "electronics/analog/phase-shift", title: "Фаза й зсув фаз" },
         { ref: "electronics/analog/reactance", title: "Реактивність" },
-        { ref: "electronics/analog/impedance", title: "Імпеданс" },
+        { ref: "math/complex-analysis/impedance", title: "Імпеданс" },
         { ref: "electronics/components/capacitor-parasitics", title: "Паразити конденсатора" },
       ] },
       { title: "Перші фільтри й резонанс", steps: [
@@ -132,7 +132,7 @@
         { slug: "filter-families", title: "Родини фільтрів: Баттерворт, Чебишов, Бесель", basic: { status: "empty" }, detailed: { status: "done" } },
       ] },
       { title: "Шум і наводки", steps: [
-        { ref: "physics/thermal-statistical/thermal-noise", title: "Тепловий шум" },
+        { ref: "physics/condensed-matter-physics/thermal-noise", title: "Тепловий шум" },
         { ref: "physics/condensed-matter-physics/shot-flicker-noise", title: "Дробовий шум" },
         { ref: "physics/electromagnetism/capacitive-coupling", title: "Ємнісна наводка" },
         { ref: "physics/electromagnetism/inductive-coupling", title: "Індуктивна наводка" },
@@ -440,7 +440,7 @@
         { slug: "frequency-measurement-methods", title: "Методи вимірювання частоти", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-frequency-counter.md", status: "done" }], math: [{ file: "math-quantization-error.md", status: "done" }], proj: [{ file: "proj-input-capture-freq.md", status: "done" }] },
       ] },
       { title: "PWM", steps: [
-        { ref: "programming/embedded-systems/pwm", title: "ШІМ" },
+        { ref: "electronics/analog/pwm", title: "ШІМ" },
         { ref: "programming/embedded-systems/hardware-pwm", title: "Апаратний PWM" },
       ] },
       { title: "АЦП і ЦАП", steps: [
@@ -536,7 +536,7 @@
         { ref: "programming/embedded-systems/reboot-strategy", title: "Перезавантаження" },
       ] },
       { title: "Безпека пристрою", steps: [
-        { ref: "programming/security/secure-boot", title: "Secure boot" },
+        { ref: "programming/security/firmware-secure-boot", title: "Secure boot" },
         { slug: "tpm-trustzone", title: "TPM і TrustZone: апаратний корінь довіри", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-trusted-computing.md", status: "done" }], proj: [{ file: "proj-esp32-secure-boot.md", status: "done" }] },
         { slug: "tls-embedded", title: "TLS на мікроконтролері", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-ssl-to-tls.md", status: "done" }, { file: "hist-mbedtls.md", status: "done" }], math: [{ file: "math-key-schedule.md", status: "done" }], proj: [{ file: "proj-mbedtls-tuning.md", status: "done" }] },
       ] },
@@ -697,7 +697,7 @@
       { title: "Оцінювання стану", steps: [
         { slug: "kalman-filter", title: "Фільтр Калмана", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-kalman.md", status: "done" }], math: [{ file: "math-kalman-gain.md", status: "done" }], proj: [{ file: "proj-scalar-kalman.md", status: "done" }] },
         { ref: "algorithms/signal-robotics/complementary-filter", title: "Комплементарний фільтр" },
-        { ref: "algorithms/signal-robotics/sensor-fusion", title: "Поєднання давачів" },
+        { ref: "communications/signal-processing/sensor-fusion", title: "Поєднання давачів" },
         { slug: "attitude-estimation", title: "Оцінка орієнтації (attitude estimation)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-gimbal-lock.md", status: "done" }], proj: [{ file: "proj-mahony-madgwick.md", status: "done" }] },
         { slug: "inertial-navigation", title: "Інерціальна навігація", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-ins-history.md", status: "done" }], math: [{ file: "math-dead-reckoning-error.md", status: "done" }], proj: [{ file: "proj-strapdown-step.md", status: "done" }] },
         { slug: "sensor-fault-detection", title: "Виявлення відмови давача", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-tmr-voting.md", status: "done" }], proj: [{ file: "proj-fault-detector.md", status: "done" }] },

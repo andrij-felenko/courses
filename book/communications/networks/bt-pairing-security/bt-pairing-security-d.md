@@ -2,7 +2,7 @@
 
 <preknowlist>
 - [Криптосистема Діффі — Геллмана](book:algorithms/diffie-hellman) — принцип узгодження спільного таємного ключа у відкритому каналі через асиметричну математику.
-- [Проблема дискретного логарифма](book:algorithms/discrete-logarithm) — обчислювальна односторонність та математична стійкість операцій на еліптичних кривих.
+- [Проблема дискретного логарифма](book:algorithms/discrete-log-problem) — обчислювальна односторонність та математична стійкість операцій на еліптичних кривих.
 - [Стек Bluetooth Classic](book:communications/bluetooth-classic-stack) — рівні протоколів HCI, L2CAP та радіоканал між пристроями.
 - [Bluetooth SPP](book:communications/bluetooth-spp) — принципи адресації BD_ADDR, встановлення з'єднання та роль у радіопросторі.
 </preknowlist>

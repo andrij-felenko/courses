@@ -25,7 +25,7 @@
         { slug: "ky-005-ir-tx", title: "KY-005 — ІЧ-передавач", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-clone-remote.md", status: "done" }], api: [{ file: "api-irremote-nec.md", status: "done" }] },
         { slug: "ky-022-ir-rx", title: "KY-022 — ІЧ-приймач (на платі)", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-irremote-menu.md", status: "done" }], api: [{ file: "api-irremote-decode.md", status: "done" }] },
         { slug: "vs1838b-ir-rx", title: "VS1838B — ІЧ-приймач", basic: { status: "empty" }, detailed: { status: "done" }, api: [{ file: "api-nec-decode.md", status: "done" }] },
-        { slug: "ky-series", title: "Родина KY-xxx (Keyes «37 в одному»)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-ir-remote.md", status: "done" }] },
+        { slug: "ky-ir-modules", title: "KY-модулі інфрачервоного каналу", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-ir-remote.md", status: "done" }] },
       ] },
   ]
 });

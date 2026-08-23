@@ -5,7 +5,7 @@
     { slug: "motors", title: "Мотори", scope: "Двигуни постійного струму, безколекторні та електромагнітні лінійні (соленоїдні) приводи.",
       topics: [
         { slug: "n20-motor", title: "N20 мікромотор з редуктором", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-n20-name.md", status: "done" }], math: [{ file: "math-gear-torque.md", status: "done" }], api: [{ file: "api-drive-n20.md", status: "done" }] },
-        { slug: "bldc-motor", title: "Безколекторний мотор (BLDC)", basic: { status: "empty" }, detailed: { status: "done" }, api: [{ file: "api-esc-control.md", status: "done" }] },
+        { slug: "bldc-motor-module", title: "Безколекторний мотор (модуль)", basic: { status: "empty" }, detailed: { status: "done" }, api: [{ file: "api-esc-control.md", status: "done" }] },
         { slug: "jf-0530b-solenoid", title: "Соленоїд JF-0530B (12 В, push-pull)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-freewheeling-diode.md", status: "done" }], proj: [{ file: "proj-drive-solenoid.md", status: "done" }] },
       ] },
     { slug: "servos", title: "Серва", scope: "Сервоприводи з керуванням за положенням.",

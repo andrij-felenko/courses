@@ -96,7 +96,7 @@
       ] },
       { title: "Незмінність і стан", steps: [
         { ref: "programming/software-design/immutability", title: "Незмінність як прийом дизайну" },
-        { ref: "algorithms/data-structures/copy-on-write", title: "Copy-on-write" },
+        { ref: "algorithms/data-structures/copy-on-write-structures", title: "Copy-on-write" },
         { ref: "programming/software-design/pure-functions-side-effects", title: "Чисті функції і побічні ефекти" },
         { ref: "programming/software-design/type-driven-design", title: "Типи як дизайн" },
         { slug: "state-inventory", title: "Де живе стан", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-state-as-complexity.md", status: "done" }], proj: [{ file: "proj-state-inventory-walk.md", status: "done" }] },

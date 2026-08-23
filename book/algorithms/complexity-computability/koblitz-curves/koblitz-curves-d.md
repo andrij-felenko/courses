@@ -1,6 +1,6 @@
 <preknowlist>
-* [Поля Галуа та арифметика скінченних полів](book:algorithms/finite-fields)
-* [Задача дискретного логарифма на еліптичних кривих](book:algorithms/discrete-logarithm)
+* [Поля Галуа та арифметика скінченних полів](book:algorithms/finite-field-arithmetic)
+* [Задача дискретного логарифма на еліптичних кривих](book:algorithms/discrete-log-problem)
 * [Ендоморфізм Ґалланта-Ламберта-Ванстона (GLV)](book:algorithms/glv-endomorphism)
 * [Спарювання на еліптичних кривих](book:algorithms/elliptic-curve-pairings)
 </preknowlist>

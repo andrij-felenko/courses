@@ -47,7 +47,7 @@ echo /etc/ima/ima-policy > /sys/kernel/security/ima/policy
 |---|---|
 | `measure` / `dont_measure` | дописує запис у журнал і розширює PCR |
 | `appraise` / `dont_appraise` | порівнює з еталоном і при розбіжності відмовляє |
-| `audit` / `dont_audit` | кладе хеш файлу в [журнал аудиту](book:unix-linux/audit-subsystem), нічого не забороняючи |
+| `audit` / `dont_audit` | кладе хеш файлу в [журнал аудиту](book:unix-linux/audit-framework), нічого не забороняючи |
 | `hash` / `dont_hash` | рахує хеш і зберігає його в `security.ima`, не оцінюючи |
 
 Гачок `func=` називає мить, коли правило приміряють. Це, по суті, повний перелік місць, де байти в системі стають чимось довіреним:

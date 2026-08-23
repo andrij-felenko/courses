@@ -5,8 +5,8 @@
 - [Фільтр Блума](book:algorithms/bloom-filter) — ймовірнісна структура перевірки належності на основі бітового масиву.
 - [Фільтр Кукушки](book:algorithms/cuckoo-filter) — відбиткові фільтри на основі хешування зозулею.
 - [LSM-дерево](book:algorithms/lsm-tree) — незмінні SSTable-файли, дискова ампліфікація читання та блокові фільтри.
-- [Скінченні поля (поля Галуа)](book:algorithms/finite-fields) — арифметика поля GF(2), операції XOR та множення.
-- [Операція Popcount](book:algorithms/popcount) — апаратний підрахунок одиничних бітів у машинному слові.
+- [Скінченні поля (поля Галуа)](book:algorithms/finite-field-arithmetic) — арифметика поля GF(2), операції XOR та множення.
+- [Операція Popcount](book:algorithms/popcount-rank) — апаратний підрахунок одиничних бітів у машинному слові.
 - [Біти й порядок байтів](book:programming/bits-bytes-endianness) — побітові маски, зсуви та представлення слів у пам'яті.
 - [SIMD і векторизація](book:programming/simd-vectorization) — паралельна обробка векторних регістрів процесора.
 </preknowlist>

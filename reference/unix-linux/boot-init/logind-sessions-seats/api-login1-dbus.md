@@ -89,7 +89,7 @@ CreateSession(in  u uid, in  u pid, in  s service, in  s type, in  s class,
 | `TTY`, `Display` | `s` | шлях термінала; ім'я дисплея X11 |
 | `Remote`, `RemoteHost`, `RemoteUser` | `b`, `s`, `s` | мережевий вхід і його походження |
 | `Desktop` | `s` | середовище робочого столу, коли відоме |
-| `Audit` | `u` | номер сеансу підсистеми [аудиту](book:unix-linux/audit-subsystem) ядра |
+| `Audit` | `u` | номер сеансу підсистеми [аудиту](book:unix-linux/audit-framework) ядра |
 | `IdleHint`, `IdleSinceHint` | `b`, `t` | простій: сеанс сам про нього повідомляє, ядро цього не знає |
 | `LockedHint` | `b` | екран замкнено — теж підказка від середовища, а не спостереження |
 | `CanIdle`, `CanLock` | `b` | чи взагалі має сенс питати про попередні дві |

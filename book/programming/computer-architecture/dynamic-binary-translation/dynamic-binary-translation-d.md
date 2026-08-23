@@ -2,7 +2,7 @@
 
 <preknowlist>
 - [Набір інструкцій](book:programming/isa) — набори команд (ISA), регістри, кодування операцій та різниця між CISC і RISC.
-- [Бар'єри пам'яті](book:programming/memory-barriers) — модель узгодженості пам'яті, строгий порядок TSO проти слабкого впорядкування ARM/RISC-V.
+- [Бар'єри пам'яті](book:programming/memory-barrier-instructions) — модель узгодженості пам'яті, строгий порядок TSO проти слабкого впорядкування ARM/RISC-V.
 - [Емуляція набору інструкцій](book:programming/instruction-set-emulation) — інтерпретація команд крок за кроком та чому чистий інтерпретатор повільний.
 - [Самозмінний код](book:programming/self-modifying-code) — узгодженість I-кешу та D-кешу під час генерації коду в пам'яті.
 </preknowlist>

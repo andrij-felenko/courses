@@ -75,7 +75,7 @@
         { slug: "ky-023-joystick", title: "KY-023 — джойстик-модуль", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-analog-stick.md", status: "done" }], proj: [{ file: "proj-ky023-driver.md", status: "done" }] },
         { slug: "ky-040-encoder", title: "KY-040 — поворотний енкодер", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-ky040.md", status: "done" }] },
         { slug: "tactile-buttons", title: "Тактильні кнопки з ковпачками", basic: { status: "empty" }, detailed: { status: "done" } },
-        { slug: "potentiometer", title: "Поворотний потенціометр", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-poggendorff.md", status: "done" }], proj: [{ file: "proj-potentiometer.md", status: "done" }] },
+        { slug: "rotary-potentiometer", title: "Поворотний потенціометр", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-poggendorff.md", status: "done" }], proj: [{ file: "proj-potentiometer.md", status: "done" }] },
         { slug: "ky-004-button", title: "KY-004 — тактильна кнопка на платі", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-ky004-button.md", status: "done" }] },
       ] },
   ]

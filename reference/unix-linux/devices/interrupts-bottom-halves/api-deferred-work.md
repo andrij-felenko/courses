@@ -79,7 +79,7 @@ void raise_softirq_irqoff(unsigned int nr);       /* дешевший; вима�
 | 6 | `TASKLET` | звичайні тасклети і звичайна BH-черга |
 | 7 | `SCHED` | періодичне балансування навантаження планувальником |
 | 8 | `HRTIMER` | таймери високої роздільності, замовлені в режимі `HRTIMER_MODE_SOFT` |
-| 9 | `RCU` | відкладені зворотні виклики [RCU](book:unix-linux/rcu-mechanism) — навмисно останнє гніздо |
+| 9 | `RCU` | відкладені зворотні виклики [RCU](book:unix-linux/rcu-read-copy-update) — навмисно останнє гніздо |
 
 Бюджет обходу заданий трьома сталими в `kernel/softirq.c`: `MAX_SOFTIRQ_RESTART` = 10 проходів, `MAX_SOFTIRQ_TIME` = 2 мс, і будь-який із них уривається достроково, щойно планувальник виставив `need_resched()`. Недороблене переходить потокові `ksoftirqd/N`.
 

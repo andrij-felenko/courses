@@ -1,7 +1,7 @@
 # Графи Пейлі
 
 <preknowlist>
-* [Скінченні поля](book:algorithms/finite-fields)
+* [Скінченні поля](book:algorithms/finite-field-arithmetic)
 * [Квадратичні лишки](book:math/quadratic-residues)
 * [Матриця суміжності](book:algorithms/adjacency-matrix)
 * [Теорема Рамсея](book:algorithms/ramseys-theorem)

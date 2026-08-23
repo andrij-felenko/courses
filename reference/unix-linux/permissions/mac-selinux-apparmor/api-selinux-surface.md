@@ -140,7 +140,7 @@ semanage port -d -p tcp 8080                  # прибрати локальн�
 
 ## Від запису в журналі до модуля
 
-Кожна відмова лягає в [підсистему аудиту](book:unix-linux/audit-subsystem) записом `AVC`.
+Кожна відмова лягає в [підсистему аудиту](book:unix-linux/audit-framework) записом `AVC`.
 
 ```
 ausearch -m AVC,USER_AVC,SELINUX_ERR -ts recent

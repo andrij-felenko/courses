@@ -37,7 +37,7 @@ ok
 # ausearch -m AVC -ts recent -i
 ```
 
-`ausearch` бере записи в демона аудиту; якщо `auditd` не запущено, відмови лягають у кільцевий буфер ядра й дивитися треба `journalctl -k | grep -i avc` ([аудит ядра](book:unix-linux/audit-subsystem)).
+`ausearch` бере записи в демона аудиту; якщо `auditd` не запущено, відмови лягають у кільцевий буфер ядра й дивитися треба `journalctl -k | grep -i avc` ([аудит ядра](book:unix-linux/audit-framework)).
 
 ```
 type=AVC msg=audit(1754650000.412:198): avc:  denied  { read } for

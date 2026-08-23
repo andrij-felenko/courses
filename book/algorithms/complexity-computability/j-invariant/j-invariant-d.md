@@ -1,7 +1,7 @@
 # j-інваріант еліптичної кривої
 
 <preknowlist>
-* [Скінченні поля](book:algorithms/finite-fields)
+* [Скінченні поля](book:algorithms/finite-field-arithmetic)
 * [Еліптичні криві](book:math/elliptic-curves)
 * [Ряди Ейзенштейна](book:math/eisenstein-series)
 * [Модулярні форми](book:math/modular-forms)
