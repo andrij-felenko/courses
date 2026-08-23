@@ -1,0 +1,82 @@
+{
+  "schema": 7,
+  "note": "Реєстр нового дерева. Один запис на вид; books — ті книги, що вже переїхали в root/<dir>/.",
+  "kinds": [
+    {
+      "kind": "sci",
+      "dir": "sci",
+      "shelf": "Наука",
+      "words": {
+        "book": "наука",
+        "group": "галузь",
+        "chapter": "розділ"
+      },
+      "asks": "чому світ такий",
+      "books": []
+    },
+    {
+      "kind": "eng",
+      "dir": "eng",
+      "shelf": "Інженерія",
+      "words": {
+        "book": "напрямок",
+        "group": "технологія",
+        "chapter": "розділ"
+      },
+      "asks": "як це роблять",
+      "books": []
+    },
+    {
+      "kind": "course",
+      "dir": "course",
+      "shelf": "Курси",
+      "words": {
+        "book": "курс",
+        "group": "том",
+        "chapter": "розділ"
+      },
+      "asks": "з чого починати",
+      "books": [
+        "basic-chemistry",
+        "embedded",
+        "embedded-ultra",
+        "progarch",
+        "unix"
+      ]
+    },
+    {
+      "kind": "hw",
+      "dir": "hw",
+      "shelf": "Залізо",
+      "words": {
+        "book": "клас",
+        "group": "група",
+        "chapter": "різновид"
+      },
+      "asks": "що це за штука",
+      "books": []
+    },
+    {
+      "kind": "sys",
+      "dir": "sys",
+      "shelf": "Системи",
+      "words": {
+        "book": "система",
+        "group": "модуль",
+        "chapter": "компонент"
+      },
+      "asks": "а в якій версії",
+      "books": []
+    }
+  ],
+  "address": {
+    "long": "root:<kind>/<book>/<group>/<chapter|.>/<topic>/<version>",
+    "short": "root:<book>/<topic>[/<version>]",
+    "version": {
+      "b": "базова",
+      "d": "детальна",
+      "insert": "<type>-<name>"
+    },
+    "rule": "коротка — канон, живе в прозі; довга — показ і URL, зводиться до короткої по сегментах 2 і 5"
+  }
+}
