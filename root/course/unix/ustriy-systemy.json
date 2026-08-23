@@ -1,0 +1,190 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "unix",
+  "slug": "ustriy-systemy",
+  "title": "Устрій системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "zadum-unix",
+      "title": "Задум Unix",
+      "topics": [
+        {
+          "ref": "unix-linux/unix-philosophy",
+          "title": "Філософія Unix"
+        },
+        {
+          "ref": "unix-linux/classic-filters",
+          "title": "Класичні фільтри: grep, sed, awk, sort",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/everything-is-a-file",
+          "title": "«Усе є файлом»"
+        },
+        {
+          "ref": "unix-linux/kernel-and-userspace",
+          "title": "Ядро й простір користувача"
+        },
+        {
+          "slug": "why-unix-won",
+          "title": "Чому ця модель пережила все інше",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "where-to-get-a-system",
+          "title": "Де взяти систему й чи справжня вона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mezha-z-yadrom",
+      "title": "Межа з ядром",
+      "topics": [
+        {
+          "ref": "unix-linux/syscall-mechanics",
+          "title": "Системний виклик"
+        },
+        {
+          "ref": "unix-linux/manual-pages",
+          "title": "Сторінки довідки: розділи man і як читати сигнатуру",
+          "todo": "нова тема",
+          "hint": "unix-linux/foundations"
+        },
+        {
+          "ref": "unix-linux/libc-as-gateway",
+          "title": "libc як шлюз"
+        },
+        {
+          "ref": "programming/errno",
+          "title": "errno та POSIX-коди помилок"
+        },
+        {
+          "ref": "unix-linux/monolithic-with-modules",
+          "title": "Монолітне ядро з модулями"
+        },
+        {
+          "slug": "tracing-one-call",
+          "title": "Один виклик наскрізь: від рядка коду до драйвера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rodovid-i-standart",
+      "title": "Родовід і стандарт",
+      "topics": [
+        {
+          "ref": "unix-linux/unix-lineage",
+          "title": "Родовід Unix"
+        },
+        {
+          "ref": "unix-linux/posix-standard",
+          "title": "POSIX"
+        },
+        {
+          "ref": "unix-linux/kernel-abi-stability",
+          "title": "«Не ламати простір користувача»: сталість ABI ядра"
+        },
+        {
+          "ref": "unix-linux/userspace-abi-stability",
+          "title": "Що саме заморожено: ABI до простору користувача"
+        },
+        {
+          "ref": "unix-linux/compat-32-on-64",
+          "title": "32-бітні програми на 64-бітному ядрі"
+        }
+      ]
+    },
+    {
+      "slug": "yadro-i-dystrybutyv",
+      "title": "Ядро й дистрибутив",
+      "topics": [
+        {
+          "ref": "unix-linux/kernel-vs-distribution",
+          "title": "Ядро, дистрибутив і що між ними"
+        },
+        {
+          "ref": "unix-linux/gnu-userland",
+          "title": "Інструментарій GNU"
+        },
+        {
+          "ref": "unix-linux/fhs-layout",
+          "title": "Ієрархія файлової системи"
+        },
+        {
+          "ref": "unix-linux/kernel-release-model",
+          "title": "Модель випусків ядра"
+        },
+        {
+          "ref": "unix-linux/kernel-cve-and-security-fixes",
+          "title": "CVE в ядрі: потік номерів і що з ним робити"
+        }
+      ]
+    },
+    {
+      "slug": "neznayoma-mashyna",
+      "title": "Незнайома машина",
+      "topics": [
+        {
+          "ref": "unix-linux/finding-answers-in-the-system",
+          "title": "Де в системі лежить правда",
+          "todo": "нова тема",
+          "hint": "unix-linux/foundations"
+        },
+        {
+          "slug": "when-docs-and-system-disagree",
+          "title": "Коли довідка розходиться з системою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/kernel-config-and-build",
+          "title": "Конфігурація й збірка ядра: що саме ввімкнено в цьому ядрі"
+        },
+        {
+          "slug": "same-command-three-machines",
+          "title": "Та сама команда на трьох машинах: що саме розійшлося",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reading-a-distribution",
+          "title": "Як читати незнайомий дистрибутив",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

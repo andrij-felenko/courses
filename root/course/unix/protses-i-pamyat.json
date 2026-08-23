@@ -1,0 +1,346 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "unix",
+  "slug": "protses-i-pamyat",
+  "title": "Процес і пам'ять",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "protses",
+      "title": "Процес",
+      "topics": [
+        {
+          "ref": "unix-linux/process-model",
+          "title": "Процес"
+        },
+        {
+          "ref": "unix-linux/pid-and-hierarchy",
+          "title": "PID і дерево процесів"
+        },
+        {
+          "ref": "unix-linux/process-states",
+          "title": "Стани процесу"
+        },
+        {
+          "ref": "unix-linux/procfs-process-reflection",
+          "title": "Відображення процесів у procfs"
+        },
+        {
+          "ref": "unix-linux/resource-limits",
+          "title": "Ліміти ресурсів: rlimit і ulimit"
+        }
+      ]
+    },
+    {
+      "slug": "zhyttevyy-tsykl-protsesu",
+      "title": "Життєвий цикл процесу",
+      "topics": [
+        {
+          "ref": "unix-linux/fork-semantics",
+          "title": "fork"
+        },
+        {
+          "ref": "unix-linux/exec-semantics",
+          "title": "exec"
+        },
+        {
+          "ref": "unix-linux/binfmt-misc",
+          "title": "binfmt_misc: як ядро вчиться запускати чужі формати"
+        },
+        {
+          "ref": "unix-linux/argv-and-environment",
+          "title": "argv і оточення"
+        },
+        {
+          "ref": "unix-linux/spawn-alternatives",
+          "title": "vfork, posix_spawn і clone: чим ще народжують процес"
+        },
+        {
+          "slug": "fork-exec-why-two",
+          "title": "Чому саме два виклики, а не один",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "unix-linux/exit-wait-zombies",
+          "title": "Завершення, wait і зомбі"
+        },
+        {
+          "ref": "unix-linux/orphan-reparenting",
+          "title": "Сироти й перепідпорядкування"
+        },
+        {
+          "slug": "process-lifecycle-walkthrough",
+          "title": "Життя процесу від запуску до прибирання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "deskryptory",
+      "title": "Дескриптори",
+      "topics": [
+        {
+          "ref": "unix-linux/file-descriptor",
+          "title": "Файловий дескриптор"
+        },
+        {
+          "ref": "unix-linux/open-file-description",
+          "title": "Опис відкритого файлу"
+        },
+        {
+          "ref": "unix-linux/close-on-exec",
+          "title": "Закриття при exec: FD_CLOEXEC"
+        },
+        {
+          "ref": "unix-linux/socket-as-descriptor",
+          "title": "Сокет як дескриптор"
+        },
+        {
+          "slug": "one-interface-many-things",
+          "title": "Один інтерфейс на файл, сокет і пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "syhnaly",
+      "title": "Сигнали",
+      "topics": [
+        {
+          "ref": "unix-linux/signal-model",
+          "title": "Сигнал"
+        },
+        {
+          "ref": "unix-linux/signal-disposition",
+          "title": "Диспозиція сигналу"
+        },
+        {
+          "ref": "unix-linux/async-signal-safety",
+          "title": "Безпека в обробнику"
+        },
+        {
+          "ref": "unix-linux/signal-mask-signalfd",
+          "title": "Маскування і signalfd"
+        },
+        {
+          "ref": "unix-linux/eintr-and-restart",
+          "title": "EINTR"
+        },
+        {
+          "ref": "unix-linux/realtime-signals",
+          "title": "Реальночасові сигнали: черга, порядок доставки й siginfo"
+        },
+        {
+          "ref": "unix-linux/process-timers",
+          "title": "Таймери процесу: alarm, setitimer, POSIX-таймери й timerfd"
+        },
+        {
+          "slug": "graceful-shutdown",
+          "title": "Коректне завершення програми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "adresnyy-prostir",
+      "title": "Адресний простір",
+      "topics": [
+        {
+          "ref": "unix-linux/virtual-address-space",
+          "title": "Віртуальний адресний простір"
+        },
+        {
+          "ref": "programming/stack-overflow",
+          "title": "Переповнення стека"
+        },
+        {
+          "ref": "unix-linux/allocator-and-kernel",
+          "title": "Алокатор і ядро"
+        },
+        {
+          "ref": "unix-linux/address-space-randomization",
+          "title": "Рандомізація адресного простору: рівні та вимикачі"
+        },
+        {
+          "ref": "unix-linux/memory-accounting",
+          "title": "VSZ, RSS, PSS"
+        },
+        {
+          "slug": "reading-memory-numbers",
+          "title": "Як читати цифри пам'яті й не обманутися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "storinkova-pamyat",
+      "title": "Сторінкова пам'ять",
+      "topics": [
+        {
+          "ref": "unix-linux/paging-and-mmu",
+          "title": "Сторінки й MMU"
+        },
+        {
+          "ref": "unix-linux/page-fault",
+          "title": "Сторінковий збій"
+        },
+        {
+          "ref": "unix-linux/copy-on-write",
+          "title": "Копіювання при записі"
+        },
+        {
+          "ref": "unix-linux/huge-pages",
+          "title": "Великі сторінки: HugeTLB і прозорі великі сторінки"
+        },
+        {
+          "ref": "unix-linux/kernel-page-table-isolation",
+          "title": "Ізоляція таблиць сторінок ядра (KPTI)"
+        },
+        {
+          "ref": "unix-linux/mmap-model",
+          "title": "mmap"
+        },
+        {
+          "ref": "unix-linux/memfd-create",
+          "title": "memfd_create: безіменний файл у пам'яті й пломби"
+        },
+        {
+          "ref": "unix-linux/tmpfs-shmem-ram-filesystem",
+          "title": "Тимчасова ВФС tmpfs і підсистема shmem"
+        },
+        {
+          "slug": "memory-illusion",
+          "title": "Ілюзія власної пам'яті: на чому вона тримається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pamyat-pid-tyskom",
+      "title": "Пам'ять під тиском",
+      "topics": [
+        {
+          "ref": "programming/working-set",
+          "title": "Робоча множина"
+        },
+        {
+          "ref": "unix-linux/swap-and-reclaim",
+          "title": "Свопінг і витіснення"
+        },
+        {
+          "ref": "unix-linux/overcommit-and-oom",
+          "title": "Overcommit і OOM-killer"
+        },
+        {
+          "ref": "unix-linux/memory-locking",
+          "title": "Прибивання пам'яті: mlock, mlockall"
+        },
+        {
+          "ref": "unix-linux/physical-page-allocator",
+          "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення"
+        },
+        {
+          "ref": "unix-linux/kernel-memory-slab",
+          "title": "Пам'ять ядра: slab і зменшувачі кешів"
+        }
+      ]
+    },
+    {
+      "slug": "potoky",
+      "title": "Потоки",
+      "topics": [
+        {
+          "ref": "unix-linux/threads-as-tasks",
+          "title": "Потоки як задачі"
+        },
+        {
+          "ref": "programming/data-races-locks",
+          "title": "Перегони даних і замки"
+        },
+        {
+          "ref": "algorithms/monitor-sync",
+          "title": "Монітори й умовні змінні"
+        },
+        {
+          "ref": "programming/deadlock",
+          "title": "Дедлок"
+        },
+        {
+          "ref": "programming/thread-safety",
+          "title": "Потокова безпека"
+        },
+        {
+          "ref": "programming/thread-pool",
+          "title": "Пул потоків і його розмір"
+        },
+        {
+          "ref": "unix-linux/kernel-threads",
+          "title": "Потоки ядра: задачі без простору користувача"
+        }
+      ]
+    },
+    {
+      "slug": "planuvalnyk",
+      "title": "Планувальник",
+      "topics": [
+        {
+          "ref": "unix-linux/scheduler-model",
+          "title": "Планувальник"
+        },
+        {
+          "ref": "unix-linux/priority-nice-realtime",
+          "title": "Пріоритети й nice"
+        },
+        {
+          "ref": "unix-linux/cpu-time-accounting",
+          "title": "Облік процесорного часу: як ядро набирає user і sys"
+        },
+        {
+          "ref": "unix-linux/cpu-affinity",
+          "title": "Прив'язка задач до ядер: affinity, taskset і cpuset"
+        },
+        {
+          "slug": "why-my-process-is-slow",
+          "title": "Чому процес «гальмує»: розбір за моделлю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

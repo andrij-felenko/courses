@@ -1,0 +1,654 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "unix",
+  "slug": "svoya-prohrama-v-systemi",
+  "title": "Своя програма в системі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "vykonuvanyy-fayl",
+      "title": "Виконуваний файл",
+      "topics": [
+        {
+          "ref": "unix-linux/elf-structure",
+          "title": "ELF"
+        },
+        {
+          "slug": "inspect-a-foreign-binary",
+          "title": "Розкрити чужий бінарник: file, ldd, readelf, strings",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/shebang",
+          "title": "Шебанг: як текстовий файл стає програмою",
+          "todo": "нова тема",
+          "hint": "unix-linux/linking"
+        },
+        {
+          "ref": "unix-linux/binfmt-misc",
+          "title": "binfmt_misc: як ядро вчиться запускати чужі формати"
+        },
+        {
+          "ref": "unix-linux/compat-32-on-64",
+          "title": "32-бітні програми на 64-бітному ядрі"
+        },
+        {
+          "ref": "programming/processor-word-size",
+          "title": "Розрядність процесора й режими сумісності"
+        },
+        {
+          "ref": "programming/instruction-set-emulation",
+          "title": "Емуляція набору інструкцій: як виконати чужий машинний код"
+        }
+      ]
+    },
+    {
+      "slug": "zbirka-prohramy",
+      "title": "Збірка програми",
+      "topics": [
+        {
+          "ref": "programming/compilation",
+          "title": "Компіляція"
+        },
+        {
+          "ref": "programming/compiler-stages",
+          "title": "Стадії компілятора"
+        },
+        {
+          "ref": "algorithms/abstract-syntax-tree",
+          "title": "Абстрактне синтаксичне дерево (AST)"
+        },
+        {
+          "ref": "programming/preprocessor-macros",
+          "title": "Препроцесор і макроси"
+        },
+        {
+          "ref": "programming/translation-unit",
+          "title": "Одиниця трансляції та зв'язування: static, extern, inline"
+        },
+        {
+          "ref": "unix-linux/dev-packages-and-pkg-config",
+          "title": "Заголовки й -dev пакунки: pkg-config і де лежить чужий API",
+          "todo": "нова тема",
+          "hint": "unix-linux/packaging"
+        },
+        {
+          "ref": "build-systems/build-flags",
+          "title": "Прапорці збірки: оптимізація, символи, попередження"
+        },
+        {
+          "ref": "programming/compiler-optimizations",
+          "title": "Оптимізації компілятора"
+        },
+        {
+          "ref": "programming/undefined-behavior",
+          "title": "Невизначена поведінка (UB)"
+        },
+        {
+          "ref": "build-systems/build-system-role",
+          "title": "Роль системи збірки: від дерева файлів до артефакту"
+        },
+        {
+          "ref": "build-systems/dependency-graph",
+          "title": "Граф залежностей і порядок робіт"
+        },
+        {
+          "ref": "build-systems/incremental-build",
+          "title": "Інкрементальна збірка: як вирішують, що застаріло"
+        },
+        {
+          "ref": "build-systems/make",
+          "title": "make: правила, цілі, змінні й чому Makefile такий",
+          "todo": "нова тема",
+          "hint": "build-systems/fundamentals"
+        },
+        {
+          "slug": "build-from-source",
+          "title": "Зібрати чуже з джерел: від архіву до працюючої програми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "komponuvannia-y-biblioteky",
+      "title": "Компонування й бібліотеки",
+      "topics": [
+        {
+          "ref": "unix-linux/static-and-dynamic-linking",
+          "title": "Статичне й динамічне лінкування"
+        },
+        {
+          "ref": "unix-linux/symbol-resolution",
+          "title": "Розв'язання символів"
+        },
+        {
+          "ref": "unix-linux/position-independent-code",
+          "title": "Позиційно-незалежний код: PIC, PIE й ціна непрямості"
+        },
+        {
+          "ref": "programming/weak-symbols",
+          "title": "Слабкі символи"
+        },
+        {
+          "ref": "programming/calling-convention",
+          "title": "Угода про виклик (ABI)"
+        },
+        {
+          "ref": "unix-linux/library-abi-compat",
+          "title": "Сумісність ABI бібліотеки"
+        },
+        {
+          "ref": "unix-linux/soname-versioning",
+          "title": "SONAME і версіонування"
+        },
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Семантичне версіонування (SemVer)"
+        },
+        {
+          "ref": "programming/hyrums-law",
+          "title": "Закон Гайрама (Hyrum's Law)"
+        },
+        {
+          "ref": "programming/link-time-optimization",
+          "title": "Оптимізація на етапі лінкування (LTO)"
+        },
+        {
+          "ref": "media-vision/opencv-structure",
+          "title": "Будова OpenCV: модулі, версії, як її збирають"
+        },
+        {
+          "slug": "what-a-foreign-library-offers",
+          "title": "Що вміє чужа бібліотека: заголовки, pkg-config, nm -D, man 3",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dynamichnyy-zavantazhuvach",
+      "title": "Динамічний завантажувач",
+      "topics": [
+        {
+          "ref": "unix-linux/dynamic-loader",
+          "title": "Динамічний завантажувач"
+        },
+        {
+          "ref": "unix-linux/library-search-order",
+          "title": "Порядок пошуку бібліотек"
+        },
+        {
+          "ref": "unix-linux/plt-and-got",
+          "title": "PLT і GOT"
+        },
+        {
+          "ref": "unix-linux/elf-tls",
+          "title": "TLS в ELF: як потік дістає власні глобальні змінні"
+        },
+        {
+          "ref": "unix-linux/vdso",
+          "title": "vDSO: бібліотека від ядра в кожному процесі"
+        },
+        {
+          "ref": "programming/plugin-architecture",
+          "title": "Плагіни й точки розширення"
+        },
+        {
+          "ref": "media-vision/plugin-model",
+          "title": "Модель плагінів і реєстр елементів"
+        },
+        {
+          "ref": "programming/foreign-function-interface",
+          "title": "Виклик рідного коду з іншої мови (FFI)"
+        }
+      ]
+    },
+    {
+      "slug": "start-i-zavershennia",
+      "title": "Старт і завершення",
+      "topics": [
+        {
+          "ref": "unix-linux/auxiliary-vector",
+          "title": "Допоміжний вектор ELF: що ядро передає програмі на старті"
+        },
+        {
+          "ref": "unix-linux/address-space-randomization",
+          "title": "Рандомізація адресного простору: рівні та вимикачі"
+        },
+        {
+          "ref": "programming/no-execute-memory",
+          "title": "Пам'ять без права виконання: біт NX і правило W^X"
+        },
+        {
+          "ref": "programming/c-runtime",
+          "title": "C-рантайм"
+        },
+        {
+          "ref": "programming/startup-code",
+          "title": "Стартовий код (crt0)"
+        },
+        {
+          "ref": "programming/cpp-static-init-order",
+          "title": "Порядок ініціалізації статичних об'єктів"
+        },
+        {
+          "slug": "from-execve-to-main",
+          "title": "Від execve до main: що встигає статися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "chuzha-mashyna",
+      "title": "Чужа машина",
+      "topics": [
+        {
+          "ref": "unix-linux/userspace-abi-stability",
+          "title": "Що саме заморожено: ABI до простору користувача"
+        },
+        {
+          "ref": "unix-linux/multilib-multiarch",
+          "title": "Multilib і multiarch: два комплекти бібліотек в одній ієрархії"
+        },
+        {
+          "ref": "unix-linux/large-file-support",
+          "title": "Великі файли: off_t, LFS і _FILE_OFFSET_BITS"
+        },
+        {
+          "ref": "programming/memory-alignment",
+          "title": "Вирівнювання даних у пам'яті"
+        },
+        {
+          "ref": "build-systems/cross-compilation",
+          "title": "Крос-компіляція: хост, ціль і що між ними"
+        },
+        {
+          "ref": "build-systems/target-triple-sysroot",
+          "title": "Цільовий тріплет і sysroot"
+        },
+        {
+          "ref": "build-systems/reproducible-builds",
+          "title": "Відтворювані збірки"
+        },
+        {
+          "slug": "why-it-runs-here-not-there",
+          "title": "Чому запускається в тебе й не запускається в них",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sposterezhennia-za-prohramoyu",
+      "title": "Спостереження за програмою",
+      "topics": [
+        {
+          "ref": "unix-linux/proc-filesystem",
+          "title": "/proc"
+        },
+        {
+          "ref": "unix-linux/syscall-tracing",
+          "title": "Трасування системних викликів"
+        },
+        {
+          "ref": "unix-linux/uprobes-and-kprobes",
+          "title": "Динамічне трасування: kprobes та uprobes"
+        },
+        {
+          "ref": "unix-linux/bpftrace-dynamic-tracing",
+          "title": "Високорівневе трасування через bpftrace"
+        },
+        {
+          "ref": "unix-linux/perf-events",
+          "title": "perf"
+        },
+        {
+          "ref": "programming/profiling",
+          "title": "Профілювання"
+        },
+        {
+          "ref": "programming/microbenchmarking",
+          "title": "Мікробенчмарк: як не збрехати собі виміром"
+        },
+        {
+          "ref": "programming/profile-guided-optimization",
+          "title": "Оптимізація за профілем виконання (PGO)"
+        },
+        {
+          "ref": "unix-linux/syslog-protocol",
+          "title": "Syslog: пріоритет, засоби (facility) і формат повідомлення"
+        },
+        {
+          "ref": "programming/structured-logging",
+          "title": "Структуровані логи"
+        },
+        {
+          "slug": "slow-only-for-me",
+          "title": "Повільно саме в мене: процесор, очікування чи ядро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vidlahodzhuvach-i-symvoly",
+      "title": "Відлагоджувач і символи",
+      "topics": [
+        {
+          "ref": "unix-linux/ptrace-model",
+          "title": "ptrace"
+        },
+        {
+          "ref": "unix-linux/debug-symbols-and-build-id",
+          "title": "Символи в системі: strip, build-id, debuginfo-пакунки й debuginfod",
+          "todo": "нова тема",
+          "hint": "unix-linux/observability"
+        },
+        {
+          "ref": "programming/stack-walking",
+          "title": "Розмотування стека: frame pointer і DWARF"
+        },
+        {
+          "ref": "programming/heisenbug",
+          "title": "Гейзенбаги та спостережницький ефект"
+        },
+        {
+          "ref": "programming/deadlock",
+          "title": "Дедлок"
+        },
+        {
+          "slug": "live-debug-session",
+          "title": "Зупинити живу програму: gdb -p, точка зупину, спостереження змінної",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "what-is-the-process-waiting-for",
+          "title": "Зависло: як дізнатися, чого чекає процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rozbir-padinnia",
+      "title": "Розбір падіння",
+      "topics": [
+        {
+          "ref": "programming/cpu-exception-handling",
+          "title": "Обробка виключень у процесорі"
+        },
+        {
+          "ref": "unix-linux/core-dump",
+          "title": "Аварійний дамп"
+        },
+        {
+          "ref": "programming/stack-overflow",
+          "title": "Переповнення стека"
+        },
+        {
+          "ref": "programming/memory-allocator-internals",
+          "title": "Внутрішня будова алокатора"
+        },
+        {
+          "ref": "programming/memory-leak",
+          "title": "Витік пам'яті"
+        },
+        {
+          "ref": "programming/use-after-free",
+          "title": "Використання після звільнення (use-after-free)"
+        },
+        {
+          "ref": "programming/buffer-overflow-security",
+          "title": "Переповнення буфера як вразливість"
+        },
+        {
+          "ref": "programming/dynamic-sanitizers",
+          "title": "Динамічні санітайзери: ASan, TSan, MSan, UBSan"
+        },
+        {
+          "ref": "programming/static-analysis",
+          "title": "Статичний аналіз"
+        },
+        {
+          "ref": "programming/assert-panic",
+          "title": "Assert і паніка"
+        },
+        {
+          "ref": "programming/error-handling",
+          "title": "Жодна помилка не мовчить"
+        },
+        {
+          "slug": "diagnosis-method",
+          "title": "Метод діагностики: від симптому до причини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "interpretovana-prohrama",
+      "title": "Інтерпретована програма",
+      "topics": [
+        {
+          "ref": "programming/bytecode-vm",
+          "title": "Байткод і віртуальна машина"
+        },
+        {
+          "ref": "python/interpreter-startup",
+          "title": "Запуск інтерпретатора й час старту"
+        },
+        {
+          "ref": "python/import-machinery",
+          "title": "Механіка імпорту"
+        },
+        {
+          "ref": "python/sys-path",
+          "title": "sys.path і звідки він береться"
+        },
+        {
+          "ref": "python/main-and-dash-m",
+          "title": "__main__, -m і точка входу"
+        },
+        {
+          "ref": "python/venv",
+          "title": "Віртуальне середовище"
+        },
+        {
+          "ref": "python/system-python",
+          "title": "Системний Python і чому його не чіпають"
+        },
+        {
+          "ref": "python/pip-install",
+          "title": "pip і джерела пакетів"
+        },
+        {
+          "ref": "python/wheels-and-sdist",
+          "title": "sdist, wheel і бінарні колеса"
+        },
+        {
+          "ref": "python/lock-files",
+          "title": "Замки залежностей і сучасні менеджери"
+        },
+        {
+          "ref": "python/ctypes-and-cffi",
+          "title": "ctypes і cffi"
+        },
+        {
+          "ref": "python/pyinstaller-freeze",
+          "title": "Заморожування застосунку в один файл"
+        }
+      ]
+    },
+    {
+      "slug": "pakuvannia-y-dostavka",
+      "title": "Пакування й доставка",
+      "topics": [
+        {
+          "ref": "unix-linux/package-manager-model",
+          "title": "Модель пакетного менеджера"
+        },
+        {
+          "ref": "unix-linux/deb-and-rpm",
+          "title": "deb і rpm"
+        },
+        {
+          "ref": "unix-linux/dependency-resolution",
+          "title": "Розв'язання залежностей"
+        },
+        {
+          "ref": "unix-linux/repositories-and-trust",
+          "title": "Репозиторії й довіра"
+        },
+        {
+          "ref": "unix-linux/fhs-layout",
+          "title": "Ієрархія файлової системи"
+        },
+        {
+          "ref": "unix-linux/install-prefix-and-destdir",
+          "title": "Куди ставиться програма: prefix, DESTDIR і /usr/local",
+          "todo": "нова тема",
+          "hint": "unix-linux/packaging"
+        },
+        {
+          "ref": "unix-linux/self-contained-bundles",
+          "title": "AppImage, Flatpak, Snap"
+        },
+        {
+          "ref": "unix-linux/read-only-image-filesystems",
+          "title": "Стиснені образи лише для читання: SquashFS і EROFS"
+        },
+        {
+          "ref": "unix-linux/containers-vs-packages",
+          "title": "Контейнер проти пакунка"
+        },
+        {
+          "ref": "programming/supply-chain-security",
+          "title": "Ланцюг постачання"
+        },
+        {
+          "ref": "programming/open-source-licenses",
+          "title": "Ліцензії відкритого коду: дозвільні, копілефт, сумісність"
+        },
+        {
+          "slug": "shipping-a-linux-app",
+          "title": "Доставити свою програму на чужий Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "prohrama-yak-sluzhba",
+      "title": "Програма як служба",
+      "topics": [
+        {
+          "ref": "unix-linux/daemonize",
+          "title": "Демонізація: відхід у фон"
+        },
+        {
+          "ref": "unix-linux/systemd-systemctl-and-unit-files",
+          "title": "systemd: unit-файли та systemctl"
+        },
+        {
+          "ref": "unix-linux/service-notify-protocol",
+          "title": "Протокол сповіщення менеджера: NOTIFY_SOCKET, READY=1"
+        },
+        {
+          "ref": "unix-linux/service-directories",
+          "title": "Керовані каталоги служби: RuntimeDirectory, StateDirectory"
+        },
+        {
+          "ref": "programming/app-data-directories",
+          "title": "Теки застосунку: конфіг, дані, кеш"
+        },
+        {
+          "ref": "unix-linux/config-files-and-drop-ins",
+          "title": "Конфіг як текст: /etc проти дефолтів у /usr і каталоги drop-in",
+          "todo": "нова тема",
+          "hint": "unix-linux/boot-init"
+        },
+        {
+          "ref": "programming/twelve-factor",
+          "title": "Дванадцять факторів (The Twelve-Factor App)"
+        },
+        {
+          "ref": "unix-linux/tmpfiles-d-runtime-volatile-files",
+          "title": "Тимчасові файли: systemd-tmpfiles і tmpfiles.d"
+        },
+        {
+          "ref": "unix-linux/scheduled-jobs-cron-anacron",
+          "title": "Робота за розкладом: cron, anacron і таймери systemd",
+          "todo": "нова тема",
+          "hint": "unix-linux/boot-init"
+        },
+        {
+          "ref": "unix-linux/service-sandboxing",
+          "title": "Пісочниця служби: ProtectSystem, PrivateTmp і решта обмежень"
+        },
+        {
+          "ref": "unix-linux/dynamic-service-users",
+          "title": "DynamicUser: обліковий запис, що живе стільки, скільки служба"
+        },
+        {
+          "ref": "programming/graceful-shutdown",
+          "title": "Штатне вимкнення і drain"
+        },
+        {
+          "slug": "works-in-terminal-not-as-service",
+          "title": "Чому працює в терміналі й не працює службою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,562 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "unix",
+  "slug": "obolonka-y-terminal",
+  "title": "Оболонка й термінал",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "zapusk-komandy",
+      "title": "Запуск команди",
+      "topics": [
+        {
+          "ref": "unix-linux/shell-role",
+          "title": "Що робить оболонка"
+        },
+        {
+          "ref": "unix-linux/command-line-grammar",
+          "title": "Граматика командного рядка: слова, оператори, списки",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/command-resolution",
+          "title": "Пошук команди: аліас, функція, вбудована, PATH",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/argv-and-environment",
+          "title": "argv і оточення"
+        },
+        {
+          "ref": "unix-linux/manual-pages-and-help",
+          "title": "Довідка системи: man, розділи, --help, домовленості опцій",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/exit-status",
+          "title": "Код виходу"
+        }
+      ]
+    },
+    {
+      "slug": "rozkryttia-y-lapkuvannia",
+      "title": "Розкриття й лапкування",
+      "topics": [
+        {
+          "ref": "unix-linux/expansion-and-quoting",
+          "title": "Розкриття й лапки"
+        },
+        {
+          "ref": "unix-linux/pathname-globbing",
+          "title": "Глоб: шаблони імен, які розкриває оболонка",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/parameter-expansion",
+          "title": "Підстановка параметра: дефолти, обрізання, заміна",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/command-substitution",
+          "title": "Підстановка команди й арифметика",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/word-splitting-and-ifs",
+          "title": "Розбиття на слова й IFS",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/locale-and-collation",
+          "title": "Локаль: як мова змінює поведінку програм"
+        },
+        {
+          "slug": "why-quoting-bites",
+          "title": "Чому лапки кусаються: модель розкриття крок за кроком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "zminni-y-seredovyshche",
+      "title": "Змінні й середовище",
+      "topics": [
+        {
+          "ref": "unix-linux/session-environment",
+          "title": "Оточення сеансу: profile, rc і пошук у PATH"
+        },
+        {
+          "ref": "unix-linux/shell-variables-and-export",
+          "title": "Змінна оболонки й змінна середовища",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "programming/app-data-directories",
+          "title": "Теки застосунку: конфіг, дані, кеш"
+        },
+        {
+          "ref": "unix-linux/resource-limits",
+          "title": "Ліміти ресурсів: rlimit і ulimit"
+        },
+        {
+          "ref": "unix-linux/secrets-in-environment",
+          "title": "Секрети в середовищі",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "slug": "variable-did-not-reach-the-program",
+          "title": "Чому змінна не доїхала до програми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "perenapravlennia-y-konveyer",
+      "title": "Перенаправлення й конвеєр",
+      "topics": [
+        {
+          "ref": "unix-linux/standard-streams",
+          "title": "Три потоки"
+        },
+        {
+          "ref": "unix-linux/redirection-model",
+          "title": "Перенаправлення"
+        },
+        {
+          "ref": "unix-linux/pipeline-composition",
+          "title": "Конвеєр"
+        },
+        {
+          "ref": "unix-linux/pipes-and-fifo",
+          "title": "Канали й FIFO"
+        },
+        {
+          "ref": "unix-linux/stdio-buffering",
+          "title": "Буферизація stdio: порядкова, поблокова, без буфера"
+        },
+        {
+          "ref": "unix-linux/pipeline-failure-and-sigpipe",
+          "title": "Коли конвеєр падає: $?, PIPESTATUS, pipefail, SIGPIPE",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/process-substitution",
+          "title": "Підстановка процесу й канал на льоту",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/close-on-exec",
+          "title": "Закриття при exec: FD_CLOEXEC"
+        },
+        {
+          "slug": "shell-is-a-composer",
+          "title": "Оболонка як композитор: один конвеєр наскрізь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "tekst-yak-interfeys",
+      "title": "Текст як інтерфейс",
+      "topics": [
+        {
+          "ref": "unix-linux/text-as-interface",
+          "title": "Текст як універсальний інтерфейс: рядок, роздільник, запис",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "programming/ascii-utf8",
+          "title": "ASCII і UTF-8"
+        },
+        {
+          "ref": "unix-linux/bytes-characters-and-line-endings",
+          "title": "Байти, символи й кінці рядків",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "unix-linux/machine-readable-output",
+          "title": "Машинний вивід проти людського",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "programming/json-format",
+          "title": "JSON: текстове подання об'єктів і масивів"
+        },
+        {
+          "ref": "unix-linux/structured-text-in-pipelines",
+          "title": "Структурований текст у конвеєрі",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        }
+      ]
+    },
+    {
+      "slug": "filtry-y-rehulyarni-vyrazy",
+      "title": "Фільтри й регулярні вирази",
+      "topics": [
+        {
+          "ref": "unix-linux/regular-expressions",
+          "title": "Регулярні вирази: BRE, ERE, PCRE",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "algorithms/regex-engine",
+          "title": "Рушій регулярних виразів"
+        },
+        {
+          "ref": "unix-linux/grep",
+          "title": "grep: пошук у потоці й у дереві",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "unix-linux/sed",
+          "title": "sed: потоковий редактор",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "unix-linux/awk",
+          "title": "awk: записи, поля й маленька мова",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "unix-linux/sort-and-uniq",
+          "title": "sort і uniq: порядок, ключі й LC_ALL=C",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "algorithms/sorting-stability",
+          "title": "Стійкість сортування"
+        },
+        {
+          "ref": "unix-linux/field-tools",
+          "title": "Поля й стовпці: cut, paste, join, comm, tr",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "unix-linux/head-tail-and-following",
+          "title": "Початок, кінець і стеження: head, tail -f, wc, split",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "ref": "unix-linux/find-and-xargs",
+          "title": "find і xargs: генератор для конвеєра",
+          "todo": "нова тема",
+          "hint": "unix-linux/text-tools"
+        },
+        {
+          "slug": "pipeline-from-scratch",
+          "title": "Ланцюжок з нуля: від питання до конвеєра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "stsenariy",
+      "title": "Сценарій",
+      "topics": [
+        {
+          "ref": "unix-linux/shebang",
+          "title": "Шебанг: як текстовий файл стає програмою",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/binfmt-misc",
+          "title": "binfmt_misc: як ядро вчиться запускати чужі формати"
+        },
+        {
+          "ref": "unix-linux/script-arguments",
+          "title": "Аргументи сценарію: $1, \"$@\", shift, getopts",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/script-control-flow",
+          "title": "Умови й цикли: test, [, [[, case, while read",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/functions-and-subshells",
+          "title": "Функції, підоболонки й область видимості",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "slug": "from-history-line-to-script",
+          "title": "Від рядка в історії до сценарію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "nadiynyy-stsenariy",
+      "title": "Надійний сценарій",
+      "topics": [
+        {
+          "ref": "unix-linux/set-e-and-strict-mode",
+          "title": "set -e, set -u, set -o pipefail",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/trap-and-cleanup",
+          "title": "trap і прибирання",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/file-locking",
+          "title": "Блокування файлів: flock, POSIX-замки й замки на опис відкритого файлу"
+        },
+        {
+          "ref": "programming/atomic-file-replace",
+          "title": "Атомарна заміна файлу: запис у тимчасовий і перейменування"
+        },
+        {
+          "ref": "unix-linux/portable-shell",
+          "title": "Переносний сценарій: POSIX sh, bashism, GNU проти BSD",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/script-debugging",
+          "title": "Відлагодження сценарію: set -x, PS4, shellcheck",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "slug": "when-to-leave-the-shell",
+          "title": "Межа оболонки: коли переписати мовою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "terminal",
+      "title": "Термінал",
+      "topics": [
+        {
+          "ref": "unix-linux/tty-and-termios",
+          "title": "TTY і termios"
+        },
+        {
+          "ref": "unix-linux/tty-layer-and-virtual-consoles",
+          "title": "Шар TTY і віртуальні консолі: лінійна дисципліна й режими клавіатури"
+        },
+        {
+          "ref": "unix-linux/terminal-control-keys",
+          "title": "Клавіші, що стають сигналами",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        },
+        {
+          "ref": "unix-linux/stty-and-broken-terminal",
+          "title": "stty і зламаний термінал",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        },
+        {
+          "ref": "unix-linux/virtual-console",
+          "title": "Віртуальна консоль Linux: емулятор термінала всередині ядра"
+        },
+        {
+          "ref": "unix-linux/magic-sysrq",
+          "title": "Магічний SysRq: аварійні команди ядра з клавіатури"
+        },
+        {
+          "ref": "unix-linux/pseudo-terminal",
+          "title": "Псевдотермінал: термінал без заліза"
+        },
+        {
+          "ref": "unix-linux/no-controlling-terminal",
+          "title": "Коли термінала немає",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        },
+        {
+          "ref": "unix-linux/driving-a-tty-program",
+          "title": "Керувати програмою, що вимагає термінала",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        }
+      ]
+    },
+    {
+      "slug": "seans-i-zavdannia",
+      "title": "Сеанс і завдання",
+      "topics": [
+        {
+          "ref": "unix-linux/sessions-and-process-groups",
+          "title": "Сеанси, групи процесів і керуючий термінал"
+        },
+        {
+          "ref": "unix-linux/job-control",
+          "title": "Керування завданнями"
+        },
+        {
+          "ref": "unix-linux/hangup-and-survival",
+          "title": "Розрив і живучість: SIGHUP, nohup, disown, setsid",
+          "todo": "нова тема",
+          "hint": "unix-linux/processes"
+        },
+        {
+          "ref": "unix-linux/daemonize",
+          "title": "Демонізація: відхід у фон"
+        },
+        {
+          "ref": "unix-linux/terminal-multiplexer",
+          "title": "Мультиплексор термінала: сеанс, що переживає розрив",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        },
+        {
+          "ref": "unix-linux/logind-sessions-seats",
+          "title": "systemd-logind: сеанси, місця й хто зараз за комп'ютером"
+        },
+        {
+          "slug": "what-dies-when-the-window-closes",
+          "title": "Що вмирає, коли закривається вікно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "keruvannia-ekranom",
+      "title": "Керування екраном",
+      "topics": [
+        {
+          "ref": "unix-linux/terminal-escape-sequences",
+          "title": "Керуючі послідовності термінала"
+        },
+        {
+          "ref": "unix-linux/terminfo-database",
+          "title": "База terminfo"
+        },
+        {
+          "ref": "unix-linux/terminal-colors",
+          "title": "Кольори в терміналі",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        },
+        {
+          "ref": "unix-linux/terminal-size-and-modes",
+          "title": "Розмір вікна й режими екрана",
+          "todo": "нова тема",
+          "hint": "unix-linux/devices"
+        },
+        {
+          "ref": "unix-linux/wcwidth-and-cell-width",
+          "title": "Ширина символу в комірках: wcwidth, подвійні знаки й комбінаційні"
+        },
+        {
+          "ref": "unix-linux/ncurses",
+          "title": "ncurses: бібліотека повноекранних програм у терміналі"
+        }
+      ]
+    },
+    {
+      "slug": "interaktyvna-obolonka",
+      "title": "Інтерактивна оболонка",
+      "topics": [
+        {
+          "ref": "unix-linux/readline-line-editing",
+          "title": "readline: редагування рядка й прив'язки клавіш",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/command-history",
+          "title": "Історія команд",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/shell-completion",
+          "title": "Доповнення",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/shell-prompt",
+          "title": "Запрошення: PS1, PS2 і що в них тримати",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "ref": "unix-linux/terminal-text-editor",
+          "title": "Редактор у терміналі",
+          "todo": "нова тема",
+          "hint": "unix-linux/shell"
+        },
+        {
+          "slug": "make-the-shell-your-own",
+          "title": "Обжити свою оболонку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
