@@ -111,7 +111,7 @@
 7. **ВЛАСНА** «Одне ядро, кілька фронтів» — той самий сценарій за HTTP, за командою і за
    розкладом; що дублювати в адаптерах не можна ніколи.
 8. `наявна` **DH v2: застосунок набуває форми** → власна стаття курсу вже написана:
-   `guide/progarch/application-shape/dh-v2-hexagon` (вставки `proj-dh-v2`,
+   `root/course/progarch/dh-v2-hexagon` (вставки `proj-dh-v2`,
    `hist-three-names-one-shape`). Сюди ж природно лягає готова вставка `proj-dh-device-port`
    (Zigbee, Z-Wave і Matter як три адаптери одного порту), нині прикріплена до кроку «Коли
    гексагон», що йде в том 10.
@@ -360,7 +360,7 @@
 - `dependency-inversion` несе `math-stability-metrics`, `hist-hollywood-ioc` і
   `proj-ports-and-adapters`; `functional-core-imperative-shell` несе `math-isolation-economics`;
   `layered-architecture` несе `proj-layered-refactor`;
-- у самому курсі вже написані власні статті `guide/progarch/application-shape/dh-v2-hexagon`
+- у самому курсі вже написані власні статті `root/course/progarch/dh-v2-hexagon`
   (+ `proj-dh-v2`), `hexagon-when-overkill` (+ `proj-dh-device-port`), `data-access-choice`
   (+ `proj-device-registry-three-ways`).
 

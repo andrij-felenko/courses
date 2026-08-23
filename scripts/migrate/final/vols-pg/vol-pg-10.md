@@ -344,9 +344,9 @@ trade-off, тактика проти патерна); томи 2–9 дали д
 | «діра» | де воно насправді лежить |
 |---|---|
 | Орієнтована на сервіси (SOA) як стиль | `software-design/microservices/hist-microservices-term.md` (звідки взялося слово, «fine-grained SOA», Netflix) + `distributed-systems/enterprise-service-bus/hist-esb-rise-and-fall.md` + `web-backend/soap-web-services` |
-| Чиста й цибулева архітектура | `guide/progarch/application-shape/dh-v2-hexagon/hist-three-names-one-shape.md` — три назви однієї форми |
-| Великий клубок бруду | `guide/progarch/mindset/what-is-architecture/hist-big-ball-of-mud.md` + `architecture-discipline/architecture-erosion/hist-erosion-term.md` |
-| Спільна база як шов, що не ріжеться (кандидат «Спільна база як гальмо») | `guide/progarch/to-microservices-or-not/when-to-extract-service/api-extraction-checklist.md` — приватне сховище, зчеплення на рівні схеми, заборона JOIN через межу |
+| Чиста й цибулева архітектура | `root/course/progarch/dh-v2-hexagon/hist-three-names-one-shape.md` — три назви однієї форми |
+| Великий клубок бруду | `root/course/progarch/what-is-architecture/hist-big-ball-of-mud.md` + `architecture-discipline/architecture-erosion/hist-erosion-term.md` |
+| Спільна база як шов, що не ріжеться (кандидат «Спільна база як гальмо») | `root/course/progarch/when-to-extract-service/api-extraction-checklist.md` — приватне сховище, зчеплення на рівні схеми, заборона JOIN через межу |
 
 Тепер справжні діри.
 

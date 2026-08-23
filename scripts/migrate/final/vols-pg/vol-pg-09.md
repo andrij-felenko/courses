@@ -240,7 +240,7 @@ _8 кроків._ Те саме навантаження, тільки його 
   (proof-of-work, капча, платний ключ) і чому «заблокувати підмережу» ламає чесних
 - **ВЛАСНА (нова)** «DH під навалою: коли твої ж хаби стають ботнетом» — Mirai як пряма
   паралель до наскрізного прикладу *(матеріал є у
-  `guide/progarch/security-architecture/dh-threat-model/hist-mirai-and-iot-security`)*
+  `root/course/progarch/dh-threat-model/hist-mirai-and-iot-security`)*
 - `+ref unix-linux/processes/cgroups` — cgroups: облік і обмеження ресурсів як остання
   межа, коли прикладний ліміт обійшли
 

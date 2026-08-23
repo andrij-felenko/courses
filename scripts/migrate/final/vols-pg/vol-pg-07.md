@@ -48,7 +48,7 @@
 
 ### Розділ 1. Межа процесу
 
-1. **Стилі інтеграції як рішення** — `наявна` (власна стаття `guide/progarch/to-microservices-or-not/integration-styles-choice`, написана) · **переніс з М18**. Чотири способи: файл, спільна база, виклик, повідомлення — і ціна кожного.
+1. **Стилі інтеграції як рішення** — `наявна` (власна стаття `root/course/progarch/integration-styles-choice`, написана) · **переніс з М18**. Чотири способи: файл, спільна база, виклик, повідомлення — і ціна кожного.
 2. **Дві програми на одній машині** — `+ref unix-linux/signals-ipc/ipc-landscape` (у крок докласти `unix-linux/io/unix-domain-sockets`, `unix-linux/signals-ipc/dbus`, `unix-linux/shell/exit-status` — код виходу теж інтерфейс).
 3. **Чому «distributed objects»** — `наявна`.
 4. **Вісім оман розподілених обчислень** — `наявна` (`programming/distributed-systems/distributed-fallacies`).
