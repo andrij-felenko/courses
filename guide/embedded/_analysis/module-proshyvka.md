@@ -28,7 +28,7 @@ embedded-блок: компіляція/лінкування/образ прош
    це перший «прилад» у курсі — а мультиметра, лабораторного БЖ і самого осцилографа
    як кроків немає взагалі. Статті в книзі є (metrology, basic done).
 2. **frequency-measurement-methods (19) відірвано від вимірювального блоку (1–4)** — стоїть
-   останнім після git і TPM. Гірше: стаття лінкує **вперед** на `guide:embedded/signal-acquisition`
+   останнім після git і TPM. Гірше: стаття лінкує **вперед** на `root:embedded/signal-acquisition`
    (секція keruvannia, 12-та — читач її ще не бачив) і спирається на таймер-лічильник МК
    та input capture, яких у курсі немає взагалі (у книзі programming є: timer-counter,
    capture-compare — done). Також лінкує `book:electronics/counters` — лічильники теж не були кроком.

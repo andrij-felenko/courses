@@ -8,7 +8,7 @@
 
 Наслідок перший: **новачкова стіна на першому ж кроці.** `von-neumann-harvard` починається з «Класичний процесор тримає "вузьке місце фон Неймана": код і дані живуть в одній пам'яті й ходять однією шиною» — а курс до цього моменту не дав ані «що таке процесор», ані «що таке програма», ані «що таке пам'ять/шина», ані двійкової системи. Для аудиторії «нуль програмування» це стіна з перших рядків.
 
-Наслідок другий: **модуль став смітником для тем із другої половини курсу.** MAVLink-команди, автономна система, планування місій, GCS-порівняння, OTA-сервер, Wi-Fi fast connect, Edge AI — усе це вимагає зв'язку (секція 13), давачів (10), керування (12) і дронової частини (14). Статті самі це визнають: `autonomous-system` лінкує `guide:embedded/proportional-control` (keruvannia) і `guide:embedded/imu-barometer` (davachi); `mavlink-commands` лінкує `guide:embedded/pymavlink` (zvyazok); `power-logger` і `current-profiler-tools` починаються з «[Чесно виміряти споживання] ми вже вміємо» — з посиланням на `measure-consumption` із **наступної через одну** секції proshyvka.
+Наслідок другий: **модуль став смітником для тем із другої половини курсу.** MAVLink-команди, автономна система, планування місій, GCS-порівняння, OTA-сервер, Wi-Fi fast connect, Edge AI — усе це вимагає зв'язку (секція 13), давачів (10), керування (12) і дронової частини (14). Статті самі це визнають: `autonomous-system` лінкує `root:embedded/proportional-control` (keruvannia) і `root:embedded/imu-barometer` (davachi); `mavlink-commands` лінкує `root:embedded/pymavlink` (zvyazok); `power-logger` і `current-profiler-tools` починаються з «[Чесно виміряти споживання] ми вже вміємо» — з посиланням на `measure-consumption` із **наступної через одну** секції proshyvka.
 
 Наслідок третій: **розірвані внутрішні ланцюги.** Відлагодження (jtag-swd-tools, крок 6; openocd-gdb, 14; core-dump, 15) стоїть до прошивання (esptool-workflow, 27), хоча `jtag-swd-tools` сама посилається на `programming/flashing` і `programming/bootloader`. DMA-застосунки (кроки 8–9) стоять до введення АЦП (нема ніде в курсі) і SPI/I2S (SPI — лише в наступній секції peryferiia).
 
@@ -21,11 +21,11 @@
 5. **dma-spi-i2s (крок 9)**: SPI вводиться лише в наступній секції peryferiia (`spi-vs-i2c`), I2S — ніде в курсі.
 6. **super-loop-limits (крок 10)**: сам super-loop у курсі не введено (`programming/super-loop` існує в книзі, не підключений).
 7. **duty-cycle-current (крок 13)** спирається на `programming/sleep-modes`, `wakeup-sources`, `current-paths`, `ulp-coprocessor` (лінкує всі чотири) — жодного кроку про режими сну в курсі перед ним нема.
-8. **mavlink-commands (крок 16)** лінкує `guide:embedded/pymavlink` — це секція zvyazok (13), на шість секцій попереду; також `communications/telemetry-stream`.
-9. **autonomous-system (крок 17)** лінкує `guide:embedded/proportional-control` (keruvannia, секція 12) і `guide:embedded/imu-barometer` (davachi, секція 10).
+8. **mavlink-commands (крок 16)** лінкує `root:embedded/pymavlink` — це секція zvyazok (13), на шість секцій попереду; також `communications/telemetry-stream`.
+9. **autonomous-system (крок 17)** лінкує `root:embedded/proportional-control` (keruvannia, секція 12) і `root:embedded/imu-barometer` (davachi, секція 10).
 10. **mission-planning (18) і mission-planner-qgc (26)**: вейпойнти і GCS до того, як курс дав MAVLink, наземну станцію, давачі й керування.
 11. **memory-budget-mcu (крок 19)**: розмови про .bss/.data/стек (hist-вставка — про ім'я BSS) без введених лінкування (`programming/linking`) і стека (`programming/stack-lifo`).
-12. **power-logger (20) і current-profiler-tools (21)** посилаються на `guide:embedded/measure-consumption` (proshyvka, секція 9) як на вже пройдене — «ми вже вміємо», «чому мультиметр бреше — з'ясували». Курс цього ще не проходив.
+12. **power-logger (20) і current-profiler-tools (21)** посилаються на `root:embedded/measure-consumption` (proshyvka, секція 9) як на вже пройдене — «ми вже вміємо», «чому мультиметр бреше — з'ясували». Курс цього ще не проходив.
 13. **edge-inference (22)**: ML-інференс без жодної підготовки; увесь його блок-рідня (model-zoo, model-export, on-device-benchmarking, training-data-pipeline) живе в drony (14).
 14. **ota-server (25)**: перший рядок — «[Оновлення через ефір](book:programming/ota-update) ми досі дивилися очима пристрою» — але кроку про OTA-оновлення в курсі нема взагалі, а Wi-Fi буде лише в секції 13.
 15. **wifi-fast-connect (30)**: кешування PMK/IP — до будь-якого Wi-Fi/802.11/DHCP у курсі (все в zvyazok, секція 13).

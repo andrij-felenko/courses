@@ -1,6 +1,6 @@
 # Аналіз модуля «kola» — «Кола й закони» (guide/embedded)
 
-Дата: 2026-07-02. Джерела: `E:/develop/courses/guide/embedded/manifest.js` (повністю), `E:/develop/courses/book/electronics/manifest.js` (перелік статей), вибірково перші ~40 рядків `guide/embedded/kola/reading-schematics/reading-schematics.md` і `guide/embedded/kola/circuit-analysis/circuit-analysis.md`.
+Дата: 2026-07-02. Джерела: `E:/develop/courses/guide/embedded/manifest.js` (повністю), `E:/develop/courses/book/electronics/manifest.js` (перелік статей), вибірково перші ~40 рядків `root/course/embedded/reading-schematics/reading-schematics.md` і `root/course/embedded/circuit-analysis/circuit-analysis.md`.
 
 ## 1. Що модуль містить зараз (36 тем, пласким списком)
 

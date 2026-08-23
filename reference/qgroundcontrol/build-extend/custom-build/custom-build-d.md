@@ -3,7 +3,7 @@
 <preknowlist>
 - [Кеш CMake, опції та їхнє життя між прогонами](book:build-systems/cache-and-options) — що таке кешована змінна, чим `set(… CACHE …)` відрізняється від звичайного присвоєння і навіщо `FORCE`.
 - [Мова CMakeLists: змінні, області, потік керування](book:build-systems/cmake-language) — `if`, `include`, `add_subdirectory` і порядок виконання файлу конфігурації.
-- [Препроцесор і заголовки](guide:embedded/c-preprocessor-headers) — умовна компіляція: `#ifdef` вирізає код ще до компілятора.
+- [Препроцесор і заголовки](root:embedded/c-preprocessor-headers) — умовна компіляція: `#ifdef` вирізає код ще до компілятора.
 - [Ядрове розширення: головна точка кастомізації](book:qgroundcontrol/core-plugin) — як виробник підміняє поведінку застосунку, не чіпаючи файлів апстриму.
 - [Діалекти MAVLink](book:communications/mavlink-dialect) — діалект як окремий набір повідомлень, згенерований з XML-опису.
 - [Збірка QGroundControl: залежності й кроки](book:qgroundcontrol/building-qgc) — з чого взагалі складається складання застосунку з джерел.

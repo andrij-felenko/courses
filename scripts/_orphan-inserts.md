@@ -18,108 +18,108 @@
 
 ## guide/embedded (102)
 
-- `guide/embedded/analohovi-skhemy/ceramic-mems-resonators/ceramic-mems-resonators.md` — hist-pzt-ceramic, math-electrostatic-transduction
-- `guide/embedded/analohovi-skhemy/tcxo-ocxo/tcxo-ocxo.md` — math-tcxo-compensation, proj-dcxo-compensation
-- `guide/embedded/avtopilot/fc-setup-calibration/fc-setup-calibration.md` — math-declination-model, math-ellipsoid-fit
-- `guide/embedded/avtopilot/where-to-compute/where-to-compute.md` — hist-mars-autonomy, proj-vision-hint-buffer
-- `guide/embedded/cyfra-pamyat/eeprom-fram/eeprom-fram.md` — hist-fram-story, math-ferroelectric-hysteresis, proj-wear-leveling
-- `guide/embedded/cyfra-pamyat/fpga-flow/fpga-flow.md` — hist-birth-of-synthesis, math-lut-covering, math-negotiated-routing
-- `guide/embedded/cyfra-pamyat/memory-cell-physics/memory-cell-physics.md` — hist-frohman-eprom, hist-soft-errors, math-static-noise-margin
-- `guide/embedded/cyfra-pamyat/nor-vs-nand/nor-vs-nand.md` — comp-w25q-raw-commands, hist-flash-invention, math-nand-reliability
-- `guide/embedded/cyfra-pamyat/pal-to-fpga/pal-to-fpga.md` — math-sop-minimization
-- `guide/embedded/cyfra-pamyat/when-memory-runs-out/when-memory-runs-out.md` — hist-dennard-dram
-- `guide/embedded/davachi/barometric-altimeter/barometric-altimeter.md` — comp-mems-baro-sensor, hist-standard-atmosphere, math-barometric-derivation, proj-baro-vertical-fusion
-- `guide/embedded/davachi/contactless-distance/contactless-distance.md` — hist-sonar, math-tof-error-propagation, proj-echo-picking
-- `guide/embedded/davachi/imu-barometer/imu-barometer.md` — math-allan-variance
-- `guide/embedded/davachi/onboard-sensors/onboard-sensors.md` — hist-gps
-- `guide/embedded/dim/device-provisioning/device-provisioning.md` — math-ecdh-pop
-- `guide/embedded/dim/home-device-integration/home-device-integration.md` — math-spake2, proj-discovery-payload, proj-matter-min-endpoint
-- `guide/embedded/dim/smart-home-node/smart-home-node.md` — math-backoff-jitter, proj-connection-fsm
-- `guide/embedded/dyspleyi/display-classes/display-classes.md` — hist-lcd, math-alt-pleshko, proj-oled-compensation
-- `guide/embedded/dyspleyi/display-selection/display-selection.md` — comp-memory-lcd, math-ambient-contrast, proj-decision-matrix
-- `guide/embedded/kanal-keruvannia/mavlink-commands/mavlink-commands.md` — hist-mavlink-origin
-- `guide/embedded/kanal-keruvannia/mavlink-from-ground/mavlink-from-ground.md` — hist-mavlink-birth, proj-command-loop, proj-heartbeat-watchdog
-- `guide/embedded/kanal-keruvannia/pymavlink/pymavlink.md` — math-link-budget-rates, proj-robust-loop
-- `guide/embedded/kapstoun/capstone-autonomous-mission/capstone-autonomous-mission.md` — hist-mission-protocol, math-l1-navigation, proj-mission-upload-verify
-- `guide/embedded/keruvannia/calculus-for-pid/calculus-for-pid.md` — hist-minorsky, math-discretization, math-steady-state, proj-pid-production
-- `guide/embedded/keruvannia/derivative-control/derivative-control.md` — math-derivative-filter
-- `guide/embedded/keruvannia/fir-vs-iir/fir-vs-iir.md` — math-linear-phase-proof, math-pole-sharpness, proj-cascade-notch-fir
-- `guide/embedded/keruvannia/inertial-navigation/inertial-navigation.md` — math-dead-reckoning-error, proj-strapdown-step
-- `guide/embedded/keruvannia/integral-control/integral-control.md` — hist-reset-windup, proj-pi-fixed-point
-- `guide/embedded/keruvannia/loop-stability/loop-stability.md` — hist-nyquist-bode, math-closed-loop-derivation, math-nyquist-criterion, proj-discrete-margin
-- `guide/embedded/keruvannia/open-vs-closed-loop/open-vs-closed-loop.md` — math-sensitivity-waterbed, proj-feedforward-plus-feedback
-- `guide/embedded/keruvannia/pid-tuning-cascade/pid-tuning-cascade.md` — proj-anti-windup
-- `guide/embedded/keruvannia/proportional-control/proportional-control.md` — hist-reset-and-band, math-closed-loop-dynamics, proj-p-controller-firmware
-- `guide/embedded/keruvannia/signal-acquisition/signal-acquisition.md` — comp-opamp-buffer, math-robust-stats, math-sample-hold
-- `guide/embedded/kola/circuit-analysis/circuit-analysis.md` — hist-network-theorems, math-y-delta
-- `guide/embedded/kola/reading-schematics/reading-schematics.md` — comp-eda-schematic-capture, hist-schematic-symbols, math-pattern-values
-- `guide/embedded/komponenty/datasheet-practice/datasheet-practice.md` — comp-component-tester, math-switching-loss, proj-selection-checklist
-- `guide/embedded/komponenty/fuses-ptc/fuses-ptc.md` — hist-pptc
-- `guide/embedded/komponenty/pcb-intro/pcb-intro.md` — math-trace-impedance, proj-copper-calc
-- `guide/embedded/merezhi/nfc-rfid/nfc-rfid.md` — hist-nfc-standards, math-coupling-derivation, proj-anticollision-loop
-- `guide/embedded/mk-peryferiia/dma-adc/dma-adc.md` — comp-adc-sample-formats
-- `guide/embedded/mk/fpga-vs-mcu/fpga-vs-mcu.md` — math-breakeven-volume, math-latency-jitter
-- `guide/embedded/mk/risc-cisc/risc-cisc.md` — comp-decode-frontend, math-iron-law, proj-disasm-walkthrough
-- `guide/embedded/mk/von-neumann-harvard/von-neumann-harvard.md` — hist-code-injection, hist-dsp-architecture
-- `guide/embedded/ml-mk/audio-kws/audio-kws.md` — math-posterior-smoothing, proj-streaming-cnn
-- `guide/embedded/ml-mk/vibration-anomaly-ml/vibration-anomaly-ml.md` — math-mle-gaussian-mse
-- `guide/embedded/nalahodzhennia/core-dump/core-dump.md` — hist-core-memory, math-dump-sizing
-- `guide/embedded/nalahodzhennia/jtag-swd-tools/jtag-swd-tools.md` — proj-binary-logging
-- `guide/embedded/nalahodzhennia/measure-consumption/measure-consumption.md` — hist-charge-integration, proj-coulomb-counter
-- `guide/embedded/nalahodzhennia/troubleshooting-methodology/troubleshooting-methodology.md` — hist-method-crucis
-- `guide/embedded/napivprovidnyky/bjt-load-driving/bjt-load-driving.md` — math-ebers-moll, proj-base-drive-firmware
-- `guide/embedded/napivprovidnyky/bjt-vs-mosfet/bjt-vs-mosfet.md` — math-device-equations, proj-gate-driver
-- `guide/embedded/napivprovidnyky/diodes/diodes.md` — hist-gold-doping, math-charge-control
-- `guide/embedded/napivprovidnyky/flyback-protection/flyback-protection.md` — comp-ideal-diode-controller, math-rlc-spike
-- `guide/embedded/napivprovidnyky/zener-schottky/zener-schottky.md` — math-reverse-recovery, math-schottky-thermionic
-- `guide/embedded/navihatsiia/autonomous-system/autonomous-system.md` — hist-ardupilot, math-loop-stability, proj-control-loop, proj-failsafe-state-machine
-- `guide/embedded/navihatsiia/gnss-receiver-integration/gnss-receiver-integration.md` — proj-ubx-driver
-- `guide/embedded/navihatsiia/obstacle-avoidance/obstacle-avoidance.md` — math-velocity-obstacles, proj-dwa
-- `guide/embedded/navihatsiia/path-planning-grid/path-planning-grid.md` — math-jps-symmetry
-- `guide/embedded/nazemni/teleoperation-latency/teleoperation-latency.md` — math-delay-margin, proj-failsafe-fsm
-- `guide/embedded/nazemni/ugv-platform/ugv-platform.md` — math-tipover-stability, proj-tipover-guard
-- `guide/embedded/osnovy/electrostatics-summary/electrostatics-summary.md` — hist-field-idea, math-conservative-field, math-field-energy, math-gauss-flux
-- `guide/embedded/osnovy/field-and-potential/field-and-potential.md` — hist-potential, math-line-integral
-- `guide/embedded/peryferiia/dma-spi-i2s/dma-spi-i2s.md` — hist-i2s-origin
-- `guide/embedded/povitriani/propulsion-sizing/propulsion-sizing.md` — math-endurance-limit, math-thermal-limit
-- `guide/embedded/prohramuvannia/c-arrays-strings/c-arrays-strings.md` — proj-ring-buffer
-- `guide/embedded/prohramuvannia/c-bit-operations/c-bit-operations.md` — proj-bit-tricks
-- `guide/embedded/prohramuvannia/c-functions/c-functions.md` — hist-recursion
-- `guide/embedded/prohramuvannia/c-modules-build/c-modules-build.md` — proj-generic-makefile
-- `guide/embedded/prohramuvannia/c-preprocessor-headers/c-preprocessor-headers.md` — proj-x-macros
-- `guide/embedded/prohramuvannia/c-structs-enums/c-structs-enums.md` — proj-register-overlay
-- `guide/embedded/proshyvka/firmware-ci/firmware-ci.md` — math-critical-path, proj-selfhosted-runner
-- `guide/embedded/proshyvka/hil-testing/hil-testing.md` — math-latency-budget, proj-lockstep-protocol
-- `guide/embedded/systemnyi-shar/board-consumption/board-consumption.md` — math-average-current, proj-sleep-firmware
-- `guide/embedded/systemnyi-shar/super-loop-limits/super-loop-limits.md` — math-utilization-bound, proj-cooperative-scheduler
-- `guide/embedded/systemnyi-shar/tls-embedded/tls-embedded.md` — math-key-schedule, proj-mbedtls-tuning
-- `guide/embedded/vyrib/dfm-basics/dfm-basics.md` — math-area-ratio, math-tombstone-balance
-- `guide/embedded/vyrib/drone-regulations/drone-regulations.md` — comp-remote-id-module, math-sora-risk
-- `guide/embedded/vyrib/factory-provisioning/factory-provisioning.md` — hist-efuse-otp, proj-serial-allocation
-- `guide/embedded/vyrib/functional-safety-overview/functional-safety-overview.md` — hist-out-of-control
-- `guide/embedded/vyrib/test-jig-design/test-jig-design.md` — math-contact-mechanics
-- `guide/embedded/zhyvlennia/ac-switch-need/ac-switch-need.md` — hist-thyristor, math-latch, proj-phase-control
-- `guide/embedded/zhyvlennia/battery-chemistries/battery-chemistries.md` — hist-plante-jungner, math-nernst-gibbs
-- `guide/embedded/zhyvlennia/linear-vs-switching/linear-vs-switching.md` — hist-lithium, math-loss-breakdown, proj-power-mode-select
-- `guide/embedded/zhyvlennia/pd-sink-design/pd-sink-design.md` — hist-usb-power-negotiation, math-cable-drop-power
-- `guide/embedded/zhyvlennia/pwm-power-control/pwm-power-control.md` — comp-mosfet-module, hist-servo-standard, math-rms-harmonics, proj-gamma, proj-slow-pwm-thermostat
-- `guide/embedded/zhyvlennia/reverse-polarity/reverse-polarity.md` — comp-ideal-diode-ic, math-turnoff-dynamics, proj-fault-detect
-- `guide/embedded/zhyvlennia/topology-map/topology-map.md` — hist-charge-pump-lineage, hist-isolated-lineage, math-conversion-ratios, math-wide-input-topologies
-- `guide/embedded/zhyvlennia/usb-cables-field/usb-cables-field.md` — hist-cable-safety, proj-field-diagnostics
-- `guide/embedded/zhyvlennia/usb-power-map/usb-power-map.md` — hist-one-charger
-- `guide/embedded/zminnyi-strum/frequency-wavelength/frequency-wavelength.md` — hist-maxwell-hertz, math-doppler-shift
-- `guide/embedded/zminnyi-strum/noise-hunting/noise-hunting.md` — math-probe-resonance
-- `guide/embedded/zminnyi-strum/noise-interference/noise-interference.md` — hist-johnson-nyquist, math-nyquist-derivation, proj-noise-generator
-- `guide/embedded/zminnyi-strum/sine-on-scope/sine-on-scope.md` — hist-lissajous
-- `guide/embedded/zobrazhennia/mjpeg-vs-h264/mjpeg-vs-h264.md` — hist-codec-wars, hist-dct-lineage
-- `guide/embedded/zvuk/audio-capture-pipeline/audio-capture-pipeline.md` — math-dc-blocker, proj-pdm-decimation
-- `guide/embedded/zvuk/audio-compression-mcu/audio-compression-mcu.md` — math-companding
-- `guide/embedded/zvuk/audio-playback-path/audio-playback-path.md` — hist-i2s-origins, math-dither-noise-shaping, proj-pdm-encoder
-- `guide/embedded/zvuk/audio-processing-basics/audio-processing-basics.md` — proj-agc-vad-coupled
-- `guide/embedded/zvyazok/esp32-antenna/esp32-antenna.md` — hist-fifty-ohms-ifa, math-pi-matching
-- `guide/embedded/zvyazok/esp32-module/esp32-module.md` — hist-shield-can, math-pi-match, proj-brownout-guard
-- `guide/embedded/zvyazok/jamming-fhss/jamming-fhss.md` — math-spreading-codes, proj-hop-sequence
-- `guide/embedded/zvyazok/link-budget/link-budget.md` — math-noise-floor, proj-link-calc
+- `root/course/embedded/ceramic-mems-resonators/ceramic-mems-resonators.md` — hist-pzt-ceramic, math-electrostatic-transduction
+- `root/course/embedded/tcxo-ocxo/tcxo-ocxo.md` — math-tcxo-compensation, proj-dcxo-compensation
+- `root/course/embedded/fc-setup-calibration/fc-setup-calibration.md` — math-declination-model, math-ellipsoid-fit
+- `root/course/embedded/where-to-compute/where-to-compute.md` — hist-mars-autonomy, proj-vision-hint-buffer
+- `root/course/embedded/eeprom-fram/eeprom-fram.md` — hist-fram-story, math-ferroelectric-hysteresis, proj-wear-leveling
+- `root/course/embedded/fpga-flow/fpga-flow.md` — hist-birth-of-synthesis, math-lut-covering, math-negotiated-routing
+- `root/course/embedded/memory-cell-physics/memory-cell-physics.md` — hist-frohman-eprom, hist-soft-errors, math-static-noise-margin
+- `root/course/embedded/nor-vs-nand/nor-vs-nand.md` — comp-w25q-raw-commands, hist-flash-invention, math-nand-reliability
+- `root/course/embedded/pal-to-fpga/pal-to-fpga.md` — math-sop-minimization
+- `root/course/embedded/when-memory-runs-out/when-memory-runs-out.md` — hist-dennard-dram
+- `root/course/embedded/barometric-altimeter/barometric-altimeter.md` — comp-mems-baro-sensor, hist-standard-atmosphere, math-barometric-derivation, proj-baro-vertical-fusion
+- `root/course/embedded/contactless-distance/contactless-distance.md` — hist-sonar, math-tof-error-propagation, proj-echo-picking
+- `root/course/embedded/imu-barometer/imu-barometer.md` — math-allan-variance
+- `root/course/embedded/onboard-sensors/onboard-sensors.md` — hist-gps
+- `root/course/embedded/device-provisioning/device-provisioning.md` — math-ecdh-pop
+- `root/course/embedded/home-device-integration/home-device-integration.md` — math-spake2, proj-discovery-payload, proj-matter-min-endpoint
+- `root/course/embedded/smart-home-node/smart-home-node.md` — math-backoff-jitter, proj-connection-fsm
+- `root/course/embedded/display-classes/display-classes.md` — hist-lcd, math-alt-pleshko, proj-oled-compensation
+- `root/course/embedded/display-selection/display-selection.md` — comp-memory-lcd, math-ambient-contrast, proj-decision-matrix
+- `root/course/embedded/mavlink-commands/mavlink-commands.md` — hist-mavlink-origin
+- `root/course/embedded/mavlink-from-ground/mavlink-from-ground.md` — hist-mavlink-birth, proj-command-loop, proj-heartbeat-watchdog
+- `root/course/embedded/pymavlink/pymavlink.md` — math-link-budget-rates, proj-robust-loop
+- `root/course/embedded/capstone-autonomous-mission/capstone-autonomous-mission.md` — hist-mission-protocol, math-l1-navigation, proj-mission-upload-verify
+- `root/course/embedded/calculus-for-pid/calculus-for-pid.md` — hist-minorsky, math-discretization, math-steady-state, proj-pid-production
+- `root/course/embedded/derivative-control/derivative-control.md` — math-derivative-filter
+- `root/course/embedded/fir-vs-iir/fir-vs-iir.md` — math-linear-phase-proof, math-pole-sharpness, proj-cascade-notch-fir
+- `root/course/embedded/inertial-navigation/inertial-navigation.md` — math-dead-reckoning-error, proj-strapdown-step
+- `root/course/embedded/integral-control/integral-control.md` — hist-reset-windup, proj-pi-fixed-point
+- `root/course/embedded/loop-stability/loop-stability.md` — hist-nyquist-bode, math-closed-loop-derivation, math-nyquist-criterion, proj-discrete-margin
+- `root/course/embedded/open-vs-closed-loop/open-vs-closed-loop.md` — math-sensitivity-waterbed, proj-feedforward-plus-feedback
+- `root/course/embedded/pid-tuning-cascade/pid-tuning-cascade.md` — proj-anti-windup
+- `root/course/embedded/proportional-control/proportional-control.md` — hist-reset-and-band, math-closed-loop-dynamics, proj-p-controller-firmware
+- `root/course/embedded/signal-acquisition/signal-acquisition.md` — comp-opamp-buffer, math-robust-stats, math-sample-hold
+- `root/course/embedded/circuit-analysis/circuit-analysis.md` — hist-network-theorems, math-y-delta
+- `root/course/embedded/reading-schematics/reading-schematics.md` — comp-eda-schematic-capture, hist-schematic-symbols, math-pattern-values
+- `root/course/embedded/datasheet-practice/datasheet-practice.md` — comp-component-tester, math-switching-loss, proj-selection-checklist
+- `root/course/embedded/fuses-ptc/fuses-ptc.md` — hist-pptc
+- `root/course/embedded/pcb-intro/pcb-intro.md` — math-trace-impedance, proj-copper-calc
+- `root/course/embedded/nfc-rfid/nfc-rfid.md` — hist-nfc-standards, math-coupling-derivation, proj-anticollision-loop
+- `root/course/embedded/dma-adc/dma-adc.md` — comp-adc-sample-formats
+- `root/course/embedded/fpga-vs-mcu/fpga-vs-mcu.md` — math-breakeven-volume, math-latency-jitter
+- `root/course/embedded/risc-cisc/risc-cisc.md` — comp-decode-frontend, math-iron-law, proj-disasm-walkthrough
+- `root/course/embedded/von-neumann-harvard/von-neumann-harvard.md` — hist-code-injection, hist-dsp-architecture
+- `root/course/embedded/audio-kws/audio-kws.md` — math-posterior-smoothing, proj-streaming-cnn
+- `root/course/embedded/vibration-anomaly-ml/vibration-anomaly-ml.md` — math-mle-gaussian-mse
+- `root/course/embedded/core-dump/core-dump.md` — hist-core-memory, math-dump-sizing
+- `root/course/embedded/jtag-swd-tools/jtag-swd-tools.md` — proj-binary-logging
+- `root/course/embedded/measure-consumption/measure-consumption.md` — hist-charge-integration, proj-coulomb-counter
+- `root/course/embedded/troubleshooting-methodology/troubleshooting-methodology.md` — hist-method-crucis
+- `root/course/embedded/bjt-load-driving/bjt-load-driving.md` — math-ebers-moll, proj-base-drive-firmware
+- `root/course/embedded/bjt-vs-mosfet/bjt-vs-mosfet.md` — math-device-equations, proj-gate-driver
+- `root/course/embedded/diodes/diodes.md` — hist-gold-doping, math-charge-control
+- `root/course/embedded/flyback-protection/flyback-protection.md` — comp-ideal-diode-controller, math-rlc-spike
+- `root/course/embedded/zener-schottky/zener-schottky.md` — math-reverse-recovery, math-schottky-thermionic
+- `root/course/embedded/autonomous-system/autonomous-system.md` — hist-ardupilot, math-loop-stability, proj-control-loop, proj-failsafe-state-machine
+- `root/course/embedded/gnss-receiver-integration/gnss-receiver-integration.md` — proj-ubx-driver
+- `root/course/embedded/obstacle-avoidance/obstacle-avoidance.md` — math-velocity-obstacles, proj-dwa
+- `root/course/embedded/path-planning-grid/path-planning-grid.md` — math-jps-symmetry
+- `root/course/embedded/teleoperation-latency/teleoperation-latency.md` — math-delay-margin, proj-failsafe-fsm
+- `root/course/embedded/ugv-platform/ugv-platform.md` — math-tipover-stability, proj-tipover-guard
+- `root/course/embedded/electrostatics-summary/electrostatics-summary.md` — hist-field-idea, math-conservative-field, math-field-energy, math-gauss-flux
+- `root/course/embedded/field-and-potential/field-and-potential.md` — hist-potential, math-line-integral
+- `root/course/embedded/dma-spi-i2s/dma-spi-i2s.md` — hist-i2s-origin
+- `root/course/embedded/propulsion-sizing/propulsion-sizing.md` — math-endurance-limit, math-thermal-limit
+- `root/course/embedded/c-arrays-strings/c-arrays-strings.md` — proj-ring-buffer
+- `root/course/embedded/c-bit-operations/c-bit-operations.md` — proj-bit-tricks
+- `root/course/embedded/c-functions/c-functions.md` — hist-recursion
+- `root/course/embedded/c-modules-build/c-modules-build.md` — proj-generic-makefile
+- `root/course/embedded/c-preprocessor-headers/c-preprocessor-headers.md` — proj-x-macros
+- `root/course/embedded/c-structs-enums/c-structs-enums.md` — proj-register-overlay
+- `root/course/embedded/firmware-ci/firmware-ci.md` — math-critical-path, proj-selfhosted-runner
+- `root/course/embedded/hil-testing/hil-testing.md` — math-latency-budget, proj-lockstep-protocol
+- `root/course/embedded/board-consumption/board-consumption.md` — math-average-current, proj-sleep-firmware
+- `root/course/embedded/super-loop-limits/super-loop-limits.md` — math-utilization-bound, proj-cooperative-scheduler
+- `root/course/embedded/tls-embedded/tls-embedded.md` — math-key-schedule, proj-mbedtls-tuning
+- `root/course/embedded/dfm-basics/dfm-basics.md` — math-area-ratio, math-tombstone-balance
+- `root/course/embedded/drone-regulations/drone-regulations.md` — comp-remote-id-module, math-sora-risk
+- `root/course/embedded/factory-provisioning/factory-provisioning.md` — hist-efuse-otp, proj-serial-allocation
+- `root/course/embedded/functional-safety-overview/functional-safety-overview.md` — hist-out-of-control
+- `root/course/embedded/test-jig-design/test-jig-design.md` — math-contact-mechanics
+- `root/course/embedded/ac-switch-need/ac-switch-need.md` — hist-thyristor, math-latch, proj-phase-control
+- `root/course/embedded/battery-chemistries/battery-chemistries.md` — hist-plante-jungner, math-nernst-gibbs
+- `root/course/embedded/linear-vs-switching/linear-vs-switching.md` — hist-lithium, math-loss-breakdown, proj-power-mode-select
+- `root/course/embedded/pd-sink-design/pd-sink-design.md` — hist-usb-power-negotiation, math-cable-drop-power
+- `root/course/embedded/pwm-power-control/pwm-power-control.md` — comp-mosfet-module, hist-servo-standard, math-rms-harmonics, proj-gamma, proj-slow-pwm-thermostat
+- `root/course/embedded/reverse-polarity/reverse-polarity.md` — comp-ideal-diode-ic, math-turnoff-dynamics, proj-fault-detect
+- `root/course/embedded/topology-map/topology-map.md` — hist-charge-pump-lineage, hist-isolated-lineage, math-conversion-ratios, math-wide-input-topologies
+- `root/course/embedded/usb-cables-field/usb-cables-field.md` — hist-cable-safety, proj-field-diagnostics
+- `root/course/embedded/usb-power-map/usb-power-map.md` — hist-one-charger
+- `root/course/embedded/frequency-wavelength/frequency-wavelength.md` — hist-maxwell-hertz, math-doppler-shift
+- `root/course/embedded/noise-hunting/noise-hunting.md` — math-probe-resonance
+- `root/course/embedded/noise-interference/noise-interference.md` — hist-johnson-nyquist, math-nyquist-derivation, proj-noise-generator
+- `root/course/embedded/sine-on-scope/sine-on-scope.md` — hist-lissajous
+- `root/course/embedded/mjpeg-vs-h264/mjpeg-vs-h264.md` — hist-codec-wars, hist-dct-lineage
+- `root/course/embedded/audio-capture-pipeline/audio-capture-pipeline.md` — math-dc-blocker, proj-pdm-decimation
+- `root/course/embedded/audio-compression-mcu/audio-compression-mcu.md` — math-companding
+- `root/course/embedded/audio-playback-path/audio-playback-path.md` — hist-i2s-origins, math-dither-noise-shaping, proj-pdm-encoder
+- `root/course/embedded/audio-processing-basics/audio-processing-basics.md` — proj-agc-vad-coupled
+- `root/course/embedded/esp32-antenna/esp32-antenna.md` — hist-fifty-ohms-ifa, math-pi-matching
+- `root/course/embedded/esp32-module/esp32-module.md` — hist-shield-can, math-pi-match, proj-brownout-guard
+- `root/course/embedded/jamming-fhss/jamming-fhss.md` — math-spreading-codes, proj-hop-sequence
+- `root/course/embedded/link-budget/link-budget.md` — math-noise-floor, proj-link-calc
 
 ## book/electronics (60)
 
