@@ -1,0 +1,400 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded-ultra",
+  "slug": "zvyazok-i-aparat",
+  "title": "Зв'язок і апарат",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "dva-transporty",
+      "title": "Два транспорти",
+      "topics": [
+        {
+          "ref": "communications/protocols/tcp-vs-udp",
+          "title": "TCP проти UDP"
+        },
+        {
+          "ref": "programming/networking/sockets-tcp-udp",
+          "title": "Сокети TCP/UDP"
+        },
+        {
+          "ref": "programming/networking/udp-datagram-semantics",
+          "title": "Семантика датаграми UDP"
+        },
+        {
+          "ref": "programming/networking/tcp-message-framing",
+          "title": "Кадрування повідомлень у TCP"
+        }
+      ]
+    },
+    {
+      "slug": "shcho-pid-nymy",
+      "title": "Що під ними",
+      "topics": [
+        {
+          "ref": "communications/networks/mac-ip-arp",
+          "title": "MAC, IP і ARP"
+        },
+        {
+          "ref": "communications/networks/ip-routing",
+          "title": "Маршрутизація"
+        },
+        {
+          "ref": "communications/coding-theory/internet-checksum",
+          "title": "Інтернет-контрольна сума"
+        }
+      ]
+    },
+    {
+      "slug": "baity-na-droti",
+      "title": "Байти на дроті",
+      "topics": [
+        {
+          "ref": "programming/embedded-systems/data-serialization",
+          "title": "Серіалізація даних"
+        },
+        {
+          "ref": "communications/protocols/packet-design",
+          "title": "Проєктування пакета"
+        },
+        {
+          "ref": "programming/networking/wire-format-packing",
+          "title": "Пакування бінарного протоколу"
+        }
+      ]
+    },
+    {
+      "slug": "tsilisnist",
+      "title": "Цілісність",
+      "topics": [
+        {
+          "ref": "communications/coding-theory/checksums",
+          "title": "Контрольні суми"
+        },
+        {
+          "ref": "communications/coding-theory/crc",
+          "title": "CRC"
+        }
+      ]
+    },
+    {
+      "slug": "zemlia-bort",
+      "title": "Земля-борт",
+      "topics": [
+        {
+          "ref": "communications/protocols/control-telemetry",
+          "title": "Керування й телеметрія"
+        },
+        {
+          "ref": "communications/protocols/telemetry-stream",
+          "title": "Телеметрія"
+        }
+      ]
+    },
+    {
+      "slug": "mavlink",
+      "title": "MAVLink",
+      "topics": [
+        {
+          "ref": "communications/protocols/mavlink-packet",
+          "title": "Пакет MAVLink"
+        },
+        {
+          "ref": "communications/protocols/mavlink-commands",
+          "title": "Команди MAVLink"
+        },
+        {
+          "ref": "communications/protocols/mavlink-xml-codegen",
+          "title": "Генерація коду з XML MAVLink"
+        }
+      ]
+    },
+    {
+      "slug": "bortova-shyna",
+      "title": "Бортова шина",
+      "topics": [
+        {
+          "ref": "communications/buses/dronecan",
+          "title": "DroneCAN"
+        }
+      ]
+    },
+    {
+      "slug": "khvylia-nese-dani",
+      "title": "Хвиля несе дані",
+      "topics": [
+        {
+          "ref": "communications/modulation/why-modulation",
+          "title": "Навіщо модуляція"
+        },
+        {
+          "ref": "communications/modulation/spread-spectrum",
+          "title": "Розширений спектр"
+        }
+      ]
+    },
+    {
+      "slug": "antena",
+      "title": "Антена",
+      "topics": [
+        {
+          "ref": "communications/antennas/antenna",
+          "title": "Антена"
+        },
+        {
+          "ref": "communications/antennas/antenna-gain",
+          "title": "Підсилення антени"
+        }
+      ]
+    },
+    {
+      "slug": "link-do-borta",
+      "title": "Лінк до борта",
+      "topics": [
+        {
+          "ref": "communications/radio-engineering/telemetry-link",
+          "title": "Канал земля-борт"
+        }
+      ]
+    },
+    {
+      "slug": "de-ia",
+      "title": "Де я",
+      "topics": [
+        {
+          "ref": "communications/synchronization/gnss",
+          "title": "GNSS"
+        },
+        {
+          "ref": "math/geometry/wgs84-datum",
+          "title": "WGS-84: еліпсоїд і датум"
+        },
+        {
+          "ref": "math/geometry/geoid-and-amsl",
+          "title": "Геоїд, AMSL і висота"
+        },
+        {
+          "ref": "math/geometry/ecef-ned-enu",
+          "title": "ECEF, NED і ENU"
+        }
+      ]
+    },
+    {
+      "slug": "zlyttia-davachiv",
+      "title": "Злиття давачів",
+      "topics": [
+        {
+          "ref": "algorithms/signal-robotics/sensor-fusion",
+          "title": "Поєднання давачів"
+        },
+        {
+          "ref": "algorithms/signal-robotics/complementary-filter",
+          "title": "Комплементарний фільтр"
+        }
+      ]
+    },
+    {
+      "slug": "filtr-kalmana",
+      "title": "Фільтр Калмана",
+      "topics": [
+        {
+          "ref": "algorithms/signal-robotics/predict-vs-measure",
+          "title": "Передбачення vs вимір"
+        },
+        {
+          "ref": "algorithms/signal-robotics/kalman-filter",
+          "title": "Фільтр Калмана"
+        },
+        {
+          "ref": "algorithms/signal-robotics/kalman-ekf",
+          "title": "Розширений Калман (EKF)"
+        }
+      ]
+    },
+    {
+      "slug": "chomu-litaie",
+      "title": "Чому літає",
+      "topics": [
+        {
+          "ref": "physics/mechanics/propeller-geometry",
+          "title": "Гвинт"
+        },
+        {
+          "ref": "physics/mechanics/fixed-wing-lift",
+          "title": "Літак"
+        }
+      ]
+    },
+    {
+      "slug": "utrymaty-kurs",
+      "title": "Утримати курс",
+      "topics": [
+        {
+          "ref": "algorithms/signal-robotics/discrete-pid",
+          "title": "Дискретний ПІД"
+        },
+        {
+          "ref": "algorithms/signal-robotics/quaternion-attitude-control",
+          "title": "Кватерніонне керування орієнтацією"
+        }
+      ]
+    },
+    {
+      "slug": "bortovyi-avtopilot",
+      "title": "Бортовий автопілот",
+      "topics": [
+        {
+          "ref": "programming/embedded-systems/flight-controller",
+          "title": "Політний контролер"
+        },
+        {
+          "ref": "programming/embedded-systems/px4-architecture",
+          "title": "Архітектура PX4"
+        },
+        {
+          "ref": "programming/embedded-systems/failsafe",
+          "title": "Failsafe"
+        },
+        {
+          "ref": "programming/embedded-systems/params-gcs",
+          "title": "Параметри й GCS"
+        }
+      ]
+    },
+    {
+      "slug": "tiaha",
+      "title": "Тяга",
+      "topics": [
+        {
+          "ref": "electronics/electromechanics/bldc-motor",
+          "title": "BLDC-мотор"
+        },
+        {
+          "ref": "electronics/power-electronics/esc",
+          "title": "ESC-регулятор"
+        }
+      ]
+    },
+    {
+      "slug": "batareia-pid-navantazhenniam",
+      "title": "Батарея під навантаженням",
+      "topics": [
+        {
+          "ref": "electronics/power-electronics/battery-sag",
+          "title": "Просадка під навантаженням"
+        },
+        {
+          "ref": "electronics/power-electronics/bms",
+          "title": "Захист і BMS"
+        }
+      ]
+    },
+    {
+      "slug": "stysnuty",
+      "title": "Стиснути",
+      "topics": [
+        {
+          "ref": "algorithms/data-compression/jpeg-intra",
+          "title": "JPEG"
+        },
+        {
+          "ref": "algorithms/data-compression/inter-frame",
+          "title": "Міжкадрове стиснення"
+        },
+        {
+          "ref": "algorithms/data-compression/h264-nal-structure",
+          "title": "H.264: NAL, SPS/PPS"
+        }
+      ]
+    },
+    {
+      "slug": "donesty-i-vstyhnuty",
+      "title": "Донести і встигнути",
+      "topics": [
+        {
+          "ref": "communications/networks/video-transmission",
+          "title": "Передача відео"
+        },
+        {
+          "ref": "programming/embedded-systems/video-latency",
+          "title": "Затримка відео"
+        },
+        {
+          "ref": "communications/protocols/rtp-rtcp",
+          "title": "RTP і RTCP"
+        },
+        {
+          "ref": "media-vision/gstreamer/pipeline-model",
+          "title": "Конвеєр GStreamer"
+        },
+        {
+          "ref": "media-vision/gstreamer/appsink-appsrc",
+          "title": "appsink і appsrc"
+        }
+      ]
+    },
+    {
+      "slug": "stantsiia-zseredyny",
+      "title": "Станція зсередини",
+      "topics": [
+        {
+          "ref": "qgroundcontrol/overview/what-is-qgc",
+          "title": "Що таке QGroundControl"
+        },
+        {
+          "ref": "qgroundcontrol/architecture/vehicle-object",
+          "title": "Vehicle: модель апарата"
+        },
+        {
+          "ref": "qgroundcontrol/links/link-manager",
+          "title": "Менеджер каналів"
+        },
+        {
+          "ref": "qgroundcontrol/architecture/fact-system",
+          "title": "FactSystem: параметри апарата"
+        },
+        {
+          "ref": "qgroundcontrol/links/mavlink-handling",
+          "title": "Обробка MAVLink у станції"
+        }
+      ]
+    },
+    {
+      "slug": "plan-i-karta",
+      "title": "План і карта",
+      "topics": [
+        {
+          "ref": "qgroundcontrol/planning/plan-model",
+          "title": "Модель плану місії"
+        },
+        {
+          "ref": "qgroundcontrol/planning/plan-exchange",
+          "title": "Обмін планом із апаратом"
+        },
+        {
+          "ref": "algorithms/signal-robotics/survey-grid-coverage",
+          "title": "Покриття полігону галсами"
+        },
+        {
+          "ref": "qgroundcontrol/map-video/map-engine",
+          "title": "Рушій карти"
+        },
+        {
+          "ref": "math/geometry/web-mercator-tiles",
+          "title": "Web Mercator і тайли"
+        }
+      ]
+    },
+    {
+      "slug": "video-u-stantsii",
+      "title": "Відео у станції",
+      "topics": [
+        {
+          "ref": "qgroundcontrol/map-video/video-pipeline",
+          "title": "Відеотракт на GStreamer"
+        }
+      ]
+    }
+  ]
+}
