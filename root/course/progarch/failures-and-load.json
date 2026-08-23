@@ -155,6 +155,144 @@
       ]
     },
     {
+      "slug": "scaling",
+      "title": "Зростання під навантаженням",
+      "topics": [
+        {
+          "slug": "scale-decision-recap",
+          "title": "Коли масштабувати, а коли ні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stack-overflow-scale.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-scale-decision-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scaling-decision-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "ref": "programming/autoscaling",
+          "title": "Автоскейл"
+        },
+        {
+          "slug": "compute-platform-choice",
+          "title": "Компакт-вибір: на чому виконувати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-compute-paradigm-shifts.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-compute-unit-economics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-platform-decision-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-compute-platform-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "ref": "programming/load-balancing",
+          "title": "Балансування L4 vs L7"
+        },
+        {
+          "slug": "load-distribution-dh",
+          "title": "Розподіл навантаження DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-grpc-http2-lb.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-edge-lb-stack.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-grpc-lb.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sale-start-waiting-room",
+          "title": "Старт продажу: кімната очікування перед системою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-waiting-room-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queue-rates-and-token-bucket.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-waiting-room-gatekeeper.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-waiting-room-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "failure-of-a-part",
       "title": "Відмова частини",
       "topics": [
@@ -389,6 +527,100 @@
       ]
     },
     {
+      "slug": "attacker-as-a-force",
+      "title": "Зловмисник як сила",
+      "topics": [
+        {
+          "slug": "attacker-as-force",
+          "title": "Зловмисник як сила архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-saltzer-schroeder.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-attack-economics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-attacker-force-check.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "ref": "programming/threat-modeling",
+          "title": "Моделювання загроз"
+        },
+        {
+          "slug": "dh-threat-model",
+          "title": "Модель загроз Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mirai-and-iot-security.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-threat-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dh-security-policy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "e2e-vs-serverside-choice",
+          "title": "E2E проти server-side: вибір за класифікацією даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-e2e-vs-serverside-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-crypto-policy-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-crypto-envelope-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "attack-and-abuse",
       "title": "Напад і зловживання",
       "topics": [
@@ -503,6 +735,200 @@
           "detailed": {
             "status": "pending"
           }
+        }
+      ]
+    },
+    {
+      "slug": "identity-and-permission",
+      "title": "Хто ти і що тобі можна",
+      "topics": [
+        {
+          "ref": "programming/authentication",
+          "title": "Автентифікація"
+        },
+        {
+          "ref": "programming/session-management",
+          "title": "Сесія автентифікації"
+        },
+        {
+          "slug": "session-storage-choice",
+          "title": "Компакт-вибір: де живе сесія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jwt-sessions-debate.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-session-three-ways.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "auth-vs-authz-boundary",
+          "title": "Автентифікація проти авторизації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-conflation-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-authn-authz-gates.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "ref": "programming/authorization-models",
+          "title": "Моделі авторизації"
+        },
+        {
+          "slug": "authz-inservice-variant",
+          "title": "Варіант А: кожен сервіс авторизує сам",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-authz-decision-point.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-inservice-authz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "authz-central-variant",
+          "title": "Варіант Б: рішення ухвалює один центр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-zanzibar-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-central-authz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "authz-choice",
+          "title": "Вибір: центр, сервіс — і гібрид, що їх мирить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-zanzibar-rebac.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-authz-hybrid.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "authz-in-depth",
+          "title": "Авторизація вглиб",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zanzibar.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-authz-systems.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-authz-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "idor-horizontal-escalation",
+          "title": "Горизонтальна ескалація (IDOR) як загроза",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-idor-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-idor-hunt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dh-auth-path",
+          "title": "Запит крізь DH: від токена до дозволу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "proj": [
+            {
+              "file": "proj-dh-auth-path.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },

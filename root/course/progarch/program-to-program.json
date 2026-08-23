@@ -459,6 +459,130 @@
       ]
     },
     {
+      "slug": "background-work",
+      "title": "Фонова робота",
+      "topics": [
+        {
+          "ref": "programming/background-jobs",
+          "title": "Черга задач"
+        },
+        {
+          "ref": "programming/distributed-cron",
+          "title": "Розподілений cron"
+        },
+        {
+          "slug": "jobs-placement-variants",
+          "title": "Де живе черга задач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-queue-in-db-pendulum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jobs-three-ways.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jobs-choice",
+          "title": "Вибір черги задач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-per-class-queues.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-job-router.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dh-long-ops",
+          "title": "Довга операція в DH: кліп, що переживає свій запит",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-async-operation-resource.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-clip-export.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dh-jobs-time-final",
+          "title": "Фоновий вузол DH: де годинник зустрічає чергу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dst-scheduling-bugs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-nightly-rollup.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "async-work-recap",
+          "title": "Асинхронна робота як клас рішень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-background-jobs-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-async-job-anatomy.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "event-as-contract",
       "title": "Подія як контракт",
       "topics": [
@@ -535,6 +659,112 @@
         {
           "ref": "programming/webhook-as-product",
           "title": "Вебхук як продукт"
+        }
+      ]
+    },
+    {
+      "slug": "outbound-notifications",
+      "title": "Сповіщення назовні",
+      "topics": [
+        {
+          "slug": "dh-notification-pipeline",
+          "title": "Конвеєр сповіщень DH: від сирої події до вчасного виклику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-critical-alerts.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-notification-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "notification-dedup-throttle",
+          "title": "Дедуп, злиття й throttling сповіщень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-alert-fatigue.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-throttle-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-notification-gate.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "notification-fanout-choice",
+          "title": "Вибір моделі fan-out сповіщень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fanout-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fanout-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fanout-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "outbound-node-recap",
+          "title": "Вихід назовні як єдиний клас вузла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-outbound-patterns.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-outbound-egress-node.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

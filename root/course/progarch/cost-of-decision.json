@@ -267,6 +267,80 @@
       ]
     },
     {
+      "slug": "tenants-and-money",
+      "title": "Орендар і гроші",
+      "topics": [
+        {
+          "slug": "tenancy-variants-choice",
+          "title": "Ізоляція орендарів: варіанти мультиарендності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chaosdb-leak.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tenancy-models-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tenant-rls-routing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "ref": "programming/metering-and-billing",
+          "title": "Metering і billing як вузол"
+        },
+        {
+          "ref": "programming/double-entry-ledger",
+          "title": "Гросбух"
+        },
+        {
+          "slug": "money-truth-choice",
+          "title": "Де живе правда про гроші: фінансова цілісність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-double-entry-lineage.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ledger-hash-chain.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-double-entry-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "ref": "programming/payments-integration",
+          "title": "Платіжний провайдер"
+        }
+      ]
+    },
+    {
       "slug": "cloud-bill",
       "title": "Рахунок за хмару",
       "topics": [

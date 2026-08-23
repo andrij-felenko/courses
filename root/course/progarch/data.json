@@ -741,6 +741,34 @@
           }
         },
         {
+          "slug": "cache-coherence-choice",
+          "title": "Вибір стратегії свіжості між сервісами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cache-invalidation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cache-coherence-harness.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-coherence-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
           "slug": "dh-first-cache",
           "title": "Перший кеш Digital Homes",
           "basic": {
@@ -749,6 +777,56 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "dh-cache-hierarchy",
+          "title": "Стан дому і список пристроїв крізь яруси кешу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cache-hierarchy-rates.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-tiered-cache.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-control-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dh-change-cache-final",
+          "title": "DH: фінал тактик змін і кешування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-dh-twin-migration.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dh-migration-contract.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
