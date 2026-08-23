@@ -1,0 +1,670 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "program-to-program",
+  "title": "Взаємодія між програмами",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "process-boundary",
+      "title": "Межа процесу",
+      "topics": [
+        {
+          "slug": "integration-styles-choice",
+          "title": "Стилі інтеграції як рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "unix-linux/ipc-landscape",
+          "title": "Дві програми на одній машині"
+        },
+        {
+          "slug": "distributed-objects-trap",
+          "title": "Чому «distributed objects»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/distributed-fallacies",
+          "title": "Вісім оман розподілених обчислень"
+        },
+        {
+          "slug": "latency-as-physics",
+          "title": "Латентність як фізика: RTT, смуга, черга в дорозі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "partial-failure",
+          "title": "Часткова відмова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/remote-interface-granularity",
+          "title": "Дробність віддаленого інтерфейсу",
+          "todo": "нова тема",
+          "hint": "programming/distributed-systems"
+        },
+        {
+          "slug": "generations-of-transparent-calls",
+          "title": "Покоління прозорого виклику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-distribution-crossing",
+          "title": "DH перетинає межу машини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "wire-contract",
+      "title": "Контракт на дроті",
+      "topics": [
+        {
+          "slug": "publisher-and-consumer-of-contract",
+          "title": "Хто публікує контракт і хто ним живе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/rest-api",
+          "title": "REST"
+        },
+        {
+          "slug": "api-style-choice",
+          "title": "Стилі API як рішення, не релігія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/graphql",
+          "title": "GraphQL: схема як контракт"
+        },
+        {
+          "ref": "programming/interface-definition-language",
+          "title": "Опис контракту схемою й згенерований клієнт"
+        },
+        {
+          "slug": "api-error-contract",
+          "title": "Помилки як контракт назовні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "internal-model-vs-public-view",
+          "title": "Внутрішня модель і те, що видно назовні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "call-context-across-the-wire",
+          "title": "Наскрізний контекст виклику: хто, для кого, у якому запиті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "exchange-formats",
+      "title": "Формати обміну",
+      "topics": [
+        {
+          "slug": "wire-format-choice",
+          "title": "Формат на дроті: текст, двійкове, ціна сумісності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/json-format",
+          "title": "JSON"
+        },
+        {
+          "ref": "programming/self-describing-format",
+          "title": "Схема всередині чи зовні"
+        },
+        {
+          "ref": "programming/json-schema",
+          "title": "Опис і валідація структури"
+        },
+        {
+          "ref": "programming/zero-copy-serialization",
+          "title": "Двійкові формати без копіювання"
+        },
+        {
+          "ref": "programming/serialization-pitfalls",
+          "title": "Пастки серіалізації",
+          "todo": "нова тема",
+          "hint": "programming/representation"
+        },
+        {
+          "slug": "dh-telemetry-format",
+          "title": "Формат телеметрії DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "request-response",
+      "title": "Запит і відповідь",
+      "topics": [
+        {
+          "ref": "programming/http",
+          "title": "HTTP: методи, коди стану, заголовки"
+        },
+        {
+          "ref": "programming/rpc",
+          "title": "RPC і серіалізація"
+        },
+        {
+          "ref": "programming/connection-management",
+          "title": "Керування з'єднаннями"
+        },
+        {
+          "ref": "programming/http-caching",
+          "title": "Кеш як частина контракту: ETag і умовний запит"
+        },
+        {
+          "ref": "programming/pagination-and-large-responses",
+          "title": "Сторінкування, фільтри й великі відповіді",
+          "todo": "нова тема",
+          "hint": "programming/web-backend"
+        },
+        {
+          "ref": "programming/streaming-push-transports",
+          "title": "Довгий поллінг, SSE, WebSocket"
+        },
+        {
+          "ref": "programming/long-running-operations",
+          "title": "Довга операція"
+        },
+        {
+          "slug": "polling-vs-callback",
+          "title": "Поллінг проти колбека/вебхука для результату",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "unknown-result",
+      "title": "Невідомий результат",
+      "topics": [
+        {
+          "ref": "programming/timeouts-deadlines",
+          "title": "Таймаути і бюджет часу"
+        },
+        {
+          "ref": "programming/monotonic-vs-wall-time",
+          "title": "Монотонний проти настінного часу для дедлайнів"
+        },
+        {
+          "ref": "programming/retries-backoff",
+          "title": "Повтори"
+        },
+        {
+          "slug": "handling-the-unknown-result",
+          "title": "Що робити з невідомим: запитати, компенсувати, звірити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/two-generals-problem",
+          "title": "Задача двох генералів"
+        },
+        {
+          "ref": "unix-linux/tcp-connection-liveness",
+          "title": "Мертве з'єднання"
+        },
+        {
+          "slug": "dh-bad-network",
+          "title": "Хаб на поганому Wi-Fi",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "idempotency",
+      "title": "Ідемпотентність",
+      "topics": [
+        {
+          "ref": "programming/idempotency",
+          "title": "Ідемпотентність"
+        },
+        {
+          "ref": "programming/api-idempotency",
+          "title": "Ідемпотентність методів як частина контракту"
+        },
+        {
+          "slug": "dedup-boundary",
+          "title": "Дедуп на межі проти дедупу в логіці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/replay-protection",
+          "title": "Захист від повтору (replay)"
+        },
+        {
+          "slug": "outbound-idempotency",
+          "title": "Ідемпотентність вихідної розмови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "injecting-duplicates-and-reordering",
+          "title": "Вкидання дубля й переупорядкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "messaging-and-broker",
+      "title": "Повідомлення й посередник",
+      "topics": [
+        {
+          "slug": "sync-vs-async-fundamental",
+          "title": "Синхронно проти асинхронно як фундаментальний вибір зчеплення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/message-queue",
+          "title": "Черга повідомлень (point-to-point)"
+        },
+        {
+          "ref": "programming/publish-subscribe",
+          "title": "Pub/sub (тема)"
+        },
+        {
+          "ref": "programming/event-log",
+          "title": "Журнал подій (Kafka-модель)"
+        },
+        {
+          "ref": "programming/competing-consumers",
+          "title": "Конкурентні споживачі"
+        },
+        {
+          "ref": "communications/mqtt",
+          "title": "MQTT: брокер на межі дому"
+        },
+        {
+          "ref": "programming/message-router",
+          "title": "Маршрутизатор повідомлень"
+        },
+        {
+          "ref": "programming/message-translator",
+          "title": "Транслятор повідомлень і канонічна модель"
+        },
+        {
+          "ref": "programming/claim-check",
+          "title": "Квитанція в камері схову"
+        },
+        {
+          "slug": "cost-of-a-broker",
+          "title": "Ціна посередника: коли черга зайва",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-message-classes",
+          "title": "Класи трафіку DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "delivery-guarantees",
+      "title": "Гарантії доставки",
+      "topics": [
+        {
+          "ref": "programming/delivery-guarantees",
+          "title": "At-most-once / at-least-once / effectively-once"
+        },
+        {
+          "slug": "duplicates-and-reorder",
+          "title": "Дублі й переупорядкування як норма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/out-of-order-tolerance",
+          "title": "Толерантність до безладу"
+        },
+        {
+          "ref": "programming/dead-letter-queue",
+          "title": "Мертва черга"
+        },
+        {
+          "ref": "programming/poison-message",
+          "title": "Poison message / карантин"
+        },
+        {
+          "ref": "programming/outbox-pattern",
+          "title": "Transactional outbox"
+        },
+        {
+          "ref": "programming/inbox-pattern",
+          "title": "Вхідна скринька (inbox)"
+        },
+        {
+          "ref": "programming/idempotent-consumers-deep",
+          "title": "Ідемпотентні консюмери, глибоко"
+        },
+        {
+          "ref": "programming/end-to-end-argument",
+          "title": "Наскрізний аргумент: перевіряти на кінцях"
+        }
+      ]
+    },
+    {
+      "slug": "event-as-contract",
+      "title": "Подія як контракт",
+      "topics": [
+        {
+          "ref": "programming/event-driven-architecture-distributed",
+          "title": "Подієва архітектура між сервісами"
+        },
+        {
+          "slug": "event-ownership-and-payload",
+          "title": "Хто власник події й що в ній лежить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/cqrs",
+          "title": "CQRS"
+        },
+        {
+          "ref": "programming/event-sourcing",
+          "title": "Event sourcing"
+        },
+        {
+          "slug": "eventdriven-choice",
+          "title": "Вибір подієвого підходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "events-masking-coupling",
+          "title": "Події замість викликів: коли це маскування зчеплення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "webhooks",
+      "title": "Вебхуки",
+      "topics": [
+        {
+          "ref": "programming/webhooks",
+          "title": "Вебхуки: бік споживача"
+        },
+        {
+          "slug": "dh-webhook-consumer",
+          "title": "DH як приймач-замовник вебхуків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/webhook-provider",
+          "title": "Вебхуки як провайдер"
+        },
+        {
+          "ref": "programming/webhook-security",
+          "title": "Підпис і верифікація вебхука"
+        },
+        {
+          "ref": "programming/webhook-as-product",
+          "title": "Вебхук як продукт"
+        }
+      ]
+    },
+    {
+      "slug": "contract-change",
+      "title": "Зміна контракту",
+      "topics": [
+        {
+          "ref": "programming/api-versioning",
+          "title": "Версіонування API"
+        },
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Що означає «ламає»"
+        },
+        {
+          "ref": "programming/expand-contract",
+          "title": "Expand–contract (parallel change) для API"
+        },
+        {
+          "ref": "programming/deprecation-basics",
+          "title": "Деприкейшн API як частина контракту"
+        },
+        {
+          "ref": "programming/hyrums-law",
+          "title": "Усе спостережуване стає контрактом"
+        },
+        {
+          "ref": "programming/postels-law",
+          "title": "Терпимий читач і сувора обіцянка",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/schema-registry",
+          "title": "Еволюція схем і schema-registry"
+        },
+        {
+          "slug": "consumer-contracts-between-services",
+          "title": "Споживацькі контракти між сервісами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "client-you-cannot-update",
+          "title": "Клієнт, якого ти не оновиш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "api-evolution-dh",
+          "title": "Еволюція API DH без поломки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "change-without-release",
+      "title": "Зміни без релізу",
+      "topics": [
+        {
+          "ref": "programming/config-design",
+          "title": "Конфігурація"
+        },
+        {
+          "slug": "config-secrets-boundary",
+          "title": "Конфіг проти секретів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/twelve-factor",
+          "title": "Конфіг у середовищі: дванадцять факторів"
+        },
+        {
+          "ref": "programming/feature-flags",
+          "title": "Прапорці функцій"
+        },
+        {
+          "ref": "programming/extension-points",
+          "title": "Плагіни й точки розширення назовні"
+        },
+        {
+          "slug": "config-change-is-a-deploy",
+          "title": "Зміна конфігу — це викочування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "extensibility-choice",
+          "title": "Вибір моделі розширюваності DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-api-config-final",
+          "title": "DH: поверхня назовні як одна обіцянка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,538 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "operations",
+  "title": "Експлуатація",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "system-signals",
+      "title": "Сигнали системи",
+      "topics": [
+        {
+          "slug": "observability-as-testability",
+          "title": "Спостережність як тестованість у проді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/structured-logging",
+          "title": "Структуровані логи"
+        },
+        {
+          "ref": "programming/metrics-monitoring",
+          "title": "Метрики"
+        },
+        {
+          "ref": "programming/distributed-tracing",
+          "title": "Розподілений трейсинг"
+        },
+        {
+          "ref": "programming/call-context-propagation",
+          "title": "Наскрізний контекст виклику: хто, для кого, у якому запиті",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/twelve-factor",
+          "title": "Дванадцять факторів: лог як потік подій"
+        },
+        {
+          "ref": "unix-linux/syslog-protocol",
+          "title": "Syslog: пріоритет, засоби й формат"
+        },
+        {
+          "ref": "algorithms/reservoir-sampling",
+          "title": "Вибірка з резервуара"
+        },
+        {
+          "slug": "cost-of-visibility",
+          "title": "Ціна видимості: обсяг, кардинальність, семплювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-incident-observed",
+          "title": "Інцидент очима телеметрії DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "service-level",
+      "title": "Рівень служби",
+      "topics": [
+        {
+          "ref": "programming/slo-sli-sla",
+          "title": "SLI/SLO/SLA і бюджет помилок"
+        },
+        {
+          "ref": "math/system-reliability-math",
+          "title": "Математика надійності систем: дев'ятки й композиція"
+        },
+        {
+          "slug": "slo-from-drivers",
+          "title": "SLO з якісних атрибутів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/alerting",
+          "title": "Алерти"
+        },
+        {
+          "ref": "programming/dashboard-design",
+          "title": "Панель, з якої видно, що робити",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "algorithms/plot-downsampling",
+          "title": "Прорідження часового ряду для екрана"
+        },
+        {
+          "slug": "when-error-budget-is-spent",
+          "title": "Коли бюджет помилок вичерпано",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "alerts-and-on-call",
+      "title": "Тривоги й чергування",
+      "topics": [
+        {
+          "ref": "programming/on-call-rotation",
+          "title": "Чергування: ротація, передача, межа витривалості",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/runbooks",
+          "title": "Посібник чергового: що має бути в руці о третій ночі",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/toil-and-automation",
+          "title": "Рутина, яку треба вбити (toil)",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/preflight-checklists",
+          "title": "Передпольотні чеклисти"
+        },
+        {
+          "slug": "alert-quality-review",
+          "title": "Огляд якості тривог: що будило нас цього місяця",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-on-call",
+          "title": "DH: черговий і сорок тисяч домів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "change-pipeline",
+      "title": "Конвеєр змін",
+      "topics": [
+        {
+          "ref": "programming/ci-cd",
+          "title": "CI/CD"
+        },
+        {
+          "ref": "programming/branching-models",
+          "title": "Моделі гілкування: стовбурна розробка"
+        },
+        {
+          "ref": "build-systems/build-system-role",
+          "title": "Від дерева файлів до артефакту"
+        },
+        {
+          "ref": "build-systems/reproducible-builds",
+          "title": "Відтворювані збірки"
+        },
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Семантичне версіонування"
+        },
+        {
+          "ref": "programming/release-channels",
+          "title": "Канали постачання: стабільний, тестовий, нічний"
+        },
+        {
+          "ref": "programming/flaky-tests",
+          "title": "Миготливі тести: ворота, які брешуть"
+        },
+        {
+          "ref": "programming/containers",
+          "title": "Контейнери"
+        },
+        {
+          "ref": "programming/model-artifact",
+          "title": "Модель як версійований артефакт"
+        },
+        {
+          "slug": "dh-canary-pipeline",
+          "title": "Конвеєр бекенда DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "environments-and-flags",
+      "title": "Середовища й прапорці",
+      "topics": [
+        {
+          "ref": "programming/environments-and-parity",
+          "title": "Середовища: dev, stage, prod і чому stage бреше",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/non-prod-data",
+          "title": "Дані для не-прод середовищ: маскування, зменшення, синтетика",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "slug": "config-secrets-boundary",
+          "title": "Конфіг проти секретів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/feature-flags",
+          "title": "Прапорці функцій"
+        },
+        {
+          "slug": "life-of-a-feature-flag",
+          "title": "Життя прапорця: від розчеплення релізу до боргу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/infrastructure-as-code",
+          "title": "Інфраструктура як код"
+        },
+        {
+          "ref": "programming/container-orchestration",
+          "title": "Оркестрація"
+        },
+        {
+          "ref": "unix-linux/namespaces",
+          "title": "Простори імен: ізоляція погляду на систему"
+        },
+        {
+          "slug": "dh-environments",
+          "title": "DH: середовища, у яких немає справжніх домів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rollout-and-rollback",
+      "title": "Викочування й відкат",
+      "topics": [
+        {
+          "ref": "programming/deployment-strategies",
+          "title": "Стратегії деплою"
+        },
+        {
+          "ref": "programming/blue-green-deployment",
+          "title": "Синьо-зелене розгортання"
+        },
+        {
+          "ref": "programming/canary-deployment",
+          "title": "Канаркове розгортання"
+        },
+        {
+          "slug": "canary-bluegreen-featureflags",
+          "title": "Canary, blue-green, feature-flags",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/dark-launch",
+          "title": "Темний запуск і feature-flag-міграція"
+        },
+        {
+          "ref": "programming/parallel-run",
+          "title": "Parallel run"
+        },
+        {
+          "slug": "change-coupling-choice",
+          "title": "Компакт-вибір типу зв'язку для зміни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/zero-downtime-migration",
+          "title": "Zero-downtime міграції даних"
+        },
+        {
+          "ref": "programming/graceful-shutdown",
+          "title": "Штатне вимкнення і drain"
+        },
+        {
+          "slug": "rollback-as-plan",
+          "title": "Rollback міграції як план, не надія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/ota-update",
+          "title": "OTA-оновлення"
+        },
+        {
+          "slug": "dh-firmware-rollout",
+          "title": "DH: прошивка на сорок тисяч хабів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "incident",
+      "title": "Інцидент",
+      "topics": [
+        {
+          "ref": "programming/incident-response",
+          "title": "Реагування на інциденти"
+        },
+        {
+          "slug": "emergency-levers",
+          "title": "Аварійні важелі: що має бути під рукою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/incident-communication",
+          "title": "Що казати назовні, поки лагодиш",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "slug": "on-call-authority",
+          "title": "Хто вирішує: повноваження чергового",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-blackout-night",
+          "title": "DH: ніч, коли будинки осліпли",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "runbook-under-fire",
+          "title": "Ранбук у бою: чому написане не спрацювало",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "postmortem",
+      "title": "Посмертний розбір",
+      "topics": [
+        {
+          "ref": "programming/postmortems",
+          "title": "Постмортем без винних"
+        },
+        {
+          "ref": "algorithms/fault-tree-analysis",
+          "title": "Аналіз дерева відмов (FTA)"
+        },
+        {
+          "slug": "rozbir-roblox-73h",
+          "title": "Розбір: 73 години Roblox",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-game-day",
+          "title": "Game day DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "untested-recovery",
+          "title": "Відновлення, яке ніхто не пробував",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "from-postmortem-to-architecture",
+          "title": "Від розбору до архітектури: коли висновок міняє межу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "diagnosability",
+      "title": "Придатність до діагностики",
+      "topics": [
+        {
+          "ref": "programming/operability-tactics",
+          "title": "Тактики експлуатованості й розгортуваності"
+        },
+        {
+          "slug": "what-system-must-answer",
+          "title": "Що система має вміти відповісти про один запит",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/debug-endpoints",
+          "title": "Діагностичний інтерфейс застосунку: що відкривати в проді",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "unix-linux/perf-events",
+          "title": "perf: лічильники й вибірковий профіль"
+        },
+        {
+          "ref": "unix-linux/bpftrace-dynamic-tracing",
+          "title": "Трасування живої системи без перезбирання"
+        },
+        {
+          "ref": "unix-linux/core-dump",
+          "title": "Аварійний дамп: як налаштувати й що видно"
+        },
+        {
+          "ref": "programming/heisenbug",
+          "title": "Гейзенбаги й спостережницький ефект"
+        },
+        {
+          "slug": "why-systems-become-undebuggable",
+          "title": "Чому система стає невідлагоджуваною",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-unanswerable-question",
+          "title": "DH: питання, на яке система не вміла відповісти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,414 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "craft-of-decision",
+  "title": "Ремесло рішення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "architectural-decision",
+      "title": "Архітектурне рішення",
+      "topics": [
+        {
+          "slug": "what-is-architecture",
+          "title": "Архітектура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/essential-accidental-complexity",
+          "title": "Суттєва й випадкова складність",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/technical-debt",
+          "title": "Технічний борг і вартість зміни"
+        },
+        {
+          "ref": "programming/architect-role",
+          "title": "Роль архітектора"
+        },
+        {
+          "slug": "scale-of-care",
+          "title": "Масштаб турботи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-v0-one-sensor",
+          "title": "Digital Homes v0 — один датчик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "forces",
+      "title": "Сили, що тиснуть",
+      "topics": [
+        {
+          "ref": "programming/use-cases-as-input",
+          "title": "Сценарії використання як вхід архітектури",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "ref": "programming/quality-attributes",
+          "title": "Якісні атрибути («-ilities»)"
+        },
+        {
+          "ref": "programming/attribute-scenarios",
+          "title": "Сценарії атрибутів"
+        },
+        {
+          "ref": "programming/stakeholders",
+          "title": "Стейкхолдери та їхні системи"
+        },
+        {
+          "ref": "programming/architectural-drivers",
+          "title": "Архітектурні драйвери"
+        },
+        {
+          "ref": "programming/ui-response-time-limits",
+          "title": "Пороги часу відгуку інтерфейсу"
+        },
+        {
+          "slug": "dh-utility-tree",
+          "title": "Дерево корисності Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cost-of-choice",
+      "title": "Ціна вибору",
+      "topics": [
+        {
+          "ref": "programming/tradeoff-analysis",
+          "title": "Trade-off-аналіз"
+        },
+        {
+          "ref": "programming/architectural-tactics",
+          "title": "Тактика проти патерна"
+        },
+        {
+          "ref": "programming/modifiability-tactics",
+          "title": "Тактики змінюваності"
+        },
+        {
+          "ref": "programming/cost-as-attribute",
+          "title": "Вартість як атрибут"
+        },
+        {
+          "ref": "programming/back-of-envelope",
+          "title": "Прикидка «на серветці»"
+        },
+        {
+          "slug": "variant-block-anatomy",
+          "title": "Анатомія варіантного блоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/atam-lite",
+          "title": "ATAM-лайт"
+        },
+        {
+          "slug": "dh-v0-scenario-audit",
+          "title": "Перше рев'ю DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "moment-of-decision",
+      "title": "Момент рішення",
+      "topics": [
+        {
+          "ref": "programming/reversible-irreversible-decisions",
+          "title": "Зворотні й незворотні рішення"
+        },
+        {
+          "slug": "what-makes-irreversible",
+          "title": "Що робить рішення незворотним",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/last-responsible-moment",
+          "title": "Останній відповідальний момент"
+        },
+        {
+          "slug": "cost-of-delay",
+          "title": "Вартість зволікання проти вартості помилки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/language-and-platform-choice",
+          "title": "Мова й платформа як рішення, яке важко відкотити",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "ref": "programming/evolutionary-architecture",
+          "title": "Еволюційна архітектура як дефолт"
+        }
+      ]
+    },
+    {
+      "slug": "risk",
+      "title": "Ризик",
+      "topics": [
+        {
+          "ref": "programming/risk-thinking",
+          "title": "Ризик-мислення"
+        },
+        {
+          "ref": "programming/deciding-under-uncertainty",
+          "title": "Рішення під невизначеністю"
+        },
+        {
+          "ref": "programming/set-based-design",
+          "title": "Множинне (set-based) проєктування"
+        },
+        {
+          "ref": "programming/walking-skeleton",
+          "title": "Walking skeleton"
+        },
+        {
+          "ref": "programming/risk-register",
+          "title": "Ризик-реєстр як живий артефакт"
+        },
+        {
+          "slug": "assumptions-vs-facts",
+          "title": "Припущення проти фактів як дисципліна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-risk-register",
+          "title": "Ризик-реєстр Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-decisions-under-uncertainty",
+          "title": "DH під невизначеністю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "right-not-to-build",
+      "title": "Право не будувати",
+      "topics": [
+        {
+          "ref": "programming/dry-kiss-yagni",
+          "title": "YAGNI, DRY і його межа, KISS"
+        },
+        {
+          "ref": "programming/premature-optimization",
+          "title": "Передчасна оптимізація"
+        },
+        {
+          "ref": "programming/second-system-effect",
+          "title": "Ефект другої системи"
+        },
+        {
+          "ref": "programming/worse-is-better",
+          "title": "«Гірше — це краще»"
+        },
+        {
+          "ref": "programming/build-vs-buy",
+          "title": "Build vs buy (і оренда, SaaS, adopt)"
+        },
+        {
+          "slug": "dh-not-building",
+          "title": "DH: три речі, яких ми не стали будувати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "views",
+      "title": "Погляди на систему",
+      "topics": [
+        {
+          "ref": "programming/architecture-views",
+          "title": "Архітектурні в'ю"
+        },
+        {
+          "ref": "programming/c4-model",
+          "title": "C4"
+        },
+        {
+          "ref": "programming/deployment-view",
+          "title": "В'ю розгортання і динамічні в'ю"
+        },
+        {
+          "ref": "programming/viewpoints-perspectives",
+          "title": "Viewpoints і perspectives (Rozanski/Woods)"
+        },
+        {
+          "ref": "programming/design-structure-matrix",
+          "title": "Матриця залежностей (DSM)"
+        },
+        {
+          "ref": "programming/diagrams-as-code",
+          "title": "Діаграми як код"
+        },
+        {
+          "slug": "dh-v2-views",
+          "title": "DH на папері: чотири в'ю однієї системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "recording-decisions",
+      "title": "Запис рішення",
+      "topics": [
+        {
+          "ref": "programming/adr",
+          "title": "Журнал архітектурних рішень (ADR)"
+        },
+        {
+          "ref": "programming/design-docs",
+          "title": "Design docs і RFC"
+        },
+        {
+          "ref": "programming/api-design",
+          "title": "Дизайн API модуля як рішення письмом"
+        },
+        {
+          "slug": "writing-as-thinking",
+          "title": "Проєктування письмом як інструмент мислення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-decision-log",
+          "title": "Наскрізний слід рішень DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "decisions-and-people",
+      "title": "Рішення і люди",
+      "topics": [
+        {
+          "ref": "programming/architecture-review",
+          "title": "Рев'ю архітектури як практика"
+        },
+        {
+          "ref": "programming/fitness-functions",
+          "title": "Фітнес-функції"
+        },
+        {
+          "ref": "programming/code-review",
+          "title": "Рев'ю коду"
+        },
+        {
+          "slug": "influence-without-authority",
+          "title": "Вплив без наказу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-review-workshop",
+          "title": "Рев'ю-воркшоп DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "conway-teaser",
+          "title": "Закон Конвея як анонс",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          }
+        }
+      ]
+    }
+  ]
+}

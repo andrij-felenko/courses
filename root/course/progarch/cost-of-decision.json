@@ -1,0 +1,710 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "cost-of-decision",
+  "title": "Ціна рішення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "teams-and-boundaries",
+      "title": "Команди й межі",
+      "topics": [
+        {
+          "ref": "programming/hard-constraints",
+          "title": "Обмеження, які не обговорюються: строк, бюджет, команда, закон",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "ref": "programming/conways-law",
+          "title": "Закон Конвея"
+        },
+        {
+          "ref": "programming/communication-paths",
+          "title": "Комунікаційні шляхи як обмеження архітектури"
+        },
+        {
+          "ref": "programming/inverse-conway",
+          "title": "Inverse Conway maneuver"
+        },
+        {
+          "ref": "programming/cognitive-load-teams",
+          "title": "Когнітивне навантаження команди як межа розміру сервісу"
+        },
+        {
+          "ref": "programming/team-topologies",
+          "title": "Team topologies"
+        },
+        {
+          "slug": "cognitive-load-as-boundary",
+          "title": "Когнітивне навантаження як критерій розкрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "org-as-architecture",
+          "title": "Організація як архітектура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-conway-map",
+          "title": "Мапа команд DH проти мапи контекстів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-team-topology-choice",
+          "title": "Топологія команд DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "code-ownership",
+      "title": "Володіння кодом",
+      "topics": [
+        {
+          "slug": "handoffs-and-ownership",
+          "title": "Передачі й володіння як джерело затримки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/code-ownership-models",
+          "title": "Моделі володіння кодом: сильне, слабке, колективне",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/monorepo-vs-polyrepo",
+          "title": "Один репозиторій чи багато",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "programming/branching-models",
+          "title": "Моделі гілкування: стовбурна розробка, гілки задач, релізні гілки"
+        },
+        {
+          "ref": "programming/inner-source",
+          "title": "Внутрішній опенсорс: правка від чужої команди",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Логічне зчеплення: залежність, видима лише в історії змін"
+        },
+        {
+          "ref": "programming/bus-factor",
+          "title": "Фактор автобуса й сирітський код",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "slug": "onboarding-time-as-metric",
+          "title": "Час входу новачка як архітектурна метрика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "internal-platform",
+      "title": "Внутрішня платформа",
+      "topics": [
+        {
+          "ref": "programming/platform-engineering",
+          "title": "Платформна інженерія"
+        },
+        {
+          "slug": "platform-vs-premature",
+          "title": "Платформа проти передчасної платформи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/developer-experience",
+          "title": "Досвід розробника як атрибут якості",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "slug": "platform-decides-for-you",
+          "title": "Платформа вирішує за тебе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cost-of-own-platform",
+          "title": "Скільки коштує власна платформа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-platform-choice",
+          "title": "Платформа DH: що беруть з полиці, а що пишуть самі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cost-of-a-system",
+      "title": "Ціна системи",
+      "topics": [
+        {
+          "ref": "programming/cost-as-attribute",
+          "title": "Вартість як атрибут"
+        },
+        {
+          "slug": "human-cost-vs-machine-cost",
+          "title": "Вартість людини проти вартості машини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "unit-cost",
+          "title": "Одиниця вартості: на запит, на дім, на орендаря",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "overengineering",
+          "title": "Перепроєктування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/second-system-effect",
+          "title": "Ефект другої системи"
+        },
+        {
+          "slug": "cost-as-fitness-function",
+          "title": "Вартість як fitness-функція в CI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "economics-decision-recap",
+          "title": "Економіка рішення як рамка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-cost-decisions",
+          "title": "Економічні рішення DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cloud-bill",
+      "title": "Рахунок за хмару",
+      "topics": [
+        {
+          "ref": "programming/cloud-cost-model",
+          "title": "Cloud cost як архітектурний драйвер"
+        },
+        {
+          "ref": "programming/finops-levers",
+          "title": "FinOps-важелі"
+        },
+        {
+          "ref": "programming/observability-cost",
+          "title": "Спостережність коштує грошей",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/storage-tiers-and-retention",
+          "title": "Яруси зберігання й строк життя даних",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "slug": "per-request-or-per-hour",
+          "title": "Коли платити за запит, а коли за годину",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/capacity-planning",
+          "title": "Планування потужностей і headroom"
+        },
+        {
+          "slug": "repatriation-to-own-hardware",
+          "title": "Своє залізо: вихід із хмари назад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rozbir-cloud-or-metal",
+          "title": "Хмара чи залізо для DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "build-or-buy",
+      "title": "Купити чи зробити",
+      "topics": [
+        {
+          "ref": "programming/build-vs-buy",
+          "title": "Build vs buy (і оренда/SaaS/adopt)"
+        },
+        {
+          "slug": "build-vs-buy-mature",
+          "title": "Build vs buy у зрілій оптиці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/open-source-licenses",
+          "title": "Ліцензії відкритого коду: дозвільні, копілефт, сумісність"
+        },
+        {
+          "ref": "programming/software-patents-and-pools",
+          "title": "Патенти на ПЗ і патентні пули"
+        },
+        {
+          "slug": "license-changed-under-you",
+          "title": "Ліцензія, що змінилася під тобою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/vendor-sla-and-credits",
+          "title": "SLA постачальника: кредити, винятки, складена доступність",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "slug": "outsourcing-as-architecture",
+          "title": "Підрядник і аутсорс як архітектурне рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-vendor-due-diligence",
+          "title": "Постачальник як ризик: перевірка до підпису й вибір для DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cost-of-exit",
+      "title": "Ціна виходу",
+      "topics": [
+        {
+          "ref": "programming/lock-in-exit-cost",
+          "title": "Прив'язка і вартість виходу"
+        },
+        {
+          "slug": "exit-strategy",
+          "title": "Стратегія виходу як частина вибору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/data-gravity",
+          "title": "Гравітація даних",
+          "todo": "нова тема",
+          "hint": "programming/distributed-systems"
+        },
+        {
+          "slug": "seam-costlier-than-lock-in",
+          "title": "Шов, що коштує дорожче за прив'язку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "multicloud-cost",
+          "title": "Мультихмара: коли дві хмари гірші за одну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "when-the-vendor-disappears",
+          "title": "Коли постачальник зникає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "deadline-and-scope",
+      "title": "Строк і обсяг",
+      "topics": [
+        {
+          "slug": "real-and-invented-deadlines",
+          "title": "Звідки береться строк: справжній дедлайн і вигаданий",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/estimation-uncertainty",
+          "title": "Оцінка й конус невизначеності",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "slug": "scope-time-people-triangle",
+          "title": "Трикутник: обсяг, строк, люди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "deadline-cut-in-half",
+          "title": "Дедлайн, зрізаний удвічі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "architecture-you-can-cut",
+          "title": "Архітектура, яку можна різати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "incremental-delivery",
+          "title": "Поетапна поставка: що показати першим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/set-based-design",
+          "title": "Множинне (set-based) проєктування"
+        },
+        {
+          "slug": "parallel-work-across-teams",
+          "title": "Паралельна робота: щоб команди не чекали одна одну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-plan-to-the-expo",
+          "title": "План DH до дати виставки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "technical-debt",
+      "title": "Технічний борг",
+      "topics": [
+        {
+          "ref": "programming/technical-debt",
+          "title": "Технічний борг і вартість зміни"
+        },
+        {
+          "slug": "debt-as-decision",
+          "title": "Технічний борг як свідоме рішення, не аварія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "debt-register",
+          "title": "Реєстр боргу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/code-metrics",
+          "title": "Метрики якості коду"
+        },
+        {
+          "slug": "debt-repayment-budget",
+          "title": "Бюджет на виплату: як домовитися про відсоток потужності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "prototype-in-production",
+          "title": "Прототип, що поїхав у продакшен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-debt",
+          "title": "Борг DH: три позики і їхні відсотки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "shared-rules",
+      "title": "Спільні правила",
+      "topics": [
+        {
+          "slug": "standard-and-exception",
+          "title": "Стандарт і виняток",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/tech-radar",
+          "title": "Техрадар"
+        },
+        {
+          "ref": "programming/dependency-graph-checker",
+          "title": "Аналіз ерозії архітектури: граф залежностей"
+        },
+        {
+          "slug": "cost-of-a-rule",
+          "title": "Скільки коштує правило",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/regulatory-drivers",
+          "title": "Закон як вимога до архітектури",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "slug": "audit-proving-the-promise",
+          "title": "Аудит: довести, що система робить обіцяне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "the-architects-work",
+      "title": "Робота архітектора",
+      "topics": [
+        {
+          "slug": "influence-without-authority",
+          "title": "Вплив без наказу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "explaining-to-non-engineers",
+          "title": "Як пояснити рішення тому, хто не пише код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "when-someone-else-decides",
+          "title": "Коли рішення ухвалює не ти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/worse-is-better",
+          "title": "«Гірше — це краще»"
+        },
+        {
+          "slug": "technically-better-that-lost",
+          "title": "Технічно краще, що програло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-selling-the-cloud-decision",
+          "title": "Як продали рішення про хмару DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,568 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "failures-and-load",
+  "title": "Відмови й навантаження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "numbers-and-capacity",
+      "title": "Числа й ємність",
+      "topics": [
+        {
+          "slug": "measure-dont-guess",
+          "title": "Виміряти, а не здогадатися: базова лінія й профіль навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/profiling",
+          "title": "Профілювання: де насправді час"
+        },
+        {
+          "ref": "programming/microbenchmarking",
+          "title": "Мікробенчмарк: як не збрехати собі виміром"
+        },
+        {
+          "ref": "programming/load-testing",
+          "title": "Навантажувальний тест: відкритий і закритий контур",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "math/littles-law",
+          "title": "Закон Літтла"
+        },
+        {
+          "ref": "communications/queue-theory-networks",
+          "title": "Черги: затримка і втрати"
+        },
+        {
+          "ref": "programming/capacity-planning",
+          "title": "Планування потужностей і headroom"
+        },
+        {
+          "ref": "math/order-of-magnitude-estimation",
+          "title": "Оцінка порядку величини"
+        },
+        {
+          "ref": "unix-linux/load-and-pressure",
+          "title": "Середнє навантаження й тиск на ресурси (PSI)"
+        },
+        {
+          "slug": "dh-fleet-envelope",
+          "title": "Прикидка на серветці: ємність флоту DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "latency-tails",
+      "title": "Хвости латентності",
+      "topics": [
+        {
+          "ref": "math/percentiles-quantiles",
+          "title": "Перцентилі й хвости"
+        },
+        {
+          "ref": "math/heavy-tail-distributions",
+          "title": "Розподіли з важкими хвостами"
+        },
+        {
+          "ref": "programming/ui-response-time-limits",
+          "title": "Пороги відгуку 0.1 · 1 · 10 с"
+        },
+        {
+          "slug": "tail-latency-fanout",
+          "title": "Хвіст множиться: бюджет часу вздовж ланцюга й ціна розгалуження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/hedged-requests",
+          "title": "Хеджовані запити"
+        },
+        {
+          "ref": "communications/happy-eyeballs",
+          "title": "Happy Eyeballs: той самий хедж на з'єднаннях"
+        },
+        {
+          "ref": "programming/garbage-collection",
+          "title": "Збирання сміття: пауза, якої немає в жодному профілі середнього"
+        }
+      ]
+    },
+    {
+      "slug": "queues-and-backpressure",
+      "title": "Черги й зворотний тиск",
+      "topics": [
+        {
+          "ref": "programming/queue-load-leveling",
+          "title": "Черга як вирівнювач"
+        },
+        {
+          "ref": "programming/backpressure-end-to-end",
+          "title": "Наскрізний протитиск"
+        },
+        {
+          "ref": "programming/admission-control",
+          "title": "Admission control"
+        },
+        {
+          "ref": "programming/load-shedding",
+          "title": "Скидання навантаження й плавна деградація"
+        },
+        {
+          "ref": "programming/adaptive-concurrency",
+          "title": "Адаптивні ліміти конкурентності"
+        },
+        {
+          "ref": "programming/rate-limiting",
+          "title": "Обмеження швидкості як архітектура"
+        },
+        {
+          "ref": "programming/fairness-quotas",
+          "title": "Чесність розподілу"
+        },
+        {
+          "slug": "priority-and-shedding-choice",
+          "title": "Пріоритезація трафіку як рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/debouncing-throttling",
+          "title": "Дебаунс і тротлінг"
+        }
+      ]
+    },
+    {
+      "slug": "failure-of-a-part",
+      "title": "Відмова частини",
+      "topics": [
+        {
+          "slug": "failure-as-normal-mode",
+          "title": "Здорової системи не буває: відмова як штатний режим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/failure-detection",
+          "title": "Виявлення відмов: мертвий вузол не відрізнити від повільного"
+        },
+        {
+          "ref": "programming/phi-accrual-failure-detector",
+          "title": "Детектор відмов Phi Accrual"
+        },
+        {
+          "ref": "programming/health-checks",
+          "title": "Перевірки живості й готовності"
+        },
+        {
+          "ref": "math/system-reliability-math",
+          "title": "Математика надійності систем"
+        },
+        {
+          "ref": "programming/redundancy",
+          "title": "Надлишковість: дубль, мажоритарність"
+        },
+        {
+          "ref": "programming/common-cause-failure",
+          "title": "Відмова від спільної причини"
+        },
+        {
+          "ref": "algorithms/fmea",
+          "title": "FMEA: аналіз видів і наслідків відмов"
+        },
+        {
+          "ref": "algorithms/fault-tree-analysis",
+          "title": "Дерево відмов"
+        },
+        {
+          "ref": "programming/bulkhead-isolation",
+          "title": "Перебірки (bulkhead)"
+        },
+        {
+          "ref": "programming/cell-based-architecture",
+          "title": "Комірки і штампи"
+        },
+        {
+          "slug": "dh-redundancy",
+          "title": "Резервування DH: що дублюємо, скільки це дає й скільки коштує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "timeout-and-retry",
+      "title": "Таймаут і повтор",
+      "topics": [
+        {
+          "slug": "timeout-as-a-decision",
+          "title": "Скільки чекати: таймаут як проєктне рішення, а не константа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/tcp-connection-liveness",
+          "title": "Мертве TCP-з'єднання: keepalive, TCP_USER_TIMEOUT"
+        },
+        {
+          "slug": "cost-of-retries",
+          "title": "Ціна повтору: три спроби на трьох шарах — це двадцять сім",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "resilience-placement-choice",
+          "title": "Вибір: де живе стійкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "deadline-propagation",
+          "title": "Дедлайн наскрізь: термін, що переживає виклики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/cooperative-cancellation",
+          "title": "Кооперативне скасування"
+        },
+        {
+          "ref": "communications/arq",
+          "title": "ARQ: та сама ідея повтору поверхом нижче"
+        },
+        {
+          "ref": "algorithms/timer-wheel",
+          "title": "Колесо таймерів"
+        }
+      ]
+    },
+    {
+      "slug": "breakers-and-degradation",
+      "title": "Запобіжники й деградація",
+      "topics": [
+        {
+          "ref": "programming/circuit-breaker-pattern",
+          "title": "Запобіжник"
+        },
+        {
+          "slug": "resilient-call-chain",
+          "title": "Стійкий ланцюжок A→B→C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/graceful-degradation-primary",
+          "title": "Деградація як ПЕРВИННА стратегія"
+        },
+        {
+          "slug": "fallback-and-degradation",
+          "title": "Fallback і деградація виклику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/fail-open-fail-closed",
+          "title": "Fail-open проти fail-closed"
+        },
+        {
+          "ref": "programming/secure-defaults",
+          "title": "Безпечні дефолти й відмова захисту"
+        },
+        {
+          "ref": "programming/availability-tactics",
+          "title": "Тактики доступності"
+        },
+        {
+          "ref": "programming/graceful-shutdown",
+          "title": "Штатне вимкнення і drain"
+        },
+        {
+          "slug": "dh-resilient-path",
+          "title": "Стійкий шлях команди DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cascading-failure",
+      "title": "Каскад відмов",
+      "topics": [
+        {
+          "ref": "programming/metastable-failures",
+          "title": "Метастабільні відмови"
+        },
+        {
+          "slug": "metastable-and-scale-cases",
+          "title": "Розбори масштабу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/thundering-herd",
+          "title": "Гримуча отара"
+        },
+        {
+          "ref": "programming/request-coalescing",
+          "title": "Request coalescing / single-flight"
+        },
+        {
+          "ref": "communications/tcp-congestion-control",
+          "title": "Керування заторами TCP"
+        },
+        {
+          "ref": "unix-linux/overcommit-and-oom",
+          "title": "Overcommit і OOM-killer"
+        },
+        {
+          "slug": "getting-out-of-a-cascade",
+          "title": "Як вибратися: скидання, злив черг і холодний старт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "attack-and-abuse",
+      "title": "Напад і зловживання",
+      "topics": [
+        {
+          "slug": "load-as-a-weapon",
+          "title": "Навантаження як зброя: асиметрія ціни запиту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/ddos-abuse-defense",
+          "title": "DDoS і зловживання"
+        },
+        {
+          "ref": "algorithms/regex-engine",
+          "title": "Рушій регулярних виразів (ReDoS)"
+        },
+        {
+          "ref": "algorithms/universal-hashing",
+          "title": "Універсальне хешування"
+        },
+        {
+          "ref": "algorithms/count-min-sketch",
+          "title": "Приблизні лічильники"
+        },
+        {
+          "slug": "quota-per-identity",
+          "title": "Квота на особу, а не на IP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-under-flood",
+          "title": "DH під навалою: коли твої ж хаби стають ботнетом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/cgroups",
+          "title": "cgroups: облік і обмеження ресурсів"
+        }
+      ]
+    },
+    {
+      "slug": "untrusted-input",
+      "title": "Недовірений вхід",
+      "topics": [
+        {
+          "ref": "programming/trust-boundaries",
+          "title": "Межі довіри"
+        },
+        {
+          "ref": "programming/web-vulnerability-classes",
+          "title": "Вразливість = зламана межа"
+        },
+        {
+          "ref": "programming/json-schema",
+          "title": "Схема як декларативна валідація"
+        },
+        {
+          "slug": "input-limits",
+          "title": "Ліміти на вході: розмір, глибина, час і кількість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/http-request-smuggling",
+          "title": "Контрабанда запитів"
+        },
+        {
+          "ref": "programming/toctou-race",
+          "title": "Перевірив і використав: гонка між двома митями"
+        },
+        {
+          "ref": "programming/out-of-order-tolerance",
+          "title": "Толерантність до безладу"
+        },
+        {
+          "ref": "programming/poison-message",
+          "title": "Poison message / карантин"
+        },
+        {
+          "slug": "dedup-boundary",
+          "title": "Дедуп на межі vs у логіці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/replay-protection-tactics",
+          "title": "Захист від переграних повідомлень"
+        },
+        {
+          "ref": "communications/checksums",
+          "title": "Контрольні суми"
+        },
+        {
+          "slug": "dh-input-boundary",
+          "title": "Що DH приймає від хаба: валідація, ліміти й карантин на межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "resilience-testing",
+      "title": "Перевірка стійкості",
+      "topics": [
+        {
+          "ref": "programming/fuzzing",
+          "title": "Фаззинг: змусити парсер зламатися"
+        },
+        {
+          "ref": "programming/fault-injection",
+          "title": "Інжекція збоїв"
+        },
+        {
+          "ref": "programming/chaos-engineering",
+          "title": "Хаос-інженерія"
+        },
+        {
+          "slug": "verify-degradation-works",
+          "title": "Перевірити, що деградація справді деградує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-game-day",
+          "title": "Game day DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-resilience-tactics-map",
+          "title": "Тактики стійкості DH разом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

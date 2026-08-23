@@ -1,0 +1,562 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "system-in-time",
+  "title": "Система в часі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "erosion",
+      "title": "Ерозія архітектури",
+      "topics": [
+        {
+          "ref": "programming/architecture-erosion",
+          "title": "Ерозія архітектури"
+        },
+        {
+          "ref": "programming/lehman-laws",
+          "title": "Закони еволюції програм",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Логічне зчеплення: залежність, видима лише в історії змін"
+        },
+        {
+          "ref": "programming/dependency-graph-checker",
+          "title": "Аналіз ерозії архітектури: граф залежностей"
+        },
+        {
+          "slug": "exception-that-eats-the-model",
+          "title": "Виняток, що з'їдає модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "two-day-system-diagnosis",
+          "title": "Діагноз системи за два дні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "change-behind-abstraction",
+      "title": "Зміна за абстракцією",
+      "topics": [
+        {
+          "ref": "programming/branch-by-abstraction",
+          "title": "Branch by abstraction"
+        },
+        {
+          "ref": "programming/dark-launch",
+          "title": "Темний запуск і feature-flag-міграція"
+        },
+        {
+          "ref": "programming/parallel-run",
+          "title": "Parallel run"
+        },
+        {
+          "slug": "change-coupling-choice",
+          "title": "Компакт-вибір типу зв'язку для зміни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "change-with-no-seam",
+          "title": "Зміна, яку не можна сховати за шов",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/livepatch",
+          "title": "Живе латання ядра: livepatch і модель узгодженості"
+        }
+      ]
+    },
+    {
+      "slug": "compatibility-promise",
+      "title": "Обіцянка сумісності",
+      "topics": [
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Семантичне версіонування (SemVer)"
+        },
+        {
+          "ref": "programming/hyrums-law",
+          "title": "Закон Гайрама (Hyrum's Law)"
+        },
+        {
+          "ref": "unix-linux/kernel-abi-stability",
+          "title": "«Не ламати простір користувача»: сталість ABI ядра"
+        },
+        {
+          "ref": "unix-linux/library-abi-compat",
+          "title": "Сумісність ABI бібліотеки й що її ламає"
+        },
+        {
+          "ref": "programming/release-channels",
+          "title": "Канали постачання: стабільний, тестовий, нічний"
+        },
+        {
+          "slug": "client-you-cannot-update",
+          "title": "Клієнт, якого ти не оновиш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/deprecation-policy",
+          "title": "Deprecation як керований процес"
+        }
+      ]
+    },
+    {
+      "slug": "migration-without-stopping",
+      "title": "Міграція без зупинки",
+      "topics": [
+        {
+          "ref": "programming/zero-downtime-migration",
+          "title": "Zero-downtime міграції даних"
+        },
+        {
+          "slug": "backfill-and-reprocess",
+          "title": "Backfill і reprocessing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "rollback-as-plan",
+          "title": "Rollback міграції як план, не надія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "data-that-survived-three-schemas",
+          "title": "Дані, що пережили три схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "migration-strategy-choice",
+          "title": "Вибір стратегії зміни живої системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dependency-aging",
+      "title": "Старіння залежностей",
+      "topics": [
+        {
+          "ref": "python/python-versions-eol",
+          "title": "Версії Python, сумісність і кінець підтримки"
+        },
+        {
+          "ref": "unix-linux/kernel-release-model",
+          "title": "Модель випусків ядра: вікно злиття, -rc і стабільні гілки"
+        },
+        {
+          "ref": "unix-linux/kernel-cve-and-security-fixes",
+          "title": "CVE в ядрі: потік номерів і що з ним робити"
+        },
+        {
+          "ref": "unix-linux/time-representation-y2038",
+          "title": "Час як число: time_t, епоха і межа 2038 року"
+        },
+        {
+          "ref": "programming/fork-and-upstream",
+          "title": "Форк і апстрим: життя похідного репозиторію"
+        },
+        {
+          "slug": "updating-as-continuous-work",
+          "title": "Оновлення як постійна робота, а не проєкт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "replacement-in-parts",
+      "title": "Заміна частинами",
+      "topics": [
+        {
+          "ref": "programming/rewrite-vs-refactor",
+          "title": "Rewrite vs refactor"
+        },
+        {
+          "ref": "programming/second-system-effect",
+          "title": "Ефект другої системи"
+        },
+        {
+          "slug": "rewrite-that-never-lands",
+          "title": "Переписування, що не приземляється",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/strangler-fig",
+          "title": "Фікус-душитель (Strangler fig)"
+        },
+        {
+          "slug": "transitional-architecture",
+          "title": "Перехідна архітектура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "removing-the-old-path",
+          "title": "Прибрати старий шлях",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "the-big-move",
+      "title": "Великий переїзд",
+      "topics": [
+        {
+          "ref": "programming/data-gravity",
+          "title": "Тяжіння даних",
+          "todo": "нова тема",
+          "hint": "programming/distributed-systems"
+        },
+        {
+          "ref": "programming/live-migration",
+          "title": "Жива міграція віртуальної машини"
+        },
+        {
+          "slug": "order-of-the-move",
+          "title": "Порядок переїзду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "switchover-you-cannot-roll-back",
+          "title": "Перемикання, яке не можна відкотити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "migration-choice",
+          "title": "Вибір стратегії переходу великого",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-cloud-v2",
+          "title": "DH переїздить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "handing-over-the-system",
+      "title": "Передача системи",
+      "topics": [
+        {
+          "slug": "a-system-you-can-hand-over",
+          "title": "Система, яку можна передати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/adr",
+          "title": "Запис архітектурного рішення (ADR)"
+        },
+        {
+          "slug": "document-that-does-not-rot",
+          "title": "Документ, що не гниє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/bus-factor",
+          "title": "Автобусний фактор",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "slug": "onboarding-a-new-team",
+          "title": "Введення нової команди в систему",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "accepting-a-system-from-a-contractor",
+          "title": "Приймання системи від підрядника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "end-of-life",
+      "title": "Кінець життя",
+      "topics": [
+        {
+          "ref": "programming/decommissioning",
+          "title": "Виведення системи з експлуатації",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "slug": "who-else-uses-this",
+          "title": "Хто ще цим користується",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/planned-blackout-read-only",
+          "title": "Планове затемнення й режим лише-читання",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "slug": "data-after-the-system",
+          "title": "Дані після системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "system-nobody-dares-to-turn-off",
+          "title": "Система, яку бояться вимкнути",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-first-generation-eol",
+          "title": "Кінець першого покоління хабів DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dh-capstone",
+      "title": "Капстон Digital Homes",
+      "topics": [
+        {
+          "slug": "request-journey-final",
+          "title": "Життя одного запиту і однієї команди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-platform-retrospective",
+          "title": "Ретроспектива Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "capstone-diagnosis",
+          "title": "Капстон, крок 1: діагноз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "capstone-transition-programme",
+          "title": "Капстон, крок 2: програма переходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "capstone-handover-and-shutdown",
+          "title": "Капстон, крок 3: передача й вимкнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "capstone-peer-review",
+          "title": "Капстон, крок 4: ревізія чужого рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "architects-taste",
+      "title": "Смак архітектора",
+      "topics": [
+        {
+          "slug": "architect-taste",
+          "title": "Смак архітектора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "architect-checklist",
+          "title": "Чеклист архітектора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "decision-heuristics",
+          "title": "Евристики рішення на щодень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "where-next",
+          "title": "Куди рости після progarch",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "course-farewell",
+          "title": "Прощання з курсом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

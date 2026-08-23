@@ -1,0 +1,754 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "foreign-code",
+  "title": "Чужий код і чужі системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "inherited-system",
+      "title": "Успадкована система",
+      "topics": [
+        {
+          "slug": "reading-unknown-system",
+          "title": "Прийшов у чужу систему",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/architecture-erosion",
+          "title": "Ерозія архітектури"
+        },
+        {
+          "slug": "what-you-actually-inherited",
+          "title": "Що тобі дісталося насправді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "build-and-run-someone-elses",
+          "title": "Зібрати й запустити чуже",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "environment-not-in-the-repo",
+          "title": "Середовище, якого нема в репозиторії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "repo-vs-production",
+          "title": "Репозиторій проти прода",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/branching-models",
+          "title": "Моделі гілкування"
+        },
+        {
+          "slug": "dh-acquired-hub",
+          "title": "DH: хаб від поглинутого стартапу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reading-foreign-code",
+      "title": "Читання чужого коду",
+      "topics": [
+        {
+          "slug": "top-down-entry-points",
+          "title": "Згори: входи, трафік, точки виклику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bottom-up-schema-as-map",
+          "title": "Знизу: схема бази як карта домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/git-blame-and-archaeology",
+          "title": "Археологія коду: чому цей рядок такий"
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Логічне зчеплення"
+        },
+        {
+          "ref": "programming/code-hotspots",
+          "title": "Гарячі точки коду: частота зміни × складність",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/dependency-graph-checker",
+          "title": "Аналіз ерозії архітектури: граф залежностей"
+        },
+        {
+          "ref": "programming/static-analysis",
+          "title": "Статичний аналіз"
+        },
+        {
+          "slug": "dead-code-and-zombie-code",
+          "title": "Мертвий код і код, що лише виглядає живим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/code-coverage",
+          "title": "Покриття коду: що воно міряє й чого не міряє"
+        },
+        {
+          "slug": "names-nobody-explains",
+          "title": "Імена, яких ніхто не пояснює",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reading-a-live-system",
+          "title": "Читати живу систему",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "unmapped-boundaries",
+      "title": "Межі, яких ніхто не малював",
+      "topics": [
+        {
+          "ref": "programming/design-structure-matrix",
+          "title": "Матриця залежностей (DSM)"
+        },
+        {
+          "slug": "seams-in-foreign-system",
+          "title": "Шви в чужій системі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/anti-corruption-layer",
+          "title": "Антикорупційний шар"
+        },
+        {
+          "slug": "wrap-without-absorbing",
+          "title": "Обгорнути чуже, не всмоктавши його",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/legacy-archaeology",
+          "title": "Археологія legacy"
+        },
+        {
+          "slug": "retroactive-adr",
+          "title": "ADR заднім числом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "map-for-yourself-and-the-next",
+          "title": "Карта, яку ти малюєш собі й наступному",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-real-boundary-of-inherited-hub",
+          "title": "DH: справжня межа успадкованого хаба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "safety-net-before-change",
+      "title": "Страховка перед зміною",
+      "topics": [
+        {
+          "slug": "guess-and-cheapest-probe",
+          "title": "Здогад і найдешевший спосіб його перевірити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "characterization-tests",
+          "title": "Характеризаційні тести",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/approval-testing",
+          "title": "Золотий еталон і затверджувальні тести",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/record-replay-testing",
+          "title": "Запис і відтворення чужих відповідей",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/git-branching-and-history",
+          "title": "Гілки, злиття, ребейз і пошук регресії"
+        },
+        {
+          "ref": "programming/heisenbug",
+          "title": "Гейзенбаги та спостережницький ефект"
+        },
+        {
+          "slug": "test-you-cannot-write",
+          "title": "Тест, який неможливо написати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nondeterminism-in-foreign-tests",
+          "title": "Недетермінізм у чужому тесті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "living-with-old-code",
+      "title": "Життя поруч зі старим кодом",
+      "topics": [
+        {
+          "slug": "changing-what-you-dont-fully-understand",
+          "title": "Змінювати те, чого не розумієш до кінця",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/second-system-effect",
+          "title": "Ефект другої системи"
+        },
+        {
+          "ref": "programming/rewrite-vs-refactor",
+          "title": "Rewrite vs refactor"
+        },
+        {
+          "slug": "new-beside-the-old",
+          "title": "Нове поруч зі старим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "quarantine-for-the-ugly",
+          "title": "Карантин для негарного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/technical-debt",
+          "title": "Технічний борг"
+        },
+        {
+          "slug": "what-you-leave-behind",
+          "title": "Що ти лишаєш наступному",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-first-change-in-inherited-hub",
+          "title": "DH: перша зміна в успадкованому хабі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "foreign-library",
+      "title": "Чужа бібліотека",
+      "topics": [
+        {
+          "slug": "cost-of-a-dependency",
+          "title": "Ціна залежності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "screening-library-candidates",
+          "title": "Відсів кандидатів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/dependency-management",
+          "title": "Керування залежностями"
+        },
+        {
+          "ref": "programming/framework-vs-library",
+          "title": "Каркас проти бібліотеки: напрямок виклику"
+        },
+        {
+          "slug": "when-framework-chooses-your-shape",
+          "title": "Коли каркас обирає форму за тебе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/gateway",
+          "title": "Шлюз"
+        },
+        {
+          "slug": "to-wrap-or-not-to-wrap",
+          "title": "Обгортати чи не обгортати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reading-library-source-as-docs",
+          "title": "Читати чужу бібліотеку як документацію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/open-source-licenses",
+          "title": "Ліцензії відкритого коду"
+        },
+        {
+          "slug": "when-the-license-changes",
+          "title": "Коли ліцензія міняється під тобою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "versions-and-updates",
+      "title": "Версії й оновлення",
+      "topics": [
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Семантичне версіонування"
+        },
+        {
+          "ref": "programming/hyrums-law",
+          "title": "Закон Гайрама"
+        },
+        {
+          "slug": "lockfile-and-reproducible-build",
+          "title": "Замок версій і відтворювана збірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/dependency-resolution",
+          "title": "Розв'язання залежностей і конфлікти версій"
+        },
+        {
+          "slug": "update-cadence",
+          "title": "Темп оновлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/software-rot",
+          "title": "Гниття програми: що ламається без твоєї правки",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "unix-linux/library-abi-compat",
+          "title": "Сумісність ABI бібліотеки й що її ламає"
+        },
+        {
+          "slug": "silent-behaviour-change",
+          "title": "Тиха зміна поведінки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "patching-for-cve",
+          "title": "Оновлення заради латки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/supply-chain-security",
+          "title": "Ланцюг постачання"
+        }
+      ]
+    },
+    {
+      "slug": "foreign-service",
+      "title": "Чужа служба",
+      "topics": [
+        {
+          "slug": "a-service-you-dont-control",
+          "title": "Служба, якою ти не керуєш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "docs-vs-reality",
+          "title": "Документація проти дійсності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "quotas-limits-call-cost",
+          "title": "Квоти, ліміти й ціна виклику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "service-doubles-and-environments",
+          "title": "Дублери чужої служби",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "consumer-driven-contracts",
+          "title": "Споживацький контракт із чужим провайдером",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "when-they-break-without-warning",
+          "title": "Коли вони ламають без попередження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/deprecation-policy",
+          "title": "Deprecation як керований процес"
+        },
+        {
+          "slug": "their-outage-is-your-outage",
+          "title": "Їхня аварія — твоя аварія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/webhooks",
+          "title": "Webhooks (бік споживача)"
+        },
+        {
+          "slug": "dh-foreign-services-in-critical-path",
+          "title": "DH: чужі служби в критичному шляху",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contracted-code",
+      "title": "Замовлений код",
+      "topics": [
+        {
+          "slug": "code-written-by-others",
+          "title": "Код, який пишуть не твої люди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "interface-before-signing",
+          "title": "Що має бути в інтерфейсі до підписання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "accepting-contracted-work",
+          "title": "Приймання чужої роботи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/code-review",
+          "title": "Рев'ю коду"
+        },
+        {
+          "ref": "programming/developer-certificate-of-origin",
+          "title": "Свідоцтво про походження коду"
+        },
+        {
+          "slug": "handover-escrow-end-of-contract",
+          "title": "Передача, депонування, кінець контракту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "who-maintains-it-afterwards",
+          "title": "Хто веде це потім",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "lock-in-and-exit",
+      "title": "Вендор-лок і вихід",
+      "topics": [
+        {
+          "ref": "programming/lock-in-exit-cost",
+          "title": "Прив'язка і вартість виходу"
+        },
+        {
+          "slug": "where-lock-in-really-lives",
+          "title": "Де насправді живе прив'язка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vendor-abstraction-cost",
+          "title": "Абстракція над постачальником і її ціна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "when-lock-in-is-a-good-deal",
+          "title": "Коли прив'язка — вигідна угода",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "exit-strategy",
+          "title": "Стратегія виходу як частина вибору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "exit-plan-as-document-and-drill",
+          "title": "План виходу як документ і як репетиція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/tech-radar",
+          "title": "Техрадар"
+        },
+        {
+          "slug": "dh-vendor-map-and-exit-plan",
+          "title": "DH: карта постачальників і план виходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

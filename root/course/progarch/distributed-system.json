@@ -1,0 +1,520 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "distributed-system",
+  "title": "Розподілена система",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "second-machine",
+      "title": "Друга машина",
+      "topics": [
+        {
+          "slug": "why-distribute",
+          "title": "Навіщо розподіляти — і коли не треба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/single-source-of-truth",
+          "title": "Єдине джерело правди"
+        },
+        {
+          "ref": "algorithms/two-generals-problem",
+          "title": "Задача двох генералів"
+        },
+        {
+          "ref": "programming/failure-detection",
+          "title": "Виявлення відмов: мертвий не відрізнити від повільного"
+        },
+        {
+          "slug": "dh-machines",
+          "title": "Машини Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-copy",
+      "title": "Копія даних",
+      "topics": [
+        {
+          "ref": "programming/replication-leader-follower",
+          "title": "Лідер-фоловер / мультилідер / leaderless"
+        },
+        {
+          "ref": "programming/read-replicas-replication",
+          "title": "Репліки читання та реплікація"
+        },
+        {
+          "ref": "programming/replication-lag",
+          "title": "Реплікаційний лаг і сесійні гарантії"
+        },
+        {
+          "ref": "programming/split-brain",
+          "title": "Failover і розщеплення мозку"
+        },
+        {
+          "ref": "programming/database-clustering",
+          "title": "Кластеризація баз даних"
+        },
+        {
+          "slug": "how-many-copies",
+          "title": "Скільки в системі копій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-replicas",
+          "title": "Твін дому на репліках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "replication-choice",
+          "title": "Вибір моделі реплікації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "time-and-order",
+      "title": "Час і порядок",
+      "topics": [
+        {
+          "ref": "algorithms/lamport-clocks",
+          "title": "Чому wall-clock бреше (дрейф, NTP-стрибки) і годинник Лампорта"
+        },
+        {
+          "ref": "communications/ntp-sync",
+          "title": "NTP: мережевий протокол синхронізації часу"
+        },
+        {
+          "ref": "communications/leap-second",
+          "title": "Високосна секунда"
+        },
+        {
+          "ref": "algorithms/vector-clocks",
+          "title": "Векторні годинники й обходи розбіжності"
+        },
+        {
+          "ref": "programming/hybrid-logical-clocks",
+          "title": "Гібридні логічні годинники (HLC)"
+        },
+        {
+          "slug": "causality-over-walltime",
+          "title": "Причинність важливіша за настінний час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/uuid-and-guid",
+          "title": "Ідентифікатор без спільного лічильника"
+        },
+        {
+          "ref": "algorithms/distributed-snapshot",
+          "title": "Узгоджений знімок розподіленої системи",
+          "todo": "нова тема",
+          "hint": "algorithms/parallel-distributed"
+        },
+        {
+          "ref": "programming/bounded-clock-uncertainty",
+          "title": "Обмежена невизначеність годинника",
+          "todo": "нова тема",
+          "hint": "programming/distributed-systems"
+        }
+      ]
+    },
+    {
+      "slug": "two-truths",
+      "title": "Дві правди",
+      "topics": [
+        {
+          "ref": "programming/multi-leader-replication",
+          "title": "Мультилідерна реплікація"
+        },
+        {
+          "ref": "programming/quorum-and-leaderless",
+          "title": "Кворуми"
+        },
+        {
+          "ref": "programming/anti-entropy-repair",
+          "title": "Анти-ентропія"
+        },
+        {
+          "ref": "algorithms/merkle-tree",
+          "title": "Дерево Меркла"
+        },
+        {
+          "ref": "programming/gossip-protocols",
+          "title": "Gossip-протоколи"
+        },
+        {
+          "ref": "programming/gossip-in-action",
+          "title": "Gossip на практиці (Cassandra, Consul, Dynamo)"
+        },
+        {
+          "slug": "conflict-resolution-strategies",
+          "title": "Стратегії розв'язання конфліктів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/crdt",
+          "title": "Безконфліктні типи даних (CRDT)"
+        },
+        {
+          "ref": "programming/vector-clocks-vs-crdt",
+          "title": "Векторні годинники та CRDT: причинність проти автозбіжності"
+        }
+      ]
+    },
+    {
+      "slug": "cost-of-consistency",
+      "title": "Ціна узгодженості",
+      "topics": [
+        {
+          "ref": "programming/consistency-models",
+          "title": "Спектр консистентності"
+        },
+        {
+          "ref": "programming/cap-theorem",
+          "title": "CAP (і чому не «оберіть 2») + PACELC"
+        },
+        {
+          "ref": "programming/eventual-consistency",
+          "title": "Кінцева узгодженість на практиці"
+        },
+        {
+          "ref": "programming/soft-state",
+          "title": "М'який стан: запис, що живе, доки його оновлюють"
+        },
+        {
+          "ref": "programming/read-model-lag",
+          "title": "Лаг read-model як контракт"
+        },
+        {
+          "slug": "stale-data-honestly",
+          "title": "Показати застаріле чесно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "consistency-cost-tradeoff",
+          "title": "Ціна консистентності як trade-off",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-consistency-choice",
+          "title": "Що в DH строго, а що «зрештою»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "node-agreement",
+      "title": "Згода вузлів",
+      "topics": [
+        {
+          "ref": "algorithms/consensus-problem",
+          "title": "Задача консенсусу і чому вона важка (FLP оглядово)"
+        },
+        {
+          "ref": "algorithms/raft",
+          "title": "Raft"
+        },
+        {
+          "ref": "programming/leader-election",
+          "title": "Вибори лідера як прикладний патерн"
+        },
+        {
+          "ref": "programming/distributed-locks",
+          "title": "Розподілені замки й лізи"
+        },
+        {
+          "ref": "programming/fencing-tokens",
+          "title": "Fencing-токени розподілених блокувань"
+        },
+        {
+          "ref": "programming/gossip-membership",
+          "title": "Плітки й членство в кластері (gossip, SWIM)"
+        },
+        {
+          "ref": "programming/phi-accrual-failure-detector",
+          "title": "Детектор відмов Phi Accrual"
+        },
+        {
+          "ref": "algorithms/byzantine-fault-tolerance",
+          "title": "Коли вузли брешуть",
+          "todo": "нова тема",
+          "hint": "algorithms/parallel-distributed"
+        },
+        {
+          "slug": "who-is-in-charge-at-home",
+          "title": "Хто головний у домі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sharding-consensus-choice",
+          "title": "Вибір координації під задачу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-partitioning",
+      "title": "Поділ даних",
+      "topics": [
+        {
+          "ref": "programming/partitioning-sharding",
+          "title": "Шардинг"
+        },
+        {
+          "ref": "algorithms/consistent-hashing",
+          "title": "Консистентне хешування"
+        },
+        {
+          "ref": "programming/maglev-hashing",
+          "title": "Алгоритм хешування Maglev"
+        },
+        {
+          "ref": "programming/database-sharding",
+          "title": "Шардинг баз даних"
+        },
+        {
+          "slug": "what-you-lose-by-partitioning",
+          "title": "Що ти втрачаєш, поділивши",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rozbir-discord-storage",
+          "title": "Розбір: як Discord зберігає трильйони повідомлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-partition-key",
+          "title": "Ключ поділу — дім",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "distributed-transaction",
+      "title": "Розподілена транзакція",
+      "topics": [
+        {
+          "ref": "programming/end-to-end-argument",
+          "title": "Наскрізний аргумент (end-to-end argument)"
+        },
+        {
+          "ref": "algorithms/two-phase-commit",
+          "title": "Двофазний коміт і його страх"
+        },
+        {
+          "ref": "programming/saga-pattern",
+          "title": "Сага"
+        },
+        {
+          "ref": "programming/outbox-pattern",
+          "title": "Transactional outbox"
+        },
+        {
+          "ref": "programming/inbox-pattern",
+          "title": "Вхідна скринька (inbox)"
+        },
+        {
+          "ref": "programming/idempotent-consumers-deep",
+          "title": "Ідемпотентні консюмери, глибоко"
+        },
+        {
+          "ref": "programming/durable-workflows",
+          "title": "Durable workflows"
+        },
+        {
+          "slug": "saga-style-choice",
+          "title": "Вибір стилю саги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-handover-saga",
+          "title": "Сага «сім'я продає дім»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "truth-at-the-edge",
+      "title": "Правда на краю",
+      "topics": [
+        {
+          "ref": "programming/offline-first-client",
+          "title": "Офлайн-перший клієнт: локальна правда й узгодження з сервером"
+        },
+        {
+          "ref": "programming/store-and-forward",
+          "title": "Збережи-й-перешли (store-and-forward)"
+        },
+        {
+          "ref": "programming/client-crash-recovery",
+          "title": "Документ переживає крах: автозбереження і журнал"
+        },
+        {
+          "slug": "device-is-a-replica",
+          "title": "Пристрій — це репліка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-offline-home",
+          "title": "Дім без інтернету",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "home-twin",
+      "title": "Твін дому",
+      "topics": [
+        {
+          "slug": "dh-twin-variants",
+          "title": "Три варіанти твіна: актор, шардований рядок, журнал подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-twin-choice",
+          "title": "Вибір твіна: де живе останній стан дому",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-distributed-invariants",
+          "title": "Інваріанти розподіленого дому",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-command-journey",
+          "title": "Життя однієї команди крізь дім",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-cost-of-many-machines",
+          "title": "Чого коштує дім на багатьох машинах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

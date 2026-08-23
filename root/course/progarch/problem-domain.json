@@ -1,0 +1,696 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "problem-domain",
+  "title": "Предметна область",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "domain-model",
+      "title": "Модель предметної області",
+      "topics": [
+        {
+          "slug": "spec-is-not-a-model",
+          "title": "Чому ТЗ не є моделлю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/domain-model",
+          "title": "Предметна модель"
+        },
+        {
+          "ref": "programming/model-as-deliberate-simplification",
+          "title": "Модель як свідоме спрощення",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/data-first-or-behaviour-first",
+          "title": "Від даних чи від поведінки",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "signs-there-is-no-model",
+          "title": "Ознаки, що моделі немає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cost-of-a-model",
+          "title": "Скільки коштує модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-what-is-it-about",
+          "title": "Про що взагалі Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "talking-to-experts",
+      "title": "Розмова з експертами",
+      "topics": [
+        {
+          "slug": "who-really-knows-the-domain",
+          "title": "Хто знає предмет насправді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/stated-vs-real-need",
+          "title": "Замовник просить рішення, а не називає задачу",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "slug": "questions-that-reveal-rules",
+          "title": "Питання, що відкривають правило",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/collaborative-modeling-session",
+          "title": "Сесія спільного моделювання",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "ref": "programming/specification-by-example",
+          "title": "Моделювання прикладами",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "slug": "industry-already-has-language",
+          "title": "Галузь уже має свою мову",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "when-there-is-no-expert",
+          "title": "Коли експерта немає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "what-remains-after-session",
+          "title": "Що лишається після сесії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-modeling-session",
+          "title": "Сесія моделювання Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "domain-language",
+      "title": "Мова домену",
+      "topics": [
+        {
+          "ref": "programming/ubiquitous-language",
+          "title": "Спільна мова коду й розмови",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "ui-language-vs-domain-language",
+          "title": "Мова інтерфейсу й мова домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/naming-in-a-foreign-language",
+          "title": "Домен українською, код англійською",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "synonym-and-homonym",
+          "title": "Синонім і омонім",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "term-ownership",
+          "title": "Хто власник терміна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/project-glossary",
+          "title": "Словник, який не гниє",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "slug": "dh-glossary",
+          "title": "Словник Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "model-building-blocks",
+      "title": "Цеглинки моделі",
+      "topics": [
+        {
+          "ref": "programming/entity-value-object",
+          "title": "Сутність і об'єкт-значення"
+        },
+        {
+          "ref": "programming/value-equality-identity",
+          "title": "Рівність значень і тотожність посилань"
+        },
+        {
+          "slug": "what-makes-two-records-one-thing",
+          "title": "Що робить два записи одним предметом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/primitive-obsession",
+          "title": "Одержимість примітивами",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "money-units-precision",
+          "title": "Гроші, одиниці, точність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/tell-dont-ask",
+          "title": "Кажи, не питай"
+        },
+        {
+          "ref": "programming/anemic-domain-model",
+          "title": "Анемічна модель предметної області"
+        },
+        {
+          "ref": "programming/three-kinds-of-absence",
+          "title": "Три різновиди відсутності",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "construction-that-forbids-bad-state",
+          "title": "Створення, що не пускає в поганий стан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fact-that-happened",
+          "title": "Факт, що стався",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-data-model",
+          "title": "Модель даних DH мовою домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "domain-rules",
+      "title": "Правила домену",
+      "topics": [
+        {
+          "slug": "business-rule-as-an-object",
+          "title": "Правило бізнесу як предмет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/aggregates-consistency",
+          "title": "Агрегат і корінь"
+        },
+        {
+          "slug": "inside-and-outside-the-boundary",
+          "title": "Що всередині межі, а що поза нею",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/specification-pattern",
+          "title": "Специфікація як об'єкт-правило",
+          "todo": "нова тема",
+          "hint": "programming/design-patterns"
+        },
+        {
+          "slug": "conflicting-rules",
+          "title": "Правила, що конфліктують",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "refusal-as-part-of-the-model",
+          "title": "Відмова як частина моделі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rule-written-as-example",
+          "title": "Правило, записане прикладом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/domain-driven-design",
+          "title": "DDD-лайт: як це зветься"
+        },
+        {
+          "slug": "dh-invariants",
+          "title": "Інваріанти оселі, хаба й доступу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "processes-and-time",
+      "title": "Процеси й час",
+      "topics": [
+        {
+          "slug": "state-instead-of-flags",
+          "title": "Стан замість прапорців",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-device-fsm",
+          "title": "Життєвий цикл пристрою як автомат станів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "long-running-case",
+          "title": "Справа, що триває днями",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "deadline-calendar-overdue",
+          "title": "Строк, календар і прострочення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/rule-effective-date",
+          "title": "Дата набуття чинності правила",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "how-it-was-back-then",
+          "title": "Як було на той момент",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-scenario-as-process",
+          "title": "Сценарій розумного дому як процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bounded-contexts",
+      "title": "Обмежені контексти",
+      "topics": [
+        {
+          "ref": "programming/bounded-context",
+          "title": "Обмежений контекст"
+        },
+        {
+          "ref": "programming/single-source-of-truth",
+          "title": "Єдине джерело правди"
+        },
+        {
+          "slug": "same-thing-in-three-contexts",
+          "title": "Той самий предмет у трьох контекстах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "duplication-that-is-right",
+          "title": "Дублювання, яке правильне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Логічне зчеплення"
+        },
+        {
+          "slug": "context-size",
+          "title": "Розмір контексту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-context-boundaries-choice",
+          "title": "Де провести межі контекстів DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "context-map",
+      "title": "Карта контекстів",
+      "topics": [
+        {
+          "ref": "programming/context-mapping",
+          "title": "Карта контекстів"
+        },
+        {
+          "ref": "programming/anti-corruption-layer",
+          "title": "Антикорупційний шар"
+        },
+        {
+          "slug": "who-dictates-to-whom",
+          "title": "Хто кому диктує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shared-kernel-cost",
+          "title": "Спільне ядро й ціна спільного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/canonical-data-model",
+          "title": "Канонічна модель: спокуса одного словника на всіх"
+        },
+        {
+          "slug": "cost-of-a-translator",
+          "title": "Скільки коштує перекладач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-contexts-map",
+          "title": "Мапа контекстів Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contexts-in-one-process",
+      "title": "Контексти в одній програмі",
+      "topics": [
+        {
+          "ref": "programming/modular-monolith",
+          "title": "Модульний моноліт"
+        },
+        {
+          "slug": "contexts-talking-in-process",
+          "title": "Як контексти говорять усередині процесу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shared-reference-data",
+          "title": "Спільні довідники",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "boundary-visible-in-code",
+          "title": "Межа, яку видно з коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reporting-as-a-context",
+          "title": "Звітність як окремий контекст",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-monolith-boundaries",
+          "title": "Межі всередині моноліта DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "core-and-periphery",
+      "title": "Ядро й околиця",
+      "topics": [
+        {
+          "ref": "programming/subdomains-strategic",
+          "title": "Стратегічний розкрій"
+        },
+        {
+          "ref": "programming/transaction-script",
+          "title": "Сценарій транзакції"
+        },
+        {
+          "ref": "programming/table-module",
+          "title": "Модуль таблиці"
+        },
+        {
+          "slug": "logic-organization-choice",
+          "title": "Вибір: як організувати логіку домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ddd-when-overkill",
+          "title": "Коли DDD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/rules-engine-decision-table",
+          "title": "Двигун правил і таблиця рішень",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "model-outgrown-by-business",
+          "title": "Модель, що перестала відповідати бізнесу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-where-no-model-needed",
+          "title": "Де в DH моделі не треба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

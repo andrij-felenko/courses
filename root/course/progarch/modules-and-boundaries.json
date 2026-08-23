@@ -1,0 +1,710 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "modules-and-boundaries",
+  "title": "Модулі й межі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "module-boundary",
+      "title": "Межа модуля",
+      "topics": [
+        {
+          "ref": "programming/abstraction-principle",
+          "title": "Принцип абстракції"
+        },
+        {
+          "ref": "programming/encapsulation",
+          "title": "Інкапсуляція"
+        },
+        {
+          "ref": "programming/interface-vs-implementation",
+          "title": "Інтерфейс проти реалізації"
+        },
+        {
+          "ref": "programming/coupling-cohesion",
+          "title": "Зчеплення і зв'язність"
+        },
+        {
+          "ref": "programming/information-hiding",
+          "title": "Приховування інформації за Парнасом"
+        },
+        {
+          "ref": "programming/law-of-demeter",
+          "title": "Закон Деметри"
+        },
+        {
+          "ref": "programming/global-state",
+          "title": "Глобальний стан"
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Логічне зчеплення"
+        },
+        {
+          "slug": "dh-v1-modules",
+          "title": "DH v0 → v1: перший рефакторинг межами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "module-contract",
+      "title": "Контракт модуля",
+      "topics": [
+        {
+          "slug": "contract-as-boundary",
+          "title": "Контракт як межа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/design-by-contract",
+          "title": "Проєктування за контрактом"
+        },
+        {
+          "ref": "programming/invariants",
+          "title": "Інваріант програми"
+        },
+        {
+          "slug": "invariants-and-validation",
+          "title": "Інваріанти й валідація на межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/assert-panic",
+          "title": "Assert і паніка"
+        },
+        {
+          "ref": "programming/error-handling",
+          "title": "Жодна помилка не мовчить"
+        },
+        {
+          "slug": "errors-through-layers",
+          "title": "Помилки крізь шари",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/dto",
+          "title": "DTO"
+        }
+      ]
+    },
+    {
+      "slug": "state-and-immutability",
+      "title": "Стан і незмінність",
+      "topics": [
+        {
+          "slug": "state-inventory",
+          "title": "Де живе стан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/entity-value-object",
+          "title": "Сутність і об'єкт-значення"
+        },
+        {
+          "ref": "programming/value-equality-identity",
+          "title": "Рівність значень і тотожність посилань"
+        },
+        {
+          "ref": "programming/immutability",
+          "title": "Незмінність як прийом дизайну"
+        },
+        {
+          "ref": "programming/deep-shallow-copy",
+          "title": "Глибока й поверхнева копія"
+        },
+        {
+          "ref": "algorithms/copy-on-write-structures",
+          "title": "Copy-on-write"
+        },
+        {
+          "ref": "programming/pure-functions-side-effects",
+          "title": "Чисті функції і побічні ефекти"
+        },
+        {
+          "ref": "programming/type-driven-design",
+          "title": "Типи як дизайн"
+        },
+        {
+          "ref": "programming/functional-core-imperative-shell",
+          "title": "Функціональне ядро, імперативна оболонка"
+        },
+        {
+          "slug": "cqs-command-query",
+          "title": "CQS: команда діє, запит відповідає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dependency-direction",
+      "title": "Напрям залежностей",
+      "topics": [
+        {
+          "ref": "programming/module-physical-boundary",
+          "title": "Модуль у мові й у збірці: пакет, простір імен, одиниця збірки, видимість",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/dependency-inversion",
+          "title": "Принцип інверсії залежностей (DIP)"
+        },
+        {
+          "ref": "programming/framework-vs-library",
+          "title": "Каркас проти бібліотеки: напрямок виклику"
+        },
+        {
+          "ref": "programming/acyclic-dependencies",
+          "title": "Принцип ациклічності залежностей"
+        },
+        {
+          "ref": "programming/common-closure-principle",
+          "title": "Принцип спільного закриття (CCP)"
+        },
+        {
+          "ref": "programming/common-reuse-principle",
+          "title": "Принцип спільного повторного використання (CRP)"
+        },
+        {
+          "ref": "programming/reuse-release-equivalence",
+          "title": "Принцип еквівалентності повторного використання й випуску (REP)"
+        },
+        {
+          "ref": "programming/design-structure-matrix",
+          "title": "Матриця залежностей (DSM)"
+        },
+        {
+          "slug": "seams-and-boundaries",
+          "title": "Шов (seam) як точка зміни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "principles-holding-boundary",
+      "title": "Принципи, що тримають межу",
+      "topics": [
+        {
+          "ref": "programming/single-responsibility",
+          "title": "SRP"
+        },
+        {
+          "ref": "programming/open-closed",
+          "title": "OCP"
+        },
+        {
+          "ref": "programming/liskov-substitution",
+          "title": "Принцип підстановки Лісков (LSP)"
+        },
+        {
+          "slug": "lsp-isp-together",
+          "title": "LSP та ISP разом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/composition-inheritance",
+          "title": "Композиція над спадкуванням"
+        },
+        {
+          "ref": "programming/tell-dont-ask",
+          "title": "«Кажи, не питай»"
+        },
+        {
+          "slug": "solid-audit",
+          "title": "SOLID разом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "principles-as-tools-not-dogma",
+          "title": "Принципи як інструменти, не догми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "structural-behavioral-patterns",
+      "title": "Патерни структури й поведінки",
+      "topics": [
+        {
+          "ref": "programming/what-is-pattern",
+          "title": "Що таке патерн"
+        },
+        {
+          "ref": "programming/adapter",
+          "title": "Адаптер"
+        },
+        {
+          "ref": "programming/facade",
+          "title": "Фасад"
+        },
+        {
+          "ref": "programming/decorator",
+          "title": "Декоратор"
+        },
+        {
+          "ref": "programming/proxy",
+          "title": "Проксі"
+        },
+        {
+          "ref": "programming/composite",
+          "title": "Компонувальник"
+        },
+        {
+          "ref": "programming/gof-structural-microcatalog",
+          "title": "Решта структурних оглядово (Міст, Легковаговик)"
+        },
+        {
+          "ref": "programming/strategy",
+          "title": "Стратегія"
+        },
+        {
+          "ref": "programming/template-method",
+          "title": "Шаблонний метод"
+        },
+        {
+          "ref": "programming/observer",
+          "title": "Спостерігач"
+        },
+        {
+          "ref": "programming/command",
+          "title": "Команда"
+        },
+        {
+          "ref": "programming/state",
+          "title": "Стан"
+        },
+        {
+          "ref": "programming/chain-of-responsibility",
+          "title": "Ланцюжок обов'язків"
+        },
+        {
+          "ref": "programming/gof-behavioral-microcatalog",
+          "title": "Решта поведінкових оглядово (Інтерпретатор, Знімок)"
+        }
+      ]
+    },
+    {
+      "slug": "creation-and-ownership",
+      "title": "Створення й володіння",
+      "topics": [
+        {
+          "ref": "programming/factory-method",
+          "title": "Фабричний метод і абстрактна фабрика"
+        },
+        {
+          "ref": "programming/builder",
+          "title": "Будівельник"
+        },
+        {
+          "ref": "programming/prototype",
+          "title": "Прототип"
+        },
+        {
+          "ref": "programming/object-pool",
+          "title": "Пул об'єктів"
+        },
+        {
+          "ref": "programming/singleton",
+          "title": "Сінглтон"
+        },
+        {
+          "ref": "programming/dependency-injection",
+          "title": "Впровадження залежностей та IoC-контейнер"
+        },
+        {
+          "ref": "programming/raii",
+          "title": "RAII: ресурс, прив'язаний до часу життя"
+        },
+        {
+          "ref": "programming/reference-counting",
+          "title": "Підрахунок посилань"
+        },
+        {
+          "ref": "programming/weak-references",
+          "title": "Слабкі й м'які посилання"
+        }
+      ]
+    },
+    {
+      "slug": "testable-boundary",
+      "title": "Межа, яку можна перевірити",
+      "topics": [
+        {
+          "ref": "programming/testability-tactics",
+          "title": "Тактики тестовності"
+        },
+        {
+          "ref": "programming/unit-testing",
+          "title": "Модульний тест: одиниця, ізоляція, швидкість"
+        },
+        {
+          "slug": "test-boundaries",
+          "title": "Що і на якому рівні тестувати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/test-doubles",
+          "title": "Дублери: стаб, мок, фейк, спай"
+        },
+        {
+          "slug": "test-doubles-when",
+          "title": "Дублери як рішення дизайну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/test-driven-development",
+          "title": "Розробка через тести (TDD)"
+        },
+        {
+          "ref": "programming/property-based-testing",
+          "title": "Тестування властивостями"
+        },
+        {
+          "ref": "programming/contract-testing",
+          "title": "Контрактні тести"
+        },
+        {
+          "ref": "programming/flaky-tests",
+          "title": "Миготливі тести: недетермінованість і карантин"
+        },
+        {
+          "ref": "programming/static-analysis",
+          "title": "Статичний аналіз"
+        },
+        {
+          "slug": "observability-as-testability",
+          "title": "Спостережність як тестованість у проді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reshaping-boundaries",
+      "title": "Перекроювання меж",
+      "topics": [
+        {
+          "ref": "programming/anti-patterns",
+          "title": "Антипатерни"
+        },
+        {
+          "slug": "characterization-tests",
+          "title": "Характеризаційні тести як страховка над кодом без тестів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "refactoring-safe",
+          "title": "Рефакторинг безпечно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cost-of-a-boundary",
+          "title": "Ціна межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "debt-as-decision",
+          "title": "Технічний борг як свідоме рішення, не аварія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-testability-refactor",
+          "title": "DH під тестом: тестованість, закладена швами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "shared-state",
+      "title": "Спільний стан",
+      "topics": [
+        {
+          "slug": "why-concurrency",
+          "title": "Конкурентність ≠ паралелізм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/process-vs-thread",
+          "title": "Процеси й потоки"
+        },
+        {
+          "ref": "programming/data-races-locks",
+          "title": "Перегони даних і замки"
+        },
+        {
+          "ref": "algorithms/monitor-sync",
+          "title": "Монітори й умовні змінні"
+        },
+        {
+          "ref": "programming/deadlock",
+          "title": "Дедлок"
+        },
+        {
+          "ref": "programming/readers-writer-lock",
+          "title": "Багато читачів, один письменник"
+        },
+        {
+          "ref": "programming/thread-safety",
+          "title": "Потокова безпека як частина контракту"
+        },
+        {
+          "ref": "programming/reentrancy",
+          "title": "Реентерабельність: перервати й покликати знову"
+        },
+        {
+          "ref": "programming/lock-free-basics",
+          "title": "Без замків"
+        },
+        {
+          "ref": "programming/actor-model",
+          "title": "Модель акторів"
+        },
+        {
+          "ref": "programming/supervision-trees",
+          "title": "Дерева нагляду"
+        },
+        {
+          "ref": "programming/csp-channels",
+          "title": "Канали і CSP"
+        },
+        {
+          "ref": "programming/producer-consumer",
+          "title": "Виробник–споживач"
+        },
+        {
+          "ref": "programming/backpressure-local",
+          "title": "Backpressure"
+        }
+      ]
+    },
+    {
+      "slug": "async-and-pools",
+      "title": "Асинхронність і пули",
+      "topics": [
+        {
+          "ref": "programming/blocking-vs-nonblocking-io",
+          "title": "Блокуючий і неблокуючий ввід-вивід"
+        },
+        {
+          "ref": "programming/event-loop",
+          "title": "Цикл подій"
+        },
+        {
+          "ref": "programming/async-await",
+          "title": "Колбеки → проміси → async/await"
+        },
+        {
+          "ref": "programming/cooperative-cancellation",
+          "title": "Кооперативне скасування довгої роботи"
+        },
+        {
+          "slug": "concurrency-and-clocks",
+          "title": "Годинник і монотонність у конкурентності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/reactive-programming",
+          "title": "Реактивні потоки"
+        },
+        {
+          "ref": "programming/thread-pool",
+          "title": "Пул потоків і його розмір"
+        },
+        {
+          "ref": "programming/thread-per-core",
+          "title": "Thread-per-core / shared-nothing на ядрах"
+        }
+      ]
+    },
+    {
+      "slug": "runtime-and-its-cost",
+      "title": "Рантайм і його ціна",
+      "topics": [
+        {
+          "ref": "algorithms/amdahls-law",
+          "title": "Закон Амдала"
+        },
+        {
+          "ref": "algorithms/work-span-model",
+          "title": "Робота і глибина: критичний шлях як межа паралельності"
+        },
+        {
+          "ref": "programming/global-interpreter-lock",
+          "title": "Глобальне блокування інтерпретатора (GIL)"
+        },
+        {
+          "slug": "concurrency-observability",
+          "title": "Чим вимірюємо конкурентність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "runtime-threads-variant",
+          "title": "Варіант А: потік на кожне з'єднання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "runtime-eventloop-variant",
+          "title": "Варіант Б: цикл подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "runtime-actors-variant",
+          "title": "Варіант В: рій акторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "runtime-choice",
+          "title": "Вибір: рантайм конкурентності DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "rozbir-lmax",
+          "title": "Розбір: LMAX Disruptor",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "paradigms-toolbox",
+          "title": "Парадигми як інструменти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

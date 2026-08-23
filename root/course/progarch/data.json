@@ -1,0 +1,946 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "data",
+  "title": "Дані",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "data-outside-the-process",
+      "title": "Дані поза процесом",
+      "topics": [
+        {
+          "slug": "dh-data-persistence",
+          "title": "Дані переживають процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/single-source-of-truth",
+          "title": "Джерело істини й копії"
+        },
+        {
+          "slug": "who-owns-the-data",
+          "title": "Хто володіє даними",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/sequences-counters",
+          "title": "Ідентифікатор запису: людські номери, сурогати, UUID"
+        },
+        {
+          "slug": "fact-vs-derived",
+          "title": "Факт і похідне: що зберігати, а що рахувати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "map-of-storage-places",
+          "title": "Де може жити стан: карта сховищ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-what-is-stored",
+          "title": "Що зберігає Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "durability",
+      "title": "Довговічність запису",
+      "topics": [
+        {
+          "slug": "what-saved-means",
+          "title": "Що означає «збережено»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/page-cache-durability",
+          "title": "Кеш сторінок, fsync і довговічність запису"
+        },
+        {
+          "ref": "programming/atomic-file-replace",
+          "title": "Атомарна заміна файлу"
+        },
+        {
+          "ref": "unix-linux/journaling-consistency",
+          "title": "Журналювання й узгодженість після збою"
+        },
+        {
+          "ref": "programming/log-structured-storage",
+          "title": "Дописувати замість правити: журнальне сховище"
+        },
+        {
+          "ref": "algorithms/write-amplification",
+          "title": "Носій під сховищем: знос, підсилення запису, TRIM"
+        },
+        {
+          "ref": "unix-linux/lvm-and-snapshots",
+          "title": "Знімок тому як інструмент"
+        },
+        {
+          "ref": "algorithms/raid-levels",
+          "title": "Дзеркало й парність на одній машині"
+        },
+        {
+          "ref": "unix-linux/btrfs-checksums-scrubbing-raid",
+          "title": "Тиха порча даних і скрабінг"
+        }
+      ]
+    },
+    {
+      "slug": "storage-engine",
+      "title": "Рушій сховища",
+      "topics": [
+        {
+          "slug": "page-buffer-pool-disk",
+          "title": "Сторінка, буферний пул і диск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/buffered-and-direct-io",
+          "title": "Чому база не довіряє кешу ОС"
+        },
+        {
+          "ref": "algorithms/b-tree",
+          "title": "B-дерево"
+        },
+        {
+          "ref": "programming/database-indexes",
+          "title": "Індекси"
+        },
+        {
+          "ref": "algorithms/spatial-index",
+          "title": "Індекс під інші питання: просторовий"
+        },
+        {
+          "ref": "algorithms/bloom-filter",
+          "title": "Не питати даремно: фільтр Блума"
+        },
+        {
+          "ref": "algorithms/lsm-tree",
+          "title": "B-tree vs LSM-tree / log-structured"
+        },
+        {
+          "ref": "programming/write-ahead-log",
+          "title": "Журнал попереднього запису (WAL)"
+        },
+        {
+          "ref": "programming/query-planner",
+          "title": "Планувальник запитів і EXPLAIN"
+        },
+        {
+          "ref": "programming/database-cursor",
+          "title": "Читати багато: курсор і сторінкування"
+        },
+        {
+          "slug": "storage-under-hood-choice",
+          "title": "Що обрати під профіль запису/читання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "transaction",
+      "title": "Транзакція",
+      "topics": [
+        {
+          "ref": "programming/transactions-acid",
+          "title": "Транзакції та ACID"
+        },
+        {
+          "slug": "transaction-boundary-is-aggregate-boundary",
+          "title": "Межа транзакції = межа агрегата",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/isolation-levels",
+          "title": "Рівні ізоляції та аномалії"
+        },
+        {
+          "slug": "last-ticket-race",
+          "title": "Останній квиток",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/mvcc",
+          "title": "MVCC"
+        },
+        {
+          "ref": "programming/optimistic-locking",
+          "title": "Оптимістичне блокування"
+        },
+        {
+          "ref": "programming/pessimistic-locking",
+          "title": "Песимістичне блокування"
+        },
+        {
+          "slug": "long-transaction-cost",
+          "title": "Довга транзакція: чим вона платить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "foreign-call-inside-transaction",
+          "title": "Чужий виклик усередині транзакції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "transaction-ends-at-machine-boundary",
+          "title": "Де транзакція закінчується: межа машини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-storage-guarantees",
+          "title": "Гарантії сховища Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "relational-model",
+      "title": "Реляційна модель",
+      "topics": [
+        {
+          "ref": "programming/relational-model",
+          "title": "Реляційна модель і нормалізація як рішення"
+        },
+        {
+          "ref": "algorithms/codd-relational-model",
+          "title": "Чому мова вміє саме це: алгебра й числення"
+        },
+        {
+          "ref": "programming/sql",
+          "title": "SQL як мова запитів"
+        },
+        {
+          "ref": "programming/sql-null-three-valued",
+          "title": "NULL і тризначна логіка"
+        },
+        {
+          "slug": "constraints-in-schema-vs-code",
+          "title": "Обмеження в схемі проти перевірок у коді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/tree-in-a-table",
+          "title": "Дерево в таблиці: список суміжності, шлях, замикання",
+          "todo": "нова тема",
+          "hint": "programming/databases"
+        },
+        {
+          "slug": "when-denormalization-is-right",
+          "title": "Коли дублювання правильне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "types-that-burn",
+          "title": "Типи, на яких горять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/tenant-isolation",
+          "title": "Мультиарендність"
+        },
+        {
+          "slug": "relational-default",
+          "title": "«Нудне» реляційне за замовчуванням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-v3-storage",
+          "title": "DH v3",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "code-and-storage",
+      "title": "Код і сховище",
+      "topics": [
+        {
+          "ref": "programming/object-relational-mismatch",
+          "title": "Об'єктно-реляційна неузгодженість"
+        },
+        {
+          "ref": "programming/active-record",
+          "title": "Active Record"
+        },
+        {
+          "ref": "programming/data-mapper",
+          "title": "Data Mapper"
+        },
+        {
+          "ref": "programming/repository",
+          "title": "Репозиторій"
+        },
+        {
+          "ref": "programming/identity-map",
+          "title": "Identity map"
+        },
+        {
+          "ref": "programming/unit-of-work",
+          "title": "Unit of Work"
+        },
+        {
+          "ref": "programming/lazy-loading",
+          "title": "Ліниве завантаження"
+        },
+        {
+          "ref": "programming/orm",
+          "title": "ORM"
+        },
+        {
+          "slug": "n-plus-one-and-transaction-scope",
+          "title": "N+1 і межа однієї транзакції в запиті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/prepared-statements",
+          "title": "Підготовлений вираз і чужий рядок у запиті"
+        },
+        {
+          "ref": "programming/connection-pool",
+          "title": "Пул з'єднань"
+        },
+        {
+          "ref": "programming/integration-testing",
+          "title": "Тест, що ходить у базу"
+        },
+        {
+          "slug": "data-access-choice",
+          "title": "Компакт-вибір доступу до даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-format",
+      "title": "Форма даних",
+      "topics": [
+        {
+          "slug": "text-or-bytes",
+          "title": "Текст чи байти: формат як рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/json-format",
+          "title": "JSON і його межі"
+        },
+        {
+          "ref": "programming/json-schema",
+          "title": "Схема для JSON"
+        },
+        {
+          "ref": "programming/self-describing-format",
+          "title": "Самоописовий формат"
+        },
+        {
+          "ref": "programming/zero-copy-serialization",
+          "title": "Формат без копіювання"
+        },
+        {
+          "ref": "programming/schema-on-read-write",
+          "title": "Schema-on-write vs schema-on-read"
+        },
+        {
+          "ref": "programming/schema-registry",
+          "title": "Еволюція схем і schema-registry"
+        },
+        {
+          "slug": "field-change-compatibility-rules",
+          "title": "Правила зміни поля: сумісність уперед і назад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "time-storage-choice",
+          "title": "Як зберігати час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/iso-8601",
+          "title": "ISO 8601 і подання дати"
+        },
+        {
+          "slug": "schema-evolution-choice",
+          "title": "Вибір стратегії еволюції даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "storage-for-the-job",
+      "title": "Сховища під задачу",
+      "topics": [
+        {
+          "ref": "programming/nosql-landscape",
+          "title": "Ландшафт NoSQL"
+        },
+        {
+          "ref": "programming/access-pattern-first",
+          "title": "Форма доступу диктує модель"
+        },
+        {
+          "ref": "algorithms/key-value-store",
+          "title": "Сховище «ключ — значення»"
+        },
+        {
+          "ref": "programming/columnar-storage",
+          "title": "Стовпцеве зберігання"
+        },
+        {
+          "ref": "programming/time-series-storage",
+          "title": "Часові ряди: сховище під потік вимірів",
+          "todo": "нова тема",
+          "hint": "programming/databases"
+        },
+        {
+          "ref": "algorithms/inverted-index",
+          "title": "Інвертований індекс"
+        },
+        {
+          "ref": "programming/object-storage",
+          "title": "Об'єктне сховище"
+        },
+        {
+          "ref": "programming/embedded-database",
+          "title": "Вбудована база в процесі застосунку"
+        },
+        {
+          "ref": "programming/polyglot-persistence",
+          "title": "Polyglot persistence і його ціна"
+        },
+        {
+          "slug": "dual-write-divergence",
+          "title": "Подвійний запис: чому дві бази розходяться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "storage-choice",
+          "title": "Вибір сховища під задачу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nosql-migration-consideration",
+          "title": "Коли міграція з реляційного в NoSQL виправдана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "live-schema-migration",
+      "title": "Міграція живої схеми",
+      "topics": [
+        {
+          "ref": "programming/database-migrations",
+          "title": "Міграції схеми"
+        },
+        {
+          "slug": "migration-as-part-of-release",
+          "title": "Міграція як частина релізу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "two-code-versions-one-schema",
+          "title": "Дві версії коду на одній схемі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/zero-downtime-migration",
+          "title": "Zero-downtime міграції даних"
+        },
+        {
+          "ref": "programming/branch-by-abstraction",
+          "title": "Branch by abstraction"
+        },
+        {
+          "ref": "programming/dark-launch",
+          "title": "Темний запуск і feature-flag-міграція"
+        },
+        {
+          "ref": "programming/parallel-run",
+          "title": "Parallel run"
+        },
+        {
+          "slug": "backfill-and-reprocess",
+          "title": "Backfill і reprocessing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/idempotent-reprocessing",
+          "title": "Ідемпотентний перерахунок історії"
+        },
+        {
+          "slug": "data-that-fails-new-constraint",
+          "title": "Дані, які не проходять нову перевірку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "irreversible-migration-steps",
+          "title": "Незворотні кроки міграції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rollback-as-plan",
+          "title": "Rollback міграції як план, не надія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "moving-to-another-store",
+          "title": "Переїзд у інше сховище",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "schema-on-a-device-you-cannot-update",
+          "title": "Схема на пристрої, якого ти не оновиш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "migration-strategy-choice",
+          "title": "Вибір стратегії зміни живої системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cache",
+      "title": "Кеш",
+      "topics": [
+        {
+          "ref": "programming/cache",
+          "title": "Кеш"
+        },
+        {
+          "slug": "cache-tiers",
+          "title": "Яруси кешу: у процесі, поруч, на краю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/caching-strategies",
+          "title": "Патерни кешування"
+        },
+        {
+          "ref": "programming/cache-invalidation-intro",
+          "title": "Кеш вводить друге джерело правди"
+        },
+        {
+          "ref": "programming/cache-consistency-tradeoff",
+          "title": "Свіжість проти навантаження"
+        },
+        {
+          "ref": "programming/cache-eviction-policies",
+          "title": "Політики витіснення: LRU, LFU, CLOCK"
+        },
+        {
+          "ref": "programming/cache-key-design",
+          "title": "Дизайн ключів і гарячі ключі"
+        },
+        {
+          "ref": "programming/cache-invalidation-patterns",
+          "title": "Патерни інвалідації"
+        },
+        {
+          "ref": "programming/cache-stampede",
+          "title": "Thundering herd / cache stampede"
+        },
+        {
+          "ref": "programming/cache-tactics",
+          "title": "Дрібні кеш-тактики, що рятують проди"
+        },
+        {
+          "ref": "programming/what-not-to-cache",
+          "title": "Що НЕ кешувати і чому"
+        },
+        {
+          "slug": "stale-data-honestly",
+          "title": "Показати застаріле чесно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "cache-decision-framework",
+          "title": "Рамка рішення про кеш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-first-cache",
+          "title": "Перший кеш Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "derived-data",
+      "title": "Похідні дані",
+      "topics": [
+        {
+          "ref": "programming/materialized-views",
+          "title": "Матеріалізовані в'ю як похідні дані"
+        },
+        {
+          "slug": "read-model-projection",
+          "title": "Проєкція під запит: читальна модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/read-model-lag",
+          "title": "Лаг read-model як контракт"
+        },
+        {
+          "ref": "programming/search-subsystem",
+          "title": "Пошук як друга правда"
+        },
+        {
+          "ref": "programming/audit-logging",
+          "title": "Аудит-лог як вузол"
+        },
+        {
+          "ref": "programming/change-data-capture",
+          "title": "CDC"
+        },
+        {
+          "ref": "programming/etl-elt",
+          "title": "ETL/ELT"
+        },
+        {
+          "ref": "programming/data-contracts",
+          "title": "Data-контракти між продюсером і сховищем"
+        },
+        {
+          "ref": "programming/data-lineage",
+          "title": "Lineage «звідки це число»"
+        },
+        {
+          "slug": "analytics-next-to-oltp",
+          "title": "Аналітика поруч з операційкою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pipeline-consistency",
+          "title": "Консистентність конвеєра end-to-end",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "materialization-vs-cache",
+          "title": "Матеріалізація проти кешу проти читання наживо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-schema-flow",
+          "title": "Digital Homes: стан дому з подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-lifecycle",
+      "title": "Життєвий цикл даних",
+      "topics": [
+        {
+          "slug": "data-volume-in-three-years",
+          "title": "Скільки даних буде через три роки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "partitioning-rotation-cold-data",
+          "title": "Секціонування, ротація й холодні дані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/soft-delete-tombstones",
+          "title": "М'яке видалення і надгробки"
+        },
+        {
+          "ref": "programming/personal-data-class",
+          "title": "Персональні дані як клас: класифікація, мінімізація, псевдонімізація",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "slug": "right-to-be-forgotten-vs-immutable-log",
+          "title": "Право на забуття проти незмінного журналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/crypto-shredding",
+          "title": "Крипто-шредінг: видалення через знищення ключа",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "slug": "what-you-can-restore",
+          "title": "Що ти зможеш відновити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "data-lifecycle-node",
+          "title": "Життєвий цикл даних як вузол",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-data-lifecycle-final",
+          "title": "Оренда й життєвий цикл даних Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

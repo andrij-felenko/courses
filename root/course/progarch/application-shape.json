@@ -1,0 +1,610 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "application-shape",
+  "title": "Форма застосунку",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "change-tempo",
+      "title": "Темп змін",
+      "topics": [
+        {
+          "slug": "different-clocks",
+          "title": "Різні частини — різні годинники",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Логічне зчеплення"
+        },
+        {
+          "ref": "programming/common-closure-principle",
+          "title": "Що міняється разом, лежить разом"
+        },
+        {
+          "ref": "programming/design-structure-matrix",
+          "title": "Матриця залежностей"
+        },
+        {
+          "slug": "dh-tempo-map",
+          "title": "Карта темпів Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "layers",
+      "title": "Шари",
+      "topics": [
+        {
+          "ref": "programming/layered-architecture",
+          "title": "Шарова архітектура"
+        },
+        {
+          "slug": "cost-of-layer-mapping",
+          "title": "Ціна мапінгу між шарами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "layer-leakage",
+          "title": "Протікання шару",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pass-through-layer",
+          "title": "Шар, що лише передає далі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/anemic-domain-model",
+          "title": "Анемічна модель як типовий наслідок шарів без середини"
+        },
+        {
+          "ref": "programming/end-to-end-argument",
+          "title": "Наскрізний аргумент"
+        }
+      ]
+    },
+    {
+      "slug": "ports-and-adapters",
+      "title": "Порти й адаптери",
+      "topics": [
+        {
+          "ref": "programming/hexagonal-architecture",
+          "title": "Порти й адаптери"
+        },
+        {
+          "slug": "port-smelling-of-storage",
+          "title": "Порт, що пахне сховищем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/hardware-abstraction-layer",
+          "title": "HAL: той самий порт у залізному світі"
+        },
+        {
+          "ref": "programming/application-entry-points",
+          "title": "Точки входу застосунку: служба, команда, робітник, бібліотека",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "unix-linux/exit-status",
+          "title": "Код виходу як інтерфейс програми"
+        },
+        {
+          "ref": "unix-linux/daemonize",
+          "title": "Відхід у фон: форма процесу-служби"
+        },
+        {
+          "slug": "one-core-many-fronts",
+          "title": "Одне ядро, кілька фронтів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-v2-hexagon",
+          "title": "DH v2: застосунок набуває форми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "code-tree",
+      "title": "Дерево коду",
+      "topics": [
+        {
+          "ref": "programming/package-by-layer-vs-feature",
+          "title": "Розкладка коду: за шарами чи за можливостями",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/acyclic-dependencies",
+          "title": "Цикл між пакетами й два способи його розірвати"
+        },
+        {
+          "ref": "programming/common-reuse-principle",
+          "title": "Що не вживають разом, не пакують разом"
+        },
+        {
+          "ref": "programming/reuse-release-equivalence",
+          "title": "Одиниця повторного вжитку є одиницею випуску"
+        },
+        {
+          "slug": "shared-utils-dump",
+          "title": "Спільний «utils» як звалище",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/dependency-graph-checker",
+          "title": "Граф залежностей як інструмент"
+        },
+        {
+          "slug": "dh-code-trees",
+          "title": "DH: дерево хмари й дерево хаба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "application-logic",
+      "title": "Прикладна логіка",
+      "topics": [
+        {
+          "ref": "programming/service-layer",
+          "title": "Сервісний шар"
+        },
+        {
+          "ref": "programming/transaction-script",
+          "title": "Сценарій транзакції"
+        },
+        {
+          "ref": "programming/domain-model",
+          "title": "Предметна модель"
+        },
+        {
+          "ref": "programming/table-module",
+          "title": "Модуль таблиці"
+        },
+        {
+          "slug": "logic-organization-choice",
+          "title": "Вибір: як організувати логіку домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/tell-dont-ask",
+          "title": "«Кажи, не питай»"
+        },
+        {
+          "slug": "dh-turn-on-light-end-to-end",
+          "title": "DH: «увімкнути світло» від краю до краю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cross-cutting",
+      "title": "Наскрізні зрізи",
+      "topics": [
+        {
+          "ref": "programming/cross-cutting-concerns",
+          "title": "Наскрізні зрізи"
+        },
+        {
+          "ref": "programming/separation-of-concerns",
+          "title": "Розділення відповідальностей"
+        },
+        {
+          "slug": "request-pipeline",
+          "title": "Конвеєр запиту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/pipes-and-filters",
+          "title": "Канали й фільтри"
+        },
+        {
+          "ref": "programming/call-context-propagation",
+          "title": "Наскрізний контекст виклику: хто, для кого, у якому запиті",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/i18n-as-architecture",
+          "title": "i18n як архітектура (не переклад)"
+        },
+        {
+          "slug": "dh-request-through-concerns",
+          "title": "DH: один запит крізь зрізи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "error-path",
+      "title": "Шлях помилки",
+      "topics": [
+        {
+          "slug": "errors-through-layers",
+          "title": "Помилки крізь шари",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/error-handling",
+          "title": "Жодна помилка не мовчить"
+        },
+        {
+          "ref": "programming/error-as-value-vs-exception",
+          "title": "Виняток чи значення-результат",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/assert-panic",
+          "title": "Чим програмна помилка відрізняється від очікуваної відмови"
+        },
+        {
+          "ref": "programming/defensive-programming",
+          "title": "Захисне програмування і його межа"
+        },
+        {
+          "ref": "programming/exception-safety",
+          "title": "Гарантії цілості, коли виняток пролітає крізь напівзроблену роботу"
+        },
+        {
+          "slug": "error-translation-at-boundary",
+          "title": "Переклад помилки на межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "composition-root",
+      "title": "Композиційний корінь",
+      "topics": [
+        {
+          "ref": "programming/dependency-injection",
+          "title": "Впровадження залежностей та IoC-контейнер"
+        },
+        {
+          "ref": "programming/di-container",
+          "title": "DI-контейнер і composition root"
+        },
+        {
+          "ref": "programming/framework-vs-library",
+          "title": "Каркас проти бібліотеки: напрямок виклику"
+        },
+        {
+          "ref": "programming/service-locator",
+          "title": "Локатор служб як анти-двійник кореня"
+        },
+        {
+          "ref": "programming/global-state",
+          "title": "Глобальний стан як прихована залежність"
+        },
+        {
+          "ref": "programming/cpp-static-init-order",
+          "title": "Порядок ініціалізації статики"
+        },
+        {
+          "slug": "where-new-is-allowed",
+          "title": "Де дозволено `new`",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-two-composition-roots",
+          "title": "DH: два кореня на один код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "configuration",
+      "title": "Конфігурація",
+      "topics": [
+        {
+          "ref": "programming/config-design",
+          "title": "Конфігурація"
+        },
+        {
+          "slug": "config-secrets-boundary",
+          "title": "Конфіг проти секретів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/twelve-factor",
+          "title": "Дванадцять факторів"
+        },
+        {
+          "ref": "programming/convention-over-configuration",
+          "title": "Найдешевший конфіг той, якого немає"
+        },
+        {
+          "ref": "unix-linux/argv-and-environment",
+          "title": "argv і оточення"
+        },
+        {
+          "ref": "programming/app-data-directories",
+          "title": "Теки застосунку: конфіг, дані, кеш"
+        },
+        {
+          "ref": "programming/feature-flags",
+          "title": "Прапорці функцій"
+        },
+        {
+          "slug": "dh-hub-config-offline",
+          "title": "DH: конфігурація хаба, що живе без хмари",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "lifecycle",
+      "title": "Життєвий цикл",
+      "topics": [
+        {
+          "slug": "startup-order",
+          "title": "Порядок підняття: хто перший",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/health-checks",
+          "title": "Перевірки живості й готовності"
+        },
+        {
+          "ref": "unix-linux/service-notify-protocol",
+          "title": "READY=1: як програма каже наглядачеві, що вона готова"
+        },
+        {
+          "ref": "programming/graceful-shutdown",
+          "title": "Штатне вимкнення і drain"
+        },
+        {
+          "ref": "programming/cooperative-cancellation",
+          "title": "Кооперативне скасування довгої роботи"
+        },
+        {
+          "ref": "programming/reboot-strategy",
+          "title": "Перезапуск як стратегія, а не як аварія"
+        },
+        {
+          "ref": "programming/state-machine-as-design",
+          "title": "Автомат станів як інструмент дизайну",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "media-vision/states-lifecycle",
+          "title": "Стани конвеєра й переходи між ними"
+        },
+        {
+          "slug": "dh-device-fsm",
+          "title": "Життєвий цикл пристрою як автомат станів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-hub-lifecycle",
+          "title": "DH: хаб від увімкнення до вимкнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "extension-points",
+      "title": "Точки розширення",
+      "topics": [
+        {
+          "ref": "programming/plugin-architecture",
+          "title": "Плагіни / точки розширення"
+        },
+        {
+          "ref": "programming/event-driven-architecture",
+          "title": "Подієва архітектура всередині застосунку"
+        },
+        {
+          "ref": "programming/expression-problem",
+          "title": "Що дешево додавати, а що дорого: нові типи проти нових дій"
+        },
+        {
+          "ref": "media-vision/plugin-model",
+          "title": "Реєстр елементів як гніздо для чужого коду"
+        },
+        {
+          "ref": "unix-linux/dynamic-loader",
+          "title": "Динамічний завантажувач і dlopen"
+        },
+        {
+          "ref": "programming/hyrums-law",
+          "title": "Усе видиме стає контрактом"
+        },
+        {
+          "slug": "when-plugin-fails",
+          "title": "Коли плагін падає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-new-device-without-release",
+          "title": "DH: новий тип пристрою без релізу ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "client-application",
+      "title": "Клієнтський застосунок",
+      "topics": [
+        {
+          "ref": "programming/desktop-app-architecture",
+          "title": "Шари, потоки й стан у застосунку з інтерфейсом"
+        },
+        {
+          "ref": "programming/mvc",
+          "title": "MVC: звідки все пішло"
+        },
+        {
+          "slug": "mvc-to-mvvm",
+          "title": "Від MVC до MVVM: що змінює прив'язка даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/unidirectional-data-flow",
+          "title": "Однонапрямлений потік як відповідь на плутанину зворотних зв'язків"
+        },
+        {
+          "ref": "programming/ui-thread-offloading",
+          "title": "Розвантаження потоку інтерфейсу"
+        },
+        {
+          "ref": "programming/ui-response-time-limits",
+          "title": "0.1 с, 1 с, 10 с: числа, що диктують форму"
+        },
+        {
+          "ref": "programming/android-app-model",
+          "title": "Коли життєвий цикл нав'язує ОС"
+        },
+        {
+          "slug": "dh-mobile-app",
+          "title": "DH: мобільний застосунок як окрема програма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

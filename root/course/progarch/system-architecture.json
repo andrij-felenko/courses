@@ -1,0 +1,478 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "progarch",
+  "slug": "system-architecture",
+  "title": "Архітектура системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "grounds-for-choice",
+      "title": "Підстава вибору",
+      "topics": [
+        {
+          "slug": "style-as-answer-to-pressure",
+          "title": "Стиль як відповідь на тиск: чому перелік форм стоїть аж тут",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "five-pressures-that-decide-shape",
+          "title": "П'ять тисків, що справді вирішують форму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/hard-constraints",
+          "title": "Обмеження, які не обговорюються: строк, бюджет, команда, закон",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "ref": "programming/modifiability-tactics",
+          "title": "Тактики змінюваності"
+        },
+        {
+          "ref": "programming/set-based-design",
+          "title": "Тримати кілька форм-кандидатів живими"
+        }
+      ]
+    },
+    {
+      "slug": "monolith",
+      "title": "Моноліт",
+      "topics": [
+        {
+          "slug": "modular-monolith-first",
+          "title": "Модульний моноліт як дефолт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/modular-monolith",
+          "title": "Модульний моноліт"
+        },
+        {
+          "ref": "programming/layers-vs-tiers",
+          "title": "Логічна межа проти фізичної: шар, ярус, одиниця розгортання",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "ref": "programming/worse-is-better",
+          "title": "«Гірше — це краще»"
+        },
+        {
+          "ref": "programming/second-system-effect",
+          "title": "Ефект другої системи"
+        },
+        {
+          "slug": "dh-monolith-boundaries",
+          "title": "Межі всередині моноліта DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "shape-inside-the-process",
+      "title": "Форма всередині процесу",
+      "topics": [
+        {
+          "slug": "layer-as-a-decision",
+          "title": "Шар як рішення: що купує кожен рівень непрямості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/end-to-end-argument",
+          "title": "Де має жити функція: на кінцях чи посередині"
+        },
+        {
+          "ref": "programming/acyclic-dependencies",
+          "title": "Шар без правила напрямку залежностей не шар"
+        },
+        {
+          "ref": "programming/framework-vs-library",
+          "title": "Напрямок виклику: хто кого кличе"
+        },
+        {
+          "ref": "programming/microkernel",
+          "title": "Ядро як набір серверів: звідки взявся стиль «мікроядро»"
+        },
+        {
+          "ref": "programming/com-component-model",
+          "title": "Бінарний контракт для чужого коду"
+        },
+        {
+          "slug": "dh-hub-as-microkernel",
+          "title": "DH: хаб як мікроядро, драйвери пристроїв як плагіни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "streams-and-events",
+      "title": "Потоки й події",
+      "topics": [
+        {
+          "ref": "programming/pipes-and-filters",
+          "title": "Труби й фільтри"
+        },
+        {
+          "ref": "programming/event-driven-architecture-distributed",
+          "title": "Подієва архітектура між сервісами"
+        },
+        {
+          "ref": "programming/message-bus-topology",
+          "title": "Хаб у центрі проти однорангової шини"
+        },
+        {
+          "ref": "programming/canonical-data-model",
+          "title": "Ціна спільної моделі посередині"
+        },
+        {
+          "ref": "programming/orchestration-vs-choreography",
+          "title": "Оркестрація проти хореографії: хто веде багатокроковий процес",
+          "todo": "нова тема",
+          "hint": "programming/software-design"
+        },
+        {
+          "slug": "dh-stream-and-call",
+          "title": "DH: телеметрія тече, команда викликається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cutting-the-system",
+      "title": "Розкрій системи",
+      "topics": [
+        {
+          "slug": "monolith-first-or-never",
+          "title": "Monolith-first проти «спершу сервіси»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "when-to-split",
+          "title": "Коли й як різати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "when-to-extract-service",
+          "title": "Коли виділяти сервіс: критерії та хибні приводи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "service-granularity-choice",
+          "title": "Вибір гранулярності сервісів: nano-services антипатерн",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "context-as-service-candidate",
+          "title": "Контекст як кандидат у сервіс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/design-structure-matrix",
+          "title": "Матриця залежностей: побачити шов, а не вгадати"
+        },
+        {
+          "ref": "programming/logical-coupling",
+          "title": "Шов, який видно лише в історії змін"
+        },
+        {
+          "slug": "component-principles-together",
+          "title": "Що змінюється разом — живе разом: три принципи компонента",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "distributed-monolith",
+          "title": "Розподілений моноліт: розрізали, а зчеплення лишилось",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "modular-monolith-to-services",
+          "title": "Від модульного моноліта до сервісів без розриву",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "services-and-functions",
+      "title": "Сервіси й функції",
+      "topics": [
+        {
+          "ref": "programming/microservices",
+          "title": "Мікросервіси"
+        },
+        {
+          "slug": "microservices-vs-monolith-real",
+          "title": "Мікросервіси проти моноліту в реальності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "ref": "programming/soap-web-services",
+          "title": "SOA на дроті: SOAP і важкий апарат веб-служб"
+        },
+        {
+          "ref": "programming/enterprise-service-bus",
+          "title": "Шина в центрі: що орієнтація на сервіси обіцяла"
+        },
+        {
+          "ref": "programming/serverless-faas",
+          "title": "Serverless/FaaS"
+        },
+        {
+          "ref": "programming/edge-functions",
+          "title": "Функція на краю мережі"
+        },
+        {
+          "ref": "programming/twelve-factor",
+          "title": "Яким має бути застосунок, щоб платформа його прийняла"
+        },
+        {
+          "slug": "macro-patterns-summary",
+          "title": "Зведення макро-патернів організації систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "wiring-the-parts",
+      "title": "Зв'язування частин",
+      "topics": [
+        {
+          "slug": "who-finds-whom",
+          "title": "Хто кого знаходить: від кореня складання до реєстру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/service-locator",
+          "title": "Локатор служб і чому його лають"
+        },
+        {
+          "ref": "programming/service-discovery",
+          "title": "Виявлення сервісів"
+        },
+        {
+          "ref": "programming/mdns-dns-sd",
+          "title": "Імена й служби без сервера"
+        },
+        {
+          "ref": "programming/api-gateway",
+          "title": "API-шлюз"
+        },
+        {
+          "ref": "programming/gateway",
+          "title": "Шлюз (PoEAA)"
+        },
+        {
+          "ref": "programming/bff-pattern",
+          "title": "BFF (backend-for-frontend)"
+        },
+        {
+          "slug": "integration-styles-choice",
+          "title": "Стилі інтеграції як рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/convention-over-configuration",
+          "title": "Угода замість конфігурації"
+        },
+        {
+          "ref": "programming/corba-object-broker",
+          "title": "Брокер, IDL і служба імен"
+        }
+      ]
+    },
+    {
+      "slug": "architecture-evaluation",
+      "title": "Оцінка архітектури",
+      "topics": [
+        {
+          "ref": "programming/architecture-review",
+          "title": "Рев'ю архітектури як практика"
+        },
+        {
+          "ref": "programming/atam-architecture-evaluation",
+          "title": "Повний ATAM"
+        },
+        {
+          "slug": "one-hour-evaluation",
+          "title": "Оцінка за годину: як судити форму, коли на ATAM нема ні часу, ні людей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/fitness-functions",
+          "title": "Фітнес-функції"
+        },
+        {
+          "ref": "programming/dependency-graph-checker",
+          "title": "Граф залежностей як автоматична сторожа шва"
+        },
+        {
+          "slug": "dh-review-workshop",
+          "title": "Рев'ю-воркшоп DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dh-shape",
+      "title": "Форма Digital Homes",
+      "topics": [
+        {
+          "slug": "dh-services-audit",
+          "title": "Перший сервіс-аудит DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-v8-services-map",
+          "title": "Чи різати хмару DH? Рішення через ADR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dh-macro-choice",
+          "title": "DH: макроархітектурний вибір системи Digital Homes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dh-hybrid-styles",
+          "title": "DH: хаб, хмара й застосунок — три різні стилі в одній системі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dh-service-boundaries-final",
+          "title": "Фінал розкрою DH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}
