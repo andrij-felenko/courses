@@ -1,0 +1,188 @@
+# Куди пішли написані статті, яких не взяв жоден том
+
+## embedded — 70 статей, нових розділів 3
+
+- том «Основи електроніки» › розділ «zariad-i-napruha»
+    - field-and-potential — Поле й потенціал
+    - electrostatics-summary — Зведення електростатики
+- том «Основи електроніки» › розділ «elektrychne-kolo»
+    - emf-sources — Типи ЕРС: хімічна, теплова, світлова, індукційна
+- том «Основи електроніки» › розділ «skhema-i-maket»
+    - pcb-intro — Що таке друкована плата: шари, доріжки, перехідні отвори
+- том «Основи електроніки» › розділ «chytannia-datashyta»
+    - datasheet-practice — Практикум даташитів
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «forma-syhnalu»
+    - frequency-wavelength — Частота й довжина хвилі
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «forma-syhnalu»
+    - sine-on-scope — Синусоїда на осцилографі
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «filtry»
+    - cascaded-rc-filters — Каскадовані RC-ланки
+    - filter-families — Родини фільтрів: Баттерворт, Чебишов, Бесель
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «napivprovidnyk-i-diod»
+    - sic-gan-comparison — SiC і GaN: чим відрізняються від кремнію
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «tranzystor-iak-kliuch»
+    - darlington-vs-sziklai — Пара Дарлінгтона проти пари Sziklai
+- **НОВИЙ розділ «Каскади підсилення»** у томі «Аналогові й цифрові пристрої та сигнали»
+    - kcl-opamp-analysis — KCL у вузлах схем на ОП
+    - opamp-input-types — Типи входів ОП: BJT, JFET, CMOS
+    - dc-ac-bias — DC-зміщення і AC-сигнал у підсилювачі
+    - feedback-topologies — Топології зворотного зв'язку
+    - tail-current-source — Джерело струму хвоста: від резистора до каскоду
+    - multistage-amplifier — Багатокаскадний підсилювач
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «shum-i-zemlia»
+    - noise-interference — Шум і завади
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «analoh-i-chyslo»
+    - antialiasing-filter-design — Проєктування антиаліасингового фільтра
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «taktovana-lohika»
+    - synchronous-reset — Синхронне й асинхронне скидання
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «taktovana-lohika»
+    - fpga-flow — Потік розробки для FPGA
+- том «Аналогові й цифрові пристрої та сигнали» › розділ «pamiat»
+    - choosing-memory — Вибір пам'яті
+    - when-memory-runs-out — Коли пам'яті мало
+- том «Мікроконтролери» › розділ «budova-mikrokontrolera»
+    - custom-instruction — Кастомні інструкції процесора
+- том «Мікроконтролери» › розділ «persha-proshyvka»
+    - boot-time-budget — Бюджет часу завантаження
+- том «Периферія МК» › розділ «shyna-mizh-mikroskhemamy»
+    - why-buses — Як чипи розмовляють: навіщо шини
+- **НОВИЙ розділ «Комутація навантажень»** у томі «Периферія МК»
+    - inductive-load-switching — Комутація індуктивного навантаження
+    - inductive-clamp-design — Розрахунок клампу для індуктивного навантаження
+    - pwm-power-control — Керування потужністю через ШІМ
+- том «Периферія МК» › розділ «ekrany»
+    - color-management — Управління кольором: профілі та гама
+- том «Комунікація» › розділ «kadr-i-pidtverdzhennia»
+    - data-reliability — Надійність даних у передачі
+- том «Комунікація» › розділ «radiokanal»
+    - impedance-matching-networks — Схеми узгодження імпедансів
+- том «Комунікація» › розділ «radiokanal»
+    - propagation-modes — Режими поширення радіохвиль
+    - itu-r-propagation-models — Моделі поширення ITU-R і 3GPP
+- том «Комунікація» › розділ «radiokanal»
+    - frequency-budget-analysis — Частотний бюджет у системах зв'язку
+- том «Комунікація» › розділ «spilnyi-efir»
+    - multiple-access-methods — Методи множинного доступу
+- том «Комунікація» › розділ «radiomoduli»
+    - rf-frontend — RF-тракт: підсилювачі, перемикач і балун
+    - esp32-module — ESP32-модуль зблизька
+- том «Комунікація» › розділ «radiomoduli»
+    - nfc-rfid — NFC/RFID: від взаємоіндукції до антиколізії
+- том «Комунікація» › розділ «wi-fi»
+    - 802-11-versions — Стандарти 802.11: від b/g/n до Wi-Fi 7
+    - прибрано ненаписані кроки, чию роль перебрали написані: standarty-i-kanaly, shvydke-pidkliuchennia
+- том «Комунікація» › розділ «wi-fi»
+    - wifi-fast-connect — Швидке підключення: кешування PMK і IP
+- том «Комунікація» › розділ «merezhi-operatoriv»
+    - lpwan — LPWAN: сімейство мереж далекого радіуса
+- том «Керування живленням» › розділ «vkhid-zhyvlennia»
+    - surge-protection-cascade — Каскадний захист від перенапруги
+- том «Керування живленням» › розділ «vkhid-zhyvlennia»
+    - usb-cables-field — Кабелі й сумісність USB
+- **НОВИЙ розділ «Від мережі 230 В»** у томі «Керування живленням»
+    - bridge-rectifier-design — Місток Гретца: схема й розрахунок
+    - emi-filter-design — Вхідний EMI-фільтр перетворювача
+    - ac-switch-need — Ключі для мережі змінного струму
+- том «Керування живленням» › розділ «peretvorennia-napruhy»
+    - flyback-transformer-design — Проєктування трансформатора flyback
+- том «Рух і положення» › розділ «rehuliator»
+    - lead-lag-compensator — Lead/lag-компенсатор
+    - loop-gain-measurement — Вимірювання петлевого підсилення
+- том «Рух і положення» › розділ «chyslennia-shliakhu»
+    - slam-navigation — SLAM: одночасне картографування й локалізація
+- том «Читання світу» › розділ «prysutnist-i-vidstan»
+    - stereo-vision — Стереозір: глибина з двох очей
+- том «Читання світу» › розділ «prysutnist-i-vidstan»
+    - error-budget-ranging — Бюджет похибок далекоміра
+- том «Читання світу» › розділ «potik-vymiriuvan»
+    - filter-specification — Специфікація фільтра
+    - fir-vs-iir — КІХ проти БІХ
+    - filter-latency-budget — Бюджет затримки фільтра
+- том «Читання світу» › розділ «zvuk»
+    - audio-playback-path — Відтворення: I2S, ЦАП і PDM-виходи
+- том «Читання світу» › розділ «zvuk»
+    - audio-compression-mcu — Стиснення звуку на МК: ADPCM, Opus
+- том «Читання світу» › розділ «zvuk»
+    - active-noise-cancellation — Активне гасіння шуму
+- том «Читання світу» › розділ «kadr-iak-dani»
+    - mjpeg-vs-h264 — MJPEG проти H.264
+    - video-streaming-protocols — Протоколи відеострімінгу
+- том «Безпека і перешкоди» › розділ «kliuchi-i-dovira»
+    - tpm-trustzone — TPM і TrustZone: апаратний корінь довіри
+- том «Архітектура IoT» › розділ «park-prystroiv»
+    - device-provisioning — Перше налаштування: SoftAP і BLE-провізіонування
+- том «Архітектура IoT» › розділ «park-prystroiv»
+    - ota-server — Серверна частина OTA: мозок цілого парку
+- том «Архітектура IoT» › розділ «arkhitekturne-myslennia»
+    - solid-principles — Принципи SOLID
+- том «Система прийняття рішень» › розділ «kontur-rishennia»
+    - onboard-sensors — Давачі апарата оглядом
+- том «Система прийняття рішень» › розділ «vyprobuvannia-avtonomnosti»
+    - capstone-autonomous-mission — Капстоун: автономна місія на обраній платформі
+- том «Власні плати та пристрої» › розділ «rozvodka-platy»
+    - signal-integrity — Цілісність сигналу: коли нулі та одиниці втрачають форму
+- том «Продукт» › розділ «perevirka-na-zalizi»
+    - firmware-testing — Тестування прошивки: дублі, Unity/CMock, HIL, покриття
+- том «Продукт» › розділ «avtomatychna-zbirka»
+    - gitflow-branching — Стратегії гілкування в git
+
+## progarch — 38 статей, нових розділів 7
+
+- **НОВИЙ розділ «Фонова робота»** у томі «Взаємодія між програмами»
+    - jobs-placement-variants — Де живе черга задач
+    - jobs-choice — Вибір черги задач
+    - dh-long-ops — Довга операція в DH: кліп, що переживає свій запит
+    - dh-jobs-time-final — Фоновий вузол DH: де годинник зустрічає чергу
+    - async-work-recap — Асинхронна робота як клас рішень
+    - (плюс ref-кроки: programming/background-jobs, programming/distributed-cron)
+- **НОВИЙ розділ «Сповіщення назовні»** у томі «Взаємодія між програмами»
+    - dh-notification-pipeline — Конвеєр сповіщень DH: від сирої події до вчасного виклику
+    - notification-dedup-throttle — Дедуп, злиття й throttling сповіщень
+    - notification-fanout-choice — Вибір моделі fan-out сповіщень
+    - outbound-node-recap — Вихід назовні як єдиний клас вузла
+- **НОВИЙ розділ «Зловмисник як сила»** у томі «Відмови й навантаження»
+    - attacker-as-force — Зловмисник як сила архітектури
+    - dh-threat-model — Модель загроз Digital Homes
+    - e2e-vs-serverside-choice — E2E проти server-side: вибір за класифікацією даних
+    - (плюс ref-кроки: programming/threat-modeling)
+- **НОВИЙ розділ «Хто ти і що тобі можна»** у томі «Відмови й навантаження»
+    - session-storage-choice — Компакт-вибір: де живе сесія
+    - auth-vs-authz-boundary — Автентифікація проти авторизації
+    - authz-inservice-variant — Варіант А: кожен сервіс авторизує сам
+    - authz-central-variant — Варіант Б: рішення ухвалює один центр
+    - authz-choice — Вибір: центр, сервіс — і гібрид, що їх мирить
+    - authz-in-depth — Авторизація вглиб
+    - idor-horizontal-escalation — Горизонтальна ескалація (IDOR) як загроза
+    - dh-auth-path — Запит крізь DH: від токена до дозволу
+    - (плюс ref-кроки: programming/authentication, programming/session-management, programming/authorization-models)
+- **НОВИЙ розділ «Зростання під навантаженням»** у томі «Відмови й навантаження»
+    - scale-decision-recap — Коли масштабувати, а коли ні
+    - compute-platform-choice — Компакт-вибір: на чому виконувати
+    - load-distribution-dh — Розподіл навантаження DH
+    - sale-start-waiting-room — Старт продажу: кімната очікування перед системою
+    - (плюс ref-кроки: programming/autoscaling, programming/load-balancing)
+- **НОВИЙ розділ «Географія системи»** у томі «Розподілена система»
+    - multi-region-topologies — Топології мультирегіону
+    - dh-region-choice — Компакт-вибір: планета DH
+    - (плюс ref-кроки: programming/cdn)
+- том «Дані» › розділ «cache»
+    - cache-coherence-choice — Вибір стратегії свіжості між сервісами
+- том «Дані» › розділ «cache»
+    - dh-cache-hierarchy — Стан дому і список пристроїв крізь яруси кешу
+    - dh-change-cache-final — DH: фінал тактик змін і кешування
+- том «Експлуатація» › розділ «environments-and-flags»
+    - dh-leak-day — День витоку DH
+- **НОВИЙ розділ «Орендар і гроші»** у томі «Ціна рішення»
+    - tenancy-variants-choice — Ізоляція орендарів: варіанти мультиарендності
+    - money-truth-choice — Де живе правда про гроші: фінансова цілісність
+    - (плюс ref-кроки: programming/metering-and-billing, programming/double-entry-ledger, programming/payments-integration)
+- том «Форма застосунку» › розділ «ports-and-adapters»
+    - hexagon-when-overkill — Коли гексагон — зайвий
+- том «Система в часі» › розділ «dh-capstone»
+    - capstone-setup — Капстон, крок 1: постановка й рамка системи
+    - capstone-shape-data — Капстон, крок 2: форма застосунку й топологія даних
+    - capstone-services-nodes — Капстон, крок 3: сервісні межі, платформи, вузли
+    - capstone-scale-secure-ops — Капстон, крок 4: масштаб, стійкість, безпека, викочування
+    - capstone-org-evolution — Капстон, крок 5: організація й еволюція
+    - прибрано ненаписані кроки, чию роль перебрали написані: capstone-diagnosis, capstone-transition-programme, capstone-handover-and-shutdown
+

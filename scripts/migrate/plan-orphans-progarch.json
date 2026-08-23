@@ -1,0 +1,299 @@
+[
+  {
+    "vol": "program-to-program",
+    "after": "delivery-guarantees",
+    "chapter": {
+      "slug": "background-work",
+      "title": "Фонова робота"
+    },
+    "topics": [
+      {
+        "ref": "programming/background-jobs"
+      },
+      {
+        "ref": "programming/distributed-cron"
+      },
+      {
+        "own": "jobs-placement-variants",
+        "title": "Де живе черга задач"
+      },
+      {
+        "own": "jobs-choice",
+        "title": "Вибір черги задач"
+      },
+      {
+        "own": "dh-long-ops",
+        "title": "Довга операція в DH: кліп, що переживає свій запит"
+      },
+      {
+        "own": "dh-jobs-time-final",
+        "title": "Фоновий вузол DH: де годинник зустрічає чергу"
+      },
+      {
+        "own": "async-work-recap",
+        "title": "Асинхронна робота як клас рішень"
+      }
+    ]
+  },
+  {
+    "vol": "program-to-program",
+    "after": "webhooks",
+    "chapter": {
+      "slug": "outbound-notifications",
+      "title": "Сповіщення назовні"
+    },
+    "topics": [
+      {
+        "own": "dh-notification-pipeline",
+        "title": "Конвеєр сповіщень DH: від сирої події до вчасного виклику"
+      },
+      {
+        "own": "notification-dedup-throttle",
+        "title": "Дедуп, злиття й throttling сповіщень"
+      },
+      {
+        "own": "notification-fanout-choice",
+        "title": "Вибір моделі fan-out сповіщень"
+      },
+      {
+        "own": "outbound-node-recap",
+        "title": "Вихід назовні як єдиний клас вузла"
+      }
+    ]
+  },
+  {
+    "vol": "failures-and-load",
+    "before": "attack-and-abuse",
+    "chapter": {
+      "slug": "attacker-as-a-force",
+      "title": "Зловмисник як сила"
+    },
+    "topics": [
+      {
+        "own": "attacker-as-force",
+        "title": "Зловмисник як сила архітектури"
+      },
+      {
+        "ref": "programming/threat-modeling"
+      },
+      {
+        "own": "dh-threat-model",
+        "title": "Модель загроз Digital Homes"
+      },
+      {
+        "own": "e2e-vs-serverside-choice",
+        "title": "E2E проти server-side: вибір за класифікацією даних"
+      }
+    ]
+  },
+  {
+    "vol": "failures-and-load",
+    "after": "untrusted-input",
+    "chapter": {
+      "slug": "identity-and-permission",
+      "title": "Хто ти і що тобі можна"
+    },
+    "topics": [
+      {
+        "ref": "programming/authentication"
+      },
+      {
+        "ref": "programming/session-management"
+      },
+      {
+        "own": "session-storage-choice",
+        "title": "Компакт-вибір: де живе сесія"
+      },
+      {
+        "own": "auth-vs-authz-boundary",
+        "title": "Автентифікація проти авторизації"
+      },
+      {
+        "ref": "programming/authorization-models"
+      },
+      {
+        "own": "authz-inservice-variant",
+        "title": "Варіант А: кожен сервіс авторизує сам"
+      },
+      {
+        "own": "authz-central-variant",
+        "title": "Варіант Б: рішення ухвалює один центр"
+      },
+      {
+        "own": "authz-choice",
+        "title": "Вибір: центр, сервіс — і гібрид, що їх мирить"
+      },
+      {
+        "own": "authz-in-depth",
+        "title": "Авторизація вглиб"
+      },
+      {
+        "own": "idor-horizontal-escalation",
+        "title": "Горизонтальна ескалація (IDOR) як загроза"
+      },
+      {
+        "own": "dh-auth-path",
+        "title": "Запит крізь DH: від токена до дозволу"
+      }
+    ]
+  },
+  {
+    "vol": "failures-and-load",
+    "after": "queues-and-backpressure",
+    "chapter": {
+      "slug": "scaling",
+      "title": "Зростання під навантаженням"
+    },
+    "topics": [
+      {
+        "own": "scale-decision-recap",
+        "title": "Коли масштабувати, а коли ні"
+      },
+      {
+        "ref": "programming/autoscaling"
+      },
+      {
+        "own": "compute-platform-choice",
+        "title": "Компакт-вибір: на чому виконувати"
+      },
+      {
+        "ref": "programming/load-balancing"
+      },
+      {
+        "own": "load-distribution-dh",
+        "title": "Розподіл навантаження DH"
+      },
+      {
+        "own": "sale-start-waiting-room",
+        "title": "Старт продажу: кімната очікування перед системою"
+      }
+    ]
+  },
+  {
+    "vol": "distributed-system",
+    "before": "truth-at-the-edge",
+    "chapter": {
+      "slug": "geography",
+      "title": "Географія системи"
+    },
+    "topics": [
+      {
+        "ref": "programming/cdn"
+      },
+      {
+        "own": "multi-region-topologies",
+        "title": "Топології мультирегіону"
+      },
+      {
+        "own": "dh-region-choice",
+        "title": "Компакт-вибір: планета DH"
+      }
+    ]
+  },
+  {
+    "vol": "data",
+    "into": "cache",
+    "afterTopic": "cache-decision-framework",
+    "topics": [
+      {
+        "own": "cache-coherence-choice",
+        "title": "Вибір стратегії свіжості між сервісами"
+      }
+    ]
+  },
+  {
+    "vol": "data",
+    "into": "cache",
+    "topics": [
+      {
+        "own": "dh-cache-hierarchy",
+        "title": "Стан дому і список пристроїв крізь яруси кешу"
+      },
+      {
+        "own": "dh-change-cache-final",
+        "title": "DH: фінал тактик змін і кешування"
+      }
+    ]
+  },
+  {
+    "vol": "operations",
+    "into": "environments-and-flags",
+    "afterTopic": "live-system-secrets",
+    "topics": [
+      {
+        "own": "dh-leak-day",
+        "title": "День витоку DH"
+      }
+    ]
+  },
+  {
+    "vol": "cost-of-decision",
+    "after": "cost-of-a-system",
+    "chapter": {
+      "slug": "tenants-and-money",
+      "title": "Орендар і гроші"
+    },
+    "topics": [
+      {
+        "own": "tenancy-variants-choice",
+        "title": "Ізоляція орендарів: варіанти мультиарендності"
+      },
+      {
+        "ref": "programming/metering-and-billing"
+      },
+      {
+        "ref": "programming/double-entry-ledger"
+      },
+      {
+        "own": "money-truth-choice",
+        "title": "Де живе правда про гроші: фінансова цілісність"
+      },
+      {
+        "ref": "programming/payments-integration"
+      }
+    ]
+  },
+  {
+    "vol": "application-shape",
+    "into": "ports-and-adapters",
+    "afterTopic": "port-smelling-of-storage",
+    "topics": [
+      {
+        "own": "hexagon-when-overkill",
+        "title": "Коли гексагон — зайвий"
+      }
+    ]
+  },
+  {
+    "vol": "system-in-time",
+    "into": "dh-capstone",
+    "afterTopic": "request-journey-final",
+    "drop": [
+      "capstone-diagnosis",
+      "capstone-transition-programme",
+      "capstone-handover-and-shutdown"
+    ],
+    "topics": [
+      {
+        "own": "capstone-setup",
+        "title": "Капстон, крок 1: постановка й рамка системи"
+      },
+      {
+        "own": "capstone-shape-data",
+        "title": "Капстон, крок 2: форма застосунку й топологія даних"
+      },
+      {
+        "own": "capstone-services-nodes",
+        "title": "Капстон, крок 3: сервісні межі, платформи, вузли"
+      },
+      {
+        "own": "capstone-scale-secure-ops",
+        "title": "Капстон, крок 4: масштаб, стійкість, безпека, викочування"
+      },
+      {
+        "own": "capstone-org-evolution",
+        "title": "Капстон, крок 5: організація й еволюція"
+      }
+    ]
+  }
+]
