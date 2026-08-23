@@ -87,6 +87,16 @@
           "title": "Коли повтор задорогий: коди, що виправляють"
         },
         {
+          "slug": "data-reliability",
+          "title": "Надійність даних у передачі",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
           "ref": "communications/osi-model",
           "title": "Рівні: чому обмін розкладають шарами"
         },
@@ -277,6 +287,22 @@
           "title": "Узгодження, КСХ, балун"
         },
         {
+          "slug": "impedance-matching-networks",
+          "title": "Схеми узгодження імпедансів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-smith-chart.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "slug": "esp32-antenna",
           "title": "Антена на власній платі",
           "basic": {
@@ -289,6 +315,42 @@
         {
           "ref": "communications/free-space-loss",
           "title": "Загасання у просторі й рівняння Фрііса"
+        },
+        {
+          "slug": "propagation-modes",
+          "title": "Режими поширення радіохвиль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ionosphere-discovery.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "itu-r-propagation-models",
+          "title": "Моделі поширення ITU-R і 3GPP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-hata-derivation.md",
+              "status": "done"
+            },
+            {
+              "file": "math-shadowing-stats.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "zony-frenelia-i-pereshkoda-na-shliakhu",
@@ -313,6 +375,28 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "frequency-budget-analysis",
+          "title": "Частотний бюджет у системах зв'язку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-frequency-drift.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-channel-planner.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "dalnist-u-poli",
@@ -365,6 +449,28 @@
           }
         },
         {
+          "slug": "multiple-access-methods",
+          "title": "Методи множинного доступу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-alohanet.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tdma-scheduler.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "communications/guard-band-duplexing",
           "title": "Дуплекс і захисні смуги"
         },
@@ -401,6 +507,68 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "rf-frontend",
+          "title": "RF-тракт: підсилювачі, перемикач і балун",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-pa-classes.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-friis-cascade.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fem.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fem.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp32-module",
+          "title": "ESP32-модуль зблизька",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shield-can.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pi-match.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brownout-guard.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "connect/nrf24-radio",
@@ -471,6 +639,34 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "nfc-rfid",
+          "title": "NFC/RFID: від взаємоіндукції до антиколізії",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nfc-standards.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coupling-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anticollision-loop.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -543,14 +739,20 @@
           "title": "Wi-Fi: точка доступу, STA, приєднання"
         },
         {
-          "slug": "standarty-i-kanaly",
-          "title": "Стандарти й канали: 2,4 проти 5 ГГц",
+          "slug": "802-11-versions",
+          "title": "Стандарти 802.11: від b/g/n до Wi-Fi 7",
           "basic": {
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wifi-generations.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "communications/wpa-security",
@@ -561,14 +763,26 @@
           "title": "Відкрита точка й чому це дірка"
         },
         {
-          "slug": "shvydke-pidkliuchennia",
-          "title": "Швидке підключення: кеш PMK і IP",
+          "slug": "wifi-fast-connect",
+          "title": "Швидке підключення: кешування PMK і IP",
           "basic": {
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-roaming-pmksa.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-connect-nvs.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "prystrii-bez-klaviatury",
@@ -701,6 +915,28 @@
         {
           "ref": "communications/lorawan",
           "title": "LoRaWAN: приєднання, класи, ADR, шлюз"
+        },
+        {
+          "slug": "lpwan",
+          "title": "LPWAN: сімейство мереж далекого радіуса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lpwan-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-airtime-budget.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "communications/stilnykova-merezha",

@@ -21,6 +21,22 @@
           }
         },
         {
+          "slug": "onboard-sensors",
+          "title": "Давачі апарата оглядом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "slug": "tsil-zamist-komandy",
           "title": "Ціль замість команди: що змінюється, коли вирішує апарат",
           "basic": {
@@ -1077,6 +1093,34 @@
         {
           "ref": "programming/end-to-end-mission",
           "title": "Місія від початку до кінця"
+        },
+        {
+          "slug": "capstone-autonomous-mission",
+          "title": "Капстоун: автономна місія на обраній платформі",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mission-protocol.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-l1-navigation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mission-upload-verify.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     }

@@ -415,6 +415,34 @@
           "title": "Тріангуляція"
         },
         {
+          "slug": "stereo-vision",
+          "title": "Стереозір: глибина з двох очей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wheatstone.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-disparity-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-block-matching.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "electronics/fmcw-radar",
           "title": "Радар на 24/60 ГГц"
         },
@@ -435,6 +463,28 @@
         {
           "ref": "electronics/distance-errors",
           "title": "Похибки відстані"
+        },
+        {
+          "slug": "error-budget-ranging",
+          "title": "Бюджет похибок далекоміра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gum-uncertainty.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-error-propagation.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "vybir-dalekomira-pid-stsenu",
@@ -605,6 +655,64 @@
           }
         },
         {
+          "slug": "filter-specification",
+          "title": "Специфікація фільтра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-order-formula.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spec-struct.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fir-vs-iir",
+          "title": "КІХ проти БІХ",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-linear-phase-proof.md",
+              "status": "done"
+            },
+            {
+              "file": "math-pole-sharpness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cascade-notch-fir.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "filter-latency-budget",
+          "title": "Бюджет затримки фільтра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
           "slug": "usb-cc-adc-circuit",
           "title": "Поріг, гістерезис, дребезг показань",
           "basic": {
@@ -673,6 +781,40 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "audio-playback-path",
+          "title": "Відтворення: I2S, ЦАП і PDM-виходи",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-i2s-origins.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-i2s-audio-amp.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dither-noise-shaping.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pdm-encoder.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "algorithms/cic-filter",
@@ -751,6 +893,28 @@
           }
         },
         {
+          "slug": "audio-compression-mcu",
+          "title": "Стиснення звуку на МК: ADPCM, Opus",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-adpcm-opus.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adpcm-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "slug": "vibration-diagnostics",
           "title": "Вібродіагностика",
           "basic": {
@@ -759,6 +923,28 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "active-noise-cancellation",
+          "title": "Активне гасіння шуму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-anc-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fxlms-firmware.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "algorithms/mikrofonnyi-masyv",
@@ -905,6 +1091,64 @@
         {
           "ref": "algorithms/rate-control-algorithms",
           "title": "Ціна якості"
+        },
+        {
+          "slug": "mjpeg-vs-h264",
+          "title": "MJPEG проти H.264",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dct-lineage.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-codec-wars.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "video-streaming-protocols",
+          "title": "Протоколи відеострімінгу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rtp.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-rtsp.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-webrtc.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-srt.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-hls-dash.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adaptive-bitrate.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "skilky-koshtuie-video",

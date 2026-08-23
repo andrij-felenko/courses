@@ -81,6 +81,88 @@
       ]
     },
     {
+      "slug": "komutatsiia-navantazhen",
+      "title": "Комутація навантажень",
+      "topics": [
+        {
+          "slug": "inductive-load-switching",
+          "title": "Комутація індуктивного навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-firmware-safe-switching.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inductive-clamp-design",
+          "title": "Розрахунок клампу для індуктивного навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-clamp-energy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clamp-sizing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pwm-power-control",
+          "title": "Керування потужністю через ШІМ",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-servo-standard.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mosfet-module.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rms-harmonics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gamma.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-slow-pwm-thermostat.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "analohovi-vkhody",
       "title": "Аналогові входи",
       "topics": [
@@ -286,6 +368,22 @@
       "slug": "shyna-mizh-mikroskhemamy",
       "title": "Шина між мікросхемами",
       "topics": [
+        {
+          "slug": "why-buses",
+          "title": "Як чипи розмовляють: навіщо шини",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bus-word.md",
+              "status": "done"
+            }
+          ]
+        },
         {
           "slug": "pullup-resistor-design",
           "title": "Розрахунок підтяжки",
@@ -745,6 +843,34 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "color-management",
+          "title": "Управління кольором: профілі та гама",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gamma-srgb.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gamma-table-init.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gamma-table.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "electronics/display-double-buffering",

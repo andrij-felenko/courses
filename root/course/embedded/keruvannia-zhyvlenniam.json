@@ -113,6 +113,22 @@
           "title": "Кидки в мережі: TVS, варистор, розрядник"
         },
         {
+          "slug": "surge-protection-cascade",
+          "title": "Каскадний захист від перенапруги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cascade.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "slug": "home-device-power",
           "title": "Живлення побутового пристрою: від мережі, безпечно, з малим standby",
           "basic": {
@@ -153,6 +169,34 @@
           }
         },
         {
+          "slug": "usb-cables-field",
+          "title": "Кабелі й сумісність USB",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cable-safety.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cable-drop.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-field-diagnostics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "communications/poe",
           "title": "PoE: живлення по витій парі"
         },
@@ -189,6 +233,78 @@
       ]
     },
     {
+      "slug": "vid-merezhi-230-v",
+      "title": "Від мережі 230 В",
+      "topics": [
+        {
+          "slug": "bridge-rectifier-design",
+          "title": "Місток Гретца: схема й розрахунок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-graetz-pollak.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-bridge-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "emi-filter-design",
+          "title": "Вхідний EMI-фільтр перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-x-y-safety-caps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ac-switch-need",
+          "title": "Ключі для мережі змінного струму",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-thyristor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-latch.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phase-control.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "peretvorennia-napruhy",
       "title": "Перетворення напруги",
       "topics": [
@@ -221,6 +337,28 @@
         {
           "ref": "electronics/flyback-isolated",
           "title": "Ізольований перетворювач: flyback і навіщо ізоляція"
+        },
+        {
+          "slug": "flyback-transformer-design",
+          "title": "Проєктування трансформатора flyback",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-area-product.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flyback-transformer-calc.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "topology-map",

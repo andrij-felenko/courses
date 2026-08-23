@@ -35,6 +35,22 @@
           "title": "Частотний спектр"
         },
         {
+          "slug": "frequency-wavelength",
+          "title": "Частота й довжина хвилі",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-hertz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "math/fourier-idea",
           "title": "Ідея Фур'є"
         },
@@ -53,6 +69,22 @@
         {
           "ref": "electronics/scope-probe",
           "title": "Щуп осцилографа"
+        },
+        {
+          "slug": "sine-on-scope",
+          "title": "Синусоїда на осцилографі",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lissajous.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -89,6 +121,32 @@
           "title": "RC-ФВЧ"
         },
         {
+          "slug": "cascaded-rc-filters",
+          "title": "Каскадовані RC-ланки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-loading.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "filter-families",
+          "title": "Родини фільтрів: Баттерворт, Чебишов, Бесель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
           "ref": "electronics/bode-plot",
           "title": "Діаграма Боде"
         },
@@ -121,6 +179,22 @@
         {
           "ref": "physics/pn-junction",
           "title": "PN-перехід"
+        },
+        {
+          "slug": "sic-gan-comparison",
+          "title": "SiC і GaN: чим відрізняються від кремнію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wbg-origins.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "electronics/diode-iv-curve",
@@ -175,6 +249,22 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "darlington-vs-sziklai",
+          "title": "Пара Дарлінгтона проти пари Sziklai",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-darlington-sziklai.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "electronics/mosfet-structure",
@@ -287,6 +377,102 @@
       ]
     },
     {
+      "slug": "kaskady-pidsylennia",
+      "title": "Каскади підсилення",
+      "topics": [
+        {
+          "slug": "kcl-opamp-analysis",
+          "title": "KCL у вузлах схем на ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "opamp-input-types",
+          "title": "Типи входів ОП: BJT, JFET, CMOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-input-stages.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dc-ac-bias",
+          "title": "DC-зміщення і AC-сигнал у підсилювачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bias-origin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "feedback-topologies",
+          "title": "Топології зворотного зв'язку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-black-feedback.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tail-current-source",
+          "title": "Джерело струму хвоста: від резистора до каскоду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-widlar-wilson.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multistage-amplifier",
+          "title": "Багатокаскадний підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-opamp-cascade.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "shum-i-zemlia",
       "title": "Шум і земля",
       "topics": [
@@ -297,6 +483,34 @@
         {
           "ref": "electronics/signal-noise-ratio",
           "title": "Відношення сигнал/шум"
+        },
+        {
+          "slug": "noise-interference",
+          "title": "Шум і завади",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-johnson-nyquist.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nyquist-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-noise-generator.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "physics/capacitive-coupling",
@@ -563,6 +777,22 @@
           "title": "Антиаліасинговий фільтр"
         },
         {
+          "slug": "antialiasing-filter-design",
+          "title": "Проєктування антиаліасингового фільтра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-aliasing-attenuation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "electronics/adc-resolution",
           "title": "Роздільність АЦП"
         },
@@ -655,6 +885,28 @@
           "title": "Метастабільність"
         },
         {
+          "slug": "synchronous-reset",
+          "title": "Синхронне й асинхронне скидання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-reset-debate.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reset-fsm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "electronics/finite-state-machines",
           "title": "Скінченні автомати"
         },
@@ -681,6 +933,38 @@
         {
           "ref": "electronics/hdl",
           "title": "Опис апаратури мовою HDL"
+        },
+        {
+          "slug": "fpga-flow",
+          "title": "Потік розробки для FPGA",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-birth-of-synthesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lut-covering.md",
+              "status": "done"
+            },
+            {
+              "file": "math-negotiated-routing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-open-toolchain.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -743,6 +1027,32 @@
         {
           "ref": "electronics/memory-hierarchy",
           "title": "Ієрархія пам'яті"
+        },
+        {
+          "slug": "choosing-memory",
+          "title": "Вибір пам'яті",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "when-memory-runs-out",
+          "title": "Коли пам'яті мало",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dennard-dram.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },

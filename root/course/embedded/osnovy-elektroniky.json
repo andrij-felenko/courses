@@ -75,6 +75,68 @@
           "title": "Електричний потенціал"
         },
         {
+          "slug": "field-and-potential",
+          "title": "Поле й потенціал",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-potential.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gradient.md",
+              "status": "done"
+            },
+            {
+              "file": "math-line-integral.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-relaxation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "electrostatics-summary",
+          "title": "Зведення електростатики",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-field-idea.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gauss-flux.md",
+              "status": "done"
+            },
+            {
+              "file": "math-conservative-field.md",
+              "status": "done"
+            },
+            {
+              "file": "math-field-energy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "physics/voltage",
           "title": "Напруга як різниця потенціалів"
         },
@@ -161,6 +223,22 @@
         {
           "ref": "electronics/internal-resistance",
           "title": "Внутрішній опір джерела"
+        },
+        {
+          "slug": "emf-sources",
+          "title": "Типи ЕРС: хімічна, теплова, світлова, індукційна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-galvani-volta.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "electronics/resistor",
@@ -289,6 +367,22 @@
         {
           "ref": "electronics/basic-soldering",
           "title": "Мінімальна пайка"
+        },
+        {
+          "slug": "pcb-intro",
+          "title": "Що таке друкована плата: шари, доріжки, перехідні отвори",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-copper-calc.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -527,6 +621,34 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "datasheet-practice",
+          "title": "Практикум даташитів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-component-tester.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-switching-loss.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-selection-checklist.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },

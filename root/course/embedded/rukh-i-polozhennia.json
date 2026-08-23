@@ -267,6 +267,62 @@
           }
         },
         {
+          "slug": "lead-lag-compensator",
+          "title": "Lead/lag-компенсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-servo-war.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lead-phase.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-discrete-comp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "loop-gain-measurement",
+          "title": "Вимірювання петлевого підсилення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-middlebrook.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-injection-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-firmware-fra.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
           "ref": "algorithms/discrete-pid",
           "title": "Дискретний ПІД"
         },
@@ -539,6 +595,34 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "slam-navigation",
+          "title": "SLAM: одночасне картографування й локалізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-slam.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pose-graph.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ekf-slam.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "barometric-altimeter",
