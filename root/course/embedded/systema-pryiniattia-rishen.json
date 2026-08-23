@@ -1,0 +1,1124 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "systema-pryiniattia-rishen",
+  "title": "Система прийняття рішень",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "kontur-rishennia",
+      "title": "Контур рішення",
+      "topics": [
+        {
+          "slug": "autonomous-system",
+          "title": "Автономна система",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "tsil-zamist-komandy",
+          "title": "Ціль замість команди: що змінюється, коли вирішує апарат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/sense-decide-act-loop",
+          "title": "Контур offboard: вимір → рішення → дія"
+        },
+        {
+          "ref": "algorithms/reaktsiia-chy-plan",
+          "title": "Реакція чи план: два шари рішення",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "programming/umova-diia-i-chomu-prystrii-klatsaie",
+          "title": "Умова, дія і чому пристрій клацає: поріг із гістерезисом",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/minimalnyi-chas-stanu-zatrymka-i-antydrebezh",
+          "title": "Мінімальний час стану, затримка й антидребезг рішення",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/blokuvannia-i-umovy-dopusku-interlock",
+          "title": "Блокування й умови допуску (interlock)",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "slug": "khto-zaraz-keruie",
+          "title": "Хто зараз керує: джерела рішень і пріоритет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/bumpless-transfer",
+          "title": "Безударне перемикання регулятора"
+        },
+        {
+          "ref": "algorithms/latency-sync",
+          "title": "Затримки й синхро"
+        },
+        {
+          "ref": "programming/safe-mode",
+          "title": "Безпечний стан"
+        },
+        {
+          "ref": "programming/fail-open-fail-closed",
+          "title": "Fail-open проти fail-closed"
+        },
+        {
+          "slug": "smart-home-node",
+          "title": "Вузол розумного дому: давач + MQTT + автономна логіка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mezhi-pravyl",
+          "title": "Межі правил: коли правило перестає тягнути",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "navedennia-na-tochku",
+      "title": "Наведення на точку",
+      "topics": [
+        {
+          "ref": "programming/waypoint-navigation",
+          "title": "Навігація за маршрутними точками"
+        },
+        {
+          "ref": "algorithms/vid-tochky-marshrutu-do-ustavky",
+          "title": "Від точки маршруту до уставки: радіус досягнення, зріз кута",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/pure-pursuit-navigation",
+          "title": "Навігація pure pursuit"
+        },
+        {
+          "ref": "algorithms/kurs-shliakh-i-bichne-vidkhylennia",
+          "title": "Курс, шлях і бічне відхилення",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/utrymannia-pozytsii-i-povernennia-na-liniiu",
+          "title": "Утримання позиції й повернення на лінію",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "programming/position-modes",
+          "title": "Режими з позицією"
+        },
+        {
+          "ref": "algorithms/viter-i-znos",
+          "title": "Вітер і знос: чому апарат летить не туди, куди дивиться",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/motion-profiles",
+          "title": "Профілі руху"
+        },
+        {
+          "ref": "algorithms/bicycle-kinematic-model",
+          "title": "Кінематична велосипедна модель"
+        },
+        {
+          "ref": "algorithms/one-stack-many-bodies",
+          "title": "Один стек, різні тіла"
+        },
+        {
+          "slug": "navedennia-proty-rehuliatora",
+          "title": "Наведення проти регулятора: хто обирає уставку, хто її тримає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/navedennia-na-rukhomu-tsil",
+          "title": "Наведення на рухому ціль",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        }
+      ]
+    },
+    {
+      "slug": "avtonomna-misiia",
+      "title": "Автономна місія",
+      "topics": [
+        {
+          "slug": "mission-planning",
+          "title": "Проєктування місії (вейпойнти)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/missions-waypoints",
+          "title": "Місії й точки"
+        },
+        {
+          "ref": "qgroundcontrol/mission-items",
+          "title": "Елементи місії"
+        },
+        {
+          "slug": "misiia-iak-prohrama",
+          "title": "Місія як програма: послідовність, умова, цикл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "qgroundcontrol/survey-patterns",
+          "title": "Патерни зйомки"
+        },
+        {
+          "ref": "algorithms/survey-grid-coverage",
+          "title": "Покриття полігону галсами"
+        },
+        {
+          "ref": "algorithms/boustrophedon-coverage",
+          "title": "Бустрофедонний розклад і покриття площ"
+        },
+        {
+          "ref": "qgroundcontrol/terrain-and-altitude",
+          "title": "Рельєф і режими висоти"
+        },
+        {
+          "ref": "programming/geofence",
+          "title": "Геозона (geofence) в автопілоті"
+        },
+        {
+          "ref": "algorithms/geofence-algorithm",
+          "title": "Алгоритм геозони"
+        },
+        {
+          "slug": "chy-zdiisnenna-misiia",
+          "title": "Чи здійсненна місія: час, енергія, вітер, висота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/pauza-zmina-i-prodovzhennia-misii-na-khodu",
+          "title": "Пауза, зміна й продовження місії на ходу",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/diia-na-tochtsi",
+          "title": "Дія на точці: камера, скидання, підвіс",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "misiia-dlia-ne-litaiuchoho",
+          "title": "Місія для не-літаючого: ровер, човен, стаціонарний пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "start-i-povernennia",
+      "title": "Старт і повернення",
+      "topics": [
+        {
+          "ref": "programming/arming-checks",
+          "title": "Arming-перевірки"
+        },
+        {
+          "ref": "programming/heit-ozbroiennia",
+          "title": "Гейт озброєння: чому апарат відмовляється стартувати",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "algorithms/zlit-iak-protsedura",
+          "title": "Зліт як процедура: озброєння, набір висоти, точка старту",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/start-dlia-rovera-i-chovna",
+          "title": "Старт для ровера й човна: вихід із дока, відчалювання",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/domashnia-tochka-i-shcho-z-neiu-ne-tak",
+          "title": "Домашня точка й що з нею не так",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/povernennia-dodomu",
+          "title": "Повернення додому: висота, шлях, поведінка на місці",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "programming/battery-budget",
+          "title": "Бюджет батареї"
+        },
+        {
+          "slug": "skilky-lyshylos-na-povernennia",
+          "title": "Скільки лишилось на повернення: резерв енергії й вітер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/nyzka-batareia",
+          "title": "Низька батарея: три пороги й що по кожному",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "algorithms/avtoposadka",
+          "title": "Автопосадка: зниження, детект землі, розброєння",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/skasovana-posadka-i-druha-sproba",
+          "title": "Скасована посадка й друга спроба",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "posadka-naoslip-i-chomu-vona-mazhetsia",
+          "title": "Посадка наосліп і чому вона мажеться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/povernennia-na-dok-i-na-zariadku",
+          "title": "Повернення на док і на зарядку",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/dim-nedosiazhnyi",
+          "title": "Дім недосяжний: запасні майданчики й вибір між ними",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/kerovana-terminatsiia",
+          "title": "Керована термінація: коли правильна дія — впасти",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        }
+      ]
+    },
+    {
+      "slug": "povedinka-pry-vidmovi",
+      "title": "Поведінка при відмові",
+      "topics": [
+        {
+          "ref": "programming/failsafe",
+          "title": "Failsafe"
+        },
+        {
+          "slug": "matrytsia-vidmov",
+          "title": "Матриця відмов: канал, GNSS, батарея, геозона, привід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/failure-priorities",
+          "title": "Пріоритети відмов"
+        },
+        {
+          "ref": "programming/dynamics-dependent-failsafe",
+          "title": "Failsafe за динамікою"
+        },
+        {
+          "ref": "communications/rc-failsafe-modes",
+          "title": "Режими failsafe RC"
+        },
+        {
+          "ref": "programming/failure-detection",
+          "title": "Виявлення відмов: чому мертвий вузол не відрізнити від повільного"
+        },
+        {
+          "ref": "algorithms/vtrata-zviazku",
+          "title": "Втрата зв'язку: чекати, вертатись чи продовжувати",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/dead-reckoning",
+          "title": "Інерціальне числення позиції"
+        },
+        {
+          "ref": "algorithms/innovation-gating",
+          "title": "Ворота несподіванки (innovation gating)"
+        },
+        {
+          "ref": "algorithms/sensor-insufficiency",
+          "title": "Недостатність давача"
+        },
+        {
+          "ref": "programming/redundancy",
+          "title": "Надлишковість"
+        },
+        {
+          "ref": "programming/graceful-degradation",
+          "title": "Деградація з гідністю"
+        },
+        {
+          "ref": "programming/limp-mode",
+          "title": "Кульгавий режим (limp mode)"
+        },
+        {
+          "ref": "programming/health-monitor",
+          "title": "Монітор здоров'я пристрою"
+        },
+        {
+          "ref": "algorithms/vidmova-pryvodu",
+          "title": "Відмова приводу: мотор, серво, кермо",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        }
+      ]
+    },
+    {
+      "slug": "obkhid-pereshkody",
+      "title": "Обхід перешкоди",
+      "topics": [
+        {
+          "ref": "algorithms/hraf-iak-struktura-danykh",
+          "title": "Граф як структура даних",
+          "todo": "нова тема",
+          "hint": "algorithms/data-structures"
+        },
+        {
+          "ref": "algorithms/dijkstra",
+          "title": "Алгоритм Дейкстри"
+        },
+        {
+          "slug": "path-planning-grid",
+          "title": "Планування шляху: сітка і A*",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/configuration-space",
+          "title": "Конфігураційний простір: рух тіла як рух точки"
+        },
+        {
+          "slug": "obstacle-avoidance",
+          "title": "Обхід перешкод",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/karta-zainiatosti-z-dalekomira",
+          "title": "Карта зайнятості з далекоміра: стоп, об'їзд, набір висоти",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/tsina-klitynky",
+          "title": "Ціна клітинки: чому найкоротший шлях не найкращий",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "halmuvaty-chy-obizhdzhaty",
+          "title": "Гальмувати чи об'їжджати: реактивний шар проти планувальника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/slipi-zony-i-khybne-halmuvannia",
+          "title": "Сліпі зони й хибне гальмування",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/hlukhyi-kut-i-pastka-lokalnoho-obkhodu",
+          "title": "Глухий кут і пастка локального обходу",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/biudzhet-chasu-planuvalnyka",
+          "title": "Бюджет часу планувальника: коли думати ніколи",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/pereplanuvannia-na-khodu",
+          "title": "Перепланування на ходу: карта змінилася",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        }
+      ]
+    },
+    {
+      "slug": "svoia-lohika-na-bortu",
+      "title": "Своя логіка на борту",
+      "topics": [
+        {
+          "ref": "programming/fc-vs-companion",
+          "title": "Контролер vs комп'ютер"
+        },
+        {
+          "slug": "where-to-compute",
+          "title": "Де рахувати",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/companion-computer",
+          "title": "Бортовий комп'ютер (companion)"
+        },
+        {
+          "ref": "programming/realtime-vs-compute",
+          "title": "Дві ролі на борту"
+        },
+        {
+          "ref": "programming/mode-state-machine",
+          "title": "Автомат режимів"
+        },
+        {
+          "ref": "algorithms/avtomat-tsilei",
+          "title": "Автомат цілей: стани, переходи, охоронні умови",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/derevo-povedinky",
+          "title": "Дерево поведінки: чому воно витіснило автомат",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/priorytet-i-vytisnennia-povedinok",
+          "title": "Пріоритет і витіснення поведінок",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/zatsyklennia-tremtinnia-i-tupyk-u-lohitsi-tsilei",
+          "title": "Зациклення, тремтіння й тупик у логіці цілей",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/taimaut-na-kozhnu-povedinku",
+          "title": "Таймаут на кожну поведінку: скільки чекати, перш ніж здатися",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "ustavky-z-bortovoho-kompiutera",
+          "title": "Уставки з бортового комп'ютера: offboard, MAVSDK, ROS 2",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zbii-bortovoho-kompiutera",
+          "title": "Збій бортового комп'ютера: відкат на автопілот",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "svoia-lohika-bez-avtopilota",
+          "title": "Своя логіка без автопілота: цикл, події, черга цілей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/parametry-povedinky",
+          "title": "Параметри поведінки: що налаштовне, а що зашите",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        }
+      ]
+    },
+    {
+      "slug": "iak-model-vchytsia",
+      "title": "Як модель вчиться",
+      "topics": [
+        {
+          "ref": "algorithms/pravylo-chy-model",
+          "title": "Правило чи модель: коли навчання виправдане",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "ref": "algorithms/what-is-ml",
+          "title": "Що таке ML"
+        },
+        {
+          "ref": "algorithms/train-vs-inference",
+          "title": "Навчання vs вивід"
+        },
+        {
+          "ref": "algorithms/supervised-learning",
+          "title": "Навчання з учителем"
+        },
+        {
+          "ref": "algorithms/unsupervised-learning",
+          "title": "Навчання без учителя"
+        },
+        {
+          "ref": "algorithms/reinforcement-learning",
+          "title": "Навчання з підкріпленням"
+        },
+        {
+          "ref": "algorithms/neuron-layer",
+          "title": "Нейрон і шар"
+        },
+        {
+          "ref": "algorithms/activation-functions",
+          "title": "Функції активації"
+        },
+        {
+          "ref": "algorithms/loss-functions",
+          "title": "Функції втрат у машинному навчанні"
+        },
+        {
+          "ref": "algorithms/gradient-descent",
+          "title": "Градієнтний спуск"
+        },
+        {
+          "ref": "algorithms/backpropagation",
+          "title": "Зворотне поширення помилки"
+        },
+        {
+          "ref": "algorithms/cnn",
+          "title": "Згорткові мережі"
+        }
+      ]
+    },
+    {
+      "slug": "svoia-model-pid-svii-aparat",
+      "title": "Своя модель під свій апарат",
+      "topics": [
+        {
+          "slug": "training-data-pipeline",
+          "title": "Підготовка навчальних даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "vlasnyi-nabir-danykh-iz-vlasnoho-prystroiu",
+          "title": "Власний набір даних із власного пристрою: запис, розмітка, баланс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/data-augmentation",
+          "title": "Аугментація даних"
+        },
+        {
+          "ref": "algorithms/overfitting",
+          "title": "Перенавчання"
+        },
+        {
+          "ref": "algorithms/regularization",
+          "title": "Регуляризація"
+        },
+        {
+          "ref": "algorithms/cross-validation",
+          "title": "Крос-валідація"
+        },
+        {
+          "ref": "algorithms/transfer-learning",
+          "title": "Transfer learning (перенесення навчання)"
+        },
+        {
+          "ref": "algorithms/knowledge-distillation",
+          "title": "Дистиляція знань"
+        },
+        {
+          "ref": "algorithms/weight-pruning",
+          "title": "Прорідження мережі"
+        },
+        {
+          "ref": "algorithms/model-quantization",
+          "title": "Квантування нейромереж"
+        },
+        {
+          "ref": "algorithms/autoencoder",
+          "title": "Автокодер"
+        },
+        {
+          "ref": "algorithms/odnakovyi-vkhid-u-navchanni-i-na-bortu",
+          "title": "Однаковий вхід у навчанні й на борту: препроцесинг, що розходиться",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        }
+      ]
+    },
+    {
+      "slug": "model-na-bortu",
+      "title": "Модель на борту",
+      "topics": [
+        {
+          "ref": "algorithms/tinyml",
+          "title": "TinyML"
+        },
+        {
+          "slug": "edge-inference",
+          "title": "Інференс на пристрої (Edge AI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/esp32-s3-ai",
+          "title": "AI-прискорення в ESP32-S3"
+        },
+        {
+          "slug": "model-export",
+          "title": "Експорт і розгортання моделей ML",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/inference-latency",
+          "title": "Латентність інференсу"
+        },
+        {
+          "ref": "algorithms/compute-cost",
+          "title": "Вартість обчислень"
+        },
+        {
+          "slug": "on-device-benchmarking",
+          "title": "Бенчмаркінг на пристрої",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/model-u-petli-realnoho-chasu",
+          "title": "Модель у петлі реального часу: що робити, коли вивід не встиг",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "slug": "audio-kws",
+          "title": "Ключові слова й події у звуці (KWS)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "vibration-anomaly-ml",
+          "title": "Аномалії вібрацій через ML",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/model-artifact",
+          "title": "Модель як версійований артефакт"
+        },
+        {
+          "ref": "programming/onovlennia-modeli-v-poli",
+          "title": "Оновлення моделі в полі: модель як частина прошивки",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        }
+      ]
+    },
+    {
+      "slug": "tsil-u-kadri",
+      "title": "Ціль у кадрі",
+      "topics": [
+        {
+          "ref": "algorithms/object-detection",
+          "title": "Виявлення об'єктів"
+        },
+        {
+          "ref": "algorithms/nn-detectors",
+          "title": "Нейродетектори"
+        },
+        {
+          "slug": "model-zoo",
+          "title": "Зоопарк моделей детекції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/nms-algorithm",
+          "title": "Non-Maximum Suppression"
+        },
+        {
+          "ref": "algorithms/detection-metrics",
+          "title": "Метрики детектора"
+        },
+        {
+          "ref": "algorithms/tracking",
+          "title": "Трекінг"
+        },
+        {
+          "ref": "algorithms/sort-tracking-algorithm",
+          "title": "Алгоритм трекінгу об'єктів SORT"
+        },
+        {
+          "ref": "algorithms/multi-object-tracking",
+          "title": "Трекінг багатьох цілей"
+        },
+        {
+          "ref": "algorithms/homography",
+          "title": "Гомографія: перетворення площини в площину"
+        },
+        {
+          "ref": "algorithms/pose-estimation",
+          "title": "Відновлення пози за точками (PnP)"
+        },
+        {
+          "ref": "algorithms/image-georeferencing",
+          "title": "Геоприв'язка аерознімка: від пози камери до координат на землі"
+        },
+        {
+          "slug": "vid-pikselia-do-ustavky",
+          "title": "Від пікселя до уставки: візуальне наведення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "posadka-i-dok-za-markerom",
+          "title": "Посадка й док за маркером",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/suprovid-tsili",
+          "title": "Супровід цілі: follow-me й утримання в кадрі",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/tsil-zahublena",
+          "title": "Ціль загублена: пошук, таймаут, відмова від супроводу",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        }
+      ]
+    },
+    {
+      "slug": "rishennia-za-modelliu",
+      "title": "Рішення за моделлю",
+      "topics": [
+        {
+          "slug": "imovirnist-tse-shche-ne-rishennia",
+          "title": "Ймовірність — це ще не рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/metryky-iakosti-modeli",
+          "title": "Метрики якості моделі: точність, повнота, матриця плутанини",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "ref": "algorithms/porih-i-tsina-pomylky",
+          "title": "Поріг і ціна помилки: хибне спрацювання проти пропуску",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "ref": "algorithms/confidence-calibration",
+          "title": "Калібрування впевненості моделі"
+        },
+        {
+          "ref": "algorithms/ne-znaiu",
+          "title": "«Не знаю»: відмова від рішення як штатна відповідь",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "ref": "algorithms/smoothing-vs-lag",
+          "title": "Згладжування й затримка"
+        },
+        {
+          "ref": "algorithms/n-z-m-i-histerezys-na-podiiakh",
+          "title": "N з M і гістерезис на подіях",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "slug": "pidtverdzhennia-druhym-dzherelom",
+          "title": "Підтвердження другим джерелом: давач, геометрія, здоровий глузд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vidkat-na-pravylo-koly-model-movchyt-abo-maryt",
+          "title": "Відкат на правило, коли модель мовчить або марить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/parallel-run",
+          "title": "Parallel run"
+        },
+        {
+          "slug": "eskalatsiia",
+          "title": "Ескалація: коли апарат мусить спитати людину",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/distribution-shift",
+          "title": "Зсув розподілу даних"
+        },
+        {
+          "ref": "algorithms/dreif-u-poli",
+          "title": "Дрейф у полі: як помітити його на борту",
+          "todo": "нова тема",
+          "hint": "algorithms/machine-learning"
+        },
+        {
+          "ref": "algorithms/ml-limits-ethics",
+          "title": "Межі й етика"
+        }
+      ]
+    },
+    {
+      "slug": "vyprobuvannia-avtonomnosti",
+      "title": "Випробування автономності",
+      "topics": [
+        {
+          "ref": "programming/sitl-simulation",
+          "title": "SITL"
+        },
+        {
+          "ref": "programming/sitl-simulator",
+          "title": "Політ у симуляторі: SITL, HITL і станція"
+        },
+        {
+          "slug": "hil-testing",
+          "title": "HIL-стенд",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/chaos-engineering",
+          "title": "Хаос-інженерія"
+        },
+        {
+          "ref": "programming/stsenarii-vidmov-u-symuliatori",
+          "title": "Сценарії відмов у симуляторі: обрив лінка, глушіння GNSS, мертвий мотор",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/rehresiia-avtonomii",
+          "title": "Регресія автономії: той самий маршрут після кожної зміни",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/perehrash-zhurnalu",
+          "title": "Переграш журналу: рішення на записаних даних",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/structured-logging",
+          "title": "Структуровані логи"
+        },
+        {
+          "slug": "skhodynky-dopusku",
+          "title": "Сходинки допуску: тінь → підказка → під наглядом → сама",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pershyi-avtonomnyi-vylit",
+          "title": "Перший автономний виліт: страхувальний пілот, межа, план скасування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flight-log-analysis",
+          "title": "Аналіз логів польоту/поїздки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/postmortems",
+          "title": "Постмортем без винних"
+        },
+        {
+          "slug": "rozbir-intsydentu",
+          "title": "Розбір інциденту: від журналу до причини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/end-to-end-mission",
+          "title": "Місія від початку до кінця"
+        }
+      ]
+    }
+  ]
+}

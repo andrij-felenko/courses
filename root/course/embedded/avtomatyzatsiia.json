@@ -1,0 +1,988 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "avtomatyzatsiia",
+  "title": "Автоматизація",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "keruvannia-na-vidstani",
+      "title": "Керування на відстані",
+      "topics": [
+        {
+          "slug": "liudyna-v-konturi",
+          "title": "Людина в контурі: чому затримка руйнує керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/ui-response-time-limits",
+          "title": "Пороги часу відгуку інтерфейсу: 0.1 с, 1 с, 10 с"
+        },
+        {
+          "slug": "teleoperation-latency",
+          "title": "Телекерування: затримки, відеоканал, втрата лінка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "biudzhet-zatrymky",
+          "title": "Бюджет затримки: від ручки до картинки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/video-latency",
+          "title": "Затримка відео"
+        },
+        {
+          "ref": "algorithms/jitter-buffer",
+          "title": "Буфер джитера"
+        },
+        {
+          "slug": "fpv-video-systems",
+          "title": "FPV-відеосистеми: аналог vs DJI O3/HDZero/Walksnail",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/osd-overlay",
+          "title": "OSD-накладання телеметрії на аналоговий відеосигнал"
+        },
+        {
+          "ref": "communications/control-telemetry",
+          "title": "Керування й телеметрія"
+        },
+        {
+          "ref": "communications/telemetry-stream",
+          "title": "Телеметрія"
+        },
+        {
+          "ref": "communications/stream-rates",
+          "title": "бюджет каналу"
+        },
+        {
+          "ref": "communications/telemetry-link",
+          "title": "Канал земля-борт"
+        },
+        {
+          "ref": "communications/mavlink-high-latency",
+          "title": "Протокол великої затримки MAVLink"
+        },
+        {
+          "slug": "iakist-linka-iak-pokaznyk",
+          "title": "Якість лінка як показник: RSSI, втрати, вік даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "try-sposoby-keruvaty",
+          "title": "Три способи керувати: пряме, з підказкою, наглядове",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "nazemna-stantsiia",
+      "title": "Наземна станція",
+      "topics": [
+        {
+          "ref": "qgroundcontrol/what-is-qgc",
+          "title": "Що таке QGroundControl"
+        },
+        {
+          "ref": "qgroundcontrol/user-roles",
+          "title": "Три користувачі станції: пілот, налаштувальник, розробник"
+        },
+        {
+          "ref": "qgroundcontrol/app-composition",
+          "title": "З чого складається застосунок"
+        },
+        {
+          "slug": "mission-planner-qgc",
+          "title": "Mission Planner і QGroundControl: порівняння GCS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "qgroundcontrol/platform-targets",
+          "title": "Linux, Windows, Android"
+        },
+        {
+          "slug": "pershe-ziednannia",
+          "title": "Перше з'єднання: станція побачила апарат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "qgroundcontrol/link-types",
+          "title": "Типи каналів"
+        },
+        {
+          "ref": "qgroundcontrol/link-manager",
+          "title": "Менеджер каналів"
+        },
+        {
+          "ref": "qgroundcontrol/message-routing",
+          "title": "Маршрутизація за sysid/compid"
+        },
+        {
+          "slug": "kilka-shliakhiv-do-aparata",
+          "title": "Кілька шляхів до апарата: резерв і перемикання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/params-gcs",
+          "title": "Параметри й GCS"
+        },
+        {
+          "ref": "qgroundcontrol/parameter-manager",
+          "title": "Менеджер параметрів: завантаження, кеш, запис"
+        },
+        {
+          "ref": "qgroundcontrol/settings-persistence",
+          "title": "Налаштування й що переживає перезапуск"
+        },
+        {
+          "slug": "fc-setup-calibration",
+          "title": "Первинне налаштування: калібрування давачів і радіо",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "stantsiia-v-poli",
+          "title": "Станція в полі: планшет, ноутбук, ретранслятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "komanda-i-pidtverdzhennia",
+      "title": "Команда і підтвердження",
+      "topics": [
+        {
+          "ref": "programming/distributed-fallacies",
+          "title": "Вісім оман розподілених обчислень"
+        },
+        {
+          "slug": "rpc-embedded",
+          "title": "RPC у вбудованих системах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mavlink-commands",
+          "title": "Команди MAVLink",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mavlink-from-ground",
+          "title": "MAVLink із землі",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pryiniato-vidkhyleno-tysha",
+          "title": "Прийнято, відхилено, тиша: три відповіді на команду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/delivery-guarantees",
+          "title": "At-most-once / at-least-once / effectively-once"
+        },
+        {
+          "ref": "programming/idempotency",
+          "title": "Ідемпотентність"
+        },
+        {
+          "ref": "programming/retries-backoff",
+          "title": "Повтори"
+        },
+        {
+          "ref": "programming/timeouts-deadlines",
+          "title": "Таймаути і бюджет часу"
+        },
+        {
+          "ref": "programming/long-running-operations",
+          "title": "Довга операція"
+        },
+        {
+          "ref": "communications/mavlink-pitfalls",
+          "title": "Граблі MAVLink"
+        },
+        {
+          "ref": "qgroundcontrol/mavlink-handling",
+          "title": "Обробка MAVLink у станції"
+        },
+        {
+          "ref": "qgroundcontrol/plan-exchange",
+          "title": "Обмін планом із апаратом"
+        },
+        {
+          "ref": "communications/mavlink-camera-gimbal",
+          "title": "Протоколи камери й підвісу"
+        }
+      ]
+    },
+    {
+      "slug": "pult-operatora",
+      "title": "Пульт оператора",
+      "topics": [
+        {
+          "ref": "communications/rc-link",
+          "title": "RC-лінк"
+        },
+        {
+          "ref": "communications/rc-signal-protocol",
+          "title": "RC-сигнал: PWM, PPM і S.BUS"
+        },
+        {
+          "ref": "communications/crsf-protocol",
+          "title": "Протокол CRSF"
+        },
+        {
+          "ref": "communications/elrs-architecture",
+          "title": "Архітектура ExpressLRS"
+        },
+        {
+          "ref": "communications/motion-control-setpoints",
+          "title": "Керування рухом"
+        },
+        {
+          "slug": "vid-ruchky-do-komandy",
+          "title": "Від ручки до команди: осі, мертва зона, криві, експонента",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/smoothing-vs-lag",
+          "title": "Згладжування й затримка"
+        },
+        {
+          "slug": "peremykachi-i-rozkladka-pulta",
+          "title": "Перемикачі й розкладка пульта: чому апарат летить не туди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dzhoistyk-cherez-stantsiiu-proty-vlasnoho-pulta",
+          "title": "Джойстик через станцію проти власного пульта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rezhymy-i-povnovazhennia",
+      "title": "Режими й повноваження",
+      "topics": [
+        {
+          "ref": "programming/manual-stabilized-modes",
+          "title": "Ручні режими"
+        },
+        {
+          "ref": "programming/position-modes",
+          "title": "Режими з позицією"
+        },
+        {
+          "slug": "avtomat-rezhymiv",
+          "title": "Автомат режимів: переходи, охоронці, заборонені стрибки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/arming-checks",
+          "title": "Arming-перевірки"
+        },
+        {
+          "ref": "programming/preflight-safety",
+          "title": "Безпека до польоту"
+        },
+        {
+          "ref": "programming/preflight-checklists",
+          "title": "Передпольотні чеклисти"
+        },
+        {
+          "slug": "viddaty-keruvannia-avtomatovi-i-zabraty-nazad",
+          "title": "Віддати керування автоматові й забрати назад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "perekhid-bez-ryvka",
+          "title": "Перехід без ривка: стан регулятора при зміні режиму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "plutanyna-rezhymiv",
+          "title": "Плутанина режимів: коли людина думає одне, а апарат в іншому",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/mavlink-heartbeat",
+          "title": "серцебиття"
+        },
+        {
+          "ref": "programming/distributed-locks",
+          "title": "Розподілені замки й лізи"
+        },
+        {
+          "ref": "programming/failsafe",
+          "title": "Failsafe"
+        },
+        {
+          "ref": "communications/rc-failsafe-modes",
+          "title": "Режими failsafe RC"
+        },
+        {
+          "ref": "communications/gcs-failsafe",
+          "title": "Failsafe на стороні GCS"
+        },
+        {
+          "slug": "avariina-zupynka",
+          "title": "Аварійна зупинка: kill-switch, безпечний стан і те, що софт не скасує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pravyla-i-porohy",
+      "title": "Правила й пороги",
+      "topics": [
+        {
+          "slug": "pravylo-a-ne-rishennia",
+          "title": "Правило, а не рішення: межа автоматизації й автономії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/policy-as-code",
+          "title": "Політики як код"
+        },
+        {
+          "slug": "porih-i-histerezys",
+          "title": "Поріг і гістерезис: чому реле клацає щохвилини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/debouncing-throttling",
+          "title": "витримку й тремтіння"
+        },
+        {
+          "ref": "programming/time-and-scheduling",
+          "title": "Прикладний час"
+        },
+        {
+          "ref": "programming/recurrence-scheduling",
+          "title": "щовівторка"
+        },
+        {
+          "slug": "stsenarii",
+          "title": "Сценарій: одна команда — багато дій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "blokuvannia-i-priorytet",
+          "title": "Блокування й пріоритет: коли два правила тягнуть у різні боки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/geofence",
+          "title": "Геозона (geofence) в автопілоті"
+        },
+        {
+          "ref": "math/point-in-polygon",
+          "title": "Належність точки багатокутнику"
+        },
+        {
+          "slug": "smart-home-node",
+          "title": "Вузол розумного дому: давач + MQTT + автономна логіка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "de-krutytsia-rushii-pravyl",
+          "title": "Де крутиться рушій правил: пристрій, хаб, хмара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "perevirka-pravyl-do-vmykannia",
+          "title": "Перевірка правил до вмикання: підміна входів, суха прогонка, симулятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "karta-i-plan",
+      "title": "Карта і план",
+      "topics": [
+        {
+          "ref": "qgroundcontrol/map-engine",
+          "title": "Рушій карти"
+        },
+        {
+          "ref": "math/map-projections",
+          "title": "Картографічні проєкції"
+        },
+        {
+          "ref": "math/web-mercator-tiles",
+          "title": "Web Mercator і тайли"
+        },
+        {
+          "ref": "programming/map-tile-pipeline",
+          "title": "Тайловий конвеєр карти"
+        },
+        {
+          "ref": "programming/offline-tile-cache",
+          "title": "Кеш тайлів"
+        },
+        {
+          "ref": "qgroundcontrol/offline-maps",
+          "title": "Офлайн-карти"
+        },
+        {
+          "ref": "math/great-circle-distance",
+          "title": "Відстань великого кола (гаверсинуси)"
+        },
+        {
+          "ref": "programming/terrain-elevation-model",
+          "title": "Модель рельєфу"
+        },
+        {
+          "ref": "communications/mavlink-terrain-protocol",
+          "title": "Протокол рельєфу MAVLink: TERRAIN_REQUEST, TERRAIN_DATA, TERRAIN_REPORT"
+        },
+        {
+          "ref": "programming/geo-data-formats",
+          "title": "GeoJSON, KML, GPX"
+        },
+        {
+          "ref": "algorithms/spatial-index",
+          "title": "Просторовий індекс"
+        },
+        {
+          "ref": "qgroundcontrol/plan-model",
+          "title": "Модель плану"
+        },
+        {
+          "ref": "qgroundcontrol/mission-items",
+          "title": "Елементи місії"
+        },
+        {
+          "ref": "qgroundcontrol/terrain-and-altitude",
+          "title": "Рельєф і режими висоти"
+        },
+        {
+          "ref": "programming/undo-redo-command-stack",
+          "title": "Скасування й повтор дії"
+        }
+      ]
+    },
+    {
+      "slug": "interfeis-operatora",
+      "title": "Інтерфейс оператора",
+      "topics": [
+        {
+          "slug": "chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani",
+          "title": "Чому людина не бачить того, що на екрані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shcho-musyt-buty-vydno-zavzhdy",
+          "title": "Що мусить бути видно завжди: стан, режим, здоров'я, зв'язок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stari-dani",
+          "title": "Старі дані: як показати, що на екрані вже неправда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/optimistic-ui-update",
+          "title": "зроблено"
+        },
+        {
+          "ref": "communications/mavlink-events-protocol",
+          "title": "Протокол подій MAVLink: подія як ідентифікатор"
+        },
+        {
+          "ref": "qgroundcontrol/events-interface",
+          "title": "Інтерфейс подій: коди з борту як людські повідомлення"
+        },
+        {
+          "slug": "tryvoha-iaku-pomichaiut",
+          "title": "Тривога, яку помічають: пріоритет, звук, потік тривог",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/alerting",
+          "title": "Алерти"
+        },
+        {
+          "slug": "nebezpechna-diia",
+          "title": "Небезпечна дія: підтвердження, дві дії, відлік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/coordinate-frames-units",
+          "title": "метри проти футів, AMSL проти відносної"
+        },
+        {
+          "slug": "ekran-u-poli",
+          "title": "Екран у полі: сонце, рукавиці, одна рука",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "budova-stantsii",
+      "title": "Будова станції",
+      "topics": [
+        {
+          "ref": "programming/desktop-app-architecture",
+          "title": "Архітектура десктопного застосунку"
+        },
+        {
+          "ref": "qgroundcontrol/vehicle-object",
+          "title": "Vehicle: модель апарата"
+        },
+        {
+          "ref": "qgroundcontrol/firmware-plugin",
+          "title": "Плагін прошивки: як станція ховає різницю між автопілотами"
+        },
+        {
+          "ref": "qgroundcontrol/fact-system",
+          "title": "FactSystem"
+        },
+        {
+          "ref": "qgroundcontrol/threading-model",
+          "title": "Модель потоків станції"
+        },
+        {
+          "ref": "programming/process-vs-thread",
+          "title": "Потоки настільної ОС проти задач RTOS"
+        },
+        {
+          "ref": "programming/event-loop",
+          "title": "Цикл подій"
+        },
+        {
+          "ref": "programming/ui-thread-offloading",
+          "title": "Розвантаження потоку інтерфейсу"
+        },
+        {
+          "ref": "qgroundcontrol/video-manager",
+          "title": "Відеопідсистема станції"
+        },
+        {
+          "ref": "qgroundcontrol/video-pipeline",
+          "title": "Відеотракт на GStreamer"
+        },
+        {
+          "ref": "media-vision/pipeline-debugging",
+          "title": "Діагностика конвеєра: графи, рівні журналу, типові затики"
+        }
+      ]
+    },
+    {
+      "slug": "vlasna-stantsiia",
+      "title": "Власна станція",
+      "topics": [
+        {
+          "ref": "programming/build-vs-buy",
+          "title": "коли брати готову станцію, а коли писати свою"
+        },
+        {
+          "ref": "communications/mavlink-message-dictionary",
+          "title": "Словник MAVLink"
+        },
+        {
+          "ref": "communications/mavlink-dialect",
+          "title": "Діалекти MAVLink"
+        },
+        {
+          "ref": "communications/mavlink-xml-codegen",
+          "title": "Генерація коду з XML MAVLink"
+        },
+        {
+          "ref": "qgroundcontrol/custom-mavlink-messages",
+          "title": "Власні MAVLink-повідомлення в QGC"
+        },
+        {
+          "ref": "communications/mavlink-capabilities",
+          "title": "Можливості апарата: бітова маска AUTOPILOT_VERSION"
+        },
+        {
+          "ref": "qgroundcontrol/mavlink-inspector",
+          "title": "не приходить"
+        },
+        {
+          "ref": "qgroundcontrol/core-plugin",
+          "title": "Ядрове розширення: головна точка кастомізації"
+        },
+        {
+          "ref": "qgroundcontrol/custom-build",
+          "title": "Власна збірка станції"
+        },
+        {
+          "ref": "qgroundcontrol/contributing",
+          "title": "Внесок в апстрим: процес, вимоги, рев'ю"
+        },
+        {
+          "slug": "python-ground-scripts",
+          "title": "Python для наземних скриптів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pymavlink",
+          "title": "pymavlink",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "svoia-konsol-do-svoho-aparata",
+          "title": "Своя консоль до свого апарата: мінімальний пульт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "skryptovanyi-operator",
+          "title": "Скриптований оператор: пакетні команди, стенд, регресія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "keruvannia-parkom",
+      "title": "Керування парком",
+      "topics": [
+        {
+          "slug": "odyn-operator-bahato-aparativ",
+          "title": "Один оператор, багато апаратів: межа уваги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "qgroundcontrol/multi-vehicle",
+          "title": "Кілька апаратів в одному застосунку"
+        },
+        {
+          "ref": "communications/mavlink-component-id",
+          "title": "адресацію й групи"
+        },
+        {
+          "slug": "obery-potim-komandui",
+          "title": "Обери, потім командуй",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/authorization-models",
+          "title": "Моделі авторизації"
+        },
+        {
+          "ref": "programming/least-privilege",
+          "title": "Найменші привілеї й deny-by-default"
+        },
+        {
+          "ref": "communications/mavlink-v2-signing",
+          "title": "MAVLink v2 і підпис"
+        },
+        {
+          "slug": "kilka-operatoriv",
+          "title": "Кілька операторів: хто головний і як передають зміну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/background-jobs",
+          "title": "Черга задач"
+        },
+        {
+          "ref": "programming/reconciliation",
+          "title": "Звірка"
+        },
+        {
+          "ref": "programming/canary-deployment",
+          "title": "Канаркове розгортання"
+        }
+      ]
+    },
+    {
+      "slug": "zhurnal-i-rozbir",
+      "title": "Журнал і розбір",
+      "topics": [
+        {
+          "slug": "zhurnal-dii-operatora",
+          "title": "Журнал дій оператора: хто, коли, що наказав",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/audit-logging",
+          "title": "Аудит-лог як вузол"
+        },
+        {
+          "ref": "communications/flight-log-formats",
+          "title": "Формати бортових логів: ULog і DataFlash"
+        },
+        {
+          "ref": "qgroundcontrol/vehicle-logs",
+          "title": "Бортові логи апарата: завантаження й потокове передавання"
+        },
+        {
+          "ref": "communications/mavlink-ftp",
+          "title": "MAVFTP: передача файлів поверх MAVLink"
+        },
+        {
+          "ref": "qgroundcontrol/telemetry-logging",
+          "title": "Запис і відтворення телеметрії"
+        },
+        {
+          "ref": "qgroundcontrol/log-viewer",
+          "title": "Переглядач логів: графіки й повідомлення з бортового файлу"
+        },
+        {
+          "slug": "flight-log-analysis",
+          "title": "Аналіз логів польоту/поїздки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/clock-offset-drift",
+          "title": "Дрейф годинників"
+        },
+        {
+          "slug": "spilna-shkala-chasu",
+          "title": "Спільна шкала часу: борт, станція, відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vidtvorennia-intsydentu-z-trokh-dzherel",
+          "title": "Відтворення інциденту з трьох джерел",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "math/hash-and-digital-signature",
+          "title": "Хеш і цифровий підпис"
+        },
+        {
+          "ref": "programming/postmortems",
+          "title": "оператор помилився"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,962 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "drony",
+  "title": "Дрони",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "syly-polotu",
+      "title": "Сили польоту",
+      "topics": [
+        {
+          "ref": "physics/thrust-vs-weight",
+          "title": "Тяга проти ваги"
+        },
+        {
+          "ref": "physics/reaction-torque",
+          "title": "Реактивний момент"
+        },
+        {
+          "ref": "physics/dynamic-pressure",
+          "title": "Динамічний тиск і число Бернуллі"
+        },
+        {
+          "ref": "physics/circulation-lift-theorem",
+          "title": "Циркуляція та підіймальна сила"
+        },
+        {
+          "ref": "physics/aerodynamic-drag",
+          "title": "Аеродинамічний опір"
+        },
+        {
+          "ref": "physics/lift-to-drag-ratio",
+          "title": "Аеродинамічна якість (L/D)"
+        },
+        {
+          "ref": "physics/kut-ataky-i-poliara",
+          "title": "Кут атаки й поляра",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "physics/teoriia-impulsu-hvynta",
+          "title": "Теорія імпульсу гвинта: потужність висіння й навантаження на диск",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "physics/efekt-zemli-i-vykhorove-kiltse",
+          "title": "Ефект землі й вихорове кільце",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "slug": "speka-vysota-volohist",
+          "title": "Спека, висота, вологість: коли апарат не злітає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "biudzhet-masy-i-enerhii",
+      "title": "Бюджет маси й енергії",
+      "topics": [
+        {
+          "ref": "electronics/energy-density",
+          "title": "Щільність енергії: Вт·год/кг і Вт·год/л"
+        },
+        {
+          "ref": "physics/breguet-range-endurance",
+          "title": "Рівняння дальності й тривалості Бреге"
+        },
+        {
+          "ref": "electronics/battery-sag",
+          "title": "Просадка під навантаженням"
+        },
+        {
+          "ref": "electronics/peukert-effect",
+          "title": "Ефект Пойкерта й доступна ємність"
+        },
+        {
+          "ref": "physics/similarity-scaling",
+          "title": "Подібність і масштабування"
+        },
+        {
+          "slug": "vahovyi-biudzhet-aparata",
+          "title": "Ваговий бюджет апарата: від задачі до злітної маси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zapas-tiahy-i-shcho-vin-kupuie",
+          "title": "Запас тяги й що він купує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mezha-250-hramiv-iak-proiektne-obmezhennia",
+          "title": "Межа 250 грамів як проєктне обмеження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hvynt-i-sylova-ustanovka",
+      "title": "Гвинт і силова установка",
+      "topics": [
+        {
+          "ref": "physics/propeller-geometry",
+          "title": "Гвинт"
+        },
+        {
+          "ref": "physics/hvynt-iak-krylo",
+          "title": "Гвинт як крило: крок, діаметр, кількість лопатей",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "physics/statychna-i-dynamichna-tiaha",
+          "title": "Статична й динамічна тяга",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "physics/reynolds-number",
+          "title": "Число Рейнольдса"
+        },
+        {
+          "slug": "propulsion-sizing",
+          "title": "Підбір пропульсії: мотор + гвинт + батарея під злітну масу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "stend-tiahy",
+          "title": "Стенд тяги: міряємо грами на ват",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/dshot-protocol",
+          "title": "DShot: цифровий протокол до регулятора"
+        },
+        {
+          "ref": "electronics/derating",
+          "title": "Дератинг компонентів"
+        },
+        {
+          "slug": "nahriv-sylovoi-ustanovky-i-shcho-z-nym-robyty",
+          "title": "Нагрів силової установки й що з ним робити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/shum-hvynta",
+          "title": "Шум гвинта: звідки він і чому важить",
+          "todo": "нова тема",
+          "hint": "physics/oscillations-waves"
+        }
+      ]
+    },
+    {
+      "slug": "rama-i-vibratsiia",
+      "title": "Рама й вібрація",
+      "topics": [
+        {
+          "ref": "physics/frame-configurations",
+          "title": "Рами й конфігурації"
+        },
+        {
+          "ref": "physics/center-of-mass",
+          "title": "Центр мас"
+        },
+        {
+          "ref": "physics/moment-of-inertia",
+          "title": "Момент інерції"
+        },
+        {
+          "ref": "physics/mechanical-resonance",
+          "title": "Механічний резонанс"
+        },
+        {
+          "ref": "physics/vibration-transmissibility",
+          "title": "Передавання вібрації (transmissibility)"
+        },
+        {
+          "ref": "electronics/imu-vibration-isolation",
+          "title": "Розв'язка IMU"
+        },
+        {
+          "slug": "imu-mounting-materials",
+          "title": "Матеріали для кріплення IMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "balansuvannia-hvynta-i-poliuvannia-na-vibratsiiu",
+          "title": "Балансування гвинта й полювання на вібрацію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/material-fatigue",
+          "title": "Втома матеріалу"
+        },
+        {
+          "ref": "algorithms/cycle-counting-palmgren-miner",
+          "title": "Rainflow і правило Майнера"
+        },
+        {
+          "ref": "physics/kompozyty",
+          "title": "Композити: вуглепластик і склопластик",
+          "todo": "нова тема",
+          "hint": "physics/condensed-matter-physics"
+        },
+        {
+          "ref": "physics/rizba-pid-vibratsiieiu",
+          "title": "Різьба під вібрацією: самовідкручування й фіксація",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "slug": "zhyvuchist-pry-padinni",
+          "title": "Живучість при падінні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bortova-elektromerezha",
+      "title": "Бортова електромережа",
+      "topics": [
+        {
+          "ref": "programming/current-paths",
+          "title": "Куди тече струм"
+        },
+        {
+          "ref": "electronics/wire-gauge",
+          "title": "Калібр проводу"
+        },
+        {
+          "ref": "components/xt-connectors",
+          "title": "Родина силових роз'ємів XT (XT30/60/90/120)"
+        },
+        {
+          "ref": "power/lipo-3s",
+          "title": "LiPo-акумулятор (XT60, ~3S)"
+        },
+        {
+          "ref": "electronics/inrush-current",
+          "title": "Кидок струму при вмиканні (inrush)"
+        },
+        {
+          "ref": "electronics/battery-to-controller",
+          "title": "Батарея до контролера"
+        },
+        {
+          "ref": "power/bec-ubec",
+          "title": "BEC / UBEC — понижувальне живлення для серв і приймача"
+        },
+        {
+          "slug": "prosadka-pry-rizkomu-hazi",
+          "title": "Просадка при різкому газі: brown-out контролера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kompas-proty-sylovoho-drotu",
+          "title": "Компас проти силового дроту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/power-monitor",
+          "title": "Давач живлення (струм і напруга на борту)"
+        },
+        {
+          "ref": "electronics/power-redundancy",
+          "title": "Резервування живлення"
+        },
+        {
+          "ref": "electronics/power-oring",
+          "title": "Power ORing: об'єднання джерел живлення"
+        },
+        {
+          "ref": "electronics/komponuvannia-bortu",
+          "title": "Компонування борту: розміщення, джгут, розв'язка",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        }
+      ]
+    },
+    {
+      "slug": "polotnyi-kontroler",
+      "title": "Польотний контролер",
+      "topics": [
+        {
+          "ref": "programming/flight-controller",
+          "title": "Політний контролер"
+        },
+        {
+          "ref": "boards/pixhawk-6c",
+          "title": "Pixhawk 6C — польотний контролер"
+        },
+        {
+          "ref": "programming/fc-vs-companion",
+          "title": "Контролер vs комп'ютер"
+        },
+        {
+          "slug": "where-to-compute",
+          "title": "Де рахувати",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/px4-architecture",
+          "title": "Архітектура PX4"
+        },
+        {
+          "ref": "programming/ardupilot-layers",
+          "title": "Шари ArduPilot"
+        },
+        {
+          "ref": "programming/redundancy",
+          "title": "Надлишковість"
+        },
+        {
+          "ref": "electronics/imu-noise-bias-drift",
+          "title": "Шум і дрейф IMU"
+        },
+        {
+          "slug": "porty-shyny-i-konflikty-na-kontroleri",
+          "title": "Порти, шини й конфлікти на контролері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "proshyvka-kontrolera",
+          "title": "Прошивка контролера: сімейства, версії, завантажувач, відкат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/params-gcs",
+          "title": "Параметри й GCS"
+        },
+        {
+          "ref": "communications/param-protocol",
+          "title": "Протокол параметрів"
+        }
+      ]
+    },
+    {
+      "slug": "bortovyi-obmin",
+      "title": "Бортовий обмін",
+      "topics": [
+        {
+          "ref": "communications/dronecan",
+          "title": "DroneCAN"
+        },
+        {
+          "ref": "communications/can-bus",
+          "title": "CAN: від фізичного кадру до контролю помилок"
+        },
+        {
+          "ref": "communications/mavlink-packet",
+          "title": "Пакет MAVLink"
+        },
+        {
+          "ref": "communications/mavlink-heartbeat",
+          "title": "HEARTBEAT: як апарат оголошує себе"
+        },
+        {
+          "ref": "communications/mavlink-component-id",
+          "title": "Компоненти MAVLink: sysid, compid і адресація вузлів"
+        },
+        {
+          "ref": "communications/mavlink-capabilities",
+          "title": "Можливості апарата: бітова маска AUTOPILOT_VERSION"
+        },
+        {
+          "ref": "communications/mavlink-dialect",
+          "title": "Діалекти MAVLink"
+        },
+        {
+          "ref": "communications/mavlink-xml-codegen",
+          "title": "Генерація коду з XML MAVLink"
+        },
+        {
+          "ref": "communications/stream-rates",
+          "title": "Частоти потоків"
+        },
+        {
+          "ref": "connect/fpv-telemetry-air",
+          "title": "FPV-телеметрія — повітряний модуль"
+        },
+        {
+          "slug": "suputnii-kompiuter-na-bortu",
+          "title": "Супутній комп'ютер на борту: що рахує контролер, а що Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/remote-id",
+          "title": "Remote ID: апарат, що називає себе",
+          "todo": "нова тема",
+          "hint": "communications/protocols"
+        }
+      ]
+    },
+    {
+      "slug": "zmishuvannia-tiahy",
+      "title": "Змішування тяги",
+      "topics": [
+        {
+          "ref": "algorithms/motor-mixer",
+          "title": "Мікшер"
+        },
+        {
+          "slug": "output-mixing",
+          "title": "Узгодження сигналів керування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "physics/degrees-of-freedom",
+          "title": "Ступені вільності"
+        },
+        {
+          "ref": "physics/torque",
+          "title": "Момент сили"
+        },
+        {
+          "slug": "poriadok-i-napriam-motoriv",
+          "title": "Порядок і напрям моторів: як помилка вбиває апарат за секунду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/actuator-allocation",
+          "title": "Розподіл керування по приводах"
+        },
+        {
+          "slug": "vidmova-motora",
+          "title": "Відмова мотора: що переживе гекса й чого не переживе квадро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/gyroscopic-precession",
+          "title": "Гіроскопічна прецесія"
+        }
+      ]
+    },
+    {
+      "slug": "pershyi-zapusk-i-zhurnal",
+      "title": "Перший запуск і журнал",
+      "topics": [
+        {
+          "ref": "programming/sitl-simulator",
+          "title": "Політ у симуляторі: SITL, HITL і станція"
+        },
+        {
+          "slug": "fc-setup-calibration",
+          "title": "Первинне налаштування: калібрування давачів і радіо",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "kalibruvannia-kompasa-na-zibranomu-aparati",
+          "title": "Калібрування компаса на зібраному апараті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stend-bez-hvyntiv",
+          "title": "Стенд без гвинтів: що перевіряють до першого зльоту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/arming-checks",
+          "title": "Arming-перевірки"
+        },
+        {
+          "ref": "programming/preflight-safety",
+          "title": "Безпека до польоту"
+        },
+        {
+          "ref": "programming/preflight-checklists",
+          "title": "Передпольотні чеклисти"
+        },
+        {
+          "ref": "programming/first-bringup",
+          "title": "Перший запуск"
+        },
+        {
+          "slug": "dovedennia-konturiv-na-vlasnomu-aparati",
+          "title": "Доведення контурів на власному апараті: порядок, автотюн, ознаки перетюну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/notch-filter",
+          "title": "Режекторний фільтр (notch)"
+        },
+        {
+          "slug": "flight-log-analysis",
+          "title": "Аналіз логів польоту/поїздки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/flight-log-formats",
+          "title": "Формати бортових логів: ULog і DataFlash"
+        },
+        {
+          "ref": "communications/mavlink-ftp",
+          "title": "MAVFTP: передача файлів поверх MAVLink"
+        },
+        {
+          "slug": "pidpysy-typovykh-vidmov-u-lohu",
+          "title": "Підписи типових відмов у логу: осциляції, «унітаз», десинх, кліпінг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/obsluhovuvannia-i-resurs",
+          "title": "Обслуговування й ресурс: що зношується в апараті",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        }
+      ]
+    },
+    {
+      "slug": "korysne-navantazhennia",
+      "title": "Корисне навантаження",
+      "topics": [
+        {
+          "ref": "math/gimbal",
+          "title": "Кардановий підвіс"
+        },
+        {
+          "ref": "electronics/stabilizovanyi-pidvis",
+          "title": "Стабілізований підвіс: осі, приводи, стабілізація",
+          "todo": "нова тема",
+          "hint": "electronics/electromechanics"
+        },
+        {
+          "ref": "communications/mavlink-camera-gimbal",
+          "title": "Протоколи камери й підвісу"
+        },
+        {
+          "slug": "kriplennia-navantazhennia",
+          "title": "Кріплення навантаження: жорстке, м'яке, знімне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zsuv-tsentru-vahy-i-rukhoma-masa",
+          "title": "Зсув центру ваги й рухома маса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zhyvlennia-i-kanal-danykh-navantazhennia",
+          "title": "Живлення й канал даних навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/projectile-motion",
+          "title": "Рух тіла, кинутого під кутом (балістична траєкторія)"
+        },
+        {
+          "slug": "skyd-vantazhu",
+          "title": "Скид вантажу: механізм і точність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fpv-video-systems",
+          "title": "FPV-відеосистеми: аналог vs DJI O3/HDZero/Walksnail",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "physics/parashut",
+          "title": "Парашут: опір і швидкість спуску",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        }
+      ]
+    },
+    {
+      "slug": "krylo-i-litak",
+      "title": "Крило й літак",
+      "topics": [
+        {
+          "ref": "algorithms/one-stack-many-bodies",
+          "title": "Один стек — багато тіл"
+        },
+        {
+          "ref": "physics/fixed-wing-lift",
+          "title": "Літак"
+        },
+        {
+          "ref": "physics/profil-kryla",
+          "title": "Профіль крила",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "physics/navantazhennia-na-krylo-i-shvydkist-zvaliuvannia",
+          "title": "Навантаження на крило й швидкість звалювання",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "physics/flow-separation",
+          "title": "Відрив потоку"
+        },
+        {
+          "ref": "physics/boundary-layer",
+          "title": "Примежовий шар"
+        },
+        {
+          "ref": "electronics/pitot-tube",
+          "title": "Трубка Піто"
+        },
+        {
+          "slug": "fixed-wing-control-surfaces",
+          "title": "Керування літаком: елерони, руль, мікшування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "zapusk-i-posadka-bez-smuhy",
+          "title": "Запуск і посадка без смуги: з руки, катапульта, на черево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/vtol-transition",
+          "title": "VTOL-гібриди"
+        },
+        {
+          "slug": "perekhidnyi-rezhym-vtol",
+          "title": "Перехідний режим VTOL: де апарат найвразливіший",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rover-i-choven",
+      "title": "Ровер і човен",
+      "topics": [
+        {
+          "ref": "algorithms/rover-steering",
+          "title": "Ровер"
+        },
+        {
+          "slug": "ugv-platform",
+          "title": "Шасі ровера/НРК: компонування, прохідність, енергетика",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "differential-drive-kinematics",
+          "title": "Кінематика диференціального приводу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "physics/friction",
+          "title": "Тертя"
+        },
+        {
+          "ref": "physics/rolling-resistance",
+          "title": "Тертя кочення"
+        },
+        {
+          "ref": "physics/normal-force",
+          "title": "Нормальна сила"
+        },
+        {
+          "ref": "algorithms/bicycle-kinematic-model",
+          "title": "Кінематична велосипедна модель (схема Ackermann)"
+        },
+        {
+          "ref": "physics/husenychnyi-rushii",
+          "title": "Гусеничний рушій: поворот ковзанням",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "slug": "moment-zamist-tiahy",
+          "title": "Момент замість тяги: як міряти й підбирати привід ровера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/boat-underwater",
+          "title": "Човен і підводний"
+        },
+        {
+          "ref": "physics/buoyancy",
+          "title": "Виштовхувальна сила (закон Архімеда)"
+        },
+        {
+          "ref": "physics/froude-number",
+          "title": "Число Фруда"
+        },
+        {
+          "slug": "voda-vseredyni",
+          "title": "Вода всередині: герметизація, конденсат, охолодження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "robot-robitnyk",
+      "title": "Робот-робітник",
+      "topics": [
+        {
+          "slug": "robot-shcho-pratsiuie",
+          "title": "Робот, що працює: межа з дроном-візником",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/kinematyka-manipuliatora",
+          "title": "Кінематика маніпулятора: пряма й обернена",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/configuration-space",
+          "title": "Конфігураційний простір: рух тіла як рух точки"
+        },
+        {
+          "ref": "algorithms/robochyi-prostir-i-synhuliarnosti",
+          "title": "Робочий простір і сингулярності",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "electronics/servo",
+          "title": "Сервомеханізм"
+        },
+        {
+          "ref": "electronics/zakhvat-typy-syla-utrymannia",
+          "title": "Захват: типи, сила, утримання",
+          "todo": "нова тема",
+          "hint": "electronics/electromechanics"
+        },
+        {
+          "ref": "physics/hertz-contact",
+          "title": "Контакт Герца"
+        },
+        {
+          "ref": "algorithms/piddatlyve-keruvannia",
+          "title": "Піддатливе керування: сила замість положення",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "strum-i-tenzodavach-iak-dotyk",
+          "title": "Струм і тензодавач як дотик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/newtons-third-law",
+          "title": "Третій закон Ньютона"
+        },
+        {
+          "slug": "ruka-na-rukhomii-platformi",
+          "title": "Рука на рухомій платформі: реакція, стійкість, зсув ЦМ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bezpeka-bilia-mashyny-shcho-diie-syloiu",
+          "title": "Безпека біля машини, що діє силою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

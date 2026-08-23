@@ -1,0 +1,760 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "rukh-i-polozhennia",
+  "title": "Рух і положення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "motory",
+      "title": "Мотори",
+      "topics": [
+        {
+          "ref": "electronics/brushed-dc-motor",
+          "title": "DC-мотор"
+        },
+        {
+          "ref": "physics/torque",
+          "title": "Момент сили"
+        },
+        {
+          "ref": "electronics/motor-torque-speed-curve",
+          "title": "Крива момент–оберти мотора"
+        },
+        {
+          "ref": "actuators/n20-motor",
+          "title": "N20 мікромотор з редуктором"
+        },
+        {
+          "ref": "electronics/gearmotor",
+          "title": "Мотор-редуктор"
+        },
+        {
+          "ref": "electronics/gears-transmission",
+          "title": "Редуктори"
+        },
+        {
+          "ref": "electronics/stepper-motor",
+          "title": "Кроковий мотор"
+        },
+        {
+          "ref": "electronics/hobby-servo",
+          "title": "Хобі-серво"
+        },
+        {
+          "ref": "electronics/bldc-motor",
+          "title": "BLDC-мотор"
+        },
+        {
+          "ref": "physics/friction",
+          "title": "Тертя"
+        },
+        {
+          "slug": "servo-sizing",
+          "title": "Вибір сервопривода: момент, швидкість, маса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pryvid-pid-zadachu",
+          "title": "Привід під задачу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "draivery-motoriv",
+      "title": "Драйвери моторів",
+      "topics": [
+        {
+          "ref": "electronics/h-bridge",
+          "title": "H-міст"
+        },
+        {
+          "ref": "electronics/dc-motor-driver",
+          "title": "Драйвер DC-моторів"
+        },
+        {
+          "ref": "power/mc33886-driver",
+          "title": "CJMCU MC33886 — драйвер моторів (5 А, H-міст)"
+        },
+        {
+          "ref": "electronics/dead-time",
+          "title": "Dead-time у напівмості"
+        },
+        {
+          "ref": "electronics/back-emf",
+          "title": "ПротиЕРС (back-EMF)"
+        },
+        {
+          "ref": "electronics/halmuvannia-motora",
+          "title": "Гальмування мотора: вибіг, динамічне, рекуперація",
+          "todo": "нова тема",
+          "hint": "electronics/electromechanics"
+        },
+        {
+          "ref": "electronics/stepper-driver",
+          "title": "Драйвер крокового"
+        },
+        {
+          "ref": "electronics/bldc-commutation",
+          "title": "Стратегії комутації BLDC-мотора"
+        },
+        {
+          "slug": "esc-bldc-driver",
+          "title": "Регулятор обертів (ESC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/motor-current-sense",
+          "title": "Вимірювання струму мотора"
+        },
+        {
+          "ref": "physics/inductive-coupling",
+          "title": "Індуктивна наводка"
+        },
+        {
+          "ref": "electronics/safe-state-hardware",
+          "title": "Апаратне забезпечення безпечного стану"
+        }
+      ]
+    },
+    {
+      "slug": "polozhennia-vala",
+      "title": "Положення вала",
+      "topics": [
+        {
+          "ref": "electronics/optical-incremental-encoder",
+          "title": "Оптичний енкодер"
+        },
+        {
+          "ref": "electronics/quadrature",
+          "title": "Квадратура"
+        },
+        {
+          "ref": "sensors/ky-040-encoder",
+          "title": "KY-040 — поворотний енкодер"
+        },
+        {
+          "ref": "electronics/absolute-encoder-gray-code",
+          "title": "Абсолютний енкодер (код Ґрея)"
+        },
+        {
+          "ref": "electronics/hall-magnetic-encoders",
+          "title": "Холл-енкодери"
+        },
+        {
+          "ref": "electronics/kintsevyk-i-poshuk-nulia",
+          "title": "Кінцевик і пошук нуля",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "ref": "math/numerical-differentiation",
+          "title": "Чисельне диференціювання"
+        },
+        {
+          "ref": "programming/backlash-compensation",
+          "title": "Компенсація люфту в прошивці"
+        },
+        {
+          "ref": "electronics/motor-current-stall-heat",
+          "title": "Заклинювання й нагрів"
+        }
+      ]
+    },
+    {
+      "slug": "rehuliator",
+      "title": "Регулятор",
+      "topics": [
+        {
+          "slug": "open-vs-closed-loop",
+          "title": "Зворотний зв'язок",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "calculus-for-pid",
+          "title": "Похідна й інтеграл для PID",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "proportional-control",
+          "title": "П-регулятор",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "integral-control",
+          "title": "І-складова",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "math/anti-windup",
+          "title": "Анти-windup"
+        },
+        {
+          "slug": "derivative-control",
+          "title": "Д-складова",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pi-controller-tuning",
+          "title": "Налаштування ПІ-регулятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pid-tuning-cascade",
+          "title": "Налаштування ПІД",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "loop-stability",
+          "title": "Запас стійкості",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/discrete-pid",
+          "title": "Дискретний ПІД"
+        },
+        {
+          "slug": "takt-petli",
+          "title": "Такт петлі: dt, джитер, затримка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "algorithms/motion-profiles",
+          "title": "Профілі руху"
+        },
+        {
+          "slug": "val-prykhodyt-u-zadanyi-kut",
+          "title": "Вал приходить у заданий кут",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "inertsiini-davachi",
+      "title": "Інерційні давачі",
+      "topics": [
+        {
+          "ref": "electronics/mems",
+          "title": "MEMS"
+        },
+        {
+          "ref": "physics/coriolis-effect",
+          "title": "Ефект Коріоліса"
+        },
+        {
+          "ref": "electronics/accelerometer",
+          "title": "Акселерометр"
+        },
+        {
+          "ref": "electronics/gyroscope",
+          "title": "Гіроскоп"
+        },
+        {
+          "ref": "electronics/imu",
+          "title": "IMU-давач"
+        },
+        {
+          "ref": "sensors/mpu6050",
+          "title": "GY-521 / MPU-6050"
+        },
+        {
+          "ref": "electronics/reading-imu-fifo",
+          "title": "Читання IMU (FIFO, частота, осі)"
+        },
+        {
+          "ref": "electronics/imu-noise-bias-drift",
+          "title": "Шум і дрейф IMU"
+        },
+        {
+          "ref": "electronics/imu-vibration-isolation",
+          "title": "Розв'язка IMU"
+        },
+        {
+          "slug": "imu-mounting-materials",
+          "title": "Матеріали для кріплення IMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/imu-calibration",
+          "title": "Калібрування IMU"
+        }
+      ]
+    },
+    {
+      "slug": "oriientatsiia",
+      "title": "Орієнтація",
+      "topics": [
+        {
+          "slug": "osi-aparata",
+          "title": "Осі апарата: тіло, світ, давач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "math/rotation-matrices",
+          "title": "Матриці повороту"
+        },
+        {
+          "ref": "math/euler-angles",
+          "title": "Кути Ейлера"
+        },
+        {
+          "ref": "math/gimbal-lock",
+          "title": "Складання рамок (gimbal lock)"
+        },
+        {
+          "ref": "math/quaternions",
+          "title": "Кватерніони"
+        },
+        {
+          "ref": "algorithms/complementary-filter",
+          "title": "Комплементарний фільтр"
+        },
+        {
+          "slug": "attitude-estimation",
+          "title": "Оцінка орієнтації (attitude estimation)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/magnetometer",
+          "title": "Магнітометр"
+        },
+        {
+          "ref": "physics/magnetic-declination",
+          "title": "Магнітне схилення"
+        },
+        {
+          "ref": "electronics/mahnitni-spotvorennia-na-bortu",
+          "title": "Магнітні спотворення на борту: тверде й м'яке залізо",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "slug": "pidvis-na-odnu-vis",
+          "title": "Підвіс на одну вісь: IMU, ПІД, серво",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "suputnykova-navihatsiia",
+      "title": "Супутникова навігація",
+      "topics": [
+        {
+          "ref": "communications/gnss",
+          "title": "GNSS"
+        },
+        {
+          "ref": "communications/psevdodalnist-i-chotyry-suputnyky",
+          "title": "Псевдодальність і чотири супутники",
+          "todo": "нова тема",
+          "hint": "communications/synchronization"
+        },
+        {
+          "ref": "communications/systemy-i-diapazony",
+          "title": "Системи й діапазони: GPS, Galileo, GLONASS, BeiDou, L1/L5",
+          "todo": "нова тема",
+          "hint": "communications/synchronization"
+        },
+        {
+          "ref": "connect/beitian-be182",
+          "title": "Beitian BE-182 — GNSS-модуль"
+        },
+        {
+          "slug": "gnss-receiver-integration",
+          "title": "GNSS-приймач у прошивці: NMEA і UBX",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/iakist-fiksu",
+          "title": "Якість фіксу: DOP, холодний старт, міський каньйон",
+          "todo": "нова тема",
+          "hint": "communications/synchronization"
+        },
+        {
+          "ref": "physics/ionospheric-delay",
+          "title": "Іоносферна затримка радіосигналу"
+        },
+        {
+          "ref": "communications/multipath-fading",
+          "title": "Багатопроменевість"
+        },
+        {
+          "ref": "communications/circular-polarization",
+          "title": "Кругова та еліптична поляризація"
+        },
+        {
+          "ref": "communications/antena-gnss-i-ii-mistse-na-bortu",
+          "title": "Антена GNSS і її місце на борту",
+          "todo": "нова тема",
+          "hint": "communications/antennas"
+        },
+        {
+          "ref": "communications/sbas-corrections",
+          "title": "Супутникові системи доповнення (SBAS)"
+        },
+        {
+          "ref": "communications/rtk-na-praktytsi",
+          "title": "RTK на практиці: база, ровер, канал корекцій, PPK",
+          "todo": "нова тема",
+          "hint": "communications/synchronization"
+        },
+        {
+          "ref": "algorithms/rtk-integer-ambiguity",
+          "title": "Розв'язання цілочислової неоднозначності RTK"
+        },
+        {
+          "ref": "math/wgs84-datum",
+          "title": "WGS-84: еліпсоїд і датум"
+        }
+      ]
+    },
+    {
+      "slug": "chyslennia-shliakhu",
+      "title": "Числення шляху",
+      "topics": [
+        {
+          "ref": "algorithms/odometry",
+          "title": "Одометрія"
+        },
+        {
+          "slug": "differential-drive-kinematics",
+          "title": "Кінематика диференціального приводу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/motion-model",
+          "title": "Модель руху"
+        },
+        {
+          "ref": "algorithms/dead-reckoning",
+          "title": "Інерціальне числення позиції"
+        },
+        {
+          "ref": "physics/specific-force",
+          "title": "Питома сила і strapdown-інтеграція"
+        },
+        {
+          "slug": "inertial-navigation",
+          "title": "Інерціальна навігація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "barometric-altimeter",
+          "title": "Барометр-альтиметр",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "imu-barometer",
+          "title": "IMU й барометр",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "physics/dynamic-pressure",
+          "title": "Динамічний тиск і число Бернуллі"
+        },
+        {
+          "ref": "math/trilateration",
+          "title": "Трилатерація"
+        },
+        {
+          "ref": "communications/ble-beacon-formats",
+          "title": "Формати BLE-маячків"
+        },
+        {
+          "ref": "communications/uwb-dalnist-po-nanosekundakh-dlia-pozytsionuvannia",
+          "title": "UWB: дальність по наносекундах для позиціонування в приміщенні",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        }
+      ]
+    },
+    {
+      "slug": "otsiniuvannia-stanu",
+      "title": "Оцінювання стану",
+      "topics": [
+        {
+          "ref": "algorithms/sensor-insufficiency",
+          "title": "Недостатність давача"
+        },
+        {
+          "ref": "math/covariance",
+          "title": "Коваріація і кореляція"
+        },
+        {
+          "ref": "algorithms/predict-vs-measure",
+          "title": "Передбачення vs вимір"
+        },
+        {
+          "slug": "kalman-filter",
+          "title": "Фільтр Калмана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/kalman-ekf",
+          "title": "Розширений фільтр Калмана (EKF)"
+        },
+        {
+          "ref": "communications/sensor-fusion",
+          "title": "Поєднання давачів"
+        },
+        {
+          "ref": "algorithms/innovation-gate",
+          "title": "Брама нової інформації (innovation gate)"
+        },
+        {
+          "ref": "algorithms/gnss-i-ivb-razom",
+          "title": "GNSS і ІВБ разом: кому вірити й коли",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "sensor-fault-detection",
+          "title": "Виявлення відмови давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/timestamps",
+          "title": "Мітки часу"
+        },
+        {
+          "ref": "communications/sensor-latency-compensation",
+          "title": "Затримка давача"
+        },
+        {
+          "slug": "perevirka-otsinky",
+          "title": "Перевірка оцінки: лог, графік, істина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "keruvannia-aparatom",
+      "title": "Керування апаратом",
+      "topics": [
+        {
+          "ref": "electronics/pwm-servo-protocol",
+          "title": "PWM-протокол сервомашинки"
+        },
+        {
+          "ref": "electronics/tiahy-kachalky-i-liuft-rulovoi-poverkhni",
+          "title": "Тяги, качалки й люфт рульової поверхні",
+          "todo": "нова тема",
+          "hint": "electronics/electromechanics"
+        },
+        {
+          "ref": "algorithms/motor-mixer",
+          "title": "Мікшер"
+        },
+        {
+          "ref": "algorithms/actuator-allocation",
+          "title": "Розподіл керування по приводах"
+        },
+        {
+          "slug": "output-mixing",
+          "title": "Узгодження сигналів керування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/bicycle-kinematic-model",
+          "title": "Кінематична велосипедна модель"
+        },
+        {
+          "ref": "physics/rolling-resistance",
+          "title": "Тертя кочення"
+        },
+        {
+          "ref": "algorithms/instability-stabilization",
+          "title": "Потреба стабілізації"
+        },
+        {
+          "ref": "algorithms/rate-angle-cascade",
+          "title": "Каскадний регулятор: кут і кутова швидкість"
+        },
+        {
+          "ref": "algorithms/stabilization-cascade",
+          "title": "Каскад стабілізації"
+        }
+      ]
+    },
+    {
+      "slug": "kurs-na-tochku",
+      "title": "Курс на точку",
+      "topics": [
+        {
+          "ref": "math/geoid-and-amsl",
+          "title": "Геоїд, AMSL і висота"
+        },
+        {
+          "ref": "math/ecef-ned-enu",
+          "title": "ECEF, NED і ENU"
+        },
+        {
+          "ref": "math/local-tangent-plane",
+          "title": "Місцева дотична площина"
+        },
+        {
+          "ref": "math/great-circle-distance",
+          "title": "Відстань великого кола (гаверсинуси)"
+        },
+        {
+          "ref": "algorithms/vidkhylennia-vid-linii-shliakhu-cross-track",
+          "title": "Відхилення від лінії шляху (cross-track)",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "ref": "algorithms/pure-pursuit-navigation",
+          "title": "Навігація pure pursuit"
+        },
+        {
+          "ref": "algorithms/utrymannia-kursu-vysoty-i-pozytsii",
+          "title": "Утримання курсу, висоти й позиції",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "platforma-ide-do-tochky-i-povertaietsia",
+          "title": "Платформа їде до точки й повертається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

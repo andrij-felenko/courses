@@ -1,0 +1,1048 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "vlasni-platy-ta-prystroi",
+  "title": "Власні плати та пристрої",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "arkhitektura-prystroiu",
+      "title": "Архітектура пристрою",
+      "topics": [
+        {
+          "slug": "de-zakinchuietsia-devborda",
+          "title": "Де закінчується девборда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "drabyna-vlasnoho-zaliza",
+          "title": "Драбина власного заліза: девборда → готовий модуль на своїй платі-носії → SoM → повністю своя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "koly-svoiei-platy-robyty-ne-treba",
+          "title": "Коли своєї плати робити не треба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tsina-odniiei-iteratsii-zaliza",
+          "title": "Ціна однієї ітерації заліза",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tekhnichne-zavdannia-na-vlasnyi-prystrii",
+          "title": "Технічне завдання на власний пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/blok-skhema-prystroiu",
+          "title": "Блок-схема пристрою: вузли, зв'язки, межі",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "biudzhety-shcho-vyrishuiut-doliu-proiektu",
+          "title": "Бюджети, що вирішують долю проєкту: струм, піни, пам'ять, тепло, розмір, ціна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/peak-current-budgeting",
+          "title": "Пікові струми та просідання живлення"
+        },
+        {
+          "slug": "derevo-zhyvlennia-vlasnoho-prystroiu",
+          "title": "Дерево живлення власного пристрою: рейки, струми, послідовність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/karta-piniv",
+          "title": "Карта пінів: розподіл функцій до першої лінії схеми",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/mekhanichnyi-konvert",
+          "title": "Механічний конверт: габарити, кріплення, боки з роз'ємами",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        }
+      ]
+    },
+    {
+      "slug": "vybir-komponentiv",
+      "title": "Вибір компонентів",
+      "topics": [
+        {
+          "slug": "datashyt-ochyma-proiektuvalnyka",
+          "title": "Даташит очима проєктувальника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/application-notes",
+          "title": "Прикладні нотатки та референсні дизайни"
+        },
+        {
+          "ref": "electronics/guarantee-levels",
+          "title": "Рівні гарантій параметрів: tested, sampled, design"
+        },
+        {
+          "ref": "electronics/derating",
+          "title": "Дератинг компонентів"
+        },
+        {
+          "ref": "electronics/vybir-i-dostupnist-komponentiv",
+          "title": "Вибір і доступність компонентів: BOM, аналоги, життєвий цикл",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        },
+        {
+          "ref": "electronics/semiconductor-supply-chain",
+          "title": "Ланцюг постачання чіпів"
+        },
+        {
+          "ref": "electronics/silicon-revision-management",
+          "title": "Управління ревізіями кремнію"
+        },
+        {
+          "ref": "electronics/packages",
+          "title": "Корпуси"
+        },
+        {
+          "ref": "electronics/packaging",
+          "title": "Корпусування у деталях: тепловий шлях і межа виводів"
+        },
+        {
+          "ref": "electronics/dc-bias-capacitance",
+          "title": "DC-bias ефект у конденсаторах"
+        },
+        {
+          "ref": "electronics/footprint-design",
+          "title": "Посадкові місця (footprint)"
+        },
+        {
+          "slug": "bom-iak-dokument",
+          "title": "BOM як документ: партномери, альтернативи, DNP, ревізії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "skhema-ta-obviazka",
+      "title": "Схема та обв'язка",
+      "topics": [
+        {
+          "ref": "electronics/eda-tools",
+          "title": "Засоби проєктування плат (EDA)"
+        },
+        {
+          "ref": "electronics/svii-symvol-i-svii-komponent-u-bibliotetsi",
+          "title": "Свій символ і свій компонент у бібліотеці",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/hihiiena-skhemy",
+          "title": "Гігієна схеми: аркуші, ієрархія, мітки, позначення",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "referensna-skhema-vvimknennia-iak-kontrakt",
+          "title": "Референсна схема ввімкнення як контракт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/minimalna-obviazka",
+          "title": "Мінімальна обв'язка МК: живлення, скидання, boot-піни, кварц",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "programming/strapping-piny-i-rezhymy-zavantazhennia",
+          "title": "Strapping-піни й режими завантаження",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "electronics/stan-piniv-u-pershu-myt",
+          "title": "Стан пінів у першу мить: що робить залізо, доки прошивка мовчить",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/power-sequencing",
+          "title": "Черговість увімкнення шин живлення"
+        },
+        {
+          "slug": "zakhyst-vkhodiv-i-vykhodiv-vlasnoi-platy",
+          "title": "Захист входів і виходів власної плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/latch-up",
+          "title": "Latch-up у CMOS"
+        },
+        {
+          "ref": "electronics/creepage-clearance",
+          "title": "Зазори на платі: creepage та clearance"
+        },
+        {
+          "ref": "electronics/debah-roziem-testovi-tochky-i-navmysni-avariini",
+          "title": "Дебаг-роз'єм, тестові точки й навмисні аварійні виходи",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "vychytka-skhemy-do-rozvodky",
+          "title": "Вичитка схеми до розводки: ERC, звірка з даташитом, чужі очі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "stek-shariv-i-rozmishchennia",
+      "title": "Стек шарів і розміщення",
+      "topics": [
+        {
+          "ref": "electronics/vid-skhemy-do-platy",
+          "title": "Від схеми до плати: нетлист, футпринти, класи ланцюгів, DRC",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/pravyla-fabryky-iak-vkhidni-pravyla-proiektu",
+          "title": "Правила фабрики як вхідні правила проєкту",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/pcb-stackup-rf",
+          "title": "Стек PCB і характеристичний опір мікросмужки"
+        },
+        {
+          "ref": "electronics/kontur-platy-kriplennia-i-zony-zaborony",
+          "title": "Контур плати, кріплення й зони заборони",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/poriadok-rozmishchennia",
+          "title": "Порядок розміщення: спочатку те, що не рухається",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/rozmishchennia-vuzla-zhyvlennia",
+          "title": "Розміщення вузла живлення: гаряча петля перетворювача",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "pcb-antenna-layout",
+          "title": "Топологія антени на PCB: keep-out, заземлення, розведення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pcb-thermal-design",
+          "title": "Тепловідведення на PCB",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rozvodka-platy",
+      "title": "Розводка плати",
+      "topics": [
+        {
+          "ref": "electronics/ground-plane",
+          "title": "Шар землі (ground plane)"
+        },
+        {
+          "ref": "electronics/current-return-path",
+          "title": "Шлях зворотного струму"
+        },
+        {
+          "ref": "electronics/common-ground",
+          "title": "Спільна земля"
+        },
+        {
+          "ref": "electronics/shyryna-dorizhky-strum-i-nahriv",
+          "title": "Ширина доріжки, струм і нагрів",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "communications/transmission-lines",
+          "title": "Лінія передачі на PCB: імпеданс і термінація"
+        },
+        {
+          "ref": "electronics/pdn-impedance",
+          "title": "Імпеданс шини живлення (PDN)"
+        },
+        {
+          "ref": "electronics/rozvodka-rozviazky",
+          "title": "Розводка розв'язки: площа петлі й де насправді стоїть конденсатор",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/dyferentsiini-pary-i-shvydki-shyny-na-vlasnii-plati",
+          "title": "Диференційні пари й швидкі шини на власній платі",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "ddr-signal-integrity",
+          "title": "Цілісність сигналу DDR-шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/kvarts-opora-i-analohovi-vkhody",
+          "title": "Кварц, опора й аналогові входи: тихі куточки плати",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/guard-ring-pcb",
+          "title": "Охоронне кільце на платі"
+        },
+        {
+          "ref": "electronics/thermal-vias",
+          "title": "Теплові перехідні отвори (thermal vias)"
+        }
+      ]
+    },
+    {
+      "slug": "zavady-vid-vlasnoi-platy",
+      "title": "Завади від власної плати",
+      "topics": [
+        {
+          "slug": "teper-zavady-robysh",
+          "title": "Тепер завади робиш ти: що саме випромінює твоя плата",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/electromagnetic-compatibility",
+          "title": "Електромагнітна сумісність (EMC)"
+        },
+        {
+          "ref": "electronics/crosstalk",
+          "title": "Перехресна завада (crosstalk)"
+        },
+        {
+          "ref": "electronics/impulsnyi-peretvoriuvach-iak-naihuchnishyi-vuzol",
+          "title": "Імпульсний перетворювач як найгучніший вузол",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/snubbers-dvdt",
+          "title": "Снабери"
+        },
+        {
+          "ref": "electronics/spread-spectrum-emc",
+          "title": "Спред-спектрум у DC-DC і зниження EMI-піків"
+        },
+        {
+          "ref": "electronics/emc-filtering",
+          "title": "ЕМС-фільтрація на вводах живлення"
+        },
+        {
+          "ref": "electronics/common-mode-noise",
+          "title": "Синфазна і диференціальна завади"
+        },
+        {
+          "ref": "electronics/cable-emi",
+          "title": "Кабель як антена завад"
+        },
+        {
+          "ref": "electronics/hybrid-shield-grounding",
+          "title": "Гібридне заземлення екрана"
+        },
+        {
+          "ref": "electronics/shielding",
+          "title": "Екранування"
+        },
+        {
+          "ref": "electronics/ground-loops",
+          "title": "Земляні петлі"
+        },
+        {
+          "ref": "electronics/shliakh-esd-vid-roziemu-do-zemli",
+          "title": "Шлях ESD від роз'єму до землі",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/near-field-probing",
+          "title": "Near-field зондування: дешева передперевірка вдома"
+        }
+      ]
+    },
+    {
+      "slug": "vyhotovlennia-i-montazh",
+      "title": "Виготовлення й монтаж",
+      "topics": [
+        {
+          "slug": "pcb-layout-flow",
+          "title": "Від схеми до замовлення: розводка, гербери, виробник",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dfm-basics",
+          "title": "DFM: проєктувати так, щоб можна було виготовити",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/vybir-fabryky-i-chytannia-chuzhoho-dfm-zvitu",
+          "title": "Вибір фабрики й читання чужого DFM-звіту",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/shcho-haniaie-tsinu-platy",
+          "title": "Що ганяє ціну плати: шари, розмір, отвори, клас, покриття, строк",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/panel-frezeruvannia-markuvannia-testovi-kupony",
+          "title": "Панель, фрезерування, маркування, тестові купони",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "pcb-assembly-methods",
+          "title": "Методи монтажу плат (THT і SMD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/komplekt-dlia-montazhu",
+          "title": "Комплект для монтажу: паста, трафарет, pick&place, складальне креслення",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "verstak-dlia-vlasnoi-platy",
+          "title": "Верстак для власної плати: станція, фен, трафарет, мікроскоп",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/smd-stencil",
+          "title": "Трафаретний друк пасти"
+        },
+        {
+          "ref": "electronics/reflow-soldering",
+          "title": "Паяння оплавленням"
+        },
+        {
+          "slug": "smd-rework",
+          "title": "Ручне паяння SMD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/bga-assembly",
+          "title": "BGA: монтаж і контроль"
+        },
+        {
+          "ref": "electronics/moisture-sensitivity-levels",
+          "title": "Рівні чутливості до вологи (MSL)"
+        },
+        {
+          "ref": "electronics/antistatic-workplace",
+          "title": "Антистатичне місце"
+        }
+      ]
+    },
+    {
+      "slug": "ozhyvlennia-platy",
+      "title": "Оживлення плати",
+      "topics": [
+        {
+          "ref": "electronics/ohliad-platy-do-podachi-zhyvlennia",
+          "title": "Огляд плати до подачі живлення: мікроскоп, дзвінок рейок на КЗ",
+          "todo": "нова тема",
+          "hint": "electronics/metrology"
+        },
+        {
+          "ref": "electronics/first-power-up-check",
+          "title": "Перша перевірка"
+        },
+        {
+          "ref": "electronics/pershe-vmykannia-novoi-platy",
+          "title": "Перше вмикання нової плати: обмеження струму, димовий тест",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/ozhyvlennia-novoi-platy",
+          "title": "Оживлення нової плати: рейки → скидання → такт → відлагоджувач",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "plata-ne-vidpovidaie",
+          "title": "Плата не відповідає: дерево пошуку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "troubleshooting-methodology",
+          "title": "Систематичний пошук несправності",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pershyi-kontakt-vidlahodzhuvacha-na-vlasnii-plati",
+          "title": "Перший контакт відлагоджувача на власній платі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/isp-programming",
+          "title": "ISP-програмування мікроконтролерів"
+        },
+        {
+          "ref": "electronics/syni-droty-i-remont-revizii",
+          "title": "Сині дроти й ремонт ревізії А",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "sleep-current-audit",
+          "title": "Аудит струму спокою плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/kskh-zvorotni-vtraty-i-vymiriuvannia-anteny",
+          "title": "КСХ, зворотні втрати й вимірювання антени",
+          "todo": "нова тема",
+          "hint": "communications/antennas"
+        },
+        {
+          "slug": "zhurnal-revizii",
+          "title": "Журнал ревізії А",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "proshyvka-z-nulia",
+      "title": "Прошивка з нуля",
+      "topics": [
+        {
+          "slug": "shcho-znyklo-razom-iz-devbordoiu",
+          "title": "Що зникло разом із девбордою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "build-systems/cross-compilation",
+          "title": "Крос-компіляція: хост, ціль і що між ними"
+        },
+        {
+          "ref": "build-systems/cmake-toolchain-file",
+          "title": "Файл тулчейна: як CMake дізнається про чужу платформу"
+        },
+        {
+          "ref": "programming/elf-image",
+          "title": "ELF-образ"
+        },
+        {
+          "ref": "programming/linker-script",
+          "title": "Лінкер-скрипт"
+        },
+        {
+          "ref": "programming/svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah",
+          "title": "Свої секції, буфер DMA, стек і купа під свій обсяг",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/startup-code",
+          "title": "Стартовий код (crt0)"
+        },
+        {
+          "ref": "programming/vector-table",
+          "title": "Таблиця векторів"
+        },
+        {
+          "ref": "programming/mcu-startup-sequence",
+          "title": "Boot-послідовність мікроконтролера: від скидання до main()"
+        },
+        {
+          "ref": "programming/newlib",
+          "title": "newlib: libc для вбудованих систем"
+        },
+        {
+          "ref": "programming/weak-symbol",
+          "title": "Слабкий символ і перевизначення"
+        },
+        {
+          "slug": "pershe-blymannia-na-vlasnii-plati",
+          "title": "Перше блимання на власній платі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "shar-pidtrymky-platy",
+      "title": "Шар підтримки плати",
+      "topics": [
+        {
+          "slug": "mezha-plata-zastosunok",
+          "title": "Межа «плата ↔ застосунок»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/hardware-abstraction-layer",
+          "title": "Шар абстрагування заліза (HAL)"
+        },
+        {
+          "ref": "programming/clock-tree",
+          "title": "Тактове дерево MCU"
+        },
+        {
+          "slug": "pidniattia-taktiv-pid-svii-kvarts",
+          "title": "Підняття тактів під свій кварц",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/peripheral-clock-enable",
+          "title": "Тактування периферії: ввімкнення й тактові домени"
+        },
+        {
+          "ref": "programming/konfihuratsiia-piniv-iak-iedyne-dzherelo-pravdy",
+          "title": "Конфігурація пінів як єдине джерело правди",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/cmsis",
+          "title": "CMSIS: стандартний інтерфейс ПЗ для Cortex-M"
+        },
+        {
+          "ref": "programming/svd-format",
+          "title": "Формат SVD і згенеровані заголовки регістрів"
+        },
+        {
+          "ref": "programming/vendor-lock-in",
+          "title": "SDK виробника чи свої регістри: чим платиш"
+        },
+        {
+          "slug": "plata-znaie-khto-vona",
+          "title": "Плата знає, хто вона: ID ревізії й одна прошивка на дві плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "plata-nosii-pid-obchysliuvalnyi-modul",
+          "title": "Плата-носій під обчислювальний модуль: опис заліза замість коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/device-tree",
+          "title": "Дерево пристроїв: як прошивка описує недискаверабельне залізо"
+        }
+      ]
+    },
+    {
+      "slug": "draivery-svoho-zaliza",
+      "title": "Драйвери свого заліза",
+      "topics": [
+        {
+          "ref": "programming/draiver-chypa",
+          "title": "Драйвер чипа: від регістрової карти до значення у SI",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/driver-pattern",
+          "title": "Шаблон драйвера периферії"
+        },
+        {
+          "slug": "datashyt-ochyma-prohramista",
+          "title": "Даташит очима програміста",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/poslidovnist-initsializatsii-iakoi-nikhto",
+          "title": "Послідовність ініціалізації, якої ніхто не пояснює",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/riven-tranzaktsii",
+          "title": "Рівень транзакцій: відділити чип від шини",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/volatile-register",
+          "title": "volatile і компілятор у драйвері"
+        },
+        {
+          "ref": "programming/memory-ordering-barriers",
+          "title": "Упорядкування пам'яті та бар'єри"
+        },
+        {
+          "ref": "programming/opytuvannia-pereryvannia-chy-dma-u-draiveri",
+          "title": "Опитування, переривання чи DMA у драйвері",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/dma-cache-races",
+          "title": "Пастки DMA"
+        },
+        {
+          "ref": "programming/taimauty-pomylky-i-povtorna-initsializatsiia-chypa",
+          "title": "Таймаути, помилки й повторна ініціалізація чипа",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "slug": "koly-biblioteky-nemaie-abo-vona-breshe",
+          "title": "Коли бібліотеки немає або вона бреше",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "perevirka-draivera-na-zhyvomu-zalizi",
+          "title": "Перевірка драйвера на живому залізі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "unix-linux/driver-probe-and-binding",
+          "title": "Драйвер на платі з Linux: probe, збіг за таблицею, підсистема"
+        }
+      ]
+    },
+    {
+      "slug": "korpus-i-mekhanika",
+      "title": "Корпус і механіка",
+      "topics": [
+        {
+          "ref": "electronics/thermal-chain",
+          "title": "Тепловий ланцюжок: θJC, θCS, θSA"
+        },
+        {
+          "ref": "electronics/heatsink",
+          "title": "Радіатор"
+        },
+        {
+          "ref": "physics/natural-convection",
+          "title": "Природна конвекція"
+        },
+        {
+          "ref": "electronics/vymiriuvannia-temperatury-zhyvoi-platy",
+          "title": "Вимірювання температури живої плати",
+          "todo": "нова тема",
+          "hint": "electronics/metrology"
+        },
+        {
+          "ref": "electronics/z-choho-zrobyty-korpus",
+          "title": "З чого зробити корпус: друк, фрезерування, готова коробка",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/kriplennia-platy-stiiky-dopusky",
+          "title": "Кріплення плати, стійки, допуски",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/obmin-mizh-mekhanikoiu-i-sapr-platy",
+          "title": "Обмін між механікою й САПР плати: STEP, DXF, контур",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "enclosure-ip-rating",
+          "title": "Корпус, IP-захист, роз'єми",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/cables-connectors",
+          "title": "Кабелі й конектори"
+        },
+        {
+          "ref": "electronics/dzhhut-obtysk-i-rozvantazhennia-natiahu",
+          "title": "Джгут, обтиск і розвантаження натягу",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "physics/vibration-transmissibility",
+          "title": "Передавання вібрації (transmissibility)"
+        },
+        {
+          "slug": "dostup-pid-kryshkoiu",
+          "title": "Доступ під кришкою: дебаг, кнопка, індикатор, батарейка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "druha-reviziia",
+      "title": "Друга ревізія",
+      "topics": [
+        {
+          "slug": "proshyvka-dlia-pryvedennia-do-zhyttia-ne-proshyvka",
+          "title": "Прошивка для приведення до життя — не прошивка виробу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/samoperevirka-pry-starti-post",
+          "title": "Самоперевірка при старті (POST)",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "slug": "miriaiemo-te-shcho-obitsialy",
+          "title": "Міряємо те, що обіцяли в ТЗ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/worst-case-analysis",
+          "title": "Worst-case analysis: проєктування під найгірший прилад"
+        },
+        {
+          "ref": "electronics/vyprobuvannia-iaki-lamaiut-prototyp",
+          "title": "Випробування, які ламають прототип",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/esd-sensitivity-levels",
+          "title": "Класи чутливості до ESD"
+        },
+        {
+          "ref": "programming/fagan-inspection",
+          "title": "Формальна інспекція (метод Фагана)"
+        },
+        {
+          "slug": "errata-vlasnoi-platy",
+          "title": "Errata власної плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reviziia-b",
+          "title": "Ревізія Б: що змінюємо, а що ні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "project-documentation",
+          "title": "Документація проєкту: README, схема, BOM, журнал змін",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

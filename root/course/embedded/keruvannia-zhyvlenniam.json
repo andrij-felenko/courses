@@ -1,0 +1,858 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "keruvannia-zhyvlenniam",
+  "title": "Керування живленням",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "enerhetychnyi-biudzhet",
+      "title": "Енергетичний бюджет",
+      "topics": [
+        {
+          "slug": "skilky-zhyve-prystrii",
+          "title": "Скільки живе пристрій: від мА·год до діб",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "power-budget",
+          "title": "Бюджет потужності пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "duty-cycle-current",
+          "title": "Цикл і середній струм",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "board-consumption",
+          "title": "Споживання плати",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "measure-consumption",
+          "title": "Виміряти споживання",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "current-profiler-tools",
+          "title": "Вимірювання профілю струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "power-logger",
+          "title": "Логер споживання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/current-monitor",
+          "title": "Монітор струму"
+        },
+        {
+          "slug": "tsina-odniiei-korysnoi-dii",
+          "title": "Ціна однієї корисної дії: мілліджоулі на вимір і на пакет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vkhid-zhyvlennia",
+      "title": "Вхід живлення",
+      "topics": [
+        {
+          "ref": "electronics/wall-adapter",
+          "title": "Мережевий адаптер: що купуємо і на що дивимось"
+        },
+        {
+          "ref": "electronics/mains-safety",
+          "title": "Безпека з мережею й класи ізоляції"
+        },
+        {
+          "ref": "electronics/mains-transients",
+          "title": "Кидки в мережі: TVS, варистор, розрядник"
+        },
+        {
+          "slug": "home-device-power",
+          "title": "Живлення побутового пристрою: від мережі, безпечно, з малим standby",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "usb-power-map",
+          "title": "Живлення через USB",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pd-sink-design",
+          "title": "PD у пристрої",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fast-charging-protocols",
+          "title": "Протоколи швидкої зарядки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/poe",
+          "title": "PoE: живлення по витій парі"
+        },
+        {
+          "ref": "electronics/bort-aparata",
+          "title": "Борт апарата: 12/24 В, скидання навантаження, холодний пуск",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "slug": "reverse-polarity",
+          "title": "Захист переполюсування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "active-inrush-limiter",
+          "title": "Активний обмежувач пускового струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/power-oring",
+          "title": "Два джерела одразу: ORing, резерв, гаряча заміна"
+        }
+      ]
+    },
+    {
+      "slug": "peretvorennia-napruhy",
+      "title": "Перетворення напруги",
+      "topics": [
+        {
+          "slug": "linear-vs-switching",
+          "title": "Лінійний vs імпульсний",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/ldo",
+          "title": "LDO"
+        },
+        {
+          "ref": "electronics/buck",
+          "title": "Buck-перетворювач"
+        },
+        {
+          "ref": "electronics/boost",
+          "title": "Boost-перетворювач"
+        },
+        {
+          "ref": "electronics/buck-boost",
+          "title": "Buck-boost, SEPIC і зарядна помпа"
+        },
+        {
+          "ref": "electronics/flyback-isolated",
+          "title": "Ізольований перетворювач: flyback і навіщо ізоляція"
+        },
+        {
+          "slug": "topology-map",
+          "title": "Вибір топології",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/converter-efficiency-curve",
+          "title": "ККД — не одне число: крива, струм спокою, легке навантаження"
+        },
+        {
+          "ref": "electronics/power-inductor",
+          "title": "Обв'язка імпульсника: котушка й конденсатори"
+        },
+        {
+          "ref": "electronics/switching-noise",
+          "title": "Пульсації, шум і хвороби перетворювача"
+        },
+        {
+          "slug": "ldo-post-regulator",
+          "title": "LDO-постстабілізатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "power/xc6206",
+          "title": "Готовий модуль замість своєї схеми"
+        }
+      ]
+    },
+    {
+      "slug": "teplovyi-rezhym",
+      "title": "Тепловий режим",
+      "topics": [
+        {
+          "slug": "thermal-budget",
+          "title": "Тепловий бюджет системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/thermal-chain",
+          "title": "Тепловий ланцюжок: θJC, θCS, θSA"
+        },
+        {
+          "ref": "electronics/heatsink",
+          "title": "Радіатор"
+        },
+        {
+          "slug": "pcb-thermal-design",
+          "title": "Тепловідведення на PCB",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/thermal-vias",
+          "title": "Теплові перехідні отвори"
+        },
+        {
+          "ref": "electronics/power-derating",
+          "title": "Дерейтинг: скільки насправді можна навантажити"
+        },
+        {
+          "ref": "electronics/safe-operating-area",
+          "title": "Зона безпечної роботи й тепловий розгін"
+        }
+      ]
+    },
+    {
+      "slug": "zhyvlennia-na-plati",
+      "title": "Живлення на платі",
+      "topics": [
+        {
+          "slug": "power-tree-reading",
+          "title": "Читання дерева живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/power-rails",
+          "title": "Шини живлення й силові домени"
+        },
+        {
+          "ref": "electronics/power-rail-sequencing",
+          "title": "Секвенування шин живлення"
+        },
+        {
+          "ref": "electronics/load-switch",
+          "title": "Ключі навантаження: вимикати те, що зараз не працює"
+        },
+        {
+          "ref": "electronics/decoupling",
+          "title": "Decoupling-конденсатор"
+        },
+        {
+          "slug": "power-supply-filtering",
+          "title": "Фільтрація живлення: згладжувач і розв'язка разом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/converter-layout",
+          "title": "Розведення вузла живлення: петля комутації й зворотний струм"
+        },
+        {
+          "ref": "electronics/uvlo",
+          "title": "UVLO й супервізор напруги"
+        },
+        {
+          "slug": "power-fail-safety",
+          "title": "Захист від зникнення живлення: brown-out і рятування стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "skilky-zhyve-shyna-pislia-provalu",
+          "title": "Скільки живе шина після провалу: hold-up і резервне живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "power-spec-template",
+          "title": "Шаблон ТЗ на вузол живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "providnyky-i-zazory",
+      "title": "Провідники й зазори",
+      "topics": [
+        {
+          "ref": "electronics/wire-gauge",
+          "title": "Калібр проводу: переріз, нагрів, падіння"
+        },
+        {
+          "ref": "electronics/creepage-clearance",
+          "title": "Зазори на платі: creepage і clearance"
+        },
+        {
+          "ref": "electronics/perekhidnyi-otvir-i-polihon-pid-strum",
+          "title": "Перехідний отвір і полігон під струм",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "components/xt-connectors",
+          "title": "Роз'єми під ампери: XT, контактний опір, обтиск"
+        },
+        {
+          "slug": "fuses-ptc",
+          "title": "Запобіжники",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/i2t-energy",
+          "title": "Координація захисту: I²t і автомат"
+        },
+        {
+          "ref": "electronics/korotke-zamykannia-paketa",
+          "title": "Коротке замикання пакета: струм, дуга, що згорить першим",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "slug": "dzhhut-aparata",
+          "title": "Джгут апарата: від пакета до вузлів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "naskriznyi-rozrakhunok",
+          "title": "Наскрізний розрахунок: мідь, зазор, падіння, запобіжник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vybir-batarei",
+      "title": "Вибір батареї",
+      "topics": [
+        {
+          "slug": "battery-chemistries",
+          "title": "Хімії батарей",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "energy-density-comparison",
+          "title": "Щільність енергії та потужності: конденсатор, суперконденсатор, акумулятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/c-rate",
+          "title": "Паспорт комірки: ємність, C-рейт, внутрішній опір"
+        },
+        {
+          "ref": "physics/battery-discharge-curve",
+          "title": "Просадка під навантаженням"
+        },
+        {
+          "ref": "electronics/peukert-effect",
+          "title": "Ємність, якої немає: холод, вік, струм розряду"
+        },
+        {
+          "ref": "power/videx-14500",
+          "title": "Формати комірок: 18650, pouch, монетка"
+        },
+        {
+          "ref": "electronics/pervynni-elementy",
+          "title": "Первинні елементи: літій-тіоніл, лужні, монетка",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/state-of-charge",
+          "title": "Скільки лишилося: OCV, кулонометр, fuel gauge"
+        },
+        {
+          "slug": "test-iemnosti",
+          "title": "Тест ємності: електронне навантаження й справжня крива розряду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vybir-paketa-pid-profil-strumu",
+          "title": "Вибір пакета під профіль струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "skladannia-batarei",
+      "title": "Складання батарей",
+      "topics": [
+        {
+          "ref": "electronics/topolohiia-s-p-pid-potribnu-napruhu-i-strum",
+          "title": "Топологія S/P під потрібну напругу й струм",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/dobir-komirok",
+          "title": "Добір комірок: партія, матчинг, вимір внутрішнього опору",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/spot-welding-batteries",
+          "title": "Контактне зварювання в батарейних збірках"
+        },
+        {
+          "slug": "bms-architecture",
+          "title": "Архітектура BMS: монітор комірок, ізоляція, контактор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "active-balancing",
+          "title": "Активне балансування: топології і вибір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "battery-pack-thermal",
+          "title": "Тепловий менеджмент батарейного пакета",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "thermal-runaway-protection",
+          "title": "Захист від теплової втечі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/battery-mechanics",
+          "title": "Механіка, корпус і маркування пакета"
+        },
+        {
+          "ref": "electronics/povodzhennia-z-li-ion",
+          "title": "Поводження з Li-ion: заряд, зберігання, ушкоджена комірка",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/battery-transport-regs",
+          "title": "Зберігання й перевезення літію"
+        },
+        {
+          "slug": "pershyi-zariad-i-pryimalnyi-test-paketa",
+          "title": "Перший заряд і приймальний тест пакета",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "zariadzhannia",
+      "title": "Заряджання",
+      "topics": [
+        {
+          "ref": "electronics/li-ion-charger",
+          "title": "Зарядка Li-ion: CC/CV"
+        },
+        {
+          "ref": "electronics/li-ion-precharge",
+          "title": "Попередній заряд і термінація заряду"
+        },
+        {
+          "ref": "electronics/charger-ic-architecture",
+          "title": "Мікросхема зарядки: вибір, струм, термістор"
+        },
+        {
+          "ref": "electronics/power-path",
+          "title": "Power path: працювати й заряджатися одночасно"
+        },
+        {
+          "ref": "electronics/fast-charging",
+          "title": "Прискорений заряд і його ціна"
+        },
+        {
+          "ref": "electronics/zariad-svyntsiu-i-nimh",
+          "title": "Заряд свинцю й NiMH",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/wireless-power-transfer",
+          "title": "Бездротова зарядка Qi"
+        },
+        {
+          "ref": "electronics/smbus-smart-battery",
+          "title": "Smart Battery і SMBus"
+        },
+        {
+          "ref": "electronics/powerbank-source",
+          "title": "Свій павербанк"
+        }
+      ]
+    },
+    {
+      "slug": "soniachne-zhyvlennia",
+      "title": "Сонячне живлення",
+      "topics": [
+        {
+          "ref": "physics/solar-cell-physics",
+          "title": "Фотоелемент"
+        },
+        {
+          "ref": "physics/solar-cell-efficiency",
+          "title": "Типи панелей і межа ККД"
+        },
+        {
+          "ref": "electronics/panel-iv-mpp",
+          "title": "ВАХ панелі й точка максимуму"
+        },
+        {
+          "ref": "electronics/mppt-algorithms",
+          "title": "Алгоритми стеження за MPP"
+        },
+        {
+          "ref": "electronics/real-sun-mppt",
+          "title": "Контролер заряду: PWM проти MPPT"
+        },
+        {
+          "ref": "physics/solar-irradiance-model",
+          "title": "Скільки дає панель насправді: інсоляція, сезон, нахил"
+        },
+        {
+          "ref": "electronics/panel-temperature-coeff",
+          "title": "Температура й затінення: коефіцієнти й байпасні діоди"
+        },
+        {
+          "ref": "electronics/montazh-paneli-v-poli",
+          "title": "Монтаж панелі в полі: кріплення, бруд, град, тварини",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "slug": "rozrakhunok-vuzla",
+          "title": "Розрахунок вузла: панель, банка, N діб без сонця",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "soniachnyi-vuzol-shcho-perezhyvaie-hruden",
+          "title": "Сонячний вузол, що переживає грудень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "enerhiia-z-dovkillia",
+      "title": "Енергія з довкілля",
+      "topics": [
+        {
+          "slug": "mikrovat-biudzhet",
+          "title": "Мікроват-бюджет: коли енергії менше, ніж струм спокою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/mala-vitroustanovka",
+          "title": "Мала вітроустановка: ротор, межа Бетца, крива потужності",
+          "todo": "нова тема",
+          "hint": "physics/mechanics"
+        },
+        {
+          "ref": "electronics/elektryka-vitriaka",
+          "title": "Електрика вітряка: генератор, випрямляч, баласт, гальмування",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "physics/termoelektrychnyi-henerator",
+          "title": "Термоелектричний генератор: ефект Зеєбека",
+          "todo": "нова тема",
+          "hint": "physics/condensed-matter-physics"
+        },
+        {
+          "ref": "physics/piezoelectricity",
+          "title": "П'єзо й вібрація"
+        },
+        {
+          "ref": "electronics/rf-zbyrachi-i-kimnatne-svitlo",
+          "title": "RF-збирачі й кімнатне світло",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/nakopychuvach-zbyracha-i-kholodnyi-start",
+          "title": "Накопичувач збирача й холодний старт",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "slug": "vuzol-bez-batarei",
+          "title": "Вузол без батареї: чи можливо і коли",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "avtonomnist",
+      "title": "Автономність",
+      "topics": [
+        {
+          "ref": "programming/sleep-modes",
+          "title": "Режими сну"
+        },
+        {
+          "ref": "programming/wakeup-sources",
+          "title": "Джерела пробудження"
+        },
+        {
+          "slug": "shparuvatist-roboty",
+          "title": "Шпаруватість роботи: коли вмикатися і як рідко",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tsina-probudzhennia",
+          "title": "Ціна пробудження: старт кварцу, ініціалізація, перше вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/power-gating",
+          "title": "Гейтинг тактів і живлення, дільники, DVFS"
+        },
+        {
+          "slug": "sleep-current-audit",
+          "title": "Аудит струму спокою плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "chomu-plata-ne-zasynaie",
+          "title": "Чому плата не засинає: підтяжки, витоки, «завжди ввімкнений» вузол, дебагер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/rtc-memory",
+          "title": "Стан крізь сон: RTC-пам'ять, ULP-співпроцесор, ціна холодного старту"
+        },
+        {
+          "ref": "programming/son-pid-rtos",
+          "title": "Сон під RTOS: tickless і задача, яка нічого не робить",
+          "todo": "нова тема",
+          "hint": "programming/systems"
+        },
+        {
+          "slug": "radio-iak-holovnyi-spozhyvach",
+          "title": "Радіо як головний споживач: пачки, вікна, дюті-цикл LPWAN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/graceful-degradation",
+          "title": "Що вимикати першим: деградація з гідністю при низькому заряді"
+        }
+      ]
+    }
+  ]
+}

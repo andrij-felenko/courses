@@ -1,0 +1,928 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "peryferiia-mk",
+  "title": "Периферія МК",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pin-i-navantazhennia",
+      "title": "Пін і навантаження",
+      "topics": [
+        {
+          "slug": "shcho-mozhna-povisyty-na-pin",
+          "title": "Що можна повісити на пін",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/pin-drive-limits",
+          "title": "Навантажувальна здатність виводу"
+        },
+        {
+          "ref": "electronics/active-low",
+          "title": "Active-low: коли вмикає «нуль»"
+        },
+        {
+          "ref": "electronics/mosfet-threshold",
+          "title": "Поріг MOSFET"
+        },
+        {
+          "ref": "electronics/gate-driver",
+          "title": "Драйвер затвора"
+        },
+        {
+          "ref": "electronics/pnp-high-side-driver",
+          "title": "PNP-ключ і схема high-side"
+        },
+        {
+          "ref": "electronics/mosfet-array-driver",
+          "title": "MOSFET-масив як драйвер нижнього плеча"
+        },
+        {
+          "ref": "power/uln2003-driver",
+          "title": "ULN2003 — драйвер (плата)"
+        },
+        {
+          "ref": "electronics/relay",
+          "title": "Реле"
+        },
+        {
+          "ref": "power/relay-5v",
+          "title": "5V реле-модуль (Songle SRD-05VDC)"
+        },
+        {
+          "ref": "electronics/solid-state-relay",
+          "title": "Твердотільне реле"
+        },
+        {
+          "ref": "electronics/inductor-kickback",
+          "title": "Брикання котушки"
+        },
+        {
+          "ref": "electronics/led-driver",
+          "title": "Драйвер LED: стабілізатор струму"
+        },
+        {
+          "slug": "vybir-kliucha-pid-navantazhennia",
+          "title": "Вибір ключа під навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "analohovi-vkhody",
+      "title": "Аналогові входи",
+      "topics": [
+        {
+          "ref": "electronics/sensor-input-matching",
+          "title": "Узгодження давача"
+        },
+        {
+          "ref": "sensors/ky-013-thermistor",
+          "title": "KY-013 — аналоговий давач температури (термістор)"
+        },
+        {
+          "ref": "electronics/voltage-reference-sources",
+          "title": "Джерела опорної напруги"
+        },
+        {
+          "ref": "electronics/adc-sample-hold",
+          "title": "Вибірка і зберігання в АЦП"
+        },
+        {
+          "ref": "electronics/enob",
+          "title": "ENOB: скільки розрядів справді працюють"
+        },
+        {
+          "ref": "electronics/strain-gauges",
+          "title": "Тензодавачі й міст"
+        },
+        {
+          "ref": "communications/current-loop",
+          "title": "Струмова петля 4–20 мА"
+        },
+        {
+          "ref": "electronics/ground-loop",
+          "title": "Петля по землі"
+        },
+        {
+          "ref": "sensors/soil-moisture",
+          "title": "Давач вологості ґрунту з LM393: коли модуль сам ставить поріг"
+        },
+        {
+          "ref": "electronics/sigma-delta-adc",
+          "title": "Sigma-delta АЦП"
+        },
+        {
+          "slug": "koly-vnutrishnoho-atsp-ne-vystachaie",
+          "title": "Коли внутрішнього АЦП не вистачає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/pwm-dac-filter",
+          "title": "ШІМ як ЦАП: фільтр і пульсації"
+        },
+        {
+          "ref": "electronics/dac-r-2r",
+          "title": "Драбинковий ЦАП R-2R"
+        }
+      ]
+    },
+    {
+      "slug": "chytannia-chuzhykh-mikroskhem",
+      "title": "Читання чужих мікросхем",
+      "topics": [
+        {
+          "slug": "shcho-bere-na-sebe-chuzhyi-chyp",
+          "title": "Що бере на себе чужий чип",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/vybir-i-dostupnist-komponentiv",
+          "title": "Вибір і доступність компонентів: BOM, аналоги, життєвий цикл",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        },
+        {
+          "ref": "sensors/gy-series",
+          "title": "GY-серія: що несе плата-носій"
+        },
+        {
+          "slug": "modul-chy-holyi-chyp",
+          "title": "Модуль чи голий чип",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/datasheet-structure",
+          "title": "Структура даташита"
+        },
+        {
+          "ref": "electronics/abs-max-ratings",
+          "title": "Граничні режими"
+        },
+        {
+          "ref": "electronics/test-conditions-anatomy",
+          "title": "Анатомія умов тесту в даташиті"
+        },
+        {
+          "ref": "electronics/guarantee-levels",
+          "title": "Рівні гарантій параметрів: tested, sampled, design"
+        },
+        {
+          "ref": "electronics/datasheet-graphs",
+          "title": "Графіки даташита"
+        },
+        {
+          "ref": "electronics/datasheet-fine-print",
+          "title": "Дрібний шрифт"
+        },
+        {
+          "ref": "electronics/chasova-diahrama-v-datashyti",
+          "title": "Часова діаграма в даташиті",
+          "todo": "нова тема",
+          "hint": "electronics/digital"
+        },
+        {
+          "ref": "communications/register-map",
+          "title": "Регістрова карта"
+        },
+        {
+          "ref": "electronics/packages-pinout",
+          "title": "Корпуси й розпіновка"
+        },
+        {
+          "ref": "electronics/silicon-revision-management",
+          "title": "Управління ревізіями кремнію та errata"
+        },
+        {
+          "ref": "electronics/application-notes",
+          "title": "Прикладні нотатки та референсні дизайни"
+        }
+      ]
+    },
+    {
+      "slug": "zhyvlennia-i-rivni",
+      "title": "Живлення й рівні",
+      "topics": [
+        {
+          "ref": "electronics/logic-thresholds",
+          "title": "Логічні пороги"
+        },
+        {
+          "ref": "electronics/logic-families",
+          "title": "Логічні сімейства"
+        },
+        {
+          "ref": "electronics/datasheet-dc-characteristics",
+          "title": "Як читати DC Characteristics"
+        },
+        {
+          "ref": "electronics/level-shifter",
+          "title": "Перетворювач рівнів"
+        },
+        {
+          "ref": "electronics/voltage-divider-digital",
+          "title": "Дільник напруги як зсувач рівнів"
+        },
+        {
+          "ref": "electronics/open-collector",
+          "title": "Відкритий колектор"
+        },
+        {
+          "ref": "electronics/active-pullup",
+          "title": "Активна підтяжка і струмове джерело"
+        },
+        {
+          "ref": "electronics/esd-gpio-protection",
+          "title": "Захист входів GPIO від перенапруги"
+        },
+        {
+          "ref": "electronics/latch-up",
+          "title": "Latch-up у CMOS"
+        },
+        {
+          "ref": "power/xc6206",
+          "title": "XC6206 (662K) — LDO 3,3 В"
+        },
+        {
+          "slug": "zhyvlennia-chuzhoho-chypa",
+          "title": "Живлення чужого чипа: рейки, послідовність, споживання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "shyna-mizh-mikroskhemamy",
+      "title": "Шина між мікросхемами",
+      "topics": [
+        {
+          "slug": "pullup-resistor-design",
+          "title": "Розрахунок підтяжки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/i2c-bus-capacity",
+          "title": "Ємність шини I²C і вибір підтяжок"
+        },
+        {
+          "ref": "communications/i2c-addressing",
+          "title": "Адресація I2C"
+        },
+        {
+          "ref": "communications/clock-stretching",
+          "title": "Розтягування такту в I²C"
+        },
+        {
+          "ref": "communications/i2c-speeds",
+          "title": "Режими швидкості I2C"
+        },
+        {
+          "ref": "communications/chip-select",
+          "title": "Вибір кристала"
+        },
+        {
+          "ref": "communications/spi-cs-timing",
+          "title": "Часові параметри CS у SPI"
+        },
+        {
+          "ref": "communications/daisy-chain-spi",
+          "title": "Daisy-chain у SPI"
+        },
+        {
+          "ref": "communications/one-wire",
+          "title": "1-Wire — шина на одному дроті"
+        },
+        {
+          "ref": "sensors/ds18b20",
+          "title": "DS18B20 — цифровий давач температури (1-Wire)"
+        },
+        {
+          "ref": "communications/bus-resource-conflicts",
+          "title": "Конфлікти шин"
+        },
+        {
+          "ref": "communications/single-ended-line-limits",
+          "title": "Межі односторонніх ліній"
+        },
+        {
+          "slug": "spi-vs-i2c",
+          "title": "SPI проти I2C",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "vybir-shyny-pid-prystrii",
+          "title": "Вибір шини під пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ozhyvlennia-mikroskhemy",
+      "title": "Оживлення мікросхеми",
+      "topics": [
+        {
+          "ref": "electronics/logic-analyzer",
+          "title": "Логічний аналізатор"
+        },
+        {
+          "ref": "electronics/protocol-decoder-internals",
+          "title": "Внутрішня логіка декодера протоколів"
+        },
+        {
+          "ref": "electronics/edges-rise-time",
+          "title": "Фронти й час наростання"
+        },
+        {
+          "ref": "electronics/ground-bounce",
+          "title": "Стрибок землі"
+        },
+        {
+          "ref": "electronics/smd-marking",
+          "title": "Маркування SMD: чи то взагалі той чип"
+        },
+        {
+          "ref": "electronics/pidrobky-i-peremarkovani-chypy",
+          "title": "Підробки й перемарковані чипи",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        },
+        {
+          "slug": "persha-vidpovid-chypa",
+          "title": "Перша відповідь чипа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chyp-movchyt",
+          "title": "Чип мовчить: порядок перевірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chyp-breshe",
+          "title": "Чип бреше: правдоподібні хибні дані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/zalypla-shyna-i2c-i-ii-vidnovlennia",
+          "title": "Залипла шина I²C і її відновлення",
+          "todo": "нова тема",
+          "hint": "communications/buses"
+        }
+      ]
+    },
+    {
+      "slug": "draiver-prystroiu",
+      "title": "Драйвер пристрою",
+      "topics": [
+        {
+          "ref": "programming/module-model",
+          "title": "Модель модуля"
+        },
+        {
+          "slug": "draiver-chypa",
+          "title": "Драйвер чипа: від регістрової карти до значення у SI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "poslidovnist-initsializatsii",
+          "title": "Послідовність ініціалізації: порядок, затримки, перевірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/burst-read",
+          "title": "Пакетне зчитування регістрів"
+        },
+        {
+          "ref": "programming/alignment-hardware",
+          "title": "Вирівнювання даних: апаратні вимоги"
+        },
+        {
+          "slug": "syri-vidliky-u-fizychnu-velychynu",
+          "title": "Сирі відліки у фізичну величину",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/blocking-vs-nonblocking-io",
+          "title": "Блокуючий і неблокуючий ввід-вивід"
+        },
+        {
+          "ref": "programming/dma-cache-races",
+          "title": "Пастки DMA"
+        },
+        {
+          "ref": "programming/error-handling",
+          "title": "Жодна помилка не мовчить"
+        },
+        {
+          "slug": "taimaut-povtor-i-vidmova-prystroiu",
+          "title": "Таймаут, повтор і відмова пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/stream-parser",
+          "title": "Розбір потоку"
+        },
+        {
+          "slug": "draiver-modulia-z-vlasnym-mozkom",
+          "title": "Драйвер модуля з власним мозком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chuzha-biblioteka-vid-vyrobnyka",
+          "title": "Чужа бібліотека від виробника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "davachi-na-shyni",
+      "title": "Давачі на шині",
+      "topics": [
+        {
+          "ref": "electronics/what-is-a-sensor",
+          "title": "Що таке давач"
+        },
+        {
+          "ref": "electronics/sensor-characteristics",
+          "title": "Характеристики давача"
+        },
+        {
+          "ref": "electronics/transducer-classes",
+          "title": "Класи перетворювачів"
+        },
+        {
+          "ref": "electronics/environment-sensors",
+          "title": "Давачі оточення"
+        },
+        {
+          "ref": "sensors/dht11",
+          "title": "DHT11 — температура/вологість"
+        },
+        {
+          "ref": "sensors/gy-bmp280",
+          "title": "GY-BMP280 — барометр/висотомір"
+        },
+        {
+          "ref": "electronics/drift-hysteresis-noise",
+          "title": "Дрейф і гістерезис"
+        },
+        {
+          "ref": "electronics/cross-sensitivity-compensation",
+          "title": "Перехресна чутливість"
+        },
+        {
+          "slug": "calibration-procedure",
+          "title": "Процедура калібрування давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/drdy-pattern",
+          "title": "Шаблон DRDY і переривання давача"
+        },
+        {
+          "ref": "communications/fifo-register",
+          "title": "FIFO-регістри в давачах"
+        },
+        {
+          "slug": "rezhymy-zhyvlennia-i-temp-vymiriuvannia",
+          "title": "Режими живлення й темп вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pershyi-davach-vid-nulia-do-chysla",
+          "title": "Перший давач від нуля до числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vvid-vid-liudyny",
+      "title": "Ввід від людини",
+      "topics": [
+        {
+          "ref": "sensors/keypad-4x4-membrane",
+          "title": "Матрична клавіатура 4×4"
+        },
+        {
+          "ref": "electronics/quadrature",
+          "title": "Квадратура"
+        },
+        {
+          "ref": "electronics/rotary-encoder",
+          "title": "Енкодер поворотний"
+        },
+        {
+          "ref": "sensors/ky-040-encoder",
+          "title": "KY-040 — поворотний енкодер"
+        },
+        {
+          "ref": "electronics/gray-code",
+          "title": "Код Грея"
+        },
+        {
+          "ref": "electronics/touch-controller",
+          "title": "Сенсорний контролер"
+        },
+        {
+          "ref": "sensors/ttp223-touch",
+          "title": "TTP223 — сенсорний давач дотику"
+        },
+        {
+          "ref": "electronics/touch-tech",
+          "title": "Сенсорний ввід"
+        },
+        {
+          "ref": "electronics/ir-communication",
+          "title": "ІЧ-зв'язок"
+        },
+        {
+          "ref": "connect/vs1838b-ir-rx",
+          "title": "VS1838B — ІЧ-приймач"
+        },
+        {
+          "slug": "vid-natyskannia-do-podii",
+          "title": "Від натискання до події",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "indykatsiia",
+      "title": "Індикація",
+      "topics": [
+        {
+          "ref": "electronics/addressable-leds",
+          "title": "Адресні світлодіоди"
+        },
+        {
+          "slug": "led-animation-patterns",
+          "title": "Анімаційні патерни LED",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "boards/seg-5641as",
+          "title": "Семисегментний індикатор 5641AS"
+        },
+        {
+          "ref": "boards/led-matrix-8x8",
+          "title": "Світлодіодна матриця 8×8 (1588BS)"
+        },
+        {
+          "ref": "electronics/charlieplexing",
+          "title": "Чарліплексинг"
+        },
+        {
+          "ref": "actuators/ky-006-buzzer",
+          "title": "KY-006 — пасивний зумер"
+        }
+      ]
+    },
+    {
+      "slug": "ekrany",
+      "title": "Екрани",
+      "topics": [
+        {
+          "slug": "display-classes",
+          "title": "Класи дисплеїв",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/panel-interfaces",
+          "title": "Інтерфейси панелей"
+        },
+        {
+          "slug": "display-selection",
+          "title": "Вибір дисплея",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "boards/lcd-1602",
+          "title": "Символьний дисплей LCD 1602A"
+        },
+        {
+          "ref": "boards/i2c-lcd-adapter",
+          "title": "I2C-адаптер для LCD 1602 (PCF8574)"
+        },
+        {
+          "ref": "electronics/display-controller",
+          "title": "Контролер дисплея"
+        },
+        {
+          "slug": "gram-init-sequence",
+          "title": "Ініціалізація контролера дисплея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "boards/oled-ssd1306",
+          "title": "OLED-дисплей 0.96″ SSD1306"
+        },
+        {
+          "slug": "framebuffer-basics",
+          "title": "Кадр у пам'яті: framebuffer і RGB565",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/display-double-buffering",
+          "title": "Подвійна буферизація на дисплеї"
+        },
+        {
+          "ref": "electronics/fonts",
+          "title": "Шрифти"
+        },
+        {
+          "ref": "electronics/eink-refresh",
+          "title": "E-ink оновлення"
+        },
+        {
+          "ref": "programming/hrafichnyi-interfeis",
+          "title": "Графічний інтерфейс на МК: LVGL і перемальовування",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "slug": "display-lifecycle",
+          "title": "Керування життєвим циклом дисплея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pamiat-i-hodynnyk",
+      "title": "Пам'ять і годинник",
+      "topics": [
+        {
+          "ref": "programming/persistent-storage",
+          "title": "Енергонезалежне зберігання"
+        },
+        {
+          "ref": "programming/spi-flash",
+          "title": "SPI-флеш"
+        },
+        {
+          "ref": "programming/psram",
+          "title": "PSRAM"
+        },
+        {
+          "ref": "programming/flash-filesystems",
+          "title": "Файлові системи Flash"
+        },
+        {
+          "ref": "electronics/sd-card",
+          "title": "SD-картка"
+        },
+        {
+          "ref": "boards/microsd-card",
+          "title": "microSD-модуль"
+        },
+        {
+          "ref": "electronics/sd-card-init-state-machine",
+          "title": "Автомат станів ініціалізації SD-картки"
+        },
+        {
+          "ref": "programming/fat-filesystem",
+          "title": "Файлова система FAT: том, таблиця, каталог"
+        },
+        {
+          "slug": "fatfs-integration",
+          "title": "Інтеграція FatFs у вбудований проєкт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/rtc",
+          "title": "RTC"
+        },
+        {
+          "ref": "sensors/ds1302-rtc",
+          "title": "DS1302 — RTC-модуль (CR2032)"
+        },
+        {
+          "ref": "electronics/backup-power-domain",
+          "title": "Домен резервного живлення (VBAT)"
+        },
+        {
+          "ref": "electronics/watch-crystal-rtc",
+          "title": "Годинниковий кварц"
+        },
+        {
+          "ref": "programming/hodynnyk-i-mitky-chasu",
+          "title": "Годинник і мітки часу: RTC, дрейф, монотонність",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        }
+      ]
+    },
+    {
+      "slug": "kilka-mikroskhem-razom",
+      "title": "Кілька мікросхем разом",
+      "topics": [
+        {
+          "ref": "electronics/gpio-expander",
+          "title": "GPIO-розширювач"
+        },
+        {
+          "ref": "communications/i2c-expander",
+          "title": "I²C-розширювач"
+        },
+        {
+          "ref": "electronics/74hc595",
+          "title": "74HC595"
+        },
+        {
+          "ref": "electronics/74hc165",
+          "title": "74HC165"
+        },
+        {
+          "ref": "electronics/74hc138",
+          "title": "74HC138"
+        },
+        {
+          "ref": "electronics/digipot",
+          "title": "Цифровий потенціометр"
+        },
+        {
+          "ref": "electronics/hi-z-state",
+          "title": "Стан високого опору"
+        },
+        {
+          "ref": "electronics/wired-or",
+          "title": "Монтажне «АБО» і спільна лінія переривання"
+        },
+        {
+          "slug": "biudzhet-vyvodiv-shyn-i-adres",
+          "title": "Бюджет виводів, шин і адрес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "biudzhet-zhyvlennia-obviazky",
+          "title": "Бюджет живлення обв'язки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vuzol-iz-chotyrokh-chypiv",
+          "title": "Вузол із чотирьох чипів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

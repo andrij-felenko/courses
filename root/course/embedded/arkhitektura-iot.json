@@ -1,0 +1,1062 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "arkhitektura-iot",
+  "title": "Архітектура IoT",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "zviazana-systema",
+      "title": "Зв'язана система",
+      "topics": [
+        {
+          "slug": "shcho-take-zviazana-systema-i-chym-vona",
+          "title": "Що таке зв'язана система і чим вона відрізняється від пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "roli-vuzol-shliuz-broker-sluzhba-skhovyshche-kliient",
+          "title": "Ролі: вузол, шлюз, брокер, служба, сховище, клієнт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "topolohii",
+          "title": "Топології: зірка, дерево, чарунка, однорангова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/esp-now",
+          "title": "ESP-NOW: обмін без інфраструктури"
+        },
+        {
+          "slug": "shliuz-mist-mizh-protokolamy-i-mezha-avtonomii",
+          "title": "Шлюз: міст між протоколами й межа автономії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "krai-chy-khmara",
+          "title": "Край чи хмара: що рахувати на місці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/distributed-fallacies",
+          "title": "Вісім оман розподілених обчислень"
+        },
+        {
+          "ref": "programming/back-of-envelope",
+          "title": "Прикидка «на серветці»: скільки байтів, пристроїв, грошей"
+        },
+        {
+          "ref": "communications/osi-model",
+          "title": "Семирівнева модель OSI як карта місцевості"
+        },
+        {
+          "slug": "try-formy-systemy",
+          "title": "Три форми системи: дім, парк трекерів, апарат і станція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "arkhitektura-proshyvky",
+      "title": "Архітектура прошивки",
+      "topics": [
+        {
+          "slug": "arkhitektura-proshyvky",
+          "title": "Архітектура прошивки: шари, події, межі модулів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/module-model",
+          "title": "Модель модуля"
+        },
+        {
+          "ref": "programming/layered-architecture",
+          "title": "Шарова архітектура"
+        },
+        {
+          "ref": "programming/hexagonal-architecture",
+          "title": "Порти й адаптери: HAL як межа переносності"
+        },
+        {
+          "ref": "programming/information-hiding",
+          "title": "Приховування інформації"
+        },
+        {
+          "slug": "avtomat-staniv-i-cherha-podii-u-proshyvtsi",
+          "title": "Автомат станів і черга подій у прошивці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/blocking-vs-nonblocking-io",
+          "title": "Блокуючий і неблокуючий ввід-вивід"
+        },
+        {
+          "slug": "pamiat-bez-kupy",
+          "title": "Пам'ять без купи: пули, арени, бюджет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/object-pool",
+          "title": "Пул об'єктів"
+        },
+        {
+          "slug": "error-codes-vs-exceptions",
+          "title": "Коди помилок проти винятків",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "error-propagation-patterns",
+          "title": "Патерни поширення помилок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/design-by-contract",
+          "title": "Проєктування за контрактом"
+        },
+        {
+          "ref": "programming/safe-mode",
+          "title": "Живучість: безпечний стан, перезавантаження, лічильник перезавантажень"
+        },
+        {
+          "ref": "programming/graceful-degradation",
+          "title": "Деградація з гідністю"
+        },
+        {
+          "slug": "son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii",
+          "title": "Сон як стан програми, а не як виклик функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bahatozadachnist-i-realnyi-chas",
+      "title": "Багатозадачність і реальний час",
+      "topics": [
+        {
+          "slug": "super-loop-limits",
+          "title": "Межі super-loop",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/scheduler",
+          "title": "Планувальник і витісняльність"
+        },
+        {
+          "ref": "programming/task-stacks",
+          "title": "Стеки задач"
+        },
+        {
+          "ref": "programming/priority-inversion",
+          "title": "Пріоритети й інверсія пріоритетів"
+        },
+        {
+          "ref": "programming/task-ipc",
+          "title": "Черги й семафори"
+        },
+        {
+          "slug": "spinlock-mutex",
+          "title": "Спінлок і м'ютекс: вибір і ціна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/data-races-locks",
+          "title": "Перегони даних і замки"
+        },
+        {
+          "ref": "programming/deadlock",
+          "title": "Дедлок"
+        },
+        {
+          "ref": "algorithms/ring-buffer",
+          "title": "Кільцевий буфер між перериванням і задачею"
+        },
+        {
+          "ref": "programming/producer-consumer",
+          "title": "Виробник–споживач"
+        },
+        {
+          "ref": "programming/memory-ordering-barriers",
+          "title": "Упорядкування пам'яті, бар'єри й volatile"
+        },
+        {
+          "ref": "programming/lock-free-basics",
+          "title": "Без замків: коли можна й чого це коштує"
+        },
+        {
+          "ref": "programming/realtime-determinism",
+          "title": "Детермінованість і бюджет затримки"
+        },
+        {
+          "slug": "profil-chasu-vykonannia",
+          "title": "Профіль часу виконання: цикли, переривання, джитер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/supervision-trees",
+          "title": "Дерева нагляду: хто перезапускає задачу, яка впала"
+        }
+      ]
+    },
+    {
+      "slug": "protokoly-obminu",
+      "title": "Протоколи обміну",
+      "topics": [
+        {
+          "ref": "programming/publish-subscribe",
+          "title": "Запит-відповідь проти публікації-підписки"
+        },
+        {
+          "ref": "communications/mqtt",
+          "title": "MQTT"
+        },
+        {
+          "slug": "dyzain-tem-retained-lwt-i-qos-u-mqtt",
+          "title": "Дизайн тем, retained, LWT і QoS у MQTT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/message-queue",
+          "title": "Черга повідомлень"
+        },
+        {
+          "ref": "programming/message-broker",
+          "title": "Брокер повідомлень"
+        },
+        {
+          "ref": "programming/http",
+          "title": "HTTP: запит, відповідь, коди, тіло"
+        },
+        {
+          "ref": "programming/rest-api",
+          "title": "REST"
+        },
+        {
+          "ref": "communications/coap-http-shcho-vlazyt-u-datahramu",
+          "title": "CoAP: HTTP, що влазить у датаграму",
+          "todo": "нова тема",
+          "hint": "communications/protocols"
+        },
+        {
+          "ref": "communications/lwm2m-keruvannia-prystroiem-iak-standart",
+          "title": "LwM2M: керування пристроєм як стандарт",
+          "todo": "нова тема",
+          "hint": "communications/protocols"
+        },
+        {
+          "ref": "programming/streaming-push-transports",
+          "title": "WebSocket, SSE й довгий запит"
+        },
+        {
+          "ref": "communications/ble-gatt",
+          "title": "BLE GATT як прикладний профіль"
+        },
+        {
+          "slug": "thread-matter-zigbee",
+          "title": "Thread, Zigbee і Matter",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/lorawan",
+          "title": "LoRaWAN і мережевий сервер"
+        },
+        {
+          "ref": "communications/vyiavlennia-sluzhby-v-merezhi",
+          "title": "Виявлення служби в мережі: mDNS і DNS-SD",
+          "todo": "нова тема",
+          "hint": "communications/protocols"
+        },
+        {
+          "slug": "tsina-odnoho-povidomlennia",
+          "title": "Ціна одного повідомлення: байти, мА·год, гроші",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "format-danykh",
+      "title": "Формат даних",
+      "topics": [
+        {
+          "ref": "programming/data-serialization",
+          "title": "Серіалізація даних"
+        },
+        {
+          "ref": "programming/wire-format-packing",
+          "title": "Пакування бінарного протоколу"
+        },
+        {
+          "ref": "programming/json-format",
+          "title": "JSON"
+        },
+        {
+          "ref": "programming/json-schema",
+          "title": "JSON Schema: опис і перевірка структури"
+        },
+        {
+          "ref": "programming/cbor-i-messagepack",
+          "title": "CBOR і MessagePack: JSON, що влазить у пакет",
+          "todo": "нова тема",
+          "hint": "programming/representation"
+        },
+        {
+          "ref": "programming/protocol-buffers-i-skhemni-formaty",
+          "title": "Protocol Buffers і схемні формати",
+          "todo": "нова тема",
+          "hint": "programming/representation"
+        },
+        {
+          "ref": "programming/zero-copy-serialization",
+          "title": "Формати без копіювання"
+        },
+        {
+          "ref": "communications/cobs-framing",
+          "title": "Кадрування потоку: COBS, довжина, CRC"
+        },
+        {
+          "ref": "programming/memory-alignment",
+          "title": "Порядок байтів і вирівнювання"
+        },
+        {
+          "slug": "rpc-embedded",
+          "title": "RPC і серіалізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "versiia-povidomlennia-i-sumisnist-v-obydva-boky",
+          "title": "Версія повідомлення й сумісність в обидва боки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/uuid-and-guid",
+          "title": "Ідентифікатор пристрою й повідомлення"
+        }
+      ]
+    },
+    {
+      "slug": "nenadiina-merezha",
+      "title": "Ненадійна мережа",
+      "topics": [
+        {
+          "ref": "programming/timeouts-deadlines",
+          "title": "Таймаути й бюджет часу"
+        },
+        {
+          "ref": "programming/retries-backoff",
+          "title": "Повтори й експоненційний відступ"
+        },
+        {
+          "ref": "programming/idempotency",
+          "title": "Ідемпотентність"
+        },
+        {
+          "ref": "programming/delivery-guarantees",
+          "title": "Гарантії доставки: щонайбільше раз, щонайменше раз, фактично раз"
+        },
+        {
+          "ref": "programming/connection-management",
+          "title": "Керування з'єднаннями й перепідключення"
+        },
+        {
+          "slug": "zhyttia-bez-zviazku",
+          "title": "Життя без зв'язку: що пристрій вирішує сам",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bufer-na-fleshi",
+          "title": "Буфер на флеші: накопичити й віддати потім",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/backpressure-end-to-end",
+          "title": "Наскрізний протитиск"
+        },
+        {
+          "ref": "programming/queue-load-leveling",
+          "title": "Черга як вирівнювач навантаження"
+        },
+        {
+          "ref": "programming/load-shedding",
+          "title": "Скидання навантаження й плавна деградація"
+        },
+        {
+          "ref": "programming/circuit-breaker-pattern",
+          "title": "Запобіжник"
+        },
+        {
+          "ref": "programming/dead-letter-queue",
+          "title": "Мертва черга й отруйне повідомлення"
+        },
+        {
+          "ref": "programming/out-of-order-tolerance",
+          "title": "Толерантність до безладу"
+        },
+        {
+          "ref": "programming/failure-detection",
+          "title": "Виявлення відмов: мертвий вузол не відрізнити від повільного"
+        },
+        {
+          "ref": "programming/eventual-consistency",
+          "title": "Кінцева узгодженість на практиці"
+        }
+      ]
+    },
+    {
+      "slug": "spilnyi-chas",
+      "title": "Спільний час",
+      "topics": [
+        {
+          "slug": "hodynnyk-na-bortu",
+          "title": "Годинник на борту: RTC, дрейф, монотонність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/monotonic-vs-wall-time",
+          "title": "Монотонний проти настінного часу"
+        },
+        {
+          "ref": "communications/clock-offset-drift",
+          "title": "Дрейф годинників"
+        },
+        {
+          "ref": "communications/ntp-sync",
+          "title": "NTP і SNTP"
+        },
+        {
+          "ref": "communications/ptp-1588",
+          "title": "PTP: коли мілісекунди замало"
+        },
+        {
+          "slug": "mitka-chasu",
+          "title": "Мітка часу: хто її ставить — пристрій чи сервер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/iso-8601",
+          "title": "ISO 8601, часові пояси й прикладний час"
+        },
+        {
+          "ref": "algorithms/lamport-clocks",
+          "title": "Порядок подій із різних джерел"
+        },
+        {
+          "ref": "communications/sensor-latency-compensation",
+          "title": "Затримка давача й компенсація"
+        }
+      ]
+    },
+    {
+      "slug": "serverna-chastyna",
+      "title": "Серверна частина",
+      "topics": [
+        {
+          "slug": "mova-sluzhby",
+          "title": "Мова служби: чому не C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "python/http-server-minimal",
+          "title": "Найпростіший HTTP-сервер"
+        },
+        {
+          "ref": "python/flask-and-fastapi",
+          "title": "Flask і FastAPI"
+        },
+        {
+          "slug": "api-sluzhby",
+          "title": "API служби: ресурси, версії, депрекація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/authentication",
+          "title": "Автентифікація й токени"
+        },
+        {
+          "ref": "python/tls-certificates",
+          "title": "TLS і перевірка сертифікатів з боку служби"
+        },
+        {
+          "ref": "python/asyncio-event-loop",
+          "title": "Цикл подій asyncio"
+        },
+        {
+          "ref": "python/blocking-in-async",
+          "title": "Блокувальний виклик у циклі подій"
+        },
+        {
+          "ref": "python/cpython-gil",
+          "title": "GIL і коли потоки не прискорюють"
+        },
+        {
+          "ref": "python/mqtt-paho",
+          "title": "Приймач MQTT на сервері"
+        },
+        {
+          "ref": "programming/background-jobs",
+          "title": "Черга задач і фоновий робітник"
+        },
+        {
+          "ref": "programming/secrets-management",
+          "title": "Конфігурація й секрети"
+        },
+        {
+          "ref": "programming/containers",
+          "title": "Контейнер, служба, штатне вимкнення"
+        },
+        {
+          "ref": "programming/rate-limiting",
+          "title": "Обмеження швидкості й захист від зловживання"
+        },
+        {
+          "ref": "programming/web-server-mcu",
+          "title": "Веб-сервер на МК: коли служба — це сам пристрій"
+        }
+      ]
+    },
+    {
+      "slug": "skhovyshche-danykh",
+      "title": "Сховище даних",
+      "topics": [
+        {
+          "ref": "programming/access-pattern-first",
+          "title": "Форма доступу диктує модель"
+        },
+        {
+          "ref": "programming/relational-model",
+          "title": "Реляційна модель і нормалізація"
+        },
+        {
+          "ref": "programming/nosql-landscape",
+          "title": "Ландшафт NoSQL"
+        },
+        {
+          "ref": "programming/chasovi-riady",
+          "title": "Часові ряди: темп запису, зріджування, строк зберігання",
+          "todo": "нова тема",
+          "hint": "programming/databases"
+        },
+        {
+          "ref": "programming/database-indexes",
+          "title": "Індекси"
+        },
+        {
+          "ref": "programming/transactions-acid",
+          "title": "Транзакції та ACID"
+        },
+        {
+          "ref": "algorithms/lsm-tree",
+          "title": "B-дерево проти LSM-дерева"
+        },
+        {
+          "ref": "programming/write-ahead-log",
+          "title": "Журнал попереднього запису"
+        },
+        {
+          "ref": "programming/database-migrations",
+          "title": "Міграції схеми"
+        },
+        {
+          "ref": "programming/materialized-views",
+          "title": "Агрегація й матеріалізовані в'ю"
+        },
+        {
+          "ref": "programming/consistency-models",
+          "title": "Спектр консистентності, CAP і PACELC"
+        },
+        {
+          "ref": "programming/data-contracts",
+          "title": "Data-контракт між пристроєм і сховищем"
+        },
+        {
+          "slug": "shcho-trymaty-na-prystroi-a-shcho-na-serveri",
+          "title": "Що тримати на пристрої, а що на сервері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "park-prystroiv",
+      "title": "Парк пристроїв",
+      "topics": [
+        {
+          "ref": "programming/osobystist-prystroiu",
+          "title": "Особистість пристрою: серійник, ключ, сертифікат",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "slug": "vvedennia-v-lad",
+          "title": "Введення в лад: як пристрій уперше стає своїм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reiestr-prystroiv",
+          "title": "Реєстр пристроїв: імена, групи, вибірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/bazhanyi-i-zvitovanyi-stan",
+          "title": "Бажаний і звітований стан",
+          "todo": "нова тема",
+          "hint": "programming/distributed-systems"
+        },
+        {
+          "slug": "parametry-prystroiu",
+          "title": "Параметри пристрою: дефолти, валідація, міграція схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/config-design",
+          "title": "Конфігурація"
+        },
+        {
+          "slug": "komanda-prystroiu",
+          "title": "Команда пристрою: доставка, підтвердження, строк дії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/feature-flags",
+          "title": "Прапорці функцій"
+        },
+        {
+          "ref": "programming/canary-deployment",
+          "title": "Канаркове викочування"
+        },
+        {
+          "slug": "versii-prystrii-starshyi-za-server",
+          "title": "Версії: пристрій, старший за сервер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Семантичне версіонування"
+        },
+        {
+          "ref": "programming/trust-boundaries",
+          "title": "Межі довіри й поверхня атаки"
+        },
+        {
+          "ref": "programming/least-privilege",
+          "title": "Найменші привілеї й захист від повтору"
+        },
+        {
+          "slug": "vyvid-iz-ladu",
+          "title": "Вивід із ладу: як пристрій перестає бути своїм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sposterezhnist",
+      "title": "Спостережність",
+      "topics": [
+        {
+          "ref": "programming/structured-logging",
+          "title": "Структуровані логи"
+        },
+        {
+          "slug": "zhurnaliuvannia-na-bortu",
+          "title": "Журналювання на борту: рівні, буфер, ротація, вивантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/metrics-monitoring",
+          "title": "Метрики"
+        },
+        {
+          "ref": "programming/distributed-tracing",
+          "title": "Розподілений трейсинг"
+        },
+        {
+          "ref": "programming/slo-sli-sla",
+          "title": "SLI, SLO й бюджет помилок"
+        },
+        {
+          "ref": "programming/alerting",
+          "title": "Алерти"
+        },
+        {
+          "ref": "programming/health-checks",
+          "title": "Перевірки живості й готовності"
+        },
+        {
+          "slug": "tykha-vidmova",
+          "title": "Тиха відмова: пристрій, що звітує «все добре»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "biudzhet-telemetrii-pro-samu-telemetriiu",
+          "title": "Бюджет телеметрії про саму телеметрію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "diahnostyka-na-vidstani",
+          "title": "Діагностика на відстані: що можна дізнатися, не приїхавши",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/incident-response",
+          "title": "Реагування на інциденти й постмортем"
+        },
+        {
+          "ref": "programming/chaos-engineering",
+          "title": "Хаос-інженерія: рвати зв'язок навмисно"
+        }
+      ]
+    },
+    {
+      "slug": "arkhitekturne-myslennia",
+      "title": "Архітектурне мислення",
+      "topics": [
+        {
+          "ref": "programming/architect-role",
+          "title": "Роль архітектора"
+        },
+        {
+          "ref": "programming/quality-attributes",
+          "title": "Якісні атрибути"
+        },
+        {
+          "ref": "programming/architectural-drivers",
+          "title": "Архітектурні драйвери й сценарії атрибутів"
+        },
+        {
+          "ref": "programming/tradeoff-analysis",
+          "title": "Trade-off-аналіз"
+        },
+        {
+          "ref": "programming/coupling-cohesion",
+          "title": "Зчеплення і зв'язність"
+        },
+        {
+          "ref": "programming/dependency-inversion",
+          "title": "Інверсія залежностей"
+        },
+        {
+          "ref": "programming/dry-kiss-yagni",
+          "title": "YAGNI, DRY, KISS і ціна передчасної абстракції"
+        },
+        {
+          "ref": "programming/technical-debt",
+          "title": "Технічний борг і вартість зміни"
+        },
+        {
+          "ref": "programming/reversible-irreversible-decisions",
+          "title": "Зворотні й незворотні рішення"
+        },
+        {
+          "ref": "programming/architecture-decision-records",
+          "title": "Запис архітектурного рішення"
+        },
+        {
+          "ref": "programming/c4-model",
+          "title": "C4 і архітектурні в'ю"
+        },
+        {
+          "ref": "programming/walking-skeleton",
+          "title": "Walking skeleton"
+        },
+        {
+          "ref": "programming/evolutionary-architecture",
+          "title": "Еволюційна архітектура й фітнес-функції"
+        },
+        {
+          "ref": "programming/availability-tactics",
+          "title": "Тактики: доступність, продуктивність, змінюваність"
+        },
+        {
+          "slug": "chy-potribni-iot-mikroservisy",
+          "title": "Чи потрібні IoT мікросервіси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "naskrizna-systema",
+      "title": "Наскрізна система",
+      "topics": [
+        {
+          "slug": "postanovka",
+          "title": "Постановка: що будуємо і які в нас обмеження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "smart-home-node",
+          "title": "Вузол розумного дому: давач + MQTT + автономна логіка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "shliuz-i-lokalna-avtonomiia",
+          "title": "Шлюз і локальна автономія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sluzhba-pryimach-cherha-robitnyk",
+          "title": "Служба: приймач, черга, робітник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "skhovyshche-i-zapyty-do-noho",
+          "title": "Сховище й запити до нього",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "panel-i-komanda-nazad",
+          "title": "Панель і команда назад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "home-device-integration",
+          "title": "Інтеграція: Home Assistant і Matter",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "vyprobuvannia",
+          "title": "Випробування: обрив, перезавантаження, розсинхрон годинника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rozbir-rishen",
+          "title": "Розбір рішень: ADR цієї системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

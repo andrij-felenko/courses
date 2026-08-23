@@ -1,0 +1,592 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "osnovy-elektroniky",
+  "title": "Основи електроніки",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "prystrii-i-roboche-mistse",
+      "title": "Пристрій і робоче місце",
+      "topics": [
+        {
+          "slug": "anatomiia-vbudovanoho-prystroiu",
+          "title": "Анатомія вбудованого пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "math/si-prefixes",
+          "title": "Префікси СІ"
+        },
+        {
+          "ref": "physics/current-safety",
+          "title": "Електробезпека"
+        },
+        {
+          "slug": "roboche-mistse-i-instrument",
+          "title": "Робоче місце й інструмент",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/antistatic-workplace",
+          "title": "Антистатичне місце"
+        },
+        {
+          "slug": "pershyi-dotyk-do-hotovoi-platy",
+          "title": "Перший дотик до готової плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "zariad-i-napruha",
+      "title": "Заряд і напруга",
+      "topics": [
+        {
+          "ref": "physics/electric-charge",
+          "title": "Електричний заряд"
+        },
+        {
+          "ref": "physics/coulomb-law",
+          "title": "Закон Кулона"
+        },
+        {
+          "ref": "physics/electric-field",
+          "title": "Електричне поле"
+        },
+        {
+          "ref": "physics/electric-potential",
+          "title": "Електричний потенціал"
+        },
+        {
+          "ref": "physics/voltage",
+          "title": "Напруга як різниця потенціалів"
+        },
+        {
+          "ref": "physics/triboelectricity",
+          "title": "Трибоелектрика й заряд тіла"
+        },
+        {
+          "ref": "physics/air-breakdown",
+          "title": "Пробій повітря й іскра"
+        },
+        {
+          "ref": "electronics/esd-damage",
+          "title": "Електростатичний розряд"
+        }
+      ]
+    },
+    {
+      "slug": "strum-i-opir",
+      "title": "Струм і опір",
+      "topics": [
+        {
+          "ref": "physics/electric-current",
+          "title": "Електричний струм"
+        },
+        {
+          "ref": "physics/current-direction",
+          "title": "Напрямок струму: технічний і реальний"
+        },
+        {
+          "ref": "physics/electron-drift",
+          "title": "Дрейф електронів"
+        },
+        {
+          "ref": "physics/current-density",
+          "title": "Щільність струму"
+        },
+        {
+          "ref": "physics/dc-vs-ac",
+          "title": "Постійний і змінний струм"
+        },
+        {
+          "ref": "physics/resistance-origin",
+          "title": "Природа опору"
+        },
+        {
+          "ref": "physics/conductors-insulators",
+          "title": "Провідники й діелектрики"
+        },
+        {
+          "ref": "physics/resistivity",
+          "title": "Питомий опір і провідність"
+        },
+        {
+          "ref": "physics/resistance",
+          "title": "Електричний опір"
+        },
+        {
+          "ref": "physics/resistance-temperature",
+          "title": "Опір і температура"
+        },
+        {
+          "ref": "electronics/ohms-law",
+          "title": "Закон Ома"
+        },
+        {
+          "ref": "physics/electric-power",
+          "title": "Електрична потужність"
+        },
+        {
+          "ref": "physics/joule-heating",
+          "title": "Джоулеве тепло"
+        }
+      ]
+    },
+    {
+      "slug": "elektrychne-kolo",
+      "title": "Електричне коло",
+      "topics": [
+        {
+          "ref": "physics/closed-circuit",
+          "title": "Замкнене коло й джерело ЕРС"
+        },
+        {
+          "ref": "electronics/internal-resistance",
+          "title": "Внутрішній опір джерела"
+        },
+        {
+          "ref": "electronics/resistor",
+          "title": "Резистор"
+        },
+        {
+          "ref": "electronics/resistor-marking",
+          "title": "Номінали й допуск"
+        },
+        {
+          "ref": "electronics/potentiometer",
+          "title": "Потенціометр і підлаштовник"
+        },
+        {
+          "ref": "electronics/series-connection",
+          "title": "Послідовне з'єднання"
+        },
+        {
+          "ref": "electronics/parallel-connection",
+          "title": "Паралельне з'єднання"
+        },
+        {
+          "ref": "electronics/voltage-divider",
+          "title": "Дільник напруги"
+        },
+        {
+          "ref": "electronics/current-divider",
+          "title": "Дільник струму"
+        },
+        {
+          "ref": "physics/current-continuity",
+          "title": "Неперервність струму"
+        },
+        {
+          "ref": "electronics/nodes-branches-loops",
+          "title": "Вузли, вітки й контури"
+        },
+        {
+          "ref": "electronics/kcl",
+          "title": "Закон струмів Кірхгофа"
+        },
+        {
+          "ref": "electronics/kvl",
+          "title": "Закон напруг Кірхгофа"
+        },
+        {
+          "slug": "circuit-analysis",
+          "title": "Аналіз кіл",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/thevenin",
+          "title": "Теорема Тевеніна"
+        }
+      ]
+    },
+    {
+      "slug": "skhema-i-maket",
+      "title": "Схема й макет",
+      "topics": [
+        {
+          "slug": "reading-schematics",
+          "title": "Читання схем",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/component-symbols",
+          "title": "Умовні позначення"
+        },
+        {
+          "ref": "electronics/ground-power-rails",
+          "title": "Земля й шини"
+        },
+        {
+          "slug": "net-labels-buses",
+          "title": "З'єднання без дротів: мітки, шини й міжаркушеві зв'язки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "rozrakhunok-kola-vid-vymohy-do-nominaliv",
+          "title": "Розрахунок кола від вимоги до номіналів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/spice-simulation",
+          "title": "Симуляція кіл (SPICE)"
+        },
+        {
+          "ref": "electronics/led",
+          "title": "LED"
+        },
+        {
+          "slug": "breadboard-prototyping",
+          "title": "Макетка й перший монтаж",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/cables-connectors",
+          "title": "Кабелі й конектори"
+        },
+        {
+          "ref": "electronics/basic-soldering",
+          "title": "Мінімальна пайка"
+        }
+      ]
+    },
+    {
+      "slug": "prylady-i-vymiriuvannia",
+      "title": "Прилади й вимірювання",
+      "topics": [
+        {
+          "ref": "electronics/multimeter",
+          "title": "Мультиметр"
+        },
+        {
+          "ref": "electronics/measurement-errors",
+          "title": "Похибки вимірювань"
+        },
+        {
+          "ref": "electronics/first-power-up-check",
+          "title": "Перша перевірка"
+        },
+        {
+          "ref": "electronics/lab-power-supply",
+          "title": "Блок живлення"
+        },
+        {
+          "ref": "electronics/kelvin-shunt",
+          "title": "Струмовимірювальний шунт"
+        },
+        {
+          "ref": "electronics/oscilloscope",
+          "title": "Осцилограф"
+        },
+        {
+          "ref": "electronics/scope-probe",
+          "title": "Щуп осцилографа"
+        },
+        {
+          "slug": "pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu",
+          "title": "Перше коло від схеми до виміряного результату",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kondensator",
+      "title": "Конденсатор",
+      "topics": [
+        {
+          "ref": "electronics/capacitor",
+          "title": "Конденсатор"
+        },
+        {
+          "ref": "electronics/capacitance",
+          "title": "Ємність"
+        },
+        {
+          "ref": "electronics/capacitor-dielectrics",
+          "title": "Діелектрики конденсаторів"
+        },
+        {
+          "ref": "electronics/mlcc",
+          "title": "MLCC"
+        },
+        {
+          "ref": "electronics/electrolytic-cap",
+          "title": "Електролітичний конденсатор"
+        },
+        {
+          "ref": "electronics/capacitor-marking",
+          "title": "Маркування конденсаторів"
+        },
+        {
+          "ref": "electronics/dc-bias-capacitance",
+          "title": "DC-bias ефект у конденсаторах"
+        },
+        {
+          "ref": "electronics/rc-time-constant",
+          "title": "Стала часу RC"
+        },
+        {
+          "ref": "electronics/capacitor-parasitics",
+          "title": "Паразити конденсатора"
+        }
+      ]
+    },
+    {
+      "slug": "kotushka",
+      "title": "Котушка",
+      "topics": [
+        {
+          "ref": "physics/magnetic-field",
+          "title": "Магнітне поле"
+        },
+        {
+          "ref": "physics/oersted-experiment",
+          "title": "Магнітне поле струму"
+        },
+        {
+          "ref": "physics/electromagnetic-induction",
+          "title": "Електромагнітна індукція"
+        },
+        {
+          "ref": "electronics/inductor-coil",
+          "title": "Котушка"
+        },
+        {
+          "ref": "electronics/inductance",
+          "title": "Індуктивність"
+        },
+        {
+          "ref": "electronics/rl-time-constant",
+          "title": "Стала часу RL"
+        },
+        {
+          "ref": "electronics/inductor-types",
+          "title": "Осердя й насичення"
+        },
+        {
+          "ref": "electronics/inductor-kickback",
+          "title": "Брикання котушки"
+        }
+      ]
+    },
+    {
+      "slug": "diody-i-tranzystory",
+      "title": "Діоди й транзистори",
+      "topics": [
+        {
+          "ref": "physics/semiconductor",
+          "title": "Напівпровідник"
+        },
+        {
+          "ref": "physics/doping",
+          "title": "Легування"
+        },
+        {
+          "ref": "physics/pn-junction",
+          "title": "PN-перехід"
+        },
+        {
+          "slug": "diodes",
+          "title": "Діоди",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/diode-iv-curve",
+          "title": "ВАХ діода"
+        },
+        {
+          "slug": "zener-schottky",
+          "title": "Діоди Зенера",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/led-photodiode",
+          "title": "Світлодіод"
+        },
+        {
+          "ref": "electronics/transistor-idea",
+          "title": "Транзистор"
+        },
+        {
+          "ref": "electronics/bjt-operation",
+          "title": "Робота BJT"
+        },
+        {
+          "ref": "electronics/bjt-switch",
+          "title": "BJT-ключ"
+        },
+        {
+          "ref": "electronics/mosfet-structure",
+          "title": "Будова MOSFET"
+        },
+        {
+          "ref": "electronics/mosfet-switch",
+          "title": "MOSFET як ключ"
+        },
+        {
+          "ref": "electronics/integrated-circuit",
+          "title": "Інтегральна схема"
+        }
+      ]
+    },
+    {
+      "slug": "chytannia-datashyta",
+      "title": "Читання даташита",
+      "topics": [
+        {
+          "ref": "electronics/datasheet-structure",
+          "title": "Структура даташита"
+        },
+        {
+          "ref": "electronics/abs-max-ratings",
+          "title": "Граничні режими"
+        },
+        {
+          "ref": "electronics/min-typ-max",
+          "title": "Min/typ/max"
+        },
+        {
+          "ref": "electronics/datasheet-graphs",
+          "title": "Графіки даташита"
+        },
+        {
+          "ref": "electronics/datasheet-fine-print",
+          "title": "Дрібний шрифт"
+        },
+        {
+          "ref": "electronics/packages-pinout",
+          "title": "Корпуси й розпіновка"
+        },
+        {
+          "ref": "electronics/smd-marking",
+          "title": "Маркування SMD"
+        },
+        {
+          "slug": "datasheet-bjt",
+          "title": "Практикум даташитів: BJT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "teplo-i-mezhi",
+      "title": "Тепло й межі",
+      "topics": [
+        {
+          "slug": "heat-transfer",
+          "title": "Передача тепла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "physics/thermal-resistance",
+          "title": "Тепловий опір і відведення тепла"
+        },
+        {
+          "ref": "electronics/thermal-chain",
+          "title": "Тепловий ланцюжок: θJC, θCS, θSA"
+        },
+        {
+          "ref": "electronics/heatsink",
+          "title": "Радіатор"
+        },
+        {
+          "ref": "electronics/derating",
+          "title": "Дератинг компонентів"
+        },
+        {
+          "ref": "electronics/thermal-runaway",
+          "title": "Тепловий розгін транзистора"
+        },
+        {
+          "ref": "electronics/wire-gauge",
+          "title": "Калібр проводу"
+        },
+        {
+          "ref": "electronics/short-circuit",
+          "title": "Коротке замикання"
+        },
+        {
+          "slug": "fuses-ptc",
+          "title": "Запобіжники",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/arrhenius-lifetime",
+          "title": "Закон Арреніуса і ресурс компонентів"
+        }
+      ]
+    }
+  ]
+}

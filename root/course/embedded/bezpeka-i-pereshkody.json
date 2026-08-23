@@ -1,0 +1,1018 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "bezpeka-i-pereshkody",
+  "title": "Безпека і перешкоди",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pryroda-vidmov",
+      "title": "Природа відмов",
+      "topics": [
+        {
+          "slug": "chomu-pratsiuie-na-stoli-i-ne-pratsiuie-v-poli",
+          "title": "Чому працює на столі й не працює в полі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/odynychna-tochka-vidmovy",
+          "title": "Одинична точка відмови",
+          "todo": "нова тема",
+          "hint": "programming/architecture-discipline"
+        },
+        {
+          "ref": "math/system-reliability-math",
+          "title": "Математика надійності систем"
+        },
+        {
+          "ref": "electronics/derating",
+          "title": "Дератинг компонентів"
+        },
+        {
+          "ref": "electronics/arrhenius-lifetime",
+          "title": "Закон Арреніуса і ресурс компонентів"
+        },
+        {
+          "ref": "electronics/pidrobni-i-peremarkovani-komponenty",
+          "title": "Підробні й перемарковані компоненти",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        },
+        {
+          "slug": "fmea-embedded",
+          "title": "FMEA у вбудованих системах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "tablytsia-vidmov-svoho-prystroiu",
+          "title": "Таблиця відмов свого пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "prosadky-i-perezapusky",
+      "title": "Просадки й перезапуски",
+      "topics": [
+        {
+          "ref": "electronics/battery-sag",
+          "title": "Просадка під навантаженням"
+        },
+        {
+          "ref": "electronics/battery-impedance",
+          "title": "Чому холод і старіння роблять просадку глибшою"
+        },
+        {
+          "ref": "electronics/inrush-current",
+          "title": "Кидок струму при вмиканні"
+        },
+        {
+          "ref": "electronics/uvlo",
+          "title": "Блокування за низькою напругою (UVLO)"
+        },
+        {
+          "ref": "electronics/voltage-supervisor-ic",
+          "title": "Супервізор напруги: коли внутрішнього BOD мало"
+        },
+        {
+          "slug": "petlia-perezapuskiv",
+          "title": "Петля перезапусків: мотор, просадка, скидання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "power-fail-safety",
+          "title": "Захист від зникнення живлення: brown-out і рятування стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "reverse-polarity",
+          "title": "Захист входу: полярність, перенапруга, кидок",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/hot-swap",
+          "title": "Гаряче під'єднання й черговість шин"
+        },
+        {
+          "ref": "electronics/efuse",
+          "title": "Координація захистів: запобіжник, eFuse, I²t"
+        },
+        {
+          "slug": "pobachyty-200-mikrosekund-shcho-vbyvaiut-prystrii",
+          "title": "Побачити 200 мікросекунд, що вбивають пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "nebezpechna-enerhiia",
+      "title": "Небезпечна енергія",
+      "topics": [
+        {
+          "slug": "skilky-enerhii-u-vashomu-prystroi",
+          "title": "Скільки енергії у вашому пристрої",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/battery-mechanics",
+          "title": "Механіка й безпека батареї"
+        },
+        {
+          "ref": "electronics/lipo-swelling-chemistry",
+          "title": "Хімія здуття LiPo: ушкоджена комірка"
+        },
+        {
+          "ref": "electronics/povodzhennia-z-li-ion",
+          "title": "Поводження з Li-ion: заряд, зберігання, ушкоджена комірка",
+          "todo": "нова тема",
+          "hint": "electronics/power-electronics"
+        },
+        {
+          "ref": "electronics/mains-safety",
+          "title": "Мережа 230 В усередині побутового вузла"
+        },
+        {
+          "ref": "electronics/arc-suppression",
+          "title": "Дуга на реле й снабер"
+        },
+        {
+          "ref": "electronics/bleeder",
+          "title": "Заряджений конденсатор після вимкнення"
+        },
+        {
+          "slug": "aparat-iakyi-rushyv-sam",
+          "title": "Апарат, який рушив сам",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "zavady-i-navodky",
+      "title": "Завади й наводки",
+      "topics": [
+        {
+          "ref": "electronics/electromagnetic-compatibility",
+          "title": "Джерело, шлях, жертва: чотири шляхи завади"
+        },
+        {
+          "ref": "electronics/common-ground",
+          "title": "Спільна земля"
+        },
+        {
+          "ref": "electronics/ground-loops",
+          "title": "Земляні петлі"
+        },
+        {
+          "ref": "electronics/ground-bounce",
+          "title": "Стрибок землі й перехресна завада"
+        },
+        {
+          "ref": "electronics/common-mode-noise",
+          "title": "Синфазна й диференціальна завада"
+        },
+        {
+          "ref": "electronics/shielding",
+          "title": "Екранування"
+        },
+        {
+          "ref": "electronics/twisted-pair",
+          "title": "Вита пара, ферит, синфазний дросель"
+        },
+        {
+          "ref": "electronics/switching-noise",
+          "title": "Шум імпульсного перетворювача"
+        },
+        {
+          "slug": "shim-motor-i-atsp",
+          "title": "ШІМ, мотор і АЦП: чому показ давача танцює під газом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "koly-prystrii-hlushyt-sam-sebe",
+          "title": "Коли пристрій глушить сам себе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "esd-protection-circuits",
+          "title": "Розряд у працюючий пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "lightning-protection",
+          "title": "Довга лінія й гроза",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "peredsertyfikatsiinyi-ohliad-na-stoli",
+          "title": "Передсертифікаційний огляд на столі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "seredovyshche-i-korpus",
+      "title": "Середовище й корпус",
+      "topics": [
+        {
+          "slug": "teplovyi-biudzhet-prystroiu-v-korpusi",
+          "title": "Тепловий бюджет пристрою в корпусі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/heatsink",
+          "title": "Радіатор, ребро, конвекція"
+        },
+        {
+          "ref": "electronics/thermal-runaway",
+          "title": "Тепловий розгін і зона безпечної роботи"
+        },
+        {
+          "slug": "termozakhyst",
+          "title": "Термозахист: коли пристрій пригальмовує сам себе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kholod-kondensat-batareia-kvarts-dysplei",
+          "title": "Холод: конденсат, батарея, кварц, дисплей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "physics/mechanical-resonance",
+          "title": "Вібрація й резонанс"
+        },
+        {
+          "ref": "physics/tuned-mass-damper",
+          "title": "Демпфування й розв'язка"
+        },
+        {
+          "slug": "de-lamaietsia-naspravdi",
+          "title": "Де ламається насправді: роз'єм, дріт, пайка, гвинт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/klas-zakhystu",
+          "title": "Клас захисту IP",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/zakhysne-pokryttia-platy",
+          "title": "Захисне покриття плати: лак, залив, ущільнення",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "enclosure-ip-rating",
+          "title": "Корпус, IP-захист, роз'єми",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "hermetychno-vs-okholodyty",
+          "title": "Герметично vs охолодити: конфлікт корпусу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "nenadiinyi-zviazok",
+      "title": "Ненадійний зв'язок",
+      "topics": [
+        {
+          "slug": "piat-sposobiv-iakymy-kanal-psuie-dani",
+          "title": "П'ять способів, якими канал псує дані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/burst-error",
+          "title": "Пакетна помилка й перемішування"
+        },
+        {
+          "ref": "communications/hamming-code",
+          "title": "Виправити, не перепитуючи (FEC)"
+        },
+        {
+          "slug": "arq-strategies",
+          "title": "Стратегії ARQ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/timeouts-deadlines",
+          "title": "Таймаут, відкат, і чому повтор буває гірший за втрату"
+        },
+        {
+          "ref": "programming/idempotency",
+          "title": "Повтор, що не шкодить: ідемпотентність команди"
+        },
+        {
+          "slug": "sertsebyttia-i-vyiavlennia-rozryvu",
+          "title": "Серцебиття й виявлення розриву",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/link-quality-metrics",
+          "title": "За чим видно, що лінк помирає"
+        },
+        {
+          "ref": "communications/multipath-fading",
+          "title": "Чому дальність не така, як у бюджеті"
+        },
+        {
+          "slug": "antena-iaku-zipsuvaly",
+          "title": "Антена, яку зіпсували",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shyna-shcho-zavysla",
+          "title": "Шина, що зависла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shcho-robyt-prystrii-poky-zviazku-nemaie",
+          "title": "Що робить пристрій, поки зв'язку немає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "robota-pid-reb",
+      "title": "Робота під РЕБ",
+      "topics": [
+        {
+          "slug": "shcho-take-reb-i-iak-tse-vyhliadaie-z-boku-prystroiu",
+          "title": "Що таке РЕБ і як це виглядає з боку пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/partial-band-jamming",
+          "title": "Типи завад і протидія"
+        },
+        {
+          "slug": "jamming-fhss",
+          "title": "Лінк під глушінням",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/vyiavlennia-hlushinnia-za-pokaznykamy-pryimacha",
+          "title": "Виявлення глушіння за показниками приймача",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        },
+        {
+          "ref": "communications/hlushinnia-gnss",
+          "title": "Глушіння GNSS: як це виглядає з боку приймача",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        },
+        {
+          "ref": "communications/pidmina-gnss-spoofing-i-iak-ii-pomityty",
+          "title": "Підміна GNSS (spoofing) і як її помітити",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        },
+        {
+          "ref": "communications/cdma",
+          "title": "Чому стрибки частоти й розширення спектра рятують"
+        },
+        {
+          "slug": "ne-buty-pomichenym",
+          "title": "Не бути поміченим: потужність, спрямованість, шпаруватість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/radioslid-prystroiu",
+          "title": "Радіослід пристрою: як його знаходять",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        },
+        {
+          "slug": "protokolne-hlushinnia",
+          "title": "Протокольне глушіння: deauth, флуд, зайнятий канал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "navihatsiia-bez-gnss",
+          "title": "Навігація без GNSS: що лишається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "plan-b-dlia-linka",
+          "title": "План Б для лінка: діапазон, ретранслятор, автономія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kliuchi-i-dovira",
+      "title": "Ключі й довіра",
+      "topics": [
+        {
+          "slug": "choho-varta-komanda-bez-pidpysu",
+          "title": "Чого варта команда без підпису",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "math/cryptographic-hash-functions",
+          "title": "Криптографічні хеш-функції"
+        },
+        {
+          "ref": "algorithms/keyed-hash-mac",
+          "title": "Ключований хеш і код автентичності (MAC)"
+        },
+        {
+          "ref": "algorithms/block-cipher",
+          "title": "Блоковий і потоковий шифр"
+        },
+        {
+          "ref": "communications/aead",
+          "title": "AEAD: шифрування, що водночас доводить автентичність"
+        },
+        {
+          "ref": "communications/public-key-crypto",
+          "title": "Пара ключів, підпис, обмін ключами"
+        },
+        {
+          "slug": "zvidky-na-mikrokontroleri-braty-vypadkovist",
+          "title": "Звідки на мікроконтролері брати випадковість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/replay-protection",
+          "title": "Повтор, nonce й плаваючий код"
+        },
+        {
+          "slug": "de-v-prystroi-lezhyt-kliuch",
+          "title": "Де в пристрої лежить ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tls-embedded",
+          "title": "TLS на мікроконтролері",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/mavlink-v2-signing",
+          "title": "Захист бездротового каналу: шифрування й автентифікація кадру"
+        },
+        {
+          "slug": "try-pomylky-na-iakykh-lamaietsia-samorobna",
+          "title": "Три помилки, на яких ламається саморобна криптографія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "zakhyst-prystroiu",
+      "title": "Захист пристрою",
+      "topics": [
+        {
+          "ref": "programming/threat-modeling",
+          "title": "Моделювання загроз"
+        },
+        {
+          "ref": "programming/attack-surface",
+          "title": "Поверхня атаки й межі довіри"
+        },
+        {
+          "ref": "programming/swd-jtag-internals",
+          "title": "Читання прошивки з чипа: як її дістають"
+        },
+        {
+          "slug": "zamknuty-chyp",
+          "title": "Замкнути чип: RDP, фьюзи, вимкнений JTAG — і чого вони не дають",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/firmware-secure-boot",
+          "title": "Secure boot"
+        },
+        {
+          "ref": "programming/ota-image-signing",
+          "title": "Підписаний образ і захист від відкату"
+        },
+        {
+          "ref": "programming/ataky-na-krystal",
+          "title": "Атаки на кристал: збої й побічні канали",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/tamper-iak-prystrii-pomichaie-shcho-ioho-rozkryly",
+          "title": "Тампер: як пристрій помічає, що його розкрили",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/buffer-overflow-security",
+          "title": "Чужий ввід як поверхня атаки"
+        },
+        {
+          "ref": "programming/supply-chain-security",
+          "title": "Ланцюг постачання: підроблений модуль, чужа бібліотека"
+        },
+        {
+          "ref": "programming/secure-defaults",
+          "title": "Дефолтний пароль, відкритий брокер, зайвий сервіс"
+        },
+        {
+          "slug": "shcho-prystrii-znaie-pro-vas",
+          "title": "Що пристрій знає про вас",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "samoperevirka-i-vidnovlennia",
+      "title": "Самоперевірка й відновлення",
+      "topics": [
+        {
+          "slug": "storozh-iakyi-spravdi-lovyt-zavysannia",
+          "title": "Сторож, який справді ловить зависання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "prychyna-skydannia-iak-diahnoz",
+          "title": "Причина скидання як діагноз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reset-sequence",
+          "title": "Послідовність graceful reset",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "programming/reboot-strategy",
+          "title": "Перезавантаження"
+        },
+        {
+          "ref": "programming/samotest-pry-starti-post-bist",
+          "title": "Самотест при старті (POST/BIST)",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "algorithms/single-event-upset",
+          "title": "Перевернуті біти: SEU, ECC, скрабінг"
+        },
+        {
+          "slug": "honky-shcho-vbyvaiut-raz-na-tyzhden",
+          "title": "Гонки, що вбивають раз на тиждень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "propalo-zhyvlennia-pid-chas-zapysu",
+          "title": "Пропало живлення під час запису",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zavantazhuvach-iakyi-ne-mozhna-zakyrpychyty",
+          "title": "Завантажувач, який не можна закирпичити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/supervision-trees",
+          "title": "Дерево нагляду: перезапустити частину, а не все"
+        }
+      ]
+    },
+    {
+      "slug": "nadlyshkovist-i-bezpechnyi-stan",
+      "title": "Надлишковість і безпечний стан",
+      "topics": [
+        {
+          "ref": "programming/safe-mode",
+          "title": "Безпечний стан"
+        },
+        {
+          "ref": "programming/failsafe",
+          "title": "Failsafe"
+        },
+        {
+          "ref": "programming/redundancy",
+          "title": "Надлишковість"
+        },
+        {
+          "slug": "dva-davachi-iaki-ne-zhodni",
+          "title": "Два давачі, які не згодні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sensor-fault-detection",
+          "title": "Виявлення відмови давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "perevirka-pravdopodibnosti",
+          "title": "Перевірка правдоподібності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/graceful-degradation",
+          "title": "Деградація з гідністю"
+        },
+        {
+          "ref": "programming/circuit-breaker-pattern",
+          "title": "Запобіжник і перебірка: щоб одна відмова не з'їла все"
+        },
+        {
+          "ref": "programming/arming-checks",
+          "title": "Перевірки перед пуском: що перевіряє пристрій, що перевіряє людина"
+        },
+        {
+          "slug": "avariinyi-stop-i-mertva-ruka",
+          "title": "Аварійний стоп і мертва рука",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/geofence",
+          "title": "Межі, за які пристрій не виходить"
+        },
+        {
+          "slug": "konstruktsiia-iaku-ne-zibraty-nepravylno",
+          "title": "Конструкція, яку не зібрати неправильно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "functional-safety-overview",
+          "title": "Функційна безпека: огляд стандартів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "poshuk-nespravnostei",
+      "title": "Пошук несправностей",
+      "topics": [
+        {
+          "slug": "troubleshooting-methodology",
+          "title": "Систематичний пошук несправності",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "vidmova-iaku-ne-vdaietsia-vidtvoryty",
+          "title": "Відмова, яку не вдається відтворити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zvuzhennia",
+          "title": "Звуження: половинний поділ у залізі й коді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chorna-skrynka",
+          "title": "Чорна скринька: що записати, щоб потім зрозуміти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/metrics-monitoring",
+          "title": "Лічильники помилок як постійний вимір здоров'я"
+        },
+        {
+          "ref": "programming/monotonic-vs-wall-time",
+          "title": "Мітка часу, якій можна вірити"
+        },
+        {
+          "slug": "core-dump",
+          "title": "Посмертний аналіз",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "flight-log-analysis",
+          "title": "Аналіз логів польоту/поїздки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fault-injection-testing",
+          "title": "Тестування відмовостійкості: fault injection",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "stend-znushchannia",
+          "title": "Стенд знущання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/pryskoreni-vyprobuvannia",
+          "title": "Прискорені випробування: термоцикл, тряска, вологість",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        },
+        {
+          "slug": "koly-vynen-ne-prystrii",
+          "title": "Коли винен не пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rozbir-spravzhnoho-padinnia",
+          "title": "Розбір справжнього падіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

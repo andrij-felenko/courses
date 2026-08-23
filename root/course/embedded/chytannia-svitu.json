@@ -1,0 +1,932 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "chytannia-svitu",
+  "title": "Читання світу",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "vymiriuvalnyi-trakt",
+      "title": "Вимірювальний тракт",
+      "topics": [
+        {
+          "ref": "electronics/what-is-a-sensor",
+          "title": "Що таке давач"
+        },
+        {
+          "ref": "electronics/transducer-classes",
+          "title": "Класи перетворювачів"
+        },
+        {
+          "ref": "electronics/sensor-characteristics",
+          "title": "Характеристики давача"
+        },
+        {
+          "ref": "electronics/piezo-optical-semiconductor",
+          "title": "П'єзо й оптичні перетворювачі"
+        },
+        {
+          "ref": "electronics/sensor-input-matching",
+          "title": "Узгодження давача з входом"
+        },
+        {
+          "slug": "signal-conditioning",
+          "title": "Кондиціонування сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/voltage-reference-sources",
+          "title": "Опора вимірювання"
+        },
+        {
+          "slug": "signal-acquisition",
+          "title": "Зчитування сигналу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "communications/nyquist-aliasing",
+          "title": "Найквіст і аліасинг"
+        },
+        {
+          "ref": "electronics/adc-quantization",
+          "title": "Скільки біт справжні"
+        },
+        {
+          "ref": "physics/flicker-noise",
+          "title": "Шумова підлога тракту"
+        },
+        {
+          "ref": "electronics/offset-voltage",
+          "title": "Дрейф нуля й боротьба з ним"
+        },
+        {
+          "slug": "trakt-odnoho-davacha",
+          "title": "Тракт одного давача: від термістора до °C на екрані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pokhybka-i-kalibruvannia",
+      "title": "Похибка й калібрування",
+      "topics": [
+        {
+          "ref": "electronics/measurement-errors",
+          "title": "Похибки вимірювань"
+        },
+        {
+          "ref": "electronics/measurement-uncertainty",
+          "title": "Точність, роздільність, повторюваність"
+        },
+        {
+          "ref": "math/error-budget",
+          "title": "Бюджет похибки"
+        },
+        {
+          "ref": "electronics/drift-hysteresis-noise",
+          "title": "Дрейф і гістерезис"
+        },
+        {
+          "ref": "math/averaging",
+          "title": "Виграш від усереднення"
+        },
+        {
+          "slug": "calibration-procedure",
+          "title": "Процедура калібрування давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/multipoint-calibration",
+          "title": "Дві точки, багато точок, крива"
+        },
+        {
+          "slug": "adc-reference-calibration",
+          "title": "Калібрування АЦП зовнішньою опорою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/traceability",
+          "title": "Простежуваність і повірка за еталоном"
+        },
+        {
+          "ref": "electronics/worst-case-analysis",
+          "title": "Проєктування під найгірший екземпляр"
+        },
+        {
+          "slug": "koefitsiienty-v-prystroi",
+          "title": "Коефіцієнти в пристрої: де їх узяти, де зберігати, коли перевіряти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vynosnyi-davach",
+      "title": "Виносний давач",
+      "topics": [
+        {
+          "ref": "communications/single-ended-line-limits",
+          "title": "Чому давач на дроті бреше"
+        },
+        {
+          "ref": "electronics/common-mode-noise",
+          "title": "Синфазна завада й диференційний вхід"
+        },
+        {
+          "ref": "electronics/ground-loops",
+          "title": "Земляні петлі"
+        },
+        {
+          "ref": "electronics/shielding",
+          "title": "Екранування"
+        },
+        {
+          "ref": "electronics/current-loop-4-20ma",
+          "title": "Струмова петля 4–20 мА"
+        },
+        {
+          "ref": "electronics/kelvin-connection",
+          "title": "Чотири дроти замість двох"
+        },
+        {
+          "ref": "electronics/digital-isolator",
+          "title": "Гальванічна розв'язка вимірювання"
+        },
+        {
+          "ref": "electronics/input-protection-analog",
+          "title": "Захист входу"
+        },
+        {
+          "ref": "communications/modbus",
+          "title": "Давач як вузол шини"
+        },
+        {
+          "ref": "communications/tdr",
+          "title": "Пошук обриву в кабелі"
+        },
+        {
+          "slug": "davach-za-trydtsiat-metriv",
+          "title": "Давач за тридцять метрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "teplo",
+      "title": "Тепло",
+      "topics": [
+        {
+          "ref": "electronics/ntc-thermistor",
+          "title": "NTC-термістор"
+        },
+        {
+          "ref": "electronics/steinhart-hart",
+          "title": "Лінеаризація термістора"
+        },
+        {
+          "ref": "electronics/rtd-sensor",
+          "title": "RTD: платина замість оксиду"
+        },
+        {
+          "ref": "electronics/thermocouple",
+          "title": "Термопара"
+        },
+        {
+          "ref": "physics/efekt-zeiebeka",
+          "title": "Ефект Зеєбека",
+          "todo": "нова тема",
+          "hint": "physics/condensed-matter-physics"
+        },
+        {
+          "ref": "electronics/kholodnyi-spai-i-ioho-kompensatsiia",
+          "title": "Холодний спай і його компенсація",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "ref": "sensors/ds18b20",
+          "title": "Цифровий давач температури"
+        },
+        {
+          "ref": "physics/heat-transfer",
+          "title": "Тепло, що доходить до давача"
+        },
+        {
+          "ref": "electronics/ich-termometriia-i-vyprominiuvalna-zdatnist",
+          "title": "ІЧ-термометрія й випромінювальна здатність",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "ref": "electronics/teplovizor",
+          "title": "Тепловізор: матриця мікроболометрів",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "slug": "de-stavyty-termodavach",
+          "title": "Де ставити термодавач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "svitlo",
+      "title": "Світло",
+      "topics": [
+        {
+          "ref": "electronics/photo-sensors",
+          "title": "Фотодавачі"
+        },
+        {
+          "ref": "electronics/photodetector-physics",
+          "title": "Фізика фотоприймача"
+        },
+        {
+          "ref": "electronics/dark-current",
+          "title": "Фотострум у напругу"
+        },
+        {
+          "ref": "physics/liumen-liuks-kandela",
+          "title": "Люмен, люкс, кандела: фотометрія проти радіометрії",
+          "todo": "нова тема",
+          "hint": "physics/optics"
+        },
+        {
+          "ref": "electronics/davach-osvitlenosti-als",
+          "title": "Давач освітленості (ALS)",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "ref": "electronics/color-sensor",
+          "title": "Колір як вимірювання"
+        },
+        {
+          "ref": "electronics/uv-light-sensor",
+          "title": "УФ-індекс"
+        },
+        {
+          "ref": "electronics/ir-communication",
+          "title": "Модульований ІЧ: як не осліпнути від сонця"
+        },
+        {
+          "ref": "electronics/avalanche-photodiode",
+          "title": "Лавинний режим і лічба фотонів"
+        },
+        {
+          "ref": "sensors/ky-026-flame",
+          "title": "Полум'я, дим і чому це оптика"
+        }
+      ]
+    },
+    {
+      "slug": "povitria",
+      "title": "Повітря",
+      "topics": [
+        {
+          "ref": "electronics/environment-sensors",
+          "title": "Давачі оточення"
+        },
+        {
+          "ref": "electronics/capacitive-humidity-sensor",
+          "title": "Вологість: ємність, що змінюється"
+        },
+        {
+          "ref": "physics/dew-point",
+          "title": "Точка роси й конденсат у приладі"
+        },
+        {
+          "ref": "electronics/mems-pressure-sensor",
+          "title": "Тиск як давач"
+        },
+        {
+          "ref": "electronics/pitot-tube",
+          "title": "Швидкість потоку"
+        },
+        {
+          "ref": "electronics/ndir-co2",
+          "title": "CO₂ по-справжньому: NDIR"
+        },
+        {
+          "ref": "electronics/mox-gas-sensor",
+          "title": "Напівпровідниковий давач газу й що таке eCO₂"
+        },
+        {
+          "ref": "electronics/electrochemical-cell",
+          "title": "Електрохімічна комірка: CO, O₂"
+        },
+        {
+          "ref": "physics/pyl-pm2",
+          "title": "Пил PM2.5",
+          "todo": "нова тема",
+          "hint": "physics/optics"
+        },
+        {
+          "ref": "electronics/cross-sensitivity-compensation",
+          "title": "Крос-чутливість і температурна поправка"
+        },
+        {
+          "ref": "electronics/indeks-iakosti-povitria",
+          "title": "Індекс якості повітря",
+          "todo": "нова тема",
+          "hint": "electronics/sensors"
+        },
+        {
+          "slug": "hazovyi-davach-u-vyrobi",
+          "title": "Газовий давач у виробі: прогрів, базова лінія, ABC, вік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "prysutnist-i-vidstan",
+      "title": "Присутність і відстань",
+      "topics": [
+        {
+          "slug": "contactless-distance",
+          "title": "Безконтактна відстань",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "physics/optyka-linza-fokusna-vidstan-pole-zoru",
+          "title": "Оптика: лінза, фокусна відстань, поле зору",
+          "todo": "нова тема",
+          "hint": "physics/optics"
+        },
+        {
+          "ref": "electronics/reflection-absorption",
+          "title": "Відбиття IR і оптичний бар'єр"
+        },
+        {
+          "ref": "electronics/pir-sensor",
+          "title": "PIR: рух як зміна тепла"
+        },
+        {
+          "ref": "electronics/ultrasonic-rangefinder",
+          "title": "Ультразвук"
+        },
+        {
+          "ref": "electronics/tof-laser",
+          "title": "Лазерний ToF"
+        },
+        {
+          "ref": "electronics/triangulation",
+          "title": "Тріангуляція"
+        },
+        {
+          "ref": "electronics/fmcw-radar",
+          "title": "Радар на 24/60 ГГц"
+        },
+        {
+          "slug": "lidar-architecture",
+          "title": "Архітектури LiDAR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/capacitive-sensing",
+          "title": "Близькість без відстані"
+        },
+        {
+          "ref": "electronics/distance-errors",
+          "title": "Похибки відстані"
+        },
+        {
+          "slug": "vybir-dalekomira-pid-stsenu",
+          "title": "Вибір далекоміра під сцену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "polia-i-vyprominiuvannia",
+      "title": "Поля й випромінювання",
+      "topics": [
+        {
+          "ref": "physics/em-spectrum",
+          "title": "Електромагнітний спектр як карта давачів"
+        },
+        {
+          "ref": "electronics/hall-sensor",
+          "title": "Магнітне поле й Холл"
+        },
+        {
+          "ref": "electronics/hall-current-sensor",
+          "title": "Струм без розриву кола"
+        },
+        {
+          "ref": "physics/earth-magnetic-field",
+          "title": "Поле Землі й що йому заважає"
+        },
+        {
+          "ref": "electronics/near-field-probing",
+          "title": "Ближня зона: зондування плати"
+        },
+        {
+          "ref": "electronics/vymiriuvach-napruzhenosti-polia",
+          "title": "Вимірювач напруженості поля",
+          "todo": "нова тема",
+          "hint": "electronics/metrology"
+        },
+        {
+          "ref": "communications/rssi-signal-strength",
+          "title": "RSSI як вимірювання, а не як індикатор"
+        },
+        {
+          "ref": "communications/pryimach-iz-prohramnoiu-obrobkoiu-sdr-iak-prylad",
+          "title": "Приймач із програмною обробкою (SDR) як прилад",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        },
+        {
+          "ref": "physics/atmospheric-electricity",
+          "title": "Гроза за 40 кілометрів"
+        },
+        {
+          "ref": "electronics/geiger-muller-counter",
+          "title": "Іонізуюче тло"
+        }
+      ]
+    },
+    {
+      "slug": "vymiriuvannia-elektromerezhi",
+      "title": "Вимірювання електромережі",
+      "topics": [
+        {
+          "ref": "physics/ac-power-grid",
+          "title": "Що таке мережа під навантаженням"
+        },
+        {
+          "ref": "electronics/mains-safety",
+          "title": "Спершу — як не загинути"
+        },
+        {
+          "ref": "electronics/insulation-classes",
+          "title": "Ізоляція вимірювального каналу"
+        },
+        {
+          "ref": "electronics/kelvin-shunt",
+          "title": "Шунт"
+        },
+        {
+          "ref": "electronics/current-transformer",
+          "title": "Трансформатор струму й котушка Роговського"
+        },
+        {
+          "ref": "electronics/current-monitor",
+          "title": "Підсилювач вимірювання струму"
+        },
+        {
+          "ref": "electronics/true-rms",
+          "title": "Справжній RMS проти середньовипрямленого"
+        },
+        {
+          "ref": "physics/instantaneous-power",
+          "title": "Миттєва потужність, активна, реактивна, повна"
+        },
+        {
+          "ref": "electronics/harmonic-distortion",
+          "title": "Спотворений струм: гармоніки й THD"
+        },
+        {
+          "ref": "electronics/zero-cross-switching",
+          "title": "Синхронізація з мережею"
+        },
+        {
+          "ref": "electronics/kilovat-hodyna",
+          "title": "Кіловат-година: облік енергії в пристрої",
+          "todo": "нова тема",
+          "hint": "electronics/metrology"
+        },
+        {
+          "ref": "electronics/mikroskhema-lichylnyk-enerhii",
+          "title": "Мікросхема-лічильник енергії",
+          "todo": "нова тема",
+          "hint": "electronics/metrology"
+        },
+        {
+          "slug": "rozumna-rozetka-miriaie-navantazhennia",
+          "title": "Розумна розетка міряє навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "potik-vymiriuvan",
+      "title": "Потік вимірювань",
+      "topics": [
+        {
+          "ref": "programming/dma-problem",
+          "title": "Проблема потоку даних"
+        },
+        {
+          "ref": "programming/periodic-scheduling",
+          "title": "Розклад опитування десяти давачів"
+        },
+        {
+          "ref": "communications/measurement-time",
+          "title": "Коли саме сталося вимірювання"
+        },
+        {
+          "ref": "communications/synchronous-multi-sensor-read",
+          "title": "Спільна шкала часу"
+        },
+        {
+          "ref": "algorithms/moving-average",
+          "title": "Дешеве згладжування"
+        },
+        {
+          "ref": "algorithms/smoothing-vs-lag",
+          "title": "Ціна згладжування"
+        },
+        {
+          "slug": "choosing-a-filter",
+          "title": "Вибір фільтра",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "usb-cc-adc-circuit",
+          "title": "Поріг, гістерезис, дребезг показань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/sensor-insufficiency",
+          "title": "Давач збрехав"
+        },
+        {
+          "ref": "communications/decimation",
+          "title": "Проріджування без утрати події"
+        },
+        {
+          "ref": "math/percentiles-quantiles",
+          "title": "Подія замість потоку"
+        },
+        {
+          "ref": "programming/self-describing-format",
+          "title": "Формат вимірювання на дроті"
+        },
+        {
+          "slug": "vid-tysiachi-vybirok-na-sekundu-do-dvadtsiaty-baitiv",
+          "title": "Від тисячі вибірок на секунду до двадцяти байтів на хвилину",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kanal-znyk",
+          "title": "Канал зник: буфер, дозапис, дозвантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "zvuk",
+      "title": "Звук",
+      "topics": [
+        {
+          "ref": "electronics/microphone-speaker",
+          "title": "Мікрофон і динамік"
+        },
+        {
+          "ref": "electronics/mems-microphone",
+          "title": "MEMS-мікрофон"
+        },
+        {
+          "slug": "audio-capture-pipeline",
+          "title": "Захоплення звуку: від мікрофона до буфера",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/cic-filter",
+          "title": "PDM і децимація"
+        },
+        {
+          "ref": "physics/riven-u-detsybelakh",
+          "title": "Рівень у децибелах",
+          "todo": "нова тема",
+          "hint": "physics/oscillations-waves"
+        },
+        {
+          "slug": "audio-processing-basics",
+          "title": "Обробка на МК: фільтрація, рівень, AGC",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "why-frequency-domain",
+          "title": "Навіщо частота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/vikno-vytik-i-rozdilnist-spektra",
+          "title": "Вікно, витік і роздільність спектра",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "tone-detection",
+          "title": "Виявлення тонів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "audio-events-detection",
+          "title": "Детекція подій у звуці (VAD, пороги, енергія)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fir-design",
+          "title": "Проєктування КІХ-фільтрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "audio-recording-storage",
+          "title": "Запис звуку: WAV, кільцевий буфер, SD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "vibration-diagnostics",
+          "title": "Вібродіагностика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/mikrofonnyi-masyv",
+          "title": "Мікрофонний масив: напрям на джерело",
+          "todo": "нова тема",
+          "hint": "algorithms/signal-robotics"
+        },
+        {
+          "slug": "prystrii-shcho-chuie-podiiu",
+          "title": "Пристрій, що чує подію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kamera",
+      "title": "Камера",
+      "topics": [
+        {
+          "ref": "electronics/image-sensor",
+          "title": "Сенсор зображення"
+        },
+        {
+          "ref": "physics/obiektyv-i-ekspozytsiia",
+          "title": "Об'єктив і експозиція: поле зору, діафрагма, витримка, підсилення",
+          "todo": "нова тема",
+          "hint": "physics/optics"
+        },
+        {
+          "ref": "electronics/cmos-matrix",
+          "title": "CMOS-матриця"
+        },
+        {
+          "ref": "electronics/rolling-shutter",
+          "title": "Рядкова заслінка"
+        },
+        {
+          "ref": "electronics/dynamic-range-noise",
+          "title": "Шум і динамічний діапазон кадру"
+        },
+        {
+          "slug": "camera-interfaces-mcu",
+          "title": "Підключення камери до МК: DVP, MIPI-CSI, SPI",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/bayer-demosaic",
+          "title": "Демозаїка"
+        },
+        {
+          "slug": "isp-pipeline",
+          "title": "ISP-пайплайн",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/white-balance",
+          "title": "Баланс білого"
+        },
+        {
+          "ref": "algorithms/pixel-formats",
+          "title": "Формати пікселів і буферів зображення"
+        },
+        {
+          "ref": "algorithms/camera-model",
+          "title": "Модель камери й калібрування"
+        },
+        {
+          "slug": "kadr-u-512-kilobaitakh",
+          "title": "Кадр у 512 кілобайтах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kadr-iak-dani",
+      "title": "Кадр як дані",
+      "topics": [
+        {
+          "ref": "algorithms/image-as-data",
+          "title": "Зображення як дані"
+        },
+        {
+          "ref": "algorithms/histogram",
+          "title": "Гістограма"
+        },
+        {
+          "ref": "algorithms/convolution-filters",
+          "title": "Згортки й фільтри"
+        },
+        {
+          "ref": "algorithms/edge-detection",
+          "title": "Виділення меж"
+        },
+        {
+          "ref": "algorithms/threshold-morphology",
+          "title": "Пороги й морфологія"
+        },
+        {
+          "ref": "algorithms/background-subtraction",
+          "title": "Різниця кадрів: рух без нейромережі"
+        },
+        {
+          "slug": "image-stabilization",
+          "title": "Стабілізація зображення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "algorithms/template-matching",
+          "title": "Мітка як опора"
+        },
+        {
+          "ref": "electronics/structured-light-3d",
+          "title": "Глибина з кадру"
+        },
+        {
+          "ref": "algorithms/why-compress",
+          "title": "Кадр у байти"
+        },
+        {
+          "ref": "algorithms/rate-control-algorithms",
+          "title": "Ціна якості"
+        },
+        {
+          "slug": "skilky-koshtuie-video",
+          "title": "Скільки коштує відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

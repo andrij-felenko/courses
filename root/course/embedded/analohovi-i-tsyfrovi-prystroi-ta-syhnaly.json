@@ -1,0 +1,812 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "analohovi-i-tsyfrovi-prystroi-ta-syhnaly",
+  "title": "Аналогові й цифрові пристрої та сигнали",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "forma-syhnalu",
+      "title": "Форма сигналу",
+      "topics": [
+        {
+          "slug": "vid-strumu-do-syhnalu",
+          "title": "Від струму до сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/formy-syhnalu-i-shparuvatist",
+          "title": "Форми сигналу й шпаруватість",
+          "todo": "нова тема",
+          "hint": "electronics/signals"
+        },
+        {
+          "ref": "electronics/phase-shift",
+          "title": "Фаза й зсув фаз"
+        },
+        {
+          "ref": "physics/frequency-spectrum",
+          "title": "Частотний спектр"
+        },
+        {
+          "ref": "math/fourier-idea",
+          "title": "Ідея Фур'є"
+        },
+        {
+          "ref": "electronics/edges-rise-time",
+          "title": "Фронти й час наростання"
+        },
+        {
+          "ref": "electronics/decibels",
+          "title": "Децибели"
+        },
+        {
+          "ref": "electronics/oscilloscope",
+          "title": "Осцилограф"
+        },
+        {
+          "ref": "electronics/scope-probe",
+          "title": "Щуп осцилографа"
+        }
+      ]
+    },
+    {
+      "slug": "filtry",
+      "title": "Фільтри",
+      "topics": [
+        {
+          "ref": "electronics/reactance",
+          "title": "Реактивність"
+        },
+        {
+          "ref": "electronics/capacitive-reactance",
+          "title": "Опір конденсатора"
+        },
+        {
+          "ref": "electronics/inductive-reactance",
+          "title": "Опір котушки"
+        },
+        {
+          "ref": "math/impedance",
+          "title": "Імпеданс"
+        },
+        {
+          "ref": "math/phasors",
+          "title": "Фазори"
+        },
+        {
+          "ref": "electronics/rc-low-pass",
+          "title": "RC-ФНЧ"
+        },
+        {
+          "ref": "electronics/rc-high-pass",
+          "title": "RC-ФВЧ"
+        },
+        {
+          "ref": "electronics/bode-plot",
+          "title": "Діаграма Боде"
+        },
+        {
+          "ref": "electronics/lc-resonance",
+          "title": "LC-резонанс"
+        },
+        {
+          "ref": "electronics/decoupling",
+          "title": "Decoupling-конденсатор"
+        },
+        {
+          "ref": "electronics/capacitor-parasitics",
+          "title": "Паразити конденсатора"
+        }
+      ]
+    },
+    {
+      "slug": "napivprovidnyk-i-diod",
+      "title": "Напівпровідник і діод",
+      "topics": [
+        {
+          "ref": "physics/semiconductor",
+          "title": "Напівпровідник"
+        },
+        {
+          "ref": "physics/doping",
+          "title": "Легування"
+        },
+        {
+          "ref": "physics/pn-junction",
+          "title": "PN-перехід"
+        },
+        {
+          "ref": "electronics/diode-iv-curve",
+          "title": "ВАХ діода"
+        },
+        {
+          "ref": "electronics/diode-types",
+          "title": "Типи діодів"
+        },
+        {
+          "slug": "zener-schottky",
+          "title": "Діоди Зенера",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/led-photodiode",
+          "title": "Світлодіод"
+        },
+        {
+          "slug": "flyback-protection",
+          "title": "Захист flyback",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/esd-damage",
+          "title": "Електростатичний розряд"
+        }
+      ]
+    },
+    {
+      "slug": "tranzystor-iak-kliuch",
+      "title": "Транзистор як ключ",
+      "topics": [
+        {
+          "ref": "electronics/transistor-idea",
+          "title": "Транзистор"
+        },
+        {
+          "ref": "electronics/bjt-operation",
+          "title": "Робота BJT"
+        },
+        {
+          "ref": "electronics/bjt-switch",
+          "title": "BJT-ключ"
+        },
+        {
+          "slug": "bjt-load-driving",
+          "title": "BJT: навантаження",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/mosfet-structure",
+          "title": "Будова MOSFET"
+        },
+        {
+          "ref": "electronics/mosfet-switch",
+          "title": "MOSFET як ключ"
+        },
+        {
+          "slug": "bjt-vs-mosfet",
+          "title": "BJT проти MOSFET",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/rds-on",
+          "title": "Опір Rds(on)"
+        },
+        {
+          "ref": "electronics/gate-driver",
+          "title": "Драйвер затвора"
+        },
+        {
+          "ref": "electronics/safe-operating-area",
+          "title": "Зона безпечної роботи (SOA)"
+        },
+        {
+          "ref": "electronics/min-typ-max",
+          "title": "Min/typ/max"
+        },
+        {
+          "ref": "power/relay-5v",
+          "title": "5V реле-модуль"
+        },
+        {
+          "slug": "vybir-kliucha-pid-navantazhennia",
+          "title": "Вибір ключа під навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pidhotovka-syhnalu",
+      "title": "Підготовка сигналу",
+      "topics": [
+        {
+          "ref": "electronics/bjt-amplifier",
+          "title": "Транзистор як підсилювач"
+        },
+        {
+          "ref": "electronics/negative-feedback",
+          "title": "Від'ємний зворотний зв'язок"
+        },
+        {
+          "ref": "electronics/opamp",
+          "title": "Оппідсилювач"
+        },
+        {
+          "ref": "electronics/ideal-opamp",
+          "title": "Ідеальний ОП"
+        },
+        {
+          "ref": "electronics/inverting-noninverting",
+          "title": "Інвертуючий підсилювач"
+        },
+        {
+          "ref": "electronics/voltage-follower",
+          "title": "Повторювач"
+        },
+        {
+          "ref": "electronics/real-opamp-limits",
+          "title": "Реальний ОП"
+        },
+        {
+          "slug": "single-supply-opamp",
+          "title": "ОП на однополярному живленні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/comparator",
+          "title": "Компаратор"
+        },
+        {
+          "ref": "electronics/schmitt-trigger",
+          "title": "Тригер Шмітта"
+        },
+        {
+          "ref": "electronics/instrumentation-amp",
+          "title": "Інструментальний підсилювач"
+        },
+        {
+          "ref": "electronics/active-filters",
+          "title": "Активні фільтри на ОП"
+        }
+      ]
+    },
+    {
+      "slug": "shum-i-zemlia",
+      "title": "Шум і земля",
+      "topics": [
+        {
+          "ref": "physics/thermal-noise",
+          "title": "Тепловий шум"
+        },
+        {
+          "ref": "electronics/signal-noise-ratio",
+          "title": "Відношення сигнал/шум"
+        },
+        {
+          "ref": "physics/capacitive-coupling",
+          "title": "Ємнісна наводка"
+        },
+        {
+          "ref": "physics/inductive-coupling",
+          "title": "Індуктивна наводка"
+        },
+        {
+          "ref": "electronics/common-ground",
+          "title": "Спільна земля"
+        },
+        {
+          "ref": "electronics/current-return-path",
+          "title": "Шлях зворотного струму"
+        },
+        {
+          "ref": "electronics/ground-loops",
+          "title": "Земляні петлі"
+        },
+        {
+          "ref": "electronics/common-mode-noise",
+          "title": "Синфазна і диференціальна завади"
+        },
+        {
+          "ref": "electronics/differential-signaling",
+          "title": "Диференційна передача сигналу"
+        },
+        {
+          "ref": "electronics/shielding",
+          "title": "Екранування"
+        },
+        {
+          "slug": "noise-hunting",
+          "title": "Полювання на заваду",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "analoh-i-tsyfra-na-odnii-plati",
+          "title": "Аналог і цифра на одній платі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "heneratory",
+      "title": "Генератори",
+      "topics": [
+        {
+          "ref": "electronics/umova-heneratsii",
+          "title": "Умова генерації",
+          "todo": "нова тема",
+          "hint": "electronics/analog"
+        },
+        {
+          "ref": "electronics/relaxation-oscillator",
+          "title": "Релаксаційний генератор"
+        },
+        {
+          "ref": "electronics/555-astable",
+          "title": "555 астабільний"
+        },
+        {
+          "ref": "electronics/crystal",
+          "title": "Кварц"
+        },
+        {
+          "ref": "electronics/quartz-rlc-model",
+          "title": "RLC-модель кварцу"
+        },
+        {
+          "slug": "pierce-oscillator-design",
+          "title": "Генератор Пірса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ceramic-mems-resonators",
+          "title": "Керамічні резонатори",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "tcxo-ocxo",
+          "title": "TCXO та OCXO",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/phase-locked-loop",
+          "title": "ФАПЧ (PLL)"
+        },
+        {
+          "ref": "electronics/jitter-phase-noise",
+          "title": "Джиттер і фазовий шум"
+        }
+      ]
+    },
+    {
+      "slug": "lohichni-rivni",
+      "title": "Логічні рівні",
+      "topics": [
+        {
+          "ref": "electronics/why-digital",
+          "title": "Навіщо цифра"
+        },
+        {
+          "ref": "electronics/logic-levels-as-ranges",
+          "title": "Рівні «0» і «1»"
+        },
+        {
+          "ref": "electronics/noise-margin",
+          "title": "Запас завадостійкості"
+        },
+        {
+          "ref": "electronics/logic-families",
+          "title": "Логічні сімейства"
+        },
+        {
+          "ref": "electronics/logic-74",
+          "title": "Логіка 74"
+        },
+        {
+          "ref": "electronics/datasheet-dc-characteristics",
+          "title": "Як читати DC Characteristics"
+        },
+        {
+          "ref": "electronics/push-pull-output",
+          "title": "Push-pull вихід"
+        },
+        {
+          "ref": "electronics/open-drain",
+          "title": "Open-drain"
+        },
+        {
+          "ref": "electronics/floating-pullups",
+          "title": "Підтяжки"
+        },
+        {
+          "ref": "electronics/hi-z-state",
+          "title": "Третій стан (Hi-Z)"
+        },
+        {
+          "ref": "electronics/level-shifter",
+          "title": "Перетворювач рівнів"
+        },
+        {
+          "ref": "electronics/contact-debounce",
+          "title": "Брязкіт контактів"
+        },
+        {
+          "ref": "electronics/optocoupler",
+          "title": "Оптопара"
+        },
+        {
+          "ref": "electronics/logic-analyzer",
+          "title": "Логічний аналізатор"
+        }
+      ]
+    },
+    {
+      "slug": "chysla-i-lohika",
+      "title": "Числа й логіка",
+      "topics": [
+        {
+          "ref": "math/positional-systems",
+          "title": "Позиційні системи"
+        },
+        {
+          "ref": "programming/bits-bytes-endianness",
+          "title": "Біти й порядок байтів"
+        },
+        {
+          "ref": "math/binary-arithmetic",
+          "title": "Арифметика в двійковій системі"
+        },
+        {
+          "ref": "programming/twos-complement",
+          "title": "Доповняльний код"
+        },
+        {
+          "ref": "math/boolean-algebra",
+          "title": "Булева алгебра"
+        },
+        {
+          "ref": "math/truth-tables",
+          "title": "Таблиці істинності"
+        },
+        {
+          "ref": "electronics/basic-gates",
+          "title": "Базові вентилі"
+        },
+        {
+          "ref": "electronics/nand-nor",
+          "title": "NAND і NOR"
+        },
+        {
+          "ref": "electronics/cmos-gate",
+          "title": "CMOS-вентиль"
+        },
+        {
+          "ref": "electronics/dynamichna-potuzhnist-kmon",
+          "title": "Динамічна потужність КМОН",
+          "todo": "нова тема",
+          "hint": "electronics/digital"
+        },
+        {
+          "ref": "electronics/combinational-circuits",
+          "title": "Комбінаційні схеми"
+        },
+        {
+          "ref": "electronics/multiplexer",
+          "title": "Мультиплексор"
+        },
+        {
+          "ref": "electronics/sumator-i-perenos",
+          "title": "Суматор і перенос",
+          "todo": "нова тема",
+          "hint": "electronics/digital"
+        }
+      ]
+    },
+    {
+      "slug": "analoh-i-chyslo",
+      "title": "Аналог і число",
+      "topics": [
+        {
+          "ref": "electronics/adc",
+          "title": "АЦП"
+        },
+        {
+          "ref": "electronics/sampling-quantization",
+          "title": "Дискретизація й квантування"
+        },
+        {
+          "ref": "communications/nyquist-aliasing",
+          "title": "Найквіст і аліасинг"
+        },
+        {
+          "ref": "electronics/anti-aliasing-filter",
+          "title": "Антиаліасинговий фільтр"
+        },
+        {
+          "ref": "electronics/adc-resolution",
+          "title": "Роздільність АЦП"
+        },
+        {
+          "ref": "electronics/voltage-reference",
+          "title": "Опорна напруга"
+        },
+        {
+          "ref": "electronics/adc-sample-hold",
+          "title": "Вибірка і зберігання"
+        },
+        {
+          "ref": "electronics/adc-types",
+          "title": "Типи АЦП"
+        },
+        {
+          "ref": "electronics/sar-adc-internals",
+          "title": "SAR АЦП зсередини"
+        },
+        {
+          "ref": "electronics/adc-errors",
+          "title": "Похибки АЦП"
+        },
+        {
+          "ref": "electronics/enob",
+          "title": "ENOB"
+        },
+        {
+          "ref": "electronics/dac",
+          "title": "ЦАП"
+        },
+        {
+          "ref": "electronics/pwm",
+          "title": "ШІМ"
+        },
+        {
+          "ref": "electronics/pwm-dac-filter",
+          "title": "ШІМ як ЦАП"
+        },
+        {
+          "slug": "trakt-vid-davacha-do-chysla",
+          "title": "Тракт від давача до числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "taktovana-lohika",
+      "title": "Тактована логіка",
+      "topics": [
+        {
+          "ref": "electronics/state-memory",
+          "title": "Пам'ять стану"
+        },
+        {
+          "ref": "electronics/sr-latch",
+          "title": "SR-засувка"
+        },
+        {
+          "ref": "electronics/d-flip-flop",
+          "title": "D-тригер"
+        },
+        {
+          "ref": "electronics/clock-signal",
+          "title": "Тактовий сигнал"
+        },
+        {
+          "ref": "electronics/register",
+          "title": "Регістр"
+        },
+        {
+          "ref": "electronics/shift-register",
+          "title": "Зсувний регістр"
+        },
+        {
+          "ref": "electronics/counters",
+          "title": "Лічильники"
+        },
+        {
+          "ref": "electronics/hold-violation",
+          "title": "Час установлення й утримання"
+        },
+        {
+          "ref": "electronics/metastability-timing",
+          "title": "Метастабільність"
+        },
+        {
+          "ref": "electronics/finite-state-machines",
+          "title": "Скінченні автомати"
+        },
+        {
+          "slug": "lohika-bez-protsesora",
+          "title": "Логіка без процесора: збираємо автомат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pal-to-fpga",
+          "title": "Від PAL до FPGA",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/hdl",
+          "title": "Опис апаратури мовою HDL"
+        }
+      ]
+    },
+    {
+      "slug": "pamiat",
+      "title": "Пам'ять",
+      "topics": [
+        {
+          "slug": "memory-cell-physics",
+          "title": "Фізика комірок",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/sram-cell",
+          "title": "SRAM-комірка"
+        },
+        {
+          "ref": "electronics/dram-cell",
+          "title": "DRAM"
+        },
+        {
+          "slug": "nor-vs-nand",
+          "title": "NOR і NAND",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/nand-cell-levels",
+          "title": "Рівні комірки NAND"
+        },
+        {
+          "slug": "eeprom-fram",
+          "title": "EEPROM і FRAM",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mram-rram-pcm",
+          "title": "MRAM, RRAM і PCM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/memory-hierarchy",
+          "title": "Ієрархія пам'яті"
+        }
+      ]
+    },
+    {
+      "slug": "protsesor",
+      "title": "Процесор",
+      "topics": [
+        {
+          "ref": "programming/what-is-processor",
+          "title": "Що таке процесор"
+        },
+        {
+          "ref": "programming/processor-parts",
+          "title": "Складові процесора"
+        },
+        {
+          "ref": "electronics/arithmetic-logic-unit",
+          "title": "Арифметико-логічний пристрій"
+        },
+        {
+          "ref": "electronics/register-file",
+          "title": "Регістровий файл"
+        },
+        {
+          "ref": "programming/control-unit",
+          "title": "Пристрій керування"
+        },
+        {
+          "ref": "programming/fetch-decode-execute",
+          "title": "Цикл виконання"
+        },
+        {
+          "ref": "programming/isa",
+          "title": "Набір інструкцій"
+        },
+        {
+          "ref": "electronics/system-bus",
+          "title": "Системна шина"
+        },
+        {
+          "ref": "electronics/address-decoding",
+          "title": "Адресна дешифрація шини"
+        },
+        {
+          "slug": "zbyraiemo-mashynu-z-toho-shcho-vzhe-vmiiemo",
+          "title": "Збираємо машину з того, що вже вміємо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

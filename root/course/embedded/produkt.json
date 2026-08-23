@@ -1,0 +1,1034 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded",
+  "slug": "produkt",
+  "title": "Продукт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "chuzhyi-kod-u-vyrobi",
+      "title": "Чужий код у виробі",
+      "topics": [
+        {
+          "slug": "chym-vyrib-vidrizniaietsia-vid-prototypu",
+          "title": "Чим виріб відрізняється від прототипу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/git-submodules",
+          "title": "Звідки в образі чужий код: підмодуль, вендоринг, менеджер пакетів"
+        },
+        {
+          "ref": "programming/open-source-licenses",
+          "title": "Ліцензії відкритого коду: пермісивні й копілефтні"
+        },
+        {
+          "ref": "programming/shcho-same-ty-zoboviazanyi-viddaty-z-korobkoiu",
+          "title": "Що саме ти зобов'язаний віддати з коробкою: атрибуція, тексти ліцензій, письмова пропозиція джерел",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "programming/pastka-lgpl",
+          "title": "Пастка LGPL: статичне лінкування й вимога дати переліновку",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "programming/gplv3-proty-pidpysanoho-zavantazhuvacha",
+          "title": "GPLv3 проти підписаного завантажувача: антитайвоізація",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "qgroundcontrol/project-and-forks",
+          "title": "Ліцензія проєкту, який ти форкнув: розбір QGroundControl"
+        },
+        {
+          "ref": "programming/fork-and-upstream",
+          "title": "Форк і апстрим: як не жити з вічним патчем"
+        },
+        {
+          "ref": "programming/software-patents-and-pools",
+          "title": "Патенти на ПЗ і патентні пули: чому кодек не безкоштовний"
+        },
+        {
+          "ref": "programming/ne-tilky-kod",
+          "title": "Не тільки код: вендорський HAL, шрифти, ваги моделі",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "programming/sbom-perelik-skladnykiv-obrazu-i-navishcho-ioho",
+          "title": "SBOM: перелік складників образу і навіщо його ведуть",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "programming/developer-certificate-of-origin",
+          "title": "Під якою ліцензією випускати своє: DCO, CLA, подвійне ліцензування"
+        },
+        {
+          "slug": "rozbir-litsenzii-odniiei-realnoi-proshyvky",
+          "title": "розбір ліцензій однієї реальної прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kliuchi-vyrobu",
+      "title": "Ключі виробу",
+      "topics": [
+        {
+          "slug": "iaki-sekrety-maie-vyrib-i-shcho-stanetsia-z-kozhnym",
+          "title": "Які секрети має виріб і що станеться з кожним при витоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/public-key-crypto",
+          "title": "Ключі, підпис і ланцюг сертифікатів"
+        },
+        {
+          "ref": "algorithms/csprng",
+          "title": "Звідки береться випадковість, з якої народжується ключ"
+        },
+        {
+          "ref": "programming/de-zhyve-pryvatnyi-kliuch",
+          "title": "Де живе приватний ключ: токен, HSM, «ноутбук Петра»",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/secrets-management",
+          "title": "Секрети як предмет обліку: сховище, доступ, ротація"
+        },
+        {
+          "slug": "tseremoniia-kliuchiv",
+          "title": "Церемонія ключів: генерація, свідки, резервні копії, розділений секрет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/pkcs7-signed-message",
+          "title": "Формат підписаного випуску: маніфест, ланцюг, мітка часу"
+        },
+        {
+          "ref": "programming/pidpys-u-konveieri-bez-kliucha-v-konveieri",
+          "title": "Підпис у конвеєрі без ключа в конвеєрі",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/uuid-and-guid",
+          "title": "Ідентичність екземпляра: серійний номер і машинний ідентифікатор"
+        },
+        {
+          "ref": "programming/remote-attestation",
+          "title": "Чим екземпляр доводить, що він — він: віддалена атестація"
+        },
+        {
+          "ref": "programming/key-derivation-function",
+          "title": "Ключ на екземпляр: похідні ключі, квота, облік"
+        },
+        {
+          "slug": "vtrata-kliucha-pidpysu",
+          "title": "Втрата ключа підпису: парк, який більше ніколи не оновиш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/vidklykannia-kliucha-i-sertyfikata-peredbachene",
+          "title": "Відкликання ключа й сертифіката, передбачене заздалегідь",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        }
+      ]
+    },
+    {
+      "slug": "zakhyst-vid-kopiiuvannia",
+      "title": "Захист від копіювання",
+      "topics": [
+        {
+          "ref": "programming/threat-modeling",
+          "title": "Модель загроз виробу: від кого й за скільки"
+        },
+        {
+          "ref": "programming/attack-surface",
+          "title": "Поверхня атаки виробу: порти, роз'єми, радіо, сервісний режим"
+        },
+        {
+          "ref": "programming/avr-fuses",
+          "title": "Замкнути зневаджувач: фьюзи й рівні захисту читання"
+        },
+        {
+          "ref": "programming/flash-encryption",
+          "title": "Шифрування Flash: що дає й чого не дає"
+        },
+        {
+          "ref": "programming/nvs-encryption",
+          "title": "Дані у спокої на пристрої: шифрування сховища параметрів"
+        },
+        {
+          "ref": "programming/zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu",
+          "title": "Збійні атаки, глітчинг, декапсуляція — і чому обфускація майже нічого не варта",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/timing-attack",
+          "title": "Побічні канали: час і кеш"
+        },
+        {
+          "ref": "programming/entitlements",
+          "title": "Платні функції на екземпляр: право як дані"
+        },
+        {
+          "ref": "communications/challenge-response",
+          "title": "Доказ права без передавання секрету"
+        },
+        {
+          "ref": "communications/drm-key-delivery",
+          "title": "Як ключ функції потрапляє в пристрій"
+        },
+        {
+          "ref": "programming/remont-pravo-vlasnyka-i-mezha-zamykannia-vyrobu",
+          "title": "Ремонт, право власника й межа замикання виробу",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "slug": "koly-tvii-vyrib-uzhe-klonuvaly",
+          "title": "Коли твій виріб уже клонували: що робити технічно, що юридично, чого не робити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vypusk-proshyvky",
+      "title": "Випуск прошивки",
+      "topics": [
+        {
+          "slug": "reliz-iak-obiekt",
+          "title": "Реліз як об'єкт: образ, маніфест, нотатки, підпис",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/reuse-release-equivalence",
+          "title": "Що таке одиниця випуску й чому вона не збігається з модулем"
+        },
+        {
+          "ref": "programming/semantic-versioning",
+          "title": "Семантичне версіонування"
+        },
+        {
+          "ref": "programming/reviziia-platy-versiia-proshyvky",
+          "title": "Ревізія плати × версія прошивки: одна прошивка на три ревізії",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/versiia-zi-stanu-repozytoriiu",
+          "title": "Версія зі стану репозиторію: тег, хеш, «брудна» збірка",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "build-systems/reproducible-builds",
+          "title": "Відтворювана збірка: той самий байт завтра й через п'ять років"
+        },
+        {
+          "ref": "programming/release-channels",
+          "title": "Канали постачання: стабільний, тестовий, нічний"
+        },
+        {
+          "ref": "programming/release-candidate-and-freeze",
+          "title": "Реліз-кандидат і заморозка коду"
+        },
+        {
+          "ref": "programming/notatky-vypusku",
+          "title": "Нотатки випуску: що власник має дізнатися з оновлення",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/artefakty-vypusku",
+          "title": "Артефакти випуску: образ, мапа, символи, SBOM, звіти тестів",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "programming/branching-models",
+          "title": "Гілка супроводу й бекпорт виправлення"
+        },
+        {
+          "ref": "programming/audit-logging",
+          "title": "Хто має право випустити: ролі, доступ, журнал дій"
+        }
+      ]
+    },
+    {
+      "slug": "avtomatychna-zbirka",
+      "title": "Автоматична збірка",
+      "topics": [
+        {
+          "slug": "chomu-ruchnyi-vypusk-nemynuche-hnyie",
+          "title": "Чому ручний випуск неминуче гниє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "build-systems/hermetic-builds",
+          "title": "Герметична збірка: від чистого клону до образу однією командою"
+        },
+        {
+          "slug": "firmware-ci",
+          "title": "CI для прошивки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "build-systems/cross-compilation",
+          "title": "Крос-компіляція й закріплений тулчейн"
+        },
+        {
+          "ref": "build-systems/build-flags",
+          "title": "Прапорці збірки: оптимізація, символи, попередження"
+        },
+        {
+          "ref": "build-systems/version-pinning",
+          "title": "Залежності під замком: закріплення версій і замки"
+        },
+        {
+          "ref": "build-systems/cmake-presets",
+          "title": "Конфігурації як декларація: пресети й варіанти виробу"
+        },
+        {
+          "ref": "programming/vorota-biudzhetu",
+          "title": "Ворота бюджету: флеш, RAM, стек, час завантаження",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/static-analysis",
+          "title": "Статичний аналіз і санітайзери у воротах"
+        },
+        {
+          "ref": "programming/infrastructure-as-code",
+          "title": "Сервер збірки, який можна відтворити"
+        },
+        {
+          "ref": "build-systems/cpack",
+          "title": "Пакет інструментів для сервісу й заводу"
+        },
+        {
+          "ref": "programming/publikatsiia-vypusku-na-server-onovlen",
+          "title": "Публікація випуску на сервер оновлень",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "slug": "naskriznyi-vypusk",
+          "title": "наскрізний випуск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "perevirka-na-zalizi",
+      "title": "Перевірка на залізі",
+      "topics": [
+        {
+          "ref": "programming/integration-testing",
+          "title": "Піраміда перевірок: хост, симуляція, справжній чип"
+        },
+        {
+          "slug": "hil-testing",
+          "title": "HIL-стенд",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "stiika-prystroiv",
+          "title": "Стійка пристроїв: живлення через реле, програматор і консоль на кожен зразок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/scpi-protocol",
+          "title": "Прилади стенда з коду: SCPI"
+        },
+        {
+          "ref": "programming/python-test-automation",
+          "title": "Python для автоматизації тестування"
+        },
+        {
+          "ref": "build-systems/ctest",
+          "title": "Тести як реєстр: CTest і запуск набору на стенді"
+        },
+        {
+          "slug": "imitatsiia-svitu",
+          "title": "Імітація світу: давачі, GNSS, радіо, навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/sitl-simulator",
+          "title": "SITL як ланка конвеєра"
+        },
+        {
+          "ref": "programming/fuzzing",
+          "title": "Фаззинг парсерів: там, де живуть дірки"
+        },
+        {
+          "ref": "programming/contract-testing",
+          "title": "Контрактні тести між прошивкою, застосунком і сервером"
+        },
+        {
+          "ref": "programming/fault-injection",
+          "title": "Навмисні збої: обрив живлення посеред оновлення"
+        },
+        {
+          "ref": "programming/nichni-prohony-i-rehresiia-spozhyvannia-chasu",
+          "title": "Нічні прогони й регресія споживання, часу відгуку та пам'яті",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "ref": "programming/flaky-tests",
+          "title": "Миготливі тести: чому стенд бреше і що з цим робити"
+        }
+      ]
+    },
+    {
+      "slug": "seriia-na-zavodi",
+      "title": "Серія на заводі",
+      "topics": [
+        {
+          "ref": "electronics/fabs-fabless",
+          "title": "Свій завод чи чужий: модель «проєктую я, роблять інші»"
+        },
+        {
+          "slug": "paket-peredachi-na-zavod",
+          "title": "Пакет передачі на завод: що саме віддають",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/cost-as-attribute",
+          "title": "Собівартість: BOM-костинг, ціна партії, ціна тесту"
+        },
+        {
+          "ref": "electronics/semiconductor-supply-chain",
+          "title": "Закупівля й доступність деталей: BOM, аналоги, дефіцит"
+        },
+        {
+          "ref": "electronics/guarantee-levels",
+          "title": "Що насправді гарантує даташит: tested, sampled, design"
+        },
+        {
+          "ref": "electronics/vkhidnyi-kontrol-i-pidrobni-komponenty",
+          "title": "Вхідний контроль і підробні компоненти",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "ref": "electronics/etalonnyi-zrazok-i-pershe-vyrobnyche",
+          "title": "Еталонний зразок і перше виробниче",
+          "todo": "нова тема",
+          "hint": "electronics/pcb"
+        },
+        {
+          "slug": "test-jig-design",
+          "title": "Тест-джиг",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "factory-provisioning",
+          "title": "Заводське прошивання й провізіонування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "ref": "electronics/multipoint-calibration",
+          "title": "Калібрувальні дані на екземпляр: де їх беруть і де зберігають"
+        },
+        {
+          "ref": "electronics/testing-binning",
+          "title": "Кожен екземпляр перевірено; вихід придатних і дозрівання партії"
+        },
+        {
+          "ref": "electronics/arrhenius-lifetime",
+          "title": "Надійність числом: MTBF, прискорені випробування, вибірка"
+        },
+        {
+          "slug": "tretia-zmina",
+          "title": "«Третя зміна»: довіра до заводу, квоти на ключі, облік випущеного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/moisture-sensitivity-levels",
+          "title": "Зберігання, ESD і пакування до відвантаження"
+        }
+      ]
+    },
+    {
+      "slug": "sertyfikatsiia-i-markuvannia",
+      "title": "Сертифікація й маркування",
+      "topics": [
+        {
+          "slug": "shcho-vzahali-treba-proity-i-vid-choho-tse-zalezhyt",
+          "title": "Що взагалі треба пройти й від чого це залежить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "communications/emc-certification",
+          "title": "Модульна сертифікація: FCC, CE та EMC-випроби"
+        },
+        {
+          "ref": "communications/regulatory-radio-certification",
+          "title": "Радіосертифікація: FCC, CE, SRRC"
+        },
+        {
+          "ref": "communications/hotovyi-sertyfikovanyi-radiomodul-proty-vlasnoho",
+          "title": "Готовий сертифікований радіомодуль проти власного радіо",
+          "todo": "нова тема",
+          "hint": "communications/radio-engineering"
+        },
+        {
+          "ref": "electronics/near-field-probing",
+          "title": "Передвипробування на столі: near-field пробник і типові провали"
+        },
+        {
+          "ref": "electronics/batareia-u-vyrobi",
+          "title": "Батарея у виробі: UN 38.3, транспорт, пакування",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "electronics/rechovyny-i-utylizatsiia",
+          "title": "Речовини й утилізація: RoHS, REACH, WEEE",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "electronics/normatyvni-vymohy-do-bezpeky-kodu",
+          "title": "Нормативні вимоги до безпеки коду: CRA, RED 3.3, EN 303 645",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "electronics/deklaratsiia-vidpovidnosti-i-tekhnichnyi-fail",
+          "title": "Декларація відповідності й технічний файл",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "electronics/chuzhi-reiestry-i-chlenstva",
+          "title": "Чужі реєстри й членства: OUI для MAC, USB VID/PID, Bluetooth SIG, Wi-Fi Alliance",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "electronics/eksportnyi-kontrol-i-podviine-pryznachennia",
+          "title": "Експортний контроль і подвійне призначення",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "slug": "drone-regulations",
+          "title": "Регуляції БпЛА",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "functional-safety-overview",
+          "title": "Функційна безпека: огляд стандартів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "shliakh-do-markuvannia",
+          "title": "шлях до маркування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dokumenty-dlia-vlasnyka",
+      "title": "Документи для власника",
+      "topics": [
+        {
+          "slug": "shcho-ide-v-korobtsi",
+          "title": "Що їде в коробці: комплект, наліпки, папери, швидкий старт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/instruktsiia-iaku-chytaiut-pislia-polamky",
+          "title": "Інструкція, яку читають після поламки, а не до",
+          "todo": "нова тема",
+          "hint": "programming/software-engineering"
+        },
+        {
+          "ref": "electronics/harantiia",
+          "title": "Гарантія: що обіцяно, на скільки і що її анулює",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "programming/umovy-korystuvannia-i-dani-vlasnyka",
+          "title": "Умови користування й дані власника: що збираємо, навіщо, як відмовитися",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/i18n-as-architecture",
+          "title": "Локалізація документів і інтерфейсу"
+        },
+        {
+          "slug": "okremyi-dokument-dlia-servisnoho-tekhnika",
+          "title": "Окремий документ для сервісного техніка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kanal-pidtrymky",
+          "title": "Канал підтримки: куди писати, що прикласти, скільки чекати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kampaniia-onovlennia",
+      "title": "Кампанія оновлення",
+      "topics": [
+        {
+          "slug": "polityka-onovlen",
+          "title": "Політика оновлень: хто вирішує, коли і що їде в поле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/canary-deployment",
+          "title": "Поступове викочування й канарки"
+        },
+        {
+          "ref": "programming/deployment-strategies",
+          "title": "Хвилі, кільця й перемикання без простою"
+        },
+        {
+          "ref": "programming/long-running-operations",
+          "title": "Кампанія як довга операція: стан, повтор, ідемпотентність команди"
+        },
+        {
+          "ref": "programming/keruvannia-kampaniieiu",
+          "title": "Керування кампанією: хвилі, ліміти, показники — скільки взяли, скільки повернулися, скільки замовкли",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/zupynka-kampanii-i-park-onovlenyi-napolovynu",
+          "title": "Зупинка кампанії й парк, оновлений наполовину",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/ota-rollback",
+          "title": "Відкат OTA"
+        },
+        {
+          "slug": "park-bez-internetu",
+          "title": "Парк без інтернету: технік, USB, шлюз, ретрансляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "onovlennia-i-batareia",
+          "title": "Оновлення й батарея: коли ставити, коли не можна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/prymusove-onovlennia-i-zhoda-vlasnyka",
+          "title": "Примусове оновлення й згода власника",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "slug": "vyrib-bez-onovlen",
+          "title": "Виріб без оновлень: коли це чесна відповідь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kampaniia-na-tysiachu-prystroiv",
+          "title": "кампанія на тисячу пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pidtrymka-i-povernennia",
+      "title": "Підтримка й повернення",
+      "topics": [
+        {
+          "slug": "skarha-iaka-ne-ie-zvitom-pro-pomylku",
+          "title": "Скарга, яка не є звітом про помилку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/slo-sli-sla",
+          "title": "Обіцянка в цифрах: час відповіді, доступність, бюджет помилок"
+        },
+        {
+          "ref": "programming/incident-response",
+          "title": "Реагування на інцидент у полі: черговий, ескалація, зв'язок із власниками"
+        },
+        {
+          "ref": "programming/servisnyi-rezhym-i-diahnostyka-v-rukakh-tekhnika",
+          "title": "Сервісний режим і діагностика в руках техніка",
+          "todo": "нова тема",
+          "hint": "programming/embedded-systems"
+        },
+        {
+          "slug": "odna-vidmova-na-tysiachu",
+          "title": "Одна відмова на тисячу: зіставлення за партією, ревізією й постачальником",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/povernennia-remont-i-defektu-ne-vyiavleno",
+          "title": "Повернення, ремонт і «дефекту не виявлено»",
+          "todo": "нова тема",
+          "hint": "programming/operations"
+        },
+        {
+          "ref": "programming/kliuchi-i-osobysti-dani-v-povernenomu-ekzempliari",
+          "title": "Ключі й особисті дані в поверненому екземплярі",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/postmortems",
+          "title": "База відмов і що з неї потрапляє в наступну ревізію"
+        },
+        {
+          "ref": "electronics/capacitor-aging",
+          "title": "Що зношується само по собі: конденсатор, кварц, батарея"
+        },
+        {
+          "slug": "tsina-pidtrymky-odnoho-ekzempliara",
+          "title": "Ціна підтримки одного екземпляра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vrazlyvosti-i-rozkryttia",
+      "title": "Вразливості й розкриття",
+      "topics": [
+        {
+          "ref": "programming/strichky-cve-proty-vlasnoho-sbom",
+          "title": "Стрічки CVE проти власного SBOM",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/vulnerability-scoring-cvss",
+          "title": "Оцінювання вразливості: CVSS, EPSS і межі бальної системи"
+        },
+        {
+          "ref": "programming/supply-chain-security",
+          "title": "Ланцюг постачання як поверхня атаки"
+        },
+        {
+          "ref": "programming/replay-protection",
+          "title": "Старий підписаний образ як зброя: повтор і відкат"
+        },
+        {
+          "ref": "programming/kudy-pysaty-pro-dirku",
+          "title": "Куди писати про дірку: контакт безпеки й політика розкриття",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "ref": "programming/uzhodzhene-rozkryttia-i-stroky",
+          "title": "Узгоджене розкриття й строки",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "slug": "terminovyi-vypusk",
+          "title": "Терміновий випуск: коротка дорога, яку готують заздалегідь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/oboviazok-povidomyty",
+          "title": "Обов'язок повідомити: регулятор, власники, партнери",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "programming/biuleten-bezpeky",
+          "title": "Бюлетень безпеки: що написати й чого не писати",
+          "todo": "нова тема",
+          "hint": "programming/security"
+        },
+        {
+          "slug": "vrazlyvist-u-chuzhomu-chypi-iakyi-ty-ne-mozhesh",
+          "title": "Вразливість у чужому чипі, який ти не можеш полагодити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "starinnia-i-kinets-zhyttia",
+      "title": "Старіння й кінець життя",
+      "topics": [
+        {
+          "slug": "instrumentarii-iakyi-bilshe-ne-zbyraie-torishnii-teh",
+          "title": "Інструментарій, який більше не збирає торішній тег",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/legacy-archaeology",
+          "title": "Археологія власного проєкту через п'ять років"
+        },
+        {
+          "ref": "programming/rewrite-vs-refactor",
+          "title": "Ревізія Б чи новий виріб"
+        },
+        {
+          "slug": "strok-sertyfikata-i-park-shcho-spynyvsia-vnochi",
+          "title": "Строк сертифіката й парк, що спинився вночі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/vendor-lock-in",
+          "title": "Прив'язка до платформи, якої більше немає"
+        },
+        {
+          "ref": "programming/lock-in-exit-cost",
+          "title": "Чужа хмара й чужий сервіс, які закрилися"
+        },
+        {
+          "ref": "communications/vymknena-merezha",
+          "title": "Вимкнена мережа: 2G, 3G і те, що вимкнуть далі",
+          "todo": "нова тема",
+          "hint": "communications/networks"
+        },
+        {
+          "ref": "electronics/komponent-zniato-z-vypusku",
+          "title": "Компонент знято з випуску: останнє замовлення й «сумісна» заміна",
+          "todo": "нова тема",
+          "hint": "electronics/components"
+        },
+        {
+          "slug": "arkhiv-na-desiat-rokiv",
+          "title": "Архів на десять років: джерела, інструменти, ключі, документи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "electronics/skilky-rokiv-ty-obitsiaiesh-onovlennia-bezpeky",
+          "title": "Скільки років ти обіцяєш оновлення безпеки",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        },
+        {
+          "ref": "programming/deprecation-policy",
+          "title": "Оголошення кінця життя як керований процес"
+        },
+        {
+          "slug": "shchob-vyrib-zhyv-bez-nas",
+          "title": "Щоб виріб жив без нас: локальний режим, відкритий протокол, розблокування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "programming/vidkryty-dzherela-naprykintsi-zhyttia",
+          "title": "Відкрити джерела наприкінці життя: що це вирішує і чого не вирішує",
+          "todo": "нова тема",
+          "hint": "programming/code"
+        },
+        {
+          "ref": "electronics/kinets-ekzempliara",
+          "title": "Кінець екземпляра: передача власності, справжнє скидання, видалення даних, утилізація",
+          "todo": "нова тема",
+          "hint": "electronics/compliance"
+        }
+      ]
+    }
+  ]
+}
