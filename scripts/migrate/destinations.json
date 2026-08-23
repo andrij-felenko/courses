@@ -1,0 +1,203 @@
+{
+  "schema": 7,
+  "kinds": [
+    {
+      "kind": "sci",
+      "shelf": "Наука",
+      "words": {
+        "book": "наука",
+        "group": "галузь",
+        "chapter": "розділ"
+      },
+      "asks": "чому світ такий",
+      "books": []
+    },
+    {
+      "kind": "eng",
+      "shelf": "Інженерія",
+      "words": {
+        "book": "напрямок",
+        "group": "технологія",
+        "chapter": "розділ"
+      },
+      "asks": "як це роблять",
+      "books": []
+    },
+    {
+      "kind": "course",
+      "shelf": "Курси",
+      "words": {
+        "book": "курс",
+        "group": "том",
+        "chapter": "розділ"
+      },
+      "asks": "з чого починати",
+      "books": [
+        {
+          "book": "basic-chemistry",
+          "title": "Хімія",
+          "groups": [
+            {
+              "slug": "atoms",
+              "title": "З чого все зроблено",
+              "chapters": [
+                {
+                  "slug": "substances",
+                  "title": "Хімія і речовини",
+                  "topics": 2
+                },
+                {
+                  "slug": "atom",
+                  "title": "Атом",
+                  "topics": 5
+                },
+                {
+                  "slug": "periodic",
+                  "title": "Періодична таблиця",
+                  "topics": 2
+                }
+              ]
+            },
+            {
+              "slug": "bonds",
+              "title": "Як атоми тримаються разом",
+              "chapters": [
+                {
+                  "slug": "bonds",
+                  "title": "Хімічний зв'язок",
+                  "topics": 4
+                },
+                {
+                  "slug": "formulas-valence-mole",
+                  "title": "Формули, валентність і моль",
+                  "topics": 3
+                },
+                {
+                  "slug": "solids",
+                  "title": "Як влаштовані тверді речовини",
+                  "topics": 2
+                }
+              ]
+            },
+            {
+              "slug": "reactions",
+              "title": "Реакції",
+              "chapters": [
+                {
+                  "slug": "what-is-reaction",
+                  "title": "Що таке реакція насправді",
+                  "topics": 3
+                },
+                {
+                  "slug": "energy",
+                  "title": "Енергія: чому горить і гріє",
+                  "topics": 2
+                },
+                {
+                  "slug": "rate-equilibrium",
+                  "title": "Швидкість і рівновага",
+                  "topics": 4
+                }
+              ]
+            },
+            {
+              "slug": "inorganic",
+              "title": "Розчини, кислоти, солі й метали",
+              "chapters": [
+                {
+                  "slug": "solutions",
+                  "title": "Вода і розчини",
+                  "topics": 3
+                },
+                {
+                  "slug": "acids-bases",
+                  "title": "Кислоти й основи",
+                  "topics": 3
+                },
+                {
+                  "slug": "oxides-salts",
+                  "title": "Оксиди, солі та карта неорганіки",
+                  "topics": 3
+                },
+                {
+                  "slug": "metals",
+                  "title": "Метали й елементи навколо нас",
+                  "topics": 3
+                }
+              ]
+            },
+            {
+              "slug": "organic",
+              "title": "Органіка: хімія життя",
+              "chapters": [
+                {
+                  "slug": "carbon-chains",
+                  "title": "Карбон і його ланцюги",
+                  "topics": 4
+                },
+                {
+                  "slug": "oxygen-groups",
+                  "title": "Кисень приєднується: спирти, кислоти, жири",
+                  "topics": 2
+                },
+                {
+                  "slug": "life-molecules",
+                  "title": "Молекули життя",
+                  "topics": 5
+                }
+              ]
+            },
+            {
+              "slug": "counting",
+              "title": "Формули й розрахунки задач",
+              "chapters": [
+                {
+                  "slug": "amount",
+                  "title": "Кількість речовини: моль",
+                  "topics": 2
+                },
+                {
+                  "slug": "fractions",
+                  "title": "Масова частка",
+                  "topics": 2
+                },
+                {
+                  "slug": "by-equation",
+                  "title": "Розрахунки за рівнянням",
+                  "topics": 2
+                },
+                {
+                  "slug": "harder-problems",
+                  "title": "Складніші задачі: гази, надлишок, вихід",
+                  "topics": 3
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "hw",
+      "shelf": "Залізо",
+      "words": {
+        "book": "клас",
+        "group": "група",
+        "chapter": "різновид"
+      },
+      "asks": "що це за штука",
+      "books": []
+    },
+    {
+      "kind": "sys",
+      "shelf": "Системи",
+      "words": {
+        "book": "система",
+        "group": "модуль",
+        "chapter": "компонент"
+      },
+      "asks": "а в якій версії",
+      "books": []
+    }
+  ]
+}
