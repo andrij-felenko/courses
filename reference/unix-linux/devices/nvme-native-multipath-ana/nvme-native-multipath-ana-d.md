@@ -1,12 +1,12 @@
 # Нативний мультипасинг NVMe та стани ANA у ядрі Linux
 
 <preknowlist>
-- [NVMe у Linux: черги SQ/CQ, механізм Doorbell та модель блокового пристрою](book:unix-linux/nvme-in-linux) — архітектура черг відправки та завершення (SQ/CQ), прямий доступ до пам'яті (DMA) та регістри сповіщення Doorbell.
-- [Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)](book:unix-linux/nvme-over-fabrics-nvme-of) — протокол мережевого транспортування командних капсул NVMe через стек RDMA (RoCEv2/InfiniBand) та TCP/IP.
-- [ALUA: асиметричний доступ і стани портів цілі](book:unix-linux/scsi-alua) — класична модель асиметричного доступу SCSI (SPC-3/4), цільові групи портів та механізм команд RTPG/STPG.
-- [Multipath: кілька шляхів до одного сховища](book:unix-linux/dm-multipath) — підсистема Device Mapper Multipath, віртуальні пристрої `/dev/dm-X`, черги повтору та демон простору користувача `multipathd`.
-- [Блоковий пристрій: сектори, блоки й черга запитів](book:unix-linux/block-device-model) — життєвий цикл структури `struct bio`, багаторівнева черга `blk-mq`, планування та адресація LBA.
-- [Механізм RCU: читання без блокувань та безпечне звільнення пам'яті](book:unix-linux/rcu-read-copy-update) — блокування Read-Copy-Update, критичні секції `rcu_read_lock()` та атомарне оновлення вказівників у ядрі.
+- [NVMe у Linux: черги SQ/CQ, механізм Doorbell та модель блокового пристрою](topic:unix-linux/nvme-in-linux) — архітектура черг відправки та завершення (SQ/CQ), прямий доступ до пам'яті (DMA) та регістри сповіщення Doorbell.
+- [Мережевий доступ до блочних пристроїв NVMe over Fabrics (RDMA/TCP)](topic:unix-linux/nvme-over-fabrics-nvme-of) — протокол мережевого транспортування командних капсул NVMe через стек RDMA (RoCEv2/InfiniBand) та TCP/IP.
+- [ALUA: асиметричний доступ і стани портів цілі](topic:unix-linux/scsi-alua) — класична модель асиметричного доступу SCSI (SPC-3/4), цільові групи портів та механізм команд RTPG/STPG.
+- [Multipath: кілька шляхів до одного сховища](topic:unix-linux/dm-multipath) — підсистема Device Mapper Multipath, віртуальні пристрої `/dev/dm-X`, черги повтору та демон простору користувача `multipathd`.
+- [Блоковий пристрій: сектори, блоки й черга запитів](topic:unix-linux/block-device-model) — життєвий цикл структури `struct bio`, багаторівнева черга `blk-mq`, планування та адресація LBA.
+- [Механізм RCU: читання без блокувань та безпечне звільнення пам'яті](topic:unix-linux/rcu-read-copy-update) — блокування Read-Copy-Update, критичні секції `rcu_read_lock()` та атомарне оновлення вказівників у ядрі.
 </preknowlist>
 
 ## Двоконтролерний масив і криза затримок Device Mapper
@@ -26,7 +26,7 @@
 
 Щоб подолати це обмеження, у драйвер ядра Linux було інтегровано підсистему **нативного мультипасингу NVMe** (`CONFIG_NVME_MULTIPATH`, параметр завантаження `nvme_core.multipath=Y`), а робоча група NVM Express розробила апаратний стандарт **Asymmetric Namespace Access (ANA)** (від грецького *ἀ-*, «не» + *συμметрія*, «співмірність»). Цей механізм виключає шар Device Mapper, переносить маршрутизацію запитів безпосередньо у внутрішні черги `blk-mq` драйвера NVMe та забезпечує перемикання каналів за частки мілісекунди на основі асинхронних апаратних переривань.
 
-Детальний перебіг дискусій в інженерній спільноті щодо відмови від Device Mapper викладено в історичному нарисі [еволюція від Device Mapper до нативного мультипасингу NVMe](book:unix-linux/nvme-native-multipath-ana/hist-from-dm-to-nvme-multipath.md).
+Детальний перебіг дискусій в інженерній спільноті щодо відмови від Device Mapper викладено в історичному нарисі [еволюція від Device Mapper до нативного мультипасингу NVMe](topic:unix-linux/nvme-native-multipath-ana/hist-from-dm-to-nvme-multipath.md).
 
 ---
 
@@ -281,9 +281,9 @@ struct nvme_ana_group_desc {
 
 Глобальний лічильник `chgcnt` дозволяє драйверу ядра атомарно перевірити, чи не змінилася топологія масиву під час зчитування журналу частинами, якщо розмір даних перевищував максимальний розмір блоку передавання (MDTS).
 
-Повний довідник двійкових зміщень полів, структур системних викликів `ioctl` та параметрів модуля зібрано у довіднику [специфікація двійкових дескрипторів журналу ANA та інтерфейси sysfs](book:unix-linux/nvme-native-multipath-ana/api-ana-log-and-sysfs.md).
+Повний довідник двійкових зміщень полів, структур системних викликів `ioctl` та параметрів модуля зібрано у довіднику [специфікація двійкових дескрипторів журналу ANA та інтерфейси sysfs](topic:unix-linux/nvme-native-multipath-ana/api-ana-log-and-sysfs.md).
 
-Практичну реалізацію утиліти зчитування та розбору журналу ANA мовами C та C++ наведено у практикумі [розробка власного парсера журналу ANA через ioctl](book:unix-linux/nvme-native-multipath-ana/proj-ana-log-parser.md).
+Практичну реалізацію утиліти зчитування та розбору журналу ANA мовами C та C++ наведено у практикумі [розробка власного парсера журналу ANA через ioctl](topic:unix-linux/nvme-native-multipath-ana/proj-ana-log-parser.md).
 
 ---
 

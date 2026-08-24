@@ -1,9 +1,9 @@
 # Топології мультирегіону
 
 <preknowlist>
-- [Лідер-фоловер і мультилідерна реплікація](book:programming/distributed-systems/replication-leader-follower) — механізми синхронізації стану між вузлами в мережі.
-- [Шардинг та партиціювання](book:programming/distributed-systems/partitioning-sharding) — горизонтальне розбиття даних за ключами або територіями.
-- [CAP-теорема та PACELC](book:programming/distributed-systems/cap-theorem) — межі узгодженості, доступності й латентності у розподілених системах.
+- [Лідер-фоловер і мультилідерна реплікація](topic:programming/replication-leader-follower) — механізми синхронізації стану між вузлами в мережі.
+- [Шардинг та партиціювання](topic:programming/partitioning-sharding) — горизонтальне розбиття даних за ключами або територіями.
+- [CAP-теорема та PACELC](topic:programming/cap-theorem) — межі узгодженості, доступності й латентності у розподілених системах.
 - [Розподіл навантаження DH](root:progarch/scale-and-load/load-distribution-dh) — L4/L7 балансування та гео-маршрутизація трафіку.
 </preknowlist>
 

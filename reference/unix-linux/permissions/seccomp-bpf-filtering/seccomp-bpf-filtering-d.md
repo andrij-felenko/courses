@@ -1,9 +1,9 @@
 # Фільтрація системних викликів Seccomp-BPF
 
 <preknowlist>
-- [Користувачі, групи й ідентичність процесу](book:unix-linux/uid-gid-model) — як процес несе UID/GID і перевіряється в системі.
-- [Права доступу та привілеї POSIX Capabilities](book:unix-linux/capabilities) — розбиття повноважень root на біти, зокрема `CAP_SYS_ADMIN` та `CAP_SYS_PTRACE`.
-- [Простори імен користувачів User Namespaces](book:unix-linux/user-namespaces-uid-mapping) — механізм ізоляції UID/GID, що дає непривілейованому процесу змогу завантажувати фільтри без прав root.
+- [Користувачі, групи й ідентичність процесу](topic:unix-linux/uid-gid-model) — як процес несе UID/GID і перевіряється в системі.
+- [Права доступу та привілеї POSIX Capabilities](topic:unix-linux/capabilities) — розбиття повноважень root на біти, зокрема `CAP_SYS_ADMIN` та `CAP_SYS_PTRACE`.
+- [Простори імен користувачів User Namespaces](topic:unix-linux/user-namespaces-uid-mapping) — механізм ізоляції UID/GID, що дає непривілейованому процесу змогу завантажувати фільтри без прав root.
 </preknowlist>
 
 ## 1. Механізм ізоляції системних викликів на межі користувача та ядра
@@ -21,7 +21,7 @@
 
 ## 2. Еволюція від Strict Mode до BPF Filter Mode
 
-Історично seccomp пройшов розвиток від жорсткого механізму з фіксованими правилами до гнучкої системи програмованої фільтрації. Детальніше про передумови створення та ключові фігури цього процесу можна прочитати в [історії розвитку Seccomp](book:unix-linux/seccomp-bpf-filtering/hist-seccomp-evolution.md).
+Історично seccomp пройшов розвиток від жорсткого механізму з фіксованими правилами до гнучкої системи програмованої фільтрації. Детальніше про передумови створення та ключові фігури цього процесу можна прочитати в [історії розвитку Seccomp](topic:unix-linux/seccomp-bpf-filtering/hist-seccomp-evolution.md).
 
 ### 2.1 SECCOMP_MODE_STRICT
 
@@ -331,7 +331,7 @@ bool install_minimal_cbpf_filter_cpp() {
 4. Супервізор читає пам'ять контейнера через файлову систему `/proc/[PID]/mem`, перевіряє аргументи (наприклад, шлях файлу), виконує необхідну дію від свого імені та відправляє відповідь ядру через `ioctl(SECCOMP_IOCTL_NOTIF_SEND)`.
 5. Контейнер розблоковується і отримує результат, ніби системний виклик був виконаний ядром.
 
-Для детального ознайомлення із викликом `seccomp(2)` та структурою `seccomp_notif` зверніться до [довідника інтерфейсу seccomp](book:unix-linux/seccomp-bpf-filtering/api-seccomp-syscall.md).
+Для детального ознайомлення із викликом `seccomp(2)` та структурою `seccomp_notif` зверніться до [довідника інтерфейсу seccomp](topic:unix-linux/seccomp-bpf-filtering/api-seccomp-syscall.md).
 
 ## 7. Бібліотека `libseccomp` та системний виклик `seccomp(2)`
 
@@ -402,7 +402,7 @@ bool apply_libseccomp_policy_cpp() {
 ```
 :::
 
-Повний приклад практичного проекту із розгортанням пісочниці та RAII-обгортками наведено у [практичному проекті інкапсуляції Seccomp](book:unix-linux/seccomp-bpf-filtering/proj-custom-seccomp.md).
+Повний приклад практичного проекту із розгортанням пісочниці та RAII-обгортками наведено у [практичному проекті інкапсуляції Seccomp](topic:unix-linux/seccomp-bpf-filtering/proj-custom-seccomp.md).
 
 ## 8. Застосування в контейнерних екосистемах (Docker та Kubernetes)
 

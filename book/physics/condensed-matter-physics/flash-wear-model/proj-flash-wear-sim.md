@@ -371,4 +371,4 @@ erfc(z) = (2 / √π) · ∫_z^∞ exp(-t²) dt
 
 ---
 
-*Повернутися до основної статті: [Знос Flash: charge trapping і ресурс запису](book:physics/flash-wear-model).*
+*Повернутися до основної статті: [Знос Flash: charge trapping і ресурс запису](topic:physics/flash-wear-model).*

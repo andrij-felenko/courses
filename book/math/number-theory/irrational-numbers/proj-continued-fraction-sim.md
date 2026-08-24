@@ -96,7 +96,7 @@ void calculateContinuedFraction(long long D, long long m_start = 0, long long d_
     }
     std::cout << ")]" << std::endl;
     
-    std::cout << "[Періодичність раціональних двійкових дробів](book:math/binary-period-length): " << a_seq.size() - period_start << std::endl;
+    std::cout << "[Періодичність раціональних двійкових дробів](topic:math/binary-period-length): " << a_seq.size() - period_start << std::endl;
 }
 
 int main() {

@@ -1,7 +1,7 @@
 # Підсистема аудиту ядра (Linux Audit Framework)
 
 <preknowlist>
-- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
+- [Концепції ядра Linux](topic:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
 </preknowlist>
 
 У сучасних системах Linux безпека та спостережність (observability) є критичними для надійності. **Linux Audit Framework** — це підсистема ядра, що фіксує події доступу до системи. Вона перехоплює системні виклики (syscalls), доступ до файлів та зміни конфігурації безпосередньо в ядрі.

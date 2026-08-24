@@ -34,7 +34,7 @@ Microsoft оформила відповідь у документі «Virtual Ma
 
 ## Суперечка про сповіщення
 
-Те, що Доненфельд свідомо не дав, спробували додати наново — і вийшла показова історія про те, як у ядрі домовляються про [стабільний інтерфейс до простору користувача](book:unix-linux/userspace-abi-stability).
+Те, що Доненфельд свідомо не дав, спробували додати наново — і вийшла показова історія про те, як у ядрі домовляються про [стабільний інтерфейс до простору користувача](topic:unix-linux/userspace-abi-stability).
 
 31 травня 2023 року Бабіс Халіос (Babis Chalios), теж з Amazon, надіслав патч «vmgenid: emit uevent when VMGENID updates»: на кожне ACPI-сповіщення драйвер надсилає подію udev, і будь-яка служба може на неї підписатися. Патч у ядро потрапив. А 18 квітня 2024 року Доненфельд вніс revert із приміткою, яка не залишає простору для тлумачень: «I had nak'd it, and Greg said on the thread that he wasn't going to take it either, especially since it's not his code or his tree, but then, seemingly accidentally, it got pushed up some months later» — тобто патч був відхилений під час розгляду, а через кілька місяців усе одно опинився в дереві, схоже, випадково. Revert підписав `Acked-by` Грег Кроа-Гартман (Greg Kroah-Hartman) і позначено `Cc: stable`, тож вилучення розійшлося й по стабільних гілках.
 

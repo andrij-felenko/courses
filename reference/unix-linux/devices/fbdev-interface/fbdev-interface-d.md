@@ -20,7 +20,7 @@
 1. Отримання параметрів екрана (роздільної здатності, глибини кольору) через `ioctl`.
 2. Відображення пам'яті кадрового буфера в адресний простір процесу за допомогою `mmap`.
 
-[Деталі структур API кадрового буфера](book:unix-linux/fbdev-interface/api-fbdev-structs.md)
+[Деталі структур API кадрового буфера](topic:unix-linux/fbdev-interface/api-fbdev-structs.md)
 
 Після `mmap`, малювання на екрані стає тривіальною операцією запису в пам'ять. Кожен піксель має певне зміщення у цьому масиві, яке обчислюється за формулою:
 `offset = (y * line_length) + (x * bytes_per_pixel)`
@@ -29,7 +29,7 @@
 
 *Після `mmap` запис за вказівником у процесі потрапляє просто в кадровий буфер — жодного копіювання чи окремого виклику «показати» не потрібно.*
 
-[Приклад C-програми для малювання у fb0](book:unix-linux/fbdev-interface/proj-raw-fb-draw.md)
+[Приклад C-програми для малювання у fb0](topic:unix-linux/fbdev-interface/proj-raw-fb-draw.md)
 
 ## Занепад застарілого fbdev і перехід до DRM/KMS
 
@@ -37,7 +37,7 @@
 
 Тому екосистема Linux перейшла на новий стек: Direct Rendering Manager (DRM) та Kernel Mode Setting (KMS). DRM/KMS надає тонке і сучасне управління дисплеями, площинами (planes) і буферами, що дозволяє композитним менеджерам і графічним серверам ефективно розподіляти ресурси GPU.
 
-[Історія переходу від fbdev до DRM](book:unix-linux/fbdev-interface/hist-fbdev-to-drm.md)
+[Історія переходу від fbdev до DRM](topic:unix-linux/fbdev-interface/hist-fbdev-to-drm.md)
 
 ## Емуляція fbdev у DRM (DRM_FBDEV_EMULATION)
 

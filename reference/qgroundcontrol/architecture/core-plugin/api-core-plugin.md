@@ -55,7 +55,7 @@ virtual void adjustSettingMetaData(const QString &settingsGroup,
 | `overrideSettingsGroupVisibility(name)` | `true` | конструктор `SettingsGroup::SettingsGroup(...)` — рівно один раз на групу налаштувань, у момент її створення |
 | `adjustSettingMetaData(group, meta, userVisible)` | правки за платформою: ховає 3D-огляд на Android, підправляє типові значення палітри й телеметрії | наприкінці статичної `SettingsManager::adjustSettingMetaData(...)`, яку кличе конструктор `SettingsFact` — один раз на кожен факт налаштувань |
 
-Ключове про `adjustSettingMetaData`: `metaData` приходить **не-константним посиланням**, тож типове значення, межі й видимість міняються на місці, ще до того, як з метаданих зробиться готовий факт. `userVisible` теж посилання — записане в нього `false` ховає одне налаштування, тоді як `overrideSettingsGroupVisibility` ховає цілу групу. Що таке факт і його метадані — у [фактовій системі](book:qgroundcontrol/fact-system); де ці значення осідають між запусками — у [налаштуваннях](book:qgroundcontrol/settings-persistence).
+Ключове про `adjustSettingMetaData`: `metaData` приходить **не-константним посиланням**, тож типове значення, межі й видимість міняються на місці, ще до того, як з метаданих зробиться готовий факт. `userVisible` теж посилання — записане в нього `false` ховає одне налаштування, тоді як `overrideSettingsGroupVisibility` ховає цілу групу. Що таке факт і його метадані — у [фактовій системі](topic:qgroundcontrol/fact-system); де ці значення осідають між запусками — у [налаштуваннях](topic:qgroundcontrol/settings-persistence).
 
 ---
 
@@ -131,7 +131,7 @@ virtual QGeoPositionInfoSource *createPositionSource(QObject *parent) { return n
 
 Дві особливості, через які тут найчастіше ламаються.
 
-**Стертий тип приймальника.** `createVideoSink` повертає `void *`, бо конкретний тип належить відеорушію, а `src/API` його не бачить. Компілятор не перевіряє нічого: що створило розширення, те воно й мусить звільнити у `releaseVideoSink`, і жодна помилка типу не спливе на збірці. Що робить із цими об'єктами сама підсистема — у [відеопідсистемі](book:qgroundcontrol/video-manager).
+**Стертий тип приймальника.** `createVideoSink` повертає `void *`, бо конкретний тип належить відеорушію, а `src/API` його не бачить. Компілятор не перевіряє нічого: що створило розширення, те воно й мусить звільнити у `releaseVideoSink`, і жодна помилка типу не спливе на збірці. Що робить із цими об'єктами сама підсистема — у [відеопідсистемі](topic:qgroundcontrol/video-manager).
 
 **`nullptr` тут не помилка, а вибір.** Менеджер позиції перевіряє відповідь і, коли її немає, іде до системного джерела:
 
@@ -168,7 +168,7 @@ if (!QGCCorePlugin::instance()->mavlinkMessage(this, link, message)) {
 }
 ```
 
-Аргумент `message` — константне посилання, тож перехопити тут можна, а переписати вміст ні. Що таке об'єкт апарата, крізь який тече цей потік, — в [моделі апарата](book:qgroundcontrol/vehicle-object).
+Аргумент `message` — константне посилання, тож перехопити тут можна, а переписати вміст ні. Що таке об'єкт апарата, крізь який тече цей потік, — в [моделі апарата](topic:qgroundcontrol/vehicle-object).
 
 ---
 
@@ -197,7 +197,7 @@ virtual QList<PlanCreator *> planCreators(PlanMasterController *planMasterContro
 | `saveToJson()` | `preSaveToJson` → `preSaveToMissionJson` → `postSaveToMissionJson` → `postSaveToJson` |
 | `loadFromFile()` | `preLoadFromJson` → `postLoadFromJson` |
 
-Пара з іменем `…MissionJson` працює з вкладеним об'єктом місії, звичайна пара — з кореневим об'єктом усього плану. Обидва — не-константні посилання, тож власні ключі кладуться просто туди; чужа станція їх проігнорує. Що всередині цього файлу — у [моделі плану](book:qgroundcontrol/plan-model).
+Пара з іменем `…MissionJson` працює з вкладеним об'єктом місії, звичайна пара — з кореневим об'єктом усього плану. Обидва — не-константні посилання, тож власні ключі кладуться просто туди; чужа станція їх проігнорує. Що всередині цього файлу — у [моделі плану](topic:qgroundcontrol/plan-model).
 
 | Метод | Типова відповідь | Хто викликає й коли |
 |---|---|---|
@@ -213,7 +213,7 @@ entry[QStringLiteral("canonicalName")]  = QString(canonical);   // цим ряд
 entry[QStringLiteral("translatedName")] = translated;           // це побачить користувач у меню
 ```
 
-Саме `canonicalName` повертається потім у `complexItemType` фабрики, і саме він же лежить у збереженому файлі плану — тож при завантаженні `createComplexMissionItem` кличеться з тим самим рядком. Розбіжність в один символ між списком і фабрикою не помітить ні компілятор, ні збірка. Про самі елементи — в [елементах місії](book:qgroundcontrol/mission-items).
+Саме `canonicalName` повертається потім у `complexItemType` фабрики, і саме він же лежить у збереженому файлі плану — тож при завантаженні `createComplexMissionItem` кличеться з тим самим рядком. Розбіжність в один символ між списком і фабрикою не помітить ні компілятор, ні збірка. Про самі елементи — в [елементах місії](topic:qgroundcontrol/mission-items).
 
 ---
 
@@ -545,7 +545,7 @@ QGCCorePlugin *QGCCorePlugin::instance()
 }
 ```
 
-Приписка `CACHE INTERNAL "" FORCE` тут не оздоба, а необхідність: тека виробника і тека `src` — різні каталоги збірки, і звичайна змінна з однієї в другу не долетить. Кеш робить її глобальною, `FORCE` перезаписує значення на кожному переналаштуванні, `INTERNAL` ховає її з очей у графічному налаштовувачі. Механіка кешу — в [кеші та опціях CMake](book:build-systems/cache-and-options); загальні кроки складання — у [збірці застосунку](book:qgroundcontrol/building-qgc), а що з цього виходить як продукт — у [власній збірці](book:qgroundcontrol/custom-build).
+Приписка `CACHE INTERNAL "" FORCE` тут не оздоба, а необхідність: тека виробника і тека `src` — різні каталоги збірки, і звичайна змінна з однієї в другу не долетить. Кеш робить її глобальною, `FORCE` перезаписує значення на кожному переналаштуванні, `INTERNAL` ховає її з очей у графічному налаштовувачі. Механіка кешу — в [кеші та опціях CMake](topic:build-systems/cache-and-options); загальні кроки складання — у [збірці застосунку](topic:qgroundcontrol/building-qgc), а що з цього виходить як продукт — у [власній збірці](topic:qgroundcontrol/custom-build).
 
 ---
 

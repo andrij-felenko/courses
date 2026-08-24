@@ -1,9 +1,9 @@
 # Інцидент очима телеметрії DH
 
 <preknowlist>
-- [Структуровані логи](book:programming/operations/structured-logging) — подія як JSON з контекстом замість сліпого текстового рядка.
-- [Метрики](book:programming/operations/metrics-monitoring) — часові ряди, гістограми та перцентилі p95/p99 для виявлення деградації системи.
-- [Розподілений трейсинг](book:programming/operations/distributed-tracing) — пересилання `traceparent` крізь сервіси для побудови спанів і зв'язування викликів.
+- [Структуровані логи](topic:programming/structured-logging) — подія як JSON з контекстом замість сліпого текстового рядка.
+- [Метрики](topic:programming/metrics-monitoring) — часові ряди, гістограми та перцентилі p95/p99 для виявлення деградації системи.
+- [Розподілений трейсинг](topic:programming/distributed-tracing) — пересилання `traceparent` крізь сервіси для побудови спанів і зв'язування викликів.
 - [Реляційне сховище як рішення](root:progarch/storage-as-decision) — планувальник запитів, індексація та блокування рядків у реляційних базах даних.
 </preknowlist>
 

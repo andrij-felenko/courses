@@ -1,9 +1,9 @@
 # Старт продажу на топ-концерт: Архітектура Virtual Waiting Room
 
 <preknowlist>
-- [Навантаження спалахами (Flash Crowds)](book:programming/distributed-systems/flash-crowds) — феномен масового одночасного трафіку та чому звичайне масштабування (autoscaling) не встигає реагувати.
-- [Управління потоком (Rate Limiting та Throttling)](book:programming/distributed-systems/rate-limiting) — алгоритми обмеження частоти запитів (Token Bucket, Leaky Bucket, Sliding Window).
-- [Токени доступу та криптографічні підписи](book:programming/security/crypto-tokens) — формування JWT/HMAC токенів для безпечного перенаправлення без зберігання стану на Edge.
+- [Навантаження спалахами (Flash Crowds)](topic:programming/distributed-systems/flash-crowds) — феномен масового одночасного трафіку та чому звичайне масштабування (autoscaling) не встигає реагувати.
+- [Управління потоком (Rate Limiting та Throttling)](topic:programming/distributed-systems/rate-limiting) — алгоритми обмеження частоти запитів (Token Bucket, Leaky Bucket, Sliding Window).
+- [Токени доступу та криптографічні підписи](topic:programming/security/crypto-tokens) — формування JWT/HMAC токенів для безпечного перенаправлення без зберігання стану на Edge.
 </preknowlist>
 
 О 10:00:00 стартує продаж квитків на фінал Чемпіонату світу з футболу або концерт стадіонного масштабу. За перші 500 мілісекунд понад 500 000 користувачів одночасно натискають кнопку оновлення сторінки або надсилають HTTP-запити на вибір місця у залі. Фізично допустима спроможність транзакційного ядра платформи (Origin Database та API Gateway) становить 5 000 активних сесій на секунду. Без надійного захисту така сторазова перевантаженість за частки секунди призводить до вичерпання пулу з'єднань із базою даних, дедлоків на транзакціях блокування місць, каскадних таймаутів HTTP 504 та повного краху системи.

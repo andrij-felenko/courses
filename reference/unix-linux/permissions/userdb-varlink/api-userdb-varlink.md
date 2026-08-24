@@ -102,7 +102,7 @@ error EnumerationNotSupported()
 | `service` | що відповідає |
 |---|---|
 | `io.systemd.Multiplexer` | усе, що є на машині: обхід решти сокетів робиться за клієнта |
-| `io.systemd.NameServiceSwitch` | лише те, що дає [класичний перемикач](book:unix-linux/user-database-nss) |
+| `io.systemd.NameServiceSwitch` | лише те, що дає [класичний перемикач](topic:unix-linux/user-database-nss) |
 | `io.systemd.DropIn` | лише записи з файлів у теках `userdb` |
 
 Будь-яке інше значення — і навіть просто відсутність поля — дає `BadService`.
@@ -126,7 +126,7 @@ error EnumerationNotSupported()
 
 ## Кадр на дроті
 
-З'єднання — [сокет домену Unix](book:unix-linux/unix-domain-sockets) типу `SOCK_STREAM`. Кадр — один об'єкт [JSON](book:programming/json-format), за яким іде один нульовий байт. Роздільник обрано саме такий, бо всередині коректного JSON нульовий байт не трапляється ніколи: розбирати потік можна, не рахуючи дужок і не знаючи довжини наперед.
+З'єднання — [сокет домену Unix](topic:unix-linux/unix-domain-sockets) типу `SOCK_STREAM`. Кадр — один об'єкт [JSON](topic:programming/json-format), за яким іде один нульовий байт. Роздільник обрано саме такий, бо всередині коректного JSON нульовий байт не трапляється ніколи: розбирати потік можна, не рахуючи дужок і не знаючи довжини наперед.
 
 Виклик:
 

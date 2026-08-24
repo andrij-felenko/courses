@@ -1,8 +1,8 @@
 # Рушій виразів nftables у ядрах Linux (nftables vs iptables)
 
 <preknowlist>
-- [Модель Netfilter та хуки ядра Linux](book:unix-linux/netfilter-model) — базові п'ять хуків Netfilter (PRE_ROUTING, LOCAL_IN, FORWARD, LOCAL_OUT, POST_ROUTING) та техніка проходження пакета `sk_buff`.
-- [Протокол Netlink](book:unix-linux/netlink-protocol) — асинхронний бінарний протокол зв'язку між ядром та простором користувача через підсистему `nfnetlink`.
+- [Модель Netfilter та хуки ядра Linux](topic:unix-linux/netfilter-model) — базові п'ять хуків Netfilter (PRE_ROUTING, LOCAL_IN, FORWARD, LOCAL_OUT, POST_ROUTING) та техніка проходження пакета `sk_buff`.
+- [Протокол Netlink](topic:unix-linux/netlink-protocol) — асинхронний бінарний протокол зв'язку між ядром та простором користувача через підсистему `nfnetlink`.
 </preknowlist>
 
 При обробці мережевого трафіку на швидкостях 10, 40 та 100 Гбіт/с кожен додатковий виклик функції у ядрі Linux коштує дорогоцінних тактів процесора. Протягом двох десятиліть стандартним засобом фільтрації пакетів залишався `iptables`. Проте його монолітна архітектура, де кожне правило описувалося статичними модулями ядра, а перевірка здійснювалася лінійним перебором за `O(N)`, стала головним пляшковим горлом мережевого стеку. Підсистема `nftables` вирішує цю проблему принципово іншим чином: замість набору жорстко закодованих у ядрі перевірок вона впроваджує в ядрі Linux програмовану віртуальну машину (Virtual Machine, VM), яка виконує компактний байт-код виразів.
@@ -11,7 +11,7 @@
 
 ## 1. Чому монолітний iptables вичерпав свій ресурс
 
-Щоб зрозуміти причини появи `nftables`, необхідно проаналізувати архітектурні обмеження `iptables`, які унеможливлювали подальше масштабування брандмауера в сучасних високонавантажених системах. Для детальнішого занурення у передісторію див. [історію еволюції Netfilter від ipfwadm до nftables](book:unix-linux/netfilter-nftables-expression-engine/hist-iptables-to-nftables.md).
+Щоб зрозуміти причини появи `nftables`, необхідно проаналізувати архітектурні обмеження `iptables`, які унеможливлювали подальше масштабування брандмауера в сучасних високонавантажених системах. Для детальнішого занурення у передісторію див. [історію еволюції Netfilter від ipfwadm до nftables](topic:unix-linux/netfilter-nftables-expression-engine/hist-iptables-to-nftables.md).
 
 ### 1.1. Дублювання коду та фрагментація сімейства uapi
 
@@ -77,7 +77,7 @@
 
 Одиницею виконання у віртуальній машині `nftables` є **вираз** (`nft_expr`). Послідовність виразів формує правило (`nft_rule`), а послідовність правил — ланцюжок (`nft_chain`).
 
-Для ознайомлення з повним бінарним API та структурами даних див. [повну специфікацію виразів, регістрів та Netlink-інтерфейсу nftables](book:unix-linux/netfilter-nftables-expression-engine/api-nftables-expressions.md).
+Для ознайомлення з повним бінарним API та структурами даних див. [повну специфікацію виразів, регістрів та Netlink-інтерфейсу nftables](topic:unix-linux/netfilter-nftables-expression-engine/api-nftables-expressions.md).
 
 ### 3.1. Ядерна структура struct nft_expr
 
@@ -229,7 +229,7 @@ nft add rule filter input tcp dport 22 drop
 +---+---------------------------------------------------------+-----------------------------------+
 ```
 
-Для ознайомлення з повною реалізацією емулятора цього циклу мовами C та C++ див. [практичну реалізацію інтерпретатора байт-коду nftables](book:unix-linux/netfilter-nftables-expression-engine/proj-nftables-bytecode-emulator.md).
+Для ознайомлення з повною реалізацією емулятора цього циклу мовами C та C++ див. [практичну реалізацію інтерпретатора байт-коду nftables](topic:unix-linux/netfilter-nftables-expression-engine/proj-nftables-bytecode-emulator.md).
 
 ---
 

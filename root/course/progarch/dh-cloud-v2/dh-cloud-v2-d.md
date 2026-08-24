@@ -1,12 +1,12 @@
 # DH переїздить
 
 <preknowlist>
-- [Ерозія архітектури](book:programming/architecture-discipline/architecture-erosion) — розходження між задуманою та реалізованою архітектурою під тиском років.
-- [Strangler fig](book:programming/software-design/strangler-fig) — еволюційна заміна легасі-системи шляхом обгортання новими сервісами.
-- [Rewrite vs refactor](book:programming/architecture-discipline/rewrite-vs-refactor) — вибір між ризикованим переписуванням з нуля та поетапним оздоровленням.
-- [Zero-downtime міграції даних](book:programming/zero-downtime-migration) — трифазний підхід expand-migrate-contract для схем і даних під навантаженням.
-- [Оцінка зворотності рішень](book:programming/architecture-discipline/reversible-irreversible-decisions) — розрізнення односторонніх (One-Way Door) та двосторонніх (Two-Way Door) рішень.
-- [Функції пристосованості](book:programming/architecture-discipline/fitness-functions) — автоматизовані перевірки дотримання архітектурних обмежень.
+- [Ерозія архітектури](topic:programming/architecture-erosion) — розходження між задуманою та реалізованою архітектурою під тиском років.
+- [Strangler fig](topic:programming/strangler-fig) — еволюційна заміна легасі-системи шляхом обгортання новими сервісами.
+- [Rewrite vs refactor](topic:programming/rewrite-vs-refactor) — вибір між ризикованим переписуванням з нуля та поетапним оздоровленням.
+- [Zero-downtime міграції даних](topic:programming/zero-downtime-migration) — трифазний підхід expand-migrate-contract для схем і даних під навантаженням.
+- [Оцінка зворотності рішень](topic:programming/reversible-irreversible-decisions) — розрізнення односторонніх (One-Way Door) та двосторонніх (Two-Way Door) рішень.
+- [Функції пристосованості](topic:programming/fitness-functions) — автоматизовані перевірки дотримання архітектурних обмежень.
 - [DH: фінал тактик змін і кешування](root:progarch/change-and-cache-tactics/dh-change-cache-final) — чотирифазна міграція кешу та подійний інвалідатор Твіна.
 </preknowlist>
 

@@ -16,7 +16,7 @@
 └─ iscsi/ loopback/ vhost/ qla2xxx/ srpt/ sbp/ xen-pvscsi/      ЯК віддаємо
 ```
 
-Тека фабрики з'являється сама, щойно завантажено її модуль, і зникає з його вивантаженням; створити її `mkdir` не можна. Гілки `core/` і фабрики не знають одна про одну — єдиний місток між ними, символьне посилання з `lun/`, з'являється аж наприкінці налаштування. Загальну механіку — чому тут `mkdir` не заводить каталог, а породжує в ядрі об'єкт, — описує [configfs](book:unix-linux/configfs).
+Тека фабрики з'являється сама, щойно завантажено її модуль, і зникає з його вивантаженням; створити її `mkdir` не можна. Гілки `core/` і фабрики не знають одна про одну — єдиний місток між ними, символьне посилання з `lun/`, з'являється аж наприкінці налаштування. Загальну механіку — чому тут `mkdir` не заводить каталог, а породжує в ядрі об'єкт, — описує [configfs](topic:unix-linux/configfs).
 
 ## Гілка core: пристрій, якого ще немає
 
@@ -49,7 +49,7 @@ core/iblock_0/                ← mkdir: контейнер HBA
 | `pscsi` | `scsi_host_id=`, `scsi_channel_id=`, `scsi_target_id=`, `scsi_lun_id=` | адреса H:C:T:L справжнього пристрою в цій машині |
 | `user` | `dev_config=`, `dev_size=`, `hw_block_size=`, `hw_max_sectors=`, `nl_reply_supported=`, `max_data_area_mb=`, `data_pages_per_blk=`, `cmd_ring_size_mb=` | `dev_config` — рядок, який ядро не тлумачить, а передає демонові |
 
-Один токен варто виділити. `fd_buffered_io=1` — це не оптимізація, а зміна гарантії: без нього fileio відкриває файл із `O_DSYNC`, з ним записи осідають у сторінковому кеші цілі. Саме тому цей прапорець нерозривно пов'язаний з `attrib/emulate_write_cache`: оголосити «кешу немає», склавши записи в кеш, означає збрехати ініціаторові про довговічність. Різницю між двома режимами розбирає [буферизований і прямий ввід-вивід](book:unix-linux/buffered-and-direct-io) — байти або лежать у чужій оперативці до скидання, або вже на носії, коли повернувся системний виклик.
+Один токен варто виділити. `fd_buffered_io=1` — це не оптимізація, а зміна гарантії: без нього fileio відкриває файл із `O_DSYNC`, з ним записи осідають у сторінковому кеші цілі. Саме тому цей прапорець нерозривно пов'язаний з `attrib/emulate_write_cache`: оголосити «кешу немає», склавши записи в кеш, означає збрехати ініціаторові про довговічність. Різницю між двома режимами розбирає [буферизований і прямий ввід-вивід](topic:unix-linux/buffered-and-direct-io) — байти або лежать у чужій оперативці до скидання, або вже на носії, коли повернувся системний виклик.
 
 Плагін `user` (TCMU) додає до `attrib/` власні файли: `cmd_time_out`, `qfull_time_out`, `dev_config`, `dev_size`, `emulate_write_cache`, `tmr_notification`, `nl_reply_supported`, а на читання — `max_data_area_mb`, `data_pages_per_blk`, `cmd_ring_size_mb`; окремо стоять дії `block_dev`, `reset_ring` і `free_kept_buf` — запис у них не запам'ятовується, а негайно щось робить із кільцем команд.
 
@@ -82,7 +82,7 @@ core/iblock_0/                ← mkdir: контейнер HBA
 
 Файла `max_sectors` у сучасних ядрах немає — його прибрали ще до 4.9, і настанови, які радять у нього писати, застаріли на десятиліття. Стеля читається з `hw_max_sectors`, а підказка ініціаторові дається через `optimal_sectors`.
 
-Тонкі теми `emulate_tpu`/`emulate_tpws` мають ціну далі по ланцюжку: ввімкнений `UNMAP` означає, що файлова система гостя зможе повернути місце вниз, аж до справжнього `discard` на носії — про механіку цього повернення й про те, чому воно не безкоштовне, є [discard і TRIM](book:unix-linux/discard-and-trim). Так само `pi_prot_type` вмикає додаткові байти на сектор і наскрізну перевірку контрольної суми — [профіль цілісності блокового шару](book:unix-linux/block-integrity-profile) пояснює, звідки ці байти беруться й хто їх рахує.
+Тонкі теми `emulate_tpu`/`emulate_tpws` мають ціну далі по ланцюжку: ввімкнений `UNMAP` означає, що файлова система гостя зможе повернути місце вниз, аж до справжнього `discard` на носії — про механіку цього повернення й про те, чому воно не безкоштовне, є [discard і TRIM](topic:unix-linux/discard-and-trim). Так само `pi_prot_type` вмикає додаткові байти на сектор і наскрізну перевірку контрольної суми — [профіль цілісності блокового шару](topic:unix-linux/block-integrity-profile) пояснює, звідки ці байти беруться й хто їх рахує.
 
 ### wwn/ — ким пристрій себе називає
 
@@ -100,9 +100,9 @@ core/iblock_0/                ← mkdir: контейнер HBA
 
 ### pr/ і alua/
 
-Тека `pr/` — суто на читання, це знімок стану: `res_holder`, `res_type`, `res_pr_type`, `res_pr_generation`, `res_pr_holder_tg_port`, `res_pr_registered_i_pts`, `res_pr_all_tgt_pts`, `res_aptpl_active`, `res_aptpl_metadata`. Керують резерваціями не звідси, а командами `PERSISTENT RESERVE IN`/`OUT` від самих ініціаторів; конфігурація лише вмикає механізм (`attrib/emulate_pr`) і вирішує, чи переживає він перезавантаження (`force_pr_aptpl` плюс `dbroot`). Що це за механізм і чому кластерові без нього не обійтися — у [постійних резерваціях SCSI](book:unix-linux/scsi-persistent-reservations): вузол реєструє на LUN ключ, а той, хто вижив, витісняє ключ мовчазного сусіда.
+Тека `pr/` — суто на читання, це знімок стану: `res_holder`, `res_type`, `res_pr_type`, `res_pr_generation`, `res_pr_holder_tg_port`, `res_pr_registered_i_pts`, `res_pr_all_tgt_pts`, `res_aptpl_active`, `res_aptpl_metadata`. Керують резерваціями не звідси, а командами `PERSISTENT RESERVE IN`/`OUT` від самих ініціаторів; конфігурація лише вмикає механізм (`attrib/emulate_pr`) і вирішує, чи переживає він перезавантаження (`force_pr_aptpl` плюс `dbroot`). Що це за механізм і чому кластерові без нього не обійтися — у [постійних резерваціях SCSI](topic:unix-linux/scsi-persistent-reservations): вузол реєструє на LUN ключ, а той, хто вижив, витісняє ключ мовчазного сусіда.
 
-Тека `alua/default_tg_pt_gp/` описує групу портів: `alua_access_state` і `alua_access_status`, `alua_access_type` (неявний, явний чи обидва), сім прапорців `alua_support_*` на кожен оголошуваний стан, `preferred`, `tg_pt_gp_id`, `members`, `alua_write_metadata`, а також затримки `nonop_delay_msecs`, `trans_delay_msecs`, `implicit_trans_secs`. Група LU — простіша: `lu_gp_id` і `members`. Саме ці стани читає з іншого боку [multipath](book:unix-linux/dm-multipath), вирішуючи, який шлях зараз оптимальний.
+Тека `alua/default_tg_pt_gp/` описує групу портів: `alua_access_state` і `alua_access_status`, `alua_access_type` (неявний, явний чи обидва), сім прапорців `alua_support_*` на кожен оголошуваний стан, `preferred`, `tg_pt_gp_id`, `members`, `alua_write_metadata`, а також затримки `nonop_delay_msecs`, `trans_delay_msecs`, `implicit_trans_secs`. Група LU — простіша: `lu_gp_id` і `members`. Саме ці стани читає з іншого боку [multipath](topic:unix-linux/dm-multipath), вирішуючи, який шлях зараз оптимальний.
 
 ## Гілка фабрики: iscsi/
 
@@ -155,7 +155,7 @@ iscsi/                                        ← після modprobe iscsi_targ
 
 ### param/ і auth/
 
-У `param/` лежать стартові значення ключів, які ціль пропонує на логіні: `AuthMethod`, `HeaderDigest`, `DataDigest`, `MaxConnections`, `TargetAlias`, `InitialR2T`, `ImmediateData`, `MaxRecvDataSegmentLength`, `MaxXmitDataSegmentLength`, `MaxBurstLength`, `FirstBurstLength`, `DefaultTime2Wait`, `DefaultTime2Retain`, `MaxOutstandingR2T`, `DataPDUInOrder`, `DataSequenceInOrder`, `ErrorRecoveryLevel`, `IFMarker`, `OFMarker`, `IFMarkInt`, `OFMarkInt`. Це не налаштування з'єднання, а **позиція в перемовинах**: остаточне значення виходить із зустрічної пропозиції ініціатора, і змінене число діє лише на сеанси, що заходять після правки. Як саме домовляються два боки, розбирає [iSCSI у Linux](book:unix-linux/iscsi-in-linux).
+У `param/` лежать стартові значення ключів, які ціль пропонує на логіні: `AuthMethod`, `HeaderDigest`, `DataDigest`, `MaxConnections`, `TargetAlias`, `InitialR2T`, `ImmediateData`, `MaxRecvDataSegmentLength`, `MaxXmitDataSegmentLength`, `MaxBurstLength`, `FirstBurstLength`, `DefaultTime2Wait`, `DefaultTime2Retain`, `MaxOutstandingR2T`, `DataPDUInOrder`, `DataSequenceInOrder`, `ErrorRecoveryLevel`, `IFMarker`, `OFMarker`, `IFMarkInt`, `OFMarkInt`. Це не налаштування з'єднання, а **позиція в перемовинах**: остаточне значення виходить із зустрічної пропозиції ініціатора, і змінене число діє лише на сеанси, що заходять після правки. Як саме домовляються два боки, розбирає [iSCSI у Linux](topic:unix-linux/iscsi-in-linux).
 
 `auth/` містить `userid`, `password`, `userid_mutual`, `password_mutual` і `authenticate_target` — CHAP для звичайного логіну; така сама п'ятірка з додатковим `enforce_discovery_auth` лежить у `discovery_auth/` і стосується етапу пошуку цілей. Ті самі файли є і всередині кожного ACL — тоді пароль свій на кожного ініціатора.
 

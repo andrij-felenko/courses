@@ -20,7 +20,7 @@ long keyctl(int operation, ...);
 
 `key_serial_t` — це знакове 32-бітне число. Успіх `add_key` і `request_key` — порядковий номер ключа, невдача — `-1` з виставленим `errno`. У `request_key` аргумент `callout_info` вирішує все: `NULL` означає «просто пошукай», непорожній рядок — «а якщо не знайдеш, запусти `/sbin/request-key` і передай йому оцей рядок».
 
-[Бібліотека C](book:unix-linux/libc-as-gateway) обгорток для цих трьох викликів **не має** — сторінки довідника прямо про це попереджають. Обгортки дає окремий пакет `keyutils` — заголовок `<keyutils.h>`, лінкування `-lkeyutils`. Без нього лишається `syscall(__NR_add_key, …)` вручну. Замість голого `keyctl(op, …)` пакет пропонує типізовані функції на кожну операцію: `keyctl_search()`, `keyctl_read()`, `keyctl_setperm()` і решта.
+[Бібліотека C](topic:unix-linux/libc-as-gateway) обгорток для цих трьох викликів **не має** — сторінки довідника прямо про це попереджають. Обгортки дає окремий пакет `keyutils` — заголовок `<keyutils.h>`, лінкування `-lkeyutils`. Без нього лишається `syscall(__NR_add_key, …)` вручну. Замість голого `keyctl(op, …)` пакет пропонує типізовані функції на кожну операцію: `keyctl_search()`, `keyctl_read()`, `keyctl_setperm()` і решта.
 
 ## Куди класти: спеціальні номери кілець
 
@@ -62,7 +62,7 @@ long keyctl(int operation, ...);
 | 14 | `KEYCTL_SET_REQKEY_KEYRING` | — | куди типово класти результат `request_key` |
 | 15 | `KEYCTL_SET_TIMEOUT` | `timeout` | строк придатності в секундах; `0` знімає |
 | 16 | `KEYCTL_ASSUME_AUTHORITY` | — | помічник заявляє повноваження на один ключ |
-| 17 | `KEYCTL_GET_SECURITY` | `security` | мітка [LSM](book:unix-linux/lsm-framework) ключа |
+| 17 | `KEYCTL_GET_SECURITY` | `security` | мітка [LSM](topic:unix-linux/lsm-framework) ключа |
 | 18 | `KEYCTL_SESSION_TO_PARENT` | — | нав'язати батьківському процесу свій сеанс |
 | 19 | `KEYCTL_REJECT` | `reject` | від'ємне наповнення з конкретним `errno` |
 | 20 | `KEYCTL_INSTANTIATE_IOV` | — | те саме, що 12, але з розсипаних буферів |
@@ -105,7 +105,7 @@ encrypted:  new [default|ecryptfs|enc32] <тип>:<ім'я-господаря> <
             update <тип>:<ім'я-господаря>
 ```
 
-Господарем для `encrypted` може бути ключ типу `trusted` або `user` — і більше ніякий. Джерело довіри для `trusted` обирають параметром модуля `trusted.source=`: `tpm` ([TPM](book:programming/tpm-root-of-trust)), `tee` (OP-TEE на Arm TrustZone), `caam` (блок у SoC від NXP), `dcp` (прискорювач в i.MX).
+Господарем для `encrypted` може бути ключ типу `trusted` або `user` — і більше ніякий. Джерело довіри для `trusted` обирають параметром модуля `trusted.source=`: `tpm` ([TPM](topic:programming/tpm-root-of-trust)), `tee` (OP-TEE на Arm TrustZone), `caam` (блок у SoC від NXP), `dcp` (прискорювач в i.MX).
 
 Правило прийому для `KEYCTL_RESTRICT_KEYRING` задають парою «тип; обмеження»: `asymmetric; builtin_trusted`, `asymmetric; builtin_and_secondary_trusted` або `asymmetric; key_or_keyring:<ключ>[:chain]`. Порожній тип означає «не приймати нічого взагалі».
 
@@ -147,7 +147,7 @@ $ cat /proc/key-users
    uid  usage nkeys/nikeys qnkeys/maxkeys qnbytes/maxbytes
 ```
 
-`nkeys` — усі ключі UID, `nikeys` — з них наповнені; далі йдуть дві пари «спожито / стеля». Стелі й таймери крутить [sysctl](book:unix-linux/sysctl-tunables):
+`nkeys` — усі ключі UID, `nikeys` — з них наповнені; далі йдуть дві пари «спожито / стеля». Стелі й таймери крутить [sysctl](topic:unix-linux/sysctl-tunables):
 
 | Файл у `/proc/sys/kernel/keys/` | Типово |
 |---|---|
@@ -183,7 +183,7 @@ $ cat /proc/key-users
 маска = 0x3f·2²⁴ + 0x09·2¹⁶ = 0x3f090000
 ```
 
-Це вже не [трійка «власник · група · решта»](book:unix-linux/permission-bits): перший байт відповідає не на питання «хто ти», а на «чи дотягуєшся». Маска не може дати того, чого не дозволяє тип: перевірку типу проходять раніше за перевірку прав.
+Це вже не [трійка «власник · група · решта»](topic:unix-linux/permission-bits): перший байт відповідає не на питання «хто ти», а на «чи дотягуєшся». Маска не може дати того, чого не дозволяє тип: перевірку типу проходять раніше за перевірку прав.
 
 ## Помилки
 
@@ -192,7 +192,7 @@ $ cat /proc/key-users
 | `ENOKEY` | пари «тип + опис» не знайдено; або такого номера немає; або ключ наповнено від'ємно через `negate` |
 | `EKEYEXPIRED` | ключ або кільце протухли за строком |
 | `EKEYREVOKED` | по ключу пройшлися `revoke` |
-| `EKEYREJECTED` | від'ємне наповнення через `reject`; саме це видно як «Key was rejected by service» при відмові перевірити підпис [модуля](book:unix-linux/kernel-modules) |
+| `EKEYREJECTED` | від'ємне наповнення через `reject`; саме це видно як «Key was rejected by service» при відмові перевірити підпис [модуля](topic:unix-linux/kernel-modules) |
 | `EACCES` | у масці бракує потрібного біта — і в байті тримача, і у вашому |
 | `EPERM` | ім'я типу починається з крапки; або опис кільця починається з крапки |
 | `EOPNOTSUPP` | тип не вміє цієї операції — це відповідь на `read` для `logon` |

@@ -1,10 +1,10 @@
 # Організація як архітектура
 
 <preknowlist>
-- [Закон Конвея](book:programming/software-design/conways-law) — структура системи відображає комунікаційну структуру організації.
-- [Inverse Conway Maneuver](book:programming/architecture-discipline/inverse-conway) — свідоме проєктування команд під цільову архітектуру.
-- [Team Topologies](book:programming/architecture-discipline/team-topologies) — класифікація команд (Stream-Aligned, Platform, Enabling, Complicated-Subsystem) та типів взаємодії.
-- [Когнітивне навантаження команди](book:programming/architecture-discipline/cognitive-load-teams) — межі людської уваги як первинний критерій розкрою сервісів.
+- [Закон Конвея](topic:programming/conways-law) — структура системи відображає комунікаційну структуру організації.
+- [Inverse Conway Maneuver](topic:programming/inverse-conway) — свідоме проєктування команд під цільову архітектуру.
+- [Team Topologies](topic:programming/team-topologies) — класифікація команд (Stream-Aligned, Platform, Enabling, Complicated-Subsystem) та типів взаємодії.
+- [Когнітивне навантаження команди](topic:programming/cognitive-load-teams) — межі людської уваги як первинний критерій розкрою сервісів.
 - [Передачі й володіння як джерело затримки](root:progarch/conway-and-teams/handoffs-and-ownership) — затримки у міжкомандних чергах та моделі володіння кодом.
 </preknowlist>
 

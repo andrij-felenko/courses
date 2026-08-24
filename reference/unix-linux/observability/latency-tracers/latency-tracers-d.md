@@ -1,9 +1,9 @@
 # Трасувальники затримок: osnoise, timerlat і rtla
 
 <preknowlist>
-- [Налагодові ВФС: debugfs та tracefs](book:unix-linux/debugfs-tracefs-kernel-debugging-interfaces) — модальності монтування tracefs та механізм буферів ftrace.
-- [PM QoS: фреймворк управління затримками](book:unix-linux/power-management-qos-framework) — обмеження станів енергозбереження C-states для виключення апаратних затримок.
-- [Файлова система sysfs](book:unix-linux/sysfs-kobject-sysfs-dirent) — інтерфейс взаємодії з параметрами ядра через kobject.
+- [Налагодові ВФС: debugfs та tracefs](topic:unix-linux/debugfs-tracefs-kernel-debugging-interfaces) — модальності монтування tracefs та механізм буферів ftrace.
+- [PM QoS: фреймворк управління затримками](topic:unix-linux/power-management-qos-framework) — обмеження станів енергозбереження C-states для виключення апаратних затримок.
+- [Файлова система sysfs](topic:unix-linux/sysfs-kobject-sysfs-dirent) — інтерфейс взаємодії з параметрами ядра через kobject.
 </preknowlist>
 
 У системах керування робототехнікою, автономним транспортом та високочастотним трейдингом запізнення обробки події навіть на 50 мікросекунд призводить до провалу дедлайну (deadline miss), що у реальному світі еквівально зіткненню маніпулятора з перешкодою або фінансовим збиткам. У таких системах висока середня продуктивність (throughput) є марною, якщо вона супроводжується нестабільними спалахами максимальної затримки (worst-case latency spikes). Для локалізації джерел таких спалахів у ядрі Linux розроблено трасувальники `osnoise` та `timerlat`, а також консольний комплекс `rtla`.
@@ -127,7 +127,7 @@
 - `/proc/softirqs`: показує статистику виконання програмних переривань (`HI`, `TIMER`, `NET_TX`, `NET_RX`, `BLOCK`, `IRQ_POLL`, `TASKLET`, `SCHED`, `HRTIMER`, `RCU`).
 - `/sys/devices/system/cpu/cpu*/topology/`: дозволяє перевірити прив'язку ядер до кеш-пам'яті L3 та сокетів.
 
-📜 Історію наукової формалізації та створення концепції OS Noise Деніелом Брістотом де Олівейра детально висвітлено у вставці [Еволюція вимірювання затримок у Linux: від cyclictest до osnoise, timerlat та rtla](book:unix-linux/latency-tracers/hist-rtla-evolution.md).
+📜 Історію наукової формалізації та створення концепції OS Noise Деніелом Брістотом де Олівейра детально висвітлено у вставці [Еволюція вимірювання затримок у Linux: від cyclictest до osnoise, timerlat та rtla](topic:unix-linux/latency-tracers/hist-rtla-evolution.md).
 
 ## 3. Трасувальник timerlat: вимірювання затримок періодичних завдань
 
@@ -244,7 +244,7 @@ static struct tracer osnoise_tracer __read_mostly = {
 
 У результаті в буфері збережеться ідеальний "знімок часу": детальне трасування всіх викликів функцій ядра, переривань та переключень контексту безпосередньо у момент виникнення затримки, а також протягом кількох мілісекунд до неї.
 
-📋 Детальний довідник усіх параметрів `tracefs`, форматів виводу `trace_pipe` та синтаксису команд наведено у вставці [Інтерфейси керування трасувальниками затримок: sysfs, ftrace та CLI-утиліта rtla](book:unix-linux/latency-tracers/api-rtla-interfaces.md).
+📋 Детальний довідник усіх параметрів `tracefs`, форматів виводу `trace_pipe` та синтаксису команд наведено у вставці [Інтерфейси керування трасувальниками затримок: sysfs, ftrace та CLI-утиліта rtla](topic:unix-linux/latency-tracers/api-rtla-interfaces.md).
 
 ## 5. Набір інструментів rtla (Real-Time Linux Analysis)
 
@@ -384,4 +384,4 @@ echo "0" > /sys/fs/cgroup/rt_tasks/cpuset.cpus.partition
 
 Це гарантує, що жоден інший фоновий контейнер не зможе запланувати свої завдання на виділеному ядрі CPU 2, повністю захищаючи критичні процеси від міжконтейнерного витіснення. Налаштування sysctl додатково вимикають фонові скидання брудних сторінок пам'яті (dirty memory flush) на ізольованих ядрах через `vm.stat_interval = 120`.
 
-⚙️ Практичну реалізацію користувацького стенду вимірювання затримок мовами C та C++ з прикладами використання `mlockall`, `SCHED_FIFO` та автоматичною зупинкою ftrace розібрано у вставці [Практичний стенд вимірювання затримок: інтеграція timerlat, SCHED_FIFO та sysfs](book:unix-linux/latency-tracers/proj-latency-harness.md).
+⚙️ Практичну реалізацію користувацького стенду вимірювання затримок мовами C та C++ з прикладами використання `mlockall`, `SCHED_FIFO` та автоматичною зупинкою ftrace розібрано у вставці [Практичний стенд вимірювання затримок: інтеграція timerlat, SCHED_FIFO та sysfs](topic:unix-linux/latency-tracers/proj-latency-harness.md).

@@ -161,7 +161,7 @@ Location: https://my-app.com/auth/callback?error=access_denied&error_description
 
 ## 4. Структура та стандартні твердження ID-токена (Claims)
 
-ID-токен є підписаним структурованим документом [JSON Web Token (JWT)](book:programming/jwt-tokens). Він складається з заголовка (Header), корисного навантаження (Payload) та цифрового підпису (Signature).
+ID-токен є підписаним структурованим документом [JSON Web Token (JWT)](topic:programming/jwt-tokens). Він складається з заголовка (Header), корисного навантаження (Payload) та цифрового підпису (Signature).
 
 ### Структура заголовка (Header)
 

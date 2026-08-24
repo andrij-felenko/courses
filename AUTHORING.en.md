@@ -347,8 +347,8 @@ Immediately **under the H1** — a list of **prerequisites**, collapsed by defau
 # Заголовок статті
 
 <preknowlist>
-- [Закон Ома](book:electronics/ohm-law) — напруга = струм · опір, базовий зв'язок величин.
-- [Похідна](book:math/derivative) — миттєва швидкість зміни величини.
+- [Закон Ома](topic:electronics/ohm-law) — напруга = струм · опір, базовий зв'язок величин.
+- [Похідна](topic:math/derivative) — миттєва швидкість зміни величини.
 </preknowlist>
 
 <основний текст статті…>

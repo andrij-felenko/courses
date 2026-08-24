@@ -1,9 +1,9 @@
 # copy_file_range, reflink та копіювання на рівні ФС
 
 <preknowlist>
-- [Віртуальна файлова система (VFS)](book:unix-linux/vfs-layer) — абстракція ядра Linux, структура `file_operations` та маршрутизація викликів введення-виведення.
-- [Копіювання через Reflink](book:unix-linux/reflink-copies) — механіка Copy-on-Write на рівні екстентів Btrfs та XFS за допомогою `FICLONE`.
-- [Системний виклик copy_file_range](book:unix-linux/copy-file-range-syscall) — базовий API `copy_file_range(2)` та його чотирирівнева ієрархія offload.
+- [Віртуальна файлова система (VFS)](topic:unix-linux/vfs-layer) — абстракція ядра Linux, структура `file_operations` та маршрутизація викликів введення-виведення.
+- [Копіювання через Reflink](topic:unix-linux/reflink-copies) — механіка Copy-on-Write на рівні екстентів Btrfs та XFS за допомогою `FICLONE`.
+- [Системний виклик copy_file_range](topic:unix-linux/copy-file-range-syscall) — базовий API `copy_file_range(2)` та його чотирирівнева ієрархія offload.
 </preknowlist>
 
 Спроба рантайму контейнеризації `containerd` або системи управління віртуальними машинами KVM скопіювати образ диска розміром 50 Гігобайтів між двома каталогами системи може завершитися за 2 мілісекунди без жодної операції зчитування з накопичувача або вимагати 45 секунд інтенсивного прокачування даних через оперативну пам'ять (DRAM). Така кардинальна різниця у часі та навантаженні на системні ресурси визначається тим, чи зможе ядро Linux приховати фізичне переміщення байтів за завісою Copy-on-Write клонування метаданих, чи буде змушене перекласти копіювання на сервер мережевої файлової системи, чи прокачати кожен байт через сторінковий фолбек ядра.
@@ -55,7 +55,7 @@ int xfs_reflink_remap_prep(struct file *file_in, loff_t pos_in,
 > 🔧 **Навіщо це.**
 > Зміна статусу помилки `EXDEV` є сигналом для архітектора системного ПЗ: операція не може бути виконана за допомогою метаданих. Спроба «полагодити» `EXDEV` повторними викликами `ioctl` безглузда — застосунок повинен переключитися на декларативний системний виклик `copy_file_range` або потоковий `splice`.
 
-Детальний аналіз історичної еволюції системних викликів копіювання, архітектурних дискусій довкола автофолбеку та рішень розробників ядра Linux винесено в окрему вставку [hist-cross-fs-evolution.md](book:unix-linux/copy-file-range-cross-fs-reflink/hist-cross-fs-evolution.md).
+Детальний аналіз історичної еволюції системних викликів копіювання, архітектурних дискусій довкола автофолбеку та рішень розробників ядра Linux винесено в окрему вставку [hist-cross-fs-evolution.md](topic:unix-linux/copy-file-range-cross-fs-reflink/hist-cross-fs-evolution.md).
 
 ## Еволюція маршрутизації Cross-FS у ядрі Linux
 
@@ -147,7 +147,7 @@ ssize_t vfs_copy_file_range(struct file *file_in, loff_t pos_in,
 
 У результаті системний виклик `copy_file_range` слугує єдиною та прозорою точкою входження для будь-яких дискових та мережевих маніпуляцій у сучасних версіях ядра Linux, об'єднуючи під єдиним API апаратні прискорювачі та програмні сторінкові фолбеки.
 
-Вичерпну матрицю системних характеристик, параметрів, атомарності та кодів помилок `errno` зіставлено у довідниковій вставці [api-cross-fs-matrix.md](book:unix-linux/copy-file-range-cross-fs-reflink/api-cross-fs-matrix.md).
+Вичерпну матрицю системних характеристик, параметрів, атомарності та кодів помилок `errno` зіставлено у довідниковій вставці [api-cross-fs-matrix.md](topic:unix-linux/copy-file-range-cross-fs-reflink/api-cross-fs-matrix.md).
 
 ## Каскадний Offload та апаратне копіювання блочного шару
 
@@ -365,4 +365,4 @@ namespace fs_utils {
 ```
 :::
 
-Повну виробничу реалізацію бібліотечного модуля клонування файлів із підтримкою zero-copy `splice`, обробкою анонімних каналів `pipe` та автоматичною валідацією вирівнювання дискових блоків наведено у проєктній вставці [proj-cross-fs-cloner.md](book:unix-linux/copy-file-range-cross-fs-reflink/proj-cross-fs-cloner.md).
+Повну виробничу реалізацію бібліотечного модуля клонування файлів із підтримкою zero-copy `splice`, обробкою анонімних каналів `pipe` та автоматичною валідацією вирівнювання дискових блоків наведено у проєктній вставці [proj-cross-fs-cloner.md](topic:unix-linux/copy-file-range-cross-fs-reflink/proj-cross-fs-cloner.md).

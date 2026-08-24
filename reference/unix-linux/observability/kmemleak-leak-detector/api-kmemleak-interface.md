@@ -1,8 +1,8 @@
 # 📋 Інтерфейс та API детектора Kmemleak
 
 <preknowlist>
-- [Алокатори пам'яті ядра](book:unix-linux/kernel-memory-slab) — механізми kmalloc та slab-кешів ядра Linux.
-- [Псевдо-ФС: procfs, sysfs, debugfs](book:unix-linux/debugfs) — монтаж та взаємодія з віртуальними файловими системами.
+- [Алокатори пам'яті ядра](topic:unix-linux/kernel-memory-slab) — механізми kmalloc та slab-кешів ядра Linux.
+- [Псевдо-ФС: procfs, sysfs, debugfs](topic:unix-linux/debugfs) — монтаж та взаємодія з віртуальними файловими системами.
 </preknowlist>
 
 Детектор витоків пам'яті ядра Kmemleak надає двоперевірковий інтерфейс: внутрішній програмний C API для розробників драйверів та підсистем ядра (оголошений у заголовочному файлі `<linux/kmemleak.h>`), а також зовнішній інтерфейс керування у віртуальній файловій системі `debugfs` за шляхом `/sys/kernel/debug/kmemleak`.

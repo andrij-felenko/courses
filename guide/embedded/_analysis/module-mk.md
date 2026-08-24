@@ -27,7 +27,7 @@
 11. **memory-budget-mcu (крок 19)**: розмови про .bss/.data/стек (hist-вставка — про ім'я BSS) без введених лінкування (`programming/linking`) і стека (`programming/stack-lifo`).
 12. **power-logger (20) і current-profiler-tools (21)** посилаються на `root:embedded/measure-consumption` (proshyvka, секція 9) як на вже пройдене — «ми вже вміємо», «чому мультиметр бреше — з'ясували». Курс цього ще не проходив.
 13. **edge-inference (22)**: ML-інференс без жодної підготовки; увесь його блок-рідня (model-zoo, model-export, on-device-benchmarking, training-data-pipeline) живе в drony (14).
-14. **ota-server (25)**: перший рядок — «[Оновлення через ефір](book:programming/ota-update) ми досі дивилися очима пристрою» — але кроку про OTA-оновлення в курсі нема взагалі, а Wi-Fi буде лише в секції 13.
+14. **ota-server (25)**: перший рядок — «[Оновлення через ефір](topic:programming/ota-update) ми досі дивилися очима пристрою» — але кроку про OTA-оновлення в курсі нема взагалі, а Wi-Fi буде лише в секції 13.
 15. **wifi-fast-connect (30)**: кешування PMK/IP — до будь-якого Wi-Fi/802.11/DHCP у курсі (все в zvyazok, секція 13).
 16. Міжсекційне (у контексті mk): **komponenty/datasheet-mcu (секція 3)** і **cyfra-pamyat/fpga-vs-mcu (секція 5)** читають даташит МК і порівнюють FPGA з МК до того, як МК узагалі введено (секція 7); **cyfra-pamyat/custom-instruction** вимагає розуміння ISA, яке дає mk/risc-cisc. Усі три природно живуть у mk — забираю move_in.
 

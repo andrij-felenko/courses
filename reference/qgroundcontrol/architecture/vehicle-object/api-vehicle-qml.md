@@ -28,7 +28,7 @@ class Vehicle : public VehicleFactGroup, public VehicleTypes
 | `offlineEditingVehicle` | `Vehicle*` | `CONSTANT` | несправжній апарат для редагування плану без зв'язку |
 | `getVehicleById(int)` | `Q_INVOKABLE Vehicle*` | — | пошук за sysid |
 
-`activeVehicle` записуваний і з QML (`WRITE setActiveVehicle`), а сам список апаратів змінюється сигналами `vehicleAdded(Vehicle*)` / `vehicleRemoved(Vehicle*)`. Що робить менеджер із кількома апаратами водночас — у [темі про кілька апаратів](book:qgroundcontrol/multi-vehicle).
+`activeVehicle` записуваний і з QML (`WRITE setActiveVehicle`), а сам список апаратів змінюється сигналами `vehicleAdded(Vehicle*)` / `vehicleRemoved(Vehicle*)`. Що робить менеджер із кількома апаратами водночас — у [темі про кілька апаратів](topic:qgroundcontrol/multi-vehicle).
 
 Перша перевірка в будь-якій прив'язці — саме `null`, бо застосунок стартує без жодного апарата:
 
@@ -137,7 +137,7 @@ Q_INVOKABLE int versionCompare(int major, int minor, int patch) const;
 
 | Q_PROPERTY | Тип | Сповіщення | Що це |
 |---|---|---|---|
-| `parameterManager` | `ParameterManager*` | `CONSTANT` | увесь доступ до параметрів борту — [окрема тема](book:qgroundcontrol/parameter-manager) |
+| `parameterManager` | `ParameterManager*` | `CONSTANT` | увесь доступ до параметрів борту — [окрема тема](topic:qgroundcontrol/parameter-manager) |
 | `vehicleLinkManager` | `VehicleLinkManager*` | `CONSTANT` | канали, якими апарат доступний, і стеження за тишею |
 | `supports` | `VehicleSupports*` | `CONSTANT` | що апарат уміє: `guidedMode`, `pauseVehicle`, `orbitMode`, `roiMode`, `smartRTL`, `terrainFrame`, `changeHeading`, `guidedTakeoffWithAltitude`, `guidedTakeoffWithoutAltitude` та інші прапорці |
 | `autopilotPlugin` | `AutoPilotPlugin*` | `CONSTANT` | сторінки налаштувань апарата |
@@ -212,7 +212,7 @@ text: rpmGroup ? rpmGroup.getFact("rpm1").valueString : ""
 
 Наслідок практичний: `vehicle.vehicle.roll` і `vehicle.roll` — те саме число, бо `Vehicle` **успадкований** від `VehicleFactGroup` і всі його факти вже є прямими властивостями апарата. Зате `getFactGroup("vehicle")` віддасть `nullptr`, а `factGroupNames` не міститиме рядка `vehicle`. Реєстрація тут створила б групу, що містить саму себе, — і обхід груп при кожному повідомленні зациклився б.
 
-Сам механізм факта — число плюс метадані — розібрано у [фактовій системі](book:qgroundcontrol/fact-system). Для довідки досить чотирьох властивостей `Fact`, якими користуються найчастіше:
+Сам механізм факта — число плюс метадані — розібрано у [фактовій системі](topic:qgroundcontrol/fact-system). Для довідки досить чотирьох властивостей `Fact`, якими користуються найчастіше:
 
 | Властивість `Fact` | Тип | Що дає |
 |---|---|---|
@@ -260,7 +260,7 @@ void Vehicle::sendCommand(int compId, int command, bool showError, double param1
 }
 ```
 
-Тобто `double` у сигнатурі — поступка QML, у якого всі числа й так подвійної точності; у ефір іде `float`. Для широти й довготи цього замало, тому їх шлють не тут, а окремими цілочисловими командами. Що таке `COMMAND_LONG`, `COMMAND_INT` і `COMMAND_ACK` як протокол — у [командах MAVLink](book:communications/mavlink-commands).
+Тобто `double` у сигнатурі — поступка QML, у якого всі числа й так подвійної точності; у ефір іде `float`. Для широти й довготи цього замало, тому їх шлють не тут, а окремими цілочисловими командами. Що таке `COMMAND_LONG`, `COMMAND_INT` і `COMMAND_ACK` як протокол — у [командах MAVLink](topic:communications/mavlink-commands).
 
 З C++ доступний ширший набір:
 
@@ -390,7 +390,7 @@ typedef enum {
 | `void triggerSimpleCamera()` | — | спуск затвора |
 | `void rebootVehicle()` | — | перезавантаження автопілота |
 | `void flashBootloader()` | — | перепрошивка завантажувача |
-| `void sendPlan(QString planFile)` | шлях до файлу плану | вивантажити план на борт; про сам формат — у [моделі плану](book:qgroundcontrol/plan-model) |
+| `void sendPlan(QString planFile)` | шлях до файлу плану | вивантажити план на борт; про сам формат — у [моделі плану](topic:qgroundcontrol/plan-model) |
 | `void closeVehicle()` | — | від'єднатися й знищити об'єкт |
 | `void resetCounters()` | — | обнулити лічильники повідомлень |
 | `void virtualTabletJoystickValue(double roll, double pitch, double yaw, double thrust)` | −1…1 на кожну вісь | екранний джойстик |
@@ -416,7 +416,7 @@ void Vehicle::guidedModeTakeoff(double altitudeRelative)
 }
 ```
 
-Отже, сам `Vehicle` жодної команди зльоту не формує: що саме полетить у ефір, вирішує [плагін прошивки](book:qgroundcontrol/firmware-plugin), і для PX4 та ArduPilot це різні речі.
+Отже, сам `Vehicle` жодної команди зльоту не формує: що саме полетить у ефір, вирішує [плагін прошивки](topic:qgroundcontrol/firmware-plugin), і для PX4 та ArduPilot це різні речі.
 
 ---
 
@@ -516,7 +516,7 @@ connect(_mavCmdQueue, &MavCommandQueue::commandResult, this, &Vehicle::mavComman
 
 Тобто підписуватися треба на апарат, а не на чергу, і фільтрувати відповіді за парою `targetComponent` + `command`: у черзі водночас буває кілька різних команд, і всі вони приходять одним сигналом.
 
-Ще одна тонкість, помітна лише в оголошенні: `mavlinkMessageReceived` летить на **кожен** кадр цього апарата. Підписка на нього з віджета, що малюється, — надійний спосіб з'їсти головну нитку: за звичайного набору потоків це кількасот викликів на секунду. Скільки роботи припадає на головну нитку й чому, розібрано в [моделі потоків](book:qgroundcontrol/threading-model).
+Ще одна тонкість, помітна лише в оголошенні: `mavlinkMessageReceived` летить на **кожен** кадр цього апарата. Підписка на нього з віджета, що малюється, — надійний спосіб з'їсти головну нитку: за звичайного набору потоків це кількасот викликів на секунду. Скільки роботи припадає на головну нитку й чому, розібрано в [моделі потоків](topic:qgroundcontrol/threading-model).
 
 ---
 

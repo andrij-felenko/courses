@@ -1,10 +1,10 @@
 # Device Links: явне ребро «постачальник — споживач» поверх дерева
 
 <preknowlist>
-- [Модель пристроїв у sysfs](book:unix-linux/sysfs-device-model) — ядро тримає пристрої деревом «батько — дитина», і це дерево видно в sysfs.
-- [Прив'язка драйвера до пристрою](book:unix-linux/driver-probe-and-binding) — драйвер прив'язується до пристрою через `probe` і відв'язується (unbind) при вивантаженні.
-- [Присипляння пристрою на ходу: runtime PM](book:unix-linux/runtime-power-management) — ядро само знімає живлення з пристрою, поки той не потрібен, за лічильником звертань.
-- [Призупинення й пробудження](book:unix-linux/suspend-and-resume) — при засинанні всієї системи ядро проходить пристрої в певному порядку, а при пробудженні — у зворотному.
+- [Модель пристроїв у sysfs](topic:unix-linux/sysfs-device-model) — ядро тримає пристрої деревом «батько — дитина», і це дерево видно в sysfs.
+- [Прив'язка драйвера до пристрою](topic:unix-linux/driver-probe-and-binding) — драйвер прив'язується до пристрою через `probe` і відв'язується (unbind) при вивантаженні.
+- [Присипляння пристрою на ходу: runtime PM](topic:unix-linux/runtime-power-management) — ядро само знімає живлення з пристрою, поки той не потрібен, за лічильником звертань.
+- [Призупинення й пробудження](topic:unix-linux/suspend-and-resume) — при засинанні всієї системи ядро проходить пристрої в певному порядку, а при пробудженні — у зворотному.
 </preknowlist>
 
 Класична ієрархія пристроїв Linux — це строго дерево (parent-child). Шина (наприклад, PCI чи I2C) виступає батьком для підключених до неї пристроїв. Це дерево визначає базовий порядок ініціалізації (`probe`), зупинки (`suspend`), відновлення (`resume`) та вивантаження. Батьківський пристрій повинен бути ініціалізований до дочірнього і не може бути приспаний, поки працює дочірній. 
@@ -55,4 +55,4 @@ void device_link_del(struct device_link *link);
 void device_link_remove(void *consumer, struct device *supplier);
 ```
 
-Повний перелік прапорців — у вставці [Прапорці Device Links](book:unix-linux/device-links/api-device-link-flags.md); робочий приклад драйвера — [Приклад створення зв'язку](book:unix-linux/device-links/proj-device-link-example.md).
+Повний перелік прапорців — у вставці [Прапорці Device Links](topic:unix-linux/device-links/api-device-link-flags.md); робочий приклад драйвера — [Приклад створення зв'язку](topic:unix-linux/device-links/proj-device-link-example.md).

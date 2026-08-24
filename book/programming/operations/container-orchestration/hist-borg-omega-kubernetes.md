@@ -8,7 +8,7 @@
 
 Borg побудували навколо концепції централізованого монолітного майстра (**BorgMaster**). Центральний вузол керування складався з п'яти реплік, узгоджених за допомогою розподіленого алгоритму консенсусу Paxos. Одна з реплік обиралася лідером і зберігала весь стан кластера в оперативній пам'яті (in-memory state), періодично скидаючи знімки (snapshots) та журнал транзакцій на локальні диски.
 
-На кожному фізичному сервері кластера працював локальний демон **Borglet**, який запускав процеси користувачів всередині ядерних механізмів ізоляції (саме інженери Google розробили й внесли до ядра Linux у 2006–2007 роках патч для *Process Containers*, який згодом отримав назву [cgroups](book:reference/unix-linux/cgroup-v2-controllers)). Borglet відстежував використання пам'яті, примусово завершував процеси при перевищенні лімітів (OOM-killer) і кожні кілька секунд надсилав звіти (heartbeats) до BorgMaster.
+На кожному фізичному сервері кластера працював локальний демон **Borglet**, який запускав процеси користувачів всередині ядерних механізмів ізоляції (саме інженери Google розробили й внесли до ядра Linux у 2006–2007 роках патч для *Process Containers*, який згодом отримав назву [cgroups](topic:reference/unix-linux/cgroup-v2-controllers)). Borglet відстежував використання пам'яті, примусово завершував процеси при перевищенні лімітів (OOM-killer) і кожні кілька секунд надсилав звіти (heartbeats) до BorgMaster.
 
 Планування задач у Borg виконував окремий внутрішній потік BorgMaster. Задачі описувалися спеціалізованою декларативною мовою **BCL** (Borg Configuration Language). Шедулер проходив два етапи:
 1. **Фільтрація (Feasibility checking):** перевірка, чи має вузол достатньо вільних ресурсів і чи задовольняє він специфічні вимоги задачі (наприклад, наявність SSD або певної версії ядра).
@@ -49,11 +49,11 @@ Borg побудували навколо концепції централізо
 
 Kubernetes поєднав найкраще з обох світів:
 1. **Збережено від Borg:** концепцію об'єднання контейнерів у спільний простір імен і контекст виконання — **Pod** (у Borg це називалося *alloc*), автоматичне самовідновлення (self-healing), поділ на проби живості й готовності, динамічні мітки (Labels) для гнучкої селекції об'єктів.
-2. **Збережено від Omega:** асинхронні незалежні контролери, оптимістичне блокування змін через поле `resourceVersion`, повну відсутність внутрішнього стану в компонентах керування (stateless control plane) та винесення консенсусу в транзакційне сховище (проект [etcd](book:distributed-systems/distributed-consensus), що використовує протокол [Raft](book:distributed-systems/distributed-consensus)).
+2. **Збережено від Omega:** асинхронні незалежні контролери, оптимістичне блокування змін через поле `resourceVersion`, повну відсутність внутрішнього стану в компонентах керування (stateless control plane) та винесення консенсусу в транзакційне сховище (проект [etcd](topic:distributed-systems/distributed-consensus), що використовує протокол [Raft](topic:distributed-systems/distributed-consensus)).
 3. **Виправлено помилки обох:**
    - Прямий доступ до сховища заборонили: єдиним посередником для читання й запису став **API Server**, який забезпечує сувору типізацію, валідацію схем, аутентифікацію та авторизацію.
    - Замість складної процедурної мови BCL обрали простий декларативний формат **YAML/JSON**.
-   - Архітектуру побудували на відкритих плагінних інтерфейсах: [CRI (Container Runtime Interface)](book:programming/container-orchestration/api-orchestrator-primitives.md) для рантаймів (containerd, CRI-O), [CNI (Container Network Interface)](book:programming/container-orchestration/api-orchestrator-primitives.md) для мереж (Calico, Cilium, Flannel) та [CSI (Container Storage Interface)](book:programming/container-orchestration/api-orchestrator-primitives.md) для сховищ даних.
+   - Архітектуру побудували на відкритих плагінних інтерфейсах: [CRI (Container Runtime Interface)](topic:programming/container-orchestration/api-orchestrator-primitives.md) для рантаймів (containerd, CRI-O), [CNI (Container Network Interface)](topic:programming/container-orchestration/api-orchestrator-primitives.md) для мереж (Calico, Cilium, Flannel) та [CSI (Container Storage Interface)](topic:programming/container-orchestration/api-orchestrator-primitives.md) для сховищ даних.
 
 ## Війна оркестраторів (2014–2017)
 

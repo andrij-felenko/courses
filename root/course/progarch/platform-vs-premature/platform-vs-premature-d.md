@@ -1,11 +1,11 @@
 # Платформа проти передчасної платформи
 
 <preknowlist>
-- [Закон Конвея](book:programming/software-design/conways-law) — структура комунікацій організації форматирує архітектурну структуру системи.
-- [Team topologies](book:programming/architecture-discipline/team-topologies) — класифікація команд на stream-aligned, platform, enabling та complicated-subsystem.
-- [Когнітивне навантаження команди](book:programming/architecture-discipline/cognitive-load-teams) — межа спроможності команди утримувати контекст інфраструктури та домену.
-- [Платформна інженерія](book:programming/architecture-discipline/platform-engineering) — створення внутрішніх самообслуговуваних продуктів для зниження тертя розробки.
-- [YAGNI та вартість передчасної абстракції](book:programming/software-design/dry-kiss-yagni) — шкода від абстракцій, побудованих до поява стійкого повторюваного патерна.
+- [Закон Конвея](topic:programming/conways-law) — структура комунікацій організації форматирує архітектурну структуру системи.
+- [Team topologies](topic:programming/team-topologies) — класифікація команд на stream-aligned, platform, enabling та complicated-subsystem.
+- [Когнітивне навантаження команди](topic:programming/cognitive-load-teams) — межа спроможності команди утримувати контекст інфраструктури та домену.
+- [Платформна інженерія](topic:programming/platform-engineering) — створення внутрішніх самообслуговуваних продуктів для зниження тертя розробки.
+- [YAGNI та вартість передчасної абстракції](topic:programming/dry-kiss-yagni) — шкода від абстракцій, побудованих до поява стійкого повторюваного патерна.
 - [Передачі й володіння як джерело затримки](root:progarch/handoffs-and-ownership) — як черги передачі відповідальності руйнують плинність релізів.
 </preknowlist>
 

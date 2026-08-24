@@ -1,10 +1,10 @@
 # 🔌 Перемикачі видимості: QGCOptions і ядрове розширення
 
-Довідка по кожній точці, якою власна збірка QGroundControl вмикає й вимикає елементи інтерфейсу: сигнатура, значення за замовчуванням в апстримі, який саме елемент зникає — і чому половина перемикачів мовчки не діє після старту застосунку. Тут узято тільки зріз видимості; увесь контракт ядрового розширення — від фабрик підсистем до гачків плану — в [окремій довідці по ньому](book:qgroundcontrol/core-plugin/api-core-plugin.md). Усе нижче звірено з `src/API/QGCOptions.h`, `src/API/QGCCorePlugin.h`, `src/API/QmlComponentInfo.h` і `custom-example/` гілки `master`; набір властивостей помітно змінюється між релізами, тож перед роботою звіряйся зі своєю гілкою.
+Довідка по кожній точці, якою власна збірка QGroundControl вмикає й вимикає елементи інтерфейсу: сигнатура, значення за замовчуванням в апстримі, який саме елемент зникає — і чому половина перемикачів мовчки не діє після старту застосунку. Тут узято тільки зріз видимості; увесь контракт ядрового розширення — від фабрик підсистем до гачків плану — в [окремій довідці по ньому](topic:qgroundcontrol/core-plugin/api-core-plugin.md). Усе нижче звірено з `src/API/QGCOptions.h`, `src/API/QGCCorePlugin.h`, `src/API/QmlComponentInfo.h` і `custom-example/` гілки `master`; набір властивостей помітно змінюється між релізами, тож перед роботою звіряйся зі своєю гілкою.
 
 ## Де ці перемикачі живуть
 
-Перемикачі складені у два класи в `src/API/QGCOptions.h`. `QGCOptions` описує застосунок цілком; `QGCFlyViewOptions` — тільки політний вид. Дістатися до них можна лише через [ядрове розширення](book:qgroundcontrol/core-plugin) — це єдиний об'єкт, який застосунок питає про свої налаштування. Ані ввімкнути, ані вимкнути щось із готового застосунку неможливо: перемикачі — це віртуальні методи C++, тож змінити відповідь можна лише [власною збіркою](book:qgroundcontrol/custom-build), яка підміняє базовий клас своєю похідною ще до створення вікна.
+Перемикачі складені у два класи в `src/API/QGCOptions.h`. `QGCOptions` описує застосунок цілком; `QGCFlyViewOptions` — тільки політний вид. Дістатися до них можна лише через [ядрове розширення](topic:qgroundcontrol/core-plugin) — це єдиний об'єкт, який застосунок питає про свої налаштування. Ані ввімкнути, ані вимкнути щось із готового застосунку неможливо: перемикачі — це віртуальні методи C++, тож змінити відповідь можна лише [власною збіркою](topic:qgroundcontrol/custom-build), яка підміняє базовий клас своєю похідною ще до створення вікна.
 
 ```cpp
 QGCCorePlugin *plugin;                                  // QGroundControl.corePlugin
@@ -76,7 +76,7 @@ QGCOptions::QGCOptions(QObject *parent)
 
 | Геттер | Тип | Апстрим | Зв'язок | Що змінюється |
 |---|---|---|---|---|
-| `showOfflineMapImport()` | `bool` | `true` | `showOfflineMapImportChanged` | `false` — зникає завантаження набору [офлайн-тайлів](book:qgroundcontrol/offline-maps) із файлу |
+| `showOfflineMapImport()` | `bool` | `true` | `showOfflineMapImportChanged` | `false` — зникає завантаження набору [офлайн-тайлів](topic:qgroundcontrol/offline-maps) із файлу |
 | `showOfflineMapExport()` | `bool` | `true` | `showOfflineMapExportChanged` | `false` — зникає вивантаження набору тайлів у файл |
 | `showPX4LogTransferOptions()` | `bool` | `true` | `CONSTANT` | `false` — ховає налаштування передачі журналів PX4 |
 
@@ -84,7 +84,7 @@ QGCOptions::QGCOptions(QObject *parent)
 
 | Геттер | Тип | Апстрим | Зв'язок | Що змінюється |
 |---|---|---|---|---|
-| `multiVehicleEnabled()` | `bool` | `true` | `multiVehicleEnabledChanged` | `false` — [підтримка кількох апаратів](book:qgroundcontrol/multi-vehicle) вимкнена |
+| `multiVehicleEnabled()` | `bool` | `true` | `multiVehicleEnabledChanged` | `false` — [підтримка кількох апаратів](topic:qgroundcontrol/multi-vehicle) вимкнена |
 | `allowJoystickSelection()` | `bool` | `true` | `allowJoystickSelectionChanged` | `false` — збірка сама ввімкнула конкретний джойстик, вибирати нема з чого |
 | `guidedActionsRequireRCRSSI()` | `bool` | `false` | `CONSTANT` | `true` — керовані дії заблоковані, поки немає RSSI від пульта |
 | `preFlightChecklistUrl()` | `QUrl` | `qrc:/qml/QGroundControl/FlyView/PreFlightCheckList.qml` | `CONSTANT` | адреса власного QML передпольотного чеклиста |
@@ -94,7 +94,7 @@ QGCOptions::QGCOptions(QObject *parent)
 | `devicePixelRatio()` | `float` | `0.0f` | `devicePixelRatioChanged` | ненульове — підміняє те, що Qt прочитав із заліза |
 | `devicePixelDensity()` | `float` | `0.0f` | `devicePixelDensityChanged` | те саме для щільності пікселів |
 
-Про `guidedActionsRequireRCRSSI` варто знати одне: [RSSI](book:communications/rssi-signal-strength) — це число, яким приймач звітує про рівень прийнятого сигналу, і воно приходить на борт із пульта, а не зі станції. Тобто ворота питають не «чи є зв'язок у мене», а «чи є в апарата зв'язок із пультом, щоб людина могла перехопити керування руками». Апстрим лишає ці ворота відчиненими, бо апарат може летіти й без пульта взагалі.
+Про `guidedActionsRequireRCRSSI` варто знати одне: [RSSI](topic:communications/rssi-signal-strength) — це число, яким приймач звітує про рівень прийнятого сигналу, і воно приходить на борт із пульта, а не зі станції. Тобто ворота питають не «чи є зв'язок у мене», а «чи є в апарата зв'язок із пультом, щоб людина могла перехопити керування руками». Апстрим лишає ці ворота відчиненими, бо апарат може летіти й без пульта взагалі.
 
 Окремо стоять два геттери кольорів, які **не є** Q_PROPERTY і тому доступні лише з C++:
 
@@ -250,7 +250,7 @@ virtual QString showAdvancedUIMessage() const;
 virtual bool overrideSettingsGroupVisibility(const QString &name) { Q_UNUSED(name); return true; }
 ```
 
-Найгрубіший із важелів налаштувань: ховає цілу групу — тобто цілу сторінку [збережуваних налаштувань](book:qgroundcontrol/settings-persistence) — за її рядковим іменем.
+Найгрубіший із важелів налаштувань: ховає цілу групу — тобто цілу сторінку [збережуваних налаштувань](topic:qgroundcontrol/settings-persistence) — за її рядковим іменем.
 
 ```cpp
 bool CustomPlugin::overrideSettingsGroupVisibility(const QString &name)
@@ -276,7 +276,7 @@ bool CustomPlugin::overrideSettingsGroupVisibility(const QString &name)
 virtual void adjustSettingMetaData(const QString &settingsGroup, FactMetaData &metaData, bool &userVisible);
 ```
 
-Найтонший важіль: викликається один раз на кожне налаштування, **перед** тим як із метаданих народиться факт. У [системі фактів](book:qgroundcontrol/fact-system) метадані — це все, що застосунок знає про величину, крім самого значення: ім'я, тип, межі, одиниці, перелік дозволених варіантів і значення за замовчуванням. Тут їх можна виправити до того, як інтерфейс їх побачить.
+Найтонший важіль: викликається один раз на кожне налаштування, **перед** тим як із метаданих народиться факт. У [системі фактів](topic:qgroundcontrol/fact-system) метадані — це все, що застосунок знає про величину, крім самого значення: ім'я, тип, межі, одиниці, перелік дозволених варіантів і значення за замовчуванням. Тут їх можна виправити до того, як інтерфейс їх побачить.
 
 Аргумент `userVisible` — вхідно-вихідний: приходить із чинним значенням, і чіпати його треба лише тоді, коли справді хочеш його змінити. Зміст його не «сховати»: **`false` означає «прибрати з інтерфейсу й лишити діяти значення за замовчуванням»**. Тобто налаштування не просто зникає з очей — воно ще й примусово повертається до типового, хоч би що там колись зберіг користувач у попередній збірці. Разом із `setRawDefaultValue()` це дає пришпилювання: величина фіксується на потрібному числі й більше не редагується ніким.
 

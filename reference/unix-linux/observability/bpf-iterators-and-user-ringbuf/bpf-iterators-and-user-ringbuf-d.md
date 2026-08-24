@@ -1,9 +1,9 @@
 # Ітератори BPF (bpf_iter) та User Ring Buffer
 
 <preknowlist>
-- [Розширений фільтр пакетів Берклі (eBPF)](book:unix-linux/ebpf-extended-berkeley-packet-filter) — базові поняття байт-коду, верифікатора та мап BPF.
-- [Порівняльний аналіз BPF Ring Buffer vs Perf Event Array](book:unix-linux/bpf-ringbuf-vs-perfbuf) — механізми передачі подій з ядра у користувацький простір.
-- [Символьна таблиця ядра kallsyms](book:unix-linux/kallsyms-and-system-map) — механізми розділення символів та структур даних ядра.
+- [Розширений фільтр пакетів Берклі (eBPF)](topic:unix-linux/ebpf-extended-berkeley-packet-filter) — базові поняття байт-коду, верифікатора та мап BPF.
+- [Порівняльний аналіз BPF Ring Buffer vs Perf Event Array](topic:unix-linux/bpf-ringbuf-vs-perfbuf) — механізми передачі подій з ядра у користувацький простір.
+- [Символьна таблиця ядра kallsyms](topic:unix-linux/kallsyms-and-system-map) — механізми розділення символів та структур даних ядра.
 </preknowlist>
 
 Сучасне високонавантажене середовище ОС Linux — з тисячами ізольованих контейнерів, десятками тисяч процесів та сотнями тисяч відкритих сокетів — створює критичне навантаження на класичні інструменти моніторингу. Коли утиліти на кшталт `ps`, `top`, `netstat` чи `ss` намагаються зібрати метрики стану системи, вони спираються на послідовне зчитування віртуальних текстових файлів у підсистемах `/proc` або `/sys`.
@@ -158,7 +158,7 @@ int main()
 ```
 :::
 
-Детальніше про історичні передумови створення цих інтерфейсів можна прочитати у вставці [Історична еволюція інтерфейсів спостережливості ядра Linux](book:unix-linux/bpf-iterators-and-user-ringbuf/hist-bpf-iter-and-user-ringbuf.md).
+Детальніше про історичні передумови створення цих інтерфейсів можна прочитати у вставці [Історична еволюція інтерфейсів спостережливості ядра Linux](topic:unix-linux/bpf-iterators-and-user-ringbuf/hist-bpf-iter-and-user-ringbuf.md).
 
 ---
 
@@ -365,7 +365,7 @@ int main()
 ```
 :::
 
-Повний довідник по всіх структурах даних та прапорцях доступний у вставці [Довідник API BPF Iterators та User Ring Buffer](book:unix-linux/bpf-iterators-and-user-ringbuf/api-bpf-iter-and-user-ringbuf.md).
+Повний довідник по всіх структурах даних та прапорцях доступний у вставці [Довідник API BPF Iterators та User Ring Buffer](topic:unix-linux/bpf-iterators-and-user-ringbuf/api-bpf-iter-and-user-ringbuf.md).
 
 ---
 
@@ -400,7 +400,7 @@ int main()
 2. **Аналіз та прийняття рішень (Userspace):** Аналітичний модуль розбирає згенеровані ядром дані, визначає необхідність коригування правил (наприклад, виявляє процес, що вичерпує ліміти bandwidth або генерує шторм запитів).
 3. **Миттєве застосування правил (`USER_RINGBUF`):** Демон записує нові керуючі структури у `USER_RINGBUF` без системних викликів. Загальна затримка реакції системи на аномалії знижується з сотень мілісекунд до мікросекундного рівня.
 
-Практичний приклад побудови такої замкненої системи наведено у вставці [Практичний проєкт: Замкнений контур моніторингу та керування](book:unix-linux/bpf-iterators-and-user-ringbuf/proj-bpf-iter-and-user-ringbuf.md).
+Практичний приклад побудови такої замкненої системи наведено у вставці [Практичний проєкт: Замкнений контур моніторингу та керування](topic:unix-linux/bpf-iterators-and-user-ringbuf/proj-bpf-iter-and-user-ringbuf.md).
 
 ---
 

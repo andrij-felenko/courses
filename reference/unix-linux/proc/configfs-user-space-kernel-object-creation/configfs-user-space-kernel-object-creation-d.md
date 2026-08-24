@@ -1,9 +1,9 @@
 # Файлова система configfs: створення ядерних об'єктів із юзерспейсу
 
 <preknowlist>
-- [Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs](book:unix-linux/pseudo-filesystems) — віртуальні файлові системи ядра без збереження даних на фізичних дисках.
-- [Файлова система sysfs, kobject та sysfs_dirent](book:unix-linux/sysfs-kobject-sysfs-dirent) — модель пристроїв Linux, ієрархія `kobject` та експорт стану ядра в юзерспейс.
-- [VFS: спільний шар над файловими системами](book:unix-linux/vfs-layer) — абстракції `inode`, `dentry`, системні виклики `mkdir`, `rmdir`, `symlink`.
+- [Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs](topic:unix-linux/pseudo-filesystems) — віртуальні файлові системи ядра без збереження даних на фізичних дисках.
+- [Файлова система sysfs, kobject та sysfs_dirent](topic:unix-linux/sysfs-kobject-sysfs-dirent) — модель пристроїв Linux, ієрархія `kobject` та експорт стану ядра в юзерспейс.
+- [VFS: спільний шар над файловими системами](topic:unix-linux/vfs-layer) — абстракції `inode`, `dentry`, системні виклики `mkdir`, `rmdir`, `symlink`.
 </preknowlist>
 
 Коли адміністраторові потрібно налаштувати виділений iSCSI-Target у підсистемі LIO або створити динамічний USB-Gadget інтерфейс, стандартна файлова система `sysfs` виявляється безсилою. У sysfs вектор ініціації строго односпрямований: ядро виявляє фізичний пристрій чи завантажує модуль і самостійно створює записи у `/sys`, тоді як простір користувача може лише зчитувати або модифікувати параметри вже наявних об'єктів. Будь-яка спроба виконати `mkdir /sys/kernel/my_device` повертає помилку `-EPERM`, оскільки модель пристроїв забороняє юзерспейсу диктувати топологію об'єктів ядра. Для розв'язання цієї задачі у ядрі Linux існує віртуальна файлова система `configfs` (змонтована у `/sys/kernel/config/`), яка інвертує напрямок керування: кожен виклик `mkdir` створює повноцінний об'єкт у пам'яті ядра, а `rmdir` безпечно його знищує.
@@ -26,7 +26,7 @@ configfs: Юзерспейс робить mkdir ──► VFS викликає �
 ![Парадигмальний контраст sysfs та configfs](img/configfs-vs-sysfs.svg)
 *Парадигмальний контраст: sysfs відображає створені ядром об'єкти, а configfs дозволяє простору користувача створювати об'єкти ядра викликом mkdir.*
 
-Докладніше про причини виникнення цієї інфраструктури, її історію та пізнішу еволюцію API викладено у вставці [📜 Історія створення configfs та еволюція керування ядерними об'єктами](book:unix-linux/configfs-user-space-kernel-object-creation/hist-configfs-evolution.md).
+Докладніше про причини виникнення цієї інфраструктури, її історію та пізнішу еволюцію API викладено у вставці [📜 Історія створення configfs та еволюція керування ядерними об'єктами](topic:unix-linux/configfs-user-space-kernel-object-creation/hist-configfs-evolution.md).
 
 ## Фундаментальні будівельні блоки: `config_item`, `config_group` та `configfs_subsystem`
 
@@ -83,7 +83,7 @@ struct configfs_subsystem {
 ![Ієрархія структур configfs та відображення у VFS](img/configfs-item-group-hierarchy.svg)
 *Внутрішня організація структур пам'яті ядра configfs та їх пряме відображення у каталоги та файли VFS.*
 
-Повний перелік сигнатур методів, структур та макросів наведено у довідникові [📋 Контракт API: структури, зворотновикликальні методи та прапори configfs](book:unix-linux/configfs-user-space-kernel-object-creation/api-configfs-structures.md).
+Повний перелік сигнатур методів, структур та макросів наведено у довідникові [📋 Контракт API: структури, зворотновикликальні методи та прапори configfs](topic:unix-linux/configfs-user-space-kernel-object-creation/api-configfs-structures.md).
 
 ## Життєвий цикл об'єкта: перехоплення `mkdir`, `rmdir` та підрахунок посилань `ci_kref`
 
@@ -175,7 +175,7 @@ ln -s /sys/kernel/config/target/core/fileio_0/disk_a \
 ### 3. LIO Target (`target_core_mod`)
 Підсистема LIO перетворює Linux на промисловий SAN-накопичувач (iSCSI, Fibre Channel, SRP). Утиліта `targetcli` є лише консольною обгорткою, яка виконує операції `mkdir`, `echo` та `ln -s` у каталозі `/sys/kernel/config/target/`.
 
-Практичну реалізацію комбінованого модуля ядра з власною підсистемою `configfs` та утиліт керування мовами C і C++ наведено у вставці [⚙️ Практика: написання драйвера з інтерфейсом configfs та інструмента керування](book:unix-linux/configfs-user-space-kernel-object-creation/proj-configfs-kernel-module.md).
+Практичну реалізацію комбінованого модуля ядра з власною підсистемою `configfs` та утиліт керування мовами C і C++ наведено у вставці [⚙️ Практика: написання драйвера з інтерфейсом configfs та інструмента керування](topic:unix-linux/configfs-user-space-kernel-object-creation/proj-configfs-kernel-module.md).
 
 ## Режими доступу, безпека та ізоляція у контейнерах
 

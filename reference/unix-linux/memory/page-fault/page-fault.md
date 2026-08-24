@@ -1,12 +1,12 @@
 # Сторінковий збій: чому все ліниве
 
 <preknowlist>
-- [Сторінки, таблиці сторінок і MMU](book:unix-linux/paging-and-mmu)
-- [Віртуальний адресний простір процесу](book:unix-linux/virtual-address-space)
-- [Віртуальна пам'ять](book:programming/virtual-memory)
-- [Винятки процесора](book:programming/cpu-exception-handling)
-- [Кеш трансляцій (TLB)](book:programming/tlb)
-- [Ядро й простір користувача](book:unix-linux/kernel-and-userspace)
+- [Сторінки, таблиці сторінок і MMU](topic:unix-linux/paging-and-mmu)
+- [Віртуальний адресний простір процесу](topic:unix-linux/virtual-address-space)
+- [Віртуальна пам'ять](topic:programming/virtual-memory)
+- [Винятки процесора](topic:programming/cpu-exception-handling)
+- [Кеш трансляцій (TLB)](topic:programming/tlb)
+- [Ядро й простір користувача](topic:unix-linux/kernel-and-userspace)
 </preknowlist>
 
 Коли сучасна програма просить у системи великий шмат пам'яті (наприклад, викликає `malloc` або `mmap` на гігабайт), операційна система повертає успішний результат майже миттєво. Гігабайт нібито є — адреси видано, програма може з ними працювати. Але якщо подивитися на споживання ресурсів, фізичної пам'яті (RAM) програмі на цей момент майже не додалося. Насправді ніхто нічого їй ще не виділив.

@@ -1,9 +1,9 @@
 # Коли масштабувати, а коли ні
 
 <preknowlist>
-- [Закон Амдала](book:math/probability/amdahl-law) — теоретична межа прискорення паралельних обчислень.
-- [Закон Літтла](book:math/probability/littles-law) — зв'язок між кількістю елементів у системі, пропускною здатністю та часом перебування.
-- [Шардинг даних](book:programming/distributed-systems/database-sharding) — горизонтальне розділення баз даних за ключем шардування.
+- [Закон Амдала](topic:math/probability/amdahl-law) — теоретична межа прискорення паралельних обчислень.
+- [Закон Літтла](topic:math/littles-law) — зв'язок між кількістю елементів у системі, пропускною здатністю та часом перебування.
+- [Шардинг даних](topic:programming/distributed-systems/database-sharding) — горизонтальне розділення баз даних за ключем шардування.
 - [Кешування та його ієрархія](root:progarch/scale-and-load/dh-cache-hierarchy) — багаторівневе зняття читального навантаження.
 - [Прикидка ємності флоту](root:progarch/scale-and-load/dh-fleet-envelope) — оцінка на паперовій серветці фізичних меж CPU, RAM, IOPS та мережі.
 </preknowlist>

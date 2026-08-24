@@ -1,8 +1,8 @@
 # 📋 Повний довідник формату та синтаксису sysusers.d
 
 <preknowlist>
-- [sysusers-declarative-accounts-d.md](book:unix-linux/sysusers-declarative-accounts-d.md) — детальна стаття про декларативне управління обліковими записами
-- [hist-declarative-users.md](book:unix-linux/sysusers-declarative-accounts/hist-declarative-users.md) — історія еволюції управління системними акаунтами в UNIX
+- [sysusers-declarative-accounts-d.md](topic:unix-linux/sysusers-declarative-accounts-d.md) — детальна стаття про декларативне управління обліковими записами
+- [hist-declarative-users.md](topic:unix-linux/sysusers-declarative-accounts/hist-declarative-users.md) — історія еволюції управління системними акаунтами в UNIX
 </preknowlist>
 
 Цей технічний довідник містить вичерпну специфікацію синтаксису файлів конфігурації `sysusers.d`, алгоритмів утиліти `systemd-sysusers`, специфіку обробки типів директив `u`, `g`, `m`, `r`, механізм автоматичного виділення UID/GID, декларативне запечатування акаунтів, взаємодію з підсистемами NSS/PAM, інтеграцію з мандатним розмежуванням доступу (SELinux) та програмний парсинг специфікації мовами C і C++.

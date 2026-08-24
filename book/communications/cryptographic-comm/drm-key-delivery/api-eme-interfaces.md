@@ -1,9 +1,9 @@
 # 📋 Програмний інтерфейс EME та двійковий формат PSSH
 
 <preknowlist>
-- [Спільне шифрування медіа (CENC)](book:communications/common-encryption) — заголовок `tenc`, ідентифікатори ключів `KID` та схеми шифрування `cenc` і `cbcs`.
-- [Медіаконтейнер](book:communications/media-container) — будова боксів стандарту ISO BMFF (розмір, тип FourCC, версія, прапорці).
-- [DRM: як ключ контенту потрапляє в пристрій](book:communications/drm-key-delivery) — загальна архітектура доставки ліцензій та апаратного захисту.
+- [Спільне шифрування медіа (CENC)](topic:communications/common-encryption) — заголовок `tenc`, ідентифікатори ключів `KID` та схеми шифрування `cenc` і `cbcs`.
+- [Медіаконтейнер](topic:communications/media-container) — будова боксів стандарту ISO BMFF (розмір, тип FourCC, версія, прапорці).
+- [DRM: як ключ контенту потрапляє в пристрій](topic:communications/drm-key-delivery) — загальна архітектура доставки ліцензій та апаратного захисту.
 </preknowlist>
 
 Цей довідник містить точні специфікації двох фундаментальних стиків у системі доставки DRM-ключів: стандартизованого JavaScript-інтерфейсу W3C Encrypted Media Extensions (EME) та двійкової структури контейнерного боксу `pssh` (Protection System Specific Header) за стандартом ISO/IEC 23001-7. Без знання цих структур неможливо реалізувати власний медіаплеєр або сервер пакування й ліцензування.

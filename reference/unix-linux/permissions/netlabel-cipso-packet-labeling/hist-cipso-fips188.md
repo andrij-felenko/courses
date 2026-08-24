@@ -1,8 +1,8 @@
 # 📜 Історія появи CIPSO, CALIPSO та підсистеми NetLabel
 
 <preknowlist>
-- [Фреймворк модулів безпеки ядра Linux (LSM)](book:unix-linux/lsm-framework) — архітектура перехоплення дій у ядрі.
-- [SELinux: Type Enforcement та контексти безпеки](book:unix-linux/selinux-type-enforcement) — модель мандатного контролю доступу MLS.
+- [Фреймворк модулів безпеки ядра Linux (LSM)](topic:unix-linux/lsm-framework) — архітектура перехоплення дій у ядрі.
+- [SELinux: Type Enforcement та контексти безпеки](topic:unix-linux/selinux-type-enforcement) — модель мандатного контролю доступу MLS.
 </preknowlist>
 
 Ідея маркування мережевих пакетів мітками безпеки виникла не в Linux і не в сучасному інтернеті. Її коріння сягає початку 1970-х років, коли Міністерство оборони США та дослідницька спільнота Массачусетського технологічного інституту (MIT) у межах проекту Multics розробляли перші математичні моделі багаторівневої безпеки (Multi-Level Security, MLS).

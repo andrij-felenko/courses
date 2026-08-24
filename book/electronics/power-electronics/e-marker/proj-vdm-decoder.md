@@ -1,9 +1,9 @@
 # ⚙️ Розбір та валідація дескрипторів кабелю на C та C++
 
 <preknowlist>
-- [USB Power Delivery](book:electronics/usb-pd) — протокол цифрових переговорів по лінії CC, пакети керування та стани шини.
-- [📋 Дескриптори Structured VDM та VDO](book:electronics/power-electronics/e-marker/api-vdm-descriptors.md) — карти бітових полів, коди команд та числові значення VDO.
-- [Кодування BMC у Type-C](book:electronics/bmc-encoding) — структура кадру, порядок бітів та контроль цілісності CRC-32.
+- [USB Power Delivery](topic:electronics/usb-pd) — протокол цифрових переговорів по лінії CC, пакети керування та стани шини.
+- [📋 Дескриптори Structured VDM та VDO](topic:electronics/e-marker/api-vdm-descriptors.md) — карти бітових полів, коди команд та числові значення VDO.
+- [Кодування BMC у Type-C](topic:electronics/bmc-encoding) — структура кадру, порядок бітів та контроль цілісності CRC-32.
 </preknowlist>
 
 Коли контролер порту джерела (DFP) або дворольового пристрою (DRP) завершує аналогове розпізнавання підтяжки `Ra` і подає живлення на шину VCONN, протокольний рушій (*Policy Engine*) ініціює транзакцію опитування кабелю `SOP' Discover Identity`. Фізичний трансивер BMC приймає напівдуплексний цифровий потік, верифікує апаратну контрольну суму CRC-32 і передає у мікропрограмне забезпечення буфер необроблених 32-бітових слів.

@@ -1,9 +1,9 @@
 <preknowlist>
-* [Розподілене трасування](book:programming/distributed-tracing)
-* [Моніторинг та метрики](book:programming/metrics-monitoring)
-* [Кільцевий буфер](book:algorithms/ring-buffer)
-* [Реагування на інциденти](book:programming/incident-response)
-* [Формат даних JSON](book:programming/json-format)
+* [Розподілене трасування](topic:programming/distributed-tracing)
+* [Моніторинг та метрики](topic:programming/metrics-monitoring)
+* [Кільцевий буфер](topic:algorithms/ring-buffer)
+* [Реагування на інциденти](topic:programming/incident-response)
+* [Формат даних JSON](topic:programming/json-format)
 </preknowlist>
 
 # 🪵 Структуроване логування у розподілених системах
@@ -25,7 +25,7 @@ grep "ERROR" /var/log/payment-service.log | grep "failed" | awk '{print $4}' | s
 
 Структуроване логування розв'язує цю кризу, перетворюючи кожне діагностичне повідомлення на самодостатній типізований об'єкт (словник пар ключ-значення), оптимізований для автоматичного збору, індексації та миттєвої фільтрації у масштабі мільйонів подій на секунду.
 
-Докладніше про те, як індустрія перейшла від перших викликів `printf` у PDP-11 до сучасних стандартів телеметрії, описано у вставці [Історія еволюції логування](book:programming/operations/structured-logging/hist-unstructured-to-structured.md).
+Докладніше про те, як індустрія перейшла від перших викликів `printf` у PDP-11 до сучасних стандартів телеметрії, описано у вставці [Історія еволюції логування](topic:programming/structured-logging/hist-unstructured-to-structured.md).
 
 ---
 
@@ -94,7 +94,7 @@ logger.Error("checkout_failed",
 3. **Гнучка розширюваність без порушення сумісності:**
    Додавання нових атрибутів (наприклад, `payment_method: "apple_pay"`) не ламає існуючі аналітичні запити та конвеєри доставки.
 
-Повні специфікації стандартних конвертів та формальні схеми валідації наведено у вставці [Канонічна схема структурованого логу та специфікація форматів](book:programming/operations/structured-logging/api-structured-log-schema.md).
+Повні специфікації стандартних конвертів та формальні схеми валідації наведено у вставці [Канонічна схема структурованого логу та специфікація форматів](topic:programming/structured-logging/api-structured-log-schema.md).
 
 ---
 
@@ -332,7 +332,7 @@ bpftrace -e 'tracepoint:syscalls:sys_enter_write /pid == 4120 && args->fd == 1/ 
 4. **Векторний пакетний скид (Vectorized Batching):**
    Фоновий потік накопичує події та скидає їх у стандартний вивід великими пачками за допомогою системного виклику `writev()` (у POSIX), зменшуючи кількість дорогих переходів між простором користувача та ядром операційної системи (syscalls) у десятки разів.
 
-Повний вихідний код автономного нуль-алокаційного асинхронного логера на C++ та C з детальним аналізом апаратних моделей пам'яті x86 та ARM наведено у вставці [Практична реалізація нуль-алокаційного асинхронного логера](book:programming/operations/structured-logging/proj-zero-alloc-logger.md).
+Повний вихідний код автономного нуль-алокаційного асинхронного логера на C++ та C з детальним аналізом апаратних моделей пам'яті x86 та ARM наведено у вставці [Практична реалізація нуль-алокаційного асинхронного логера](topic:programming/structured-logging/proj-zero-alloc-logger.md).
 
 ---
 

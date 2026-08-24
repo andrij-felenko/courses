@@ -11,7 +11,7 @@
 | місце | `/org/freedesktop/login1/seat/seat0` | `…login1.Seat` |
 | користувач | `/org/freedesktop/login1/user/_1000` | `…login1.User` |
 
-Ідентифікатор сеансу в шляху проходить екранування міток [D-Bus](book:unix-linux/dbus), а UID користувача завжди йде з підкресленням попереду. Крім справжніх шляхів є псевдооб'єкти, що розкриваються відносно того, **хто питає**:
+Ідентифікатор сеансу в шляху проходить екранування міток [D-Bus](topic:unix-linux/dbus), а UID користувача завжди йде з підкресленням попереду. Крім справжніх шляхів є псевдооб'єкти, що розкриваються відносно того, **хто питає**:
 
 | псевдошлях | у що розкривається |
 |---|---|
@@ -47,7 +47,7 @@ CreateSession(in  u uid, in  u pid, in  s service, in  s type, in  s class,
 |---|---|
 | `uid` | чий сеанс заводимо |
 | `pid` | ватажок сеансу; `0` — той, хто викликає |
-| `service` | ім'я служби [PAM](book:unix-linux/pam-stack), що зареєструвала вхід: `login`, `sshd`, `gdm-password` |
+| `service` | ім'я служби [PAM](topic:unix-linux/pam-stack), що зареєструвала вхід: `login`, `sshd`, `gdm-password` |
 | `type` | `unspecified` · `tty` · `x11` · `wayland` · `mir` · `web` |
 | `class` | `user` · `greeter` · `lock-screen` |
 | `desktop` | назва середовища, коли відома (`GNOME`) — суто довідкове поле |
@@ -68,7 +68,7 @@ CreateSession(in  u uid, in  u pid, in  s service, in  s type, in  s class,
 
 Метод позначено як привілейований, і кличе його рівно один клієнт — модуль `pam_systemd` у секції `session`. Прикладній програмі кликати його не можна: сеанс, заведений повз PAM, не матиме ані ватажка з живим повідцем, ані правильного оточення.
 
-Від systemd 255 є двійник `CreateSessionWithPIDFD`: замість `u pid` бере `h pidfd`, а перед `properties` додає `t flags` (наразі мусить бути `0`). Різниця не косметична — [pidfd](book:unix-linux/pidfd) вказує на конкретний процес, а не на число, яке система може встигнути видати комусь іншому.
+Від systemd 255 є двійник `CreateSessionWithPIDFD`: замість `u pid` бере `h pidfd`, а перед `properties` додає `t flags` (наразі мусить бути `0`). Різниця не косметична — [pidfd](topic:unix-linux/pidfd) вказує на конкретний процес, а не на число, яке система може встигнути видати комусь іншому.
 
 ## Властивості сеансу
 
@@ -89,7 +89,7 @@ CreateSession(in  u uid, in  u pid, in  s service, in  s type, in  s class,
 | `TTY`, `Display` | `s` | шлях термінала; ім'я дисплея X11 |
 | `Remote`, `RemoteHost`, `RemoteUser` | `b`, `s`, `s` | мережевий вхід і його походження |
 | `Desktop` | `s` | середовище робочого столу, коли відоме |
-| `Audit` | `u` | номер сеансу підсистеми [аудиту](book:unix-linux/audit-framework) ядра |
+| `Audit` | `u` | номер сеансу підсистеми [аудиту](topic:unix-linux/audit-framework) ядра |
 | `IdleHint`, `IdleSinceHint` | `b`, `t` | простій: сеанс сам про нього повідомляє, ядро цього не знає |
 | `LockedHint` | `b` | екран замкнено — теж підказка від середовища, а не спостереження |
 | `CanIdle`, `CanLock` | `b` | чи взагалі має сенс питати про попередні дві |
@@ -109,7 +109,7 @@ CreateSession(in  u uid, in  u pid, in  s service, in  s type, in  s class,
 | `SwitchTo(u)`, `SwitchToNext()`, `SwitchToPrevious()` | метод | те саме, але за номером віртуальної консолі |
 | `Terminate()` | метод | згорнути всі сеанси місця |
 
-`CanGraphical` — не здогад: місце існує лише тому, що [udev](book:unix-linux/udev-rules) виставив пристроям властивість `ID_SEAT`, а один із них ще й позначив міткою `master-of-seat`. Постійну приписку робить менеджер — `AttachDevice(seat_id, sysfs_path, interactive)`, а скасовує `FlushDevices(interactive)`.
+`CanGraphical` — не здогад: місце існує лише тому, що [udev](topic:unix-linux/udev-rules) виставив пристроям властивість `ID_SEAT`, а один із них ще й позначив міткою `master-of-seat`. Постійну приписку робить менеджер — `AttachDevice(seat_id, sysfs_path, interactive)`, а скасовує `FlushDevices(interactive)`.
 
 | `…login1.User` | тип | зміст |
 |---|---|---|
@@ -127,7 +127,7 @@ CreateSession(in  u uid, in  u pid, in  s service, in  s type, in  s class,
 |---|---|---|
 | `TakeControl` | `(in b force)` | заявити себе розпорядником сеансу; `force` (лише для root) виштовхує чинного |
 | `ReleaseControl` | `()` | зректися; водночас відпускає всі взяті пристрої |
-| `TakeDevice` | `(in u major, in u minor, out h fd, out b inactive)` | дістати відкритий дескриптор символьного пристрою за [номерами](book:unix-linux/major-minor-numbers) |
+| `TakeDevice` | `(in u major, in u minor, out h fd, out b inactive)` | дістати відкритий дескриптор символьного пристрою за [номерами](topic:unix-linux/major-minor-numbers) |
 | `ReleaseDevice` | `(in u major, in u minor)` | віддати його назад |
 | `PauseDeviceComplete` | `(in u major, in u minor)` | відповісти «я вже не тримаю» на прохання спинитися |
 | `SetBrightness` | `(in s subsystem, in s name, in u brightness)` | яскравість `backlight`/`leds` без прав root |
@@ -155,7 +155,7 @@ Inhibit(in s what, in s who, in s why, in s mode, out h pipe_fd)
 | `what` | що стримує |
 |---|---|
 | `shutdown` | вимкнення й перезавантаження |
-| `sleep` | [сон і гібернацію](book:unix-linux/suspend-and-resume) |
+| `sleep` | [сон і гібернацію](topic:unix-linux/suspend-and-resume) |
 | `idle` | автоматичну дію за простоєм |
 | `handle-power-key`, `handle-suspend-key`, `handle-hibernate-key`, `handle-reboot-key`, `handle-lid-switch` | власну обробку клавіш і кришки самим logind |
 
@@ -165,7 +165,7 @@ Inhibit(in s what, in s who, in s why, in s mode, out h pipe_fd)
 | `block-weak` | те саме, але привілейований запит і сам власник замка його обходять |
 | `delay` | лише відкладає — і не довше за `InhibitDelayMaxSec`; чинне тільки для `sleep` і `shutdown` |
 
-Право взяти замок дає [polkit](book:unix-linux/polkit), і дія в нього своя на кожну пару: `org.freedesktop.login1.inhibit-block-shutdown`, `…inhibit-delay-sleep`, `…inhibit-block-idle`, `…inhibit-handle-lid-switch` і решта. Перелік чинних замків віддає `ListInhibitors() → a(ssssuu)`: `what`, `who`, `why`, `mode`, UID, PID.
+Право взяти замок дає [polkit](topic:unix-linux/polkit), і дія в нього своя на кожну пару: `org.freedesktop.login1.inhibit-block-shutdown`, `…inhibit-delay-sleep`, `…inhibit-block-idle`, `…inhibit-handle-lid-switch` і решта. Перелік чинних замків віддає `ListInhibitors() → a(ssssuu)`: `what`, `who`, `why`, `mode`, UID, PID.
 
 ## Решта менеджера
 
@@ -229,9 +229,9 @@ Inhibit(in s what, in s who, in s why, in s mode, out h pipe_fd)
 
 | функція | що дає |
 |---|---|
-| `sd_pid_get_session(pid, &s)` | сеанс процесу — розбором його [cgroup](book:unix-linux/cgroups), тому підробити відповідь неможливо |
+| `sd_pid_get_session(pid, &s)` | сеанс процесу — розбором його [cgroup](topic:unix-linux/cgroups), тому підробити відповідь неможливо |
 | `sd_pid_get_owner_uid(pid, &uid)` | UID власника сеансу |
-| `sd_peer_get_session(fd, &s)` | те саме для співрозмовника на [сокеті Unix](book:unix-linux/unix-domain-sockets) — без гонки з підміною PID |
+| `sd_peer_get_session(fd, &s)` | те саме для співрозмовника на [сокеті Unix](topic:unix-linux/unix-domain-sockets) — без гонки з підміною PID |
 | `sd_session_is_active(s)`, `sd_session_is_remote(s)` | `>0` — так, `0` — ні |
 | `sd_session_get_state/seat/type/class/uid/tty/vt(s, …)` | окремі властивості сеансу |
 | `sd_seat_get_active(seat, &s, &uid)` | хто зараз попереду на місці |
@@ -279,4 +279,4 @@ $ ./login
 сеанс 3, місце seat0, попереду: так
 ```
 
-Стежити за змінами теж можна без шини: `sd_login_monitor_get_fd()` віддає [дескриптор](book:unix-linux/file-descriptor), придатний для `poll()`, а після кожного пробудження треба покликати `sd_login_monitor_flush()` — інакше дескриптор будитиме цикл подій без упину.
+Стежити за змінами теж можна без шини: `sd_login_monitor_get_fd()` віддає [дескриптор](topic:unix-linux/file-descriptor), придатний для `poll()`, а після кожного пробудження треба покликати `sd_login_monitor_flush()` — інакше дескриптор будитиме цикл подій без упину.

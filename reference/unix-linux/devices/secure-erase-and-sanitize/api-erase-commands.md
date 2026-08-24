@@ -13,7 +13,7 @@
 | вихід із режиму невдачі | — | 48h, дія 1Fh | SANACT 1 |
 | стан операції | `SANITIZE STATUS EXT`, feature 0000h | `REQUEST SENSE` | журнал Sanitize Status |
 
-Рядка «стерти діапазон» у таблиці немає й не буде: усе тут працює над носієм цілком, а `SES` у `Format NVM` — над простором імен. Окремим каналом стоїть TCG Opal, де стирання роблять не командою набору, а транзакцією до модуля безпеки поверх `TRUSTED SEND` / `Security Send` — [самошифрувальні носії](book:unix-linux/sed-opal-drives).
+Рядка «стерти діапазон» у таблиці немає й не буде: усе тут працює над носієм цілком, а `SES` у `Format NVM` — над простором імен. Окремим каналом стоїть TCG Opal, де стирання роблять не командою набору, а транзакцією до модуля безпеки поверх `TRUSTED SEND` / `Security Send` — [самошифрувальні носії](topic:unix-linux/sed-opal-drives).
 
 ## ATA: набір SECURITY
 
@@ -182,7 +182,7 @@ sudo nvme sanitize-log /dev/nvme0 -H
 
 ## Блоковий шар: чого тут немає
 
-Три запити [ioctl](book:unix-linux/ioctl-interface) над блоковим пристроєм беруть діапазон — пару 64-бітних чисел «зсув, довжина» в байтах: `BLKDISCARD`, `BLKSECDISCARD`, `BLKZEROOUT`. Їхні коди, вирівнювання й повний перелік помилок зібрано у [важелях discard](book:unix-linux/discard-and-trim/api-discard-controls.md); тут важить лише другий із них і його доля.
+Три запити [ioctl](topic:unix-linux/ioctl-interface) над блоковим пристроєм беруть діапазон — пару 64-бітних чисел «зсув, довжина» в байтах: `BLKDISCARD`, `BLKSECDISCARD`, `BLKZEROOUT`. Їхні коди, вирівнювання й повний перелік помилок зібрано у [важелях discard](topic:unix-linux/discard-and-trim/api-discard-controls.md); тут важить лише другий із них і його доля.
 
 | `blkdiscard` | Що робить |
 |---|---|
@@ -202,4 +202,4 @@ if (info->feature_secdiscard)
         lim->max_secure_erase_sectors = UINT_MAX;
 ```
 
-Скрізь інде поле лишається нулем, і блоковий шар відхиляє запит, навіть не дійшовши до драйвера. Усі команди з таблиць вище йдуть повз цей шар — наскрізним каналом до транспорту ([SG_IO і `NVME_IOCTL_ADMIN_CMD`](book:unix-linux/scsi-generic-passthrough)), і права на двох дорогах різні: адміністративній команді NVMe досить `CAP_SYS_ADMIN`, а `SG_IO` з такою командою вимагає `CAP_SYS_RAWIO` і пристрою, відкритого на запис.
+Скрізь інде поле лишається нулем, і блоковий шар відхиляє запит, навіть не дійшовши до драйвера. Усі команди з таблиць вище йдуть повз цей шар — наскрізним каналом до транспорту ([SG_IO і `NVME_IOCTL_ADMIN_CMD`](topic:unix-linux/scsi-generic-passthrough)), і права на двох дорогах різні: адміністративній команді NVMe досить `CAP_SYS_ADMIN`, а `SG_IO` з такою командою вимагає `CAP_SYS_RAWIO` і пристрою, відкритого на запис.

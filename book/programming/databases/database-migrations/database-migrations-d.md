@@ -1,11 +1,11 @@
 # 📜 Міграції схеми баз даних та нульовий час простою (Zero-Downtime)
 
 <preknowlist>
-- [Реляційна модель даних](book:programming/databases/relational-model)
-- [Індекси баз даних: B-Tree та Hash](book:programming/databases/database-indexes)
-- [Транзакції та властивості ACID](book:programming/databases/transactions-acid)
-- [Рівні ізоляції транзакцій](book:programming/databases/isolation-levels)
-- [Журнал попереднього запису (WAL) та протокол ARIES](book:programming/databases/write-ahead-log)
+- [Реляційна модель даних](topic:programming/relational-model)
+- [Індекси баз даних: B-Tree та Hash](topic:programming/database-indexes)
+- [Транзакції та властивості ACID](topic:programming/transactions-acid)
+- [Рівні ізоляції транзакцій](topic:programming/isolation-levels)
+- [Журнал попереднього запису (WAL) та протокол ARIES](topic:programming/write-ahead-log)
 </preknowlist>
 
 У сучасній безперервній розробці програмного забезпечення (Continuous Delivery) додатки розгортаються десятки разів на день без зупинки користувацького сервісу. Проте оновлення схеми реляційної бази даних залишається найризикованішим етапом релізу. Якщо нова версія коду може бути миттєво відкочена або розгорнута паралельно через Canary або Blue-Green механізми, то зміна фізичної структури таблиці із сотнями мільйонів рядків зачіпає єдиний спільний стан усього кластера.
@@ -37,7 +37,7 @@
 3. **Head-of-Line Blocking**: Планувальник ядра бази даних бачить ексклюзивний запит у черзі. Щоб захистити команду DDL від вічного голодування, планувальник починає блокувати **всі нові вхідні запити** до цієї таблиці (навіть найпростіші швидкі `SELECT` на 1 мілісекунду).
 4. **Вичерпання пулу підключень (Connection Pool Starvation)**: За лічені секунди сотні нових веб-запитів блокуються в очікуванні таблиці. Пул з'єднань додатку переповнюється, сервери перестають приймати трафік, і вся система падає з помилкою HTTP 500.
 
-Математичний аналіз і розрахунок часу накопичення черги детально викладено у вставці [Математична формалізація черги блокувань DDL та каскадного блокування](book:programming/databases/database-migrations/math-lock-queue.md).
+Математичний аналіз і розрахунок часу накопичення черги детально викладено у вставці [Математична формалізація черги блокувань DDL та каскадного блокування](topic:programming/database-migrations/math-lock-queue.md).
 
 ---
 
@@ -80,7 +80,7 @@
 * Після стабілізації релізу та перевірки метрик старе поле видаляється або позначається як неактивне.
 * Схема стає чистою, без надлишкових дублюючих структур.
 
-Історію розвитку міграційних методологій від ручних патчів до автоматизованих пайплайнів наведено у вставці [Еволюція міграцій баз даних: від ручних патчів до онлайн-DDL](book:programming/databases/database-migrations/hist-evolution-migrations.md).
+Історію розвитку міграційних методологій від ручних патчів до автоматизованих пайплайнів наведено у вставці [Еволюція міграцій баз даних: від ручних патчів до онлайн-DDL](topic:programming/database-migrations/hist-evolution-migrations.md).
 
 ---
 
@@ -186,7 +186,7 @@ bool validate_schema_compatibility(const std::vector<ColumnSchema>& schema, cons
 ```
 :::
 
-Практична розробка власного повноцінного рушія міграцій доступна у проєкті [Розробка міні-рушія міграцій схеми бази даних](book:programming/databases/database-migrations/proj-mini-migration-runner.md).
+Практична розробка власного повноцінного рушія міграцій доступна у проєкті [Розробка міні-рушія міграцій схеми бази даних](topic:programming/database-migrations/proj-mini-migration-runner.md).
 
 ---
 
@@ -197,7 +197,7 @@ bool validate_schema_compatibility(const std::vector<ColumnSchema>& schema, cons
 ![Пайплайн неперервної доставки міграцій](img/zero-downtime-pipeline.svg)
 *Автоматизований пайплайн: статичний лінтинг, Pre-deployment DDL, поступове оновлення серверів та фінальне очищення*
 
-Повний перелік рівнів блокувань, небезпечних операцій та правил налаштування захисних тайм-аутів наведено у вставці [Довідник безпечних DDL операцій та чекліст Zero-Downtime](book:programming/databases/database-migrations/api-zero-downtime-checklist.md).
+Повний перелік рівнів блокувань, небезпечних операцій та правил налаштування захисних тайм-аутів наведено у вставці [Довідник безпечних DDL операцій та чекліст Zero-Downtime](topic:programming/database-migrations/api-zero-downtime-checklist.md).
 
 ---
 

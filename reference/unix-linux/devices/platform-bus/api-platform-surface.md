@@ -23,7 +23,7 @@
 | Звертання | Що дає |
 |---|---|
 | `dev_get_platdata(&pdev->dev)` | вказівник на `dev.platform_data` — структуру параметрів, покладену тим, хто заводив пристрій із коду |
-| `pdev->dev.of_node` | вузол [дерева пристроїв](book:unix-linux/device-tree), з якого пристрій зроблено (`NULL`, якщо не з нього) |
+| `pdev->dev.of_node` | вузол [дерева пристроїв](topic:unix-linux/device-tree), з якого пристрій зроблено (`NULL`, якщо не з нього) |
 | `pdev->dev.fwnode` | той самий вузол у загальному вигляді — дерево, ACPI або програмний вузол. Читати властивості слід через нього: `device_property_read_u32(&pdev->dev, …)` працює однаково для всіх трьох джерел |
 
 Поле `driver_override` колись жило в `platform_device`, а тепер — у `struct device`; шина лише вмикає для своїх пристроїв відповідний атрибут.
@@ -91,7 +91,7 @@ struct platform_driver {
 | `platform_get_irq_optional(pdev, idx)` | те саме | те саме, але мовчки: без повідомлення в журнал |
 | `platform_get_irq_byname(pdev, "rx")` | те саме | ім'я з `interrupt-names` вузла |
 | `platform_get_irq_byname_optional(pdev, "rx")` | те саме | мовчазний варіант |
-| `devm_platform_ioremap_resource(pdev, idx)` | `void __iomem *`, помилка через `IS_ERR()` | ресурс типу `MEM` за номером + захоплення діапазону + [відображення регістрів](book:unix-linux/mmio-and-ioremap) одним рухом |
+| `devm_platform_ioremap_resource(pdev, idx)` | `void __iomem *`, помилка через `IS_ERR()` | ресурс типу `MEM` за номером + захоплення діапазону + [відображення регістрів](topic:unix-linux/mmio-and-ioremap) одним рухом |
 | `devm_platform_ioremap_resource_byname(pdev, "cfg")` | те саме | ім'я з `reg-names` |
 | `devm_platform_get_and_ioremap_resource(pdev, idx, &res)` | те саме, плюс сам ресурс | коли крім вказівника потрібен ще й розмір |
 | `platform_set_drvdata(pdev, p)` / `platform_get_drvdata(pdev)` | — / `void *` | обгортки над `dev_set_drvdata()`: як `remove()` знаходить те, що завів `probe()` |
@@ -128,7 +128,7 @@ static int acme_probe(struct platform_device *pdev)
 }
 ```
 
-Жодного шляху виходу зі звільненням тут нема, бо все взято з префіксом `devm_` — такі захоплення [ядро скасовує саме](book:unix-linux/devres-managed-resources), коли пристрій зникає.
+Жодного шляху виходу зі звільненням тут нема, бо все взято з префіксом `devm_` — такі захоплення [ядро скасовує саме](topic:unix-linux/devres-managed-resources), коли пристрій зникає.
 
 ## Заведення пристрою
 
@@ -153,7 +153,7 @@ static int acme_probe(struct platform_device *pdev)
 | `platform_driver_probe(drv, probe)` | реєстрація з розрахунком на одну-єдину спробу |
 | `module_platform_driver_probe()`, `builtin_platform_driver_probe()` | обгортки над попереднім |
 
-Останні два рядки варто розібрати, бо пастка в переліку одна — і вона там. Сенс `platform_driver_probe()` — дозволити покласти саму функцію `probe()` в секцію `__init`, пам'ять якої ядро віддає назад одразу після старту. Раз функції потім просто не існує, викликати її вдруге не можна ніколи. Тому реєстрація вимикає все, що могло б покликати її ще раз: ставить `prevent_deferred_probe = true`, тож `-EPROBE_DEFER` від такого драйвера відкидається; ставить `suppress_bind_attrs = true`, тож у `/sys` не з'являються `bind` і `unbind`; після реєстрації підміняє вказівник `probe` на заглушку, яка відмовляє всім пристроям, що прийдуть згодом; і повертає `-ENODEV`, знявши драйвер, якщо жодного пристрою так і не знайшлося. Звідси й межа застосування: тільки залізо, яке напевно вже зареєстроване й точно не з'явиться пізніше. Усе інше — `module_platform_driver()` і звичайна [відкладена спроба](book:unix-linux/driver-probe-and-binding).
+Останні два рядки варто розібрати, бо пастка в переліку одна — і вона там. Сенс `platform_driver_probe()` — дозволити покласти саму функцію `probe()` в секцію `__init`, пам'ять якої ядро віддає назад одразу після старту. Раз функції потім просто не існує, викликати її вдруге не можна ніколи. Тому реєстрація вимикає все, що могло б покликати її ще раз: ставить `prevent_deferred_probe = true`, тож `-EPROBE_DEFER` від такого драйвера відкидається; ставить `suppress_bind_attrs = true`, тож у `/sys` не з'являються `bind` і `unbind`; після реєстрації підміняє вказівник `probe` на заглушку, яка відмовляє всім пристроям, що прийдуть згодом; і повертає `-ENODEV`, знявши драйвер, якщо жодного пристрою так і не знайшлося. Звідси й межа застосування: тільки залізо, яке напевно вже зареєстроване й точно не з'явиться пізніше. Усе інше — `module_platform_driver()` і звичайна [відкладена спроба](topic:unix-linux/driver-probe-and-binding).
 
 ## Порядок збігу в `platform_match()`
 
@@ -191,4 +191,4 @@ acpi:<HID>:<CID>:…:
 platform:<name>
 ```
 
-Дві дрібниці, на яких спотикаються. У формі `of:` при відсутньому `device_type` друкується `(null)` — саме так `vsnprintf` показує рядок, якого нема, — тож у реальному `/sys` видно `of:NserialT(null)Cacme,myuart-r1p2`. І псевдоніми, які [`udev`](book:unix-linux/udev-rules) шукає в модулі, виглядають інакше: `MODULE_DEVICE_TABLE(of, …)` кладе в модуль пару `of:N*T*C<compatible>` і `of:N*T*C<compatible>C*` — зірочки замість імені вузла й типу, а хвостове `C*` потрібне тому, що пристрій цілком може оголосити ще кілька `compatible` після потрібного. Псевдонім ACPI так само із зірочками: `acpi*:<ID>:*`.
+Дві дрібниці, на яких спотикаються. У формі `of:` при відсутньому `device_type` друкується `(null)` — саме так `vsnprintf` показує рядок, якого нема, — тож у реальному `/sys` видно `of:NserialT(null)Cacme,myuart-r1p2`. І псевдоніми, які [`udev`](topic:unix-linux/udev-rules) шукає в модулі, виглядають інакше: `MODULE_DEVICE_TABLE(of, …)` кладе в модуль пару `of:N*T*C<compatible>` і `of:N*T*C<compatible>C*` — зірочки замість імені вузла й типу, а хвостове `C*` потрібне тому, що пристрій цілком може оголосити ще кілька `compatible` після потрібного. Псевдонім ACPI так само із зірочками: `acpi*:<ID>:*`.

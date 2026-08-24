@@ -68,7 +68,7 @@ public:
 
 ### 4. Використання та вивід класів
 
-Щоб вивести власне розбиття ([Фактор-множини](book:math/quotient-sets)у), ми групуємо всі елементи, які мають однакового представника.
+Щоб вивести власне розбиття ([Фактор-множини](topic:math/quotient-sets)у), ми групуємо всі елементи, які мають однакового представника.
 
 ```cpp
 int main() {
@@ -83,7 +83,7 @@ int main() {
     dsu.add_relation(5, 6); // 4, 5, 6 в іншому класі
     // Елемент 3 залишається ізольованим.
 
-    // Формуємо [Фактор-множини](book:math/quotient-sets)у (класи еквівалентності)
+    // Формуємо [Фактор-множини](topic:math/quotient-sets)у (класи еквівалентності)
     std::map<int, std::vector<int>> quotient_set;
     for (int i = 0; i < n; i++) {
         int rep = dsu.find_representative(i);
@@ -91,7 +91,7 @@ int main() {
     }
 
     // Вивід результатів
-    std::cout << "[Фактор-множини](book:math/quotient-sets)а A/R (класи еквівалентності):\n";
+    std::cout << "[Фактор-множини](topic:math/quotient-sets)а A/R (класи еквівалентності):\n";
     for (const auto& pair : quotient_set) {
         std::cout << "[Представник " << pair.first << "] : { ";
         for (int val : pair.second) {

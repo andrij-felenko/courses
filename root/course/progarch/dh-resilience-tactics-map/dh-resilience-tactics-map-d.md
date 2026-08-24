@@ -1,10 +1,10 @@
 # Тактики стійкості DH разом
 
 <preknowlist>
-- [Admission control](book:programming/distributed-systems/admission-control) — захист системи на межі прийому: перевірка й відмова запитам до виділення ресурсів.
-- [Скидання навантаження](book:programming/distributed-systems/load-shedding) — відкидання надлишку трафіку як єдиний спосіб врятувати систему від катастрофічного колапсу.
-- [Graceful degradation](book:programming/distributed-systems/graceful-degradation-primary) — плавна деградація функціоналу замість падіння всієї системи під тиском.
-- [Адаптивні ліміти конкурентності](book:programming/distributed-systems/adaptive-concurrency) — динамічне вимірювання місткості нод за затримкою та довжиною черги.
+- [Admission control](topic:programming/admission-control) — захист системи на межі прийому: перевірка й відмова запитам до виділення ресурсів.
+- [Скидання навантаження](topic:programming/load-shedding) — відкидання надлишку трафіку як єдиний спосіб врятувати систему від катастрофічного колапсу.
+- [Graceful degradation](topic:programming/graceful-degradation-primary) — плавна деградація функціоналу замість падіння всієї системи під тиском.
+- [Адаптивні ліміти конкурентності](topic:programming/adaptive-concurrency) — динамічне вимірювання місткості нод за затримкою та довжиною черги.
 - [Пріоритезація трафіку як рішення](root:progarch/resilience-tactics/priority-and-shedding-choice) — багатрівневе керування пріоритетами й Brownout-план.
 - [Дедуп на межі vs у логіці](root:progarch/resilience-tactics/dedup-boundary) — ізоляція повторних дублікатів запитів на межі системи.
 </preknowlist>

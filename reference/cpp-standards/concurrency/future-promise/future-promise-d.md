@@ -1,9 +1,9 @@
 # future й promise: результат з іншого потоку
 
 <preknowlist>
-- [thread i jthread](book:cpp-standards/std-thread-jthread) — виклики процедур у фонових потоках та керування їхнім життєвим циклом.
-- [М'ютекс і RAII-замки](book:cpp-standards/mutex-and-raii-locks) — забезпечення взаємного виключення під час доступу до спільних даних.
-- [Умовна змінна](book:cpp-standards/condition-variable) — механізм сповіщення та неблокувального очікування між потоками.
+- [thread i jthread](topic:cpp-standards/std-thread-jthread) — виклики процедур у фонових потоках та керування їхнім життєвим циклом.
+- [М'ютекс і RAII-замки](topic:cpp-standards/mutex-and-raii-locks) — забезпечення взаємного виключення під час доступу до спільних даних.
+- [Умовна змінна](topic:cpp-standards/condition-variable) — механізм сповіщення та неблокувального очікування між потоками.
 </preknowlist>
 
 Запуск асинхронного обчислення у фоновому потоці через `std::thread` приховує фундаментальне обмеження: конструктор `std::thread` приймає довільну функцію, але її повернюване значення розсіюється у повітрі. Коли потік завершує роботу, результат обчислення не повертається викликачу, оскільки сигнатура функції потоку повертає `void` з точки зору виконавчого ядра OS.
@@ -975,8 +975,8 @@ void cancellable_worker(std::stop_token stop_tok, std::promise<int> p) {
 3. **Одноразовість каналу:** `future` не призначений для потокової передачі даних (data streaming). Для передачі багатьох значень підходить черга задач (Lock-Free Queue) або умовні змінні.
 
 Повну специфікацію класів та методів зведено у довідникові вставки теми:
-- 📜 `hist-future-promise.md` — [Історія майбутніх результатів: від Hewitt і Liskov до C++11](book:cpp-standards/future-promise/hist-future-promise.md).
-- 📋 `api-future-promise.md` — [Повна специфікація std::future, std::shared_future, std::promise та std::packaged_task](book:cpp-standards/future-promise/api-future-promise.md).
-- ⚙️ `proj-custom-future.md` — [Реалізація власного одноразового каналу передачі результату](book:cpp-standards/future-promise/proj-custom-future.md).
+- 📜 `hist-future-promise.md` — [Історія майбутніх результатів: від Hewitt і Liskov до C++11](topic:cpp-standards/future-promise/hist-future-promise.md).
+- 📋 `api-future-promise.md` — [Повна специфікація std::future, std::shared_future, std::promise та std::packaged_task](topic:cpp-standards/future-promise/api-future-promise.md).
+- ⚙️ `proj-custom-future.md` — [Реалізація власного одноразового каналу передачі результату](topic:cpp-standards/future-promise/proj-custom-future.md).
 
 > 🔧 **Навіщо це.** Шаблони `std::promise` та `std::future` є фундаментальними цеглинками асинхронного C++. Вони звільняють розробника від ручного проектування м'ютексів та умовних змінних для поштучних фонових задач. Розуміння їхнього життєвого циклу, механіки Shared State та передачі винятків є обов'язковою передумовою для роботи з високорівневими інструментами — `std::packaged_task`, `std::async` та сучасними корутинами C++20.

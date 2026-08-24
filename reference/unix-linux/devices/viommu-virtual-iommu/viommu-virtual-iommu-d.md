@@ -1,8 +1,8 @@
 <preknowlist>
-- [KVM та QEMU](book:unix-linux/kvm-and-qemu-architecture) — ролі хоста L0, гостьової віртуальної машини L1 та вкладеного гостя L2.
-- [DMA та підсистема IOMMU](book:unix-linux/dma-mapping-subsystem-and-iommu) — базові принципи апаратного перетворення адрес та ізоляції пристроїв.
-- [VFIO passthrough](book:unix-linux/vfio-passthrough) — безпечне прокидання PCI-пристроїв у просторі користувача.
-- [Вкладена віртуалізація в KVM](book:unix-linux/nested-virtualization-kvm) — налаштування та принципи запуску гіпервізора всередині віртуальної машини.
+- [KVM та QEMU](topic:unix-linux/kvm-and-qemu-architecture) — ролі хоста L0, гостьової віртуальної машини L1 та вкладеного гостя L2.
+- [DMA та підсистема IOMMU](topic:unix-linux/dma-mapping-subsystem-and-iommu) — базові принципи апаратного перетворення адрес та ізоляції пристроїв.
+- [VFIO passthrough](topic:unix-linux/vfio-passthrough) — безпечне прокидання PCI-пристроїв у просторі користувача.
+- [Вкладена віртуалізація в KVM](topic:unix-linux/nested-virtualization-kvm) — налаштування та принципи запуску гіпервізора всередині віртуальної машини.
 </preknowlist>
 
 # Віртуальний IOMMU (vIOMMU) для вкладеного прокидання
@@ -187,7 +187,7 @@ IOMMUFD надає гнучкий API користувацького прост�
 - QEMU в L0 створює HWPT Стадії 2 (L1 GPA → HPA).
 - QEMU створює вкладену HWPT Стадії 1 та пов'язує її з HWPT Стадії 2, передаючи ядру покажчик на кореневу структуру L1.
 
-Практичну реалізацію створення вкладених доменів у системі розглядає [Налаштування вкладеної трансляції через IOMMUFD у C та C++](book:unix-linux/viommu-virtual-iommu/proj-nested-iommufd-bind.md).
+Практичну реалізацію створення вкладених доменів у системі розглядає [Налаштування вкладеної трансляції через IOMMUFD у C та C++](topic:unix-linux/viommu-virtual-iommu/proj-nested-iommufd-bind.md).
 
 Завдяки розділенню обов'язків між файловими дескрипторами пристроїв та таблиць сторінок, IOMMUFD дозволяє одночасно прив'язувати кілька пристроїв до однієї вкладеної HWPT Стадії 1, мінімізуючи споживання пам'яті у ядрі.
 

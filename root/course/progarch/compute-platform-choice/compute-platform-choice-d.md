@@ -2,8 +2,8 @@
 
 <preknowlist>
 - [Розподіл навантаження DH](root:progarch/scale-and-load/load-distribution-dh) — два профілі трафіку (stateless REST vs stateful gRPC) та механіка L4/L7 балансування.
-- [Контейнеризація та ізоляція](book:programming/distributed-systems/containers-isolation) — cgroups, namespaces, Docker-контейнери та віртуалізація QEMU/KVM.
-- [Економіка хмари та FinOps](book:programming/distributed-systems/cloud-finops) — базові поняття On-Demand, Reserved Instances, Spot/Preemptible та TCO обчислювальних ресурсів.
+- [Контейнеризація та ізоляція](topic:programming/distributed-systems/containers-isolation) — cgroups, namespaces, Docker-контейнери та віртуалізація QEMU/KVM.
+- [Економіка хмари та FinOps](topic:programming/distributed-systems/cloud-finops) — базові поняття On-Demand, Reserved Instances, Spot/Preemptible та TCO обчислювальних ресурсів.
 </preknowlist>
 
 Коли масштабна IoT-платформа Digital Homes розростається до 500 000 активних розумних будинків і понад 10 мільйонів підключених пристроїв, обчислювальне навантаження системи втрачає однорідність. Усередині backend-інфраструктури одночасно виникають чотири кардинально різні типи процесів: утримування 5 мільйонів довгоживучих gRPC-стримів телеметрії з постійним потоком 500 000 повідомлень на секунду, короткі сплески HTTP/REST-запитів від мобільних додатків на рівні 50 000 rps, ефемерні асинхронні виклики вебхуків при спрацюванні тривог (від нульового трафіку вночі до 20 000 rps під час негоди), а також важка аналітика відеопотоків із камер спостереження на базі алгоритмів машинного навчання, що вимагає прямого доступу до апаратних графічних прискорювачів (GPU).

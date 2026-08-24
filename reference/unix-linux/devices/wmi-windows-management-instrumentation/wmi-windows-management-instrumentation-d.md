@@ -1,9 +1,9 @@
 # Інтерфейс WMI (ACPI-WMI) у драйверах Linux
 
 <preknowlist>
-- [ACPI таблиці та простір імен](book:unix-linux/acpi-tables-and-namespace) — принципи побудови таблиць DSDT/SSDT, АМЛ-код та об'єкти в просторі імен ACPI.
-- [Модель пристроїв Linux](book:unix-linux/sysfs-device-model) — концепція пристроїв `struct device`, драйверів та віртуальних шин у sysfs.
-- [Прив'язка драйверів у ядрі](book:unix-linux/driver-probe-and-binding) — механізм `probe`, `remove` та таблиці маппінгу пристроїв.
+- [ACPI таблиці та простір імен](topic:unix-linux/acpi-tables-and-namespace) — принципи побудови таблиць DSDT/SSDT, АМЛ-код та об'єкти в просторі імен ACPI.
+- [Модель пристроїв Linux](topic:unix-linux/sysfs-device-model) — концепція пристроїв `struct device`, драйверів та віртуальних шин у sysfs.
+- [Прив'язка драйверів у ядрі](topic:unix-linux/driver-probe-and-binding) — механізм `probe`, `remove` та таблиці маппінгу пристроїв.
 </preknowlist>
 
 Сучасні ноутбуки, моноблоки та настільні материнські плати містять десятки нестандартних апаратних вузлів: спеціалізовані Fn-клавіші, мультизонове RGB-підсвічування клавіатури, графічні перемикачі MUX Switch для керування дискретною відеокартою, апаратні профілі вентиляторів та специфічні налаштування BIOS. Базовий специфікаційний стандарт ACPI (Advanced Configuration and Power Interface) описує лише уніфіковані класи пристроїв — стандартні батареї, адаптери живлення AC, кнопки живлення та термозони (thermal zones). Він не містить готові інтерфейси для регулювання яскравості світлодіодного підсвічування конкретної моделі ноутбука чи встановлення порогу заряду акумулятора.
@@ -20,7 +20,7 @@
 
 Для розв'язання цієї проблеми корпорація Microsoft спільно з провідними виробниками апаратного забезпечення розробила специфікацію "WMI to ACPI Mapper Specification". Замість створення унікальних імен ACPI-методів для кожного пристрою специфікація інкапсулює вендорські функції в один стандартний ACPI-пристрій із Hardware ID `PNP0C14`. Усі апаратні методи, блоки даних та події прив'язуються до 128-бітних глобально унікальних ідентифікаторів — **GUID** (Globally Unique Identifier).
 
-Детальний опис історичних етапів переходу від SMI/SMM та хаотичних ACPI-розширень до уніфікованої шини описує [історія появи WMI to ACPI Mapper](book:unix-linux/wmi-windows-management-instrumentation/hist-wmi-to-acpi.md).
+Детальний опис історичних етапів переходу від SMI/SMM та хаотичних ACPI-розширень до уніфікованої шини описує [історія появи WMI to ACPI Mapper](topic:unix-linux/wmi-windows-management-instrumentation/hist-wmi-to-acpi.md).
 
 Хоча у назві технології присутній абревіатурний елемент "WMI" (Windows Management Instrumentation), сама специфікація мапера є чисто апаратною специфікацією ACPI. Операційна система Linux реалізує підтримку цього стандарту у ядрі через підсистему `wmi.ko` (`drivers/platform/x86/wmi.c`). Драйвер парсить ACPI-пристрій `PNP0C14`, будує внутрішню шину ядра `wmi_bus_type` і транслює абстрактні GUID на стандартні об'єкти Linux Device Model.
 
@@ -84,7 +84,7 @@ Device (WMI1)
 
 При виконанні методів інтерпретатор ACPICA ядра гарантує взаємовиключення через ACPI-м'ютекси, що запобігає стану гонитви (race conditions) при одночасному зверненні кількох драйверів до шини Embedded Controller.
 
-Детальний перелік макросів, системних прапорців та структур даних містить [повний довідник API ядра Linux](book:unix-linux/wmi-windows-management-instrumentation/api-wmi-kernel-surface.md).
+Детальний перелік макросів, системних прапорців та структур даних містить [повний довідник API ядра Linux](topic:unix-linux/wmi-windows-management-instrumentation/api-wmi-kernel-surface.md).
 
 ## Архітектура wmi.ko та шина wmi_bus_type
 
@@ -195,7 +195,7 @@ echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold
 5. Інтерпретатор АМЛ виконує байткод прошивки, який робить запис у регістри Embedded Controller (EC).
 6. Мультиконтролер (EC) апаратно змінює поріг відсічки зарядного пристрою на рівні 80%.
 
-Дізнатися, як створити власний модуль ядра для роботи з WMI та написати утиліти аналізу sysfs, можна відкривши [практичний проект драйвера WMI](book:unix-linux/wmi-windows-management-instrumentation/proj-wmi-driver-skeleton.md).
+Дізнатися, як створити власний модуль ядра для роботи з WMI та написати утиліти аналізу sysfs, можна відкривши [практичний проект драйвера WMI](topic:unix-linux/wmi-windows-management-instrumentation/proj-wmi-driver-skeleton.md).
 
 ## Екосистема вендорських драйверів у ядрі Linux
 

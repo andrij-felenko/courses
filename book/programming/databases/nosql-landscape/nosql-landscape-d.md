@@ -1,11 +1,11 @@
 # 📜 Ландшафт NoSQL: Key-Value, Document, Column-Family та Graph
 
 <preknowlist>
-- [Реляційна модель даних](book:programming/databases/relational-model)
-- [Індекси баз даних: B-Tree та Hash](book:programming/databases/database-indexes)
-- [Планувальник та оптимізатор запитів](book:programming/databases/query-planner)
-- [Транзакції та властивості ACID](book:programming/databases/transactions-acid)
-- [Рівні ізоляції транзакцій](book:programming/databases/isolation-levels)
+- [Реляційна модель даних](topic:programming/relational-model)
+- [Індекси баз даних: B-Tree та Hash](topic:programming/database-indexes)
+- [Планувальник та оптимізатор запитів](topic:programming/query-planner)
+- [Транзакції та властивості ACID](topic:programming/transactions-acid)
+- [Рівні ізоляції транзакцій](topic:programming/isolation-levels)
 </preknowlist>
 
 Протягом майже чотирьох десятиліть реляційні системи керування базами даних (RDBMS) були абсолютним і безальтернативним стандартом збереження інформації в корпоративному програмному забезпеченні. Проте вибухове зростання веб-сервісів початку 2000-х років, поява соціальних мереж та технологій Інтернету речей (IoT) виявили фундаментальні обмеження класичної реляційної моделі: жорсткість фіксованої схеми, високу вартість транзакційного блокування та неможливість ефективного горизонтального масштабування.
@@ -32,7 +32,7 @@
 #### 3. Негнучкість фіксованої схеми (Schema-on-Write)
 У реляційній базі кожен рядок повинен суворо відповідати заздалегідь визначеній схемі таблиці. Додавання нових колонок (`ALTER TABLE`) на таблицях із мільярдами записів у старих СУБД вимагало повного ексклюзивного блокування таблиці на години або дні.
 
-Історію того, як інтернет-гіганти Google та Amazon подолали ці бар'єри, описано у вставці [Еволюція руху NoSQL: від Google Bigtable до NewSQL](book:programming/databases/nosql-landscape/hist-nosql-movement.md).
+Історію того, як інтернет-гіганти Google та Amazon подолали ці бар'єри, описано у вставці [Еволюція руху NoSQL: від Google Bigtable до NewSQL](topic:programming/nosql-landscape/hist-nosql-movement.md).
 
 ---
 
@@ -53,7 +53,7 @@
 1. **CP-системи (MongoDB, HBase, CockroachDB)**: У разі розділення мережі вузли блокують операції запису або читання, якщо вони не можуть гарантувати актуальність даних, жертвуючи доступністю заради узгодженості.
 2. **AP-системи (Apache Cassandra, Amazon DynamoDB, CouchDB)**: Усі вузли продовжують приймати записи та повертати відповіді, навіть якщо вони ізольовані, жертвуючи строгою миттєвою синхронізацією.
 
-Математичне доведення теореми CAP та її сучасне розширення PACELC наведено у вставці [Математична формалізація теорем CAP та PACELC](book:programming/databases/nosql-landscape/math-cap-pacelc.md).
+Математичне доведення теореми CAP та її сучасне розширення PACELC наведено у вставці [Математична формалізація теорем CAP та PACELC](topic:programming/nosql-landscape/math-cap-pacelc.md).
 
 #### Модель узгодженості BASE:
 * **Basically Available (Базова доступність)**: Система гарантує доступність даних, погоджуючись на можливу тимчасову деградацію швидкості або неповноту відповіді.
@@ -203,7 +203,7 @@ private:
 ```
 :::
 
-Повну робочу реалізацію промислового Append-Only сховища з індексом у пам'яті (патерн Bitcask) наведено у практичному проєкті [Розробка міні-NoSQL сховища: Key-Value та Append-Only Log](book:programming/databases/nosql-landscape/proj-mini-kv-store.md).
+Повну робочу реалізацію промислового Append-Only сховища з індексом у пам'яті (патерн Bitcask) наведено у практичному проєкті [Розробка міні-NoSQL сховища: Key-Value та Append-Only Log](topic:programming/nosql-landscape/proj-mini-kv-store.md).
 
 ---
 
@@ -218,7 +218,7 @@ private:
 | **Масштабованість на запис**| Обмежена (Scale-Up) | Висока (In-Memory) | Середня (Auto-sharding) | Надвисока (Linear Scale-Out)| Середня |
 | **Гнучкість схеми** | Жорстка (Schema-on-Write) | Відсутня (BLOB) | Гнучка (Schema-on-Read) | Напівжорстка | Гнучка |
 
-Повний структурований алгоритм вибору СУБД для системних архітекторів наведено у вставці [Практичний довідник архітектора: Дерево рішень щодо вибору NoSQL СУБД](book:programming/databases/nosql-landscape/api-nosql-decision-tree.md).
+Повний структурований алгоритм вибору СУБД для системних архітекторів наведено у вставці [Практичний довідник архітектора: Дерево рішень щодо вибору NoSQL СУБД](topic:programming/nosql-landscape/api-nosql-decision-tree.md).
 
 ---
 

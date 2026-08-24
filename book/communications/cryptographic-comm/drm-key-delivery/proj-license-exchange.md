@@ -1,9 +1,9 @@
 # ⚙️ Обмін ліцензіями: клієнтський EME-конвеєр та серверний обробник ключів
 
 <preknowlist>
-- [Спільне шифрування медіа (CENC)](book:communications/common-encryption) — заголовок `tenc`, ідентифікатори ключів `KID` та схеми шифрування `cenc` і `cbcs`.
-- [Програмний інтерфейс EME та двійковий формат PSSH](book:communications/drm-key-delivery/api-eme-interfaces.md) — інтерфейси `MediaKeys`, `MediaKeySession`, структура боксу `pssh`.
-- [DRM: як ключ контенту потрапляє в пристрій](book:communications/drm-key-delivery) — загальна архітектура захищеної доставки ключів.
+- [Спільне шифрування медіа (CENC)](topic:communications/common-encryption) — заголовок `tenc`, ідентифікатори ключів `KID` та схеми шифрування `cenc` і `cbcs`.
+- [Програмний інтерфейс EME та двійковий формат PSSH](topic:communications/drm-key-delivery/api-eme-interfaces.md) — інтерфейси `MediaKeys`, `MediaKeySession`, структура боксу `pssh`.
+- [DRM: як ключ контенту потрапляє в пристрій](topic:communications/drm-key-delivery) — загальна архітектура захищеної доставки ключів.
 </preknowlist>
 
 Цей проект демонструє наскрізну реалізацію двох ключових компонентів системи захищеної доставки ключів: універсального клієнтського EME-контролера мовою TypeScript та високопродуктивного серверного парсера боксів PSSH з механізмом загортання ключів (Key Wrapping) мовами C, C++ та Python. Без практичного розуміння цього коду важко налагодити взаємодію між браузером, проксі-сервером авторизації та криптографічним анклавом.

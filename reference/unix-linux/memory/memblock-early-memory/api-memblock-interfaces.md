@@ -32,7 +32,7 @@ struct memblock {
 
 Глобальний примірник `struct memblock memblock` стартує з `.bottom_up = false` і `.current_limit = MEMBLOCK_ALLOC_ANYWHERE`; обидва масиви показують на статичні `memblock_memory_init_regions` і `memblock_reserved_init_regions` розміром `INIT_MEMBLOCK_REGIONS` — це 128, і архітектура має право перевизначити окремо `INIT_MEMBLOCK_MEMORY_REGIONS` та `INIT_MEMBLOCK_RESERVED_REGIONS`.
 
-Поле `nid` існує лише за `CONFIG_NUMA`; читають його через `memblock_get_region_node()`, який без NUMA завжди віддає нуль. Сам поділ пам'яті на вузли з різною ціною доступу описано окремо — [NUMA](book:programming/numa).
+Поле `nid` існує лише за `CONFIG_NUMA`; читають його через `memblock_get_region_node()`, який без NUMA завжди віддає нуль. Сам поділ пам'яті на вузли з різною ціною доступу описано окремо — [NUMA](topic:programming/numa).
 
 Третій тип, `physmem`, — окрема глобальна змінна, а не поле `struct memblock`; існує лише за `CONFIG_HAVE_MEMBLOCK_PHYS_MAP` і зберігає карту прошивки такою, якою її дали, тоді як `memory` вже обрізали параметри командного рядка. Стартовий розмір — `INIT_PHYSMEM_REGIONS`, тобто 4 записи.
 
@@ -78,7 +78,7 @@ struct memblock {
 | --- | --- |
 | `void memblock_free(void *ptr, size_t size)` | за віртуальною адресою, до передачі естафети |
 | `int memblock_phys_free(phys_addr_t base, phys_addr_t size)` | за фізичною, до передачі естафети |
-| `void memblock_free_late(phys_addr_t base, phys_addr_t size)` | після передачі: сторінки йдуть уже [розподільникові сторінок](book:unix-linux/physical-page-allocator) |
+| `void memblock_free_late(phys_addr_t base, phys_addr_t size)` | після передачі: сторінки йдуть уже [розподільникові сторінок](topic:unix-linux/physical-page-allocator) |
 | `void memblock_free_all(void)` | одноразова передача естафети цілком |
 
 Оголошення `memblock_free_all()` з публічного заголовка прибрали: у 6.12 воно ще в `include/linux/memblock.h`, у 6.16 — у внутрішньому `mm/internal.h`, бо єдиний законний викликач — `mm_core_init()`.
@@ -134,7 +134,7 @@ for_each_free_mem_range(i, NUMA_NO_NODE, MEMBLOCK_NONE, &start, &end, NULL)
 
 ## Параметри командного рядка
 
-Усе, що нижче, ядро розбирає ще в добу `memblock`, тож дописують це в [рядок параметрів завантажувача](book:unix-linux/bootloader-and-cmdline), а не в `/proc`.
+Усе, що нижче, ядро розбирає ще в добу `memblock`, тож дописують це в [рядок параметрів завантажувача](topic:unix-linux/bootloader-and-cmdline), а не в `/proc`.
 
 | Параметр | Що робить |
 | --- | --- |
@@ -143,8 +143,8 @@ for_each_free_mem_range(i, NUMA_NO_NODE, MEMBLOCK_NONE, &start, &end, NULL)
 | `memmap=nn[KMG]@ss[KMG]` | оголошує ділянку звичайною RAM |
 | `memmap=nn[KMG]#ss` / `$ss` / `!ss` | оголошує її даними ACPI / зарезервованою / стійкою пам'яттю |
 | `memmap=exactmap` | стирає карту прошивки цілком: далі всю карту описують наступними `memmap=` |
-| `crashkernel=size[@offset]`, `size,high`, `size,low`, `range1:size1,range2:size2[@offset]` | резервує суцільну ділянку під [аварійне ядро](book:unix-linux/kexec-and-kdump) |
-| `hugepagesz=`, `hugepages=N` | резервує [великі сторінки](book:unix-linux/huge-pages) наперед — гігантські (1 ГіБ) інакше зібрати вже не вийде |
+| `crashkernel=size[@offset]`, `size,high`, `size,low`, `range1:size1,range2:size2[@offset]` | резервує суцільну ділянку під [аварійне ядро](topic:unix-linux/kexec-and-kdump) |
+| `hugepagesz=`, `hugepages=N` | резервує [великі сторінки](topic:unix-linux/huge-pages) наперед — гігантські (1 ГіБ) інакше зібрати вже не вийде |
 
 ## Мінімальний хід архітектурного коду
 

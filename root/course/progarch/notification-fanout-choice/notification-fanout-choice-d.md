@@ -1,8 +1,8 @@
 # Вибір моделі fan-out сповіщень DH
 
 <preknowlist>
-- [Вузол сповіщень](book:programming/notification-fanout) — фундаментальна задача розсилки сповіщень підписникам через гетерогенні канали.
-- [Fan-out on-write vs on-read](book:programming/fan-out-strategies) — дві базові моделі мультиплікації подій у розподілених системах.
+- [Вузол сповіщень](topic:programming/notification-fanout) — фундаментальна задача розсилки сповіщень підписникам через гетерогенні канали.
+- [Fan-out on-write vs on-read](topic:programming/fan-out-strategies) — дві базові моделі мультиплікації подій у розподілених системах.
 - [Дедуп, злиття й throttling сповіщень](root:progarch/notification-dedup-throttle) — відсіювання, злиття та обмеження темпу потоків перед розсилкою.
 </preknowlist>
 

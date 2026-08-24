@@ -1,7 +1,7 @@
 <preknowlist>
-- [KVM та QEMU](book:unix-linux/kvm-and-qemu-architecture) — концепції хоста L0, гостьової віртуальної машини L1 та вкладеного гостя L2.
-- [DMA та підсистема IOMMU](book:unix-linux/dma-mapping-subsystem-and-iommu) — базовий механізм трансляції адрес та ізоляції пам'яті пристроїв.
-- [VFIO passthrough](book:unix-linux/vfio-passthrough) — безпечне прокидання PCI-пристроїв у віртуальні машини.
+- [KVM та QEMU](topic:unix-linux/kvm-and-qemu-architecture) — концепції хоста L0, гостьової віртуальної машини L1 та вкладеного гостя L2.
+- [DMA та підсистема IOMMU](topic:unix-linux/dma-mapping-subsystem-and-iommu) — базовий механізм трансляції адрес та ізоляції пам'яті пристроїв.
+- [VFIO passthrough](topic:unix-linux/vfio-passthrough) — безпечне прокидання PCI-пристроїв у віртуальні машини.
 </preknowlist>
 
 # Віртуальний IOMMU (vIOMMU)

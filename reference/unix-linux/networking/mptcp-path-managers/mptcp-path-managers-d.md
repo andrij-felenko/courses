@@ -1,9 +1,9 @@
 # Менеджери шляхів у MPTCP (mptcpd та in-kernel path manager)
 
 <preknowlist>
-- [Multipath TCP (MPTCP)](book:unix-linux/multipath-tcp-mptcp) — базові принципи багатошляхового TCP, опції MP_CAPABLE, MP_JOIN та семантика підпотоків.
-- [Протокол Netlink](book:unix-linux/netlink-protocol) — бінарний IPC між ядром Linux і простором користувача, механізм Generic Netlink та атрибути NLA.
-- [Мережеві інтерфейси та IP-адреси](book:unix-linux/interfaces-and-addresses) — конфігурація інтерфейсів, маршрутів та підмереж у Linux.
+- [Multipath TCP (MPTCP)](topic:unix-linux/multipath-tcp-mptcp) — базові принципи багатошляхового TCP, опції MP_CAPABLE, MP_JOIN та семантика підпотоків.
+- [Протокол Netlink](topic:unix-linux/netlink-protocol) — бінарний IPC між ядром Linux і простором користувача, механізм Generic Netlink та атрибути NLA.
+- [Мережеві інтерфейси та IP-адреси](topic:unix-linux/interfaces-and-addresses) — конфігурація інтерфейсів, маршрутів та підмереж у Linux.
 </preknowlist>
 
 Уявіть мобільний роутер або сучасний смартфон, що одночасно підключений до бездротової мережі Wi-Fi (`192.168.1.50`) та стільникового каналу 5G (`10.80.4.12`). При використанні класичного протоколу TCP будь-яка мережева сесія прив'язана до єдиного сокетного кортежу 4-tuple (IP-адреса джерела, порт джерела, IP-адреса призначення, порт призначення). Якщо користувач виходить із зони покриття Wi-Fi, ця IP-адреса зникає, TCP-сесія рветься, а передача даних зупиняється.
@@ -43,7 +43,7 @@ sysctl net.mptcp.pm_type
 4. **Керування пріоритетами (Priority Change)**: відправка опції `MP_PRIO` або встановлення прапорця `BACKUP` у пакеті `MP_JOIN`, що вказує протилежній стороні використовувати цей шлях лише як резервний у разі повної деградації основного каналу.
 5. **Видалення шляхів (Address Teardown)**: надсилання опції `REMOVE_ADDR` при відключенні мережевого інтерфейсу та примусове закриття відповідних сокетів підпотоків за допомогою процедури TCP FIN/RST.
 
-Історично підходи до цієї процедури пройшли складний шлях від модулів ядра до сучасної двокомпонентної системи. Детальний опис цього розвитку наведено у вставці [Еволюція менеджерів шляхів у MPTCP](book:unix-linux/mptcp-path-managers/hist-mptcp-evolution.md).
+Історично підходи до цієї процедури пройшли складний шлях від модулів ядра до сучасної двокомпонентної системи. Детальний опис цього розвитку наведено у вставці [Еволюція менеджерів шляхів у MPTCP](topic:unix-linux/mptcp-path-managers/hist-mptcp-evolution.md).
 
 ---
 
@@ -211,7 +211,7 @@ sysctl -w net.mptcp.pm_type=1
 - `MPTCP_PM_CMD_SUBFLOW_DESTROY`: примусово закрити конкретний підпотік.
 - `MPTCP_PM_CMD_SET_FLAGS`: змінити пріоритет (`backup`) підпотоку.
 
-Вичерпні списки констант, атрибутів NLA та прикладів форматування Netlink-повідомлень наведено у вставці [Довідник Netlink API та інструментів управління MPTCP](book:unix-linux/mptcp-path-managers/api-mptcp-netlink.md).
+Вичерпні списки констант, атрибутів NLA та прикладів форматування Netlink-повідомлень наведено у вставці [Довідник Netlink API та інструментів управління MPTCP](topic:unix-linux/mptcp-path-managers/api-mptcp-netlink.md).
 
 ---
 
@@ -270,7 +270,7 @@ namespace mptcpd {
 3. Демон `mptcpd` кодує цей виклик у Netlink-команду `MPTCP_PM_CMD_SUBFLOW_CREATE` та надсилає її ядру.
 4. Ядро відкриває новий підпотік `MP_JOIN`.
 
-Повний вихідний код готових плагінів мовами C та C++ (з ідіоматичними RAII-обгортками) дивіться у вставці [Реалізація плагіна mptcpd та аналізатора подій Netlink](book:unix-linux/mptcp-path-managers/proj-mptcpd-plugin.md).
+Повний вихідний код готових плагінів мовами C та C++ (з ідіоматичними RAII-обгортками) дивіться у вставці [Реалізація плагіна mptcpd та аналізатора подій Netlink](topic:unix-linux/mptcp-path-managers/proj-mptcpd-plugin.md).
 
 ---
 

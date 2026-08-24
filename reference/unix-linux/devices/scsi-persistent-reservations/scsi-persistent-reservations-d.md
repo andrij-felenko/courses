@@ -36,7 +36,7 @@ SCSI Persistent Reservations (SCSI PR або SCSI-3 PR) — це механіз�
 1. **`PERSISTENT RESERVE IN` (PR IN):** Використовується для читання інформації з пристрою. Хост запитує: "Хто тут зареєстрований?" або "Яка зараз встановлена резервація?".
 2. **`PERSISTENT RESERVE OUT` (PR OUT):** Використовується для зміни стану на пристрої. Хост каже: "Зареєструй мій ключ", "Встанови резервацію" або "Викинь ключ іншого хоста".
 
-Які саме піддії (service actions) є в кожної з двох команд і що робить кожна з них — [перелік піддій PR IN та PR OUT](book:unix-linux/scsi-persistent-reservations/api-scsi-pr-commands.md).
+Які саме піддії (service actions) є в кожної з двох команд і що робить кожна з них — [перелік піддій PR IN та PR OUT](topic:unix-linux/scsi-persistent-reservations/api-scsi-pr-commands.md).
 
 ### Типи резервацій (Reservation Types)
 
@@ -119,4 +119,4 @@ mpathpersist -i -k /dev/mapper/mpatha
 
 Цей метод fencing має величезну перевагу над іншими методами (наприклад, відключенням живлення через IPMI/PDU): він не залежить від мережі управління або стану IPMI-контролера на збійному сервері. Блокування відбувається на стороні самого дискового масиву. Поки масив працює, fencing буде успішним.
 
-Як це зібрати руками на живому кластері — [покрокове налаштування STONITH через `fence_scsi`](book:unix-linux/scsi-persistent-reservations/proj-cluster-fencing-pr.md).
+Як це зібрати руками на живому кластері — [покрокове налаштування STONITH через `fence_scsi`](topic:unix-linux/scsi-persistent-reservations/proj-cluster-fencing-pr.md).

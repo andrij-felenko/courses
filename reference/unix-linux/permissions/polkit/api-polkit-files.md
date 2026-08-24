@@ -101,13 +101,13 @@ string   polkit.spawn(string[] argv);
 | `pid`, `uid` | int | номер процесу й числовий ідентифікатор власника |
 | `user` | string | імʼя користувача |
 | `groups` | string[] | усі його групи |
-| `seat`, `session` | string | ідентифікатори [місця й сеансу за logind](book:unix-linux/logind-sessions-seats) |
+| `seat`, `session` | string | ідентифікатори [місця й сеансу за logind](topic:unix-linux/logind-sessions-seats) |
 | `local` | boolean | `true`, лише якщо місце локальне |
 | `active` | boolean | `true`, лише якщо сеанс зараз активний |
-| `system_unit` | string | [юніт systemd](book:unix-linux/systemd-model), у якому живе процес; лише системний — процес із користувацького сеансу віддасть тут `user@1000.service` |
+| `system_unit` | string | [юніт systemd](topic:unix-linux/systemd-model), у якому живе процес; лише системний — процес із користувацького сеансу віддасть тут `user@1000.service` |
 | `no_new_privileges` | boolean | заповнене, лише якщо `system_unit` непорожнє: `true`, коли в юніті ввімкнено `NoNewPrivileges=` |
 | `isInGroup(name)` | boolean | членство у групі |
-| `isInNetGroup(name)` | boolean | членство в мережевій групі [через NSS](book:unix-linux/user-database-nss) |
+| `isInNetGroup(name)` | boolean | членство в мережевій групі [через NSS](topic:unix-linux/user-database-nss) |
 
 > 🔧 **Навіщо це.** Пара `system_unit` + `no_new_privileges` — єдиний спосіб написати правило про **службу**, а не про людину: імʼя користувацького юніта може вигадати будь-хто без прав, тому полкіт свідомо звужується до системних, а `no_new_privileges` дає гарантію, що всередині того юніта ніхто не підніметься setuid-двійником уже після перевірки.
 
@@ -129,7 +129,7 @@ polkit.addAdminRule(function (action, subject) {
 
 ## Шина: `CheckAuthorization`
 
-Механізм не читає нічого з наведеного вище — він ставить одне питання на [системній шині](book:unix-linux/dbus).
+Механізм не читає нічого з наведеного вище — він ставить одне питання на [системній шині](topic:unix-linux/dbus).
 
 ```
 імʼя на шині   org.freedesktop.PolicyKit1

@@ -1,8 +1,8 @@
 # async і packaged_task: запуск із результатом
 
 <preknowlist>
-- [thread і jthread: запуск, приєднання, скасування](book:cpp-standards/std-thread-jthread) — базове створення потоків у C++11/20, RAII та приєднання.
-- [future й promise: результат з іншого потоку](book:cpp-standards/future-promise) — модель спільного стану (shared state), очікування та передача винятків.
+- [thread і jthread: запуск, приєднання, скасування](topic:cpp-standards/std-thread-jthread) — базове створення потоків у C++11/20, RAII та приєднання.
+- [future й promise: результат з іншого потоку](topic:cpp-standards/future-promise) — модель спільного стану (shared state), очікування та передача винятків.
 </preknowlist>
 
 Коли програма на C++ створює потік виконання за допомогою `std::thread`, вона запускає фонову задачу, але втрачає простий спосіб отримати результат її обчислення або дізнатися про помилку, що виникла всередині. Сирий потік `std::thread` приймає функцію з поверненим типом `void` або ігнорує повернене значення, а будь-який необроблений виняток у фоновому потоці негайно викликає `std::terminate()`, аварійно завершуючи весь процес.
@@ -206,7 +206,7 @@ fut2.get();
 
 Зверніть увагу: таке блокуюче правило деструктора стосується **виключно** об'єктів `std::future`, отриманих з `std::async`. Об'єкти `std::future`, створені через `std::promise` або `std::packaged_task`, у своєму деструкторі **не блокують** потік. Вони лише зменшують лічильник посилань спільного стану.
 
-Детальніше про історію прийняття рішення N3451 щодо деструкторів `future` та суперечки в комітеті читайте у [історичному екскурсі](book:cpp-standards/async-and-packaged-task/hist-async-task-evolution.md).
+Детальніше про історію прийняття рішення N3451 щодо деструкторів `future` та суперечки в комітеті читайте у [історичному екскурсі](topic:cpp-standards/async-and-packaged-task/hist-async-task-evolution.md).
 
 ---
 
@@ -376,7 +376,7 @@ int res2 = fut2.get();
 ![Архітектура std::packaged_task](img/packaged-task-pipeline.svg)
 *Внутрішній конвеєр std::packaged_task: від передачі обчислювальної функції до зчитування результату через спільний стан.*
 
-Повний список методів, конструкторів та гарантій потокобезпеки наведено у [довіднику API `std::packaged_task`](book:cpp-standards/async-and-packaged-task/api-async-packaged-task.md).
+Повний список методів, конструкторів та гарантій потокобезпеки наведено у [довіднику API `std::packaged_task`](topic:cpp-standards/async-and-packaged-task/api-async-packaged-task.md).
 
 ---
 
@@ -484,7 +484,7 @@ task.make_ready_at_thread_exit(args...);
 
 У фреймворках паралельного обчислення на основі акторів (наприклад, C++ Actor Framework або CAF) об'єкти `std::packaged_task` слугують універсальним форматом асинхронних повідомлень. Актор приймає загорнуту задачу з поштової скриньки (mailbox), виконує її на своєму локальному потоці і відправляє відповідь через `future` актору-запитувачу.
 
-Повний сирцевий код виробничого пулу задач `TaskExecutor` на C++20 із детальним розбором та тестами наведено у [проєктній вставці](book:cpp-standards/async-and-packaged-task/proj-task-executor.md).
+Повний сирцевий код виробничого пулу задач `TaskExecutor` на C++20 із детальним розбором та тестами наведено у [проєктній вставці](topic:cpp-standards/async-and-packaged-task/proj-task-executor.md).
 
 ---
 

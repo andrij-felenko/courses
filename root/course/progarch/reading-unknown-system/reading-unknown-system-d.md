@@ -1,9 +1,9 @@
 # Прийшов у чужу систему
 
 <preknowlist>
-- [Археологія legacy](book:programming/architecture-discipline/legacy-archaeology) — реверс-інжиніринг системи без актуальної документації, відкриття швів та характеристичні тести.
-- [Ерозія архітектури](book:programming/architecture-discipline/architecture-erosion) — розходження між задуманою та реалізованою архітектурою під тиском років.
-- [Модель C4](book:programming/architecture-discipline/c4-model) — чотири рівні деталізації для опису та координації архітектури.
+- [Археологія legacy](topic:programming/legacy-archaeology) — реверс-інжиніринг системи без актуальної документації, відкриття швів та характеристичні тести.
+- [Ерозія архітектури](topic:programming/architecture-erosion) — розходження між задуманою та реалізованою архітектурою під тиском років.
+- [Модель C4](topic:programming/c4-model) — чотири рівні деталізації для опису та координації архітектури.
 - [Трейси та логи](root:progarch/observability-and-operations/trace-and-logs) — наскрізна спостережуваність як інструмент аналізу реальних шляхів трафіку.
 </preknowlist>
 

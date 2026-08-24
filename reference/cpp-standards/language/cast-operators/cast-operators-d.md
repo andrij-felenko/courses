@@ -1,12 +1,12 @@
 # Оператори приведення: static_cast, reinterpret_cast, const_cast
 
 <preknowlist>
-* [Адреси та вказівники у пам'яті](book:programming/addresses-pointers)
-* [Невизначена поведінка (Undefined Behavior)](book:programming/undefined-behavior)
-* [Константна коректність (const-correctness)](book:cpp-standards/const-correctness)
-* [RTTI та динамічне приведення типів](book:cpp-standards/rtti-and-dynamic-cast)
-* [Категорії значень (Value Categories)](book:cpp-standards/value-categories)
-* [Множинне та віртуальне спадкування](book:cpp-standards/multiple-and-virtual-inheritance)
+* [Адреси та вказівники у пам'яті](topic:programming/addresses-pointers)
+* [Невизначена поведінка (Undefined Behavior)](topic:programming/undefined-behavior)
+* [Константна коректність (const-correctness)](topic:cpp-standards/const-correctness)
+* [RTTI та динамічне приведення типів](topic:cpp-standards/rtti-and-dynamic-cast)
+* [Категорії значень (Value Categories)](topic:cpp-standards/value-categories)
+* [Множинне та віртуальне спадкування](topic:cpp-standards/multiple-and-virtual-inheritance)
 </preknowlist>
 
 > 🔧 **Навіщо це.**
@@ -19,7 +19,7 @@
 ![Класифікація чотирьох іменованих операторів приведення](img/four-casts-quadrant.svg)
 *Співвідношення чотирьох операторів за часом перевірки та характером перетворення типів.*
 
-Щоб унеможливити такі катастрофічні збої, стандарт C++ розділив операцію приведення типів на чотири спеціалізовані інструменти з чітко окресленими зонами відповідальності. Повну історію дебатів у комітеті WG21 та витоки цього дизайну описано у статті [Історія появи чотирьох операторів](book:cpp-standards/cast-operators/hist-named-casts.md).
+Щоб унеможливити такі катастрофічні збої, стандарт C++ розділив операцію приведення типів на чотири спеціалізовані інструменти з чітко окресленими зонами відповідальності. Повну історію дебатів у комітеті WG21 та витоки цього дизайну описано у статті [Історія появи чотирьох операторів](topic:cpp-standards/cast-operators/hist-named-casts.md).
 
 ---
 
@@ -533,7 +533,7 @@ void process_worker() {
 
 У C++20 для роботи з сирою пам'яттю без створення окремого об'єкта `std::atomic` використовується `std::atomic_ref<T>` (заголовок `<atomic>`), який гарантує коректні атомарні операції над вирівняними даними.
 
-Детальний практичний розбір цієї проблеми, асемблерний аналіз та безпечні альтернативи представлено у статті [Практикум Type Punning та Strict Aliasing](book:cpp-standards/cast-operators/proj-type-punning.md).
+Детальний практичний розбір цієї проблеми, асемблерний аналіз та безпечні альтернативи представлено у статті [Практикум Type Punning та Strict Aliasing](topic:cpp-standards/cast-operators/proj-type-punning.md).
 
 ---
 
@@ -670,7 +670,7 @@ void process_service(ILogger* logger) {
 
 Жоден інший оператор C++ (включаючи `static_cast`) не здатний виконати cross-cast, оскільки зміщення між незалежними інтерфейсами неможливо визначити статично без інформації про кінцевий похідний клас.
 
-Повні сигнатури, таблиці вартості виконання та крайові випадки всіх чотирьох операторів зібрано у статті [Повний технічний довідник операторів](book:cpp-standards/cast-operators/api-casts-reference.md).
+Повні сигнатури, таблиці вартості виконання та крайові випадки всіх чотирьох операторів зібрано у статті [Повний технічний довідник операторів](topic:cpp-standards/cast-operators/api-casts-reference.md).
 
 ---
 
