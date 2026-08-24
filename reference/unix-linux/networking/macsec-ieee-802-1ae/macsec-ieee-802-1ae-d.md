@@ -30,7 +30,7 @@ MACsec закриває цю сліпу зону. Він інкапсулює в
 
 При ввімкненні MACsec оригінальний Ethernet-кадр зазнає структуризації. Заголовок MACsec (SecTAG) вставляється негайно після MAC-адрес джерела та призначення.
 
-![Формат кадру MACsec (IEEE 802.1AE)](/reference/unix-linux/networking/macsec-ieee-802-1ae/img/macsec-frame.svg)
+![Формат кадру MACsec (IEEE 802.1AE)](img/macsec-frame.svg)
 *Формат кадру MACsec (IEEE 802.1AE) із розкриттям полів заголовка SecTAG, зашифрованого навантаження та вектора цілісності ICV.*
 
 ### Структура заголовка SecTAG (Security Tag)
@@ -111,7 +111,7 @@ MACsec опирається на симетричний криптографіч
 
 Реалізація MACsec у ядрі Linux виконана у вигляді модуля ядра `macsec.ko`. Архітектурно MACsec функціонує як віртуальний пристрій-надбудова (stacked netdevice) над базовим фізичним інтерфейсом (наприклад, `eth0`).
 
-![Шлях пакета MACsec у ядрі Linux та апаратне розвантаження](/reference/unix-linux/networking/macsec-ieee-802-1ae/img/macsec-kernel-path.svg)
+![Шлях пакета MACsec у ядрі Linux та апаратне розвантаження](img/macsec-kernel-path.svg)
 *Архітектура підсистеми MACsec у ядрі Linux: проходження sk_buff між віртуальним пристроєм macsec0, модулем macsec.ko та апаратним розвантаженням SmartNIC.*
 
 ### Життєвий цикл вихідного пакета (TX Path: `macsec_start_xmit`)

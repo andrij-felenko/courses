@@ -37,7 +37,7 @@ configure_file(
 )
 ```
 
-![Потік трансформації шаблону configure_file у заголовок збірки](/reference/build-systems/cmake/configure-file-templates/img/configure-file-flow.svg)
+![Потік трансформації шаблону configure_file у заголовок збірки](img/configure-file-flow.svg)
 
 *Згенерований заголовок створюється в каталозі збірки на фазі конфігурації, ізолюється префіксом простору імен і підключається до цілі без зміни дерева джерел.*
 
@@ -107,7 +107,7 @@ configure_file(config.h.in config.h @ONLY)
 
 Для роботи з логічними умовами CMake надає дві спеціальні препроцесорні директиви: `#cmakedefine` та `#cmakedefine01`.
 
-![Правила генерації #cmakedefine та #cmakedefine01](/reference/build-systems/cmake/configure-file-templates/img/cmakedefine-states.svg)
+![Правила генерації #cmakedefine та #cmakedefine01](img/cmakedefine-states.svg)
 
 *Директива #cmakedefine генерує коментар undef для перевірок #ifdef, тоді як #cmakedefine01 завжди створює числове значення 0 або 1 для безпечних перевірок #if та C++ if constexpr.*
 
@@ -219,7 +219,7 @@ auto compress_payload(std::span<const std::uint8_t> src, std::span<std::uint8_t>
 
 Системи збірки, такі як Ninja або Make, використовують граф файлових залежностей. Якщо файл `A.cpp` підключає заголовок `config.h`, то утиліта збірки записує правило: час останньої модифікації об'єктного файлу `A.o` повинен бути більшим, ніж час модифікації `config.h` (`mtime(A.o) > mtime(config.h)`). Якщо `config.h` змінюється, всі залежні від нього об'єктні файли вважаються застарілими й вимагають повторної компіляції.
 
-![Збереження mtime при незмінному вмісті у configure_file](/reference/build-systems/cmake/configure-file-templates/img/mtime-cutoff.svg)
+![Збереження mtime при незмінному вмісті у configure_file](img/mtime-cutoff.svg)
 
 *Побайтове порівняння перед записом захищає мітку mtime і рятує інкрементальну збірку від лавинної перекомпіляції при повторному запуску конфігурації.*
 

@@ -23,7 +23,7 @@
 4. **Крах при спробі запуску PID 1:** Головний процес ініціалізації операційної системи (PID 1) володіє унікальними ядерними обов'язками: він підхоплює процес-«сироти» (zombie reaping через `waitpid(2)`), обробляє системні сигнали від ядра та керує службовими юнітами. Якщо запустити systemd як звичайний процес усередині `chroot` з PID, відмінним від 1 (наприклад, PID 14205), він відмовиться функціонувати, оскільки ядро Linux не делегує йому функції прибирання зомбі-процесів та обробки первинних сигналів.
 5. **Відсутність ресурсного контролю (cgroups):** Процеси усередині `chroot` ділять спільне cgroup-дерево з батьківським процесом хоста. Неконтрольоване споживання пам'яті або процесорного часу усередині `chroot` може призвести до запуску OOM Killer (Out-Of-Memory Killer) на хості та аварійного знищення важливих хостових служб.
 
-![Порівняння межі ізоляції: chroot проти systemd-nspawn](/reference/unix-linux/boot-init/systemd-nspawn-lightweight-containers/img/chroot-vs-nspawn.svg)
+![Порівняння межі ізоляції: chroot проти systemd-nspawn](img/chroot-vs-nspawn.svg)
 *Порівняння конструкції ізоляції chroot та systemd-nspawn.*
 
 Історичні передумови виникнення інструменту `systemd-nspawn` та еволюція від системного виклику `chroot` 1979 року до сучасних ядерних просторів імен детально висвітлені у вставці [Від chroot до systemd-nspawn: еволюція контейнеризації у Linux](book:unix-linux/systemd-nspawn-lightweight-containers/hist-chroot-to-nspawn.md).
@@ -86,7 +86,7 @@
 
 Крім того, `systemd-nspawn` застосовує фільтр Seccomp (Secure Computing Mode) на основі BPF-програм, який на рівні ядра блокує небезпечні системні виклики (такі як `kexec_load`, `reboot`, `swapon`, `sysfs`, а також застарілі 32-бітні виклики на 64-бітних архітектурах).
 
-![Архітектура ізоляції systemd-nspawn у ядрі Linux](/reference/unix-linux/boot-init/systemd-nspawn-lightweight-containers/img/nspawn-architecture.svg)
+![Архітектура ізоляції systemd-nspawn у ядрі Linux](img/nspawn-architecture.svg)
 *Шар залежностей між системними примітивами ядра Linux, хостовим systemd та контейнером nspawn.*
 
 ---
@@ -179,7 +179,7 @@ machinectl poweroff web-node1
 
 Інструмент `systemd-nspawn` надає гнучкі механізми налаштування мережевої взаємодії — від прямого використання сокетів хоста до створення повністю ізольованих L2/L3 мереж.
 
-![Мережеві режими systemd-nspawn](/reference/unix-linux/boot-init/systemd-nspawn-lightweight-containers/img/nspawn-network-modes.svg)
+![Мережеві режими systemd-nspawn](img/nspawn-network-modes.svg)
 *Три мережеві топології nspawn: від прямого доступу до віртуальних мостів veth.*
 
 #### 1. Загальний мережевий стек (Host Direct Mode)

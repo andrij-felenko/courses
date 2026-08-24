@@ -10,7 +10,7 @@
 
 Механізм **Device Tree (дерево пристроїв)** розв'язав цю проблему шляхом повного відокремлення опису апаратури від вихідного коду ядра. Замість компиляції C-файлів топологія плати описується в окремому текстовому синтаксисі, компілюється в компактний бінарний блок (DTB) і передається ядру під час завантаження системи завантажувачем.
 
-![Життєвий цикл Device Tree](/reference/unix-linux/boot-init/device-tree-flattened-dtb/img/dt-lifecycle.svg)
+![Життєвий цикл Device Tree](img/dt-lifecycle.svg)
 *Повний шлях Device Tree від сирцевих текстових файлів .dts через компілятор dtc до передачі завантажувачем і розгортання в ядрі Linux.*
 
 ## 1. Першопричина: Чому шини SoC не вміють самовизначатися
@@ -151,7 +151,7 @@ dtc -I dts -O dtb -o board.dtb board.dts
 dtc -I dtb -O dts -o decompiled.dts board.dtb
 ```
 
-![Структура бінарного Flattened Device Tree Blob](/reference/unix-linux/boot-init/device-tree-flattened-dtb/img/fdt-layout.svg)
+![Структура бінарного Flattened Device Tree Blob](img/fdt-layout.svg)
 *Анатомія бінарного блобу DTB: заголовок fdt_header, таблиця зарезервованої пам'яті, блок токенів структур та блок рядків.*
 
 Бінарний блок DTB складається з чотирьох послідовних секцій пам'яті:
@@ -228,7 +228,7 @@ struct device_node {
 
 Далі системний шинний драйвер `platform_bus` порівнює кожен створений `platform_device` із зареєстрованими в ядрі драйверами `struct platform_driver`. Зіставлення відбувається через таблицю **`of_match_table`**:
 
-![Зіставлення compatible між Device Tree та драйвером ядра](/reference/unix-linux/boot-init/device-tree-flattened-dtb/img/dt-node-matching.svg)
+![Зіставлення compatible між Device Tree та драйвером ядра](img/dt-node-matching.svg)
 *Механізм зв'язування ряду compatible з вузла Device Tree та масиву of_match_table у драйвері ядра Linux.*
 
 Код драйвера оголошує масив підтримуваних пристроїв:

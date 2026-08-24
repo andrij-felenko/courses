@@ -11,7 +11,7 @@
 
 Текстова модель логування, створена в 1980-х роках для послідовного запуску демонів, виявилася непридатною для сучасних багатоядерних операційних систем із динамічним паралельним запуском служб. Для розв'язання цієї проблеми в складі системного менеджера systemd було створено централізовану підсистему логування `systemd-journald` та інструмент аналізу `journalctl`.
 
-![Архітектура підсистеми systemd-journald](/reference/unix-linux/boot-init/journald-logging-subsystem-and-journalctl/img/journald-architecture.svg)
+![Архітектура підсистеми systemd-journald](img/journald-architecture.svg)
 *Архітектура підсистеми systemd-journald: від вхідних сокетів та буфера ядра до дискового сховища й утиліти journalctl.*
 
 Глибинні причини відходу від класичної схеми `syslog.conf` та історичні етапи формування сучасних системних журналів розкрито в [історичному огляді еволюції системних журналів](book:unix-linux/journald-logging-subsystem-and-journalctl/hist-syslog-to-journald.md).
@@ -45,7 +45,7 @@
 - **Поля відправника**: формуються самою програмою. Вони містять текст повідомлення (`MESSAGE`), числовий пріоритет (`PRIORITY`), код помилки (`ERRNO`), а також інформацію про вихідний код (`CODE_FILE`, `CODE_LINE`, `CODE_FUNC`).
 - **Довірені метаполя (Trusted Metadata Fields)**: автоматично додаються ядром Linux та демоном journald. Вони завжди починаються з символу підкреслення `_` (наприклад `_PID`, `_UID`, `_GID`, `_SYSTEMD_UNIT`, `_COMM`, `_EXE`, `_CMDLINE`, `_SYSTEMD_CGROUP`, `_SYSTEMD_SLICE`).
 
-![Формування довірених полів через SO_PASSCRED](/reference/unix-linux/boot-init/journald-logging-subsystem-and-journalctl/img/trusted-fields-flow.svg)
+![Формування довірених полів через SO_PASSCRED](img/trusted-fields-flow.svg)
 *Схема формування довірених полів: ядро Linux додає ucred до датаграми, а journald дочитає метадані з /proc.*
 
 Механізм гарантії автентичності працює так. Коли процес надсилає датаграму в сокет journald, ядро Linux через опцію сокета `SO_PASSCRED` додає до пакету допоміжні дані (англ. *ancillary data*) `SCM_CREDENTIALS` із заповненою структурою `struct ucred`:
@@ -76,7 +76,7 @@ struct ucred {
 
 Журнальні файли зберігаються на диску в бінарному форматі з розширенням `.journal`. Відмова від тексту на користь бінарної структури забезпечує три переваги: дедуплікацію повторюваних значень, високу швидкість запису та довільний доступ (англ. *random access*) без сканування всього файлу за допомогою пам'ятного відображення `mmap()`.
 
-![Об'єктна структура та індексація бінарного файлу .journal](/reference/unix-linux/boot-init/journald-logging-subsystem-and-journalctl/img/journal-file-indexing.svg)
+![Об'єктна структура та індексація бінарного файлу .journal](img/journal-file-indexing.svg)
 *Внутрішня об'єктна структура файлу .journal: дедупліковані об'єкти даних та масиви індексних покажчиків.*
 
 Файл `.journal` складається з заголовка (`Header`) та послідовності бінарних об'єктів п'яти основних типів:
@@ -101,7 +101,7 @@ struct ucred {
 
 Для захисту від модифікації минулих записів у journald впроваджено криптографічний механізм **FSS (Forward Secure Sealing — пряме запечатування)**.
 
-![Схема запечатування журналів FSS](/reference/unix-linux/boot-init/journald-logging-subsystem-and-journalctl/img/fss-tree-sealing.svg)
+![Схема запечатування журналів FSS](img/fss-tree-sealing.svg)
 *Схема запечатування журналів FSS: однонаправлене оновлення ключів епох та знищення попередніх секретів із пам'яті.*
 
 Принцип роботи FSS базується на криптографічних епохах (часових інтервалах тривалістю 15 хвилин):
@@ -123,7 +123,7 @@ K_{t+1} = HMAC-SHA256(K_t, "systemd-journald-fss-advance")  [однонапра�
 
 Оскільки файли `.journal` є бінарними, пряме читання їх утилітами `cat` чи `less` неможливе. Для взаємодії зі сховищем використовується утиліта `journalctl`.
 
-![Пайплайн вибірки та фільтрації journalctl](/reference/unix-linux/boot-init/journald-logging-subsystem-and-journalctl/img/journalctl-filter-pipeline.svg)
+![Пайплайн вибірки та фільтрації journalctl](img/journalctl-filter-pipeline.svg)
 *Пайплайн вибірки, фільтрації та форматування виводу утиліти journalctl.*
 
 ### Базові варіанти фільтрації

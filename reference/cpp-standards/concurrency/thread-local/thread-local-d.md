@@ -82,7 +82,7 @@ int main() {
 
 Для досягнення максимальної швидкості апаратний процесор не може звертатися до ядра операційної системи під час кожного читання `thread_local` змінної. Механізм TLS побудований на спільній взаємодії формату бінарних файлів ELF (Executable and Linkable Format), динамічного завантажувача ОС та апаратної сегментації процесора.
 
-![Фізична організація пам'яті TLS](/reference/cpp-standards/concurrency/thread-local/img/tls-memory-layout.svg)
+![Фізична організація пам'яті TLS](img/tls-memory-layout.svg)
 *Фізична організація пам'яті Thread-Local Storage (TLS): TCB, сегментний регістр FS та незалежні копії .tdata/.tbss для кожного потоку.*
 
 ### Бінарні секції .tdata та .tbss
@@ -135,7 +135,7 @@ movq %fs:offset, %rax
 
 Залежно від того, де визначена `thread_local` змінна (у головному виконуваному файлі чи в динамічній бібліотеці `.so`) та як вона компонується, компілятор та компонувальник обирають одну з чотирьох моделей доступу. Стандарт опису моделей TLS для архітектури ELF розробив Ульріх Дреппер (Ulrich Drepper).
 
-![Моделі адресації TLS у ELF](/reference/cpp-standards/concurrency/thread-local/img/tls-access-models.svg)
+![Моделі адресації TLS у ELF](img/tls-access-models.svg)
 *Чотири моделі доступу до TLS-змінних у форматі ELF на архітектурі x86-64 та оптимізація через Linker Relaxation.*
 
 ### 1. Local Exec (LE)
@@ -303,7 +303,7 @@ dlopen failed: cannot allocate memory in static TLS block
 
 Життєвий цикл об'єктів із тривалістю зберігання `thread_local` відрізняється від звичайних глобальних або локальних змінних і залежить від того, чи є конструктор типу константним виразом, чи вимагає виконання динамічного коду.
 
-![Життєвий цикл thread_local](/reference/cpp-standards/concurrency/thread-local/img/thread-local-lifecycle.svg)
+![Життєвий цикл thread_local](img/thread-local-lifecycle.svg)
 *Життєвий цикл об'єктів із тривалістю зберігання thread_local: від виділення пам'яті до реєстрації та виклику деструкторів через __cxa_thread_atexit.*
 
 ### Статична ініціалізація проти динамічної (лінивої)

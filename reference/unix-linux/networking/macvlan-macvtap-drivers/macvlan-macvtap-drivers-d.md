@@ -9,7 +9,7 @@
 
 [Історія виникнення Macvlan та Macvtap](book:unix-linux/macvlan-macvtap-drivers/hist-macvlan-genesis.md) демонструє, як ядро Linux еволюціонувало від важких програмних комутаторів до виділених демультиплексорів кадрів.
 
-![Порівняння обробки пакетів: Linux Bridge та Macvlan](/reference/unix-linux/networking/macvlan-macvtap-drivers/img/macvlan-vs-bridge.svg)
+![Порівняння обробки пакетів: Linux Bridge та Macvlan](img/macvlan-vs-bridge.svg)
 *Порівняння традиційної мостової архітектури Linux Bridge та прямоточного демультиплексування Macvlan.*
 
 ---
@@ -113,7 +113,7 @@
 
 Гнучкість Macvlan зумовлена підтримкою чотирьох режимів обробки кадрів. Режим задається під час створення інтерфейсу або змінюється через RTNetlink.
 
-![Режими роботи драйвера Macvlan](/reference/unix-linux/networking/macvlan-macvtap-drivers/img/macvlan-modes.svg)
+![Режими роботи драйвера Macvlan](img/macvlan-modes.svg)
 *Режими роботи Macvlan: Bridge, VEPA, Private та Passthrough.*
 
 ### 1. Режим Bridge (`MACVLAN_MODE_BRIDGE`)
@@ -166,7 +166,7 @@
 
 Драйвер **Macvtap** усуває цю проміжну ланку.
 
-![Архітектура Macvtap: прямоточний зв'язок QEMU із мережевою картою](/reference/unix-linux/networking/macvlan-macvtap-drivers/img/macvtap-arch.svg)
+![Архітектура Macvtap: прямоточний зв'язок QEMU із мережевою картою](img/macvtap-arch.svg)
 *Архітектурна схема взаємодії QEMU, символьного пристрою /dev/tapX та драйвера Macvtap.*
 
 ### Поєднання Macvlan та TAP

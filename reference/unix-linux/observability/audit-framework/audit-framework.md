@@ -19,7 +19,7 @@
    - **`ausearch` та `aureport`:** Інструменти для пошуку подій та генерації звітів.
 
 *(Див. Рис. 1: Архітектура Linux Audit Framework)*
-![Архітектура Linux Audit Framework](/reference/unix-linux/observability/audit-framework/img/audit-architecture.svg)
+![Архітектура Linux Audit Framework](img/audit-architecture.svg)
 
 ## Управління правилами: auditctl
 

@@ -16,7 +16,7 @@
 
 Історію того, як інженери Google створили перші системи керування кластерами Borg та Omega і як ці уроки втілилися в стандарт сучасних хмарних обчислень, викладено в історичному нарисі: [Від Borg та Omega до Kubernetes](book:programming/container-orchestration/hist-borg-omega-kubernetes.md).
 
-![Архітектура керуючої площини та робочих вузлів](/book/programming/operations/container-orchestration/img/control-plane-architecture.svg)
+![Архітектура керуючої площини та робочих вузлів](img/control-plane-architecture.svg)
 *Архітектура оркестратора: керуюча площина (Control Plane) на базі консенсусу etcd та пул робочих вузлів із локальними агентами Kubelet і мережею eBPF/iptables*
 
 ---
@@ -38,7 +38,7 @@
     Зафіксувати новий статус (Status)
 ```
 
-![Цикл узгодження стану](/book/programming/operations/container-orchestration/img/reconciliation-loop.svg)
+![Цикл узгодження стану](img/reconciliation-loop.svg)
 *Цикл узгодження стану: безперервне сходження спостережуваного стану до задекларованого маніфесту*
 
 Ця модель має три фундаментальні властивості:
@@ -101,7 +101,7 @@ API Server є повністю stateless-процесом і масштабує�
 - `Permit` — затримує прив'язку для групового планування (Gang Scheduling);
 - `PreBind`, `Bind` та `PostBind` — виконують фізичну прив'язку пода до вузла через REST API.
 
-![Двофазний конвеєр планування](/book/programming/operations/container-orchestration/img/scheduling-pipeline.svg)
+![Двофазний конвеєр планування](img/scheduling-pipeline.svg)
 *Двофазний конвеєр планування: паралельне відсікання непридатних вузлів та багатокритеріальне ранжування кандидатів*
 
 Процес планування виконується у дві строго розділені фази:
@@ -171,7 +171,7 @@ Kubelet відповідає за:
 
 Для ізоляції споживачів від мінливості IP-адрес оркестратор вводить абстракцію **Service** — стабільну віртуальну кінцеву точку, що об'єднує групу подів за допомогою селектора міток (`selector: app=payment`).
 
-![Маршрутизація трафіку через Service Mesh та eBPF](/book/programming/operations/container-orchestration/img/service-proxy-routing.svg)
+![Маршрутизація трафіку через Service Mesh та eBPF](img/service-proxy-routing.svg)
 *Маршрутизація трафіку: від стабільного DNS-імені через трансляцію віртуального IP (ClusterIP) у ядрі Linux до цільового контейнера через CNI VXLAN-тунель*
 
 ### Модель площини даних: ClusterIP та балансування

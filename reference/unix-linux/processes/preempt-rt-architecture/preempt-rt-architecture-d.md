@@ -89,7 +89,7 @@ typedef struct spinlock {
 
 Патчсет `PREEMPT_RT` перетворює майже всі обробники апаратних переривань на звичайні потоки ядра.
 
-![Обробка переривань у ванільному ядрі та PREEMPT_RT](/reference/unix-linux/processes/preempt-rt-architecture/img/fig-irq.svg)
+![Обробка переривань у ванільному ядрі та PREEMPT_RT](img/fig-irq.svg)
 
 *Рис. 1. Порівняння традиційної обробки переривань та Threaded IRQs у PREEMPT_RT.*
 
@@ -131,7 +131,7 @@ typedef struct spinlock {
 
 Патчсет `PREEMPT_RT` вирішує цю проблему за допомогою протоколу **успадкування пріоритетів** (Priority Inheritance, PI), який вшито безпосередньо у реалізацію `rt_mutex`.
 
-![Принцип роботи Priority Inheritance](/reference/unix-linux/processes/preempt-rt-architecture/img/fig-pi.svg)
+![Принцип роботи Priority Inheritance](img/fig-pi.svg)
 
 *Рис. 2. Динамічне підняття пріоритету потоку Task L при спробі захоплення локу потоком Task H.*
 

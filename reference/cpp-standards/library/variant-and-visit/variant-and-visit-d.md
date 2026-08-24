@@ -97,7 +97,7 @@ void print_cpp_value(const CppTaggedUnion& val) {
 
 Дискримінатор (індекс active type) зберігається у внутрішньому полі `index_`. Реалізація стандартної бібліотеки обирає найменший цілочисельний беззнаковий тип (`uint8_t`, `uint16_t` або `size_t`), спроможний вмістити кількість альтернатив `N` плюс спеціальний стан `variant_npos`.
 
-![Внутрішня структура пам'яті std::variant](/reference/cpp-standards/library/variant-and-visit/img/variant-memory-layout.svg)
+![Внутрішня структура пам'яті std::variant](img/variant-memory-layout.svg)
 *Внутрішнє розпланування пам'яті std::variant: вирівняний буфер під найбільший альтернативний тип та дискримінатор стану.*
 
 Загальний розмір структури `std::variant` у пам'яті визначається найбільшим розміром альтернативи, розміром індексу та вирівнювальними байтами (padding).
@@ -178,7 +178,7 @@ int main() {
 
 Варіант не може відновити старий об'єкт `T1`, адже він уже знищений. Він також не може вдавати, що містить `T2`, адже його конструктор не завершився.
 
-![Перехід у стан valueless_by_exception](/reference/cpp-standards/library/variant-and-visit/img/valueless-state-transition.svg)
+![Перехід у стан valueless_by_exception](img/valueless-state-transition.svg)
 *Діаграма станів при присвоєнні нової альтернативи: виникнення винятку під час конструювання переводить variant у стан valueless_by_exception.*
 
 У цій ситуації `std::variant` переходить у стан `valueless_by_exception`. При цьому:
@@ -275,7 +275,7 @@ void process_payload(const DataPayload& payload) {
 
 Таблиця містить покажчики на функції для всіх можливих комбінацій активних типів варіанта `N x M`.
 
-![Матриця диспетчеризації std::visit](/reference/cpp-standards/library/variant-and-visit/img/visit-dispatch-matrix.svg)
+![Матриця диспетчеризації std::visit](img/visit-dispatch-matrix.svg)
 *Матриця таблиці переходів (jump table) для мульти-відвідування двох варіантів std::visit(visitor, v1, v2).*
 
 У рантаймі `std::visit` зчитує `v1.index()` та `v2.index()`, виконує прямий виклик за адресою покажчика функції в таблиці. Це забезпечує виконання виклику за один крок `O(1)` без використання таблиць віртуальних методів (vtable).

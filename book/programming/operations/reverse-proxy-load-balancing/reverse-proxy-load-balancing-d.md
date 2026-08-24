@@ -17,7 +17,7 @@
 
 Усі системи розподілу мережевого трафіку фундаментально поділяються на два класи залежно від найвищого рівня моделі OSI, на якому приймається рішення про маршрутизацію пакетів: транспортний рівень L4 (Layer 4) та прикладний рівень L7 (Layer 7).
 
-![Архітектурне порівняння L4 та L7 балансування навантаження](/book/programming/operations/reverse-proxy-load-balancing/img/l4-vs-l7-architecture.svg)
+![Архітектурне порівняння L4 та L7 балансування навантаження](img/l4-vs-l7-architecture.svg)
 *Архітектурне порівняння L4 та L7 балансування навантаження: комутація пакетів на основі 5-tuple без термінації TCP проти повного розбору HTTP-фреймів із термінацією TLS*
 
 ### Балансування на рівні L4 (Транспортний шар)
@@ -57,7 +57,7 @@
 
 Головна захисна функція зворотного проксі полягає у фізичному розриві та ізоляції повільної глобальної мережі клієнта (Wide Area Network, WAN) від високошвидкісної внутрішньої мережі дата-центру (Local Area Network, LAN).
 
-![Буферизація запитів, асинхронний epoll та зворотний тиск](/book/programming/operations/reverse-proxy-load-balancing/img/reverse-proxy-buffering-backpressure.svg)
+![Буферизація запитів, асинхронний epoll та зворотний тиск](img/reverse-proxy-buffering-backpressure.svg)
 *Анатомія зворотного проксі: асинхронне накопичення запитів через epoll, розігрітий пул з'єднань LAN та протитиск TCP Zero-Window*
 
 ### Асинхронне введення-виведення через epoll
@@ -112,7 +112,7 @@ epoll_create1() → epoll_ctl(EPOLL_CTL_ADD, client_fd, EPOLLIN | EPOLLET) → e
 
 Коли запит готовий до маршрутизації, балансувальник обирає конкретний вузол із пулу доступних бекендів на основі математичних евристик.
 
-![Алгоритми балансування навантаження: P2C та узгоджене хеш-кільце](/book/programming/operations/reverse-proxy-load-balancing/img/load-balancing-algorithms-p2c-hashring.svg)
+![Алгоритми балансування навантаження: P2C та узгоджене хеш-кільце](img/load-balancing-algorithms-p2c-hashring.svg)
 *Геометрія алгоритмів розподілу навантаження: послідовний Round Robin, адаптивний Least Connections, Power-of-Two Choices (P2C) та узгоджене хеш-кільце з віртуальними вузлами*
 
 ### 1. Циклічний перебір (Round Robin та Weighted Round Robin)
@@ -151,7 +151,7 @@ epoll_create1() → epoll_ctl(EPOLL_CTL_ADD, client_fd, EPOLLIN | EPOLLET) → e
 
 Жоден алгоритм балансування не здатний запобігти помилкам, якщо трафік надсилається на завислий або аварійно завершений сервер.
 
-![Життєвий цикл вузла: активне зондування, виявлення викидів та плавний злив з'єднань](/book/programming/operations/reverse-proxy-load-balancing/img/health-checking-drain-lifecycle.svg)
+![Життєвий цикл вузла: активне зондування, виявлення викидів та плавний злив з'єднань](img/health-checking-drain-lifecycle.svg)
 *Кінцевий автомат станів вузла: активні перевірки здоров'я, виявлення аномальних викидів (Outlier Ejection), інтервал охолодження, розігрів та штатний злив з'єднань (Graceful Drain)*
 
 ### Активне зондування (Active Health Checking)

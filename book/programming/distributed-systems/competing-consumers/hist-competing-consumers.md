@@ -35,7 +35,7 @@ DEC MessageQ (1980-ті) → IBM MQSeries (1993) → MSMQ (1997) → JMS 1.0 (19
 
 У жовтні 2003 року вийшла книга Ґреґора Гопа (Gregor Hohpe) та Боббі Вульфа (Bobby Woolf) «Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions» (EIP). Автори зібрали й систематизували 65 патернів інтеграції корпоративних систем. Серед них патерн отримав свою остаточну канонічну назву: **Competing Consumers** (конкурентні споживачі).
 
-![Схема патерну Competing Consumers із книги EIP: множинні споживачі підключаються до одного каналу point-to-point, змагаючись за чергове повідомлення](/book/programming/distributed-systems/competing-consumers/img/competing-consumers-architecture.svg)
+![Схема патерну Competing Consumers із книги EIP: множинні споживачі підключаються до одного каналу point-to-point, змагаючись за чергове повідомлення](img/competing-consumers-architecture.svg)
 *Канонічна модель Гопа та Вульфа: спільний канал забезпечує динамічний розподіл навантаження без координації між самими споживачами.*
 
 Гоп і Вульф не просто дали назву патерну, а вперше детально описали його приховані компроміси та анатомію відмов:

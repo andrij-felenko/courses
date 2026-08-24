@@ -74,7 +74,7 @@
 
 DAX початково розроблявся для енергонезалежної пам'яті (NVDIMM), щоб читати й писати дані в обхід сторінкового кешу ядра. У `virtio-fs` цей механізм адаптовано для прямого мапінгу пам'яті хоста у фізичний адресний простір гостя.
 
-![Архітектура virtio-fs із використанням FUSE та механізму DAX](/reference/unix-linux/devices/virtio-fs-and-virtio-gpu/img/virtio-fs-arch.svg)
+![Архітектура virtio-fs із використанням FUSE та механізму DAX](img/virtio-fs-arch.svg)
 *Архітектура virtio-fs: передача FUSE-запитів через Virtqueue та прямий доступ до пам'яті через DAX.*
 
 Механізм функціонування DAX у `virtio-fs`:
@@ -125,7 +125,7 @@ DAX початково розроблявся для енергонезалеж�
 
 Для забезпечення 3D-прискорення `virtio-gpu` розширюється конвеєром **VirGL (virglrenderer)**. Замість того, щоб емулювати конкретні машинні інструкції відеокарти, VirGL транслює виклики графічних API на рівні командного потоку.
 
-![Архітектура 3D-прискорення virtio-gpu та VirGL/Venus](/reference/unix-linux/devices/virtio-fs-and-virtio-gpu/img/virtio-gpu-arch.svg)
+![Архітектура 3D-прискорення virtio-gpu та VirGL/Venus](img/virtio-gpu-arch.svg)
 *Архітектура virtio-gpu: конвеєр трансляції графічних команд (VirGL/Venus) та zero-copy вивід через dma-buf.*
 
 Схема роботи VirGL конвеєра:

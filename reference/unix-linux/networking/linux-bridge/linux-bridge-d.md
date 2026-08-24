@@ -13,7 +13,7 @@
 
 Цю задачу в ядрі Linux вирішує підсистема **Linux Bridge** (міст Linux) — повнофункціональний програмний Ethernet-комутатор стандарту IEEE 802.1D/802.1Q. Він об'єднує фізичні мережеві контролери, віртуальні пари `veth` та TAP-інтерфейси у спільний канальний домен, динамічно вивчає MAC-адреси, запобігає петлям за допомогою протоколу Spanning Tree, фільтрує трафік за тегами VLAN і керує апаратними комутаційними чіпами через інтерфейс Switchdev.
 
-![Архітектура підсистеми Linux Bridge у ядрі](/reference/unix-linux/networking/linux-bridge/img/bridge-architecture.svg)
+![Архітектура підсистеми Linux Bridge у ядрі](img/bridge-architecture.svg)
 *Архітектура підсистеми Linux Bridge у ядрі: взаємодія між простором користувача, структурами net_bridge, slave-портами та фізичним обладнанням.*
 
 ---
@@ -125,7 +125,7 @@ MTU(bridge) = min(MTU(port_1), MTU(port_2), ..., MTU(port_N))
 
 Обробка кожного вхідного кадру в Linux Bridge підпорядковується жорсткому детермінованому алгоритму. Функція `br_handle_frame()` у `net/bridge/br_input.c` є головною точкою входу канального комутатора.
 
-![Алгоритм комутації та маршрут кадру в Linux Bridge (RX Path)](/reference/unix-linux/networking/linux-bridge/img/bridge-rx-forwarding.svg)
+![Алгоритм комутації та маршрут кадру в Linux Bridge (RX Path)](img/bridge-rx-forwarding.svg)
 *Алгоритм обробки вхідного Ethernet-кадру: перевірка STP, оновлення таблиці FDB та розгалуження на локальний стек, цільовий порт або широкомовну розсилку (Flooding).*
 
 ### Крок 1. Перевірка стану STP та link-local адрес
@@ -335,7 +335,7 @@ bridge link show dev eth0
 
 Механізм **VLAN Filtering** (`CONFIG_BRIDGE_VLAN_FILTERING`) перетворив Linux Bridge на повноцінний VLAN-aware комутатор корпоративного рівня.
 
-![Робота VLAN Filtering: обробка PVID, Tagged та Untagged портів](/reference/unix-linux/networking/linux-bridge/img/bridge-vlan-filtering.svg)
+![Робота VLAN Filtering: обробка PVID, Tagged та Untagged портів](img/bridge-vlan-filtering.svg)
 *Механізм фільтрації VLAN у межах одного моста: робота PVID для нетегованого входу та правила модифікації заголовків 802.1Q на виході.*
 
 ### Концепція PVID, Tagged та Untagged
@@ -378,7 +378,7 @@ sudo bridge vlan add dev eth2 vid 30
 
 Для цього було створено модуль ядра **`br_netfilter`**.
 
-![Взаємодія Linux Bridge та Netfilter через br_netfilter](/reference/unix-linux/networking/linux-bridge/img/bridge-netfilter-flow.svg)
+![Взаємодія Linux Bridge та Netfilter через br_netfilter](img/bridge-netfilter-flow.svg)
 *Проходження L2-кадрів через підсистему Netfilter під час увімкненого модуля br_netfilter та виклик правил iptables.*
 
 ### Механізм перехоплення `Bridge-NF`

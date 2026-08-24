@@ -45,7 +45,7 @@ P = P_dyn + P_static = C · V² · f + I_leak · V
 
 Energy Model представляє процесорну систему як набір **доменів продуктивності** (`em_perf_domain`). Домен продуктивності — це група ядер, які обов'язково ділять спільну частоту та напругу (наприклад, кластер із 4 ядер LITTLE чи кластер із 2 ядер big).
 
-![Архітектурна схема Energy-Aware Scheduling](/reference/unix-linux/processes/sched-energy-aware-eas/img/eas-architecture.svg)
+![Архітектурна схема Energy-Aware Scheduling](img/eas-architecture.svg)
 *Взаємодія планувальника CFS, Energy Model, PELT та регулятора schedutil при виборі ядра.*
 
 Кожен домен продуктивності містить таблицю станів `em_perf_state`, куди входять такі поля:
@@ -80,7 +80,7 @@ cost = power / performance
 
 Стандартний шлях виклику в ядрі опирається на функцію `select_task_rq_fair()`. Якщо в системі активовано EAS і наявна валідна Energy Model, ядро перехоплює виконання і викликає спеціалізовану функцію `find_energy_efficient_cpu()`.
 
-![Алгоритм вибору ядра при пробудженні задачі](/reference/unix-linux/processes/sched-energy-aware-eas/img/eas-wakeup-flow.svg)
+![Алгоритм вибору ядра при пробудженні задачі](img/eas-wakeup-flow.svg)
 *Послідовність перевірок та обчислення дельти енергії при виклику find_energy_efficient_cpu().*
 
 Алгоритм прийняття рішення складається з кількох послідовних кроків:
@@ -171,7 +171,7 @@ util_avg(cpu) > 0.80 · capacity_of(cpu)
 
 Ядро вважається насиченим. Якщо хоча б одне ядро в системі переходить у цей стан, планувальник встановлює глобальний прапорець `rd->overutilized = true` для поточного root-домену.
 
-![Порівняння режимів пакування та перевантаження](/reference/unix-linux/processes/sched-energy-aware-eas/img/overutilized-state.svg)
+![Порівняння режимів пакування та перевантаження](img/overutilized-state.svg)
 *Перехід системи з режиму пакування задач на енергоефективні ядра до максимального розмазування при перевантаженні.*
 
 Наслідки виклику стану Over-Utilized:

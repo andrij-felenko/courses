@@ -103,7 +103,7 @@ devtmpfs.mount=1
 
 Поява `devtmpfs` не усунула демонів простору користувача — ані `systemd-udevd`, ані `eudev`. Вона лише провела чітку межу між тим, що робить ядро, і тим, що лишається просторові користувача.
 
-![Архітектура devtmpfs: від реєстрації пристрою до збагачення udevd](/reference/unix-linux/proc/devtmpfs-kernel-device-node-management/img/devtmpfs-architecture.svg)
+![Архітектура devtmpfs: від реєстрації пристрою до збагачення udevd](img/devtmpfs-architecture.svg)
 *Драйвер, що реєструє пристрій, чекає, доки потік kdevtmpfs створить вузол у /dev; лише після цього ядро розсилає uevent — і systemd-udevd збагачує вже наявний файл, а не створює його.*
 
 ### Розподіл функцій між ядром та udevd:
@@ -117,7 +117,7 @@ devtmpfs.mount=1
 
 Такий розподіл ролей — не первісний задум, а четверта за ліком спроба: три попередні моделі керування `/dev` розбилися кожна об власну перешкоду.
 
-![Еволюція керування вузлами пристроїв у Linux](/reference/unix-linux/proc/devtmpfs-kernel-device-node-management/img/dev-evolution-timeline.svg)
+![Еволюція керування вузлами пристроїв у Linux](img/dev-evolution-timeline.svg)
 *Кожна модель /dev розбивалася об власну перешкоду — від тисяч статичних вузлів на диску до політики імен, зашитої в ядро, — аж поки devtmpfs і udevd не поділили роботу навпіл.*
 
 ## Простеження та діагностика вузлів через procfs, sysfs та ftrace

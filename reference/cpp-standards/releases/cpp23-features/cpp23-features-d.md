@@ -17,7 +17,7 @@
 
 Завдяки цьому рішенню всі інженерні ресурси комітету було спрямовано на завершення та стабілізацію можливостей, які безпосередньо покращують щоденну розробку. [Історія стандарту C++23: пандемічний цикл WG21 і порятунок ядра мови](book:cpp-standards/cpp23-features/hist-cpp23-covid-cycle.md) докладно висвітлює хроніку прийняття рішень у віртуальному форматі та боротьбу за ключові папери релізу.
 
-![Архітектурні стовпи стандарту C++23](/reference/cpp-standards/releases/cpp23-features/img/cpp23-architecture-map.svg)
+![Архітектурні стовпи стандарту C++23](img/cpp23-architecture-map.svg)
 
 *Чотири архітектурні напрями стандарту C++23: ремонт синтаксису ядра, нові словникові типи, кеш-локальні структури даних та високопродуктивний вивід.*
 
@@ -59,7 +59,7 @@ private:
 
 Допоміжна функція `std::forward_like<Self>(member)` (додана в заголовок `<utility>`) проєктує кваліфікатори типу `Self` на його поле `data_[i]`: якщо `self` є `const Buffer&`, вираз повертає `const int&`; якщо `self` є rvalue-об'єктом `Buffer&&`, вираз повертає `int&&`.
 
-![Еволюція методів об'єкта: від чотирьох перевантажень до Deducing this](/reference/cpp-standards/releases/cpp23-features/img/deducing-this-mechanism.svg)
+![Еволюція методів об'єкта: від чотирьох перевантажень до Deducing this](img/deducing-this-mechanism.svg)
 
 *Порівняння підходів: C++20 вимагав чотирьох дубльованих методів та шаблонного успадкування CRTP, тоді як C++23 зводить усе до єдиного шаблонного методу та прямої композиції.*
 
@@ -348,7 +348,7 @@ auto result = fetch_data("https://api.service.internal/config")
     });
 ```
 
-![Монадичний конвеєр std::expected та std::optional](/reference/cpp-standards/releases/cpp23-features/img/monadic-pipeline.svg)
+![Монадичний конвеєр std::expected та std::optional](img/monadic-pipeline.svg)
 
 *Залізнична модель монадичної обробки помилок: успішні виклики просуваються верхньою колією через and_then і transform, а помилки негайно переходять у нижню гілку до or_else.*
 
@@ -490,7 +490,7 @@ void process_tensor() {
 }
 ```
 
-![Проекція багатовимірних координат у std::mdspan](/reference/cpp-standards/releases/cpp23-features/img/mdspan-layout.svg)
+![Проекція багатовимірних координат у std::mdspan](img/mdspan-layout.svg)
 
 *Відображення багатовимірного координатного простору у фізичний неперервний масив пам'яті за правилами layout_right.*
 

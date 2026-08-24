@@ -104,7 +104,7 @@ const std::string& codec_name(const Codec& c [[clang::lifetimebound]]);
 const std::string& n = codec_name(*make_codec("h264"));  // ⚠ попередження: джерело вже мертве
 ```
 
-![Порядок кроків переписування і що ламається на кожному](/reference/cpp-standards/lifetime/ownership-semantics/img/refactor-order.svg)
+![Порядок кроків переписування і що ламається на кожному](img/refactor-order.svg)
 
 *Значущих помилок мало, механічних багато; порядок кроків обрано так, щоб перші не потонули в других.*
 

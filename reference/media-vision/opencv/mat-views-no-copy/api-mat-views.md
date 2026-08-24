@@ -53,7 +53,7 @@ datalimit = datastart + size[0] · step[0]              // з хвостом о�
 dataend   = data + (rows − 1) · step[0] + cols · step[1]   // без хвоста
 ```
 
-![Батьківський блок із доповненими рядками; вид усередині нього; покажчики datastart, data, dataend, datalimit](/reference/media-vision/opencv/mat-views-no-copy/img/api-data-pointers.svg)
+![Батьківський блок із доповненими рядками; вид усередині нього; покажчики datastart, data, dataend, datalimit](img/api-data-pointers.svg)
 
 *`data` показує на початок виду, а `datastart`, `dataend` і `datalimit` вид успадковує від батька без змін — саме з цієї різниці `locateROI` відновлює, звідки вид вирізали.*
 
@@ -64,7 +64,7 @@ dataend   = data + (rows − 1) · step[0] + cols · step[1]   // без хво�
 
 ## Біти `flags`
 
-![Розкладка 32 бітів поля flags: MAGIC_VAL, SUBMATRIX_FLAG, CONTINUOUS_FLAG, канали, глибина](/reference/media-vision/opencv/mat-views-no-copy/img/api-flags-bits.svg)
+![Розкладка 32 бітів поля flags: MAGIC_VAL, SUBMATRIX_FLAG, CONTINUOUS_FLAG, канали, глибина](img/api-flags-bits.svg)
 
 *Тип і обидва прапорці — це один `int`, тому «який тип» і «чи суцільний» коштують однаково: перевірки біта.*
 

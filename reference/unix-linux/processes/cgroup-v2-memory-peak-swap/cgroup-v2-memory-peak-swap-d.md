@@ -58,7 +58,7 @@
 
 Управління оперативною пам'яттю в cgroups v2 описується чотирма основними показниками, які формують ієрархічний діапазон дій ядра під час виділення та витіснення сторінок.
 
-![Обмеження, гарантії та піки споживання пам'яті у Cgroups v2](/reference/unix-linux/processes/cgroup-v2-memory-peak-swap/img/cgroup-memory-limits.svg)
+![Обмеження, гарантії та піки споживання пам'яті у Cgroups v2](img/cgroup-memory-limits.svg)
 *Схема межових рівнів memory.min, memory.low, memory.high, memory.max та відстеження піка memory.peak у Cgroups v2*
 
 ### 2.1 memory.min (Тверда гарантія)
@@ -106,7 +106,7 @@ P = (4 - 3) / 4 = 0.25  (тобто лише 25% від її сторінок р
 
 `memory.high` встановлює робочу межу споживання пам'яті. На відміну від жорсткого ліміту, перетин `memory.high` не викликає OOM Killer і не вбиває процеси. Натомість ядро активує асинхронне витіснення та застосовує **механізм зворотного тиску (backpressure throttling)**.
 
-![Послідовність обробки memory.high та memory.max у ядрі](/reference/unix-linux/processes/cgroup-v2-memory-peak-swap/img/cgroup-throttling-flow.svg)
+![Послідовність обробки memory.high та memory.max у ядрі](img/cgroup-throttling-flow.svg)
 *Алгоритм обробки запитів пам'яті, асинхронного витіснення та виклику cgroup OOM Killer*
 
 Коли потік виконання перетинає позначку `memory.high`, ядро примусово викликає функцію `mem_cgroup_handle_over_high()`. Цей механізм розраховує штрафний інтервал сну (penalty sleep) перед поверненням потоку з системного виклику назад у простір користувача.

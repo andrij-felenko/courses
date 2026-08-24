@@ -182,7 +182,7 @@ std::generator<int> gen2 = std::move(gen1); // ОК: володіння кадр
 
 Внутрішня робота `std::generator` базується на чіткій взаємодії між трикутником компонентів: **викликом у коді користувача**, **інтерфейсом ітератора** та **кадром корутини** у купі.
 
-![Архітектура та цикли призупинення / відновлення std::generator](/reference/cpp-standards/library/std-generator/img/generator-execution-flow.svg)
+![Архітектура та цикли призупинення / відновлення std::generator](img/generator-execution-flow.svg)
 *Фізична взаємодія компонентів: викликаючий цикл повертається до кадру корутини через handle.resume(), а co_yield передає значення через обіцянку.*
 
 ### Покрокова розкадровка виконання
@@ -276,7 +276,7 @@ std::generator<int> traverse_eager_yield(const TreeNode* node) {
 
 Стандарт C++23 розв'язує цю проблему за допомогою обгортки `std::ranges::elements_of` та внутрішнього механізму **симетричного передавання керування (Symmetric Transfer)**.
 
-![Рекурсивна передача керування через std::ranges::elements_of](/reference/cpp-standards/library/std-generator/img/recursive-yield-delegation.svg)
+![Рекурсивна передача керування через std::ranges::elements_of](img/recursive-yield-delegation.svg)
 *Симетричний перехід: вкладені обіцянки зв'язуються в однозв'язний список parent_link, дозволяючи відновлювати листову корутину напряму.*
 
 Замість написання циклу `for`, розробник передає цілий генератор або діапазон через `co_yield std::ranges::elements_of(...)`:

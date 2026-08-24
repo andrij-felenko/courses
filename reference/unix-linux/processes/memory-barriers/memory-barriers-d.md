@@ -17,7 +17,7 @@
 
 Щоб обчислювальні блоки конвеєра не простоювали в очікуванні пам'яті, оптимізації застосовуються на двох незалежних рівнях: рівні компіляції та рівні мікроархітектури CPU.
 
-![Апаратна підсистема пам'яті](/reference/unix-linux/processes/memory-barriers/img/store-buffer-architecture.svg)
+![Апаратна підсистема пам'яті](img/store-buffer-architecture.svg)
 *_Буфери відкладеного запису (Store Buffers) та черги інвалідації кешу (Invalidate Queues) у процесорній підсистемі пам'яті._*
 
 ### Рівень компілятора (Compiler Reordering)
@@ -51,7 +51,7 @@
 
 Проте когерентність кешу **нічого не гарантує щодо порядку доступу до РІЗНИХ комірок пам'яті**. Саме модель впорядкування пам'яті процесорної архітектури визначає, які типи перевпорядкувань між різними адресами дозволені на фізичному рівні.
 
-![Таксономія перевпорядкування операцій](/reference/unix-linux/processes/memory-barriers/img/reordering-taxonomy.svg)
+![Таксономія перевпорядкування операцій](img/reordering-taxonomy.svg)
 *_Порівняння моделей впорядкування пам'яті в архітектурах x86-64 (TSO), ARM64 та DEC Alpha._*
 
 ### 1. Total Store Order (x86-64 TSO)
@@ -107,7 +107,7 @@ smp_mb();  // Full Memory Barrier (Повний бар'єр пам'яті)
 
 Acquire-Release семантика зв'язує парні операції завантаження та збереження у єдиний причинно-наслідковий ланцюг **Happens-Before** (Синхронізується з / Synchronizes-With).
 
-![Причинно-наслідковий зв'язок у Acquire-Release](/reference/unix-linux/processes/memory-barriers/img/acquire-release-flow.svg)
+![Причинно-наслідковий зв'язок у Acquire-Release](img/acquire-release-flow.svg)
 *_Побудова впорядкування Happens-Before між виробником і споживачем за допомогою Acquire-Release семантики._*
 
 ### Принцип роботи Acquire-Release

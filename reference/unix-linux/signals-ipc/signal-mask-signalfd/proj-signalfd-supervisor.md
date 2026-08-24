@@ -25,7 +25,7 @@
 
 Далі наглядач — це проста машина з трьох станів, і всі переходи в ній приносять дескриптори, а не обробники.
 
-![Три стани наглядача: RUNNING переходить у DRAINING від сигналу з signalfd, DRAINING у KILLING від готовності timerfd, а вихід настає, коли останній SIGCHLD не залишає живих дітей](/reference/unix-linux/signals-ipc/signal-mask-signalfd/img/shutdown-states.svg)
+![Три стани наглядача: RUNNING переходить у DRAINING від сигналу з signalfd, DRAINING у KILLING від готовності timerfd, а вихід настає, коли останній SIGCHLD не залишає живих дітей](img/shutdown-states.svg)
 
 *Обидва переходи згортання починаються з `read()` — з одного дескриптора або з другого. Прибирання зомбі йде впоперек станів: `SIGCHLD` осмислений у будь-якому з них.*
 

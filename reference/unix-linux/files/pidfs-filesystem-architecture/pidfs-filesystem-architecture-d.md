@@ -46,7 +46,7 @@
 
 Для подолання цих недоліків Крістіан Браунер розробив спеціалізовану псевдофайлову систему `pidfs`, яка увійшла до ядра Linux 6.9 у травні 2024 року.
 
-![Порівняння ідентифікації процесів](/reference/unix-linux/files/pidfs-filesystem-architecture/img/pidfs-architecture.svg)
+![Порівняння ідентифікації процесів](img/pidfs-architecture.svg)
 *Порівняння традиційного чисельного PID та стійкого дескриптора pidfd у файловій системі pidfs.*
 
 ## Внутрішня будова pidfs, реєстрація та життєвий цикл inode
@@ -80,7 +80,7 @@ pidfd_open(pid)
 
 При закритті дескриптора викликається функція `iput(inode)`. Коли лічильник відкритих файлів досягає нуля, функція деструктора `pidfs_evict_inode` звільняє посилання на `struct pid` через `put_pid()`. Лише після цього пам'ять `struct pid` остаточно повертається Slab-алокатору ядра.
 
-![Топологія зв'язку дескрипторів із pidfs](/reference/unix-linux/files/pidfs-filesystem-architecture/img/pidfs-inode-mapping.svg)
+![Топологія зв'язку дескрипторів із pidfs](img/pidfs-inode-mapping.svg)
 *Зв'язок дескрипторів користувача через об'єкти VFS із унікальним inode у pidfs та структурою ядра struct pid.*
 
 ## Внутрішній розбір clone3 та створення дескриптора

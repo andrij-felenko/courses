@@ -10,7 +10,7 @@
 
 У цій архітектурі взаємодія з апаратними виводами більше не спирається на магічні цілочисельні номери чи текстові файли у sysfs. Натомість прикладні програми працюють із файловою системою VFS через спеціалізовані виклики `ioctl()`, а ядро гарантує авто-очищення ресурсів при аварійних зупинках процесів.
 
-![Архітектура chardev ABI v2](/reference/unix-linux/devices/gpio-character-device-v2/img/chardev-v2-architecture.svg)
+![Архітектура chardev ABI v2](img/chardev-v2-architecture.svg)
 *Архітектура символьного пристрою GPIO ABI v2 у ядрі Linux та просторі користувача.*
 
 ---
@@ -87,7 +87,7 @@ sys::UniqueFd chip_fd{::open("/dev/gpiochip0", O_RDWR | O_CLOEXEC)};
 
 На відміну від ABI v1, де налаштування задавалися єдиною 32-бітною бітовою маскою, в ABI v2 застосовано комбіновану модель: глобальні прапори за замовчуванням плюс масив індивідуальних атрибутів.
 
-![Структура gpio_v2_line_request та конфігурація](/reference/unix-linux/devices/gpio-character-device-v2/img/line-request-config-layout.svg)
+![Структура gpio_v2_line_request та конфігурація](img/line-request-config-layout.svg)
 *Компоновка структури захоплення ліній gpio_v2_line_request та перевизначення атрибутів.*
 
 ### 3.1. Структура запиту `gpio_v2_line_request`
@@ -166,7 +166,7 @@ ABI v2 відкриває доступ до повного спектра апа
 
 Однією з найсильніших сторін ABI v2 є інтеграція моніторингу подій переривань у стандартний подійний цикл Linux (`epoll`).
 
-![Шлях перехоплення подій переривань](/reference/unix-linux/devices/gpio-character-device-v2/img/event-reading-flow.svg)
+![Шлях перехоплення подій переривань](img/event-reading-flow.svg)
 *Послідовність обробки апаратних переривань та зчитування подій із кільцевого буфера.*
 
 ### 5.1. Подійна структура `gpio_v2_line_event`

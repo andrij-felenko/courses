@@ -463,7 +463,7 @@ int main() {
 
 На схемі нижче зображено фундаментальну будову каркаса `io_uring`: простори пам'яті, кільцеві буфери SQ та CQ у спільній пам'яті `mmap` та шляхи обробки запитів ядром Linux.
 
-![Архітектура io_uring](/reference/unix-linux/io/io-uring-architecture/img/io-uring-arch.svg)
+![Архітектура io_uring](img/io-uring-arch.svg)
 *Архітектура io_uring: розділення черг SQ та CQ у спільній пам'яті mmap між простором користувача та ядром.*
 
 ## Висновок

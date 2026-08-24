@@ -22,7 +22,7 @@
 
 Спроба виразити координацію через `std::mutex` + `std::condition_variable` накладає надлишковий системний податок. Об'єкт `std::condition_variable` вимагає обов'язкового зв'язування з `std::unique_lock<std::mutex>`, перевірки предиката у циклі `while` для захисту від хибних пробуджень (англ. *spurious wakeups*) та виділення від 80 до 128 байтів пам'яті операційної системи.
 
-![Порівняння трьох моделей координації потоків](/reference/cpp-standards/concurrency/latch-barrier-semaphore/img/sync-primitives-comparison.svg)
+![Порівняння трьох моделей координації потоків](img/sync-primitives-comparison.svg)
 *Три моделі синхронізації C++20: одноразовий відлік (latch), циклічний фазовий бар'єр (barrier) та керування пулом дозволів без поняття власника (counting_semaphore).*
 
 Примітиви C++20 позбавлені концепції володіння. Їхній внутрішній стан займає від 4 до 16 байтів (одне або два атомарних слова), вони не виділяють динамічної пам'яті у купі та виконують операції у просторі користувача без переходів у ядро операційної системи на швидкому шляху.
@@ -50,7 +50,7 @@ std::latch init_gate(4);
 - `arrive_and_wait(ptrdiff_t update = 1)` — атомарна комбінована дія, еквівалентна виклику `count_down(update)` із наступним `wait()`.
 - `try_wait() noexcept` — неблокуюча перевірка: повертає `true`, якщо лічильник уже досяг нуля, і `false`, якщо лічильник ще більший за нуль.
 
-![Життєвий цикл std::latch](/reference/cpp-standards/concurrency/latch-barrier-semaphore/img/latch-lifecycle-flow.svg)
+![Життєвий цикл std::latch](img/latch-lifecycle-flow.svg)
 *Життєвий цикл `std::latch`: атомарний декремент лічильника від N до нуля з подальшим миттєвим звільненням усіх очікуючих потоків без можливості повторного скидання.*
 
 ### Правила та обмеження життєвого циклу
@@ -170,7 +170,7 @@ void posix_latch_destroy(posix_latch_t* l) {
 4. Номер фази інкрементується.
 5. Усі заблоковані потоки одночасно розблоковуються й переходять у наступну фазу.
 
-![Фазовий цикл std::barrier](/reference/cpp-standards/concurrency/latch-barrier-semaphore/img/barrier-phase-cycle.svg)
+![Фазовий цикл std::barrier](img/barrier-phase-cycle.svg)
 *Фазовий перехід у `std::barrier`: накопичення потоків поточної фази, виконання єдиного Completion Callback та синхронний перехід усієї групи у наступну фазу.*
 
 ### Сигнатура шаблону та вимоги до CompletionFunction
@@ -450,7 +450,7 @@ void* client_task(void* arg) {
 - **macOS / iOS:** системні виклики `__ulock_wait()` та `__ulock_wake()`.
 - **C++20 атомарні операції:** методи `std::atomic<T>::wait()`, `std::atomic<T>::notify_one()`, `std::atomic<T>::notify_all()`.
 
-![Архітектура швидкого шляху futex](/reference/cpp-standards/concurrency/latch-barrier-semaphore/img/futex-fast-path-architecture.svg)
+![Архітектура швидкого шляху futex](img/futex-fast-path-architecture.svg)
 *Розділення на швидкий шлях у просторі користувача (атомарна зміна без системних викликів) та повільний шлях у ядрі операційної системи через черги futex.*
 
 Робота примітива чітко розділяється на дві гілки:

@@ -25,7 +25,7 @@ util_effective = min(max(util_avg, uclamp_min), uclamp_max)
 ```
 [де util_avg — фізичне значення PELT, uclamp_min — нижня межа, uclamp_max — верхня межа]
 
-![Модифікація сигналу утилізації PELT за допомогою uclamp](/reference/unix-linux/processes/uclamp-utilization-clamping/img/uclamp-concept.svg)
+![Модифікація сигналу утилізації PELT за допомогою uclamp](img/uclamp-concept.svg)
 *Принцип затискання сирого сигналу PELT за допомогою нижньої (uclamp.min) та верхньої (uclamp.max) меж утилізації.*
 
 ## Управління через системний виклик `sched_setattr(2)`

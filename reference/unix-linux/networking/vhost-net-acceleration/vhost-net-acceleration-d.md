@@ -44,7 +44,7 @@
 
 Технологія `vhost-net` вирішує проблему продуктивності шляхом фундаментального розділення архітектури на дві плоскості: **Control Plane** (Площина управління) та **Data Plane** (Площина даних).
 
-![Порівняння перемикання контексту](/reference/unix-linux/networking/vhost-net-acceleration/img/vhost-net-context-switch.svg)
+![Порівняння перемикання контексту](img/vhost-net-context-switch.svg)
 *Порівняння шляху проходження пакета: класичний Virtio-net у просторі користувача QEMU вимагає багаторазових перемикань контексту, тоді як vhost-net обробляє кільця vring безпосередньо всередині ядра.*
 
 У цій архітектурі процес QEMU залишається відповідальним за Control Plane:
@@ -72,7 +72,7 @@ HVA = Region.userspace_addr + (GPA - Region.guest_phys_addr)
 
 Навіть при винесенні обробки в ядро залишається питання: як ядро KVM та потік `vhost-net` дізнаються про події один одного без залучення гіпервізора QEMU? Відповідь полягає у використанні спеціалізованих системних примітивів ядра Linux: `eventfd`, `ioeventfd` та `irqfd`.
 
-![Архітектура vhost-net: Control Plane та Data Plane](/reference/unix-linux/networking/vhost-net-acceleration/img/vhost-net-architecture.svg)
+![Архітектура vhost-net: Control Plane та Data Plane](img/vhost-net-architecture.svg)
 *Взаємодія компонентів vhost-net: QEMU виконує конфігурацію через /dev/vhost-net ioctl, після чого KVM за допомогою ioeventfd та irqfd напряму зв'язує гостьові MMIO/MSI-X події з потоком ядра vhost-$PID та TAP-драйвером.*
 
 ### Примітив eventfd
@@ -123,7 +123,7 @@ eventfd_signal(irqfd) → kvm_set_irq_inatomic() → Guest MSI-X Interrupt
 
 У центрі обміну даними між `vhost-net` та гостьовою операційною системою лежать кільцеві буфери `virtqueue`.
 
-![Структура кільцевих буферів virtqueue у спільній пам'яті](/reference/unix-linux/networking/vhost-net-acceleration/img/vhost-ring-descriptors.svg)
+![Структура кільцевих буферів virtqueue у спільній пам'яті](img/vhost-ring-descriptors.svg)
 *Мапування структур virtqueue у спільній пам'яті: Descriptor Table описує буфери даних, Available Ring містить готові для обробки дескриптори від гостя, а Used Ring повертає результати обробки хостом.*
 
 ### Алгоритм обробки вихідних пакетів (TX) та міжпроцесорна синхронізація

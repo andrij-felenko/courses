@@ -28,7 +28,7 @@ fi
 
 Вона не ввійшла ніколи.
 
-![Три мови конфігурації ядра: стара Config.in, відхилена CML2 і прийнятий Kconfig](/reference/unix-linux/foundations/kernel-config-and-build/img/config-wars.svg)
+![Три мови конфігурації ядра: стара Config.in, відхилена CML2 і прийнятий Kconfig](img/config-wars.svg)
 
 *Дві заміни старої мови: одна краща за дизайном, друга — дешевша для супровідників*
 

@@ -140,7 +140,7 @@ JSON Schema дозволяє об'єднувати схеми за допомо�
 └─────────┘     └─────────┘     └─────────┘     └─────────┘
 ```
 
-![Деревоподібна композиція логічних аплікаторів](/book/programming/representation/json-schema/img/schema-ast-composition.svg)
+![Деревоподібна композиція логічних аплікаторів](img/schema-ast-composition.svg)
 *Деревоподібна композиція логічних аплікаторів та вартість обчислення гілок*
 
 Логічні аплікатори мають різну обчислювальну вартість та правила виконання:
@@ -183,7 +183,7 @@ JSON Schema дозволяє об'єднувати схеми за допомо�
         └── shipping: { "$ref": "#/$defs/Address" }  ──► [Локальна резолюція O(1)]
 ```
 
-![Резолюція локальних і зовнішніх посилань](/book/programming/representation/json-schema/img/json-pointer-resolution.svg)
+![Резолюція локальних і зовнішніх посилань](img/json-pointer-resolution.svg)
 *Механізм резолюції посилань: локальний JSON Pointer проти завантаження зовнішніх схем*
 
 ### Локальна резолюція через JSON Pointer
@@ -232,7 +232,7 @@ JSON Schema дозволяє об'єднувати схеми за допомо�
   └────────────────────────────────────────────────────────┘
 ```
 
-![Поведінка unevaluatedProperties проти additionalProperties](/book/programming/representation/json-schema/img/unevaluated-properties.svg)
+![Поведінка unevaluatedProperties проти additionalProperties](img/unevaluated-properties.svg)
 *Порівняння additionalProperties та unevaluatedProperties під час композиції через allOf*
 
 У ранніх стандартах ключове слово `additionalProperties` було суто локальним: воно бачило лише ті поля, які були оголошені в директиві `properties` **того самого об'єкта**. Якщо дві схеми об'єднувалися через `allOf`, кожна гілка нічого не знала про властивості іншої і відкидала валідний об'єкт.
@@ -283,7 +283,7 @@ JSON Schema дозволяє об'єднувати схеми за допомо�
                              JSON Payload
 ```
 
-![Архітектурний конвеєр обробки схеми та валідації](/book/programming/representation/json-schema/img/json-schema-pipeline.svg)
+![Архітектурний конвеєр обробки схеми та валідації](img/json-schema-pipeline.svg)
 *Конвеєр обробки схеми: компіляція AST, резолюція посилань та зіставлення з документом*
 
 Етапи конвеєра:

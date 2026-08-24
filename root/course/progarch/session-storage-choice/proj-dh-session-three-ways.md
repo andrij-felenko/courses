@@ -52,7 +52,7 @@ app.post("/device/:id/unlock", authenticate(seam), (req, res) => {
 
 Тепер уся розвилка стиснута в **один рядок** — той, де при збірці програми ми пишемо `const seam = new …()`. Поміняли цей рядок — і `authenticate`, і кожен обробник маршруту лишаються байт-у-байт тими самими. Ось що означає «сховати вибір за швом»: три геть різні сховища сесії відрізняються лише вибором конструктора.
 
-![Ліворуч три викликачі (GET /home, POST /device/:id/unlock, GET /telemetry), що бачать лише req.principal; від них стрілка в центральну зелену рамку «authenticate() — єдиний шов перевірки: validate(presented) → Principal or null»; від рамки стрілка в гніздо-рейку, а в неї вставляються три взаємозамінні картки-начинки: А server-side store (вставлена суцільним), Б stateless JWT і В гібрид access+refresh (пунктиром, «на полиці»)](/root/course/progarch/session-storage-choice/img/one-seam.svg)
+![Ліворуч три викликачі (GET /home, POST /device/:id/unlock, GET /telemetry), що бачать лише req.principal; від них стрілка в центральну зелену рамку «authenticate() — єдиний шов перевірки: validate(presented) → Principal or null»; від рамки стрілка в гніздо-рейку, а в неї вставляються три взаємозамінні картки-начинки: А server-side store (вставлена суцільним), Б stateless JWT і В гібрид access+refresh (пунктиром, «на полиці»)](img/one-seam.svg)
 
 *Гарячий шлях знає лише одну точку — `authenticate()`. Сховище сесії (А / Б / В) вставляється в неї, як змінна начинка в гніздо; викликачі його не бачать. Уся розвилка — це який конструктор написати при збірці.*
 

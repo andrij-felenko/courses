@@ -14,7 +14,7 @@
 
 У таких системах діє принципово інша парадигма — **моделювання під шаблони доступу (Access-Pattern-First)**: схема даних створюється не на основі структури сутностей, а виключно на основі повного списку прикладних запитів, які система повинна обслуговувати.
 
-![Реляційне моделювання проти Access-Pattern-First](/book/programming/databases/access-pattern-first/img/relational-vs-access-pattern.svg)
+![Реляційне моделювання проти Access-Pattern-First](img/relational-vs-access-pattern.svg)
 *Зміна підходу: нормалізована схема під довільні SQL проти денормалізованих структур під фіксовані бізнес-вибірки*
 
 ---
@@ -48,7 +48,7 @@
 
 У ширококолонкових СУБД концепція таблиці кардинально відрізняється від реляційної. Кожна таблиця створюється під один конкретний бізнес-запит, а її первинний ключ (Primary Key) складається з двох функціональних частин:
 
-![Cassandra: Partition Key та Clustering Columns](/book/programming/databases/access-pattern-first/img/cassandra-clustering-keys.svg)
+![Cassandra: Partition Key та Clustering Columns](img/cassandra-clustering-keys.svg)
 *Фізичний поділ ключів: Partition Key визначає вузол кластера, Clustering Columns визначають дисковий порядок рядків*
 
 #### 1. Partition Key (Ключ партиціонування)
@@ -72,7 +72,7 @@
 
 Патерн **Single Table Design** (проєктування єдиної таблиці) є кульмінацією філософії Access-Pattern-First. Замість створення окремих таблиць для користувачів, замовлень, платежів та товарів, усі доменні сутності мікросервісу зберігаються в **одній фізичній таблиці**.
 
-![DynamoDB Single Table Design](/book/programming/databases/access-pattern-first/img/single-table-design-dynamodb.svg)
+![DynamoDB Single Table Design](img/single-table-design-dynamodb.svg)
 *Збереження поліморфних сутностей в одній таблиці через перевантаження атрибутів PK та SK*
 
 #### Ключові концепції Single Table Design:

@@ -14,7 +14,7 @@ USB-штекер торкається металевих контактів гн
 
 Простежимо весь цей ланцюг подій наскрізь, крок за кроком — від замикання мідних контактів до виклику `open()` у прикладному застосунку.
 
-![Повний наскрізний ланцюг обробки під'єднання пристрою](/root/course/unix/device-appears-walkthrough/img/device-plug-full-pipeline.svg)
+![Повний наскрізний ланцюг обробки під'єднання пристрою](img/device-plug-full-pipeline.svg)
 
 *Сім послідовних фаз обробки гарячого під'єднання: від апаратного переривання контролера до появи налаштованого вузла у /dev.*
 
@@ -118,7 +118,7 @@ struct usb_device {
 - `SEQNUM=1284` — глобальний 64-бітний монотонний номер події ядра;
 - `MODALIAS=usb:v0403p6001d0600dc00dsc00dp00icFFiscFFipFFin00` — спеціальний рядок ідентифікації для пошуку драйвера.
 
-![Широкомовна розсилка повідомлень Netlink uevent від ядра до простору користувача](/root/course/unix/device-appears-walkthrough/img/netlink-uevent-packet-flow.svg)
+![Широкомовна розсилка повідомлень Netlink uevent від ядра до простору користувача](img/netlink-uevent-packet-flow.svg)
 
 *Ядро запаковує змінні uevent у структуру sk_buff і транслює через сокет Netlink до всіх підписаних процесів у просторі користувача.*
 
@@ -176,7 +176,7 @@ MODULE_DEVICE_TABLE(usb, id_table_combined);
 alias usb:v0403p6001d*dc*dsc*dp*ic*isc*ip*in* ftdi_sio
 ```
 
-![Синтез рядка MODALIAS та зв'язування з модулями ядра](/root/course/unix/device-appears-walkthrough/img/modalias-to-driver-matching.svg)
+![Синтез рядка MODALIAS та зв'язування з модулями ядра](img/modalias-to-driver-matching.svg)
 
 *Рядок MODALIAS із заголовка uevent зіставляється з базою modules.alias для завантаження бінарного файлу .ko та виклику probe().*
 

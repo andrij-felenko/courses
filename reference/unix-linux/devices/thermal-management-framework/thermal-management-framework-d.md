@@ -22,7 +22,7 @@
 
 Взаємодією цих трьох елементів керує **термальний регулятор (thermal governor)** — алгоритм, який отримує від термальної зони її поточний температурний стан та обчислює, які саме рівні впливу слід прикласти до пристроїв охолодження.
 
-![Загальна архітектура Linux Thermal Framework](/reference/unix-linux/devices/thermal-management-framework/img/thermal-arch.svg)
+![Загальна архітектура Linux Thermal Framework](img/thermal-arch.svg)
 *Архітектура Linux Thermal Framework: взаємодія датчиків, термального ядра, регуляторів, пристроїв охолодження та простору користувача.*
 
 Еволюційний шлях від розрізнених скриптів опитування ACPI до сучасного фреймворку описує [історія розвитку термального управління в Linux](book:unix-linux/thermal-management-framework/hist-thermal-evolution.md).
@@ -57,7 +57,7 @@
 
 Для нейтралізації цього ефекту кожна точка спрацьовування містить параметр гістерезису `hysteresis` (також у m°C).
 
-![Гістерезис та точки спрацьовування](/reference/unix-linux/devices/thermal-management-framework/img/trip-points-hysteresis.svg)
+![Гістерезис та точки спрацьовування](img/trip-points-hysteresis.svg)
 *Динаміка зміни температури та робота гістерезису: активне охолодження вмикається при досягненні 70°C і вимикається лише після падіння температури нижче 66°C (гістерезис 4°C).*
 
 Дія гістерезису визначає несиметричні пороги увімкнення та вимкнення:
@@ -131,7 +131,7 @@ Active Cooling відводить тепло від кристала у навк
 ### 2. `power_allocator` (Розподільник потужності на основі PID)
 Сучасний алгоритм, розроблений компаніями ARM та Linaro для складних гетерогенних SoC (наприклад, ARM big.LITTLE / DynamIQ). Замість умовної шкали «кроків» `power_allocator` оперує фізичною величиною — **бюджетом теплової потужності у міліватах (mW)**.
 
-![Алгоритм Power Allocator PID](/reference/unix-linux/devices/thermal-management-framework/img/power-allocator-pid.svg)
+![Алгоритм Power Allocator PID](img/power-allocator-pid.svg)
 *Контур зворотного зв'язку регулятора Power Allocator: PID-контролер обчислює загальний бюджет потужності, який розподіляється між акторами на основі Energy Model.*
 
 Регулятор використовує класичний PID-контролер (Proportional-Integral-Derivative):

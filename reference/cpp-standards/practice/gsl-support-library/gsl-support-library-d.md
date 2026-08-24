@@ -15,7 +15,7 @@
 
 Повний шлях формування концепції GSL від презентації маніфесту на конференції CppCon 2015 до прийняття ключових компонентів у міжнародні стандарти ISO C++ викладено у вставці [Еволюція Guidelines Support Library: від маніфесту CppCon 2015 до стандартів ISO](book:cpp-standards/gsl-support-library/hist-gsl-evolution.md).
 
-![Багаторівнева модель безпеки C++ Core Guidelines та GSL](/reference/cpp-standards/practice/gsl-support-library/img/gsl-safety-layers.svg)
+![Багаторівнева модель безпеки C++ Core Guidelines та GSL](img/gsl-safety-layers.svg)
 *Багаторівнева модель безпеки: поєднання статичного аналізу вихідного коду, типобезпечних абстракцій GSL та детермінованого динамічного контролю.*
 
 ---
@@ -75,7 +75,7 @@ void apply_transform_cpp(gsl::not_null<const TransformConfig*> cfg,
 2. **Динамічна перевірка під час конструювання з сирого покажчика**: При передачі динамічної змінної `T raw_ptr` конструктор виконує контрактну верифікацію `Expects(raw_ptr != nullptr)`. Якщо змінна містить нуль, негайно спрацьовує обробник порушення контрактів, запобігаючи проникненню невалідного стану вглиб архітектури програми.
 3. **Заборона адресної арифметики**: В операторному інтерфейсі `gsl::not_null` видалено оператори інкременту (`++`), декременту (`--`), зміщення (`+=`, `-=`) та індексації (`[]`). Це прямо відповідає правилу Core Guidelines Bounds.1: покажчик на одиночний об'єкт не повинен брати участь в адресній арифметиці. Для масивів слід застосовувати діапазонні типи.
 
-![Архітектура та поведінка gsl::not_null](/reference/cpp-standards/practice/gsl-support-library/img/not-null-memory-and-checks.svg)
+![Архітектура та поведінка gsl::not_null](img/not-null-memory-and-checks.svg)
 *Анатомія gsl::not_null: статична фільтрація нульових констант, динамічний контроль та пряма трансляція в машинний код.*
 
 ### Внутрішня реалізація та сумісність зі смарт-поінтерами
@@ -210,7 +210,7 @@ void destroy_buffer_cpp(gsl::owner<IntBuffer*> buf) {
 
 Шаблонний клас `gsl::span<ElementType, Extent>` (від англ. *span* — діапазон, інтервал, проліт; латинське *expandere* — розгортати) об'єднує покажчик на перший елемент і розмір послідовності в єдиний безпечний невласницький об'єкт-перегляд (англ. *non-owning view*).
 
-![Структура та операції gsl::span](/reference/cpp-standards/practice/gsl-support-library/img/span-bounds-and-subspan.svg)
+![Структура та операції gsl::span](img/span-bounds-and-subspan.svg)
 *Структура gsl::span: невласницький дескриптор суцільної послідовності, механізм перевірки меж та створення неперервних піддіапазонів subspan.*
 
 ### Статичний та динамічний розмір (Extents)
@@ -347,7 +347,7 @@ namespace gsl {
 
 Звичайний оператор приведення `static_cast<Target>(value)` мовчки відкидає старші біти числа та спотворює знак, що є головною причиною катастрофічних цілочисельних переповнень (англ. *integer truncation / sign mismatch vulnerabilities*).
 
-![Дерево рішень та алгоритми звужуючих перетворень](/reference/cpp-standards/practice/gsl-support-library/img/narrowing-cast-matrix.svg)
+![Дерево рішень та алгоритми звужуючих перетворень](img/narrowing-cast-matrix.svg)
 *Звужуючі перетворення: порівняння небезпечного static_cast, документованого gsl::narrow_cast та перевіреного gsl::narrow.*
 
 ### Механізм перевірки gsl::narrow

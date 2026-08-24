@@ -112,7 +112,7 @@
 
 З ядра Linux 5.8 стандартом де-факто став **BPF Ring Buffer** (`BPF_MAP_TYPE_RINGBUF`). Це єдина ділянка пам'яті, що розділяється між усіма ядрами CPU та відображається у простір користувача через системний виклик `mmap()`.
 
-![Архітектура BPF Ring Buffer](/reference/unix-linux/permissions/ebpf-security-tracing/img/ebpf-ringbuf-tracing.svg)
+![Архітектура BPF Ring Buffer](img/ebpf-ringbuf-tracing.svg)
 *Архітектура передачі подій аудиту безпеки через BPF Ring Buffer від точок перехоплення ядра до аналітичного демона в просторі користувача.*
 
 Передача події відбувається за три кроки:
@@ -191,7 +191,7 @@ bpf_probe_read_kernel_str(&buf, sizeof(buf), d_name.name);
 
 На базі eBPF побудовано сучасний стек Cloud-Native Security. Два провідних інструменти екосистеми ілюструють фундаментальну різницю між асинхронним аудитом та синхронним захистом.
 
-![Порівняння Falco та Tetragon](/reference/unix-linux/permissions/ebpf-security-tracing/img/ebpf-security-tools-comparison.svg)
+![Порівняння Falco та Tetragon](img/ebpf-security-tools-comparison.svg)
 *Порівняння архітектури моніторингу та перехоплення загрози інструментів Falco (асинхронні tracepoints) та Tetragon (синхронні fentry/BPF LSM).*
 
 ### Falco: Асинхронний двигун виявлення загроз

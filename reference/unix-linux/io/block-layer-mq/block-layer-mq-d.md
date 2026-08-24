@@ -59,7 +59,7 @@ struct bio {
 
 `struct request` є контейнером обробки в ядрі. Він огортає один або декілька суміжних об'єктів `bio` і відповідає конкретній команді, якій буде призначено апаратний тег (`tag`) і яку буде відправлено в чергу контролера накопичувача.
 
-![Анатомія bio, bio_vec та механізм злиття I/O (Back Merge)](/reference/unix-linux/io/block-layer-mq/img/bio-request-merge.svg)
+![Анатомія bio, bio_vec та механізм злиття I/O (Back Merge)](img/bio-request-merge.svg)
 *Рис. 1. Зв'язок між сторінками пам'яті, векторами bio_vec, структурою bio та об'єднанням суміжних секторів у struct request.*
 
 ### Алгоритми злиття I/O
@@ -77,7 +77,7 @@ struct bio {
 
 Для вирішення цієї проблеми блоковий шар використовує механізм **Plugging** (затикання черги).
 
-![Механізм накопичення й пакетної відправки (Plugging / Unplugging)](/reference/unix-linux/io/block-layer-mq/img/plug-unplug-batching.svg)
+![Механізм накопичення й пакетної відправки (Plugging / Unplugging)](img/plug-unplug-batching.svg)
 *Рис. 2. Життєвий цикл локального накопичувача запитів blk_plug від формування до пакетного виштовхування у черги blk-mq.*
 
 Коли потік виконання ядра (наприклад, функція скидання сторінок `flusher thread` або процесори підсистеми `io_uring`) готується передати пачку даних, він викликає функцію `blk_start_plug()`. Вона ініціалізує структуру `struct blk_plug` на стеку поточного завдання (`current->plug`).
@@ -92,7 +92,7 @@ struct bio {
 
 Центральною ідеєю `blk-mq` є розділення абстракції черги на два фундаментальні рівні: програмні черги накопичення (Software Staging Queues) та апаратні черги диспетчеризації (Hardware Dispatch Queues).
 
-![Дворівнева архітектура підсистеми blk-mq](/reference/unix-linux/io/block-layer-mq/img/blk-mq-two-tier-pipeline.svg)
+![Дворівнева архітектура підсистеми blk-mq](img/blk-mq-two-tier-pipeline.svg)
 *Рис. 3. Дворівневий потік обробки I/O у blk-mq: від локальних програмних черг процесорів до апаратних черг накопичувача.*
 
 ### Рівень 1: Программні черги per-CPU (`struct blk_mq_ctx`)

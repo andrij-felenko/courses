@@ -22,7 +22,7 @@
 
 Вибір архітектурного розташування кешу визначає компроміс між затримкою зчитування (Latency), споживанням пам'яті (Memory Overhead) та складністю підтримання узгодженості (Cache Consistency).
 
-![Порівняння топологій кешування: локальний, розподілений та гібридний near-cache](/book/programming/operations/distributed-caching-architectures/img/cache-topologies-comparison.svg)
+![Порівняння топологій кешування: локальний, розподілений та гібридний near-cache](img/cache-topologies-comparison.svg)
 *Три фундаментальні топології кешування: ізольований локальний кеш у процесі, виділений віддалений кластер та дворівневий Near-Cache із шиною інвалідації.*
 
 ### 1. Локальний кеш у пам'яті процесу (In-Process / Embedded Cache)
@@ -96,7 +96,7 @@ node_index = hash(key) mod N
 
 Для вирішення проблеми динамічного масштабування Девід Каргер та співавтори у 1997 році запропонували алгоритм **узгодженого гешування** (англ. *Consistent Hashing*).
 
-![Кільце узгодженого гешування та віртуальні вузли](/book/programming/operations/distributed-caching-architectures/img/consistent-hashing-ring.svg)
+![Кільце узгодженого гешування та віртуальні вузли](img/consistent-hashing-ring.svg)
 *Кільце узгодженого гешування: простір хешів 2³²-1, прив'язка ключів за годинниковою стрілкою, віртуальні вузли та локалізована міграція при додаванні нового сервера.*
 
 Механізм функціонує наступним чином:
@@ -144,7 +144,7 @@ node_index = hash(key) mod N
 
 Взаємодія між застосунком, розподіленим кешем та первинною базою даних організовується за однією з чотирьох архітектурних моделей.
 
-![Патерни доступу до кешу: Cache-Aside, Write-Through та Write-Behind](/book/programming/operations/distributed-caching-architectures/img/cache-access-patterns-flow.svg)
+![Патерни доступу до кешу: Cache-Aside, Write-Through та Write-Behind](img/cache-access-patterns-flow.svg)
 *Потоки даних для трьох ключових патернів: Cache-Aside (ліниве завантаження), Write-Through (синхронний запис через кеш) та Write-Behind (асинхронне фонове скидання черги в СУБД).*
 
 ### 1. Cache-Aside (Lazy Loading / Кешування осторонь)
@@ -201,7 +201,7 @@ node_index = hash(key) mod N
 
 У високонавантажених системах вихід із ладу кешу або непередбачувані патерни звернення можуть викликати аварії всієї інфраструктури.
 
-![Відмовні режими розподіленого кешу та тактики захисту](/book/programming/operations/distributed-caching-architectures/img/resiliency-failure-modes.svg)
+![Відмовні режими розподіленого кешу та тактики захисту](img/resiliency-failure-modes.svg)
 *Три критичні відмовні режими розподіленого кешу: лавина через синхронний TTL, навала запитів за гарячим ключем та пробиття неіснуючими ID, а також архітектурні засоби їх усунення.*
 
 ### 1. Лавина кешу (Cache Avalanche)
@@ -272,7 +272,7 @@ node_index = hash(key) mod N
 
 У Redis Cluster відсутній централізований проксі-шар: клієнтські драйвери працюють за моделлю «розумного клієнта» (Smart Client).
 
-![Топологія та протокол редиректів у Redis Cluster](/book/programming/operations/distributed-caching-architectures/img/redis-cluster-slot-routing.svg)
+![Топологія та протокол редиректів у Redis Cluster](img/redis-cluster-slot-routing.svg)
 *Маршрутизація в Redis Cluster: локальна таблиця слотів на розумному клієнті, пряма відправка команд до потрібного сокета та протокол редиректів MOVED / ASK під час міграцій.*
 
 При запуску застосунку клієнтська бібліотека виконує команду `CLUSTER SLOTS` або `CLUSTER NODES`, завантажуючи повну таблицю прив'язки 16 384 слотів до IP-адрес вузлів.

@@ -44,7 +44,7 @@ void init_special_inode(struct inode *inode, umode_t mode, dev_t rdev) {
 }
 ```
 
-![Порівняння шляхів передачі даних: Символьний (cdev) vs Блочний (bdev) пристрій](/reference/unix-linux/devices/character-and-block-devices/img/cdev-vs-bdev-architecture.svg)
+![Порівняння шляхів передачі даних: Символьний (cdev) vs Блочний (bdev) пристрій](img/cdev-vs-bdev-architecture.svg)
 
 *Архітектурне роздвоєння в ядрі Linux: символьний пристрій спрямовує виклики безпосередньо у драйвер, тоді як блочний проходить через Сторінковий кеш та шар Block I/O.*
 
@@ -148,7 +148,7 @@ static int __init my_driver_init(void) {
 
 Блочні пристрої інтегровані зі Сторінковим кешем ядра (Page Cache). Читання з файлової системи спершу шукає відповідні 4-кілобайтні сторінки в оперативній пам'яті. Якщо сторінки відсутні (cache miss), VFS створює векторний об'єкт **`struct bio`**.
 
-![Маршрутизація VFS за типом пристрою та dev_t](/reference/unix-linux/devices/character-and-block-devices/img/dev-t-split-and-vfs-lookup.svg)
+![Маршрутизація VFS за типом пристрою та dev_t](img/dev-t-split-and-vfs-lookup.svg)
 
 *Внутрішній механізм VFS: перевірка прапорців i_mode в іноді визначає, чи буде підключено драйвер cdev через chrdevs[], чи об'єкт block_device через bdev_map.*
 

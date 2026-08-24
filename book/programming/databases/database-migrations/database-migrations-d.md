@@ -14,7 +14,7 @@
 
 Забезпечення нульового часу простою при еволюції схеми вимагає глибокого розуміння внутрішніх блокувань СУБД, використання патерну розширення й звуження (Expand/Contract), застосування тіньових таблиць та суворої дисципліни версіонування.
 
-![Патерн розширення та звуження схеми](/book/programming/databases/database-migrations/img/expand-contract-migration.svg)
+![Патерн розширення та звуження схеми](img/expand-contract-migration.svg)
 *Чотири фази патерну Expand/Contract: гарантія повної сумісності схеми зі старими та новими версіями додатку*
 
 ---
@@ -27,7 +27,7 @@
 
 Проте команди DDL (наприклад, `ALTER TABLE`, `DROP TABLE`, `TRUNCATE`) вимагають найвищого, монопольного рівня блокування — **`AccessExclusiveLock`**.
 
-![Ієрархія блокувань DDL](/book/programming/databases/database-migrations/img/lock-modes-ddl.svg)
+![Ієрархія блокувань DDL](img/lock-modes-ddl.svg)
 *Блокувальний каскад: довгий запит читання блокує ALTER TABLE, що зупиняє всі наступні короткі транзакції*
 
 #### Механізм виникнення катастрофи (Lock Contention & Starvation)
@@ -88,7 +88,7 @@
 
 Коли обсяг таблиці перевищує сотні гігабайтів, навіть операції, що підтримуються механізмом Online DDL, створюють надмірне дискове навантаження. Для таких випадків компанії використовують інструменти класу **`gh-ost`** (GitHub Online Schema Transformations) або **`pt-online-schema-change`**.
 
-![Онлайн-міграція великих таблиць](/book/programming/databases/database-migrations/img/shadow-table-flow.svg)
+![Онлайн-міграція великих таблиць](img/shadow-table-flow.svg)
 *Принцип роботи інструментів онлайн-міграції через тіньову таблицю та потік реплікації*
 
 #### Алгоритм роботи інструменту gh-ost:
@@ -194,7 +194,7 @@ bool validate_schema_compatibility(const std::vector<ColumnSchema>& schema, cons
 
 Для забезпечення високої надійності релізів міграції вбудовуються у загальний конвеєр доставки коду.
 
-![Пайплайн неперервної доставки міграцій](/book/programming/databases/database-migrations/img/zero-downtime-pipeline.svg)
+![Пайплайн неперервної доставки міграцій](img/zero-downtime-pipeline.svg)
 *Автоматизований пайплайн: статичний лінтинг, Pre-deployment DDL, поступове оновлення серверів та фінальне очищення*
 
 Повний перелік рівнів блокувань, небезпечних операцій та правил налаштування захисних тайм-аутів наведено у вставці [Довідник безпечних DDL операцій та чекліст Zero-Downtime](book:programming/databases/database-migrations/api-zero-downtime-checklist.md).

@@ -69,7 +69,7 @@ util_effective = min(max(util_avg, uclamp_min), uclamp_max)
 ```
 [де util_avg — фізичний сигнал PELT, uclamp_min — нижній поріг, uclamp_max — верхній поріг]
 
-![Модифікація сигналу утилізації PELT за допомогою uclamp](/reference/unix-linux/processes/uclamp-utilization-clamping/img/uclamp-concept.svg)
+![Модифікація сигналу утилізації PELT за допомогою uclamp](img/uclamp-concept.svg)
 *Принцип затискання сирого сигналу PELT за допомогою нижньої (uclamp.min) та верхньої (uclamp.max) меж утилізації.*
 
 Графік демонструє, що під час раптового пробудження (ліва частина) ефективний сигнал `util_effective` миттєво піднімається до `uclamp_min = 384`, позбавляючи систему від затримки розігріву PELT. Під час пікового обчислювального сплеску (центральна частина) `util_effective` обмежується стелею `uclamp_max = 768`, захищаючи процесор від перегріву та перевитрати енергії.
@@ -274,7 +274,7 @@ ExecStartPost=/bin/sh -c 'echo 30.00 > /sys/fs/cgroup/system.slice/%n/cpu.uclamp
 3. Коли задача додається у чергу (`enqueue_task`), ядро обчислює індекс бакета для її `uclamp_min` і інкрементує лічильник задач у відповідному бакеті через `uclamp_rq_inc()`. При вилученні задачі (`dequeue_task`) викликається `uclamp_rq_dec()`, яка декрементує лічильник `tasks`.
 4. Обчислення максимального `uclamp_min` черги виконується функцією `uclamp_rq_max_value()` (`kernel/sched/core.c`), яка сканує 5 бакетів від 4 до 0. Перший бакет із лічильником `tasks > 0` дає максимальне значення. Оскільки кількість бакетів фіксована і дорівнює 5, складність пошуку становить строго O(1).
 
-![Внутрішній механізм бакетів uclamp](/reference/unix-linux/processes/uclamp-utilization-clamping/img/uclamp-buckets.svg)
+![Внутрішній механізм бакетів uclamp](img/uclamp-buckets.svg)
 *Структура бакетів uclamp у черзі виконання (Runqueue rq) та O(1) обчислення максимального uclamp.min.*
 
 Як видно з діаграми, хоча дві задачі (Task B та Task C) мають різні значення `uclamp_min` (550 та 512), вони потрапляють у один і той самий Bucket 2. Черга `rq` зберігає точне максимальне значення 550 всередині бакета і миттєво віддає його регулятору частоти.
@@ -289,7 +289,7 @@ ExecStartPost=/bin/sh -c 'echo 30.00 > /sys/fs/cgroup/system.slice/%n/cpu.uclamp
 
 Модифікований сигнал утилізації від uclamp використовується двома ключовими підсистемами ядра: регулятором частоти та планувальником енергоефективності.
 
-![Інтеграція uclamp з EAS та schedutil](/reference/unix-linux/processes/uclamp-utilization-clamping/img/uclamp-eas-schedutil.svg)
+![Інтеграція uclamp з EAS та schedutil](img/uclamp-eas-schedutil.svg)
 *Шлях розповсюдження обмеженого сигналу утилізації до регулятора частоти schedutil та планувальника EAS.*
 
 ### 1. Інтеграція з `schedutil` та CPPC/HWP

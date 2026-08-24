@@ -204,7 +204,7 @@ QString UrlFactory::getTileHash(QStringView type, int x, int y, int z)
 }
 ```
 
-![Двадцять дев'ять цифр ключа тайла: код провайдера, x, y, рівень](/reference/qgroundcontrol/map-video/offline-maps/img/hash-key.svg)
+![Двадцять дев'ять цифр ключа тайла: код провайдера, x, y, рівень](img/hash-key.svg)
 
 *Ширини полів сталі, тому розібрати ключ назад можна простою нарізкою за позиціями — і так само вручну зібрати.*
 

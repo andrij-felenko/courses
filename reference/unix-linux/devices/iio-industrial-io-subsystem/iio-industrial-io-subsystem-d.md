@@ -30,7 +30,7 @@
 | **Одиниці вимірювання SI** | Не суворі | Відсутні (абстрактні осі) | Суворі одиниці SI (мВ, м/с², rad/s, kPa) |
 | **Підсистема тригерів** | Відсутня | Відсутня | Апаратні/програмні тригери ядра |
 
-![Архітектура підсистеми IIO](/reference/unix-linux/devices/iio-industrial-io-subsystem/img/iio-arch.svg)
+![Архітектура підсистеми IIO](img/iio-arch.svg)
 *Рис. 1. Архітектурне розділення підсистеми IIO між простором користувача, sysfs, символьним пристроєм, IIO Core та апаратурою.*
 
 ## 2. Архітектурне ядро та ключові структури ядра
@@ -186,7 +186,7 @@ static const struct iio_chan_spec my_adc_channels[] = {
 
 Для високошвидкісного збору даних IIO використовує **Triggered Buffers** (тригери та кільцеві буфери).
 
-![Конвеєр тригерів та буферизації IIO](/reference/unix-linux/devices/iio-industrial-io-subsystem/img/iio-buffer-trigger-flow.svg)
+![Конвеєр тригерів та буферизації IIO](img/iio-buffer-trigger-flow.svg)
 *Рис. 2. Послідовність передачі семплів від апаратного переривання через тригер і kfifo до виклику read() у просторі користувача.*
 
 ### Поняття IIO Trigger

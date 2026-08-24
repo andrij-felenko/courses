@@ -11,7 +11,7 @@
 
 Саме цей феномен у комп'ютерній інженерії називається **коефіцієнтом підсилення запису** (Write Amplification Factor, WAF). Він виникає тоді, коли логічна модифікація невеликого фрагмента даних змушує нижчележачу систему — чи то контролер SSD, чи то двигун бази даних — переписувати набагато більші обсяги фізичного носія.
 
-![Концепція Write Amplification](/book/algorithms/data-structures/write-amplification/img/waf-concept.svg)
+![Концепція Write Amplification](img/waf-concept.svg)
 *Співвідношення між логічним записом застосунку та фізично індукованими записами носія.*
 
 Розуміння WAF є межею між абстрактним програмуванням, де пам'ять вважається безкінечною та безкоштовною, і реальною системною інженерією, де неконтрольований WAF руйнує твердотільні накопичувачі за кілька місяців, створює тривалі паузи в обробці транзакцій (P99 tail latency spikes) та обмежує пропускну здатність розподілених сховищ.
@@ -41,7 +41,7 @@
 
 З часом накопичувач заповнюється сумішшю валідних та невалідних сторінок. Коли вільні блоки вичерпуються, контролер змушений запускати фоновий процес **збирання сміття** (Garbage Collection, GC).
 
-![Garbage Collection у FTL](/book/algorithms/data-structures/write-amplification/img/ftl-gc-amplification.svg)
+![Garbage Collection у FTL](img/ftl-gc-amplification.svg)
 *Процес перенесення живих сторінок під час стирання блоків у NAND Flash.*
 
 Процес Garbage Collection зчитує всі збережені валідні сторінки з частково заповненого блоку, копіює їх у новий блок, і лише після цього стирає старий блок. 
@@ -154,7 +154,7 @@ LSM-дерево (Log-Structured Merge-tree), яке лежить в основ�
 
 Усі нові записи потрапляють у послідовний файл WAL та оперативну пам'ять MemTable. Коли MemTable заповнюється, вона скидається на диск як незмінний файл SSTable (Sorted String Table) на рівні L0.
 
-![Leveled Compaction WAF у LSM-дереві](/book/algorithms/data-structures/write-amplification/img/lsm-compaction-waf.svg)
+![Leveled Compaction WAF у LSM-дереві](img/lsm-compaction-waf.svg)
 *Підсилення запису при ущільненні (Compaction) у LSM-дереві.*
 
 Проте LSM-дерево переносить навантаження запису на фоновий процес **ущільнення (Compaction)**:

@@ -334,7 +334,7 @@ static void probe_trapped(void)
       VmRSS =     5808 КіБ   VmSize =     8044 КіБ   брейк = 0x55555557a000   після free() верхнього
 ```
 
-![Чотири моменти досліду, у кожному два стовпчики: VmSize і VmRSS; на третьому RSS падає майже до нуля, а VmSize лишається на місці](/reference/unix-linux/memory/allocator-and-kernel/img/probe-timeline.svg)
+![Чотири моменти досліду, у кожному два стовпчики: VmSize і VmRSS; на третьому RSS падає майже до нуля, а VmSize лишається на місці](img/probe-timeline.svg)
 
 *Два лічильники розходяться саме там, де починається непорозуміння: `malloc_trim` віддає ядру сторінки, а адреси лишає за процесом.*
 

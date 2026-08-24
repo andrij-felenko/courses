@@ -11,7 +11,7 @@
 
 ## Блок-схема плати: ті самі вузли, але 8-бітні
 
-![Анатомія плати Uno/Nano-класу проти ESP32 DevKit](/book/programming/embedded-systems/avr/img/board-anatomy.svg)
+![Анатомія плати Uno/Nano-класу проти ESP32 DevKit](img/board-anatomy.svg)
 
 *Анатомія плати Uno/Nano-класу проти ESP32 DevKit: ті самі ролі вузлів (міст, стабілізатор, тактування, reset, гребінки), але навколо 8-бітного AVR їх більше — окремими деталями. Ключова відмінність для практики — рівні: зазвичай 5 В проти 3.3 В на ESP32.*
 
@@ -75,7 +75,7 @@ avrdude -p atmega328p -c arduino -P COM5 -b 115200 -U flash:w:firmware.hex:i
 
 ## Варіації класу
 
-![Сходи самодостатності плат: від Pro Mini до ESP32 DevKit](/book/programming/embedded-systems/avr/img/integration-ladder.svg)
+![Сходи самодостатності плат: від Pro Mini до ESP32 DevKit](img/integration-ladder.svg)
 
 *Сходи самодостатності плат: від Pro Mini (прошивають зовнішнім перехідником) до ESP32 DevKit (усе на борту). Та сама логіка «носія», різний рівень інтеграції.*
 

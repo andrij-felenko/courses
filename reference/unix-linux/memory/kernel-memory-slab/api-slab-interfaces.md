@@ -151,7 +151,7 @@ struct conn_state *conn_get(void)
 
 ## Готові кеші kmalloc
 
-![Тринадцять щаблів розміру kmalloc і п'ять сімейств кешів, які вибирає прапорець запиту](/reference/unix-linux/memory/kernel-memory-slab/img/kmalloc-families.svg)
+![Тринадцять щаблів розміру kmalloc і п'ять сімейств кешів, які вибирає прапорець запиту](img/kmalloc-families.svg)
 
 *Ім'я кеша в `/proc/slabinfo` читається однозначно: префікс каже, який прапорець спрацював, суфікс — на який щабель округлили.*
 

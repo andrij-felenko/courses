@@ -50,7 +50,7 @@ if (!(mplane || splane) || !(caps & V4L2_CAP_STREAMING))
 
 ## Дві черги
 
-![Дві черги V4L2 і шлях буфера через драйвер](/reference/media-vision/gstreamer/hardware-decode-elements/img/m2m-queues.svg)
+![Дві черги V4L2 і шлях буфера через драйвер](img/m2m-queues.svg)
 
 *Назви `OUTPUT` і `CAPTURE` дано з погляду пристрою: він читає з `OUTPUT` і пише в `CAPTURE`.*
 
@@ -203,7 +203,7 @@ ioctl(fd, VIDIOC_REQBUFS, &rb);      /* rb.count може зменшитися *
 
 ## Профіль stateless
 
-![Запит як пакет: контроли й буфер, зв'язані одним дескриптором](/reference/media-vision/gstreamer/hardware-decode-elements/img/stateless-request.svg)
+![Запит як пакет: контроли й буфер, зв'язані одним дескриптором](img/stateless-request.svg)
 
 *Параметри кадру не мають власного місця в потоці — вони їдуть у запиті разом із буфером.*
 

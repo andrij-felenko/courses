@@ -70,7 +70,7 @@ struct is_pointer<T*> : std::true_type {};
 
 Заголовочний файл `<type_traits>` систематизує усяке розмаїття типів мови C++ у строгу математичну класифікацію.
 
-![Класифікація категорій і властивостей std::type_traits](/reference/cpp-standards/templates/type-traits/img/traits-taxonomy.svg)
+![Класифікація категорій і властивостей std::type_traits](img/traits-taxonomy.svg)
 
 *Всі метафункції стандарту поділені на первинні категорії, складені категорії, предикати властивостей та трансформації типів.*
 
@@ -126,7 +126,7 @@ bool is_ptr = std::is_pointer<T>::value;
 
 Для полегшення прочитання у C++14 з'явилися шаблони псевдонімів із суфіксом `_t`, а в C++17 — змінні-шаблони із суфіксом `_v`.
 
-![Анатомія метафункції типу](/reference/cpp-standards/templates/type-traits/img/meta-function-pipeline.svg)
+![Анатомія метафункції типу](img/meta-function-pipeline.svg)
 
 *Анатомія метафункції: аргумент T проходить через спеціалізацію або помічники _v та _t, даючи статичні значення чи трансформовані типи.*
 
@@ -169,7 +169,7 @@ struct is_signed_integral
 
 Еволюція застосування type traits у програмуванні на C++ пройшла чотири фундаментальних етапи.
 
-![Еволюція розгалуження за трейтами в коді C++](/reference/cpp-standards/templates/type-traits/img/sfinae-vs-ifconstexpr-evolution.svg)
+![Еволюція розгалуження за трейтами в коді C++](img/sfinae-vs-ifconstexpr-evolution.svg)
 
 *Еволюція методів розгалуження: від додаткових перевантажень за тегами (C++11) до прямого branched code через if constexpr (C++17) та концептів (C++20).*
 
@@ -265,7 +265,7 @@ void fast_byte_copy(const T* src, T* dst, std::size_t count) {
 
 Особливе місце серед метафункцій трансформацій посідає `std::decay` (`std::decay_t<T>`). Вона імітує точні правила перетворення типів, які застосовуються компілятором при передачі аргументу у звичайну функцію за значенням (by value).
 
-![Етапи трансформації типів у std::decay](/reference/cpp-standards/templates/type-traits/img/decay-transformation-flow.svg)
+![Етапи трансформації типів у std::decay](img/decay-transformation-flow.svg)
 
 *Три послідовних кроки алгоритму std::decay: вилучення посилань, розпад масивів/функцій у вказівники та зняття топових кваліфікаторів const/volatile.*
 

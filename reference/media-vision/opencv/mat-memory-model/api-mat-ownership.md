@@ -48,7 +48,7 @@ MatStep step;
 | 15 | підматриця | `CV_SUBMAT_FLAG` = `1 << 15` = `0x8000` | `isSubmatrix()` |
 | 16–31 | сигнатура типу | `MAGIC_MASK` = `0xFFFF0000`, `MAGIC_VAL` = `0x42FF0000` | ознака дійсного заголовка |
 
-![Розкладка 32 бітів поля flags: магія, підматриця, суцільність, невживані, канали, глибина](/reference/media-vision/opencv/mat-memory-model/img/flags-bits.svg)
+![Розкладка 32 бітів поля flags: магія, підматриця, суцільність, невживані, канали, глибина](img/flags-bits.svg)
 
 *Ті самі біти читають і макроси з `cvdef.h`, і константи всередині `Mat` — `Mat::TYPE_MASK` і `CV_MAT_TYPE_MASK` описують один і той самий діапазон.*
 

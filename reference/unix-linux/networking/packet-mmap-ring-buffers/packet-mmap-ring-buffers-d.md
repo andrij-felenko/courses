@@ -60,7 +60,7 @@ int fd = ::socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
 При створенні сокета програма за допомогою виклику `setsockopt()` замовляє у ядра буфер певного розміру, а потім відображає його у свій адресний простір за допомогою виклику `mmap()`:
 
-![Порівняння традиційного захоплення пакетів та механізму PACKET_MMAP](/reference/unix-linux/networking/packet-mmap-ring-buffers/img/packet-mmap-arch.svg)
+![Порівняння традиційного захоплення пакетів та механізму PACKET_MMAP](img/packet-mmap-arch.svg)
 *Архітектура PACKET_MMAP у порівнянні з традиційними сокетами SOCK_RAW: усунення перемикання контексту та копіювання даних.*
 
 Головні переваги цієї архітектури:
@@ -93,7 +93,7 @@ int fd = ::socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
 У TPACKET_V3 буфер складається з масиву великих безперервних блоків (наприклад, по 1 MB кожен). Пакети довільної довжини пакуються в блок послідовно один за одним:
 
-![Структура блоку та вирівнювання фреймів у TPACKET_V3](/reference/unix-linux/networking/packet-mmap-ring-buffers/img/tpacket-v3-block.svg)
+![Структура блоку та вирівнювання фреймів у TPACKET_V3](img/tpacket-v3-block.svg)
 *Внутрішнє влаштування блоку TPACKET_V3: заголовок block_desc керує статусом усього блоку, а кадри tpacket3_hdr з'єднані офсетами tp_next_offset.*
 
 Основні особливості TPACKET_V3:

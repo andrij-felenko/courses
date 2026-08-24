@@ -82,7 +82,7 @@ static const char * const task_state_array[] = {
 };
 ```
 
-![Біти поля __state зводяться маскою TASK_REPORT, спецвипадки підмінюються, fls дає індекс у масиві літер](/reference/unix-linux/processes/process-states/img/state-letter-path.svg)
+![Біти поля __state зводяться маскою TASK_REPORT, спецвипадки підмінюються, fls дає індекс у масиві літер](img/state-letter-path.svg)
 
 *Усе, що не потрапило в маску, назовні не існує: жодне з полів `/proc` і жоден стовпчик `ps` цих бітів не показують.*
 

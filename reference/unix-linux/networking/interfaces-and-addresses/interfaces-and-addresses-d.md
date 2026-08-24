@@ -410,7 +410,7 @@ netdev_tx_t loopback_xmit(struct sk_buff *skb, struct net_device *dev) {
 > 2. **Балансувальники навантаження (HAProxy, Keepalived)**: Демони високої доступності прив'язують плаваючу VIP (Virtual IP) адресу до Loopback або фізичного інтерфейсу з прапорцем `IFA_F_SECONDARY` або маскою `/32`. Якщо фізичний лінк втрачено (`operstate` переходить у `LOWERLAYERDOWN`), Keepalived негайно передає VIP-адресу іншому вузлу кластера.
 > 3. **High-Frequency Trading та обробка пакетів**: Програми, що використовують AF_XDP або DPDK, опитують стан `carrier` через sysfs або RTNETLINK для миттєвого переключення трафіку на резервний адаптер при відмові основного порту (Failover).
 
-![Внутрішня структура net_device, in_device та стан лінка в ядрі Linux](/reference/unix-linux/networking/interfaces-and-addresses/img/interfaces-addresses.svg)
+![Внутрішня структура net_device, in_device та стан лінка в ядрі Linux](img/interfaces-addresses.svg)
 *Зв'язок структур ядра net_device, in_device та in_ifaddr із підсистемою сповіщень Netlink і файловою системою sysfs.*
 
 Фундаментальні абстракції `struct net_device` та `struct in_device` формують основу мережевої підсистеми Linux. Вони відокремлюють специфіку фізичного апаратного забезпечення канального рівня (L2) від протокольних алгоритмів L3, а двофазна система прапорців `IFF_UP` / `IFF_RUNNING` та `operstate` забезпечує коректне відображення стану носія у системних демонах простору користувача.

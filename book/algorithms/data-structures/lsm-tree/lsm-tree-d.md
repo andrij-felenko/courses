@@ -21,7 +21,7 @@
 
 Поки навантаження на систему складалося переважно з читання даних, B-дерева демонстрували чудові результати. Проте з настанням ери Big Data, високонавантаженого логування, сенсорних мереж IoT та фінансових транзакцій обсяг операцій запису різко зріс. Тут традиційна модель B-дерев зіштовхнулася із жорстким фізичним бар'єром обладнання.
 
-![Парадигми оновлення даних: in-place в B-tree проти append-only в LSM-tree](/book/algorithms/data-structures/lsm-tree/img/b-tree-vs-lsm-model.svg)
+![Парадигми оновлення даних: in-place в B-tree проти append-only в LSM-tree](img/b-tree-vs-lsm-model.svg)
 *Парадигми оновлення даних: in-place в B-tree проти append-only в LSM-tree.*
 
 ### Механічний диск (HDD)
@@ -40,7 +40,7 @@
 
 Щоб забезпечити високу швидкість запису й при цьому зберегти можливість швидко шукати ключі, LSM-дерево розділяє збереження даних на два середовища: **оперативну пам'ять (RAM)** та **незмінні дискові файли (Disk)**.
 
-![Архітектурні шляхи LSM-дерева: запис (Write Path) та пошук (Read Path)](/book/algorithms/data-structures/lsm-tree/img/lsm-architecture.svg)
+![Архітектурні шляхи LSM-дерева: запис (Write Path) та пошук (Read Path)](img/lsm-architecture.svg)
 *Архітектурні шляхи LSM-дерева: запис (Write Path) та пошук (Read Path).*
 
 Розглянемо ключові компоненти цієї системи за шляхом проходження даних.
@@ -124,7 +124,7 @@ Compaction зчитує кілька SSTables, виконує їхнє сорт�
 
 Існують дві основні стратегії Compaction, кожна з яких робить власний вибір у трилемі RUM:
 
-![Стратегії ущільнення (Compaction): Size-Tiered (STCS) проти Levelled (LCS)](/book/algorithms/data-structures/lsm-tree/img/compaction-stcs-vs-lcs.svg)
+![Стратегії ущільнення (Compaction): Size-Tiered (STCS) проти Levelled (LCS)](img/compaction-stcs-vs-lcs.svg)
 *Стратегії ущільнення (Compaction): Size-Tiered (STCS) проти Levelled (LCS).*
 
 ### 1. Size-Tiered Compaction Strategy (STCS)

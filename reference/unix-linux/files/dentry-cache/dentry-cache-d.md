@@ -67,7 +67,7 @@ struct dentry {
 } __randomize_layout;
 ```
 
-![Анатомія struct dentry: поля та вказівники зв'язків](/reference/unix-linux/files/dentry-cache/img/dentry-structure.svg)
+![Анатомія struct dentry: поля та вказівники зв'язків](img/dentry-structure.svg)
 *Анатомія структури dentry: внутрішні поля керування, ієрархічні зв'язки та інтеграція з хеш-таблицею, списками LRU та inode.*
 
 Розгляньмо, як ці поля забезпечують одночасно екстремальну швидкість та безпеку паралельного доступу:
@@ -140,7 +140,7 @@ Dcache організований у пам'яті ядра одночасно �
                  └──────────────────┘
 ```
 
-![Дворівнева організація dcache: хеш-таблиця та деревоподібна ієрархія](/reference/unix-linux/files/dentry-cache/img/dcache-hashtable-and-tree.svg)
+![Дворівнева організація dcache: хеш-таблиця та деревоподібна ієрархія](img/dcache-hashtable-and-tree.svg)
 *Дворівнева організація dcache: глобальна хеш-таблиця з бітовими замками забезпечує пошук за O(1), а вказівники d_parent та d_subdirs підтримують цілісність ієрархічного дерева.*
 
 ### 1. Глобальна хеш-таблиця `dentry_hashtable`
@@ -174,7 +174,7 @@ Dcache організований у пам'яті ядра одночасно �
 
 Об'єкт dentry протягом свого перебування в пам'яті ядра проходить кілька взаємопов'язаних станів.
 
-![Життєвий цикл та переходи між станами dentry](/reference/unix-linux/files/dentry-cache/img/dentry-lifecycle-states.svg)
+![Життєвий цикл та переходи між станами dentry](img/dentry-lifecycle-states.svg)
 *Життєвий цикл dentry: виділення в пам'яті, переходи між станами Active та Unused, кешування негативних записів та остаточне вивільнення.*
 
 Розгляньмо ці стани та умови переходів між ними:
@@ -248,7 +248,7 @@ Dentry перебуває в активному стані, якщо його л
 
 Розбір шляху в ядрі Linux (функція `link_path_walk()` у файлі `fs/namei.c`) може виконуватися в одному з двох фундаментальних режимів: ультрашвидкому безблокувальному **RCU-walk** або традиційному блокувальному **Ref-walk**.
 
-![Алгоритм вибору між RCU-walk та Ref-walk при обході шляху](/reference/unix-linux/files/dentry-cache/img/rcu-walk-vs-ref-walk.svg)
+![Алгоритм вибору між RCU-walk та Ref-walk при обході шляху](img/rcu-walk-vs-ref-walk.svg)
 *Схема обходу шляхів у ядрі Linux: швидкий паралельний RCU-walk, точки відкату unlazy_walk та перехід у безпечний Ref-walk при промахах.*
 
 ### 1. Швидкий шлях: RCU-walk (`LOOKUP_RCU`)
@@ -314,7 +314,7 @@ out_drop:
 
 Оскільки dcache постійно наповнюється новими dentry під час відкриття файлів, він здатен безконтрольно зростати, займаючи всю вільну оперативну пам'ять сервера. На відміну від сторінкового кешу даних (page cache), пам'ять dentry виділяється не сторінками, а дрібними структурами через slab-алокатор (`kmem_cache`).
 
-![Робота dcache shrinker та вплив vfs_cache_pressure при нестачі пам'яті](/reference/unix-linux/files/dentry-cache/img/dcache-shrinker-pressure.svg)
+![Робота dcache shrinker та вплив vfs_cache_pressure при нестачі пам'яті](img/dcache-shrinker-pressure.svg)
 *Механізм вивільнення пам'яті dcache під керуванням ядра: взаємодія kswapd, інтерфейсу shrinker та вплив sysctl vfs_cache_pressure.*
 
 ### Робота dcache shrinker

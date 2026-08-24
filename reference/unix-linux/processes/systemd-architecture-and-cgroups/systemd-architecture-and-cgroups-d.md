@@ -31,7 +31,7 @@ Cgroups v1 (код прийнято в дерево 2007 року, випуск 
 
 Отримавши монопольний контроль над `/sys/fs/cgroup/`, `systemd` мапує свої внутрішні концепції життєвого циклу процесів безпосередньо на структуру каталогів віртуальної файлової системи ядра. Усі процеси в системі розподіляються між трьома основними типами юнітів.
 
-![Ієрархія cgroups v2 під systemd](/reference/unix-linux/processes/systemd-architecture-and-cgroups/img/systemd-cgroup-tree.svg)
+![Ієрархія cgroups v2 під systemd](img/systemd-cgroup-tree.svg)
 *Ієрархічне дерево cgroups v2 під управлінням systemd: мапінг зрізів (slice), служб (service) та областей (scope) на файлову систему /sys/fs/cgroup.*
 
 ### Зріз (Slice)
@@ -127,7 +127,7 @@ TasksMax=512
 
 Зв'язок із менеджером `systemd` виконується через системну шину повідомлень DBus (System Bus). Сам сокет `/run/dbus/system_bus_socket` слухає не менеджер, а брокер шини `dbus-daemon` (або `dbus-broker`): клієнт і `systemd` обидва під'єднуються до нього як рівні учасники, а брокер маршрутизує виклики за іменем призначення. `systemd` реєструє на шині ім'я `org.freedesktop.systemd1` і приймає виклики до об'єкта `/org/freedesktop/systemd1` під інтерфейсом `org.freedesktop.systemd1.Manager`. Власний сокет менеджер теж має — `/run/systemd/private`; через нього говорить `systemctl`, коли брокер ще не піднято (рання стадія завантаження, режим порятунку).
 
-![Послідовність виклику StartTransientUnit через DBus](/reference/unix-linux/processes/systemd-architecture-and-cgroups/img/systemd-dbus-cgroup-flow.svg)
+![Послідовність виклику StartTransientUnit через DBus](img/systemd-dbus-cgroup-flow.svg)
 *Послідовність створення тимчасового юніта та налаштування лімітів cgroups через DBus-інтерфейс org.freedesktop.systemd1.*
 
 Центральним методом для створення нових ізольованих середовищ є `StartTransientUnit`. Цей метод дозволяє атомарно створити тимчасовий юніт (Transient Service або Transient Scope), застосувати обмеження cgroups та запустити його в системі без запису конфігураційних файлів на диск. Для області в тому ж виклику передають перелік PID уже наявних процесів, які треба туди перемістити; службі PID не передають — її процес менеджер породжує сам.
@@ -153,7 +153,7 @@ TasksMax=512
 
 Для розв'язання цього конфлікту `systemd` реалізував механізм **делегування** (*Delegation*).
 
-![Межа відповідальності Delegate=yes](/reference/unix-linux/processes/systemd-architecture-and-cgroups/img/cgroup-delegation.svg)
+![Межа відповідальності Delegate=yes](img/cgroup-delegation.svg)
 *Розмежування відповідальності між systemd та контейнерним рушієм при увімкненому розширенні Delegate=yes.*
 
 Коли у конфігурації служби (наприклад, `docker.service` або `containerd.service`) вказано директиву `Delegate=yes`, `systemd` змінює свою поведінку щодо cgroup цієї служби:

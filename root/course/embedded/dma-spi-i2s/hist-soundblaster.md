@@ -24,7 +24,7 @@ AdLib (1987) вирішила проблему інакше: замість PCM 
 
 ISA (Industry Standard Architecture) — 8/16-бітна шина, успадкована від IBM PC/XT та PC/AT. Вона надавала слотам розширення доступ до адресного простору й простору даних, до ліній переривань IRQ і до ліній DMA.
 
-![Шина ISA і канал DMA 1 Sound Blaster'а](/root/course/embedded/dma-spi-i2s/img/isa-bus.svg)
+![Шина ISA і канал DMA 1 Sound Blaster'а](img/isa-bus.svg)
 
 *Пристрої ISA ділять між собою IRQ та DMA-канали; Sound Blaster займає канал 1, який був вільним у PC/XT.*
 
@@ -63,7 +63,7 @@ DMA channel      : 1
 
 **З DMA (Sound Blaster):** програма виділяє буфер у нижніх 16 МБ адресного простору (обмеження 8237A — 24-бітна адресація), записує адресу і довжину в регістри контролера, встановлює режим (наприклад, «одноразовий» або «авто-реініціалізація»), і запускає передачу. Далі Sound Blaster виставляє DREQ (DMA Request) на лінії шини ISA; контролер 8237A арбітрує шину, «краде» один цикл у CPU (cycle stealing), зчитує байт з RAM і передає його у DAC Sound Blaster через DACK (DMA Acknowledge). CPU при цьому зупиняється лише на один шинний цикл — кілька наносекунд — і відразу продовжує роботу.
 
-![CPU-loop проти DMA: що робить процесор під час звуку](/root/course/embedded/dma-spi-i2s/img/dma-flow.svg)
+![CPU-loop проти DMA: що робить процесор під час звуку](img/dma-flow.svg)
 
 *Без DMA CPU витрачав ~8% часу на обслуговування звуку у зайнятому очікуванні; з DMA затрати падають до часток відсотка — тільки ISR на кінці буфера.*
 
@@ -135,7 +135,7 @@ void sb_dma_start(uint8_t *buf, uint16_t len) {
 
 Версії Sound Blaster множились — і кожна зберігала зворотну сумісність:
 
-![Еволюція Sound Blaster: 1988–1994](/root/course/embedded/dma-spi-i2s/img/timeline.svg)
+![Еволюція Sound Blaster: 1988–1994](img/timeline.svg)
 
 *П'ять поколінь за шість років; DMA-канал 1 та IRQ 5 залишились незмінними в усіх.*
 

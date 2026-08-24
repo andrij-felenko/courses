@@ -45,7 +45,7 @@
 
 Підсистема NetLabel розташована в каталозі `net/netlabel/` вихідного коду ядра Linux. Вона не є самостійним модулем безпеки, а виконує роль посередника (транслятора та диспетчера) між мережевим стеком ядра, підсистемою LSM (Linux Security Modules) та простором користувача.
 
-![Архітектура підсистеми NetLabel та її інтеграція з LSM](/reference/unix-linux/permissions/netlabel-cipso-packet-labeling/img/netlabel-architecture.svg)
+![Архітектура підсистеми NetLabel та її інтеграція з LSM](img/netlabel-architecture.svg)
 *Архітектура підсистеми NetLabel та її інтеграція з LSM*
 
 ### 2.1. Ключові компоненти підсистеми
@@ -80,7 +80,7 @@ struct netlbl_lsm_secattr {
 
 У протоколі IPv4 (RFC 791) опція CIPSO позначається номером **Option 134** (`0x86`). Оскільки найстарший біт копіювання (Copy flag, біт 7) встановлено в `1`, заголовок опції CIPSO обов'язково дублюється в усі фрагменти при фрагментації IP-пакета, гарантуючи збереження мітки безпеки на проміжних маршрутизаторах.
 
-![Формати заголовків міток безпеки: IPv4 CIPSO та IPv6 CALIPSO](/reference/unix-linux/permissions/netlabel-cipso-packet-labeling/img/cipso-calipso-packet-format.svg)
+![Формати заголовків міток безпеки: IPv4 CIPSO та IPv6 CALIPSO](img/cipso-calipso-packet-format.svg)
 *Формати заголовків міток безпеки: IPv4 CIPSO та IPv6 CALIPSO*
 
 ### 3.1. Загальний формат опції CIPSO (Option 134)
@@ -214,7 +214,7 @@ SELinux Security Context (Рядок / SECID)
 
 Проходження мережевого трафіку крізь ядро Linux супроводжується чіткою послідовністю викликів гачків LSM (LSM Hooks) на рівні сокетів та буферів `sk_buff`.
 
-![Життєвий цикл пакета: точки виклику LSM гачків та NetLabel](/reference/unix-linux/permissions/netlabel-cipso-packet-labeling/img/packet-flow-lsm-hooks.svg)
+![Життєвий цикл пакета: точки виклику LSM гачків та NetLabel](img/packet-flow-lsm-hooks.svg)
 *Життєвий цикл пакета: точки виклику LSM гачків та NetLabel*
 
 ### 6.1. Вихідний шлях (Transmission Path / TX)

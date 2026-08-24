@@ -28,7 +28,7 @@ RTT_min = 2 · (d / c_glass)
 
 В архітектурі протоколу IP визначено чотири базові моделі доставки пакетів від джерела до одержувача.
 
-![Чотири парадигми адресації та маршрутизації в IP-мережах](/book/communications/networks/anycast/img/anycast-vs-unicast-multicast.svg)
+![Чотири парадигми адресації та маршрутизації в IP-мережах](img/anycast-vs-unicast-multicast.svg)
 *Порівняння парадигм передавання: Anycast спрямовує пакет до найближчого екземпляра зі спільною IP-адресою засобами глобальної маршрутизації.*
 
 ### Порівняльний аналіз моделей доставки
@@ -50,7 +50,7 @@ RTT_min = 2 · (d / c_glass)
 
 Робота Anycast у масштабах глобального інтернету цілком базується на протоколі прикордонного шлюзу **BGP-4** (англ. *Border Gateway Protocol*, RFC 4271).
 
-![BGP Anycast: топологічні басейни притягання (Catchments)](/book/communications/networks/anycast/img/bgp-anycast-catchment.svg)
+![BGP Anycast: топологічні басейни притягання (Catchments)](img/bgp-anycast-catchment.svg)
 *Формування зон притягання Anycast: клієнти потрапляють у найближчий дата-центр на основі довжини шляху автономних систем та метрик BGP.*
 
 ### Правило мінімального префікса (/24 для IPv4 та /48 для IPv6)
@@ -127,7 +127,7 @@ RTT_min = 2 · (d / c_glass)
 
 Найважливішою властивістю Anycast є здатність діяти як гігантський глобальний поглинач трафіку (*DDoS Sinkhole*).
 
-![Розсіювання об'ємної DDoS-атаки (Anycast Sinkholing)](/book/communications/networks/anycast/img/ddos-traffic-sinkholing.svg)
+![Розсіювання об'ємної DDoS-атаки (Anycast Sinkholing)](img/ddos-traffic-sinkholing.svg)
 *Розсіювання DDoS-атаки: локальні PoP поглинають і фільтрують трафік ботнетів у своїх регіонах, не допускаючи перевантаження ядра.*
 
 Впровадження криптографічних підписів DNSSEC (RFC 4033) збільшило типовий розмір відповіді DNS з 60 байтів до 1500–3000 байтів (записи `RRSIG`, `DNSKEY`). Зловмисники використовують це для атак відбиття (DNS Amplification DDoS) з коефіцієнтом посилення до 50x–70x, надсилаючи підроблені UDP-запити від імені жертви до відкритих резолверів.
@@ -147,7 +147,7 @@ RTT_min = 2 · (d / c_glass)
 
 Якщо для протоколів без встановлення з'єднання (UDP: DNS, NTP) Anycast працює ідеально, то робота протоколів зі збереженням стану (Connection-oriented, зокрема TCP) тривалий час вважалася ненадійною через специфіку глобальної маршрутизації.
 
-![Проблема зміни маршруту (BGP Flap) у TCP та її вирішення](/book/communications/networks/anycast/img/tcp-flapping-and-maglev-ecmp.svg)
+![Проблема зміни маршруту (BGP Flap) у TCP та її вирішення](img/tcp-flapping-and-maglev-ecmp.svg)
 *Проблема BGP Flapping у TCP-сесіях та методи її подолання через таблиці Maglev, міжвузлове тунелювання та протокол QUIC.*
 
 ### Проблема зміни маршрутів (BGP Route Flapping та Anycast Jitter)
@@ -215,7 +215,7 @@ QUIC відмовився від концепції прив'язки сесії
 
 Технологія Anycast застосовується не лише в глобальному інтернеті, а й усередині сучасних дата-центрів для горизонтального масштабування кластерів проксі-серверів (Nginx, Envoy, HAProxy) та L4-балансувальників (IPVS, Katran).
 
-![Внутрішній Anycast у дата-центрі (BGP to the Host)](/book/communications/networks/anycast/img/datacenter-ecmp-anycast.svg)
+![Внутрішній Anycast у дата-центрі (BGP to the Host)](img/datacenter-ecmp-anycast.svg)
 *Внутрішній Anycast у дата-центрі: горизонтальне масштабування L4-балансувальників через протокол ECMP на комутаторах стійки.*
 
 ### Архітектура «BGP to the Host» у топології Клоза (Clos Topology)

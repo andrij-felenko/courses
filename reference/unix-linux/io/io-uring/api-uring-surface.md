@@ -110,7 +110,7 @@ struct io_cqring_offsets {
 | `IORING_OFF_CQ_RING` | `0x8000000` | лічильники CQ **і самі записи CQE** |
 | `IORING_OFF_SQES` | `0x10000000` | масив самих SQE |
 
-![Три відображення io_uring: що лежить за кожним зміщенням і як їх зводить IORING_FEAT_SINGLE_MMAP](/reference/unix-linux/io/io-uring/img/mmap-layout.svg)
+![Три відображення io_uring: що лежить за кожним зміщенням і як їх зводить IORING_FEAT_SINGLE_MMAP](img/mmap-layout.svg)
 
 *Асиметрія не випадкова: CQE лежать усередині відображення кільця завершень, а SQE винесені окремо — бо кільце подань зберігає лише індекси в цей масив.*
 

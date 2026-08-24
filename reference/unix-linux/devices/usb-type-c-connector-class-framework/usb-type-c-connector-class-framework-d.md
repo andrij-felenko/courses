@@ -14,7 +14,7 @@
 
 У класичних стандартах USB Type-A та Type-B кожна вилка мала фіксовану роль. Комп'ютер завжди виступав джерелом живлення +5 В та хостом (DFP), а принтер чи флешка — споживачем живлення та периферією (UFP). Роз'єм USB Type-C скасував апаратну жорсткість: 24-контактне гніздо містить дві незалежні лінії конфігурації (CC1 та CC2), дві пари класичних сигналів D+/D-, чотири високошвидкісні диференційні пари SuperSpeed (TX1/RX1, TX2/RX2) та пару службових ліній SBU. Окремого контакту VCONN у гнізді немає: живлення для мікросхеми всередині кабелю (e-Marker) подається на ту з ліній CC, яка не стала активною.
 
-![Архітектура фреймворку USB Type-C у Linux](/reference/unix-linux/devices/usb-type-c-connector-class-framework/img/typec-architecture.svg)
+![Архітектура фреймворку USB Type-C у Linux](img/typec-architecture.svg)
 *Архітектура підсистеми Type-C у Linux: зв'язок між апаратними PHY/контролерами (TCPCI/UCSI), менеджером портів TCPM, ядрами USB/DRM та прозорим представленням у sysfs.*
 
 Фізичне підключення кабелю Type-C запускає каскад аналогових та цифрових розпізнавань:
@@ -58,7 +58,7 @@
 
 Фреймворк експортує повне дерево об'єктів у системну директорію `/sys/class/typec/`. Простір користувача (`udev`-правила, демони живлення на зразок UPower або Android Hardware Abstraction Layer) використовує цей інтерфейс для моніторингу стану та ініціювання змін ролей.
 
-![Ієрархія файлових об'єктів sysfs для Type-C та Power Delivery](/reference/unix-linux/devices/usb-type-c-connector-class-framework/img/sysfs-hierarchy.svg)
+![Ієрархія файлових об'єктів sysfs для Type-C та Power Delivery](img/sysfs-hierarchy.svg)
 *Дерево sysfs-атрибутів: розділення на порти Type-C (`/sys/class/typec/portX/`) та абстракцію узгоджених профілів Power Delivery (`/sys/class/usb_power_delivery/pdX/`).*
 
 Кожен порт `portX` містить псевдофайли атрибутів:
@@ -74,7 +74,7 @@
 
 Звичайне підключення Type-C надає базове живлення 5 В із струмом 500 мА, 900 мА, 1.5 А або 3.0 А (рівень струму джерело оголошує номіналом підтягувального резистора Rp). Для отримання вищої напруги (наприклад, 20 В для заряджання ноутбука) запускається цифровий протокол **USB Power Delivery (USB PD)**.
 
-![Протокол узгодження Power Delivery (BMC повідомлення)](/reference/unix-linux/devices/usb-type-c-connector-class-framework/img/pd-negotiation-flow.svg)
+![Протокол узгодження Power Delivery (BMC повідомлення)](img/pd-negotiation-flow.svg)
 *Послідовність узгодження контракту PD: від фізичного підключення на напрузі 5 В до обміну пакетами Source_Capabilities / Request / Accept та виходу на 20 В.*
 
 Процес узгодження контракту живлення відбувається за наступним алгоритмом:
@@ -113,7 +113,7 @@
 
 Фізичне підключення штекера Type-C створює задачу комбінаторної комутації високошвидкісних ліній на друкованій платі.
 
-![Фізична та логічна комутація сигналів Type-C Switch, Mux та Retimer](/reference/unix-linux/devices/usb-type-c-connector-class-framework/img/mux-retimer-switch-path.svg)
+![Фізична та логічна комутація сигналів Type-C Switch, Mux та Retimer](img/mux-retimer-switch-path.svg)
 *Схема проходження високошвидкісних сигналів: перемикач орієнтації (Switch), компенсатори втрат (Retimers), крос-мультиплексор (Mux) та комутатор USB-ролей (USB Role Switch).*
 
 Ядро Linux управляє цим ланцюгом за допомогою трьох допоміжних фреймворків:

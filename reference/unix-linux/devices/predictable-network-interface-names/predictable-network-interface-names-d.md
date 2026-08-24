@@ -54,7 +54,7 @@ int dev_alloc_name(struct net_device *dev, const char *name)
 - `NET_NAME_USER` — ім'я призначено адміністратором вручну через команду `ip` або файл конфігурації;
 - `NET_NAME_RENAMED` — інтерфейс було перейменовано після початкової реєстрації.
 
-![Стан гонитви при паралельній реєстрації eth0 / eth1](/reference/unix-linux/devices/predictable-network-interface-names/img/race-condition-probing.svg)
+![Стан гонитви при паралельній реєстрації eth0 / eth1](img/race-condition-probing.svg)
 
 *Паралельне виконання функцій probe для двох контролерів призводить до випадкового розподілу імен eth0 та eth1 залежно від мілісекундних коливань часу ініціалізації.*
 
@@ -93,7 +93,7 @@ SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:1a:4b:16:32:01", NAME="eth0"
 
 Обробка події появи мережевого пристрою відбувається за суворим конвеєром між ядром та простором користувача.
 
-![Пайплайн призначення імені мережевого інтерфейсу в udev](/reference/unix-linux/devices/predictable-network-interface-names/img/naming-pipeline-udev.svg)
+![Пайплайн призначення імені мережевого інтерфейсу в udev](img/naming-pipeline-udev.svg)
 
 *Послідовність обробки мережевого інтерфейсу від генерації uevent ядром до застосування політики перейменування через RTNetlink.*
 
@@ -186,7 +186,7 @@ udev послідовно перевіряє схеми зліва направ�
 
 Після префікса типу додається позначення схеми.
 
-![Анатомія та структури передбачуваних імен мережевих інтерфейсів](/reference/unix-linux/devices/predictable-network-interface-names/img/name-structure-breakdown.svg)
+![Анатомія та структури передбачуваних імен мережевих інтерфейсів](img/name-structure-breakdown.svg)
 
 *Анатомія формування назв для вбудованих інтерфейсів, слотів розширення, координат шини PCI, адаптерів USB та MAC-адрес.*
 

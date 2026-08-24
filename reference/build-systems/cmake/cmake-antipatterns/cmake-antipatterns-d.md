@@ -41,7 +41,7 @@ add_executable(my_app ${SOURCES})
 
 Мотивація розробника зрозуміла: небажання вручну вписувати ім'я кожного нового файлу в `CMakeLists.txt`. Проте ціна цієї удаваної зручності — повна сліпота генератора збірки до змін у файловій структурі на диску.
 
-![Сліпота генератора збірки до нових файлів при використанні GLOB](/reference/build-systems/cmake/cmake-antipatterns/img/glob-rebuild-blindness.svg)
+![Сліпота генератора збірки до нових файлів при використанні GLOB](img/glob-rebuild-blindness.svg)
 
 *file(GLOB) обчислюється лише під час конфігурації; генератор збірки не знає про нові файли на диску, доки не зміниться сам CMakeLists.txt.*
 
@@ -110,7 +110,7 @@ add_subdirectory(core)
 add_subdirectory(tests)
 ```
 
-![Забруднення простору каталогу проти інкапсуляції цілей](/reference/build-systems/cmake/cmake-antipatterns/img/directory-pollution-vs-targets.svg)
+![Забруднення простору каталогу проти інкапсуляції цілей](img/directory-pollution-vs-targets.svg)
 
 *Директиви каталогу діють за місцем у файловому дереві й забруднюють дочірні папки. Цільові команди (target_*) прив'язують вимоги до конкретного артефакту.*
 
@@ -332,7 +332,7 @@ macro(register_test test_name test_source)
 endmacro()
 ```
 
-![Порівняння областей видимості macro() та function()](/reference/build-systems/cmake/cmake-antipatterns/img/macro-vs-function-scope.svg)
+![Порівняння областей видимості macro() та function()](img/macro-vs-function-scope.svg)
 
 *macro() розгортається безпосередньо у місці виклику й мутує змінні викликача. function() створює ізольовану область видимості.*
 
@@ -394,7 +394,7 @@ make
 
 Ця операція називається **in-source збіркою** (збиранням у дереві джерел).
 
-![In-source збірка проти Out-of-source розділення](/reference/build-systems/cmake/cmake-antipatterns/img/in-source-vs-out-of-source.svg)
+![In-source збірка проти Out-of-source розділення](img/in-source-vs-out-of-source.svg)
 
 *Збирання всередині сирців засмічує дерево джерел генерованими файлами. Out-of-source розділення тримає репозиторій чистим.*
 

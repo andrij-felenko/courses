@@ -30,7 +30,7 @@
 
 ## Друга і третя пари рук
 
-![Хронологія опіки над OpenCV: Intel 1999–2008, Willow Garage 2008–2012, фонд OpenCV.org разом з Itseez 2012–2016, Intel як власник Itseez із 2016](/reference/media-vision/opencv/opencv-structure/img/stewards-timeline.svg)
+![Хронологія опіки над OpenCV: Intel 1999–2008, Willow Garage 2008–2012, фонд OpenCV.org разом з Itseez 2012–2016, Intel як власник Itseez із 2016](img/stewards-timeline.svg)
 
 *Кожна зміна опікуна припадає на межу, за якою в бібліотеці змінюється щось структурне: модель пам'яті, склад репозиторіїв, ліцензія.*
 

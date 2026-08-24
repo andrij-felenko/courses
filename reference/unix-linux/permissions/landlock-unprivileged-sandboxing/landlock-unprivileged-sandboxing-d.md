@@ -56,7 +56,7 @@ Landlock підтримує пошарове накладання обмежен
 2. `struct landlock_hierarchy`: Описує дерево успадкування доменів. Кожен новий шар посилається на батьківський `hierarchy`, що дозволяє відстежувати глибину стекінгу та перевіряти зв'язок між процесами.
 3. `struct landlock_object`: Представляє об'єкт файлової системи (inode). Він містить слабке посилання (underlying reference) на `struct inode` та список правил, пов'язаних із цим inode у різних шарах.
 
-![Загальна архітектура застосування Landlock LSM](/reference/unix-linux/permissions/landlock-unprivileged-sandboxing/img/landlock-arch.svg)
+![Загальна архітектура застосування Landlock LSM](img/landlock-arch.svg)
 *Рис. 1. Загальна архітектура застосування Landlock LSM.*
 
 ### 2.3. Послідовність перевірки VFS-хуків у ядрі

@@ -13,7 +13,7 @@
 
 SGX впроваджує концепцію конфіденційних обчислень (confidential computing), переносячи межу довіри безпосередньо у кристалик центрального процесора. Навіть якщо операційна система повністю скомпрометована, мікрокод процесора та апаратні блоки шифрування гарантують цілісність і конфіденційність коду та даних енклава.
 
-![Апаратна межа захисту Intel SGX](/reference/unix-linux/permissions/sigstruct-and-sgx-enclaves/img/sgx-architecture-epc.svg)
+![Апаратна межа захисту Intel SGX](img/sgx-architecture-epc.svg)
 *Апаратна межа захисту Intel SGX: ізоляція пам'яті EPC через MEE та контроль EPCM.*
 
 Головним компонентом апаратної ізоляції пам'яті є Memory Encryption Engine (MEE) — спеціалізований контролер, вбудований у системний агент процесора між кеш-пам'яттю останнього рівня (L3) та контролером оперативної пам'яті DRAM.
@@ -114,7 +114,7 @@ SGX впроваджує концепцію конфіденційних обч�
 
 Для підтвердження автентичності використовується криптографічний документ `SIGSTRUCT` (розміром 1808 байтів), описаний у [Повний бінарний макет SIGSTRUCT](book:unix-linux/sigstruct-and-sgx-enclaves/api-sigstruct.md).
 
-![Алгоритм перевірки SIGSTRUCT у EINIT](/reference/unix-linux/permissions/sigstruct-and-sgx-enclaves/img/sigstruct-verification-flow.svg)
+![Алгоритм перевірки SIGSTRUCT у EINIT](img/sigstruct-verification-flow.svg)
 *Алгоритм криптографічної перевірки структури SIGSTRUCT та запуску енклава інструкцією EINIT.*
 
 Під час виконання інструкції `EINIT` апаратний мікрокод CPU реалізує суворий каскадний алгоритм перевірки:

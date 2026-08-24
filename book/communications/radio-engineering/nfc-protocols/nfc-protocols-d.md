@@ -28,7 +28,7 @@ Near Field Communication (NFC) — це технологія бездротов�
 
 Фізичний шар NFC регламентується стандартами ISO/IEC 14443-2, ISO/IEC 18092 та JIS X 6319-4. Передача даних від пристрою зчитування (PCD — Proximity Coupling Device) до безконтактної картки або мітки (PICC — Proximity Integrated Circuit Card) відбувається шляхом модуляції несучої частоти `f_c = 13.56 МГц`.
 
-![Модуляція RF та піднесуча 848 кГц](/book/communications/radio-engineering/nfc-protocols/img/nfc-rf-modulation.svg)
+![Модуляція RF та піднесуча 848 кГц](img/nfc-rf-modulation.svg)
 *Часові діаграми модуляції 100% ASK (Type A), 10% ASK (Type B) та спектральні бічні смуги модуляції навантаженням піднесучою 848 кГц.*
 
 Для передачі даних у напрямку PCD -> PICC застосовуються три основні технології фізичного рівня:
@@ -54,7 +54,7 @@ Near Field Communication (NFC) — це технологія бездротов�
 
 Оскільки у зоні дії антени зчитувача може одночасно опинитися кілька міток, стандарт ISO/IEC 14443-3 визначає біт-орієнтований протокол антиколізії (Bit-Oriented Anticollision Loop), який дозволяє зчитувачу виявити унікальний номер (UID) кожної мітки без конфліктів у каналі.
 
-![Машина станів антиколізії ISO 14443](/book/communications/radio-engineering/nfc-protocols/img/iso14443-anticollision.svg)
+![Машина станів антиколізії ISO 14443](img/iso14443-anticollision.svg)
 *Послідовність переходів станів ієрархічного дозволу колізій каскадів Cascade Level 1..3.*
 
 Процедура вирішення колізій виконується за алгоритмом двійкового дерева (Binary Search Tree):
@@ -107,7 +107,7 @@ Near Field Communication (NFC) — це технологія бездротов�
 
 Організація NFC Forum об'єднала різноманітні фізичні стандарти (ISO 14443 Type A/B, FeliCa) у єдину системну архітектуру, визначивши **три прикладні режими роботи**:
 
-![Режими роботи NFC та архітектура HCE vs SE](/book/communications/radio-engineering/nfc-protocols/img/nfc-operating-modes.svg)
+![Режими роботи NFC та архітектура HCE vs SE](img/nfc-operating-modes.svg)
 *Класифікація режимів Reader/Writer, Peer-to-Peer та порівняння маршрутизації HCE й Secure Element.*
 
 1. **Режим зчитувача/записувача (Reader/Writer Mode):** Пристрій (смартфон або термінал) виступає в ролі активної сторони (PCD), зчитуючи або перезаписуючи дані пасивних міток NFC Forum Type 1–5.
@@ -141,7 +141,7 @@ Near Field Communication (NFC) — це технологія бездротов�
 ### Формат даних NDEF (NFC Data Exchange Format)
 Для забезпечення уніфікованого взаємообміну інформацією NFC Forum розробив бінарний формат **NDEF**. NDEF-повідомлення (NDEF Message) складається з послідовності одного або кількох NDEF-записів (NDEF Records).
 
-![Структура NDEF запису та біти заголовка](/book/communications/radio-engineering/nfc-protocols/img/ndef-record-structure.svg)
+![Структура NDEF запису та біти заголовка](img/ndef-record-structure.svg)
 *Деталізація бітів прапорів заголовка MB, ME, CF, SR, IL, TNF та бінарне розгортання запису NDEF.*
 
 Кожен NDEF-запис починається з 1-байтового заголовка прапорів (`Header Byte`):

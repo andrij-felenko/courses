@@ -92,7 +92,7 @@ DPCM дозволяє динамічно комутувати будь-який 
 +-------------------------------------------------------------------------+
 ```
 
-![Архітектура SOF та ALSA SoC](/reference/unix-linux/devices/sound-open-firmware-sof/img/sof-arch.svg)
+![Архітектура SOF та ALSA SoC](img/sof-arch.svg)
 *Архітектура Sound Open Firmware у ядрі Linux та зв'язок з ASoC і DSP.*
 
 ### Модель виконання задач у Zephyr RTOS
@@ -219,7 +219,7 @@ Userspace (ALSA)         snd_sof (Kernel)            Mailbox / DRAM           SO
        |<-- 12. poll wakeup ----|<-- Period Elapsed IRQ ----|   Position Update      |
 ```
 
-![Життєвий цикл PCM потоку](/reference/unix-linux/devices/sound-open-firmware-sof/img/sof-pcm-flow.svg)
+![Життєвий цикл PCM потоку](img/sof-pcm-flow.svg)
 *Життєвий цикл аудіопотоку: від виклику userspace до обробки у Zephyr RTOS.*
 
 Послідовність кроків управління потоком:

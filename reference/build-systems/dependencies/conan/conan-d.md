@@ -45,7 +45,7 @@ Conan 2.x розділяє поняття «як зібрати бібліоте
 
 Рецепт пакета Conan 2.x є класом, що успадковує `conan.ConanFile`. Рушій пакетного менеджера викликає методи цього класу у суворо регламентованій послідовності відповідно до життєвого циклу обчислення графа залежностей та фаз компіляції.
 
-![Життєвий цикл методів conanfile.py](/reference/build-systems/dependencies/conan/img/recipe-lifecycle.svg)
+![Життєвий цикл методів conanfile.py](img/recipe-lifecycle.svg)
 *Життєвий цикл conanfile.py: послідовність викликів методів конфігурації, розрахунку простору layout, завантаження джерел, генерації файлів збірки, компіляції та експорту контракту.*
 
 Структура типового промислового рецепта для C++-бібліотеки, що використовує CMake, містить декларативні поля метаданих та реалізації ключових методів життєвого циклу:
@@ -186,7 +186,7 @@ class NetworkEngineConan(ConanFile):
 
 У Conan 2.x двопрофільна модель є обов'язковим стандартом: будь-яка команда встановлення чи збірки приймає два незалежні профілі через прапорці `--profile:build` та `--profile:host`.
 
-![Двопрофільна модель Conan 2.x під час крос-компіляції](/reference/build-systems/dependencies/conan/img/cross-compilation-profiles.svg)
+![Двопрофільна модель Conan 2.x під час крос-компіляції](img/cross-compilation-profiles.svg)
 *Двопрофільна модель Conan 2.x: суворе розділення інструментів генерації коду (build context) та цільових бібліотек компонування (host context).*
 
 Файл профілю Conan є текстовим файлом у форматі INI, що складається з п'яти секцій: `[settings]`, `[options]`, `[tool_requires]`, `[buildenv]` та `[conf]`. Профілі підтримують спадкування за допомогою директиви `include(path/to/base_profile)`, що дозволяє створювати лаконічні спеціалізовані профілі (наприклад, `debug`, `asan`, `tsan`) на базі єдиного базового конфігураційного опису.
@@ -251,7 +251,7 @@ conan install . --profile:build=profiles/linux-x86_64 --profile:host=profiles/li
 
 Ключовим елементом моделі кешування Conan є ідентифікатор `package_id`. Це 160-бітне шістнадцяткове число (SHA-1 хеш), яке однозначно ідентифікує конкретну двійкову збірку пакета.
 
-![Обчислення package_id у Conan 2.x](/reference/build-systems/dependencies/conan/img/package-id-hash.svg)
+![Обчислення package_id у Conan 2.x](img/package-id-hash.svg)
 *Обчислення package_id: трансформація налаштувань платформи, опцій рецепта та хешів транзитивних залежностей у кінцевий бінарний відбиток артефакту.*
 
 Алгоритм обчислення `package_id` виконує нормалізацію вхідних даних та розраховує хеш від об'єднання чотирьох компонентів:
@@ -308,7 +308,7 @@ def package_id(self):
 
 Зв'язок між Conan та CMake забезпечують два незалежні генератори: `CMakeToolchain` та `CMakeDeps`.
 
-![Інтеграція Conan 2.x з CMake через генератори](/reference/build-systems/dependencies/conan/img/cmake-deps-toolchain.svg)
+![Інтеграція Conan 2.x з CMake через генератори](img/cmake-deps-toolchain.svg)
 *Інтеграція Conan 2.x з CMake: генерація conan_toolchain.cmake та конфігураційних модулів CMakeDeps, що забезпечують чистий CMakeLists.txt без пропрієтарного коду.*
 
 ### 1. Генератор CMakeToolchain
@@ -419,7 +419,7 @@ Conan 2.x реалізує концепцію повної криптограф�
 
 Для гарантії 100% повторюваності збірок у часі та просторі використовується механізм [фіксації графа за допомогою lock-файлів](book:build-systems/version-pinning).
 
-![Фіксація графа залежностей через conan.lock](/reference/build-systems/dependencies/conan/img/lockfile-reproducibility.svg)
+![Фіксація графа залежностей через conan.lock](img/lockfile-reproducibility.svg)
 *Детермінізм графа залежностей за допомогою conan.lock: перетворення плаваючих діапазонів версій у фіксовані хеші ревізій RREV та package_id.*
 
 Файл `conan.lock` є документом у форматі JSON, який фіксує абсолютно всі параметри обчисленого графа:

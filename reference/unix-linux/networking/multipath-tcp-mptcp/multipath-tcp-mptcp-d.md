@@ -35,7 +35,7 @@
 
 Прикладний додаток викликає системний виклик `socket(AF_INET, SOCK_STREAM, IPPROTO_MPTCP)`. У ядрі Linux створюється так званий **мета-сокет** (`struct mptcp_sock`). Для користувацького простору цей сокет виглядає як стандартний потоковий сокет TCP, але під ним ядро підтримує список зв'язаних сокетів підпотоків (`struct tcp_sock`).
 
-![Архітектура MPTCP та розмежування просторів послідовностей](/reference/unix-linux/networking/multipath-tcp-mptcp/img/mptcp-arch.svg)
+![Архітектура MPTCP та розмежування просторів послідовностей](img/mptcp-arch.svg)
 *Архітектура мета-сокета MPTCP у ядрі Linux: розмежування глобального простору DSN та локальних SSN підпотоків*
 
 Ключовим технічним проривом MPTCP є **двопакетне розділення простору порядкових номерів (Sequence Space Duality)**:
@@ -70,7 +70,7 @@
 
 Формування багатошляхового з'єднання відбувається у дві фази: створення первинного підпотоку та подальше динамічне приєднання додаткових підпотоків.
 
-![Встановлення MPTCP-з'єднання та приєднання підпотоку](/reference/unix-linux/networking/multipath-tcp-mptcp/img/mptcp-handshake.svg)
+![Встановлення MPTCP-з'єднання та приєднання підпотоку](img/mptcp-handshake.svg)
 *Двофазний процес встановлення MPTCP: рукостискання MP_CAPABLE на первинному каналі та автентифіковане приєднання MP_JOIN на додатковому інтерфейсі*
 
 ### 3.1 Фаза 1: Оголошення можливостей (MP_CAPABLE)
@@ -136,7 +136,7 @@ Initial-DSN-B = Truncate-64(SHA256(Key-B))
 
 DSS є найважливішою опцією, що передається у кожному пакеті даних активного підпотоку.
 
-![Структура TCP-опції Data Sequence Signal](/reference/unix-linux/networking/multipath-tcp-mptcp/img/mptcp-dss-header.svg)
+![Структура TCP-опції Data Sequence Signal](img/mptcp-dss-header.svg)
 *Структура заголовка TCP-опції Data Sequence Signal (DSS): мапування глобального DSN у локальний SSN підпотоку*
 
 Структура полів DSS:
@@ -172,7 +172,7 @@ DSS є найважливішою опцією, що передається у �
 
 У ядрі Linux розробка MPTCP розбита на дві автономні підсистеми: **Менеджер шляхів (Path Manager)** та **Планувальник пакетів (Packet Scheduler)**.
 
-![Архітектура підсистеми Path Manager та управління сокетами](/reference/unix-linux/networking/multipath-tcp-mptcp/img/mptcp-path-manager.svg)
+![Архітектура підсистеми Path Manager та управління сокетами](img/mptcp-path-manager.svg)
 *Архітектура підсистеми Path Manager у ядрі Linux: взаємодія команд CLI ip mptcp, демона mptcpd та інтерфейсу Generic Netlink*
 
 ### 5.1 Менеджер шляхів (Path Manager — PM)

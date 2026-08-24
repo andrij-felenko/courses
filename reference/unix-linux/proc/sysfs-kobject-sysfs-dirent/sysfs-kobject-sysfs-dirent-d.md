@@ -95,7 +95,7 @@ struct my_device *dev = container_of(kobj, struct my_device, kobj);
 
 Це дозволяє драйверу прозоро переходити від уніфікованого ядерного об'єкта `kobject` до власної специфічної структури даних зі збереженням строгої типізації.
 
-![Граф об'єктів kobject, kset, ktype та їх відображення у sysfs](/reference/unix-linux/proc/sysfs-kobject-sysfs-dirent/img/sysfs-kobject-hierarchy.svg)
+![Граф об'єктів kobject, kset, ktype та їх відображення у sysfs](img/sysfs-kobject-hierarchy.svg)
 *Структура об'єктів kobject у пам'яті ядра та їх пряме відображення у дерево каталогів і файлів sysfs.*
 
 Повний список методів, сигнатур та макросів для роботи з цими структурами наведено у довіднику [📋 Контракт API: макроси та функції kobject і sysfs](book:unix-linux/sysfs-kobject-sysfs-dirent/api-sysfs-kobject.md).
@@ -122,7 +122,7 @@ struct my_device *dev = container_of(kobj, struct my_device, kobj);
 
 Об'єкти VFS (`dentry` та `inode`) відтепер створюються динамічно за запитом (англ. *on-demand*) — тільки тоді, коли програма викликає системні виклики `open()`, `ls` або `stat()`. Як тільки програма закриває файл, підсистема підчищення VFS (англ. *dentry shrinker*) під тиском пам'яті вільно звільняє об'єкти `dentry`, а внутрішнє дерево продовжує зберігати ієрархію ядра з мінімальними витратами RAM у власному кеші SLUB — тоді він звався `sysfs_dir_cache`, сьогодні це `kernfs_node_cache`.
 
-![Відокремлення внутрішнього дерева kernfs від важких об'єктів VFS](/reference/unix-linux/proc/sysfs-kobject-sysfs-dirent/img/sysfs-dirent-kernfs-vfs.svg)
+![Відокремлення внутрішнього дерева kernfs від важких об'єктів VFS](img/sysfs-dirent-kernfs-vfs.svg)
 *Динамічне створення VFS-об'єктів поверх компактного дерева kernfs_node та економія пам'яті ядра.*
 
 У Linux 3.14 кодову базу `sysfs_dirent` виділили у незалежну підсистему [kernfs](book:unix-linux/kernfs-vfs-abstraction-layer): структуру перейменували на `struct kernfs_node`, а sysfs перетворилася на тонку декларативну обгортку над нею. Сьогодні на `kernfs` стоять sysfs і cgroupfs (обидві версії cgroups) — саме вони обирають `CONFIG_KERNFS`; сусідні псевдо-ФС `debugfs` і `tracefs` побудовані окремо, простими засобами VFS, і до `kernfs` не належать.

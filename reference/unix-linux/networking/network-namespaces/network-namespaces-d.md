@@ -53,7 +53,7 @@
                                                     └─────────────────┘
 ```
 
-![Внутрішня структура struct net у ядрі Linux](/reference/unix-linux/networking/network-namespaces/img/netns-kernel-structs.svg)
+![Внутрішня структура struct net у ядрі Linux](img/netns-kernel-structs.svg)
 *Малюнок 1. Архітектура структури struct net у ядрі Linux, її внутрішні підсистеми та зв'язок із VFS nsfs через /proc/PID/ns/net.*
 
 ### 1.1. Детальний аналіз підсистем всередині `struct net`
@@ -220,7 +220,7 @@ ip netns exec red ip a
 
 Для з'єднання трьох і більше просторів імен прямого точкового з'єднання (point-to-point) veth-парою недостатньо. Існує два основні підходи до побудови топології: L2-комутація (Linux Bridge) та L3-маршрутизація.
 
-![Топологія з'єднання просторів через Linux Bridge та NAT](/reference/unix-linux/networking/network-namespaces/img/veth-bridge-topology.svg)
+![Топологія з'єднання просторів через Linux Bridge та NAT](img/veth-bridge-topology.svg)
 *Малюнок 2. Топологія з'єднання ізольованих мережевих просторів red та blue через Linux Bridge br0 та налаштування NAT на хості.*
 
 ### 4.1. Топологія L2: Використання Linux Bridge
@@ -336,7 +336,7 @@ ip route add 10.1.1.2 dev veth-c1
 
 Передавання даних між мережевими просторами через `veth`-пари створює додаткові накладні витрати на обробку в ядрі порівняно з прямим викликом socket-to-NIC.
 
-![Шлях пакета sk_buff крізь veth та переривання NET_RX_SOFTIRQ](/reference/unix-linux/networking/network-namespaces/img/netns-packet-flow.svg)
+![Шлях пакета sk_buff крізь veth та переривання NET_RX_SOFTIRQ](img/netns-packet-flow.svg)
 *Малюнок 3. Послідовність проходження буфера sk_buff між просторами імен крізь veth-пару та обробку в softirq.*
 
 ### 5.1. Крок за кроком: Життєвий цикл `sk_buff`

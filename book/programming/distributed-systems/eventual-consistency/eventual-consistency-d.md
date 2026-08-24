@@ -59,7 +59,7 @@ T_write = 3 · RTT_cross_region
    Обираємо між Затримкою (Latency — L) та Узгодженістю (Consistency — C).
 ```
 
-![Матриця компромісів PACELC](/book/programming/distributed-systems/eventual-consistency/img/pacelc-tradeoff-matrix.svg)
+![Матриця компромісів PACELC](img/pacelc-tradeoff-matrix.svg)
 *Класифікація розподілених баз даних у нормальному режимі (Else: Latency vs Consistency) та в умовах поділу (Partition: Availability vs Consistency)*
 
 Кінцева узгодженість (Eventual Consistency) — це свідомий вибір класу **PA/EL**: система завжди приймає локальний запис із нульовим очікуванням віддалених реплік (`Latency → min`, `Availability → max`), гарантуючи високу швидкість обробки ціною тимчасової розбіжності даних.
@@ -83,7 +83,7 @@ T_write = 3 · RTT_cross_region
    lim_{t → ∞} S_i(t) = S_j(t)  (∀ i, j ∈ Nodes).
 ```
 
-![Вікно розбіжності та збіжність стану реплік у часі](/book/programming/distributed-systems/eventual-consistency/img/convergence-divergence-timeline.svg)
+![Вікно розбіжності та збіжність стану реплік у часі](img/convergence-divergence-timeline.svg)
 *Часова шкала розбіжності реплік під час асинхронного запису та досягнення кінцевої збіжності через протоколи пліток і виправлення на читанні*
 
 Інтервал часу між прийняттям запису на першому вузлі та досягненням ідентичного стану на всіх інших репліках називається **вікном невідповідності (Inconsistency Window / Divergence Window `Δt`)**.
@@ -393,7 +393,7 @@ void update_user_profile(User user) {
 
 Вперше формалізовані Дугласом Террі у системі Bayou (1995), ці чотири гарантії захищають логіку конкретного клієнта без блокування всієї бази даних:
 
-![Таксономія клієнтських сесійних гарантій](/book/programming/distributed-systems/eventual-consistency/img/session-guarantees-taxonomy.svg)
+![Таксономія клієнтських сесійних гарантій](img/session-guarantees-taxonomy.svg)
 *Чотири фундаментальні сесійні гарантії: механіка виникнення аномалій на відсталих репліках та їхнє усунення за допомогою клієнтських токенів*
 
 ### 1. Читай власні записи (Read-Your-Writes)

@@ -70,7 +70,7 @@ std::erase_if(packets, [](const auto& p) { return !p.is_valid(); });
 └──────────────┘          └──────────────┘
 ```
 
-![Класифікація алгоритмів STL та їхній зв'язок із вимогами до категорій ітераторів](/reference/cpp-standards/library/stl-algorithms/img/algo-taxonomy.svg)
+![Класифікація алгоритмів STL та їхній зв'язок із вимогами до категорій ітераторів](img/algo-taxonomy.svg)
 
 *Категоризація алгоритмів STL та їхній зв'язок із вимогами до категорій ітераторів.*
 
@@ -135,7 +135,7 @@ std::remove(v.begin(), v.end(), 0);
 - `[v.begin(), new_end)` — нові валідні дані (усі нулі видалено).
 - `[new_end, v.end())` — так званий «залишковий хвіст» (moved-from елементи, стан яких є валідним, але невизначеним).
 
-![Двофазна механіка std::remove + container.erase(): зсув елементів ліворуч із поверненням логічного кінця та подальше фізичне усічення контейнера](/reference/cpp-standards/library/stl-algorithms/img/remove-erase-idiom.svg)
+![Двофазна механіка std::remove + container.erase(): зсув елементів ліворуч із поверненням логічного кінця та подальше фізичне усічення контейнера](img/remove-erase-idiom.svg)
 
 *Двофазна механіка std::remove + container.erase(): зсув елементів ліворуч із поверненням логічного кінця та подальше фізичне усічення контейнера.*
 
@@ -326,7 +326,7 @@ void process_users(const std::vector<User>& users) {
 }
 ```
 
-![Схема обробки даних через C++20 Ranges та проєкції](/reference/cpp-standards/library/stl-algorithms/img/ranges-projections-pipe.svg)
+![Схема обробки даних через C++20 Ranges та проєкції](img/ranges-projections-pipe.svg)
 
 *Компоновка конвеєра обробки даних у C++20 Ranges: проєкція атрибутів об'єкта, ліниве фільтрування та паралельне виконання.*
 

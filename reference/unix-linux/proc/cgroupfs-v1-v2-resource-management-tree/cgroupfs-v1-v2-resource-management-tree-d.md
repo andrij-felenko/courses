@@ -80,7 +80,7 @@ Process 3 (task_struct) ──┘
 
 Така модель дозволяла створювати унікальну структуру каталогів для кожного контролера окремо. Процес з ідентифікатором PID 4012 міг перебувати у каталозі `/sys/fs/cgroup/cpu/Group_A` для обмеження процесорного часу та одночасно у каталозі `/sys/fs/cgroup/memory/Group_B` для обмеження пам'яті.
 
-![Порівняння ієрархій cgroup v1 та cgroup v2](/reference/unix-linux/proc/cgroupfs-v1-v2-resource-management-tree/img/cgroupfs-v1-vs-v2-tree.svg)
+![Порівняння ієрархій cgroup v1 та cgroup v2](img/cgroupfs-v1-vs-v2-tree.svg)
 *Порівняння ортогональних ієрархій cgroup v1 та єдиної структури cgroup v2*
 
 ### Системні вади cgroup v1
@@ -119,7 +119,7 @@ echo "+cpu +memory +io" > /sys/fs/cgroup/workload/cgroup.subtree_control
 
 > **Правило:** Внутрішній вузол дерева cgroup v2 не може містити процеси у своєму `cgroup.procs`, якщо для його дочірніх вузлів увімкнено хоча б один контролер у `cgroup.subtree_control`. Отже, у піддереві з увімкненими контролерами процеси живуть виключно у листкових вузлах (leaf nodes). Єдиний виняток — корінь ієрархії: на нього правило не поширюється.
 
-![Правило відсутності внутрішніх процесів у cgroup v2](/reference/unix-linux/proc/cgroupfs-v1-v2-resource-management-tree/img/cgroupfs-v2-no-internal-process-rule.svg)
+![Правило відсутності внутрішніх процесів у cgroup v2](img/cgroupfs-v2-no-internal-process-rule.svg)
 *Розподіл процесів виключно у листкових вузлах cgroup v2*
 
 Причина впровадження цього правила полягає у математичній строгості розподілу ресурсів. Якщо батьківський вузол `parent_node` містить процес `PID 1024` у своєму `cgroup.procs` і одночасно має дочірні cgroups `child_A` та `child_B`, виникає невизначеність: як планувальник має ділити процесорний час між поодиноким `PID 1024` та цілою групою `child_A`? Для усунення цієї невизначеності cgroup v2 вимагає винесення `PID 1024` в окремий листковий вузол `leaf_main`. При спробі порушити це правило системний виклик `write()` повертає помилку `EBUSY`.
@@ -147,7 +147,7 @@ echo "+cpu +memory +io" > /sys/fs/cgroup/workload/cgroup.subtree_control
 
 Підсистема `kernfs` надає ядру легку абстракцію для представлення внутрішніх об'єктів ядра у вигляді ієрархічного дерева псевдофайлів в оперативній пам'яті. Кожен каталог та файл у cgroupfs відповідає об'єкту `struct kernfs_node`.
 
-![Внутрішня архітектура VFS, kernfs та cgroup у ядрі Linux](/reference/unix-linux/proc/cgroupfs-v1-v2-resource-management-tree/img/cgroupfs-kernel-vfs-kernfs.svg)
+![Внутрішня архітектура VFS, kernfs та cgroup у ядрі Linux](img/cgroupfs-kernel-vfs-kernfs.svg)
 *Взаємодія VFS, підсистеми kernfs та структур ядра cgroup*
 
 Коли користувач виконує системний виклик `mkdir("/sys/fs/cgroup/my_app", 0755)`, VFS транслює цей виклик в операцію `kernfs_iop_mkdir()`, яка звертається до ядерного моста cgroupfs:

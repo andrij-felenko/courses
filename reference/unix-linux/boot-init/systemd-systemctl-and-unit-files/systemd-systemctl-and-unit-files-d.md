@@ -96,7 +96,7 @@ ExecStart=/usr/local/bin/my-daemon --foreground
 
 Коли PID 1 шукає юніт-файл за іменем (наприклад, `nginx.service`), він переглядає визначений список каталогів файлової системи у суворому порядку спадання пріоритету. Якщо один і той самий юніт знайдено в кількох каталогах, перемагає файл із каталогу з вищим пріоритетом.
 
-![Ієрархія каталогів пошуку юнітів та механізм злиття оверридів Drop-in](/reference/unix-linux/boot-init/systemd-systemctl-and-unit-files/img/unit-file-precedence.svg)
+![Ієрархія каталогів пошуку юнітів та механізм злиття оверридів Drop-in](img/unit-file-precedence.svg)
 *Ієрархія каталогів пошуку юнітів та механізм злиття оверридів Drop-in.*
 
 - `/run/systemd/system/` (Найвищий пріоритет) — юніти, згенеровані під час виконання системи (динамічні генератори, юніти від `systemd-run`, тимчасові файли). Вони зникають після перезавантаження.
@@ -264,7 +264,7 @@ CPUQuota=150%
 
 Утиліта `systemctl` не є безпосереднім менеджером процесів. Вона виконує роль клієнтської обгортки (IPC client), яка приймає аргументи командного рядка адміністратора, перевіряє права та надсилає структуровані запити до PID 1 через системну шину **D-Bus**.
 
-![Архітектура взаємодії утиліти systemctl з системним менеджером PID 1 через D-Bus](/reference/unix-linux/boot-init/systemd-systemctl-and-unit-files/img/systemctl-dbus-architecture.svg)
+![Архітектура взаємодії утиліти systemctl з системним менеджером PID 1 через D-Bus](img/systemctl-dbus-architecture.svg)
 *Архітектура взаємодії утиліти systemctl з системним менеджером PID 1 через D-Bus.*
 
 ### Канали міжпроцесного зв'язку D-Bus
@@ -312,7 +312,7 @@ CPUQuota=150%
 
 Кожен юніт у пам'яті PID 1 описується двома незалежними осями станів: **ActiveState** (високорівневий стан) та **SubState** (низькорівневий стан конкретного типу).
 
-![Стейт-машина станів юніта ActiveState та SubState](/reference/unix-linux/boot-init/systemd-systemctl-and-unit-files/img/unit-lifecycle-states.svg)
+![Стейт-машина станів юніта ActiveState та SubState](img/unit-lifecycle-states.svg)
 *Стейт-машина станів юніта ActiveState та SubState.*
 
 Головні значення високорівневого стану `ActiveState`:

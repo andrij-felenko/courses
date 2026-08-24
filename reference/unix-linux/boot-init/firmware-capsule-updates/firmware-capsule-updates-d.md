@@ -97,7 +97,7 @@
 
 ### Повний пайплайн руху капсули
 
-![Шлях оновлення прошивки: від LVFS до прошивання SPI Flash](/reference/unix-linux/boot-init/firmware-capsule-updates/img/capsule-flow.svg)
+![Шлях оновлення прошивки: від LVFS до прошивання SPI Flash](img/capsule-flow.svg)
 *Схема 1. Послідовність передачі даних та керування від простору користувача до UEFI під час оновлення.*
 
 Покрокова послідовність етапів оновлення системного BIOS через капсулу:
@@ -119,7 +119,7 @@
 
 Під час завантаження прошивка будує в RAM таблицю ESRT і реєструє її адресу у системній конфігураційній таблиці UEFI System Table (під GUID `EFI_SYSTEM_RESOURCE_TABLE_GUID`).
 
-![Структура таблиці ESRT та її представлення у sysfs](/reference/unix-linux/boot-init/firmware-capsule-updates/img/esrt-structure.svg)
+![Структура таблиці ESRT та її представлення у sysfs](img/esrt-structure.svg)
 *Схема 2. Мапінг бінарних структур ESRT у пам'яті системи до файлового дерева sysfs.*
 
 Таблиця складається з заголовка `EFI_SYSTEM_RESOURCE_TABLE` та масиву структур `EFI_SYSTEM_RESOURCE_ENTRY`:

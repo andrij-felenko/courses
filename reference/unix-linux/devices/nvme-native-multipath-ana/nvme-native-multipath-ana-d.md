@@ -20,7 +20,7 @@
 
 Причина цієї кризи криється в архітектурній невідповідності. Механізм `dm-multipath` створювався для повільних жорстких дисків та протоколу SCSI, де час доступу вимірювався мілісекундами, а операційна система могла дозволити собі витрачати десятки мікросекунд на клонування структур `struct bio`, виділення додаткових `struct request` із пулу пам'яті та захоплення глобальних блокувань таблиці відображення `dm_table`. Для надшвидких накопичувачів NVMe, де апаратна затримка становить менше 10 мікросекунд, накладні витрати Device Mapper перетворюються на головне вузьке місце системи.
 
-![Ієрархія структур ядра Linux для нативного мультипасингу NVMe](/reference/unix-linux/devices/nvme-native-multipath-ana/img/nvme-multipath-head-subsystem.svg)
+![Ієрархія структур ядра Linux для нативного мультипасингу NVMe](img/nvme-multipath-head-subsystem.svg)
 
 *Ієрархія структур ядра Linux: підсистема nvme_subsystem об'єднує контролери через спільний master gendisk nvme_ns_head, маршутизуючи bio безпосередньо в черги blk-mq вибраного nvme_ns.*
 
@@ -87,7 +87,7 @@
 
 Головна перевага нативного мультипасингу NVMe над Device Mapper полягає в принциповій відмові від клонування блокових запитів на шляху виконання введення-виведення (*I/O fast path*).
 
-![Шлях проходження запиту: dm-multipath проти Native NVMe Multipath](/reference/unix-linux/devices/nvme-native-multipath-ana/img/nvme-multipath-vs-dm-stack.svg)
+![Шлях проходження запиту: dm-multipath проти Native NVMe Multipath](img/nvme-multipath-vs-dm-stack.svg)
 
 *Порівняння стеку: dm-multipath вимагає виділення пам'яті, клонування bio і блокувань dm_table, тоді як Native NVMe Multipath виконує lockless RCU підміну bio->bi_bdev безпосередньо в чергу blk-mq.*
 
@@ -177,7 +177,7 @@ static bool nvme_path_is_disabled(struct nvme_ns *ns)
 
 У двоконтролерних дискових масивах обидва керуючі процесори з'єднані з кошиками накопичувачів NVMe, проте внутрішній стан кешування та володіння метаданими розділено між контролерами.
 
-![Двоконтролерна мережева фабрика NVMe-oF та групи ANA](/reference/unix-linux/devices/nvme-native-multipath-ana/img/nvme-ana-dual-controller-fabric.svg)
+![Двоконтролерна мережева фабрика NVMe-oF та групи ANA](img/nvme-ana-dual-controller-fabric.svg)
 
 *Двоконтролерний масив: томи NSID 1, 2 належать Контролеру A (Optimized), а для Контролера B є Non-Optimized (проксі через шину NTB). Для томів NSID 3, 4 ситуація дзеркальна.*
 
@@ -196,7 +196,7 @@ static bool nvme_path_is_disabled(struct nvme_ns *ns)
 - Кожен простір назв у структурі `Identify Namespace` (байти `3844:3847`) містить 32-бітне поле `ANAGRPID`.
 - Цільовий масив транслює зміну стану цілої групи однією атомарною операцією, що зменшує розмір журналу стану в тисячі разів.
 
-![Автомат станів ANA та події AER](/reference/unix-linux/devices/nvme-native-multipath-ana/img/nvme-ana-state-machine-and-aer.svg)
+![Автомат станів ANA та події AER](img/nvme-ana-state-machine-and-aer.svg)
 
 *Автомат станів ANA: переходи між Optimized, Non-Optimized, Change State та Inaccessible, що супроводжуються сповіщеннями AER Notice.*
 

@@ -23,7 +23,7 @@
 
 Історію створення та еволюції цих підсистем від перших проєктів IBM Research до сучасного стандарту TCG викладено в окремому матеріалі [📜 Еволюція підсистем IMA та EVM](book:unix-linux/ima-evm-integrity-architecture/hist-evm-tpm-evolution.md).
 
-![Архітектура підситем IMA та EVM](/reference/unix-linux/permissions/ima-evm-integrity-architecture/img/ima-arch.svg)
+![Архітектура підситем IMA та EVM](img/ima-arch.svg)
 *Архітектура підсистеми цілісності Linux: перехоплення системних викликів у VFS, взаємодія з модульними перевірочними хуками IMA/EVM, залучення апаратного TPM та системного брелока ключів Kernel Keyrings.*
 
 ## Integrity Measurement Architecture (IMA): три стовпи захисту
@@ -126,7 +126,7 @@ EVM підтримує два режими захисту метаданих:
 
 При зверненні процесу до файлу ядро здійснює суворо впорядкований конвеєр перевірок, де EVM та IMA працюють у каскаді:
 
-![Конвеєр перевірки цілісності VFS](/reference/unix-linux/permissions/ima-evm-integrity-architecture/img/ima-evm-flow.svg)
+![Конвеєр перевірки цілісності VFS](img/ima-evm-flow.svg)
 *Послідовність перевірок VFS при виконанні системного виклику open/execve: каскадна верифікація метаданих через EVM перед зчитуванням і перевіркою вмісту через IMA.*
 
 Покрокове виконання перевірки в ядрі Linux складається з наступних етапів:

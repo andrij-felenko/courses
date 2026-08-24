@@ -88,7 +88,7 @@ call __fentry__
 
 BPF Trampoline — це динамічно згенерований асемблерний міст (JIT stub), який підсистема BPF компілює безпосередньо у виконувану пам'ять під час завантаження програми.
 
-![Порівняння шляхів виконання Kprobe та BPF Trampoline](/reference/unix-linux/observability/bpf-trampoline-and-fprobe/img/bpf-trampoline-architecture.svg)
+![Порівняння шляхів виконання Kprobe та BPF Trampoline](img/bpf-trampoline-architecture.svg)
 *Порівняння шляхів виконання: Kprobe (з перериванням INT3 і збереженням pt_regs) проти BPF Trampoline (прямий виклик JIT z 0-trap оверхедом).*
 
 ### Механізм взаємодії з BTF (BPF Type Format) та безпека пам'яті CO-RE
@@ -152,7 +152,7 @@ BPF Trampoline уможливив три нові режими інструме�
 
 Для масового зондування у ядрі Linux 5.18 було додано фреймворк **`fprobe`** та підсистему **`rethook`**.
 
-![Архітектура fprobe та kprobe.multi](/reference/unix-linux/observability/bpf-trampoline-and-fprobe/img/fprobe-multi-kprobe.svg)
+![Архітектура fprobe та kprobe.multi](img/fprobe-multi-kprobe.svg)
 *Архітектура fprobe та kprobe.multi: підключення єдиної BPF-програми до тисяч функцій ядра через ftrace_ops та rethook.*
 
 ### Механізм bpf_kprobe_multi та підсистема rethook

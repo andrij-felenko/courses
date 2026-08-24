@@ -63,7 +63,7 @@ auto fut2 = std::async(std::launch::deferred, compute_data, 42);
 - **`std::launch::async`**: Гарантує, що функція `compute_data` почне виконуватися паралельно в окремому фоновому потоці негайно після виклику `std::async`. Покликуючий потік продовжує виконання без затримок. Результат зчитується пізніше викликом `fut1.get()`. У середовищах POSIX/Linux це призводить до виклику `pthread_create`, а у Windows — до використання системного пулу потоків `SubmitThreadpoolWork`.
 - **`std::launch::deferred`**: Забороняє створення нового потоку. Виконання функції відкладається (lazy evaluation) до моменту, коли на поверненому `fut2` буде первинно викликано метод `.get()` або `.wait()`. У цей момент функція виконується повністю синхронно у потоці викликача. Якщо `.get()` не викликається ніколи, функція не виконається зовсім.
 
-![Режими запуску std::async](/reference/cpp-standards/concurrency/async-and-packaged-task/img/async-execution-modes.svg)
+![Режими запуску std::async](img/async-execution-modes.svg)
 *Режими виконання std::async: порівняння негайного створення потоку (launch::async) та відкладеного виконання у потоці викликача (launch::deferred).*
 
 ### Комбінована політика за замовчуванням та прихована пастка
@@ -190,7 +190,7 @@ std::async(std::launch::async, task2);
 
 У результаті замість паралельного виконання двох задач програма виконує їх строго послідовно! Паралельність повністю втрачається.
 
-![Пастка деструктора тимчасового future](/reference/cpp-standards/concurrency/async-and-packaged-task/img/future-destructor-blocking.svg)
+![Пастка деструктора тимчасового future](img/future-destructor-blocking.svg)
 *Вплив тимчасового rvalue-об'єкта std::future на паралельність: деструктор чекає завершення виконання у крапці з комою.*
 
 Щоб зберегти паралельність, повернуті об'єкти `future` обов'язково слід зберігати у локальних змінних або контейнерах:
@@ -373,7 +373,7 @@ task(); // Другий запуск
 int res2 = fut2.get();
 ```
 
-![Архітектура std::packaged_task](/reference/cpp-standards/concurrency/async-and-packaged-task/img/packaged-task-pipeline.svg)
+![Архітектура std::packaged_task](img/packaged-task-pipeline.svg)
 *Внутрішній конвеєр std::packaged_task: від передачі обчислювальної функції до зчитування результату через спільний стан.*
 
 Повний список методів, конструкторів та гарантій потокобезпеки наведено у [довіднику API `std::packaged_task`](book:cpp-standards/async-and-packaged-task/api-async-packaged-task.md).
@@ -461,7 +461,7 @@ task.make_ready_at_thread_exit(args...);
 
 Для промислових систем основним архітектурним рішенням є використання `std::packaged_task` у поєднанні з **Пулом Потоків (Thread Pool)**.
 
-![Інтеграція packaged_task у пул потоків](/reference/cpp-standards/concurrency/async-and-packaged-task/img/thread-pool-integration.svg)
+![Інтеграція packaged_task у пул потоків](img/thread-pool-integration.svg)
 *Використання std::packaged_task у черзі пулу робочих потоків із автоматичним стиранням типів.*
 
 Головна перевага `std::packaged_task` у пулі задач полягає у **стиранні типів (type erasure)**. Пул потоків оперує єдиною потокобезпечною чергою задач типу `std::queue<std::function<void()>>`.

@@ -89,7 +89,7 @@ T_total = T_marshal + T_network_RTT + T_service_exec + T_unmarshal
 * **Синхронна реплікація (Synchronous Replication):** Фіксація транзакції повертає OK клієнту лише після того, як WAL-запис збережено на дисках щонайменше двох реплік у різних зонах доступності.
 * **Резервне копіювання без просідання I/O:** Використання EBS-знімків із підтримкою WAL-G для безперервної потокової доставки WAL-файлів у S3 без блокування таблиць.
 
-![Декомпозиція PayFlow: Від доменних контекстів до топології обчислювальних вузлів](/root/course/progarch/capstone-services-nodes/img/service-boundaries-topology.svg)
+![Декомпозиція PayFlow: Від доменних контекстів до топології обчислювальних вузлів](img/service-boundaries-topology.svg)
 *Мережеві межі та пули обчислювальних вузлів платформи PayFlow.*
 
 Порівняння трьох обчислювальних платформ для вузлів PayFlow подано у таблиці:
@@ -145,7 +145,7 @@ T_total = T_marshal + T_network_RTT + T_service_exec + T_unmarshal
 * **Мережевий розрив при виклику Ledger Service:** Якщо `Saga Orchestrator` не отримав ACK від `Ledger Node` за 500 мс, він переводить сагу у фазу компенсації. Оркестратор надсилає статус `STATUS_CANCELLED` до Redis для відмикання ключа ідемпотентності та повертає клієнту `504 Gateway Timeout`.
 * **Повторна відправка при мережевій невизначеності:** При відновленні зв'язку клієнт повторює запит із тим самим `Idempotency-Key`. Оркестратор знаходить існуючий запис саги і повертає раніше обчислений результат без виконання повторного списання.
 
-![Розподілена Saga та Transactional Outbox при обробці платежу PayFlow](/root/course/progarch/capstone-services-nodes/img/saga-outbox-flow.svg)
+![Розподілена Saga та Transactional Outbox при обробці платежу PayFlow](img/saga-outbox-flow.svg)
 *Послідовність виконання Saga та генерації подій Outbox для захисту від втрати даних.*
 
 Код реалізації даного Saga-оркестратора та атомарного запису в Outbox доступний у вставці [Реалізація Saga-оркестратора та Transactional Outbox](root:progarch/capstone-services-nodes/proj-saga-orchestrator.md) мовами Go та C++.
@@ -156,7 +156,7 @@ T_total = T_marshal + T_network_RTT + T_service_exec + T_unmarshal
 
 Для забезпечення стійкості PayFlow до системних збоїв розберемо внутрішній устрій п'яти критичних обчислювальних вузлів (nodes).
 
-![Взаємодія п'яти критичних обчислювальних вузлів платформи PayFlow](/root/course/progarch/capstone-services-nodes/img/critical-nodes-architecture.svg)
+![Взаємодія п'яти критичних обчислювальних вузлів платформи PayFlow](img/critical-nodes-architecture.svg)
 *Взаємозв'язки та потоки даних між п'ятьма спеціалізованими вузлами платформи.*
 
 ### Вузол 1: Identity & Access Node (Автентифікація та авторизація)

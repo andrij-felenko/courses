@@ -37,7 +37,7 @@
 
 Фреймворк **dma-buf heaps** (введений у ядрі Linux 5.6 зусиллями Джона Стульца, John Stultz, з Linaro — як пряме продовження досвіду ION) кардинально спрощує концепцію виділення DMA-пам'яті. Замість єдиного пристрою зі складним набором ioctl-кодів кожен тип купи експортується як окремий файловий вузол пристрою у системному каталозі `/dev/dma_heap/`.
 
-![Архітектура dma-buf heaps](/reference/unix-linux/io/dma-buf-heaps-framework/img/dma-buf-heaps-arch.svg)
+![Архітектура dma-buf heaps](img/dma-buf-heaps-arch.svg)
 *Схема взаємодії простору користувача, вузлів пристроїв /dev/dma_heap/, фреймворку dma-buf heaps та апаратних драйверів (V4L2, DRM, GPU).*
 
 ### Ключові концептуальні засади dma-buf heaps

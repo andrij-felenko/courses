@@ -9,7 +9,7 @@
 
 Розв'язання цієї проблеми розкололо світ Linux-дистрибутивів на дві фундаментальні архітектурні парадигми: **Multilib** (прийнятий переважно у дистрибутивах на базі RPM, таких як Red Hat Enterprise Linux, Fedora та SUSE) та **Multiarch** (стандарт, розроблений спільнотою Debian та Ubuntu).
 
-![Порівняння ієрархій каталогів у Multilib та Multiarch](/reference/unix-linux/packaging/multilib-multiarch/img/layout.svg)
+![Порівняння ієрархій каталогів у Multilib та Multiarch](img/layout.svg)
 *Порівняння розташування файлів у системи RPM Multilib та Debian Multiarch.*
 
 ## 1. Анатомія несумісності: Чому не можна просто об'єднати бібліотеки
@@ -154,7 +154,7 @@ dnf install libpng.i686
 └── zlib.h                [Архітектурно-незалежний спільний заголовок]
 ```
 
-![Маршрутизація комбінованих викликів у Multiarch](/reference/unix-linux/packaging/multilib-multiarch/img/multiarch-resolution.svg)
+![Маршрутизація комбінованих викликів у Multiarch](img/multiarch-resolution.svg)
 *Схема обробки запитів компілятора та завантажувача у середовищі Multiarch.*
 
 ### Інтеграція з тулчейном компіляції

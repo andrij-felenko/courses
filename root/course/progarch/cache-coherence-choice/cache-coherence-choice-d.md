@@ -92,7 +92,7 @@ L_sync = T_db_commit + 2 × max(RTT_network) + T_cache_update
 
 На перший погляд ця схема здається логічною. Проте вона не володіє властивістю атомарності, оскільки первинне сховище (наприклад, PostgreSQL) та кеш-сервер (наприклад, Redis) є **двома незалежними розподіленими системами**, між якими немає спільного транзакційного контексту (Two-Phase Commit).
 
-![Анатомія вікна несвіжості та зомбі-кеш при подвійному записі](/root/course/progarch/cache-coherence-choice/img/staleness-window-dual-write.svg)
+![Анатомія вікна несвіжості та зомбі-кеш при подвійному записі](img/staleness-window-dual-write.svg)
 *Проблема подвійного запису: збій оновлення кешу після запису в БД створює нескінченне вікно несвіжості W.*
 
 ### 2.1. Анатомія гілок збою при подвійному записі
@@ -169,7 +169,7 @@ min-replicas-max-lag 10
 
 У результаті застарілий стан `v1`, зчитаний до оновлення бази, переписує порожнє місце в кеші після інвалідації.
 
-![Паралельна гонка у Cache-Aside та вилучення ключів](/root/course/progarch/cache-coherence-choice/img/cache-aside-race.svg)
+![Паралельна гонка у Cache-Aside та вилучення ключів](img/cache-aside-race.svg)
 *Гонка паралельного читача й записувача у Cache-Aside та її вирішення через видалення ключів.*
 
 #### Правила захисту Cache-Aside від гонок
@@ -228,7 +228,7 @@ COMMIT;
 
 Спеціалізований процес (наприклад, **Debezium**) підключається безпосередньо до транзакційного журналу бази даних (PostgreSQL WAL — Write-Ahead Log або MySQL Binlog). Щойно база фіксує зміну рядка, CDC-коннектор зчитує бінарний лог і генерує подію в Kafka.
 
-![Конвеєр інвалідації через Change Data Capture](/root/course/progarch/cache-coherence-choice/img/cdc-outbox-coherence-pipeline.svg)
+![Конвеєр інвалідації через Change Data Capture](img/cdc-outbox-coherence-pipeline.svg)
 *Подійно-орієнтована когерентність на основі Change Data Capture (CDC / Debezium) та шини подій.*
 
 #### Інженерні переваги CDC для кеш-когерентності
@@ -340,7 +340,7 @@ Compute_Early_Refresh = ( -beta × log(rand()) × delta ) > ( T_hard - t )
                                     Debezium]       Outbox]
 ```
 
-![Дерево прийняття рішень стратегії когерентності](/root/course/progarch/cache-coherence-choice/img/coherence-decision-tree.svg)
+![Дерево прийняття рішень стратегії когерентності](img/coherence-decision-tree.svg)
 *Дерево прийняття рішень для вибору стратегії свіжості даних між розподіленими сервісами.*
 
 Зіставити інженерні параметри, деталі стандартного конверта подій та сценарії аварій допоможе [матрицю порівняння й контракт інвалідації](root:progarch/change-and-cache-tactics/cache-coherence-choice/api-coherence-matrix.md).

@@ -33,7 +33,7 @@ void serialize(Buffer& buf, const T& obj) {
 
 Щоб зрозуміти, у якій саме точці вмикається це правило, простежимо повний шлях виклику функції через конвеєр компілятора:
 
-![Шлях виклику функції через конвеєр SFINAE та розв'язання перевантажень](/reference/cpp-standards/templates/sfinae-and-enable-if/img/sfinae-overload-pipeline.svg)
+![Шлях виклику функції через конвеєр SFINAE та розв'язання перевантажень](img/sfinae-overload-pipeline.svg)
 
 *Етапи обробки виклику: відкидання невідповідного шаблону за правилом SFINAE та вибір єдиного валідного кандидата.*
 
@@ -127,7 +127,7 @@ namespace std {
 
 Механіка взаємодії `std::enable_if` із компілятором показана на діаграмі:
 
-![Внутрішній механізм std::enable_if](/reference/cpp-standards/templates/sfinae-and-enable-if/img/enable-if-anatomy.svg)
+![Внутрішній механізм std::enable_if](img/enable-if-anatomy.svg)
 
 *Розгалуження підстановки залежно від булевої константи компіляції: наявність або відсутність вкладеного псевдоніма type.*
 
@@ -440,7 +440,7 @@ struct is_bidirectional_range<T, std::void_t<
 
 Еволюцію від ручних трюків C++03 до декларативних контрактів сучасності демонструє таблиця:
 
-![Еволюція методів відбору перевантажень та інтроспекції типів](/reference/cpp-standards/templates/sfinae-and-enable-if/img/sfinae-evolution.svg)
+![Еволюція методів відбору перевантажень та інтроспекції типів](img/sfinae-evolution.svg)
 
 *Історичний перехід від низькорівневих трюків SFINAE до прямої мовної підтримки обмежень у C++20.*
 

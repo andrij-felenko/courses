@@ -60,7 +60,7 @@
 
 XDP створює "Fast Path" (швидкий шлях) усередині самого ядра Linux. Замість виведення карти з ядра, XDP вбудовує легкий інтерпретатор/JIT eBPF прямо в C-код драйвера мережевої карти.
 
-![Архітектура eXpress Data Path (XDP)](/reference/unix-linux/networking/xdp-express-data-path/img/xdp-architecture.svg)
+![Архітектура eXpress Data Path (XDP)](img/xdp-architecture.svg)
 *Схема обробки пакетів хуком XDP у контексті NAPI драйвера мережевого адаптера.*
 
 Коли пакет прибуває у `RX Ring`, драйвер отримує сторінку DMA пам'яті та **відразу** викликає BPF-програму.
@@ -78,7 +78,7 @@ XDP створює "Fast Path" (швидкий шлях) усередині са
 
 Усередині eBPF-програми мережевий пакет описується не громіздкою структурою `sk_buff`, а максимально компактним контекстом `struct xdp_md *ctx` (або `struct xdp_buff` у коді ядра).
 
-![Розміщення сторінки DMA пам'яті та метаданих](/reference/unix-linux/networking/xdp-express-data-path/img/xdp-memory-layout.svg)
+![Розміщення сторінки DMA пам'яті та метаданих](img/xdp-memory-layout.svg)
 *Розподіл пам'яті у DMA-сторінці: headroom, зона метаданих, сирий пакет та tailroom.*
 
 ### Анатомія сторінки DMA (Page Layout)

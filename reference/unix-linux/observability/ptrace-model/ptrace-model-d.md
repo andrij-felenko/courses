@@ -12,7 +12,7 @@
 
 Глибоке розуміння `ptrace` — це ключ до розуміння архітектури налагоджувачів, механіки програмних і апаратних точок зупину (breakpoints / watchpoints), технологій ін'єкції коду та причин, чому сучасна аналітика продуктивності масово переходить від інструментів користувацького простору до підсистем усередині ядра, таких як `eBPF`.
 
-![Архітектура ptrace: Tracer, Ядро та Tracee](/reference/unix-linux/observability/ptrace-model/img/fig-ptrace-arch.svg)
+![Архітектура ptrace: Tracer, Ядро та Tracee](img/fig-ptrace-arch.svg)
 *Архітектура ptrace: Tracer, Ядро та Tracee.*
 
 ---
@@ -277,7 +277,7 @@ void inspect_registers_cpp(pid_t pid) {
 
 Найважливішою функцією будь-якого інтерактивного налагоджувача є можливість зупинити виконання програми на певній інструкції коду (команда `break` у GDB). Оскільки стандартні процесори не мають безкінечної кількості апаратних регістрів для стеження за кожною адресою пам'яті, налагоджувачі використовують **програмні точки зупину (Software Breakpoints)**.
 
-![Механізм програмної точки зупину (Software Breakpoint)](/reference/unix-linux/observability/ptrace-model/img/fig-breakpoint.svg)
+![Механізм програмної точки зупину (Software Breakpoint)](img/fig-breakpoint.svg)
 *Механізм програмної точки зупину (Software Breakpoint).*
 
 ### Алгоритм роботи програмного Breakpoint'а
@@ -324,7 +324,7 @@ GDB налаштовує ці регістри за допомогою сист�
 
 Основною `strace` є режим `PTRACE_SYSCALL`.
 
-![Перехоплення системних викликів у strace (Double Trap)](/reference/unix-linux/observability/ptrace-model/img/fig-syscall-tracing.svg)
+![Перехоплення системних викликів у strace (Double Trap)](img/fig-syscall-tracing.svg)
 *Перехоплення системних викликів у strace (Double Trap).*
 
 ### Механізм подвійного перехоплення (Double Stop)

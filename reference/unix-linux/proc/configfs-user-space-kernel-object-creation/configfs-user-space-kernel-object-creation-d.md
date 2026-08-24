@@ -23,7 +23,7 @@ sysfs:    Ядро створює об'єкт ──► VFS створює ка�
 configfs: Юзерспейс робить mkdir ──► VFS викликає ядро ──► Ядро виділяє memory & struct config_item
 ```
 
-![Парадигмальний контраст sysfs та configfs](/reference/unix-linux/proc/configfs-user-space-kernel-object-creation/img/configfs-vs-sysfs.svg)
+![Парадигмальний контраст sysfs та configfs](img/configfs-vs-sysfs.svg)
 *Парадигмальний контраст: sysfs відображає створені ядром об'єкти, а configfs дозволяє простору користувача створювати об'єкти ядра викликом mkdir.*
 
 Докладніше про причини виникнення цієї інфраструктури, її історію та пізнішу еволюцію API викладено у вставці [📜 Історія створення configfs та еволюція керування ядерними об'єктами](book:unix-linux/configfs-user-space-kernel-object-creation/hist-configfs-evolution.md).
@@ -80,7 +80,7 @@ struct configfs_subsystem {
 
 Коли модуль ядра викликає `configfs_register_subsystem(&my_subsys)`, у точці монтування `/sys/kernel/config/` створюється каталог з ім'ям підсистеми. М'ютекс `su_mutex` забезпечує абсолютну синхронізацію: він захищає дерево об'єктів від станів гонитви при одночасному виконанні `mkdir` або `rmdir` кількома паралельними процесами.
 
-![Ієрархія структур configfs та відображення у VFS](/reference/unix-linux/proc/configfs-user-space-kernel-object-creation/img/configfs-item-group-hierarchy.svg)
+![Ієрархія структур configfs та відображення у VFS](img/configfs-item-group-hierarchy.svg)
 *Внутрішня організація структур пам'яті ядра configfs та їх пряме відображення у каталоги та файли VFS.*
 
 Повний перелік сигнатур методів, структур та макросів наведено у довідникові [📋 Контракт API: структури, зворотновикликальні методи та прапори configfs](book:unix-linux/configfs-user-space-kernel-object-creation/api-configfs-structures.md).
@@ -127,7 +127,7 @@ rmdir() ──► sys_rmdir() ──► VFS vfs_rmdir() ──► configfs_rmdir
 
 > 🔧 **Навіщо це.** Розділення знищення у `drop_item()` та фізичного звільнення пам'яті у `release()` усуває помилки типу *use-after-free*: доки хоч одна частина ядра тримає посилання на `config_item`, структура лишається в пам'яті. Відкритий дескриптор атрибута такою частиною бути перестав, і саме тут проходить межа версій. **До ядра 5.3** відкриття файла брало посилання на батьківський елемент (`configfs_get_config_item()` у `check_perm()`), тож після `rmdir` пам'ять доживала до `close()`. **Від 5.3**, після перероблення Ала Віро (Al Viro) з новим об'єктом `struct configfs_fragment`, відкритий файл елемента вже не тримає: `rmdir` позначає гілку мертвою (`frag_dead`), і `read()`/`write()` на тому самому дескрипторі повертають `-ENOENT` замість того, щоб іти у звільнену структуру. Дескриптор при цьому далі утримує **модуль** — через `try_module_get(ca_owner)` при відкритті, — тому `rmmod` до `close()` не пройде.
 
-![Послідовність подій mkdir та rmdir у configfs](/reference/unix-linux/proc/configfs-user-space-kernel-object-creation/img/configfs-lifecycle-events.svg)
+![Послідовність подій mkdir та rmdir у configfs](img/configfs-lifecycle-events.svg)
 *Послідовність викликів між шаром VFS, файловою системою configfs та зворотновикликальними методами драйвера при виконанні mkdir та rmdir.*
 
 ## Символічні посилання та побудова складних графів зв'язків

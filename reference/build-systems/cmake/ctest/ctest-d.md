@@ -42,7 +42,7 @@ add_subdirectory(tests)
 
 Правило розташування команди `enable_testing()` є жорстким: її обов'язково викликати у **кореневому `CMakeLists.txt`**. Якщо помістити `enable_testing()` лише всередині підкаталогу `tests/CMakeLists.txt`, CMake створить `CTestTestfile.cmake` лише в каталозі `build/tests/`. Коли розробник або система автоматизації запустить утиліту `ctest` у корені каталогу `build/`, програма виявить відсутність кореневого `CTestTestfile.cmake` і повідомить, що у проєкті знайдено 0 тестів. Кореневий виклик створює головний файл метаданих і забезпечує рекурсивний спуск у всі підкаталоги через директиви `subdirs()`.
 
-![Життєвий цикл тестування в CMake та CTest](/reference/build-systems/cmake/ctest/img/ctest-architecture.svg)
+![Життєвий цикл тестування в CMake та CTest](img/ctest-architecture.svg)
 
 *CMake описує тести й генерує CTestTestfile.cmake; білд-система компілює бінарники; CTest запускає зібрані програми як окремі процеси, контролює ізоляцію, час і повернення.*
 
@@ -229,7 +229,7 @@ set_tests_properties(check_crypto_provider PROPERTIES
 - `FIXTURES_REQUIRED` — вказує, що певному тесту (або групі тестів) потрібне підготовлене середовище.
 - `FIXTURES_CLEANUP` — позначає тест як крок обов'язкового очищення.
 
-![Декларативні фікстури у CTest](/reference/build-systems/cmake/ctest/img/fixtures-lifecycle.svg)
+![Декларативні фікстури у CTest](img/fixtures-lifecycle.svg)
 
 *FIXTURES_SETUP готує середовище; FIXTURES_REQUIRED запускає набір тестів, що залежать від нього; FIXTURES_CLEANUP гарантовано звільняє ресурси навіть при краху або таймауті будь-якого тесту.*
 
@@ -282,7 +282,7 @@ ctest --test-dir build -j16 --output-on-failure
 
 CTest запускає окремі дочірні процеси для кожного тесту. Однак при простому паралельному запуску виникає класична задача теорії розкладів (англ. *makespan minimization* у задачі пакування смуг): якщо порядок запусків випадковий або відповідає порядку реєстрації у файлах, важкий тест тривалістю 30 секунд може бути запущений останнім. У результаті 15 ядер завершать свою роботу за 2 секунди й простоюватимуть 28 секунд, очікуючи на завершення одного повільного процесу на 16-му ядрі.
 
-![Паралельне планування тестів у CTest](/reference/build-systems/cmake/ctest/img/parallel-scheduling-cost.svg)
+![Паралельне планування тестів у CTest](img/parallel-scheduling-cost.svg)
 
 *Без пріоритетів важкий тест, запущений наприкінці, змушує всі інші ядра простоювати. Встановлення COST або використання даних попереднього прогону зменшує загальний час CI.*
 
@@ -374,7 +374,7 @@ gtest_discover_tests(math_tests
 )
 ```
 
-![Реєстрація тестів GoogleTest у CMake](/reference/build-systems/cmake/ctest/img/test-discovery-mechanism.svg)
+![Реєстрація тестів GoogleTest у CMake](img/test-discovery-mechanism.svg)
 
 *gtest_add_tests парсить текст на етапі конфігурації й пропускає динамічні тести; gtest_discover_tests опитує скомпільований бінарник і реєструє точний список тестів без перезапуску CMake.*
 

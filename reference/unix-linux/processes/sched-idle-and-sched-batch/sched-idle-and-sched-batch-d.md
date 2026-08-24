@@ -94,7 +94,7 @@ const int sched_prio_to_weight[40] = {
 1. **Модифікація евристики витискання при пробудженні (wake-up preemption):** пробуджена задача `SCHED_BATCH` не витісняє ту, що зараз на CPU (зворотне — витискання самої пакетної задачі — працює як звичайно).
 2. **Примусова фіксація вагового коефіцієнта load.weight:** для `SCHED_IDLE` вага знижується до константи `WEIGHT_IDLEPRIO = 3` незалежно від `nice`.
 
-![Порівняння поведінки класів планування CFS](/reference/unix-linux/processes/sched-idle-and-sched-batch/img/fig-sched-comparison.svg)
+![Порівняння поведінки класів планування CFS](img/fig-sched-comparison.svg)
 *Візуалізація розподілу часу та перемикання контексту між SCHED_OTHER, SCHED_BATCH та SCHED_IDLE.*
 
 ## 2. Клас SCHED_BATCH: Оптимізація пакетних та CPU-bound обчислень

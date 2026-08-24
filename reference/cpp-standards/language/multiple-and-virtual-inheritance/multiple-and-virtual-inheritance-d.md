@@ -49,7 +49,7 @@ struct AudioDuplexDevice : public AudioInput, public AudioOutput {
 2. **Вторинна база (Secondary Base):** другий базовий клас (`AudioOutput`) розміщується слідом, за зміщенням, що дорівнює невіртуальному розміру першої бази з урахуванням вирівнювання (на 64-бітній платформі це зазвичай `+16` байтів). Цей підоб'єкт містить **власний окремий `vptr`**, налаштований на спеціальну вторинну віртуальну таблицю.
 3. **Власні поля нащадка:** поля `AudioDuplexDevice` (поле `device_id`) розміщуються після всіх базових підоб'єктів (за зсувом `+32` байти).
 
-![Розкладка об'єкта при множинному невіртуальному спадкуванні](/reference/cpp-standards/language/multiple-and-virtual-inheritance/img/non-virtual-multiple-layout.svg)
+![Розкладка об'єкта при множинному невіртуальному спадкуванні](img/non-virtual-multiple-layout.svg)
 
 *Об'єкт із двома базами містить два незалежні vptr. Первинна база лежить за зсувом 0, а вторинна — зі зміщенням +16 байтів, що вимагає коригування вказівника при приведенні типів.*
 
@@ -232,7 +232,7 @@ struct AudioDuplexDevice : public AudioInput, public AudioOutput {
 - Перший екземпляр `DeviceNode` вкладений усередину підоб'єкта `AudioInput` (за зсувом `+0` байтів).
 - Другий екземпляр `DeviceNode` вкладений усередину підоб'єкта `AudioOutput` (за зсувом `+16` байтів).
 
-![Ромбоподібне спадкування: дублювання базового класу](/reference/cpp-standards/language/multiple-and-virtual-inheritance/img/diamond-problem-duplicate.svg)
+![Ромбоподібне спадкування: дублювання базового класу](img/diamond-problem-duplicate.svg)
 
 *Без віртуального спадкування об'єкт містить дві незалежні копії DeviceNode. Зміна node_id в одній гілці не впливає на іншу, а пряме звернення блокується компілятором через неоднозначність.*
 
@@ -295,7 +295,7 @@ struct AudioDuplexDevice : public AudioInput, public AudioOutput {
 
 Внаслідок цього код усередині методів `AudioInput` **більше не знає статичного зміщення до `DeviceNode` під час компіляції**. Зсув залежить від того, екземпляр якого найбільш похідного класу конструюється під час виконання програми.
 
-![Розкладка об'єкта при віртуальному спадкуванні](/reference/cpp-standards/language/multiple-and-virtual-inheritance/img/virtual-inheritance-layout.svg)
+![Розкладка об'єкта при віртуальному спадкуванні](img/virtual-inheritance-layout.svg)
 
 *При віртуальному спадкуванні спільна база DeviceNode виноситься в кінець об'єкта. Доступ до її полів зсередини AudioInput здійснюється через vbase_offset у віртуальній таблиці.*
 
@@ -375,7 +375,7 @@ struct AudioDuplexDevice : public AudioInput, public AudioOutput {
 
 Для розв'язання цієї суперечності Itanium ABI генерує **Construction Virtual Tables** (проміжні таблиці конструювання), а адреси цих таблиць передаються в конструктори через спеціальний масив — **VTT (Virtual Table Table)**.
 
-![Таблиця віртуальних таблиць (VTT) та етапи конструювання](/reference/cpp-standards/language/multiple-and-virtual-inheritance/img/vtt-and-construction.svg)
+![Таблиця віртуальних таблиць (VTT) та етапи конструювання](img/vtt-and-construction.svg)
 
 *Під час створення проміжного підоб'єкта конструктор отримує адресу Construction vtable з масиву VTT. Це дозволяє безпечно диспетчеризувати віртуальні виклики та одночасно знаходити віртуальну базу за правильною кінцевою адресою.*
 

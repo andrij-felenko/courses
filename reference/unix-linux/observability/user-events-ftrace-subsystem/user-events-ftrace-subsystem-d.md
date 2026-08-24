@@ -15,7 +15,7 @@
 
 Підсистема User Events мостує простір користувача та внутрішні механізми ядра Linux через абстракцію віртуальної файлової системи `tracefs`. Замість створення власних приватних каналів передачі даних (як це роблять позаядерні системи трасування), User Events інтегрує події користувача безпосередньо у загальну модель `tracepoint` ядра.
 
-![Архітектура підсистеми User Events](/reference/unix-linux/observability/user-events-ftrace-subsystem/img/architecture.svg)
+![Архітектура підсистеми User Events](img/architecture.svg)
 *Рис. 1. Архітектурна схема взаємодії прикладної програми з ядром Linux через підсистему User Events, спільну пам'ять mmap та трасувальні інструменти ftrace, perf і eBPF.*
 
 Архітектура підсистеми спирається на три ключових елементи:
@@ -177,7 +177,7 @@ format:
 app_http_request u32 status_code; u64 latency_ns; __data_loc char[] url
 ```
 
-![Бінарна структура пакунка події у writev()](/reference/unix-linux/observability/user-events-ftrace-subsystem/img/payload-structure.svg)
+![Бінарна структура пакунка події у writev()](img/payload-structure.svg)
 *Рис. 2. Двійкове кодування вектора writev(): розділення ідентифікатора write_index, фіксованих полів та дескриптора __data_loc для динамічних рядків.*
 
 ### Механізм кодування `__data_loc`

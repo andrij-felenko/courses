@@ -12,7 +12,7 @@
 
 Розв'язанням цих проблем став двошаровий дескрипторний фреймворк **gpiod** (GPIO Descriptors). Він розмежував задачі ядра та простору користувача, замінивши небезпечні числа на суворо типізовані ядерні дескриптори `struct gpio_desc*`, а текстові файли `sysfs` — на символьні пристрої `/dev/gpiochipN` із бінарним двостороннім двошаровим ABI v2.
 
-![Еволюція GPIO у Linux: Sysfs vs gpiod](/reference/unix-linux/devices/gpio-gpiod-descriptor-api/img/gpio-api.svg)
+![Еволюція GPIO у Linux: Sysfs vs gpiod](img/gpio-api.svg)
 *Еволюція архітектури GPIO у Linux: від неатомарного Sysfs API до сучасного двоврівневого дескрипторного фреймворку (gpiod).*
 
 ## 1. Архітектурний конфлікт: чому числа та SysFS зламали системи

@@ -29,7 +29,7 @@
 
 При використанні BPF-ітератора ядро підміняє стандартну ядерну функцію `show()` на виклик спеціалізованої BPF-програми типу `BPF_PROG_TYPE_TRACING` із типом прикріплення `BPF_LINK_TYPE_ITER`. 
 
-![Архітектура BPF Iterators](/reference/unix-linux/observability/bpf-iterators-and-user-ringbuf/img/bpf-iter-arch.svg)
+![Архітектура BPF Iterators](img/bpf-iter-arch.svg)
 *Взаємодія файлової системи bpffs, ядра Linux та програми bpf_iter при зчитуванні стану об'єктів ядра.*
 
 Коли користувацька програма відкриває закріплений у файловій системі `bpffs` (зазвичай монтується у `/sys/fs/bpf`) об'єкт ітератора за допомогою системного виклику `open()`, а потім виконує `read()`, ядро ініціалізує стандартний цикл `seq_file`.
@@ -176,7 +176,7 @@ int main()
 
 Представлена в ядрі Linux 6.1 мапа `BPF_MAP_TYPE_USER_RINGBUF` вирішила цю асиметрію, надавши дзеркальний механізм: **Single Producer (Userspace) -> Single Consumer (Kernel eBPF)**.
 
-![User Ring Buffer](/reference/unix-linux/observability/bpf-iterators-and-user-ringbuf/img/bpf-user-ringbuf.svg)
+![User Ring Buffer](img/bpf-user-ringbuf.svg)
 *Схема передачі даних з простору користувача в ядро через BPF User Ring Buffer без системних викликів.*
 
 ### 2.2 Структура пам'яті та безсистемні виклики (Zero-Syscall Protocol)

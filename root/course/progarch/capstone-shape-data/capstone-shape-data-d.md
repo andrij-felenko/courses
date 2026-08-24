@@ -25,7 +25,7 @@
 4. **Catalog & Search Context (Контекст каталогу та пошуку):** Забезпечує повнотекстовий пошук, фільтрацію за параметрами, категоріями та рекомендації для покупців. Працює у режимі високого читацького навантаження (Read-Heavy, співвідношення читання до запису 100:1).
 5. **Analytics & Audit Context (Контекст аналітики та аудиту):** Накопичує події системи для побудови фінансових звітів, виявлення шахрайських дій (Fraud Detection) та спостережуваності.
 
-![C4 Контейнери та межі Bounded Contexts платформи OmniTrade Global](/root/course/progarch/capstone-shape-data/img/c4-containers-bounded-contexts.svg)
+![C4 Контейнери та межі Bounded Contexts платформи OmniTrade Global](img/c4-containers-bounded-contexts.svg)
 *Контейнерна C4-архітектура системи: кожен обмежений контекст володіє власною базою даних та спілкується з іншими через API-шлюз або асинхронний брокер Kafka.*
 
 ### Моделювання міжконтекстних стосунків (Context Mapping)
@@ -87,7 +87,7 @@
 [Analytics Context] → ClickHouse (Columnar Append-Only Store)
 ```
 
-![Топологія даних та межі консистентності](/root/course/progarch/capstone-shape-data/img/data-topology-consistency-boundaries.svg)
+![Топологія даних та межі консистентності](img/data-topology-consistency-boundaries.svg)
 *Розподіл баз даних системи за межами консистентності: фінансове ядро спирається на сувору ACID-транзакційність, тоді як вітрина й аналітика працюють через асинхронні прочитання.*
 
 ### Деталізація мульти-регіональної реплікації та ключів партиціювання
@@ -148,7 +148,7 @@
 
 Для координації чекауту між контекстами застосовується комбінація двох патернів: **Transactional Outbox** (для безпечної публікації подій без подвійного запису) та **Saga Orchestrator** (для проведення асинхронного ланцюжка компенсацій).
 
-![Взаємодія Transactional Outbox та Saga Orchestrator під час чекауту](/root/course/progarch/capstone-shape-data/img/outbox-saga-topology.svg)
+![Взаємодія Transactional Outbox та Saga Orchestrator під час чекауту](img/outbox-saga-topology.svg)
 *Послідовність виконання чекауту: замовлення зберігається в стані PENDING разом із подією Outbox у єдиній транзакції БД, після чого Saga-оркестратор проводитиме асинхронне резервування коштів та товарів.*
 
 Повний алгоритм обробки чекауту працює за наступними кроками:

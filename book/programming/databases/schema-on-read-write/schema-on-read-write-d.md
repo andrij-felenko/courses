@@ -20,7 +20,7 @@
 
 Парадигма **Schema-on-write** є фундаментом класичних реляційних систем управління базами даних (PostgreSQL, MySQL, Oracle, Microsoft SQL Server). Її головний принцип: *жоден біт інформації не може бути записаний на диск без попереднього оголошення та суворої валідації схеми*.
 
-![Архітектурний потік Schema-on-write](/book/programming/databases/schema-on-read-write/img/schema-on-write-flow.svg)
+![Архітектурний потік Schema-on-write](img/schema-on-write-flow.svg)
 *Конвеєр Schema-on-write: валідація інваріантів та типів на етапі запису забезпечує миттєве константне читання*
 
 #### Внутрішній механізм роботи
@@ -47,7 +47,7 @@
 
 Її головний принцип: *дані зберігаються в сирому, первинному вигляді без попередньої перевірки схеми, а структура та типи інтерпретуються прикладним кодом безпосередньо в момент читання*.
 
-![Архітектурний потік Schema-on-read](/book/programming/databases/schema-on-read-write/img/schema-on-read-flow.svg)
+![Архітектурний потік Schema-on-read](img/schema-on-read-flow.svg)
 *Конвеєр Schema-on-read: миттєвий запис сирих даних переносить накладні витрати парсингу на кожен запит читання*
 
 #### Внутрішній механізм роботи
@@ -98,7 +98,7 @@ Apache Parquet поєднує гнучкість документоорієнт�
 #### 3. Контракти схем та Schema Registry
 У розподілених архітектурах на основі черг повідомлень (Apache Kafka) застосовується централізований реєстр схем (**Schema Registry**). Повідомлення серіалізуються у компактні бінарні формати (Apache Avro, Protocol Buffers), а брокер валідує схему на етапі відправки, захищаючи споживачів від випадкових несумісних змін.
 
-![Режими сумісності схем](/book/programming/databases/schema-on-read-write/img/schema-evolution-patterns.svg)
+![Режими сумісності схем](img/schema-evolution-patterns.svg)
 *Правила еволюції схем: режими BACKWARD, FORWARD та FULL гарантують безпечне оновлення сервісів без простоїв*
 
 #### 4. Транзакційні шари Lakehouse (Delta Lake, Apache Iceberg)

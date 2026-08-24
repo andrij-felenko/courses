@@ -231,7 +231,7 @@ $ ./lab subreaper
 [lab 51602] дітей більше нема (ECHILD)
 ```
 
-![Дерево досліду й те, що по черзі повертає waitpid](/reference/unix-linux/processes/orphan-reparenting/img/lab-wait-strangers.svg)
+![Дерево досліду й те, що по черзі повертає waitpid](img/lab-wait-strangers.svg)
 
 *Онук проходить повз середнього, бо той прапорця не має, і зупиняється на першому предкові, який ним є.*
 
@@ -352,7 +352,7 @@ $ ./lab pdeathsig-guard
 $ [робітник 51756] батько зник до prctl — сигналу не буде
 ```
 
-![Два вікна: між EOF і перепідпорядкуванням та між fork і prctl](/reference/unix-linux/processes/orphan-reparenting/img/lab-two-windows.svg)
+![Два вікна: між EOF і перепідпорядкуванням та між fork і prctl](img/lab-two-windows.svg)
 
 *Форма помилки в обох дослідах однакова: код довіряє події, а мусить перевіряти факт — і в обох випадках фактом є значення `getppid()`.*
 

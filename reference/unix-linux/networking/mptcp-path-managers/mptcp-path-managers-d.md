@@ -32,7 +32,7 @@ sysctl net.mptcp.pm_type
 
 Цей параметр визначає, яка саме підсистема буде обробляти події зміни мережевої топології.
 
-![Архітектура системи керування шляхами Linux MPTCP](/reference/unix-linux/networking/mptcp-path-managers/img/mptcp-path-management.svg)
+![Архітектура системи керування шляхами Linux MPTCP](img/mptcp-path-management.svg)
 *Розділення архітектури MPTCP на рівні ядра (механізми підпотоків та In-Kernel PM) та простору користувача (демон mptcpd, плагіни та Netlink API).*
 
 Життєвий цикл керування шляхами складається з п'яти послідовних фаз:
@@ -179,7 +179,7 @@ sysctl -w net.mptcp.pm_type=1
 
 Після перемикання `pm_type=1` ядро повністю вимикає автоматичну генерацію опцій `ADD_ADDR` та автоматичне відкриття `MP_JOIN`. Всі події мережевого стека відправляються у простір користувача через бінарний шинний протокол **Generic Netlink**.
 
-![Послідовність взаємодії між ядром та mptcpd через Netlink](/reference/unix-linux/networking/mptcp-path-managers/img/mptcp-netlink-flow.svg)
+![Послідовність взаємодії між ядром та mptcpd через Netlink](img/mptcp-netlink-flow.svg)
 *Часова діаграма обміну подіями та командами Generic Netlink при виявленні нової IP-адреси та створенні додаткового підпотоку.*
 
 ### Протокол Generic Netlink (`GENL_NAME_MPTCP`)

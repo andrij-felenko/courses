@@ -69,7 +69,7 @@ P_v = k · f^α · B_m^β
 P_v = P_h + P_e + P_exc
 ```
 
-![Поділ втрат у магнітному сердечнику](/book/physics/condensed-matter-physics/steinmetz-equation/img/steinmetz-hysteresis-loss-separation.svg)
+![Поділ втрат у магнітному сердечнику](img/steinmetz-hysteresis-loss-separation.svg)
 *Поділ загальних втрат у магнітному сердечнику на гістерезисні (P_h), класичні вихрові (P_e) та надлишкові (P_exc) компоненти*
 
 ### 1. Гістерезисні втрати (P_h) та мікроскопічна доменна динаміка
@@ -174,7 +174,7 @@ P_exc = k_exc · f^1.5 · B_m^1.5
 
 Щоб подолати обмеження класичного OSE для прямокутних та PWM сигналів, науковці протягом останні 25 років розробили серію модифікованих математичних моделей.
 
-![Порівняння OSE та iSE](/book/physics/condensed-matter-physics/steinmetz-equation/img/steinmetz-waveform-ise-comparison.svg)
+![Порівняння OSE та iSE](img/steinmetz-waveform-ise-comparison.svg)
 *Порівняння розрахунку втрат для синусоїдального сигналу в OSE та прямокутного PWM сигналу в покращеному рівнянні iSE*
 
 ### 1. Модифіковане рівняння Штейнмеця (MSE — Modified Steinmetz Equation)

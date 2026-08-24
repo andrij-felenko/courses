@@ -60,7 +60,7 @@ SELinux інтегрований у ядро Linux за допомогою фр�
 
 Type Enforcement — це основа політики безпеки SELinux. Ідея TE полягає в тому, що доступ до об'єкта надається на основі домену процесу (суб'єкта) та типу об'єкта.
 
-![Архітектура Type Enforcement у SELinux](/reference/unix-linux/permissions/selinux-type-enforcement/img/selinux-te.svg)
+![Архітектура Type Enforcement у SELinux](img/selinux-te.svg)
 *Архітектура Type Enforcement у SELinux*
 
 За замовчуванням у SELinux **все заборонено**. Доступ надається лише тоді, коли в політиці існує явне правило `allow`.
@@ -97,7 +97,7 @@ SELinux також керує тим, як процеси змінюють св�
 
 Оскільки перевірка кожного звернення до файлу або сокета через складні структури політик була б надто повільною, SELinux використовує механізм кешування, який називається **Access Vector Cache (AVC)**.
 
-![Шлях перевірки дозволу через AVC кеш](/reference/unix-linux/permissions/selinux-type-enforcement/img/avc-lookup-path.svg)
+![Шлях перевірки дозволу через AVC кеш](img/avc-lookup-path.svg)
 *Шлях перевірки дозволу через AVC кеш*
 
 Коли ядро (через LSM hook) потребує перевірити дозвіл, воно викликає функцію `avc_has_perm()`. Ця функція працює так:

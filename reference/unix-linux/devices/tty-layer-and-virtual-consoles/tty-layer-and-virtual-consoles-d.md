@@ -20,7 +20,7 @@
 
 Якби логіка редагування рядків, перехоплення керуючих комбінацій та керування сесіями реалізовувалася всередині кожного окремого драйвера заліза, ядро містило б десятки дублюючих реалізацій з неминучими розбіжностями в поведінці. Щоб розділити обслуговування апаратних черг і термінальну логіку, ядро Linux об'єднує всі ці пристрої в трирівневу підсистему TTY (англ. *teletypewriter*).
 
-![Повна архітектура підсистеми TTY у ядрі Linux: від файлового дескриптора до трьох родин драйверів](/reference/unix-linux/devices/tty-layer-and-virtual-consoles/img/tty-subsystem-architecture.svg)
+![Повна архітектура підсистеми TTY у ядрі Linux: від файлового дескриптора до трьох родин драйверів](img/tty-subsystem-architecture.svg)
 
 *Вхідні й вихідні байти обов'язково проходять крізь проміжний шар лінійної дисципліни та асинхронні кільцеві буфери flip buffers.*
 
@@ -145,7 +145,7 @@ void tty_flip_buffer_push(struct tty_port *port);
 
 Модуль `drivers/tty/n_tty.c` є серцем термінальної взаємодії. Внутрішній стан дисципліни зберігається в структурі `struct n_tty_data`, яка утримує кільцевий буфер вхідних даних `read_buf` розміром рівно 4096 байтів (`N_TTY_BUF_SIZE`).
 
-![Кільцевий буфер read_buf у лінійній дисципліні N_TTY та покажчики read_tail, canon_head, read_head](/reference/unix-linux/devices/tty-layer-and-virtual-consoles/img/n-tty-buffer-ring.svg)
+![Кільцевий буфер read_buf у лінійній дисципліні N_TTY та покажчики read_tail, canon_head, read_head](img/n-tty-buffer-ring.svg)
 
 *Покажчик canon_head відокремлює повністю зафіксовані рядки від поточного рядка, який редагується наживо.*
 
@@ -263,7 +263,7 @@ void tty_flip_buffer_push(struct tty_port *port);
 
 Драйвер віртуальної консолі `drivers/tty/vt/keyboard.c` реєструє власний обробник `kbd_handler` у підсистемі `input`. Спосіб, у який код клавіші потрапляє до активного TTY, залежить від **режиму клавіатури**, що встановлюється керуючим викликом `ioctl(fd, KDSKBMODE, mode)`.
 
-![Конвеєр обробки подій клавіатури у віртуальній консолі та 5 режимів KDSKBMODE](/reference/unix-linux/devices/tty-layer-and-virtual-consoles/img/vt-keyboard-modes-pipeline.svg)
+![Конвеєр обробки подій клавіатури у віртуальній консолі та 5 режимів KDSKBMODE](img/vt-keyboard-modes-pipeline.svg)
 
 *Режими KDSKBMODE визначають, чи транслюватиметься сканкод розкладкою ядра, чи передаватиметься у сирому вигляді, чи блокуватиметься повністю.*
 
@@ -308,7 +308,7 @@ void tty_flip_buffer_push(struct tty_port *port);
 
 Щоб запобігти цьому, ядро реалізує протокол **кооперативного перемикання** через режим `VT_PROCESS`.
 
-![Кооперативний протокол перемикання VT між ядром Linux і графічним сервером](/reference/unix-linux/devices/tty-layer-and-virtual-consoles/img/vt-switching-handover.svg)
+![Кооперативний протокол перемикання VT між ядром Linux і графічним сервером](img/vt-switching-handover.svg)
 
 *Дисплейний сервер віддає права DRM-майстра за сигналом relsig і відновлює графічні площини після сигналу acqsig.*
 

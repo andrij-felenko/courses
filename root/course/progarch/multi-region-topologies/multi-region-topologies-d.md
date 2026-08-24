@@ -41,7 +41,7 @@
 
 У цій конфігурації один географічний регіон оголошується **основним (Primary Region)**, а другий — **резервним (Secondary / Standby Region)**.
 
-![Основні архітектурні топології мультирегіону](/root/course/progarch/multi-region-topologies/img/multi-region-topologies-overview.svg)
+![Основні архітектурні топології мультирегіону](img/multi-region-topologies-overview.svg)
 *Порівняння трьох топологій: Active-Passive забезпечує аварійний резерв; Global Read / Single Write прискорює читання глобально; Active-Active з локальними записами знімає мережеві затримки на записи.*
 
 ### Механіка роботи Active-Passive
@@ -108,7 +108,7 @@
 
 Користувач бачить, що перемикач на екрані повернувся у вимкнений стан, натискає кнопку повторно і вважає застосунок зламаним. Це класична аномалія втрати **причинної узгодженості (Causal Consistency)**, а саме гарантії **«прочитай власний запис» (Read-Your-Own-Writes / Read-After-Write, RAW)**.
 
-![Механіка Read-After-Write при міжрегіональній реплікації](/root/course/progarch/multi-region-topologies/img/rtt-read-after-write.svg)
+![Механіка Read-After-Write при міжрегіональній реплікації](img/rtt-read-after-write.svg)
 *Причинна узгодженість RAW: якщо локальна Read-репліка відстає від токена LSN, отриманого при записі, маршрутизатор тимчасово перенаправляє читання на Primary DB.*
 
 ### Тактики забезпечення Read-After-Write

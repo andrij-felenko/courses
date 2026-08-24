@@ -45,7 +45,7 @@ private:
 
 Оскільки союз (`union`) не викликає конструктори своїх членів автоматично при створенні самого союзу, `std::optional` отримує можливість точного контролю над часом життя об'єкта `T`.
 
-![Макет пам'яті std::optional](/reference/cpp-standards/library/optional/img/optional-layout.svg)
+![Макет пам'яті std::optional](img/optional-layout.svg)
 *Макет пам'яті std::optional<T>: розміщення буфера на стеку поруч із прапорцем стану m_has_value у порівнянні з динамічним вказівником.*
 
 ### Вирівнювання пам'яті та обчислення sizeof(std::optional<T>)
@@ -218,7 +218,7 @@ if (user) {
 
 У C++23 (пропозиція P0798R8) до `std::optional` було додано три монадичні операції, запозичені з функціонального програмування: `.and_then()`, `.transform()` та `.or_else()`.
 
-![Монадичний конвеєр std::optional](/reference/cpp-standards/library/optional/img/monadic-pipeline.svg)
+![Монадичний конвеєр std::optional](img/monadic-pipeline.svg)
 *Схема передачі даних у монадичному конвеєрі C++23: автоматичне коротке замикання (short-circuiting) при появі nullopt.*
 
 ### 1. Метод .and_then() (Monadic Bind / flatMap)

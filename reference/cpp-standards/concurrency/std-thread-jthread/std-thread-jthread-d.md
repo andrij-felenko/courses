@@ -106,7 +106,7 @@ void launch_cpp_thread(int thread_id) {
 
 Об'єкт `std::thread` протягом свого існування може перебувати в одному з двох фундаментальних станів: **joinable** (приєднуваний) або **non-joinable** (неприєднуваний).
 
-![Життєвий цикл std::thread та std::jthread](/reference/cpp-standards/concurrency/std-thread-jthread/img/thread-lifecycle.svg)
+![Життєвий цикл std::thread та std::jthread](img/thread-lifecycle.svg)
 *Життєвий цикл системного потоку та об'єктів std::thread і std::jthread: переходи між станами joinable, join, detach та небезпека викликання std::terminate.*
 
 ### Стан joinable()
@@ -242,7 +242,7 @@ void process_file_data(const std::string& path) {
 1. **RAII-деструктор із автоматичним приєднанням**: При знищенні об'єкта деструктор `~jthread()` не викликає `std::terminate()`. Замість цього він автоматично надсилає сигнал скасування та викликає `.join()`.
 2. **Вбудоване джерело сигналів скасування (`std::stop_source`)**: Кожен об'єкт `std::jthread` усередині містить лічильник сигналів та автоматично передає токен скасування `std::stop_token` у виконувану функцію.
 
-![Порівняння розгортання стеку std::thread та std::jthread](/reference/cpp-standards/concurrency/std-thread-jthread/img/jthread-raii-exception.svg)
+![Порівняння розгортання стеку std::thread та std::jthread](img/jthread-raii-exception.svg)
 *Порівняння поведінки при розгортанні стеку (Stack Unwinding): std::thread викликає краш через std::terminate(), тоді як std::jthread автоматично надсилає request_stop(), викликає join() та забезпечує повну безпеку винятків.*
 
 ### Алгоритм роботи деструктора ~jthread()
@@ -289,7 +289,7 @@ void safe_process_file_data(const std::string& path) {
 
 Тому C++20 реалізує парадигму **кооперативного скасування (Cooperative Cancellation)**: один потік ввічливо виражає прохання про зупинку, а робочий потік періодично перевіряє це прохання та самостійно очищає свої ресурси й виходить з функції.
 
-![Архітектура кооперативного скасування](/reference/cpp-standards/concurrency/std-thread-jthread/img/stop-token-architecture.svg)
+![Архітектура кооперативного скасування](img/stop-token-architecture.svg)
 *Архітектура кооперативного скасування в C++20: взаємодія між std::stop_source, спільним станом stop_state, токеном std::stop_token та зворотними викликами std::stop_callback.*
 
 ### Внутрішня будова stop_state

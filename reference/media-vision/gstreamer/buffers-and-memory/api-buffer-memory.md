@@ -257,7 +257,7 @@ maxsize ≥ 0 + 3 317 760 + 64                    = 3 317 824 байти
 
 Щільно спакований той самий кадр займав би 3 110 400 байтів — вимоги заліза додали 6.7 %. Це і є ціна того, що апаратний блок читає кадр як є, без перекладання рядок за рядком.
 
-![Блок GstMemory: prefix, видимі байти, padding; maxsize охоплює все, offset дорівнює префіксу](/reference/media-vision/gstreamer/buffers-and-memory/img/memory-layout.svg)
+![Блок GstMemory: prefix, видимі байти, padding; maxsize охоплює все, offset дорівнює префіксу](img/memory-layout.svg)
 
 *Параметри виділення визначають розкладку блоку, а `GstMapInfo` показує з неї лише видиме вікно.*
 

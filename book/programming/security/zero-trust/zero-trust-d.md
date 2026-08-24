@@ -24,7 +24,7 @@
 
 У 2020 році Національний інститут стандартів і технологій США стандартизував концепцію у документі NIST SP 800-207. На відміну від маркетингових продуктів, Zero Trust — це не конкретна програма чи пристрій, а набір непорушних архітектурних аксіом.
 
-![Порівняння периметрової моделі «Замок і рів» та моделі Zero Trust](/book/programming/security/zero-trust/img/castle-moat-vs-zero-trust.svg)
+![Порівняння периметрової моделі «Замок і рів» та моделі Zero Trust](img/castle-moat-vs-zero-trust.svg)
 *Порівняння традиційного мережевого периметра та мікропериметрів архітектури нульової довіри.*
 
 Архітектура нульової довіри тримається на трьох базових стовпах:
@@ -44,7 +44,7 @@
 
 Щоб реалізувати безперервну перевірку без перевантаження кожного окремого сервісу складною логікою безпеки, архітектура Zero Trust суворо розділяє інфраструктуру на дві незалежні площини: **Площину даних** (англ. *Data Plane*) та **Площину керування** (англ. *Control Plane*).
 
-![Логічна архітектура NIST SP 800-207: Control Plane та Data Plane](/book/programming/security/zero-trust/img/nist-zta-control-data-plane.svg)
+![Логічна архітектура NIST SP 800-207: Control Plane та Data Plane](img/nist-zta-control-data-plane.svg)
 *Логічне розділення площини керування (PDP: Policy Engine + Policy Administrator) та площини даних (PEP).*
 
 #### 1. Площина даних (Data Plane)
@@ -78,7 +78,7 @@
 
 Для розв'язання цієї проблеми організація CNCF (Cloud Native Computing Foundation) розробила відкритий стандарт **SPIFFE** (англ. *Secure Production Identity Framework for Everyone*) та його еталонну реалізацію **SPIRE** (англ. *SPIFFE Runtime Environment*).
 
-![Послідовність атестації та видачі SVID у SPIFFE/SPIRE](/book/programming/security/zero-trust/img/spiffe-workload-attestation-flow.svg)
+![Послідовність атестації та видачі SVID у SPIFFE/SPIRE](img/spiffe-workload-attestation-flow.svg)
 *Послідовність атестації вузла й процесу та видачі короткоживучих сертифікатів SVID у SPIFFE/SPIRE.*
 
 Стандарт SPIFFE визначає три ключові концепції:
@@ -191,7 +191,7 @@ spec:
 
 Zero Trust впроваджує парадигму **безперервної адаптивної оцінки довіри** (англ. *Continuous Adaptive Trust*, CAT).
 
-![Цикл безперервної адаптивної оцінки довіри](/book/programming/security/zero-trust/img/continuous-adaptive-trust-lifecycle.svg)
+![Цикл безперервної адаптивної оцінки довіри](img/continuous-adaptive-trust-lifecycle.svg)
 *Цикл безперервного збору телеметрії, динамічного розрахунку ризику та адаптивного реагування.*
 
 Цей процес функціонує як нескінченний контур зворотного зв'язку в реальному часі:

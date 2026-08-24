@@ -33,7 +33,7 @@
 
 У практичній інженерії метаданих глибина простеження визначається рівнем деталізації. Вибір гранулярності є компромісом між обчислювальними накладними витратами на збір метаданих та точністю аналізу.
 
-![Спектр гранулярності Data Lineage](/book/programming/data-analytics/data-lineage/img/lineage-granularity-spectrum.svg)
+![Спектр гранулярності Data Lineage](img/lineage-granularity-spectrum.svg)
 *Чотири рівні гранулярності Data Lineage: від макрозв'язків між сервісами до математичного простеження походження окремого кортежу.*
 
 1. **Системний / конвеєрний рівень (Macro-level Lineage):**
@@ -64,7 +64,7 @@ G = (V_D ∪ V_J, E_in ∪ E_out)
 
 У цій моделі прямі ребра між двома наборами даних `V_D × V_D` або двома процесами `V_J × V_J` заборонені: дані не можуть породити інші дані без виконання коду, а код не може передати результат іншому коду без проміжного збереження стану.
 
-![Двочастковий граф Data Lineage](/book/programming/data-analytics/data-lineage/img/lineage-bipartite-dag.svg)
+![Двочастковий граф Data Lineage](img/lineage-bipartite-dag.svg)
 *Двочасткова графова модель Data Lineage: трансформаційні вузли пов'язують набори даних, дозволяючи аналізувати першопричини (Upstream) та наслідки змін (Downstream).*
 
 Математичний апарат цієї моделі спирається на теорію напівкілець походження даних, де кожна реляційна операція зіставляється з алгебраїчною операцією додавання чи множення анотацій, що детально розібрано у вставці [Алгебра походження даних: напівкільця Provenance Semirings](book:programming/data-lineage/math-provenance-semirings.md).
@@ -100,7 +100,7 @@ Upstream Trace (Root Cause)           Цільовий вузол            Dow
 
 Збір метаданих про походження даних у реальних інфраструктурах реалізується трьома основними архітектурними підходами, кожен із яких має власні переваги та обмеження.
 
-![Методи збору Data Lineage](/book/programming/data-analytics/data-lineage/img/static-vs-runtime-extraction.svg)
+![Методи збору Data Lineage](img/static-vs-runtime-extraction.svg)
 *Порівняння архітектурних способів захоплення метаданих про походження даних та їхнє практичне покриття.*
 
 #### 1. Статичний аналіз коду (Static SQL / Code AST Parsing)
@@ -129,7 +129,7 @@ Upstream Trace (Root Cause)           Цільовий вузол            Dow
 
 Під час побудови стовпчикового лініджу критично розрізняти два типи інформаційних потоків між полями:
 
-![Стовпчиковий Lineage](/book/programming/data-analytics/data-lineage/img/column-level-lineage-flow.svg)
+![Стовпчиковий Lineage](img/column-level-lineage-flow.svg)
 *Анатомія стовпчикового лініджу: прямі трансформаційні зв'язки проти непрямих предикатних фільтрів.*
 
 #### 1. Прямий потік даних (Direct Data Flow / Transformation Dependency)

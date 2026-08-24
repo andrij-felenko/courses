@@ -74,7 +74,7 @@ S = (A >> 3) + KASAN_SHADOW_OFFSET
                         [ 1 Тіньовий Байт ]
 ```
 
-![Відображення пам'яті ядра в Shadow Memory](/reference/unix-linux/observability/kasan-kernel-address-sanitizer/img/shadow-memory-mapping.svg)
+![Відображення пам'яті ядра в Shadow Memory](img/shadow-memory-mapping.svg)
 *Принцип відображення 8 байтів віртуального адресного простору ядра в 1 байт тіньової пам'яті у Generic KASAN.*
 
 ### 2.2 Семантика та кодування байтів тіньової пам'яті
@@ -150,7 +150,7 @@ movl    (%rax), %edx                ; Основне читання викона
 
 Об'єкт залишається у карантині доти, доки сукупний обсяг карантинної пам meті не перевищить визначений ліміт (зазвичай 1/32 від обсягу операційної пам'яті). Лише після цього найстаріші об'єкти вивільняються і повертаються до SLUB.
 
-![Механізм Карантину KASAN для виявлення Use-After-Free](/reference/unix-linux/observability/kasan-kernel-address-sanitizer/img/kasan-quarantine-uaf.svg)
+![Механізм Карантину KASAN для виявлення Use-After-Free](img/kasan-quarantine-uaf.svg)
 *Схема роботи черги Карантину KASAN під час звільнення пам'яті та виявлення звернень Use-After-Free.*
 
 ### 3.4 Захист стека та регіону vmalloc
@@ -164,7 +164,7 @@ movl    (%rax), %edx                ; Основне читання викона
 
 З розвитком ядра Linux KASAN отримав три принципово різні режими роботи, призначені для різних сценаріїв використання.
 
-![Порівняння режимів KASAN](/reference/unix-linux/observability/kasan-kernel-address-sanitizer/img/kasan-modes-comparison.svg)
+![Порівняння режимів KASAN](img/kasan-modes-comparison.svg)
 *Структурне порівняння триріччя режимів KASAN: Generic, Software Tag-Based та Hardware Tag-Based.*
 
 ### 4.1 Generic KASAN

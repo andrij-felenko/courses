@@ -14,7 +14,7 @@
 
 Історичні передумови виникнення механізмів XDP Redirect та їх еволюцію від ядра Linux 4.8 до сучасних версій детально описано у вставці [Еволюція механізмів XDP Redirect: від перших кодових дій до CPUMAP та DEVMAP](book:unix-linux/xdp-cpumap-and-devmap/hist-cpumap-devmap-evolution.md).
 
-![Загальна архітектура XDP Redirect](/reference/unix-linux/networking/xdp-cpumap-and-devmap/img/cpumap-devmap-arch.svg)
+![Загальна архітектура XDP Redirect](img/cpumap-devmap-arch.svg)
 *Загальна архітектура перенаправлення пакетів у підсистемі XDP із поділом шляхів між BPF_MAP_TYPE_CPUMAP та BPF_MAP_TYPE_DEVMAP.*
 
 ---
@@ -59,7 +59,7 @@
 
 Карта `BPF_MAP_TYPE_CPUMAP` призначена для вирішення проблеми обчислювального "вузького місця" первинного ядра ЦП (RX CPU). Вона дозволяє розпаралелити найдорожчу операцію — створення сокетних буферів `sk_buff` та їх проходження через мережевий стек Linux — між довільною кількістю цільових ядер процесора.
 
-![Паралелізація обробки пакетів через BPF_MAP_TYPE_CPUMAP](/reference/unix-linux/networking/xdp-cpumap-and-devmap/img/cpumap-pipeline.svg)
+![Паралелізація обробки пакетів через BPF_MAP_TYPE_CPUMAP](img/cpumap-pipeline.svg)
 *Механізм розподілу пакетів між ядрами ЦП через безблокувальні кільцевий буфер ptr_ring та ядерні потоки xdp_cpu_kthread.*
 
 ### Внутрішня архітектура та структура ptr_ring
@@ -108,7 +108,7 @@ CPUMAP передає лише компактний покажчик на сир
 
 Карта `BPF_MAP_TYPE_DEVMAP` (або її хеш-аналог `BPF_MAP_TYPE_DEVMAP_HASH`) дозволяє реалізувати безпосереднє перенаправлення кадра з вхідного драйвера RX у вихідний драйвер TX, повністю оминаючи TCP/IP стек, Netfilter та таблиці маршрутизації ядра.
 
-![Пакетна передача та рециклінг сторінок у DEVMAP](/reference/unix-linux/networking/xdp-cpumap-and-devmap/img/devmap-bulk-xmit.svg)
+![Пакетна передача та рециклінг сторінок у DEVMAP](img/devmap-bulk-xmit.svg)
 *Механізм пакетної передачі (Bulk Transmit) через ndo_xdp_xmit та циклічного повернення сторінок пам'яті у page_pool.*
 
 ### Внутрішній механізм Bulk Transmit та ndo_xdp_xmit

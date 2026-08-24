@@ -49,7 +49,7 @@ struct _GstBufferClass {
 
 Третя: підклас губиться на першій же операції. Візьміть суббуфер від кадру-текстури — і отримаєте звичайний `GstBuffer` із вказівником усередину, без жодної інформації про те, звідки байти. Скопіюйте буфер — те саме.
 
-![Ліворуч GstBuffer 0.10 з полями data/size/malloc_data і підкласами GstXvImageBuffer; праворуч GstBuffer 1.0, що посилається на кілька GstMemory і кілька GstMeta](/reference/media-vision/gstreamer/buffers-and-memory/img/buffer-010-vs-10.svg)
+![Ліворуч GstBuffer 0.10 з полями data/size/malloc_data і підкласами GstXvImageBuffer; праворуч GstBuffer 1.0, що посилається на кілька GstMemory і кілька GstMeta](img/buffer-010-vs-10.svg)
 
 *Ліва половина — світ, де тип пам'яті виражають типом буфера. Права — світ, де пам'ять і опис кадру просто складаються в конверт.*
 

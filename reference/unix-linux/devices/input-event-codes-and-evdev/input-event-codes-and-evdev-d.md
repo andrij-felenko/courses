@@ -18,7 +18,7 @@
 
 Сучасна підсистема введення побудована за трирівневою модульною архітектурою, яка повністю відокремлює фізичний транспорт від прикладної семантики.
 
-![Архітектура підсистеми введення](/reference/unix-linux/devices/input-event-codes-and-evdev/img/evdev-architecture.svg)
+![Архітектура підсистеми введення](img/evdev-architecture.svg)
 *Шари підсистеми введення Linux: від фізичного контролера до обробника evdev та бібліотеки libinput.*
 
 ### Рівень 1: Апаратні драйвери (Device Drivers)
@@ -59,7 +59,7 @@ struct input_event {
 };
 ```
 
-![Бінарне вирівнювання структури input_event](/reference/unix-linux/devices/input-event-codes-and-evdev/img/input-event-struct.svg)
+![Бінарне вирівнювання структури input_event](img/input-event-struct.svg)
 *Бінарна структура input_event: розміри полів, вирівнювання та відмінності між 32-бітним і 64-бітним ABI.*
 
 ### Вирівнювання та відмінності між 32-бітним і 64-бітним ABI
@@ -106,7 +106,7 @@ struct input_event {
 
 Щоб запобігти цьому, `evdev` використовує концепцію **атомарного кадру (Frame)**. Драйвер надсилає послідовність окремих подій `EV_REL` або `EV_ABS`, а наприкінці пакета обов'язково генерує подію `EV_SYN` з кодом `SYN_REPORT` та значенням `0`.
 
-![Часова послідовність генерування подій evdev](/reference/unix-linux/devices/input-event-codes-and-evdev/img/evdev-event-flow.svg)
+![Часова послідовність генерування подій evdev](img/evdev-event-flow.svg)
 *Групування атомарних кадрів у evdev за допомогою EV_SYN (SYN_REPORT).*
 
 Коди подій `EV_SYN`:
@@ -212,7 +212,7 @@ if (test_bit(EV_KEY, evbit) && test_bit(EV_ABS, evbit)) {
 
 Повний приклад реалізації на C та C++ з використанням `epoll` та `uinput` представлено у [практичному проекті асинхронного event loop та uinput](book:unix-linux/input-event-codes-and-evdev/proj-evdev-event-loop.md).
 
-![Схема інжекції подій через uinput](/reference/unix-linux/devices/input-event-codes-and-evdev/img/uinput-flow.svg)
+![Схема інжекції подій через uinput](img/uinput-flow.svg)
 *Схема створення віртуального пристрою та інжекції подій через /dev/uinput.*
 
 Процес створення віртуального пристрою складається з п'яти послідовних кроків:

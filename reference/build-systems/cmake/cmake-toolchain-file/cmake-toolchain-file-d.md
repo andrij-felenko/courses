@@ -57,7 +57,7 @@ cmake -B build -S . --toolchain cmake/arm-none-eabi.cmake
 
 Щоб зрозуміти, чому файл тулчейна не можна замінити звичайними командами `set()` усередині кореневого `CMakeLists.txt`, слід простежити послідовність кроків ініціалізації CMake.
 
-![Порядок завантаження файлу тулчейна під час конфігурації CMake](/reference/build-systems/cmake/cmake-toolchain-file/img/toolchain-execution-flow.svg)
+![Порядок завантаження файлу тулчейна під час конфігурації CMake](img/toolchain-execution-flow.svg)
 
 *Порядок завантаження файлу тулчейна під час конфігурації CMake: завантаження до внутрішніх перевірок компіляторів та активація режиму CMAKE_CROSSCOMPILING.*
 
@@ -266,7 +266,7 @@ set(CMAKE_SYSROOT "/opt/sysroots/aarch64-buildroot-linux-gnu")
 
 Для точного керування цією поведінкою CMake використовує змінну `CMAKE_FIND_ROOT_PATH` та четвірку режимних змінних: `CMAKE_FIND_ROOT_PATH_MODE_*`.
 
-![Маршрутизація пошуку між хостом та sysroot за CMAKE_FIND_ROOT_PATH_MODE_*](/reference/build-systems/cmake/cmake-toolchain-file/img/find-root-path-routing.svg)
+![Маршрутизація пошуку між хостом та sysroot за CMAKE_FIND_ROOT_PATH_MODE_*](img/find-root-path-routing.svg)
 
 *Маршрутизація пошуку між хостом та sysroot: блокування хостових бібліотек та використання хостових інструментів збірки.*
 
@@ -318,7 +318,7 @@ arm-none-eabi-gcc testCCompiler.c -o testCCompiler.elf
 2. Стандартна бібліотека C (`newlib`) вимагає реалізації системних функцій введення-виведення та управління пам'яттю (`_exit`, `_sbrk`, `_write`), яких у мінімальному тесті немає.
 3. Немає таблиці векторів переривань і функції скидання `Reset_Handler`.
 
-![Перевірка компілятора під час project() для платформ без ОС (Bare-Metal)](/reference/build-systems/cmake/cmake-toolchain-file/img/baremetal-trycompile-dilemma.svg)
+![Перевірка компілятора під час project() для платформ без ОС (Bare-Metal)](img/baremetal-trycompile-dilemma.svg)
 
 *Перевірка компілятора під час project() для платформ без ОС: перемикання try_compile у режим створення статичної бібліотеки.*
 

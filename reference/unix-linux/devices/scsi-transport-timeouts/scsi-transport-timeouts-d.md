@@ -58,7 +58,7 @@
                  [ Оптична SAN ]               [ IP / Ethernet ]             [ SAS Домен ]
 ```
 
-![Архітектура підсистеми SCSI та транспортні класи ядра](/reference/unix-linux/devices/scsi-transport-timeouts/img/scsi-transport-layers.svg)
+![Архітектура підсистеми SCSI та транспортні класи ядра](img/scsi-transport-layers.svg)
 *Архітектура підсистеми SCSI та транспортні класи ядра: поділ обов'язків між блоковим рівнем, середнім ярусом scsi_mod, транспортними шаблонами та низькорівневими драйверами HBA.*
 
 У ядрі з'явилися спеціалізовані модулі: `scsi_transport_fc` для Fibre Channel, `scsi_transport_iscsi` для iSCSI, `scsi_transport_sas` для SAS та `scsi_transport_srp` для RDMA-протоколу SCSI RDMA Protocol.
@@ -132,7 +132,7 @@
 └────────────────────────────┴────────────────────────────────────┴──────────────────────┘
 ```
 
-![Часова шкала збою лінку та таймери транспорту](/reference/unix-linux/devices/scsi-transport-timeouts/img/timeline-timeouts.svg)
+![Часова шкала збою лінку та таймери транспорту](img/timeline-timeouts.svg)
 *Часова шкала реакції на обрив лінку Fibre Channel / iSCSI: фаза блокування черги, швидке відхилення I/O через fast_io_fail_tmo та остаточне вилучення пристрою за dev_loss_tmo.*
 
 ### fast_io_fail_tmo: керування долею запитів
@@ -223,7 +223,7 @@ fast_io_fail_tmo < dev_loss_tmo
                                        (< 100 мс)
 ```
 
-![Схема взаємодії dm-multipath та таймерів транспорту](/reference/unix-linux/devices/scsi-transport-timeouts/img/multipath-failover-flow.svg)
+![Схема взаємодії dm-multipath та таймерів транспорту](img/multipath-failover-flow.svg)
 *Перемикання збійного маршруту в dm-multipath при отриманні статусу DID_TRANSPORT_FAILFAST: повернення bio в чергу та прозорий failover на резервний шлях.*
 
 Коли застосунок надсилає команду запису у `/dev/mapper/mpatha`, драйвер `dm-multipath` вибирає активний шлях (наприклад, `/dev/sda`) і передає туди запит.
@@ -295,7 +295,7 @@ fast_io_fail_tmo < dev_loss_tmo
                                                                         • Команда скидається за мілісекунди
 ```
 
-![Ескалація SCSI Error Handling та транспортне відсікання](/reference/unix-linux/devices/scsi-transport-timeouts/img/scsi-eh-escalation.svg)
+![Ескалація SCSI Error Handling та транспортне відсікання](img/scsi-eh-escalation.svg)
 *Чотири сходинки ескалації scsi_eh та механізм транспортного відсікання, який зупиняє марні спроби скидання мертвої фабрики.*
 
 ### Чотири сходинки класичної ескалації scsi_eh

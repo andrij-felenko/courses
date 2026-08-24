@@ -24,7 +24,7 @@
 - **`TASK_UNINTERRUPTIBLE`** (стан `D` у виводі `ps` / `top`): потік чекає на апаратну подію (наприклад, завершення зчитування дискового блоку, заблокований виклик `read()` на NFS або очікування сторінки RAM під час swap-in). Цей стан є непереривним: потік не реагує на сигнали (включаючи `SIGKILL`), доки апаратна операція не завершиться.
 - **`TASK_INTERRUPTIBLE`** (стан `S`): потік спить в очікуванні події (таймер, мережевий сокет, сигнал) і **категорично виключається** з розрахунку Load Average.
 
-![Формування Load Average у ядрі Linux](/reference/unix-linux/observability/load-and-pressure/img/load-avg.svg)
+![Формування Load Average у ядрі Linux](img/load-avg.svg)
 *Формування Load Average у ядрі Linux: об'єднання TASK_RUNNING та TASK_UNINTERRUPTIBLE у таймері calc_load()*
 
 Історію створення цього суперечливого патчу та його вплив на еволюцію моніторингу викладено у вставці [Від Tenex і Unix до Facebook: еволюція метрик навантаження](book:unix-linux/load-and-pressure/hist-loadavg-to-psi.md).
@@ -103,7 +103,7 @@ PSI відстежує тиск незалежно для трьох голов�
 
 Фундаментальною інновацією PSI є чітке розділення тиску на два стани: **`some`** та **`full`**.
 
-![Різниця між станами голодування PSI](/reference/unix-linux/observability/load-and-pressure/img/psi-stall.svg)
+![Різниця між станами голодування PSI](img/psi-stall.svg)
 *Часова діаграма станів PSI: часткове голодування (SOME) проти повного паралічу CPU (FULL)*
 
 #### Стан `SOME` (Частковий тиск)
@@ -134,7 +134,7 @@ full avg10=0.00 avg60=0.00 avg300=0.00 total=0
 
 Облік тиску PSI інтегровано безпосередньо в гарячі шляхи планивальника задач та підсистеми управління пам'яттю ядра Linux.
 
-![Архітектура підсистеми PSI та порігові тригери](/reference/unix-linux/observability/load-and-pressure/img/psi-kernel-architecture.svg)
+![Архітектура підсистеми PSI та порігові тригери](img/psi-kernel-architecture.svg)
 *Архітектура ядра: попроцесорний облік станів, фоновий агрегатор та тригери реального часу*
 
 Детальний опис заголовочних файлів ядра, структур даних та специфікацій файлової системи procfs/sysfs наведено у вставці [Інтерфейси системного тиску: /proc/pressure та cgroup v2](book:unix-linux/load-and-pressure/api-proc-pressure-interface.md).

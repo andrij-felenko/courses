@@ -66,7 +66,7 @@
 
 Для вимірювання цього шуму трасувальник `osnoise` використовує концепцію некооперативного тестового потоку. Після активації трасувальника ядро створює по одному вимірювальному потоку (`osnoise/N`) на кожне виділене процесорне ядро.
 
-![Анатомія впливу OS Noise на виконання потоку](/reference/unix-linux/observability/latency-tracers/img/osnoise.svg)
+![Анатомія впливу OS Noise на виконання потоку](img/osnoise.svg)
 *Рис. 1. Схема викрадення процесорного часу обробниками IRQ, SoftIRQ, SMI та потоками ядра.*
 
 ### 2.1 Внутрішній цикл вимірювання osnoise
@@ -141,7 +141,7 @@
 
 Трасувальник `timerlat` створює періодичний таймер високої роздільної здатності (hrtimer) з періодом `period_us` (за замовчуванням 1000 мкс) на кожному виділеному ядрі.
 
-![Складові затримки таймера у timerlat](/reference/unix-linux/observability/latency-tracers/img/timerlat.svg)
+![Складові затримки таймера у timerlat](img/timerlat.svg)
 *Рис. 2. Двокомпонентний розклад затримки timerlat: IRQ Latency та Thread Latency.*
 
 Загальна затримка пробудження періодичного завдання розкладається на дві послідовні складові:
@@ -252,7 +252,7 @@ static struct tracer osnoise_tracer __read_mostly = {
 
 `rtla` написана мовою C і спирається на високопродуктивні бібліотеки `libtracefs` та `libtraceevent`. Вона надає зручний інтерфейс командного рядка для керування `osnoise` та `timerlat`.
 
-![Архітектура підсистеми RTLA](/reference/unix-linux/observability/latency-tracers/img/rtla-architecture.svg)
+![Архітектура підсистеми RTLA](img/rtla-architecture.svg)
 *Рис. 3. Архітектура взаємодії утиліти rtla з tracefs, ftrace та ядерними трасувальниками.*
 
 ### 5.1 Режими роботи top та hist

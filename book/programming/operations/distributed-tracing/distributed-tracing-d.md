@@ -17,7 +17,7 @@
 
 Розподілений трейсинг (англ. *distributed tracing*) вирішує проблему діагностики мікросервісів шляхом перетворення кожного клієнтського запиту на структурований **спрямований ациклічний граф (Directed Acyclic Graph, DAG)**, вершинами якого є окремі операції, а ребрами — причинно-наслідкові зв'язки між ними.
 
-![Граф розподілених викликів (DAG) та каскадний часовий графік (Waterfall)](/book/programming/operations/distributed-tracing/img/trace-dag-and-waterfall.svg)
+![Граф розподілених викликів (DAG) та каскадний часовий графік (Waterfall)](img/trace-dag-and-waterfall.svg)
 *Граф розподілених викликів (DAG) та каскадний часовий графік (Waterfall).*
 
 Базовою одиницею графа є **спан (англ. *span* — відрізок, інтервал)**. Спан представляє неподільний фрагмент роботи, виконаний конкретним сервісом за фіксований проміжок часу. Сукупність усіх спанів, породжених одним початковим запитом, формує єдиний **трейс (англ. *trace* — слід)**.
@@ -64,14 +64,14 @@
 * **Клієнтська сторона (Inject):** перед відправкою вихідного виклику HTTP-клієнт або gRPC-інтерцептор серіалізує поточний стан трейсу у службові заголовки пакета (HTTP Headers або gRPC Metadata).
 * **Серверна сторона (Extract):** вхідний мідлвар веб-сервера зчитує заголовки, відновлює структуру контексту в локальній пам'яті потоку, генерує новий унікальний `Span ID` і призначає вилучений ідентифікатор своїм `Parent Span ID`.
 
-![Поширення розподіленого контексту крізь мережеві межі та черги повідомлень](/book/programming/operations/distributed-tracing/img/async-context-propagation.svg)
+![Поширення розподіленого контексту крізь мережеві межі та черги повідомлень](img/async-context-propagation.svg)
 *Поширення розподіленого контексту крізь мережеві межі та черги повідомлень.*
 
 ### Міжнародний стандарт W3C Trace Context
 
 До 2020 року системи трейсингу страждали від несумісності заголовків (Zipkin використовував `X-B3-TraceId`, Jaeger — `uber-trace-id`, AWS — `X-Amzn-Trace-Id`). Консорціум W3C стандартизував єдиний протокол передачі контексту — **W3C Trace Context**, що складається з двох ключових HTTP-заголовків:
 
-![Анатомія заголовка W3C Trace Context (traceparent)](/book/programming/operations/distributed-tracing/img/w3c-traceparent-format.svg)
+![Анатомія заголовка W3C Trace Context (traceparent)](img/w3c-traceparent-format.svg)
 *Анатомія заголовка W3C Trace Context (traceparent).*
 
 1. **`traceparent`:** компактний 55-символьний ASCII-рядок строго фіксованого формату:
@@ -143,7 +143,7 @@ SELECT * FROM orders WHERE user_id = 42 /*traceparent='00-4bf92f3577b34da6a3ce92
 
 В індустрії застосовуються дві фундаментально різні моделі вибірки:
 
-![Порівняння стратегій вибірки трейсів: Head-based проти Tail-based](/book/programming/operations/distributed-tracing/img/head-vs-tail-sampling.svg)
+![Порівняння стратегій вибірки трейсів: Head-based проти Tail-based](img/head-vs-tail-sampling.svg)
 *Порівняння стратегій вибірки трейсів: Head-based проти Tail-based.*
 
 ### 1. Семплювання на вході (Head-based Sampling)
@@ -171,7 +171,7 @@ SELECT * FROM orders WHERE user_id = 42 /*traceparent='00-4bf92f3577b34da6a3ce92
 
 Сучасним загальноприйнятим стандартом збору, обробки та експорту розподіленої телеметрії є екосистема **OpenTelemetry (OTel)** під егідою фонду Cloud Native Computing Foundation (CNCF).
 
-![Архітектура збору телеметрії OpenTelemetry](/book/programming/operations/distributed-tracing/img/opentelemetry-pipeline.svg)
+![Архітектура збору телеметрії OpenTelemetry](img/opentelemetry-pipeline.svg)
 *Архітектура збору телеметрії: від SDK через OTel Collector до сховищ.*
 
 Архітектура конвеєра телеметрії складається з трьох ключових рівнів:

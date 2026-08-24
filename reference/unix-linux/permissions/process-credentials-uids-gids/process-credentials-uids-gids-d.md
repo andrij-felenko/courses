@@ -14,7 +14,7 @@
 
 Кожен процес у Linux та POSIX-сумісних системах має чотири ідентифікатори користувача та чотири відповідні ідентифікатори груп, а також список додаткових груп.
 
-![Види UID/GID та переходи привілеїв у процесі](/reference/unix-linux/permissions/process-credentials-uids-gids/img/cred-types-and-transitions.svg)
+![Види UID/GID та переходи привілеїв у процесі](img/cred-types-and-transitions.svg)
 *Види ідентифікаторів користувача у процесі та переходи між ними під час виконання SUID-програми та викликів скидання привілеїв.*
 
 ### Real UID та Real GID (ruid, rgid)
@@ -123,7 +123,7 @@ struct task_struct {
 
 Розділення на `real_cred` та `cred` потрібне для того, щоб запобігти атакам типу «trojaned process»: `real_cred` відповідає за те, хто запустив процес і від кого він сприймає сигнали `kill` або виклики `ptrace`, тоді як `cred` задає поточні права для виконання системних викликів.
 
-![Структура struct cred та RCU оновлення у ядрі](/reference/unix-linux/permissions/process-credentials-uids-gids/img/kernel-cred-rcu.svg)
+![Структура struct cred та RCU оновлення у ядрі](img/kernel-cred-rcu.svg)
 *Взаємозв'язок task_struct і struct cred у ядрі Linux та атомарне оновлення креденшелів через RCU-патерн.*
 
 ### Чому `struct cred` є незмінною (immutable)

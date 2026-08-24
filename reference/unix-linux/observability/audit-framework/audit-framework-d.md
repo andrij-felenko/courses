@@ -29,7 +29,7 @@ Linux Audit Framework складається з двох основних час
 - **`aureport` та `ausearch`:** Інструменти для аналізу специфічного формату `audit.log`. Дозволяють шукати конкретні події (наприклад, доступ до певного файлу) та будувати звіти.
 
 *(Див. Рис. 1: Архітектура Linux Audit Framework)*
-![Архітектура Linux Audit Framework](/reference/unix-linux/observability/audit-framework/img/audit-architecture.svg)
+![Архітектура Linux Audit Framework](img/audit-architecture.svg)
 
 ---
 

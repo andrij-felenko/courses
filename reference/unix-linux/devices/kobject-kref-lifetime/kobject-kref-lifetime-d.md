@@ -175,7 +175,7 @@ struct my_device {
 = 0x1000                                                [отримано базову адресу структури dev]
 ```
 
-![Вбудовування struct kobject у структуру драйвера та перехід через container_of()](/reference/unix-linux/devices/kobject-kref-lifetime/img/kobject-embedding-container-of.svg)
+![Вбудовування struct kobject у структуру драйвера та перехід через container_of()](img/kobject-embedding-container-of.svg)
 *Схема розташування структури my_device в оперативній пам'яті ядра та алгоритм обчислення базової адреси контейнера за допомогою container_of.*
 
 Завдяки такій адресації єдиний екземпляр `kobject` надійно керує часом життя всієї зовнішньої структури, скільки б інших полів та підсистем вона в собі не об'єднувала.
@@ -236,7 +236,7 @@ static void __exit my_module_exit(void)
 }
 ```
 
-![Граф переходів станів лічильника kref / refcount_t](/reference/unix-linux/devices/kobject-kref-lifetime/img/kref-lifecycle-transitions.svg)
+![Граф переходів станів лічильника kref / refcount_t](img/kref-lifecycle-transitions.svg)
 *Життєвий цикл лічильника посилань kref: створення, взяття та скидання посилань, безпечне проходження точки нуля та запуск деструктора release.*
 
 ### Анатомія катастрофи при вивантаженні модуля (`rmmod`)
@@ -379,7 +379,7 @@ void put_my_device(struct my_device *dev)
 }
 ```
 
-![Розділення фізичного від'єднання (Unplug) та звільнення пам'яті (Release)](/reference/unix-linux/devices/kobject-kref-lifetime/img/device-unplug-vs-release-timeline.svg)
+![Розділення фізичного від'єднання (Unplug) та звільнення пам'яті (Release)](img/device-unplug-vs-release-timeline.svg)
 *Хронологія обробки гарячого відключення обладнання: миттєве видалення інтерфейсів з sysfs (t1), завершення активних системних викликів (t2) та фінальний виклик release() після скидання останнього посилання (t3).*
 
 ### Двофазне знищення об'єктів пристроїв (Two-Phase Teardown)

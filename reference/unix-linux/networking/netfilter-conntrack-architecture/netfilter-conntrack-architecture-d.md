@@ -27,7 +27,7 @@
 - **`IP_CT_DIR_ORIGINAL` (напрямок ініціалізації):** записує параметри найпершого пакета, який створив це з'єднання (наприклад, SYN-пакет від клієнта `192.168.1.100:50000` до сервера `8.8.8.8:80`).
 - **`IP_CT_DIR_REPLY` (напрямок відповіді):** містить дзеркально перевернуті параметри, які ядро очікує побачити у пакетах-відповідях (`8.8.8.8:80` → `192.168.1.100:50000`).
 
-![Архітектура Tuples у nf_conntrack](/reference/unix-linux/networking/netfilter-conntrack-architecture/img/conntrack-architecture.svg)
+![Архітектура Tuples у nf_conntrack](img/conntrack-architecture.svg)
 *Принцип мапінгу кортежів ORIGINAL та REPLY для ідентифікації прямих і зворотних потоків пакетів*
 
 Коли сервер надсилає зворотний пакет SYN-ACK, ядро обчислює його хеш і порівнює з кортежем `REPLY`. Оскільки `REPLY` вже зареєстровано в таблиці conntrack, ядро негайно розпізнає пакет як належний до існуючої сесії і присвоює йому стан `ESTABLISHED`.
@@ -46,7 +46,7 @@
 
 Для того щоб інформація про стан з'єднання була доступна всім іншим підсистемам ядра (iptables, nftables, eBPF, NAT), `nf_conntrack` підключає власні обробники (hooks) до п'яти точок розгалуження мережевого стека Netfilter.
 
-![Проходження пакета через хуки Netfilter](/reference/unix-linux/networking/netfilter-conntrack-architecture/img/conntrack-hooks-flow.svg)
+![Проходження пакета через хуки Netfilter](img/conntrack-hooks-flow.svg)
 *Послідовність обробки пакета у хуках Netfilter та точки входу підсистеми conntrack*
 
 Обробка пакета conntrack розділена на два фундаментальних етапи: **вхідний аналіз (`in`)** та **фіксація з'єднання (`confirm`)**.
@@ -78,7 +78,7 @@
 
 Щоб обслуговувати мільйони паралельних з'єднань на мережевих лінках 10/40/100 Gbps, підсистема `nf_conntrack` використовує спеціалізовані структури даних ядра Linux.
 
-![Структура conntrack table в пам'яті ядра](/reference/unix-linux/networking/netfilter-conntrack-architecture/img/conntrack-hashtable-struct.svg)
+![Структура conntrack table в пам'яті ядра](img/conntrack-hashtable-struct.svg)
 *Організація хеш-таблиці conntrack, кошиків hlist_nulls та зв'язок із двома кортежами nf_conn*
 
 ### Головна структура з'єднання: `struct nf_conn`

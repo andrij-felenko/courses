@@ -23,7 +23,7 @@
 2. **Канальний рівень (Data Link Layer):** Додає до пакетів послідовні номери та контрольні суми LCRC, гарантуючи надійну доставку пакетів через механізм повторних спроб (ACK/NAK protocol) та керування потоком на основі кредитів (Credit-Based Flow Control).
 3. **Фізичний рівень (Physical Layer):** Відповідає за лінійне кодування (8b/10b у Gen1/Gen2, 128b/130b у Gen3–Gen5), перетворення паралельних даних у послідовний потік бітів та вирівнювання тактової частоти.
 
-![Топологія PCIe та дерева пристроїв у Linux](/reference/unix-linux/devices/pcie-express-bus-subsystem/img/pcie-topology.svg)
+![Топологія PCIe та дерева пристроїв у Linux](img/pcie-topology.svg)
 *Ієрархія та топологія PCIe в системі Linux*
 
 ### 1.1 Ієрархічна структура та адресація BDF
@@ -58,7 +58,7 @@ Domain:Bus:Device.Function (наприклад, 0000:01:00.0)
 * **Header Type 0 (0x00):** Використовується для кінцевих пристроїв (Endpoints).
 * **Header Type 1 (0x01):** Використовується для мостів (PCI Bridges та Root Ports) і містить регістри діапазонів шин (Primary, Secondary, Subordinate Bus Numbers).
 
-![Структура заголовка PCI Configuration Space Header Type 0](/reference/unix-linux/devices/pcie-express-bus-subsystem/img/pci-config-space.svg)
+![Структура заголовка PCI Configuration Space Header Type 0](img/pci-config-space.svg)
 *Структура заголовка PCI Configuration Space Header Type 0*
 
 ### 2.1 Ключові поля заголовка Header Type 0
@@ -142,7 +142,7 @@ Physical_Address = ECAM_Base_Address + (Bus << 20) + (Device << 15) + (Function 
 
 Коли периферійний пристрій завершує виконання апаратного завдання (наприклад, мережева карта отримала пакет даних або NVMe SSD зчитав блок з флеш-пам'яті), він повинен повідомити процесор про подію. В архітектурі PCI/PCIe розвинулися три покоління механізмів переривань.
 
-![Порівняння механізмів переривань INTx та MSI/MSI-X](/reference/unix-linux/devices/pcie-express-bus-subsystem/img/interrupt-mechanisms.svg)
+![Порівняння механізмів переривань INTx та MSI/MSI-X](img/interrupt-mechanisms.svg)
 *Порівняння механізмів переривань: Legacy INTx проти MSI / MSI-X*
 
 ### 4.1 Legacy Interrupts (INTx)

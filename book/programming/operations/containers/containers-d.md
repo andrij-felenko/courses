@@ -13,7 +13,7 @@
 
 Розв'язанням цієї дилеми стала **ізоляція на рівні операційної системи (англ. *operating-system-level virtualization*)**, відома як **контейнеризація (англ. *containerization*)**. Замість емуляції віртуального заліза контейнери дозволяють запускати процеси безпосередньо на спільному ядрі хоста, відокремлюючи їхній огляд системних таблиць, обмежуючи споживання ресурсів та ізолюючи файлове оточення.
 
-![Порівняння архітектури віртуальних машин та контейнерів](/book/programming/operations/containers/img/container-vs-vm-architecture.svg)
+![Порівняння архітектури віртуальних машин та контейнерів](img/container-vs-vm-architecture.svg)
 *Порівняння моделей віртуалізації: апаратна емуляція з копіями гостьових ядер проти прямого виконання процесів на спільному ядрі Linux*
 
 ---
@@ -32,7 +32,7 @@
 
 [Еволюція ізоляції процесів: від chroot до стандартів OCI](book:programming/containers/hist-chroot-to-oci.md) — про те, як індустрія пройшла шлях від ранніх експериментів із `chroot` у сьомій версії Unix та в'язниць FreeBSD Jails до єдиного відкритого стандарту OCI.
 
-![Три стовпи ізоляції контейнера в ядрі Linux](/book/programming/operations/containers/img/linux-isolation-primitives.svg)
+![Три стовпи ізоляції контейнера в ядрі Linux](img/linux-isolation-primitives.svg)
 *Три складові контейнерної пісочниці: ізоляція видимості через Namespaces, бюджетування через cgroups v2 та обмеження привілеїв через Seccomp і Capabilities*
 
 ---
@@ -156,7 +156,7 @@ cgroups v2 надає революційний механізм діагност
 
 Контейнеризація вирішує цю проблему за допомогою каскадних файлових систем об'єднання (Union Filesystems), стандартом для яких у Linux є **OverlayFS**.
 
-![Механізм нашарування файлової системи OverlayFS](/book/programming/operations/containers/img/overlayfs-layering.svg)
+![Механізм нашарування файлової системи OverlayFS](img/overlayfs-layering.svg)
 *Принцип роботи OverlayFS: об'єднання незмінних шарів образу з ефемерним шаром запису контейнера за механізмом Copy-on-Write*
 
 ### 3.1. Анатомія шарів OverlayFS
@@ -235,7 +235,7 @@ mount -t overlay overlay -o \
 
 Сучасна контейнерна інфраструктура стандартизована Відкритою ініціативою контейнерів (Open Container Initiative, OCI) і розділена на два функціональні рівні:
 
-![Життєвий цикл та архітектура стандартів OCI](/book/programming/operations/containers/img/oci-lifecycle-and-architecture.svg)
+![Життєвий цикл та архітектура стандартів OCI](img/oci-lifecycle-and-architecture.svg)
 *Конвеєр виконання OCI: від завантаження tar-архівів реєстру до низькорівневих системних викликів OCI Runtime*
 
 ### 5.1. Високорівневі рантайми (High-Level Runtimes: containerd, CRI-O)

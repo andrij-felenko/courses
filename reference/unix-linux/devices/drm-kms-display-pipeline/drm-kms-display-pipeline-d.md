@@ -81,7 +81,7 @@ Second, **TTM (Translation Table Maps)**. Більш потужний менед
 
 Kernel Mode Setting (KMS) — це підсистема в рамках DRM, яка повністю абстрагує апаратний конвеєр виводу зображення (Display Pipeline). Завдання KMS — зчитати пікселі з кадрових буферів у пам'яті, виконати їх змішування, сформувати сигнали хронометражу та передати підготовлений потік на фізичний роз'єм екрана.
 
-![Дисплейний конвеєр KMS](/reference/unix-linux/devices/drm-kms-display-pipeline/img/kms-pipeline.svg)
+![Дисплейний конвеєр KMS](img/kms-pipeline.svg)
 *Топологія конвеєра KMS: зв'язок між кадровими буферами в пам'яті, площинами сканування (Planes), контролером розгортки (CRTC), передавачем (Encoder) та роз'ємом (Connector).*
 
 Конвеєр KMS описується чотирма основними абстракціями ядра:
@@ -131,7 +131,7 @@ Kernel Mode Setting (KMS) — це підсистема в рамках DRM, я�
 
 Процес оновлення конфігурації дисплея в Atomic KMS розбитий на два чіткі етапи:
 
-![Двофазний транзакційний процес Atomic Commit](/reference/unix-linux/devices/drm-kms-display-pipeline/img/atomic-commit-flow.svg)
+![Двофазний транзакційний процес Atomic Commit](img/atomic-commit-flow.svg)
 *Двофазний транзакційний процес Atomic Commit: підготовка об'єктів у просторі користувача, перевірка драйвером у режимі TEST_ONLY та атомарне перемикання на VBlank.*
 
 First, **фаза перевірки (Validation Phase):**
@@ -180,7 +180,7 @@ Second, **фаза коміту (Commit Phase):**
 
 Для передачі відрендерених кадрів від dGPU до iGPU без залучення центрального процесора (Zero-Copy) підсистема DRM використовує інфраструктуру **PRIME**, побудовану на базі ядерного фреймворку **dma-buf**.
 
-![Передача буферів PRIME dma-buf між GPU](/reference/unix-linux/devices/drm-kms-display-pipeline/img/prime-dmabuf-offload.svg)
+![Передача буферів PRIME dma-buf між GPU](img/prime-dmabuf-offload.svg)
 *Архітектура PRIME dma-buf: безкопіювальний обмін буферами між дискретним GPU (рендеринг) та інтегрованим GPU (сканування на вихід).*
 
 Процес передачі кадрів через PRIME dma-buf функціонує за такою послідовністю:

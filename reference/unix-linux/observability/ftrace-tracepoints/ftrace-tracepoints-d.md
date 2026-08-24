@@ -83,7 +83,7 @@ struct jump_entry {
 
 Коли користувач активує точку трасування, функція ядра `static_key_enable()` знаходить відповідний запис у таблиці та викликає функцію атомарної модифікації коду `text_poke_bp()`. Вона замінює 5 байтів `NOP` на 5-байтову інструкцію безумовного переходу `JMP` (`0xe9 <offset32>`).
 
-![Життєвий цикл трасувальної точки](/reference/unix-linux/observability/ftrace-tracepoints/img/tracepoint-lifecycle.svg)
+![Життєвий цикл трасувальної точки](img/tracepoint-lifecycle.svg)
 *Життєвий цикл трасувальної точки ядра: від неактивного стану з 5-байтовим NOP до RCU-захищеного виклику обробників*
 
 Атомарна модифікація коду на багатоядерних системах виконується за безпечним протоколом:
@@ -190,7 +190,7 @@ TRACE_EVENT(sched_switch,
 
 Магія реалізації полягає у техніці **багатофазного включення файлів** (Multi-Pass Header Inclusion). Файл `include/trace/define_trace.h` включає допоміжний файл `include/trace/trace_events.h` тричі, щоразу перевизначаючи внутрішні макроси з абсолютно різною метою.
 
-![Багатофазна кодогенерація макросу TRACE_EVENT](/reference/unix-linux/observability/ftrace-tracepoints/img/trace-event-macro-stages.svg)
+![Багатофазна кодогенерація макросу TRACE_EVENT](img/trace-event-macro-stages.svg)
 *Три етапи розгортання єдиного макросу TRACE_EVENT: створення C-структури, коду функції зворотного виклику та метаданих формату tracefs*
 
 ### Фаза 1: Оголошення C-структури двійкового запису
@@ -266,7 +266,7 @@ echo '(prev_state == 1 || prev_state == 2) && prev_prio < 120' > /sys/kernel/tra
 
 Механізм `hist` (Histogram Triggers) дозволяє ядру агрегувати дані у per-CPU хеш-таблицях пам'яті в режимі реального часу.
 
-![Конвеєр внутрішньоядерної агрегації даних](/reference/unix-linux/observability/ftrace-tracepoints/img/hist-trigger-pipeline.svg)
+![Конвеєр внутрішньоядерної агрегації даних](img/hist-trigger-pipeline.svg)
 *Схема конвеєра: від виклику трасувальної точки через обчислення фільтрів до агрегації в хеш-таблиці та генерації синтетичних подій*
 
 ### Побудова гістограми подій

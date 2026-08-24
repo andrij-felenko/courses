@@ -190,7 +190,7 @@ port_idx = hash mod N_slaves
 
 Незважаючи на гнучкість драйвера Bonding, його монолітна реалізація всередині ядра ускладнювала відлагодження, розширення та реалізацію складних сценаріїв. У 2012 році в ядрі Linux 3.3 з'явилася підсистема **Network Teaming** (`team`).
 
-![Архітектура агрегації каналів у ядрі Linux (Bonding проти Team)](/reference/unix-linux/networking/bonding-and-team-drivers/img/bonding-arch.svg)
+![Архітектура агрегації каналів у ядрі Linux (Bonding проти Team)](img/bonding-arch.svg)
 *_Рис. 1. Порівняння монолітної архітектури Bonding та розділеної архітектури Team з демоном teamd в просторі користувача_*
 
 ### 3.1. Kernel Space: Модуль `team.ko` (Fast Data Path)
@@ -263,7 +263,7 @@ port_idx = hash mod N_slaves
 
 ## 5. Простеження та діагностика в Linux
 
-![Розподіл трафіку та політики хешування у режимах агрегації](/reference/unix-linux/networking/bonding-and-team-drivers/img/bonding-modes-hash.svg)
+![Розподіл трафіку та політики хешування у режимах агрегації](img/bonding-modes-hash.svg)
 *_Рис. 2. Алгоритм обчислення хешу xmit_hash_policy для вибору активного інтерфейсу slave_*
 
 Для діагностики агрегованих інтерфейсів у Linux використовуються наступні інструменти:

@@ -24,7 +24,7 @@
 1. **Повне відключення спотворення імен (Name Mangling).** Компілятор експортує та імпортує функцію під її точним, чистим ASCII-іменем без додавання кодів типів аргументів, префіксів просторів імен чи кваліфікаторів константності.
 2. **Застосування системної конвенції викликів мови C (C Calling Convention).** Компілятор генерує машинний код входу та виходу з функції згідно з правилами цільової апаратної платформи (розподіл регістрів, вирівнювання стека, збереження регістрів викликачем чи викликаною функцією).
 
-![Зіставлення символів у компонувальнику: без extern "C" та з extern "C"](/reference/cpp-standards/practice/extern-c-interop/img/fig-linkage-boundary.svg)
+![Зіставлення символів у компонувальнику: без extern "C" та з extern "C"](img/fig-linkage-boundary.svg)
 
 *Компонувальник зіставляє символи за прямим збігом рядків: без специфікатора extern "C" компонувальник не може зіставити плоске C-ім'я зі спотвореним C++ символом.*
 
@@ -180,7 +180,7 @@ inline std::unique_ptr<engine_t, void(*)(engine_t*)> make_scoped_engine(const ch
 
 Для повної двійкової ізоляції застосовується патерн **непрозорого дескриптора** (англ. *Opaque Handle / Opaque Pointer Pattern*, неповний тип структури).
 
-![Архітектура Opaque Handle та Exception Barrier](/reference/cpp-standards/practice/extern-c-interop/img/fig-opaque-handle.svg)
+![Архітектура Opaque Handle та Exception Barrier](img/fig-opaque-handle.svg)
 
 *Архітектура непрозорого дескриптора: клієнт оперує виключно покажчиком на неповний тип struct engine_t, а повна реалізація C++ класу інкапсульована у файлі реалізації.*
 
@@ -435,7 +435,7 @@ typedef void (*stream_callback_t)(const uint8_t* chunk, size_t size, void* user_
 2. Покажчик на екземпляр C++ об'єкта передається через нетипізований параметр `void* user_data`.
 3. Усередині трампліна покажчик `user_data` відновлюється через `static_cast<MyClass*>(user_data)` і викликає цільовий метод екземпляра.
 
-![Трамплін зворотного виклику](/reference/cpp-standards/practice/extern-c-interop/img/fig-callback-trampoline.svg)
+![Трамплін зворотного виклику](img/fig-callback-trampoline.svg)
 
 *Трамплін зворотного виклику: статична функція перетворює покажчик void* user_data на покажчик на конкретний C++ об'єкт і викликає цільовий метод без накладних витрат.*
 

@@ -157,7 +157,7 @@ void selection_sort(RandomIt first, RandomIt last, Compare comp = Compare{}) {
 
 Двосторонній алгоритм знаходить мінімальний і максимальний елементи за один прохід по невідсортованій зоні, зменшуючи кількість ітерацій зовнішнього циклу вдвічі.
 
-![Схема двостороннього сортування вибором (Min-Max Selection Sort)](/book/algorithms/data-structures/selection-sort/img/double-selection-sort.svg)
+![Схема двостороннього сортування вибором (Min-Max Selection Sort)](img/double-selection-sort.svg)
 *Схема двостороннього вибору: одночасне знаходження мінімуму та максимуму зі зсувом двох меж left та right.*
 
 Розбір критичної пастки (edge case) двостороннього вибору:

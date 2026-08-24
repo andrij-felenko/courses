@@ -20,7 +20,7 @@
 4. **Формування DMA-описувачів:** Мережевий драйвер переводить віртуальні адреси ядра у фізичні адреси шини PCIe (Physical Frame Number, PFN) і записує їх у кільце передачі мережевої карти (TX Ring).
 5. **Апаратний DMA-трансфер:** Контролер мережевої карти (NIC) через шину PCIe зчитує байти з RAM за фізичними адресами та відправляє їх у фізичний кабель.
 
-![Архітектура мережевого вводу-виводу: memcpy проти SendZC](/reference/unix-linux/networking/io-uring-net-passthrough/img/io-uring-zc-arch.svg)
+![Архітектура мережевого вводу-виводу: memcpy проти SendZC](img/io-uring-zc-arch.svg)
 *Архітектура мережевого вводу-виводу: порівняння проміжного копіювання memcpy та прямого DMA-доступу за допомогою io_uring SendZC.*
 
 Головний недолік цієї схеми — процесор виконує роботу «вантажника». При розмірі пакета 64 кілобайти процесор робить 16 384 ітерації читання-запису 32-бітних слів лише для того, щоб перекласти байти з однієї комірки RAM в іншу комірку того самого модуля RAM. 
@@ -99,7 +99,7 @@ SQE SendZC (64 KB) ──► Super SKB (без memcpy) ──► NIC TSO Engine 
 
 Щоб запобігти цьому, `IORING_OP_SEND_ZC` використовує **двофазну модель сповіщень** через кільце Completion Queue (CQ):
 
-![Життєвий цикл двофазного завершення SendZC](/reference/unix-linux/networking/io-uring-net-passthrough/img/io-uring-sendzc-two-phase.svg)
+![Життєвий цикл двофазного завершення SendZC](img/io-uring-sendzc-two-phase.svg)
 *Послідовність подій та двофазна синхронізація буферів між застосунком, підсистемою io_uring та мережевим контролером.*
 
 ### Фаза 1: CQE успішної передачі в мережевий стек
@@ -150,7 +150,7 @@ SQE SendZC (64 KB) ──► Super SKB (без memcpy) ──► NIC TSO Engine 
 
 У `io_uring` це реалізовано через системний виклик `io_uring_register` з опцією `IORING_REGISTER_PBUF_RING`. Застосунок створює у спільній пам'яті кільцевий буфер `struct io_uring_buf_ring`, що складається з елементів `io_uring_buf`:
 
-![Механізм Provided Buffers та Multishot Receive в io_uring](/reference/unix-linux/networking/io-uring-net-passthrough/img/io-uring-recvzc-pbuf.svg)
+![Механізм Provided Buffers та Multishot Receive в io_uring](img/io-uring-recvzc-pbuf.svg)
 *Управління пулом буферів у спільній пам'яті через PBUF_RING для безнеперервного прийому даних у режимі Multishot.*
 
 Схема роботи `PBUF_RING` під час прийому:

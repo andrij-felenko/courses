@@ -36,7 +36,7 @@
 
 Детальний історичний контекст зламу RC4 та створення проміжних контрзаходів TKIP висвітлено у вставці [📜 Еволюція безпеки Wi-Fi: від краху WEP до створення WPA і 802.11i](book:communications/wpa-security/hist-wep-to-wpa.md).
 
-![Еволюція криптографічного захисту бездротових мереж IEEE 802.11](/book/communications/networks/wpa-security/img/wpa-evolution-timeline.svg)
+![Еволюція криптографічного захисту бездротових мереж IEEE 802.11](img/wpa-evolution-timeline.svg)
 *Хронологія розвитку стандартів безпеки IEEE 802.11: від вразливого WEP на базі RC4 до сучасного WPA3 на базі протоколу SAE та стійкої криптографії.*
 
 ---
@@ -102,7 +102,7 @@ B₀ = 0x59 || Nonce(13 байтів) || Довжина корисного на�
 - Номер `PN` входить до складу криптографічного одноразового числа `Nonce`, гарантуючи, що для одного ключа `TK` вектор `Nonce` ніколи не повториться протягом `2⁴⁸ ≈ 2.8 · 10¹⁴` пакетів.
 - Приймач підтримує локальний регістр останнього успішно прийнятого значення `PN_last`. Якщо станція отримує кадр із номером `PN_recv ≤ PN_last`, кадр **негайно відкидається** без передачі на верхні рівні стека. Це повністю унеможливлює атаки повторного відтворення (Replay Attacks), за яких зловмисник записує легітимний зашифрований кадр (наприклад, команду переказу коштів) і повторно транслює його в радіоефір.
 
-![Архітектура протоколу IEEE 802.11i CCMP](/book/communications/networks/wpa-security/img/ccmp-architecture.svg)
+![Архітектура протоколу IEEE 802.11i CCMP](img/ccmp-architecture.svg)
 *Архітектура протоколу CCMP: поєднання лічильникового режиму AES-CTR для шифрування та режиму зчеплення блоків AES-CBC-MAC для обчислення імітовставки.*
 
 ---
@@ -173,7 +173,7 @@ PMK ──► PMK-R0 (на центральному контролері WLC)
 
 Детальну програмну реалізацію алгоритмів PBKDF2, PRF-512 та перевірки EAPOL MIC мовами C і C++ наведено у вставці [⚙️ Практика розрахунку PTK та верифікації EAPOL MIC](book:communications/wpa-security/proj-wpa2-ptk-derivation.md).
 
-![Чотириетапне рукостискання WPA2-PSK](/book/communications/networks/wpa-security/img/wpa2-4way-handshake.svg)
+![Чотириетапне рукостискання WPA2-PSK](img/wpa2-4way-handshake.svg)
 *Послідовність обміну EAPOL-Key кадрами у чотириетапному рукостисканні WPA2 та етапи розрахунку сеансових ключів PTK і GTK.*
 
 ---
@@ -280,7 +280,7 @@ Dragonfly належить до класу протоколів **PAKE** (Passwo
 
 Повний алгебраїчний апарат алгоритмів Hunting-and-Pecking, Hash-to-Curve SSWU та доведення стійкості наведено у вставці [🧮 Математика протоколу Dragonfly: криптографічне виведення SAE у WPA3](book:communications/wpa-security/math-dragonfly-sae.md).
 
-![Протокол автентифікації WPA3 SAE Dragonfly](/book/communications/networks/wpa-security/img/sae-dragonfly-exchange.svg)
+![Протокол автентифікації WPA3 SAE Dragonfly](img/sae-dragonfly-exchange.svg)
 *Діаграма обміну повідомленнями Commit і Confirm у протоколі WPA3 SAE (Dragonfly) із формуванням одноразового PMK без розкриття пароля в ефір.*
 
 ---

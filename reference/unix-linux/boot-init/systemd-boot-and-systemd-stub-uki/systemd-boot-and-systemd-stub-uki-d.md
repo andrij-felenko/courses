@@ -64,7 +64,7 @@ options    root=UUID=5f2b8a1c-9d0e-4f3a-8b2c-1e0f9a8b7c6d ro quiet
 
 Unified Kernel Image (UKI) вирішує цю проблему шляхом пакування всіх складників завантаження в **єдиний контейнер PE/COFF**.
 
-![Анатомія Unified Kernel Image](/reference/unix-linux/boot-init/systemd-boot-and-systemd-stub-uki/img/uki-structure.svg)
+![Анатомія Unified Kernel Image](img/uki-structure.svg)
 
 *Структура секцій PE/COFF контейнера UKI: заглушка systemd-stub об'єднує ядро, initramfs, командний рядок та метадані в атомарний виконуваний файл під єдиним підписом Authenticode.*
 
@@ -90,7 +90,7 @@ Unified Kernel Image (UKI) вирішує цю проблему шляхом п�
 
 Щоб зрозуміти, як UKI захищає систему після перевірки підпису прошивкою, простежимо закроковий шлях виконання коду від моменту вибору образу в меню до передачі керування ядру.
 
-![Межа безпеки: Класичне завантаження проти UKI](/reference/unix-linux/boot-init/systemd-boot-and-systemd-stub-uki/img/boot-sequence.svg)
+![Межа безпеки: Класичне завантаження проти UKI](img/boot-sequence.svg)
 
 *Порівняння ланцюга завантаження: класична схема залишає initramfs та cmdline поза Secure Boot, тоді як UKI створює єдиний криптографічний блок із вимірюванням секцій у TPM2 PCR 11.*
 

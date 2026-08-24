@@ -71,7 +71,7 @@ void format_address_cpp_no_alloc(std::span<char> buf, std::string_view host, int
 
 Головне інноваційне досягнення підсистеми `std::format` полягає у **двофазній архітектурі обробки даних**. Процес форматування чітко розділено на компіляційну стадію перевірки (Compile-time Phase) та стадію виконання й генерації символів (Runtime Phase).
 
-![Архітектура компіляційного форматування std::format](/reference/cpp-standards/library/format-and-print/img/formatting-architecture.svg)
+![Архітектура компіляційного форматування std::format](img/formatting-architecture.svg)
 *Архітектура std::format: розділення перевірки рядка формату, пакування аргументів та запису у вихідний ітератор.*
 
 ### 1. Перевірка рядка формату під час компіляції (Compile-time Validation)
@@ -131,7 +131,7 @@ namespace std {
 {[arg_id] : [[fill]align] [sign] [#] [0] [width] [.precision] [type]}
 ```
 
-![Граматика специфікаторів формату](/reference/cpp-standards/library/format-and-print/img/format-string-grammar.svg)
+![Граматика специфікаторів формату](img/format-string-grammar.svg)
 *Анатомія рядка формату: структура та порядок полів у граматиці специфікацій.*
 
 Повний довідник усіх специфікаторів, прапорців та їх комбінацій для різних типів даних наведено у вставці [📋 Довідник специфікаторів формату та API std::formatter](book:cpp-standards/format-and-print/api-format-specifiers.md).
@@ -289,7 +289,7 @@ void safe_stack_log(int id, double temperature) {
 
 Для остаточного розв'язання цієї проблеми стандарт **C++23** додав заголовочний файл `<print>` із функціями `std::print` та `std::println`.
 
-![Порівняння шляхів виводу: std::cout vs printf vs std::print](/reference/cpp-standards/library/format-and-print/img/print-vs-iostream-perf.svg)
+![Порівняння шляхів виводу: std::cout vs printf vs std::print](img/print-vs-iostream-perf.svg)
 *Порівняння шляхів виводу: std::print оминає iostream-буфери та використовує прямі виклики OS з підтримкою Unicode.*
 
 ```cpp

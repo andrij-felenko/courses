@@ -33,7 +33,7 @@
 
 Механізм `perfbuf` спирається на наявну підсистему ядра `perf_event`. При створенні карти `BPF_MAP_TYPE_PERF_EVENT_ARRAY` ядро виділяє окремий кільцевий буфер для кожного логічного процесора (CPU) в системі.
 
-![Perf Event Array: Розділені per-CPU буфери пам'яті](/reference/unix-linux/observability/bpf-ringbuf-vs-perfbuf/img/perfbuf-arch.svg)
+![Perf Event Array: Розділені per-CPU буфери пам'яті](img/perfbuf-arch.svg)
 *Архітектура Perf Event Array: кожен логічний процесор має ізольований кільцевий буфер. Незбалансоване навантаження призводить до втрат подій на завантажених ядрах та марнотратства пам'яті на простих.*
 
 Детальну історію появи та прийняття `perfbuf` у ядрі Linux розглянуто у вставці [📜 Історія еволюції доставки подій eBPF](book:unix-linux/bpf-ringbuf-vs-perfbuf/hist-perf-to-ringbuf.md).
@@ -82,7 +82,7 @@
 
 Розроблена Андрієм Накрийком карта `BPF_MAP_TYPE_RINGBUF` (включена у ядро Linux 5.8) кардинально змінює підхід: замість N буферів для N ядер створюється **один спільний кільцевий буфер**, розшарений між усіма процесорними ядрами.
 
-![BPF Ring Buffer: Єдиний розділювальний буфер з Zero-Copy mmap](/reference/unix-linux/observability/bpf-ringbuf-vs-perfbuf/img/ringbuf-arch.svg)
+![BPF Ring Buffer: Єдиний розділювальний буфер з Zero-Copy mmap](img/ringbuf-arch.svg)
 *Архітектура BPF Ring Buffer: єдиний безблокувальний буфер із двома послідовними відображеннями mmap у віртуальній пам'яті для нульового копіювання при досягненні межі.*
 
 ### 3.1 Безблокувальний алгоритм синхронізації (Lockless Multi-Producer)

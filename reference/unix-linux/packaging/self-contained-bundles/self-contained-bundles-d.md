@@ -82,7 +82,7 @@ DT_RUNPATH = $ORIGIN/../lib
 
 Формат **AppImage** реалізує найпростішу та найбільш автономну концепцію: «Один застосунок = один файл». Завантажений `.appimage` файл не вимагає встановлення, інсталяторів чи системних демонів.
 
-![Архітектура AppImage](/reference/unix-linux/packaging/self-contained-bundles/img/fig-appimage.svg)
+![Архітектура AppImage](img/fig-appimage.svg)
 *Будова самомонтувального бінарного бандла AppImage: ELF-заголовок з AppRun та зсунутий SquashFS-образ, що монтується через FUSE.*
 
 ### Архітектура та процес виконання AppImage
@@ -130,7 +130,7 @@ DT_RUNPATH = $ORIGIN/../lib
 
 **Flatpak** розроблявся як відкритий стандарт для безпечної дистрибуції графічних десктопних застосунків у Linux, орієнтований на глибоку інтеграцію з середовищами GNOME та KDE.
 
-![Архітектура Flatpak](/reference/unix-linux/packaging/self-contained-bundles/img/fig-flatpak.svg)
+![Архітектура Flatpak](img/fig-flatpak.svg)
 *Архітектура Flatpak: атомарний розподіл через OSTree, ізольоване виконання через Bubblewrap та доступ до системних ресурсів через XDG Desktop Portals.*
 
 ### Ключові технологічні блоки Flatpak
@@ -161,7 +161,7 @@ bwrap --ro-bind /var/lib/flatpak/runtime/org.gnome.Platform/x86_64/45/active/fil
 
 Проект **Snap** розроблено компанією Canonical. На відміну від Flatpak, Snap розроблявся як універсальна система пакування для будь-яких типів ПЗ: десктопних графічних програм, серверних демонів, CLI-утиліт та системних прошивок для IoT-пристроїв.
 
-![Архітектура Snap](/reference/unix-linux/packaging/self-contained-bundles/img/fig-snap.svg)
+![Архітектура Snap](img/fig-snap.svg)
 *Стек Snap: демон snapd, монтування SquashFS через loop-пристрої, захист AppArmor/seccomp та система зв'язків Plugs і Slots.*
 
 ### Архітектурні особливості Snap

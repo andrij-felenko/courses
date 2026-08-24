@@ -131,7 +131,7 @@ struct mem_section_usage {
 
 Слово `section_mem_map` служить двом різним речам у різні моменти життя секції.
 
-![Слово section_mem_map: молодші біти — прапорці, старші — спершу номер вузла, потім зміщена адреса масиву](/reference/unix-linux/memory/sparsemem-and-vmemmap/img/section-word.svg)
+![Слово section_mem_map: молодші біти — прапорці, старші — спершу номер вузла, потім зміщена адреса масиву](img/section-word.svg)
 
 *`sparse_early_nid()` читає старші біти як номер вузла — але тільки доти, доки їх не затерла адреса масиву.*
 

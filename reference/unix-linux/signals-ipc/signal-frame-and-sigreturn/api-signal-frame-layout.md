@@ -180,7 +180,7 @@ struct _aarch64_ctx {
 };
 ```
 
-![Фіксована частина sigcontext на aarch64 і ланцюг записів у __reserved: fpsimd_context, esr_context, sve_context, extra_context і термінатор з нульовими magic та size; праворуч — правило обходу за додаванням size](/reference/unix-linux/signals-ipc/signal-frame-and-sigreturn/img/aarch64-chain.svg)
+![Фіксована частина sigcontext на aarch64 і ланцюг записів у __reserved: fpsimd_context, esr_context, sve_context, extra_context і термінатор з нульовими magic та size; праворуч — правило обходу за додаванням size](img/aarch64-chain.svg)
 
 *Потрібний запис шукають за міткою `magic`, а до наступного переходять, додавши до адреси його `size`.*
 

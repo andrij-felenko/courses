@@ -35,7 +35,7 @@
 [Об'єкт ООП у купі] ──> [Промах L1] ──> [Промах L2] ──> [Промах L3] ──> [Очікування DRAM: 250 тактів простою]
 ```
 
-![Порівняння об'єктного підходу Pointer Soup та лінійних потоків Data-Oriented Design](/book/programming/computer-architecture/data-oriented-design/img/oop-pointer-soup-vs-dod-streams.svg)
+![Порівняння об'єктного підходу Pointer Soup та лінійних потоків Data-Oriented Design](img/oop-pointer-soup-vs-dod-streams.svg)
 *Порівняння організації пам'яті: об'єктна ієрархія з хаотичними покажчиками завантажує кеш-лінії з 80% непотрібних даних, тоді як Data-Oriented масиви забезпечують 100% просторову локальність та роботу векторного конвеєра.*
 
 Data-Oriented Design ґрунтується на трьох базових аксіомах апаратної орієнтації:
@@ -72,7 +72,7 @@ struct Character {
 
 Повний розмір структури `Character` становить 84 байти (з урахуванням вирівнювання — 96 байтів). Під час виконання циклу виявлення зіткнень процесору потрібні лише поля `position` та `bounding_radius` (разом 16 байтів). Проте через розміщення в монолітній структурі кожні 16 байтів тягнуть за собою 80 байтів непотрібних метаданих.
 
-![Анатомія об'єкта та розділення на гарячий і холодний потоки](/book/programming/computer-architecture/data-oriented-design/img/hot-cold-splitting.svg)
+![Анатомія об'єкта та розділення на гарячий і холодний потоки](img/hot-cold-splitting.svg)
 *Розділення монолітної структури на гарячий компонент (оновлюється щокадру) та холодний компонент (потрібен лише за подіями) збільшує щільність корисної інформації в кеш-лінії у понад два рази.*
 
 Техніка **Hot/Cold Splitting** фізично розносить ці поля на два незалежні паралельні масиви:
@@ -119,7 +119,7 @@ Data-Oriented Design реалізується на практиці через �
 | **Ціна додавання/видалення компонента** | `O(1)` (вставка в масив або Swap-and-Pop) | `O(N)` перенесення сутності між чанками різних архетипів |
 | **Використання в індустрії** | EnTT, Bevy, Flecs (sparse queries) | Unity DOTS, Unreal Engine Mass Entity, Flecs |
 
-![Механіка структури Sparse Set у Data-Oriented Design](/book/programming/computer-architecture/data-oriented-design/img/sparse-set-dense-mapping.svg)
+![Механіка структури Sparse Set у Data-Oriented Design](img/sparse-set-dense-mapping.svg)
 *Структура Sparse Set транслює числовий ідентифікатор сутності в щільний індекс масиву за O(1), дозволяючи вилучати компоненти без утворення порожнин через механізм Swap-and-Pop.*
 
 Повну робочу реалізацію компонента позицій на базі Sparse Set мовами C та C++ наведено у вставці [Реалізація пулу сутностей та компонентів на основі Sparse Set](book:programming/data-oriented-design/proj-sparse-set-ecs.md).
@@ -177,7 +177,7 @@ AISystem:           READ(Position), READ(Health), WRITE(Velocity)
 CollisionSystem:    READ(Position), READ(Collider), WRITE(Health)
 ```
 
-![Паралельний конвеєр систем на основі графів даних](/book/programming/computer-architecture/data-oriented-design/img/dataflow-system-pipeline.svg)
+![Паралельний конвеєр систем на основі графів даних](img/dataflow-system-pipeline.svg)
 *Граф залежностей систем за компонентами: системи з неперетинними правами запису виконуються повністю паралельно без блокувань і конфліктів за кеш-лінії.*
 
 Планувальник задач (англ. *Job System*) автоматично будує напрямлений ациклічний граф (DAG) залежностей:

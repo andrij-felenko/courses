@@ -18,7 +18,7 @@
 
 Щоб зрозуміти причини появи libcamera, необхідно зіставити два діаметрально протилежних класи оптичних пристроїв у світі Linux: прості камери класу USB Video Class (UVC) та вбудовані камери систем на кристалі (SoC).
 
-![Порівняння архітектури UVC та вбудованої CSI-2 камери](/reference/unix-linux/devices/libcamera-stack/img/uvc-vs-embedded-pipeline.svg)
+![Порівняння архітектури UVC та вбудованої CSI-2 камери](img/uvc-vs-embedded-pipeline.svg)
 *Рис. 1. Архітектурне порівняння: інтегрований ISP у веб-камері UVC проти розподіленого апаратного конвеєра вбудованої камери з програмним керуванням 3A.*
 
 ### Анатомія UVC-камери
@@ -120,7 +120,7 @@ void configureSubdevFormat(int subdevFd, uint32_t pad, uint32_t width, uint32_t 
 
 Бібліотека **libcamera** створена для того, щоб повністю приховати від прикладного програміста складність роботи з десятками файлів `/dev/v4l-subdevX`, ручне з'єднання майданчиків Media Controller і низькорівневий обмін буферами.
 
-![Архітектурні шари libcamera](/reference/unix-linux/devices/libcamera-stack/img/libcamera-architecture-layers.svg)
+![Архітектурні шари libcamera](img/libcamera-architecture-layers.svg)
 *Рис. 2. Рівнева архітектура libcamera: від клієнтських застосунків і мультиплексорів до Pipeline Handlers, ізольованої пісочниці IPA та інтерфейсів ядра Linux.*
 
 ### Ієрархія публічного C++ API
@@ -210,7 +210,7 @@ void configureSubdevFormat(int subdevFd, uint32_t pad, uint32_t width, uint32_t 
 
 На відміну від застарілих інтерфейсів захоплення, де програма оперує лише сирими буферами, libcamera будує всю роботу навколо концепції **Запиту (Request)**.
 
-![Життєвий цикл об'єкта Request](/reference/unix-linux/devices/libcamera-stack/img/request-buffer-lifecycle.svg)
+![Життєвий цикл об'єкта Request](img/request-buffer-lifecycle.svg)
 *Рис. 3. Життєвий цикл об'єкта Request: конфігурація буферів dma-buf, динамічне застосування ControlList, обробка в ядрі та повернення метаданих.*
 
 ### Структура об'єкта Request
@@ -293,7 +293,7 @@ struct Plane {
 
 Створення сучасного API вимагає плавної інтеграції з величезним масивом уже існуючого програмного забезпечення. Бібліотека libcamera надає три рівні системної сумісності, що охоплюють як застарілі утиліти, так і сучасні десктопні платформи.
 
-![Стек сумісності та PipeWire](/reference/unix-linux/devices/libcamera-stack/img/compatibility-and-pipewire-stack.svg)
+![Стек сумісності та PipeWire](img/compatibility-and-pipewire-stack.svg)
 *Рис. 4. Екосистема сумісності: трансляція запитів через v4l2-compat, плагін GStreamer libcamerasrc та безпечне мультиплексування потоків у PipeWire.*
 
 ### Шар емуляції V4L2 (`v4l2-compat.so`)

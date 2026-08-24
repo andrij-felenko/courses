@@ -39,7 +39,7 @@
 
 Хронологію патчів, імена учасників і безпекове тло цього розділення розібрано у вставці [Історія виокремлення debugfs та tracefs](book:unix-linux/debugfs-tracefs-kernel-debugging-interfaces/hist-debugfs-tracefs-evolution.md).
 
-![Архітектурне розділення ВФС ядра](/reference/unix-linux/proc/debugfs-tracefs-kernel-debugging-interfaces/img/debugfs-tracefs-architecture.svg)
+![Архітектурне розділення ВФС ядра](img/debugfs-tracefs-architecture.svg)
 *Архітектурне розділення ВФС ядра Linux: procfs для процесів, sysfs для ієрархії пристроїв із гарантіями ABI, debugfs для сирого налагодження драйверів та tracefs для підсистеми ftrace.*
 
 ---
@@ -167,7 +167,7 @@ $ mount -t tracefs nodev /sys/kernel/tracing
 - **/sys/kernel/tracing/trace_pipe**
   Надає потоковий інтерфейс зчитування в режимі реального часу. Читання з `trace_pipe` є **деструктивним та блокуючим**: спожитий рядок події видаляється з буфера ядра, а процес спостерігача блокується до появи нових подій ядра.
 
-![Механіка кільцевих буферів tracefs](/reference/unix-linux/proc/debugfs-tracefs-kernel-debugging-interfaces/img/tracefs-ring-buffer.svg)
+![Механіка кільцевих буферів tracefs](img/tracefs-ring-buffer.svg)
 *Механіка підсистеми tracefs: атомарний запис із джерел подій у per-CPU кільцеві буфери ядра та зчитування через статичний файл trace або потоковий trace_pipe.*
 
 ### Архітектура безблокувальних per-CPU кільцевих буферів

@@ -13,7 +13,7 @@
 
 Для вирішення цього завдання застосовується архітектурний патерн **Fanout** (англ. *fan-out* — розгортання віялом, термін запозичено з мікроелектроніки, де він позначає навантажувальну здатність виходу одного логічного елемента керувати входами кількох інших). У розподілених високонавантажених системах Fanout позначає трансформацію одного вхідного бізнес-сигналу у множину паралельних завдань доставки, фільтрації, збагачення та оновлення стану для `N` незалежних отримувачів.
 
-![Порівняння моделей Fanout-on-Write та Fanout-on-Read](/book/programming/web-backend/notification-fanout/img/fanout-write-vs-read.svg)
+![Порівняння моделей Fanout-on-Write та Fanout-on-Read](img/fanout-write-vs-read.svg)
 *Порівняння матеріалізованого запису (Push) та лінивого злиття під час читання (Pull).*
 
 ## 1. Протистояння моделей: Fanout-on-Write проти Fanout-on-Read
@@ -107,7 +107,7 @@
 
 Математичне виведення точки оптимального порогу `k*` на основі балансу вартості операцій читання і запису наведено у вставці [Математичний аналіз навантаження та закону Ципфа](book:programming/notification-fanout/math-fanout-cost.md).
 
-![Топології брокерів повідомлень для Fanout розсилки](/book/programming/web-backend/notification-fanout/img/pubsub-broker-topologies.svg)
+![Топології брокерів повідомлень для Fanout розсилки](img/pubsub-broker-topologies.svg)
 *Архітектурні патерни Pub/Sub: лог Apache Kafka, Fanout Exchange RabbitMQ та хмарний міст SNS-SQS.*
 
 ## 4. Інфраструктурний шар Pub/Sub: порівняння брокерів
@@ -160,7 +160,7 @@ RabbitMQ реалізує парадигму розумного брокера �
 
 Це гарантує доставку рівня **At-Least-Once** (щонайменше один раз) без ризику втрати бізнес-подій.
 
-![Наскрізний конвеєр обробки та розсилки сповіщень](/book/programming/web-backend/notification-fanout/img/notification-pipeline.svg)
+![Наскрізний конвеєр обробки та розсилки сповіщень](img/notification-pipeline.svg)
 *Конвеєр від отримання події через резолвер і батчинг до адаптерів провайдерів та зворотного зв'язку.*
 
 ## 5. Конвеєр збагачення, фільтрації та батчингу
@@ -251,7 +251,7 @@ Google FCM надає REST API з можливістю пакетного від
 - **Підігрів IP-адрес (IP Warm-up):** поступове нарощування обсягів відправки з нових серверів для формування позитивної репутації у провайдерів (Gmail, Outlook).
 - **DNS-верифікація:** обов'язкове налаштування записів SPF (Sender Policy Framework), DKIM (DomainKeys Identified Mail) та DMARC, без яких масова розсилка миттєво блокується поштовими фільтрами.
 
-![Запобігання ефекту Thundering Herd при масовій розсилці](/book/programming/web-backend/notification-fanout/img/thundering-herd-mitigation.svg)
+![Запобігання ефекту Thundering Herd при масовій розсилці](img/thundering-herd-mitigation.svg)
 *Згладжування пікового навантаження за допомогою часового джиттеру, кешування та Feedback-інвалідації.*
 
 ## 8. Захист від перевантажень: Rate Limiting, Feedback Loop та Thundering Herd

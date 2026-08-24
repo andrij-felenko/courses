@@ -94,7 +94,7 @@ SCREEN *sc = newterm(NULL, tty, tty);   /* NULL = взяти TERM із сере�
 
 `chtype` — беззнакове ціле щонайменше на 32 біти, у якому лежить уся комірка одразу.
 
-![Розкладка бітів у chtype](/reference/unix-linux/devices/ncurses/img/chtype-bits.svg)
+![Розкладка бітів у chtype](img/chtype-bits.svg)
 
 *Одне число описує комірку цілком — і саме тому воно не переживає багатобайтових символів.*
 

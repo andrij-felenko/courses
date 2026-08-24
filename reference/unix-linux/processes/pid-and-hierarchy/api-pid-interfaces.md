@@ -42,7 +42,7 @@ int tgkill(pid_t tgid, pid_t tid, int sig);   /* конкретному пото
 
 Аргумент `pid` у `kill()` — не просто номер: його знак перемикає сам різновид адресата.
 
-![Таблиця: додатний pid — процес, нуль — своя група, мінус один — усі, менше −1 — група](/reference/unix-linux/processes/pid-and-hierarchy/img/pid-argument-sign.svg)
+![Таблиця: додатний pid — процес, нуль — своя група, мінус один — усі, менше −1 — група](img/pid-argument-sign.svg)
 
 *Той самий `pid_t` в одному аргументі несе чотири різні змісти, і розрізняє їх знак. Та сама домовленість діє в `waitpid()`, але «усі» там означає «усі мої діти», а не «усі процеси системи».*
 
@@ -203,7 +203,7 @@ static int pidfd_open(pid_t pid, unsigned int flags) {
 }
 ```
 
-![Смуга версій ядра: 5.1 pidfd_send_signal, 5.2 CLONE_PIDFD, 5.3 pidfd_open, 5.4 waitid P_PIDFD, 5.6 pidfd_getfd, 5.10 PIDFD_NONBLOCK, 6.9 PIDFD_THREAD](/reference/unix-linux/processes/pid-and-hierarchy/img/pidfd-versions.svg)
+![Смуга версій ядра: 5.1 pidfd_send_signal, 5.2 CLONE_PIDFD, 5.3 pidfd_open, 5.4 waitid P_PIDFD, 5.6 pidfd_getfd, 5.10 PIDFD_NONBLOCK, 6.9 PIDFD_THREAD](img/pidfd-versions.svg)
 
 *Інтерфейс складався сімома кроками впродовж кількох років, тому «pidfd є» — недостатньо точне твердження: у кожної частини свій поріг версії.*
 

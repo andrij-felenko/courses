@@ -43,7 +43,7 @@
 3. Кожен модуль LSM у стеку виконує перевірку у відповідності до власної завантаженої політики. Якщо хоча б один модуль повертає від'ємний код помилки, операція негайно блокується.
 4. Запитана дія виконується лише тоді, коли DAC **та всі активні модулі LSM у стеку** повернули згоду (`0`).
 
-![Архітектура LSM Hooks та DAC](/reference/unix-linux/permissions/lsm-stacking-framework/img/lsm-architecture.svg)
+![Архітектура LSM Hooks та DAC](img/lsm-architecture.svg)
 *Рис. 1. Взаємодія підсистеми VFS, перевірки DAC та каркасу LSM Hooks.*
 
 Точки перехоплення охоплюють усі ключові об'єкти ядра, що несуть потенційні ризики для безпеки системи:
@@ -101,7 +101,7 @@ struct security_hook_list {
 
 Викликаючи гачок із місця операції (наприклад, при відкритті файлу системним викликом `openat`), ядро ітерує по списку зареєстрованих обробників. Впроваджено логіку «короткого замикання» (англ. *short-circuit evaluation*): виконання списку припиняється негайно, як тільки один із модулів повертає помилку.
 
-![Ланцюг виконання LSM Stacking](/reference/unix-linux/permissions/lsm-stacking-framework/img/lsm-stacking.svg)
+![Ланцюг виконання LSM Stacking](img/lsm-stacking.svg)
 *Рис. 2. Послідовне виконання списку гачків при стекуванні модулів безпеки.*
 
 У спрощеному вигляді внутрішній обробник `security_file_open()` у ядрі реалізовано так:
@@ -138,7 +138,7 @@ int security_file_open(struct file *file)
 
 Сучасний каркас LSM розв'язує цю проблему через механізм **спільних блоків пам'яті** (англ. *cumulative security blobs* — двійкові згустки пам'яті).
 
-![Розподіл пам'яті Security Blob](/reference/unix-linux/permissions/lsm-stacking-framework/img/lsm-blob-layout.svg)
+![Розподіл пам'яті Security Blob](img/lsm-blob-layout.svg)
 *Рис. 3. Динамічний розподіл спільного блоку пам'яті void *security між кількома модулями LSM.*
 
 ### Механізм обчислення зміщень (Blob Offsets)

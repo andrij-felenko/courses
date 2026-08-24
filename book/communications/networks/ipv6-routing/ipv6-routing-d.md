@@ -63,7 +63,7 @@
 * **Subnet ID (типово 16 бітів):** внутрішній номер підмережі всередині організації. 16 бітів дають можливість створити 65 536 незалежних підмереж `/64` у межах одного клієнтського підключення `/48`.
 * **Interface ID (рівно 64 біти):** унікальний ідентифікатор хоста або інтерфейсу всередині підмережі. Фіксація розміру в 64 біти є фундаментальним інваріантом стандарту: протокол безсерверної автоконфігурації SLAAC функціонує **виключно** на префіксах довжиною `/64`.
 
-![Анатомія адреси IPv6 та формування Solicited-Node Multicast](/book/communications/networks/ipv6-routing/img/ipv6-address-anatomy.svg)
+![Анатомія адреси IPv6 та формування Solicited-Node Multicast](img/ipv6-address-anatomy.svg)
 *128-бітна адреса ділиться на 64-бітний префікс маршрутизації та 64-бітний ідентифікатор інтерфейсу. Молодші 24 біти відображаються на групову адресу Solicited-Node Multicast та апаратний MAC-фільтр 33:33:xx:xx:xx:xx.*
 
 #### Типи адрес за областю дії (Scope)
@@ -210,7 +210,7 @@ Ethernet MAC :  33:33:ff:33:44:55
 
 NDP об'єднує всі функції взаємодії між вузлами в одному L2-сегменті за допомогою повідомлень ICMPv6 (Type 133–137) із обов'язковою вимогою `Hop Limit = 255`.
 
-![Розв'язання L2-адреси в IPv6 (NDP) замість широкомовного ARP](/book/communications/networks/ipv6-routing/img/ndp-resolution-flow.svg)
+![Розв'язання L2-адреси в IPv6 (NDP) замість широкомовного ARP](img/ndp-resolution-flow.svg)
 *Запит Neighbor Solicitation прямує на вузьку мультикаст-групу Solicited-Node, тому сторонні вузли відкидають кадр апаратно на рівні мережевої карти без переривання ОС, а відповідь Neighbor Advertisement повертається напряму unicast-пакетом.*
 
 1. **Neighbor Solicitation (NS, Type 135) та Neighbor Advertisement (NA, Type 136):** заміна ARP. Вузол надсилає NS на solicited-node адресу цілі, вказуючи власну MAC-адресу в опції Source Link-Layer Address. Цільовий хост відповідає Unicast-пакетом NA, вказуючи свою MAC-адресу та бітові прапорці:
@@ -230,7 +230,7 @@ NDP об'єднує всі функції взаємодії між вузлам
 
 Безсерверна автоконфігурація (SLAAC — Stateless Address Autoconfiguration) дозволяє хосту отримати повноцінне підключення до Інтернету без розгортання та адміністрування серверів DHCP.
 
-![Автоконфігурація SLAAC та перевірка унікальності DAD](/book/communications/networks/ipv6-routing/img/slaac-dad-lifecycle.svg)
+![Автоконфігурація SLAAC та перевірка унікальності DAD](img/slaac-dad-lifecycle.svg)
 *Життєвий цикл SLAAC: формування Link-Local адреси, перевірка DAD через нульовий запит NS, отримання префікса підмережі через RA від маршрутизатора та збирання глобальної адреси GUA без участі сервера DHCP.*
 
 #### Послідовність кроків SLAAC:
@@ -278,7 +278,7 @@ $ ip -6 route show
 default via fe80::21a:4aff:fe12:3456 dev eth0 metric 100 pref medium
 ```
 
-![Прив'язка Next-Hop до Link-Local адреси та інтерфейсу в IPv6](/book/communications/networks/ipv6-routing/img/ipv6-routing-nexthop.svg)
+![Прив'язка Next-Hop до Link-Local адреси та інтерфейсу в IPv6](img/ipv6-routing-nexthop.svg)
 *Маршрутизатор вказує Link-Local адресу сусіда (fe80::...%eth0) як Next-Hop. Зміна глобального префікса організації (Renumbering) не впливає на внутрішні таблиці маршрутизації та протоколи динамічної маршрутизації.*
 
 Ця архітектура дає три фундаментальні переваги:
@@ -348,7 +348,7 @@ default via fe80::21a:4aff:fe12:3456 dev eth0 metric 100 pref medium
 
 Технології NAT64 (RFC 6146) та DNS64 (RFC 6147) забезпечують можливість клієнтам у чистих мережах IPv6 (IPv6-only, наприклад у мобільних мережах 4G/5G) прозоро взаємодіяти із серверами, які мають лише стару адресу IPv4.
 
-![Взаємодія IPv6-клієнта з IPv4-сервером через DNS64 та NAT64](/book/communications/networks/ipv6-routing/img/nat64-dns64-transition.svg)
+![Взаємодія IPv6-клієнта з IPv4-сервером через DNS64 та NAT64](img/nat64-dns64-transition.svg)
 *Зв'язка DNS64 та NAT64: сервер DNS64 синтезує синтетичну AAAA-адресу з префіксом 64:ff9b::/96, а шлюз NAT64 виконує stateful-трансляцію заголовків між клієнтом IPv6 та чистим IPv4-інтернетом.*
 
 #### Алгоритм роботи DNS64 / NAT64:

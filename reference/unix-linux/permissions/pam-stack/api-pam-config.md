@@ -133,7 +133,7 @@ optional    →  [success=ok   new_authtok_reqd=ok                  default=igno
 
 `@include` — це окремий рядок-директива, а не значення поля керування; саме її вживають фрагменти Debian. Глибина вкладення включень обмежена шістнадцятьма рівнями.
 
-![Куди повертає sufficient: вклеювання проти окремого підстека](/reference/unix-linux/permissions/pam-stack/img/include-vs-substack.svg)
+![Куди повертає sufficient: вклеювання проти окремого підстека](img/include-vs-substack.svg)
 
 *Той самий файл, підключений двома способами, дає протилежні результати: ліворуч `pam_deny.so` ніколи не виконається, праворуч виконається завжди.*
 

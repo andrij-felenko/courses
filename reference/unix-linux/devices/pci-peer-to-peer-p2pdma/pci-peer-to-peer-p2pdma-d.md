@@ -19,7 +19,7 @@
 
 Традиційно адресою призначення виступала фізична адреса системної RAM хоста. При P2PDMA адресою призначення стає діапазон Base Address Register (BAR) іншого пристрою PCIe, підключеного до тієї ж топологічної ієрархії.
 
-![Маршрутизація TLP: системна пам'ять проти PCIe P2PDMA](/reference/unix-linux/devices/pci-peer-to-peer-p2pdma/img/p2p-routing-paths.svg)
+![Маршрутизація TLP: системна пам'ять проти PCIe P2PDMA](img/p2p-routing-paths.svg)
 *Маршрутизація TLP: системна пам'ять проти PCIe P2PDMA.*
 
 ### Маршрутизація TLP у топологіях PCIe
@@ -133,7 +133,7 @@
 
 Ядро Linux містить офіційну підсистему `pci-p2pdma` (вихідний код у `drivers/pci/p2pdma.c`), яка виступає арбітром між провайдерами пам'яті (Provider) та клієнтами DMA (Client).
 
-![Структура підсистеми pci-p2pdma та взаємодія шарів ядра Linux](/reference/unix-linux/devices/pci-peer-to-peer-p2pdma/img/p2pdma-subsystem-layers.svg)
+![Структура підсистеми pci-p2pdma та взаємодія шарів ядра Linux](img/p2pdma-subsystem-layers.svg)
 *Структура підсистеми pci-p2pdma та взаємодія шарів ядра Linux.*
 
 ### Життєвий цикл роботи P2PDMA в ядрі

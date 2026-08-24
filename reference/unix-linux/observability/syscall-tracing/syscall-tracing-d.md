@@ -74,7 +74,7 @@
 
 Щоб трасувальник міг отримувати сповіщення про кожен системний виклик трасованого процесу, він використовує команду `PTRACE_SYSCALL`. При цьому ядро розбиває виконання одного системного виклику на дві чіткі точки зупинки:
 
-![Схема перехоплення системних викликів через PTRACE_SYSCALL](/reference/unix-linux/observability/syscall-tracing/img/ptrace-flow.svg)
+![Схема перехоплення системних викликів через PTRACE_SYSCALL](img/ptrace-flow.svg)
 *Схема взаємодії трасувальника, ядра Linux та трасованого процесу при використанні PTRACE_SYSCALL.*
 
 1. **Точка `sys_enter` (Вхід)**:
@@ -204,7 +204,7 @@ void modifySyscallArg(pid_t traceePid) {
 
 На відміну від `ptrace`, який зупиняє процес на кожному системному виклику, Seccomp дозволяє налаштувати чіткий cBPF-фільтр. Якщо системний виклик безпечний (наприклад, `getpid()` або `clock_gettime()`), ядро виконує його миттєво з нульовими накладними витратами. Якщо виклик потребує віртуалізації або перевірки, фільтр повертає код `SECCOMP_RET_USER_NOTIF`.
 
-![Архітектура механізму Seccomp User Notification](/reference/unix-linux/observability/syscall-tracing/img/seccomp-notif.svg)
+![Архітектура механізму Seccomp User Notification](img/seccomp-notif.svg)
 *Архітектура перехоплення та супервізії системних викликів через Seccomp User Notification.*
 
 Схема роботи підсистеми:
@@ -269,7 +269,7 @@ void modifySyscallArg(pid_t traceePid) {
 
 Для вибору оптимального інструменту трасування розглянемо порівняльну характеристику всіх розглянутих механізмів:
 
-![Порівняння накладних витрат ptrace, seccomp notif та eBPF](/reference/unix-linux/observability/syscall-tracing/img/ptrace-vs-seccomp-perf.svg)
+![Порівняння накладних витрат ptrace, seccomp notif та eBPF](img/ptrace-vs-seccomp-perf.svg)
 *Порівняльний аналіз механізмів трасування за кількістю перемикань контексту та продуктивністю.*
 
 | Критерій порівняння | `ptrace` (PTRACE_SYSCALL) | `Seccomp User Notification` | `eBPF Tracepoints` | Audit Subsystem (`auditd`) |

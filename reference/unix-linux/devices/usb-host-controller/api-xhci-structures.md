@@ -8,7 +8,7 @@
 
 Контролер займає одну неперервну область MMIO — на PCIe її задає нульовий регістр базової адреси ([PCIe](book:electronics/pcie): у конфігураційному просторі пристрою є регістри BAR, за якими система відводить пристроєві шматок фізичного адресного простору). Далі до регістрів звертаються як до звичайної пам'яті ([memory-mapped IO](book:programming/memory-mapped-io)). Усередині цієї області живуть чотири простори, і три з них знаходять читанням із першого.
 
-![Capability лежить за нульовим зміщенням; CAPLENGTH, DBOFF і RTSOFF вказують, де починаються Operational, Doorbell і Runtime.](/reference/unix-linux/devices/usb-host-controller/img/register-spaces.svg)
+![Capability лежить за нульовим зміщенням; CAPLENGTH, DBOFF і RTSOFF вказують, де починаються Operational, Doorbell і Runtime.](img/register-spaces.svg)
 
 *Зміщення не зашиті в драйвер — та сама реалізація однаково працює з платою на PCIe і з блоком, вбудованим у систему на кристалі.*
 
@@ -88,7 +88,7 @@ CRCR влаштований несиметрично, і це не примха.
 
 ## TRB: шістнадцять байтів
 
-![Чотири слова TRB: 64-бітовий параметр, слово стану й керуюче слово з бітовою картою прапорців.](/reference/unix-linux/devices/usb-host-controller/img/trb-fields.svg)
+![Чотири слова TRB: 64-бітовий параметр, слово стану й керуюче слово з бітовою картою прапорців.](img/trb-fields.svg)
 
 *Одна й та сама розкладка обслуговує дані, команди й події — відрізняє їх лише поле типу в керуючому слові.*
 
@@ -184,7 +184,7 @@ Average TRB Length — не косметика. Разом із Max ESIT Payload
 
 Драйвер не пише в Device Context. Він складає окрему копію й подає її командою; контролер копіює звідти лише те, що позначено масками.
 
-![Input Control Context із бітами Add і Drop, за ним Slot Context і контексти кінцевих точок за номерами DCI.](/reference/unix-linux/devices/usb-host-controller/img/input-context.svg)
+![Input Control Context із бітами Add і Drop, за ним Slot Context і контексти кінцевих точок за номерами DCI.](img/input-context.svg)
 
 *Біт маски й контекст, на який він указує, стоять на однакових позиціях — номер біта і є DCI.*
 

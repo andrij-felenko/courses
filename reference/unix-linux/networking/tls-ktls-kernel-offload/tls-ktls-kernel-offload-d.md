@@ -63,7 +63,7 @@
 
 Головний концептуальний прорив kTLS полягає в тому, що ядро Linux **не намагається реалізувати весь протокол TLS повністю**. Творці kTLS чітко розділили життя сокета на дві фази:
 
-![Архітектура kTLS](/reference/unix-linux/networking/tls-ktls-kernel-offload/img/fig-tls-arch.svg)
+![Архітектура kTLS](img/fig-tls-arch.svg)
 *Рис. 1. Архітектурне порівняння Userspace TLS та Kernel TLS (kTLS)*
 
 ### 1. Control Plane (Фаза рукостискання) — Користувацький простір
@@ -191,7 +191,7 @@ struct tls_context {
 
 Залежно від можливостей обладнання, kTLS може працювати у двох основних режимах розвантаження.
 
-![Конвеєр sendfile kTLS](/reference/unix-linux/networking/tls-ktls-kernel-offload/img/fig-ktls-pipeline.svg)
+![Конвеєр sendfile kTLS](img/fig-ktls-pipeline.svg)
 *Рис. 2. Схема проходження даних через конвеєр sendfile() у режимах TLS_SW та TLS_HW*
 
 ### 5.1. Режим TLS_SW (Software Kernel Acceleration)
@@ -207,7 +207,7 @@ struct tls_context {
 
 Якщо у сервері встановлено сучасний мережевий адаптер класу SmartNIC (наприклад, Nvidia/Mellanox ConnectX-6/7 або Chelsio T6), ядро Linux може піти ще далі і повністю звільнити CPU від шифрування.
 
-![Апаратне прискорення TLS_HW](/reference/unix-linux/networking/tls-ktls-kernel-offload/img/fig-tls-hw.svg)
+![Апаратне прискорення TLS_HW](img/fig-tls-hw.svg)
 *Рис. 3. Апаратне розвантаження TLS_HW на рівні мережевої карти SmartNIC*
 
 У режимі **TLS_HW (Inline TLS Offload)**:

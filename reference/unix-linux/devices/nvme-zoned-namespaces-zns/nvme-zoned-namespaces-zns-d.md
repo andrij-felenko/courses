@@ -21,7 +21,7 @@
 
 Історію розвитку зонованого збереження даних — від черепичного запису в жорстких дисках (SMR) та низькорівневих експериментів Open-Channel SSD до офіційного стандарту NVMe ZNS — розкрито у вставці [Еволюція зонованого збереження](book:unix-linux/nvme-zoned-namespaces-zns/hist-zns-from-smr-to-nvme.md).
 
-![Порівняння архітектури традиційного FTL та NVMe ZNS](/reference/unix-linux/devices/nvme-zoned-namespaces-zns/img/zns-vs-conventional-ftl.svg)
+![Порівняння архітектури традиційного FTL та NVMe ZNS](img/zns-vs-conventional-ftl.svg)
 *Архітектурне порівняння традиційного NVMe SSD із високонакладним FTL та зонованого NVMe ZNS SSD з прямим відображенням зон на блоки стирання.*
 
 ## Архітектура ZNS: Перенесення керування на хост
@@ -69,7 +69,7 @@ ZSLBA                                      WP (у заповненій зоні)
 
 Кожна зона у ZNS-просторі імен керується строго формалізованим кінцевим автоматом (State Machine). Стан зони визначає, які типи команд (читання, запис, скидання) дозволено виконувати, і як контролер SSD розподіляє свої внутрішні ресурси буферизації.
 
-![Машина станів зони NVMe ZNS](/reference/unix-linux/devices/nvme-zoned-namespaces-zns/img/zone-state-machine.svg)
+![Машина станів зони NVMe ZNS](img/zone-state-machine.svg)
 *Кінцевий автомат станів зони NVMe ZNS та дозволені транзакційні переходи під дією команд хоста.*
 
 ### Основні стани зони
@@ -130,7 +130,7 @@ ZSLBA                                      WP (у заповненій зоні)
 3. Контролер SSD ZNS приймає команди паралельно, а потім **на апаратному рівні** атомарно серіалізує їх: він виділяє поточне значення Write Pointer для запиту, записує дані та інкрементує Write Pointer.
 4. Фактично виділений LBA контролер повертає хосту у відповідному повідомленні Completion Queue Entry (CQE) у полі `result64`.
 
-![Конфлікт паралелізму та вирішення через Zone Append](/reference/unix-linux/devices/nvme-zoned-namespaces-zns/img/zone-append-locking.svg)
+![Конфлікт паралелізму та вирішення через Zone Append](img/zone-append-locking.svg)
 *Схема блокувального вузького місця при стандартному WRITE та безблокового масштабування через атомарний Zone Append.*
 
 ### Обмеження ZASL

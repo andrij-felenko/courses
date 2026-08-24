@@ -20,7 +20,7 @@
 
 Щоб прибрати залежність бізнес-правил від інфраструктури черг, застосовують архітектурний патерн **Кінцева точка повідомлень** (англ. *Message Endpoint* — кінцева точка повідомлень; лат. *finis* — межа, кінець).
 
-![Анатомія Message Endpoint: подвійний міст між доменом і чергою](/book/programming/distributed-systems/message-endpoint/img/endpoint-anatomy.svg)
+![Анатомія Message Endpoint: подвійний міст між доменом і чергою](img/endpoint-anatomy.svg)
 *Message Endpoint виступає ізолювальним швом між чистим прикладним кодом і транспортною мережею брокера. Домен оперує звичайними об'єктами та методами, тоді як ендпоінт бере на себе керування з'єднаннями, серіалізацію, транзакції, контроль потоку та обробку аварійних ситуацій.*
 
 ## Чотири розриви між доменом та асинхронною чергою
@@ -135,7 +135,7 @@ interface OrderNotificationPort {
 
 На стороні споживання повідомлень кінцева точка може працювати за однією з двох фундаментальних моделей: опитування (Pull) або керована подіями доставка (Push).
 
-![Моделі доставки: Polling Consumer (Pull) проти Event-Driven Consumer (Push)](/book/programming/distributed-systems/message-endpoint/img/polling-vs-event-driven.svg)
+![Моделі доставки: Polling Consumer (Pull) проти Event-Driven Consumer (Push)](img/polling-vs-event-driven.svg)
 *Синхронний Polling Consumer контролює швидкість забору даних, але створює затримку очікування. Асинхронний Event-Driven Consumer забезпечує мінімальний час відгуку, проте вимагає суворого обмеження префетчу для захисту від переповнення пам'яті.*
 
 ### Polling Consumer (Синхронний Pull)
@@ -213,7 +213,7 @@ B = T_proc · R
 
 Утилізація сучасних багатоядерних процесорів вимагає паралельної обробки повідомлень багатьма потоками. Однак наївний розподіл повідомлень із загальної черги по вільному пулу потоків руйнує причинно-наслідковий порядок операцій.
 
-![Багатониткова обробка в Endpoint: збереження послідовності за Partition Key](/book/programming/distributed-systems/message-endpoint/img/endpoint-threading-ordering.svg)
+![Багатониткова обробка в Endpoint: збереження послідовності за Partition Key](img/endpoint-threading-ordering.svg)
 *Наївний спільний пул спричиняє обгін подій одного клієнта швидшими потоками. Диспетчеризація з прив'язкою до ключа агрегата (Partition Affinity) гарантує строгий порядок FIFO для кожної сутності при збереженні високої паралельності.*
 
 ### Анатомія гонки стану за відсутності секціонування
@@ -252,7 +252,7 @@ idx = hash(partition_key) % M
 
 Кінцева точка відповідає за узгодження статусів обробки між брокером та постійним сховищем даних застосунку.
 
-![Транзакційні межі Message Endpoint: Outbox і Inbox патерни](/book/programming/distributed-systems/message-endpoint/img/transactional-outbox-inbox.svg)
+![Транзакційні межі Message Endpoint: Outbox і Inbox патерни](img/transactional-outbox-inbox.svg)
 *Комбінація Transactional Outbox на боці відправника та Idempotent Inbox на боці отримувача усуває проблему подвійного запису та забезпечує семантику Effectively-Once на рівні бізнес-логіки.*
 
 ### Режими підтвердження (Auto-ACK проти Manual-ACK)

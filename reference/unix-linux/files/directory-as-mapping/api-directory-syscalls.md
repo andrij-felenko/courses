@@ -105,7 +105,7 @@ struct linux_dirent64 {
 };
 ```
 
-![Смуга буфера з трьох записів різної довжини й незаповненим хвостом; нижче один запис розкладено на поля d_ino, d_off, d_reclen, d_type, d_name і вирівнювання](/reference/unix-linux/files/directory-as-mapping/img/getdents-buffer.svg)
+![Смуга буфера з трьох записів різної довжини й незаповненим хвостом; нижче один запис розкладено на поля d_ino, d_off, d_reclen, d_type, d_name і вирівнювання](img/getdents-buffer.svg)
 
 *Записи лежать упритул і мають різну довжину, тому крок до наступного бере лише `d_reclen`.*
 

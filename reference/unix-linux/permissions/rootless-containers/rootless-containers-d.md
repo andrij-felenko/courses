@@ -10,7 +10,7 @@
 
 Для реалізації безкорінного запуску недостатньо лише прибрати вимогу `sudo`. Потрібно повністю перевизначити взаємодію з підсистемами ядра Linux: трансляцією ідентифікаторів користувачів у віртуальній файловій системі VFS (від англ. *Virtual File System*), об'єднаними файловими системами, мережевими інтерфейсами та контролерами ресурсів cgroups.
 
-![Повний стек rootless-контейнеризації](/reference/unix-linux/permissions/rootless-containers/img/rootless-stack-architecture.svg)
+![Повний стек rootless-контейнеризації](img/rootless-stack-architecture.svg)
 *Взаємодія компонентів rootless-стека: Cgroups v2, FUSE/OverlayFS, slirp4netns/pasta та OCI Runtime.*
 
 ## Архітектурний зсув: від суперкористувача до непривілейованих просторів
@@ -36,7 +36,7 @@ unshare --user --map-root-user /bin/bash
 
 При створенні нового user namespace ядро надає процесу повний набір привілеїв *capabilities* (включно з `CAP_SYS_ADMIN`, `CAP_NET_ADMIN`, `CAP_DAC_OVERRIDE`), але **суворо обмежених цим конкретним простором імен**. Процес може виконувати конфігураційні дії щодо ресурсів, які належать цьому простору, але не має жодних прав над глобальними ресурсами хоста.
 
-![Архітектура відображення ідентифікаторів у rootless-контейнерах](/reference/unix-linux/permissions/rootless-containers/img/rootless-id-mapping.svg)
+![Архітектура відображення ідентифікаторів у rootless-контейнерах](img/rootless-id-mapping.svg)
 *Відображення UID хоста на внутрішні UID контейнера за допомогою subuid та newuidmap.*
 
 Трансляція ідентифікаторів між хостом та контейнером задається у процедурній файловій системі через файли `/proc/[pid]/uid_map` та `/proc/[pid]/gid_map`. 

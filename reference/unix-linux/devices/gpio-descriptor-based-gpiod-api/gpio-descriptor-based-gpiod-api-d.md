@@ -52,7 +52,7 @@
 
 Завдяки цьому драйвер периферійного пристрою повністю звільняється від необхідності маніпулювати регістрами `pinctrl` напряму.
 
-![Архітектура ядерного gpiod](/reference/unix-linux/devices/gpio-descriptor-based-gpiod-api/img/gpiod-architecture.svg)
+![Архітектура ядерного gpiod](img/gpiod-architecture.svg)
 *Архітектура ядерного дескрипторного API gpiod: зв'язок Device Tree, підсистеми gpiolib та драйвера пристрою.*
 
 ---
@@ -166,7 +166,7 @@ int active = gpiod_get_value(desc);
 - Якщо лінія позначена як `GPIO_ACTIVE_HIGH` (`FLAG_ACTIVE_LOW = 0`), виклик `gpiod_set_value(desc, 1)` виставляє на виводі напругу **HIGH (3.3V)** (`1 ⊕ 0 = 1`).
 - Якщо лінія позначена як `GPIO_ACTIVE_LOW` (`FLAG_ACTIVE_LOW = 1`), той самий виклик `gpiod_set_value(desc, 1)` виставляє на виводі напругу **LOW (0V)** (`1 ⊕ 1 = 0`).
 
-![Логічна інверсія сигналу](/reference/unix-linux/devices/gpio-descriptor-based-gpiod-api/img/gpiod-value-inversion.svg)
+![Логічна інверсія сигналу](img/gpiod-value-inversion.svg)
 *Трансляція логічного стану лінії gpiod у фізичний електричний рівень з урахуванням прапора ACTIVE_LOW.*
 
 ### 3.2. Емуляція відкритого стоку (Software Open Drain)
@@ -225,7 +225,7 @@ void gpiod_set_value_cansleep(struct gpio_desc *desc, int value);
 int gpiod_get_value_cansleep(const struct gpio_desc *desc);
 ```
 
-![Контексти виконання gpiod](/reference/unix-linux/devices/gpio-descriptor-based-gpiod-api/img/gpiod-cansleep-context.svg)
+![Контексти виконання gpiod](img/gpiod-cansleep-context.svg)
 *Розділення контекстів виконання: атомарний MMIO-доступ та затримки sleep-контексту на шинах I2C/SPI.*
 
 ### 4.3. Суворі правила виклику та перевірки ядра

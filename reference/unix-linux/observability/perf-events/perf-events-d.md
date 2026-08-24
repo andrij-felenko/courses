@@ -137,7 +137,7 @@ namespace sys {
 4. **Dynamic Probes (`PERF_TYPE_KPROBE` / `PERF_TYPE_UPROBE`)**: Динамічні точки перехоплення у будь-якій інструкції ядра чи користувацьких ELF-бібліотек.
 5. **Hardware Breakpoints (`PERF_TYPE_BREAKPOINT`)**: Точки зупинки за допомогою регістрів `DR0..DR7` на читання/запис/виконання конкретної адреси пам'яті.
 
-![Архітектурний потік подій perf](/reference/unix-linux/observability/perf-events/img/perf-pmu-kernel-flow.svg)
+![Архітектурний потік подій perf](img/perf-pmu-kernel-flow.svg)
 *Архітектурна схема проходження подій від апаратних регістрів PMU через системний виклик perf_event_open та NMI-обробник у кільцевий буфер mmap користувацького простору.*
 
 ### Життєвий цикл подій та контекстне перемикання у ядрі
@@ -195,7 +195,7 @@ Raw_Count_Scaled = Raw_Count · (time_enabled / time_running)
 4. Записує цю структуру у безкопіювальний кільцевий буфер.
 5. Перезавантажує лічильник PMU від'ємним значенням `-sample_period` і повертає керування програмі.
 
-![Структура пам'яті mmap кільцевого буфера](/reference/unix-linux/observability/perf-events/img/perf-ring-buffer-layout.svg)
+![Структура пам'яті mmap кільцевого буфера](img/perf-ring-buffer-layout.svg)
 *Розкладка сторінки управління struct perf_event_mmap_page та кільцевого буфера вибірок із курсорами data_head і data_tail.*
 
 ### Синхронізація data_head та data_tail без блокувань
@@ -266,7 +266,7 @@ std::atomic_store_explicit(
 
 Для знаходження першопричини під час кожної вибірки `perf` збирає повний ланцюжок викликів (Callchain / Call Stack).
 
-![Методи відновлення стеку викликів](/reference/unix-linux/observability/perf-events/img/perf-stack-unwinding-methods.svg)
+![Методи відновлення стеку викликів](img/perf-stack-unwinding-methods.svg)
 *Порівняльний аналіз трьох основних механізмів відновлення стеку: Frame Pointers, DWARF та LBR.*
 
 Існує чотири основні технічні методи відновлення стеку:

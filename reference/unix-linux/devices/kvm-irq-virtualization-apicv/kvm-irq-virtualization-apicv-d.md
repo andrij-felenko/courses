@@ -71,7 +71,7 @@
 
 Розв'язання проблеми продуктивності відбувалося поетапно — від оптимізації програмних меж між ядром хоста та процесом емулятора до побудови асинхронних каналів передачі подій.
 
-![Еволюція доставки переривань у KVM: від емуляції до прямого обладнання](/reference/unix-linux/devices/kvm-irq-virtualization-apicv/img/apic-virtualization-evolution.svg)
+![Еволюція доставки переривань у KVM: від емуляції до прямого обладнання](img/apic-virtualization-evolution.svg)
 *Еволюція архітектури доставки переривань: від подвійного перемикання контексту в просторі користувача до повної апаратної прямої доставки без виходу в гіпервізор.*
 
 ### Етап 1: Емуляція в просторі користувача (Userspace QEMU)
@@ -134,7 +134,7 @@
 
 Розв'язання цієї проблеми зажадало радикальної модернізації мікроархітектури самого кремнію процесора: технологій **Intel APICv (APIC-virtualization)** та **AMD AVIC (Advanced Virtual Interrupt Controller)**.
 
-![Апаратні структури керування APICv у VMCS та пам'яті хоста](/reference/unix-linux/devices/kvm-irq-virtualization-apicv/img/apicv-vmcs-structures.svg)
+![Апаратні структури керування APICv у VMCS та пам'яті хоста](img/apicv-vmcs-structures.svg)
 *Співвідношення бітів керування VMCS, сторінки доступу APIC-access, тіньової пам'яті Virtual-APIC Page та дескриптора Posted Interrupts.*
 
 ### Керуючі поля структури VMCS в Intel VT-x
@@ -245,7 +245,7 @@ mov eax, [0xFEE00080]  (Читання TPR)
 
 Розв'язанням цієї проблеми стала технологія **Intel VT-d Posted Interrupts (PI)**, що об'єднала можливості процесора (APICv) та контролера введення-виведення (IOMMU).
 
-![Апаратний конвеєр прямої доставки переривань VT-d Posted Interrupts](/reference/unix-linux/devices/kvm-irq-virtualization-apicv/img/posted-interrupt-hardware-flow.svg)
+![Апаратний конвеєр прямої доставки переривань VT-d Posted Interrupts](img/posted-interrupt-hardware-flow.svg)
 *Конвеєр прямої доставки переривань: від транзакції MSI-X на шині PCIe через IOMMU безпосередньо у віртуальне ядро vCPU з нульовим VM-Exit.*
 
 ### Структура дескриптора Posted-Interrupt Descriptor (PIR)

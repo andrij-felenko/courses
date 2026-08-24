@@ -96,7 +96,7 @@ add_subdirectory(third_party/fmt SYSTEM)
 
 Слово `SYSTEM` автоматично позначає всі відкриті каталоги заголовків (`INTERFACE_INCLUDE_DIRECTORIES`), що експортуються цілями цього підпроєкту, як системні. Компілятор викликатиметься з прапорцем `-isystem` замість `-I` (або `/external:I` у MSVC), що наказує препроцесору повністю придушувати діагностичні попередження, які походять із цих сторонніх файлів, зберігаючи найсуворіший рівень перевірки для ваших власних вихідних текстів.
 
-![Ізоляція підпроєкту у спільному графі цілей](/reference/build-systems/cmake/fetchcontent-subprojects/img/target-graph-isolation.svg)
+![Ізоляція підпроєкту у спільному графі цілей](img/target-graph-isolation.svg)
 *Три лінії захисту підпроєкту: псевдонім із подвійною двокрапкою запобігає колізіям імен, EXCLUDE_FROM_ALL виключає зайві тести, а SYSTEM придушує чужі попередження компілятора.*
 
 ## Еволюційний глухий кут: ExternalProject і бар'єр часу збірки
@@ -128,7 +128,7 @@ ExternalProject_Add(fmt_external
 
 Для обходу цих обмежень створювався складний патерн **Superbuild**: кореневий проєкт нічого не збирав сам, а складався виключно з викликів `ExternalProject_Add` для кожної сторонньої бібліотеки та фінального виклику `ExternalProject_Add` для власного додатку. Це перетворювало процес налагодження на багаторівневий лабіринт вкладених запусків CMake, де інкрементальна збірка втрачала точність, а паралелізм компіляції обмежувався штучними бар'єрами між зовнішніми кроками.
 
-![Порівняння ExternalProject та FetchContent](/reference/build-systems/cmake/fetchcontent-subprojects/img/externalproject-vs-fetchcontent.svg)
+![Порівняння ExternalProject та FetchContent](img/externalproject-vs-fetchcontent.svg)
 *ExternalProject виконує завантаження та збірку в окремому процесі під час build time, тоді як FetchContent отримує джерела під час конфігурації й вбудовує їхні цілі в єдиний граф проєкту.*
 
 ## Модуль FetchContent: завантаження під час конфігурації
@@ -206,7 +206,7 @@ endif()
 
 Сьогодні цей синтаксис вважається застарілим і потрібен лише у рідкісних випадках, коли сторонній репозиторій не має власного `CMakeLists.txt` (наприклад, чистий набір заголовків або C-файлів), і ви хочете вручну створити інтерфейсну бібліотеку `add_library(mylib INTERFACE)` над розпакованим вмістом `${fmt_SOURCE_DIR}`, не викликаючи `add_subdirectory()`. Для всіх стандартних випадків слід використовувати виключно `FetchContent_MakeAvailable`.
 
-![Життєвий цикл FetchContent](/reference/build-systems/cmake/fetchcontent-subprojects/img/fetchcontent-lifecycle.svg)
+![Життєвий цикл FetchContent](img/fetchcontent-lifecycle.svg)
 *Чотири кроки FetchContent: від декларації джерела й запуску внутрішнього мініпроєкту subbuild до виклику add_subdirectory і появи цілей у спільній моделі.*
 
 ## Джерела та протоколи: Git, архіви та локальні каталоги
@@ -347,7 +347,7 @@ FetchContent_MakeAvailable(fmt)
 
 У CMake 3.24 з'явився ще глибший рівень інтеграції — механізм провайдерів залежностей (`cmake_language(SET_DEPENDENCY_PROVIDER ...)`). Провайдер дозволяє зовнішнім інструментам (наприклад, пакетному менеджеру vcpkg або Conan) перехоплювати всі виклики `FetchContent_MakeAvailable` та `find_package` ще до того, як CMake почне виконувати власну логіку. Провайдер аналізує ім'я запитаної бібліотеки і може миттєво надати готову бінарну збірку замість компіляції джерел, зберігаючи синтаксис файлу `CMakeLists.txt` незмінним.
 
-![Схема взаємодії FetchContent із find_package](/reference/build-systems/cmake/fetchcontent-subprojects/img/find-package-forwarding.svg)
+![Схема взаємодії FetchContent із find_package](img/find-package-forwarding.svg)
 *Уніфікація джерел у CMake 3.24+: за наявності системного пакунка FetchContent використовує готову імпортовану ціль, а за його відсутності — автоматично завантажує та збирає вихідний код.*
 
 ## Продуктивність, кешування та життєвий цикл файлів

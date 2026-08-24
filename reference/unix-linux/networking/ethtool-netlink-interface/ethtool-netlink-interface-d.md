@@ -55,7 +55,7 @@
 
 Підсистема **ethtool Netlink** вирішує проблеми `ioctl` шляхом інтеграції в універсальну шину повідомлень **Generic Netlink** (надбудова над сокетами `AF_NETLINK`).
 
-![Еволюція архітектури ethtool: ioctl vs Generic Netlink](/reference/unix-linux/networking/ethtool-netlink-interface/img/ethtool-arch.svg)
+![Еволюція архітектури ethtool: ioctl vs Generic Netlink](img/ethtool-arch.svg)
 *Еволюція архітектури керування мережевими пристроями у ядрі Linux: від блокуючого ioctl до подійно-орієнтованого Generic Netlink*
 
 Замість використання фіксованих C-структур, ethtool Netlink описує всі дані у форматі **NLA (Netlink Attributes)**, який реалізує схему кодування **TLV (Type-Length-Value)**.
@@ -64,7 +64,7 @@
 
 Кожне повідомлення, що передається через сокет Netlink, складається з послідовності заголовків та вкладених атрибутів.
 
-![Анатомія повідомлення ethtool Generic Netlink](/reference/unix-linux/networking/ethtool-netlink-interface/img/netlink-msg-structure.svg)
+![Анатомія повідомлення ethtool Generic Netlink](img/netlink-msg-structure.svg)
 *Анатомія кадру ethtool Generic Netlink: ієрархія заголовків та NLA-атрибутів*
 
 Уся структура кадру вирівнюється на межу 4 байтів:

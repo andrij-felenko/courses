@@ -112,7 +112,7 @@ extern initcall_entry_t __con_initcall_start[], __con_initcall_end[];
 
 Символ `__initcallrootfs_start` в образі теж є, бо `INIT_CALLS_LEVEL(rootfs)` його емітує. Але масив `initcall_levels[]`, за яким ходить цикл проходів, його не містить — тож діапазон проходу `fs` тягнеться аж до `__initcall6_start` і накриває записи `rootfs` собою.
 
-![Символи-межі в порядку зростання адрес, діапазони проходів навпроти них і окремий масив консолей](/reference/unix-linux/boot-init/kernel-initcalls/img/initcall-boundaries.svg)
+![Символи-межі в порядку зростання адрес, діапазони проходів навпроти них і окремий масив консолей](img/initcall-boundaries.svg)
 
 *Записи rootfs лежать усередині діапазону проходу «fs» не за домовленістю, а буквально: наступна межа стоїть після них.*
 

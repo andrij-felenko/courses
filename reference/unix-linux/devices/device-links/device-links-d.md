@@ -37,7 +37,7 @@
 
 ## Графічна схема
 
-![Дерево пристроїв і ребро Device Link поверх нього](/reference/unix-linux/devices/device-links/img/device-links.svg)
+![Дерево пристроїв і ребро Device Link поверх нього](img/device-links.svg)
 
 На цій схемі `GPU` є дочірнім пристроєм для `PCI Bus`, а `IOMMU` — для `Platform Bus`. Вони лежать у різних гілках дерева. Однак `GPU` залежить від `IOMMU`. Ребро "Device Link" гарантує, що `IOMMU` буде активним, поки активний `GPU`.
 

@@ -61,7 +61,7 @@ S = A XOR B XOR C_in
 C_out = (A AND B) OR (C_in AND (A XOR B))
 
 Ось як ця схема виглядає графічно:
-![Логічна схема повного двійкового суматора Full Adder](/book/math/number-theory/binary-arithmetic/img/fig-full-adder-logic.svg)
+![Логічна схема повного двійкового суматора Full Adder](img/fig-full-adder-logic.svg)
 
 Маючи повний суматор, ми отримали універсальний будівельний блок. У ньому є три входи (A, B, C_in) і два виходи (S, C_out).
 

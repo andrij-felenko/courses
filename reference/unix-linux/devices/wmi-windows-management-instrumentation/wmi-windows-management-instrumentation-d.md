@@ -24,7 +24,7 @@
 
 Хоча у назві технології присутній абревіатурний елемент "WMI" (Windows Management Instrumentation), сама специфікація мапера є чисто апаратною специфікацією ACPI. Операційна система Linux реалізує підтримку цього стандарту у ядрі через підсистему `wmi.ko` (`drivers/platform/x86/wmi.c`). Драйвер парсить ACPI-пристрій `PNP0C14`, будує внутрішню шину ядра `wmi_bus_type` і транслює абстрактні GUID на стандартні об'єкти Linux Device Model.
 
-![Архітектура підсистеми WMI у ядрі Linux](/reference/unix-linux/devices/wmi-windows-management-instrumentation/img/wmi-architecture.svg)
+![Архітектура підсистеми WMI у ядрі Linux](img/wmi-architecture.svg)
 *Архітектурні шари підсистеми ACPI-WMI у ядрі Linux: від ACPI-пристроїв до атрибутів sysfs та підсистеми input.*
 
 ## Будова ACPI-пристрою PNP0C14 та таблиця _WDG
@@ -129,7 +129,7 @@ MODULE_DEVICE_TABLE(wmi, asus_wmi_id_table);
 
 Повний ланцюг обробки апаратної події від фізичного натискання клавіші до простору користувача простежується за такими етапами:
 
-![Життєвий цикл події WMI](/reference/unix-linux/devices/wmi-windows-management-instrumentation/img/wmi-event-sequence.svg)
+![Життєвий цикл події WMI](img/wmi-event-sequence.svg)
 *Послідовність обробки апаратного сповіщення: від апаратного переривання EC SCI до підсистеми evdev.*
 
 1. **Фізичне натискання:** Користувач натискає комбінацію Fn+F5 для збільшення яскравості екрана.

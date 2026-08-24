@@ -355,7 +355,7 @@ kretprobe:security_socket_bind {
 
 Оцінка продуктивності перевірки правил Landlock показує, що для мережевих портів витрати часу становлять менше `O(1)`, оскільки перевірка зводиться до швидкого пошуку порту у локальному дереві правил активного домену.
 
-![Еволюція Landlock ABI](/reference/unix-linux/permissions/landlock-abi-v4-v5-features/img/landlock-evolution.svg)
+![Еволюція Landlock ABI](img/landlock-evolution.svg)
 *Рис. 1 — Еволюційне розширення точок перехоплення та можливостей Landlock LSM від ABI v1 до ABI v5.*
 
 ## Підсумок

@@ -145,7 +145,7 @@ bool resolve_host_cpp(std::string_view hostname) {
 
 NSS — це модульний інфраструктурний шар, який дозволяє відокремити логіку системних додатків від конфігурації джерел даних. Конфігурація підсистеми зберігається у файлі `/etc/nsswitch.conf`. Історичний шлях розвитку NSS від файлу `HOSTS.TXT` до модульної архітектури детально викладено у матеріалі [📜 Від HOSTS.TXT до systemd-resolved: еволюція розв'язання імен у Unix](book:unix-linux/name-resolution-path/hist-hosts-to-systemd-resolved.md).
 
-![Схема конвеєра розв'язання імені](/reference/unix-linux/networking/name-resolution-path/img/name-resolution-flow.svg)
+![Схема конвеєра розв'язання імені](img/name-resolution-flow.svg)
 *Послідовність обробки запиту розв'язання імені в Linux: від виклику API додатком до NSS-модулів та мережевого DNS.*
 
 ### Структура файла `/etc/nsswitch.conf` та порядок опитування
@@ -243,7 +243,7 @@ options ndots:5
 
 У сучасних дистрибутивах Linux стандартом керування мережевими іменами став демон `systemd-resolved`. Він розв'язує проблему конфліктів між кількома мережевими інтерфейсами (Wi-Fi, Ethernet, VPN, Docker bridges).
 
-![Архітектура daemon systemd-resolved](/reference/unix-linux/networking/name-resolution-path/img/systemd-resolved-arch.svg)
+![Архітектура daemon systemd-resolved](img/systemd-resolved-arch.svg)
 *Внутрішня архітектура systemd-resolved: вхідні інтерфейси (Stub і D-Bus), ядро маршрутизації доменів та вихідні мережеві протоколи.*
 
 ### Двоканальна архітектура входу

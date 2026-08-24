@@ -22,7 +22,7 @@
 
 Але головне — порівняти доданки самого кристала залежно від режиму:
 
-![Лог-шкала струму: сплячий МК поряд із давачами у sleep і в normal-режимі.](/book/programming/embedded-systems/current-paths/img/sensor-standby-map.svg)
+![Лог-шкала струму: сплячий МК поряд із давачами у sleep і в normal-режимі.](img/sensor-standby-map.svg)
 
 *Карта струму, продовжена на давачі: сплячий МК поряд із давачем у sleep і в normal-режимі. Один забутий у normal давач перевершує весь сплячий чип.*
 
@@ -69,7 +69,7 @@ INT ──→ GPIO_INT (вихід open-drain) [опціонально]
 
 Приспати = один байт по I²C. Діаграма нижче показує переходи між режимами й струм у кожному стані:
 
-![Автомат режимів давача: sleep, forced, normal — і струм кожного стану.](/book/programming/embedded-systems/current-paths/img/sensor-mode-states.svg)
+![Автомат режимів давача: sleep, forced, normal — і струм кожного стану.](img/sensor-mode-states.svg)
 
 *Режими давача й струм кожного стану; стрілки підписані тим, що пишемо в регістр. Петля forced → sleep — основа скважності.*
 

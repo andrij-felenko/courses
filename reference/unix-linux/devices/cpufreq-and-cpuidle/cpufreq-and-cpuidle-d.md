@@ -24,7 +24,7 @@
 
 Загальна архітектура підсистеми cpufreq відображає взаємодію між користувацьким простором, планувальником, регуляторами та апаратними регістрами:
 
-![Архітектура підсистеми cpufreq у Linux](/reference/unix-linux/devices/cpufreq-and-cpuidle/img/cpufreq-architecture.svg)
+![Архітектура підсистеми cpufreq у Linux](img/cpufreq-architecture.svg)
 *Взаємодія між шарами користувацького простору, підсистемою cpufreq у ядрі Linux та апаратними MSR-регістрами процесора.*
 
 ## 2. Підсистема cpufreq: Динамічне управління частотою та напругою (DVFS)
@@ -122,7 +122,7 @@ do_idle()                     # Локальні переривання вже �
 
 C-стани утворюють сувору ієрархію — від найлегших, із мікросекундним виходом, до найглибших:
 
-![Ієрархія станів простою CPU (C-states та PC-states)](/reference/unix-linux/devices/cpufreq-and-cpuidle/img/cpuidle-cstates-hierarchy.svg)
+![Ієрархія станів простою CPU (C-states та PC-states)](img/cpuidle-cstates-hierarchy.svg)
 *Ієрархічний перехід від активного стану C0 до глибоких станів простою C6 та комплексу Package C-states.*
 
 * **C0 (Active)**: Ядро активно виконує інструкції. Застосовуються регулятори cpufreq та P-стани.
@@ -135,7 +135,7 @@ C-стани утворюють сувору ієрархію — від най�
 
 Кожен перехід у C-стан супроводжується витратами енергії на збереження та відновлення контексту (`E_entry` та `E_exit`).
 
-![Енергетичний баланс та Target Residency при переході в C-стан](/reference/unix-linux/devices/cpufreq-and-cpuidle/img/cstate-residency-energy.svg)
+![Енергетичний баланс та Target Residency при переході в C-стан](img/cstate-residency-energy.svg)
 *Графік залежності споживаної потужності від часу при переході в C-стан. Заштрихована зелена зона показує реальне збереження енергії лише після перевищення Target Residency.*
 
 Критерій доцільності переходу у глибокий стан визначається показником **Target Residency (цільовий час перебування)**:
@@ -161,7 +161,7 @@ T_residency = (E_entry + E_exit) / (P_active - P_idle)
 
 Для розв'язання цієї проблеми в ядро Linux було впроваджено парадигму **Energy-Aware Scheduling (EAS)**.
 
-![Модель Energy-Aware Scheduling (EAS) та завантаження ядер](/reference/unix-linux/devices/cpufreq-and-cpuidle/img/eas-energy-model.svg)
+![Модель Energy-Aware Scheduling (EAS) та завантаження ядер](img/eas-energy-model.svg)
 *Схема роботи планувальника EAS з використанням Енергетичної Моделі (EM) для вибору між кластерами LITTLE та big.*
 
 EAS спирається на **Енергетичну Модель (Energy Model, EM)** платформи, яка містить таблиці співвідношення продуктивності (capacity) та споживаної потужності для кожної частоти кожного кластера ядер.

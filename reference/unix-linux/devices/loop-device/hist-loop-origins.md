@@ -42,7 +42,7 @@ ESSIV:       IV = E(SHA(ключ), номер_сектора)
 
 «Якнайшвидше» розтягнулося на вісімнадцять років, і розтягнулося з поважної причини: заміна була сумісною, тобто нікому нічого не ламало, а старий код нікому не заважав — класичний рецепт того, як мертва річ живе в дереві десятиліттями. Спершу відрізали користувацький бік: `util-linux` 2.23 (2013) оголосив, що «cryptoloop support in the commands mount(8) and losetup(8) has been REMOVED», забравши прапорці `-e`/`-E` в `losetup` і опцію `encryption=` у `mount`. Потім, у серпні 2021-го, у драйвер додали гучне попередження при завантаженні, а `Kconfig` 5.15 уже прямо назвав дату страти: «cryptoloop support will be removed in Linux 5.16». У жовтні 2021-го Крістоф Гельвіг (Christoph Hellwig) вилучив і сам файл — комітом «block: remove support for cryptoloop and the xor transfer», який приїхав у 5.16 на початку 2022 року.
 
-![Часова вісь життя cryptoloop: поява над Crypto API, dm-crypt у 2.6.4, вирізання з util-linux 2.23, попередження у 5.15 і вилучення у 5.16](/reference/unix-linux/devices/loop-device/img/cryptoloop-timeline.svg)
+![Часова вісь життя cryptoloop: поява над Crypto API, dm-crypt у 2.6.4, вирізання з util-linux 2.23, попередження у 5.15 і вилучення у 5.16](img/cryptoloop-timeline.svg)
 
 *Порядок вимирання типовий: спершу зникає спосіб цим скористатися, потім — код.*
 

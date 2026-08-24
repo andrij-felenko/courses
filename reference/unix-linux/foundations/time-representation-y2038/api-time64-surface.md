@@ -106,7 +106,7 @@ struct semid64_ds {
 };
 ```
 
-![Чотири поля struct semid64_ds у пам'яті: sem_otime і sem_otime_high тримають молодші й старші половини однієї 64-бітної позначки, так само sem_ctime і sem_ctime_high](/reference/unix-linux/foundations/time-representation-y2038/img/ipc-time-split.svg)
+![Чотири поля struct semid64_ds у пам'яті: sem_otime і sem_otime_high тримають молодші й старші половини однієї 64-бітної позначки, так само sem_ctime і sem_ctime_high](img/ipc-time-split.svg)
 
 *Розмір структури не змінився, номер виклику не змінився — змінилося лише значення двох полів, які раніше нічого не означали.*
 

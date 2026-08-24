@@ -20,7 +20,7 @@
 
 Фундаментом віртуалізації блокових пристроїв у Linux є модуль ядра `dm-mod` (англ. *Device Mapper*). Архітектурно Device Mapper побудовано на трьох компонентах: **символьному вузлі керування**, **ядерній структурі трансляції секторів** та **цільових драйверах (targets)**.
 
-![Архітектура Device Mapper та шари абстракції блокового пристрою](/reference/unix-linux/files/device-mapper-dm-crypt/img/dm-architecture.svg)
+![Архітектура Device Mapper та шари абстракції блокового пристрою](img/dm-architecture.svg)
 
 *Простір користувача надсилає конфігурацію через ioctl-виклики до вузла /dev/mapper/control. Модуль ядра dm-mod тримає таблиці відображення й цільові драйвери (linear, crypt, snapshot, striped) і публікує назовні віртуальні вузли /dev/dm-N з іменами в каталозі /dev/mapper. Сам шлях I/O-запиту показано далі окремою схемою.*
 
@@ -79,7 +79,7 @@
 
 Офіційним стандартом для шифрування дисків є режим **AES-XTS** (XEX-based Tweaked-codebook mode with ciphertext Stealing, IEEE 1619).
 
-![Конвеєр обробки I/O запиту в dm-crypt та AES-XTS шифрування](/reference/unix-linux/files/device-mapper-dm-crypt/img/dm-mapping-flow.svg)
+![Конвеєр обробки I/O запиту в dm-crypt та AES-XTS шифрування](img/dm-mapping-flow.svg)
 
 *I/O запит bio перехоплює target-драйвер dm-crypt: він обчислює вектор ініціалізації IV за номером сектора й клонує bio, ставить роботу в чергу kcryptd, звідки та йде в Crypto API на апаратне шифрування AES-NI, і вже зашифрований bio передається фізичному драйверу.*
 
@@ -110,7 +110,7 @@
 
 Для розв'язання цієї проблеми було розроблено стандарт **LUKS (Linux Unified Key Setup)**.
 
-![Структура дискового заголовку та слотів ключів LUKS2](/reference/unix-linux/files/device-mapper-dm-crypt/img/luks-structure.svg)
+![Структура дискового заголовку та слотів ключів LUKS2](img/luks-structure.svg)
 
 *Заголовок LUKS2 розташовується на початку блокового пристрою. Він містить метадані JSON, параметри KDF та слоти ключів. Введений пароль не зберігається ніде: функція Argon2id перетворює його на KEK, а вже KEK розшифровує з відповідного слота Master Key (Volume Key), яким зашифровано payload.*
 

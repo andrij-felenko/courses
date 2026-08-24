@@ -44,7 +44,7 @@ def assertEqual(first, second, msg=None):
 
 Наступний крок зробив **Стів Перселл** (англ. *Steve Purcell*), який наприкінці 1990-х переніс JUnit у Python під назвою **PyUnit**; перший випуск — кінець 1999-го. Далі — вирішальна подія: **23 березня 2001 року**, у день виходу **Python 2.1**, PyUnit увійшов у стандартну бібліотеку під іменем `unittest`. *Статус: задокументовано — новина цією датою висить на сайті PyUnit, поява `unittest` зафіксована в «What's New in Python 2.1».* Разом із каркасом у стандартну бібліотеку в'їхали й `assertEqual` з ріднею — успадковані з мови, де вони були неминучі.
 
-![Дві доріжки родоводу: угорі лінія xUnit від SUnit через JUnit і PyUnit до unittest у стандартній бібліотеці Python 2.1, унизу лінія py.test від тестів PyPy через EuroPython 2004 і pytest 2.0 до перепису AST у pytest 2.1](/book/programming/software-engineering/python-test-automation/img/assert-lineage.svg)
+![Дві доріжки родоводу: угорі лінія xUnit від SUnit через JUnit і PyUnit до unittest у стандартній бібліотеці Python 2.1, унизу лінія py.test від тестів PyPy через EuroPython 2004 і pytest 2.0 до перепису AST у pytest 2.1](img/assert-lineage.svg)
 
 *Верхня доріжка везе обмеження Java до стандартної бібліотеки Python; нижня — знімає його, зазирнувши в код тесту до запуску. Дати SUnit джерела подають по-різному.*
 

@@ -19,7 +19,7 @@
 
 Об'єкт `std::exception` у більшості сучасних реалізацій стандартних бібліотек (GCC libstdc++, LLVM libc++, MSVC STL) не містить власних користувацьких полів даних, окрім вказівника на таблицю віртуальних функцій (`vptr`).
 
-![Ієрархія стандартних винятків C++](/reference/cpp-standards/library/std-exception-hierarchy/img/std-exception-tree.svg)
+![Ієрархія стандартних винятків C++](img/std-exception-tree.svg)
 *Графічне зображення ієрархії стандартних винятків C++: базовий клас std::exception, гілки logic_error та runtime_error, а також системні та середовищні винятки.*
 
 На 64-бітних архітектурах (x86-64, AArch64) розмір базового об'єкта визначається виключно розміром вказівника `vptr`: `sizeof(std::exception)` становить рівно 8 байтів, а вирівнювання `alignof(std::exception)` дорівнює 8 байтам. Вказана компактність гарантує, що створення базового екземпляра винятку має мінімальні накладні витрати на виділення пам'яті та кешування у процесорних регістрах.
@@ -140,7 +140,7 @@ new T[N] -> operator new() -> malloc() -> brk() / mmap() -> ENOMEM -> std::bad_a
 
 Процес обробки винятку в C++ складається з трьох послідовних фаз: створення об'єкта винятку в спеціалізованій зоні пам'яті (Exception Handling Heap), розгортання стеку (stack unwinding) з послідовним викликом деструкторів локальних змінних, та пошук відповідного блоку `catch`.
 
-![Поліморфне перехоплення винятків та Slicing](/reference/cpp-standards/library/std-exception-hierarchy/img/exception-dispatch-flow.svg)
+![Поліморфне перехоплення винятків та Slicing](img/exception-dispatch-flow.svg)
 *Схема проходження типу винятку крізь каскад catch-блоків: порівняння безпечного поліморфного перехоплення за посиланням та деструктивного зрізання об'єкта (slicing).*
 
 ### Внутрішній механізм DWARF .eh_frame та таблиці LSDA
@@ -260,7 +260,7 @@ void execute_safe_operation_c(void) {
 
 Стандарт C++11 розв'язав цю проблему через запровадження винятку `std::system_error`, який поєднує поліморфізм C++ із детермінованими кодами помилок операційної системи.
 
-![Макет пам'яті std::system_error](/reference/cpp-standards/library/std-exception-hierarchy/img/exception-memory-layout.svg)
+![Макет пам'яті std::system_error](img/exception-memory-layout.svg)
 *Анатомія std::system_error: поєднання коду помилки, статичної категорії та динамічно сформованого повідомлення what().*
 
 ### Структура std::error_code та категорій помилок

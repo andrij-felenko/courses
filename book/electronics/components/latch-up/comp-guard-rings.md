@@ -16,7 +16,7 @@ Minority Ring (II)   N-Well                p⁺           GND            пер�
 Minority Ring (II)   P-Substrate           n⁺           VDD            перехоплення інжектованих електронів
 ```
 
-![Топологічна структура охоронних кілець та tap-комірок](/book/electronics/components/latch-up/img/guard-ring-topology.svg)
+![Топологічна структура охоронних кілець та tap-комірок](img/guard-ring-topology.svg)
 *Конструкція топологічного захисту: подвійні охоронні кільця для PMOS у кишені та NMOS у підкладці перехоплюють носії заряду та шунтують паразитні опори.*
 
 ### Кільця збору основних носіїв (Majority Carrier Guard Rings)

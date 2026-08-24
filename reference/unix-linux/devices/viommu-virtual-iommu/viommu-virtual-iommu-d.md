@@ -294,5 +294,5 @@ ls -la /sys/bus/pci/devices/0000:03:00.0/iommu_group/devices/
    - *Причина:* Використання Shadow IOMMU замість апаратної двостадійної трансляції через велику кількість VM-exits.
    - *Рішення:* Перейти на процесор та IOMMU з підтримкою Hardware Nested Translation або використовувати Huge Pages для зменшення кількості записів сторінок.
 
-![Двостадійна трансляція DMA (Hardware Nested Translation) у vIOMMU](/reference/unix-linux/devices/viommu-virtual-iommu/img/viommu-nested-translation.svg)
+![Двостадійна трансляція DMA (Hardware Nested Translation) у vIOMMU](img/viommu-nested-translation.svg)
 *Двостадійна трансляція адрес (Two-Stage Translation) в апаратному IOMMU: Стадія 1 (S1) виконує перетворення L2 GPA в L1 GPA під контролем гостя L1, а Стадія 2 (S2) перетворює L1 GPA в HPA під контролем хоста L0.*

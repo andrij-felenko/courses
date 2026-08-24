@@ -63,7 +63,7 @@
 
 Детальний історичний контекст зламу Шакіда–Вула та подальших криптографічних ревізій висвітлено у вставці [📜 Еволюція криптографічного захисту Bluetooth: від PIN-кодів до еліптичних кривих](book:communications/bt-pairing-security/hist-pairing-evolution.md).
 
-![Архітектурне порівняння Legacy Pairing та Secure Connections](/book/communications/networks/bt-pairing-security/img/legacy-vs-secure.svg)
+![Архітектурне порівняння Legacy Pairing та Secure Connections](img/legacy-vs-secure.svg)
 *Архітектурне порівняння застарілого Legacy Pairing на базі симетричного PIN-коду та сучасного Secure Connections на базі еліптичної криптографії P-256.*
 
 ---
@@ -139,7 +139,7 @@ y² ≡ x³ - 3x + b (mod p)
 * Процедура математично ідентична Numeric Comparison, але 6-значний код не відображається людині й підтверджується автоматично стеком.
 * Режим надійно захищає від пасивного прослуховування завдяки ECDH P-256, але **принципово не захищає від активної атаки людини посередині (MITM)**.
 
-![Матриця вибору асоціативної моделі за можливостями вводу/виводу](/book/communications/networks/bt-pairing-security/img/io-capabilities-matrix.svg)
+![Матриця вибору асоціативної моделі за можливостями вводу/виводу](img/io-capabilities-matrix.svg)
 *Матриця визначення моделі асоціації на основі комбінації IO Capabilities ініціатора та відповідача.*
 
 Повний перелік структур кадрів SMP, бітові поля прапорців та коди помилок наведено у вставці [📋 Специфікація інтерфейсу: матриця IO Capabilities та структури пакетів SMP/HCI](book:communications/bt-pairing-security/api-pairing-matrix.md).
@@ -224,7 +224,7 @@ y² ≡ x³ - 3x + b (mod p)
                      ▼                                                     ▼
 ```
 
-![Чотири фази процедури спарювання LE Secure Connections](/book/communications/networks/bt-pairing-security/img/pairing-phases.svg)
+![Чотири фази процедури спарювання LE Secure Connections](img/pairing-phases.svg)
 *Послідовність виконання чотирьох фаз процедури спарювання у стеку Bluetooth.*
 
 #### Детальний аналіз Фази 2: Автентифікація Stage 1 та Stage 2
@@ -235,7 +235,7 @@ y² ≡ x³ - 3x + b (mod p)
 5. **Розрахунок числа звірки:** Обидва вузли розраховують `V = g2(PK_a, PK_b, N_a, N_b) mod 10⁶` та відображають 6 цифр людині.
 6. **Автентифікація Stage 2 (DHKey Check):** Сторони обмінюються пакетами `Pairing DHKey Check` зі значеннями `E_a` та `E_b`, обчисленими за функцією `f6`. Це остаточно доводить, що обидва вузли володіють ідентичним спільним секретом `DHKey`, виведеним із автентичних відкритих точок.
 
-![Криптографічний захист від MITM у моделі Numeric Comparison](/book/communications/networks/bt-pairing-security/img/mitm-protection-stages.svg)
+![Криптографічний захист від MITM у моделі Numeric Comparison](img/mitm-protection-stages.svg)
 *Криптографічна схема запобігання підміні ключів у моделі Numeric Comparison.*
 
 #### Фаза 4: Управління шифруванням Link Layer та розподіл ключів

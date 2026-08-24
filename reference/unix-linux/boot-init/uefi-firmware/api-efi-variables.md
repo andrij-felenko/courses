@@ -107,7 +107,7 @@ typedef struct {
 
 Полів чотири, сталий зсув має лише перше й друге. Розбирають запис послідовно: пропустити шість байтів, дочитати `Description` до нульового символу, відлічити `FilePathListLength` байтів шляху — те, що лишилося від розміру змінної, і є `OptionalData`.
 
-![Розкладка EFI_LOAD_OPTION по байтах](/reference/unix-linux/boot-init/uefi-firmware/img/load-option.svg)
+![Розкладка EFI_LOAD_OPTION по байтах](img/load-option.svg)
 
 *Довжини `OptionalData` не зберігає ніхто: її рахують відніманням.*
 

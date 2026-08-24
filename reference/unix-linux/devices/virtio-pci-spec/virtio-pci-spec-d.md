@@ -20,7 +20,7 @@
 
 Стандарт Virtio v1.0+ повністю відмовився від застарілої схеми Legacy Virtio, яка базувалася на I/O-портах BAR0 та обмежених 32-бітних номерах сторінок PFN. Сучасний транспорт virtio-pci використовує механізм **PCI Vendor-Specific Capabilities** (ідентифікатор типу `0x09`). Драйвер сканує зв'язаний список capabilities у PCI Config Space пристрою і знаходить кілька структур, кожна з яких вказує на конкретну область регістрів Memory-Mapped I/O (MMIO).
 
-![Архітектура PCI Capabilities у специфікації Virtio](/reference/unix-linux/devices/virtio-pci-spec/img/virtio-pci-caps.svg)
+![Архітектура PCI Capabilities у специфікації Virtio](img/virtio-pci-caps.svg)
 *Конфігураційний простір PCI містить заголовки Capabilities, що маплять специфічні регістри Virtio (Common, Notify, ISR, Device) у BAR-регіони пам'яті.*
 
 Основні види capabilities, визначені специфікацією:
@@ -73,7 +73,7 @@
 2. **Available Ring (Кільце доступних буферів):** Кільцевий масив, куди лише драйвер додає готові до обробки буфери.
 3. **Used Ring (Кільце використаних буферів):** Кільцевий масив, куди лише пристрій повертає оброблені буфери.
 
-![Анатомія розділеної віртчерги Split Virtqueue](/reference/unix-linux/devices/virtio-pci-spec/img/virtqueue-split.svg)
+![Анатомія розділеної віртчерги Split Virtqueue](img/virtqueue-split.svg)
 *Розділена віртчерга складається з трьох структур у спільній пам'яті: Таблиці дескрипторів, Доступного кільця (заповнюється драйвером) та Використаного кільця (заповнюється пристроєм).*
 
 ### 3.1. Таблиця дескрипторів (Descriptor Table)
@@ -211,7 +211,7 @@ struct virtq_used {
 
 Специфікація OASIS Virtio v1.1 представила **Packed Virtqueue** (активується прапорцем `VIRTIO_F_RING_PACKED`). У цьому форматі всі три структури об'єднані в **єдине кільце дескрипторів (Descriptor Ring)**.
 
-![Структура Packed Virtqueue](/reference/unix-linux/devices/virtio-pci-spec/img/packed-virtqueue.svg)
+![Структура Packed Virtqueue](img/packed-virtqueue.svg)
 *У Packed Virtqueue замість трьох структур використовується єдиний масив дескрипторів, де статус належності керується збігом бітів AVAIL і USED із прапорцями Wrap Counter.*
 
 Кожен дескриптор упакованого кільця описується структурою `pvirtq_desc`:

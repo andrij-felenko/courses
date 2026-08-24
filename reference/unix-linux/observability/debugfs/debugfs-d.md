@@ -34,7 +34,7 @@
 
 `debugfs` зняла це системне напруження. Створена Грегом Кроа-Гарртманом у листопаді 2004 року (увійти в ядро Linux 2.6.10-rc3), вона втілила радикальний маніфест: **у debugfs немає жодних правил**. Детальний розбір того, як розробники ядра прийшли до відмови від ABI та які дискусії точилися навколо ризику перетворення debugfs на «сміттєзвалище», розкрито в [історії створення debugfs](book:unix-linux/debugfs/hist-debugfs.md).
 
-![Спектр віртуальних файлових систем ядра Linux: procfs, sysfs та debugfs](/reference/unix-linux/observability/debugfs/img/fig-debugfs-comparison.svg)
+![Спектр віртуальних файлових систем ядра Linux: procfs, sysfs та debugfs](img/fig-debugfs-comparison.svg)
 
 *Рис. 1. Порівняльний аналіз призначення та гарантій ABI у procfs, sysfs та debugfs.*
 
@@ -123,7 +123,7 @@ mount -t debugfs none /sys/kernel/debug
 
 Результат — негайне падіння ядра (Kernel Panic, NULL pointer dereference або Use-After-Free).
 
-![Внутрішня архітектура VFS, SRCU-захист та життєвий цикл файлу у debugfs](/reference/unix-linux/observability/debugfs/img/fig-debugfs-internals.svg)
+![Внутрішня архітектура VFS, SRCU-захист та життєвий цикл файлу у debugfs](img/fig-debugfs-internals.svg)
 
 *Рис. 2. Архітектурний механізм VFS та синхронізація SRCU при безпечному вилученні файлів debugfs.*
 

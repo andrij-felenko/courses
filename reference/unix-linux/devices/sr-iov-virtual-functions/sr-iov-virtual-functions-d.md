@@ -28,7 +28,7 @@ SR-IOV — це розширення стандарту PCI Express (PCIe), як
 - **Зниження навантаження на CPU:** Оскільки гіпервізор виключений зі шляху передачі даних, CPU не витрачає цикли на копіювання пакетів між віртуальними інтерфейсами та фізичним обладнанням.
 - **Мінімальна затримка (Latency):** Мережеві пакети потрапляють безпосередньо в пам'ять гостьової ОС, що радикально знижує затримки та джитер, що критично для NFV (Network Functions Virtualization), HFT (High-Frequency Trading) та телекомунікацій.
 
-![Архітектура SR-IOV (PF та VF)](/reference/unix-linux/devices/sr-iov-virtual-functions/img/sr-iov-arch.svg)
+![Архітектура SR-IOV (PF та VF)](img/sr-iov-arch.svg)
 *Рис. 1. Загальна архітектура поділу фізичної функції (PF) на віртуальні (VF).*
 
 Детальний історичний огляд еволюції вводу-виводу у середовищах віртуалізації дивіться у статті [Еволюція віртуалізації I/O: від емуляції програмних комутаторів до SR-IOV](book:unix-linux/sr-iov-virtual-functions/hist-sriov-evolution.md) — як зростання швидкості мереж змусило винести комутацію у кремній.
@@ -83,7 +83,7 @@ $ cat sriov_numvfs
 - `sriov_totalvfs` — максимальна апаратна кількість VF, яку може створити цей PF (у цьому випадку 64).
 - `sriov_numvfs` — поточна кількість активних VF.
 
-![Структура PCIe SR-IOV Extended Capability та адресація BDF](/reference/unix-linux/devices/sr-iov-virtual-functions/img/sr-iov-pcie-bdf.svg)
+![Структура PCIe SR-IOV Extended Capability та адресація BDF](img/sr-iov-pcie-bdf.svg)
 *Рис. 2. Структура SR-IOV Extended Capability та схема адресації BDF для віртуальних функцій.*
 
 Докладний розбір структури конфігураційного простору, усіх полів Extended Capability та формул обчислення BDF наведено в довіднику [Регістри PCI Express SR-IOV Extended Capability та sysfs-інтерфейс Linux](book:unix-linux/sr-iov-virtual-functions/api-sriov-pci-cap.md).

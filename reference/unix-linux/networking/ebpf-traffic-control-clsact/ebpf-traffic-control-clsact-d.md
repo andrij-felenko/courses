@@ -14,7 +14,7 @@
 
 Мережевий стек ядра Linux пропонує дві основні точки впровадження eBPF-програм для обробки мережевих пакетів нижнього рівня: XDP (eXpress Data Path) та TC (Traffic Control). Щоб зрозуміти фундаментальну різницю між ними та обрати правильний інструмент, необхідно детально простежити шлях пакета від фізичної мережевої карти до системного виклику сокета.
 
-![Шлях пакета в ядрі Linux: хуки XDP та TC clsact](/reference/unix-linux/networking/ebpf-traffic-control-clsact/img/tc-clsact-packet-flow.svg)
+![Шлях пакета в ядрі Linux: хуки XDP та TC clsact](img/tc-clsact-packet-flow.svg)
 *Шлях пакета у мережевому стеку ядра Linux із відображенням точних точок підключення XDP, виділення пам'яті sk_buff та хуків TC clsact на ingress та egress.*
 
 Як показано на схемі, програма XDP виконується безпосередньо в драйвері мережевої карти під час обробки переривань NAPI при отриманні кадрів із кільцевого буфера RX (RX Ring). У цей момент пам'ять пакета представлена у вигляді сирого буфера `struct xdp_buff`. Ядро ще не виділило структуру `sk_buff`, не розпарсило Ethernet-кадр і не створило жодних системних метаданих. Це забезпечує максимальну продуктивність для відкидання SYN-флуду чи базового L4-балансування, але позбавляє програму eBPF контексту ядра — інформації про сокети, cgroups, сокетні мітки та віртуальні інтерфейси вищого рівня (veth, bridge, vlan).
@@ -94,7 +94,7 @@ int tc_main(struct __sk_buff *skb) {
 }
 ```
 
-![Структура __sk_buff та прямий доступ до пам'яті](/reference/unix-linux/networking/ebpf-traffic-control-clsact/img/skb-buffer-structure.svg)
+![Структура __sk_buff та прямий доступ до пам'яті](img/skb-buffer-structure.svg)
 *Внутрішня структура контексту __sk_buff, зв'язок вказівників data, data_end та data_meta із лінійним буфером кадра Ethernet.*
 
 ### Співвідношення `struct __sk_buff` та реального `struct sk_buff`:
@@ -183,7 +183,7 @@ bpf_l4_csum_replace(skb, offsetof(struct tcphdr, check) + ETH_HLEN + sizeof(stru
 
 Найбільший приріст продуктивності у сучасних мережевих архітектурах забезпечується можливістю перенаправлення пакетів в обхід стандартної маршрутизації IP ядра.
 
-![Перенаправлення пакетів: bpf_redirect проти звичайної маршрутизації](/reference/unix-linux/networking/ebpf-traffic-control-clsact/img/bpf-redirect-fastpath.svg)
+![Перенаправлення пакетів: bpf_redirect проти звичайної маршрутизації](img/bpf-redirect-fastpath.svg)
 *Порівняння повільного шляху (Slow Path) через Netfilter та таблиці FIB із прямим eBPF Fast-Path через bpf_redirect().*
 
 ### Механізм роботи `bpf_redirect()`:

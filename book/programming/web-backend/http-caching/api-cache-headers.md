@@ -117,7 +117,7 @@ response_is_fresh     = (freshness_lifetime > current_age)
 
 ## Строк: чотири джерела з жорстким пріоритетом
 
-![Чотири джерела freshness_lifetime і те, як запит звужує результат](/book/programming/web-backend/http-caching/img/freshness-precedence.svg)
+![Чотири джерела freshness_lifetime і те, як запит звужує результат](img/freshness-precedence.svg)
 
 *Порядок у RFC 9111 §4.2.1 задано як «перший збіг», а не як сума правил: знайшовши джерело, кеш решту не читає.*
 
@@ -159,7 +159,7 @@ W/"a3f9"  vs W/"a3f9"    суворе: НЕ збіг    слабке: збіг
 
 ### Порядок оцінювання
 
-![Драбина з шести кроків: If-Match, If-Unmodified-Since, If-None-Match, If-Modified-Since, If-Range, виконання методу](/book/programming/web-backend/http-caching/img/precondition-order.svg)
+![Драбина з шести кроків: If-Match, If-Unmodified-Since, If-None-Match, If-Modified-Since, If-Range, виконання методу](img/precondition-order.svg)
 
 *RFC 9110 §13.2.2. Кроки 2 і 4 виконуються, тільки якщо відповідного «сильнішого» заголовка в запиті немає: `If-Unmodified-Since` мовчить за наявності `If-Match`, `If-Modified-Since` — за наявності `If-None-Match`.*
 

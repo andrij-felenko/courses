@@ -197,7 +197,7 @@ static int mirror_release(struct inode *inode, struct file *file)
 }
 ```
 
-![Структура mm, адресний простір і підписка живуть різні відрізки часу: mmgrab тримає структуру до close(fd), mmget_not_zero перевіряє, чи живий іще простір](/reference/unix-linux/memory/mmu-notifiers/img/mirror-lifetime.svg)
+![Структура mm, адресний простір і підписка живуть різні відрізки часу: mmgrab тримає структуру до close(fd), mmget_not_zero перевіряє, чи живий іще простір](img/mirror-lifetime.svg)
 
 *Три посилання різної природи — і кожне знімається у своєму місці.*
 

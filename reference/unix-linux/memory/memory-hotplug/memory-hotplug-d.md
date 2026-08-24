@@ -21,7 +21,7 @@
 
 Коли нова пам'ять додається в систему (наприклад, через ACPI події при встановленні нового DIMM модуля або гіпервізором), ядро ініціалізує нові структури `mem_section` та відповідні масиви `struct page` для цієї пам'яті.
 
-![Структура SPARSEMEM](/reference/unix-linux/memory/memory-hotplug/img/sparsemem-struct.svg)
+![Структура SPARSEMEM](img/sparsemem-struct.svg)
 
 *Секція `mem_section` описує безперервний шматок фізичної пам'яті; над нею sysfs показує блок `memoryX`, а керування зводиться до запису стану `online`/`offline` у файл цього блоку.*
 
@@ -65,7 +65,7 @@ $ cat /sys/devices/system/memory/block_size_bytes
 
 Вибір політики з'явився у ядрі 5.15: у ядрах до 5.15 функція `zone_for_pfn_range()` не знала про `online_policy` взагалі, тож простий `online` завжди йшов гілкою «суцільних зон». Отже, безумовно рівним `online_kernel` запис `online` не був ніколи — збігтися з ним він може лише як наслідок політики й розташування сусідніх зон. (Ті самі рядки приймає й файл `/sys/devices/system/memory/auto_online_blocks`, який задає, у якому стані ядро вмикає щойно додану пам'ять само; його початкове значення дає параметр командного рядка `memhp_default_state=`.)
 
-![Перехід станів](/reference/unix-linux/memory/memory-hotplug/img/hotplug-transition.svg)
+![Перехід станів](img/hotplug-transition.svg)
 
 *Перехід в обидва боки робить той самий запис у файл `state`, але шлях назад, в `offline`, спершу вимагає міграції зайнятих сторінок — саме тому він може й не вдатися.*
 

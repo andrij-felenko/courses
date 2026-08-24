@@ -37,7 +37,7 @@ CPU 3 ──┘
 
 В основі blk-mq лежить дворівнева конвеєрна модель, яка чітко розмежовує програмний етап формування запитів та апаратний етап відправки команд у пристрій.
 
-![Архітектура blk-mq](/reference/unix-linux/io/blk-mq-tag-sets-and-hardware-queues/img/blk-mq-arch.svg)
+![Архітектура blk-mq](img/blk-mq-arch.svg)
 *Дворівнева архітектура blk-mq: мапінг локальних per-CPU програмних черг (ctx) на апаратні диспетчерські черги (hctx).*
 
 ### Програмні черги (Software Staging Queues — `ctx`)
@@ -73,7 +73,7 @@ CPU 3 ──┘
 
 Щоб відстежувати, яка саме команда завершилася, кожній активній операції присвоюється унікальне числове значення — **тег** (англ. *tag* — мітка, ярлик). Тег є цілим числом у діапазоні від `0` до `queue_depth - 1`.
 
-![Спільне використання Tag Sets](/reference/unix-linux/io/blk-mq-tag-sets-and-hardware-queues/img/tag-set-sharing.svg)
+![Спільне використання Tag Sets](img/tag-set-sharing.svg)
 *Спільне використання одного об'єкта blk_mq_tag_set кількома пристроями для контролю загальної глибини черги контролера.*
 
 ### Структура `blk_mq_tag_set`
@@ -108,7 +108,7 @@ CPU 3 ──┘
 
 Для вирішення цієї проблеми в ядрі Linux було створено спеціалізовану структуру даних — **Scalable Bitmap (`sbitmap`)**.
 
-![Будова sbitmap та sbitmap_queue](/reference/unix-linux/io/blk-mq-tag-sets-and-hardware-queues/img/sbitmap-alloc.svg)
+![Будова sbitmap та sbitmap_queue](img/sbitmap-alloc.svg)
 *Розподілена бітова карта sbitmap із per-CPU підказками виділення та чергами очікування sbq_wait_state.*
 
 ### Принцип роботи `sbitmap`

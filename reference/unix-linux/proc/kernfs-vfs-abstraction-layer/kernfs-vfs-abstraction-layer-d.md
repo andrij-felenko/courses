@@ -34,7 +34,7 @@
 
 Усередині ядра підтримується автономне, надзвичайно компактне дерево вузлів `struct kernfs_node`. Воно слугує єдиним джерелом правди про ієрархію віртуальних файлів. Об'єкти ж VFS (`dentry` та `inode`) взагалі **не створюються**, доки процес простору користувача не здійснить системний виклик `open()`, `stat()` або `readdir()`. Як тільки процес закриває файловий дескриптор, VFS shrinker може миттєво знищити `dentry` та `inode`, не порушуючи цілісності внутрішнього дерева `kernfs`.
 
-![Архітектура kernfs та розвантаження VFS](/reference/unix-linux/proc/kernfs-vfs-abstraction-layer/img/kernfs-vfs-architecture.svg)
+![Архітектура kernfs та розвантаження VFS](img/kernfs-vfs-architecture.svg)
 *Шар kernfs підтримує компактне дерево kernfs_node у пам'яті ядра та створює об'єкти VFS dentry і inode лише за вимогою (on-demand).*
 
 Докладний розбір еволюції від ранніх структур `sysfs_dirent` до уніфікованого шару `kernfs` наведено у вставці [📜 Історія еволюції від sysfs_dirent до kernfs](book:unix-linux/kernfs-vfs-abstraction-layer/hist-kernfs-evolution.md).
@@ -94,7 +94,7 @@ struct kernfs_node {
 
 Дочірні вузли каталогу висять на корені `kn->dir.children` (`struct rb_root`). Ключ порівняння тришаровий: спершу хеш `kn->hash` (він зліплений з імені, а засіяний тегом простору імен), на збігу хешів — сам вказівник `ns`, і лише потім рядок `kn->name`. Пошук виходить за логарифмічний час `O(log N)`, що знімає з `lookup` у великих каталогах саме ту вартість, яка колись робила гарячі підключення повільними.
 
-![Внутрішня структура kernfs_node та червоно-чорне дерево](/reference/unix-linux/proc/kernfs-vfs-abstraction-layer/img/kernfs-rb-tree-structure.svg)
+![Внутрішня структура kernfs_node та червоно-чорне дерево](img/kernfs-rb-tree-structure.svg)
 *Організація дочірніх вузлів у червоно-чорне дерево rb_node, простори імен ns та ліниве виділення атрибутів iattr.*
 
 ### 2. Тегування просторів імен (`ns`)
@@ -163,7 +163,7 @@ kn->id.generation = root->next_generation;
 - **`count`**: Керує виділенням пам'яті для самої структури `kernfs_node`. Пам'ять під `kernfs_node` залишається дійсною доти, доки `count > 0`.
 - **`active`**: Керує можливістю виконання методів драйвера над payload-даними (`priv`).
 
-![Життєвий цикл вузла kernfs та функціонал kernfs_drain](/reference/unix-linux/proc/kernfs-vfs-abstraction-layer/img/kernfs-node-lifecycle.svg)
+![Життєвий цикл вузла kernfs та функціонал kernfs_drain](img/kernfs-node-lifecycle.svg)
 *Механізм захисту від гонитви при вилученні вузла: деактивація через kernfs_drain та очікування завершення активних операцій.*
 
 Послідовність роботи механізму `active` та виклику `kernfs_drain()` складається з трьох фаз:

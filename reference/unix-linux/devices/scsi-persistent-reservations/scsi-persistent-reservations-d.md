@@ -60,7 +60,7 @@ SCSI Persistent Reservations (SCSI PR або SCSI-3 PR) — це механіз�
 4. **Блокування:** Диск виконує команду. Ключ `Key_A` видаляється. Резервація переходить до Вузла Б.
 5. **Відхилення I/O:** За мить Вузол А, який нічого не підозрює, намагається записати дані на диск. Оскільки його ключ (`Key_A`) більше не зареєстрований, а діє резервація Вузла Б, диск апаратно відхиляє команду запису з помилкою `RESERVATION CONFLICT`. Файлова система на Вузлі А отримує I/O помилку і зазвичай переходить у режим read-only (або ядро ініціює паніку), що рятує дані на диску від пошкодження.
 
-![Механізм SCSI PR Preempt and Abort під час Split-Brain](/reference/unix-linux/devices/scsi-persistent-reservations/img/scsi-pr-preempt.svg)
+![Механізм SCSI PR Preempt and Abort під час Split-Brain](img/scsi-pr-preempt.svg)
 *Вузол Б дією Preempt and Abort видаляє ключ Вузла А з диска й обриває його незавершені команди, після чого будь-який запис від Вузла А апаратно блокується з помилкою `RESERVATION CONFLICT`.*
 
 ## Практика: Робота з SCSI PR через `sg_persist`

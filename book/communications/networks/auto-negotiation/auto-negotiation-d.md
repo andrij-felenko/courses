@@ -36,7 +36,7 @@
 
 Таким чином, одна пачка FLP переносить рівно одне **16-бітне двійкове слово** (16 позицій даних `D0`–`D15`). Уся пачка містить від 17 імпульсів (якщо всі передані біти даних дорівнюють нулю) до 33 імпульсів (якщо всі 16 бітів даних дорівнюють одиниці).
 
-![Часова структура імпульсів NLP та пачки FLP](/book/communications/networks/auto-negotiation/img/flp-burst-timing.svg)
+![Часова структура імпульсів NLP та пачки FLP](img/flp-burst-timing.svg)
 *Часова структура сигналів на витій парі: порівняння поодиноких імпульсів NLP у 10BASE-T та пачок FLP із 16 бітами даних у протоколі Auto-Negotiation.*
 
 ### Фізична зворотна сумісність із 10BASE-T та стійкість до дрейфу нульової лінії
@@ -54,7 +54,7 @@
 
 Інформаційною одиницею обміну під час початкової фази переговорів є **базова сторінка** (англ. *Base Page*). Це 16-розрядне двійкове слово, сформоване імпульсами `D0`–`D15` всередині пачки FLP. Формат Base Page чітко регламентований стандартом IEEE 802.3 Clause 28.
 
-![Структура базової сторінки Base Page](/book/communications/networks/auto-negotiation/img/base-page-format.svg)
+![Структура базової сторінки Base Page](img/base-page-format.svg)
 *16-розрядна структура слова Base Page: поля Selector, Technology Ability, біти Remote Fault, Acknowledge та Next Page.*
 
 ### Розподіл бітових полів Base Page
@@ -160,7 +160,7 @@ Message Code 11             2.5G/5GBASE-T Technology Ability (IEEE 802.3bz)
 * **Master PHY**: використовує свій високоточний локальний кварцовий генератор (125 МГц) для прямого тактування передавачів на всіх 4 парах;
 * **Slave PHY**: вимикає власний кварц для передачі, відновлює тактову частоту Master з прийнятого аналогового сигналу за допомогою схеми фазового автопідлаштування частоти (PLL) і використовує цю **відновлену частоту** для тактування своїх власних передавачів у зворотний бік.
 
-![Алгоритм арбітражу тактування Master/Slave у 1000BASE-T](/book/communications/networks/auto-negotiation/img/master-slave-resolution.svg)
+![Алгоритм арбітражу тактування Master/Slave у 1000BASE-T](img/master-slave-resolution.svg)
 *Дерево прийняття рішень під час арбітражу Master/Slave у стандарті 1000BASE-T (IEEE 802.3 Clause 40).*
 
 ### Алгоритм розв'язання ролей Master/Slave
@@ -215,7 +215,7 @@ Message Code 11             2.5G/5GBASE-T Technology Ability (IEEE 802.3bz)
 2. Клієнтський комп'ютер через Parallel Detection розпізнає швидкість 100 Мбіт/с і, згідно зі стандартом, вмикає **100BASE-TX Half-Duplex**;
 3. Виникає небезпечний стан **асиметрії дуплексу** (англ. *Duplex Mismatch*).
 
-![Механізм виникнення Late Collision при Duplex Mismatch](/book/communications/networks/auto-negotiation/img/duplex-mismatch-late-collision.svg)
+![Механізм виникнення Late Collision при Duplex Mismatch](img/duplex-mismatch-late-collision.svg)
 *Анатомія Duplex Mismatch: механізм виникнення пізніх колізій (Late Collisions) під час одночасної передачі комутатора Full-Duplex та клієнта Half-Duplex.*
 
 При асиметрії дуплексу виникають такі процеси:

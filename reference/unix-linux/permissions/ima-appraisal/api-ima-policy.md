@@ -164,7 +164,7 @@ measure func=CRITICAL_DATA label=device-mapper template=ima-buf
 
 Перший байт обох атрибутів каже, що лежить далі. Значення взято з `enum evm_ima_xattr_type` у `security/integrity/integrity.h`.
 
-![Байтова розкладка чотирьох варіантів: security.ima з хешем і з підписом, security.evm з HMAC і з переносним підписом](/reference/unix-linux/permissions/ima-appraisal/img/xattr-layout.svg)
+![Байтова розкладка чотирьох варіантів: security.ima з хешем і з підписом, security.evm з HMAC і з переносним підписом](img/xattr-layout.svg)
 
 *Форма підпису однакова в обох атрибутах — різниться лише те, над чим його рахують.*
 

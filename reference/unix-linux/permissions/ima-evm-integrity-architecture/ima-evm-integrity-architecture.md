@@ -32,7 +32,7 @@ IMA інтегрована безпосередньо у віртуальну ф
 
 Детальніше про бінарний формат атрибутів дивіться у довіднику [📋 Структура розширених атрибутів security.ima та security.evm](book:unix-linux/ima-evm-integrity-architecture/api-evm-xattr-format.md).
 
-![Архітектура підситем IMA та EVM](/reference/unix-linux/permissions/ima-evm-integrity-architecture/img/ima-arch.svg)
+![Архітектура підситем IMA та EVM](img/ima-arch.svg)
 *Схема взаємодії VFS, хуків IMA/EVM, апаратного модуля TPM 2.0 та розширених атрибутів файлової системи.*
 
 ## Послідовність перевірки при відкритті файлу

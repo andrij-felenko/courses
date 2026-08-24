@@ -22,7 +22,7 @@
 1. **`struct socket` (BSD Socket Layer)**: Верхній VFS-шар, орієнтований на простір користувача. Він містить інформацію про стан VFS-дескриптора (`state`, прапорці `flags`), чергу очікування процесів `socket_wq` та вказівник на таблицю високорівневих операцій `proto_ops` (наприклад, `inet_stream_ops`). Усі системні виклики API сокетів насамперед працюють із цим шаром. Пам'ять під `struct socket` виділяється у спеціалізованій псевдофайловій системі `sockfs`.
 2. **`struct sock` (Protocol Engine)**: Нижній мережевий шар ядра. Він не знає нічого про файлові дескриптори чи VFS. Ця структура відповідає за обробку конкретного мережевого протоколу, утримує черги мережевих буферів (`sk_receive_queue`, `sk_write_queue`), таймери TCP, зворотні виклики сповіщення (`sk_data_ready`, `sk_write_space`) та лічильники помилок. Виділення пам'яті здійснюється з окремого SLAB-кешу ядра, який `proto_register()` створює за іменем протоколу — для TCP цей кеш видно у `/proc/slabinfo` як `TCP`.
 
-![Структури сокета у ядрі Linux](/reference/unix-linux/networking/socket-api-linux/img/socket-structures.svg)
+![Структури сокета у ядрі Linux](img/socket-structures.svg)
 *Мережевий шар ядра відокремлює VFS-представлення сокета (struct socket) від протокольного автомата станів (struct tcp_sock).*
 
 Для конкретного протоколу TCP базовий об'єкт `struct sock` розширюється через механізм вкладених C-структур за принципом спадкування: `struct sock` → `struct inet_sock` → `struct inet_connection_sock` → `struct tcp_sock`. Кожен наступний шар додає поля, необхідні для відповідного рівня абстракції: `inet_sock` додає IP-адреси та порти, `inet_connection_sock` додає черги `LISTEN` та таймаути повтору, а `tcp_sock` містить послідовності порядкових номерів (Sequence Numbers `snd_nxt`, `rcv_nxt`), оцінки RTT та параметри алгоритму керування перевантаженням (CUBIC або BBR).
@@ -183,7 +183,7 @@ AcceptQueueLimit = min(backlog, net.core.somaxconn)   [обчислення ма
 
 Процес встановлення з'єднання реалізує класичний алгоритм 3-Way Handshake, розділений між клієнтським викликом `connect()`, асинхронним обробником переривань ядра на сервері та серверним викликом `accept()`.
 
-![Послідовність системних викликів та двочергова модель TCP](/reference/unix-linux/networking/socket-api-linux/img/tcp-handshake-queues.svg)
+![Послідовність системних викликів та двочергова модель TCP](img/tcp-handshake-queues.svg)
 *Послідовність 3-Way Handshake та переміщення з'єднань між SYN Backlog та Accept Queue у ядрі Linux.*
 
 ### Етап 1: Ініціація клієнтом (`connect()`)
@@ -232,7 +232,7 @@ int client_fd = accept4(listen_fd, (struct sockaddr *)&cli_addr, &len, SOCK_CLOE
 
 Мережеве з'єднання має два незалежні канали передачі даних: від клієнта до сервера (TX клієнта / RX сервера) та від сервера до клієнта (RX клієнта / TX сервера). Закриття з'єднання може бути як симетричним, так і одностороннім.
 
-![Повний життєвий цикл сокета та дескриптора](/reference/unix-linux/networking/socket-api-linux/img/socket-lifecycle.svg)
+![Повний життєвий цикл сокета та дескриптора](img/socket-lifecycle.svg)
 *Життєвий цикл сокета від створення до виходу із 2-MSL стану TIME_WAIT.*
 
 ### Різниця між `close()` та `shutdown()`

@@ -68,7 +68,7 @@ typedef struct {
 } EFI_SIGNATURE_DATA;
 ```
 
-![Розкладка бази db у файлі efivarfs: чотири байти атрибутів, далі послідовність EFI_SIGNATURE_LIST, усередині заголовок і записи EFI_SIGNATURE_DATA](/reference/unix-linux/boot-init/secure-boot/img/siglist-layout.svg)
+![Розкладка бази db у файлі efivarfs: чотири байти атрибутів, далі послідовність EFI_SIGNATURE_LIST, усередині заголовок і записи EFI_SIGNATURE_DATA](img/siglist-layout.svg)
 
 *Оскільки `SignatureSize` однаковий у межах списку, кількість записів рахують діленням, а не проходом по ланцюжку.*
 

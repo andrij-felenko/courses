@@ -96,7 +96,7 @@ void worker(ManualChannel& ch) {
 
 Серцем цього зв'язку є прихований динамічний об'єкт — **Shared State** (спільний стан), який виділяється у купі під час створення `std::promise`.
 
-![Схема розділеного стану (Shared State) між promise та future](/reference/cpp-standards/concurrency/future-promise/img/future-promise-state.svg)
+![Схема розділеного стану (Shared State) між promise та future](img/future-promise-state.svg)
 *Спільний керований стан (Shared State) слугує одноразовим містком між потоком-виробником (promise) та потоком-споживачем (future).*
 
 ### Внутрішня будова Shared State
@@ -941,7 +941,7 @@ void cancellable_worker(std::stop_token stop_tok, std::promise<int> p) {
 
 Спільний стан (Shared State) функціонує як детермінований автомат станів (State Machine), переходи якого строго регламентовані стандартом C++.
 
-![Життєвий цикл та переходи станів Shared State](/reference/cpp-standards/concurrency/future-promise/img/shared-state-lifecycle.svg)
+![Життєвий цикл та переходи станів Shared State](img/shared-state-lifecycle.svg)
 *Автомат станів Shared State: від ініціалізації через запис результату або винятку до споживання значення.*
 
 Переходи станів можна узагальнити у наступній таблиці:

@@ -72,7 +72,7 @@ process(&x); // Вибирається Кандидат 2, оскільки cons
 
 Поведінка алгоритму дедукції докорінно залежить від того, як саме оголошено параметр у сигнатурі шаблону. Усі форми параметрів поділяються на три взаємовиключні контексти передачі.
 
-![Три контексти виведення аргументів шаблону](/reference/cpp-standards/templates/template-argument-deduction/img/deduction-contexts.svg)
+![Три контексти виведення аргументів шаблону](img/deduction-contexts.svg)
 *Порівняння трьох контекстів передачі аргументів: за значенням з відкиданням кваліфікаторів і розпадом типів, за посиланням зі збереженням точного типу масивів, та через передавальне посилання.*
 
 ### Контекст 1: Передача за значенням (T або auto)
@@ -172,7 +172,7 @@ forwarding_wrapper(std::move(value)); // std::move дає rvalue (xvalue) ⇒ T 
 
 Щоб обробити такі випадки під час компіляції шаблонів, стандарт C++ визначає математично строгі правила **згортання посилань** (Reference Collapsing).
 
-![Матриця правил згортання посилань](/reference/cpp-standards/templates/template-argument-deduction/img/reference-collapsing.svg)
+![Матриця правил згортання посилань](img/reference-collapsing.svg)
 *Правила згортання подвійних посилань у C++: посилання на lvalue завжди перемагає, утворюючи lvalue-посилання, і лише комбінація rvalue з rvalue дає rvalue-посилання.*
 
 Існує рівно чотири можливі комбінації посилань:
@@ -231,7 +231,7 @@ auto res = calculate_max(10, 20.5); // ПОМИЛКА КОМПІЛЯЦІЇ!
 
 Щоб дозволити неявне перетворення одного з аргументів, цей аргумент необхідно виключити з процесу виведення типів, перевівши його у **недедукований контекст** (Non-deduced Context).
 
-![Недедуковані контексти у шаблонах C++](/reference/cpp-standards/templates/template-argument-deduction/img/non-deduced-contexts.svg)
+![Недедуковані контексти у шаблонах C++](img/non-deduced-contexts.svg)
 *Розподіл аргументів на дедуковані та недедуковані контексти: використання std::type_identity дозволяє вказати компілятору, за яким аргументом визначати тип, а який приводити неявно.*
 
 ### Механізм std::type_identity
@@ -427,7 +427,7 @@ CustomVector(Iterator, Iterator)
     -> CustomVector<typename std::iterator_traits<Iterator>::value_type>;
 ```
 
-![Синтез кандидатів виведення у механізмі CTAD](/reference/cpp-standards/templates/template-argument-deduction/img/ctad-synthesis-guide.svg)
+![Синтез кандидатів виведення у механізмі CTAD](img/ctad-synthesis-guide.svg)
 *Процес виведення типів для класів: об'єднання неявних кандидатів конструкторів та явних користувацьких правил виведення в єдиний набір перевантажень.*
 
 ### Специфікатор explicit у Deduction Guides

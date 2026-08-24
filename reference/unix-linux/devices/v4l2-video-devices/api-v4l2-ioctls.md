@@ -131,7 +131,7 @@ struct v4l2_requestbuffers {
 | `length` | `__u32` | розмір буфера (для площинних — кількість елементів `m.planes`) |
 | `request_fd` | `__s32` | дескриптор запиту, якщо стоїть `V4L2_BUF_FLAG_REQUEST_FD` |
 
-![Стан буфера в кожен момент: яка команда його змінює і які прапорці показує QUERYBUF](/reference/unix-linux/devices/v4l2-video-devices/img/buf-flags.svg)
+![Стан буфера в кожен момент: яка команда його змінює і які прапорці показує QUERYBUF](img/buf-flags.svg)
 
 *Прапорці `QUEUED` і `DONE` у драйверах на videobuf2 — а це майже всі — взаємовиключні: буфер або в черзі на запис, або вже готовий.*
 

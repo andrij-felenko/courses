@@ -59,7 +59,7 @@ void worker(std::atomic<bool>& stop_flag) {
 2. **`std::stop_token` (Спостерігач)**: неволодіючий, легковажний об'єкт, призначений виключно для читання стану. Він надає методи `stop_requested()` та `stop_possible()`. Об'єкт копіюється з мінімальними накладними витратами і безпечно передається у функцію потоку за значенням.
 3. **`std::stop_callback` (Підписник)**: шаблонний RAII-об'єкт, який реєструє користувацьку функцію зворотного виклику. Ця функція виконується автоматично та синхронно в момент надходження сигналу зупинки.
 
-![Триєдина архітектура кооперативного скасування: stop_source, stop_token та stop_callback](/reference/cpp-standards/concurrency/stop-token/img/stop-token-architecture.svg)
+![Триєдина архітектура кооперативного скасування: stop_source, stop_token та stop_callback](img/stop-token-architecture.svg)
 *Триєдина архітектура std::stop_token: розділення відповідальності між джерелом ініціації (stop_source), спостерігачем стану (stop_token) та обробником події (stop_callback) через спільний блок керування у купі.*
 
 ### Зв'язок через спільний блок керування (stop_state)
@@ -210,7 +210,7 @@ std::stop_token empty_token = inactive_source.get_token();
 
 Головне призначення колбека — перетворити пасивний сигнал скасування на активну дію: пробудити умовну змінну, закрити сокет, перервати очікування на дескрипторі або скинути буфер.
 
-![Синхронізація та вирішення гонок даних у stop_callback](/reference/cpp-standards/concurrency/stop-token/img/stop-callback-races.svg)
+![Синхронізація та вирішення гонок даних у stop_callback](img/stop-callback-races.svg)
 *Гарантії синхронізації в std::stop_callback: уникнення стану гонки між паралельним виконанням колбека та знищенням локальних змінних у деструкторі.*
 
 Розглянемо три фундаментальні сценарії взаємодії та гонок даних, які детерміновано вирішуються реалізацією `std::stop_callback`:
@@ -324,7 +324,7 @@ void run_task() {
 
 Для кооперативного скасування блокуючих очікувань C++20 розширив узагальнений клас `std::condition_variable_any`. Він працює з будь-якими базовими блокуваннями (включаючи `std::shared_lock`, рекурсивні замки та користувацькі спінлоки) і містить перевантаження методів очікування з підтримкою `std::stop_token`.
 
-![Переривання очікування в std::condition_variable_any за допомогою stop_token](/reference/cpp-standards/concurrency/stop-token/img/interruptible-cv-wait.svg)
+![Переривання очікування в std::condition_variable_any за допомогою stop_token](img/interruptible-cv-wait.svg)
 *Механіка переривання блокуючого стану умовного очікування: реєстрація тимчасового stop_callback для сповіщення condition_variable_any при надходженні сигналу скасування.*
 
 ### Механіка методу wait(lock, stoken, predicate)

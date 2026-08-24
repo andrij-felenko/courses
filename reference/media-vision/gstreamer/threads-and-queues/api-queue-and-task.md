@@ -288,7 +288,7 @@ my_activate_mode (GstPad *pad, GstObject *parent, GstPadMode mode, gboolean acti
 | `void gst_message_parse_stream_status (GstMessage *message, GstStreamStatusType *type, GstElement **owner)` | застосунок |
 | `const GValue *gst_message_get_stream_status_object (GstMessage *message)` | застосунок — дістає задачу |
 
-![Ліворуч нитка, що активує пад: start_task, CREATE, START; праворуч нитка з пулу: ENTER, цикл, LEAVE](/reference/media-vision/gstreamer/threads-and-queues/img/task-lifecycle.svg)
+![Ліворуч нитка, що активує пад: start_task, CREATE, START; праворуч нитка з пулу: ENTER, цикл, LEAVE](img/task-lifecycle.svg)
 
 *До ENTER ви ще в старій нитці й можете підмінити пул; від ENTER ви вже в новій і можете міняти її властивості.*
 

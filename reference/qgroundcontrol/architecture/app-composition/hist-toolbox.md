@@ -101,7 +101,7 @@ qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->autopilotPlugin()
 
 Комміт `39b1ae11c5babdcd52d8a4203694923cd4c5090e` авторства Holden Ramsey (HTRamsey), 29 листопада 2024, називається «Convert QGCCorePlugin to Singleton». Він чіпає 75 файлів і серед іншого прибирає `src/QGCToolbox.cc` (53 рядки) і `src/QGCToolbox.h` (50 рядків). Стіни винесли після того, як з ящика пішов останній мешканець.
 
-![Кількість об'єктів у ящику інструментів від 2015 до 2024](/reference/qgroundcontrol/architecture/app-composition/img/toolbox-pendulum.svg)
+![Кількість об'єктів у ящику інструментів від 2015 до 2024](img/toolbox-pendulum.svg)
 
 *Крива не симетрична: назад маятник ішов не одним рухом, а через рік поштучних перетворень — комміт 2024 року лише прибрав порожню коробку.*
 

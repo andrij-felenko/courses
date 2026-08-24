@@ -38,7 +38,7 @@ PM QoS змінює цей підхід: замість здогадок ядр�
 
 Фреймворк PM QoS розділений на три ізольовані підсистеми, кожна з яких відповідає за власний тип апаратних ресурсів та має свій унікальний шар API у ядрі:
 
-![Архітектура фреймворку PM QoS та його взаємодія зі споживачами й ядерними підсистемами](/reference/unix-linux/devices/power-management-qos-framework/img/pm-qos-architecture.svg)
+![Архітектура фреймворку PM QoS та його взаємодія зі споживачами й ядерними підсистемами](img/pm-qos-architecture.svg)
 *Загальна схема фреймворку PM QoS: джерела вимог (простір користувача та драйвери), підсистеми агрегації та ядерні споживачі.*
 
 #### 1. CPU Latency QoS (`cpu_latency_constraints`)
@@ -63,7 +63,7 @@ PM QoS змінює цей підхід: замість здогадок ядр�
 
 Коли десятки процесів та драйверів одночасно висувають власні вимоги, PM QoS повинен миттєво обчислити підсумкове значення. Для цього фреймворк використовує пріоритетні списки **`plist`** (`struct plist_head` та `struct plist_node`).
 
-![Структура даних pm_qos_constraints і пріоритетний список plist](/reference/unix-linux/devices/power-management-qos-framework/img/plist-aggregation-flow.svg)
+![Структура даних pm_qos_constraints і пріоритетний список plist](img/plist-aggregation-flow.svg)
 *Внутрішній устрій агрегації PM QoS на основі пріоритетного списку plist та сповіщення підписників через blocking_notifier.*
 
 #### Аналіз структур даних ядра
@@ -114,7 +114,7 @@ PM QoS змінює цей підхід: замість здогадок ядр�
 
 PM QoS виступає сполучною ланкою між різними рівнями ядра Linux та програмами простору користувача.
 
-![Взаємодія Per-Device PM QoS та Frequency QoS з апаратними механізмами](/reference/unix-linux/devices/power-management-qos-framework/img/device-and-freq-qos-mapping.svg)
+![Взаємодія Per-Device PM QoS та Frequency QoS з апаратними механізмами](img/device-and-freq-qos-mapping.svg)
 *Зв'язок специфічних QoS-підсистем із трансляцією вимог у PCIe LTR, стани живлення пристроїв та межі частот cpufreq/devfreq.*
 
 #### Інтеграція з `cpuidle`

@@ -42,7 +42,7 @@ Compute Express Link (CXL) — це відкритий індустріальн�
 
 Специфікація CXL визначає три незалежні протоколи, які мультиплексуються на один фізичний лінк за допомогою шару арбітражу та мультиплексування (Arbitration and Multiplexing Layer, ARB/MUX).
 
-![Мультиплексування протоколів CXL поверх фізичного рівня PCIe](/reference/unix-linux/devices/cxl-compute-express-link/img/cxl-protocol-stack.svg)
+![Мультиплексування протоколів CXL поверх фізичного рівня PCIe](img/cxl-protocol-stack.svg)
 *Стек протоколів CXL: поділ фізичного PHY на транзактні шари CXL.io, CXL.cache та CXL.mem.*
 
 ### 2.1 CXL.io
@@ -145,7 +145,7 @@ CXL 3.0 подвоює швидкість передачі за рахунок �
 
 Пулінг пам'яті усуває жорстку прив'язку модулів RAM до конкретного процесорного сокета.
 
-![Топологія архітектури CXL та дезагрегація пам'яті](/reference/unix-linux/devices/cxl-compute-express-link/img/cxl-arch.svg)
+![Топологія архітектури CXL та дезагрегація пам'яті](img/cxl-arch.svg)
 *Топологія зв'язку CPU, CXL-комутатора та розширювачів пам'яті (Type 3 MLD) між кількома хостами.*
 
 Завдяки механізму MLD та програмному контролеру тканини (Fabric Manager, FM):

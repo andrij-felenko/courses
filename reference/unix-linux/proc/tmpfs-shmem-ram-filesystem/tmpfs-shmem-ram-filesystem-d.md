@@ -21,7 +21,7 @@
 
 На відміну від `ramfs`, файлова система `tmpfs` виступає повноцінною кешованою ВФС із суворим контролем ресурсів та підтримкою витискання в swap. Детальний аналіз переходу від перших RAM-дисків до `tmpfs` наведено в історичному екскурсі [Еволюція RAM-дисків у Linux: від /dev/ram до tmpfs](book:unix-linux/tmpfs-shmem-ram-filesystem/hist-ramdisk-to-tmpfs.md).
 
-![Архітектура ВФС tmpfs та підсистеми shmem ядра Linux](/reference/unix-linux/proc/tmpfs-shmem-ram-filesystem/img/tmpfs-vfs-shmem-architecture.svg)
+![Архітектура ВФС tmpfs та підсистеми shmem ядра Linux](img/tmpfs-vfs-shmem-architecture.svg)
 *Взаємодія VFS, підсистеми shmem, Page Cache та підсистеми витискання у swap*
 
 Основні архітектурні відмінності між `ramfs`, `tmpfs` та дисковою ФС ext4 зведено у порівняльну таблицю:
@@ -75,7 +75,7 @@ struct ShmemInodeInfo {
 
 Підсистема `shmem` має двоїсту природу в операційній системі. Вона одночасно обслуговує публічні файлові монтування для користувацького простору та забезпечує внутрішні механізми обміну пам'яттю самого ядра.
 
-![Двоїста природа підсистеми shmem у ядрі Linux](/reference/unix-linux/proc/tmpfs-shmem-ram-filesystem/img/shmem-dual-personality.svg)
+![Двоїста природа підсистеми shmem у ядрі Linux](img/shmem-dual-personality.svg)
 *Зовнішні файлові монтування tmpfs та внутрішні механізми ядра на базі shmem*
 
 З точки зору архітектури ядра підсистема `shmem` об'єднує такі інтерфейси:

@@ -6,7 +6,7 @@
 
 ## Де на шляху що спрацьовує
 
-![Лічильники, розкладені по точках шляху: стеля й nr_tlb_remote_flush на ініціаторі, рядок TLB і nr_tlb_remote_flush_received на цілі](/reference/unix-linux/memory/tlb-shootdown/img/counters-map.svg)
+![Лічильники, розкладені по точках шляху: стеля й nr_tlb_remote_flush на ініціаторі, рядок TLB і nr_tlb_remote_flush_received на цілі](img/counters-map.svg)
 
 *Функція `flush_tlb_func` та сама на обох боках; розводить їх ознака `local`, яку вона обчислює як «чи я те ядро, що почало розсилання». Уся асиметрія лічильників — наслідок однієї цієї перевірки.*
 

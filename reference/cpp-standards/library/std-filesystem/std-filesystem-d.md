@@ -64,7 +64,7 @@ bool ensure_directory_win32(const wchar_t* path) {
 
 Клас `std::filesystem::path` — це суто синтаксичний контейнер символів у оперативній пам'яті. Створення, копіювання, модифікація або декомпозиція об'єкта `path` **ніколи не виконують системних викликів ядра і не звертаються до дискового накопичувача**.
 
-![Декомпозиція шляху в std::filesystem::path](/reference/cpp-standards/library/std-filesystem/img/path-decomposition-model.svg)
+![Декомпозиція шляху в std::filesystem::path](img/path-decomposition-model.svg)
 *Декомпозиція шляху в std::filesystem::path: синтаксичний розбір компонентів у оперативній пам'яті без звернення до диска.*
 
 Внутрішньо об'єкт `path` зберігає шлях у нативному форматі поточної операційної системи (типом `string_type` є `std::string` у POSIX та `std::wstring` у Windows). При цьому клас надає багатий набір синтаксичних методів розбору:
@@ -122,7 +122,7 @@ void parse_path_demo() {
 
 Модуль `std::filesystem` побудовано за трирівневою архітектурною схемою, яка повністю ізолює прикладний код від низькорівневих системних API.
 
-![Архітектура та компоненти std::filesystem](/reference/cpp-standards/library/std-filesystem/img/fs-architecture-and-types.svg)
+![Архітектура та компоненти std::filesystem](img/fs-architecture-and-types.svg)
 *Архітектурні рівні модуля std::filesystem: високорівневі C++ типів, двокамерна обробка помилок та абстракція VFS/Win32.*
 
 1. Рівень абстракцій C++ (High-Level C++ Abstractions): Включає тип синтаксичного шляху `std::filesystem::path`, кешований елемент каталогу `directory_entry`, ітератори обходу каталогів `directory_iterator` та `recursive_directory_iterator`, а також спеціальні структури даних опису метаданих `file_status`, `perms` та `space_info`.
@@ -137,7 +137,7 @@ void parse_path_demo() {
 
 Стандартна бібліотека надає два класи ітераторів для обходу вмісту каталогів. Обидва класи задовольняють вимогам категорій ітераторів введення (InputIterator) та повертають константні посилання на об'єкти `std::filesystem::directory_entry`.
 
-![Порівняння моделей обходу каталогів](/reference/cpp-standards/library/std-filesystem/img/traversal-iterators-comparison.svg)
+![Порівняння моделей обходу каталогів](img/traversal-iterators-comparison.svg)
 *Моделі обходу каталогів: однорівневе сканування directory_iterator проти рекурсивного занурення recursive_directory_iterator.*
 
 Класичний однорівневий ітератор `directory_iterator` сканує лише елементи початкового каталогу. Він автоматично відфільтровує службові записи `.` та `..`, усуваючи потребу у ручних перевірках.
@@ -201,7 +201,7 @@ for (const auto& entry : fs::directory_iterator(dir_path)) {
 
 У цьому прикладі для кожного знайденого файлу програма виконує три послідовні системні виклики `stat()` (через `fs::exists`, `fs::is_regular_file` та `fs::file_size`). На дисковому масиві у 100 000 файлів програма виконає 300 000 системних викликів ядра, що уповільнить сканування в кілька разів і створить гонку умов.
 
-![Двокамерна обробка помилок та продуктивність](/reference/cpp-standards/library/std-filesystem/img/syscall-cost-and-error-handling.svg)
+![Двокамерна обробка помилок та продуктивність](img/syscall-cost-and-error-handling.svg)
 *Двокамерний API обробки помилок та оптимізація системних викликів ядра через кеш directory_entry.*
 
 Оптимальний підхід полягає у використанні методів самого об'єкта `directory_entry`:

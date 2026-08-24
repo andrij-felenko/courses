@@ -17,7 +17,7 @@
 
 Таргет-юніт слугує **логічним вузлом групування та синхронізації** у спрямованому ациклічному графі (DAG — Directed Acyclic Graph, від грец. *ді* — двократний, *а-цикл* — без кругообігу). Він об'єднує групу пов'язаних юнітів під єдиною назвою та виступає контрольною точкою (milestone, від англ. *milestone* — веха/показчик), досягнення якої свідчить про успішне завершення певного етапу ініціалізації операційної системи.
 
-![Ієрархія та граф залежностей завантажувальних таргетів systemd](/reference/unix-linux/boot-init/systemd-target-units-and-boot-targets/img/target-dag-hierarchy.svg)
+![Ієрархія та граф залежностей завантажувальних таргетів systemd](img/target-dag-hierarchy.svg)
 *Спрямований ациклічний граф (DAG) системних таргетів та ключові майлстоуни завантаження.*
 
 ### Активні цільові стани проти пасивних точок синхронізації
@@ -75,7 +75,7 @@ AllowIsolate=yes
 
 У традиційних операційних системах UNIX та ранніх версіях Linux стан системи визначався глобальним числом від `0` до `6` — рівнем виконання (runlevel, від англ. *run level*). Перехід між рівнями супроводжувався виконанням текстових сценаріїв із каталогу `/etc/rc<N>.d/`. Докладний аналіз історичних передумов та обмежень цієї системи наведено в [історичному екскурсі про виникнення цільових юнітів](book:unix-linux/systemd-target-units-and-boot-targets/hist-runlevels-to-targets.md).
 
-![Порівняння SysVinit Runlevels та systemd Targets](/reference/unix-linux/boot-init/systemd-target-units-and-boot-targets/img/sysv-vs-systemd-targets.svg)
+![Порівняння SysVinit Runlevels та systemd Targets](img/sysv-vs-systemd-targets.svg)
 *Порівняння лінійної послідовності SysVinit з декларативним графом цільових юнітів systemd.*
 
 Для забезпечення повної зворотної сумісності з інструментами адміністрування та скриптами автоматизації systemd надає прямі відповідники числовим рівням SysVinit у вигляді символьних посилань на спеціальні цільові юніти:
@@ -122,7 +122,7 @@ kernel /vmlinuz-6.6.0 root=/dev/sda2 ro systemd.unit=multi-user.target
 
 Однією з найпотужніших можливостей systemd є процедура **ізоляції станів** (State Isolation). Виконання команди `systemctl isolate <target>` дозволяє миттєво перевести операційную систему з одного операційного стану в інший — наприклад, з повноцінного графічного режиму `graphical.target` у режим діагностики `rescue.target` або у спеціалізований графічний термінал.
 
-![Життєвий цикл ізоляції станів у PID 1](/reference/unix-linux/boot-init/systemd-target-units-and-boot-targets/img/isolation-transaction-engine.svg)
+![Життєвий цикл ізоляції станів у PID 1](img/isolation-transaction-engine.svg)
 *Схема роботи транзакційного рушія PID 1 під час виконання операції ізоляції.*
 
 ### Алгоритм роботи транзакційного рушія (Transaction Engine)

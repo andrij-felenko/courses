@@ -32,7 +32,7 @@
 
 Коли ми викликаємо команди налаштування цілі (`target_include_directories`, `target_compile_definitions`, `target_compile_options`, `target_compile_features`, `target_sources`, `target_link_options`, `target_link_directories`, `target_precompile_headers`), ми вказуємо одне з трьох ключових слів: `PRIVATE`, `INTERFACE` або `PUBLIC`. Ці слова не мають стосунку до модифікаторів доступу класів у C++, а виконують роль перемикача між двома половинами сховища властивостей.
 
-![Розподіл властивостей цілі між власною збіркою та інтерфейсом споживача](/reference/build-systems/cmake/usage-requirements/img/public-private-interface.svg)
+![Розподіл властивостей цілі між власною збіркою та інтерфейсом споживача](img/public-private-interface.svg)
 *Ключове слово визначає цільову властивість: PRIVATE пише лише у внутрішній список, INTERFACE — лише у зовнішній інтерфейс споживача, а PUBLIC наповнює обидва списки одночасно.*
 
 Механізм розподілу діє суворо детерміновано:
@@ -219,7 +219,7 @@ CMake Error at CMakeLists.txt:10 (target_include_directories):
 
 Розглянемо поширення на формальному ланцюжку `A → B → C`, де ціль `A` лінкує ціль `B`, а ціль `B` лінкує ціль `C`.
 
-![Транзитивність вимог вжитку в ланцюжку цілей](/reference/build-systems/cmake/usage-requirements/img/dag-propagation.svg)
+![Транзитивність вимог вжитку в ланцюжку цілей](img/dag-propagation.svg)
 *При лінкуванні PRIVATE вимоги цілі C зупиняються на рівні B. При лінкуванні PUBLIC вимоги C проходять крізь B і потрапляють до A.*
 
 ### Сценарій 1: Ізоляція реалізації (`B` лінкує `C` через `PRIVATE`)
@@ -478,7 +478,7 @@ add_executable(game_server main.cpp)
 target_link_libraries(game_server PRIVATE project_warnings)
 ```
 
-![Структура та поширення вимог інтерфейсної бібліотеки](/reference/build-systems/cmake/usage-requirements/img/header-only-interface.svg)
+![Структура та поширення вимог інтерфейсної бібліотеки](img/header-only-interface.svg)
 *Інтерфейсна ціль існує в графі збірки як самостійний вузол і безпечно роздає свої вимоги підключеним споживачам.*
 
 Такий підхід забезпечує абсолютну ізоляцію:
@@ -524,7 +524,7 @@ target_include_directories(engine PUBLIC
 )
 ```
 
-![Розділення шляхів включення для етапів збірки та встановлення](/reference/build-systems/cmake/usage-requirements/img/build-vs-install-interface.svg)
+![Розділення шляхів включення для етапів збірки та встановлення](img/build-vs-install-interface.svg)
 *Генераторні вирази дозволяють точно розділити шляхи: внутрішні тести бачать дерево вихідного коду, а зовнішні клієнти — шлях відносно префікса інсталяції.*
 
 Як це працює:

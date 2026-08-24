@@ -152,7 +152,7 @@ tio.c_cflag |= CS7;                            /* мовчки лишає CS8 */
 
 ## Швидкість
 
-![Три способи покласти швидкість у termios: індекс у полі CBAUD, значення BOTHER із числами в c_ispeed/c_ospeed, і числовий speed_t у glibc 2.42](/reference/unix-linux/devices/tty-and-termios/img/baud-encoding.svg)
+![Три способи покласти швидкість у termios: індекс у полі CBAUD, значення BOTHER із числами в c_ispeed/c_ospeed, і числовий speed_t у glibc 2.42](img/baud-encoding.svg)
 
 *Змінилося не поле й не виклик, а те, чим є `speed_t`: був номер рядка в таблиці — стало саме число.*
 

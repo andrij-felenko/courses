@@ -50,7 +50,7 @@
 
 Сучасна підсистема Watchdog ядра Linux будується за чіткою тришаровою архітектурою, яка повністю відокремлює логіку файлової системи VFS від низькорівневого керування регістрами конкретних мікросхем.
 
-![Архітектура підсистеми Watchdog у Linux](/reference/unix-linux/devices/watchdog-timer-subsystem/img/watchdog-architecture.svg)
+![Архітектура підсистеми Watchdog у Linux](img/watchdog-architecture.svg)
 *Схема взаємодії простору користувача, ядра Watchdog Core та апаратних драйверів.*
 
 ### Основні компоненти Watchdog Framework
@@ -190,7 +190,7 @@ cat /sys/class/watchdog/watchdog0/timeout
 
 При виникненні аварійної ситуації жорстке апаратне перезавантаження миттєво обриває виконання інструкцій CPU, позбавляючи інженерів можливості дізнатися причину зависання (чи стався витік пам'яті, чи блокування у системному виклику, чи шторм переривань). Для вирішення цієї проблеми у ядрі Linux реалізовано двостадійний механізм Pretimeout.
 
-![Механізм Pretimeout та перехоплення аварійних подій](/reference/unix-linux/devices/watchdog-timer-subsystem/img/watchdog-pretimeout.svg)
+![Механізм Pretimeout та перехоплення аварійних подій](img/watchdog-pretimeout.svg)
 *Схема обробки двостадійного попередження Pretimeout та виклику Governors.*
 
 ### Двостадійна обробка та робота Governors
@@ -216,7 +216,7 @@ echo panic > /sys/class/watchdog/watchdog0/pretimeout_governor
 
 Надійна експлуатація підсистеми Watchdog вимагає точного математичного розрахунку співвідношення інтервалу надсилання пінгів `T_ping` та апаратного таймауту `T_out`.
 
-![Часова діаграма скидання лічильника та спрацювання таймауту](/reference/unix-linux/devices/watchdog-timer-subsystem/img/watchdog-timeline.svg)
+![Часова діаграма скидання лічильника та спрацювання таймауту](img/watchdog-timeline.svg)
 *Часова діаграма нормальної роботи (Heartbeat) та виникнення аварійного таймауту.*
 
 ### Математична межа та коефіцієнт запасу

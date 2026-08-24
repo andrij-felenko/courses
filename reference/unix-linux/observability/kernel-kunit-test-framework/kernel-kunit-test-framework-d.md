@@ -66,7 +66,7 @@ kunit_test_suite(example_test_suite);
 
 Коли ядро завантажується (або коли завантажується відповідний модуль ядра командою `modprobe`), підсистема ініціалізації KUnit проходить по цій секції як по суцільному масиву вказівників. Це дозволяє ядру динамічно виявляти усі наявні тестові сюїти без необхідності явного виклику центральної функції реєстрації або модифікації головного коду ініціалізації ядра (`init/main.c`).
 
-![Архітектура та потік виконання KUnit](/reference/unix-linux/observability/kernel-kunit-test-framework/img/kunit-architecture.svg)
+![Архітектура та потік виконання KUnit](img/kunit-architecture.svg)
 *Архітектура та потік виконання KUnit під управлінням User Mode Linux (UML).*
 
 ### Життєвий цикл виконання тесту
@@ -168,7 +168,7 @@ not ok 1 - ext4_allocation_suite
 
 Для виявлення таких прихованих багів KUnit запускається у зв'язці з трьома системними санітайзерами ядра: **KASAN**, **KCSAN** та **KFENCE**. Вони діють як пасивний захисний шар, який моніторить кожну операцію читання та запису під час виконання KUnit-тестів.
 
-![Порівняння механізмів відлагоджувачів: KASAN vs KFENCE vs KCSAN](/reference/unix-linux/observability/kernel-kunit-test-framework/img/sanitizers-comparison.svg)
+![Порівняння механізмів відлагоджувачів: KASAN vs KFENCE vs KCSAN](img/sanitizers-comparison.svg)
 *Порівняння механізмів виявлення помилок пам'яті та гонитв у ядрі Linux.*
 
 ### 3.1. KASAN (Kernel Address Sanitizer)
@@ -234,7 +234,7 @@ KFENCE не використовує суцільну тіньову пам'ят
 
 Скрипт `kunit.py` підтримує генерацію конфігураційних файлів та виконання тестів із підключенням аналізу покриття коду (`gcov` / `kcov`). Прапор `--gcov` автоматично підключає опції компілятора для розрахунку покриття рядків коду вихідного файлу модулів.
 
-![Конвеєр автоматизованого тестування ядра у CI/CD](/reference/unix-linux/observability/kernel-kunit-test-framework/img/kunit-ci-pipeline.svg)
+![Конвеєр автоматизованого тестування ядра у CI/CD](img/kunit-ci-pipeline.svg)
 *Конвеєр автоматизованого тестування ядра Linux у середовищі безперервної інтеграції (CI/CD).*
 
 Повний опис параметрів завантаження ядра, керування інтерфейсами `sysfs`/`debugfs` та специфікацію API KUnit зведено у довіднику [📋 Інтерфейс API KUnit та налаштування санітайзерів](book:unix-linux/kernel-kunit-test-framework/api-kunit-and-sanitizers.md).

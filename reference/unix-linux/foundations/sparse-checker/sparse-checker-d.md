@@ -17,7 +17,7 @@
 
 Суть роботи Sparse полягає в розширенні системи типів C. За допомогою спеціальних макросів-анотацій, розробники ядра позначають вказівники та змінні. Sparse аналізує ці анотації під час збирання ядра і попереджає про невідповідності типів, які GCC пропустив би.
 
-![Sparse Address Spaces](/reference/unix-linux/foundations/sparse-checker/img/sparse-spaces.svg)
+![Sparse Address Spaces](img/sparse-spaces.svg)
 
 ### Механізм адресних просторів (Address Spaces)
 

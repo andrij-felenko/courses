@@ -15,7 +15,7 @@
 
 Специфікація **NVMe over Fabrics (NVMe-oF)**, вперше опублікована консорціумом NVM Express у 2016 році, поставила за мету винести цю безблокувальну архітектуру за межі фізичної шини PCIe у мережеву фабрику (Ethernet, InfiniBand, Fibre Channel). Головне завдання NVMe-oF — забезпечити віддалений доступ до блочного пристрою з додатковою затримкою не більше ніж 10–20 мікросекунд порівняно з локальним PCIe SSD, зберігши нативні NVMe-команди без жодної трансляції в SCSI.
 
-![Схема підсистем та мережевих черг NVMe-oF](/reference/unix-linux/devices/nvme-over-fabrics-rdma-tcp/img/nvme-kernel-target-stack.svg)
+![Схема підсистем та мережевих черг NVMe-oF](img/nvme-kernel-target-stack.svg)
 *Стек підсистем NVMe-oF у ядрі Linux від шару blk-mq на хості до підсистеми nvmet на таргеті.*
 
 ## 2. Ключові концепти архітектури NVMe-oF
@@ -61,7 +61,7 @@ Host NQN зберігається у файлі `/etc/nvme/hostnqn`, який с
 
 Специфікація NVMe-oF розроблена транспортно-незалежною. Спеціальний шар абстракції `nvme-fabrics` у ядрі Linux транслює виклики вищого рівня у конкретні реалізації мережевих транспортів.
 
-![Порівняння локального PCIe NVMe, NVMe/RDMA та NVMe/TCP](/reference/unix-linux/devices/nvme-over-fabrics-rdma-tcp/img/nvme-of-transport-comparison.svg)
+![Порівняння локального PCIe NVMe, NVMe/RDMA та NVMe/TCP](img/nvme-of-transport-comparison.svg)
 *Порівняння шляху даних у локальному PCIe NVMe, мережевому NVMe/RDMA із прямим доступом до пам'яті та універсальному NVMe/TCP.*
 
 ### 3.1. NVMe over RDMA (NVMe/RDMA)
@@ -89,7 +89,7 @@ RDMA (Remote Direct Memory Access) дозволяє мережевому ада�
 
 Усі дані в NVMe/TCP передаються у формі структурованих блоків — **PDU (Protocol Data Unit)**.
 
-![Структура PDU та капсули команди в NVMe/TCP](/reference/unix-linux/devices/nvme-over-fabrics-rdma-tcp/img/nvme-tcp-pdu-capsule.svg)
+![Структура PDU та капсули команди в NVMe/TCP](img/nvme-tcp-pdu-capsule.svg)
 *Внутрішнє розбиття PDU пакунка NVMe/TCP на заголовок, капсулу команди SQE та вкладені дані.*
 
 #### Структура PDU NVMe/TCP

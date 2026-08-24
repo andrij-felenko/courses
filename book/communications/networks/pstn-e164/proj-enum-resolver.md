@@ -32,7 +32,7 @@
 [ Цільовий SIP URI: «sip:user@operator.ua» ]
 ```
 
-![Конвеєр обчислення ENUM](/book/communications/networks/pstn-e164/img/enum-dns-resolution.svg)
+![Конвеєр обчислення ENUM](img/enum-dns-resolution.svg)
 *Конвеєр трансляції телефонного номера E.164 в SIP URI через дерево доменів DNS e164.arpa.*
 
 #### 1. Нормалізація та формування доменного імені

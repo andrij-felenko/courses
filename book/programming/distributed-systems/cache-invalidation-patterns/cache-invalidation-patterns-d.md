@@ -56,7 +56,7 @@
 
 Детальний аналіз виникнення цього підходу в архітектурі Akamai, Squid та Varnish викладено в історичному нарисі про [історію сурогатних ключів](book:programming/distributed-systems/cache-invalidation-patterns/hist-surrogate-keys-and-tags.md).
 
-![Інвертований індекс тегів (Surrogate Keys) для групової інвалідації](/book/programming/distributed-systems/cache-invalidation-patterns/img/tag-based-invalidation.svg)
+![Інвертований індекс тегів (Surrogate Keys) для групової інвалідації](img/tag-based-invalidation.svg)
 *Інвертований індекс тегів: зміна однієї сутності транслюється у миттєве видалення всіх залежних кешованих ключів без сканування сховища.*
 
 ### Архітектура інвертованого індексу
@@ -90,7 +90,7 @@ Surrogate-Key: item:42 cat:laptops brand:apple
 
 Для таких задач застосовують патерн **версійних епох** (Generation Bumping, або Versioned Namespaces).
 
-![Інвалідація простору імен через версійні епохи (Generation Bumping)](/book/programming/distributed-systems/cache-invalidation-patterns/img/version-generation-invalidation.svg)
+![Інвалідація простору імен через версійні епохи (Generation Bumping)](img/version-generation-invalidation.svg)
 *Інвалідація епохами: атомарний інкремент одного лічильника версії за O(1) робить мільйони ключів недосяжними без навантаження на мережу та диск.*
 
 ### Принцип роботи лічильників епох
@@ -117,7 +117,7 @@ Surrogate-Key: item:42 cat:laptops brand:apple
 
 Для усунення проблеми подвійного запису застосовують патерн **CDC-інвалідації (Change Data Capture)** на базі вичитування журналу попереднього запису (WAL у PostgreSQL або Binlog у MySQL).
 
-![Конвеєр інвалідації на основі захоплення змін даних (CDC / Log Tailing)](/book/programming/distributed-systems/cache-invalidation-patterns/img/cdc-log-invalidation.svg)
+![Конвеєр інвалідації на основі захоплення змін даних (CDC / Log Tailing)](img/cdc-log-invalidation.svg)
 *Конвеєр CDC-інвалідації: читання журналу транзакцій WAL усуває проблему подвійного запису й гарантує монотонний порядок анулювання копій.*
 
 ### Будова конвеєра інвалідації
@@ -133,7 +133,7 @@ Surrogate-Key: item:42 cat:laptops brand:apple
 
 У розподілених системах із реплікацією бази даних (Master-Replica) виникає прихована гонка станів через лаг реплікації.
 
-![Відкладене подвійне видалення (Delayed Double-Delete) для компенсації лагу реплікації](/book/programming/distributed-systems/cache-invalidation-patterns/img/delayed-double-delete.svg)
+![Відкладене подвійне видалення (Delayed Double-Delete) для компенсації лагу реплікації](img/delayed-double-delete.svg)
 *Відкладене подвійне видалення: повторна зачистка кешу після тайм-ауту реплікації нейтралізує отруєння застарілими даними з відсталої репліки.*
 
 ### Анатомія аварії реплікаційного лагу

@@ -13,7 +13,7 @@
 
 Технологія WebRTC (Web Real-Time Communication, RFC 8825 – RFC 8874) докорінно змінює архітектуру вебкомунікацій. Вона надає стандартизований набір протоколів простору користувача та JavaScript API для встановлення захищеного прямого пірингового з'єднання (Peer-to-Peer) між кінцевими вузлами поверх беззв'язкових датаграм UDP. WebRTC гарантує субсекундну затримку доставки (Glass-to-Glass затримка менше ніж 100 мс), обов'язкове наскрізне шифрування медіатрафіку DTLS-SRTP, адаптивне керування бітрейтом під реальний стан каналу та передачу довільних двійкових даних через надійні або ненадійні канали SCTP без встановлення стороннього програмного забезпечення.
 
-![Стек протоколів WebRTC](/book/communications/protocols/webrtc/img/webrtc-stack.svg)
+![Стек протоколів WebRTC](img/webrtc-stack.svg)
 *Архітектура стеку протоколів WebRTC: поділ на медіа-тракт SRTP/DTLS та тракт довільних даних SCTP/DTLS поверх єдиного UDP-порту BUNDLE.*
 
 ## Багаторівневий стек протоколів WebRTC
@@ -140,7 +140,7 @@ WebRTC навмисно не визначає транспортного про�
 
 Сам зміст сесії описується за допомогою декларативного формату SDP (Session Description Protocol) у межах моделі **Offer/Answer** (RFC 3264) з розширенням Unified Plan (RFC 8829).
 
-![Сигнальний обмін Offer/Answer](/book/communications/protocols/webrtc/img/offer-answer-sdp.svg)
+![Сигнальний обмін Offer/Answer](img/offer-answer-sdp.svg)
 *Сигнальний обмін дескрипторами SDP Offer/Answer та асинхронний збір кандидатів зв'язності Trickle ICE.*
 
 ### Послідовність встановлення сесії
@@ -163,7 +163,7 @@ WebRTC навмисно не визначає транспортного про�
 
 Для пошуку найкоротшого та найшвидшого прямого мережевого маршруту WebRTC використовує фреймворк **ICE (Interactive Connectivity Establishment, RFC 8445)**, який інтегрує протоколи STUN (RFC 5389) та TURN (RFC 5766).
 
-![Зв'язність ICE та сервери STUN/TURN](/book/communications/protocols/webrtc/img/ice-connectivity-check.svg)
+![Зв'язність ICE та сервери STUN/TURN](img/ice-connectivity-check.svg)
 *Процедура перевірки зв'язності ICE: пряме з'єднання через STUN та резервна ретрансляція трафіку через TURN.*
 
 ### Типи кандидатів зв'язності (ICE Candidates)
@@ -190,7 +190,7 @@ WebRTC навмисно не визначає транспортного про�
 - **DTLS (Datagram Transport Layer Security, RFC 6347 / RFC 9147)** — протокол захисту датаграм, що виконує асиметричне рукостискання, автентифікацію кінцевих точок та узгодження майстер-секрету.
 - **SRTP (Secure Real-time Transport Protocol, RFC 3711)** — симетричний протокол потокового шифрування корисного вантажу аудіо/відео з мінімальними накладними витратами процесора.
 
-![Узгодження ключів DTLS-SRTP](/book/communications/protocols/webrtc/img/dtls-srtp-key-exchange.svg)
+![Узгодження ключів DTLS-SRTP](img/dtls-srtp-key-exchange.svg)
 *Криптографічний захист медіа: виведення сесійних ключів SRTP через розширення DTLS Keying Material Exporter (RFC 5764).*
 
 ### Механізм виведення ключів (Keying Material Exporter)
@@ -234,7 +234,7 @@ IV[i]
 
 Сучасний WebRTC реалізує оцінювач **GCC (Google Congestion Control)**, що спирається на зворотний зв'язок **TWCC (Transport-Wide Congestion Control, RFC 8888)**.
 
-![Контур керування бітрейтом TWCC](/book/communications/protocols/webrtc/img/twcc-feedback-loop.svg)
+![Контур керування бітрейтом TWCC](img/twcc-feedback-loop.svg)
 *Контур адаптивного керування бітрейтом TWCC: зворотний зв'язок затримки прибуття пакетів для запобігання переповненню черг.*
 
 ### Робота контуру TWCC
@@ -276,7 +276,7 @@ Opus підтримує вбудовану корекцію помилок (In-B
 
 Сучасний WebRTC вийшов далеко за межі браузерних відеоконференцій і став стандартом де-факто для дистанційного керування роботами, FPV-дронами та телемедичними комплексами.
 
-![Архітектура WebRTC у робототехніці та FPV](/book/communications/protocols/webrtc/img/fpv-robotics-pipeline.svg)
+![Архітектура WebRTC у робототехніці та FPV](img/fpv-robotics-pipeline.svg)
 *Застосування WebRTC для прямого FPV-відеострімінгу та телеметрії польоту з браузерною станцією керування.*
 
 ### Оптимізація конвеєра наднизької затримки (Sub-50ms Pipeline)

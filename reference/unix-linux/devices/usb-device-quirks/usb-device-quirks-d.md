@@ -65,7 +65,7 @@ void usb_detect_quirks(struct usb_device *udev)
 
 Поле `udev->quirks` являє собою 32-бітну бітову маску (`u32`), де кожен біт активує певну зміну в логіці ядра. Ця маска зберігається в структурі `struct usb_device` і супроводжує об'єкт пристрою протягом усього його життєвого циклу.
 
-![Архітектура підсистеми quirks у ядрі Linux](/reference/unix-linux/devices/usb-device-quirks/img/quirks-detection-and-flow.svg)
+![Архітектура підсистеми quirks у ядрі Linux](img/quirks-detection-and-flow.svg)
 
 *Архітектура підсистеми quirks: послідовність виявлення дефектного обладнання під час нумерації, формування бітової маски udev->quirks та умовні розгалуження в критичних шляхах ядра.*
 
@@ -224,7 +224,7 @@ UNUSUAL_DEV( 0x174c, 0x55aa, 0x0000, 0x9999,
         US_FL_IGNORE_UAS | US_FL_BROKEN_FUA | US_FL_NO_SAME ),
 ```
 
-![Арбітраж протоколів накопичувачів USB: UAS проти Bulk-Only Transport](/reference/unix-linux/devices/usb-device-quirks/img/uas-vs-bot-quirk-arbitration.svg)
+![Арбітраж протоколів накопичувачів USB: UAS проти Bulk-Only Transport](img/uas-vs-bot-quirk-arbitration.svg)
 
 *Арбітраж протоколів накопичувачів USB: блокування драйвера uas.ko за допомогою прапорця US_FL_IGNORE_UAS та відкат на безпечний драйвер usb-storage.ko.*
 
@@ -262,7 +262,7 @@ echo "174c:55aa:u" | sudo tee /sys/module/usb_storage/parameters/quirks
 
 Якщо під час нормальної роботи пристрій припиняє відповідати на пакети даних або генерує помилки транзакцій, драйвер та USB Core запускають 4-рівневу процедуру ескалації відновлення:
 
-![Ескалація відновлення після збоїв та таймаутів USB](/reference/unix-linux/devices/usb-device-quirks/img/usb-error-recovery-and-reset.svg)
+![Ескалація відновлення після збоїв та таймаутів USB](img/usb-error-recovery-and-reset.svg)
 
 *Ескалація відновлення після збоїв та таймаутів USB: від очищення стану зупинки кінцевої точки до апаратного скидання порту та повторної нумерації.*
 

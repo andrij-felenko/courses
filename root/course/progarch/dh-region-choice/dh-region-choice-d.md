@@ -68,7 +68,7 @@ ss -i -t -m state established '( dport = :5432 or sport = :5432 )'
 
 Для вирішення конфлікту між затримкою, регуляторикою та масштабованістю платформа Digital Homes будується за трирівневою гібридною топологією.
 
-![Глобальна мультирегіональна топологія платформи Digital Homes](/root/course/progarch/dh-region-choice/img/dh-global-topology.svg)
+![Глобальна мультирегіональна топологія платформи Digital Homes](img/dh-global-topology.svg)
 *Глобальна мультирегіональна топологія платформи Digital Homes: розділення глобального реєстру адресації (Global Directory) та локалізованих комірок даних (Home Datacenter Pinning).*
 
 Архітектура «Планета DH» складається з трьох критичних шарів:
@@ -98,7 +98,7 @@ Global Directory зберігає строго мінімальний набір
 
 Процес маршрутизації клієнтського з'єднання від Edge PoP до локалізованого дата-центру показано на діаграмі:
 
-![Маршрутизація з'єднання хаба DH до локалізованого дата-центру](/root/course/progarch/dh-region-choice/img/georouting-resolution-flow.svg)
+![Маршрутизація з'єднання хаба DH до локалізованого дата-центру](img/georouting-resolution-flow.svg)
 *Маршрутизація з'єднання хаба DH: від BGP Anycast термінації на краю через швидкий lookup у Global Directory до прямого gRPC-стриму в локалізовану комірку даних.*
 
 Детальна специфікація продуктового геомаршрутизатора з кодовими прикладами на мовах Go та C++ представлена у практичній вставці [⚙️ Практична реалізація георутера та диспетчера Home Datacenter Pinning](root:progarch/scale-and-load/dh-region-choice/proj-dh-georouter.md).
@@ -109,7 +109,7 @@ Global Directory зберігає строго мінімальний набір
 
 Для збалансування системних вимог використовується теорема PACELC, яка розділяє компенсації на чотири домени:
 
-![Матриця CAP / PACELC для доменів Digital Homes](/root/course/progarch/dh-region-choice/img/cross-region-replication-matrix.svg)
+![Матриця CAP / PACELC для доменів Digital Homes](img/cross-region-replication-matrix.svg)
 *Матриця CAP / PACELC: топологія узгодженості та розподіл вимог до затримки за підсистемами платформи Digital Homes.*
 
 Розглянемо чотири квадрати узгодженості платформи:
@@ -169,7 +169,7 @@ WHERE slot_name = 'dr_us_east_1_slot';
 
 Щоб повністю усунути ризик Split-Brain, протокол евакуації Digital Homes виконується у п'ять суворо послідовних фаз:
 
-![Послідовність аварійної евакуації регіону](/root/course/progarch/dh-region-choice/img/region-failover-sequence.svg)
+![Послідовність аварійної евакуації регіону](img/region-failover-sequence.svg)
 *П'ять фаз протоколу евакуації регіону: від детекції аварії та відкликання Fencing токенів до перемикання прапора в Global Directory та виходу в режим Full Active.*
 
 Детальний розбір кожної фази евакуаційного протоколу:

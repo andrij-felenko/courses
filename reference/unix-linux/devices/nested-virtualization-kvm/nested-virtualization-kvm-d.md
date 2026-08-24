@@ -10,7 +10,7 @@
 
 Вкладена віртуалізація (Nested Virtualization) у підсистемі KVM розв'язує цю суперечність шляхом комбінованої емуляції апаратних розширень VMX/SVM та динамічного злиття структур управління віртуальними машинами.
 
-![Архітектура трирівневої віртуалізації (L0, L1, L2)](/reference/unix-linux/devices/nested-virtualization-kvm/img/nested-arch.svg)
+![Архітектура трирівневої віртуалізації (L0, L1, L2)](img/nested-arch.svg)
 *Архітектура трирівневої віртуалізації (L0, L1, L2) та маршрутизація апаратних перехоплень.*
 
 ## 1. Рівні виконання: L0, L1 та L2
@@ -41,7 +41,7 @@
 
 Для усунення цієї проблеми компанія Intel запровадила апаратну технологію **VMCS Shadowing** (впроваджену у мікроархітектурі Haswell), а AMD реалізувала механізм **VMCB Clean Bits**.
 
-![Оптимізація VMCS Shadowing](/reference/unix-linux/devices/nested-virtualization-kvm/img/vmcs-shadowing.svg)
+![Оптимізація VMCS Shadowing](img/vmcs-shadowing.svg)
 *Оптимізація VMCS Shadowing: скорочення апаратних трапів до L0 під час модифікації полів VMCS.*
 
 За наявності VMCS Shadowing процесор підтримує нове поле у VMCS01 — **VMCS Shadowing Bitmap** та покажчик на **Shadow VMCS** (Тіньовий VMCS). Коли L1 виконує інструкції `VMREAD` або `VMWRITE`, спрямовані на тіньовий VMCS:
@@ -68,7 +68,7 @@
 Трансляція відбувається за такою схемою:
 `L2 GVA → (Таблиці сторінок L2) → L2 GPA → (EPT12 у L1) → L1 GPA → (EPT01 у L0) → L0 HPA`.
 
-![Маршрутизація EPT Violations та злиття EPT02 у KVM](/reference/unix-linux/devices/nested-virtualization-kvm/img/ept-routing.svg)
+![Маршрутизація EPT Violations та злиття EPT02 у KVM](img/ept-routing.svg)
 *Маршрутизація EPT Violations та побудова об'єднаного EPT02 у гіпервізорі KVM.*
 
 Апаратний блок MMU процесора має лише один регістр `EPTP` (Extended Page Table Pointer) на Intel або `nCR3` на AMD, і не здатен апаратно проходити дві таблиці EPT/NPT послідовно. Щоб забезпечити виконання коду L2 з апаратною швидкістю, KVM у L0 будує **Тіньовий EPT (Shadow EPT, або EPT02)**, який відображає `L2 GPA → L0 HPA` напряму.

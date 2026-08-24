@@ -27,7 +27,7 @@
 
 Коли процес звертається до системного виклику (наприклад, `openat`, `execve`, `connect` або `unlink`), ядро проводить перевірку в кілька послідовних етапів.
 
-![Шлях системного виклику через BPF LSM](/reference/unix-linux/permissions/bpf-lsm-audit-and-override/img/bpf-lsm-hooks-flow.svg)
+![Шлях системного виклику через BPF LSM](img/bpf-lsm-hooks-flow.svg)
 *Послідовність виконання перевірок: BPF LSM виконується на початку ланцюжка хуків LSM і може негайно зупинити виклик, повернувши від'ємний код помилки, або записати подію аудиту й передати керування далі.*
 
 На першому етапі ядро виконує розпізнавання параметрів VFS та перевірку мандатів у межах вибіркового контролю доступу (DAC — Discretionary Access Control). Перевіряються біти дозволів `rwxrwxrwx`, приналежність до UID/GID та маски POSIX ACL, якщо файлова система їх підтримує. Якщо DAC забороняє дію, ядро негайно завершує виклик із помилкою `EACCES` або `EPERM`, навіть не звертаючись до підсистеми LSM.
@@ -64,7 +64,7 @@
 
 BPF LSM вирішує цю проблему за допомогою механізму BPF Local Storage (`BPF_MAP_TYPE_TASK_STORAGE`, `BPF_MAP_TYPE_INODE_STORAGE`, `BPF_MAP_TYPE_SK_STORAGE`).
 
-![Взаємодія BPF Local Storage із блоками безпеки ядра](/reference/unix-linux/permissions/bpf-lsm-audit-and-override/img/bpf-lsm-storage-override.svg)
+![Взаємодія BPF Local Storage із блоками безпеки ядра](img/bpf-lsm-storage-override.svg)
 *Прив'язка BPF Local Storage до структур inode та task_struct: зберігання динамічних міток безпеки поверх системних security blobs без використання уповільнювальних хеш-таблиць.*
 
 Під капотом локальне сховище спирається на інфраструктуру LSM Blobs. Під час завантаження ядра кожен модуль безпеки запитує виділення додаткового обсягу пам'яті у структурі `security_blob_sizes`. Отриманий вказівник `void *security` додається безпосередньо до ядерних об'єктів `struct inode`, `struct task_struct` чи `struct sock`.

@@ -75,7 +75,7 @@ struct __aio_sigset {
 
 ## `struct iocb` поле за полем
 
-![Побайтова розкладка struct iocb, struct io_event і заголовка кільця aio_ring](/reference/unix-linux/io/linux-aio-io-submit/img/abi-layout.svg)
+![Побайтова розкладка struct iocb, struct io_event і заголовка кільця aio_ring](img/abi-layout.svg)
 
 *Шістдесят чотири байти запиту, тридцять два байти звіту й тридцять два байти заголовка кільця — усе, з чого складається ABI.*
 

@@ -11,7 +11,7 @@
 
 Незважаючи на багаторівневу еволюцію операцій `futex()` (`FUTEX_WAIT`, `FUTEX_WAKE`, `FUTEX_REQUEUE`, `FUTEX_CMP_REQUEUE`), ядро Linux до версії 5.16 не надавало атомарного способу приспати потік на масиві з кількох futex-змінних. Цей недолік виявився критичним під час розгортання шарів емуляції Windows NT у Linux (Wine, Proton, Steam Deck). Архітектура Windows NT від початку будувалася довкола виклику `WaitForMultipleObjects()`, де потік засинає до появи сигналу на будь-якому з масиву об'єктів (м'ютекси, події, семафори). Щоб забезпечити нативну швидкість виконання ігор без важкої міжпроцесної емуляції, у ядрі Linux 5.16 з'явився новий системний виклик `sys_futex_waitv` — перший прийнятий компонент підсистеми **futex2**.
 
-![Емуляція WaitForMultipleObjects через sys_futex_waitv](/reference/unix-linux/processes/futex2-waitv-syscall/img/futex2-waitv-syscall-d.svg)
+![Емуляція WaitForMultipleObjects через sys_futex_waitv](img/futex2-waitv-syscall-d.svg)
 *Принцип емуляції Windows-функції WaitForMultipleObjects() за допомогою системного виклику sys_futex_waitv() у середовищі Wine/Proton.*
 
 ---

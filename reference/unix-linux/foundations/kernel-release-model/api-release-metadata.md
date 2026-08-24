@@ -65,7 +65,7 @@ ${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_v
 | `CONFIG_LOCALVERSION_AUTO=n`, `LOCALVERSION` не задано | сама лише `+`, і то лише як ознака «це не рівно тег»; на брудне дерево скорочений режим уже не дивиться |
 | `CONFIG_LOCALVERSION_AUTO=n`, `LOCALVERSION` задано | нічого |
 
-![Рядок версії, розкладений на сім суміжних ділянок: три числа й мітка кандидата приходять із Makefile, дві наступні — з файлів localversion і з CONFIG_LOCALVERSION, остання — з git; складений рядок лягає у файл kernel.release, звідти в UTS_RELEASE і далі в uname -r, /proc/sys/kernel/osrelease і початок /proc/version](/reference/unix-linux/foundations/kernel-release-model/img/version-string.svg)
+![Рядок версії, розкладений на сім суміжних ділянок: три числа й мітка кандидата приходять із Makefile, дві наступні — з файлів localversion і з CONFIG_LOCALVERSION, остання — з git; складений рядок лягає у файл kernel.release, звідти в UTS_RELEASE і далі в uname -r, /proc/sys/kernel/osrelease і початок /proc/version](img/version-string.svg)
 
 *Кожна ділянка рядка має свого господаря: перші чотири правлять комітом у дерево, дві середні — налаштуванням збірки, останню дописує git і не питає нікого.*
 

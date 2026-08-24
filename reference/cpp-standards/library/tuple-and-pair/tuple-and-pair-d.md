@@ -59,7 +59,7 @@ sizeof(std::pair<T1, T2>) = align_up(sizeof(T1) + padding1 + sizeof(T2), max(ali
 
 Якщо ж ми поміняємо типи місцями й створимо `std::pair<double, char>`, поле `first` розтягнеться від 0 до 7 байтів, `second` займе 1 байт за зміщенням 8, і ще 7 байтів набивки будуть додані наприкінці структури для збереження вирівнювання масиву `pair[]`. Загальний розмір залишиться 16 байтів.
 
-![Макет пам'яті std::pair та std::tuple](/reference/cpp-standards/library/tuple-and-pair/img/tuple-layout.svg)
+![Макет пам'яті std::pair та std::tuple](img/tuple-layout.svg)
 *Макет пам'яті std::pair та std::tuple у C++: порівняння вирівнювання полів, байтів набивки та оптимізації порожньої бази (EBO).*
 
 ### Імплементація std::tuple: від рекурсивного успадкування до листової композиції
@@ -300,7 +300,7 @@ using SecondType = std::tuple_element_t<1, MyTuple>;   // SecondType = std::stri
 
 Синтаксичний цукор C++17 `auto [x, y, z] = tuple;` насправді перетворюється компілятором на трипослідовний метапротокол.
 
-![Протокол структурованих зв'язувань у C++17](/reference/cpp-standards/library/tuple-and-pair/img/structured-bindings-mechanics.svg)
+![Протокол структурованих зв'язувань у C++17](img/structured-bindings-mechanics.svg)
 *Трикрокова декомпозиція структурованих зв'язувань C++17: перевірка tuple_size, виведення типів через tuple_element та звернення через get<i>().*
 
 Коли компілятор обробляє вираз `auto [x, y] = expr;`, він виконує наступні дії:
@@ -336,7 +336,7 @@ int main() {
 }
 ```
 
-![Розпакування std::tuple через std::apply](/reference/cpp-standards/library/tuple-and-pair/img/tuple-unpacking-flow.svg)
+![Розпакування std::tuple через std::apply](img/tuple-unpacking-flow.svg)
 *Механіка розпакування std::tuple у виклик функції за допомогою std::apply та компіляційної послідовності std::index_sequence.*
 
 Внутрішньо `std::apply` створює послідовність індексів `std::make_index_sequence<N>{}` та викликає цільову функцію через пакетний вираз `std::invoke(fn, std::get<Is>(tuple)...)`.

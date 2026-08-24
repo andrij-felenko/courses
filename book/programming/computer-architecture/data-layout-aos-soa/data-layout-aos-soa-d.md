@@ -72,7 +72,7 @@ std::vector<Particle> particles(1000000);
 [ x0 y0 z0 vx0 vy0 vz0 m0 r0 id0 fl0 ][ x1 y1 z1 vx1 vy1 vz1 m1 r1 id1 fl1 ] ...
 ```
 
-![Організація пам'яті AoS, SoA та AoSoA](/book/programming/computer-architecture/data-layout-aos-soa/img/aos-soa-aosoa-memory.svg)
+![Організація пам'яті AoS, SoA та AoSoA](img/aos-soa-aosoa-memory.svg)
 *Порівняння трьох схем розташування даних у пам'яті та утилізація 64-байтної лінії кешу L1 під час оновлення координат.*
 
 Схема AoS має незаперечні переваги, коли програма оперує сутностями індивідуально:
@@ -148,7 +148,7 @@ struct ParticlesSoA {
 
 Векторна інструкція завантаження (наприклад, `_mm256_load_ps` у C/C++ або асемблерна команда `vmovaps`) вимагає, щоб 8 чисел `float` лежали в пам'яті **поспіль за суцільною адресою**.
 
-![Векторне завантаження у SIMD-регістр](/book/programming/computer-architecture/data-layout-aos-soa/img/simd-contiguous-vs-gather.svg)
+![Векторне завантаження у SIMD-регістр](img/simd-contiguous-vs-gather.svg)
 *Неперервне читання блоку пам'яті однією інструкцією vmovups у SoA проти розрізненого збирання vgatherdps у масиві структур AoS.*
 
 Коли дані організовані у форматі **SoA**, векторизація відбувається природно й безкоштовно:
@@ -252,7 +252,7 @@ AoSoA широко застосовується в рушіях трасуван
 
 Головним практичним втіленням Data-Oriented Design в індустрії розробки інтерактивних систем став архітектурний патерн **Entity Component System (ECS)**.
 
-![Таблиці архетипів в ECS та стовпчикові сховища](/book/programming/computer-architecture/data-layout-aos-soa/img/ecs-columnar-storage.svg)
+![Таблиці архетипів в ECS та стовпчикові сховища](img/ecs-columnar-storage.svg)
 *Організація пам'яті за принципами Data-Oriented Design: щільні стовпчики компонентів у рушіях ECS та аналітичних СУБД.*
 
 На відміну від класичного ООП, де об'єкт поєднує стан і поведінку, в ECS діє жорсткий поділ:

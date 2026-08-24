@@ -83,7 +83,7 @@ namespace storage {
 
 Детальний процес еволюції точок налаштування та історичні передумови появи нових стандартів розкрито у 📜 [Еволюція точок налаштування: від std::swap до CPO та tag_invoke](book:cpp-standards/customization-points/hist-customization-evolution.md).
 
-![Пошук імен: класичний ADL проти Customization Point Objects (CPO)](/reference/cpp-standards/templates/customization-points/img/adl-vs-cpo-resolution.svg)
+![Пошук імен: класичний ADL проти Customization Point Objects (CPO)](img/adl-vs-cpo-resolution.svg)
 *Шлях виклику класичного ADL вимагає using та піддається ADL-hijacking, тоді як виклик CPO є прямо кваліфікованим і безпечним.*
 
 ## Спеціалізація шаблонів у просторі `std`: чому це виявилося тупиковим шляхом
@@ -169,7 +169,7 @@ CPO — це функціональний об'єкт (функтор), який
 2. **Другий рівень (ADL у Poisoned Context).** Якщо методу-члена немає, виконується неповнокваліфікований виклик `begin(t)` через ADL. Але цей виклик виконується у спеціальному "отруєному контексті" (Poisoned Context) — приватному просторі імен деталі, де явно оголошено видалену функцію `void begin() = delete;`. Це виключає рекурсивне викликання самого CPO і дозволяє знаходити лише реальні користувацькі перевантаження.
 3. **Третій рівень (Запасний варіант / Fallback).** Якщо перші дві гілки не справдилися, CPO застосовує стандартний фолбек (наприклад, обробку статичних C-масивів `t + 0` для `std::ranges::begin`).
 
-![Ієрархія вибору реализації всередині CPO (Dispatch Ladder)](/reference/cpp-standards/templates/customization-points/img/cpo-dispatch-ladder.svg)
+![Ієрархія вибору реализації всередині CPO (Dispatch Ladder)](img/cpo-dispatch-ladder.svg)
 *Компілятор послідовно перевіряє методи-члени, ADL у замкненому просторі імен та запасні алгоритми, відсікаючи невалідні варіанти за допомогою концептів.*
 
 Завдяки використанню концептів C++20, якщо для типу `T` жодна гілка CPO не є придатною, вираз `std::invocable<decltype(std::ranges::begin), T>` повертає `false`. Помилка виникає безпосередньо у точці виклику (`call site`), а не всередині глибин шаблону.
@@ -309,7 +309,7 @@ constexpr decltype(auto) tag_invoke(Tag&& tag, Args&&... args) noexcept;
 
 У цій архітектурі точка налаштування (тег) передається першим аргументом функції. Самі теги є порожніми унікальними типами-маркерами (наприклад, `std::execution::connect_t`).
 
-![Архітектура tag_invoke: єдиний вузол ADL для всіх точок налаштування](/reference/cpp-standards/templates/customization-points/img/tag-invoke-architecture.svg)
+![Архітектура tag_invoke: єдиний вузол ADL для всіх точок налаштування](img/tag-invoke-architecture.svg)
 *Замість десятків окремих імен ADL виклики спрямовуються через єдину точку tag_invoke, де тег виступає першим аргументом.*
 
 Приклад підключення користувацького типу до системи `tag_invoke`:

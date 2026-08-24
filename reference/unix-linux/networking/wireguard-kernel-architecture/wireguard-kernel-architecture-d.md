@@ -13,7 +13,7 @@ WireGuard усуває цей системний оверхед шляхом п�
 
 За детальнішим хронологічним розбором еволюції від складних 100-тисячних баз коду IPsec до мінімалістичного тунелю зверніться до статті про [історію розробки WireGuard](book:unix-linux/wireguard-kernel-architecture/hist-wireguard-genesis.md), де описано архітектурні рішення автора протоколу та оцінку Лінуса Торвальдса.
 
-![Архітектурний устрій WireGuard у просторі ядра Linux](/reference/unix-linux/networking/wireguard-kernel-architecture/img/wireguard-architecture.svg)
+![Архітектурний устрій WireGuard у просторі ядра Linux](img/wireguard-architecture.svg)
 *Взаємодія віртуального пристрою wg0, таблиці Cryptokey Routing, криптографічного конвеєра padata та UDP-сокета ядра.*
 
 ---
@@ -102,7 +102,7 @@ struct udp_tunnel_sock_cfg cfg = {
 
 Фундаментальною архітектурною концепцією WireGuard є Cryptokey Routing (криптографічна маршрутизація від англ. *cryptographic key routing*). У класичних VPN-протоколах існує чіткий розрив між IP-маршрутизацією та криптографічними ключами: маршрутизатор обирає інтерфейс, а шифратор шукає правила у таблиці політик. У WireGuard публічний ключ вузла безпосередньо слугує мережевою адресою у внутрішній таблиці підмереж.
 
-![Конвеєр обробки пакетів WireGuard у мережевому стеку](/reference/unix-linux/networking/wireguard-kernel-architecture/img/wireguard-packet-flow.svg)
+![Конвеєр обробки пакетів WireGuard у мережевому стеку](img/wireguard-packet-flow.svg)
 *Шлях вихідного (TX) та вхідного (RX) пакетів sk_buff крізь перевірки AllowedIPs, черги padata та сокет UDP.*
 
 ### 2.1. Префіксні дерева Radix Trie (`struct allowedips`)
@@ -337,7 +337,7 @@ DH4 = X25519(si, Er)                                 [статичний клю�
 
 Традиційні VPN-протоколи є вразливими до атак на відмову в обслуговуванні (DoS — від англ. *Denial of Service*), оскільки обчислення операцій на асиметричних кривих (ECDH) вимагає значних ресурсів CPU. Атакуючий може надіслати мільйони підроблених пакетів ініціації з фальшивими IP-адресами, змусивши сервер вичерпати ресурс обчислення процесора.
 
-![Схема рукостискання Noise_IK та захист від DoS-атак](/reference/unix-linux/networking/wireguard-kernel-architecture/img/wireguard-noise-handshake.svg)
+![Схема рукостискання Noise_IK та захист від DoS-атак](img/wireguard-noise-handshake.svg)
 *Послідовність обміну повідомленнями рукостискання між Ініціатором і Відповідачем та активація механізму Cookie Reply при DoS-атаках.*
 
 ### 5.1. Принцип "невидимого порту" (Stealth Mode)

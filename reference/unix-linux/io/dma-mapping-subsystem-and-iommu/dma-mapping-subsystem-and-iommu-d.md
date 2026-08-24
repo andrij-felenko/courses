@@ -32,7 +32,7 @@
 
 На архітектурах x86/x86-64 когерентність DMA гарантується апаратно на рівні шини системного контролера (snooping mechanism). На багатьох ARM64, MIPS та RISC-V системах апаратне стеження за кешем відсутнє (non-coherent DMA interconnect), тому ядро Linux зобов'язане вручну примусово скидати (flush) та інвалідувати (invalidate) кеш-рядки CPU перед і після кожної операції вводу-виводу.
 
-![Архітектура підсистеми dma-mapping](/reference/unix-linux/io/dma-mapping-subsystem-and-iommu/img/dma-mapping-arch.svg)
+![Архітектура підсистеми dma-mapping](img/dma-mapping-arch.svg)
 *Схема взаємодії драйвера пристрою, обгортки struct dma_map_ops, підсистем dma-direct, SWIOTLB, iommu-dma та оперативної пам’яті.*
 
 Детальний аналіз того, як ядро Linux пройшло шлях від найпростіших архітектурних макросів `virt_to_bus()` до сучасного шару `dma_map_ops`, винесено у статтю [📜 Еволюція DMA-відображень у ядрі Linux](book:unix-linux/dma-mapping-subsystem-and-iommu/hist-dma-evolution.md).
@@ -43,7 +43,7 @@
 
 Для оптимізації роботи з пам'яттю підсистема DMA mapping ядра Linux надає розробникам драйверів два кардинально різних механізми відображення: **Coherent** (зв'язане / узгоджене) та **Streaming** (потокове).
 
-![Порівняння Coherent та Streaming DMA](/reference/unix-linux/io/dma-mapping-subsystem-and-iommu/img/coherent-vs-streaming.svg)
+![Порівняння Coherent та Streaming DMA](img/coherent-vs-streaming.svg)
 *Порівняльний огляд двох режимів DMA: некешовані або апаратно когерентні кільцеві буфери проти тимчасових відображень із синхронізацією кешу.*
 
 ### 1. Зв'язані відображення (Coherent DMA Mappings)
@@ -139,7 +139,7 @@ SWIOTLB виділяє під час старту ядра статичний р
 
 Сучасні обчислювальні платформи розв'язують проблему фрагментації та обмежень адресування на апаратному рівні за допомогою блока **IOMMU** (*Input-Output Memory Management Unit*). Провідні розробники процесорних архітектур реалізують цю технологію під власними торговельними марками: Intel VT-d (Virtualization Technology for Directed I/O), AMD-Vi, ARM SMMU (System MMU v2/v3) та RISC-V IOPMP/IOMMU.
 
-![Трансляція адрес апаратним IOMMU](/reference/unix-linux/io/dma-mapping-subsystem-and-iommu/img/iommu-iova-translation.svg)
+![Трансляція адрес апаратним IOMMU](img/iommu-iova-translation.svg)
 *Апаратна трансляція IOVA у фізичні адреси RAM з підтримкою захисту сторінок та об'єднання розкиданих блоків.*
 
 ### Фундаментальні функції IOMMU

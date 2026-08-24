@@ -46,7 +46,7 @@ void cvx::localRange(cv::InputArray _src, cv::OutputArray _dst, int ksize,
 }
 ```
 
-![Шість рядків каркаса й те, що ламається, якщо їх переставити](/reference/media-vision/opencv/input-output-array/img/own-function-order.svg)
+![Шість рядків каркаса й те, що ламається, якщо їх переставити](img/own-function-order.svg)
 
 *Порядок тут не стилістичний: кожен рядок спирається на стан, який лишив попередній.*
 
@@ -234,7 +234,7 @@ static void localRangeBody(const cv::Mat& src, cv::Mat& dst, const cv::Mat& mask
 
 Поточковій операції збіг входу з виходом байдужий: вона читає рівно той піксель, який пише. Віконна читає сусідів — і зліва вони вже переписані результатом.
 
-![Те саме вікно на окремому приймачі й на місці: у другому випадку сусід зліва вже містить результат](/reference/media-vision/opencv/input-output-array/img/inplace-window.svg)
+![Те саме вікно на окремому приймачі й на місці: у другому випадку сусід зліва вже містить результат](img/inplace-window.svg)
 
 *Помилка не падає й не помітна на око — вона просто повзе рядком і накопичується.*
 

@@ -24,7 +24,7 @@
 
 Хост читає дескриптори зверху вниз: спершу Device, далі Configuration, тоді Interface(и), тоді Endpoint(и). Так поступово складається повна картина того, з ким він має справу.
 
-![Ієрархія дескрипторів від Device до Endpoint; String-дескриптори збоку.](/book/programming/peripherals/usb-enumeration/img/descriptor-tree.svg)
+![Ієрархія дескрипторів від Device до Endpoint; String-дескриптори збоку.](img/descriptor-tree.svg)
 
 *Де в ієрархії живуть ідентифікатори й [код класу](book:programming/usb-device-classes): VID:PID — у Device, клас — у Device або Interface, а String-дескриптори стоять осторонь основного дерева.*
 
@@ -47,7 +47,7 @@
 7. `GET_DESCRIPTOR(Configuration)` — хост забирає Configuration разом із вкладеними Interface та Endpoint.
 8. ОС за VID:PID і класом обирає драйвер, тоді надсилає `SET_CONFIGURATION(1)` — пристрій переходить у стан **configured** і готовий до роботи.
 
-![Послідовність енумерації: хост ініціює кожен крок, обмін іде через EP0.](/book/programming/peripherals/usb-enumeration/img/enum-sequence.svg)
+![Послідовність енумерації: хост ініціює кожен крок, обмін іде через EP0.](img/enum-sequence.svg)
 
 *Уся енумерація проходить через EP0, і кожен крок починає хост: червоні стрілки — запити хоста, сині — відповіді пристрою. Подвійний reset навколо SET_ADDRESS — не випадковість, а вимога надійного старту.*
 
@@ -103,7 +103,7 @@ struct __attribute__((packed)) usb_device_descriptor {
 
 Найважливіша деталь тут — порядок байтів. Усі багатобайтові числа в USB ідуть молодшим байтом уперед (little-endian), тож `idVendor = 0x0483` лежить у пам'яті як пара `83 04`, а не `04 83`. Переплутаєш порядок — хост прочитає інший VID і не знайде драйвера.
 
-![Стрічка з 18 байтів Device-дескриптора; підсвічено байти VID і PID.](/book/programming/peripherals/usb-enumeration/img/device-descriptor-bytes.svg)
+![Стрічка з 18 байтів Device-дескриптора; підсвічено байти VID і PID.](img/device-descriptor-bytes.svg)
 
 *Байти 08–0B — це VID і PID у little-endian; пара `83 04` читається як 0x0483. Саме за цією парою ОС обирає драйвер.*
 

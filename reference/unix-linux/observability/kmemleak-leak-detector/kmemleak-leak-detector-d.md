@@ -27,7 +27,7 @@
 
 Історичні передумови розробки Kmemleak, чому класичний консервативний збирач Бема-Вайзера не зміг працювати у kernel space безпосередньо та як Каталін Марінас реалізував пасивне сканування для ядра Linux, детально викладено у матеріалі [📜 Еволюція виявлення витоків пам'яті: від збирачів сміття до Kmemleak](book:unix-linux/kmemleak-leak-detector/hist-mark-and-sweep-in-kernel.md).
 
-![Алгоритм Mark-and-Sweep у Kmemleak](/reference/unix-linux/observability/kmemleak-leak-detector/img/kmemleak-scan.svg)
+![Алгоритм Mark-and-Sweep у Kmemleak](img/kmemleak-scan.svg)
 *Алгоритм сканування пам'яті за графом вказівників у Kmemleak. Кореневі регіони містять посилання на досяжні об'єкти (сірі та чорні), тоді як блоки без вхідних посилань (білі) класифікуються як витоки.*
 
 ---

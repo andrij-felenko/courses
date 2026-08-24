@@ -42,7 +42,7 @@ ContentType ::= OBJECT IDENTIFIER
 
 Поле `contentType` містить числовий **ідентифікатор об'єкта (OID, Object Identifier)** — глобально унікальну послідовність чисел, зареєстровану в міжнародному реєстрі ITU-T/ISO. Отримавши контейнер, десеріалізатор одразу зчитує OID і розуміє, який саме криптографічний механізм знаходиться всередині.
 
-![Ієрархія типів вмісту ASN.1 ContentInfo](/book/communications/cryptographic-comm/pkcs7-signed-message/img/cms-content-hierarchy.svg)
+![Ієрархія типів вмісту ASN.1 ContentInfo](img/cms-content-hierarchy.svg)
 *Ієрархія типів ASN.1 ContentInfo: універсальний контейнер та шість спеціалізованих криптографічних структур.*
 
 Стандарт RFC 5652 визначає шість базових типів криптографічного контенту:
@@ -75,7 +75,7 @@ SignedData ::= SEQUENCE {
 }
 ```
 
-![Анатомія структури SignedData у CMS](/book/communications/cryptographic-comm/pkcs7-signed-message/img/signed-data-anatomy.svg)
+![Анатомія структури SignedData у CMS](img/signed-data-anatomy.svg)
 *Внутрішня будова SignedData: зв'язок між версією, алгоритмами дайджесту, корисним навантаженням, сертифікатами X.509, списками CRL та блоками SignerInfo.*
 
 Розгляньмо роль і механізм роботи кожного з шести елементів цієї структури:
@@ -158,7 +158,7 @@ SignerInfo ::= SEQUENCE {
 
 Щоб унеможливити подібні маніпуляції, CMS впроваджує **двоетапний конвеєр перевірки з криптографічним зв'язуванням**:
 
-![Двоетапний конвеєр перевірки підпису CMS](/book/communications/cryptographic-comm/pkcs7-signed-message/img/signature-verification-flow.svg)
+![Двоетапний конвеєр перевірки підпису CMS](img/signature-verification-flow.svg)
 *Двоетапний конвеєр: гешування даних зв'язується з підписаними атрибутами, після чого перевіряється асиметричний цифровий підпис.*
 
 #### Етап 1: Криптографічне гешування даних
@@ -241,7 +241,7 @@ EM = 0x00 || 0x01 || 0xFF || 0xFF ... 0xFF || 0x00 || DigestInfo(SHA256, H₂)
 
 Стандарт CMS підтримує два кардинально різні способи транспортування даних та підпису:
 
-![Вбудований проти відокремленого підпису](/book/communications/cryptographic-comm/pkcs7-signed-message/img/attached-vs-detached.svg)
+![Вбудований проти відокремленого підпису](img/attached-vs-detached.svg)
 *Порівняння підходів: вбудоване корисне навантаження в S/MIME проти відокремленого підпису в OTA-прошивках і Secure Boot.*
 
 #### 1. Вбудований підпис (Attached / Encapsulated)
@@ -298,7 +298,7 @@ MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCC...
 
 Для вирішення цієї проблеми розроблено архітектуру **однопрохідної потокової верифікації (Single-Pass Streaming Verification)**.
 
-![Потокова однопрохідна верифікація CMS](/book/communications/cryptographic-comm/pkcs7-signed-message/img/streaming-pipeline.svg)
+![Потокова однопрохідна верифікація CMS](img/streaming-pipeline.svg)
 *Однопрохідний конвеєр обробки потоку: одночасний запис у Flash-пам'ять та розрахунок SHA-256 з перевіркою CMS на завершенні.*
 
 #### Механізм роботи потокового конвеєра

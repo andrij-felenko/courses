@@ -4,7 +4,7 @@
 
 Звірено з гілкою `master` репозиторію `mavlink/qgroundcontrol` 2 серпня 2026 року. Файли: `src/QtLocationPlugin/Providers/` (`MapProvider.h|.cpp`, `ElevationMapProvider.h|.cpp`, `GenericMapProvider.h|.cpp`, `BingMapProvider.h`, `GoogleMapProvider.h|.cpp`, `EsriMapProvider.h|.cpp`, `MapboxMapProvider.h`, `TianDiTuProvider.h`), `src/QtLocationPlugin/` (`QGCMapUrlEngine.h|.cpp`, `QGCTileSet.h`, `QGeoTileFetcherQGC.cpp`, `QGeoTiledMappingManagerEngineQGC.cpp`), `src/Terrain/Providers/TerrainTileCopernicus.h`.
 
-![Контракт провайдера: базовий клас відповідає за геометрію й службові поля, нащадок дає одну функцію адреси](/reference/qgroundcontrol/map-video/map-engine/img/provider-contract.svg)
+![Контракт провайдера: базовий клас відповідає за геометрію й службові поля, нащадок дає одну функцію адреси](img/provider-contract.svg)
 
 *Уся обов'язкова частина контракту — одна чиста віртуальна функція; решта ієрархії існує, щоб нащадкові не довелося писати нічого іншого.*
 

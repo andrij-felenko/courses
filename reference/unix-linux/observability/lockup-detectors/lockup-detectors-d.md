@@ -45,7 +45,7 @@
 
 Залежно від того, які саме системні механізми виявилися заблокованими, ядро Linux розрізняє три принципово різні стани зависання:
 
-![Класифікація та матриця виявлення ядерних зависань](/reference/unix-linux/observability/lockup-detectors/img/lockup-types-matrix.svg)
+![Класифікація та матриця виявлення ядерних зависань](img/lockup-types-matrix.svg)
 *Класифікація та матриця виявлення ядерних зависань: порівняння станів переривань, преемпції, детектуючих механізмів та поведінки ядра.*
 
 1. **Hard Lockup (Апаратне зависання ядра):**
@@ -161,7 +161,7 @@ touch_nmi_watchdog();
 
 Єдиним способом перервати виконання процесора, коли прапорець `IF` скинуто в `0`, є **немасковане апаратне переривання (NMI — Non-Maskable Interrupt)**.
 
-![Внутрішня архітектура Soft Lockup та Hard Lockup детекторів](/reference/unix-linux/observability/lockup-detectors/img/soft-vs-hard-detector-arch.svg)
+![Внутрішня архітектура Soft Lockup та Hard Lockup детекторів](img/soft-vs-hard-detector-arch.svg)
 *Внутрішня архітектура Soft Lockup та Hard Lockup детекторів: паралельне функціонування kthread/hrtimer та апаратного лічильника NMI perf_event.*
 
 ### Принцип роботи NMI на рівні кремнію
@@ -245,7 +245,7 @@ touch_nmi_watchdog();
 
 Якщо пристрій зберігання даних (SAN, NVMe або мережевий диск NFS) перестає відповідати на запити або виникає помилка логіки ядра з невчасним викликом `wake_up()`, процес залишається в D-state назавжди.
 
-![Алгоритм періодичного сканування демона khungtaskd](/reference/unix-linux/observability/lockup-detectors/img/hung-task-khungtaskd-flow.svg)
+![Алгоритм періодичного сканування демона khungtaskd](img/hung-task-khungtaskd-flow.svg)
 *Алгоритм періодичного сканування демона khungtaskd: обхід дерева процесів та перевірка лічильників перемикання контексту задач у стані D.*
 
 ### Внутрішній цикл демона `khungtaskd`
@@ -315,7 +315,7 @@ INFO: task mysqld:3481 blocked for more than 120 seconds.
 
 Коли будь-який із детекторів фіксує зависання, системний журнал отримує деталізований блок діагностичної інформації. Правильне читання цього блоку дозволяє звузити пошук дефекту до конкретного рядка вихідного коду ядра чи драйвера.
 
-![Анатомія повідомлення та дампу стека при виявленні Soft Lockup](/reference/unix-linux/observability/lockup-detectors/img/lockup-stacktrace-anatomy.svg)
+![Анатомія повідомлення та дампу стека при виявленні Soft Lockup](img/lockup-stacktrace-anatomy.svg)
 *Анатомія повідомлення та дампу стека при виявленні Soft Lockup: розшифрування рядка стану, регістрів процесора та ланцюжка викликів Call Trace.*
 
 ### Порядковий розбір типового дампу Soft Lockup

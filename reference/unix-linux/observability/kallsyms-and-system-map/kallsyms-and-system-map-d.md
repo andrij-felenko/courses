@@ -89,7 +89,7 @@ ffffffff82c05120 B jiffies
 
 Конфігураційна опція ядра `CONFIG_KALLSYMS=y` вбудовує таблицю символів безпосередньо у простір пам'яті ядра під час збірки. Це робить ядро повністю автономним: воно здатно виконувати трансляцію адрес у логи незалежно від наявності файлів на диску чи стану користувацького простору.
 
-![Архітектура та потік даних підсистеми kallsyms](/reference/unix-linux/observability/kallsyms-and-system-map/img/kallsyms-arch.svg)
+![Архітектура та потік даних підсистеми kallsyms](img/kallsyms-arch.svg)
 *Архітектура kallsyms: генерація таблиць при збірці vmlinux та її використання у ядрі.*
 
 ### Двопрохідна збірка ядра (Two-Pass Linkage)
@@ -130,7 +130,7 @@ extern const unsigned long kallsyms_markers[];
 - Створюється словник `kallsyms_token_table` з 256 елементів та масив зміщень `kallsyms_token_index`.
 - У масиві імен `kallsyms_names` кожен найчастіший підрядок замінюється єдиним байтом-токеном (значення від `0x00` до `0xFF`).
 
-![Механізм стиснення та розпакування імен у kallsyms](/reference/unix-linux/observability/kallsyms-and-system-map/img/kallsyms-compression.svg)
+![Механізм стиснення та розпакування імен у kallsyms](img/kallsyms-compression.svg)
 *Схема стиснення імен лексем та відносного адресування в kallsyms_offsets.*
 
 #### 3. Маркери індексації `kallsyms_markers`

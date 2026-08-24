@@ -107,7 +107,7 @@ Host A (Локальне ядро)                                   Host B (В�
 
 Наочну часову діаграму надсилання зондів та обробки часових інтервалів наведено на фігурі нижче.
 
-![Хронологія зондування TCP Keepalive при обриві зв'язку](/reference/unix-linux/networking/tcp-connection-liveness/img/keepalive-sequence.svg)
+![Хронологія зондування TCP Keepalive при обриві зв'язку](img/keepalive-sequence.svg)
 *Послідовність обміну keepalive-пакетами між ядрами та поведінка при втраті мережевого зв'язку*
 
 Розрахунок загального часу виявлення мертвого з'єднання (`T_total`) при використанні Keepalive виконується за формулою:
@@ -263,7 +263,7 @@ void set_user_timeout(int fd, std::chrono::milliseconds timeout) {
 
 Незважаючи на потужність інструментів ядра, існує клас збоїв, проти яких і TCP Keepalive, і `TCP_USER_TIMEOUT` виявляються безсилими. Наочне порівняння рівнів обробки та охоплення збоїв наведено на фігурі нижче.
 
-![Рівні виявлення мертвих з'єднань у стеку Linux](/reference/unix-linux/networking/tcp-connection-liveness/img/liveness-mechanisms.svg)
+![Рівні виявлення мертвих з'єднань у стеку Linux](img/liveness-mechanisms.svg)
 *Рівні обробки та охоплення збоїв: від мережевого стека ядра до прикладної логіки застосунку*
 
 ### Чому системних зондів недостатньо

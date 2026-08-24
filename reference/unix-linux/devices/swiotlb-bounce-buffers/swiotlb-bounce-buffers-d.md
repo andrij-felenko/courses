@@ -73,7 +73,7 @@ int dma_set_mask_and_coherent(struct device *dev, u64 mask);
 
 Цей процес називається підміною буферів (bounce buffering), а проміжний слот — підмінним буфером (bounce buffer).
 
-![Фізична пам'ять 64-бітної системи та підмінний пул swiotlb](/reference/unix-linux/devices/swiotlb-bounce-buffers/img/swiotlb-architecture.svg)
+![Фізична пам'ять 64-бітної системи та підмінний пул swiotlb](img/swiotlb-architecture.svg)
 
 *Пристрій здійснює DMA лише з низьким пулом; процесор переносить дані у високу пам'ять.*
 
@@ -121,7 +121,7 @@ struct io_tlb_slot {
 
 Поле `list` оптимізує пошук вільних блоків: воно містить довжину неперервного ланцюжка вільних слотів попереду. Це дозволяє алгоритму розподілу не перевіряти кожен слот по черзі, а стрибати через зайняті та вільні ділянки за константний час.
 
-![Внутрішня структура пулу swiotlb: слоти, ділянки та вирівнювання](/reference/unix-linux/devices/swiotlb-bounce-buffers/img/slot-allocation.svg)
+![Внутрішня структура пулу swiotlb: слоти, ділянки та вирівнювання](img/slot-allocation.svg)
 
 *Дескриптори слотів відстежують вихідні адреси для точного зворотного копіювання при unmap.*
 
@@ -176,7 +176,7 @@ if (dma_mapping_error(dev, da))
     return -EIO;
 ```
 
-![Повний цикл відображення та синхронізації підмінного буфера](/reference/unix-linux/devices/swiotlb-bounce-buffers/img/bounce-lifecycle.svg)
+![Повний цикл відображення та синхронізації підмінного буфера](img/bounce-lifecycle.svg)
 
 *При передачі копіювання відбувається на стадії map, при прийомі — на стадії unmap.*
 
@@ -347,7 +347,7 @@ dma_direct_map_page: swiotlb buffer is full (sz: 65536 bytes, total: 32768, used
 
 Якщо гіпервізор або емульований пристрій хоста (наприклад, віртуальний мережевий адаптер VirtIO-net чи блоковий пристрій VirtIO-blk) спробує виконати DMA-читання зашифрованої сторінки гостя, він прочитає лише випадковий зашифрований шум. Якщо ж гіпервізор запише байти у зашифровану сторінку, апаратний контроль цілісності SEV-SNP/TDX зафіксує збій апаратної перевірки автентичності та аварійно зупинить гостьову систему.
 
-![Підмінні буфери як межа безпеки в Confidential VM (AMD SEV / Intel TDX)](/reference/unix-linux/devices/swiotlb-bounce-buffers/img/confidential-computing-boundary.svg)
+![Підмінні буфери як межа безпеки в Confidential VM (AMD SEV / Intel TDX)](img/confidential-computing-boundary.svg)
 
 *SWIOTLB ізолює конфіденційну пам'ять гостя від недовіреного гіпервізора та пристроїв хоста.*
 

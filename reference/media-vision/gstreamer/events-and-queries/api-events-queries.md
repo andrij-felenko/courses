@@ -24,7 +24,7 @@ typedef enum {
     ((GstEventTypeFlags)(GST_EVENT_TYPE_UPSTREAM | GST_EVENT_TYPE_DOWNSTREAM))
 ```
 
-![Шістнадцять бітів числа типу: вісім старших — номер, вісім молодших — прапорці](/reference/media-vision/gstreamer/events-and-queries/img/event-type-bits.svg)
+![Шістнадцять бітів числа типу: вісім старших — номер, вісім молодших — прапорці](img/event-type-bits.svg)
 
 *Число типу розбирається на дві частини зсувом на вісім бітів: номер задає порядок, прапорці — поведінку.*
 

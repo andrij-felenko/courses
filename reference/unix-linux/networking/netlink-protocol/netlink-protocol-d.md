@@ -18,7 +18,7 @@
 
 Netlink реалізовано у ядрі як повноцінний сокетний домен `AF_NETLINK` (або `PF_NETLINK`). На відміну від класичних мережевих сокетів (`AF_INET` чи `AF_INET6`), які передають пакети через фізичні чи віртуальні мережеві адаптери в зовнішню мережу, сокети `AF_NETLINK` працюють виключно в межах оперативної пам'яті комп'ютера, забезпечуючи високошвидкісну шину зв'язку між простором користувача (англ. *user space*) та внутрішніми підсистемами ядра (англ. *kernel space*).
 
-![Архітектура підсистеми Netlink у ядрі Linux](/reference/unix-linux/networking/netlink-protocol/img/netlink-architecture.svg)
+![Архітектура підсистеми Netlink у ядрі Linux](img/netlink-architecture.svg)
 *Анатомія сокетного домену AF_NETLINK: зв'язок між простором користувача та підсистемами ядра через порт-ідентифікатори (nl_pid) та мультикаст-групи.*
 
 Адресація в домені `AF_NETLINK` описується структурою `struct sockaddr_nl` (визначеною у файлі `<linux/netlink.h>`):
@@ -72,7 +72,7 @@ sockaddr_nl sa{
 
 Обмін даними в Netlink відбувається за допомогою двійкових дейтаграм, які складаються зі стандартного заголовка `struct nlmsghdr`, специфічного заголовка підсистеми та послідовності динамічних атрибутів.
 
-![Структура двійкового пакета Netlink](/reference/unix-linux/networking/netlink-protocol/img/netlink-frame-structure.svg)
+![Структура двійкового пакета Netlink](img/netlink-frame-structure.svg)
 *Формат двійкового пакета Netlink: заголовок nlmsghdr, вирівнювання по межі 4 байтів, корисне навантаження та вкладені TLV-атрибути (nlattr / rtattr).*
 
 ### Анатомія заголовка `struct nlmsghdr`
@@ -163,7 +163,7 @@ nlattr attr{
 
 Взаємодія через сокет Netlink підтримує дві парадигми передачі даних: синхронний запит-відповідь (Unicast Request-Response) та асинхронне мовлення (Multicast Event Stream).
 
-![Потік повідомлень дампа та мультикаст-подій Netlink](/reference/unix-linux/networking/netlink-protocol/img/netlink-multipart-stream.svg)
+![Потік повідомлень дампа та мультикаст-подій Netlink](img/netlink-multipart-stream.svg)
 *Протокол запит-відповідь для таблиць ядра: пакетний запит NLM_F_DUMP, потік підпакетів від ядра та підтвердження завершення через NLMSG_DONE.*
 
 ### 1. Механізм вивантаження таблиць (Multipart Dumps)

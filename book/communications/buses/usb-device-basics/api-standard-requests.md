@@ -16,7 +16,7 @@
 | 4 | `wIndex` | 2 | Індекс/зсув: інтерфейс, точка або мова |
 | 6 | `wLength` | 2 | Скільки байтів піде в стадії даних |
 
-![Восьмибайтовий Setup-пакет: bmRequestType, bRequest, далі 16-бітові wValue, wIndex, wLength; байт bmRequestType розкладено на біти — напрям D7, тип D6–D5, отримувач D4–D0](/book/communications/buses/usb-device-basics/img/setup-packet.svg)
+![Восьмибайтовий Setup-пакет: bmRequestType, bRequest, далі 16-бітові wValue, wIndex, wLength; байт bmRequestType розкладено на біти — напрям D7, тип D6–D5, отримувач D4–D0](img/setup-packet.svg)
 
 *Розкладка Setup-пакета незмінна: два однобайтові поля, потім три двобайтові. Нульовий байт `bmRequestType` сам поділений на три бітові поля — напрям передачі, тип запиту й отримувача, — і саме вони кажуть хостові й пристрою, як витлумачити решту сімох байтів.*
 

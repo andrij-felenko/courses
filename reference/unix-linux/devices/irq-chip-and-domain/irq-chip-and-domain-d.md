@@ -51,7 +51,7 @@
 
 Історично ядро Linux використовувало жорсткі константи та монолітні статичні масиви для відображення номерів, що стало головною перешкодою для масштабування з появою складних багатоядерних SoC та тисяч векторів MSI. Детальний аналіз переходу від статичних масивів до сучасної динамічної моделі наведено в історичній вставці [book:unix-linux/irq-chip-and-domain/hist-sparse-irq-and-domains.md](book:unix-linux/irq-chip-and-domain/hist-sparse-irq-and-domains.md).
 
-![Відображення hwirq у virq](/reference/unix-linux/devices/irq-chip-and-domain/img/hwirq-to-virq-mapping.svg)
+![Відображення hwirq у virq](img/hwirq-to-virq-mapping.svg)
 *Архітектура відображення апаратних ліній переривань у віртуальні дескриптори ядра Linux*
 
 ## 2. Ядро підсистеми: структури struct irq_desc та struct irq_data
@@ -205,7 +205,7 @@ struct irq_domain_ops {
 
 В архітектурах ARM, RISC-V, MIPS та PowerPC конфігурація апаратних ліній переривань описується в дереві пристроїв (*Device Tree*).
 
-![Резолвінг переривань у Device Tree](/reference/unix-linux/devices/irq-chip-and-domain/img/devicetree-irq-resolution.svg)
+![Резолвінг переривань у Device Tree](img/devicetree-irq-resolution.svg)
 *Послідовність парсингу вузлів Device Tree та трансляція спеціфікаторів у virq*
 
 Вузол, що представляє контролер переривань, містить властивість `interrupt-controller` та визначає кількість комірок для адресації однієї лінії через `#interrupt-cells`:
@@ -240,7 +240,7 @@ uart0: serial@1c090000 {
 
 Сучасні серверні та мобільні платформи мають складні багаторівневі маршрути переривань. Наприклад, мережевий контролер генерує повідомлення MSI-X на шині PCI Express. Цей сигнал проходить через контролер перепризначення переривань IOMMU (*Interrupt Remapping Unit*), транслюється в подію контролера ARM GICv3 ITS (*Interrupt Translation Service*) і лише потім потрапляє до фізичного дистриб'ютора GIC та ядра CPU.
 
-![Ієрархічні домени переривань](/reference/unix-linux/devices/irq-chip-and-domain/img/hierarchical-domains.svg)
+![Ієрархічні домени переривань](img/hierarchical-domains.svg)
 *Багаторівнева трансляція сигналів у системі з ієрархічними доменами переривань*
 
 Для підтримки таких апаратних ланцюгів ядро Linux надає **ієрархічні домени переривань** (*Hierarchical IRQ Domains*). Замість створення каскадних програмних обробників кожен рівень домену відповідає за свою частину апаратної конфігурації:
@@ -265,7 +265,7 @@ uart0: serial@1c090000 {
 
 Диспетчер потоку (*Flow Handler*) реалізує алгоритм коректної взаємодії з апаратурою залежно від фізичної природи сигналу:
 
-![Диспетчери потоку переривань](/reference/unix-linux/devices/irq-chip-and-domain/img/generic-flow-handlers.svg)
+![Диспетчери потоку переривань](img/generic-flow-handlers.svg)
 *Алгоритми роботи диспетчерів handle_level_irq, handle_edge_irq та handle_fasteoi_irq*
 
 ### 1. handle_level_irq (Переривання за рівнем напруги)

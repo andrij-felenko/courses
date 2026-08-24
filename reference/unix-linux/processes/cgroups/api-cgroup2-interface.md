@@ -82,7 +82,7 @@ cat /proc/self/cgroup                  # 0::/user.slice/user-1000.slice/session-
 
 Усі інші файли дає контролер — і в каталозі групи їх створює не сама група, а її батько.
 
-![Батьківський cgroup.subtree_control визначає, які файли з'являться в каталозі дитини](/reference/unix-linux/processes/cgroups/img/file-origin.svg)
+![Батьківський cgroup.subtree_control визначає, які файли з'являться в каталозі дитини](img/file-origin.svg)
 
 *`cgroup.controllers` дитини — це рівно `cgroup.subtree_control` батька.*
 

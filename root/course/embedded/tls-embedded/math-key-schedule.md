@@ -187,7 +187,7 @@ resumption_master = Derive-Secret(Master Secret, "res master", CH..CF) = 5d0e88a
 
 З `resumption_master` сервер згодом зробить **квиток відновлення** (session ticket) — те саме зерно, з якого при наступному з'єднанні відновлять сесію, пропустивши важку першу зустріч. Ключі даних прив'язані до транскрипту **по Finished сервера**, а квиток — до **повного** транскрипту: різні точки історії — різні гілки, і жодна не перетинається з іншою.
 
-![Три щаблі Extract зверху вниз: Early Secret з PSK/нулів, місток derived, Handshake Secret з ECDHE дає c/s hs traffic на транскрипті CH..SH, другий місток derived, Master Secret з нулів дає c/s ap traffic і res master на повнішому транскрипті; праворуч видно, як у кожен щабель уливається свій матеріал і свій зріз транскрипту](/root/course/embedded/tls-embedded/img/key-schedule-ladder.svg)
+![Три щаблі Extract зверху вниз: Early Secret з PSK/нулів, місток derived, Handshake Secret з ECDHE дає c/s hs traffic на транскрипті CH..SH, другий місток derived, Master Secret з нулів дає c/s ap traffic і res master на повнішому транскрипті; праворуч видно, як у кожен щабель уливається свій матеріал і свій зріз транскрипту](img/key-schedule-ladder.svg)
 *Дерево росте трьома щаблями Extract. Зліва вливається матеріал: PSK або нулі → ECDHE → знову нулі. Між щаблями — ланка derived (сіль для наступного Extract). Праворуч кожна гілка Derive-Secret бере свій зріз транскрипту: hs-ключі — по ServerHello, ap-ключі — по Finished сервера, res-ключ — по Finished клієнта. Що пізніший щабель, то повніший вплетений транскрипт; ECDHE входить лише раз, а довгостроковий ключ сервера — ніколи.*
 
 ## Останній крок: із секрету-щабля — у ключ і nonce-вектор запису

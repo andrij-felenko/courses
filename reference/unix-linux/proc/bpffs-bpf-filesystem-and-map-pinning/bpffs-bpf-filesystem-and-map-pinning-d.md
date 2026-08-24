@@ -36,7 +36,7 @@ mount -t bpf none /sys/fs/bpf
 
 Головне призначення `bpffs` — надати простір імен VFS, де кожен фіксований файл (англ. *pinned file*) є віртуальним покажчиком на відповідну структуру ядра `bpf_map`, `bpf_prog` або `bpf_link`.
 
-![Життєвий цикл об'єкта eBPF та лічильник посилань refcnt під час пінінгу](/reference/unix-linux/proc/bpffs-bpf-filesystem-and-map-pinning/img/bpffs-lifecycle.svg)
+![Життєвий цикл об'єкта eBPF та лічильник посилань refcnt під час пінінгу](img/bpffs-lifecycle.svg)
 *Життєвий цикл об'єкта eBPF та зміна лічильника посилань refcnt при пінінгу та розфіксації*
 
 ### Ініціалізація суперблоку та драйвера bpf_fs_type
@@ -84,7 +84,7 @@ struct inode {
 
 Взаємодія простору користувача з `bpffs` здійснюється через дві спеціалізовані команди системного виклику `bpf()`: `BPF_OBJ_PIN` та `BPF_OBJ_GET`.
 
-![Архітектура ядра: взаємодія VFS, системного виклику bpf() та драйвера bpffs](/reference/unix-linux/proc/bpffs-bpf-filesystem-and-map-pinning/img/bpffs-vfs-architecture.svg)
+![Архітектура ядра: взаємодія VFS, системного виклику bpf() та драйвера bpffs](img/bpffs-vfs-architecture.svg)
 *Архітектура ядра: взаємодія шару VFS, драйвера bpffs та об'єктів підсистеми BPF*
 
 ### Алгоритм фіксації BPF_OBJ_PIN

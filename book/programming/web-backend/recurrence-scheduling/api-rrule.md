@@ -134,7 +134,7 @@ bysplist    = setposday   *("," setposday)    ; setposday   = yeardaynum
 
 Це головна семантика всієї граматики, і саме її найчастіше розуміють навпаки. `FREQ` разом з `INTERVAL` дають потік «початків періодів»: щосекунди, щогодини, щомісяця, щороку. Далі кожне `BY…`-поле робить із цим потоком одну з двох речей — або **обмежує** його (просіює наявні миті), або **розмножує** (з однієї миті робить кілька). Що саме — залежить не від поля, а від пари «поле + `FREQ`».
 
-![Те саме поле BYMONTHDAY=15,30 під FREQ=DAILY просіює 31 мить до двох, а під FREQ=MONTHLY розмножує одну мить у дві](/book/programming/web-backend/recurrence-scheduling/img/rrule-limit-expand.svg)
+![Те саме поле BYMONTHDAY=15,30 під FREQ=DAILY просіює 31 мить до двох, а під FREQ=MONTHLY розмножує одну мить у дві](img/rrule-limit-expand.svg)
 
 *Роль поля визначає частота: під `DAILY` воно сито, під `MONTHLY` — множник.*
 
@@ -168,7 +168,7 @@ BYMONTH → BYWEEKNO → BYYEARDAY → BYMONTHDAY → BYDAY
         → BYHOUR → BYMINUTE → BYSECOND → BYSETPOS
 ```
 
-![Дев'ять BY-полів застосовуються у фіксованому порядку: спершу п'ять, що звужують дату, потім три, що звужують час доби, і насамкінець BYSETPOS](/book/programming/web-backend/recurrence-scheduling/img/rrule-by-order.svg)
+![Дев'ять BY-полів застосовуються у фіксованому порядку: спершу п'ять, що звужують дату, потім три, що звужують час доби, і насамкінець BYSETPOS](img/rrule-by-order.svg)
 
 *Спершу поля дати, потім поля часу доби, останнім — `BYSETPOS`, який вибирає з уже готового набору.*
 
