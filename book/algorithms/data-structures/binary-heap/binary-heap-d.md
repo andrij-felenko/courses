@@ -442,7 +442,7 @@ void heapify_bottom_up(std::vector<T>& arr, Compare comp = Compare{}) {
 - `heap[i] = {id, key}` зберігає фізичні елементи купи;
 - `pos[id] = i` зберігає поточну позицію елемента з дескриптором `id` всередині масиву `heap[]`.
 
-![Архітектура індексованої купи з масивом зворотних позицій pos[id]](/book/algorithms/data-structures/binary-heap/img/indexed-heap-map.svg)
+![Архітектура індексованої купи з масивом зворотних позицій pos[id]](img/indexed-heap-map.svg)
 *Індексована купа: прямий доступ O(1) через pos[id] та оновлення пріоритету за O(log N)*
 
 Завдяки масиву `pos` ми миттєво за `O(1)` знаходимо комірку `idx = pos[id]`, змінюємо її значення `heap[idx].key = new_key` і викликаємо спрямоване просіювання:

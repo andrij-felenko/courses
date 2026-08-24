@@ -15,13 +15,13 @@
           "title": "Що робить оболонка"
         },
         {
-          "ref": "unix-linux/command-line-grammar",
+          "ref": "unix-linux/shell-role",
           "title": "Граматика командного рядка: слова, оператори, списки",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
         },
         {
-          "ref": "unix-linux/command-resolution",
+          "ref": "unix-linux/session-environment",
           "title": "Пошук команди: аліас, функція, вбудована, PATH",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
@@ -51,7 +51,7 @@
           "title": "Розкриття й лапки"
         },
         {
-          "ref": "unix-linux/pathname-globbing",
+          "ref": "unix-linux/expansion-and-quoting",
           "title": "Глоб: шаблони імен, які розкриває оболонка",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
@@ -63,13 +63,13 @@
           "hint": "unix-linux/shell"
         },
         {
-          "ref": "unix-linux/command-substitution",
+          "ref": "unix-linux/expansion-and-quoting",
           "title": "Підстановка команди й арифметика",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
         },
         {
-          "ref": "unix-linux/word-splitting-and-ifs",
+          "ref": "unix-linux/expansion-and-quoting",
           "title": "Розбиття на слова й IFS",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
@@ -99,7 +99,7 @@
           "title": "Оточення сеансу: profile, rc і пошук у PATH"
         },
         {
-          "ref": "unix-linux/shell-variables-and-export",
+          "ref": "unix-linux/argv-and-environment",
           "title": "Змінна оболонки й змінна середовища",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
@@ -155,13 +155,13 @@
           "title": "Буферизація stdio: порядкова, поблокова, без буфера"
         },
         {
-          "ref": "unix-linux/pipeline-failure-and-sigpipe",
+          "ref": "unix-linux/exit-status",
           "title": "Коли конвеєр падає: $?, PIPESTATUS, pipefail, SIGPIPE",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
         },
         {
-          "ref": "unix-linux/process-substitution",
+          "ref": "unix-linux/redirection-model",
           "title": "Підстановка процесу й канал на льоту",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
@@ -297,7 +297,7 @@
       "title": "Сценарій",
       "topics": [
         {
-          "ref": "unix-linux/shebang",
+          "ref": "unix-linux/exec-semantics",
           "title": "Шебанг: як текстовий файл стає програмою",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
@@ -397,7 +397,7 @@
           "title": "Шар TTY і віртуальні консолі: лінійна дисципліна й режими клавіатури"
         },
         {
-          "ref": "unix-linux/terminal-control-keys",
+          "ref": "unix-linux/job-control",
           "title": "Клавіші, що стають сигналами",
           "todo": "нова тема",
           "hint": "unix-linux/devices"
@@ -491,7 +491,7 @@
           "title": "База terminfo"
         },
         {
-          "ref": "unix-linux/terminal-colors",
+          "ref": "unix-linux/terminal-escape-sequences",
           "title": "Кольори в терміналі",
           "todo": "нова тема",
           "hint": "unix-linux/devices"

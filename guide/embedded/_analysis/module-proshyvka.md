@@ -24,14 +24,14 @@ embedded-блок: компіляція/лінкування/образ прош
 Нумерація — поточні позиції в секції (1–19).
 
 1. **sine-on-scope (2) користується осцилографом, якого курс ніде не вводив кроком.**
-   Стаття сама рятується попап-лінком на `book:electronics/oscilloscope`, але для новачка
+   Стаття сама рятується попап-лінком на `topic:electronics/oscilloscope`, але для новачка
    це перший «прилад» у курсі — а мультиметра, лабораторного БЖ і самого осцилографа
    як кроків немає взагалі. Статті в книзі є (metrology, basic done).
 2. **frequency-measurement-methods (19) відірвано від вимірювального блоку (1–4)** — стоїть
    останнім після git і TPM. Гірше: стаття лінкує **вперед** на `root:embedded/signal-acquisition`
    (секція keruvannia, 12-та — читач її ще не бачив) і спирається на таймер-лічильник МК
    та input capture, яких у курсі немає взагалі (у книзі programming є: timer-counter,
-   capture-compare — done). Також лінкує `book:electronics/counters` — лічильники теж не були кроком.
+   capture-compare — done). Також лінкує `topic:electronics/counters` — лічильники теж не були кроком.
 3. **firmware-testing (5) стоїть перед усім блоком про якість коду** — error-codes-vs-exceptions (6),
    solid-principles (14), error-propagation-patterns (16), memory-safety (17). Юніт-тести
    й «шов» між логікою та залізом спираються на структуру коду й обробку помилок; порядок

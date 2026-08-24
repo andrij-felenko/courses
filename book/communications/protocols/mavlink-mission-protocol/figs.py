@@ -324,10 +324,89 @@ def fig_half_duplex_collision():
     render(os.path.join(OUT_DIR, "half-duplex-collision.svg"), w, h, body)
 
 
+def fig_coord_precision():
+    w, h = 920, 460
+    parts = []
+
+    # Ліва половина: 32-бітний float (IEEE 754)
+    x_left = 240
+    parts.append(text(x_left, 50, "Одинарна точність: float32 (IEEE 754)", size=15, bold=True, color=POS))
+    parts.append(text(x_left, 75, "24 біти мантиси (~7 десяткових знаків) → крок сітки ~1.7…2.4 м",
+                      size=12, color=MUTED))
+
+    # Сітка з великим кроком (float)
+    grid_y = 110
+    grid_w, grid_h = 360, 240
+    gx0 = x_left - grid_w / 2
+    parts.append(rect(gx0, grid_y, grid_w, grid_h, fill="#fffaf9", stroke="#f5c6cb", sw=1.5, rx=6))
+
+    step_fl = 80
+    for ix in range(int(grid_w / step_fl) + 1):
+        xx = gx0 + ix * step_fl
+        parts.append(line(xx, grid_y, xx, grid_y + grid_h, color="#f5c6cb", sw=1, dash="3,3"))
+    for iy in range(int(grid_h / step_fl) + 1):
+        yy = grid_y + iy * step_fl
+        parts.append(line(gx0, yy, gx0 + grid_w, yy, color="#f5c6cb", sw=1, dash="3,3"))
+
+    # Посадкова платформа 1x1 м і ціль
+    cx_f = gx0 + 140
+    cy_f = grid_y + 110
+    parts.append(rect(cx_f - 25, cy_f - 25, 50, 50, fill="#e2e3e5", stroke=LINE, sw=1.5, rx=3))
+    parts.append(text(cx_f, cy_f + 4, "Майданчик (1×1 м)", size=9.5, color=INK))
+
+    # Вузли сітки float32 (перескакують через майданчик)
+    parts.append(circle(gx0 + 80, grid_y + 80, 5, fill=POS, stroke=POS))
+    parts.append(circle(gx0 + 160, grid_y + 80, 5, fill=POS, stroke=POS))
+    parts.append(circle(gx0 + 160, grid_y + 160, 5, fill=POS, stroke=POS))
+    parts.append(circle(gx0 + 80, grid_y + 160, 5, fill=POS, stroke=POS))
+    parts.append(text(gx0 + 160, grid_y + 65, "Вузол сітки float", size=10, bold=True, color=POS))
+
+    # Пояснення під лівою частиною
+    box_fl, _, _ = textbox(x_left, 400,
+                           "Неможливо вказати точку всередині майданчика!\nПохибка квантування дискретної сітки перевищує ціль.",
+                           size=11.5, pad=8, fill="#fdecea", stroke=POS)
+    parts.append(box_fl)
+
+    # Права половина: int32 (10⁻⁷ градуса)
+    x_right = 680
+    parts.append(text(x_right, 50, "Фіксована кома: int32 (10⁻⁷ deg)", size=15, bold=True, color=FIELD))
+    parts.append(text(x_right, 75, "32-бітне ціле число → крок сітки рівно ~1.11 см",
+                      size=12, color=MUTED))
+
+    # Сітка з надзвичайно дрібним кроком (int32)
+    rx0 = x_right - grid_w / 2
+    parts.append(rect(rx0, grid_y, grid_w, grid_h, fill="#f6fcf8", stroke="#c3e6cb", sw=1.5, rx=6))
+
+    step_int = 16
+    for ix in range(int(grid_w / step_int) + 1):
+        xx = rx0 + ix * step_int
+        parts.append(line(xx, grid_y, xx, grid_y + grid_h, color="#d4edda", sw=0.8))
+    for iy in range(int(grid_h / step_int) + 1):
+        yy = grid_y + iy * step_int
+        parts.append(line(rx0, yy, rx0 + grid_w, yy, color="#d4edda", sw=0.8))
+
+    # Майданчик у правій частині
+    cx_i = rx0 + 140
+    cy_i = grid_y + 110
+    parts.append(rect(cx_i - 25, cy_i - 25, 50, 50, fill="#d1e7dd", stroke=FIELD, sw=1.8, rx=3))
+    parts.append(text(cx_i, cy_i + 4, "Майданчик (1×1 м)", size=9.5, color=FIELD, bold=True))
+    parts.append(circle(cx_i, cy_i, 3.5, fill=FIELD, stroke=FIELD))
+    parts.append(text(cx_i + 35, cy_i - 12, "Ціль (±1 см)", size=10, bold=True, color=FIELD))
+
+    # Пояснення під правою частиною
+    box_int, _, _ = textbox(x_right, 400,
+                            "Ідеальне позиціонування для RTK GNSS і посадки:\nдискретність 1.1 см дозволяє точне утримання коридору.",
+                            size=11.5, pad=8, fill="#e9f7ef", stroke=FIELD)
+    parts.append(box_int)
+
+    render(os.path.join(OUT_DIR, "coord-precision.svg"), w, h, *parts)
+
+
 if __name__ == "__main__":
     fig_upload_flow()
     fig_download_flow()
     fig_mission_protocol_fsm()
     fig_mission_item_int_layout()
     fig_half_duplex_collision()
+    fig_coord_precision()
     print("Всі SVG успішно згенеровано.")

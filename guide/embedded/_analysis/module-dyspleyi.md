@@ -18,11 +18,11 @@
 
 ### Докази з текстів статей (перші ~40 рядків, читав вибірково)
 
-- `gram-init-sequence.md`, рядок 7: «Згадаймо, що ми вже знаємо про [контролер дисплея](book:electronics/display-controller)…» — стаття **прямо припускає, що контролер дисплея вже пройдено**. Кроку `electronics/display-controller` у курсі немає (стаття в книзі — done).
-- `color-management.md`, рядок 5: «Коли в темі [«Колір у пам'яті»](book:electronics/color-formats) ми кодували піксель у RGB565 чи RGB888, там промайнула чесна примітка…» — **посилається на «пройдену тему», якої в курсі немає**; також оперує «кадровим буфером», а кроку `electronics/framebuffer` немає.
-- `display-classes.md`, рядок 5: «панель уже описують [числами](book:electronics/panel-parameters) і [під'єднують по шині](book:electronics/panel-interfaces)» — обидві статті done у книзі, кроків немає.
-- `display-selection.md`: порівнює ніти, кути огляду, інтерфейси, лінкує `book:electronics/backlight-dimming` і `book:electronics/panel-parameters`; згадує дотик/мультитач у сценаріях — тач у курсі не з'являється ніде.
-- `display-lifecycle.md`, рядок 14: знову `book:electronics/display-controller` («в самій панелі сидить контролер із власною памʼяттю-картинкою»).
+- `gram-init-sequence.md`, рядок 7: «Згадаймо, що ми вже знаємо про [контролер дисплея](topic:electronics/display-controller)…» — стаття **прямо припускає, що контролер дисплея вже пройдено**. Кроку `electronics/display-controller` у курсі немає (стаття в книзі — done).
+- `color-management.md`, рядок 5: «Коли в темі [«Колір у пам'яті»](topic:electronics/color-formats) ми кодували піксель у RGB565 чи RGB888, там промайнула чесна примітка…» — **посилається на «пройдену тему», якої в курсі немає**; також оперує «кадровим буфером», а кроку `electronics/framebuffer` немає.
+- `display-classes.md`, рядок 5: «панель уже описують [числами](topic:electronics/panel-parameters) і [під'єднують по шині](topic:electronics/panel-interfaces)» — обидві статті done у книзі, кроків немає.
+- `display-selection.md`: порівнює ніти, кути огляду, інтерфейси, лінкує `topic:electronics/backlight-dimming` і `topic:electronics/panel-parameters`; згадує дотик/мультитач у сценаріях — тач у курсі не з'являється ніде.
+- `display-lifecycle.md`, рядок 14: знову `topic:electronics/display-controller` («в самій панелі сидить контролер із власною памʼяттю-картинкою»).
 
 ## 1. Порушення порядку / пререквізитів
 

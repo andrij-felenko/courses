@@ -1,9 +1,9 @@
 # Капстон, крок 2: форма застосунку та топологія даних
 
 <preknowlist>
-- [Модель C4](book:programming/architecture-discipline/c4-model) — чотири рівні деталізації для опису та координації архітектури.
-- [Обмежений контекст (Bounded Context)](book:programming/software-design/bounded-context) — явні межі доменної моделі та мови.
-- [Гексагональна архітектура](root:progarch/application-shape/dh-v2-hexagon) — ізоляція ядра застосунку від адаптерів інфраструктури.
+- [Модель C4](topic:programming/c4-model) — чотири рівні деталізації для опису та координації архітектури.
+- [Обмежений контекст (Bounded Context)](topic:programming/bounded-context) — явні межі доменної моделі та мови.
+- [Гексагональна архітектура](root:progarch/dh-v2-hexagon) — ізоляція ядра застосунку від адаптерів інфраструктури.
 - [Transactional Outbox](root:progarch/messaging-and-eip/dh-handover-saga) — гарантія атомарної публікації подій разом із мутацією БД.
 </preknowlist>
 

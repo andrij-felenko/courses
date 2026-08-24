@@ -231,7 +231,7 @@ cleanup:
 int secure_channel_decrypt_packet(
     SecureChannel *chan,
     const uint8_t *in_frame,
-    size_len_t frame_len,
+    size_t frame_len,
     uint8_t *out_plaintext,
     size_t *out_plaintext_len,
     uint16_t *out_msg_type

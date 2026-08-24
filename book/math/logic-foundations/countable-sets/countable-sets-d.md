@@ -1,8 +1,8 @@
 # Зліченні та незліченні множини
 
 <preknowlist>
-- book:math/set-theory-basics
-- book:math/functions-and-bijections
+- topic:math/set-theory-basics
+- topic:math/functions-and-bijections
 </preknowlist>
 
 Чи мають усі нескінченності однаковий розмір?

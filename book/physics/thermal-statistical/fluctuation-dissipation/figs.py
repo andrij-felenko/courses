@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Генератор SVG-фігур для теми «Теорема флуктуацій і дисипації» (fluctuation-dissipation)."""
 
-import sys, os
+import sys, os, math
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
@@ -173,9 +173,58 @@ def make_electrical_fdt():
 
     render(os.path.join(OUT_DIR, 'electrical-fdt.svg'), w, h, *frags)
 
+def make_quantum_classical_fdt():
+    """Фігура 5: перехід від класичної межі k_B·T до нульових коливань ℏω/2."""
+    C_FLUC = "#e67e22"    # класична межа
+    C_QUANT = "#8e44ad"   # квантова крива
+    C_AXIS = "#7f8c8d"    # осі
+
+    W, H = 840, 340
+    frags = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
+
+    frags.append(text(W / 2, 28, "Перехід від класичної до квантової теореми флуктуацій і дисипації", size=16, bold=True))
+
+    ox, oy = 90, 270
+    axis_w = 680
+    frags.append(line(ox, oy, ox + axis_w, oy, color=C_AXIS, sw=1.8))
+    frags.append(arrow(ox + axis_w - 10, oy, ox + axis_w + 15, oy, color=C_AXIS, sw=1.8))
+    frags.append(text(ox + axis_w + 25, oy + 4, "Частота ω (або ℏω / k_B T)", size=12, bold=True, color=C_AXIS, anchor="start"))
+
+    frags.append(line(ox, oy, ox, 60, color=C_AXIS, sw=1.8))
+    frags.append(arrow(ox, 70, ox, 45, color=C_AXIS, sw=1.8))
+    frags.append(text(ox - 10, 50, "Ефективна шумова енергія E_еф", size=12, bold=True, color=C_AXIS, anchor="end"))
+
+    # Класична межа E_еф = k_B T (горизонтальна пряма)
+    y_classical = oy - 90
+    frags.append(line(ox, y_classical, ox + axis_w - 40, y_classical, color=C_FLUC, sw=2.2, dash="6,4"))
+    frags.append(text(ox + 460, y_classical - 12, "Класична межа: E_еф = k_B T (рівнорозподіл)", size=12, color=C_FLUC, bold=True))
+
+    # Квантова крива E_еф = (ℏω / 2) · coth(ℏω / 2k_BT)
+    pts_quantum = []
+    for px in range(0, 620, 8):
+        x_val = px / 100.0  # відношення ℏω / k_B T
+        if x_val < 0.05:
+            eff = 1.0
+        else:
+            eff = (x_val / 2.0) / math.tanh(x_val / 2.0)
+        pts_quantum.append((ox + px, oy - 90 * eff))
+
+    d_quant = "M " + " L ".join("%.1f,%.1f" % p for p in pts_quantum)
+    frags.append('<path d="%s" fill="none" stroke="%s" stroke-width="3.0"/>' % (d_quant, C_QUANT))
+
+    # Асимптота нульових коливань ℏω/2
+    frags.append(text(ox + 520, oy - 200, "Квантова межа: ℏω / 2\n(нульові коливання вакууму)", size=12, color=C_QUANT, bold=True))
+
+    # Зона кросоверу
+    frags.append(line(ox + 200, oy, ox + 200, oy - 140, color="#bdc3c7", sw=1.2, dash="3,3"))
+    frags.append(textbox(ox + 200, oy + 25, "Кросовер: ℏω ≈ k_B T", size=11.5, fill="#f4ecf7", stroke=C_QUANT, pad=6)[0])
+
+    render(os.path.join(OUT_DIR, 'quantum-classical-fdt.svg'), W, H, *frags)
+
 if __name__ == '__main__':
     make_fdt_bridge()
     make_susceptibility_spectrum()
     make_brownian_particle()
     make_electrical_fdt()
-    print("Всі 4 SVG-фігури успішно згенеровано у ./img/")
+    make_quantum_classical_fdt()
+    print("Всі 5 SVG-фігур успішно згенеровано у ./img/")

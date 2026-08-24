@@ -62,7 +62,7 @@ auto e = counts.insert({"ключ", 1});   // справжня змінна; і�
 // inserted — інше ім'я для e.second
 ```
 
-![Рядок auto& [k, v] = *it перетворюється на приховану змінну e, а імена k і v стають іменами її частин](/reference/cpp-standards/language/structured-bindings/img/binding-machine.svg)
+![Рядок auto& [k, v] = *it перетворюється на приховану змінну e, а імена k і v стають іменами її частин](img/binding-machine.svg)
 
 *Компілятор створює одну справжню змінну без імені; імена в дужках лише вказують на її частини.*
 

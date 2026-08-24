@@ -1,6 +1,6 @@
 <preknowlist>
-- book:reference/unix-linux/cgroups-v2-unified-hierarchy
-- book:reference/unix-linux/cgroups
+- topic:reference/unix-linux/cgroups-v2-unified-hierarchy
+- topic:reference/unix-linux/cgroups
 </preknowlist>
 
 # Контролери Cgroups v2: механізми розподілу та лімітування ресурсів

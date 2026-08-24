@@ -75,48 +75,48 @@ none [integrity] confidentiality
 
 ## Повний перелік причин
 
-Причини відмови складено в один упорядкований перелік `enum lockdown_reason`, і межу між рівнями позначають два його значення: усе до `LOCKDOWN_INTEGRITY_MAX` закривається на рівні `integrity`, усе після — лише на `confidentiality`. Другий стовпчик — рядок з масиву `lockdown_reasons[]`; саме він потрапляє в журнал, тому шукати причину зручно за ним.
+Причини відмови складено в один упорядкований перелік `enum lockdown_reason`, і межу між рівнями позначають два його значення: усе до `LOCKDOWN_INTEGRITY_MAX` закривається на рівні `integrity`, усе після — лише на `confidentiality`. Другий стовпчик — рядок з масиву `lockdown_reasons[]`; саме він потрапляє в журнал, тому шукати причину зручно за ним. Третій каже, **звідки** питання поставлено: перелік причин живе в одному заголовку, а самі виклики розкидані по підсистемах, і кожна питає про своє. Файл тут — місце, де стоїть виклик у поточних ядрах; із випусками код їздить, тож у своєму дереві надійніше грепнути саме ім'я причини.
 
 **Рівень `integrity` — усе, чим можна змінити працююче ядро:**
 
-| Значення переліку | Рядок у журналі |
-|---|---|
-| `LOCKDOWN_NONE` | `none` |
-| `LOCKDOWN_MODULE_SIGNATURE` | `unsigned module loading` |
-| `LOCKDOWN_DEV_MEM` | `/dev/mem,kmem,port` |
-| `LOCKDOWN_EFI_TEST` | `/dev/efi_test access` |
-| `LOCKDOWN_KEXEC` | `kexec of unsigned images` |
-| `LOCKDOWN_HIBERNATION` | `hibernation` |
-| `LOCKDOWN_PCI_ACCESS` | `direct PCI access` |
-| `LOCKDOWN_IOPORT` | `raw io port access` |
-| `LOCKDOWN_MSR` | `raw MSR access` |
-| `LOCKDOWN_ACPI_TABLES` | `modifying ACPI tables` |
-| `LOCKDOWN_DEVICE_TREE` | `modifying device tree contents` |
-| `LOCKDOWN_PCMCIA_CIS` | `direct PCMCIA CIS storage` |
-| `LOCKDOWN_TIOCSSERIAL` | `reconfiguration of serial port IO` |
-| `LOCKDOWN_MODULE_PARAMETERS` | `unsafe module parameters` |
-| `LOCKDOWN_MMIOTRACE` | `unsafe mmio` |
-| `LOCKDOWN_DEBUGFS` | `debugfs access` |
-| `LOCKDOWN_XMON_WR` | `xmon write access` |
-| `LOCKDOWN_BPF_WRITE_USER` | `use of bpf to write user RAM` |
-| `LOCKDOWN_DBG_WRITE_KERNEL` | `use of kgdb/kdb to write kernel RAM` |
-| `LOCKDOWN_RTAS_ERROR_INJECTION` | `RTAS error injection` |
-| `LOCKDOWN_XEN_USER_ACTIONS` | `Xen guest user action` |
-| **`LOCKDOWN_INTEGRITY_MAX`** | `integrity` — межа, не причина |
+| Значення переліку | Рядок у журналі | Хто питає |
+|---|---|---|
+| `LOCKDOWN_NONE` | `none` | — |
+| `LOCKDOWN_MODULE_SIGNATURE` | `unsigned module loading` | `kernel/module/main.c` — `init_module()`, `finit_module()` |
+| `LOCKDOWN_DEV_MEM` | `/dev/mem,kmem,port` | `drivers/char/mem.c` — відкриття на запис |
+| `LOCKDOWN_EFI_TEST` | `/dev/efi_test access` | `drivers/firmware/efi/test.c` — змінні NVRAM прошивки |
+| `LOCKDOWN_KEXEC` | `kexec of unsigned images` | `kernel/kexec.c` — `kexec_load()` |
+| `LOCKDOWN_HIBERNATION` | `hibernation` | `kernel/power/hibernate.c` |
+| `LOCKDOWN_PCI_ACCESS` | `direct PCI access` | `drivers/pci/pci-sysfs.c`, `proc.c`, `syscall.c` — `config` і `resource*` |
+| `LOCKDOWN_IOPORT` | `raw io port access` | `arch/x86/kernel/ioport.c` — `iopl()`, `ioperm()` |
+| `LOCKDOWN_MSR` | `raw MSR access` | `arch/x86/kernel/msr.c` — `/dev/cpu/*/msr` на запис |
+| `LOCKDOWN_ACPI_TABLES` | `modifying ACPI tables` | `drivers/acpi/tables.c`, `custom_method.c` |
+| `LOCKDOWN_DEVICE_TREE` | `modifying device tree contents` | `drivers/of/overlay.c` — накладки дерева пристроїв |
+| `LOCKDOWN_PCMCIA_CIS` | `direct PCMCIA CIS storage` | `drivers/pcmcia/cistpl.c` |
+| `LOCKDOWN_TIOCSSERIAL` | `reconfiguration of serial port IO` | `drivers/tty/serial/serial_core.c` — `TIOCSSERIAL` |
+| `LOCKDOWN_MODULE_PARAMETERS` | `unsafe module parameters` | `kernel/params.c` — параметри, позначені `unsafe` |
+| `LOCKDOWN_MMIOTRACE` | `unsafe mmio` | `arch/x86/mm/mmio-mod.c` |
+| `LOCKDOWN_DEBUGFS` | `debugfs access` | `fs/debugfs/inode.c` — усе дерево `debugfs` |
+| `LOCKDOWN_XMON_WR` | `xmon write access` | `arch/powerpc/xmon/xmon.c` |
+| `LOCKDOWN_BPF_WRITE_USER` | `use of bpf to write user RAM` | `kernel/trace/bpf_trace.c` — `bpf_probe_write_user()` |
+| `LOCKDOWN_DBG_WRITE_KERNEL` | `use of kgdb/kdb to write kernel RAM` | `kernel/debug/kdb/kdb_main.c` |
+| `LOCKDOWN_RTAS_ERROR_INJECTION` | `RTAS error injection` | `arch/powerpc/kernel/rtas.c` |
+| `LOCKDOWN_XEN_USER_ACTIONS` | `Xen guest user action` | `drivers/xen/privcmd.c` |
+| **`LOCKDOWN_INTEGRITY_MAX`** | `integrity` — межа, не причина | — |
 
 **Рівень `confidentiality` — усе, чим можна прочитати пам'ять ядра:**
 
-| Значення переліку | Рядок у журналі |
-|---|---|
-| `LOCKDOWN_KCORE` | `/proc/kcore access` |
-| `LOCKDOWN_KPROBES` | `use of kprobes` |
-| `LOCKDOWN_BPF_READ_KERNEL` | `use of bpf to read kernel RAM` |
-| `LOCKDOWN_DBG_READ_KERNEL` | `use of kgdb/kdb to read kernel RAM` |
-| `LOCKDOWN_PERF` | `unsafe use of perf` |
-| `LOCKDOWN_TRACEFS` | `use of tracefs` |
-| `LOCKDOWN_XMON_RW` | `xmon read and write access` |
-| `LOCKDOWN_XFRM_SECRET` | `xfrm SA secret` |
-| **`LOCKDOWN_CONFIDENTIALITY_MAX`** | `confidentiality` — межа, не причина |
+| Значення переліку | Рядок у журналі | Хто питає |
+|---|---|---|
+| `LOCKDOWN_KCORE` | `/proc/kcore access` | `fs/proc/kcore.c`; сюди ж падає читання `/dev/mem` |
+| `LOCKDOWN_KPROBES` | `use of kprobes` | `kernel/trace/trace_kprobe.c` |
+| `LOCKDOWN_BPF_READ_KERNEL` | `use of bpf to read kernel RAM` | `kernel/bpf/` — перевіряч, на `BPF_PROG_LOAD` |
+| `LOCKDOWN_DBG_READ_KERNEL` | `use of kgdb/kdb to read kernel RAM` | `kernel/debug/kdb/kdb_main.c` |
+| `LOCKDOWN_PERF` | `unsafe use of perf` | `kernel/events/core.c`; звідси й буфери Intel PT та ARM CoreSight |
+| `LOCKDOWN_TRACEFS` | `use of tracefs` | `fs/tracefs/inode.c` |
+| `LOCKDOWN_XMON_RW` | `xmon read and write access` | `arch/powerpc/xmon/xmon.c` |
+| `LOCKDOWN_XFRM_SECRET` | `xfrm SA secret` | `net/xfrm/xfrm_user.c` — ключі захищених з'єднань |
+| **`LOCKDOWN_CONFIDENTIALITY_MAX`** | `confidentiality` — межа, не причина | — |
 
 Числові значення тут не є частиною жодного зовнішнього домовлення: назовні їх не видно ніде, і з випусками вони пливуть. Наочно: у першій версії механізму (5.4) `LOCKDOWN_INTEGRITY_MAX` дорівнював 15, а тепер 21 — бо між ними доклали `DEVICE_TREE`, `XMON_WR`, `BPF_WRITE_USER`, `DBG_WRITE_KERNEL`, `RTAS_ERROR_INJECTION`, `XEN_USER_ACTIONS`; заразом `LOCKDOWN_BPF_READ` перейменували на `LOCKDOWN_BPF_READ_KERNEL`. Тому в коді й у розборі журналу спираються на імена та рядки, а не на числа.
 

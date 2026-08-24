@@ -148,7 +148,52 @@ def fig_ghash_pipeline():
     render(os.path.join(OUT, "ghash-pipeline.svg"), W, H, *p)
 
 
-# ── 4. nonce-reuse-catastrophe: колапс безпеки при повторі Nonce ───────────────
+# ── 4. chacha20-poly1305-pipeline: конвеєр ChaCha20-Poly1305 ───────────────────
+def fig_chacha20_poly1305_pipeline():
+    W, H = 1080, 540
+    p = []
+
+    p.append(text(W / 2, 28, "Конвеєр та генерація одноразового ключа в ChaCha20-Poly1305 (RFC 8439)", size=16, color=INK, bold=True))
+
+    # Входи
+    p.append(fitbox(60, 60, 240, 50, "Key (256b) + Nonce (96b)\nСпільні секретні параметри", size=13, fill=WARNF, stroke=WARN, sw=1.6))
+
+    # Блок 0 і Блоки 1..N
+    p.append(fitbox(380, 60, 260, 60, "ChaCha20 Блок 0 (Counter = 0)\nГенерує перші 64 байти гами", size=13, fill=FILL, stroke=LINE, sw=1.6))
+    p.append(arrow(305, 85, 375, 85, color=LINE, sw=1.6))
+
+    p.append(fitbox(710, 60, 310, 60, "ChaCha20 Блоки 1..N (Counter ≥ 1)\nШифрують відкритий текст P ⊕ KeyStream", size=13, fill=ENCF, stroke=ENC, sw=1.8))
+    p.append(arrow(305, 95, 705, 85, color=LINE, sw=1.6))
+
+    # Одноразовий ключ Poly1305
+    p.append(fitbox(380, 160, 260, 90, "Розподіл 64 байтів Блока 0:\n• Перші 16 Б → ключ r (затискається / clamped)\n• Наступні 16 Б → секрет s\n• Решта 32 Б відкидаються", size=12, fill=MACF, stroke=MAC, sw=1.8))
+    p.append(arrow(510, 125, 510, 155, color=LINE, sw=1.6))
+
+    # Шифротекст
+    p.append(fitbox(710, 160, 310, 60, "Ciphertext C\n(тіло захищеного пакета)", size=13, fill=ENCF, stroke=ENC, sw=1.8))
+    p.append(arrow(865, 125, 865, 155, color=ENC, sw=1.6))
+
+    # Вхід AAD
+    p.append(fitbox(60, 260, 240, 50, "AAD (асоційовані дані)\n(заголовки, pad16)", size=13, fill=CLRF, stroke=CLR, sw=1.5))
+
+    # Обчислювач Poly1305
+    p.append(fitbox(350, 280, 420, 130, "Автентифікатор Poly1305 за модулем 2¹³⁰ − 5:\n\nAcc = (...((pad(A)·r + pad(C))·r + len(A)||len(C))·r)\n      mod (2¹³⁰ − 5)\n\nФінальний тег T = (Acc + s) mod 2¹²⁸", size=12, fill=OKF, stroke=OK, sw=2))
+
+    p.append(arrow(180, 315, 345, 335, color=CLR, sw=1.6))
+    p.append(arrow(510, 255, 510, 275, color=MAC, sw=1.8))
+    p.append(arrow(810, 225, 680, 275, color=ENC, sw=1.8))
+
+    # Результат: Тег
+    p.append(fitbox(820, 310, 200, 60, "16-байтовий тег T\n(Poly1305 Tag)", size=13, fill=OKF, stroke=OK, sw=2))
+    p.append(arrow(775, 340, 815, 340, color=OK, sw=2))
+
+    # Нижня плашка переваг
+    p.append(fitbox(60, 450, 960, 60, "Перевага над AES-GCM: Абсолютно константний час виконання без табличних підстановок і без потреби в спеціальних апаратних інструкціях CPU. Виняткова стійкість до атак по сторонніх каналах (Side-Channel Attacks).", size=12, fill=FILL, stroke=LINE, sw=1.4))
+
+    render(os.path.join(OUT, "chacha20-poly1305-pipeline.svg"), W, H, *p)
+
+
+# ── 5. nonce-reuse-catastrophe: колапс безпеки при повторі Nonce ───────────────
 def fig_nonce_reuse_catastrophe():
     W, H = 1080, 480
     p = []
@@ -181,5 +226,6 @@ if __name__ == "__main__":
     fig_composition_paradigms()
     fig_aead_tuple_flow()
     fig_ghash_pipeline()
+    fig_chacha20_poly1305_pipeline()
     fig_nonce_reuse_catastrophe()
     print("All figures generated successfully.")

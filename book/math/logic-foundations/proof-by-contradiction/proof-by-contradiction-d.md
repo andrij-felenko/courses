@@ -1,8 +1,8 @@
 # Доведення від супротивного
 
 <preknowlist>
-- book:math/truth-tables
-- book:math/classical-logic-axioms
+- topic:math/truth-tables
+- topic:math/classical-logic-axioms
 </preknowlist>
 
 Як ми можемо переконливо довести, що якийсь об'єкт ніколи не зможе існувати, або що певний процес є принципово неможливим у нашому Всесвіті чи в заданій математичній системі?

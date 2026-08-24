@@ -129,7 +129,7 @@ p(T) = d P_s / d T = - \sqrt{\alpha_0 / \beta} / [2 \sqrt{T_c - T}]    [аном
 Під час практичних вимірювань спостережуваний піроелектричний коефіцієнт кристала складно переплетений із п'єзоелектричними та деформаційними процесами. Детальний математичний апарат термодинамічних потенціалів розгортає вставка [Термодинаміка та феноменологія піроелектричного ефекту](topic:physics/pyroelectric-effect/math-pyroelectric-thermodynamics.md).
 
 ```
-book:physics/electromagnetism/pyroelectric-effect/math-pyroelectric-thermodynamics.md
+topic:physics/electromagnetism/pyroelectric-effect/math-pyroelectric-thermodynamics.md
 Вставка розгортає повний тензорний розклад потенціалу Гіббса G(T, \sigma, E), доведення формули розщеплення p = p^S + c d \alpha, розрахунок амплітуди коливань температури \Delta T(\omega) та виведення добротностей F_v і F_m.
 ```
 
@@ -176,7 +176,7 @@ book:physics/electromagnetism/pyroelectric-effect/math-pyroelectric-thermodynami
 Шлях піроелектрики від античного опису турмаліну до сучасних космічних спектрометрів детально висвітлено у вставці [Історія відкриття піроелектричного ефекту](topic:physics/pyroelectric-effect/hist-pyroelectricity.md).
 
 ```
-book:physics/electromagnetism/pyroelectric-effect/hist-pyroelectricity.md
+topic:physics/electromagnetism/pyroelectric-effect/hist-pyroelectricity.md
 Вставка описує спостереження Феофраста 314 р. до н. е., досліди Епінуса 1756 р. з турмаліном, внесення терміна Брюстером 1824 р., термодинаміку лорда Кельвіна та створення перших PIR-сенсорів на PZT та LiTaO3.
 ```
 
@@ -266,14 +266,14 @@ R_v(\omega) = (\omega A p \eta R_e / G_{th}) / [\sqrt{1 + \omega^2 \tau_{th}^2} 
 Специфікацію виводів корпусу TO-5, оптичних фільтрів та параметрів JFET наведено у вставці [Специфікація та інтерфейс піроелектричних датчиків](topic:physics/pyroelectric-effect/api-pyroelectric-sensor-spec.md).
 
 ```
-book:physics/electromagnetism/pyroelectric-effect/api-pyroelectric-sensor-spec.md
+topic:physics/electromagnetism/pyroelectric-effect/api-pyroelectric-sensor-spec.md
 Вставка описує цокольовку корпусів TO-5 (Drain, Source, GND), параметри JFET-транзисторів (Rg = 50 ГОм), спектральні вікна 5.5–14 мкм та таблицю параметрів LHI968, IRA-S210ST01 та PVDF.
 ```
 
 Аналоговий сигнал з виходу JFET-повторювача подається на смуговий підсилювач та обробляється мікроконтролером. Програмний алгоритм фільтрації та автомата станів описано у вставці [Обробка сигналів піроелектричного PIR-датчика](topic:physics/pyroelectric-effect/proj-pir-signal-processing.md).
 
 ```
-book:physics/electromagnetism/pyroelectric-effect/proj-pir-signal-processing.md
+topic:physics/electromagnetism/pyroelectric-effect/proj-pir-signal-processing.md
 Вставка містить робочий код C та C++ для цифрової IIR-фільтрації 50 Гц завад, адаптивного трекінгу нульової лінії та двопорогового віконного компаратора виявлення руху.
 ```
 

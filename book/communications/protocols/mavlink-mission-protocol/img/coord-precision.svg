@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="240.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Одинарна точність: float32 (IEEE 754)</text>
+<text x="240.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">24 біти мантиси (~7 десяткових знаків) → крок сітки ~1.7…2.4 м</text>
+<rect x="60.0" y="110.0" width="360.0" height="240.0" rx="6" fill="#fffaf9" stroke="#f5c6cb" stroke-width="1.5"/>
+<line x1="60.0" y1="110.0" x2="60.0" y2="350.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="140.0" y1="110.0" x2="140.0" y2="350.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="220.0" y1="110.0" x2="220.0" y2="350.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="300.0" y1="110.0" x2="300.0" y2="350.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="380.0" y1="110.0" x2="380.0" y2="350.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="60.0" y1="110.0" x2="420.0" y2="110.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="60.0" y1="190.0" x2="420.0" y2="190.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="60.0" y1="270.0" x2="420.0" y2="270.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="60.0" y1="350.0" x2="420.0" y2="350.0" stroke="#f5c6cb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<rect x="175.0" y="195.0" width="50.0" height="50.0" rx="3" fill="#e2e3e5" stroke="#333333" stroke-width="1.5"/>
+<text x="200.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Майданчик (1×1 м)</text>
+<circle cx="140.0" cy="190.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="220.0" cy="190.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="220.0" cy="270.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="140.0" cy="270.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="220.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вузол сітки float</text>
+<rect x="61.6" y="378.8" width="356.9" height="42.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="396.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Неможливо вказати точку всередині майданчика!</tspan><tspan x="240.0" dy="15.0">Похибка квантування дискретної сітки перевищує ціль.</tspan></text>
+<text x="680.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Фіксована кома: int32 (10⁻⁷ deg)</text>
+<text x="680.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">32-бітне ціле число → крок сітки рівно ~1.11 см</text>
+<rect x="500.0" y="110.0" width="360.0" height="240.0" rx="6" fill="#f6fcf8" stroke="#c3e6cb" stroke-width="1.5"/>
+<line x1="500.0" y1="110.0" x2="500.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="516.0" y1="110.0" x2="516.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="532.0" y1="110.0" x2="532.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="548.0" y1="110.0" x2="548.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="564.0" y1="110.0" x2="564.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="580.0" y1="110.0" x2="580.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="596.0" y1="110.0" x2="596.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="612.0" y1="110.0" x2="612.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="628.0" y1="110.0" x2="628.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="644.0" y1="110.0" x2="644.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="660.0" y1="110.0" x2="660.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="676.0" y1="110.0" x2="676.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="692.0" y1="110.0" x2="692.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="708.0" y1="110.0" x2="708.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="724.0" y1="110.0" x2="724.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="740.0" y1="110.0" x2="740.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="756.0" y1="110.0" x2="756.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="772.0" y1="110.0" x2="772.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="788.0" y1="110.0" x2="788.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="804.0" y1="110.0" x2="804.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="820.0" y1="110.0" x2="820.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="836.0" y1="110.0" x2="836.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="852.0" y1="110.0" x2="852.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="110.0" x2="860.0" y2="110.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="126.0" x2="860.0" y2="126.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="142.0" x2="860.0" y2="142.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="158.0" x2="860.0" y2="158.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="174.0" x2="860.0" y2="174.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="190.0" x2="860.0" y2="190.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="206.0" x2="860.0" y2="206.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="222.0" x2="860.0" y2="222.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="238.0" x2="860.0" y2="238.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="254.0" x2="860.0" y2="254.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="270.0" x2="860.0" y2="270.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="286.0" x2="860.0" y2="286.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="302.0" x2="860.0" y2="302.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="318.0" x2="860.0" y2="318.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="334.0" x2="860.0" y2="334.0" stroke="#d4edda" stroke-width="0.8"/>
+<line x1="500.0" y1="350.0" x2="860.0" y2="350.0" stroke="#d4edda" stroke-width="0.8"/>
+<rect x="615.0" y="195.0" width="50.0" height="50.0" rx="3" fill="#d1e7dd" stroke="#27ae60" stroke-width="1.8"/>
+<text x="640.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Майданчик (1×1 м)</text>
+<circle cx="640.0" cy="220.0" r="3.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="675.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ціль (±1 см)</text>
+<rect x="495.0" y="378.8" width="370.0" height="42.5" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="680.0" y="396.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Ідеальне позиціонування для RTK GNSS і посадки:</tspan><tspan x="680.0" dy="15.0">дискретність 1.1 см дозволяє точне утримання коридору.</tspan></text>
+</svg>

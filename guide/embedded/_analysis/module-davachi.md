@@ -71,7 +71,7 @@
 
 ### Розділ 4. «Чуття апарата: IMU, барометр, компас, GNSS» (8 кроків)
 1. own:onboard-sensors — карта набору (тепер справді відкриває свій блок).
-2. ref:electronics/mems — ДОДАТИ: як мікромеханіка міряє рух (onboard-sensors сам інлайн-лінкує book:electronics/mems).
+2. ref:electronics/mems — ДОДАТИ: як мікромеханіка міряє рух (onboard-sensors сам інлайн-лінкує topic:electronics/mems).
 3. own:imu-barometer — акселерометр/гіроскоп/барометр як компоненти польоту.
 4. own:barometric-altimeter — тиск → висота (сусідство з imu-barometer збережено; його -d форвардить сюди).
 5. ref:electronics/magnetometer — ДОДАТИ: абсолютний курс, залізо й наводки — перший «якір» після відносних чуттів.

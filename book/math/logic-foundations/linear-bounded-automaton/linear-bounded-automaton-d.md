@@ -1,8 +1,8 @@
 # Лінійно обмежений автомат
 
 <preknowlist>
-- book:math/turing-machine
-- book:math/chomsky-grammar-hierarchy
+- topic:math/turing-machine
+- topic:math/chomsky-grammar-hierarchy
 </preknowlist>
 
 Де проходить межа між простими математичними автоматами та повноцінною обчислювальністю Машини Тьюринга? 

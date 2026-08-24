@@ -92,7 +92,7 @@
 
 **Розділ 1.4 — Залежності** (мета: побачити код як граф і взяти напрям стрілок під контроль) — 5 кроків
 15. [own:dependency-direction] Напрям залежностей: хто про кого знає
-16. [own:dependency-graph] Граф залежностей і цикли (інлайн-реф на book:math/graph-theory)
+16. [own:dependency-graph] Граф залежностей і цикли (інлайн-реф на topic:math/graph-theory)
 17. [ref:algorithms/graph-algorithms/topological-sort] (basic:pending) Топологічне сортування — порядок збирання без циклів
 18. [own:dependency-inversion] Інверсія залежностей: стабільне не залежить від хиткого
 19. [own:kvytok-v1-modules] «Квиток» v1: розрізаємо файл на модулі
@@ -141,7 +141,7 @@
 14. [nb:programming/design-patterns/observer] Спостерігач: подія знаходить слухачів
 15. [nb:programming/design-patterns/strategy] Стратегія: алгоритм як деталь, що вставляється
 16. [nb:programming/design-patterns/command] Команда: дія як обʼєкт (черги, скасування)
-17. [nb:programming/design-patterns/state] Стан: поведінка залежить від фази життя (інлайн-реф на book:math/finite-automata)
+17. [nb:programming/design-patterns/state] Стан: поведінка залежить від фази життя (інлайн-реф на topic:math/finite-automata)
 18. [nb:programming/design-patterns/iterator-visitor] Ітератор і відвідувач: обхід і операція нарізно
 19. [nb:programming/design-patterns/template-method] Шаблонний метод і хуки: скелет із заповнюваними місцями
 
@@ -253,7 +253,7 @@
 **Розділ 4.6 — Кордон між кодом і даними** (мета: навести міст між обʼєктами і таблицями — і знати його ціну) — 3 кроки
 23. [own:orm-tradeoffs] ORM: міст і його ціна (обʼєктно-реляційний розрив, N+1)
 24. [own:repository-pattern] Репозиторій: сховище за інтерфейсом (спіраль: порти М3 + фабрика М2)
-25. [nb:programming/databases/nosql-kinds] Нереляційні сховища: ключ-значення, документи, графи — за що міняємо JOIN (галузь наявна; інлайн-реф на book:algorithms/key-value-store)
+25. [nb:programming/databases/nosql-kinds] Нереляційні сховища: ключ-значення, документи, графи — за що міняємо JOIN (галузь наявна; інлайн-реф на topic:algorithms/key-value-store)
 
 ---
 
@@ -330,7 +330,7 @@
 **Розділ 6.3 — HTTP: вебінтерфейс сервісу** (мета: зробити «Квиток» доступним будь-якому клієнту через стандартний протокол) — 5 кроків
 11. [nb:communications/protocols/http-protocol] HTTP: запит — відповідь над TCP; методи, статуси, заголовки, кешованість (галузь наявна)
     вставка `hist-http-berners-lee.md`: Тім Бернерс-Лі, CERN 1989–1991: гіпертекст, який зʼїв світ
-12. [nb:communications/protocols/tls-handshake] TLS: шифрований канал поверх TCP (галузь наявна; інлайн-реф на book:communications/public-key-crypto)
+12. [nb:communications/protocols/tls-handshake] TLS: шифрований канал поверх TCP (галузь наявна; інлайн-реф на topic:communications/public-key-crypto)
 13. [own:rest-api-design] REST для «Квитка»: ресурси, дієслова, статуси
 14. [ref:communications/protocols/quic-protocol] (basic:pending) QUIC та HTTP/3 — транспорт, народжений з болю HTTP/2
 15. [own:kvytok-http-api] «Квиток» v6: HTTP-API
@@ -451,8 +451,8 @@
 24. [own:hot-partition-celebrity] Проблема зірки: один гарячий ключ кладе шард (спіраль М7)
 
 **Розділ 8.6 — Кейси гігантів** (мета: скласти всі інструменти модуля в живі системи) — 5 кроків
-25. [own:case-youtube-pipeline] YouTube, частина 1: шлях відео від завантаження до плеєра (транскодування як конвеєр і черги; інлайн-рефи book:algorithms/why-compress, book:algorithms/inter-frame — basic:done)
-26. [own:case-youtube-delivery] YouTube, частина 2: роздача мільйонам — CDN на краю, адаптивний бітрейт, попередження піків (інлайн-рефи book:communications/adaptive-bitrate — pending, book:algorithms/quality-bitrate — done)
+25. [own:case-youtube-pipeline] YouTube, частина 1: шлях відео від завантаження до плеєра (транскодування як конвеєр і черги; інлайн-рефи topic:algorithms/why-compress, topic:algorithms/inter-frame — basic:done)
+26. [own:case-youtube-delivery] YouTube, частина 2: роздача мільйонам — CDN на краю, адаптивний бітрейт, попередження піків (інлайн-рефи topic:communications/adaptive-bitrate — pending, topic:algorithms/quality-bitrate — done)
 27. [own:case-feed-fanout] Стрічка соцмережі: fan-out на запис чи на читання
     вставка `hist-twitter-fanout.md`: як Twitter перебудовував стрічку: від запитів до передрахованих стрічок і гібриду для зірок
 28. [own:case-flash-sale] Розпродаж: інвентар під сплеском (Prime Day, 11.11) — резервації, ліміти, деградація

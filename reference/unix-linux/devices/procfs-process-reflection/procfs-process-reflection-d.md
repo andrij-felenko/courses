@@ -34,7 +34,7 @@ read("/proc/1234/status")
 
 Детальний опис історичного переходу від сирого читання пам'яті в ранніх Unix до Plan 9 та впровадження `seq_file` викладено у вставці [Історія та еволюція procfs](topic:unix-linux/procfs-process-reflection/hist-procfs-evolution.md).
 
-![Архітектура VFS та динамічна генерація вмісту /proc/[pid]](/reference/unix-linux/devices/procfs-process-reflection/img/procfs-vfs-architecture.svg)
+![Архітектура VFS та динамічна генерація вмісту /proc/[pid]](img/procfs-vfs-architecture.svg)
 *Послідовність виконання при читанні /proc/[pid]/status: VFS отримує виклик, знаходить proc_inode, через RCU локалізує task_struct і форматує дані в пам'яті через seq_file.*
 
 ---
@@ -43,7 +43,7 @@ read("/proc/1234/status")
 
 Вміст директорії `/proc/[pid]/` структуровано за п'ятьма функціональними напрямками: метадані стану, віртуальна пам'ять, відкриті ресурси, потоки виконання та межі ізоляції.
 
-![Структура директорії /proc/[pid]](/reference/unix-linux/devices/procfs-process-reflection/img/procfs-process-tree.svg)
+![Структура директорії /proc/[pid]](img/procfs-process-tree.svg)
 *Ієрархія файлів та символьних посилань у /proc/[pid] та їхній зв'язок із підсистемами ядра (пам'ять, дескриптори, потоки, простори імен).*
 
 ### Вимір 1: Стан та ідентичність процесу
