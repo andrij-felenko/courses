@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Читач</title>
+<script>try{var d=document.documentElement;d.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day');d.setAttribute('data-density',localStorage.getItem('courses-density')||'cozy');if(localStorage.getItem('courses-sidebar-hidden')==='1')d.classList.add('sb-hidden')}catch(e){}</script>
+<link rel="stylesheet" href="book.css?v=48">
+<link rel="stylesheet" href="search.css?v=5">
+<link rel="stylesheet" href="dense.css?v=9">
+</head>
+<body>
+
+<button id="menu-btn" aria-label="Меню">☰</button>
+<a id="up-btn" href="index.html" aria-label="На рівень вище" title="На рівень вище">←</a>
+<button id="sidebar-close" aria-label="Закрити меню" title="Закрити">✕</button>
+<nav id="sidebar" aria-label="Навігація"></nav>
+<div id="scrim"></div>
+<main id="content"><div class="state"><div class="spinner"></div>Готуємо…</div></main>
+<button id="back-top" aria-label="Догори" title="Догори">↑</button>
+<div id="reader-controls" role="group" aria-label="Налаштування читача"></div>
+
+<noscript><div style="max-width:700px;margin:3rem auto;padding:0 1.5rem">Потрібен JavaScript.</div></noscript>
+
+<!-- Читач v7: ?book=<slug> для БУДЬ-ЯКОГО виду (sci·eng·course·hw·sys) — вид знаходиться
+     через root/shelf.json. Курс без #ch= показує доріжку; з #ch= — читається як книга.
+     ?course=<slug> — контекст курсу, коли стаття належить іншій книзі. -->
+<script src="bookbuild.js?v=22"></script>
+<script>
+(function () {
+  var p = new URLSearchParams(location.search);
+  var content = document.getElementById("content");
+  var slug = p.get("book") || p.get("guide") || p.get("course");   // guide= — легасі-аліас
+  var courseSlug = p.get("course");
+  if (!slug) { content.innerHTML = '<div class="state">Вкажи <code>?book=…</code></div>'; return; }
+
+  var atArticle = /(^|[#&])ch=/.test(location.hash || "");
+  var jobs = [loadBook(slug)];
+  if (courseSlug && courseSlug !== slug) jobs.push(loadBook(courseSlug));
+
+  Promise.all(jobs).then(function (arr) {
+    var b = arr[0];
+    if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
+
+    // Курс без конкретної статті → доріжка модулів/кроків (book.js не потрібен).
+    if (b.kind === "course" && !atArticle && !courseSlug) { window.BOOK = b; renderGuide(b); return; }
+
+    // Стаття. Якщо читаємо в контексті курсу — чіпляємо курс для навігації «наступний крок».
+    var c = arr[1] || (b.kind === "course" ? b : null);
+    if (c) b.course = { slug: c.bookSlug, title: c.title, modules: c.groups || [] };
+    window.BOOK = b;
+    var s = document.createElement("script"); s.src = "book.js?v=38"; document.body.appendChild(s);
+  });
+})();
+</script>
+<script src="search.js?v=9"></script>
+<script src="theme.js?v=1"></script>
+<script src="density.js?v=1"></script>
+<script src="codelang.js?v=3"></script>
+<script src="sidebar-toggle.js?v=3"></script>
+<script src="topchrome.js?v=1"></script>
+</body>
+</html>

@@ -6,9 +6,9 @@ __pycache__/
 /scripts/_mfops-*.json
 
 # Згенерований пошуковий індекс — будується в CI (.github/workflows/deploy.yml).
-# Локально: `node scripts/build-search-index.js`, щоб протестувати пошук.
-/search-index.json
-/search-fulltext.json
+# Локально: `node src/front/build-search-index.js`, щоб протестувати пошук.
+/src/front/search-index.json
+/src/front/search-fulltext.json
 
 # генерований зріз канону для агентів-письменників (робить scripts/make-writer-canon.js на старті батчу)
 AUTHORING.write.en.md

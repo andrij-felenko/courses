@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /* ============================================================================
-   build-search-index.js — генератор пошукового індексу для сайту-бібліотеки.
-   Обходить book/ · catalog/ · reference/ · guide/ (через маніфести), читає доступні статті
-   (`status:"done"`) разом із вставками (hist/comp/math/proj) і власними
-   статтями курсів, і пише ДВА файли в корінь репо:
+   build-search-index.js (v7) — генератор пошукового індексу для сайту-бібліотеки.
+   Обходить дерево root/ через root/shelf.json (види sci·eng·course·hw·sys →
+   книги → групи → розділи → теми), читає доступні статті (`status:"done"`)
+   разом із вставками (hist/comp/math/proj) і пише ДВА файли поруч із рушієм:
 
      search-index.json     — Рівень 1: назви (книга · галузь · тема) + заголовки
                              статей. Малий → вантажиться на кожній сторінці.
@@ -11,33 +11,23 @@
                              (паралельний масив до Рівня 1) → довантажується на
                              першу спробу пошуку в тексті.
 
-   Запуск:  node scripts/build-search-index.js
+   Запуск:  node src/front/build-search-index.js
    Без сервера й без залежностей (лише вбудований fs/path).
    ========================================================================== */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 
-const ROOT = path.resolve(__dirname, "..");
-const OUT_INDEX = path.join(ROOT, "search-index.json");
-const OUT_FULL = path.join(ROOT, "search-fulltext.json");
+const ROOT = path.resolve(__dirname, "../..");        // корінь репо (скрипт живе в src/front/)
+const CONTENT = path.join(ROOT, "root");              // дерево контенту v7
+const OUT_INDEX = path.join(__dirname, "search-index.json");   // поруч із рушієм — його ж і фетчить search.js
+const OUT_FULL = path.join(__dirname, "search-fulltext.json");
 
-/* --- реєстр книг/курсів (books-index.js) ------------------------------------ */
-function loadRegistry() {
-  const src = fs.readFileSync(path.join(ROOT, "books-index.js"), "utf8");
-  const sb = {};                       // books-index.js робить window.SUBJECT_BOOKS = [...]
-  new Function("window", src)(sb);
-  return { books: sb.SUBJECT_BOOKS || [], guides: sb.GUIDE_COURSES || [], catalogs: sb.CATALOG_BOOKS || [], references: sb.REFERENCE_BOOKS || [] };
+/* --- дерево v7: shelf.json → книги → групи ---------------------------------- */
+function readJSON(file) {
+  try { return JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) { return null; }
 }
-
-/* --- маніфест книги/курсу як об'єкт ----------------------------------------- */
-function loadManifest(file, key) {
-  if (!fs.existsSync(file)) return null;
-  const src = fs.readFileSync(file, "utf8");
-  const sb = {};
-  try { new Function("window", src)(sb); } catch (e) { return null; }
-  return (sb[key] || [])[0] || null;
-}
+function groupFile(g) { return (g === "." ? "_" : g) + ".json"; }
 
 /* --- slugify (дзеркало book.js) --------------------------------------------- */
 function slugify(s) {
@@ -129,66 +119,53 @@ function addArticle(meta, dir, mainFile, detailedFile, insertFiles) {
   docs.push(Array.from(tokens).sort().slice(0, 800).join(" "));
 }
 
-/* --- book/ · catalog/ · reference/ ------------------------------------------ */
-function indexBook(slug, kind) {
-  const base = kind === "catalog" ? "catalog" : kind === "reference" ? "reference" : "book";
-  const man = loadManifest(path.join(ROOT, base, slug, "manifest.js"), "__BOOKS__");
+/* --- обхід дерева v7 --------------------------------------------------------
+   Теми лежать ПЛАСКО під книгою: root/<dir>/<book>/<topic>/<topic>.md.
+   Крок-`ref` не індексуємо — це вказівник на тему іншої книги, яка вже в індексі. */
+function indexBook(kind, dir, slug) {
+  const bookDir = path.join(CONTENT, dir, slug);
+  const man = readJSON(path.join(bookDir, "manifest.json"));
   if (!man) return false;
   const bt = man.title || slug;
-  (man.sections || []).forEach((sec) => {
-    (sec.topics || []).forEach((t) => {
-      if (!t.slug) return;
-      const basicDone = t.basic && t.basic.status === "done";
-      if (!basicDone) return;   // недоступні читачу — не індексуємо
-      const dir = path.join(ROOT, base, slug, sec.slug, t.slug);
-      const inserts = []
-        .concat((t.hist || []), (t.comp || []), (t.math || []), (t.proj || []))
-        .map((o) => (typeof o === "string" ? o : o && o.file))
-        .filter((f) => f && typeof f === "string");
-      const detailed = t.detailed && t.detailed.status === "done" ? t.slug + "-d.md" : null;
-      addArticle(
-        { k: kind, b: slug, bt: bt, sec: sec.title || sec.slug, title: t.title || t.slug,
-          href: "read.html?book=" + slug + "#ch=" + t.slug },
-        dir, t.slug + ".md", detailed, inserts
-      );
-    });
-  });
+  for (const g of man.groups || []) {
+    const grp = readJSON(path.join(bookDir, groupFile(g)));
+    if (!grp) continue;
+    const secTitle = grp.title || grp.slug || "";
+    for (const c of grp.chapters || []) {
+      for (const t of c.topics || []) {
+        if (!t || !t.slug) continue;                       // ref/місток — не стаття цієї книги
+        // Доступна читачу ⟺ готова ХОЧ ОДНА версія. За каноном v6+ основна — ДЕТАЛЬНА,
+        // базова часто `empty`, тож фільтр лише по basic лишав такі теми поза пошуком.
+        const bDone = !!(t.basic && t.basic.status === "done");
+        const dDone = !!(t.detailed && t.detailed.status === "done");
+        if (!bDone && !dDone) continue;
+        const tdir = path.join(bookDir, t.slug);
+        const inserts = []
+          .concat((t.hist || []), (t.comp || []), (t.math || []), (t.proj || []), (t.api || []))
+          .map((o) => (typeof o === "string" ? o : o && o.file))
+          .filter((f) => f && typeof f === "string");
+        // головний файл — базова, якщо є; інакше детальна (вона й буде тим, що читач бачить)
+        const mainFile = bDone ? t.slug + ".md" : t.slug + "-d.md";
+        const detailed = (bDone && dDone) ? t.slug + "-d.md" : null;
+        addArticle(
+          { k: kind, b: slug, bt: bt, sec: secTitle, title: t.title || t.slug,
+            href: "read.html?book=" + slug + "#ch=" + t.slug },
+          tdir, mainFile, detailed, inserts
+        );
+      }
+    }
+  }
   return true;
 }
 
-/* --- guide/ (лише власні статті `{slug}`; кроки `{ref}` — вказівники) -------- */
-function indexGuide(slug) {
-  const man = loadManifest(path.join(ROOT, "guide", slug, "manifest.js"), "__GUIDES__");
-  if (!man) return;
-  const gt = man.title || slug;
-  (man.sections || man.modules || []).forEach((mod) => {
-    const steps = (mod.topics && mod.topics.length) ? mod.topics : (mod.chapters || []).flatMap((c) => c.steps || []);
-    steps.forEach((s) => {
-      if (s.ref || !s.slug) return;             // ref → book-атом (уже проіндексований)
-      const basicDone = s.basic && s.basic.status === "done";
-      if (!basicDone) return;
-      // власні статті курсу лежать як книжкові: guide/<курс>/<модуль>/<slug>/<slug>.md
-      const dir = path.join(ROOT, "guide", slug, mod.slug, s.slug);
-      const inserts = []
-        .concat((s.hist || []), (s.comp || []), (s.math || []), (s.proj || []))
-        .map((o) => (typeof o === "string" ? o : o && o.file))
-        .filter((f) => f && typeof f === "string");
-      const detailed = s.detailed && s.detailed.status === "done" ? s.slug + "-d.md" : null;
-      addArticle(
-        { k: "guide", b: slug, bt: gt, sec: mod.title || mod.slug, title: s.title || s.slug,
-          href: "read.html?guide=" + slug + "&module=" + mod.slug + "#ch=" + s.slug },
-        dir, s.slug + ".md", detailed, inserts
-      );
-    });
-  });
-}
-
 /* --- прогін ----------------------------------------------------------------- */
-const reg = loadRegistry();
-reg.books.forEach((s) => { if (!indexBook(s, "book")) indexBook(s, "catalog"); });
-reg.catalogs.forEach((s) => indexBook(s, "catalog"));   // каталоги — з реєстру books-index.js
-reg.references.forEach((s) => indexBook(s, "reference"));   // довідники — з реєстру books-index.js
-reg.guides.forEach((s) => indexGuide(s));
+const shelf = readJSON(path.join(CONTENT, "shelf.json"));
+if (!shelf || !shelf.kinds) { console.error("root/shelf.json не прочитався"); process.exit(1); }
+for (const k of shelf.kinds) {
+  for (const slug of k.books || []) {
+    if (!indexBook(k.kind, k.dir, slug)) console.warn("  пропущено (нема manifest.json): " + k.dir + "/" + slug);
+  }
+}
 
 fs.writeFileSync(OUT_INDEX, JSON.stringify(entries));
 fs.writeFileSync(OUT_FULL, JSON.stringify({ docs: docs }));

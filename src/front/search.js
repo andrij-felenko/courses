@@ -80,14 +80,15 @@
     if (hit.head && hit.head.a) h += (h.indexOf("#") === -1 ? "#" : "&") + "at=" + hit.head.a;
     return BASE + h;
   }
-  function kindPri(e) { return e.k === "guide" ? 0 : 1; }   // курси — головне, тож попереду книг
+  function kindPri(e) { return e.k === "course" ? 0 : 1; }   // курси — головне, тож попереду книг
   function rankSort(a, b) { return b.rank - a.rank || kindPri(a.e) - kindPri(b.e) || norm(a.e.title).localeCompare(norm(b.e.title)); }   // релевантність первинна; тип — тай-брейк
 
   /* --- фільтри: книги з індексу, розділи обраної книги ------------------------ */
-  var KIND_LABEL = { book: "Книги", guide: "Курси", catalog: "Каталоги", reference: "Довідники" };
-  var KIND_ONE = { book: "Книга", guide: "Курс", catalog: "Каталог", reference: "Довідник" };
-  var KIND_ALL = { book: "Усі книги", guide: "Усі курси", catalog: "Усі каталоги", reference: "Усі довідники" };
-  var KIND_ALLSEC = { book: "Усі розділи", guide: "Усі модулі", catalog: "Усі родини", reference: "Усі розділи" };
+  /* Види v7 (root/shelf.json). Слова дзеркалять поле `words` кожного виду. */
+  var KIND_LABEL = { sci: "Наука", eng: "Інженерія", course: "Курси", hw: "Залізо", sys: "Системи" };
+  var KIND_ONE = { sci: "Наука", eng: "Напрямок", course: "Курс", hw: "Клас", sys: "Система" };
+  var KIND_ALL = { sci: "Уся наука", eng: "Уся інженерія", course: "Усі курси", hw: "Усе залізо", sys: "Усі системи" };
+  var KIND_ALLSEC = { sci: "Усі галузі", eng: "Усі технології", course: "Усі томи", hw: "Усі групи", sys: "Усі модулі" };
   function kindsPresent() {
     var seen = {}; (INDEX || []).forEach(function (e) { if (e.k) seen[e.k] = 1; });
     return ["guide", "book", "catalog", "reference"].filter(function (k) { return seen[k]; });

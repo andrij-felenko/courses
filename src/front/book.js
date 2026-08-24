@@ -11,13 +11,15 @@
 
   var BOOK = window.BOOK;
   var BASE = BOOK.basePath || "";   // префікс до контенту (embedded/) відносно index.html
-  // Префікс розгортання — тека, де лежить read.html/index.html (корінь репо в URL).
-  // На GitHub Pages це «/courses/», локально — шлях до файлу. Шляхи «від кореня репо»
-  // (/book/…, /guide/…, /catalog/…) у Markdown резолвимо саме сюди, інакше на Pages
-  // «/book/…» пішло б на домен-корінь повз підтеку «/courses/».
-  var SITE_ROOT = location.pathname.replace(/[^/]*$/, "");
+  // Префікс розгортання — тека, звідки видно контент root/. Шляхи «від кореня репо»
+  // (/root/…) у Markdown резолвимо саме сюди, інакше на Pages «/root/…» пішло б на
+  // домен-корінь повз підтеку «/courses/».
+  // Рушій живе в src/front/: на проді його викладають у корінь сайту (deploy складає
+  // _site з src/front/* + root/), а локально він лишається в підтеці — тож якщо шлях
+  // закінчується на src/front/, зрізаємо його, і обидва режими дають той самий корінь.
+  var SITE_ROOT = location.pathname.replace(/[^/]*$/, "").replace(/(?:^|\/)src\/front\/$/, "/");
 
-  // Предметні книги book/<id> та курси guide/<course> — для крос-попапів book:/guide: (v5).
+  // Книги й курси — один простір імен; крос-попапи через префікс topic: (v7).
   var SUBJECT_META = {
     physics:        { icon: "⚛️", label: "Фізика" },        math:           { icon: "🧮", label: "Математика" },
     chemistry:      { icon: "⚗️", label: "Хімія" },         electronics:    { icon: "🔌", label: "Електроніка" },
@@ -266,17 +268,15 @@
     return s;
   }
 
-  /* Крос-книжкове посилання book:<id>/<slug>[/<file>][#<topic>] → дескриптор для popup */
+  /* Крос-посилання topic:<книга>/<тема>[/<file>][#<anchor>] → дескриптор для popup (v7) */
   function resolveCrossBook(href) {
-    var isGuide = /^guide:/i.test(href);
-    var rest = href.replace(/^(book|guide):/i, "");
+    var rest = href.replace(/^topic:/i, "");
     var frag = ""; var hi = rest.indexOf("#");
     if (hi >= 0) { frag = rest.slice(hi + 1); rest = rest.slice(0, hi); }
     var segs = rest.split("/").filter(Boolean);
     var book = segs.shift() || "";
     var slug = segs.shift() || "";
     var file = segs.join("/");                 // порожнє → головний файл розділу
-    if (isGuide) book = "guide/" + book;        // курс кодуємо як "guide/<course>" у book-слоті токена
     return { href: "#", external: false, cross: [book, slug, file, frag].join("|") };
   }
 
@@ -284,7 +284,7 @@
   function resolveHref(href, text, ctx) {
     if (/^(https?:|mailto:|tel:)/i.test(href)) return { href: href, external: true };
     if (href.charAt(0) === "#") return { href: href, external: false };
-    if (/^(book|guide):/i.test(href)) return resolveCrossBook(href);
+    if (/^topic:/i.test(href)) return resolveCrossBook(href);
     var frag = ""; var hi = href.indexOf("#");
     if (hi >= 0) { frag = href.slice(hi + 1); href = href.slice(0, hi); }
     if (!/\.md$/i.test(href)) return { href: href, external: false };
@@ -625,7 +625,7 @@
 
   function renderFigure(t, ctx) {
     var src = t.src.trim();
-    if (/^\/(?:book|guide|catalog|reference)\//.test(src)) src = SITE_ROOT + src.slice(1);  // від кореня репо → префікс розгортання
+    if (/^\/root\//.test(src)) src = SITE_ROOT + src.slice(1);  // від кореня репо → префікс розгортання
     else if (!/^https?:|^\//.test(src)) src = (ctx.base != null ? ctx.base : BASE) + ctx.dir + "/" + src;
     var h = '<figure><img src="' + escapeAttr(src) + '" alt="' + escapeAttr(t.alt) + '" loading="lazy">';
     if (t.caption) h += "<figcaption>" + renderInline(t.caption, ctx) + "</figcaption>";
@@ -674,12 +674,12 @@
     }
     var body = text.replace(/^(🔧|🏠|🧪|💡|📜|🧮|⚙️|⚙|🔌|📋|🔗|▶️|▶)\s*/, "");
 
-    // 🔗-вставка з book:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему/предмет
+    // 🔗-вставка з topic:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему
     if (kind === "xref") {
-      var bm = body.match(/\]\(((?:book|guide):[^)]+)\)/i);
+      var bm = body.match(/\]\((topic:[^)]+)\)/i);
       if (bm) {
         var cross = resolveCrossBook(bm[1]).cross;
-        var flatx = body.replace(/\s*\[([^\]]+)\]\((?:book|guide):[^)]+\)/ig, "").trim();
+        var flatx = body.replace(/\s*\[([^\]]+)\]\(topic:[^)]+\)/ig, "").trim();
         return '<a class="callout callout-nav hist-teaser xref-teaser" href="#" data-xbook="' + escapeAttr(cross) + '" title="Відкрити повну тему">' +
           '<span class="callout-ico">🔗<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
           '<div class="callout-body">' + renderInline(flatx.replace(/\n/g, " "), ctx) + "</div>" +
@@ -966,7 +966,7 @@
       var mn = m.n || (mi + 1);
       (m.chapters || []).forEach(function (c, ci) {
         var cn = mn + "." + (ci + 1);
-        (c.steps || []).forEach(function (st, si) {
+        (c.topics || c.steps || []).forEach(function (st, si) {
           var base = { kn: cn + "." + (si + 1), title: st.title, mTitle: m.title, cTitle: c.title };
           if (st.ref) {
             var pr = String(st.ref).split("/");
@@ -987,10 +987,10 @@
     return -1;
   }
   function courseStepHref(s) {
-    if (s.own) return "read.html?guide=" + encodeURIComponent(BOOK.course.slug) + "&module=" + encodeURIComponent(s.mSlug || "") + "#ch=" + encodeURIComponent(s.top);
+    if (s.own) return "read.html?book=" + encodeURIComponent(BOOK.course.slug) + "#ch=" + encodeURIComponent(s.top);
     return "read.html?course=" + encodeURIComponent(BOOK.course.slug) + "&book=" + encodeURIComponent(s.subject) + "#ch=" + encodeURIComponent(s.top);
   }
-  function courseHome() { return "read.html?guide=" + encodeURIComponent(BOOK.course.slug); }
+  function courseHome() { return "read.html?book=" + encodeURIComponent(BOOK.course.slug); }
 
   function buildCourseChapterSidebar(chap, sections) {
     var cur = courseSteps().filter(function (st) { return !st.bridge && st.subject === BOOK.bookSlug && st.top === chap.slug; })[0];
@@ -1004,7 +1004,7 @@
     (BOOK.course.modules || []).forEach(function (m, mi) {
       var mn = m.n || (mi + 1);
       var mSteps = 0, mRead = 0;
-      (m.chapters || []).forEach(function (c) { (c.steps || []).forEach(function (st) {
+      (m.chapters || []).forEach(function (c) { (c.topics || c.steps || []).forEach(function (st) {
         if (st.bridge || (!st.ref && !st.slug)) return;
         mSteps++;
         var sj, tp;
@@ -1015,14 +1015,14 @@
       (m.chapters || []).forEach(function (c, ci) {
         var cn = mn + "." + (ci + 1);
         if (c.title) s += '<div class="sb-chap">' + cn + " · " + escapeHtml(c.title) + "</div>";
-        (c.steps || []).forEach(function (st, si) {
+        (c.topics || c.steps || []).forEach(function (st, si) {
           var kn = cn + "." + (si + 1), subj, top, href;
           if (st.ref) {
             var pr = String(st.ref).split("/"); subj = pr[0]; top = pr[pr.length - 1];
             href = "read.html?course=" + encodeURIComponent(BOOK.course.slug) + "&book=" + encodeURIComponent(subj) + "#ch=" + encodeURIComponent(top);
           } else if (st.slug) {   // власна стаття курсу
             subj = BOOK.course.slug; top = st.slug;
-            href = "read.html?guide=" + encodeURIComponent(BOOK.course.slug) + "&module=" + encodeURIComponent(m.slug || "") + "#ch=" + encodeURIComponent(st.slug);
+            href = "read.html?book=" + encodeURIComponent(BOOK.course.slug) + "#ch=" + encodeURIComponent(st.slug);
           } else {
             s += '<span class="sb-link sb-bridge"><span class="sb-kn">' + kn + "</span>🔗 " + escapeHtml(st.title || "місток") + "</span>"; return;
           }
@@ -1443,7 +1443,7 @@
     } else { fallbackCopy(text); ok(); }
   }
 
-  /* ── Крос-попап (v5): book:<id>/<slug>[/<file>] або guide:<course>/<slug>[/<file>] ──── */
+  /* ── Крос-попап (v7): topic:<книга>/<тема>[/<file>] ─────────────────────────────── */
   // токен шару: «<id|guide/course>|<slug>|<file>|<frag>»
   function fillXbook(el, data) {
     var pp = data.split("|");
@@ -1490,19 +1490,19 @@
   function openRef(el, kind, id, slug, file, frag) {
     var reg, loader;
     if (kind === "guide") {
-      reg = { entry: "read.html?guide=" + encodeURIComponent(id), icon: "📘", label: "Курс" };
+      reg = { entry: "read.html?book=" + encodeURIComponent(id), icon: "📘", label: "Курс" };
       loader = loadGuideAsBook(id);
     } else {
       var meta = SUBJECT_META[id] || { icon: "📘", label: id };
       reg = { entry: "read.html?book=" + encodeURIComponent(id), icon: meta.icon, label: meta.label };
       loader = (BOOK && id === BOOK.bookSlug) ? Promise.resolve(BOOK)
         : (_subjCache[id] ? Promise.resolve(_subjCache[id])
-          : window.loadSubjectBook(id).then(function (b) { _subjCache[id] = b; return b; }));
+          : window.loadBook(id).then(function (b) { _subjCache[id] = b; return b; }));
     }
     function show(head, inner) { setLayerHtml(el, xbookShell(reg, slug, frag, head, inner)); }
     loader.then(function (bk) {
       var chap = bk && chapInBookAny(bk, slug);
-      var base = bk ? (bk.basePath || ((kind === "guide" ? "guide/" : "book/") + id + "/")) : "";
+      var base = bk ? (bk.basePath || "") : "";   // v7: basePath дає адаптер (root/<dir>/<book>/)
       var dir = chap && chap.dir;
 
       // ── ВСТАВКА — самостійний файл: відкриваємо НЕЗАЛЕЖНО від статусу/готовності статті ──
@@ -1540,8 +1540,7 @@
     });
   }
   function openCrossBook(el, book, slug, file, frag) {
-    if (/^guide\//.test(book)) { openRef(el, "guide", book.slice(6), slug, file, frag); return; }   // guide:<course>/<slug>
-    if (window.loadSubjectBook && SUBJECT_META[book]) { openRef(el, "book", book, slug, file, frag); return; }
+    if (window.loadBook) { openRef(el, "book", book, slug, file, frag); return; }
     setLayerHtml(el, xbookShell(null, slug, frag, "<h1>" + escapeHtml(slug || "Розділ") + "</h1>", "<p>Невідома книга <code>" + escapeHtml(book) + "</code>.</p>"));
   }
 

@@ -36,18 +36,18 @@ jobs:
           node-version: '20'
 
       - name: Build search index
-        run: node scripts/build-search-index.js
+        run: node src/front/build-search-index.js
 
-      # Збираємо сайт у _site, виключаючи службові теки (щоб .git у прод не потрапляв).
+      # Сайт = рушій (src/front/*) у КОРЕНІ _site + дерево контенту root/ поруч.
+      # Явний allowlist, а не rsync усього кореня: інакше в прод їде все, що лежить
+      # у репо, включно з авторським конвеєром і файлами, які ігнорує git.
       - name: Assemble site
         run: |
           mkdir -p _site
-          rsync -a \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='_site' \
-            --exclude='node_modules' \
-            ./ _site/
+          cp -r src/front/. _site/
+          rsync -a --exclude='.git' root/ _site/root/
+          rm -f _site/build-search-index.js
+          echo "--- _site ---"; ls _site
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
