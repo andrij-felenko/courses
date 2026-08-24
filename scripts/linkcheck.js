@@ -1,8 +1,8 @@
 /* scripts/linkcheck.js — перевірка посилань під структуру AUTHORING.md (book/ · catalog/ · reference/ · guide/).
    Перевіряє:
-     • book:<книга>/<slug>[/<file>] — чи є така тема в маніфесті книги; status:"empty" = легітимний стаб.
+     • topic:<книга>/<тема>[/<file>] — чи є така тема в маніфесті книги або курсу; status:"empty" = легітимний стаб.
      • зображення (/book/…/img/x.svg або відносні img/x.svg) — чи існує файл.
-     • відносні .md-лінки — попереджає (за каноном крос-лінк має бути book:-попапом).
+     • відносні .md-лінки — попереджає (за каноном крос-лінк має бути topic:-попапом).
    Запуск: node scripts/linkcheck.js
    ========================================================================== */
 "use strict";
@@ -47,14 +47,14 @@ for (const kind of ["book", "catalog", "reference"]) {
   }
 }
 
-// guide own-articles index: "<course>/<slug>" → {dir,status,files} (для guide:-лінків)
+// власні статті курсів: "<курс>/<тема>" → {dir,status,files} — той самий простір імен, що й TOPICS
 const GTOPICS = new Map();
 {
   const gbase = path.join(ROOT, "guide");
   if (exists(gbase)) for (const d of fs.readdirSync(gbase)) {
     const guides = loadReg("__GUIDES__", path.join(gbase, d, "manifest.js"));
     for (const g of guides) for (const sec of (g.sections || g.modules || [])) for (const t of (sec.topics && sec.topics.length ? sec.topics : (sec.chapters || []).flatMap((c) => c.steps || []))) {
-      if (!t.slug) continue;                          // ref-крок — не guide:-ціль
+      if (!t.slug) continue;                          // ref-крок — не ціль topic:
       const files = new Set();
       const bs = (t.basic && t.basic.status) || "empty";
       const ds = (t.detailed && t.detailed.status) || "empty";
@@ -80,24 +80,15 @@ for (const f of mdFiles) {
     if (/^(https?:|mailto:|tel:|#)/i.test(href)) continue;
     href = href.split("#")[0]; if (!href) continue;
 
-    if (/^guide:/i.test(href)) {
-      const segs = href.replace(/^guide:/i, "").split("/").filter(Boolean);
+    if (/^topic:/i.test(href)) {
+      const segs = href.replace(/^topic:/i, "").split("/").filter(Boolean);
       const key = (segs[0] || "") + "/" + (segs[1] || "");
-      const t = GTOPICS.get(key);
-      if (!t) { broken.push(`${rel}: guide:${segs.join("/")} — кроку нема в жодному курсі`); continue; }
-      if (segs[2]) { const want = segs[2] === "detail" ? segs[1] + "-d.md" : segs[2] === "basic" ? segs[1] + ".md" : segs[2]; if (!t.files.has(want) && !exists(path.join(t.dir, want))) broken.push(`${rel}: guide:${segs.join("/")} — файла нема`); }
-      else if (t.status !== "done") stubs.push(`${rel}: guide:${key} (${t.status}-стаб)`);
-      continue;
-    }
-    if (/^book:/i.test(href)) {
-      const segs = href.replace(/^book:/i, "").split("/").filter(Boolean);
-      const key = (segs[0] || "") + "/" + (segs[1] || "");
-      const t = TOPICS.get(key);
-      if (!t) { broken.push(`${rel}: book:${segs.join("/")} — теми нема в жодному маніфесті`); continue; }
-      if (segs[2]) { // конкретний файл (вставка) або ключове слово basic/detail
+      const t = TOPICS.get(key) || GTOPICS.get(key);        // v7: книга й курс — один простір імен
+      if (!t) { broken.push(`${rel}: topic:${segs.join("/")} — теми нема в жодному маніфесті`); continue; }
+      if (segs[2]) {                                        // конкретний файл (вставка) або basic/detail
         const want = segs[2] === "detail" ? segs[1] + "-d.md" : segs[2] === "basic" ? segs[1] + ".md" : segs[2];
-        if (!t.files.has(want) && !exists(path.join(t.dir, want))) broken.push(`${rel}: book:${segs.join("/")} — файла нема`);
-      } else if (t.status !== "done") stubs.push(`${rel}: book:${key} (${t.status}-стаб)`);
+        if (!t.files.has(want) && !exists(path.join(t.dir, want))) broken.push(`${rel}: topic:${segs.join("/")} — файла нема`);
+      } else if (t.status !== "done") stubs.push(`${rel}: topic:${key} (${t.status}-стаб)`);
       continue;
     }
     // шлях від кореня репо (зображення/файл)
@@ -105,7 +96,7 @@ for (const f of mdFiles) {
     if (isImg || /\.(svg|png|jpg|jpeg|gif|webp)$/i.test(href)) {
       if (!exists(target)) broken.push(`${rel}: зображення ${href} — нема`);
     } else if (/\.md$/i.test(href)) {
-      warnMd.push(`${rel}: відносний .md-лінк ${href} — за каноном має бути book:-попап`);
+      warnMd.push(`${rel}: відносний .md-лінк ${href} — за каноном має бути topic:-попап`);
       if (!exists(target)) broken.push(`${rel}: .md-ціль ${href} — нема`);
     }
   }
@@ -113,6 +104,6 @@ for (const f of mdFiles) {
 
 console.log(`Перевірено .md: ${mdFiles.length} · тем у маніфестах: ${TOPICS.size}`);
 console.log(`\n=== БИТІ (${broken.length}) ===`); broken.slice(0, 200).forEach((s) => console.log("  ✗ " + s));
-console.log(`\n=== відносні .md-лінки, варто на book: (${warnMd.length}) ===`); warnMd.slice(0, 50).forEach((s) => console.log("  ⚠ " + s));
+console.log(`\n=== відносні .md-лінки, варто на topic: (${warnMd.length}) ===`); warnMd.slice(0, 50).forEach((s) => console.log("  ⚠ " + s));
 console.log(`\n=== лінки на empty-стаби (OK, ${stubs.length}) ===`);
 process.exit(broken.length ? 1 : 0);

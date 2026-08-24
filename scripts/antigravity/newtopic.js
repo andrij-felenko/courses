@@ -76,7 +76,17 @@ for (const [n, v] of [["kind", KIND], ["section", SECTION], ["slug", SLUG], ["ti
 if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(SLUG)) { console.error(`слуг має бути kebab-case без номерів: ${SLUG}`); process.exit(3); }
 
 const MF = path.join(KIND, BOOK, "manifest.js");
-if (!fs.existsSync(MF)) { console.error(`нема маніфесту: ${MF}`); process.exit(3); }
+if (!fs.existsSync(MF)) {
+  console.error(`
+✖ книги «${BOOK}» (${KIND}) не існує: нема ${MF}`);
+  console.error(`   ⛔ КНИГУ, ТОМ І КУРС ЗАВОДИТЬ ТІЛЬКИ АВТОР — ні ти, ні цей скрипт.`);
+  console.error(`   Спіраль (AUTHORING §2): спершу власна відповідь, тоді звірка з BOOKS.md,`);
+  console.error(`   і аж потім — з наявними книгами. Жодна не підходить → клади тему в`);
+  console.error(`   НАЙБЛИЖЧУ наявну книгу, а в --why скажи «книги під це немає».`);
+  console.error(`   Реєстр пропонованих книг: BOOKS.md у корені репо.
+`);
+  process.exit(3);
+}
 
 /* уже є в маніфесті? */
 const mfSrc = fs.readFileSync(MF, "utf8");
@@ -193,7 +203,7 @@ const fromBook = (FROM.split(/[\\/]/).filter(Boolean)[1] || "");
 if (fromBook && fromBook !== BOOK) {
   console.log(`\n↪ тема йде в ЧУЖУ книгу: стаття з «${fromBook}», тема в «${BOOK}».`);
   console.log(`  Це нормальний шлях. Зареєструє її finish-batch книги «${BOOK}» — не твоєї.`);
-  console.log(`  Лінк став одразу: book:${BOOK}/${SLUG}.`);
+  console.log(`  Лінк став одразу: topic:${BOOK}/${SLUG}.`);
 }
 if (!new RegExp(`slug\\s*:\\s*["']${SECTION}["']`).test(mfSrc))
   console.log(`⚠ секції «${SECTION}» у ${MF} немає — finish-batch не зможе покласти туди тему.\n  Назви наявну секцію цієї книги або скажи людині, що потрібна нова.`);
