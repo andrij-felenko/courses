@@ -1,0 +1,278 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "agreement",
+  "title": "Згода й узгодженість",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "consensus",
+      "title": "Консенсус",
+      "topics": [
+        {
+          "slug": "consensus-problem",
+          "title": "Задача консенсусу і чому вона важка (FLP оглядово); коли потрібен консенсус, а коли ні (дорого)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-flp.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flp-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-consensus-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "raft",
+          "title": "Raft",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ongaro-ousterhout.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-safety-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-raft-node.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-raft-rpc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "two-phase-commit",
+          "title": "Двофазний коміт і його страх",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-two-phase-commit.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-atomic-commit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-phase-commit.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xa-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "two-generals-problem",
+          "title": "Задача двох генералів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "byzantine-fault-tolerance",
+          "title": "Коли вузли брешуть",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "consistency-guarantees",
+      "title": "Моделі узгодженості",
+      "topics": [
+        {
+          "slug": "consistency-models",
+          "title": "Спектр консистентності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-consistency-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-execution-histories.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-causal-register-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cap-theorem",
+          "title": "CAP (і чому не «оберіть 2») + PACELC (латентність теж у ціні)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cap-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gilbert-lynch.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tunable-consistency.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "eventual-consistency",
+          "title": "Кінцева узгодженість на практиці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-base-and-dynamo.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-probabilistic-staleness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-convergent-register.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "replication-lag",
+          "title": "Реплікаційний лаг і сесійні гарантії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-session-guarantees.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lag-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-session-consistency.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "read-model-lag",
+          "title": "Лаг read-model як контракт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cqrs-consistency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-causal-read-model.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lag-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

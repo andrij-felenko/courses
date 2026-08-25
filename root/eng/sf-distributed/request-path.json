@@ -1,0 +1,322 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "request-path",
+  "title": "Шлях запиту",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "discovery-and-balancing",
+      "title": "Адреса й балансування",
+      "topics": [
+        {
+          "slug": "service-discovery",
+          "title": "Виявлення сервісів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-service-discovery-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-client-vs-server-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-client-side-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-consul-and-dns-sd.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "load-balancing",
+          "title": "Балансування L4 vs L7",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maglev-katran.md",
+              "status": "pending"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-consistent-hashing-lookup.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-l4-vs-l7-proxy.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-envoy-routing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "maglev-hashing",
+          "title": "Алгоритм хешування Maglev",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-maglev-permutation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-maglev-kernel-lookup.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-katran-lb-config.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mesh-and-sidecars",
+      "title": "Сітка й супутні процеси",
+      "topics": [
+        {
+          "slug": "sidecar",
+          "title": "Sidecar і Ambassador",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pod-and-sidecar-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sidecar-resource-and-latency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ambassador-proxy.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-k8s-sidecar-lifecycle.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "service-mesh",
+          "title": "Сервісна сітка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-linkerd-and-envoy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sidecar-latency-and-overhead.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sidecar-proxy.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-envoy-xds.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "control-data-plane",
+          "title": "Площина управління і площина даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-telecom-to-sdn.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-plane-router.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xds-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tail-latency",
+      "title": "Хвіст затримки",
+      "topics": [
+        {
+          "slug": "hedged-requests",
+          "title": "Хеджовані запити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-the-tail-at-scale.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hedged-tradeoff.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hedged-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-grpc-hedging.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "request-coalescing",
+          "title": "Request coalescing / single-flight",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thundering-herd.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stampede-prob.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-singleflight-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-singleflight-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fan-out-strategies",
+          "title": "Fan-out on-write vs on-read",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-timeline-fanout.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tail-latency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scatter-gather.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fanout-contracts.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

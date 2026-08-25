@@ -1,0 +1,324 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "data-across-nodes",
+  "title": "Дані на багатьох вузлах",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "replication",
+      "title": "Реплікація",
+      "topics": [
+        {
+          "slug": "replication-leader-follower",
+          "title": "Лідер-фоловер / мультилідер / leaderless",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-replication-taxonomies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quorum-intersection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quorum-replication.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-replication-topology-config.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "multi-leader-replication",
+          "title": "Мультилідерна реплікація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multi-leader-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-conflict-resolver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-multi-leader-config.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quorum-and-leaderless",
+          "title": "Кворуми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gifford-dynamo.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quorum-intersection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-leaderless-quorum.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "split-brain",
+          "title": "Failover і розщеплення мозку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-split-brain-disasters.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fencing-mechanisms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fencing-tokens.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "anti-entropy-repair",
+          "title": "Анти-ентропія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-demers-epidemic.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-merkle-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-merkle-anti-entropy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "convergence",
+      "title": "Збіжність копій",
+      "topics": [
+        {
+          "slug": "crdt",
+          "title": "Безконфліктні типи даних (CRDT)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crdt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-convergence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-or-set.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "operational-transformation",
+          "title": "Операційні перетворення (OT)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "partitioning",
+      "title": "Розкрій і межі",
+      "topics": [
+        {
+          "slug": "partitioning-sharding",
+          "title": "Шардинг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-partition-router.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cell-based-architecture",
+          "title": "Комірки і штампи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cellular-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cell-reliability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cell-router.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cell-manifest.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tenant-isolation",
+          "title": "Мультиарендність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multitenancy-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fair-queuing-drr.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tenant-context-rls.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tenant-routing-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "data-residency",
+          "title": "Резидентність даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gdpr-and-sovereignty.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-georouter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-residency-policy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

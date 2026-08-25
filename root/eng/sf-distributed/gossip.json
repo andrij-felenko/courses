@@ -1,0 +1,356 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "gossip",
+  "title": "Плітки",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "spread-mechanics",
+      "title": "Механіка поширення",
+      "topics": [
+        {
+          "slug": "gossip-protocols",
+          "title": "Gossip-протоколи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-epidemic-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-epidemic-spread.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-swim-cluster.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-memberlist-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gossip-dissemination",
+          "title": "Розповсюдження інформації через плітки: anti-entropy та rumor-mongering",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rumor-mongering-xerox.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rumor-stopping.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scuttlebutt-dissemination.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gossip-disseminator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gossip-pull-vs-push",
+          "title": "Стратегії поширення пліток: Push, Pull та гібридний Push-Pull",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-epidemic-spread.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-epidemic-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gossip-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scuttlebutt-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gossip-topology",
+          "title": "Топології пліток: повний граф, випадкові оверлеї та ієрархічні структури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-topology-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-topology-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hierarchical-gossip.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-topology-router.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gossip-limits",
+      "title": "Стійкість і межі",
+      "topics": [
+        {
+          "slug": "gossip-vs-multicast",
+          "title": "Gossip vs IP Multicast",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mbone-to-epidemics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bimodal-multicast.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bimodal-wire-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bimodal-multicast",
+          "title": "Bimodal Multicast (pbcast)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birman-and-pbcast.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-epidemic-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pbcast-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pbcast-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gossip-security",
+          "title": "Безпека пліток: Byzantine gossip, підписи та Sybil-атаки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-byzantine-faults.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-byzantine-gossip.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-secure-gossip.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gossip-defense.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cluster-gossip",
+      "title": "Плітки в кластері",
+      "topics": [
+        {
+          "slug": "gossip-membership",
+          "title": "Плітки й членство в кластері (gossip, SWIM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-swim-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-swim-node.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-swim-memberlist.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "scuttlebutt-protocol",
+          "title": "Протокол узгодження Scuttlebutt",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-scuttlebutt-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-scuttlebutt-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scuttlebutt-reconciliation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scuttlebutt-wire.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gossip-in-action",
+          "title": "Gossip на практиці (Cassandra, Consul, Dynamo, Memberlist)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dynamo-cassandra-consul.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-phi-accrual.md",
+              "status": "pending"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scuttlebutt-sync.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cassandra-gossipinfo.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

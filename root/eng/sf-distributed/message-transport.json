@@ -1,0 +1,352 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "message-transport",
+  "title": "Транспорт повідомлень",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "channels-and-queues",
+      "title": "Канали й черги",
+      "topics": [
+        {
+          "slug": "message-channel",
+          "title": "Канал повідомлень: архітектурна абстракція зв'язку, моделі буферизації та мультиплексування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-channel-abstraction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bounded-channel.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-channel-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-queue",
+          "title": "Черга повідомлень (point-to-point)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-message-queuing.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queue-latency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-durable-p2p-queue.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-amqp-p2p.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "publish-subscribe",
+          "title": "Pub/sub (тема)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pubsub-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fanout-backpressure.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pubsub-broker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pubsub-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "event-log",
+          "title": "Журнал подій (Kafka-модель)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kafka-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-append-log.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "competing-consumers",
+          "title": "Конкурентні споживачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-competing-consumers.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-competing-worker-pool.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-endpoint",
+          "title": "Кінцева точка повідомлень: як з'єднати прикладний домен із чергою без спагеті залежностей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-enterprise-integration-patterns.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-message-endpoint.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-endpoint-contracts.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "brokers-and-buses",
+      "title": "Брокери й шини",
+      "topics": [
+        {
+          "slug": "message-broker",
+          "title": "Брокер повідомлень: архітектура посередника, маршрутизація, керування потоком та надійність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-origins-of-message-brokers.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-broker-clustering-and-topologies.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-message-broker-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-broker-wire-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-bus",
+          "title": "Шина повідомлень: архітектура інтеграційної магістралі, канонічна модель даних та розв'язання зв'язності n×m",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-message-bus-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bus-topology-scaling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-message-bus.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-bus-topology",
+          "title": "Топологія шини повідомлень: від централізованого хабу до однорангової мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tibrv-bus.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brokerless-bus.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-bridge-protocol-gap",
+          "title": "Міст повідомлень: подолання протокольного розриву між різнорідними брокерами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bridge-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bridge-buffering-backpressure.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-bus-bridge.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-bridge-georeplication-topologies",
+          "title": "Топології мостів і геореплікація: трансляція зміщень, аварійне перемикання та пропускна здатність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bridge-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reliable-bridge.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "enterprise-service-bus",
+          "title": "Enterprise Service Bus (ESB): шина корпоративних сервісів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-esb-rise-and-fall.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-esb.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-esb-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

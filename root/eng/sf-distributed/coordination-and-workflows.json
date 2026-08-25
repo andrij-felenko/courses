@@ -1,0 +1,342 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "coordination-and-workflows",
+  "title": "Координація й довгі процеси",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "right-to-act",
+      "title": "Право на дію",
+      "topics": [
+        {
+          "slug": "leader-election",
+          "title": "Вибори лідера як прикладний патерн",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-election-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lease-election.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "distributed-locks",
+          "title": "Розподілені замки й лізи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-redlock-debate.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lease-expiry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fenced-lock.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "fencing-tokens",
+          "title": "Fencing-токени розподілених блокувань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sequencers-and-epochs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fencing-storage-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fencing-contracts.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "distributed-cron",
+          "title": "Розподілений cron",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-unix-cron-to-distributed.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-scheduler.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-distributed-cron-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "saga-and-outbox",
+      "title": "Сага й надійний обмін",
+      "topics": [
+        {
+          "slug": "saga-pattern",
+          "title": "Сага",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-garcia-molina-sagas.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-saga-isolation-anomalies.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-saga-orchestrator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "outbox-pattern",
+          "title": "Transactional outbox",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-outbox-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-polling-vs-cdc-backlog.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-outbox-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-outbox-cdc-config.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inbox-pattern",
+          "title": "Вхідна скринька (inbox)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-inbox-pattern-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inbox-capacity-and-retention.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transactional-inbox-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-inbox-storage-schema.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "durable-processes",
+      "title": "Довговічні процеси",
+      "topics": [
+        {
+          "slug": "durable-workflows",
+          "title": "Durable workflows",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-durable-execution-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-durable-replay-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-durable-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "durable-workflow-cluster-under-load",
+          "title": "Кластер довговічних процесів під навантаженням: колеса таймерів, гарячі сутності, багатоарендність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-temporal-cadence-scale.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-replay-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sharded-workflow-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scale-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "orchestration-vs-choreography",
+          "title": "Оркестрація проти хореографії: хто веде багатокроковий процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "state-reconciliation",
+      "title": "Звірка станів",
+      "topics": [
+        {
+          "slug": "reconciliation",
+          "title": "Звірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reconciliation-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-convergence-and-drift.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reconciliation-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reconciler-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

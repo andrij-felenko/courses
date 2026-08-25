@@ -1,0 +1,336 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "partial-failure",
+  "title": "Часткова відмова",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "network-call-cost",
+      "title": "Ціна мережевого виклику",
+      "topics": [
+        {
+          "slug": "distributed-fallacies",
+          "title": "Вісім оман розподілених обчислень (мережа надійна / латентність нуль / пропускна нескінченна / топологія стала / …) як чекліст рев'ю; чому локальний виклик ≠ віддалений (RPC-брехня); часткова відмова як нова норма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fallacies-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rpc-resilience.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "remote-interface-granularity",
+          "title": "Дробність віддаленого інтерфейсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "detecting-failures",
+      "title": "Виявлення відмов",
+      "topics": [
+        {
+          "slug": "failure-detection",
+          "title": "Виявлення відмов: чому мертвий вузол не відрізнити від повільного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chandra-toueg.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-completeness-and-accuracy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-swim-failure-detector.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "phi-accrual-failure-detector",
+          "title": "Детектор відмов Phi Accrual",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-accrual-detector-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-phi-derivation-and-scale.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phi-accrual-detector.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-phi-detector-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "health-checks",
+          "title": "Перевірки живості й готовності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-health-checks-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-active-vs-passive-probing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-health-endpoint.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-health-probes-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "soft-state",
+          "title": "М'який стан: запис, що живе, доки його оновлюють",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-soft-state.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-refresh-timing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soft-state-registry.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dependency-failure",
+      "title": "Мовчання залежності",
+      "topics": [
+        {
+          "slug": "timeouts-deadlines",
+          "title": "Таймаути і бюджет часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-timeouts-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-deadline-tuning.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deadline-propagation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "retries-backoff",
+          "title": "Повтори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ethernet-to-cloud.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-backoff-and-jitter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-retry-client.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "circuit-breaker-pattern",
+          "title": "Запобіжник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hystrix-to-resilience4j.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sliding-window-statistics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockfree-circuit-breaker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-circuit-breaker-config.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bulkhead-isolation",
+          "title": "Перебірки (bulkhead)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bulkhead-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bulkhead-sizing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-bulkhead.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bulkhead-config.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fail-open-fail-closed",
+          "title": "Fail-open проти fail-closed",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fail-safe-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-policy-enforcer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-degradation-policy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

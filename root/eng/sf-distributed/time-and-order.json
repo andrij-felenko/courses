@@ -1,0 +1,258 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "time-and-order",
+  "title": "Час і порядок",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "causal-time",
+      "title": "Причинність і логічний час",
+      "topics": [
+        {
+          "slug": "lamport-clocks",
+          "title": "Чому wall-clock бреше (дрейф, NTP-стрибки) і **годинник Лампорта**",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lamport-paper.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-causal-order.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lamport-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-logical-clock.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vector-clocks",
+          "title": "Векторні годинники й обходи розбіжності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vector-clocks.md",
+              "status": "recheck"
+            },
+            {
+              "file": "hist-logical-time.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-causal-order.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vector-clocks.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-version-vector.md",
+              "status": "recheck"
+            },
+            {
+              "file": "api-vector-clock.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vector-clocks-vs-crdt",
+          "title": "Векторні годинники та CRDT: відстеження причинності проти автоматичної збіжності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-causality-to-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-semilattices-and-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crdt-state-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hybrid-logical-clocks",
+          "title": "Гібридні логічні годинники (HLC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hlc-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hlc-invariants.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hlc-node.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hlc-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "distributed-snapshot",
+          "title": "Узгоджений знімок розподіленої системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "physical-time",
+      "title": "Фізичні годинники",
+      "topics": [
+        {
+          "slug": "clock-offset-drift",
+          "title": "Дрейф годинників",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-allan-variance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clock-servo.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ptp-1588",
+          "title": "PTP (IEEE 1588): точна синхронізація часу в мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ptp-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-offset-delay.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ptp-hw-timestamping.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ptp-messages.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "timestamps",
+          "title": "Мітки часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-timestamp-conversion.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-socket-timestamping.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bounded-clock-uncertainty",
+          "title": "Обмежена невизначеність годинника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

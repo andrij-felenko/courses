@@ -1,0 +1,444 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "message-processing",
+  "title": "Обробка повідомлень",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "routing",
+      "title": "Маршрутизація потоку",
+      "topics": [
+        {
+          "slug": "message-router",
+          "title": "Маршрутизатор повідомлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-eip-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-router-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-filter",
+          "title": "Фільтр повідомлень: відсікання шуму та захист контурів у розподілених потоках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jms-to-cloud-filtering.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-filter-cost-analysis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-header-filter-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pipes-and-filters",
+          "title": "Канали та фільтри: архітектура конвеєрної обробки розподілених потоків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-unix-to-cloud-pipelines.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pipeline-throughput.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "transformation",
+      "title": "Перетворення й склад",
+      "topics": [
+        {
+          "slug": "message-splitter",
+          "title": "Розділювач повідомлень: декомпозиція складених пакетів у розподілених потоках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-batch-fragmentation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streaming-splitter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-splitter-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-aggregator",
+          "title": "Патерн агрегації та ресеквенсингу повідомлень (Message Aggregator)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-aggregation-roots.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-aggregator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-aggregator-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "message-translator",
+          "title": "Транслятор повідомлень і канонічна модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-integration-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-message-translator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-canonical-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "claim-check",
+          "title": "Квитанція в камері схову",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-eip-claim-check.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-claim-check-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-claim-check-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "delivery-semantics",
+      "title": "Семантика доставки",
+      "topics": [
+        {
+          "slug": "delivery-guarantees",
+          "title": "At-most-once / at-least-once / effectively-once",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exactly-once-debate.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-delivery-probability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deduplication-inbox.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "idempotency",
+          "title": "Ідемпотентність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-algebra-to-distrib.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-semilattice-idempotence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-idempotent-state-machine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "idempotent-consumers-deep",
+          "title": "Ідемпотентні консюмери ГЛИБОКО",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-idempotent-messaging-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dedup-window-sizing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-idempotent-consumer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-idempotent-consumer-contracts.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "out-of-order-tolerance",
+          "title": "Толерантність до безладу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-out-of-order-execution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-commutativity-and-semilattices.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resequencer-buffer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "replay-protection-tactics",
+          "title": "Захист від переграних повідомлень як тактика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-replay-attacks-and-tcp.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-replay-window-and-clocks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sliding-bitmap-defense.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-replay-defense-contracts.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "undeliverable-messages",
+      "title": "Непридатні повідомлення",
+      "topics": [
+        {
+          "slug": "poison-message",
+          "title": "Poison message / карантин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-poison-pill.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poison-cascade.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quarantine-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-quarantine-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dead-letter-queue",
+          "title": "Мертва черга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dead-letter-office.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dlq-retries-and-capacity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-dlq-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dlq-envelope.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

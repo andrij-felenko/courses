@@ -1,0 +1,334 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "load-pressure",
+  "title": "Тиск навантаження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "overload-control",
+      "title": "Керування перевантаженням",
+      "topics": [
+        {
+          "slug": "load-shedding",
+          "title": "Скидання навантаження і плавна деградація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bufferbloat-to-codel.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queue-delay-and-goodput.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adaptive-load-shedder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-load-shedding-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "graceful-degradation-primary",
+          "title": "Graceful degradation як ПЕРВИННА стратегія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fail-soft-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-degradation-budgets.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tiered-degradation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-degradation-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "admission-control",
+          "title": "Admission control",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-telecom-to-cloud-admission.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queuing-and-admission.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adaptive-admission-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-admission-middleware-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "adaptive-concurrency",
+          "title": "Адаптивні ліміти конкурентності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tcp-to-rpc-limits.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-little-law-and-vegas.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adaptive-limiter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-concurrency-limiter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fairness-quotas",
+          "title": "Чесність розподілу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fair-queuing-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-max-min-fairness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deficit-round-robin.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-quota-enforcement.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "backpressure",
+      "title": "Протитиск і черга",
+      "topics": [
+        {
+          "slug": "backpressure-end-to-end",
+          "title": "Наскрізний протитиск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reactive-manifesto-and-flow-control.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-credit-and-watermark-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-credit-flow-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reactive-streams-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "queue-load-leveling",
+          "title": "Черга як вирівнювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-queue-load-leveling.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queuing-load-leveling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-queue-leveler.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-load-leveling-policy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cascades",
+      "title": "Каскади й самопідсилення",
+      "topics": [
+        {
+          "slug": "metastable-failures",
+          "title": "Метастабільні відмови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-metastable-failures.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-feedback-and-hysteresis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-metastable-circuit-breaker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-resilience-policy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "thundering-herd",
+          "title": "Гримуча отара на масштабі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thundering-herd-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jitter-and-synchronization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-herd-defense.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-herd-mitigation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

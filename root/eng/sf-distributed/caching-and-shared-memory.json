@@ -1,0 +1,334 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-distributed",
+  "slug": "caching-and-shared-memory",
+  "title": "Кеш і спільна пам'ять",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "cache-tiers",
+      "title": "Рівні кешу",
+      "topics": [
+        {
+          "slug": "distributed-cache",
+          "title": "Розподілений кеш (memcached/Redis-клас)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-distributed-cache.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cache-distribution-and-hitrate.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-cache-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cdn",
+          "title": "CDN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birth-of-cdn.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-latency-bdp.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-reverse-proxy.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-control-headers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "content-addressed-assets",
+          "title": "Незмінна статика: відбиток вмісту в адресі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cas-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-collision-and-dedup.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cas-bundler.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cas-storage-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hot-keys",
+      "title": "Гарячі ключі",
+      "topics": [
+        {
+          "slug": "cache-key-design",
+          "title": "Дизайн ключів і гарячі ключі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-redis-cluster-hotkeys.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-zipf-hotkey.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hotkey-mitigation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-key-builder-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cache-stampede",
+          "title": "Thundering herd / cache stampede і lock/coalescing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cache-stampede.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-xfetch-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stampede-defense.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stampede-control.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "invalidation",
+      "title": "Інвалідація й когерентність",
+      "topics": [
+        {
+          "slug": "cache-invalidation-patterns",
+          "title": "Патерни інвалідації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-surrogate-keys-and-tags.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-invalidation-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tag-and-version-invalidation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-invalidation-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cache-coherence-services",
+          "title": "Кеш-когерентність МІЖ СЕРВІСАМИ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-leases-and-tao.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lease-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-redis-tracking-l1l2.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-invalidation-bus-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shared-memory",
+      "title": "Спільна пам'ять вузлів",
+      "topics": [
+        {
+          "slug": "distributed-shared-memory",
+          "title": "Розподілена спільна пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ivy-to-treadmarks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dsm-traffic-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-twin-diff.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "software-dsm-twin-diff",
+          "title": "Software DSM та механізм Twin-and-Diff",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-origins-munin-treadmarks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-traffic-and-overhead.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diff-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dsm-runtime.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
