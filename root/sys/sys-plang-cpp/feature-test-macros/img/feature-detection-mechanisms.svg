@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура зондування можливостей у C++: від синтаксису до бібліотеки</text>
+<text x="480.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Три незалежні рівні перевірки підтримки стандарту компілятором і стандартною бібліотекою</text>
+<rect x="30.0" y="85.0" width="275.0" height="250.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.0"/>
+<text x="167.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Рівень 1</text>
+<text x="167.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оператори препроцесора</text>
+<text x="167.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка файлів і атрибутів</text>
+<line x1="45.0" y1="165.0" x2="290.0" y2="165.0" stroke="#2563eb" stroke-width="1.0"/>
+<text x="48.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __has_include(&lt;header&gt;)</text>
+<text x="48.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __has_include(&quot;custom.h&quot;)</text>
+<text x="48.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __has_cpp_attribute(nodiscard)</text>
+<text x="48.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __has_cpp_attribute(likely)</text>
+<text x="48.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпечна перевірка без помилок</text>
+<line x1="167.5" y1="335.0" x2="167.5" y2="373.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="340.0" y="85.0" width="275.0" height="250.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.0"/>
+<text x="477.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Рівень 2</text>
+<text x="477.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Макроси ядра мови</text>
+<text x="477.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Синтаксис та семантика транслятора</text>
+<line x1="355.0" y1="165.0" x2="600.0" y2="165.0" stroke="#16a34a" stroke-width="1.0"/>
+<text x="358.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_concepts &gt;= 201907L</text>
+<text x="358.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_constexpr &gt;= 201907L</text>
+<text x="358.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_structured_bindings</text>
+<text x="358.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_consteval &gt;= 201811L</text>
+<text x="358.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Вбудовані у компілятор (без #include)</text>
+<line x1="477.5" y1="335.0" x2="477.5" y2="373.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="650.0" y="85.0" width="275.0" height="250.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="787.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Рівень 3</text>
+<text x="787.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Макроси бібліотеки STL</text>
+<text x="787.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Компоненти заголовка &lt;version&gt;</text>
+<line x1="665.0" y1="165.0" x2="910.0" y2="165.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="668.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_lib_span &gt;= 202002L</text>
+<text x="668.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_lib_format &gt;= 201907L</text>
+<text x="668.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_lib_expected &gt;= 202202L</text>
+<text x="668.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• __cpp_lib_ranges &gt;= 201911L</text>
+<text x="668.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Доступні через &lt;version&gt; і заголовки</text>
+<line x1="787.5" y1="335.0" x2="787.5" y2="373.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="30.0" y="375.0" width="900.0" height="85.0" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="2.0"/>
+<text x="480.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9333ea" text-anchor="middle" font-weight="700">Споживач: Адаптивний вихідний код і шар кроскомпіляторних поліфілів</text>
+<text x="480.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">#if __cpp_lib_span &gt;= 202002L  →  using std::span;  #else  →  using compat::span;</text>
+<text x="480.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Автоматичне перемикання між рідними можливостями стандарту та сумісними реалізаціями</text>
+</svg>

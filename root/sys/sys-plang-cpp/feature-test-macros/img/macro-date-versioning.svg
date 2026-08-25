@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція числових значень макросу: приклад __cpp_constexpr</text>
+<text x="480.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Числові значення формату YYYYMML відображають конкретні розширення можливості у версіях стандарту</text>
+<line x1="50.0" y1="135.0" x2="910.0" y2="135.0" stroke="#333333" stroke-width="3.0"/>
+<circle cx="100.0" cy="135.0" r="8.0" fill="#2563eb" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="45.0" y="80.0" width="110.0" height="38.0" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="100.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">C++11</text>
+<text x="100.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">200704L</text>
+<line x1="100.0" y1="143.0" x2="100.0" y2="165.0" stroke="#333333" stroke-width="1.2"/>
+<rect x="25.0" y="167.0" width="150.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Базовий constexpr</text>
+<text x="100.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Квітень 2007</text>
+<line x1="35.0" y1="213.0" x2="165.0" y2="213.0" stroke="#333333" stroke-width="0.8"/>
+<text x="37.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Один return</text>
+<text x="37.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Константні вирази</text>
+<text x="37.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Літеральні типи</text>
+<circle cx="280.0" cy="135.0" r="8.0" fill="#2563eb" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="225.0" y="80.0" width="110.0" height="38.0" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="280.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">C++14</text>
+<text x="280.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">201304L</text>
+<line x1="280.0" y1="143.0" x2="280.0" y2="165.0" stroke="#333333" stroke-width="1.2"/>
+<rect x="205.0" y="167.0" width="150.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="280.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послаблення правил</text>
+<text x="280.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Квітень 2013</text>
+<line x1="215.0" y1="213.0" x2="345.0" y2="213.0" stroke="#333333" stroke-width="0.8"/>
+<text x="217.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Цикли for/while</text>
+<text x="217.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Локальні змінні</text>
+<text x="217.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Кілька return</text>
+<circle cx="480.0" cy="135.0" r="8.0" fill="#2563eb" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="425.0" y="80.0" width="110.0" height="38.0" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="480.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">C++17</text>
+<text x="480.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">201603L</text>
+<line x1="480.0" y1="143.0" x2="480.0" y2="165.0" stroke="#333333" stroke-width="1.2"/>
+<rect x="405.0" y="167.0" width="150.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лямбди та розгалуження</text>
+<text x="480.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Березень 2016</text>
+<line x1="415.0" y1="213.0" x2="545.0" y2="213.0" stroke="#333333" stroke-width="0.8"/>
+<text x="417.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• if constexpr</text>
+<text x="417.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• constexpr-лямбди</text>
+<text x="417.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Компактні шаблони</text>
+<circle cx="680.0" cy="135.0" r="8.0" fill="#2563eb" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="625.0" y="80.0" width="110.0" height="38.0" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="680.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">C++20</text>
+<text x="680.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">201907L</text>
+<line x1="680.0" y1="143.0" x2="680.0" y2="165.0" stroke="#333333" stroke-width="1.2"/>
+<rect x="605.0" y="167.0" width="150.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="680.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічність і ООП</text>
+<text x="680.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Липень 2019</text>
+<line x1="615.0" y1="213.0" x2="745.0" y2="213.0" stroke="#333333" stroke-width="0.8"/>
+<text x="617.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Віртуальні виклики</text>
+<text x="617.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• try/catch у константах</text>
+<text x="617.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Динамічна пам'ять</text>
+<circle cx="860.0" cy="135.0" r="8.0" fill="#2563eb" stroke="#ffffff" stroke-width="2.0"/>
+<rect x="805.0" y="80.0" width="110.0" height="38.0" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="860.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">C++23</text>
+<text x="860.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">202211L</text>
+<line x1="860.0" y1="143.0" x2="860.0" y2="165.0" stroke="#333333" stroke-width="1.2"/>
+<rect x="785.0" y="167.0" width="150.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="860.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зняття обмежень</text>
+<text x="860.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Листопад 2022</text>
+<line x1="795.0" y1="213.0" x2="925.0" y2="213.0" stroke="#333333" stroke-width="0.8"/>
+<text x="797.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Статичні змінні</text>
+<text x="797.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• goto у compile-time</text>
+<text x="797.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Нелітеральні типи</text>
+</svg>
